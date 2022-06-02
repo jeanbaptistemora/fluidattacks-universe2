@@ -159,14 +159,6 @@
           "AttributeType": "M"
         },
         {
-          "AttributeName": "blocking_hours_expected",
-          "AttributeType": "N"
-        },
-        {
-          "AttributeName": "blocking_hours",
-          "AttributeType": "N"
-        },
-        {
           "AttributeName": "affected_components",
           "AttributeType": "S"
         },
@@ -6077,9 +6069,6 @@
               "type": {
                 "S": "INCORRECT_MISSING_SUPPLIES"
               },
-              "blocking_hours_expected": {
-                "N": "1"
-              },
               "affected_components": {
                 "S": "Inestabilidad del ToE"
               },
@@ -6091,7 +6080,6 @@
           "NonKeyAttributes": [
             "description",
             "type",
-            "blocking_hours_expected",
             "affected_components",
             "accessibility"
           ]
@@ -6121,9 +6109,6 @@
               },
               "evidences": {
                 "M": {}
-              },
-              "blocking_hours": {
-                "N": "2"
               }
             }
           ],
@@ -6131,8 +6116,7 @@
             "status",
             "modified_date",
             "modified_by",
-            "evidences",
-            "blocking_hours"
+            "evidences"
           ]
         },
         {

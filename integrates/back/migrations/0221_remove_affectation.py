@@ -1,9 +1,15 @@
 # pylint: disable=invalid-name
 """
-This migration wipes event affectation data from the DB
+This migration wipes event affectation and hours_before_blocking data from
+the DB
 
+Affectation:
 Execution Time:    2022-05-27 at 17:50:26 UTC-5
 Finalization Time: 2022-05-27 at 17:50:41 UTC-5
+
+Hours before blocking:
+Execution Time:    2022-06-02 at 14:13:37 UTC-5
+Finalization Time: 2022-06-02 at 14:13:58 UTC-5
 """
 
 from aioextensions import (
@@ -86,14 +92,14 @@ async def process_event(event: Dict[str, Any]) -> bool:
     if PROD:
         success = await update(
             event["event_id"],
-            {"affectation": None},
+            {"hours_before_blocking": None},
         )
     return success
 
 
 async def remove_affectations(events: List[Dict[str, Any]]) -> None:
     success = all(await collect(process_event(event) for event in events))
-    print(f"Affectations removed: {success}")
+    print(f"Hours before blocking removed: {success}")
 
 
 async def main() -> None:

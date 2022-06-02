@@ -86,14 +86,12 @@ type Mutation {
     userInteraction: String
   ): AddDraftPayload!
 
-  "Reports a blocking event"
+  "Reports an unexpected Event when dealing with the ToE"
   addEvent(
     "Where the event was present"
     accessibility: [EventAccessibility]!
     "Components involved or affected by the event, if applicable"
     affectedComponents: [AffectedComponents]
-    "Amount of time the hacker was blocked by the event, if applicable"
-    blockingHours: String
     "Comment laying out or explaining the event"
     detail: String!
     "DateTime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"

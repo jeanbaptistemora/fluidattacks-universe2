@@ -54,9 +54,6 @@
           "event_type": {
             "S": "OTHER"
           },
-          "hours_before_blocking": {
-            "S": "1"
-          },
           "project_name": {
             "S": "unittesting"
           },
@@ -448,9 +445,6 @@
           "event_type": {
             "S": "OTHER"
           },
-          "hours_before_blocking": {
-            "S": "1"
-          },
           "project_name": {
             "S": "oneshottest"
           },
@@ -514,9 +508,6 @@
           "event_type": {
             "S": "OTHER"
           },
-          "hours_before_blocking": {
-            "S": "2"
-          },
           "project_name": {
             "S": "oneshottest"
           },
@@ -579,9 +570,6 @@
           },
           "event_type": {
             "S": "OTHER"
-          },
-          "hours_before_blocking": {
-            "S": "2"
           },
           "project_name": {
             "S": "continuoustesting"
