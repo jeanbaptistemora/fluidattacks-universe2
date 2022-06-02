@@ -293,7 +293,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         )}
       </Formik>
       <br />
-      <p className={"mb0 f4 tc"}>
+      <p className={"mt4 mb3 f3"}>
         <b>{t(`${tPath}findings.title`)}</b>
       </p>
       <hr className={"b--light-gray bw2 mt0"} />
