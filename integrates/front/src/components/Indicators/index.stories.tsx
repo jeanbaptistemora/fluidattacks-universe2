@@ -6,7 +6,7 @@ import React from "react";
 import { Indicator, Indicators } from ".";
 
 const config: Meta = {
-  component: Indicators,
+  subcomponents: { Indicator, Indicators },
   title: "components/Indicators",
 };
 
