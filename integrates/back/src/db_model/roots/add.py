@@ -179,6 +179,7 @@ async def add_git_environment_url(
         "created_at": url.created_at.isoformat()
         if url.created_at is not None
         else None,
+        "type": url.url_type.value,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(items=(url_item,), table=TABLE)

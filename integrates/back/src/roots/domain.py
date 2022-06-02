@@ -14,6 +14,7 @@ from context import (
 )
 from custom_exceptions import (
     HasVulns,
+    InvalidField,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
@@ -55,6 +56,7 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitEnvironmentUrl,
+    GitEnvironmentUrlType,
     GitRoot,
     GitRootCloning,
     GitRootState,
@@ -514,7 +516,9 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     )
     await collect(
         [
-            add_git_environment_url(loaders, group_name, root_id, url)
+            add_git_environment_url(
+                loaders, group_name, root_id, url, url_type="URL"
+            )
             for url in urls_added
         ]
     )
@@ -1476,13 +1480,19 @@ async def add_git_environment_secret(
 
 
 async def add_git_environment_url(
-    loaders: Any, group_name: str, root_id: str, url: str
+    loaders: Any, group_name: str, root_id: str, url: str, url_type: str
 ) -> bool:
+    try:
+        _url_type = GitEnvironmentUrlType[url_type]
+    except KeyError as exc:
+        raise InvalidField("type") from exc
+
     await loaders.root.load((group_name, root_id))
     environment = GitEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),
         url=url,
+        url_type=_url_type,
     )
     return await roots_model.add_git_environment_url(root_id, url=environment)
 

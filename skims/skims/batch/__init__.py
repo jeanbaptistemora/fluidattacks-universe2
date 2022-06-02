@@ -283,7 +283,7 @@ async def main(  # pylint: disable=too-many-locals)
                 working_dir=namespaces_path_dict[root_nickname],
             )
             for root_nickname in roots_nicknames
-            if root_nickname in namespaces_path_dict
+            if namespaces_path_dict.get(root_nickname) is not None
         )
     )
 

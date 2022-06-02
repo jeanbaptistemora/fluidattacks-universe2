@@ -769,6 +769,10 @@
         {
           "AttributeName": "vulnerability_grace_period",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "url_type",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -6235,7 +6239,8 @@
           ],
           "NonKeyAttributes": [
             "url",
-            "created_at"
+            "created_at",
+            "url_type"
           ]
         },
         {

@@ -8,6 +8,9 @@ from db_model.roots.enums import (
     RootStatus,
     RootType,
 )
+from enum import (
+    Enum,
+)
 from typing import (
     List,
     Literal,
@@ -40,12 +43,20 @@ class Secret(NamedTuple):
     created_at: Optional[datetime] = None
 
 
+class GitEnvironmentUrlType(str, Enum):
+    URL: str = "URL"
+    CLOUD: str = "CLOUD"
+    DATABASE: str = "DATABASE"
+    APK: str = "APK"
+
+
 class GitEnvironmentUrl(NamedTuple):
     url: str
     id: str
     secrets: list[Secret] = []
     created_at: Optional[datetime] = None
     group_name: Optional[str] = None
+    url_type: GitEnvironmentUrlType = GitEnvironmentUrlType.URL
 
 
 class GitRootState(NamedTuple):

@@ -66,7 +66,7 @@ async def main() -> None:
             await collect(
                 [
                     add_git_environment_url(
-                        loaders, group, root.id, env_url.url
+                        loaders, group, root.id, env_url.url, url_type="URL"
                     )
                     for env_url in environment_urls
                     if env_url.created_at is None
