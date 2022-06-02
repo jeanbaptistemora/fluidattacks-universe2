@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -482,22 +481,6 @@ const SelectDate = styled.input.attrs({
   type: `date`,
 })``;
 
-const Tab = styled(NavLink)`
-  color: #b0b0bf;
-  font-size: 20px;
-  padding-bottom: 12px;
-  text-decoration: none;
-
-  &.active {
-    border-bottom: 2px solid #5c5c70;
-    color: #2e2e38;
-  }
-
-  :hover {
-    color: #2e2e38;
-  }
-`;
-
 const TabContent = styled.div.attrs({
   className: "mt3",
 })``;
@@ -510,13 +493,6 @@ const TableOptionsColBar: StyledComponent<
 }>({
   className: "dib ma0 pa0 w-20",
 })``;
-
-const TabsContainer = styled.ul.attrs({
-  className: "flex justify-around list ma0",
-})`
-  background-color: #f4f4f6;
-  padding: 12px 0;
-`;
 
 const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
@@ -587,9 +563,7 @@ export {
   Select,
   SelectContainer,
   SelectDate,
-  Tab,
   TabContent,
   TableOptionsColBar,
-  TabsContainer,
   Well,
 };
