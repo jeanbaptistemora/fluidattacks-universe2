@@ -8,24 +8,33 @@ import type { TypedSchema } from "yup/lib/util/types";
 import type { IAlertMessages, IRootAttr } from "./types";
 
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 const handleGroupCreateError = (
-  graphQLErrors: readonly GraphQLError[]
+  graphQLErrors: readonly GraphQLError[],
+  setMessages: IAlertMessages
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
     switch (error.message) {
       case "Exception - Error invalid group name":
-        msgError(translate.t("organization.tabs.groups.newGroup.invalidName"));
+        setMessages({
+          message: translate.t("organization.tabs.groups.newGroup.invalidName"),
+          type: "error",
+        });
         break;
       case "Exception - User is not a member of the target organization":
-        msgError(
-          translate.t("organization.tabs.groups.newGroup.userNotInOrganization")
-        );
+        setMessages({
+          message: translate.t(
+            "organization.tabs.groups.newGroup.userNotInOrganization"
+          ),
+          type: "error",
+        });
         break;
       default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        setMessages({
+          message: translate.t("groupAlerts.errorTextsad"),
+          type: "error",
+        });
         Logger.warning("An error occurred adding a group", error);
     }
   });

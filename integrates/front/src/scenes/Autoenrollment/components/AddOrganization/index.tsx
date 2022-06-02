@@ -61,6 +61,7 @@ const maxGroupNameLength: ConfigurableValidator = maxLength(
 );
 
 interface IAddOrganizationProps {
+  setForm: React.Dispatch<React.SetStateAction<string>>;
   orgValues: IOrgAttr;
   repositoryValues: IRootAttr;
   setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
@@ -68,6 +69,7 @@ interface IAddOrganizationProps {
 }
 
 const AddOrganization: React.FC<IAddOrganizationProps> = ({
+  setForm,
   orgValues,
   repositoryValues,
   setIsRepository,
@@ -84,6 +86,23 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   const [group, setGroup] = useState("");
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
+  const [successMutation, setSuccessMutation] = useState({
+    group: false,
+    organization: false,
+    repository: false,
+  });
+
+  function setSuccessValues(
+    groupValue: boolean,
+    orgValue: boolean,
+    repoValue: boolean
+  ): void {
+    setSuccessMutation({
+      group: groupValue,
+      organization: orgValue,
+      repository: repoValue,
+    });
+  }
 
   function cancelClick(): void {
     setShowCancelModal(true);
@@ -105,6 +124,11 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             OrganizationName: result.addOrganization.organization.name,
           });
         }
+        setSuccessValues(
+          successMutation.group,
+          true,
+          successMutation.repository
+        );
       },
       onError: (error): void => {
         error.graphQLErrors.forEach(({ message }): void => {
@@ -117,6 +141,11 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             );
           }
         });
+        setSuccessValues(
+          successMutation.group,
+          false,
+          successMutation.repository
+        );
       },
       refetchQueries: [GET_USER_WELCOME],
     });
@@ -131,31 +160,45 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             t("organization.tabs.groups.newGroup.titleSuccess")
           );
         }
+        setSuccessValues(
+          true,
+          successMutation.organization,
+          successMutation.repository
+        );
       },
       onError: ({ graphQLErrors }: ApolloError): void => {
-        handleGroupCreateError(graphQLErrors);
+        handleGroupCreateError(graphQLErrors, setOrgMessages);
+        setSuccessValues(
+          false,
+          successMutation.organization,
+          successMutation.repository
+        );
       },
     }
   );
 
   const [addGitRoot, { loading: submittingRoot }] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
-      localStorage.clear();
-      sessionStorage.clear();
-      replace(
-        `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
-      );
       if (result.addGitRoot.success) {
         msgSuccess(
           t("autoenrollment.addOrganization.messages.success.body"),
           t("autoenrollment.addOrganization.messages.success.title")
         );
       }
-      setIsRepository(true);
+      setSuccessValues(
+        successMutation.group,
+        successMutation.organization,
+        true
+      );
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       handleRootCreateError(graphQLErrors, setOrgMessages);
       setShowSubmitAlert(false);
+      setSuccessValues(
+        successMutation.group,
+        successMutation.organization,
+        false
+      );
     },
   });
 
@@ -167,60 +210,85 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       reportLanguage: string;
       terms: string[];
     }): Promise<void> => {
+      setOrgMessages({
+        message: "",
+        type: "success",
+      });
       setIsRepository(false);
+      setShowSubmitAlert(false);
       setOrgValues(values);
       mixpanel.track("AddOrganization");
       await addOrganization({
         variables: { name: values.organizationName.toUpperCase() },
       });
-      mixpanel.track("AddGroup");
-      await addGroup({
-        variables: {
-          description: values.groupDescription,
-          groupName: values.groupName.toUpperCase(),
-          hasMachine: true,
-          hasSquad: false,
-          language: values.reportLanguage,
-          organizationName: values.organizationName,
-          service: "WHITE",
-          subscription: "CONTINUOUS",
-        },
-      });
-      setGroup(values.groupName.toUpperCase());
-      setOrganization(values.organizationName.toUpperCase());
-      const { branch, credentials, env, exclusions, url } = repositoryValues;
-      mixpanel.track("AddGitRoot");
-      await addGitRoot({
-        variables: {
-          branch: branch.trim(),
-          credentials: {
-            id: "",
-            key: credentials.key,
-            name: credentials.name,
-            password: credentials.password,
-            token: credentials.token,
-            type: credentials.type,
-            user: credentials.user,
+      if (successMutation.organization) {
+        mixpanel.track("AddGroup");
+        await addGroup({
+          variables: {
+            description: values.groupDescription,
+            groupName: values.groupName.toUpperCase(),
+            hasMachine: true,
+            hasSquad: false,
+            language: values.reportLanguage,
+            organizationName: values.organizationName,
+            service: "WHITE",
+            subscription: "CONTINUOUS",
           },
-          environment: env,
-          gitignore: exclusions,
-          groupName: values.groupName.toUpperCase(),
-          includesHealthCheck: false,
-          nickname: "",
-          url: url.trim(),
-          useVpn: false,
-        },
-      });
+        });
+        setGroup(values.groupName.toUpperCase());
+        setOrganization(values.organizationName.toUpperCase());
+        const { branch, credentials, env, exclusions, url } = repositoryValues;
+        if (successMutation.group) {
+          mixpanel.track("AddGitRoot");
+          await addGitRoot({
+            variables: {
+              branch: branch.trim(),
+              credentials: {
+                id: "",
+                key: credentials.key,
+                name: credentials.name,
+                password: credentials.password,
+                token: credentials.token,
+                type: credentials.type,
+                user: credentials.user,
+              },
+              environment: env,
+              gitignore: exclusions,
+              groupName: values.groupName.toUpperCase(),
+              includesHealthCheck: false,
+              nickname: "",
+              url: url.trim(),
+              useVpn: false,
+            },
+          });
+          if (successMutation.repository) {
+            localStorage.clear();
+            sessionStorage.clear();
+            replace(
+              `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
+            );
+            setIsRepository(true);
+          } else {
+            setForm("repository");
+            setIsRepository(false);
+          }
+        }
+      }
     },
     [
       addGitRoot,
       addGroup,
       addOrganization,
+      group,
+      organization,
+      replace,
       repositoryValues,
+      setForm,
       setGroup,
       setIsRepository,
       setOrganization,
       setOrgValues,
+      successMutation,
     ]
   );
 

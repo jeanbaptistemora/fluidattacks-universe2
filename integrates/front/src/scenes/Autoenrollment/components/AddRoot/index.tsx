@@ -28,12 +28,14 @@ import {
 } from "utils/forms/fields";
 
 interface IAddRootProps {
+  setForm: React.Dispatch<React.SetStateAction<string>>;
   initialValues: IRootAttr;
   onCompleted: () => void;
   setRepositoryValues: React.Dispatch<React.SetStateAction<IRootAttr>>;
 }
 
 const AddRoot: React.FC<IAddRootProps> = ({
+  setForm,
   initialValues,
   onCompleted,
   setRepositoryValues,
@@ -109,6 +111,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
       message: t("group.scope.git.repo.credentials.checkAccess.success"),
       type: "success",
     });
+    setForm("organization");
     onCompleted();
   }
 

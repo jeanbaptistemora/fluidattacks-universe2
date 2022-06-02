@@ -22,7 +22,8 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     push("/autoenrollment/organization");
   }, [push]);
 
-  const [isRepository, setIsRepository] = useState(true);
+  const [form, setForm] = useState("repository");
+  const [isRepository, setIsRepository] = useState(false);
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
     credentials: {
@@ -85,6 +86,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                         <AddOrganization
                           orgValues={organization}
                           repositoryValues={repository}
+                          setForm={setForm}
                           setIsRepository={setIsRepository}
                           setOrgValues={setOrganization}
                         />
@@ -109,6 +111,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                         <AddRoot
                           initialValues={repository}
                           onCompleted={goToOrg}
+                          setForm={setForm}
                           setRepositoryValues={setRepository}
                         />
                       </FormContent>
@@ -117,7 +120,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                 </Col>
               </Row>
             </Route>
-            <Redirect to={"/autoenrollment/repository"} />
+            {form === "repository" && (
+              <Redirect to={"/autoenrollment/repository"} />
+            )}
+            {form === "organization" && (
+              <Redirect to={"/autoenrollment/organization"} />
+            )}
           </Switch>
         </DashboardContent>
       </Container>
