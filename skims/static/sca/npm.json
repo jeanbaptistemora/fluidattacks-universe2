@@ -6638,10 +6638,10 @@
     "GHSA-29fh-xcjr-p7rx": ">=0"
   },
   "webdriver-launcher": {
-    "GMS-2017-48": ">=0.0.0-alpha"
+    "CVE-2016-10651": "<=0.1.3"
   },
   "webdrvr": {
-    "GMS-2017-98": ">=0.0.0-alpha"
+    "CVE-2016-10601": "<=2.43.0-1"
   },
   "webpack-bundle-analyzer": {
     "GHSA-pgr8-jg6h-8gw6": "<3.3.2"
@@ -6657,7 +6657,7 @@
     "GHSA-4fc4-chg7-h8gh": "<1.5.1"
   },
   "webrtc-native": {
-    "GMS-2017-99": ">=0.0.0-alpha"
+    "CVE-2016-10600": "<=1.4.0"
   },
   "websocket-driver": {
     "npm:websocket-driver:20131012": " <0.3.1"
@@ -6670,18 +6670,16 @@
     "CVE-2019-15782": "<0.107.6"
   },
   "welcomyzt": {
-    "CVE-2017-16123": "<=1.1.0",
-    "GMS-2017-228": ">=0.0.0-alpha"
+    "CVE-2017-16123": "<=1.1.0"
   },
   "wenluhong1": {
-    "GMS-2017-326": ">=0.0.0-alpha"
+    "npm:wenluhong1": "1.0.0"
   },
   "wepack-cli": {
     "GHSA-fpw3-x4xq-6vxq": ">=0"
   },
   "wffserve": {
-    "CVE-2017-16168": "=1.0.0",
-    "GMS-2017-263": ">=0.0.0-alpha"
+    "CVE-2017-16168": "1.0.0"
   },
   "whatwg-mimetype": {
     "npm:whatwg-mimetype:20170907": "<2.0.0"
@@ -6692,8 +6690,7 @@
   "which": {},
   "which-module": {},
   "whispercast": {
-    "CVE-2017-16174": "=0.1.0",
-    "GMS-2017-277": ">=0.0.0-alpha"
+    "CVE-2017-16174": "=0.1.0"
   },
   "whiteproject": {
     "GHSA-8j7x-pr59-m5h8": ">=0"
@@ -6708,41 +6705,34 @@
     "GHSA-v85c-hgq5-7pfw": "<=1.0.2"
   },
   "wind-mvc": {
-    "CVE-2017-16220": "<=0.0.6",
-    "GMS-2017-318": ">=0.0.0-alpha"
+    "CVE-2017-16220": "<=0.0.6"
   },
   "windows-build-tools": {
-    "CVE-2017-16003": "<1.0.0",
-    "GMS-2017-105": "<1.0.0"
+    "CVE-2017-16003": "<1.0.0"
   },
   "windows-cpu": {
-    "CVE-2017-1000219": ">=0.1.1 <=0.1.2",
-    "GMS-2017-133": ">=0.0.0alpha"
+    "CVE-2017-1000219": ">=0.1.1 <=0.1.2"
   },
   "windows-iedriver": {
-    "GMS-2017-10": ">=0.0.0-alpha"
+    "CVE-2016-10689": "2.48.0"
   },
   "windows-latestchromedriver": {
-    "GMS-2017-3": ">=0.0.0-alpha"
+    "CVE-2016-10696": "0.1.0"
   },
   "windows-selenium-chromedriver": {
-    "CVE-2016-10687": "=0.1.0",
-    "GMS-2017-12": ">=0.0.0-alpha"
+    "CVE-2016-10687": "0.1.0"
   },
   "windows-seleniumjar": {
-    "CVE-2016-10691": "=2.48.2",
-    "GMS-2017-8": ">=0.0.0-alpha"
+    "CVE-2016-10691": "2.48.2"
   },
   "windows-seleniumjar-mirror": {
-    "GMS-2017-29": ">=0.0.0-alpha"
+    "CVE-2016-10670": "<=2.52.1"
   },
   "wintiwebdev": {
-    "CVE-2017-16181": "=1.0.0",
-    "GMS-2017-270": ">=0.0.0-alpha"
+    "CVE-2017-16181": "1.0.0"
   },
   "wixtoolset": {
-    "CVE-2016-10663": "<=1.0.0",
-    "GMS-2017-36": ">=0.0.0-alpha"
+    "CVE-2016-10663": "<=1.0.0"
   },
   "wizard-syncronizer": {
     "GHSA-wgw3-gf4p-62xc": ">=0"
@@ -6770,8 +6760,7 @@
     "CVE-2015-3187": "<7.2.1"
   },
   "xd-testing": {
-    "CVE-2016-10653": "<=1.0.1",
-    "GMS-2017-46": ">=0.0.0-alpha"
+    "CVE-2016-10653": "<=1.0.1"
   },
   "xdlocalstorage": {
     "GHSA-c6c4-jmqx-3r33": "<=2.0.5"
@@ -6808,8 +6797,7 @@
     "GHSA-54cr-gv8w-8324": "1.0.7"
   },
   "xtalk": {
-    "CVE-2017-16091": ">=0.0.2",
-    "GMS-2017-189": ">=0.0.2"
+    "CVE-2017-16091": ">=0.0.2 <=0.0.7"
   },
   "xtend": {},
   "xterm": {
