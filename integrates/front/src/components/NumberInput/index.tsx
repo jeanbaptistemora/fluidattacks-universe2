@@ -14,7 +14,7 @@ import {
 } from "./styles";
 
 interface INumberInputProps {
-  defaultValue: string;
+  defaultValue: number;
   max: number;
   min: number;
   onEnter: (newValue: number | undefined) => void;
@@ -26,7 +26,8 @@ const NumberInput: React.FC<INumberInputProps> = ({
   min,
   onEnter,
 }): JSX.Element => {
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(_.toString(defaultValue));
+  const [spin, setSpin] = useState(false);
   const inputReference: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);
 
@@ -35,7 +36,10 @@ const NumberInput: React.FC<INumberInputProps> = ({
   function handleOnInputChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setValue(event.target.value);
+    const newValue = _.toNumber(event.target.value);
+    if (newValue >= min && newValue <= max) {
+      setValue(event.target.value);
+    }
     event.stopPropagation();
   }
 
@@ -43,7 +47,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
     event: React.FocusEvent<HTMLInputElement>
   ): void {
     if (!event.currentTarget.contains(event.relatedTarget)) {
-      setValue(defaultValue);
+      setValue(_.toString(defaultValue));
     }
     event.stopPropagation();
   }
@@ -83,6 +87,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
     if (newNumber >= min && newNumber <= max) {
       setValue(_.toString(newNumber));
     }
+    setSpin(true);
   }
 
   function handleOnPlusClick(event: React.MouseEvent<SVGSVGElement>): void {
@@ -91,13 +96,15 @@ const NumberInput: React.FC<INumberInputProps> = ({
     if (newNumber >= min && newNumber <= max) {
       setValue(_.toString(newNumber));
     }
+    setSpin(true);
   }
 
   useEffect((): void => {
-    if (inputReference.current !== null) {
+    if (inputReference.current !== null && spin) {
       inputReference.current.focus();
+      setSpin(false);
     }
-  }, [value]);
+  }, [value, spin]);
 
   return (
     <StyledInputContainer onBlur={handleOnInputContainerBlur} tabIndex={-1}>
