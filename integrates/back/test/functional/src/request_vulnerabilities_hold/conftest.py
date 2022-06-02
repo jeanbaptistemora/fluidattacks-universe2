@@ -72,7 +72,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     },
                 ],
                 "event_type": "OTHER",
-                "hours_before_blocking": "1",
                 "subscription": "ONESHOT",
                 "evidence": "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6",
                 "evidence_date": "2019-03-11 10:57:45",

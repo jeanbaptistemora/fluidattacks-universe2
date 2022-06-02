@@ -618,7 +618,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     },
                 ],
                 "event_type": "OTHER",
-                "hours_before_blocking": "1",
                 "group_name": "group1",
                 "subscription": "ONESHOT",
             },
