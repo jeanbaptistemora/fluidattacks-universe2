@@ -1,88 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-autofocus */
 import _ from "lodash";
-import React, { useState } from "react";
+import React from "react";
 
 import type { IToeLinesData } from "../types";
+import { NumberInput } from "components/NumberInput";
 import type { IHeaderConfig } from "components/Table/types";
-import { StyledInput } from "utils/forms/fields/styles";
-
-interface IEditableFormatterProps {
-  defaultValue: string;
-  row: IToeLinesData;
-  handleUpdateAttackedLines: (
-    rootId: string,
-    filename: string,
-    attackedLines: number
-  ) => Promise<void>;
-}
-
-const EditableFormatter: React.FC<IEditableFormatterProps> = ({
-  defaultValue,
-  row,
-  handleUpdateAttackedLines,
-}): JSX.Element => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  function handleOnDivClick(_event: React.MouseEvent<HTMLDivElement>): void {
-    setIsFocused(true);
-  }
-
-  function handleOnInputBlur(event: React.FocusEvent<HTMLInputElement>): void {
-    setIsFocused(false);
-    event.stopPropagation();
-  }
-
-  async function handleOnInputKeyUp(
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): Promise<void> {
-    event.stopPropagation();
-    if (event.key === "Enter") {
-      await handleUpdateAttackedLines(
-        row.rootId,
-        row.filename,
-        _.toNumber(event.currentTarget.value)
-      );
-      setIsFocused(false);
-    }
-  }
-
-  function handleInputKeyDown(
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): void {
-    if (
-      event.key.length > 1 ||
-      /\d/u.test(event.key) ||
-      event.key === "Control" ||
-      event.key.toLocaleLowerCase() === "c"
-    )
-      return;
-    event.preventDefault();
-  }
-
-  return isFocused ? (
-    <StyledInput
-      autoFocus={true}
-      defaultValue={defaultValue}
-      max={row.loc}
-      min={"0"}
-      onBlur={handleOnInputBlur}
-      onKeyDown={handleInputKeyDown}
-      onKeyUp={handleOnInputKeyUp}
-      step={"1"}
-      type={"number"}
-    />
-  ) : (
-    <div
-      aria-checked={false}
-      onClick={handleOnDivClick}
-      role={"switch"}
-      tabIndex={0}
-    >
-      {defaultValue}
-    </div>
-  );
-};
+import { translate } from "utils/translations/translate";
 
 export const editableAttackedLinesFormatter: (
   handleUpdateAttackedLines: (
@@ -118,11 +42,21 @@ export const editableAttackedLinesFormatter: (
     _rowIndex: number,
     _key: Readonly<IHeaderConfig>
   ): JSX.Element => {
+    function handleOnEnter(newValue: number | undefined): void {
+      if (!_.isUndefined(newValue)) {
+        void handleUpdateAttackedLines(row.rootId, row.filename, newValue);
+      }
+    }
+
     return (
-      <EditableFormatter
-        defaultValue={value}
-        handleUpdateAttackedLines={handleUpdateAttackedLines}
-        row={row}
+      <NumberInput
+        defaultValue={_.toNumber(value)}
+        max={row.loc}
+        min={0}
+        onEnter={handleOnEnter}
+        tooltipMessage={translate.t(
+          "group.toe.lines.formatters.attackedLines.tooltip"
+        )}
       />
     );
   };

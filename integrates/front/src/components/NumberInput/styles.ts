@@ -43,7 +43,7 @@ const Col50: StyledComponent<"div", Record<string, unknown>> = styled.div`
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
 }>({
-  className: "flex flex-wrap",
+  className: "flex",
 })``;
 
 const VerticalLine = styled.div`

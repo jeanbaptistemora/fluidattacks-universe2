@@ -1206,6 +1206,11 @@ export const enTranslations: ResourceKey = {
           },
         },
         firstAttackAt: "First attack at",
+        formatters: {
+          attackedLines: {
+            tooltip: "Press enter to save",
+          },
+        },
         hasVulnerabilities: "Has vulnerabilities",
         lastAuthor: "Last author",
         lastCommit: "Last commit",
