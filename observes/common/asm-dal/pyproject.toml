@@ -5,7 +5,7 @@ description = "ASM Synchronous Data Access Layer"
 authors = ["Product Team <development@fluidattacks.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 boto3 = "^1.17.104"
 click = "^8.0.0"
 fa-purity = "^1.18.1"

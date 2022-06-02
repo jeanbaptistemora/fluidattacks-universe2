@@ -22,6 +22,7 @@ from fa_purity.stream.factory import (
 from fa_purity.stream.transform import (
     chain,
 )
+import logging
 from mypy_boto3_dynamodb import (
     DynamoDBClient,
 )
@@ -35,6 +36,7 @@ from typing import (
     TypeVar,
 )
 
+LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 _DB_TABLE = "fi_organizations"
 
@@ -52,8 +54,8 @@ def _assert_dict(item: _T) -> Dict[Any, Any]:  # type: ignore[misc]
 def _to_items(page: ScanOutputTableTypeDef) -> FrozenList[OrganizationId]:
     return tuple(  # type: ignore[misc]
         OrganizationId(
-            to_primitive(_assert_dict(item["pk"])["S"], str).unwrap(),  # type: ignore[misc]
-            to_primitive(_assert_dict(item["sk"])["S"], str).unwrap().lstrip("INFO#"),  # type: ignore[misc]
+            to_primitive(_assert_dict(item["pk"])["S"], str).unwrap().removeprefix("ORG#"),  # type: ignore[misc]
+            to_primitive(_assert_dict(item["sk"])["S"], str).unwrap().removeprefix("INFO#"),  # type: ignore[misc]
         )
         for item in page["Items"]  # type: ignore[misc]
     )
@@ -80,6 +82,7 @@ class OrgsClient:
                 ),
                 TableName=_DB_TABLE,
             )  # type: ignore[misc]
+            LOG.debug("getting all_orgs")
             return map(_mark_impure, response)  # type: ignore[misc]
 
         data = from_piter(unsafe_from_cmd(Cmd.from_cmd(_new_iter)))  # type: ignore[misc]
