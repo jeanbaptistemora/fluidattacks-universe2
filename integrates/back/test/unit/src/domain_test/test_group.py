@@ -858,7 +858,9 @@ async def test_get_groups_by_user() -> None:
         "monteria",
         "unittesting",
     ]
-    user_groups_names = await get_groups_by_user("integratesmanager@gmail.com")
+    user_groups_names = await get_groups_by_user(
+        loaders, "integratesmanager@gmail.com"
+    )
     groups: tuple[Group, ...] = await loaders.group.load_many(
         user_groups_names
     )
@@ -870,7 +872,7 @@ async def test_get_groups_by_user() -> None:
     expected_org_groups = ["oneshottest", "unittesting"]
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     user_org_groups_names = await get_groups_by_user(
-        "integratesmanager@gmail.com", organization_id=org_id
+        loaders, "integratesmanager@gmail.com", organization_id=org_id
     )
     groups = await loaders.group.load_many(user_org_groups_names)
     groups_filtered = filter_active_groups(groups)

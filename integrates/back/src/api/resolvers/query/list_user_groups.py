@@ -37,15 +37,17 @@ from typing import (
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Tuple[Group, ...]:
+    loaders: Dataloaders = info.context.loaders
     user_email: str = kwargs["user_email"]
     active, inactive = await collect(
         [
-            groups_domain.get_groups_by_user(user_email),
-            groups_domain.get_groups_by_user(user_email, active=False),
+            groups_domain.get_groups_by_user(loaders, user_email),
+            groups_domain.get_groups_by_user(
+                loaders, user_email, active=False
+            ),
         ]
     )
     user_groups = active + inactive
 
-    loaders: Dataloaders = info.context.loaders
     groups: Tuple[Group, ...] = await loaders.group.load_many(user_groups)
     return groups_utils.filter_active_groups(groups)

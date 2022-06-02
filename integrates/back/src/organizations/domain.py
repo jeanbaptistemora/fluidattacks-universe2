@@ -309,6 +309,7 @@ async def has_user_access(organization_id: str, email: str) -> bool:
 
 
 async def invite_to_organization(
+    loaders: Any,
     email: str,
     role: str,
     organization_name: str,
@@ -319,7 +320,10 @@ async def invite_to_organization(
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
         )
-        organization_id = await get_id_by_name(organization_name)
+        organization: Organization = await loaders.organization.load(
+            organization_name
+        )
+        organization_id = organization.id
         url_token = token.new_encoded_jwt(
             {
                 "organization_id": organization_id,

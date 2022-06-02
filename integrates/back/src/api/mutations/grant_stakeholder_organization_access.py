@@ -88,6 +88,7 @@ async def mutate(
 
     if user_role in allowed_roles_to_grant:
         success = await orgs_domain.invite_to_organization(
+            loaders,
             user_email,
             user_role,
             organization_name,

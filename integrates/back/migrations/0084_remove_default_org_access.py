@@ -54,7 +54,9 @@ async def remove_default_org_access(
                 await collect(
                     [
                         groups_domain.get_groups_by_user(
-                            user_email=email, organization_id=org_id
+                            get_new_context(),
+                            user_email=email,
+                            organization_id=org_id,
                         )
                         for org_id in orgs_ids
                         if org_id != default_org_id

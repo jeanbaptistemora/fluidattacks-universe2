@@ -956,6 +956,7 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
 
 
 async def get_groups_by_user(
+    loaders: Any,
     user_email: str,
     active: bool = True,
     organization_id: str = "",
@@ -963,7 +964,9 @@ async def get_groups_by_user(
 ) -> list[str]:
     group_names = await group_access_domain.get_user_groups(user_email, active)
     if not organization_id:
-        group_names = list(await filter_groups_with_org(tuple(group_names)))
+        group_names = list(
+            await filter_groups_with_org(loaders, tuple(group_names))
+        )
     group_level_roles = await authz.get_group_level_roles(
         user_email, group_names, with_cache=with_cache
     )
@@ -1509,7 +1512,7 @@ async def remove_user(
     has_org_access, user_groups_names = await collect(
         (
             orgs_domain.has_user_access(organization_id, email),
-            get_groups_by_user(email),
+            get_groups_by_user(loaders, email),
         )
     )
     org_groups_names: set[str] = set(
@@ -2108,18 +2111,16 @@ async def get_creation_date(
 
 
 async def filter_groups_with_org(
-    group_names: tuple[str, ...]
+    loaders: Any, group_names: tuple[str, ...]
 ) -> tuple[str, ...]:
     """
     In current group's data, there are legacy groups with no org assigned.
     """
-    org_ids = await collect(
-        orgs_domain.get_id_for_group(group_name) for group_name in group_names
-    )
+    groups: tuple[Group] = await loaders.group.load_many(group_names)
     return tuple(
-        group_name
-        for group_name, org_id in zip(group_names, org_ids)
-        if org_id
+        group.name
+        for group in groups
+        if group.organization_id != "ORG#unknown"
     )
 
 

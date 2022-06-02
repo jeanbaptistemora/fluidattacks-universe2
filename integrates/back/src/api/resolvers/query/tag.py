@@ -43,7 +43,7 @@ async def resolve(
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     user_group_names: list[str] = await groups_domain.get_groups_by_user(
-        user_email
+        loaders, user_email
     )
     are_valid_groups = await collect(
         tuple(

@@ -113,7 +113,7 @@ async def complete_deletion(*, loaders: Any, user_email: str) -> None:
         )
     )
     stakeholder_organizations_ids = await get_user_organizations(user_email)
-    stakeholder_groups = await get_groups_by_user(user_email)
+    stakeholder_groups = await get_groups_by_user(loaders, user_email)
 
     await collect(
         tuple(

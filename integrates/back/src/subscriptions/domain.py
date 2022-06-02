@@ -153,7 +153,7 @@ async def can_subscribe_user_to_entity_report(
         success = (
             len(
                 await groups_domain.get_groups_by_user(
-                    user_email, with_cache=False
+                    loaders, user_email, with_cache=False
                 )
             )
             > 0
@@ -285,7 +285,7 @@ async def _send_digest_report(
     loaders: Optional[Dataloaders] = None,
 ) -> None:
     group_names: list[str] = await groups_domain.get_groups_by_user(
-        user_email, with_cache=False
+        loaders if loaders else get_new_context(), user_email, with_cache=False
     )
 
     if FI_ENVIRONMENT == "production":
@@ -454,7 +454,9 @@ async def _get_digest_stats(
 
     digest_group_names = await collect(
         [
-            groups_domain.get_groups_by_user(user_email, with_cache=False)
+            groups_domain.get_groups_by_user(
+                loaders, user_email, with_cache=False
+            )
             for user_email in digest_suscribers
         ],
         workers=1024,

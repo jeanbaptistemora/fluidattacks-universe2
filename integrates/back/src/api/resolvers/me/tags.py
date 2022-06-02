@@ -44,7 +44,7 @@ async def resolve(
     )
     org_tags = await organization_tags_loader.load(organization.name)
     user_groups = await groups_domain.get_groups_by_user(
-        user_email, organization_id=organization_id
+        loaders, user_email, organization_id=organization_id
     )
     are_valid_groups = await collect(
         tuple(groups_domain.is_valid(loaders, group) for group in user_groups)
