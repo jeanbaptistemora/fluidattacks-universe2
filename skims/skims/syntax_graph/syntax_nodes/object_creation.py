@@ -10,8 +10,12 @@ from typing import (
 
 
 def build_object_creation_node(
-    args: SyntaxGraphArgs, name: str, arguments_id: Optional[NId]
+    args: SyntaxGraphArgs,
+    name: str,
+    arguments_id: Optional[NId],
+    initializer_id: Optional[NId],
 ) -> NId:
+
     args.syntax_graph.add_node(
         args.n_id,
         name=name,
@@ -24,6 +28,15 @@ def build_object_creation_node(
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(arguments_id)),
+            label_ast="AST",
+        )
+
+    if initializer_id:
+        args.syntax_graph.nodes[args.n_id]["initializer_id"] = initializer_id
+
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(initializer_id)),
             label_ast="AST",
         )
 

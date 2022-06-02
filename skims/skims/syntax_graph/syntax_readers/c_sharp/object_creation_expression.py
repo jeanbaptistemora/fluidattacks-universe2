@@ -24,6 +24,12 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if arguments_id := node_attr.get("label_field_arguments"):
         if "__0__" not in match_ast(args.ast_graph, arguments_id, "(", ")"):
             arguments_id = None
-        return build_object_creation_node(args, name, arguments_id)
+        return build_object_creation_node(args, name, arguments_id, None)
+    if initializer := node_attr.get("label_field_initializer"):
+        if "__0__" not in match_ast(
+            args.ast_graph, initializer, "assignment_expression"
+        ):
+            initializer = None
+        return build_object_creation_node(args, name, None, initializer)
 
     raise MissingCaseHandling(f"Bad object creation handling in {args.n_id}")
