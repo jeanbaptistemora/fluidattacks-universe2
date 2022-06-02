@@ -6,7 +6,7 @@
   ...
 }: let
   root = projectPath inputs.observesIndex.common.asm_dal.root;
-  pkg = import "${root}/entrypoint.nix" fetchNixpkgs;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.runtime;
 in
   makeTemplate {

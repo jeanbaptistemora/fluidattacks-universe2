@@ -11,6 +11,7 @@
     mypy-boto3-dynamodb
     types-boto3
     types-click
+    utils-logger
   ];
   build_deps = with python_pkgs; [poetry];
   test_deps = with python_pkgs; [
