@@ -110,14 +110,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   <strong>
                     {t("autoenrollment.addOrganization.organizationName.label")}
                   </strong>
-                </Col>
-                <Col>
                   <TooltipWrapper
+                    displayClass={"dib"}
                     id={"addGroupTooltip"}
                     message={t("sidebar.newOrganization.modal.nameTooltip")}
                     placement={"top"}
                   >
-                    <FontAwesomeIcon icon={faCircleInfo} />
+                    <FontAwesomeIcon
+                      color={"#b0b0bf"}
+                      icon={faCircleInfo}
+                      size={"sm"}
+                    />
                   </TooltipWrapper>
                 </Col>
               </Row>
@@ -138,14 +141,17 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   <strong>
                     {t("autoenrollment.addOrganization.groupName.label")}
                   </strong>
-                </Col>
-                <Col>
                   <TooltipWrapper
+                    displayClass={"dib"}
                     id={"addGroupTooltip"}
                     message={t("sidebar.newOrganization.modal.nameTooltip")}
                     placement={"top"}
                   >
-                    <FontAwesomeIcon icon={faCircleInfo} />
+                    <FontAwesomeIcon
+                      color={"#b0b0bf"}
+                      icon={faCircleInfo}
+                      size={"sm"}
+                    />
                   </TooltipWrapper>
                 </Col>
               </Row>
@@ -245,16 +251,20 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
           </Row>
           <Row justify={"center"}>
             <Col>
-              <Button onClick={cancelClick} variant={"secondary"}>
+              <Button onClick={cancelClick} variant={"basic"}>
                 {t("confirmmodal.cancel")}
               </Button>
-              <Modal open={showCancelModal} size={"medium"} title={""}>
-                <p>{t("autoenrollment.cancelModal.body")}</p>
+              <Modal
+                onClose={noClick}
+                open={showCancelModal}
+                size={"small"}
+                title={t("autoenrollment.cancelModal.body")}
+              >
                 <ModalFooter>
                   <Button onClick={yesClick} variant={"primary"}>
                     {t("autoenrollment.cancelModal.yes")}
                   </Button>
-                  <Button onClick={noClick} variant={"secondary"}>
+                  <Button onClick={noClick} variant={"basic"}>
                     {t("autoenrollment.cancelModal.no")}
                   </Button>
                 </ModalFooter>

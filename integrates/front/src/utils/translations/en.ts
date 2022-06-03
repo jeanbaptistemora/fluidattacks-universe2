@@ -240,7 +240,7 @@ export const enTranslations: ResourceKey = {
         placeholder: "AWS test new group",
       },
       groupName: {
-        label: "Group name",
+        label: "Group name ",
         placeholder: "My group name",
       },
       messages: {
@@ -250,7 +250,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       organizationName: {
-        label: "Organization name",
+        label: "Organization name ",
         placeholder: "My organization",
       },
       proceed: "Start your free trial now",
@@ -291,7 +291,7 @@ export const enTranslations: ResourceKey = {
         placeholder: "qa",
       },
       exclusions: {
-        label: "Exclusions",
+        label: "Exclusions ",
         placeholder: "/devopsinterbanknew",
         tooltip: "Enter exclusions paths",
       },
@@ -302,7 +302,7 @@ export const enTranslations: ResourceKey = {
       subtitle: "To begin, add the first code repository",
       title: "Welcome to the Attack Surface Manager (ASM)",
       url: {
-        label: "URL repository",
+        label: "URL repository ",
         placeholder: "https://gitrepository.yourproject/sms/...",
         tooltip:
           `A remote URL is Git's fancy way of saying "the place where your code is stored." ` +
@@ -316,8 +316,8 @@ export const enTranslations: ResourceKey = {
     },
     cancelModal: {
       body: "Do you want to cancel your free trial?",
-      no: "no",
-      yes: "yes",
+      no: "No",
+      yes: "Yes",
     },
   },
   comments: {

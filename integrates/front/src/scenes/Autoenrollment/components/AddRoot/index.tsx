@@ -16,18 +16,14 @@ import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
+import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
   handleValidationError,
   rootSchema,
 } from "scenes/Autoenrollment/helpers";
 import { VALIDATE_GIT_ACCESS } from "scenes/Autoenrollment/queries";
 import type { IRootAttr } from "scenes/Autoenrollment/types";
-import {
-  FormikArrayField,
-  FormikDropdown,
-  FormikText,
-  FormikTextArea,
-} from "utils/forms/fields";
+import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
 
 interface IAddRootProps {
   setForm: React.Dispatch<React.SetStateAction<string>>;
@@ -155,14 +151,17 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   <Row>
                     <Col>
                       <strong>{t("autoenrollment.addRoot.url.label")}</strong>
-                    </Col>
-                    <Col>
                       <TooltipWrapper
+                        displayClass={"dib"}
                         id={"urlTooltip"}
                         message={t("autoenrollment.addRoot.url.tooltip")}
                         placement={"top"}
                       >
-                        <FontAwesomeIcon icon={faCircleInfo} />
+                        <FontAwesomeIcon
+                          color={"#b0b0bf"}
+                          icon={faCircleInfo}
+                          size={"sm"}
+                        />
                       </TooltipWrapper>
                     </Col>
                   </Row>
@@ -381,14 +380,17 @@ const AddRoot: React.FC<IAddRootProps> = ({
                       <strong>
                         {t("autoenrollment.addRoot.exclusions.label")}
                       </strong>
-                    </Col>
-                    <Col>
                       <TooltipWrapper
+                        displayClass={"dib"}
                         id={"urlTooltip"}
                         message={t("autoenrollment.addRoot.exclusions.tooltip")}
                         placement={"top"}
                       >
-                        <FontAwesomeIcon icon={faCircleInfo} />
+                        <FontAwesomeIcon
+                          color={"#b0b0bf"}
+                          icon={faCircleInfo}
+                          size={"sm"}
+                        />
                       </TooltipWrapper>
                     </Col>
                   </Row>
@@ -446,16 +448,20 @@ const AddRoot: React.FC<IAddRootProps> = ({
               )}
               <Row justify={"center"}>
                 <Col>
-                  <Button onClick={cancelClick} variant={"secondary"}>
+                  <Button onClick={cancelClick} variant={"basic"}>
                     {t("confirmmodal.cancel")}
                   </Button>
-                  <Modal open={showCancelModal} size={"medium"} title={""}>
-                    <p>{t("autoenrollment.cancelModal.body")}</p>
+                  <Modal
+                    onClose={noClick}
+                    open={showCancelModal}
+                    size={"small"}
+                    title={t("autoenrollment.cancelModal.body")}
+                  >
                     <ModalFooter>
                       <Button onClick={yesClick} variant={"primary"}>
                         {t("autoenrollment.cancelModal.yes")}
                       </Button>
-                      <Button onClick={noClick} variant={"secondary"}>
+                      <Button onClick={noClick} variant={"basic"}>
                         {t("autoenrollment.cancelModal.no")}
                       </Button>
                     </ModalFooter>
