@@ -266,6 +266,43 @@ async def new_group(
     )
 
 
+async def managed_manually(
+    *,
+    group_name: str,
+    managed: bool,
+    organization_name: str,
+    requester_email: str,
+) -> bool:
+    translations: Dict[bool, str] = {
+        True: "Manually",
+        False: "Not Manually",
+    }
+
+    return cast(
+        bool,
+        await in_thread(
+            notifications_dal.create_ticket,
+            subject=(
+                f"[ASM] {translations[managed]} managed requested:"
+                f" {group_name}"
+            ),
+            description=f"""
+                You are receiving this email because you have requested
+                to {translations[managed]} managed a group, through ASM
+                by Fluid Attacks.
+
+                Here are the details of the group:
+                - Name: {group_name}
+                - Organization: {organization_name}
+
+                If you require any further information,
+                do not hesitate to contact us.
+            """,
+            requester_email=requester_email,
+        ),
+    )
+
+
 async def new_password_protected_report(
     user_email: str,
     group_name: str,

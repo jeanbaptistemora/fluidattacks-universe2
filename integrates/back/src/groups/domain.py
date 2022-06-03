@@ -808,6 +808,17 @@ async def update_group_managed(
             ),
         )
 
+        if managed:
+            organization: Organization = await loaders.organization.load(
+                group.organization_id
+            )
+            await notifications_domain.managed_manually(
+                group_name=group_name,
+                managed=managed,
+                organization_name=organization.name,
+                requester_email=user_email,
+            )
+
 
 async def update_group(
     *,
