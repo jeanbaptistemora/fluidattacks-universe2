@@ -1527,13 +1527,12 @@ async def remove_user(
             get_groups_by_user(loaders, email),
         )
     )
-    org_groups_names: set[str] = set(
-        await orgs_domain.get_groups(organization_id)
+    org_groups_names = set(
+        group.name
+        for group in await loaders.organization_groups.load(organization_id)
     )
-    user_org_groups_names: tuple[str, ...] = tuple(
-        group_name
-        for group_name in user_groups_names
-        if group_name in org_groups_names
+    user_org_groups_names = set(user_groups_names).intersection(
+        org_groups_names
     )
     user_org_groups: tuple[Group, ...] = await loaders.group.load_many(
         user_org_groups_names
