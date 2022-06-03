@@ -205,10 +205,6 @@ async def get_group_names(
     return tuple(group.name for group in org_groups)
 
 
-async def get_id_for_group(group_name: str) -> str:
-    return await orgs_dal.get_id_for_group(group_name)
-
-
 async def get_name_by_id(organization_id: str) -> str:
     result: Dict[str, Any] = await orgs_dal.get_by_id(
         organization_id, ["name"]

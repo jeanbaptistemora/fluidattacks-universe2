@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from boto3.dynamodb.conditions import (
     Attr,
     ConditionBase,
@@ -349,20 +346,6 @@ async def get_ids_for_user(email: str) -> List[str]:
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return organization_ids
-
-
-async def get_many_by_id(
-    organization_ids: List[str], attributes: Optional[List[str]] = None
-) -> List[Dict[str, Any]]:
-    """
-    Use the organization ID to fetch general information about it.
-    """
-    return cast(
-        List[Dict[str, Any]],
-        await collect(
-            get_by_id(org_id, attributes) for org_id in organization_ids
-        ),
-    )
 
 
 async def get_users(organization_id: str) -> List[str]:

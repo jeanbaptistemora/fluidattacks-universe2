@@ -201,20 +201,23 @@ async def test_get_by_name() -> None:
 
 
 async def test_get_many_by_id() -> None:
+    loaders: Dataloaders = get_new_context()
     org_ids = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
     ]
-    orgs = await orgs_dal.get_many_by_id(org_ids, ["id", "name"])
-    assert orgs[0]["id"] == org_ids[0]
-    assert orgs[1]["name"] == "bulat"
+    orgs: tuple[Organization, ...] = await loaders.organization.load_many(
+        org_ids
+    )
+    assert orgs[0].id == org_ids[0]
+    assert orgs[1].name == "bulat"
 
     org_ids_non_existent = [
         "ORG#49bcf63c-cd96-442f-be79-aa51574dc187",
         "ORG#50bcf74c-cd96-442f-be79-aa51574dc187",
     ]
     with pytest.raises(OrganizationNotFound):
-        await orgs_dal.get_many_by_id(org_ids_non_existent, ["id", "name"])
+        await loaders.organization.load_many(org_ids_non_existent)
 
 
 async def test_get_id_for_group() -> None:
