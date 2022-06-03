@@ -173,11 +173,12 @@ async def get_access_by_url_token(
 async def get_all_active_groups(
     loaders: Any,
 ) -> tuple[Group, ...]:
-    all_groups_names: list[str] = []
-    async for _, _, org_group_names in iterate_organizations_and_groups():
-        all_groups_names.extend(org_group_names)
-    all_groups = await loaders.group.load_many(all_groups_names)
-    return groups_utils.filter_active_groups(tuple(all_groups))
+    active_groups = []
+    async for org_id, _ in iterate_organizations():
+        org_groups = await loaders.organization_groups.load(org_id)
+        org_active_groups = list(groups_utils.filter_active_groups(org_groups))
+        active_groups.extend(org_active_groups)
+    return tuple(active_groups)
 
 
 async def get_all_active_group_names(

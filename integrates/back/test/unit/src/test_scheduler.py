@@ -464,6 +464,7 @@ async def test_remove_obsolete_groups() -> None:
 
     await delete_obsolete_groups.main()
 
+    loaders = get_new_context()
     all_active_groups_names = await orgs_domain.get_all_active_group_names(
         loaders
     )
@@ -471,7 +472,6 @@ async def test_remove_obsolete_groups() -> None:
     assert test_group_name_1 in all_active_groups_names
     assert test_group_name_2 not in all_active_groups_names
 
-    loaders.group.clear_all()
     test_group_1: Group = await loaders.group.load(test_group_name_1)
     assert test_group_1.state.status == GroupStateStatus.ACTIVE
     assert test_group_1.state.pending_deletion_date
