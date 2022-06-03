@@ -74,7 +74,6 @@ locals {
             Effect = "Allow"
             Action = [
               "redshift:*",
-              "redshift-data:*",
             ]
             Resource = [
               "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
@@ -127,14 +126,30 @@ locals {
             ]
           },
           {
-            Sid    = "redshiftReadSecretsDescribe"
+            Sid    = "redshiftExecuteSqlOnConsole"
             Effect = "Allow"
             Action = [
-              "redshift-data:*",
+              "redshift-data:BatchExecuteStatement",
+              "redshift-data:DescribeTable",
+              "redshift-data:ExecuteStatement",
+              "redshift-data:ListDatabases",
+              "redshift-data:ListSchemas",
+              "redshift-data:ListTables",
             ]
             Resource = [
-              "*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
             ]
+          },
+          {
+            Sid    = "redshiftExecuteSqlOnConsole2"
+            Effect = "Allow"
+            Action = [
+              "redshift-data:CancelStatement",
+              "redshift-data:DescribeStatement",
+              "redshift-data:GetStatementResult",
+              "redshift-data:ListStatements",
+            ]
+            Resource = ["*"]
           },
           {
             Sid    = "dynamoWrite"
