@@ -1,6 +1,9 @@
 from config import (
     load,
 )
+from contextlib import (
+    suppress,
+)
 from core.persist import (
     persist,
     verify_permissions,
@@ -149,7 +152,9 @@ def notify_findings_as_csv(
     with open(output, "w", encoding="utf-8") as file:
         writer = csv.DictWriter(file, headers, quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
-        writer.writerows(sorted(rows, key=str))
+        for row in sorted(rows, key=str):
+            with suppress(UnicodeEncodeError):
+                writer.writerow(row)
 
     log_blocking("info", "An output file has been written: %s", output)
 
