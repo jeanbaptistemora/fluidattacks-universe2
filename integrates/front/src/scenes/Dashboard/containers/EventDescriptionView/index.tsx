@@ -180,7 +180,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                           "searchFindings.tabSeverity.common.deactivation.reason.label"
                         )}
                       </ControlLabel>
-                      <Field component={FormikDropdown} name={"reason"}>
+                      <Field
+                        component={FormikDropdown}
+                        name={"reason"}
+                        validate={composeValidators([required])}
+                      >
                         <option value={""} />
                         <option value={"PERMISSION_GRANTED"}>
                           {t(
