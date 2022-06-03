@@ -137,6 +137,154 @@ module.exports = {
             allow: ["/", "/css/*.css", "/css/*.css$", "/css/*.css?", "/js/*.js", "/js/*.js$", "/js/*.js?"],
             disallow: ["/?cat=*", "/?s=*", "/*.gif$", "/*.pdf$", "/*?"]
           },
+          {
+            userAgent: "Googlebot",
+            allow: ["/*.css", "/*.js", "/*.css$", "/*.js$"]
+          },
+          {
+            userAgent: "Googlebot-Image",
+            allow: "/"
+          },
+          {
+            userAgent: "Adsbot-Google",
+            allow: "/"
+          },
+          {
+            userAgent: "Googlebot-Mobile",
+            allow: "/"
+          },
+          {
+            userAgent: "noxtrumbot",
+            crawlDelay: 20
+          },
+          {
+            userAgent: "msnbot",
+            crawlDelay: 20
+          },
+          {
+            userAgent: "Slurp",
+            crawlDelay: 20
+          },
+          {
+            userAgent: "MSIECrawler",
+            disallow: "/"
+          },
+          {
+            userAgent: "WebCopier",
+            disallow: "/"
+          },
+          {
+            userAgent: "HTTrack",
+            disallow: "/"
+          },
+          {
+            userAgent: "Microsoft.URL.Control",
+            disallow: "/"
+          },
+          {
+            userAgent: "libwww",
+            disallow: "/"
+          },
+          {
+            userAgent: "Orthogaffe",
+            disallow: "/"
+          },
+          {
+            userAgent: "UbiCrawler",
+            disallow: "/"
+          },
+          {
+            userAgent: "DOC",
+            disallow: "/"
+          },
+          {
+            userAgent: "Zao",
+            disallow: "/"
+          },
+          {
+            userAgent: "sitecheck.internetseer.com",
+            disallow: "/"
+          },
+          {
+            userAgent: "Zealbot",
+            disallow: "/"
+          },
+          {
+            userAgent: "MSIECrawler",
+            disallow: "/"
+          },
+          {
+            userAgent: "SiteSnagger",
+            disallow: "/"
+          },
+          {
+            userAgent: "WebStripper",
+            disallow: "/"
+          },
+          {
+            userAgent: "WebCopier",
+            disallow: "/"
+          },
+          {
+            userAgent: "Fetch",
+            disallow: "/"
+          },
+          {
+            userAgent: "Offline Explorer",
+            disallow: "/"
+          },
+          {
+            userAgent: "Teleport",
+            disallow: "/"
+          },
+          {
+            userAgent: "TeleportPro",
+            disallow: "/"
+          },
+          {
+            userAgent: "WebZIP",
+            disallow: "/"
+          },
+          {
+            userAgent: "linko",
+            disallow: "/"
+          },
+          {
+            userAgent: "Xenu",
+            disallow: "/"
+          },
+          {
+            userAgent: "larbin",
+            disallow: "/"
+          },
+          {
+            userAgent: "ZyBORG",
+            disallow: "/"
+          },
+          {
+            userAgent: "Download Ninja",
+            disallow: "/"
+          },
+          {
+            userAgent: "wget",
+            disallow: "/"
+          },
+          {
+            userAgent: "grub-client",
+            disallow: "/"
+          },
+          {
+            userAgent: "k2spider",
+            disallow: "/"
+          },
+          {
+            userAgent: "NPBot",
+            disallow: "/"
+          },
+          {
+            userAgent: "WebReaper",
+            disallow: "/"
+          },
         ],
       },
     },
