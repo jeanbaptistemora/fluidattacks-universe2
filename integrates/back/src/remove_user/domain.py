@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     schedule,
 )
+from authz.policy import (
+    _get_user_subject_policies,
+)
 from context import (
     BASE_URL,
 )
@@ -15,8 +18,12 @@ from decorators import (
 from group_access.dal import (
     get_access_by_url_token,
     get_user_access,
+    get_user_groups,
     remove_access as remove_confirm_deletion,
     update,
+)
+from group_access.domain import (
+    remove_access,
 )
 from groups.domain import (
     get_groups_by_user,
@@ -102,7 +109,30 @@ async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
             remove_stakeholder(user_email=email),
         )
     )
-    await delete(email)
+
+    await collect(
+        tuple(
+            redis_del_by_deps(
+                "remove_stakeholder_organization_access",
+                organization_id=organization_id,
+            )
+            for organization_id in organizations_ids
+        )
+    )
+
+    active, inactive = await collect(
+        [
+            get_user_groups(email, active=True),
+            get_user_groups(email, active=False),
+        ]
+    )
+    authz_groups = [
+        policy[1] for policy in await _get_user_subject_policies(email)
+    ]
+    user_groups = set(active + inactive + authz_groups)
+    await collect(
+        tuple(remove_access(loaders, email, group) for group in user_groups)
+    )
 
 
 async def complete_deletion(*, loaders: Any, user_email: str) -> None:
@@ -112,18 +142,16 @@ async def complete_deletion(*, loaders: Any, user_email: str) -> None:
             remove_confirm_deletion(user_email, "confirm_deletion"),
         )
     )
-    stakeholder_organizations_ids = await get_user_organizations(user_email)
-    stakeholder_groups = await get_groups_by_user(loaders, user_email)
 
     await collect(
-        tuple(
-            redis_del_by_deps(
-                "remove_stakeholder_organization_access",
-                organization_id=organization_id,
-            )
-            for organization_id in stakeholder_organizations_ids
-        )
+        [
+            remove_session_key(user_email, "jti"),
+            remove_session_key(user_email, "web"),
+            remove_session_key(user_email, "jwt"),
+        ]
     )
+
+    stakeholder_groups = await get_groups_by_user(loaders, user_email)
 
     await collect(
         tuple(
@@ -133,14 +161,6 @@ async def complete_deletion(*, loaders: Any, user_email: str) -> None:
             )
             for group_name in stakeholder_groups
         )
-    )
-
-    await collect(
-        [
-            remove_session_key(user_email, "jti"),
-            remove_session_key(user_email, "web"),
-            remove_session_key(user_email, "jwt"),
-        ]
     )
 
 
