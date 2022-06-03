@@ -30,6 +30,9 @@ from typing import (
     Optional,
     Tuple,
 )
+from urllib3.exceptions import (
+    LocationParseError,
+)
 from urllib3.util.url import (
     parse_url,
 )
@@ -134,7 +137,10 @@ async def ssh_ls_remote(
     credential_key: str,
     branch: str = "HEAD",
 ) -> Optional[str]:
-    parsed_url = urlparse(repo_url)
+    try:
+        parsed_url = urlparse(repo_url)
+    except LocationParseError:
+        return None
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
         raw_root_url = repo_url.replace(f"{parsed_url.scheme}://", "")

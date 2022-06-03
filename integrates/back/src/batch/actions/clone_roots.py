@@ -190,8 +190,11 @@ async def clone_roots(  # pylint: disable=too-many-locals
 
 
 async def _ls_remote_root(
-    root: GitRoot, cred: CredentialItem
+    root: GitRoot, cred: CredentialItem, use_vpn: bool = False
 ) -> Tuple[str, Optional[str]]:
+    if use_vpn:
+        return (root.id, None)
+
     if cred.metadata.type == CredentialType.SSH and cred.state.key is not None:
         return (
             root.id,
@@ -212,6 +215,42 @@ async def _ls_remote_root(
     raise InvalidParameter()
 
 
+async def cancel_current_jobs(
+    *,
+    group_name: str,
+) -> Set[str]:
+    roots_in_current_actions: Set[str] = set()
+    current_jobs = sorted(
+        await get_actions_by_name("clone_roots", group_name),
+        key=lambda x: x.time,
+    )
+    if current_jobs:
+        LOGGER.info(
+            "There are %s jobs in queue for %s",
+            len(current_jobs),
+            group_name,
+        )
+        current_action = current_jobs[0]
+        current_jobs = current_jobs[1:]
+        roots_in_current_actions = {*current_action.additional_info.split(",")}
+
+    for action in [item for item in current_jobs if not item.running]:
+        roots_in_current_actions = {
+            *roots_in_current_actions,
+            *action.additional_info.split(","),
+        }
+        await delete_action(dynamodb_pk=action.key)
+        if action.batch_job_id:
+            LOGGER.info(
+                "Canceling batch job %s for %s",
+                action.batch_job_id,
+                group_name,
+            )
+            await cancel_batch_job(job_id=action.batch_job_id)
+
+    return roots_in_current_actions
+
+
 async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
@@ -222,13 +261,14 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     force: bool = False,
     queue_with_vpn: bool = False,
 ) -> Optional[PutActionResult]:
-    current_jobs = sorted(
-        await get_actions_by_name("clone_roots", group_name),
-        key=lambda x: x.time,
-    )
+    roots_in_current_actions: Set[str] = set()
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(
-        root for root in roots if root.state.status == RootStatus.ACTIVE
+        root
+        for root in roots
+        if root.state.status == RootStatus.ACTIVE
+        if isinstance(root, GitRoot)
+        and (root.state.use_vpn if queue_with_vpn else True)
     )
     roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
 
@@ -256,31 +296,14 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if not credentials_for_roots:
         raise CredentialNotFound()
 
-    roots_in_current_actions: Set[str] = set()
-    current_action = None
-    if current_jobs:
-        LOGGER.info(
-            "There are %s jobs in queue for %s",
-            len(current_jobs),
-            group_name,
-        )
-        current_action = current_jobs[0]
-        current_jobs = current_jobs[1:]
-        roots_in_current_actions = {*current_action.additional_info.split(",")}
+    current_action: Optional[BatchProcessing] = None
+    roots_in_current_actions = await cancel_current_jobs(group_name=group_name)
 
-    for action in [item for item in current_jobs if not item.running]:
-        roots_in_current_actions = {
-            *roots_in_current_actions,
-            *action.additional_info.split(","),
-        }
-        await delete_action(dynamodb_pk=action.key)
-        if action.batch_job_id:
-            LOGGER.info(
-                "Canceling batch job %s for %s",
-                action.batch_job_id,
-                group_name,
-            )
-            await cancel_batch_job(job_id=action.batch_job_id)
+    if current_actions := sorted(
+        await get_actions_by_name("clone_roots", group_name),
+        key=lambda x: x.time,
+    ):
+        current_action = current_actions[0]
 
     if (
         check_existing_jobs
@@ -303,7 +326,9 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
 
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
-            _ls_remote_root(roots_dict[root_id], cred)
+            _ls_remote_root(
+                roots_dict[root_id], cred, roots_dict[root_id].state.use_vpn
+            )
             for root_id, cred in credentials_for_roots.items()
         )
     )
