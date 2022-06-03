@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 03, 2022, 10:21 AM",
+    "DateLastModified": "Jun 03, 2022, 02:51 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -13753,6 +13753,46 @@
           },
           "TableData": [
             {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "commit": {
+                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
+              },
+              "where": {
+                "S": "test/data/lib_path/f060/csharp.cs"
+              },
+              "specific": {
+                "S": "12"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2020-01-03T17:46:10+00:00"
+                  },
+                  "status": {
+                    "S": "OPEN"
+                  }
+                }
+              },
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -13772,12 +13812,6 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#422286126"
-              },
-              "commit": {
-                "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -13797,54 +13831,63 @@
                   }
                 }
               },
-              "specific": {
-                "S": "12"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "sk": {
-                "S": "FIN#422286126"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "test/data/lib_path/f060/csharp.cs"
-              },
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_5": {
+                "S": "FIN#422286126"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
+              "sk": {
+                "S": "FIN#422286126"
+              },
+              "type": {
+                "S": "INPUTS"
+              },
+              "where": {
+                "S": "https://example.com"
+              },
+              "specific": {
+                "S": "phone"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              },
               "state": {
                 "M": {
                   "modified_by": {
-                    "S": "unittest@fluidattacks.com"
+                    "S": "test@unittesting.com"
                   },
                   "source": {
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2020-01-03T17:46:10+00:00"
+                    "S": "2020-09-09T21:01:26+00:00"
                   },
                   "status": {
                     "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98z"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -13864,8 +13907,21 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#422286126"
+              "zero_risk": {
+                "M": {
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2020-09-09T21:01:26+00:00"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  },
+                  "status": {
+                    "S": "CONFIRMED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -13886,70 +13942,63 @@
                   }
                 }
               },
-              "specific": {
-                "S": "phone"
-              },
-              "type": {
-                "S": "INPUTS"
-              },
-              "zero_risk": {
-                "M": {
-                  "modified_by": {
-                    "S": "test@gmail.com"
-                  },
-                  "modified_date": {
-                    "S": "2020-09-09T21:01:26+00:00"
-                  },
-                  "comment_id": {
-                    "S": "123456"
-                  },
-                  "status": {
-                    "S": "CONFIRMED"
-                  }
-                }
-              },
-              "sk": {
-                "S": "FIN#422286126"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "https://example.com"
-              },
-              "pk": {
-                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_5": {
+                "S": "FIN#422286126"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#none"
               },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.101"
+              },
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
+              },
               "state": {
                 "M": {
                   "modified_by": {
-                    "S": "test@unittesting.com"
+                    "S": "unittest@fluidattacks.com"
                   },
                   "source": {
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2020-09-09T21:01:26+00:00"
+                    "S": "2019-09-13T13:17:41+00:00"
                   },
                   "status": {
                     "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#80d6a69f-a376-46be-98cd-2fdedcffdcc0"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -13960,8 +14009,15 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#436992569"
+              "verification": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "VERIFIED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -13991,122 +14047,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "333"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#436992569"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.100.101"
-              },
-              "pk": {
-                "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#436992569"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#verified"
               },
-              "state": {
-                "M": {
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "modified_date": {
-                    "S": "2019-09-13T13:17:41+00:00"
-                  },
-                  "status": {
-                    "S": "OPEN"
-                  }
-                }
+              "pk_6": {
+                "S": "GROUP#unittesting"
               },
-              "sk_2": {
+              "sk_6": {
                 "S": "VULN#15375781-31f2-4953-ac77-f31134225747"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "VERIFIED"
-                  }
-                }
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "1111"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.12"
               },
-              "pk": {
+              "specific": {
+                "S": "1111"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14124,11 +14104,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -14138,12 +14113,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_4": {
-                "S": "EVENT#418900971"
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14164,38 +14133,49 @@
                   }
                 }
               },
-              "specific": {
-                "S": "3333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#1c644e88-b7a2-498b-b248-c3d367629982"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_4": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
-              },
-              "sk_3": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
-              },
-              "pk_2": {
-                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
-              },
-              "root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.4"
               },
-              "pk": {
+              "specific": {
+                "S": "3333"
+              },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "pk_2": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_2": {
                 "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#on_hold"
               },
               "state": {
                 "M": {
@@ -14213,8 +14193,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
               },
               "verification": {
                 "M": {
@@ -14228,73 +14215,72 @@
                     "S": "ON_HOLD"
                   }
                 }
-              }
-            },
-            {
-              "treatment": {
+              },
+              "unreliable_indicators": {
                 "M": {
-                  "modified_date": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
                     "S": "2019-09-12T13:45:48+00:00"
                   },
-                  "status": {
-                    "S": "NEW"
+                  "unreliable_treatment_changes": {
+                    "N": "0"
                   }
                 }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
               },
               "pk_4": {
                 "S": "EVENT#418900971"
               },
+              "sk_4": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              },
               "pk_5": {
                 "S": "FIN#436992569"
               },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#on_hold"
               },
-              "specific": {
-                "S": "6666"
+              "pk_6": {
+                "S": "GROUP#unittesting"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_6": {
+                "S": "VULN#3ec662b9-431a-475c-97e4-ac6ad4cabd90"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_4": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
-              },
-              "sk_3": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.17"
               },
-              "pk": {
+              "specific": {
+                "S": "6666"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#on_hold"
               },
               "state": {
                 "M": {
@@ -14312,8 +14298,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
               },
               "verification": {
                 "M": {
@@ -14327,21 +14320,6 @@
                     "S": "ON_HOLD"
                   }
                 }
-              }
-            },
-            {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14362,32 +14340,52 @@
                   }
                 }
               },
-              "specific": {
-                "S": "4444"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "pk_4": {
+                "S": "EVENT#418900971"
+              },
+              "sk_4": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#on_hold"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#47910cbe-932a-411b-8a46-9570a87f4663"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.15"
               },
-              "pk": {
+              "specific": {
+                "S": "4444"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14405,11 +14403,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -14419,9 +14412,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14442,32 +14432,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "5555"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#4ed30d35-33a5-44ba-af44-6cb253be053b"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.6"
               },
-              "pk": {
+              "specific": {
+                "S": "5555"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14485,11 +14489,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -14499,9 +14498,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14522,32 +14518,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "9999"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#5291f6fa-b296-4e89-a760-798ce56f17d0"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.10"
               },
-              "pk": {
+              "specific": {
+                "S": "9999"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14565,11 +14575,92 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#57e5c1ec-5956-40e9-8e30-284033c1140d"
               }
             },
             {
+              "pk": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
+              },
+              "sk": {
+                "S": "FIN#436992569"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.112"
+              },
+              "specific": {
+                "S": "1111"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T22:00:56+00:00"
+                  },
+                  "status": {
+                    "S": "OPEN"
+                  }
+                }
+              },
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -14580,8 +14671,15 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#436992569"
+              "verification": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -14608,122 +14706,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "1111"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#436992569"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.100.112"
-              },
-              "pk": {
-                "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#436992569"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#requested"
               },
-              "state": {
-                "M": {
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "modified_date": {
-                    "S": "2019-09-13T22:00:56+00:00"
-                  },
-                  "status": {
-                    "S": "OPEN"
-                  }
-                }
+              "pk_6": {
+                "S": "GROUP#unittesting"
               },
-              "sk_2": {
+              "sk_6": {
                 "S": "VULN#587c40de-09a0-4d85-a9f9-eaa46aa895d7"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "333"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.105"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14741,23 +14763,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T20:37:59+00:00"
+                    "S": "2019-09-13T14:58:38+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14771,39 +14785,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T20:37:59+00:00"
+                    "S": "2019-09-13T14:58:38+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "1111"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#5afb9a49-a359-48ce-80ee-79c145919275"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.111"
               },
-              "pk": {
+              "specific": {
+                "S": "1111"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14821,23 +14849,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T16:03:21+00:00"
+                    "S": "2019-09-13T20:37:59+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14851,39 +14871,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T16:03:21+00:00"
+                    "S": "2019-09-13T20:37:59+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "4444"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#5ed5c3c0-9064-41f5-8ef2-5e1eeee62955"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.101"
               },
-              "pk": {
+              "specific": {
+                "S": "4444"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14901,23 +14935,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
+                    "S": "2019-09-13T16:03:21+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -14931,39 +14957,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
+                    "S": "2019-09-13T16:03:21+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "4444"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#72bb8607-c259-4781-9599-185aac02b3cc"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.5"
               },
-              "pk": {
+              "specific": {
+                "S": "4444"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -14981,23 +15021,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T13:59:20+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15011,39 +15043,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T13:59:20+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#759aaf00-34ee-4609-aec6-7f857c470eff"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.104"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15061,23 +15107,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T15:00:03+00:00"
+                    "S": "2019-09-13T13:59:20+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15091,39 +15129,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T15:00:03+00:00"
+                    "S": "2019-09-13T13:59:20+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#81db1fad-c329-4356-a5eb-9ad9b0d75a7e"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.107"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15141,69 +15193,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-13T15:00:03+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-13T15:00:03+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#8226e222-8128-438d-a9b7-93eeb93a36b3"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "8888"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.9"
               },
-              "pk": {
+              "specific": {
+                "S": "8888"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15221,23 +15279,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-16T21:01:24+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15251,39 +15301,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-16T21:01:24+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "888"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#95068fdd-80ca-4eb2-8311-b16b63a61f05"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.122"
               },
-              "pk": {
+              "specific": {
+                "S": "888"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15301,69 +15365,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-16T21:01:24+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-16T21:01:24+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#987a6d71-d23c-40db-ad98-bfccf60660ed"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "6666"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.7"
               },
-              "pk": {
+              "specific": {
+                "S": "6666"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15381,11 +15451,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -15395,9 +15460,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15418,32 +15480,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "1111"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#aa6a9d70-618b-4ab0-b280-d627ce311200"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.2"
               },
-              "pk": {
+              "specific": {
+                "S": "1111"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15461,11 +15537,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -15475,9 +15546,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15498,32 +15566,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "2222"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#ab25380d-dfe1-4cde-aefd-acca6990d6aa"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.3"
               },
-              "pk": {
+              "specific": {
+                "S": "2222"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15541,11 +15623,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -15555,9 +15632,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15578,32 +15652,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "2222"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#ae16f325-a492-482b-a7a1-6285e8057480"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.13"
               },
-              "pk": {
+              "specific": {
+                "S": "2222"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15621,11 +15709,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -15635,9 +15718,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15658,32 +15738,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "7777"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#b16ed89e-668d-42d6-add1-73535bb0e083"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.8"
               },
-              "pk": {
+              "specific": {
+                "S": "7777"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15701,23 +15795,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T15:53:05+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15731,39 +15817,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T15:53:05+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#bac162ff-5c2a-4a96-9b77-fd7020976160"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.109"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15781,69 +15881,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-13T15:53:05+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-13T15:53:05+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#bf818399-b331-4fa4-b335-98548e037378"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "5555"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.16"
               },
-              "pk": {
+              "specific": {
+                "S": "5555"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15861,11 +15967,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -15875,9 +15976,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -15898,32 +15996,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "3333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#c8161719-5ac8-45ba-a3fb-ab69ea39ddcb"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.14"
               },
-              "pk": {
+              "specific": {
+                "S": "3333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -15941,69 +16053,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-12T13:45:48+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#d212a841-7d48-4cb6-b776-cccc2845c383"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-09-13T20:19:17+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T20:19:17+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "333"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.108"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16021,69 +16139,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-09-13T20:19:17+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-09-13T20:19:17+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#d4d4c6a0-3d51-42cf-b93f-4c503f67d72d"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-08-30T14:30:13+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
+              "pk": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
               },
-              "pk_5": {
+              "sk": {
                 "S": "FIN#436992569"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-08-30T14:30:13+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "asserts"
               },
               "type": {
                 "S": "INPUTS"
               },
-              "sk": {
-                "S": "FIN#436992569"
+              "where": {
+                "S": "testing"
               },
-              "sk_3": {
-                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              "specific": {
+                "S": "asserts"
               },
               "pk_2": {
                 "S": "ROOT"
               },
-              "where": {
-                "S": "testing"
-              },
-              "pk": {
+              "sk_2": {
                 "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16101,23 +16225,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-16T20:02:17+00:00"
+                    "S": "2019-08-30T14:30:13+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -16131,39 +16247,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-16T20:02:17+00:00"
+                    "S": "2019-08-30T14:30:13+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "1111"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#f2d577b4-855b-41fc-a844-2b96f797775c"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.113"
               },
-              "pk": {
+              "specific": {
+                "S": "1111"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16181,23 +16311,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2019-09-13T14:03:05+00:00"
+                    "S": "2019-09-16T20:02:17+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#436992569"
               },
               "unreliable_indicators": {
                 "M": {
@@ -16211,39 +16333,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-09-13T14:03:05+00:00"
+                    "S": "2019-09-16T20:02:17+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "333"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "PORTS"
+              "sk_3": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#fc01759b-0f2f-4e4e-9e24-5c27c91d574b"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
               },
               "sk": {
                 "S": "FIN#436992569"
               },
-              "sk_3": {
-                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.100.103"
               },
-              "pk": {
+              "specific": {
+                "S": "333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16261,23 +16397,15 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
-                    "S": "2018-11-27T19:54:08+00:00"
+                    "S": "2019-09-13T14:03:05+00:00"
                   },
                   "status": {
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#457497316"
               },
               "unreliable_indicators": {
                 "M": {
@@ -16291,39 +16419,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2018-11-27T19:54:08+00:00"
+                    "S": "2019-09-13T14:03:05+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "userToken"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "INPUTS"
+              "sk_3": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              },
+              "pk_5": {
+                "S": "FIN#436992569"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#feabfd52-0b0f-405e-bf6a-e9a224af6726"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
               },
               "sk": {
                 "S": "FIN#457497316"
               },
-              "sk_3": {
-                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "INPUTS"
               },
               "where": {
                 "S": "https://10.1.1.1/"
               },
-              "pk": {
+              "specific": {
+                "S": "userToken"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16341,69 +16483,75 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2018-11-27T19:54:08+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2018-11-27T19:54:08+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
+              },
+              "pk_5": {
+                "S": "FIN#457497316"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
                 "S": "VULN#6192c72f-2e10-4259-9207-717b2d90d8d2"
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-09-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#457497318"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2020-09-12T13:45:48+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "6666"
-              },
-              "type": {
-                "S": "PORTS"
+              "pk": {
+                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
               },
               "sk": {
                 "S": "FIN#457497318"
               },
-              "sk_3": {
-                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "PORTS"
               },
               "where": {
                 "S": "192.168.1.9"
               },
-              "pk": {
+              "specific": {
+                "S": "6666"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16421,11 +16569,92 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-09-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2020-09-12T13:45:48+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
+              },
+              "pk_5": {
+                "S": "FIN#457497318"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_6": {
                 "S": "VULN#afb345f6-9319-416a-b174-0201d7cd3822"
               }
             },
             {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "FIN#463461507"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.105"
+              },
+              "specific": {
+                "S": "3636"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-13T14:58:38+00:00"
+                  },
+                  "status": {
+                    "S": "OPEN"
+                  }
+                }
+              },
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -16435,9 +16664,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#463461507"
               },
               "unreliable_indicators": {
                 "M": {
@@ -16458,32 +16684,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "3636"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#463461507"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.100.105"
-              },
-              "pk": {
-                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#463461507"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
+              },
+              "sk": {
+                "S": "FIN#463461507"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.18"
+              },
+              "specific": {
+                "S": "7777"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
               },
               "state": {
                 "M": {
@@ -16494,18 +16734,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
+                    "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
                     "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#09afd608-aa53-4bbc-9094-0076181fa0ea"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -16528,9 +16763,6 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#463461507"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -16550,32 +16782,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "7777"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#463461507"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.1.18"
-              },
-              "pk": {
-                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_5": {
+                "S": "FIN#463461507"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "path/to/file2.ext"
+              },
+              "specific": {
+                "S": "12"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
               },
               "state": {
                 "M": {
@@ -16586,18 +16832,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-09-12T13:45:48+00:00"
+                    "S": "2019-01-15T15:43:39+00:00"
                   },
                   "status": {
                     "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#e248e8e0-0323-41c7-bc02-4ee61d09f9c4"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -16620,9 +16861,6 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#463558592"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -16642,32 +16880,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "12"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "sk": {
-                "S": "FIN#463558592"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
               },
-              "pk_2": {
-                "S": "ROOT"
+              "pk_5": {
+                "S": "FIN#463558592"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
               },
               "where": {
                 "S": "path/to/file2.ext"
               },
-              "pk": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
+              "specific": {
+                "S": "12456"
               },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_2": {
+                "S": "ROOT"
               },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              "sk_2": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
               },
               "state": {
                 "M": {
@@ -16678,18 +16930,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-01-15T15:43:39+00:00"
+                    "S": "2019-01-15T20:59:16+00:00"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "CLOSED"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#0a848781-b6a4-422e-95fa-692151e6a98e"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -16699,9 +16946,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#463558592"
               },
               "unreliable_indicators": {
                 "M": {
@@ -16722,32 +16966,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "12456"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "sk": {
-                "S": "FIN#463558592"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "path/to/file2.ext"
-              },
-              "pk": {
-                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#463558592"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/path/to/file3.ext"
+              },
+              "specific": {
+                "S": "345"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
               },
               "state": {
                 "M": {
@@ -16758,18 +17016,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-01-15T20:59:16+00:00"
+                    "S": "2019-01-16T13:47:07+00:00"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#242f848c-148a-4028-8e36-c7d995502590"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -16780,8 +17033,31 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#463558592"
+              "verification": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -16808,126 +17084,31 @@
                   }
                 }
               },
-              "specific": {
-                "S": "345"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "zero_risk": {
-                "M": {
-                  "modified_by": {
-                    "S": "test@gmail.com"
-                  },
-                  "modified_date": {
-                    "S": "2018-09-28T15:32:58+00:00"
-                  },
-                  "comment_id": {
-                    "S": "123456"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
-              },
-              "sk": {
-                "S": "FIN#463558592"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "product/path/to/file3.ext"
-              },
-              "pk": {
-                "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#463558592"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#requested"
               },
-              "state": {
-                "M": {
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "modified_date": {
-                    "S": "2019-01-16T13:47:07+00:00"
-                  },
-                  "status": {
-                    "S": "OPEN"
-                  }
-                }
+              "pk_6": {
+                "S": "GROUP#unittesting"
               },
-              "sk_2": {
+              "sk_6": {
                 "S": "VULN#3bcdb384-5547-4170-a0b6-3b397a245465"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
               }
             },
             {
-              "treatment": {
-                "M": {
-                  "modified_by": {
-                    "S": "integratesuser@gmail.com"
-                  },
-                  "accepted_until": {
-                    "S": "2021-01-16T17:46:10+00:00"
-                  },
-                  "assigned": {
-                    "S": "integratesuser@gmail.com"
-                  },
-                  "justification": {
-                    "S": "This is a treatment justification test"
-                  },
-                  "modified_date": {
-                    "S": "2020-10-13T17:46:10+00:00"
-                  },
-                  "status": {
-                    "S": "ACCEPTED"
-                  }
-                }
+              "pk": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
               },
-              "pk_5": {
+              "sk": {
                 "S": "FIN#463558592"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-01-16T13:47:07+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "1"
-                  }
-                }
-              },
-              "specific": {
-                "S": "564"
               },
               "type": {
                 "S": "LINES"
@@ -16942,42 +17123,17 @@
                   }
                 ]
               },
-              "zero_risk": {
-                "M": {
-                  "modified_by": {
-                    "S": "test@gmail.com"
-                  },
-                  "modified_date": {
-                    "S": "2018-09-28T15:32:58+00:00"
-                  },
-                  "comment_id": {
-                    "S": "123456"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
+              "where": {
+                "S": "path/to/file4.ext"
               },
-              "sk": {
-                "S": "FIN#463558592"
-              },
-              "sk_3": {
-                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              "specific": {
+                "S": "564"
               },
               "pk_2": {
                 "S": "ROOT"
               },
-              "where": {
-                "S": "path/to/file4.ext"
-              },
-              "pk": {
+              "sk_2": {
                 "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -16995,11 +17151,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -17022,8 +17173,138 @@
                   }
                 }
               },
+              "zero_risk": {
+                "M": {
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-01-16T13:47:07+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "1"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "sk_3": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              },
               "pk_5": {
                 "S": "FIN#463558592"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#54b94fa0-8f4f-4b10-a38a-6e848a9eb0c6"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
+              },
+              "where": {
+                "S": "product/test/test#.config"
+              },
+              "specific": {
+                "S": "123345"
+              },
+              "root_id": {
+                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "pk_2": {
+                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              },
+              "sk_2": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-15T20:59:16+00:00"
+                  },
+                  "status": {
+                    "S": "CLOSED"
+                  }
+                }
+              },
+              "treatment": {
+                "M": {
+                  "modified_by": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "accepted_until": {
+                    "S": "2021-01-16T17:46:10+00:00"
+                  },
+                  "assigned": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "justification": {
+                    "S": "This is a treatment justification test"
+                  },
+                  "modified_date": {
+                    "S": "2020-10-13T17:46:10+00:00"
+                  },
+                  "status": {
+                    "S": "ACCEPTED"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -17044,51 +17325,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "123345"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "zero_risk": {
-                "M": {
-                  "modified_by": {
-                    "S": "test@gmail.com"
-                  },
-                  "modified_date": {
-                    "S": "2018-09-28T15:32:58+00:00"
-                  },
-                  "comment_id": {
-                    "S": "123456"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
-              },
-              "sk": {
-                "S": "FIN#463558592"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
               },
-              "pk_2": {
-                "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              "pk_5": {
+                "S": "FIN#463558592"
               },
-              "root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#true#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              },
+              "sk": {
+                "S": "FIN#463558592"
+              },
+              "type": {
+                "S": "LINES"
               },
               "where": {
                 "S": "product/test/test#.config"
               },
-              "pk": {
-                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
+              "specific": {
+                "S": "123"
               },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_2": {
+                "S": "ROOT"
               },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#true#STATE#closed#VERIF#none"
+              "sk_2": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
               },
               "state": {
                 "M": {
@@ -17099,18 +17375,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-01-15T20:59:16+00:00"
+                    "S": "2019-01-15T15:43:39+00:00"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#6f023c26-5b10-4ded-aa27-bb563c2206ab"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -17133,8 +17404,31 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#463558592"
+              "verification": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
+              },
+              "zero_risk": {
+                "M": {
+                  "modified_by": {
+                    "S": "test@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-09-28T15:32:58+00:00"
+                  },
+                  "comment_id": {
+                    "S": "123456"
+                  },
+                  "status": {
+                    "S": "REQUESTED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -17161,48 +17455,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "123"
-              },
-              "type": {
-                "S": "LINES"
-              },
-              "zero_risk": {
-                "M": {
-                  "modified_by": {
-                    "S": "test@gmail.com"
-                  },
-                  "modified_date": {
-                    "S": "2018-09-28T15:32:58+00:00"
-                  },
-                  "comment_id": {
-                    "S": "123456"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
-              },
-              "sk": {
-                "S": "FIN#463558592"
+              "pk_3": {
+                "S": "USER#integratesuser2@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "product/test/test#.config"
-              },
-              "pk": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser2@gmail.com"
+              "pk_5": {
+                "S": "FIN#463558592"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#requested"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "sk": {
+                "S": "FIN#475041513"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.100.105"
+              },
+              "specific": {
+                "S": "3636"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
               },
               "state": {
                 "M": {
@@ -17213,28 +17505,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-01-15T15:43:39+00:00"
+                    "S": "2019-09-13T14:58:38+00:00"
                   },
                   "status": {
                     "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#74632c0c-db08-47c2-b013-c70e5b67c49f"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "REQUESTED"
-                  }
-                }
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -17244,34 +17521,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#475041513"
-              },
-              "unreliable_indicators": {
-                "M": {
-                  "unreliable_reattack_cycles": {
-                    "N": "0"
-                  },
-                  "unreliable_source": {
-                    "S": "ASM"
-                  },
-                  "unreliable_efficacy": {
-                    "N": "0"
-                  },
-                  "unreliable_report_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
-                  "unreliable_treatment_changes": {
-                    "N": "0"
-                  }
-                }
-              },
-              "specific": {
-                "S": "3636"
-              },
-              "type": {
-                "S": "PORTS"
               },
               "zero_risk": {
                 "M": {
@@ -17289,61 +17538,6 @@
                   }
                 }
               },
-              "sk": {
-                "S": "FIN#475041513"
-              },
-              "sk_3": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
-              },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.100.105"
-              },
-              "pk": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#none"
-              },
-              "state": {
-                "M": {
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "modified_date": {
-                    "S": "2019-09-13T14:58:38+00:00"
-                  },
-                  "status": {
-                    "S": "OPEN"
-                  }
-                }
-              },
-              "sk_2": {
-                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
-              }
-            },
-            {
-              "treatment": {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-04-12T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "NEW"
-                  }
-                }
-              },
-              "pk_5": {
-                "S": "FIN#475041513"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -17356,39 +17550,53 @@
                     "N": "0"
                   },
                   "unreliable_report_date": {
-                    "S": "2019-04-12T13:45:48+00:00"
+                    "S": "2019-09-13T14:58:38+00:00"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
                   }
                 }
               },
-              "specific": {
-                "S": "123345"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "LINES"
+              "sk_3": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              },
+              "pk_5": {
+                "S": "FIN#475041513"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#true#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_6": {
+                "S": "VULN#09afd608-aa53-4ccb-9094-0076181fa0ea"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
               },
               "sk": {
                 "S": "FIN#475041513"
               },
-              "sk_3": {
-                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "LINES"
               },
               "where": {
                 "S": "product/test/test#.config"
               },
-              "pk": {
+              "specific": {
+                "S": "123345"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -17406,11 +17614,6 @@
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -17420,9 +17623,6 @@
                     "S": "NEW"
                   }
                 }
-              },
-              "pk_5": {
-                "S": "FIN#475041513"
               },
               "unreliable_indicators": {
                 "M": {
@@ -17443,32 +17643,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "564"
+              "pk_3": {
+                "S": "USER"
               },
-              "type": {
-                "S": "LINES"
+              "sk_3": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
+              },
+              "pk_5": {
+                "S": "FIN#475041513"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_6": {
+                "S": "VULN#5c689459-64c2-4687-9fef-e5f2dd3c710c"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
               },
               "sk": {
                 "S": "FIN#475041513"
               },
-              "sk_3": {
-                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
-              },
-              "pk_2": {
-                "S": "ROOT"
+              "type": {
+                "S": "LINES"
               },
               "where": {
                 "S": "path/to/file4.ext"
               },
-              "pk": {
+              "specific": {
+                "S": "564"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
                 "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
-              },
-              "pk_3": {
-                "S": "USER"
-              },
-              "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
               },
               "state": {
                 "M": {
@@ -17486,11 +17700,92 @@
                   }
                 }
               },
-              "sk_2": {
+              "treatment": {
+                "M": {
+                  "modified_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "status": {
+                    "S": "NEW"
+                  }
+                }
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_report_date": {
+                    "S": "2019-04-12T13:45:48+00:00"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "0"
+                  }
+                }
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_3": {
+                "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
+              },
+              "pk_5": {
+                "S": "FIN#475041513"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_6": {
                 "S": "VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320"
               }
             },
             {
+              "pk": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.29"
+              },
+              "specific": {
+                "S": "3333"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2020-02-19T15:42:04+00:00"
+                  },
+                  "status": {
+                    "S": "CLOSED"
+                  }
+                }
+              },
               "treatment": {
                 "M": {
                   "modified_date": {
@@ -17501,8 +17796,15 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#818828206"
+              "verification": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-02-19T15:41:04+00:00"
+                  },
+                  "status": {
+                    "S": "VERIFIED"
+                  }
+                }
               },
               "unreliable_indicators": {
                 "M": {
@@ -17529,32 +17831,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "3333"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#818828206"
+              "pk_3": {
+                "S": "USER"
               },
               "sk_3": {
                 "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.1.29"
-              },
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "pk_3": {
-                "S": "USER"
+              "pk_5": {
+                "S": "FIN#818828206"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#verified"
+              },
+              "pk_6": {
+                "S": "GROUP#lubbock"
+              },
+              "sk_6": {
+                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
+              },
+              "sk": {
+                "S": "FIN#988493279"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.19"
+              },
+              "specific": {
+                "S": "8888"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
               },
               "state": {
                 "M": {
@@ -17565,28 +17881,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2020-02-19T15:42:04+00:00"
+                    "S": "2019-04-08T00:45:15+00:00"
                   },
                   "status": {
-                    "S": "CLOSED"
+                    "S": "OPEN"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "VERIFIED"
-                  }
-                }
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -17609,9 +17910,6 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#988493279"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -17631,32 +17929,46 @@
                   }
                 }
               },
-              "specific": {
-                "S": "8888"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#988493279"
+              "pk_3": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.1.19"
-              },
-              "pk": {
-                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser@gmail.com"
+              "pk_5": {
+                "S": "FIN#988493279"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "pk_6": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_6": {
+                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
+              },
+              "sk": {
+                "S": "FIN#988493279"
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "where": {
+                "S": "192.168.1.20"
+              },
+              "specific": {
+                "S": "9999"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_2": {
+                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               },
               "state": {
                 "M": {
@@ -17667,18 +17979,13 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2019-04-08T00:45:15+00:00"
+                    "S": "2019-08-07T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "OPEN"
+                    "S": "CLOSED"
                   }
                 }
               },
-              "sk_2": {
-                "S": "VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6"
-              }
-            },
-            {
               "treatment": {
                 "M": {
                   "modified_by": {
@@ -17701,9 +18008,6 @@
                   }
                 }
               },
-              "pk_5": {
-                "S": "FIN#988493279"
-              },
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
@@ -17723,50 +18027,22 @@
                   }
                 }
               },
-              "specific": {
-                "S": "9999"
-              },
-              "type": {
-                "S": "PORTS"
-              },
-              "sk": {
-                "S": "FIN#988493279"
+              "pk_3": {
+                "S": "USER#integratesuser2@gmail.com"
               },
               "sk_3": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               },
-              "pk_2": {
-                "S": "ROOT"
-              },
-              "where": {
-                "S": "192.168.1.20"
-              },
-              "pk": {
-                "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
-              },
-              "pk_3": {
-                "S": "USER#integratesuser2@gmail.com"
+              "pk_5": {
+                "S": "FIN#988493279"
               },
               "sk_5": {
                 "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
-              "state": {
-                "M": {
-                  "modified_by": {
-                    "S": "unittest@fluidattacks.com"
-                  },
-                  "source": {
-                    "S": "ASM"
-                  },
-                  "modified_date": {
-                    "S": "2019-08-07T13:45:48+00:00"
-                  },
-                  "status": {
-                    "S": "CLOSED"
-                  }
-                }
+              "pk_6": {
+                "S": "GROUP#unittesting"
               },
-              "sk_2": {
+              "sk_6": {
                 "S": "VULN#69b84d52-1b18-41fa-84b5-bcb8134cb1ec"
               }
             }
