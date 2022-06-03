@@ -61,7 +61,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     featurePreviewContext as React.Context<Required<IFeaturePreviewContext>>
   );
   const toggleFeaturePreview = useCallback((): void => {
-    setFeaturePreview((currentValue): boolean => !currentValue);
+    setFeaturePreview((currentValue): boolean => {
+      mixpanel.track(`${currentValue ? "Disable" : "Enable"}FeaturePreview`);
+
+      return !currentValue;
+    });
   }, [setFeaturePreview]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
