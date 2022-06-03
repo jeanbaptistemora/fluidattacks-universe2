@@ -136,6 +136,5 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
             },
         ],
-        "orgs": [],
     }
     return await db.populate({**generic_data["db_data"], **data})

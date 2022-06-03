@@ -13,6 +13,16 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    OrganizationPolicies,
+    OrganizationState,
+)
+from decorators import (
+    Organization,
+)
 import pytest
 from typing import (
     Any,
@@ -24,16 +34,21 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "orgs": [
+        "organizations": [
             {
-                "name": "orgtest",
-                "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                "users": [],
-                "groups": [
-                    "group2",
-                    "group3",
-                ],
-                "policy": {},
+                "organization": Organization(
+                    id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    name="orgtest",
+                    policies=OrganizationPolicies(
+                        modified_by=generic_data["global_vars"]["user_email"],
+                        modified_date="2019-11-22T20:07:57+00:00",
+                    ),
+                    state=OrganizationState(
+                        modified_by=generic_data["global_vars"]["user_email"],
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
             },
         ],
         "groups": [

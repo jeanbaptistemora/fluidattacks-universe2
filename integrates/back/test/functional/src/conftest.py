@@ -15,6 +15,14 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
@@ -539,9 +547,26 @@ def generic_data(  # pylint: disable=too-many-locals
                     },
                 },
             ],
-            "orgs": [
+            "organizations": [
                 {
-                    "name": "orgtest",
+                    "organization": Organization(
+                        id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                        name="orgtest",
+                        policies=OrganizationPolicies(
+                            modified_by=admin_email,
+                            max_acceptance_days=7,
+                            modified_date="2019-11-22T20:07:57+00:00",
+                        ),
+                        state=OrganizationState(
+                            modified_by=admin_email,
+                            modified_date="2019-11-22T20:07:57+00:00",
+                            status=OrganizationStateStatus.ACTIVE,
+                        ),
+                    ),
+                },
+            ],
+            "organization_users": [
+                {
                     "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     "users": [
                         admin_email,
@@ -568,13 +593,6 @@ def generic_data(  # pylint: disable=too-many-locals
                         vuln_manager_email,
                         vuln_manager_fluid_email,
                     ],
-                    "groups": [
-                        "group1",
-                        "group2",
-                        "group3",
-                    ],
-                    "policy": {},
-                    "max_acceptance_days": 7,
                 },
             ],
             "groups": [

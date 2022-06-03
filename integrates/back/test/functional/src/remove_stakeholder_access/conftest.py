@@ -16,6 +16,14 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 import pytest
 from typing import (
     Any,
@@ -28,9 +36,30 @@ from typing import (
 async def populate(generic_data: dict[str, Any]) -> bool:
     new_user: str = "justonegroupacess@gmail.com"
     data: dict[str, Any] = {
-        "orgs": [
+        "organizations": [
             {
-                "name": "orgtest4",
+                "organization": Organization(
+                    id="e75525d6-70a6-45ba-9f87-66c2dd2678d9",
+                    name="orgtest4",
+                    policies=OrganizationPolicies(
+                        modified_by=generic_data["global_vars"][
+                            "customer_manager_fluid_email"
+                        ],
+                        max_acceptance_days=7,
+                        modified_date="2019-11-22T20:07:57+00:00",
+                    ),
+                    state=OrganizationState(
+                        modified_by=generic_data["global_vars"][
+                            "customer_manager_fluid_email"
+                        ],
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+        ],
+        "organization_users": [
+            {
                 "id": "e75525d6-70a6-45ba-9f87-66c2dd2678d9",
                 "users": [
                     generic_data["global_vars"][
@@ -39,11 +68,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     new_user,
                     generic_data["global_vars"]["admin_email"],
                 ],
-                "groups": [
-                    "group4",
-                ],
-                "policy": {},
-                "max_acceptance_days": 7,
             },
         ],
         "users": [
