@@ -255,8 +255,56 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class QueryTimeout {
+        private static final String URL = "mydburl";
+        private static final String USERNAME = "root";
+        private static final String PASSWORD = "";
+
+        public static void main(String[] args) {
+          Statement stmt = connection.createStatement();
+
+          // Execute sql query
+          ResultSet rs = stmt.executeQuery("select * from products");
+
+          while (rs.next()) {
+              System.out.println("code: " + rs.getString("code")
+                      + " ,product: " + rs.getString("name")
+                      + " ,price: " + rs.getDouble("price"));
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class QueryTimeout {
+        private static final String URL = "mydburl";
+        private static final String USERNAME = "root";
+        private static final String PASSWORD = "";
+
+        public static void main(String[] args) {
+          try (Connection connection =
+            DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement stmt = connection.createStatement();
+
+            //Set a query timeout limit
+            stmt.setQueryTimeout(60);
+
+            // Execute sql query
+            ResultSet rs = stmt.executeQuery("select * from products");
+
+            while (rs.next()) {
+                System.out.println("code: " + rs.getString("code")
+                        + " ,product: " + rs.getString("name")
+                        + " ,price: " + rs.getDouble("price"));
+            }
+          } catch (SQLException e) {
+              e.printStackTrace();
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -312,8 +360,48 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class QueryTimeout {
+
+        public static void main(String[] args) {
+          Statement stmt = connection.createStatement();
+
+          // Execute sql query
+          ResultSet rs = stmt.executeQuery("select * from products");
+
+          while (rs.next()) {
+              System.out.println("code: " + rs.getString("code")
+                      + " ,product: " + rs.getString("name")
+                      + " ,price: " + rs.getDouble("price"));
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class QueryTimeout {
+        public static void main(String[] args) {
+          try {
+            Statement stmt = connection.createStatement();
+
+            //Set a query timeout limit
+            stmt.setQueryTimeout(60);
+
+            // Execute sql query
+            ResultSet rs = stmt.executeQuery("select * from products");
+
+            while (rs.next()) {
+                System.out.println("code: " + rs.getString("code")
+                        + " ,product: " + rs.getString("name")
+                        + " ,price: " + rs.getDouble("price"));
+            }
+          } catch (SQLException e) {
+              e.printStackTrace();
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -565,8 +653,34 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      provider "aws" {
+        region     = "us-west-2"
+        access_key = "*"
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "aws_iam_policy" "policy" {
+        name        = "test_policy"
+        path        = "/mypath"
+        description = "My test policy"
+
+        policy = jsonencode({
+          Version = "2012-10-17"
+          Statement = [
+            {
+              Action = [
+                "ec2:Describe*",
+              ]
+              Effect   = "Allow"
+              Resource = "db_critical"
+            },
+          ]
+        })
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -623,8 +737,26 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      POST /email/change HTTP/1.1
+      Host: vulnerable-website.com
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 30
+      Cookie: session=yvthwsztyeQkAPzeQ5gHgTvlyxHfsAfE
+      email=wiener@normal-user.com
+      ```
+    compliant: |
+      ```html
+      <html>
+        <body>
+          <input type="hidden" name="csrf-token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" />
+          <input type="text" name="name" id="name" placeholder="Name" required/>
+          <label id="icon" for="name"><i class="fas fa-unlock-alt"></i></label>
+          <input type="password" name="name" id="name" placeholder="Password" required/>
+        </body>
+      </html>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -1221,8 +1353,29 @@
       Usuario autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const roles = {
+        ADMIN: "ADMIN",
+        EDITOR: "EDITOR",
+        GUEST: "GUEST"
+      };
+
+      mappings.set(actions.MODIFY_FILE, [roles.ADMIN, roles.EDITOR, roles.GUEST]);
+      ```
+    compliant: |
+      ```javascript
+      const roles = {
+        ADMIN: "ADMIN",
+        EDITOR: "EDITOR",
+        GUEST: "GUEST"
+      };
+
+      mappings.set(actions.MODIFY_FILE, [roles.ADMIN, roles.EDITOR]);
+      mappings.set(actions.VIEW_FILE, [roles.ADMIN, roles.EDITOR, roles.GUEST]);
+      mappings.set(actions.DELETE_FILE, [roles.ADMIN]);
+      mappings.set(actions.CREATE_FILE, [roles.ADMIN, roles.EDITOR]);
+      ```
   remediation_time: "60"
   score:
     base:
@@ -1275,8 +1428,36 @@
       autorizado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```php
+      <?php
+      if(isset($_POST['Submit'])){
+
+        $answer_1=trim($_POST["answer_1"]);
+
+        if ($answer_1 != "") {
+          echo 'Password has been changes!';
+        } else {
+          echo 'Invalid answer';
+        }
+      }
+      ?>
+      ```
+    compliant: |
+      ```php
+      <?php
+      if(isset($_POST['Submit'])){
+
+        $answer_1=trim($_POST["answer_1"]);
+
+        if (answer_verify($answer_1, $hash)) {
+          echo 'Password has been changes!';
+        } else {
+          echo 'Invalid answer';
+        }
+      }
+      ?>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -1614,8 +1795,24 @@
     threat: Atacante anónimo desde red local.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      acl "https-<instance>";
+      authenticate (user,group) {
+      database = "default";
+      method = "basic";
+      };
+      allow (all)
+      ```
+    compliant: |
+      ```java
+      acl "https-<instance>";
+      authenticate (user,group) {
+      database = "default";
+      method = "basic";
+      };
+      deny absolute (all) user != "UserA";
+      ```
   remediation_time: "60"
   score:
     base:
@@ -1660,8 +1857,28 @@
     threat: Atacante autenticado desde la red local.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      localStorage.setItem('password',user_password);
+      ```
+    compliant: |
+      ```javascript
+      // Use cookies to avoid storing sensitive information
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      // Get cookie to restore session credentials
+      function restoreSession(cname){
+        userCookie = getcookies(cname);
+        if(userCookie){
+          restoreSession(user);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -2160,8 +2377,30 @@
     threat: Atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      port: 8008
+        tls: false
+        type: http
+        x_forwarded: true
+        bind_addresses: ['::1', '127.0.0.1']
+
+        resources:
+          - names: [client, federation]
+            compress: false
+      ```
+    compliant: |
+      ```yaml
+      port: 8008
+        tls: true
+        type: http
+        x_forwarded: true
+        bind_addresses: ['::1', '127.0.0.1']
+
+        resources:
+          - names: [client, federation]
+            compress: false
+      ```
   remediation_time: "60"
   score:
     base:
@@ -2283,8 +2522,26 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      var file = document.getElementById('element');
+      uploadFile(file)
+      ```
+    compliant: |
+      ```python
+      var uploadcontrol = document.getElementById('<%=FileUpload1.ClientID%>').value;
+      def validateFile(str):
+          regex = "^.*\.(jpg|JPG|gif|GIF|doc|DOC|pdf|PDF)$"
+          p = re.compile(regex)
+
+          if(re.search(p, str)):
+              return True
+          else:
+              return False
+      if validateFile(uploadControl) {
+        uploadFile(file);
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -2338,8 +2595,32 @@
       local al servidor.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      import java.io.File;
+
+      public class Test {
+          public static void main(String[] args){
+            try {
+              file = File.createTempFile(credentials, null));
+              uploadFile(file)
+            } catch (Exception e) {}
+          }
+      }
+      ```
+    compliant: |
+      ```java
+      import java.io.File;
+
+      public class Test {
+          public static void main(String[] args){
+            try {
+              encryptedHash = encryptInfo(credentials);
+              addUser(user, encryptedHash);
+            } catch (Exception e) {}
+          }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -2479,8 +2760,24 @@
       ejecutando un ataque de sniffing.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      // Get cookie to restore session credentials
+      function restoreSession(cname){
+        userCredentials = fetch('myurl/${userId}')
+        restoreSession(userCredentials)
+      }
+      ```
+    compliant: |
+      ```javascript
+      // Get cookie to restore session credentials
+      function restoreSession(cname){
+        userCookie = getcookies(cname);
+        if(userCookie){
+          restoreSession(user);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -2669,8 +2966,31 @@
       Atacante autenticado desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class PrintingExceptionMessage {
+        public static void main(String args[]) throws Exception {
+            String msg = "This is my custom message";
+            try{
+              //Do something
+            } catch (e){
+              throw new Exception("CoustomMessage: "+msg, e);
+            }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class PrintingExceptionMessage {
+        public static void main(String args[]) throws Exception {
+            try{
+              //Do something
+            } catch (e){
+              throw new Exception(e);
+            }
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -3161,8 +3481,24 @@
       Atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function retrieveInfo(userId){
+        if(userId != ""){
+          usersInfo = getUserList();
+          displayInfo(usersInfo);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      function retrieveInfo(userId, sessionCookie){
+        if(isUserLoggedIn(userId, sessionCokie) && isUserAdmin(userId)){
+          usersInfo = getUserList();
+          displayInfo(usersInfo);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3210,8 +3546,24 @@
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      // Get cookie to restore session credentials
+      function restoreSession(cname){
+        userCredentials = fetch('myurl/${userId}')
+        restoreSession(userCredentials)
+      }
+      ```
+    compliant: |
+      ```javascript
+      // Get cookie to restore session credentials
+      function restoreSession(cname){
+        userCookie = getcookies(cname);
+        if(userCookie){
+          restoreSession(user);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3265,8 +3617,40 @@
     threat: Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+       <location path="_layouts">
+          <system.web>
+            <authorization>
+              <deny users="?" />
+            </authorization>
+          </system.web>
+      </location>
+      <location path="_vti_bin">
+          <system.web>
+            <authorization>
+              <deny users=none />
+            </authorization>
+          </system.web>
+      </location>
+      ```
+    compliant: |
+      ```html
+       <location path="_layouts">
+          <system.web>
+            <authorization>
+              <deny users="?" />
+            </authorization>
+          </system.web>
+      </location>
+      <location path="_vti_bin">
+          <system.web>
+            <authorization>
+              <deny users="?"/>
+            </authorization>
+          </system.web>
+      </location>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3321,8 +3705,30 @@
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      resource "aws_iam_user" "example" {
+        name = "example"
+      }
+
+      resource "aws_iam_service_specific_credential" "example" {
+        service_name     = "example"
+        user_name        = admin
+        service_password = default
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "aws_iam_user" "example" {
+        name = "example"
+      }
+
+      resource "aws_iam_service_specific_credential" "example" {
+        service_name     = "example"
+        user_name        = user_name
+        service_password = "my_aws_key"
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -3565,8 +3971,34 @@
       Atacante autenticado desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <webServices>
+      <protocols>
+        <clear/>
+        <add name="AnyHttpSoap"/>
+        <add name="Documentation"/>
+        <add name="HttpPostLocalhost"/>
+        <add name="HttpTrace"/>
+        <add name="Http"/>
+        <remove name="Unknown"/>
+      </protocols>
+      </webServices>
+      ```
+    compliant: |
+      ```html
+      <webServices>
+      <protocols>
+        <clear/>
+        <add name="AnyHttpSoap"/>
+        <add name="Documentation"/>
+        <add name="HttpPostLocalhost"/>
+        <remove name="HttpTrace"/>
+        <remove name="HttpPut"/>
+        <remove name="Unknown"/>
+      </protocols>
+      </webServices>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -3634,8 +4066,25 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      def my_form_post():
+        text = request.form['text']
+        processed_text = text.upper()
+        return processed_text
+      ```
+    compliant: |
+      ```python
+      def cleanStr(str)
+        if (str == None):
+          return False
+        return re.sub(r'[-\(\)\"#\/@;:<>\{\}\-=~|\.\?]', '', str)
+
+      def my_form_post():
+        text = request.form['text']
+        processed_text = cleanStr(txt)
+        return processed_text
+      ```
   remediation_time: "60"
   score:
     base:
@@ -3945,8 +4394,19 @@
       Atacante anónimo desde una red adyacente.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Verify that all imports are used in the model
+      ```javascript
+      import <ins>unusedDataStructure</ins> from dbmodel
+      ```
+    compliant: |
+      ```javascript
+      import dataStructure from dbmodel
+
+      define filterdata(dataId){
+        dataStructure.filter(x: dataId);
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -4022,8 +4482,45 @@
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForAppA
+            Description: "This secret has a dynamically generated secret password."
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 8
+              ExcludeLowercase: True
+              ExcludeNumbers: False
+              ExcludePunctuation: true
+              ExcludeUppercase: false
+              IncludeSpace: True
+              RequireEachIncludedType: False
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForAppA
+            Description: "This secret has a dynamically generated secret password."
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 16
+              ExcludeCharacters: '"@/\'
+              ExcludeLowercase: False
+              ExcludeNumbers: False
+              ExcludePunctuation: False
+              ExcludeUppercase: false
+              IncludeSpace: false
+              RequireEachIncludedType: True
+      ```
   remediation_time: "15"
   score:
     base:
@@ -4083,8 +4580,23 @@
       con acceso a los hashes.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function hashPassword(password) {
+        const md5sum = crypto.createHash('md5');
+        const res = md5sum.update(password);
+        return res;
+      };
+      ```
+    compliant: |
+      ```javascript
+      function hashPassword(password) {
+        this.salt = crypto.randomBytes(256).toString('hex');
+        this.hash = crypto.pbkdf2Sync(password, this.salt,
+        1000, 64, `sha512`).toString(`hex`);
+        return
+      };
+      ```
   remediation_time: "30"
   score:
     base:
@@ -12256,9 +12768,9 @@
 
       public class Test {
           public static void main(String[] args){
-              try {
+            try {
               System.out.println(File.createTempFile("xxx", null));
-              } catch (Exception e) {}
+            } catch (Exception e) {}
           }
       }
       ```
@@ -12288,9 +12800,10 @@
       ```import java.nio.file.Files;
       public class Test {
           public static void main(String[] args){
-              try {
+            try {
+              // Provide attrs to define different directory path and correct permissions
               System.out.println(Files.createTempFile("xxx", attrs=[xxx]));
-              } catch (Exception e) {}
+            } catch (Exception e) {}
           }
       }
       ```
@@ -15564,10 +16077,10 @@
         {
           public IActionResult Validate(string regex, string input)
           {
-              var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
-              Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
-              bool match = reg.IsMatch("testing", @"\b(?<word>\w+)\s+(\k<word>)\b");
-              bool match2 = reg.IsMatch(input, expreg);
+            var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+            Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+            bool match = reg.IsMatch("testing", @"\b(?<word>\w+)\s+(\k<word>)\b");
+            bool match2 = reg.IsMatch(input, expreg);
           }
         }
       }
@@ -15581,9 +16094,9 @@
         {
           public IActionResult Validate(string regex, string input)
           {
-              var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
-              Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
-              bool match = reg.IsMatch(input, reg.Escape(regex));
+            var expreg = @"\b(?<word>\w+)\s+(\k<word>)\b";
+            Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+            bool match = reg.IsMatch(input, reg.Escape(regex));
           }
         }
       }
