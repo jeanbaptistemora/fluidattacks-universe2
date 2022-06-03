@@ -81,6 +81,62 @@ locals {
             ]
           },
           {
+            Sid    = "redshiftClustersRead"
+            Effect = "Allow"
+            Action = [
+              "redshift:DescribeClusterSubnetGroups",
+              "redshift:DescribeEvents",
+              "redshift:DescribeClusters",
+              "redshift:DescribeClusterSnapshots",
+              "redshift:DescribeUsageLimits",
+              "redshift:DescribeSnapshotSchedules",
+            ]
+            Resource = [
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:event:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:snapshot:*/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:snapshotschedule:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:usagelimit:*",
+            ]
+          },
+          {
+            # required for some redshift front views
+            Sid    = "redshiftGeneralRead"
+            Effect = "Allow"
+            Action = [
+              "redshift:DescribeReservedNodes",
+              "redshift:DescribeClusterDbRevisions",
+              "redshift:DescribeScheduledActions",
+              "redshift:DescribeHsmConfigurations",
+              "redshift:DescribePartners",
+            ]
+            Resource = [
+              "*",
+            ]
+          },
+          {
+            Sid    = "redshiftReadSecrets"
+            Effect = "Allow"
+            Action = [
+              "redshift:GetClusterCredentials",
+            ]
+            Resource = [
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:observes/*",
+            ]
+          },
+          {
+            Sid    = "redshiftReadSecretsDescribe"
+            Effect = "Allow"
+            Action = [
+              "redshift-data:*",
+            ]
+            Resource = [
+              "*",
+            ]
+          },
+          {
             Sid    = "dynamoWrite"
             Effect = "Allow"
             Action = [
