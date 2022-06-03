@@ -63,8 +63,8 @@ async def test_add_group(populate: bool, email: str) -> None:
     assert group.state.tier == GroupTier.FREE
     assert group.state.type == GroupSubscriptionType.CONTINUOUS
 
-    org_groups: tuple[str, ...] = await orgs_domain.get_groups(org_id)
-    assert group_name in org_groups
+    org_group_names = await orgs_domain.get_group_names(loaders, org_id)
+    assert group_name in org_group_names
     assert await orgs_domain.has_user_access(org_id, email)
     # Admins are not granted access to the group
     group_users = await group_access_domain.get_group_users(group_name)

@@ -70,9 +70,9 @@ async def _remove_organization(
     )
     success = all(users_removed) if users else True
 
-    org_groups = await orgs_domain.get_groups(organization_id)
+    group_names = await orgs_domain.get_group_names(loaders, organization_id)
     await collect(
-        _remove_group(loaders, group, modified_by) for group in org_groups
+        _remove_group(loaders, group, modified_by) for group in group_names
     )
     if success:
         await orgs_domain.update_org_state(
@@ -83,7 +83,7 @@ async def _remove_organization(
         )
         info(
             f"Organization removed {organization_name}, "
-            f"groups removed: {org_groups}"
+            f"groups removed: {group_names}"
         )
 
 
@@ -102,8 +102,8 @@ async def delete_obsolete_orgs() -> None:
             organization.state.pending_deletion_date
         )
         org_users = await orgs_domain.get_users(org_id)
-        org_groups = await orgs_domain.get_groups(org_id)
-        if len(org_users) == 0 and len(org_groups) == 0:
+        org_group_names = await orgs_domain.get_group_names(loaders, org_id)
+        if len(org_users) == 0 and len(org_group_names) == 0:
             if org_pending_deletion_date_str:
                 org_pending_deletion_date = (
                     datetime_utils.get_datetime_from_iso_str(

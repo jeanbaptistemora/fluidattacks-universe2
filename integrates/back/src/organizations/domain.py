@@ -191,7 +191,7 @@ async def get_all_active_group_names(
     return active_group_names
 
 
-async def get_groups(organization_id: str) -> Tuple[str, ...]:
+async def _get_groups(organization_id: str) -> Tuple[str, ...]:
     """Return a tuple of group names for the provided organization."""
     return tuple(await orgs_dal.get_groups(organization_id))
 
@@ -356,7 +356,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
     """Yield (org_id, org_name, org_groups) non-concurrently generated."""
     async for org_id, org_name in orgs_dal.iterate_organizations():
         # Exception: WF(AsyncIterator is subtype of iterator)
-        yield org_id, org_name, await get_groups(org_id)  # NOSONAR
+        yield org_id, org_name, await _get_groups(org_id)  # NOSONAR
 
 
 async def remove_group(group_name: str, organization_id: str) -> bool:

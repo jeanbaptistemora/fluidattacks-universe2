@@ -154,9 +154,10 @@ async def test_remove_organization() -> None:
     assert orgs_utils.is_deleted_typed(org)
 
 
-async def test_get_groups() -> None:
+async def test_get_group_names() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"  # NOSONAR
-    groups = await orgs_domain.get_groups(org_id)
+    groups = await orgs_domain.get_group_names(loaders, org_id)
     assert len(groups) == 3
     assert sorted(groups) == [
         "continuoustesting",

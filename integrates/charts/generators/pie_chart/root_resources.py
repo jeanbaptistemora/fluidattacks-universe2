@@ -115,7 +115,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             subject=org_id,
         )
 
-        all_org_groups = await orgs_domain.get_groups(org_id)
+        all_org_groups = await orgs_domain.get_group_names(loaders, org_id)
         valid_org_groups = active_group_names.intersection(all_org_groups)
         grouped_roots = [
             [
