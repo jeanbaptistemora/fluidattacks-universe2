@@ -9,8 +9,9 @@ const parameters: Parameters = {
   backgrounds: {
     default: "light",
     values: [
-      { name: "light", value: "#e9e9ed" },
       { name: "dark", value: "#333333" },
+      { name: "fluid gray", value: "#e9e9ed" },
+      { name: "light", value: "#ffffff" },
     ],
   },
   controls: {
