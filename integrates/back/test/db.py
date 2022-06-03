@@ -171,19 +171,6 @@ async def populate_orgs(data: List[Any]) -> bool:
     return success
 
 
-async def populate_organization_groups(data: list[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    for org in data:
-        for group in org["groups"]:
-            coroutines.append(
-                dal_organizations.add_group(
-                    f'ORG#{org["id"]}',
-                    group,
-                )
-            )
-    return all(await collect(coroutines))
-
-
 async def populate_organization_users(data: list[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for org in data:

@@ -2,6 +2,17 @@
 from back.test import (
     db,
 )
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -24,6 +35,46 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "groups": [
+            {
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group1",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=True,
+                        managed=True,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.OTHER,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                ),
+            },
+            {
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group2",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=True,
+                        managed=True,
+                        modified_by="unknown",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.BLACK,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.OTHER,
+                        type=GroupSubscriptionType.ONESHOT,
+                    ),
+                    organization_id="8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
+                ),
+            },
+        ],
         "organizations": [
             {
                 "organization": Organization(
@@ -82,20 +133,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "id": "8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
                 "users": [
                     "admin@gmail.com",
-                ],
-            },
-        ],
-        "organization_groups": [
-            {
-                "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                "groups": [
-                    "group1",
-                ],
-            },
-            {
-                "id": "8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
-                "groups": [
-                    "group2",
                 ],
             },
         ],

@@ -984,9 +984,8 @@ async def get_groups_by_user(
         user_email, group_names, with_cache=with_cache
     )
     if organization_id:
-        org_group_names: set[str] = set(
-            await orgs_domain.get_groups(organization_id)
-        )
+        org_groups = await loaders.organization_groups.load(organization_id)
+        org_group_names: set[str] = set(group.name for group in org_groups)
         group_names = [
             group_name
             for group_name in group_names
