@@ -1,0 +1,8 @@
+lib_path.f065.has_autocomplete:
+  en: >
+    The application does not disable caching of input fields,
+    thus the information will be stored in the browser's cache.
+  es: >
+    La aplicación no deshabilita el almacenamiento en caché
+    de los campos de entrada, por lo que la información se almacenará
+    en el caché del navegador.
