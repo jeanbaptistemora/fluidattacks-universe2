@@ -217,6 +217,10 @@ async def main(
         reset_ephemeral_state()
 
         log_blocking("info", f"Namespace: {CTX.config.namespace}")
+        log_blocking(
+            "info",
+            f"HEAD is now at: {get_repo_head_hash(CTX.config.working_dir)}",
+        )
         log_blocking("info", f"Startup work dir is: {CTX.config.start_dir}")
         log_blocking("info", f"Moving work dir to: {CTX.config.working_dir}")
 
