@@ -6,7 +6,7 @@
     "CVE-2017-16160": "=1.1.0"
   },
   "1337qq-js": {
-    "GHSA-7wgh-5q4q-6wx5": ">=0"
+    "GHSA-7wgh-5q4q-6wx5": "0.0.1-security"
   },
   "22lixian": {
     "CVE-2017-16162": "=1.0.0"
@@ -15,7 +15,7 @@
     "CVE-2017-16186": "=0.1.1"
   },
   "4equest": {
-    "GHSA-p33q-w45h-2hcj": ">=0"
+    "GHSA-p33q-w45h-2hcj": "0.0.1-security"
   },
   "626": {
     "CVE-2018-3727": "=1.1.1"
@@ -169,7 +169,7 @@
     "GHSA-jcjx-c3j3-44pr": ">=1.1.0 <1.1.3"
   },
   "@diez/generation": {
-    "CVE-2021-32830": ">=0"
+    "CVE-2021-32830": "<=10.6.0"
   },
   "@eivifj/dot": {
     "CVE-2020-7639": "<=1.0.3"
@@ -445,7 +445,7 @@
     "GHSA-7fw7-gh23-f832": "<=1.3.1"
   },
   "aasync": {
-    "GHSA-9mjp-gv34-3jcf": ">=0"
+    "GHSA-9mjp-gv34-3jcf": "<=0.0.1-security"
   },
   "accepts": {},
   "access-policy": {
@@ -510,16 +510,16 @@
     "CVE-2021-23433": "<3.6.2"
   },
   "ali-contributor": {
-    "GHSA-h3m2-h22h-695r": ">=0"
+    "GHSA-h3m2-h22h-695r": "<=0.0.1-security"
   },
   "ali-contributors": {
-    "GHSA-8m5v-f2wp-wqr9": ">=0"
+    "GHSA-8m5v-f2wp-wqr9": "<=0.0.1-security"
   },
   "alico": {
-    "GHSA-jfx5-7mr2-g8hg": ">=0"
+    "GHSA-jfx5-7mr2-g8hg": "<=0.0.1-security"
   },
   "alipayjsapi": {
-    "GHSA-rjhc-w3fj-j6x9": ">=0"
+    "GHSA-rjhc-w3fj-j6x9": "<=0.0.1-security"
   },
   "alto-saxophone": {
     "CVE-2016-10694": "<2.25.1"
@@ -528,10 +528,10 @@
     "www.npmjs.com/advisories/1472": "<=3.0.3"
   },
   "an0n-chat-lib": {
-    "GHSA-7xcv-wvr7-4h6p": ">=0"
+    "GHSA-7xcv-wvr7-4h6p": "<=0.0.1-security"
   },
   "anarchy": {
-    "GHSA-jjhg-qw5v-r8xx": ">=0"
+    "GHSA-jjhg-qw5v-r8xx": "<=0.0.1-security"
   },
   "anchorme": {
     "CVE-2021-23411": ">=0"
