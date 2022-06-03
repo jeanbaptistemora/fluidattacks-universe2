@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from integrates.dal import (
     get_group_roots,
 )
@@ -26,8 +29,12 @@ from typing import (
     Tuple,
     Union,
 )
+from urllib3 import (
+    exceptions,
+)
 from urllib3.util.url import (
     parse_url,
+    Url,
 )
 
 PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
@@ -196,13 +203,16 @@ def get_urls_from_scopes(scopes: Set[str]) -> List[str]:
 
 def get_ssl_targets(urls: List[str]) -> List[Tuple[str, str]]:
     targets: List[Tuple[str, str]] = []
-
-    for parsed_url in {parse_url(url) for url in urls}:
+    parsed_urls: Set[Url] = set()
+    for url in urls:
+        with suppress(ValueError, exceptions.HTTPError):
+            parsed_urls = {*parsed_urls, parse_url(url)}
+    for parsed_url in parsed_urls:
         if parsed_url.port is None:
-            if ((parsed_url.host, "443")) not in targets:
+            if (parsed_url.host, "443") not in targets:
                 targets.append((parsed_url.host, "443"))
         else:
-            if ((parsed_url.host, str(parsed_url.port))) not in targets:
+            if (parsed_url.host, str(parsed_url.port)) not in targets:
                 targets.append((parsed_url.host, str(parsed_url.port)))
     targets.sort(key=lambda x: x[0])
 

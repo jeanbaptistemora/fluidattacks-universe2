@@ -240,6 +240,8 @@ async def main(  # pylint: disable=too-many-locals)
             for root in roots
         ]
     ):
+        if not download_url:
+            continue
         current_root = roots_dict_by_nickname[
             roots_dict_by_id[root_id].nickname
         ]
@@ -287,6 +289,8 @@ async def main(  # pylint: disable=too-many-locals)
         )
     )
 
+    success = True
+
     for configs in set_configs:
         with suppress(Exception):
             if configs:
@@ -301,9 +305,15 @@ async def main(  # pylint: disable=too-many-locals)
                     token,
                 )
         log_blocking("info", "Executing set of configs")
-        await execute_skims_configs(configs, group_name, token)
+        try:
+            await execute_skims_configs(configs, group_name, token)
+        except Exception as exc:  # pylint: disable=broad-except
+            log_exception_blocking("exception", exc)
+            success = False
 
     delete_action(action_dynamo_pk=action_dynamo_pk)
+    if not success:
+        sys.exit(1)
     return None
 
 
