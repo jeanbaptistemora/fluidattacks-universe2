@@ -546,6 +546,7 @@ export const enTranslations: ResourceKey = {
         root: "Root",
         rootPlaceholder: "Search by nickname...",
         type: {
+          dataUpdate: "Request user modification/workflow update",
           missingSupplies: "Incorrect or missing supplies",
           specialAttack: "Authorization for special attack",
           title: "Type",
@@ -2360,6 +2361,7 @@ export const enTranslations: ResourceKey = {
       type: "Type",
       typeValues: {
         authAttack: "Authorization for special attack",
+        dataUpdate: "Request user modification/workflow update",
         inaccAmbient: "Inaccessible environment",
         incorSupplies: "Incorrect or missing supplies",
         other: "Other",

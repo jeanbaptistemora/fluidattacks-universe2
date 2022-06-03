@@ -202,6 +202,8 @@ enum EventEvidenceType {
 enum EventType {
   "Authorization for special attack"
   AUTHORIZATION_SPECIAL_ATTACK
+  "Request for an user modification or updating a workflow"
+  DATA_UPDATE_REQUIRED
   "Incorrect or missing supplies"
   INCORRECT_MISSING_SUPPLIES
   "Other"

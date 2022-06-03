@@ -33,7 +33,7 @@ describe("Update Affected Modal", (): void => {
             detail: "Test description",
             eventDate: "2018-10-17 00:00:00",
             eventStatus: "CREATED",
-            eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+            eventType: "DATA_UPDATE_REQUIRED",
             groupName: "unittesting",
             id: "463457733",
           },

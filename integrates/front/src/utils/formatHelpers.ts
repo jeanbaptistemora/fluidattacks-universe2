@@ -48,6 +48,7 @@ const castEventType: (field: string) => string = (field: string): string => {
       "searchFindings.tabEvents.typeValues.authAttack",
     "Ambiente inestable": "searchFindings.tabEvents.typeValues.unsAmbient",
     "Ambiente no accesible": "searchFindings.tabEvents.typeValues.inaccAmbient",
+    DATA_UPDATE_REQUIRED: "searchFindings.tabEvents.typeValues.dataUpdate",
     INCORRECT_MISSING_SUPPLIES:
       "searchFindings.tabEvents.typeValues.incorSupplies",
     OTHER: "searchFindings.tabEvents.typeValues.other",
