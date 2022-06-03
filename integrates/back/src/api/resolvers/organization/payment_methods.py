@@ -16,10 +16,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
     List,
-    Optional,
-    Union,
 )
 
 
@@ -28,16 +25,11 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[PaymentMethod]:
-    if isinstance(parent, dict):
-        org_billing_customer: Optional[str] = parent.get(
-            "billing_customer", None
-        )
-    else:
-        org_billing_customer = parent.billing_customer
+    org_billing_customer = parent.billing_customer
     return await billing_domain.customer_payment_methods(
         org_billing_customer=org_billing_customer,
         limit=100,

@@ -15,11 +15,6 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
-from typing import (
-    Any,
-    Optional,
-    Union,
-)
 
 
 @concurrent_decorators(
@@ -27,20 +22,13 @@ from typing import (
     enforce_organization_level_auth_async,
 )
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
-    if isinstance(parent, dict):
-        org_id: str = parent["id"]
-        org_name: str = parent["name"]
-        org_billing_customer: Optional[str] = parent.get(
-            "billing_customer", None
-        )
-    else:
-        org_id = parent.id
-        org_name = parent.name
-        org_billing_customer = parent.billing_customer
+    org_id = parent.id
+    org_name = parent.name
+    org_billing_customer = parent.billing_customer
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 

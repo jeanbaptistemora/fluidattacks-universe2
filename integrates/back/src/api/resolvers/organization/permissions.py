@@ -14,10 +14,8 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
-    Any,
     Dict,
     Set,
-    Union,
 )
 
 # Constants
@@ -39,16 +37,13 @@ async def _get_org_permissions(
 
 
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: Dict,
 ) -> Set[str]:
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    if isinstance(parent, dict):
-        org_id: str = parent["id"]
-    else:
-        org_id = parent.id
+    org_id = parent.id
     identifier = str(kwargs.get("identifier", org_id))
 
     permissions: Set[str] = await _get_org_permissions(

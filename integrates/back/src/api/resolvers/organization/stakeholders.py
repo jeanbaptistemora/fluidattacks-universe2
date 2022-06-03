@@ -17,13 +17,12 @@ from typing import (
     Any,
     Dict,
     List,
-    Union,
 )
 
 
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: None,
 ) -> List[Dict[str, Any]]:
@@ -31,17 +30,17 @@ async def resolve(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
-        id=parent["id"] if isinstance(parent, dict) else parent.id,
+        id=parent.id,
     )
     return response
 
 
 async def resolve_no_cache(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[Dict[str, Any]]:
-    org_id = parent["id"] if isinstance(parent, dict) else parent.id
+    org_id = parent.id
     organization_stakeholders_loader = (
         info.context.loaders.organization_stakeholders
     )

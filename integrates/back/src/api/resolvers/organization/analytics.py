@@ -13,25 +13,18 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-    Union,
-)
 
 
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     _info: GraphQLResolveInfo,
     **kwargs: str,
 ) -> object:
     document_name: str = kwargs["document_name"]
     document_type: str = kwargs["document_type"]
-    if isinstance(parent, dict):
-        org_id: str = parent["id"]
-    else:
-        org_id = parent.id
+    org_id = parent.id
 
     return await analytics_domain.get_document(
         document_name=document_name,

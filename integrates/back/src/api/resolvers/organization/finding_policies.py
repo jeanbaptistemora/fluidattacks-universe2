@@ -11,21 +11,14 @@ from organizations_finding_policies.types import (
     OrgFindingPolicy,
 )
 from typing import (
-    Any,
     Tuple,
-    Union,
 )
 
 
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Tuple[OrgFindingPolicy, ...]:
-    if isinstance(parent, dict):
-        finding_policies: Tuple[
-            OrgFindingPolicy, ...
-        ] = await get_org_policies(org_name=parent["name"])
-    else:
-        finding_policies = await get_org_policies(org_name=parent.name)
+    finding_policies = await get_org_policies(org_name=parent.name)
     return finding_policies

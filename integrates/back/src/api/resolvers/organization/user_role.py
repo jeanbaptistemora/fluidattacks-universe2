@@ -9,21 +9,16 @@ from newutils import (
     token as token_utils,
 )
 from typing import (
-    Any,
     Dict,
-    Union,
 )
 
 
 async def resolve(
-    parent: Union[Organization, dict[str, Any]],
+    parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: Dict[str, str],
 ) -> str:
-    if isinstance(parent, dict):
-        org_id: str = parent["id"]
-    else:
-        org_id = parent.id
+    org_id = parent.id
 
     identifier = str(kwargs.get("identifier", org_id))
 
