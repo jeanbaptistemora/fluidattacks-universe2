@@ -13,7 +13,7 @@ import {
   filterByState,
   filterByTreatment,
   formatEvidence,
-  formatLocation,
+  formatVulnerability,
 } from "./utils";
 
 import { Table } from "components/Table";
@@ -25,8 +25,8 @@ import { TabContent } from "styles/styledComponents";
 const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "where",
-    formatter: formatLocation,
-    header: "Location",
+    formatter: formatVulnerability,
+    header: "Vulnerability",
     wrapped: true,
   },
   {

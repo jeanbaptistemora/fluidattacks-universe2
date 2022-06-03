@@ -28,11 +28,16 @@ const formatEvidence = (
   )("View", row, rowIndex);
 };
 
-const formatLocation = (
+const formatVulnerability = (
   _cell: string,
   row: IVulnerability
 ): React.ReactNode => {
   return `${row.where} | ${row.specific}`;
 };
 
-export { filterByState, filterByTreatment, formatEvidence, formatLocation };
+export {
+  filterByState,
+  filterByTreatment,
+  formatEvidence,
+  formatVulnerability,
+};
