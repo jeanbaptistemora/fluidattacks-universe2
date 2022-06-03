@@ -631,7 +631,7 @@ async def _update_git_root_credentials(
                 cred_roots = cred.state.roots
                 cred_roots.remove(root.id)
                 await update_root_ids(
-                    current_value=credential.state,
+                    current_value=cred.state,
                     modified_by=user_email,
                     group_name=root.group_name,
                     credential_id=cred.id,
