@@ -1,12 +1,7 @@
-import { useMutation } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
@@ -19,29 +14,13 @@ import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import {
-  handleGroupCreateError,
-  handleRootCreateError,
-} from "scenes/Autoenrollment/helpers";
-import {
-  ADD_GIT_ROOT,
-  ADD_GROUP_MUTATION,
-  ADD_ORGANIZATION,
-  GET_USER_WELCOME,
-} from "scenes/Autoenrollment/queries";
-import type {
-  IAddOrganizationResult,
-  IOrgAttr,
-  IRootAttr,
-} from "scenes/Autoenrollment/types";
+import type { IOrgAttr } from "scenes/Autoenrollment/types";
 import {
   FormikCheckbox,
   FormikDropdown,
   FormikText,
   FormikTextArea,
 } from "utils/forms/fields";
-import { Logger } from "utils/logger";
-import { msgError, msgSuccess } from "utils/notifications";
 import {
   alphaNumeric,
   composeValidators,
@@ -61,48 +40,35 @@ const maxGroupNameLength: ConfigurableValidator = maxLength(
 );
 
 interface IAddOrganizationProps {
-  setForm: React.Dispatch<React.SetStateAction<string>>;
+  isSubmitting: boolean;
+  orgMessages: {
+    message: string;
+    type: string;
+  };
   orgValues: IOrgAttr;
-  repositoryValues: IRootAttr;
-  setIsRepository: React.Dispatch<React.SetStateAction<boolean>>;
-  setOrgValues: React.Dispatch<React.SetStateAction<IOrgAttr>>;
+  onSubmit: (values: {
+    groupDescription: string;
+    groupName: string;
+    organizationName: string;
+    reportLanguage: string;
+    terms: string[];
+  }) => Promise<void>;
+  setShowSubmitAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  showSubmitAlert: boolean;
 }
 
 const AddOrganization: React.FC<IAddOrganizationProps> = ({
-  setForm,
+  isSubmitting,
+  orgMessages,
   orgValues,
-  repositoryValues,
-  setIsRepository,
-  setOrgValues,
+  onSubmit,
+  setShowSubmitAlert,
+  showSubmitAlert,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-  const { push, replace } = useHistory();
+  const { push } = useHistory();
 
-  const [orgMessages, setOrgMessages] = useState({
-    message: "",
-    type: "success",
-  });
-  const [organization, setOrganization] = useState("");
-  const [group, setGroup] = useState("");
-  const [showSubmitAlert, setShowSubmitAlert] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
-  const [successMutation, setSuccessMutation] = useState({
-    group: false,
-    organization: false,
-    repository: false,
-  });
-
-  function setSuccessValues(
-    groupValue: boolean,
-    orgValue: boolean,
-    repoValue: boolean
-  ): void {
-    setSuccessMutation({
-      group: groupValue,
-      organization: orgValue,
-      repository: repoValue,
-    });
-  }
 
   function cancelClick(): void {
     setShowCancelModal(true);
@@ -113,184 +79,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   function noClick(): void {
     setShowCancelModal(false);
   }
-
-  const [addOrganization, { loading: submittingOrg }] =
-    useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
-      awaitRefetchQueries: true,
-      onCompleted: (result): void => {
-        if (result.addOrganization.success) {
-          mixpanel.track("NewOrganization", {
-            OrganizationId: result.addOrganization.organization.id,
-            OrganizationName: result.addOrganization.organization.name,
-          });
-        }
-        setSuccessValues(
-          successMutation.group,
-          true,
-          successMutation.repository
-        );
-      },
-      onError: (error): void => {
-        error.graphQLErrors.forEach(({ message }): void => {
-          if (message === "Access denied") {
-            msgError(t("sidebar.newOrganization.modal.invalidName"));
-          } else {
-            Logger.error(
-              "An error occurred creating new organization",
-              message
-            );
-          }
-        });
-        setSuccessValues(
-          successMutation.group,
-          false,
-          successMutation.repository
-        );
-      },
-      refetchQueries: [GET_USER_WELCOME],
-    });
-
-  const [addGroup, { loading: submittingGroup }] = useMutation(
-    ADD_GROUP_MUTATION,
-    {
-      onCompleted: (result: { addGroup: { success: boolean } }): void => {
-        if (result.addGroup.success) {
-          msgSuccess(
-            t("organization.tabs.groups.newGroup.success"),
-            t("organization.tabs.groups.newGroup.titleSuccess")
-          );
-        }
-        setSuccessValues(
-          true,
-          successMutation.organization,
-          successMutation.repository
-        );
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        handleGroupCreateError(graphQLErrors, setOrgMessages);
-        setSuccessValues(
-          false,
-          successMutation.organization,
-          successMutation.repository
-        );
-      },
-    }
-  );
-
-  const [addGitRoot, { loading: submittingRoot }] = useMutation(ADD_GIT_ROOT, {
-    onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
-      if (result.addGitRoot.success) {
-        msgSuccess(
-          t("autoenrollment.addOrganization.messages.success.body"),
-          t("autoenrollment.addOrganization.messages.success.title")
-        );
-      }
-      setSuccessValues(
-        successMutation.group,
-        successMutation.organization,
-        true
-      );
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleRootCreateError(graphQLErrors, setOrgMessages);
-      setShowSubmitAlert(false);
-      setSuccessValues(
-        successMutation.group,
-        successMutation.organization,
-        false
-      );
-    },
-  });
-
-  const handleSubmit = useCallback(
-    async (values: {
-      groupDescription: string;
-      groupName: string;
-      organizationName: string;
-      reportLanguage: string;
-      terms: string[];
-    }): Promise<void> => {
-      setOrgMessages({
-        message: "",
-        type: "success",
-      });
-      setIsRepository(false);
-      setShowSubmitAlert(false);
-      setOrgValues(values);
-      mixpanel.track("AddOrganization");
-      await addOrganization({
-        variables: { name: values.organizationName.toUpperCase() },
-      });
-      if (successMutation.organization) {
-        mixpanel.track("AddGroup");
-        await addGroup({
-          variables: {
-            description: values.groupDescription,
-            groupName: values.groupName.toUpperCase(),
-            hasMachine: true,
-            hasSquad: false,
-            language: values.reportLanguage,
-            organizationName: values.organizationName,
-            service: "WHITE",
-            subscription: "CONTINUOUS",
-          },
-        });
-        setGroup(values.groupName.toUpperCase());
-        setOrganization(values.organizationName.toUpperCase());
-        const { branch, credentials, env, exclusions, url } = repositoryValues;
-        if (successMutation.group) {
-          mixpanel.track("AddGitRoot");
-          await addGitRoot({
-            variables: {
-              branch: branch.trim(),
-              credentials: {
-                id: "",
-                key: credentials.key,
-                name: credentials.name,
-                password: credentials.password,
-                token: credentials.token,
-                type: credentials.type,
-                user: credentials.user,
-              },
-              environment: env,
-              gitignore: exclusions,
-              groupName: values.groupName.toUpperCase(),
-              includesHealthCheck: false,
-              nickname: "",
-              url: url.trim(),
-              useVpn: false,
-            },
-          });
-          if (successMutation.repository) {
-            localStorage.clear();
-            sessionStorage.clear();
-            replace(
-              `/orgs/${organization.toLowerCase()}/groups/${group.toLowerCase()}/scope`
-            );
-            setIsRepository(true);
-          } else {
-            setForm("repository");
-            setIsRepository(false);
-          }
-        }
-      }
-    },
-    [
-      addGitRoot,
-      addGroup,
-      addOrganization,
-      group,
-      organization,
-      replace,
-      repositoryValues,
-      setForm,
-      setGroup,
-      setIsRepository,
-      setOrganization,
-      setOrgValues,
-      successMutation,
-    ]
-  );
 
   const minOrgLenth = 4;
   const maxOrgLength = 10;
@@ -311,7 +99,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       <Formik
         initialValues={orgValues}
         name={"newOrganization"}
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         validationSchema={validations}
       >
         <Form>
@@ -447,7 +235,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 </Alert>
               )}
               <Button
-                disabled={submittingOrg || submittingGroup || submittingRoot}
+                disabled={isSubmitting}
                 type={"submit"}
                 variant={"primary"}
               >

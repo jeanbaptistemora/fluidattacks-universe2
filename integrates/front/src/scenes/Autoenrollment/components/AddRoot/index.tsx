@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
