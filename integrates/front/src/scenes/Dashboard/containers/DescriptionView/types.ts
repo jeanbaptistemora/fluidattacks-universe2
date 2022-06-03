@@ -31,7 +31,6 @@ interface IFindingDescriptionVars {
   canRetrieveHacker: boolean;
   canRetrieveSorts: boolean;
   findingId: string;
-  groupName: string;
 }
 
 interface ILanguageData {

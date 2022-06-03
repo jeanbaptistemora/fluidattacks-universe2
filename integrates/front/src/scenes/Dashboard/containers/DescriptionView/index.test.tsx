@@ -124,7 +124,6 @@ describe("Finding Description", (): void => {
     canRetrieveHacker: false,
     canRetrieveSorts: false,
     findingId: "413372600",
-    groupName: "TEST",
   };
   const descriptionQuery: Readonly<MockedResponse> = {
     request: {

@@ -64,7 +64,6 @@ const DescriptionView: React.FC = (): JSX.Element => {
       ),
       canRetrieveSorts: permissions.can("api_resolvers_finding_sorts_resolve"),
       findingId,
-      groupName,
     },
   });
 
