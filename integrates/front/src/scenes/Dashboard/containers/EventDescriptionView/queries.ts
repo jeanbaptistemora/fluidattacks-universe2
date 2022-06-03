@@ -21,8 +21,13 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
 `;
 
 const SOLVE_EVENT_MUTATION: DocumentNode = gql`
-  mutation SolveEventMutation($eventId: String!, $date: DateTime!) {
-    solveEvent(eventId: $eventId, date: $date) {
+  mutation SolveEventMutation(
+    $date: DateTime!
+    $eventId: String!
+    $other: String
+    $reason: SolveEventReason
+  ) {
+    solveEvent(eventId: $eventId, date: $date, reason: $reason, other: $other) {
       success
     }
   }

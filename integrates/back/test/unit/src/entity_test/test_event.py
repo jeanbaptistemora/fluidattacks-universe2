@@ -129,8 +129,11 @@ async def test_solve_event() -> None:
         mutation {
             solveEvent(
                 eventId: "418900971"
-                date: "2020-02-01T00:00:00Z") {
-                    success
+                date: "2020-02-01T00:00:00Z"
+                reason: OTHER
+                other: "Test"
+            ) {
+                success
             }
         }
     """

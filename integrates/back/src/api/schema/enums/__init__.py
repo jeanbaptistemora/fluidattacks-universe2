@@ -110,6 +110,21 @@ ENUMS: Tuple[EnumType, ...] = (
         {"ENVIRONMENT": "Ambiente", "REPOSITORY": "Repositorio"},
     ),
     EnumType(
+        "SolveEventReason",
+        {
+            "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE": (
+                "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"
+            ),
+            "OTHER": "OTHER",
+            "PERMISSION_DENIED": "PERMISSION_DENIED",
+            "PERMISSION_GRANTED": "PERMISSION_GRANTED",
+            "PROBLEM_SOLVED": "PROBLEM_SOLVED",
+            "SUPPLIES_WERE_GIVEN": "SUPPLIES_WERE_GIVEN",
+            "TOE_CHANGE_APPROVED": "TOE_CHANGE_APPROVED",
+            "TOE_WILL_REMAIN_UNCHANGED": "TOE_WILL_REMAIN_UNCHANGED",
+        },
+    ),
+    EnumType(
         "EventEvidenceType", {"FILE": "evidence_file", "IMAGE": "evidence"}
     ),
     EnumType(

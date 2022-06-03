@@ -25,7 +25,12 @@ import {
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { castAffectedComponents } from "utils/formatHelpers";
-import { EditableField, FormikDateTime, FormikText } from "utils/forms/fields";
+import {
+  EditableField,
+  FormikDateTime,
+  FormikDropdown,
+  FormikText,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
@@ -113,7 +118,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
-      void solveEvent({ variables: { date: values.date, eventId } });
+      void solveEvent({
+        variables: {
+          date: values.date,
+          eventId,
+          other: values.other,
+          reason: values.reason,
+        },
+      });
       closeSolvingModal();
     },
     [eventId, closeSolvingModal, solveEvent]
@@ -138,27 +150,91 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         >
           <Formik
             enableReinitialize={true}
-            initialValues={{}}
+            initialValues={{ other: "", reason: "" }}
             name={"solveEvent"}
             onSubmit={handleSubmit}
           >
-            {({ dirty }): React.ReactNode => (
+            {({ dirty, values }): React.ReactNode => (
               <Form id={"solveEvent"}>
                 <Row>
-                  <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.description.solved.date")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikDateTime}
-                      name={"date"}
-                      validate={composeValidators([
-                        required,
-                        validDatetime,
-                        dateTimeBeforeToday,
-                      ])}
-                    />
-                  </FormGroup>
+                  <Col100>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t("group.events.description.solved.date")}
+                      </ControlLabel>
+                      <Field
+                        component={FormikDateTime}
+                        name={"date"}
+                        validate={composeValidators([
+                          required,
+                          validDatetime,
+                          dateTimeBeforeToday,
+                        ])}
+                      />
+                    </FormGroup>
+                  </Col100>
+                  <Col100>
+                    <FormGroup>
+                      <ControlLabel>
+                        {t(
+                          "searchFindings.tabSeverity.common.deactivation.reason.label"
+                        )}
+                      </ControlLabel>
+                      <Field component={FormikDropdown} name={"reason"}>
+                        <option value={""} />
+                        <option value={"PERMISSION_GRANTED"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.permissionGranted"
+                          )}
+                        </option>
+                        <option value={"PERMISSION_DENIED"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.permissionDenied"
+                          )}
+                        </option>
+                        <option value={"AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.removedFromScope"
+                          )}
+                        </option>
+                        <option value={"SUPPLIES_WERE_GIVEN"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.suppliesWereGiven"
+                          )}
+                        </option>
+                        <option value={"TOE_CHANGE_APPROVED"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.toeApproved"
+                          )}
+                        </option>
+                        <option value={"TOE_WILL_REMAIN_UNCHANGED"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.toeUnchanged"
+                          )}
+                        </option>
+                        <option value={"PROBLEM_SOLVED"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.problemSolved"
+                          )}
+                        </option>
+                        <option value={"OTHER"}>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.reason.other"
+                          )}
+                        </option>
+                      </Field>
+                    </FormGroup>
+                    {values.reason === "OTHER" ? (
+                      <FormGroup>
+                        <ControlLabel>
+                          {t(
+                            "searchFindings.tabSeverity.common.deactivation.other"
+                          )}
+                        </ControlLabel>
+                        <Field component={FormikText} name={"other"} />
+                      </FormGroup>
+                    ) : undefined}
+                  </Col100>
                 </Row>
                 {_.isEmpty(data.event.affectedReattacks) ? undefined : (
                   <Row>

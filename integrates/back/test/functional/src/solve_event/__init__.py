@@ -21,6 +21,8 @@ async def get_result(
             solveEvent(
                 eventId: "{event}"
                 date: "2020-02-01T00:00:00Z"
+                reason: OTHER
+                other: "Test"
             ) {{
                 success
             }}

@@ -2588,6 +2588,22 @@ export const enTranslations: ResourceKey = {
           },
         },
       },
+      common: {
+        deactivation: {
+          other: "What?",
+          reason: {
+            label: "Reason",
+            other: "Other",
+            permissionDenied: "Permission Denied",
+            permissionGranted: "Permission Granted",
+            problemSolved: "Problem Solved",
+            removedFromScope: "Affected resource removed from scope",
+            suppliesWereGiven: "Supplies were given",
+            toeApproved: "ToE change approved",
+            toeUnchanged: "ToE will remain unchanged",
+          },
+        },
+      },
       confidentialityImpact: {
         label: "Confidentiality Impact",
         options: {

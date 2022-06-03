@@ -170,6 +170,26 @@ enum EventAccessibility {
   REPOSITORY
 }
 
+"Reasons to close an event enum definition"
+enum SolveEventReason {
+  "Affected resource removed from scope"
+  AFFECTED_RESOURCE_REMOVED_FROM_SCOPE
+  "Other"
+  OTHER
+  "Permission Denied"
+  PERMISSION_DENIED
+  "Permission Granted"
+  PERMISSION_GRANTED
+  "Problem Solved"
+  PROBLEM_SOLVED
+  "Supplies were given"
+  SUPPLIES_WERE_GIVEN
+  "ToE change approved"
+  TOE_CHANGE_APPROVED
+  "ToE will remain unchanged"
+  TOE_WILL_REMAIN_UNCHANGED
+}
+
 "Types of Event evidence"
 enum EventEvidenceType {
   "File"

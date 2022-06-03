@@ -318,11 +318,13 @@ async def remove_evidence(evidence_type: str, event_id: str) -> bool:
     )
 
 
-async def solve_event(  # pylint: disable=too-many-locals
+async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     info: GraphQLResolveInfo,
     event_id: str,
     hacker_email: str,
     date: datetime,
+    reason: str,
+    other: Optional[str],
 ) -> Tuple[bool, Dict[str, Set[str]], Dict[str, List[str]]]:
     """Solves an Event, can either return a bool and two empty dicts or a bool
     with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
@@ -331,6 +333,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     success = False
     loaders = info.context.loaders
     group_name = str(get_key_or_fallback(event, fallback=""))
+    other_reason: str = other if other else ""
 
     if (
         cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
@@ -410,11 +413,15 @@ async def solve_event(  # pylint: disable=too-many-locals
             "analyst": hacker_email,
             "date": datetime_utils.get_as_str(date),
             "state": "CLOSED",
+            "reason": reason,
+            "other": other_reason,
         },
         {
             "analyst": hacker_email,
             "date": datetime_utils.get_as_str(today),
             "state": "SOLVED",
+            "reason": reason,
+            "other": other_reason,
         },
     ]
     success = await events_dal.update(event_id, {"historic_state": history})

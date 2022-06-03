@@ -29,6 +29,9 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from typing import (
+    Optional,
+)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -48,6 +51,8 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     date: datetime,
+    reason: str,
+    other: Optional[str],
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
@@ -55,7 +60,9 @@ async def mutate(
         success,
         reattacks_dict,
         verifications_dict,
-    ) = await events_domain.solve_event(info, event_id, hacker_email, date)
+    ) = await events_domain.solve_event(
+        info, event_id, hacker_email, date, reason, other
+    )
 
     if success:
         info.context.loaders.event.clear(event_id)
