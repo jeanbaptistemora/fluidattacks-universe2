@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "May 26, 2022, 04:20 PM",
+    "DateLastModified": "Jun 03, 2022, 10:21 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -772,6 +772,14 @@
         },
         {
           "AttributeName": "url_type",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "pk_6",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "sk_6",
           "AttributeType": "S"
         }
       ],
@@ -17789,7 +17797,9 @@
             "pk_4",
             "sk_4",
             "pk_5",
-            "sk_5"
+            "sk_5",
+            "pk_6",
+            "sk_6"
           ]
         },
         {
@@ -20214,6 +20224,22 @@
             },
             "SortKey": {
               "AttributeName": "sk_5",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "ALL"
+          }
+        },
+        {
+          "IndexName": "gsi_6",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "pk_6",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "sk_6",
               "AttributeType": "S"
             }
           },
