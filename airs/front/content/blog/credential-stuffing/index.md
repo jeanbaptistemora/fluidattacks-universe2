@@ -1,6 +1,6 @@
 ---
 slug: credential-stuffing/
-title: 'My Favorite Password: "123456"'
+title: 'My Favorite Password: ''123456'''
 date: 2020-09-25
 subtitle: You could be a victim of Credential Stuffing
 category: techniques

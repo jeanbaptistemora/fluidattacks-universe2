@@ -1,6 +1,6 @@
 ---
 slug: relleno-credenciales/
-title: 'Mi contraseña favorita: "123456"'
+title: 'Mi contraseña favorita: ''123456'''
 date: 2020-09-25
 subtitle: Podrías ser víctima del relleno de credenciales
 category: techniques
