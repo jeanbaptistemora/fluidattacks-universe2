@@ -152,7 +152,7 @@ async def delete_obsolete_groups() -> None:
     group_stakeholders_loader: DataLoader = loaders.group_stakeholders
     user_email = "integrates@fluidattacks.com"
     async for _, org_name, org_groups_names in (
-        orgs_domain.iterate_organizations_and_groups()
+        orgs_domain.iterate_organizations_and_groups(loaders)
     ):
         info(f"Working on organization {org_name}")
         if not org_groups_names:

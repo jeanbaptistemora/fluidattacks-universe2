@@ -20,7 +20,7 @@ from groups.dal import (  # pylint: disable=import-error
 import logging
 import logging.config
 from organizations.domain import (
-    iterate_organizations_and_groups,
+    iterate_organizations_groups,
 )
 from settings import (
     LOGGING,
@@ -71,7 +71,7 @@ async def process_group(
 
 async def main() -> None:
     group_names = []
-    async for _, _, org_group_names in iterate_organizations_and_groups():
+    async for _, _, org_group_names in iterate_organizations_groups():
         group_names.extend(org_group_names)
     group_names_len = len(group_names)
     LOGGER_CONSOLE.info(

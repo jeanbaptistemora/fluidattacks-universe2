@@ -45,6 +45,9 @@ from newutils import (
 from organizations import (
     domain as orgs_domain,
 )
+from organizations.domain import (
+    iterate_organizations_and_groups,
+)
 import pytest
 from typing import (
     Any,
@@ -459,6 +462,7 @@ async def test_iterate_organizations() -> None:
 
 
 async def test_iterate_organizations_and_groups() -> None:
+    loaders: Dataloaders = get_new_context()
     expected_organizations_and_groups: Dict[str, Any] = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": {
             "okada": ["oneshottest", "continuoustesting", "unittesting"]
@@ -488,7 +492,9 @@ async def test_iterate_organizations_and_groups() -> None:
         "ORG#d32674a9-9838-4337-b222-68c88bf54647": {"makoto": []},
         "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee": {"ikari": []},
     }
-    async for org_id, org_name, groups in orgs_domain.iterate_organizations_and_groups():  # noqa
+    async for org_id, org_name, groups in iterate_organizations_and_groups(
+        loaders
+    ):  # noqa
         assert sorted(groups) == sorted(
             expected_organizations_and_groups.pop(org_id)[org_name]
         )

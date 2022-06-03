@@ -154,7 +154,7 @@ async def iterate_organizations_and_groups() -> AsyncIterator[
         if group.state.type == GroupSubscriptionType.CONTINUOUS
     }
     async for org_id, org_name, org_groups in (
-        orgs_domain.iterate_organizations_and_groups()
+        orgs_domain.iterate_organizations_and_groups(loaders)
     ):
         log_info(f"Working on org: {org_id} ({org_name}) {org_groups}")
         # Exception: WF(AsyncIterator is subtype of iterator)

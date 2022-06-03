@@ -165,7 +165,7 @@ async def update_portfolios() -> None:
     """Update portfolios metrics."""
     loaders: Dataloaders = get_new_context()
     async for _, org_name, org_group_names in (
-        orgs_domain.iterate_organizations_and_groups()
+        orgs_domain.iterate_organizations_and_groups(loaders)
     ):
         info(
             "[scheduler]: working on organization",

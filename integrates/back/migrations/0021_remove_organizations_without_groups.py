@@ -21,7 +21,7 @@ STAGE: str = os.environ["STAGE"]
 
 async def main() -> None:
     async for org_id, org_name, groups in (
-        orgs_domain.iterate_organizations_and_groups()
+        orgs_domain.iterate_organizations_groups()
     ):
         if not groups:
             if STAGE == "test":
