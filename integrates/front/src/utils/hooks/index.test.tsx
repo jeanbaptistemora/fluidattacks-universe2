@@ -13,14 +13,26 @@ import { useStoredState, useTabTracking } from "utils/hooks";
 
 describe("Custom utility hooks", (): void => {
   describe("useStoredState", (): void => {
-    const TestComponent: React.FC = (): JSX.Element => {
+    interface ITestComponentProps {
+      onChange?: () => void;
+    }
+
+    const TestComponent: React.FC<ITestComponentProps> = ({
+      onChange,
+    }): JSX.Element => {
       const [message, setMessage] = useStoredState("message", "fallback");
       const [sort, setSort] = useStoredState("sortOrder", { order: "asc" });
 
       const handleClick = useCallback((): void => {
-        setMessage("Hello world");
+        setMessage((): string => {
+          if (onChange) {
+            onChange();
+          }
+
+          return "Hello world";
+        });
         setSort({ order: "none" });
-      }, [setMessage, setSort]);
+      }, [onChange, setMessage, setSort]);
 
       return (
         <React.Fragment>
@@ -79,6 +91,16 @@ describe("Custom utility hooks", (): void => {
       expect(sessionStorage.getItem("sortOrder")).toStrictEqual(
         JSON.stringify({ order: "none" })
       );
+    });
+
+    it("should only trigger callbacks once", (): void => {
+      expect.hasAssertions();
+
+      const handleChange = jest.fn();
+      render(<TestComponent onChange={handleChange} />);
+      userEvent.click(screen.getByRole("button"));
+
+      expect(handleChange).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -67,19 +67,22 @@ const useStoredState = <T>(
   const setAndStore: React.Dispatch<React.SetStateAction<T>> = (
     value: React.SetStateAction<T>
   ): void => {
-    try {
-      storageProvider.setItem(
-        key,
-        encrypted
-          ? encrypt(
-              JSON.stringify(value instanceof Function ? value(state) : value)
-            )
-          : JSON.stringify(value instanceof Function ? value(state) : value)
-      );
-    } catch (exception: unknown) {
-      Logger.warning("Couldn't persist state to web storage", exception);
-    }
-    setState(value);
+    setState((currentState): T => {
+      const nextValue = value instanceof Function ? value(currentState) : value;
+
+      try {
+        storageProvider.setItem(
+          key,
+          encrypted
+            ? encrypt(JSON.stringify(nextValue))
+            : JSON.stringify(nextValue)
+        );
+      } catch (exception: unknown) {
+        Logger.warning("Couldn't persist state to web storage", exception);
+      }
+
+      return nextValue;
+    });
   };
 
   return [state, setAndStore];
