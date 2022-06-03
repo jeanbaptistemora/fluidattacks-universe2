@@ -27,4 +27,12 @@ interface IPaymentMethodAttr {
   expirationYear: string;
 }
 
-export type { IGroupAttr, IPaymentMethodAttr };
+interface IGetOrganizationBilling {
+  organization: {
+    billingPortal: string;
+    groups: IGroupAttr[];
+    paymentMethods: IPaymentMethodAttr[];
+  };
+}
+
+export type { IGetOrganizationBilling, IGroupAttr, IPaymentMethodAttr };

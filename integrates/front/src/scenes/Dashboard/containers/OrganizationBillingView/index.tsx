@@ -4,25 +4,20 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
 
-import { OrganizationGroups } from "./Groups";
-import { OrganizationPaymentMethods } from "./PaymentMethods";
-import { GET_ORGANIZATION_BILLING } from "./queries";
-import type { IGroupAttr, IPaymentMethodAttr } from "./types";
-
+import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationBillingView/Groups";
+import { OrganizationPaymentMethods } from "scenes/Dashboard/containers/OrganizationBillingView/PaymentMethods";
+import { GET_ORGANIZATION_BILLING } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
+import type {
+  IGetOrganizationBilling,
+  IGroupAttr,
+  IPaymentMethodAttr,
+} from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
 interface IOrganizationBillingProps {
   organizationId: string;
-}
-
-interface IGetOrganizationBilling {
-  organization: {
-    billingPortal: string;
-    groups: IGroupAttr[];
-    paymentMethods: IPaymentMethodAttr[];
-  };
 }
 
 export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (

@@ -1,3 +1,4 @@
+import type { ApolloQueryResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { faMoneyBill } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,14 +6,6 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { areMutationsValid } from "./helpers";
-import { linkFormatter } from "./linkFormatter";
-import { Container } from "./styles";
-import type { IUpdateGroupResultAttr } from "./types";
-import { UpdateSubscriptionModal } from "./UpdateSubscriptionModal";
-
-import { UPDATE_GROUP_MUTATION } from "../queries";
-import type { IGroupAttr } from "../types";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
@@ -20,6 +13,16 @@ import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import { areMutationsValid } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/helpers";
+import { linkFormatter } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/linkFormatter";
+import { Container } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/styles";
+import type { IUpdateGroupResultAttr } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/types";
+import { UpdateSubscriptionModal } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/UpdateSubscriptionModal";
+import { UPDATE_GROUP_MUTATION } from "scenes/Dashboard/containers/OrganizationBillingView/queries";
+import type {
+  IGetOrganizationBilling,
+  IGroupAttr,
+} from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
@@ -38,7 +41,7 @@ interface IFilterSet {
 interface IOrganizationGroupsProps {
   billingPortal: string;
   groups: IGroupAttr[];
-  onUpdate: () => void;
+  onUpdate: () => Promise<ApolloQueryResult<IGetOrganizationBilling>>;
 }
 
 export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
@@ -427,7 +430,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           },
         });
         if (areMutationsValid(resultMutation)) {
-          onUpdate();
+          await onUpdate();
           closeModal();
           msgSuccess(
             t(
