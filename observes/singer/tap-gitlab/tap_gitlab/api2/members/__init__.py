@@ -1,3 +1,6 @@
+from ._client import (
+    MembersClient,
+)
 from ._core import (
     Member,
     User,
@@ -12,4 +15,5 @@ __all__ = [
     "UserId",
     "UserObj",
     "Member",
+    "MembersClient",
 ]
