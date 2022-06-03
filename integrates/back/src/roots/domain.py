@@ -583,6 +583,7 @@ async def update_root_credentials(
         credential = _format_root_credential(
             credentials, group_name, user_email, root_id
         )
+        await _remove_root_from_credentials(root_id, group_name, user_email)
         await creds_model.add(credential=credential)
         if existing_credential:
             await creds_model.remove(
@@ -612,6 +613,23 @@ async def update_root_credentials(
             )
 
 
+async def _remove_root_from_credentials(
+    root_id: str, group_name: str, user_email: str
+) -> None:
+    group_credentials = await get_credentials(group_name=group_name)
+    for cred in group_credentials:
+        if root_id in cred.state.roots:
+            cred_roots = cred.state.roots
+            cred_roots.remove(root_id)
+            await update_root_ids(
+                current_value=cred.state,
+                modified_by=user_email,
+                group_name=group_name,
+                credential_id=cred.id,
+                root_ids=tuple(cred_roots),
+            )
+
+
 async def _update_git_root_credentials(
     loaders: Any,
     root: GitRoot,
@@ -628,18 +646,11 @@ async def _update_git_root_credentials(
             )
             return None
         # remove root from old credentials
-        group_credentials = await get_credentials(group_name=root.group_name)
-        for cred in group_credentials:
-            if root.id in cred.state.roots:
-                cred_roots = cred.state.roots
-                cred_roots.remove(root.id)
-                await update_root_ids(
-                    current_value=cred.state,
-                    modified_by=user_email,
-                    group_name=root.group_name,
-                    credential_id=cred.id,
-                    root_ids=tuple(cred_roots),
-                )
+        await _remove_root_from_credentials(
+            root.id,
+            root.group_name,
+            user_email,
+        )
 
         await update_root_ids(
             current_value=credential.state,
