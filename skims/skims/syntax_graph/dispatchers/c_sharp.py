@@ -39,6 +39,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     throw_statement as c_sharp_throw_statement,
     try_statement as c_sharp_try_statement,
     type_of_expression as c_sharp_type_of_expression,
+    type_parameter_list as c_sharp_type_parameter_list,
     using_directive as c_sharp_using_directive,
     using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
@@ -377,6 +378,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "type_of_expression",
         },
         syntax_reader=c_sharp_type_of_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "type_parameter_list",
+        },
+        syntax_reader=c_sharp_type_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
