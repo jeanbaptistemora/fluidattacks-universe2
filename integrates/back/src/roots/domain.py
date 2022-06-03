@@ -44,6 +44,9 @@ from db_model.enums import (
     GitCloningStatus,
     Notification,
 )
+from db_model.groups.enums import (
+    GroupStateStatus,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -946,15 +949,19 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         root_id=root_id,
     )
 
+    group: Group = await loaders.group.load(group_name)
     is_failed: bool = (
         status == GitCloningStatus.FAILED
         and root.cloning.status == GitCloningStatus.OK
     )
+    is_cloning: bool = (
+        status == GitCloningStatus.OK
+        and root.cloning.status == GitCloningStatus.FAILED
+    )
     if (
         not root.state.use_vpn
-        and status == GitCloningStatus.OK
-        and root.cloning.status == GitCloningStatus.FAILED
-        or is_failed
+        and group.state.status == GroupStateStatus.ACTIVE
+        and (is_cloning or is_failed)
     ):
         await send_mail_root_cloning_status(
             loaders=loaders,
