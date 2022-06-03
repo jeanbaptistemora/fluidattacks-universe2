@@ -473,7 +473,7 @@ async def complete_register_for_group_invitation(
     organization_id = group.organization_id
     if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
-            orgs_domain.add_user(organization_id, user_email, "user")
+            orgs_domain.add_user(loaders, organization_id, user_email, "user")
         )
 
     if not await users_domain.is_registered(user_email):
@@ -512,7 +512,9 @@ async def complete_register_for_organization_invitation(
     updated_invitation = invitation.copy()
     updated_invitation["is_used"] = True
 
-    user_added = await orgs_domain.add_user(organization_id, user_email, role)
+    user_added = await orgs_domain.add_user(
+        loaders, organization_id, user_email, role
+    )
 
     await orgs_domain.update(
         organization_id,
@@ -683,9 +685,9 @@ async def add_without_group(
         )
         org = await orgs_domain.get_or_add(loaders, FI_DEFAULT_ORG)
         if should_add_default_org and not await orgs_domain.has_user_access(
-            str(org.id), email
+            org.id, email
         ):
-            await orgs_domain.add_user(str(org.id), email, "user")
+            await orgs_domain.add_user(loaders, org.id, email, "user")
     return success
 
 
@@ -2143,9 +2145,7 @@ async def enroll_user_to_demo(loaders: Any, email: str) -> None:
     org = await orgs_domain.get_or_add(
         loaders=loaders, organization_name=FI_DEFAULT_ORG
     )
-    await orgs_domain.add_user(
-        organization_id=str(org.id), email=email, role="user_manager"
-    )
+    await orgs_domain.add_user(loaders, org.id, email, "user_manager")
 
     for group_name in FI_COMMUNITY_PROJECTS.split(","):
         await collect(

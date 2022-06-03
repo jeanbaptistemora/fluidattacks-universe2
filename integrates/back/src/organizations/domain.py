@@ -112,7 +112,9 @@ async def add_group(organization_id: str, group: str) -> bool:
     return success
 
 
-async def add_user(organization_id: str, email: str, role: str) -> bool:
+async def add_user(
+    loaders: Any, organization_id: str, email: str, role: str
+) -> bool:
     # Check for customer manager granting requirements
     organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
@@ -122,11 +124,11 @@ async def add_user(organization_id: str, email: str, role: str) -> bool:
         email, organization_id, role
     )
     if success and role == "customer_manager":
-        groups = await get_groups(organization_id)
+        org_groups = await get_group_names(loaders, organization_id)
         success = success and all(
             await collect(
                 group_access_domain.add_user_access(email, group, role)
-                for group in groups
+                for group in org_groups
             )
         )
     return success
@@ -194,6 +196,15 @@ async def get_groups(organization_id: str) -> Tuple[str, ...]:
     return tuple(await orgs_dal.get_groups(organization_id))
 
 
+async def get_group_names(
+    loaders: Any, organization_id: str
+) -> tuple[str, ...]:
+    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        organization_id
+    )
+    return tuple(group.name for group in org_groups)
+
+
 async def get_id_for_group(group_name: str) -> str:
     return await orgs_dal.get_id_for_group(group_name)
 
@@ -239,7 +250,7 @@ async def add_organization_typed(
     await orgs_dal.add_typed(org)
     org_role = "user_manager"
     if email and org:
-        await add_user(f"ORG#{org.id}", email, org_role)
+        await add_user(loaders, org.id, email, org_role)
     return org
 
 
@@ -252,7 +263,7 @@ async def get_or_add(
         has_access = await has_user_access(org_id, email) if email else True
 
         if email and not has_access:
-            await add_user(org_id, email, "user_manager")
+            await add_user(loaders, org_id, email, "user_manager")
     else:
         org = await add_organization_typed(loaders, organization_name, email)
     return org
@@ -372,12 +383,12 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
         )
     )
 
-    org_groups = await get_groups(organization_id)
+    org_group_names = await get_group_names(loaders, organization_id)
     groups_removed = all(
         await collect(
             tuple(
                 group_access_domain.remove_access(loaders, email, group)
-                for group in org_groups
+                for group in org_group_names
             )
         )
     )

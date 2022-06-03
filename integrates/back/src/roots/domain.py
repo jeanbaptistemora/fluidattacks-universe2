@@ -1350,7 +1350,8 @@ async def move_root(
     if (
         root.state.status != RootStatus.ACTIVE
         or target_group_name == root.group_name
-        or target_group_name not in await orgs_domain.get_groups(source_org_id)
+        or target_group_name
+        not in await orgs_domain.get_group_names(loaders, source_org_id)
         or source_group.state.service != target_group.state.service
     ):
         raise InvalidParameter()
