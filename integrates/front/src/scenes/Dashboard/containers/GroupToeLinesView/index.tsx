@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
+import { editableAttackedLinesFormatter } from "./formatters/editableAttackedLinesFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
@@ -61,6 +62,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   isInternal,
 }: IGroupToeLinesViewProps): JSX.Element => {
   const { t } = useTranslation();
+  const client = useApolloClient();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateAttackedLines: boolean = permissions.can(
@@ -224,6 +226,176 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     );
   };
 
+  // // GraphQL operations
+  const [handleVerifyToeLines] = useMutation<IVerifyToeLinesResultAttr>(
+    VERIFY_TOE_LINES,
+    {
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - The toe lines has been updated by another operation":
+              msgError(t("group.toe.lines.editModal.alerts.alreadyUpdate"));
+              break;
+            case "Exception - The attacked lines must be between 0 and the loc (lines of code)":
+              msgError(
+                t(
+                  "group.toe.lines.editModal.alerts.invalidAttackedLinesBetween"
+                )
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred verifying a toe lines", error);
+          }
+        });
+      },
+    }
+  );
+  const getToeLinesVariables = {
+    bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
+    canGetAttackedAt,
+    canGetAttackedBy,
+    canGetAttackedLines,
+    canGetBePresentUntil,
+    canGetComments,
+    canGetFirstAttackAt,
+    first: 150,
+    groupName,
+    rootId: formatRootId(filterGroupToeLinesTable.rootId),
+    shouldGetNewToeLines: false,
+  };
+  const { data, fetchMore, refetch } = useQuery<{
+    group: { toeLines: IToeLinesConnection };
+  }>(GET_TOE_LINES, {
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group toe lines", error);
+      });
+    },
+    variables: getToeLinesVariables,
+  });
+  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group root ids", error);
+      });
+    },
+    variables: {
+      groupName,
+    },
+  });
+  const pageInfo =
+    data === undefined ? undefined : data.group.toeLines.pageInfo;
+  const toeLinesEdges: IToeLinesEdge[] =
+    data === undefined ? [] : data.group.toeLines.edges;
+  const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
+    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
+  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
+    _.isNull(toeLinesAttr.attackedAt) ||
+    _.isEmpty(toeLinesAttr.attackedAt) ||
+    moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
+      ? toeLinesAttr.bePresent
+        ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
+        : moment(toeLinesAttr.bePresentUntil).diff(
+            moment(toeLinesAttr.modifiedDate),
+            "days"
+          )
+      : moment(toeLinesAttr.attackedAt).diff(
+          moment(toeLinesAttr.modifiedDate),
+          "days"
+        );
+  const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
+    const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
+    const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
+    if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
+      return NOEXTENSION;
+    }
+
+    return toeLinesAttr.filename.slice(lastPointindex + 1);
+  };
+
+  const formatOptionalDate: (date: string | null) => Date | undefined = (
+    date: string | null
+  ): Date | undefined =>
+    _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
+  const toeLines: IToeLinesData[] = toeLinesEdges.map(
+    ({ node }): IToeLinesData => ({
+      ...node,
+      attackedAt: formatOptionalDate(node.attackedAt),
+      bePresentUntil: formatOptionalDate(node.bePresentUntil),
+      coverage: getCoverage(node),
+      daysToAttack: getDaysToAttack(node),
+      extension: getExtension(node),
+      firstAttackAt: formatOptionalDate(node.firstAttackAt),
+      lastCommit: commitFormatter(node.lastCommit),
+      modifiedDate: formatOptionalDate(node.modifiedDate),
+      rootId: node.root.id,
+      rootNickname: node.root.nickname,
+      seenAt: formatOptionalDate(node.seenAt),
+    })
+  );
+
+  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
+
+  const handleUpdateAttackedLines: (
+    rootId: string,
+    filename: string,
+    attackedLines: number
+  ) => Promise<void> = async (
+    rootId: string,
+    filename: string,
+    attackedLines: number
+  ): Promise<void> => {
+    const result = await handleVerifyToeLines({
+      variables: {
+        ...getToeLinesVariables,
+        attackedLines,
+        filename,
+        groupName,
+        rootId,
+        shouldGetNewToeLines: true,
+      },
+    });
+
+    if (
+      !_.isNil(result.data) &&
+      result.data.updateToeLinesAttackedLines.success
+    ) {
+      msgSuccess(
+        t("group.toe.lines.alerts.verifyToeLines.success"),
+        t("groupAlerts.updatedTitle")
+      );
+      const updatedToeLines = result.data.updateToeLinesAttackedLines.toeLines;
+
+      if (!_.isUndefined(updatedToeLines)) {
+        client.writeQuery({
+          data: {
+            ...data,
+            group: {
+              ...data?.group,
+              toeLines: {
+                ...data?.group.toeLines,
+                edges: data?.group.toeLines.edges.map(
+                  (value: IToeLinesEdge): IToeLinesEdge =>
+                    value.node.root.id === rootId &&
+                    value.node.filename === filename
+                      ? {
+                          node: updatedToeLines,
+                        }
+                      : { node: value.node }
+                ),
+              },
+            },
+          },
+          query: GET_TOE_LINES,
+          variables: getToeLinesVariables,
+        });
+      }
+    }
+  };
+
   const headersToeLinesTable: IHeaderConfig[] = [
     {
       dataField: "rootNickname",
@@ -253,6 +425,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
     {
       dataField: "attackedLines",
+      formatter: editableAttackedLinesFormatter(
+        canUpdateAttackedLines,
+        handleUpdateAttackedLines
+      ),
       header: t("group.toe.lines.attackedLines"),
       omit: !isInternal || !canGetAttackedLines,
       onSort,
@@ -365,109 +541,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
   ];
 
-  // // GraphQL operations
-  const [handleVerifyToeLines] = useMutation<IVerifyToeLinesResultAttr>(
-    VERIFY_TOE_LINES,
-    {
-      onError: (errors: ApolloError): void => {
-        errors.graphQLErrors.forEach((error: GraphQLError): void => {
-          switch (error.message) {
-            case "Exception - The toe lines has been updated by another operation":
-              msgError(t("group.toe.lines.editModal.alerts.alreadyUpdate"));
-              break;
-            default:
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred verifying a toe lines", error);
-          }
-        });
-      },
-    }
-  );
-  const { data, fetchMore, refetch } = useQuery<{
-    group: { toeLines: IToeLinesConnection };
-  }>(GET_TOE_LINES, {
-    fetchPolicy: "network-only",
-    nextFetchPolicy: "cache-first",
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group toe lines", error);
-      });
-    },
-    variables: {
-      bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
-      canGetAttackedAt,
-      canGetAttackedBy,
-      canGetAttackedLines,
-      canGetBePresentUntil,
-      canGetComments,
-      canGetFirstAttackAt,
-      first: 150,
-      groupName,
-      rootId: formatRootId(filterGroupToeLinesTable.rootId),
-    },
-  });
-  const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group root ids", error);
-      });
-    },
-    variables: {
-      groupName,
-    },
-  });
-  const pageInfo =
-    data === undefined ? undefined : data.group.toeLines.pageInfo;
-  const toeLinesEdges: IToeLinesEdge[] =
-    data === undefined ? [] : data.group.toeLines.edges;
-  const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
-    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
-  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number =>
-    _.isNull(toeLinesAttr.attackedAt) ||
-    _.isEmpty(toeLinesAttr.attackedAt) ||
-    moment(toeLinesAttr.modifiedDate) > moment(toeLinesAttr.attackedAt)
-      ? toeLinesAttr.bePresent
-        ? moment().diff(moment(toeLinesAttr.modifiedDate), "days")
-        : moment(toeLinesAttr.bePresentUntil).diff(
-            moment(toeLinesAttr.modifiedDate),
-            "days"
-          )
-      : moment(toeLinesAttr.attackedAt).diff(
-          moment(toeLinesAttr.modifiedDate),
-          "days"
-        );
-  const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
-    const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
-    const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
-    if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
-      return NOEXTENSION;
-    }
-
-    return toeLinesAttr.filename.slice(lastPointindex + 1);
-  };
-
-  const formatOptionalDate: (date: string | null) => Date | undefined = (
-    date: string | null
-  ): Date | undefined =>
-    _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
-  const toeLines: IToeLinesData[] = toeLinesEdges.map(
-    ({ node }): IToeLinesData => ({
-      ...node,
-      attackedAt: formatOptionalDate(node.attackedAt),
-      bePresentUntil: formatOptionalDate(node.bePresentUntil),
-      coverage: getCoverage(node),
-      daysToAttack: getDaysToAttack(node),
-      extension: getExtension(node),
-      firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      lastCommit: commitFormatter(node.lastCommit),
-      modifiedDate: formatOptionalDate(node.modifiedDate),
-      rootId: node.root.id,
-      rootNickname: node.root.nickname,
-      seenAt: formatOptionalDate(node.seenAt),
-    })
-  );
-
-  const roots = rootIdsData === undefined ? [] : rootIdsData.group.roots;
   function clearFilters(): void {
     setFilterGroupToeLinesTable(
       (): IFilterSet => ({
@@ -537,6 +610,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         ): Promise<FetchResult<IVerifyToeLinesResultAttr>> =>
           handleVerifyToeLines({
             variables: {
+              ...getToeLinesVariables,
               filename: toeInputData.filename,
               groupName,
               rootId: toeInputData.rootId,

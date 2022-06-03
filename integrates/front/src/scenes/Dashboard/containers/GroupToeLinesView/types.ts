@@ -82,6 +82,7 @@ interface IGroupToeLinesViewProps {
 interface IVerifyToeLinesResultAttr {
   updateToeLinesAttackedLines: {
     success: boolean;
+    toeLines: IToeLinesAttr | undefined;
   };
 }
 

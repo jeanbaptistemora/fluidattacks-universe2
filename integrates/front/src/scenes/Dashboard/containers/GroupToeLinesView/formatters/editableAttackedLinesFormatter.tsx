@@ -9,28 +9,38 @@ import type { IHeaderConfig } from "components/Table/types";
 import { translate } from "utils/translations/translate";
 
 export const editableAttackedLinesFormatter: (
+  canEdit: boolean,
   handleUpdateAttackedLines: (
     rootId: string,
     filename: string,
     attackedLines: number
   ) => Promise<void>
-) => (
-  value: string,
-  row: IToeLinesData,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => JSX.Element = (
+) =>
+  | ((
+      value: string,
+      row: IToeLinesData,
+      rowIndex: number,
+      key: Readonly<IHeaderConfig>
+    ) => JSX.Element)
+  | undefined = (
+  canEdit: boolean,
   handleUpdateAttackedLines: (
     rootId: string,
     filename: string,
     attackedLines: number
   ) => Promise<void>
-): ((
-  value: string,
-  row: IToeLinesData,
-  rowIndex: number,
-  key: Readonly<IHeaderConfig>
-) => JSX.Element) => {
+):
+  | ((
+      value: string,
+      row: IToeLinesData,
+      rowIndex: number,
+      key: Readonly<IHeaderConfig>
+    ) => JSX.Element)
+  | undefined => {
+  if (!canEdit) {
+    return undefined;
+  }
+
   const formatter: (
     value: string,
     row: IToeLinesData,

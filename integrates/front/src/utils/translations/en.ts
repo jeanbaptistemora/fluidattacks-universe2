@@ -1157,6 +1157,8 @@ export const enTranslations: ResourceKey = {
               "The attacked at is not valid. There is a new datetime.",
             invalidAttackedLines:
               "The attacked lines are not valid. Loc has been changed.",
+            invalidAttackedLinesBetween:
+              "The attacked lines must be between 0 and the loc.",
             nonPresent: "The lines is not present.",
             success: "Lines has been updated.",
           },

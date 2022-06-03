@@ -43,6 +43,7 @@ describe("groupToeLinesView", (): void => {
           canGetFirstAttackAt: true,
           first: 150,
           groupName: "unittesting",
+          shouldGetNewToeLines: false,
         },
       },
       result: {
@@ -54,7 +55,9 @@ describe("groupToeLinesView", (): void => {
               __typename: "ToeLinesConnection",
               edges: [
                 {
+                  __typename: "ToeLinesEdge",
                   node: {
+                    __typename: "ToeLines",
                     attackedAt: "2021-02-20T05:00:00+00:00",
                     attackedBy: "test2@test.com",
                     attackedLines: 4,
@@ -77,7 +80,9 @@ describe("groupToeLinesView", (): void => {
                   },
                 },
                 {
+                  __typename: "ToeLinesEdge",
                   node: {
+                    __typename: "ToeLines",
                     attackedAt: "",
                     attackedBy: "test@test.com",
                     attackedLines: 120,
@@ -185,9 +190,17 @@ describe("groupToeLinesView", (): void => {
         request: {
           query: VERIFY_TOE_LINES,
           variables: {
+            canGetAttackedAt: true,
+            canGetAttackedBy: true,
+            canGetAttackedLines: true,
+            canGetBePresentUntil: true,
+            canGetComments: true,
+            canGetFirstAttackAt: true,
             filename: "test/test#.config",
+            first: 150,
             groupName: "unittesting",
             rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
+            shouldGetNewToeLines: false,
           },
         },
         result: { data: { updateToeLinesAttackedLines: { success: true } } },
@@ -196,9 +209,17 @@ describe("groupToeLinesView", (): void => {
         request: {
           query: VERIFY_TOE_LINES,
           variables: {
+            canGetAttackedAt: true,
+            canGetAttackedBy: true,
+            canGetAttackedLines: true,
+            canGetBePresentUntil: true,
+            canGetComments: true,
+            canGetFirstAttackAt: true,
             filename: "test2/test.sh",
+            first: 150,
             groupName: "unittesting",
             rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+            shouldGetNewToeLines: false,
           },
         },
         result: { data: { updateToeLinesAttackedLines: { success: true } } },
@@ -216,6 +237,7 @@ describe("groupToeLinesView", (): void => {
           canGetFirstAttackAt: true,
           first: 150,
           groupName: "unittesting",
+          shouldGetNewToeLines: false,
         },
       },
       result: {
@@ -227,7 +249,9 @@ describe("groupToeLinesView", (): void => {
               __typename: "ToeLinesConnection",
               edges: [
                 {
+                  __typename: "ToeLinesEdge",
                   node: {
+                    __typename: "ToeLines",
                     attackedAt: "2021-02-20T05:00:00+00:00",
                     attackedBy: "test2@test.com",
                     attackedLines: 4,
@@ -251,7 +275,9 @@ describe("groupToeLinesView", (): void => {
                   },
                 },
                 {
+                  __typename: "ToeLinesEdge",
                   node: {
+                    __typename: "ToeLines",
                     attackedAt: "",
                     attackedBy: "test@test.com",
                     attackedLines: 120,
