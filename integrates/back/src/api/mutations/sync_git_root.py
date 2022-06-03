@@ -10,6 +10,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.enums import (
+    GitCloningStatus,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -60,7 +63,7 @@ async def mutate(
         loaders=loaders,
         group_name=group_name,
         root_id=root.id,
-        status="CLONING",
+        status=GitCloningStatus.CLONING,
         message="Cloning in progress...",
     )
     logs_utils.cloudwatch_log(

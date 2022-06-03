@@ -4,6 +4,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.enums import (
+    GitCloningStatus,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -35,7 +38,7 @@ async def mutate(
         loaders=info.context.loaders,
         group_name=kwargs["group_name"],
         root_id=kwargs["id"],
-        status=kwargs["status"],
+        status=GitCloningStatus(kwargs["status"]),
         message=kwargs["message"],
         commit=kwargs.get("commit"),
     )

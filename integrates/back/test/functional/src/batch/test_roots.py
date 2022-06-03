@@ -98,7 +98,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
         loaders,
         "group1",
         "7271f1cb-5b77-626b-5fc7-849393f646az",
-        "OK",
+        GitCloningStatus.OK,
         "Success",
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )
@@ -129,7 +129,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
         loaders,
         "group1",
         "6160f0cb-4b66-515b-4fc6-738282f535af",
-        "OK",
+        GitCloningStatus.OK,
         "Success",
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )

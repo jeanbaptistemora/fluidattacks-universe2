@@ -20,6 +20,9 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
+from db_model.enums import (
+    GitCloningStatus,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -76,7 +79,7 @@ async def mutate(
                 loaders=info.context.loaders,
                 group_name=root.group_name,
                 root_id=root.id,
-                status="CLONING",
+                status=GitCloningStatus.CLONING,
                 message="Cloning in progress...",
             )
 

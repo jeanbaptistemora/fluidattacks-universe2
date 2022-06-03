@@ -37,6 +37,7 @@ from db_model.credentials.types import (
 )
 from db_model.enums import (
     CredentialType,
+    GitCloningStatus,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -116,7 +117,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
             loaders=dataloaders,
             group_name=group_name,
             root_id=root.id,
-            status="CLONING",
+            status=GitCloningStatus.CLONING,
             message="Cloning in progress...",
         )
         root_cred: Optional[CredentialItem] = next(
@@ -151,7 +152,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
                 loaders=dataloaders,
                 group_name=group_name,
                 root_id=root.id,
-                status="OK",
+                status=GitCloningStatus.OK,
                 message="Cloned successfully",
                 commit=root_cloned.commit,
                 commit_date=root_cloned.commit_date,
@@ -165,7 +166,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
                 loaders=dataloaders,
                 group_name=group_name,
                 root_id=root.id,
-                status="FAILED",
+                status=GitCloningStatus.FAILED,
                 message=root_cloned.message or "Clone failed",
             )
 
@@ -313,7 +314,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                 loaders=loaders,
                 group_name=group_name,
                 root_id=root_id,
-                status="FAILED",
+                status=GitCloningStatus.FAILED,
                 message="Credentials does not work",
                 commit=roots_dict[root_id].cloning.commit,
             )

@@ -921,7 +921,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     loaders: Any,
     group_name: str,
     root_id: str,
-    status: str,
+    status: GitCloningStatus,
     message: str,
     commit: Optional[str] = None,
     commit_date: Optional[str] = None,
@@ -938,7 +938,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         cloning=GitRootCloning(
             modified_date=modified_date,
             reason=message,
-            status=GitCloningStatus(status),
+            status=status,
             commit=commit,
             commit_date=commit_date,
         ),
