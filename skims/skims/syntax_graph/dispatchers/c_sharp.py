@@ -19,6 +19,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     for_statemente as c_sharp_for_statement,
     if_statement as c_sharp_if_statement,
     initializer_expression as c_sharp_initializer_expression,
+    interface_declaration as c_sharp_interface_declaration,
     interpolated_string_expression as c_sharp_interpolated_string_expression,
     invocation_expression as c_sharp_invocation_expression,
     lambda_expression as c_sharp_lambda_expression,
@@ -232,6 +233,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "initializer_expression",
         },
         syntax_reader=c_sharp_initializer_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "interface_declaration",
+        },
+        syntax_reader=c_sharp_interface_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
