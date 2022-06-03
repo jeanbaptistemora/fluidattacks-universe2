@@ -24,6 +24,14 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 from db_model.roots.enums import (
     RootStatus,
     RootType,
@@ -58,24 +66,50 @@ async def populate() -> bool:
                 "role": "admin",
             },
         ),
-        "orgs": (
+        "organizations": (
             {
-                "name": "wano",
-                "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                "users": ("test@fluidattacks.com",),
-                "groups": (
-                    "kibi",
-                    "kuri",
-                    "udon",
+                "organization": Organization(
+                    id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    name="wano",
+                    policies=OrganizationPolicies(
+                        modified_by="test@fluidattacks.com",
+                        max_acceptance_days=7,
+                        modified_date="2019-11-22T20:07:57+00:00",
+                    ),
+                    state=OrganizationState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
                 ),
-                "policy": {},
             },
             {
-                "name": "zou",
+                "organization": Organization(
+                    id="5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
+                    name="zou",
+                    policies=OrganizationPolicies(
+                        modified_by="test@fluidattacks.com",
+                        max_acceptance_days=7,
+                        modified_date="2019-11-22T20:07:57+00:00",
+                    ),
+                    state=OrganizationState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+        ),
+        "organization_users": (
+            {
+                "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                "users": [
+                    "test@fluidattacks.com",
+                ],
                 "id": "5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
-                "users": ("test@fluidattacks.com",),
-                "groups": ("kurau",),
-                "policy": {},
+                "users": [
+                    "test@fluidattacks.com",
+                ],
             },
         ),
         "groups": (

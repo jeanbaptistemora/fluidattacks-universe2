@@ -16,6 +16,14 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPolicies,
+    OrganizationState,
+)
 import pytest
 from typing import (
     Any,
@@ -30,9 +38,29 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     new_user: str = "justoneorgacess@test.com"
     organization_id: str = "ed3831e8-14a2-483b-9cff-cc0747829640"
     data: Dict[str, Any] = {
-        "orgs": [
+        "organizations": [
             {
-                "name": "orgtest5",
+                "organization": Organization(
+                    id=organization_id,
+                    name="orgtest5",
+                    policies=OrganizationPolicies(
+                        modified_by=generic_data["global_vars"][
+                            "customer_manager_fluid_email"
+                        ],
+                        modified_date="2019-11-22T20:07:57+00:00",
+                    ),
+                    state=OrganizationState(
+                        modified_by=generic_data["global_vars"][
+                            "customer_manager_fluid_email"
+                        ],
+                        modified_date="2019-11-22T20:07:57+00:00",
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
+        ],
+        "organization_users": [
+            {
                 "id": organization_id,
                 "users": [
                     generic_data["global_vars"][
@@ -41,11 +69,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     new_user,
                     generic_data["global_vars"]["admin_email"],
                 ],
-                "groups": [
-                    "group5",
-                ],
-                "policy": {},
-                "max_acceptance_days": 7,
             },
         ],
         "users": [

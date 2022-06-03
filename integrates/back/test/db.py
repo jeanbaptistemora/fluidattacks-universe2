@@ -128,49 +128,6 @@ async def populate_users(data: List[Any]) -> bool:
     return True
 
 
-async def populate_orgs(data: List[Any]) -> bool:
-    success: bool = False
-    user_email: str = "user@gmail.com"
-    coroutines: List[Awaitable[bool]] = []
-    for org in data:
-        coroutines.append(
-            dal_organizations.add(
-                modified_by=user_email,
-                organization_name=org["name"],
-                organization_id=org["id"],
-            )
-        )
-        for user in org["users"]:
-            coroutines.append(
-                dal_organizations.add_user(
-                    f'ORG#{org["id"]}',
-                    user,
-                )
-            )
-        for group in org["groups"]:
-            coroutines.append(
-                dal_organizations.add_group(
-                    f'ORG#{org["id"]}',
-                    group,
-                )
-            )
-    success = all(await collect(coroutines))
-    coroutines = []
-    coroutines.extend(
-        [
-            dal_organizations.update(
-                f'ORG#{org["id"]}',
-                org["name"],
-                org["policy"],
-            )
-            for org in data
-            if org["policy"]
-        ]
-    )
-    success = success and all(await collect(coroutines))
-    return success
-
-
 async def populate_organization_users(data: list[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for org in data:
