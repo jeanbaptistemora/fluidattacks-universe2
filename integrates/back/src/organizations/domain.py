@@ -244,34 +244,17 @@ async def add_organization_typed(
 
 
 async def get_or_add(
-    organization_name: str, email: str = ""
-) -> Dict[str, Any]:
-    """
-    Return an organization, even if it does not exists,
-    in which case it will be added
-    """
-    org_created: bool = False
-    org_role: str = "user"
-    organization_name = organization_name.lower().strip()
-    try:
-        org = await orgs_dal.get_by_name(organization_name, ["id", "name"])
-    except OrganizationNotFound:
-        org = {}
-    if org:
-        org["id"] = remove_org_id_prefix(org["id"])
-        has_access = (
-            await has_user_access(str(org["id"]), email) if email else True
-        )
-    else:
-        org = await orgs_dal.add(
-            modified_by=email,
-            organization_name=organization_name,
-        )
-        org_created = True
-        org_role = "user_manager"
+    loaders: Any, organization_name: str, email: str = ""
+) -> Organization:
+    if await if_exist(loaders, organization_name):
+        org: Organization = await loaders.organization.load(organization_name)
+        org_id = remove_org_id_prefix(org.id)
+        has_access = await has_user_access(org_id, email) if email else True
 
-    if email and (org_created or not has_access):
-        await add_user(str(org["id"]), email, org_role)
+        if email and not has_access:
+            await add_user(org_id, email, "user_manager")
+    else:
+        org = await add_organization_typed(loaders, organization_name, email)
     return org
 
 

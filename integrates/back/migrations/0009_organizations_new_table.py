@@ -12,6 +12,9 @@ group creation is in production, so all possible groups have an organization
 """
 
 import bugsnag
+from dataloaders import (
+    get_new_context,
+)
 from groups import (
     dal as groups_dal,
 )
@@ -55,7 +58,7 @@ def main() -> None:
                 unique_orgs[org_name] = uuid.uuid4()
             log(f"pk: ORG#{unique_orgs[org_name]}\n" "sk: {org_name}")
         else:
-            org_dict = orgs_domain.get_or_add(org_name)
+            org_dict = orgs_domain.get_or_add(get_new_context(), org_name)
             success: bool = groups_dal.update(
                 data={"organization": org_dict["id"]}, group_name=proj_name
             )

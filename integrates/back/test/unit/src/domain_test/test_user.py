@@ -82,7 +82,7 @@ async def test_remove_user() -> None:
     organization_id: str = organization.id
     email: str = "testanewuser@test.test"
     await autoenroll_user(email)
-    await groups_domain.enroll_user_to_demo(email)
+    await groups_domain.enroll_user_to_demo(loader, email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
     assert await users_domain.get_data(email, "email") == email

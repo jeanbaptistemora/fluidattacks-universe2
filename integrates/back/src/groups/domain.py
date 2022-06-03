@@ -528,6 +528,7 @@ async def complete_register_for_organization_invitation(
     user_exists = bool(await users_domain.get_data(user_email, "email"))
     if not user_exists:
         user_created = await add_without_group(
+            loaders,
             user_email,
             "user",
             should_add_default_org=(
@@ -659,6 +660,7 @@ async def add_group(  # pylint: disable=too-many-locals
 
 
 async def add_without_group(
+    loaders: Any,
     email: str,
     role: str,
     should_add_default_org: bool = True,
@@ -679,11 +681,11 @@ async def add_without_group(
                 ]
             )
         )
-        org = await orgs_domain.get_or_add(FI_DEFAULT_ORG)
+        org = await orgs_domain.get_or_add(loaders, FI_DEFAULT_ORG)
         if should_add_default_org and not await orgs_domain.has_user_access(
-            str(org["id"]), email
+            str(org.id), email
         ):
-            await orgs_domain.add_user(str(org["id"]), email, "user")
+            await orgs_domain.add_user(str(org.id), email, "user")
     return success
 
 
@@ -1863,8 +1865,8 @@ async def after_complete_register(
         return
     group: Group = await loaders.group.load(group_name)
     organization_id: str = group.organization_id
-    default_org = await orgs_domain.get_or_add(FI_DEFAULT_ORG)
-    default_org_id: str = str(default_org["id"])
+    default_org = await orgs_domain.get_or_add(loaders, FI_DEFAULT_ORG)
+    default_org_id: str = str(default_org.id)
     if (
         organization_id != default_org_id
         and await orgs_domain.has_user_access(default_org_id, user_email)
@@ -2135,14 +2137,16 @@ async def filter_groups_with_org(
     )
 
 
-async def enroll_user_to_demo(email: str) -> None:
+async def enroll_user_to_demo(loaders: Any, email: str) -> None:
     user_orgs = await orgs_domain.get_user_organizations(email=email)
     if len(user_orgs) > 0:
         raise UserCannotEnrollDemo()
 
-    org = await orgs_domain.get_or_add(organization_name=FI_DEFAULT_ORG)
+    org = await orgs_domain.get_or_add(
+        loaders=loaders, organization_name=FI_DEFAULT_ORG
+    )
     await orgs_domain.add_user(
-        organization_id=str(org["id"]), email=email, role="user_manager"
+        organization_id=str(org.id), email=email, role="user_manager"
     )
 
     for group_name in FI_COMMUNITY_PROJECTS.split(","):

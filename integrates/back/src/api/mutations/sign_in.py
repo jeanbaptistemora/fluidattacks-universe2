@@ -8,6 +8,9 @@ from authlib.integrations.starlette_client import (
 from custom_types import (
     SignInPayload as SignInPayloadType,
 )
+from dataloaders import (
+    get_new_context,
+)
 from db_model import (
     users as user_model,
 )
@@ -85,6 +88,7 @@ async def autoenroll_user(email: str) -> None:
     )
 
     await groups_domain.add_without_group(
+        get_new_context(),
         email=email,
         role="user",
         should_add_default_org=False,
