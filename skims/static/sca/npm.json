@@ -2704,9 +2704,6 @@
   "graphql-shield": {
     "HSA-hx78-272p-mqqh": "<6.0.6"
   },
-  "graphql-tools": {
-    "CVE-2021-23326": "<6.2.6"
-  },
   "graylog-web-interface": {
     "GHSA-9qgh-7pgp-hp7r": ">=0"
   },
