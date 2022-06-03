@@ -4,6 +4,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.colors import (
+    RISK,
+)
 from charts.generators.single_value_indicator.remediation import (
     get_totals_by_week,
 )
@@ -160,7 +163,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.6,
             fontSizeRatio=0.5,
             text=count,
-            color="green",
+            color=RISK.more_passive,
             arrow="\uD83E\uDC29",
         )
 
@@ -169,7 +172,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.6,
             fontSizeRatio=0.5,
             text=count,
-            color="green",
+            color=RISK.more_passive,
             arrow="\uD83E\uDC29",
         )
 
