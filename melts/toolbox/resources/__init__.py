@@ -204,19 +204,28 @@ def repo_url(group_name: str, root_id: str, baseurl: str) -> str:
     error = ""
     repo_user: Optional[str] = None
     repo_pass: Optional[str] = None
+    repo_token: Optional[str] = None
+
+    parsed_url = parse_url(baseurl)
     if credentials := get_git_root_credentials(group_name, root_id):
         repo_user = credentials.get("user")
         repo_pass = credentials.get("password")
-    if repo_user and repo_pass:
+        repo_token = credentials.get("token")
+    if repo_token:
+        repo_token = urllib.parse.quote_plus(repo_token)
+        url = str(parsed_url._replace(auth=f"{repo_token}"))
+    elif repo_user and repo_pass:
         repo_user = urllib.parse.quote_plus(repo_user)
         repo_pass = urllib.parse.quote_plus(repo_pass)
-        parsed_url = parse_url(baseurl)
         url = str(parsed_url._replace(auth=f"{repo_user}:{repo_pass}"))
-        # check if the user has permissions in the repo
-        remote = ls_remote(url)
-        if remote.get("ok"):
-            return url
-        error = remote["error"]["message"]
+    else:
+        return "fatal: missing credentials"
+
+    # check if the user has permissions in the repo
+    remote = ls_remote(url)
+    if remote.get("ok"):
+        return url
+    error = remote["error"]["message"]
 
     return error
 
