@@ -13,8 +13,9 @@ const CardContainer = styled.div.attrs({
     br2
     ba
     pv5
-    ph6
+    ph4
     mv5
+    ph6-l
     w-100
     center
     mw-1366
