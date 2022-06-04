@@ -1,7 +1,8 @@
+/* eslint-disable prefer-promise-reject-errors, no-async-promise-executor */
 import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -78,15 +79,34 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
   });
 
+  const [successMutation, setSuccessMutation] = useState({
+    group: false,
+    organization: false,
+    repository: false,
+  });
+
+  const setSuccessValues = useCallback(
+    (groupValue: boolean, orgValue: boolean, repoValue: boolean): void => {
+      setSuccessMutation({
+        group: groupValue,
+        organization: orgValue,
+        repository: repoValue,
+      });
+    },
+    [setSuccessMutation]
+  );
+
   const [orgMessages, setOrgMessages] = useState({
     message: "",
     type: "success",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
 
-  const [addOrganization, { loading: submittingOrg }] =
-    useMutation<IAddOrganizationResult>(ADD_ORGANIZATION, {
+  const [addOrganization] = useMutation<IAddOrganizationResult>(
+    ADD_ORGANIZATION,
+    {
       awaitRefetchQueries: true,
       onCompleted: (result): void => {
         if (result.addOrganization.success) {
@@ -109,26 +129,24 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         });
       },
       refetchQueries: [GET_USER_WELCOME],
-    });
-
-  const [addGroup, { loading: submittingGroup }] = useMutation(
-    ADD_GROUP_MUTATION,
-    {
-      onCompleted: (result: { addGroup: { success: boolean } }): void => {
-        if (result.addGroup.success) {
-          msgSuccess(
-            t("organization.tabs.groups.newGroup.success"),
-            t("organization.tabs.groups.newGroup.titleSuccess")
-          );
-        }
-      },
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        handleGroupCreateError(graphQLErrors, setOrgMessages);
-      },
     }
   );
 
-  const [addGitRoot, { loading: submittingRoot }] = useMutation(ADD_GIT_ROOT, {
+  const [addGroup] = useMutation(ADD_GROUP_MUTATION, {
+    onCompleted: (result: { addGroup: { success: boolean } }): void => {
+      if (result.addGroup.success) {
+        msgSuccess(
+          t("organization.tabs.groups.newGroup.success"),
+          t("organization.tabs.groups.newGroup.titleSuccess")
+        );
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      handleGroupCreateError(graphQLErrors, setOrgMessages);
+    },
+  });
+
+  const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
       if (result.addGitRoot.success) {
         msgSuccess(
@@ -143,6 +161,26 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
   });
 
+  const timeoutPromise = useCallback(
+    async (
+      fn: Promise<FetchResult<IAddOrganizationResult>>,
+      timeout: number
+    ): Promise<unknown> => {
+      return new Promise(async (resolve, reject): Promise<void> => {
+        setTimeout((): void => {
+          reject("API_TIMEOUT");
+        }, timeout);
+        const response = await fn;
+        if (response.data === null || response.data === undefined) {
+          reject("ERROR");
+        } else {
+          resolve(response.data);
+        }
+      });
+    },
+    []
+  );
+
   const handleSubmit = useCallback(
     async (values: {
       groupDescription: string;
@@ -151,22 +189,37 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       reportLanguage: string;
       terms: string[];
     }): Promise<void> => {
+      setIsSubmitting(true);
       setOrgMessages({
         message: "",
         type: "success",
       });
       setIsRepository(false);
-      setShowSubmitAlert(false);
       setOrganization(values);
       mixpanel.track("AddOrganization");
-      const orgResult = await addOrganization({
-        variables: { name: values.organizationName.toUpperCase() },
-      });
-      const orgSuccess =
-        orgResult.data === null || orgResult.data === undefined
-          ? false
-          : orgResult.data.addOrganization.success;
-      if (orgSuccess) {
+      async function successOrg(): Promise<boolean> {
+        try {
+          const response = await timeoutPromise(
+            addOrganization({
+              variables: { name: values.organizationName.toUpperCase() },
+            }),
+            5000
+          );
+          const orgResult = response as {
+            addOrganization: { success: boolean };
+          };
+          setSuccessValues(
+            successMutation.group,
+            orgResult.addOrganization.success,
+            successMutation.repository
+          );
+
+          return orgResult.addOrganization.success;
+        } catch {
+          return false;
+        }
+      }
+      if (successMutation.organization ? true : await successOrg()) {
         mixpanel.track("AddGroup");
         const groupResult = await addGroup({
           variables: {
@@ -187,7 +240,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             : groupResult.data.addGroup.success;
         if (groupSuccess) {
           mixpanel.track("AddGitRoot");
-          const rootResult = await addGitRoot({
+          await addGitRoot({
             variables: {
               branch: branch.trim(),
               credentials:
@@ -218,24 +271,12 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               useVpn: false,
             },
           });
-          const rootSuccess =
-            rootResult.data === null || rootResult.data === undefined
-              ? false
-              : rootResult.data.addGitRoot.success;
-          if (rootSuccess) {
-            localStorage.clear();
-            sessionStorage.clear();
-            replace(
-              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
-            );
-            setIsRepository(true);
-          } else {
-            setIsRepository(false);
-            setOrgMessages({
-              message: "Invalid repository info, please change your inputs",
-              type: "error",
-            });
-          }
+          localStorage.clear();
+          sessionStorage.clear();
+          replace(
+            `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
+          );
+          setIsRepository(true);
         } else {
           setOrgMessages({
             message: "Invalid or used Group Name, please change your input",
@@ -249,6 +290,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           type: "error",
         });
       }
+      setIsSubmitting(false);
       setShowSubmitAlert(false);
     },
     [
@@ -259,6 +301,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       repository,
       setIsRepository,
       setOrganization,
+      setSuccessValues,
+      successMutation,
+      timeoutPromise,
     ]
   );
 
@@ -289,9 +334,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     <Col large={"25"} medium={"50"} small={"70"}>
                       <FormContent>
                         <AddOrganization
-                          isSubmitting={
-                            submittingOrg || submittingGroup || submittingRoot
-                          }
+                          isSubmitting={isSubmitting}
                           onSubmit={handleSubmit}
                           orgMessages={orgMessages}
                           orgValues={organization}
