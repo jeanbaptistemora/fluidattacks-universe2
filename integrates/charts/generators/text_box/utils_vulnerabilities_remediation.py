@@ -154,7 +154,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.6,
             fontSizeRatio=0.5,
             text=count,
-            color="red",
+            color=RISK.more_agressive,
             arrow="\uD83E\uDC29",
         )
 
