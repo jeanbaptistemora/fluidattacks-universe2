@@ -27,6 +27,7 @@ const CardContainer = styled.div.attrs({
 const CardButton = styled.div.attrs({
   className: `
     flex
+    items-center
     t-all-3-eio
   `,
 })`
@@ -36,7 +37,7 @@ const CardButton = styled.div.attrs({
 
   > p + svg {
     color: #ff3435;
-    font-size: 25px;
+    font-size: 36px;
   }
 
   :hover > p {

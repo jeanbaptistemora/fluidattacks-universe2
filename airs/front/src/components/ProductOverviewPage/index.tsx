@@ -2,6 +2,7 @@ import React from "react";
 
 import { CardsSection } from "./CardsSection";
 import { MainSection } from "./MainSection";
+import { PlansBanner } from "./PlansBanner";
 import { ProductSection } from "./ProductSection";
 
 import { PageArticle } from "../../styles/styledComponents";
@@ -18,6 +19,7 @@ const ProductOverviewPage: React.FC<IProps> = ({
       <MainSection description={description} />
       <CardsSection />
       <ProductSection />
+      <PlansBanner />
     </PageArticle>
   );
 };
