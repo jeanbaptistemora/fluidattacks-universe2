@@ -4,8 +4,8 @@ Remove FI_project_access access for groups
 that doesn't longer exist to avoid
 group_not_found exception
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-04 at 00:02:23 UTC
+Finalization Time: 2022-06-04 at 00:05:42 UTC
 """
 
 from aioextensions import (
@@ -13,8 +13,9 @@ from aioextensions import (
     run,
 )
 from authz.policy import (
+    _delete_subject_policy,
     _get_user_subject_policies,
-    get_group_level_roles,
+    get_group_level_role,
 )
 from custom_exceptions import (
     GroupNotFound,
@@ -28,6 +29,7 @@ from dynamodb import (
 )
 from group_access.dal import (
     get_user_groups,
+    remove_access,
 )
 import logging
 import logging.config
@@ -53,8 +55,9 @@ async def _process_user(
     try:
         await loaders.group.load(group_name)
     except GroupNotFound as ex:
-        group_role = await get_group_level_roles(
-            email, [group_name], with_cache=False
+        group_role = await get_group_level_role(
+            email,
+            group_name,
         )
         LOGGER_CONSOLE.info(
             ex,
@@ -66,6 +69,12 @@ async def _process_user(
                     "role": group_role,
                 }
             },
+        )
+        await collect(
+            [
+                _delete_subject_policy(email, group_name),
+                remove_access(email, group_name),
+            ]
         )
 
 
@@ -101,6 +110,7 @@ async def process_user(
         ),
         workers=4,
     )
+
     LOGGER_CONSOLE.info(
         "User processed",
         extra={
