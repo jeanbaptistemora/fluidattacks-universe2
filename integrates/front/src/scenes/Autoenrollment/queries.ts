@@ -66,14 +66,6 @@ const ADD_ORGANIZATION = gql`
   }
 `;
 
-const AUTOENROLL_DEMO = gql`
-  mutation AutoenrollDemo {
-    autoenrollDemo {
-      success
-    }
-  }
-`;
-
 const GET_USER_WELCOME = gql`
   query GetUserWelcome {
     me {
@@ -105,7 +97,6 @@ export {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
-  AUTOENROLL_DEMO,
   GET_USER_WELCOME,
   VALIDATE_GIT_ACCESS,
 };
