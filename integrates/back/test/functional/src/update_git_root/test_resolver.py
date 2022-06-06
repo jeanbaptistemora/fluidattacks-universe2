@@ -1,15 +1,8 @@
 from . import (
     get_result_1,
-    get_result_2,
-)
-from custom_exceptions import (
-    CredentialNotFound,
 )
 from dataloaders import (
     get_new_context,
-)
-from db_model.credentials.get import (
-    get_credentials,
 )
 import pytest
 from typing import (
@@ -26,58 +19,44 @@ from typing import (
         ["admin@gmail.com"],
     ],
 )
-async def test_update_git_root(populate: bool, email: str) -> None:
+async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     assert populate
-    cred_id = "3912827d-2b35-4e08-bd35-1bb24457951d"
-    cred_new_name = "Edited SSH Key"
+    credential_key = (
+        "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhr"
+        "dGRqRUFBQUFBQ21GbGN6STFOaTFqZEhJQUFBQUdZbU55ZVhCMEFBQUFHQUFBQUJCZjJF"
+        "dWFKRgp3dnA4WVpZRWN5aldleUFBQUFFQUFBQUFFQUFBQ1hBQUFBQjNOemFDMXljMkVB"
+        "QUFBREFRQUJBQUFBZ1FDZS9rbEt6dEZ1CktKLzdFQjRJZ0lFSCswdzVHT2ZwWHFUaGYr"
+        "aEtxd01QZDgyQTl4OTdFbzA0UHo4V0dGdXc3S1FwM3B4NitOU3BOR2dMVGoKeFB6alhO"
+        "Q3NNaWJzUjgxNmNWVGVjNVk4STlvQnB0cHFJZWY3cmdpbjhBNG5waCszV1ZKa1U2NEJM"
+        "VjNsQWhGem84QTFBOAppWlhDbDA0VXVQVE9mV2oxQlNIdjVRQUFBZ0RHZXBiY3pmcjRF"
+        "NWFEb25SeUhZSmNTcXdVbWZCOGdEbFJkdDRjWlFHaE5NCkxtUlFVdlhOaWpnbzFhazBa"
+        "akhxaDRIQXdmR1NySGxjdUJKOUlSdWZ1ekhCK2xrd0R6akJBeWR3Z3JJQndCbDNFcXBa"
+        "NkgKY1l6U29rZEZ4TFZqVXJPY2RQTTV5SWM3TTB1MFU5WGNuN0ZjYTk0UThLY3I2bXc5"
+        "aVQ5ZnlhQURZMnJtMHJ1VTcxUXcvOQo4RHdna3dsNmNBQVVrWnQvR2syaG8vc0FYMUIy"
+        "cElVRUFJL2FMcWYzVjBIdWNsN2ZWZGxsYldneWJIS1hIdXlUdEZJN09HCmlOUHBhUy94"
+        "dFdsSmcyTmJad09MWUo4MlpQKzlnbzlUM3ZVMTZOTGt3bTUwa04rckRRazk4MC80OGZN"
+        "T042RFlKRVo3VUIKWVpoSnZoUS9nYjdwT1JMSmhTT3p4cDFyN3hoamlPSHpid0p0OVlS"
+        "aWdHcFBtT28vOEw0bml4TTJqaC9jcjhFc0ZlVGFaVApBOGg3M2RObXVLWkZ4OGJPeTc3"
+        "aFQ3YW1GK2xxdm1xSC91M2d5UkcvMnVyVGpBZ1EvOENZYmk3czcwUEVhTzBPRWxTRmQz"
+        "CjZWTlFiNjd1amZjWVdkbmxPTG5FSHlWMm9oTG5TbVNJQjBxRnhqaWptelg1K2pVbm82"
+        "dnpRTCtOdDA4R01XRVRYbk4vUUYKeENGRDJ1UVMrQ2Q3dngvUnFzNmdVR0JQSTVnMVFT"
+        "cG5hV1NKSHlXYlM5WHoyeGJnQ0xnVjA1S0dKQ1hWajZtNnNjc0ZEZQpLVlRxWjRiK1RH"
+        "S0NrMjF6WkltOSt2VUx2OWgzbmIxQ0lYN0R2MkJnM0xsczAvOGdLYXFjVUlYejRUVjhi"
+        "ZHQwMkZsc2hnCjlaSlpsa25mMlE9PQotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZ"
+        "LS0tLS0="
+    )
+    cred_new_name = "New SSH Key"
     group_name: str = "group1"
     result: Dict[str, Any] = await get_result_1(
         user=email,
         group=group_name,
-        credential_id=cred_id,
+        credential_key=credential_key,
         credential_name=cred_new_name,
     )
     assert "errors" not in result
     assert result["data"]["updateGitRoot"]["success"]
 
     loaders = get_new_context()
-    cred = await loaders.credential.load((group_name, cred_id))
-    assert cred.state.name == cred_new_name
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_git_root")
-@pytest.mark.parametrize(
-    ["email"],
-    [
-        ["admin@gmail.com"],
-    ],
-)
-async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
-    assert populate
-    group_name: str = "group1"
-    cred_id = "1a5dacda-1d52-465c-9158-f6fd5dfe0998"
-    root_id = "9059f0cb-3b55-404b-8fc5-627171f424ad"
-    result: Dict[str, Any] = await get_result_2(
-        user=email,
-        group=group_name,
-        root_id=root_id,
-        credential_id=cred_id,
-    )
-    assert "errors" not in result
-    assert result["data"]["updateGitRoot"]["success"]
-
-    loaders = get_new_context()
-    with pytest.raises(CredentialNotFound):
-        await loaders.credential.load((group_name, cred_id))
-
-    root = await loaders.root.load((group_name, root_id))
-    assert root.cloning.status.value == "FAILED"
-    assert root.cloning.reason == "Credentials does not work"
-
-    all_credentials = await get_credentials(group_name="group1")
-    assert len(all_credentials) > 0
-    for cred in all_credentials:
-        assert cred.state.password is None
-        assert cred.state.user is None
-        assert cred.state.token is None
+    credentials = await loaders.group_credentials.load(group_name)
+    credential_names = [credential.state.name for credential in credentials]
+    assert cred_new_name in credential_names

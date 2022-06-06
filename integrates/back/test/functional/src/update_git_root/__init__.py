@@ -15,16 +15,18 @@ async def get_result_1(
     *,
     user: str,
     group: str,
-    credential_id: str,
+    credential_key: str,
     credential_name: str,
 ) -> Dict[str, Any]:
     query: str = f"""
-      mutation {{
+      mutation UpdateGitRoot(
+            $credentialKey: String!, $credentialName: String!
+        ) {{
         updateGitRoot(
             branch: "develop"
             credentials: {{
-                id: "{credential_id}"
-                name: "{credential_name}"
+                key: $credentialKey
+                name: $credentialName
                 type: SSH
             }}
             environment: "QA"
@@ -38,43 +40,11 @@ async def get_result_1(
         }}
       }}
     """
-    data: Dict[str, str] = {
-        "query": query,
+    variables: dict[str, str] = {
+        "credentialKey": credential_key,
+        "credentialName": credential_name,
     }
-    return await get_graphql_result(
-        data,
-        stakeholder=user,
-        context=get_new_context(),
-    )
-
-
-async def get_result_2(
-    *, user: str, group: str, root_id: str, credential_id: str
-) -> Dict[str, Any]:
-    query: str = f"""
-      mutation {{
-        updateGitRoot(
-            branch: "develop"
-            credentials: {{
-                id: "{credential_id}"
-                key: "VGVzdCBTU0gK"
-                name: "New SSH Key"
-                type: SSH
-            }}
-            environment: "QA"
-            gitignore: ["node_modules/"]
-            groupName: "{group}"
-            id: "{root_id}"
-            includesHealthCheck: false
-            url: "https://gitlab.com/fluidattacks/nickname2"
-        ) {{
-            success
-        }}
-      }}
-    """
-    data: Dict[str, str] = {
-        "query": query,
-    }
+    data = {"query": query, "variables": variables}
     return await get_graphql_result(
         data,
         stakeholder=user,
