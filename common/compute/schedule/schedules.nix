@@ -575,7 +575,7 @@
       "prod"
     ];
 
-    schedule_expression = "cron(0 9 ? * 2-6 *)";
+    schedule_expression = "cron(0 9 ? * 3-7 *)";
     size = "nano";
     attempts = 3;
     timeout = 86400;
