@@ -16,10 +16,8 @@
     <div style="line-height: 30px;">
       {% for key, value in new_root_content.items() %}
         <strong>
-        {% if key == "gitignore" %}
-          Exclusions
-        {% elif key == "url" %}
-          URL
+        {% if key in key_format %}
+          {{ key_format[key] }}
         {% else %}
           {{ key.replace('_', ' ').capitalize() }}
         {% endif %}
@@ -50,7 +48,7 @@
           	</div>
           </div>
         {% else %}
-          <u>from</u> {{ old_state[key] }} <u>to</u> {{ value }} <br>
+          {{ old_state[key] }} <u>to</u> {{ value }} <br>
         {% endif %}
       {% endfor %}
     </div>

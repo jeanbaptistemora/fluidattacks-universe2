@@ -173,11 +173,17 @@ async def send_mail_updated_root(
     old_state: Dict[str, Any],
     modified_date: str,
 ) -> None:
+    key_format: Dict[str, str] = {
+        "gitignore": "Exclusions",
+        "url": "URL",
+        "includes_health_check": "Health check",
+    }
     await send_mails_async(
         email_to=email_to,
         context={
             "group_name": group_name,
             "responsible": responsible,
+            "key_format": key_format,
             "new_root_content": new_root_content,
             "old_state": old_state,
             "root_nickname": root_nickname,
