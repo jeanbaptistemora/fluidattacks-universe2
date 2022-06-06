@@ -5,23 +5,9 @@ function main {
   local out="integrates/db/.data"
   local i=0
   local included_facets=(
-    credentials_metadata
     credentials_historic_state
+    credentials_metadata
     credentials_state
-    git_root_metadata
-    git_root_historic_state
-    git_root_historic_cloning
-    group_metadata
-    group_historic_state
-    group_unreliable_indicators
-    ip_root_metadata
-    ip_root_historic_state
-    machine_git_root_execution
-    root_services_toe_lines
-    toe_input_metadata
-    toe_lines_metadata
-    url_root_metadata
-    url_root_historic_state
     finding_approval
     finding_creation
     finding_historic_state
@@ -32,12 +18,29 @@ function main {
     finding_submission
     finding_unreliable_indicators
     finding_verification
+    git_root_historic_cloning
+    git_root_historic_state
+    git_root_metadata
+    group_historic_state
+    group_metadata
+    group_unreliable_indicators
+    ip_root_historic_state
+    ip_root_metadata
+    machine_git_root_execution
+    organization_historic_policies
+    organization_historic_state
+    organization_metadata
+    root_services_toe_lines
+    toe_input_metadata
+    toe_lines_metadata
+    url_root_historic_state
+    url_root_metadata
     user_metadata
-    vulnerability_metadata
     vulnerability_historic_state
     vulnerability_historic_treatment
     vulnerability_historic_verification
     vulnerability_historic_zero_risk
+    vulnerability_metadata
   )
   local facets=''
 
