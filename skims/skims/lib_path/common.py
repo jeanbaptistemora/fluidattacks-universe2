@@ -238,7 +238,7 @@ def translate_dependencies_to_vulnerabilities(
                 (
                     path,
                     f'({product["item"]} v{version["item"]})',
-                    f"[{cve}]",
+                    f"[{', '.join(cve)}]",
                 )
             ),
             where=str(product["line"]),
@@ -263,8 +263,10 @@ def translate_dependencies_to_vulnerabilities(
             ),
         )
         for product, version in dependencies
-        for cve in get_vulnerabilities(
-            platform, product["item"], version["item"]
+        if (
+            cve := get_vulnerabilities(
+                platform, product["item"], version["item"]
+            )
         )
     )
 
