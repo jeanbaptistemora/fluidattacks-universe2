@@ -10,24 +10,24 @@ locals {
             Action = [
               "iam:Get*",
               "iam:List*",
-              "kms:CreateAlias",
-              "kms:CreateKey",
-              "kms:Describe*",
-              "kms:Get*",
-              "kms:List*",
-              "kms:TagResource",
-              "kms:UntagResource",
-              "kms:UpdateAlias",
-              "kms:DeleteAlias",
               "s3:Get*",
               "s3:List*",
             ]
             Resource = ["*"]
           },
           {
-            Sid    = "generalWrite"
+            Sid    = "manageServicesIAM"
             Effect = "Allow"
-            Action = ["*"]
+            Action = [
+              "iam:Attach*",
+              "iam:Create*",
+              "iam:Delete*",
+              "iam:Detach*",
+              "iam:Pass*",
+              "iam:Put*",
+              "iam:Tag*",
+              "iam:Update*",
+            ]
             Resource = [
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/continuous*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/secure-notes*",
@@ -35,6 +35,13 @@ locals {
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/secure-notes*",
               "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/continuous*",
+            ]
+          },
+          {
+            Sid    = "generalWrite"
+            Effect = "Allow"
+            Action = ["*"]
+            Resource = [
               "arn:aws:s3:::continuous*",
               "arn:aws:s3:::continuous*/*",
               "arn:aws:s3:::fluidattacks-terraform-states-prod/break*",
