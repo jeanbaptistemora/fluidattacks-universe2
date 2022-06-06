@@ -6,8 +6,9 @@ const percentage = 100;
 function render(dataDocument, height, width) {
   const fontSize = dataDocument.fontSizeRatio * Math.min(height, width);
   const fontOffset = fontSize * half * half;
+  const value = parseFloat(dataDocument.text * percentage).toFixed(0);
 
-  if (dataDocument.arrow) {
+  if (dataDocument.arrow && value !== 0) {
     const arrowFontSize = dataDocument.arrowFontSizeRatio * Math.min(height, width);
     const arrowFontOffset = 1.65;
     const plusSign = parseFloat(dataDocument.text) < 0 ? '' : '+';
@@ -25,7 +26,7 @@ function render(dataDocument, height, width) {
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(0, ${ fontOffset })`)
-      .text(`${ plusSign }${ parseFloat(dataDocument.text * percentage).toFixed(0) }%`);
+      .text(`${ plusSign }${ value }%`);
 
     svg
       .append('text')
@@ -49,7 +50,7 @@ function render(dataDocument, height, width) {
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(0, ${ fontOffset })`)
-      .text(`${ parseFloat(dataDocument.text * percentage).toFixed(0) }%`);
+      .text(`${ value }%`);
   }
 }
 
