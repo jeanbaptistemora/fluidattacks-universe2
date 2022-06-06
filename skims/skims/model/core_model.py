@@ -2307,6 +2307,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.DAST,
     )
+    HAS_AUTOCOMPLETE = MethodInfo(
+        file_name="html",
+        name="has_autocomplete",
+        module="lib_path",
+        finding=FindingEnum.F065,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_HAS_CONSOLE_FUNCTIONS = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_has_console_functions",
