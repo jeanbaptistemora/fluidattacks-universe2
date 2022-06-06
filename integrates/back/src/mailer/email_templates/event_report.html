@@ -14,11 +14,12 @@
     <p>
       <strong>Type</strong>: {{ event_type }}.<br/>
       <strong>Description</strong>: {{ description }}.<br/>
+      {% if reason %}<strong>Reason</strong>: {{ reason }}.<br/>{% endif %}
       <strong>Age</strong>: {{ event_age }} days. (best closing average 4.2 days)<br/>
       <strong>Date</strong>: {{ report_date }}
     </p>
     <p></p>
-    <p>Regards,<br>
+    <p>Regards,<br/>
       Fluid Attacks Team</p>
     {{ go_to_button('Go to event', event_url) }}
     <br />

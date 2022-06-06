@@ -235,7 +235,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                             "searchFindings.tabSeverity.common.deactivation.other"
                           )}
                         </ControlLabel>
-                        <Field component={FormikText} name={"other"} />
+                        <Field
+                          component={FormikText}
+                          name={"other"}
+                          validate={composeValidators([required])}
+                        />
                       </FormGroup>
                     ) : undefined}
                   </Col100>

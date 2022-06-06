@@ -28,6 +28,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
     Tuple,
 )
 
@@ -83,10 +84,19 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_id: str,
     event_type: str,
     description: str,
+    reason: Optional[str] = None,
+    other: Optional[str] = None,
     is_closed: bool = False,
     report_date: date,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
+    reason_format = (
+        other
+        if other
+        else str(reason).replace("_", " ").capitalize()
+        if reason
+        else ""
+    )
     event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
     stakeholders: Tuple[
@@ -115,6 +125,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/events/"
             f"{event_id}/description"
         ),
+        "reason": reason_format,
         "report_date": str(report_date),
         "state": state,
     }

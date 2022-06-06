@@ -401,6 +401,8 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
             event_id=event_id,
             event_type=event_type,
             description=description,
+            reason=reason,
+            other=other,
             is_closed=True,
             report_date=report_date,
         )

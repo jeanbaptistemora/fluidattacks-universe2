@@ -740,7 +740,7 @@ type Mutation {
     "Datetime of solving of the Event, in the format yyyy-MM-ddThh:mm:ssZ"
     date: DateTime!
     "Reason for solve event"
-    reason: SolveEventReason
+    reason: SolveEventReason!
     "Custom reason provided"
     other: String
   ): SimplePayload!
