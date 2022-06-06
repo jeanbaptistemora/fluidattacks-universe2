@@ -31,7 +31,7 @@ def has_autocomplete(content: str, path: str) -> Vulnerabilities:
 
         for obj in html_obj("input"):
             autocomplete_enabled: bool = obj.get("autocomplete", "on") != "off"
-            is_input_enabled: bool = obj.get("disabled", "") != ""
+            is_input_enabled: bool = obj.get("disabled") != ""
             is_input_type_sensitive: bool = obj.get("type", "text") in (
                 # autocomplete only works with these:
                 #   https://www.w3schools.com/tags/att_input_autocomplete.asp
