@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 import { array, object, string } from "yup";
 
@@ -72,7 +71,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
   successMutation,
 }: IAddOrganizationProps): JSX.Element => {
   const { t } = useTranslation();
-  const { push } = useHistory();
 
   const [showCancelModal, setShowCancelModal] = useState(false);
 
@@ -80,7 +78,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
     setShowCancelModal(true);
   }
   function yesClick(): void {
-    push("/");
+    location.replace("/logout");
   }
   function noClick(): void {
     setShowCancelModal(false);

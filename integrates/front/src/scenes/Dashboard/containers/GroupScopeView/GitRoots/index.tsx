@@ -652,7 +652,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       </TooltipWrapper>
                       {runTour ? (
                         <Tour
-                          run={true}
+                          run={false}
                           steps={[
                             {
                               ...BaseStep,

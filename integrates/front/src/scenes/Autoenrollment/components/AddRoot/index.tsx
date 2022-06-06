@@ -8,7 +8,6 @@ import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
@@ -51,7 +50,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
   setRootMessages,
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
-  const { push } = useHistory();
 
   const group = "UNITTESTING";
 
@@ -64,7 +62,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
     setShowCancelModal(true);
   }
   function yesClick(): void {
-    push("/");
+    location.replace("/logout");
   }
   function noClick(): void {
     setShowCancelModal(false);

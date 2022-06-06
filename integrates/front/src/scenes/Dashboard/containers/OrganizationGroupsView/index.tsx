@@ -324,7 +324,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                             </Button>
                             {runTour ? (
                               <Tour
-                                run={true}
+                                run={false}
                                 steps={[
                                   {
                                     ...BaseStep,
