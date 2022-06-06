@@ -108,21 +108,10 @@ def all_snippets(api: ApiClient) -> None:
     )
 
 
-def all_check_ids(client: ChecksClient) -> Stream[CheckId]:
-    data = (
-        infinite_range(1, 1)
-        .map(client.list_checks)
-        .transform(lambda x: from_piter(x))
-        .map(lambda i: i if bool(i) else None)
-        .transform(lambda x: until_none(x))
-    )
-    return chain(data.map(lambda x: from_flist(x)))
-
-
 def all_check_results(
     client: ChecksClient,
 ) -> Stream[IndexedObj[CheckId, CheckResultObj]]:
-    return all_check_ids(client).bind(
+    return client.list_ids().bind(
         lambda c: client.list_check_results(c).map(lambda r: IndexedObj(c, r))
     )
 

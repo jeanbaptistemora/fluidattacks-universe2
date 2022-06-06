@@ -2,8 +2,12 @@ from __future__ import (
     annotations,
 )
 
+from . import (
+    _decode,
+)
 from ._core import (
     CheckId,
+    CheckObj,
 )
 from .results import (
     CheckResultClient,
@@ -18,24 +22,18 @@ from datetime import (
 from fa_purity import (
     Cmd,
     FrozenList,
-    JsonObj,
     Stream,
 )
 from fa_purity.json.factory import (
     from_prim_dict,
 )
-from fa_purity.json.value.transform import (
-    Unfolder,
+from tap_checkly.api2 import (
+    _utils,
 )
 from tap_checkly.api2._raw import (
     Credentials,
     RawClient,
 )
-
-
-def _check_id_from_raw(raw: JsonObj) -> CheckId:
-    _id = Unfolder(raw["id"]).to_primitive(str).unwrap()
-    return CheckId(_id)
 
 
 @dataclass(frozen=True)
@@ -45,11 +43,23 @@ class ChecksClient:
     _from_date: datetime
     _to_date: datetime
 
-    def list_checks(self, page: int) -> Cmd[FrozenList[CheckId]]:
+    def _list_ids(self, page: int) -> Cmd[FrozenList[CheckId]]:
         return self._raw.get_list(
             "/v1/checks",
             from_prim_dict({"limit": self._per_page, "page": page}),
-        ).map(lambda l: tuple(map(_check_id_from_raw, l)))
+        ).map(lambda l: tuple(map(_decode.id_from_raw, l)))
+
+    def list_ids(self) -> Stream[CheckId]:
+        return _utils.paginate_all(self._list_ids)
+
+    def _list_checks(self, page: int) -> Cmd[FrozenList[CheckObj]]:
+        return self._raw.get_list(
+            "/v1/checks",
+            from_prim_dict({"limit": self._per_page, "page": page}),
+        ).map(lambda l: tuple(map(_decode.from_raw_obj, l)))
+
+    def list_checks(self) -> Stream[CheckObj]:
+        return _utils.paginate_all(self._list_checks)
 
     def list_check_results(self, check: CheckId) -> Stream[CheckResultObj]:
         _client = CheckResultClient(
