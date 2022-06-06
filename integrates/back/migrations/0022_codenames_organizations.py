@@ -58,7 +58,7 @@ async def dynamo_async_scan(
 
 
 async def main() -> None:
-    async for org_id, org_name in orgs_domain.iterate_organizations():
+    async for org_id, org_name in orgs_domain.iterate_organizations_legacy():
         if org_name in ORGANIZATION_CODENAME_MAP:
             new_org_name = ORGANIZATION_CODENAME_MAP[org_name].lower()
             new_item: Dict[str, str] = {

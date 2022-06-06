@@ -27,7 +27,7 @@ from dynamodb.types import (
     OrgFindingPolicyMetadata,
 )
 from organizations.domain import (
-    iterate_organizations,
+    iterate_organizations_legacy,
 )
 from organizations_finding_policies.dal import (
     get_organization_finding_policies,
@@ -99,7 +99,7 @@ async def update_organization_findings_policies(
 async def main() -> None:
     organizations_names: List[str] = []
 
-    async for _, org_name in iterate_organizations():
+    async for _, org_name in iterate_organizations_legacy():
         organizations_names.append(org_name)
 
     with open("0102_findings_titles.csv", mode="r", encoding="utf8") as infile:

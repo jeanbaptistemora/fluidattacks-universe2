@@ -69,7 +69,7 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
 
     active_groups = []
-    async for org_id, _ in orgs_domain.iterate_organizations():
+    async for org_id, _ in orgs_domain.iterate_organizations_legacy():
         org_groups = await loaders.organization_groups.load(org_id)
         org_active_groups = list(groups_utils.filter_active_groups(org_groups))
         active_groups.extend(org_active_groups)

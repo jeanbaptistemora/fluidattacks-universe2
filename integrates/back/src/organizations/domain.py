@@ -176,8 +176,8 @@ async def get_all_active_groups(
     loaders: Any,
 ) -> tuple[Group, ...]:
     active_groups = []
-    async for org_id, _ in iterate_organizations():
-        org_groups = await loaders.organization_groups.load(org_id)
+    async for organization in iterate_organizations_typed():
+        org_groups = await loaders.organization_groups.load(organization.id)
         org_active_groups = list(groups_utils.filter_active_groups(org_groups))
         active_groups.extend(org_active_groups)
     return tuple(active_groups)

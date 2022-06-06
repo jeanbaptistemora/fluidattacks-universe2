@@ -43,7 +43,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from organizations.domain import (
-    iterate_organizations,
+    iterate_organizations_typed,
     update_pending_deletion_date,
 )
 import pytest
@@ -376,10 +376,9 @@ async def test_delete_obsolete_orgs() -> None:
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_name = "makoto"
     org_ids = []
-    async for organization_id, _ in iterate_organizations():
-        organization = await loaders.organization.load(organization_id)
+    async for organization in iterate_organizations_typed():
         if not orgs_utils.is_deleted_typed(organization):
-            org_ids.append(organization_id)
+            org_ids.append(organization.id)
     assert org_id in org_ids
     assert len(org_ids) == 10
 
@@ -389,19 +388,19 @@ async def test_delete_obsolete_orgs() -> None:
     await delete_obsolete_orgs.main()
 
     new_org_ids = []
-    async for organization_id, _ in iterate_organizations():
-        new_loaders: Dataloaders = get_new_context()
-        new_org: Organization = await new_loaders.organization.load(
-            organization_id
+    async for organization in iterate_organizations_typed():
+        loaders = get_new_context()
+        new_org: Organization = await loaders.organization.load(
+            organization.id
         )
         if not orgs_utils.is_deleted_typed(new_org):
-            new_org_ids.append(organization_id)
+            new_org_ids.append(organization.id)
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
 
     org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
-    new_loader = get_new_context()
-    new_organization: Organization = await new_loader.organization.load(org_id)
+    loaders = get_new_context()
+    new_organization: Organization = await loaders.organization.load(org_id)
     org_pending_deletion_date = new_organization.state.pending_deletion_date
     assert org_pending_deletion_date == "2020-01-30T00:00:00+00:00"
 

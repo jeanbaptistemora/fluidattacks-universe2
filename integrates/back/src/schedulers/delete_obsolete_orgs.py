@@ -18,9 +18,6 @@ from db_model.groups.enums import (
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from groups import (
     domain as groups_domain,
 )
@@ -92,17 +89,18 @@ async def delete_obsolete_orgs() -> None:
     today = datetime_utils.get_now().date()
     modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
-    async for org_id, org_name in orgs_domain.iterate_organizations():
-        organization: Organization = await loaders.organization.load(org_id)
+    async for organization in orgs_domain.iterate_organizations_typed():
         if orgs_utils.is_deleted_typed(organization):
             continue
 
-        info(f"Working on organization {org_name}")
+        info(f"Working on organization {organization.name}")
         org_pending_deletion_date_str = (
             organization.state.pending_deletion_date
         )
-        org_users = await orgs_domain.get_users(org_id)
-        org_group_names = await orgs_domain.get_group_names(loaders, org_id)
+        org_users = await orgs_domain.get_users(organization.id)
+        org_group_names = await orgs_domain.get_group_names(
+            loaders, organization.id
+        )
         if len(org_users) == 0 and len(org_group_names) == 0:
             if org_pending_deletion_date_str:
                 org_pending_deletion_date = (
@@ -112,22 +110,27 @@ async def delete_obsolete_orgs() -> None:
                 )
                 if org_pending_deletion_date.date() <= today:
                     await _remove_organization(
-                        loaders, org_id, org_name, modified_by
+                        loaders,
+                        organization.id,
+                        organization.name,
+                        modified_by,
                     )
             else:
                 new_org_pending_deletion_date_str = datetime_utils.get_as_str(
                     datetime_utils.get_now_plus_delta(days=60)
                 )
                 await orgs_domain.update_pending_deletion_date(
-                    org_id, org_name, new_org_pending_deletion_date_str
+                    organization.id,
+                    organization.name,
+                    new_org_pending_deletion_date_str,
                 )
                 info(
-                    f"Organization {org_name} set for deletion, "
+                    f"Organization {organization.name} is set for deletion, "
                     f"date: {new_org_pending_deletion_date_str}"
                 )
         else:
             await orgs_domain.update_pending_deletion_date(
-                org_id, org_name, None
+                organization.id, organization.name, None
             )
 
 
