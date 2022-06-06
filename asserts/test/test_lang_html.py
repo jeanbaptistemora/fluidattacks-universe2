@@ -30,16 +30,6 @@ NOT_CODE = CODE_DIR + "notexists.html"
 #
 
 
-def test_form_autocomplete_open():
-    """Funcion test_form_autocomplete_open.
-
-    Verifica si el atributo autocomplete=off se encuentra en el
-    codigo HTML de vulnerable.html
-    """
-    assert html.has_not_autocomplete(INSECURE_CODE).is_open()
-    assert html.has_not_autocomplete(INSECURE_CODE2).is_open()
-
-
 def test_is_cacheable_open():
     """Funcion test_is_cacheable_open.
 
@@ -77,16 +67,6 @@ def test_open_has_not_subresource_integrity():
 #
 # Closing tests
 #
-
-
-def test_form_autocomplete_close():
-    """Funcion test_form_autocomplete_close.
-
-    Verifica si el atributo autocomplete=off se encuentra en el
-    codigo HTML de non-vulnerable.html?
-    """
-    assert not html.has_not_autocomplete(SECURE_CODE)
-    assert not html.has_not_autocomplete(NOT_CODE)
 
 
 def test_is_cacheable_close():
