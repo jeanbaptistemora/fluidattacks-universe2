@@ -13,7 +13,6 @@ from db_model.portfolios.constants import (
     OLD_ID,
     OLD_ORGANIZATION_ID,
     ORGANIZATION_ID,
-    UNRELIABLE_INDICATORS,
 )
 from db_model.portfolios.types import (
     Portfolio,
@@ -48,12 +47,7 @@ def format_portfolio(
     return Portfolio(
         id=get_key_or_fallback(item, ID, OLD_ID),
         groups=get_key_or_fallback(item, GROUPS, OLD_GROUPS),
-        unreliable_indicators=format_unreliable_indicators(
-            get_key_or_fallback(
-                item,
-                UNRELIABLE_INDICATORS,
-            ),
-        ),
+        unreliable_indicators=format_unreliable_indicators(item),
         organization_id=get_key_or_fallback(
             item,
             ORGANIZATION_ID,

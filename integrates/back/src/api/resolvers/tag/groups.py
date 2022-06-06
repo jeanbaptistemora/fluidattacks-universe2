@@ -4,6 +4,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -16,15 +19,22 @@ from newutils.utils import (
 from typing import (
     Any,
     Dict,
-    List,
     Tuple,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[Dict[str, Any], Portfolio],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Tuple[Group, ...]:
-    group_names: List[str] = get_key_or_fallback(parent, "groups", "projects")
+    if isinstance(parent, dict):
+        group_names: set[str] = get_key_or_fallback(
+            parent, "groups", "projects"
+        )
+    else:
+        group_names = parent.groups
     loaders: Dataloaders = info.context.loaders
     groups: Tuple[Group, ...] = await loaders.group.load_many(
         tuple(group_names)
