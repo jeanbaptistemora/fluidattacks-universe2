@@ -10,18 +10,24 @@ const DashboardContainer = styled.div.attrs({
 `;
 
 const DashboardContent = styled.div.attrs({
-  className: "flex flex-auto flex-column overflow-container",
+  className: "flex flex-auto flex-column",
 })`
   padding-left: 24px;
   padding-right: 24px;
+  overflow-y: auto;
 
-  // Hide scrollbar for Chrome, Safari and Opera
   ::-webkit-scrollbar {
-    display: none;
+    width: 8px;
   }
-  // Hide scrollbar for IE, Edge and Firefox
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  ::-webkit-scrollbar-track {
+    background: #b0b0bf;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #65657b;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #535365;
+  }
 `;
 
 const DashboardHeader = styled.header.attrs({
