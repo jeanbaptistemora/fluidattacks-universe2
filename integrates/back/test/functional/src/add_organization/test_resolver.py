@@ -39,4 +39,4 @@ async def test_analyst(populate: bool) -> None:
         user="hacker@gmail.com", org=org_name
     )
     assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
+    assert result["errors"][0]["message"] == "Name taken"

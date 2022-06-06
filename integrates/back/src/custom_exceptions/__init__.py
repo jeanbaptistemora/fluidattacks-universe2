@@ -642,9 +642,10 @@ class InvalidNumberAcceptances(CustomBaseException):
 class InvalidOrganization(CustomBaseException):
     """Exception to prevent repeated organizations"""
 
-    def __init__(self) -> None:
+    def __init__(self, msg: str = "") -> None:
         """Constructor"""
-        msg = "Access denied"
+        if msg == "":
+            msg = "Access denied"
         super(InvalidOrganization, self).__init__(msg)
 
 

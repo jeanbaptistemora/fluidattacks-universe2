@@ -89,7 +89,7 @@ async def test_add_organization() -> None:
 
     name = "MADEUP-NAME"
     data = {"query": mutation_tpl.substitute(name=name)}
-    exe = InvalidOrganization()
+    exe = InvalidOrganization("Invalid name")
     result = await _get_result_async(data)
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]

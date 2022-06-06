@@ -215,10 +215,10 @@ async def if_exist(loaders: Any, organization_name: str) -> bool:
 async def add_organization_typed(
     loaders: Any, organization_name: str, email: str
 ) -> Organization:
-    if await if_exist(loaders, organization_name) or not re.match(
-        r"^[a-zA-Z]{4,10}$", organization_name
-    ):
-        raise InvalidOrganization()
+    if await if_exist(loaders, organization_name):
+        raise InvalidOrganization("Name taken")
+    if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
+        raise InvalidOrganization("Invalid name")
     modified_date = datetime_utils.get_iso_date()
     org = Organization(
         id=str(uuid.uuid4()),

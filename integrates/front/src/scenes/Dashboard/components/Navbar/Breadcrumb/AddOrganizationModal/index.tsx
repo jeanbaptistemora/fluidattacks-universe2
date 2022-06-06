@@ -23,6 +23,8 @@ import { FormikText } from "utils/forms/fields/";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
+const tPath = "sidebar.newOrganization.modal.";
+
 const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   open,
   onClose,
@@ -38,15 +40,16 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       onCompleted: (result: IAddOrganizationMtProps): void => {
         if (result.addOrganization.success) {
           onClose();
+          const { id, name } = result.addOrganization.organization;
           mixpanel.track("NewOrganization", {
-            OrganizationId: result.addOrganization.organization.id,
-            OrganizationName: result.addOrganization.organization.name,
+            OrganizationId: id,
+            OrganizationName: name,
           });
           msgSuccess(
-            t("sidebar.newOrganization.modal.success", {
+            t(`${tPath}success`, {
               name: result.addOrganization.organization.name,
             }),
-            t("sidebar.newOrganization.modal.successTitle")
+            t(`${tPath}successTitle`)
           );
           push(
             `/orgs/${result.addOrganization.organization.name.toLowerCase()}/`
@@ -56,8 +59,10 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
       onError: (error: ApolloError): void => {
         onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-          if (message === "Access denied") {
-            msgError(t("sidebar.newOrganization.modal.invalidName"));
+          if (message === "Invalid name") {
+            msgError(t(`${tPath}invalidName`));
+          } else if (message === "Name taken") {
+            msgError(t(`${tPath}nameTaken`));
           } else {
             msgError(t("groupAlerts.errorTextsad"));
             Logger.warning(
@@ -88,11 +93,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
   // Render Elements
   return (
     <React.StrictMode>
-      <Modal
-        onClose={onClose}
-        open={open}
-        title={t("sidebar.newOrganization.modal.title")}
-      >
+      <Modal onClose={onClose} open={open} title={t(`${tPath}title`)}>
         <Formik
           enableReinitialize={true}
           initialValues={{ name: "" }}
@@ -103,12 +104,10 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
           <Form>
             <Row>
               <FormGroup>
-                <ControlLabel>
-                  {t("sidebar.newOrganization.modal.name")}
-                </ControlLabel>
+                <ControlLabel>{t(`${tPath}name`)}</ControlLabel>
                 <TooltipWrapper
                   id={"addOrgTooltip"}
-                  message={t("sidebar.newOrganization.modal.nameTooltip")}
+                  message={t(`${tPath}nameTooltip`)}
                   placement={"top"}
                 >
                   <Field component={FormikText} name={"name"} type={"text"} />

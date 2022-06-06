@@ -3116,8 +3116,9 @@ export const enTranslations: ResourceKey = {
   sidebar: {
     newOrganization: {
       modal: {
-        invalidName: "Name specified for the organization is not allowed",
+        invalidName: "Name must contain only alphanumeric characters",
         name: "Organization name",
+        nameTaken: "Name already taken. Please try with a new one",
         nameTooltip: "Name that will be assigned to your new organization",
         namesUnavailable:
           "There are no available organization names at the moment",
