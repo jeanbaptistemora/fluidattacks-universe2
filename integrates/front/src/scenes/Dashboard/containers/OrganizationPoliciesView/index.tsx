@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -13,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
@@ -146,7 +149,19 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     },
   ].map(
     ({ name, fields = [], validators }): Record<string, JSX.Element> => ({
-      policy: <p>{t(`${tPath}policies.${name}`)}</p>,
+      policy: (
+        <p>
+          {t(`${tPath}policies.${name}`)}
+          &nbsp;
+          <TooltipWrapper
+            displayClass={"di"}
+            id={name}
+            message={t(`${tPath}recommended.${name}`)}
+          >
+            <FontAwesomeIcon icon={faCircleInfo} />
+          </TooltipWrapper>
+        </p>
+      ),
       value:
         fields.length > 1 ? (
           <RowCenter>

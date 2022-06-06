@@ -1675,6 +1675,13 @@ export const enTranslations: ResourceKey = {
             "vulnerabilities",
         },
         policy: "Policy",
+        recommended: {
+          acceptanceSeverityRange: "Recommended value: 0.0 - 0.0",
+          maxAcceptanceDays: "Recommended value: 0.0",
+          maxNumberAcceptances: "Recommended value: 0.0",
+          minBreakingSeverity: "Recommended value: 0.0",
+          vulnerabilityGracePeriod: "Recommended value: 0.0",
+        },
         save: "Save",
         success: "Organization policies updated successfully",
         successTitle: "Success",
