@@ -130,22 +130,13 @@ const pageTexts: ResourceKey = {
       title: "Product & Projects Teams",
     },
   },
-  productOverview: {
-    cardsSection: {
-      card1Description: "Know your organizational risk exposure and manage it",
-      card2Description:
-        "Decrease the time-to-market of your products and services",
-      card3Description:
-        "Achieve higher remediation rates faster and at lower costs",
-      paragraph:
-        "We integrate automatic and manual testing (SAST, DAST and SCA) with speed " +
-        "and precision to detect and report all vulnerabilities and security issues " +
-        "in your applications, infrastructure and source code.",
-      title:
-        "Accurate automation, AI prioritization and expert intelligence in one place",
+  plansPage: {
+    comparative: {
+      tableDescription:
+        "* Data from a 3-year experiment run by Fluid Attacks " +
+        "on 6 commercial tools and 6 open source tools.",
+      title: "Compare us with the competition",
     },
-    mainButton1: "Start free trial (Machine Plan)",
-    mainButton2: "Request a demo (Squad Plan)",
     plansSection: {
       description:
         "Fluid Attacks' plans offer flexibility " +
@@ -172,6 +163,23 @@ const pageTexts: ResourceKey = {
       },
       title: "Explore our Plans",
     },
+  },
+  productOverview: {
+    cardsSection: {
+      card1Description: "Know your organizational risk exposure and manage it",
+      card2Description:
+        "Decrease the time-to-market of your products and services",
+      card3Description:
+        "Achieve higher remediation rates faster and at lower costs",
+      paragraph:
+        "We integrate automatic and manual testing (SAST, DAST and SCA) with speed " +
+        "and precision to detect and report all vulnerabilities and security issues " +
+        "in your applications, infrastructure and source code.",
+      title:
+        "Accurate automation, AI prioritization and expert intelligence in one place",
+    },
+    mainButton1: "Start free trial (Machine Plan)",
+    mainButton2: "Request a demo (Squad Plan)",
     portrait: {
       paragraph:
         "Discover the benefits of our comprehensive Continuous Hacking solution which hundreds " +

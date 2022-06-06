@@ -10,103 +10,101 @@ const PlansSection: React.FC = (): JSX.Element => {
   const data = [
     {
       description: translate.t(
-        "productOverview.plansSection.plansCards.machineDescription"
+        "plansPage.plansSection.plansCards.machineDescription"
       ),
       isMachine: true,
       items: [
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item1"),
+          text: translate.t("plansPage.plansSection.plansCards.item1"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item2"),
+          text: translate.t("plansPage.plansSection.plansCards.item2"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item3"),
+          text: translate.t("plansPage.plansSection.plansCards.item3"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item4"),
+          text: translate.t("plansPage.plansSection.plansCards.item4"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item5"),
+          text: translate.t("plansPage.plansSection.plansCards.item5"),
         },
         {
           check: false,
-          text: translate.t("productOverview.plansSection.plansCards.item6"),
+          text: translate.t("plansPage.plansSection.plansCards.item6"),
         },
         {
           check: false,
-          text: translate.t("productOverview.plansSection.plansCards.item7"),
+          text: translate.t("plansPage.plansSection.plansCards.item7"),
         },
         {
           check: false,
-          text: translate.t("productOverview.plansSection.plansCards.item8"),
+          text: translate.t("plansPage.plansSection.plansCards.item8"),
         },
         {
           check: false,
-          text: translate.t("productOverview.plansSection.plansCards.item9"),
+          text: translate.t("plansPage.plansSection.plansCards.item9"),
         },
         {
           check: false,
-          text: translate.t("productOverview.plansSection.plansCards.item10"),
+          text: translate.t("plansPage.plansSection.plansCards.item10"),
         },
       ],
-      title: translate.t(
-        "productOverview.plansSection.plansCards.machineTitle"
-      ),
+      title: translate.t("plansPage.plansSection.plansCards.machineTitle"),
     },
     {
       description: translate.t(
-        "productOverview.plansSection.plansCards.squadDescription"
+        "plansPage.plansSection.plansCards.squadDescription"
       ),
       isMachine: false,
       items: [
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item1"),
+          text: translate.t("plansPage.plansSection.plansCards.item1"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item2"),
+          text: translate.t("plansPage.plansSection.plansCards.item2"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item3"),
+          text: translate.t("plansPage.plansSection.plansCards.item3"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item4"),
+          text: translate.t("plansPage.plansSection.plansCards.item4"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item5"),
+          text: translate.t("plansPage.plansSection.plansCards.item5"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item6"),
+          text: translate.t("plansPage.plansSection.plansCards.item6"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item7"),
+          text: translate.t("plansPage.plansSection.plansCards.item7"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item8"),
+          text: translate.t("plansPage.plansSection.plansCards.item8"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item9"),
+          text: translate.t("plansPage.plansSection.plansCards.item9"),
         },
         {
           check: true,
-          text: translate.t("productOverview.plansSection.plansCards.item10"),
+          text: translate.t("plansPage.plansSection.plansCards.item10"),
         },
       ],
-      title: translate.t("productOverview.plansSection.plansCards.squadTitle"),
+      title: translate.t("plansPage.plansSection.plansCards.squadTitle"),
     },
   ];
 
@@ -114,10 +112,10 @@ const PlansSection: React.FC = (): JSX.Element => {
     <Container>
       <PlansContainer>
         <Title fColor={"#f4f4f6"} fSize={"48"} marginBottom={"1"}>
-          {translate.t("productOverview.plansSection.title")}
+          {translate.t("plansPage.plansSection.title")}
         </Title>
         <Paragraph fColor={"#f4f4f6"} fSize={"24"}>
-          {translate.t("productOverview.plansSection.description")}
+          {translate.t("plansPage.plansSection.description")}
         </Paragraph>
         <CardsContainer>
           {data.map((card): JSX.Element => {
