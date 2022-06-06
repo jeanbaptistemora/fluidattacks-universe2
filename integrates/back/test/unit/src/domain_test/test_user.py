@@ -1,27 +1,14 @@
 from api.mutations.sign_in import (
     autoenroll_user,
 )
-from context import (
-    FI_DEFAULT_ORG,
-)
 from custom_exceptions import (
     InvalidPushToken,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.organizations.types import (
-    Organization,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
-)
-from groups import (
-    domain as groups_domain,
-)
-from organizations.domain import (
-    get_user_organizations,
 )
 import pytest
 from remove_user.domain import (
@@ -77,23 +64,15 @@ async def test_remove_push_token() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_user() -> None:
-    loader: Dataloaders = get_new_context()
-    organization: Organization = await loader.organization.load(FI_DEFAULT_ORG)
-    organization_id: str = organization.id
     email: str = "testanewuser@test.test"
     await autoenroll_user(email)
-    await groups_domain.enroll_user_to_demo(loader, email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
     assert await users_domain.get_data(email, "email") == email
-    assert await get_user_organizations(email) == [organization_id]
     assert len(subscriptions) == 1
     assert subscriptions[0]["sk"]["entity"] == "DIGEST"
 
     before_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
-    before_remove_project_access = await dynamodb_ops.scan(
-        "FI_project_access", {}
-    )
     assert (
         len(
             [
@@ -104,43 +83,19 @@ async def test_remove_user() -> None:
         )
         >= 1
     )
-    assert (
-        len(
-            [
-                access
-                for access in before_remove_project_access
-                if access["user_email"] == email
-            ]
-        )
-        >= 1
-    )
 
     await remove_user_all_organizations(loaders=get_new_context(), email=email)
 
     assert await users_domain.get_data(email, "email") == {}
-    assert await get_user_organizations(email) == []
     assert await get_user_subscriptions(user_email=email) == []
 
     after_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
-    after_removed_project_access = await dynamodb_ops.scan(
-        "FI_project_access", {}
-    )
     assert (
         len(
             [
                 authz
                 for authz in after_remove_authzs
                 if authz["subject"] == email
-            ]
-        )
-        == 0
-    )
-    assert (
-        len(
-            [
-                access
-                for access in after_removed_project_access
-                if access["user_email"] == email
             ]
         )
         == 0

@@ -17,7 +17,6 @@ from collections import (
 )
 from context import (
     BASE_URL,
-    FI_COMMUNITY_PROJECTS,
     FI_DEFAULT_ORG,
     FI_ENVIRONMENT,
 )
@@ -33,7 +32,6 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
-    UserCannotEnrollDemo,
     UserNotInOrganization,
 )
 from custom_types import (
@@ -2131,29 +2129,6 @@ async def filter_groups_with_org(
         for group in groups
         if group.organization_id != "ORG#unknown"
     )
-
-
-async def enroll_user_to_demo(loaders: Any, email: str) -> None:
-    user_orgs = await orgs_domain.get_user_organizations(email=email)
-    if len(user_orgs) > 0:
-        raise UserCannotEnrollDemo()
-
-    org = await orgs_domain.get_or_add(
-        loaders=loaders, organization_name=FI_DEFAULT_ORG
-    )
-    await orgs_domain.add_user(loaders, org.id, email, "user_manager")
-
-    for group_name in FI_COMMUNITY_PROJECTS.split(","):
-        await collect(
-            [
-                group_access_domain.update_has_access(
-                    user_email=email, group_name=group_name, access=True
-                ),
-                authz.grant_group_level_role(
-                    email=email, group_name=group_name, role="user"
-                ),
-            ]
-        )
 
 
 async def get_treatment_summary(
