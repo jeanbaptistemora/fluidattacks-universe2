@@ -319,6 +319,9 @@ const handleUpdateError = (
       case "Exception - Git repository was not accessible with given credentials":
         showMessage("group.scope.git.errors.invalidGitCredentials");
         break;
+      case "Exception - A credential exists with the same name":
+        showMessage("validations.invalidCredentialName");
+        break;
       case "Exception - Unsanitized input found":
         setModalMessages({
           message: translate.t("validations.unsanitizedInputFound"),
@@ -460,6 +463,9 @@ function useGitSubmit(
                       }
                     : undefined
                   : {
+                      id: _.isEmpty(credentials.id)
+                        ? undefined
+                        : credentials.id,
                       key:
                         credentials.key === "" || _.isUndefined(credentials.key)
                           ? undefined

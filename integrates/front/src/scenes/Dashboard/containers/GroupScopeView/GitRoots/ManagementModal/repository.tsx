@@ -93,11 +93,9 @@ const Repository: React.FC<IRepositoryProps> = ({
   const [credExists, setCredExists] = useState(
     initialValues.credentials.id !== ""
   );
-  const [disabledCredsEdit, setDisabledCredsEdit] = useState(false);
-
-  const deleteCredential: () => void = useCallback((): void => {
-    setCredExists(false);
-  }, []);
+  const [disabledCredsEdit, setDisabledCredsEdit] = useState(
+    initialValues.credentials.id !== ""
+  );
 
   const [hasSquad, setHasSquad] = useState(false);
   function setSquad(): void {
@@ -251,9 +249,21 @@ const Repository: React.FC<IRepositoryProps> = ({
           nicknames
         )}
       >
-        {({ dirty, errors, isSubmitting, values }): JSX.Element => {
+        {({
+          dirty,
+          errors,
+          isSubmitting,
+          values,
+          setFieldValue,
+        }): JSX.Element => {
           if (isSubmitting) {
             setShowSubmitAlert(false);
+          }
+
+          function deleteCredential(): void {
+            setFieldValue("credentials", "");
+            setCredExists(false);
+            setDisabledCredsEdit(false);
           }
 
           return (

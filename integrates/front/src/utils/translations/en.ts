@@ -3344,6 +3344,7 @@ export const enTranslations: ResourceKey = {
     invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",
     invalidCommentParent: "The comment parent is invalid",
+    invalidCredentialName: "A credential exists with the same name",
     invalidEmailInField: "The email address inserted is not valid",
     invalidEnvironmentUrl: "The environment URL is invalid",
     invalidFieldLength: "The value inserted in one of the fields is too large",
