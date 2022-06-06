@@ -12,10 +12,16 @@ const Container = styled.div.attrs({
 const DashboardContent = styled.div.attrs({
   className: "flex flex-auto flex-column overflow-container",
 })`
-  margin-top: auto;
-  margin-bottom: auto;
   padding-left: 24px;
   padding-right: 24px;
+
+  // Hide scrollbar for Chrome, Safari and Opera
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  // Hide scrollbar for IE, Edge and Firefox
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const FormContent = styled.div.attrs({

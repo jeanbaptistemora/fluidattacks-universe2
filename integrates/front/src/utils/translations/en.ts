@@ -244,6 +244,12 @@ export const enTranslations: ResourceKey = {
         placeholder: "My group name",
       },
       messages: {
+        error: {
+          group: "Invalid or used Group Name, please change your input",
+          organization:
+            "Invalid or used Organization Name, please change your input",
+          repository: "Invalid repository information, please check again",
+        },
         success: {
           body: "You started Machine Plan free trial",
           title: "Done!",

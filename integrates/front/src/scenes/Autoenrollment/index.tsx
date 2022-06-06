@@ -39,8 +39,18 @@ import { msgError, msgSuccess } from "utils/notifications";
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
+  const [rootMessages, setRootMessages] = useState({
+    message: "",
+    type: "success",
+  });
+  const [orgMessages, setOrgMessages] = useState({
+    message: "",
+    type: "success",
+  });
+
   const { push, replace } = useHistory();
   const goToOrg = useCallback((): void => {
+    setOrgMessages({ message: "", type: "success" });
     push("/autoenrollment/organization");
   }, [push]);
 
@@ -95,11 +105,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     },
     [setSuccessMutation]
   );
-
-  const [orgMessages, setOrgMessages] = useState({
-    message: "",
-    type: "success",
-  });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
@@ -196,9 +201,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       });
       setIsRepository(false);
       setOrganization(values);
-      mixpanel.track("AddOrganization");
       async function successOrg(): Promise<boolean> {
         try {
+          mixpanel.track("AddOrganization");
           const response = await timeoutPromise(
             addOrganization({
               variables: { name: values.organizationName.toUpperCase() },
@@ -238,9 +243,10 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           groupResult.data === null || groupResult.data === undefined
             ? false
             : groupResult.data.addGroup.success;
-        if (groupSuccess) {
+        if (successMutation.group || groupSuccess) {
+          setSuccessValues(true, true, successMutation.repository);
           mixpanel.track("AddGitRoot");
-          await addGitRoot({
+          const rootResult = await addGitRoot({
             variables: {
               branch: branch.trim(),
               credentials:
@@ -271,22 +277,39 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               useVpn: false,
             },
           });
-          localStorage.clear();
-          sessionStorage.clear();
-          replace(
-            `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
-          );
-          setIsRepository(true);
+          const rootSuccess =
+            rootResult.data === null || rootResult.data === undefined
+              ? false
+              : rootResult.data.addGitRoot.success;
+          if (rootSuccess) {
+            localStorage.clear();
+            sessionStorage.clear();
+            replace(
+              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
+            );
+            setIsRepository(true);
+            setSuccessValues(true, true, true);
+          } else {
+            setForm("repository");
+            push("/autoenrollment/repository");
+            setRootMessages({
+              message: t(
+                "autoenrollment.addOrganization.messages.error.repository"
+              ),
+              type: "error",
+            });
+          }
         } else {
           setOrgMessages({
-            message: "Invalid or used Group Name, please change your input",
+            message: t("autoenrollment.addOrganization.messages.error.group"),
             type: "error",
           });
         }
       } else {
         setOrgMessages({
-          message:
-            "Invalid or used Organization Name, please change your input",
+          message: t(
+            "autoenrollment.addOrganization.messages.error.organization"
+          ),
           type: "error",
         });
       }
@@ -297,12 +320,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       addGitRoot,
       addGroup,
       addOrganization,
+      push,
       replace,
       repository,
       setIsRepository,
       setOrganization,
       setSuccessValues,
       successMutation,
+      t,
       timeoutPromise,
     ]
   );
@@ -331,7 +356,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     </Col>
                   </Row>
                   <Row justify={"center"}>
-                    <Col large={"25"} medium={"50"} small={"70"}>
+                    <Col large={"40"} medium={"60"} small={"90"}>
                       <FormContent>
                         <AddOrganization
                           isSubmitting={isSubmitting}
@@ -340,6 +365,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                           orgValues={organization}
                           setShowSubmitAlert={setShowSubmitAlert}
                           showSubmitAlert={showSubmitAlert}
+                          successMutation={successMutation}
                         />
                       </FormContent>
                     </Col>
@@ -357,13 +383,15 @@ const Autoenrollment: React.FC = (): JSX.Element => {
                     </Col>
                   </Row>
                   <Row justify={"center"}>
-                    <Col large={"40"} medium={"60"} small={"80"}>
+                    <Col large={"40"} medium={"60"} small={"90"}>
                       <FormContent>
                         <AddRoot
                           initialValues={repository}
                           onCompleted={goToOrg}
+                          rootMessages={rootMessages}
                           setForm={setForm}
                           setRepositoryValues={setRepository}
+                          setRootMessages={setRootMessages}
                         />
                       </FormContent>
                     </Col>

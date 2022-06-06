@@ -26,25 +26,33 @@ import type { IRootAttr } from "scenes/Autoenrollment/types";
 import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
 
 interface IAddRootProps {
-  setForm: React.Dispatch<React.SetStateAction<string>>;
   initialValues: IRootAttr;
   onCompleted: () => void;
+  rootMessages: {
+    message: string;
+    type: string;
+  };
+  setForm: React.Dispatch<React.SetStateAction<string>>;
   setRepositoryValues: React.Dispatch<React.SetStateAction<IRootAttr>>;
+  setRootMessages: React.Dispatch<
+    React.SetStateAction<{
+      message: string;
+      type: string;
+    }>
+  >;
 }
 
 const AddRoot: React.FC<IAddRootProps> = ({
-  setForm,
   initialValues,
   onCompleted,
+  rootMessages,
+  setForm,
   setRepositoryValues,
+  setRootMessages,
 }: IAddRootProps): JSX.Element => {
   const { t } = useTranslation();
   const { push } = useHistory();
 
-  const [rootMessages, setRootMessages] = useState({
-    message: "",
-    type: "success",
-  });
   const group = "UNITTESTING";
 
   const [isGitAccessible, setIsGitAccessible] = useState(false);
