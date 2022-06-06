@@ -74,10 +74,7 @@ import sys
 from typing import (
     Any,
     AsyncIterator,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 from users import (
     domain as users_domain,
@@ -158,7 +155,7 @@ async def update_org_state(
 
 async def get_access_by_url_token(
     url_token: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     access = {}
     try:
         token_content = token.decode_jwt(url_token)
@@ -176,7 +173,7 @@ async def get_all_active_groups(
     loaders: Any,
 ) -> tuple[Group, ...]:
     active_groups = []
-    async for organization in iterate_organizations_typed():
+    async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         org_active_groups = list(groups_utils.filter_active_groups(org_groups))
         active_groups.extend(org_active_groups)
@@ -201,7 +198,7 @@ async def get_group_names(
 
 
 async def get_name_by_id(organization_id: str) -> str:
-    result: Dict[str, Any] = await orgs_dal.get_by_id(
+    result: dict[str, Any] = await orgs_dal.get_by_id(
         organization_id, ["name"]
     )
     if not result:
@@ -260,15 +257,15 @@ async def get_or_add(
     return org
 
 
-async def get_user_access(organization_id: str, email: str) -> Dict[str, Any]:
+async def get_user_access(organization_id: str, email: str) -> dict[str, Any]:
     return await orgs_dal.get_access_by_url_token(organization_id, email)
 
 
-async def get_user_organizations(email: str) -> List[str]:
+async def get_user_organizations(email: str) -> list[str]:
     return await orgs_dal.get_ids_for_user(email)
 
 
-async def get_users(organization_id: str) -> List[str]:
+async def get_users(organization_id: str) -> list[str]:
     return await orgs_dal.get_users(organization_id)
 
 
@@ -338,33 +335,26 @@ async def invite_to_organization(
     return success
 
 
-async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
-    """Yield pairs of (organization_id, organization_name)."""
-    async for org_id, org_name in orgs_dal.iterate_organizations():
-        # Exception: WF(AsyncIterator is subtype of iterator)
-        yield org_id, org_name  # NOSONAR
-
-
-async def iterate_organizations_typed() -> AsyncIterator[Organization]:
-    async for organization in orgs_dal.iterate_organizations_typed():
+async def iterate_organizations() -> AsyncIterator[Organization]:
+    async for organization in orgs_dal.iterate_organizations():
         # Exception: WF(AsyncIterator is subtype of iterator)
         yield organization  # NOSONAR
 
 
 async def iterate_organizations_and_groups(
     loaders: Any,
-) -> AsyncIterator[Tuple[str, str, Tuple[str, ...]]]:
+) -> AsyncIterator[tuple[str, str, tuple[str, ...]]]:
     """Yield (org_id, org_name, org_group_names) non-concurrently generated."""
-    async for org_id, org_name in orgs_dal.iterate_organizations():
+    async for organization in iterate_organizations():
         # Exception: WF(AsyncIterator is subtype of iterator)
-        yield org_id, org_name, await get_group_names(
-            loaders, org_id
+        yield organization.id, organization.name, await get_group_names(
+            loaders, organization.id
         )  # NOSONAR
 
 
 async def remove_group(group_name: str, organization_id: str) -> bool:
     today = datetime_utils.get_now()
-    values: Dict[str, Any] = {
+    values: dict[str, Any] = {
         "deletion_date": datetime_utils.get_as_str(today)
     }
     return await orgs_dal.update_group(organization_id, group_name, values)
@@ -400,7 +390,7 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
 
 async def reject_register_for_organization_invitation(
     loaders: Any,
-    organization_access: Dict[str, Any],
+    organization_access: dict[str, Any],
 ) -> bool:
     success: bool = False
     invitation = organization_access["invitation"]
@@ -416,14 +406,14 @@ async def reject_register_for_organization_invitation(
 async def update(
     organization_id: str,
     user_email: str,
-    data: Dict[str, Any],
+    data: dict[str, Any],
 ) -> bool:
     return await orgs_dal.update_user(organization_id, user_email, data)
 
 
 async def update_invited_stakeholder(
     email: str,
-    invitation: Dict[str, Any],
+    invitation: dict[str, Any],
     organization_id: str,
     role: str,
 ) -> bool:
@@ -447,7 +437,7 @@ async def update_pending_deletion_date(
     pending_deletion_date: Optional[str],
 ) -> bool:
     """Update pending deletion date"""
-    values: Dict[str, Any] = {"pending_deletion_date": pending_deletion_date}
+    values: dict[str, Any] = {"pending_deletion_date": pending_deletion_date}
     success = await orgs_dal.update(organization_id, organization_name, values)
     return success
 
@@ -458,7 +448,7 @@ async def update_billing_customer(
     org_billing_customer: str,
 ) -> bool:
     """Update Stripe billing customer"""
-    values: Dict[str, Any] = {"billing_customer": org_billing_customer}
+    values: dict[str, Any] = {"billing_customer": org_billing_customer}
     success = await orgs_dal.update(org_id, org_name, values)
     return success
 
@@ -471,7 +461,7 @@ async def update_policies(
     policies_to_update: OrganizationPoliciesToUpdate,
 ) -> bool:
     success: bool = False
-    valid: List[bool] = []
+    valid: list[bool] = []
     try:
         for attr, value in policies_to_update._asdict().items():
             if value is not None:
@@ -524,7 +514,7 @@ async def update_policies(
 # pylint: disable=too-many-arguments
 async def send_mail_policies(
     loaders: Any,
-    new_policies: Dict[str, Any],
+    new_policies: dict[str, Any],
     organization_id: str,
     organization_name: str,
     responsible: str,
@@ -557,7 +547,7 @@ async def send_mail_policies(
                 "to": val,
             }
 
-    email_context: Dict[str, Any] = {
+    email_context: dict[str, Any] = {
         "org_name": organization_name,
         "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
         "policies_content": policies_content,

@@ -55,10 +55,7 @@ from typing import (
     Any,
     AsyncIterator,
     cast,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 import uuid
 
@@ -69,7 +66,7 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = "fi_organizations"
 
 
-def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
+def _map_attributes_to_dal(attrs: list[str]) -> list[str]:
     """
     Map domain attributes to its DynamoDB representation.
     """
@@ -79,7 +76,7 @@ def _map_attributes_to_dal(attrs: List[str]) -> List[str]:
     return mapped_attrs
 
 
-def _map_keys_to_domain(org: Dict[str, Any]) -> Dict[str, Any]:
+def _map_keys_to_domain(org: dict[str, Any]) -> dict[str, Any]:
     """
     Map DynamoDB keys to a human-readable form.
     """
@@ -207,7 +204,7 @@ async def exists(org_name: str) -> bool:
 async def get_access_by_url_token(
     organization_id: str,
     user_email: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get user access of a organization by the url token."""
     organization_id = remove_org_id_prefix(organization_id)
     key = {
@@ -220,13 +217,13 @@ async def get_access_by_url_token(
 
 
 async def get_by_id(
-    organization_id: str, attributes: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    organization_id: str, attributes: Optional[list[str]] = None
+) -> dict[str, Any]:
     """
     Use the organization ID to fetch general information about it.
     """
     organization_id = remove_org_id_prefix(organization_id)
-    organization: Dict[str, Any] = {}
+    organization: dict[str, Any] = {}
     query_attrs = {
         "KeyConditionExpression": (
             Key("pk").eq(f"ORG#{organization_id}")
@@ -252,13 +249,13 @@ async def get_by_id(
 
 
 async def get_by_name(
-    org_name: str, attributes: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    org_name: str, attributes: Optional[list[str]] = None
+) -> dict[str, Any]:
     """
     Get an organization info given its name
     Return specified attributes or all if not setted.
     """
-    organization: Dict[str, Any] = {}
+    organization: dict[str, Any] = {}
     query_attrs = {
         "KeyConditionExpression": (
             Key("sk").eq(f"INFO#{org_name.lower().strip()}")
@@ -284,13 +281,13 @@ async def get_by_name(
     return _map_keys_to_domain(organization)
 
 
-async def get_groups(organization_id: str) -> List[str]:
+async def get_groups(organization_id: str) -> list[str]:
     """
     Return a list of the names of all the groups that belong to an
     organization.
     """
     organization_id = remove_org_id_prefix(organization_id)
-    groups: List[str] = []
+    groups: list[str] = []
     query_attrs = {
         "KeyConditionExpression": (
             Key("pk").eq(f"ORG#{organization_id}")
@@ -328,11 +325,11 @@ async def get_id_for_group(group_name: str) -> str:
     return organization_id
 
 
-async def get_ids_for_user(email: str) -> List[str]:
+async def get_ids_for_user(email: str) -> list[str]:
     """
     Return the IDs of all the organizations a user belongs to.
     """
-    organization_ids: List[str] = []
+    organization_ids: list[str] = []
     query_attrs = {
         "KeyConditionExpression": (
             Key("sk").eq(f"USER#{email.lower().strip()}")
@@ -349,13 +346,13 @@ async def get_ids_for_user(email: str) -> List[str]:
     return organization_ids
 
 
-async def get_users(organization_id: str) -> List[str]:
+async def get_users(organization_id: str) -> list[str]:
     """
     Return a list of the emails of all the users that belong to an
     organization.
     """
     organization_id = remove_org_id_prefix(organization_id)
-    users: List[str] = []
+    users: list[str] = []
     query_attrs = {
         "KeyConditionExpression": (
             Key("pk").eq(f"ORG#{organization_id}")
@@ -402,31 +399,7 @@ async def has_user_access(organization_id: str, email: str) -> bool:
     return has_access
 
 
-async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
-    """Yield (org_id, org_name) non-concurrently generated."""
-    async with dynamodb_client() as client:
-        async for response in client.get_paginator("scan").paginate(
-            ExpressionAttributeNames={
-                "#pk": "pk",
-                "#sk": "sk",
-            },
-            ExpressionAttributeValues={
-                ":pk": {"S": "ORG#"},
-                ":sk": {"S": "INFO#"},
-            },
-            FilterExpression=(
-                "begins_with(#pk, :pk) and begins_with(#sk, :sk)"
-            ),
-            TableName=TABLE_NAME,
-        ):
-            for item in response["Items"]:
-                # Exception: WF(AsyncIterator is subtype of iterator)
-                yield item["pk"]["S"], item["sk"]["S"].lstrip(  # NOSONAR
-                    "INFO#"
-                )
-
-
-async def iterate_organizations_typed() -> AsyncIterator[Organization]:
+async def iterate_organizations() -> AsyncIterator[Organization]:
     """Yield typed organizations non-concurrently generated."""
     async with dynamodb_client() as client:
         async for response in client.get_paginator("scan").paginate(
@@ -486,7 +459,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
 
 
 async def update(
-    organization_id: str, organization_name: str, values: Dict[str, Any]
+    organization_id: str, organization_name: str, values: dict[str, Any]
 ) -> bool:
     """
     Updates the attributes of an organization.
@@ -494,7 +467,7 @@ async def update(
     success: bool = False
     set_expression: str = ""
     remove_expression: str = ""
-    expression_values: Dict[str, Any] = {}
+    expression_values: dict[str, Any] = {}
     for attr, value in values.items():
         if value is None:
             remove_expression += f"{attr}, "
@@ -510,7 +483,7 @@ async def update(
 
     organization_id = remove_org_id_prefix(organization_id)
     try:
-        update_attrs: Dict[str, Any] = {
+        update_attrs: dict[str, Any] = {
             "Key": {
                 "pk": f"ORG#{organization_id}",
                 "sk": f"INFO#{organization_name.lower().strip()}",
@@ -565,7 +538,7 @@ async def update_policies_typed(
 
 
 async def update_group(
-    organization_id: str, group_name: str, values: Dict[str, Any]
+    organization_id: str, group_name: str, values: dict[str, Any]
 ) -> bool:
     """
     Updates the attributes of a group in an organization.
@@ -573,7 +546,7 @@ async def update_group(
     success: bool = False
     set_expression: str = ""
     remove_expression: str = ""
-    expression_values: Dict[str, Any] = {}
+    expression_values: dict[str, Any] = {}
     for attr, value in values.items():
         if value is None:
             remove_expression += f"{attr}, "
@@ -589,7 +562,7 @@ async def update_group(
 
     organization_id = remove_org_id_prefix(organization_id)
     try:
-        update_attrs: Dict[str, Any] = {
+        update_attrs: dict[str, Any] = {
             "Key": {
                 "pk": f"ORG#{organization_id}",
                 "sk": f"GROUP#{group_name.lower().strip()}",
@@ -609,7 +582,7 @@ async def update_group(
 
 
 async def update_user(
-    organization_id: str, user_email: str, data: Dict[str, Any]
+    organization_id: str, user_email: str, data: dict[str, Any]
 ) -> bool:
     """Update org access attributes."""
     success = False

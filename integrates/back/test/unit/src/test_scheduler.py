@@ -43,7 +43,7 @@ from organizations import (
     domain as orgs_domain,
 )
 from organizations.domain import (
-    iterate_organizations_typed,
+    iterate_organizations,
     update_pending_deletion_date,
 )
 import pytest
@@ -376,7 +376,7 @@ async def test_delete_obsolete_orgs() -> None:
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_name = "makoto"
     org_ids = []
-    async for organization in iterate_organizations_typed():
+    async for organization in iterate_organizations():
         if not orgs_utils.is_deleted_typed(organization):
             org_ids.append(organization.id)
     assert org_id in org_ids
@@ -388,7 +388,7 @@ async def test_delete_obsolete_orgs() -> None:
     await delete_obsolete_orgs.main()
 
     new_org_ids = []
-    async for organization in iterate_organizations_typed():
+    async for organization in iterate_organizations():
         loaders = get_new_context()
         new_org: Organization = await loaders.organization.load(
             organization.id
