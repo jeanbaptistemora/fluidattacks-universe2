@@ -88,20 +88,6 @@ def _map_keys_to_domain(org: dict[str, Any]) -> dict[str, Any]:
     return mapped_org
 
 
-async def add_group(organization_id: str, group: str) -> bool:
-    organization_id = remove_org_id_prefix(organization_id)
-    success: bool = False
-    new_item = {
-        "pk": f"ORG#{organization_id}",
-        "sk": f"GROUP#{group.lower().strip()}",
-    }
-    try:
-        success = await dynamodb_put_item(TABLE_NAME, new_item)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return success
-
-
 async def add_user(organization_id: str, email: str) -> bool:
     organization_id = remove_org_id_prefix(organization_id)
     success: bool = False

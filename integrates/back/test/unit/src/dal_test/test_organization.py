@@ -68,22 +68,6 @@ def test__map_attributes_to_dal() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_group() -> None:
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    groups = await orgs_dal.get_groups(org_id)
-
-    group_name = "mine"
-    await orgs_dal.add_group(org_id, group_name)
-    updated_groups = await orgs_dal.get_groups(org_id)
-    assert len(updated_groups) == len(groups) + 1
-    assert sorted(updated_groups) == sorted(groups + [group_name])
-
-    await orgs_dal.remove_group(org_id, group_name)
-    groups_after_removal = await orgs_dal.get_groups(org_id)
-    assert len(groups_after_removal) == len(groups)
-
-
-@pytest.mark.changes_db
 async def test_add_user() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_dal.get_users(org_id)

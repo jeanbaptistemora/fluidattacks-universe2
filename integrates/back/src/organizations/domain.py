@@ -89,24 +89,21 @@ DEFAULT_MIN_SEVERITY = Decimal("0.0")
 LOGGER = logging.getLogger(__name__)
 
 
-async def add_group(organization_id: str, group: str) -> bool:
-    success = await orgs_dal.add_group(organization_id, group)
-    if success:
-        users = await get_users(organization_id)
-        users_roles = await collect(
-            authz.get_organization_level_role(user, organization_id)
-            for user in users
-        )
-        success = success and all(
-            await collect(
-                group_access_domain.add_user_access(
-                    user, group, "customer_manager"
-                )
-                for user, user_role in zip(users, users_roles)
-                if user_role == "customer_manager"
+async def add_group_access(organization_id: str, group_name: str) -> bool:
+    users = await get_users(organization_id)
+    users_roles = await collect(
+        authz.get_organization_level_role(user, organization_id)
+        for user in users
+    )
+    return all(
+        await collect(
+            group_access_domain.add_user_access(
+                user, group_name, "customer_manager"
             )
+            for user, user_role in zip(users, users_roles)
+            if user_role == "customer_manager"
         )
-    return success
+    )
 
 
 async def add_user(
@@ -447,7 +444,7 @@ async def update_billing_customer(
     org_name: str,
     org_billing_customer: str,
 ) -> bool:
-    """Update Stripe billing customer"""
+    """Update Stripe billing customer."""
     values: dict[str, Any] = {"billing_customer": org_billing_customer}
     success = await orgs_dal.update(org_id, org_name, values)
     return success

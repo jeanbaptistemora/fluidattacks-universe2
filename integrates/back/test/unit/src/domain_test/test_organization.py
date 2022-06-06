@@ -62,14 +62,14 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_add_group() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"  # NOSONAR
-    group = "najenda"
-    assert not await orgs_domain.has_group(org_id, group)
+    group_name = "kurome"
+    org_group_names = await orgs_domain.get_group_names(loaders, org_id)
+    assert group_name in org_group_names
 
-    await orgs_domain.add_group(org_id, group)
-    assert await orgs_domain.has_group(org_id, group)
-
-    users = await group_access_domain.get_group_users(group)
+    await orgs_domain.add_group_access(org_id, group_name)
+    users = await group_access_domain.get_group_users(group_name)
     assert (
         await authz.get_organization_level_role(users[0], org_id)
         == "customer_manager"
