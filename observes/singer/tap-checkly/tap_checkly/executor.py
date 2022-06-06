@@ -10,11 +10,15 @@ from fa_purity.cmd import (
     unsafe_unwrap,
 )
 from fa_purity.stream.transform import (
+    chain,
     consume,
 )
 from fa_singer_io.singer import (
     emitter,
     SingerRecord,
+)
+from fa_singer_io.singer.emitter import (
+    emit,
 )
 import logging
 from purity.v1 import (
@@ -39,6 +43,9 @@ from tap_checkly.api2.checks import (
 from tap_checkly.api import (
     ApiClient,
     Credentials as LegacyCreds,
+)
+from tap_checkly.singer.alert_channels.records import (
+    alert_ch_records,
 )
 from tap_checkly.streams import (
     encoder,
@@ -73,6 +80,13 @@ def _emit_stream(
     unsafe_unwrap(consume(emissions))
 
 
+def _emit_stream_2(
+    records: Stream[SingerRecord], stream: SupportedStreams
+) -> None:
+    emissions = records.map(lambda s: emitter.emit(sys.stdout, s))
+    unsafe_unwrap(consume(emissions))
+
+
 def emit_streams(
     creds: Credentials, targets: FrozenList[SupportedStreams]
 ) -> IO[None]:
@@ -88,10 +102,11 @@ def emit_streams(
                 selection,
             )
         elif selection is SupportedStreams.ALERT_CHS:
-            _emit_stream(
+            _emit_stream_2(
                 AlertChannelsClient.new(creds, 100)
                 .list_all()
-                .map(encoder.encode_alert_ch),
+                .map(alert_ch_records)
+                .transform(chain),
                 selection,
             )
         else:

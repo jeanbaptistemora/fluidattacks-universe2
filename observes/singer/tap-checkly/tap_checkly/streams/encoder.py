@@ -90,23 +90,3 @@ def encode_result(result: IndexedObj[CheckId, CheckResultObj]) -> JsonObj:
             }
         )
     )
-
-
-def encode_alert_ch(alert_ch: AlertChannelObj) -> JsonObj:
-    return from_unfolded_dict(
-        freeze(
-            {
-                "alert_ch_id": alert_ch.id_obj.id_int,
-                "alert_type": alert_ch.obj.alert_type,
-                "send_recovery": alert_ch.obj.send_recovery,
-                "send_failure": alert_ch.obj.send_failure,
-                "send_degraded": alert_ch.obj.send_degraded,
-                "ssl_expiry": alert_ch.obj.ssl_expiry,
-                "ssl_expiry_threshold": alert_ch.obj.ssl_expiry_threshold,
-                "created_at": alert_ch.obj.created_at.isoformat(),
-                "updated_at": alert_ch.obj.updated_at.map(
-                    lambda x: x.isoformat()
-                ).value_or(None),
-            }
-        )
-    )

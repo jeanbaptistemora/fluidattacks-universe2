@@ -1,17 +1,6 @@
 from fa_purity import (
     Stream,
 )
-from fa_purity.pure_iter.factory import (
-    from_flist,
-    infinite_range,
-)
-from fa_purity.stream.factory import (
-    from_piter,
-)
-from fa_purity.stream.transform import (
-    chain,
-    until_none,
-)
 from paginator import (
     AllPages,
 )
