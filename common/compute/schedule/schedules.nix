@@ -736,12 +736,12 @@
       "management:type" = "product";
     };
   };
-  observes_etl_gitlab_issues = {
+  observes_etl_gitlab_ephemeral = {
     enabled = true;
     command = [
       "m"
       "f"
-      "/observes/etl/gitlab/product/issues"
+      "/observes/etl/gitlab/product/ephemeral"
     ];
 
     schedule_expression = "cron(0 11 ? * 1-5 *)";

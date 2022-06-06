@@ -13,6 +13,6 @@ makeScript {
       outputs."${inputs.observesIndex.tap.gitlab.bin}"
     ];
   };
-  name = "observes-etl-gitlab-issues";
+  name = "observes-etl-gitlab-ephemeral";
   entrypoint = ./entrypoint.sh;
 }

@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-alias gitlab-etl="observes-etl-gitlab-issues"
+alias gitlab-etl="observes-etl-gitlab-ephemeral"
 
 function start_etl {
   local db_creds
