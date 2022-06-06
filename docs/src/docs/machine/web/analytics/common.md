@@ -142,6 +142,19 @@ for your vulnerabiities,
 for more information
 [click here](/machine/web/vulnerabilities/management/treatments/).
 
+## Severity by assignment
+
+![Severity By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
+
+Here you can see information about
+the assigned vulnerabilities,
+those that are temporarily accepted,
+open, closed and permanently accepted,
+adjusted by their severity level
+according to our standard
+[CVSSF](/about/faq/#severity-vs-vulnerabilities)
+and the users they were assigned to.
+
 ## Accepted vulnerabilities by user
 
 ![Accepted Vulns By User](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/accepted_vulns_by_user_pfrrpz.png)
