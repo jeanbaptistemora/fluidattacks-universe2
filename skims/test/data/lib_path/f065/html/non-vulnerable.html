@@ -1,0 +1,35 @@
+<html>
+	<head>
+	    <title>Pagina sin vulnerabilidades de tipo cache</title>
+	    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="-1">
+		<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	</head>
+	<body>
+	    <form autocomplete="off" onsubmit="return false;">
+	            <label>Email</label>
+	            <input autofocus="autofocus" class="form-control" id="username" type="email" autocomplete="off"/>
+
+	            <label>Password</label><input class="form-control" id="password" type="password" autocomplete="off"/>
+
+	            <button class="btn btn-primary btn-block" id="btn-login">
+	            	&nbsp; Sign In
+	            </button>
+	    </form>
+	</body>
+
+	<!-- has_reverse_tabnabbing -->
+	<a href="https://mathiasbynens.github.io/rel-noopener/malicious.html"
+	   rel="noopener noreferrer" target="_blank">
+		Click me for a reverse tabnabbing
+	</a>
+
+	<!-- has_not_subresource_integrity -->
+	<script src="https://example.com/example-framework.js"
+			integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+	</script>
+	<link href="/media/examples/link-element-example.css" rel="stylesheet"
+		  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+	</link>
+
+</html>
