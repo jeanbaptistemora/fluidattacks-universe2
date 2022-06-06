@@ -745,15 +745,11 @@ async def remove_group(
     are_policies_revoked = await authz.revoke_cached_group_service_policies(
         group_name
     )
-    is_removed_from_org = await orgs_domain.remove_group(
-        group_name=group_name, organization_id=group.organization_id
-    )
     if not all(
         [
             are_users_removed,
             all_resources_removed,
             are_policies_revoked,
-            is_removed_from_org,
         ]
     ):
         raise ErrorRemovingGroup.new()

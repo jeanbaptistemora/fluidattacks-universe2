@@ -82,7 +82,7 @@ async def process_group(
         loaders=loaders, group_name=group_name
     )
     try:
-        is_removed_from_org = await orgs_domain.remove_group(
+        is_removed_from_org = await orgs_domain.remove_group_legacy(
             group_name, organization_id
         )
     except CustomUnavailabilityError:

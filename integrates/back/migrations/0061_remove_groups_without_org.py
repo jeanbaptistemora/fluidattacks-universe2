@@ -48,7 +48,9 @@ async def remove_group(group_name: str, org_id: str) -> bool:
 async def remove_group_from_organization_table(
     org_id: str, group_name: str
 ) -> bool:
-    success = cast(bool, await orgs_dal.remove_group(org_id, group_name))
+    success = cast(
+        bool, await orgs_dal.remove_group_legacy(org_id, group_name)
+    )
     print(f"{group_name} was removed from org table")
 
     return success

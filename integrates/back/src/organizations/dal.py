@@ -366,25 +366,6 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
                 yield format_organization(await get_by_id(item["pk"]["S"]))
 
 
-async def remove_group(organization_id: str, group_name: str) -> bool:
-    """
-    Delete a group from an organization.
-    """
-    success: bool = False
-    organization_id = remove_org_id_prefix(organization_id)
-    group_item = DynamoDeleteType(
-        Key={
-            "pk": f"ORG#{organization_id}",
-            "sk": f"GROUP#{group_name.lower().strip()}",
-        }
-    )
-    try:
-        success = await dynamodb_delete_item(TABLE_NAME, group_item)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return success
-
-
 async def remove_user(organization_id: str, email: str) -> bool:
     """
     Remove a user from an organization.
@@ -480,50 +461,6 @@ async def update_policies_typed(
         organization_name=organization_name,
         values=organization_item,
     )
-    return success
-
-
-async def update_group(
-    organization_id: str, group_name: str, values: dict[str, Any]
-) -> bool:
-    """
-    Updates the attributes of a group in an organization.
-    """
-    success: bool = False
-    set_expression: str = ""
-    remove_expression: str = ""
-    expression_values: dict[str, Any] = {}
-    for attr, value in values.items():
-        if value is None:
-            remove_expression += f"{attr}, "
-        else:
-            set_expression += f"{attr} = :{attr}, "
-            expression_values.update({f":{attr}": value})
-
-    if set_expression:
-        set_expression = f'SET {set_expression.strip(", ")}'
-
-    if remove_expression:
-        remove_expression = f'REMOVE {remove_expression.strip(", ")}'
-
-    organization_id = remove_org_id_prefix(organization_id)
-    try:
-        update_attrs: dict[str, Any] = {
-            "Key": {
-                "pk": f"ORG#{organization_id}",
-                "sk": f"GROUP#{group_name.lower().strip()}",
-            },
-            "UpdateExpression": (
-                f"{set_expression} {remove_expression}".strip()
-            ),
-        }
-        if expression_values:
-            update_attrs.update(
-                {"ExpressionAttributeValues": expression_values}
-            )
-        success = await dynamodb_update_item(TABLE_NAME, update_attrs)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
     return success
 
 

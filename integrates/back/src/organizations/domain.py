@@ -356,14 +356,6 @@ async def iterate_organizations_and_groups(
         )  # NOSONAR
 
 
-async def remove_group(group_name: str, organization_id: str) -> bool:
-    today = datetime_utils.get_now()
-    values: dict[str, Any] = {
-        "deletion_date": datetime_utils.get_as_str(today)
-    }
-    return await orgs_dal.update_group(organization_id, group_name, values)
-
-
 async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     organization_id = add_org_id_prefix(organization_id)
     if not await has_user_access(organization_id, email):
