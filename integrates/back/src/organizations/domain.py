@@ -233,7 +233,7 @@ async def add_organization_typed(
             status=OrganizationStateStatus.ACTIVE,
         ),
     )
-    await orgs_dal.add_typed(org)
+    await orgs_dal.add(org)
     org_role = "user_manager"
     if email and org:
         await add_user(loaders, org.id, email, org_role)

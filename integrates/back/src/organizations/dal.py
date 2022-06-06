@@ -6,15 +6,11 @@ from botocore.exceptions import (
     ClientError,
 )
 from custom_exceptions import (
-    InvalidOrganization,
     OrganizationNotFound,
     UnavailabilityError,
 )
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
-)
-from db_model.organizations.enums import (
-    OrganizationStateStatus,
 )
 from db_model.organizations.types import (
     Organization,
@@ -56,7 +52,6 @@ from typing import (
     cast,
     Optional,
 )
-import uuid
 
 logging.config.dictConfig(LOGGING)
 
@@ -101,7 +96,7 @@ async def add_user(organization_id: str, email: str) -> bool:
     return success
 
 
-async def add_typed(
+async def add(
     organization: Organization,
 ) -> None:
     org_item = format_organization_item(organization)
@@ -109,44 +104,6 @@ async def add_typed(
         await dynamodb_put_item(TABLE_NAME, org_item)
     except ClientError as ex:
         raise UnavailabilityError() from ex
-
-
-async def add(
-    *,
-    modified_by: str,
-    organization_name: str,
-    organization_id: str = "",
-) -> dict[str, Any]:
-    """
-    Add an organization and returns its key.
-    """
-    if await exists(organization_name):
-        raise InvalidOrganization()
-
-    organization_id = (
-        str(uuid.uuid4()) if organization_id == "" else organization_id
-    )
-    organization_name = organization_name.lower().strip()
-    new_state = {
-        "modified_by": modified_by,
-        "modified_date": datetime_utils.get_now_as_str(),
-        "status": OrganizationStateStatus.ACTIVE.value,
-    }
-    item_to_add: dict[str, Any] = {
-        "pk": f"ORG#{organization_id}",
-        "sk": f"INFO#{organization_name}",
-        "historic_state": [new_state],
-    }
-    try:
-        await dynamodb_put_item(TABLE_NAME, item_to_add)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-
-    return {
-        "id": organization_id,
-        "name": organization_name,
-        "historic_state": [new_state],
-    }
 
 
 async def update_state(

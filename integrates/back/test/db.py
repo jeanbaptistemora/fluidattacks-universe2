@@ -143,7 +143,7 @@ async def populate_organization_users(data: list[Any]) -> bool:
 
 async def populate_organizations(data: list[Any]) -> bool:
     await collect(
-        dal_organizations.add_typed(
+        dal_organizations.add(
             organization=item["organization"],
         )
         for item in data
