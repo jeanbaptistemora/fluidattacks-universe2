@@ -130,7 +130,7 @@ async def test_add_organization() -> None:
     with pytest.raises(OrganizationNotFound):
         await loaders.organization.load(org_name)
 
-    await orgs_domain.add_organization_typed(loaders, org_name, user)
+    await orgs_domain.add_organization(loaders, org_name, user)
 
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
@@ -140,7 +140,7 @@ async def test_add_organization() -> None:
     )
 
     with pytest.raises(InvalidOrganization):
-        await orgs_domain.add_organization_typed(loaders, org_name, user)
+        await orgs_domain.add_organization(loaders, org_name, user)
 
 
 @pytest.mark.changes_db
@@ -148,7 +148,7 @@ async def test_remove_organization() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     email = "org_testuser1@gmail.com"
-    await orgs_domain.update_org_state(
+    await orgs_domain.update_state(
         loaders, org_id, email, OrganizationStateStatus.DELETED
     )
 

@@ -108,13 +108,6 @@ async def test_remove_user() -> None:
     assert user not in updated_users
 
 
-async def test_exists() -> None:
-    existing_group = await orgs_dal.exists("okada")
-    assert existing_group
-    non_existent_group = await orgs_dal.exists("no-exists")
-    assert not non_existent_group
-
-
 async def test_get_by_id() -> None:
     ex_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_org = await orgs_dal.get_by_id(ex_org_id)

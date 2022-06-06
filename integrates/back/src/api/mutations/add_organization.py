@@ -36,7 +36,7 @@ async def mutate(
         user_email,
         name,
     )
-    organization = await orgs_domain.add_organization_typed(
+    organization = await orgs_domain.add_organization(
         loaders, name, user_email
     )
     TRANSACTIONS_LOGGER.info(

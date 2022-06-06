@@ -111,36 +111,24 @@ async def update_state(
     organization_id: str,
     organization_name: str,
     state: OrganizationState,
-) -> bool:
+) -> None:
     organization: Item = await get_by_id(organization_id, ["historic_state"])
     historic_state: list[dict[str, str]] = organization.get(
         "historic_state", []
     )
-    new_state: Item = format_organization_state_item(
-        state,
-    )
+    new_state: Item = format_organization_state_item(state)
     item_to_update: Item = {
         "historic_state": [
             *historic_state,
             new_state,
         ]
     }
-    return await update(
+    if not await update(
         organization_id=organization_id,
         organization_name=organization_name,
         values=item_to_update,
-    )
-
-
-async def exists(org_name: str) -> bool:
-    """
-    Returns True if the organization key exists.
-    """
-    try:
-        await get_by_name(org_name.lower().strip())
-        return True
-    except OrganizationNotFound:
-        return False
+    ):
+        raise UnavailabilityError()
 
 
 async def get_access_by_url_token(
@@ -221,27 +209,6 @@ async def get_by_name(
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return _map_keys_to_domain(organization)
-
-
-async def get_id_for_group(group_name: str) -> str:
-    """
-    Return the ID of the organization a group belongs to.
-    """
-    organization_id: str = ""
-    query_attrs: dict[str, Any] = {
-        "KeyConditionExpression": (
-            Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
-        ),
-        "IndexName": "gsi-1",
-        "ProjectionExpression": "pk",
-    }
-    try:
-        response_item = await dynamodb_query(TABLE_NAME, query_attrs)
-        if response_item:
-            organization_id = response_item[0]["pk"]
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return organization_id
 
 
 async def get_ids_for_user(email: str) -> list[str]:

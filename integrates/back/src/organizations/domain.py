@@ -129,12 +129,12 @@ async def add_user(
     return success
 
 
-async def update_org_state(
+async def update_state(
     loaders: Any,
     organization_id: str,
     modified_by: str,
     state: OrganizationStateStatus,
-) -> bool:
+) -> None:
     organization: Organization = await loaders.organization.load(
         organization_id
     )
@@ -144,7 +144,7 @@ async def update_org_state(
         modified_date=datetime_utils.get_iso_date(),
         status=state,
     )
-    return await orgs_dal.update_state(
+    await orgs_dal.update_state(
         organization_id=organization_id,
         organization_name=organization.name,
         state=new_state,
@@ -195,16 +195,7 @@ async def get_group_names(
     return tuple(group.name for group in org_groups)
 
 
-async def get_name_by_id(organization_id: str) -> str:
-    result: dict[str, Any] = await orgs_dal.get_by_id(
-        organization_id, ["name"]
-    )
-    if not result:
-        raise OrganizationNotFound()
-    return str(result["name"])
-
-
-async def if_exist(loaders: Any, organization_name: str) -> bool:
+async def exists(loaders: Any, organization_name: str) -> bool:
     try:
         await loaders.organization.load(organization_name.lower().strip())
         return True
@@ -212,10 +203,10 @@ async def if_exist(loaders: Any, organization_name: str) -> bool:
         return False
 
 
-async def add_organization_typed(
+async def add_organization(
     loaders: Any, organization_name: str, email: str
 ) -> Organization:
-    if await if_exist(loaders, organization_name):
+    if await exists(loaders, organization_name):
         raise InvalidOrganization("Name taken")
     if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
         raise InvalidOrganization("Invalid name")
@@ -234,16 +225,15 @@ async def add_organization_typed(
         ),
     )
     await orgs_dal.add(org)
-    org_role = "user_manager"
-    if email and org:
-        await add_user(loaders, org.id, email, org_role)
+    if email:
+        await add_user(loaders, org.id, email, "user_manager")
     return org
 
 
 async def get_or_add(
     loaders: Any, organization_name: str, email: str = ""
 ) -> Organization:
-    if await if_exist(loaders, organization_name):
+    if await exists(loaders, organization_name):
         org: Organization = await loaders.organization.load(organization_name)
         org_id = remove_org_id_prefix(org.id)
         has_access = await has_user_access(org_id, email) if email else True
@@ -251,7 +241,7 @@ async def get_or_add(
         if email and not has_access:
             await add_user(loaders, org_id, email, "user_manager")
     else:
-        org = await add_organization_typed(loaders, organization_name, email)
+        org = await add_organization(loaders, organization_name, email)
     return org
 
 

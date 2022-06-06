@@ -72,7 +72,7 @@ async def _remove_organization(
         _remove_group(loaders, group, modified_by) for group in group_names
     )
     if success:
-        await orgs_domain.update_org_state(
+        await orgs_domain.update_state(
             loaders,
             organization_id,
             modified_by,
