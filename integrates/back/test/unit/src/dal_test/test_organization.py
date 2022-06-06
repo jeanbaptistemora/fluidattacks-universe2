@@ -127,18 +127,6 @@ async def test_remove() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_group() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    group = "kurome"
-    groups = await orgs_dal.get_groups(org_id)
-    assert len(groups) > 0
-
-    await orgs_dal.remove_group(org_id, group)
-    updated_groups = await orgs_dal.get_groups(org_id)
-    assert len(updated_groups) == len(groups) - 1
-
-
-@pytest.mark.changes_db
 async def test_remove_user() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testuser2@gmail.com"
@@ -229,17 +217,6 @@ async def test_get_ids_for_user() -> None:
     assert org_ids_2 == []
 
 
-async def test_get_groups() -> None:
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    groups = await orgs_dal.get_groups(org_id)
-    assert len(groups) == 3
-    assert sorted(groups) == [
-        "continuoustesting",
-        "oneshottest",
-        "unittesting",
-    ]
-
-
 async def test_get_users() -> None:
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     users = await orgs_dal.get_users(org_id)
@@ -265,14 +242,6 @@ async def test_get_users() -> None:
     assert len(users) == 18
     for user in expected:
         assert user in users
-
-
-async def test_has_group() -> None:
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    existing_group = "unittesting"
-    non_existent_group = "madeupgroup"
-    assert await orgs_dal.has_group(org_id, existing_group)
-    assert not await orgs_dal.has_group(org_id, non_existent_group)
 
 
 async def test_has_user_access() -> None:

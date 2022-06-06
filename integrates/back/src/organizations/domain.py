@@ -11,6 +11,7 @@ from context import (
     BASE_URL,
 )
 from custom_exceptions import (
+    GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
@@ -266,8 +267,14 @@ async def get_users(organization_id: str) -> list[str]:
     return await orgs_dal.get_users(organization_id)
 
 
-async def has_group(organization_id: str, group_name: str) -> bool:
-    return await orgs_dal.has_group(organization_id, group_name)
+async def has_group(
+    loaders: Any, organization_id: str, group_name: str
+) -> bool:
+    try:
+        group: Group = await loaders.group.load(group_name)
+        return group.organization_id == organization_id
+    except GroupNotFound:
+        return False
 
 
 async def has_user_access(organization_id: str, email: str) -> bool:

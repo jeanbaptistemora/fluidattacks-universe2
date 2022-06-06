@@ -270,11 +270,12 @@ async def test_get_users() -> None:
 
 
 async def test_has_group() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_group = "unittesting"
     non_existent_group = "madeupgroup"
-    assert await orgs_domain.has_group(org_id, existing_group)
-    assert not await orgs_domain.has_group(org_id, non_existent_group)
+    assert await orgs_domain.has_group(loaders, org_id, existing_group)
+    assert not await orgs_domain.has_group(loaders, org_id, non_existent_group)
 
 
 async def test_has_user_access() -> None:

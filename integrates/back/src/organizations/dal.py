@@ -1,5 +1,4 @@
 from boto3.dynamodb.conditions import (
-    Attr,
     ConditionBase,
     Key,
 )
@@ -267,29 +266,6 @@ async def get_by_name(
     return _map_keys_to_domain(organization)
 
 
-async def get_groups(organization_id: str) -> list[str]:
-    """
-    Return a list of the names of all the groups that belong to an
-    organization.
-    """
-    organization_id = remove_org_id_prefix(organization_id)
-    groups: list[str] = []
-    query_attrs = {
-        "KeyConditionExpression": (
-            Key("pk").eq(f"ORG#{organization_id}")
-            & Key("sk").begins_with("GROUP#")
-        ),
-        "FilterExpression": Attr("deletion_date").not_exists(),
-    }
-    try:
-        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
-        if response_items:
-            groups = [item["sk"].split("#")[1] for item in response_items]
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return groups
-
-
 async def get_id_for_group(group_name: str) -> str:
     """
     Return the ID of the organization a group belongs to.
@@ -352,22 +328,6 @@ async def get_users(organization_id: str) -> list[str]:
     except ClientError as ex:
         raise UnavailabilityError() from ex
     return users
-
-
-async def has_group(organization_id: str, group_name: str) -> bool:
-    organization_id = remove_org_id_prefix(organization_id)
-    group_in_org: bool = False
-    query_attrs: dict[str, Any] = {
-        "KeyConditionExpression": (
-            Key("pk").eq(f"ORG#{organization_id}")
-            & Key("sk").eq(f"GROUP#{group_name.lower().strip()}")
-        ),
-        "FilterExpression": Attr("deletion_date").not_exists(),
-    }
-    response_items = await dynamodb_query(TABLE_NAME, query_attrs)
-    if response_items:
-        group_in_org = True
-    return group_in_org
 
 
 async def has_user_access(organization_id: str, email: str) -> bool:
