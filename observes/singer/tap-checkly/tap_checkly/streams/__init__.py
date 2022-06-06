@@ -97,14 +97,6 @@ def all_snippets(api: ApiClient) -> None:
     )
 
 
-def all_check_results(
-    client: ChecksClient,
-) -> Stream[IndexedObj[CheckId, CheckResultObj]]:
-    return client.list_ids().bind(
-        lambda c: client.list_check_results(c).map(lambda r: IndexedObj(c, r))
-    )
-
-
 __all__ = [
     "SupportedStreams",
 ]

@@ -1,5 +1,9 @@
+from ._core import (
+    SingerStreams,
+)
 from fa_purity import (
     JsonObj,
+    PureIter,
 )
 from fa_purity.frozen import (
     freeze,
@@ -7,8 +11,14 @@ from fa_purity.frozen import (
 from fa_purity.json.factory import (
     from_unfolded_dict,
 )
-from tap_checkly.api2.alert_channels import (
-    AlertChannelObj,
+from fa_purity.pure_iter.factory import (
+    from_flist,
+)
+from fa_purity.pure_iter.transform import (
+    chain,
+)
+from fa_singer_io.singer import (
+    SingerRecord,
 )
 from tap_checkly.api2.checks.results import (
     CheckResultApi,
@@ -66,8 +76,10 @@ def encode_result_api(result: CheckResultApi) -> JsonObj:
     )
 
 
-def encode_result(result: IndexedObj[CheckId, CheckResultObj]) -> JsonObj:
-    return from_unfolded_dict(
+def encode_result(
+    result: IndexedObj[CheckId, CheckResultObj]
+) -> PureIter[SingerRecord]:
+    encoded_obj = from_unfolded_dict(
         freeze(
             {
                 "check_id": result.id_obj.id_str,
@@ -90,3 +102,15 @@ def encode_result(result: IndexedObj[CheckId, CheckResultObj]) -> JsonObj:
             }
         )
     )
+    records = (
+        from_flist(
+            (
+                SingerRecord(
+                    SingerStreams.check_results.value,
+                    encoded_obj,
+                    None,
+                ),
+            )
+        ),
+    )
+    return chain(from_flist(records))

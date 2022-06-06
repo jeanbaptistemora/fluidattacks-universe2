@@ -11,7 +11,6 @@ from fa_purity.json.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
-    pure_map,
 )
 from fa_purity.pure_iter.transform import (
     chain,

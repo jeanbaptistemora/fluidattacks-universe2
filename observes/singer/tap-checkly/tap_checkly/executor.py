@@ -40,6 +40,9 @@ from tap_checkly.api2.alert_channels import (
 from tap_checkly.api2.checks import (
     ChecksClient,
 )
+from tap_checkly.api2.id_objs import (
+    IndexedObj,
+)
 from tap_checkly.api import (
     ApiClient,
     Credentials as LegacyCreds,
@@ -47,8 +50,10 @@ from tap_checkly.api import (
 from tap_checkly.singer.alert_channels.records import (
     alert_ch_records,
 )
+from tap_checkly.singer.checks.results.records import (
+    encode_result,
+)
 from tap_checkly.streams import (
-    encoder,
     SupportedStreams,
 )
 from typing import (
@@ -72,15 +77,6 @@ NOW = datetime.now(tz=timezone.utc)
 
 
 def _emit_stream(
-    encoded_data: Stream[JsonObj], stream: SupportedStreams
-) -> None:
-    emissions = encoded_data.map(
-        lambda j: SingerRecord(stream.value, j, None)
-    ).map(lambda s: emitter.emit(sys.stdout, s))
-    unsafe_unwrap(consume(emissions))
-
-
-def _emit_stream_2(
     records: Stream[SingerRecord], stream: SupportedStreams
 ) -> None:
     emissions = records.map(lambda s: emitter.emit(sys.stdout, s))
@@ -96,13 +92,18 @@ def emit_streams(
         LOG.info("Executing stream: %s", selection)
         if selection is SupportedStreams.CHECK_RESULTS:
             _emit_stream(
-                streams.all_check_results(chks_client).map(
-                    encoder.encode_result
-                ),
+                chks_client.list_ids()
+                .bind(
+                    lambda c: chks_client.list_check_results(c).map(
+                        lambda r: IndexedObj(c, r)
+                    )
+                )
+                .map(encode_result)
+                .transform(chain),
                 selection,
             )
         elif selection is SupportedStreams.ALERT_CHS:
-            _emit_stream_2(
+            _emit_stream(
                 AlertChannelsClient.new(creds, 100)
                 .list_all()
                 .map(alert_ch_records)
