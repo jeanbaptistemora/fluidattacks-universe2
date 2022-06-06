@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Join the credentials with the same name in a group
+
+Execution Time:    2022-06-06 at 21:01:04 UTC
+Finalization Time: 2022-06-06 at 21:04:42 UTC
 """
 from aioextensions import (
     run,
