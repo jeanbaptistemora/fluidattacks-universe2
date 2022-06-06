@@ -13,11 +13,13 @@ from .utils import (
 import click
 from fa_purity import (
     Cmd,
+    Maybe,
 )
 import logging
 import sys
 from typing import (
     NoReturn,
+    Optional,
     TypeVar,
 )
 
@@ -35,12 +37,20 @@ def _print(item: _T) -> _T:
 @click.option(
     "--secret", type=str, required=True, envvar="AWS_SECRET_ACCESS_KEY"
 )
-@click.option("--token", type=str, required=True, envvar="AWS_SESSION_TOKEN")
-def list_all_groups(key_id: str, secret: str, token: str) -> NoReturn:
+@click.option(
+    "--token",
+    type=str,
+    default=None,
+    required=False,
+    envvar="AWS_SESSION_TOKEN",
+)
+def list_all_groups(
+    key_id: str, secret: str, token: Optional[str]
+) -> NoReturn:
     creds = AwsCreds(
         key_id,
         secret,
-        token,
+        Maybe.from_optional(token),
     )
     session = new_session(creds)
     client = new_client(session)
