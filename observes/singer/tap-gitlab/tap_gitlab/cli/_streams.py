@@ -15,6 +15,9 @@ from tap_gitlab.api2.ids import (
 from tap_gitlab.api2.issues import (
     IssueClient,
 )
+from tap_gitlab.api2.members import (
+    MembersClient,
+)
 from tap_gitlab.streamer import (
     Streamer,
 )
@@ -22,6 +25,7 @@ from tap_gitlab.streamer import (
 
 class Streams(Enum):
     ISSUES = "ISSUES"
+    MEMBERS = "MEMBERS"
 
 
 def project_stream(api_key: str, project: str, stream: str) -> Cmd[None]:
@@ -31,3 +35,5 @@ def project_stream(api_key: str, project: str, stream: str) -> Cmd[None]:
     streamer = Streamer(sys.stdout)
     if _stream is Streams.ISSUES:
         return streamer.issues(IssueClient(raw, None), _project)
+    if _stream is Streams.MEMBERS:
+        return streamer.members(MembersClient(raw), _project)
