@@ -4,6 +4,9 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
+from fa_purity import (
+    Maybe,
+)
 from tap_gitlab.api2.ids import (
     UserId,
 )
@@ -15,11 +18,10 @@ from typing import (
 @dataclass(frozen=True)
 class User:
     username: str
-    email: str
+    email: Maybe[str]
     name: str
     state: str
     created_at: datetime
-    is_admin: bool
 
 
 UserObj = Tuple[UserId, User]

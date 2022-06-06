@@ -44,7 +44,7 @@ def _validate_record(record: SingerRecord) -> Result[None, ValidationError]:
 
 def test_schema_record_compliance() -> None:
     mock_proj = ProjectId.from_name("TheProject")
-    test_cases = (MOCK.mock_member,)
+    test_cases = (MOCK.mock_member_empty, MOCK.mock_member_full)
     data = from_flist(
         tuple(records.member_records(mock_proj, i) for i in test_cases)
     ).transform(lambda x: chain(x))

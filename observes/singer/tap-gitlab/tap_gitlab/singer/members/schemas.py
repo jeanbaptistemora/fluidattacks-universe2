@@ -13,6 +13,7 @@ from fa_singer_io.json_schema.factory import (
     datetime_schema,
     from_json,
     from_prim_type,
+    opt_prim_type,
 )
 from fa_singer_io.singer import (
     SingerSchema,
@@ -25,11 +26,10 @@ def members() -> SingerSchema:
             "project_id": JsonValue(from_prim_type(str).encode()),
             "user_id": JsonValue(from_prim_type(int).encode()),
             "username": JsonValue(from_prim_type(str).encode()),
-            "email": JsonValue(from_prim_type(str).encode()),
+            "email": JsonValue(opt_prim_type(str).encode()),
             "name": JsonValue(from_prim_type(str).encode()),
             "state": JsonValue(from_prim_type(str).encode()),
             "created_at": JsonValue(datetime_schema().encode()),
-            "is_admin": JsonValue(from_prim_type(bool).encode()),
             "membership_state": JsonValue(from_prim_type(str).encode()),
         }
     )

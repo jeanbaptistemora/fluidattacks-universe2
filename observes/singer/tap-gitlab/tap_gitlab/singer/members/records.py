@@ -34,11 +34,10 @@ def member_records(
             "project_id": project.str_val,
             "user_id": member.user[0].user_id,
             "username": member.user[1].username,
-            "email": member.user[1].email,
+            "email": member.user[1].email.value_or(None),
             "name": member.user[1].name,
             "state": member.user[1].state,
             "created_at": member.user[1].created_at.isoformat(),
-            "is_admin": member.user[1].is_admin,
             "membership_state": member.membership_state,
         }
     )
