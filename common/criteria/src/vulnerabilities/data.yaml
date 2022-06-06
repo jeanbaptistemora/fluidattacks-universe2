@@ -4766,8 +4766,31 @@
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      <div class="container">
+        <label for="uname"><strong>Name</strong></label>
+        <input type="text" placeholder="Enter Name" name="uname" required>
+        <label for="psw"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <button type="submit">Login</button>
+      </div>
+      ```
+    compliant: |
+      ```jsx
+      import ReCAPTCHA from "react-google-recaptcha"
+      function onChange(value)
+      {
+        return (
+          <div className="App">
+            <ReCAPTCHA
+              sitekey="site_key"
+              onChange={onChange}
+            />
+          </div>
+        );
+      }
+      ```
   remediation_time: "300"
   score:
     base:
@@ -5095,8 +5118,29 @@
       Atacante anónimo con acceso local.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+      Host: hostname
+      User-Agent: Mozilla/5.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      Accept-Language: en-us,en;q=0.5
+      Keep-Alive: 300
+      Connection: keep-alive
+      ```
+    compliant: |
+      ```http
+      GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+      Host: hostname
+      User-Agent: Mozilla/5.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      Accept-Language: en-us,en;q=0.5
+      Keep-Alive: 300
+      Connection: keep-alive
+      Content-Length: 3000
+      Request-Timeout: timeout-value
+      timeout-value: 1000
+      ```
   remediation_time: "60"
   score:
     base:
@@ -5716,8 +5760,23 @@
       Atacante anónimo desde red local.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <form class="container" autocomplete="on">
+        <input type="text" placeholder="Enter Name" name="uname" required>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+        <button type="submit">Login</button>
+      </form>
+      ```
+    compliant: |
+      ```http
+      GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+      Host: hostname
+      User-Agent: Mozilla/5.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      Accept-Language: en-us,en;q=0.5
+      Cache-control: no-cache
+      ```
   remediation_time: "15"
   score:
     base:
@@ -5904,8 +5963,36 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //Non-converging sorting algorithm
+      public class QuickSortDemo{
+        public static void main(String args[unsorted]) {
+          System.out.println("Unsorted array :" + Arrays.toString(unsorted));
+
+          QuickSort algorithm = new QuickSort();
+          algorithm.sort(unsorted);
+
+          // printing sorted array
+          System.out.println("Sorted array :" + Arrays.toString(unsorted));
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public static void bubbleSort(int[] numbers) {
+        System.out.printf("Unsorted array in Java :%s %n", Arrays.toString(numbers));
+        for (int i = 0; i < numbers.length; i++) {
+          for (int j = numbers.length -1; j > i; j--) {
+            if (numbers[j] < numbers[j - 1]) {
+              swap(numbers, j, j-1);
+            }
+          }
+        }
+        System.out.printf("Sorted Array using Bubble sort algorithm :%s %n",
+          Arrays.toString(numbers));
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -6621,8 +6708,31 @@
       con acceso a un token de sesión.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function generateAccessToken(username)
+      {
+        return jwt.sign(username, process.env.TOKEN_SECRET, {expiresIn: '3600s'});
+      }
+
+      function userLogout(userId)
+      {
+        logout(userId);
+      }
+      ```
+    compliant: |
+      ```javascript
+      function generateAccessToken(username)
+      {
+        return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s'});
+      }
+
+      function userLogout(userId, sessionToken)
+      {
+        logout(userId);
+        deleteToken(sessionToken);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -6688,8 +6798,30 @@
       un ataque MitM.
   category: Manipulate System
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      server {
+        index: "index.html";
+        listen: "localhost:4446 ssl";
+        server_name: "localhost";
+        port {
+          port-number: "4446";
+          port-security: disabled;
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      server {
+        index: "index.html";
+        listen: "localhost:4446 ssl";
+        server_name: "localhost";
+        port {
+          port-number: "4446";
+          port-security:enabled;
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -6736,8 +6868,22 @@
     threat: Atacante anónimo desde Internet con acceso al hash.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function hashPassword(password) {
+        const md5sum = crypto.createHash('md5');
+        const res = md5sum.update(password);
+        return res;
+      }
+      ```
+    compliant: |
+      ```javascript
+      function hashPassword(password) {
+        this.salt = crypto.randomBytes(256).toString('hex');
+        this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
+        return
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -6991,8 +7137,28 @@
     threat: Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```tf
+      resource "aws_s3_bucket" "bucket" {
+        bucket = "some_test_bucket"
+        acl    = "private"
+        versioning {
+          enabled = false
+          mfa_delete = true
+        }
+      }
+      ```
+    compliant: |
+      ```tf
+      resource "aws_s3_bucket" "bucket" {
+        bucket = "some_test_bucket"
+        acl    = "private"
+        versioning {
+          enabled = true
+          mfa_delete = true
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -7132,8 +7298,25 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      public void bad() throws Throwable
+      {
+        InputSource inputXml = new InputSource(xmlFile);
+        String query = "SELECT * from Data";
+        String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      public void bad() throws Throwable
+      {
+        InputSource inputXml = new InputSource(xmlFile);
+        cleanInput = cleanXml(xmlFile, allowedList);
+        String query = "SELECT * from Data";
+        String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -7201,8 +7384,24 @@
       Atacante autenticado en la red local.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Check that the network configuration does not allow LLMNR y NBT-NS
+    compliant: |
+      gateway: "My gateway name"
+      firewall_service:
+        enabled: true
+        policy: 'drop'
+        log_default_action: true
+        firewall_rules:
+
+        - :id: '1'
+          :enabled: true
+          :description: 'disallow_conections'
+          :policy: 'disallow'
+          :destination_port_range: '5353'
+          :destination_ip: '00.01.02.03'
+          :source_port_range: '5353'
+          :source_ip: 'Any'
   remediation_time: "60"
   score:
     base:
@@ -7597,8 +7796,32 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function loadFiles(csvFile)
+      {
+        // User csv file could contain harmful fields
+        inputCsv = new InputSource(csvFile);
+        dataToServer = convertXls(inputCsv);
+        //File being uploaded to server as xls file
+        upLoadFile(csvFile, credentials, server);
+      }
+      ```
+    compliant: |
+      ```javascript
+      function loadFiles(csvFile)
+      {
+        // User csv file could contain harmful fields
+        inputCsv = new InputSource(csvFile);
+        //Function to sanitize csv file, escaping characters such as \= and cleaning the data
+        try sanitizeFile(inputCsv){
+          dataToServer = convertXls(inputCsv);
+          upLoadFile(csvFile, credentials, server);
+        }catch (e){
+          Exception "Your file could not be uploaded";
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -7773,7 +7996,7 @@
           ssl_ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384";
           ssl_certificate: "cert.crt";
           ssl_certificate_key: "cert.key";
-          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+          ssl_protocols: "SSLv3 TLSv1.2";
         }
       }
       ```
@@ -7905,8 +8128,34 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <form action="/action_page.php">
+        <h1>Login Form</h1>
+        <div class="container">
+          <label for="uname"><strong>Username</strong></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+          <label for="psw"><strong>Password</strong></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+          // Using hidden fields
+          <input type="hidden" id="location" name="location" value="">
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      ```
+    compliant: |
+      ```html
+      <form action="/action_page.php">
+        <h1>Login Form</h1>
+        <div class="container">
+          <label for="uname"><strong>Username</strong></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+          <label for="psw"><strong>Password</strong></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -7984,7 +8233,7 @@
           ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
           ssl_certificate: "cert.crt";
           ssl_certificate_key: "cert.key";
-          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+          ssl_protocols: "SSLv3 TLSv1.2";
         }
       }
       ```
@@ -8044,8 +8293,40 @@
     threat: Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```php
+      <?php
+        if (!isset($_SERVER['PHP_AUTH_USER'])
+        {
+          //Unverified site_url from the user
+          function __construct($site_url)
+          {
+            $this->site_path = $this->removeSlash($site_path);
+          }
+        }
+      ?>
+      ```
+    compliant: |
+      ```php
+      <?php
+        function authenticateUniqueness(urls)
+        {
+          /Function to prevent multiple urls to be accessed
+          ...
+          exit;
+        }
+
+        if (!isset($_SERVER['PHP_AUTH_USER'])
+        {
+          authenticateUniqueness(URLS);
+          //Treat the authenticated urls
+          ...
+        } else
+        {
+          ...
+        }
+      ?>
+      ```
   remediation_time: "45"
   score:
     base:
@@ -8189,8 +8470,14 @@
       Atacante anónimo desde red local.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      <a href="uncontrolledUrl">Link to external web</a>
+      ```
+    compliant: |
+      ```c
+      <a href="uncontrolledUrl" rel="noopener">Link to external web</a>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -8841,8 +9128,38 @@
       Atacante no autorizado en Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      //This function uses unsanitized user input to make a query and display possible harmful information
+      public static void searchIndex(String whichField, String start, String end, boolean inclusive)
+        throws IOException, ParseException {
+        System.out.println("\\nSearching for range '" + start + " to " + end + "' using RangeQuery");
+        Directory directory = FSDirectory.getDirectory(INDEX_DIRECTORY);
+        IndexSearcher indexSearcher = new IndexSearcher(directory);
+        Term startTerm = new Term(whichField, start);
+        Term endTerm = new Term(whichField, end);
+        Query query = new RangeQuery(startTerm, endTerm, inclusive);
+        Hits hits = indexSearcher.search_analize(query);
+        displayHits(hits);
+      }
+      ```
+    compliant: |
+      ```c
+      //This function uses unsanitized user input to make a query and display possible harmful information
+      public static void searchIndex(String userInput, boolean inclusive)
+        throws IOException, ParseException {
+        System.out.println("\\nSearching for range '" + start + " to " + end + "' using RangeQuery");
+
+        Directory directory = FSDirectory.getDirectory(INDEX_DIRECTORY);
+        IndexSearcher indexSearcher = new IndexSearcher(directory);
+        string cleanInput = sanitizeInput(userInput);
+        Term searchTerm = new Term(FIXED_FIELD, cleanInput);
+        Query query = new RangeQueryJson(searchTerm, inclusive);
+        //Use defined JSON Endpoints to make query
+        Hits hits = indexSearcher.search(query);
+        displayHits(hits);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -8894,8 +9211,38 @@
       Atacante anónimo desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      MongoClient mongoClient = new MongoClient();
+      DB db = mongoClient.getDB("test");
+      boolean auth = db.authenticate(myUserName, myPassword);
+
+      //This method takes user input without sanitizing
+      static void myMethod(user, searchTerm)
+      {
+        BasicDBObject searchQuery = new BasicDBObject();
+        queryResult = db.customer.find({user: user, info: searchTerm});
+        System.out.println(queryResult);
+      }
+      ```
+    compliant: |
+      ```c
+      MongoClient mongoClient = new MongoClient();
+      DB db = mongoClient.getDB("test");
+      boolean auth = db.authenticate(myUserName, myPassword);
+
+      //Sanitize user input before querying
+      static void myMethod(user, searchTerm)
+      {
+        user = cleanUser(user);
+        if isAllowedTerm(searchTerm)
+        {
+          BasicDBObject searchQuery = new BasicDBObject();
+          queryResult = db.customer.find({user: cleanUser, info: searchTerm});
+          System.out.println(queryResult);
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -9352,7 +9699,6 @@
 
       try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
-        // Updating db model without filtering user input
         int count = statement.executeUpdate( sql );
         org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
       } catch (java.sql.SQLException e) {
@@ -9954,8 +10300,34 @@
       Atacante anónimo desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function getinfo(userQuery) {
+        const Http = new XMLHttpRequest();
+        const url='https://myurl' + userQuery;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) =>
+        {
+          showState(Http.responseText);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      function getinfo(userQuery) {
+        //Extensive method that performs all the required validations to the userQuery
+        cleanQuery = sanitizeQuery(userQuery);
+        const Http = new XMLHttpRequest();
+        const url='https://myurl' + userQuery;
+        Http.open("GET", url);
+        Http.send();
+        Http.onreadystatechange = (e) =>
+        {
+          showState(Http.responseText);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -10938,10 +11310,10 @@
           }
           server_name localhost;
           ssl_prefer_server_ciphers off;
-          ssl_ciphers EECDH+AESGCM:EDH+AESGCM;;
+          ssl_ciphers "EECDH+AESGCM:EDH+AESGCM";
           ssl_certificate ert.crt;
           ssl_certificate_key cert.key;
-          ssl_protocols SSLv3 TLSv1 TLSv1.1;
+          ssl_protocols SSLv3 TLSv1 TLSv1.2;
         }
       }
       ```
@@ -11562,8 +11934,25 @@
       la aplicación o de un archivo de la aplicación.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const API_KEY = "KEY_inplaneText";
+
+      function getInformation(userInput){
+        const info = fetch("url", API_KEY);
+        //Return information
+      }
+      ```
+    compliant: |
+      ```javascript
+      //Store API_KEY as a secret encrypted
+      const key = Buffer.from(keyString.substring(0, 8), "utf8");
+
+      function getInformation(userInput){
+        const info = fetch("url", key);
+        //Return information
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -11824,8 +12213,40 @@
     threat: Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      static void getQuery(sql)
+      {
+        try {
+        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+
+        // Updating db model without filtering user input
+        int count = statement.executeUpdate( sql );
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
+    compliant: |
+      ```java
+      static void getQuery(param)
+      {
+        param = java.net.URLDecoder.decode(param, ""UTF-8"");
+        //Clean User parameters
+        cleanParam = getCleanValue(param)
+        //Do Query with a standard sentence
+        String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
+
+        try {
+          java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+          int count = statement.executeUpdate( sql );
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11937,8 +12358,47 @@
       Atacante anónimo desde red adyacente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public void SendFile(String strFilename){
+        FtpWebRequest requestDir = (FtpWebRequest)FtpWebRequest.Create("ftp:url");
+        requestDir.Credentials = new NetworkCredential("username", "password");
+
+        //An FTP connection is stablished
+        if(!m_bConnected)
+            Console.WriteLine("Waiting for connection on DataConnection");
+
+        while(!m_bConnected) {
+            Thread.Sleep(100);
+        } // while end
+
+        //Read secure information through the channel
+        byte[] btFileContent = File.ReadAllBytes(strFilename);
+        int iContentLen = btFileContent.Length;
+        sw.Write(btFileContent, 0, iContentLen);
+        sw.Close();
+      }
+      ```
+    compliant: |
+      ```c
+      // Setup session options with a sftp channel
+      SessionOptions sessionOptions = new SessionOptions{
+        Protocol = Protocol.Sftp,
+        HostName = "example.com",
+        UserName = "user",
+        Password = "mypassword",
+        SshHostKeyFingerprint = "ssh-rsa 2048 xxxxxxxxxxx...="
+      };
+
+      //Send files through the secure channel
+      using (Session session = new Session()){
+        // Connect
+        session.Open(sessionOptions);
+
+        // Send files
+        session.SendFiles(@"d:\toupload\*", "/home/user/").Check();
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -11995,8 +12455,34 @@
       Atacante interno no autorizado.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public static void CreateTestMessage(string server) {
+        string to = "user";
+        string from = "user";
+        MailMessage message = new MailMessage(from, to);
+        message.Subject = "Subject";
+        message.Body = @"Body";
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = false;
+        client.Send(message);
+      }
+      ```
+    compliant: |
+      ```c
+      public static void CreateTestMessage(string server){
+        string to = "user";
+        string from = "user";
+        MailMessage message = new MailMessage(from, to);
+        message.Subject = "Subject";
+        message.Body = @"Body";
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = true;
+        client.Send(message);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -12116,8 +12602,25 @@
       Atacante anónimo desde red adyacente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public static void CreateTestMessage(string server){
+        TcpClient telnet = new TcpClient("10.5.6.59", 23);
+        NetworkStream telnetStream = telnet.GetStream();
+        StreamWriter output = new StreamWriter(telnetStream);
+        StreamReader input = new StreamReader(telnetStream);
+        client.Send(ExampleMessage);
+      }
+      ```
+    compliant: |
+      ```c
+      public static void CreateTestMessage(string server){
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = true;
+        client.Send(exampleMessage);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -14135,8 +14638,24 @@
       Atacante interno autenticado.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public static void CreateTestMessage(string server)
+      {
+        SmbClient client = new SmbClient(server);
+        client.UseVersion = 1.0;
+        client.Send(message);
+      }
+      ```
+    compliant: |
+      ```c
+      public static void CreateTestMessage(string server)
+      {
+        SmbClient client = new SmbClient(server);
+        client.UseVersion = 3.1;
+        client.Send(message);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -14548,8 +15067,33 @@
       Atacante anónimo desde intranet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+            String fileReq = request.getParameter( "file" );
+            // Process file without validating
+        } catch(YourValidationException e ) {
+            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+        }
+      }
+      ```
+    compliant: |
+      ```c
+      private static final Pattern whiteListExample = Pattern.compile("^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.JPG|.gif|.GIF|.doc|.DOC|.pdf|.PDF)$");
+
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+            String fileReq = request.getParameter( "file" );
+            if ( !whiteListExample.matcher( fileReq ).matches() ) {
+                throw new YourValidationException( "Improper file" );
+            }
+            // Process after its been validated ..
+        } catch(YourValidationException e ) {
+            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15370,7 +15914,6 @@
           return ResultMsg();
       }
       ```
-
   remediation_time: "30"
   score:
     base:
@@ -16560,8 +17103,24 @@
       Atacante anónimo en red local.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public static void CreateTestMessage(string server){
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = false;
+        client.Send(message);
+      }
+      ```
+    compliant: |
+      ```c
+      public static void CreateTestMessage(string server){
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = true;
+        client.Send(message);
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -18209,8 +18768,35 @@
       Atacante interno sin autenticar
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <authentication>
+        <anonymousAuthentication enabled="true" />
+        <basicAuthentication enabled="true" />
+        <clientCertificateMappingAuthentication enabled="false" />
+        <digestAuthentication enabled="false" />
+        <iisClientCertificateMappingAuthentication enabled="false">
+        </iisClientCertificateMappingAuthentication>
+      </authentication>
+      ```
+    compliant: |
+      ```html
+      <authentication>
+        <anonymousAuthentication enabled="false" />
+        <basicAuthentication enabled="false" />
+        <clientCertificateMappingAuthentication enabled="false" />
+        <digestAuthentication enabled="false" />
+        <iisClientCertificateMappingAuthentication enabled="false">
+        </iisClientCertificateMappingAuthentication>
+
+        <windowsAuthentication enabled="true">
+          <providers>
+            <add value="Negotiate" />
+            <add value="NTLM" />
+          </providers>
+        </windowsAuthentication>
+      </authentication>
+      ```
   remediation_time: "120"
   score:
     base:
@@ -18619,8 +19205,23 @@
       Un atacante con acceso al código desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      password = "PlainPassword"
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "LDAP://myserver/OU=People,O=mycompany";
+      de.AuthenticationType = AuthenticationTypes.None;
+
+      de(path, username, password);
+      ```
+    compliant: |
+      ```c
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "LDAP://myserver/OU=People,O=mycompany";
+      de.AuthenticationType = AuthenticationTypes.SFTP;
+
+      de(path, username, encryptedPass);
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18677,8 +19278,22 @@
       con acceso al código fuente
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      password = "PlainPassword"
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "serverPath";
+      de.AuthenticationType = AuthenticationTypes.None;
+
+      de(path, username, password);
+      ```
+    compliant: |
+      ```c
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "serverPath";
+      de.AuthenticationType = AuthenticationTypes.SFTP;
+      de(path, username, encryptedPass);
+      ```
   remediation_time: "120"
   score:
     base:
@@ -18817,8 +19432,28 @@
       Atacante externo con acceso al código fuente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      //JFrog Docker Repository
+      localRepositories:
+        docker-local:
+          type: docker
+          password: "12234"
+      ```
+    compliant: |
+      ```c
+      //JFrog Docker Repository
+      localRepositories:
+        docker-local:
+          type: docker
+          security:
+        passwordSettings:
+          encryptionPolicy: REQUIRED | SUPPORTED | UNSUPPORTED
+          expirationPolicy:
+            enabled: false
+            passwordMaxAge: 60
+            notifyByEmail: true
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19588,8 +20223,35 @@
       Atacante anónimo desde intranet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "ECDH_ECDSA_WITH_AES_256_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19639,8 +20301,36 @@
       interna ejecutando un MitM.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "ECDH_ECDSA_WITH_AES_256_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19691,8 +20381,36 @@
       hashes de BD comprometidos.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "RSA_WITH_RC4_128_MD5";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19748,8 +20466,36 @@
       interna ejecutando un MitM.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "ECDHE_RSA_WITH_3DES_EDE_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19805,8 +20551,36 @@
       Atacante con acceso al código.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "ECDHE_RSA_WITH_AES_256_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -20117,8 +20891,37 @@
       Usuario no autorizado con acceso al código.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          //cipher configured with a blowfish type encryption algorithm
+          ssl_ciphers: blowfish_unique;
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -20471,8 +21274,39 @@
       Atacante no autorizado con acceso físico al dispositivo.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      import { initializeApp } from 'firebase/app';
+      import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
+      const firebaseConfig = {
+        const ADMIN = "admin";
+        const PASSWORD = "1234"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function getUsers(db) {
+        ....
+      }
+      ```
+    compliant: |
+      ```javascript
+      import { initializeApp } from 'firebase/app';
+      import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
+      const firebaseConfig = {
+        //Configuration encrypted through secure methods
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function getUsers(db) {
+        ....
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -20929,8 +21763,36 @@
       Atacante autorizado desde la red interna.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "RSA_WITH_AES_128_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -21866,8 +22728,40 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      static void getQuery(sql)
+      {
+        try {
+        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+
+        // Updating db model without filtering user input
+        int count = statement.executeUpdate( sql );
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
+    compliant: |
+      ```java
+      static void getQuery(param)
+      {
+        param = java.net.URLDecoder.decode(param, ""UTF-8"");
+        //Clean User parameters
+        cleanParam = getCleanValue(param)
+        //Do Query with a standard sentence
+        String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
+
+        try {
+          java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+          int count = statement.executeUpdate( sql );
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -23416,8 +24310,32 @@
       Atacante no autorizado en Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+            String qrRequest = request.getParameter( "idQR" );
+            // Process qr code without validating
+        } catch(YourValidationException e ) {
+            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+            String qrRequest = request.getParameter( "idQR" );
+            //Use a method to validate that the request is valid using whitelists or similar secure methods
+            if ( isValidQR(qrRequest) ) {
+                throw new YourValidationException( "Improper file" );
+            }
+            // Process after its been validated ..
+        } catch(YourValidationException e ) {
+            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+        }
+      }
+      ```
   remediation_time: "90"
   score:
     base:
@@ -23535,8 +24453,40 @@
       Atacante anónimo desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      public class XmlToObject {
+          public static void main(String[] args) {
+          try {
+            File file = new File(userInput);
+            JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            User que= (User) jaxbUnmarshaller.unmarshal(file);
+            //Printing credentials without validating external entries
+            System.out.println(que.getId()+" "+que.getUsername());
+            System.out.println("Credentials:");
+            List<Credential> list=que.getCredentials();
+            for(Credential ans:list)
+                System.out.println(ans.getId()+" "+ans.getCredentialname()+"  "+ans.getPostedby());
+            } catch (JAXBException e) {
+              e.printStackTrace();
+            }
+          }
+      }
+      ```
+    compliant: |
+      ```c {3,7,15}
+      public class XmlToObject {
+          public static void main(String[] args) {
+          try {
+            File file = new File("user.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            User que= (User) jaxbUnmarshaller.unmarshal(file);
+            //Do credential treatment in a secure way, not allowing external entries
+          }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -24098,8 +25048,36 @@
       un ataque man-in-the-middle.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "off";
+          ssl_ciphers: "DH_anon_WITH_CAMELLIA_128_CBC_SHA";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv1.0";
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      http {
+        server {
+          index: "index.html";
+          listen: "localhost:4446 ssl";
+          server_name: "localhost";
+          ssl_prefer_server_ciphers: "on";
+          ssl_ciphers: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384";
+          ssl_certificate: "cert.crt";
+          ssl_certificate_key: "cert.key";
+          ssl_protocols: "SSLv3 TLSv1.2";
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26637,8 +27615,30 @@
       Unauthorized attacker from the Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //Take user input without validating
+      var search = document.getElementById('search').value;
+      var results = document.getElementById('results');
+      results.innerHTML = "You searched for:" + search;
+      ```
+    compliant: |
+      ```javascript
+      var search = document.getElementById('search').value;
+      var results = document.getElementById('results');
+      //Perform validation of user input
+      results.innerHTML = "You searched for:" + jsEscape(search);
+
+      function jsEscape(str)
+      {
+      return String(str).replace(/[^\w. ]/gi, function(c){
+          return '\\u'+('0000'+c.charCodeAt(0).toString(16)).slice(-4);
+        });
+      }
+
+      //Additionally, you should include a server side validation if needed
+      <?php echo htmlentities($input, ENT_QUOTES, 'UTF-8');?>
+      ```
   remediation_time: "90"
   es:
     title: DOM-Based cross-site scripting (XSS)
@@ -26804,8 +27804,16 @@
       Anonymous attacker from adjacent network.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      SQLNET.ENCRYPTION_SERVER = [accepted]
+      SQLNET.ENCRYPTION_TYPES_SERVER = (AES128)
+      ```
+    compliant: |
+      ```c
+      SQLNET.ENCRYPTION_SERVER = [accepted]
+      SQLNET.ENCRYPTION_TYPES_SERVER = (AES256)
+      ```
   remediation_time: "60"
   es:
     title: Use of an insecure channel - Oracle Database
@@ -27173,8 +28181,32 @@
       performing a sniffing attack.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        EncryptedS3Bucket:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - Encryption: Hexadecimal
+          DeletionPolicy: Delete
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        EncryptedS3Bucket:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: aws:kms
+                    KMSMasterKeyID: KMS-KEY-ARN
+          DeletionPolicy: Delete
+      ```
   remediation_time: "30"
   es:
     title: Non-encrypted confidential information - Hexadecimal
@@ -27618,8 +28650,31 @@
       Attacker with access to source code from the Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      import { initializeDB } from db_model;
+
+      const firebaseConfig = {
+        const ADMIN = "admin";
+        const PASSWORD = "1234"
+      };
+
+      async function getUsers(db) {
+        ....
+      }
+      ```
+    compliant: |
+      ```javascript
+      import { initializeDB } from db_model;
+
+      const firebaseConfig = {
+        //Get encrypted keys from the server
+      };
+
+      async function getUsers(db) {
+        ....
+      }
+      ```
   remediation_time: "30"
   es:
     title: Non-encrypted confidential information - Keys
@@ -28415,8 +29470,18 @@
       Unauthorized attacker from intranet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "LDAP://myserver/OU=People,O=mycompany";
+      de.AuthenticationType = AuthenticationTypes.None;
+      ```
+    compliant: |
+      ```c
+      DirectoryEntry de = new DirectoryEntry();
+      de.Path = "LDAP://myserver/OU=People,O=mycompany";
+      de.AuthenticationType = AuthenticationTypes.Blind;
+      ```
   remediation_time: "60"
   es:
     title: Insecure authentication method - LDAP
@@ -28891,8 +29956,34 @@
       application user.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" android:usesCleartextTraffic= "True" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002">
+              <provider
+                  android:authorities="com.andriod.databasetest.contentprovider"
+                  android:name=".db.ContentProviderDb"
+                  android:exported="true"
+                  android:grantUriPermissions="true">
+              </provider>
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" android:usesCleartextTraffic= "False" package="com.android.zerosms">
+          <uses-permission android:name="android.permission.SEND_SMS"/>
+          <application android:label="@7F040001" android:icon="@7F020002">
+              <provider
+                  android:authorities="com.andriod.databasetest.contentprovider"
+                  android:name=".db.ContentProviderDb"
+                  android:exported="false"
+                  android:grantUriPermissions="true">
+              </provider>
+          </application>
+      </manifest>
+      ```
   remediation_time: "15"
   es:
     title: Insecure service configuration - usesCleartextTraffic
@@ -28963,8 +30054,29 @@
       Authenticated local attacker with access to the machine.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      import os
+      def upload_file( filename)
+        try
+          //Executing a command without checking or treating user input
+          command = userCommand + filename
+          os.system(command)
+        except
+          return "Error"
+      ```
+    compliant: |
+      ```python
+      def upload_file(filename)
+        try
+          filename_escaped = filename.replace(' ', '\ ')
+          command = "%s -q --no-warnings %s --exec \'mv {} %s\' &>/dev/null" % \
+              (filename_escaped)
+          //Do not use os sensitive functions, use separate safe functions instead
+          runCommand(command)
+        except
+          return "Error"
+      ```
   remediation_time: "120"
   es:
     title: OS Command Injection
@@ -29023,8 +30135,40 @@
       Anonymous attacker with local access to the machine
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Name:            task-pv-volume
+      Labels:          type=local
+      StorageClass:    standard
+      Status:          Terminating
+      Claim:
+      Reclaim Policy:  Delete
+      Access Modes:    *
+      Capacity:        1Gi
+      Message:
+      Source:
+          Type:          HostPath
+          Path:          /tmp/data
+          HostPathType:
+      Events:            <none>
+      ```
+    compliant: |
+      ```yaml
+      Name:            task-pv-volume
+      Labels:          type=local
+      StorageClass:    standard
+      Status:          Terminating
+      Claim:
+      Reclaim Policy:  Delete
+      Access Modes:    0600
+      Capacity:        1Gi
+      Message:
+      Source:
+          Type:          HostPath
+          Path:          /tmp/data
+          HostPathType:
+      Events:            <none>
+      ```
   remediation_time: "15"
   es:
     title: Excessive privileges - Access Mode
@@ -29419,8 +30563,31 @@
       Anonymous attacker from the Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //Configuration to upload the package without the organization id
+      <distributionManagement>
+        <repository>
+          <url>https://{WORKSPACE}.bytesafe.dev/maven/{REGISTRY}/</url>
+        </repository>
+        <snapshotRepository>
+          <url>https://{WORKSPACE}.bytesafe.dev/maven/{REGISTRY}/</url>
+        </snapshotRepository>
+      </distributionManagement>
+      ```
+    compliant: |
+      ```java
+      <distributionManagement>
+        <repository>
+          <id>{organization_id}</id>
+          <url>https://{WORKSPACE}.bytesafe.dev/maven/{REGISTRY}/</url>
+        </repository>
+        <snapshotRepository>
+          <id>{organization_id}</id>
+          <url>https://{WORKSPACE}.bytesafe.dev/maven/{REGISTRY}/</url>
+        </snapshotRepository>
+      </distributionManagement>
+      ```
   remediation_time: "20"
   es:
     title: Dependency Confusion
@@ -29805,8 +30972,52 @@
       Authenticated attacker from the Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      var storageAccount = CloudStorageAccount.Parse(connectionString);
+      var blobClient = storageAccount.CreateCloudBlobClient();
+
+      var blobContainer = blobClient.GetContainerReference(containerName);
+      blobContainer.CreateIfNotExists();
+
+      var storedPolicy = new SharedAccessPolicy()
+      {
+          SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
+          Permissions = SharedAccessBlobPermissions.Read |
+                        SharedAccessBlobPermissions.Write |
+                        SharedAccessBlobPermissions.List
+          AccessPolicy = defaultPolicy();
+      };
+      //Generate SAS
+      var containerSignature = blobContainer.GetSharedAccessSignature(null, policyName);
+      var uri = blobContainer.Uri + containerSignature;
+      ```
+    compliant: |
+      ```javascript
+      var storageAccount = CloudStorageAccount.Parse(connectionString);
+      var blobClient = storageAccount.CreateCloudBlobClient();
+
+      var blobContainer = blobClient.GetContainerReference(containerName);
+      blobContainer.CreateIfNotExists();
+
+      var storedPolicy = new SharedAccessPolicy()
+      {
+          SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
+          Permissions = SharedAccessBlobPermissions.Read |
+                        SharedAccessBlobPermissions.Write |
+                        SharedAccessBlobPermissions.List
+          AccessPolicy = groupPolicy();
+      };
+
+      //Define access permissions before generating the key
+      var permissions = blobContainer.GetPermissions();
+      permissions.SharedAccessPolicies.Clear();
+      permissions.SharedAccessPolicies.Add(policyName, storedPolicy);
+      blobContainer.SetPermissions(permissions);
+
+      var containerSignature = blobContainer.GetSharedAccessSignature(null, policyName);
+      var uri = blobContainer.Uri + containerSignature;
+      ```
   remediation_time: "50"
   es:
     title: Insecure service configuration - Container level access policy
@@ -29953,8 +31164,26 @@
       Authenticated attacker from the Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public void recoverAccount(useremail, userId){
+        if(isValidUser(userId))
+        {
+          Account account = application.sendPasswordResetEmail(userEmail);
+          Account account = application.resetPassword("newPassword");
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public void recoverAccount(userEmail, userId){
+        if(isValidUser(userId, userEmail))
+        {
+          Account account = application.sendPasswordResetEmail(userEmail);
+          Account account = application.resetPassword("$TOKEN", "newPassword");
+        }
+      }
+      ```
   remediation_time: "100"
   es:
     title: Account Takeover
@@ -30013,8 +31242,30 @@
       Authenticated local attacker with access to the container
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      FROM python:3.7-alpine
+      WORKDIR /code
+      ENV FLASK_APP=app.py
+      ENV FLASK_RUN_HOST=0.0.0.0
+      RUN apk add --no-cache gcc musl-dev
+      ADD requirements.txt requirements.txt
+      RUN pip install -r requirements.txt
+      EXPOSE 5000
+      CMD ["flask", "run"]
+      ```
+    compliant: |
+      ```yaml
+      FROM python:3.7-alpine
+      WORKDIR /code
+      ENV FLASK_APP=app.py
+      ENV FLASK_RUN_HOST=0.0.0.0
+      RUN apk add --no-cache gcc musl-dev
+      COPY requirements.txt requirements.txt
+      RUN pip install -r requirements.txt
+      EXPOSE 5000
+      CMD ["flask", "run"]
+      ```
   remediation_time: "20"
   es:
     title: Insecure service configuration - Docker
