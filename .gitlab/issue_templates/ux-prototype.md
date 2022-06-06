@@ -10,4 +10,4 @@
 
 ### User wireflow
 
-### Prototype (optional)
+### Prototype
