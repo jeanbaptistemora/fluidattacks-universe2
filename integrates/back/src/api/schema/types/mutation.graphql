@@ -383,14 +383,6 @@ type Mutation {
     draftId: String!
   ): ApproveDraftPayload!
 
-  "Autoenroll user in demo group"
-  autoenrollDemo: SimplePayload!
-    @deprecated(
-      reason: """
-      This mutation is no longer a part of the autoenrollment flow and will be removed soon.
-      """
-    )
-
   "Confirms the provided vulnerabilities as zero risk"
   confirmVulnerabilitiesZeroRisk(
     "Identifier of the Finding to be commented"

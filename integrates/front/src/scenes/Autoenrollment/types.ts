@@ -17,12 +17,6 @@ interface IAddOrganizationResult {
   };
 }
 
-interface IAutoenrollDemoResult {
-  autoenrollDemo: {
-    success: boolean;
-  };
-}
-
 type IAlertMessages = React.Dispatch<
   React.SetStateAction<{
     message: string;
@@ -57,7 +51,6 @@ interface IOrgAttr {
 
 export type {
   IAddOrganizationResult,
-  IAutoenrollDemoResult,
   IGetUserWelcomeResult,
   IOrgAttr,
   IRootAttr,

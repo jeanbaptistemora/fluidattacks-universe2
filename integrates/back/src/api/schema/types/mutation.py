@@ -28,7 +28,6 @@ from api.mutations import (
     add_toe_lines,
     add_url_root,
     approve_draft,
-    autoenroll_demo,
     confirm_vulnerabilities_zero_risk,
     deactivate_organization_finding_policy,
     deactivate_root,
@@ -149,7 +148,6 @@ MUTATION.set_field("addToeInput", add_toe_input.mutate)
 MUTATION.set_field("addToeLines", add_toe_lines.mutate)
 MUTATION.set_field("addUrlRoot", add_url_root.mutate)
 MUTATION.set_field("approveDraft", approve_draft.mutate)
-MUTATION.set_field("autoenrollDemo", autoenroll_demo.mutate)
 MUTATION.set_field(
     "confirmVulnerabilitiesZeroRisk", confirm_vulnerabilities_zero_risk.mutate
 )
