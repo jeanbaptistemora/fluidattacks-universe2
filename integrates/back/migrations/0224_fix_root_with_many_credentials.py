@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Remove root from credential if that root has a new credential
+
+Execution Time:    2022-06-06 at 19:31:54 UTC
+Finalization Time: 2022-06-06 at 20:20:09 UTC
 """
 from aioextensions import (
     run,
@@ -13,6 +16,7 @@ from datetime import (
 )
 from db_model.credentials import (
     get_credentials,
+    remove,
     update_root_ids,
 )
 from db_model.credentials.types import (
@@ -38,9 +42,10 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-async def process_root(
-    root_id: str, credentials: Tuple[CredentialItem, ...]
-) -> None:
+async def process_root(root_id: str, group_name: str) -> None:
+    credentials: Tuple[CredentialItem, ...] = await get_credentials(
+        group_name=group_name
+    )
     root_credentials: list[CredentialItem] = []
     for credential in credentials:
         if root_id in credential.state.roots:
@@ -66,13 +71,20 @@ async def process_root(
                     credential_id=credential.id,
                     root_ids=tuple(set(credential_roots)),
                 )
+                if not credential_roots:
+                    await remove(
+                        credential_id=credential.id,
+                        group_name=credential.group_name,
+                    )
 
 
 async def main() -> None:  # noqa: MC0001
     loaders = get_new_context()
     groups = sorted(await get_all_active_group_names(loaders=loaders))
 
-    for group in groups:
+    for index, group in enumerate(groups):
+        print(group, index / len(groups))
+
         credentials: Tuple[CredentialItem, ...] = await get_credentials(
             group_name=group
         )
@@ -82,7 +94,7 @@ async def main() -> None:  # noqa: MC0001
             roots_to_process |= set(credential.state.roots)
 
         for root_id in roots_to_process:
-            await process_root(root_id, credentials)
+            await process_root(root_id, group)
 
 
 if __name__ == "__main__":
