@@ -40,6 +40,7 @@ from newutils import (
 )
 from newutils.organizations import (
     format_org_policies_item,
+    format_organization,
     format_organization_item,
     format_organization_state_item,
     remove_org_id_prefix,
@@ -423,6 +424,27 @@ async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
                 yield item["pk"]["S"], item["sk"]["S"].lstrip(  # NOSONAR
                     "INFO#"
                 )
+
+
+async def iterate_organizations_typed() -> AsyncIterator[Organization]:
+    """Yield typed organizations non-concurrently generated."""
+    async with dynamodb_client() as client:
+        async for response in client.get_paginator("scan").paginate(
+            ExpressionAttributeNames={
+                "#pk": "pk",
+                "#sk": "sk",
+            },
+            ExpressionAttributeValues={
+                ":pk": {"S": "ORG#"},
+                ":sk": {"S": "INFO#"},
+            },
+            FilterExpression=(
+                "begins_with(#pk, :pk) and begins_with(#sk, :sk)"
+            ),
+            TableName=TABLE_NAME,
+        ):
+            for item in response["Items"]:
+                yield format_organization(await get_by_id(item["pk"]["S"]))
 
 
 async def remove_group(organization_id: str, group_name: str) -> bool:

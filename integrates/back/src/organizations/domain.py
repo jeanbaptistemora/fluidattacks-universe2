@@ -345,6 +345,12 @@ async def iterate_organizations() -> AsyncIterator[Tuple[str, str]]:
         yield org_id, org_name  # NOSONAR
 
 
+async def iterate_organizations_typed() -> AsyncIterator[Organization]:
+    async for organization in orgs_dal.iterate_organizations_typed():
+        # Exception: WF(AsyncIterator is subtype of iterator)
+        yield organization  # NOSONAR
+
+
 async def iterate_organizations_and_groups(
     loaders: Any,
 ) -> AsyncIterator[Tuple[str, str, Tuple[str, ...]]]:

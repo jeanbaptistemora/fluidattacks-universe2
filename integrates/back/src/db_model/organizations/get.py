@@ -32,6 +32,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    AsyncIterator,
     Iterable,
 )
 
@@ -57,6 +58,11 @@ async def get_all_organizations() -> tuple[Organization, ...]:
         raise ErrorLoadingOrganizations()
 
     return tuple(format_organization(item) for item in response.items)
+
+
+async def iterate_organizations() -> AsyncIterator[Organization]:
+    for organization in await get_all_organizations():
+        yield organization
 
 
 async def _get_organization_by_id(*, organization_id: str) -> Organization:

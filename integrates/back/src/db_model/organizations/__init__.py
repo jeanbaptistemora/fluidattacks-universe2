@@ -3,6 +3,7 @@ from .add import (
 )
 from .get import (
     get_all_organizations,
+    iterate_organizations,
 )
 from .update import (
     update_metadata,
@@ -13,6 +14,7 @@ from .update import (
 __all__ = [
     "add",
     "get_all_organizations",
+    "iterate_organizations",
     "update_metadata",
     "update_policies",
     "update_state",
