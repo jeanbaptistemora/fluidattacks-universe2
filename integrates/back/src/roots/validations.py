@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    CredentialAlreadyExists,
     InactiveRoot,
     InvalidChar,
     InvalidGitCredentials,
@@ -6,6 +7,9 @@ from custom_exceptions import (
     InvalidRootComponent,
     InvalidUrl,
     RepeatedRootNickname,
+)
+from db_model.credentials.types import (
+    CredentialItem,
 )
 from db_model.enums import (
     CredentialType,
@@ -136,6 +140,17 @@ def validate_active_root(root: Root) -> None:
     if root.state.status == RootStatus.ACTIVE:
         return
     raise InactiveRoot()
+
+
+def validate_credential_name(
+    new_credential: CredentialItem,
+    current_credentials: Tuple[CredentialItem, ...],
+) -> None:
+    credential_names = {
+        credential.state.name for credential in current_credentials
+    }
+    if new_credential.state.name in credential_names:
+        raise CredentialAlreadyExists()
 
 
 def validate_git_root_component(root: Root, component: str) -> None:

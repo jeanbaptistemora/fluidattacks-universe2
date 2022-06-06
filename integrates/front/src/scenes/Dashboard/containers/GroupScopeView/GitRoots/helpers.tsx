@@ -277,6 +277,12 @@ const handleCreationError = (
           type: "error",
         });
         break;
+      case "Exception - A credential exists with the same name":
+        setModalMessages({
+          message: translate.t("validations.invalidCredentialName"),
+          type: "error",
+        });
+        break;
       default:
         setModalMessages({
           message: translate.t("groupAlerts.errorTextsad"),

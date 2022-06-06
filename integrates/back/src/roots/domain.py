@@ -13,7 +13,6 @@ from context import (
     FI_AWS_BATCH_SECRET_KEY,
 )
 from custom_exceptions import (
-    CredentialAlreadyExists,
     CredentialNotFound,
     HasVulns,
     InvalidField,
@@ -267,6 +266,10 @@ async def add_git_root(  # pylint: disable=too-many-locals
             credential = _format_root_credential(
                 credentials, group_name, user_email, root.id
             )
+            group_credentials: Tuple[
+                CredentialItem, ...
+            ] = await loaders.group_credentials.load(root.group_name)
+            validations.validate_credential_name(credential, group_credentials)
             await creds_model.add(credential=credential)
 
     await roots_model.add(root=root)
@@ -639,11 +642,9 @@ async def _update_git_root_credentials(  # noqa: MC0001
 
     if credential_to_update is None and credential_to_add:
         # Add new credential to group and delete credential if only that root
-        credential_names = {
-            credential.state.name for credential in group_credentials
-        }
-        if credential_to_add.state.name in credential_names:
-            raise CredentialAlreadyExists()
+        validations.validate_credential_name(
+            credential_to_add, group_credentials
+        )
 
         await _remove_root_from_credential(
             root.id, root.group_name, user_email, current_credential
