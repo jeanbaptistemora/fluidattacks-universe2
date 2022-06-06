@@ -10,9 +10,6 @@ from dynamodb.types import (
 from newutils.portfolios import (
     format_portfolio,
 )
-from organizations import (
-    domain as orgs_domain,
-)
 from tags import (
     dal,
 )
@@ -24,21 +21,12 @@ from typing import (
 class OrganizationPortfoliosTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, organization_ids: Iterable[str]
-    ) -> list[tuple[Portfolio, ...]]:
-        org_names: list[str] = [
-            await orgs_domain.get_name_by_id(org_id)
-            for org_id in organization_ids
+        self, organization_names: Iterable[str]
+    ) -> tuple[tuple[Portfolio, ...], ...]:
+        orgs_portfolio_items: list[list[Item]] = [
+            await dal.get_tags(name, None) for name in organization_names
         ]
-        orgs_portfolios: list[list[Item]] = [
-            await dal.get_tags(org_name, None) for org_name in org_names
-        ]
-        return [
-            tuple(
-                format_portfolio(
-                    item=portfolio,
-                )
-                for portfolio in org_portfolios
-            )
-            for org_portfolios in orgs_portfolios
-        ]
+        return tuple(
+            tuple(format_portfolio(item) for item in portfolio_items)
+            for portfolio_items in orgs_portfolio_items
+        )
