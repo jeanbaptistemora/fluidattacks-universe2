@@ -189,7 +189,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.6,
             fontSizeRatio=0.5,
             text=count,
-            color="green",
+            color=RISK.more_passive,
             arrow="\uD83E\uDC2B",
         )
 
