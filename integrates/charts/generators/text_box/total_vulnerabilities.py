@@ -16,9 +16,6 @@ from groups.domain import (
     get_closed_vulnerabilities,
     get_open_vulnerabilities,
 )
-from typing import (
-    Tuple,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -32,7 +29,7 @@ async def generate_one(group: str) -> int:
     return closed_vulnerabilities + open_vulnerabilities
 
 
-async def get_vulns_count_many_groups(groups: Tuple[str, ...]) -> int:
+async def get_vulns_count_many_groups(groups: tuple[str, ...]) -> int:
     groups_vulns = await collect(map(generate_one, groups), workers=32)
 
     return sum(groups_vulns)

@@ -14,22 +14,19 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from typing import (
-    Tuple,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
     context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+    group_findings: tuple[Finding, ...] = await context.group_findings.load(
         group
     )
     count = len(group_findings)
     return count
 
 
-async def get_findings_count_many_groups(groups: Tuple[str, ...]) -> int:
+async def get_findings_count_many_groups(groups: tuple[str, ...]) -> int:
     groups_findings = await collect(map(generate_one, groups), workers=32)
 
     return sum(groups_findings)

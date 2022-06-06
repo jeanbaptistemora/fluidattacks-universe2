@@ -133,12 +133,20 @@ async def get_many_groups(
         ),
         workers=32,
     )
+    number_of_groups: int = len(groups_data)
 
-    if len(groups_data):
+    if number_of_groups:
         return FormatSprint(
-            created=Decimal(sum(group.created for group in groups_data)),
-            solved=Decimal(sum(group.solved for group in groups_data)),
-            remediated=Decimal(sum(group.remediated for group in groups_data)),
+            created=Decimal(
+                sum(group.created for group in groups_data) / number_of_groups
+            ),
+            solved=Decimal(
+                sum(group.solved for group in groups_data) / number_of_groups
+            ),
+            remediated=Decimal(
+                sum(group.remediated for group in groups_data)
+                / number_of_groups
+            ),
         )
 
     return FormatSprint(
