@@ -9,34 +9,19 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-import { Link, graphql } from "gatsby";
-import { Breadcrumb } from "gatsby-plugin-breadcrumb";
+import { graphql } from "gatsby";
 import React from "react";
 
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
+import { PlansPage } from "../components/PlansPage";
 import { Seo } from "../components/Seo";
-import {
-  BannerContainer,
-  BannerTitle,
-  BlackH2,
-  FullWidthContainer,
-  PageArticle,
-  PlansCards,
-  PlansContainer,
-  RegularRedButton,
-} from "../styles/styledComponents";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
+import { PageArticle } from "../styles/styledComponents";
 
 const PlansIndex: React.FC<IQueryData> = ({
   data,
-  pageContext,
 }: IQueryData): JSX.Element => {
-  const {
-    breadcrumb: { crumbs },
-  } = pageContext;
-
-  const { banner, description, keywords, phrase, slug, title } =
+  const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   return (
@@ -54,32 +39,8 @@ const PlansIndex: React.FC<IQueryData> = ({
       <Layout>
         <div>
           <NavbarComponent />
-          <Breadcrumb
-            crumbLabel={capitalizePlainString(title)}
-            crumbSeparator={" / "}
-            crumbs={capitalizeObject(crumbs)}
-          />
-
           <PageArticle bgColor={"#f9f9f9"}>
-            <BannerContainer className={banner}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
-
-            <PlansContainer>
-              <BlackH2 className={"pv5"}>{phrase}</BlackH2>
-              <PlansCards
-                dangerouslySetInnerHTML={{
-                  __html: data.markdownRemark.html,
-                }}
-              />
-              <div className={"tc pv3"}>
-                <Link to={"/contact-us/"}>
-                  <RegularRedButton>{"Inquire now"}</RegularRedButton>
-                </Link>
-              </div>
-            </PlansContainer>
+            <PlansPage />
           </PageArticle>
         </div>
       </Layout>

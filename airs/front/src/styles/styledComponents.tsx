@@ -1381,38 +1381,6 @@ const ComplianceContainer: StyledComponent<
   `,
 })``;
 
-const PlansCards: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    flex
-    flex-wrap
-    justify-center
-  `,
-})``;
-
-const PlansContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    plans-feat
-    roboto
-    internal
-    mw-1366
-    ph-body
-    ml-auto
-    mr-auto
-    roboto
-    ph4-l
-    ph3
-    pt5-l
-    pt4
-    pb5
-  `,
-})``;
-
 const ErrorSection: StyledComponent<
   "section",
   Record<string, unknown>
@@ -1792,8 +1760,6 @@ export {
   PageArticle,
   PageContainer,
   PhantomRegularRedButton,
-  PlansCards,
-  PlansContainer,
   RadioButton,
   RadioLabel,
   RedMark,

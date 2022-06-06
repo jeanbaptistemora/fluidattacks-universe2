@@ -34,7 +34,7 @@ const PlanCard: React.FC<IPlansCard> = ({
           <CloudImage
             alt={`Plan ${title} Fluid Attacks`}
             src={`airs/plans/${isMachine ? "machine" : "squad"}`}
-            styles={"mr1"}
+            styles={`mr1 ${isMachine ? "machine-icon" : "squad-icon"}`}
           />
           <Title fColor={"#24252d"} fSize={"32"} marginTop={"1"}>
             {title}

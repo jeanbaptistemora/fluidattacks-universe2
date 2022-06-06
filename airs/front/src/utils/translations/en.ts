@@ -167,7 +167,7 @@ const pageTexts: ResourceKey = {
         machineTitle: "Machine",
         squadDescription:
           "For teams needing to discover more complex and " +
-          "severe vulnerabilities through ethical hacking",
+          "severe vulnerabilities through ethical hacking.",
         squadTitle: "Squad",
       },
       title: "Explore our Plans",
