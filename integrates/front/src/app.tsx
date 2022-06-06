@@ -12,7 +12,6 @@ import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
 import { Autoenrollment } from "scenes/Autoenrollment";
 import { Login } from "scenes/Login";
-import { Welcome } from "scenes/Welcome";
 import { ApolloProvider } from "utils/apollo";
 import { authContext } from "utils/auth";
 import {
@@ -72,12 +71,7 @@ const App: React.FC = (): JSX.Element => {
                       >
                         <Switch>
                           <Route component={Login} exact={true} path={"/"} />
-                          {user.userEmail === "juancrestrepos@gmail.com" ||
-                          user.userEmail === "dcardona@fluidattacks.com" ? (
-                            <Route component={Autoenrollment} path={"/"} />
-                          ) : (
-                            <Route component={Welcome} path={"/"} />
-                          )}
+                          <Route component={Autoenrollment} path={"/"} />
                         </Switch>
                       </featurePreviewContext.Provider>
                     </authContext.Provider>

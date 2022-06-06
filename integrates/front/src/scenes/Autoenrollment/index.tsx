@@ -337,9 +337,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   }
 
   const organizations = data === undefined ? [] : data.me.organizations;
-  const isFirstTimeUser =
-    organizations.length === 0 ||
-    (organizations.length === 1 && organizations[0].name === "okada");
+  const isFirstTimeUser = organizations.length === 0;
 
   if (isFirstTimeUser || !isRepository) {
     return (
