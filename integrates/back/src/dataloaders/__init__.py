@@ -24,6 +24,7 @@ from collections import (
 from db_model.credentials.get import (
     CredentialLoader,
     GroupCredentialsLoader,
+    OrganizationCredentialsNewLoader,
 )
 from db_model.findings.get import (
     FindingHistoricStateLoader,
@@ -122,6 +123,7 @@ class Dataloaders(NamedTuple):
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
+    organization_credentials_new: OrganizationCredentialsNewLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
     portfolio: PortfolioTypedLoader
@@ -220,6 +222,7 @@ def get_new_context() -> Dataloaders:
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
         portfolio=PortfolioTypedLoader(),
+        organization_credentials_new=OrganizationCredentialsNewLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),

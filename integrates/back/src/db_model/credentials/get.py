@@ -17,9 +17,13 @@ from db_model import (
     TABLE,
 )
 from db_model.credentials.types import (
+    Credential,
     CredentialItem,
     CredentialMetadata,
     CredentialState,
+)
+from db_model.credentials.utils import (
+    format_credential,
 )
 from db_model.enums import (
     CredentialType,
@@ -217,4 +221,40 @@ class CredentialStatesLoader(DataLoader):
         return await collect(
             _get_historic_state(credential_id=credential_id)
             for credential_id in credential_ids
+        )
+
+
+async def get_organization_credentials(
+    *, organization_id: str
+) -> Tuple[Credential, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["credentials_new_metadata"],
+        values={"organization_id": organization_id},
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["credentials_new_metadata"],),
+        index=index,
+        table=TABLE,
+    )
+
+    return tuple(format_credential(item) for item in response.items)
+
+
+class OrganizationCredentialsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: List[str]
+    ) -> Tuple[Tuple[Credential, ...], ...]:
+        return await collect(
+            get_organization_credentials(organization_id=organization_id)
+            for organization_id in organization_ids
         )
