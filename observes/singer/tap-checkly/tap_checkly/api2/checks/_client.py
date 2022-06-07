@@ -12,6 +12,7 @@ from ._core import (
 from .results import (
     CheckResultClient,
     CheckResultObj,
+    RolledCheckResult,
 )
 from dataclasses import (
     dataclass,
@@ -66,6 +67,12 @@ class ChecksClient:
             self._raw, check, self._per_page, self._from_date, self._to_date
         )
         return _client.list_all()
+
+    def list_rolled_results(self, check: CheckId) -> Stream[RolledCheckResult]:
+        _client = CheckResultClient(
+            self._raw, check, self._per_page, self._from_date, self._to_date
+        )
+        return _client.list_all_rolled()
 
     @staticmethod
     def new(

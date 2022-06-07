@@ -57,6 +57,9 @@ def emit_stream(creds: Credentials, selection: SupportedStreams) -> Cmd[None]:
     if selection is SupportedStreams.CHECK_RESULTS:
         chks_client = ChecksClient.new(creds, 100, OLD_DATE, NOW)
         return _streams.check_results(chks_client)
+    if selection is SupportedStreams.ROLLED_RESULTS:
+        chks_client = ChecksClient.new(creds, 100, OLD_DATE, NOW)
+        return _streams.rolled_results(chks_client)
     elif selection is SupportedStreams.ALERT_CHS:
         chs_client = AlertChannelsClient.new(creds, 100)
         return _streams.alert_chs(chs_client)

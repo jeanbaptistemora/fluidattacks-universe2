@@ -41,6 +41,7 @@ from tap_checkly.singer.alert_channels.records import (
 )
 from tap_checkly.singer.checks.results.records import (
     encode_result,
+    encode_rolled,
 )
 from typing import (
     Iterator,
@@ -136,6 +137,19 @@ def check_results(client: ChecksClient) -> Cmd[None]:
             )
         )
         .map(encode_result)
+        .transform(chain),
+    )
+
+
+def rolled_results(client: ChecksClient) -> Cmd[None]:
+    return _emit_stream(
+        client.list_ids()
+        .bind(
+            lambda c: client.list_rolled_results(c).map(
+                lambda r: IndexedObj(c, r)
+            )
+        )
+        .map(encode_rolled)
         .transform(chain),
     )
 

@@ -1,6 +1,3 @@
-from ._core import (
-    SingerStreams,
-)
 from fa_purity import (
     Cmd,
     JsonObj,
@@ -33,6 +30,9 @@ from tap_checkly.api2.checks.results import (
 from tap_checkly.api2.id_objs import (
     CheckId,
     IndexedObj,
+)
+from tap_checkly.singer.core import (
+    SingerStreams,
 )
 
 

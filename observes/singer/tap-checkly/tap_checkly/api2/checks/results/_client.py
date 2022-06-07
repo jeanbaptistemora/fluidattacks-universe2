@@ -44,8 +44,12 @@ from tap_checkly.api2.id_objs import (
     CheckId,
 )
 from typing import (
+    Callable,
     Tuple,
+    TypeVar,
 )
+
+_T = TypeVar("_T")
 
 
 @dataclass(frozen=True)
@@ -76,13 +80,17 @@ class CheckResultClient:
     def _date_ranges(self) -> PureIter[DateRange]:
         return date_ranges_dsc(self._from_date, self._to_date)
 
-    def _list_all(self, dr: DateRange) -> Cmd[Maybe[Stream[CheckResultObj]]]:
-        first = self._list_per_date_range(1, dr)
+    def _list_all(
+        self,
+        dr: DateRange,
+        list_cmd: Callable[[int, DateRange], Cmd[FrozenList[_T]]],
+    ) -> Cmd[Maybe[Stream[_T]]]:
+        first = list_cmd(1, dr)
         return first.map(
             lambda i: Maybe.from_optional(i if bool(i) else None).map(
                 lambda f: infinite_range(1, 1)
                 .map(
-                    lambda p: self._list_per_date_range(p, dr)
+                    lambda p: list_cmd(p, dr)
                     if p > 1
                     else Cmd.from_cmd(lambda: f)
                 )
@@ -97,27 +105,35 @@ class CheckResultClient:
     def list_all(self) -> Stream[CheckResultObj]:
         return (
             self._date_ranges()
-            .map(self._list_all)
+            .map(lambda d: self._list_all(d, self._list_per_date_range))
             .transform(lambda x: from_piter(x))
             .transform(lambda x: until_empty(x))
             .bind(lambda s: s)
         )
 
-    def list_rolled_results(
+    def _list_rolled_results(
         self,
         page: int,
-        per_page: int,
-        date_range: Tuple[datetime, datetime],
+        date_range: DateRange,
     ) -> Cmd[FrozenList[RolledCheckResult]]:
         # temp support: this endpoint is deprecated
         return self._client.get_list(
             "/v1/check-results-rolled-up/" + self._check.id_str,
             from_prim_dict(
                 {
-                    "limit": per_page,
+                    "limit": self._per_page,
                     "page": page,
-                    "from": str(int(datetime.timestamp(date_range[0]))),
-                    "to": str(int(datetime.timestamp(date_range[1]))),
+                    "from": str(int(datetime.timestamp(date_range.from_date))),
+                    "to": str(int(datetime.timestamp(date_range.to_date))),
                 }
             ),
         ).map(lambda l: tuple(map(_decode.rolled_from_raw, l)))
+
+    def list_all_rolled(self) -> Stream[RolledCheckResult]:
+        return (
+            self._date_ranges()
+            .map(lambda d: self._list_all(d, self._list_rolled_results))
+            .transform(lambda x: from_piter(x))
+            .transform(lambda x: until_empty(x))
+            .bind(lambda s: s)
+        )

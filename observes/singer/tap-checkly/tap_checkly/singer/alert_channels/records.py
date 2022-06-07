@@ -1,6 +1,3 @@
-from ._core import (
-    SingerStreams,
-)
 from fa_purity import (
     FrozenDict,
     PureIter,
@@ -20,6 +17,9 @@ from fa_singer_io.singer import (
 )
 from tap_checkly.api2.alert_channels import (
     AlertChannelObj,
+)
+from tap_checkly.singer.core import (
+    SingerStreams,
 )
 
 
