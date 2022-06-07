@@ -78,9 +78,8 @@ def _has_attributes(content: str, tag: str, attrs: dict) -> bool:
     Check ``HTML`` attributes` values.
 
     This method checks whether the tag (``tag``) inside the code file
-    (``filename``) has attributes (``attr``) with the specific values.
+    has attributes (``attr``) with the specific values.
 
-    :param filename: Path to the ``HTML`` source.
     :param tag: ``HTML`` tag to search.
     :param attrs: Attributes with values to search.
     :returns: True if attribute set as specified, False otherwise.
@@ -105,18 +104,13 @@ def _has_attributes(content: str, tag: str, attrs: dict) -> bool:
     return result
 
 
-def is_cacheable(content: str, path: str) -> tuple:
+def is_cacheable(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         """Check if cache is possible.
 
         Verifies if the file has the tags::
         <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> and
-        <META HTTP-EQUIV="Expires" CONTENT="-1">
-
-        :param filename: Path to the ``HTML`` source.
-        :returns: True if tag ``meta`` have attributes ``http-equiv``
-                and ``content`` set as specified, False otherwise.
-        :rtype: :class:`fluidasserts.Result`
+        <META HTTP-EQUIV="Expires" CONTENT="-1"
         """
 
         tag = "meta"

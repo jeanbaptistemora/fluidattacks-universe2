@@ -3,6 +3,7 @@ from lib_path.common import (
 )
 from lib_path.f065.html import (
     has_autocomplete,
+    is_cacheable,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -11,6 +12,11 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_is_cacheable(content: str, path: str) -> Vulnerabilities:
+    return is_cacheable(content=content, path=path)
 
 
 @SHIELD_BLOCKING
@@ -28,6 +34,10 @@ def analyze(
     results: Tuple[Vulnerabilities, ...] = ()
 
     if file_extension == "html":
-        results = (run_has_autocomplete(content_generator(), path),)
+        results = (
+            *results,
+            run_has_autocomplete(content_generator(), path),
+            run_is_cacheable(content_generator(), path),
+        )
 
     return results
