@@ -32,7 +32,7 @@ function main {
     fi \
     && pushd integrates \
     && todo=$(mktemp) \
-    && find "charts/generators" -wholename "*.py" | sort > "${todo}" \
+    && find "charts/generators" ! -name '__init__.py' ! -name 'utils*.py' -wholename "*.py" | sort > "${todo}" \
     && execute_chunk_parallel execute_analytics_generator "${todo}" "${parallel}" "${runtime}" \
     && aws_s3_sync \
       "charts/generators" \
