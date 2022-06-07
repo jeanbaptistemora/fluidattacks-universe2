@@ -313,6 +313,50 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               </Col33>
             </RowCenter>
             <RowCenter>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"vulnerabilitiesRemediationCreated"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.remediationCreated.title")}
+                />
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"vulnerabilitiesRemediationSolved"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.remediationSolved.title")}
+                />
+              </Col33>
+              <Col33>
+                <Graphic
+                  bsHeight={80}
+                  className={"g3"}
+                  documentName={"vulnerabilitiesRemediationRemediated"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.remediationRemediated.title")}
+                />
+              </Col33>
+            </RowCenter>
+            <RowCenter>
               <Col50>
                 <Graphic
                   bsHeight={160}

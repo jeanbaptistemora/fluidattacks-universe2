@@ -219,6 +219,15 @@ export const enTranslations: ResourceKey = {
       forcesUsage: {
         title: "Service usage",
       },
+      remediationCreated: {
+        title: "Severity increased in sprint",
+      },
+      remediationRemediated: {
+        title: "Spring overall",
+      },
+      remediationSolved: {
+        title: "Severity remediated in sprint",
+      },
       totalTypes: {
         title: "Total types",
       },
