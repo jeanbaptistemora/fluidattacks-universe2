@@ -1438,3 +1438,9 @@ class CredentialAlreadyExists(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A credential exists with the same name"
         super(CredentialAlreadyExists, self).__init__(msg)
+
+
+class OnlyCorporateEmails(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Only corporate emails are allowed"
+        super(OnlyCorporateEmails, self).__init__(msg)
