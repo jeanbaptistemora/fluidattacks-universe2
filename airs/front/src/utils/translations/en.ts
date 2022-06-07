@@ -131,6 +131,30 @@ const pageTexts: ResourceKey = {
     },
   },
   plansPage: {
+    clientsSection: {
+      client1: {
+        client: "Banistmo",
+        description:
+          "“I do not see them as a supplier, but as a strategic partner.”",
+        person: "Director of Corporate Security",
+      },
+      client2: {
+        client: "Large Bank",
+        description:
+          "“We were very happy with their services, " +
+          "which were exactly what we expected.”",
+        person: "Cybersecurity MGR",
+      },
+      client3: {
+        client: "Payvalida",
+        description:
+          "“Fluid Attacks is a cybersecurity company that listens, " +
+          "understands and supports their clients.”",
+        person: "CISO/COO",
+      },
+      subtitle: "Many organizations use our Continuous Hacking solution",
+      title: "Don't just take our word for it",
+    },
     comparative: {
       tableDescription1:
         "* Data from a 3-year experiment run by Fluid Attacks " +
