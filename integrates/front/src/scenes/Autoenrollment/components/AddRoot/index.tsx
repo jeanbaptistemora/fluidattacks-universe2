@@ -161,26 +161,31 @@ const AddRoot: React.FC<IAddRootProps> = ({
           setIsDirty(dirty);
 
           async function handleAccess(): Promise<void> {
-            setFieldTouched("branch", true);
-            setFieldTouched("credentials.key", true);
-            setFieldTouched("credentials.name", true);
-            setFieldTouched("credentials.password", true);
-            setFieldTouched("credentials.token", true);
-            setFieldTouched("credentials.type", true);
-            setFieldTouched("credentials.user", true);
-            setFieldTouched("env", true);
-            setFieldTouched("exclusions", true);
-            setFieldTouched("url", true);
             const validateErrors = await validateForm();
-            if (Object.keys(validateErrors).length === 0) {
+            const errorsLength = Object.keys(validateErrors).length;
+            const exclusionsError =
+              validateErrors.exclusions === undefined
+                ? false
+                : errorsLength === 1 && validateErrors.exclusions.length > 0;
+            if (errorsLength === 0 || exclusionsError) {
               await checkAccess();
             } else {
               mixpanel.track("AutoenrollCheckAccess", {
                 credentialType: values.credentials.type,
-                formErrors: Object.keys(validateErrors).length,
+                formErrors: errorsLength,
                 success: false,
                 url: values.url,
               });
+              setFieldTouched("branch", true);
+              setFieldTouched("credentials.key", true);
+              setFieldTouched("credentials.name", true);
+              setFieldTouched("credentials.password", true);
+              setFieldTouched("credentials.token", true);
+              setFieldTouched("credentials.type", true);
+              setFieldTouched("credentials.user", true);
+              setFieldTouched("env", true);
+              setFieldTouched("exclusions", true);
+              setFieldTouched("url", true);
             }
           }
 
