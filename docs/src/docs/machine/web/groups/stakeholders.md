@@ -7,59 +7,99 @@ slug: /machine/web/groups/stakeholders
 
 The stakeholders of a group
 are the users
-who can access it,
-in order to visualize information
-or for managing the group's vulnerabilities,
-scope, tags, etc.
-In order to
-add users to your group
-and also to edit or remove users
-that your group already has,
-you can go to the **Stakeholders** tab,
-which is one of the tabs
-that appear when entering a group.
+who can access it
+to visualize information
+or manage vulnerabilities,
+scope,
+tags,
+etc.
+Only if you have the
+[User manager](/machine/web/groups/roles#user-manager-role)
+role,
+you can add,
+edit or remove these users.
+To use these functions,
+you have to go to the
+**Stakeholders** section
+in your group.
 
 ![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622660238/docs/web/groups/stakeholders/stakeholders_section_kwzr4s.png)
 
-In order to add a user
-you can click on the **Add** button
-for the following pop-up to appear
+## Functionalities
 
-![Add Stakeholder Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1622660238/docs/web/groups/stakeholders/add_stakeholder_dsxsiz.png)
+In this section,
+you will find the
+following buttons:
+export,
+add,
+edit,
+remove and filters.
 
-Here you can enter all the information
-about the new user,
-including the email address of the user
-taking into account that
-the email should be a Google email
-or Office 365 email,
-then you must decide which role
-the user will have,
-you can click on [this link](/machine/web/groups/roles)
-for detailed information about the roles,
-next would be the responsibility
-that you want to assign
-to the user,
-and lastly,
-the phone number of the user.
-After this you can click on **Proceed**
-for an email to be sent to them
-asking for confirmation.
+### Export
 
-This section will also show you
-information about the users
-that are already added,
-you can remove any user
-by clicking on one of them
-and then clicking on the **Remove** button
-for them to be removed immediately.
-You can also click on the **Edit** button
-to modify the information
-about any of the users,
-the pop-up that appears
-upon clicking the edit button
-is the same one
-as when you want to
-add a user
-so any information
-can be modified.
+Clicking on this button will
+download a CSV (comma-separated
+values) file containing all
+the information in the table
+of this section.
+
+### Add
+
+Click on this button to
+add a new stakeholder.
+You will see the following
+pop-up window:
+
+![Stakeholders Add](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_add.png)
+
+Here you must enter information
+about the new stakeholder:
+email,
+[role](/machine/web/groups/roles)
+and responsibility.
+Bear in mind that we only accept
+Google or Office 365 email addresses.
+Click on **Proceed** when you are done.
+The individual will receive an
+email asking them to confirm
+their invitation.
+
+### Edit
+
+Click on this button to modify
+the information about a user
+you have selected.
+A pop-up window will appear
+where you can modify the
+user’s email address,
+role or responsibility.
+
+![Stakeholders Edit](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_edit.png)
+
+### Remove
+
+Click on this button after
+selecting one stakeholder to
+eliminate them from your group.
+
+### Filters
+
+In this section,
+two filters are available for
+the table: Role and Invitation.
+
+![Stakeholders Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filters.png)
+
+The first allows you to
+filter users by their roles.
+
+![Stakeholders Filter By Rol](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filter_by_rol.png)
+
+The second allows you to
+filter users by their response
+to the invitation to participate
+in the group,
+or lack thereof,
+and their Unregistered status.
+
+![Stakeholders Filter By Response](https://res.cloudinary.com/fluid-attacks/image/upload/v1654613838/docs/web/groups/stakeholders/stakeholders_filter_by_response.png)
