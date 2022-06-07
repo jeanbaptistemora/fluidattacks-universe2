@@ -32,4 +32,9 @@ const CardContainer = styled.div.attrs({
   box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.06);
 `;
 
-export { CardContainer, Container, PortraitContainer };
+const ImageContainer = styled.div`
+  max-width: 682px;
+  max-height: 361px;
+`;
+
+export { CardContainer, Container, ImageContainer, PortraitContainer };

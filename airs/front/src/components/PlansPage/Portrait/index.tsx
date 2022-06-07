@@ -4,6 +4,7 @@ import React from "react";
 import {
   CardContainer,
   Container,
+  ImageContainer,
   PortraitContainer,
 } from "./styledComponents";
 
@@ -16,7 +17,13 @@ const Portrait: React.FC = (): JSX.Element => {
   return (
     <Container>
       <PortraitContainer>
-        <CloudImage alt={"plans-portrait"} src={"/airs/plans/portrait"} />
+        <ImageContainer>
+          <CloudImage
+            alt={"plans-portrait"}
+            src={"/airs/plans/plans-cta"}
+            styles={"w-100 h-100"}
+          />
+        </ImageContainer>
         <CardContainer>
           <Title fColor={"#2e2e38"} fSize={"48"} fSizeS={"34"}>
             {translate.t("plansPage.portrait.title")}
