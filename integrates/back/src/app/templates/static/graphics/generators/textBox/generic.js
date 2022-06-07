@@ -50,7 +50,7 @@ function render(dataDocument, height, width) {
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(0, ${ fontOffset })`)
-      .text(`${ value }%`);
+      .text(`${ Math.abs(value) === 0 ? 0 : value }%`);
   }
 }
 
