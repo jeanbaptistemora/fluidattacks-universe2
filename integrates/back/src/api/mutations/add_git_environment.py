@@ -21,6 +21,7 @@ from roots import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -28,20 +29,23 @@ from typing import (
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_service_white
 )
-async def mutate(
+async def mutate(  # pylint: disable = too-many-arguments
     _parent: None,
     info: GraphQLResolveInfo,
     group_name: str,
     url: str,
     url_type: str,
+    root_id: str,
+    cloud_name: Optional[str] = None,
     **kwargs: Any,
 ) -> SimplePayload:
     await roots_domain.add_git_environment_url(
         loaders=info.context.loaders,
         group_name=group_name,
-        root_id=kwargs["id"],
+        root_id=root_id,
         url=url,
         url_type=url_type,
+        cloud_type=cloud_name,
     )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated git envs for root {kwargs["id"]}'

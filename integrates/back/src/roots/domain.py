@@ -59,6 +59,7 @@ from db_model.roots.enums import (
     RootType,
 )
 from db_model.roots.types import (
+    GitEnvironmentCloud,
     GitEnvironmentUrl,
     GitEnvironmentUrlType,
     GitRoot,
@@ -1531,11 +1532,19 @@ async def add_git_environment_secret(
     return await roots_model.add_git_environment_secret(url_id, secret)
 
 
-async def add_git_environment_url(
-    loaders: Any, group_name: str, root_id: str, url: str, url_type: str
+async def add_git_environment_url(  # pylint: disable=too-many-arguments
+    loaders: Any,
+    group_name: str,
+    root_id: str,
+    url: str,
+    url_type: str,
+    cloud_type: Optional[str] = None,
 ) -> bool:
+    _cloud_type: Optional[GitEnvironmentCloud] = None
     try:
         _url_type = GitEnvironmentUrlType[url_type]
+        if cloud_type:
+            _cloud_type = GitEnvironmentCloud[cloud_type]
     except KeyError as exc:
         raise InvalidField("type") from exc
 
@@ -1545,6 +1554,7 @@ async def add_git_environment_url(
         created_at=datetime.now(),
         url=url,
         url_type=_url_type,
+        cloud_type=_cloud_type,
     )
     return await roots_model.add_git_environment_url(root_id, url=environment)
 

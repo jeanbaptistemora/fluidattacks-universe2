@@ -50,6 +50,13 @@ class GitEnvironmentUrlType(str, Enum):
     APK: str = "APK"
 
 
+class GitEnvironmentCloud(str, Enum):
+    AWS: str = "AWS"
+    GCP: str = "GCP"
+    AZURE: str = "AZURE"
+    KUBERNETES: str = "KUBERNETES"
+
+
 class GitEnvironmentUrl(NamedTuple):
     url: str
     id: str
@@ -57,6 +64,7 @@ class GitEnvironmentUrl(NamedTuple):
     created_at: Optional[datetime] = None
     group_name: Optional[str] = None
     url_type: GitEnvironmentUrlType = GitEnvironmentUrlType.URL
+    cloud_type: Optional[GitEnvironmentCloud] = None
 
 
 class GitRootState(NamedTuple):

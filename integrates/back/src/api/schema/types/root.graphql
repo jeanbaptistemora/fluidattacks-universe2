@@ -26,10 +26,10 @@ type GitEnvironmentUrl {
   id: String!
   "Environment secrets"
   secrets: [Secret]
-  "Environment url type"
-  type: String!
   "Environment url"
   url: String!
+  "Environment url type"
+  urlType: String!
 }
 
 "Credentials associated to a root"

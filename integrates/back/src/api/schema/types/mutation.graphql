@@ -187,6 +187,20 @@ type Mutation {
     value: String!
   ): SimplePayload!
 
+  "Adds a machine execution to git root"
+  addGitEnvironmentUrl(
+    "Url cloud Name"
+    cloudName: String
+    "Group to add secret"
+    groupName: String!
+    "Id of the root to put secret"
+    rootId: ID!
+    "Url value"
+    url: String!
+    "Url Type"
+    urlType: String!
+  ): SimplePayload!
+
   """
   Adds a new root to be analyzed and tested
   """

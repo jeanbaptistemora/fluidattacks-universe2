@@ -11,6 +11,7 @@ from api.mutations import (
     add_files_to_db,
     add_finding_consult,
     add_forces_execution,
+    add_git_environment,
     add_git_environment_secret,
     add_git_root,
     add_group,
@@ -133,6 +134,7 @@ MUTATION.set_field("addSecret", add_secret.mutate)
 MUTATION.set_field(
     "addGitEnvironmentSecret", add_git_environment_secret.mutate
 )
+MUTATION.set_field("addGitEnvironmentUrl", add_git_environment.mutate)
 MUTATION.set_field("addGroup", add_group.mutate)
 MUTATION.set_field("addGroupConsult", add_group_consult.mutate)
 MUTATION.set_field("addGroupTags", add_group_tags.mutate)
