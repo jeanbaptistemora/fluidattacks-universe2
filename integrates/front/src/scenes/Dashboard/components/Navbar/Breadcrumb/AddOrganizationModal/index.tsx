@@ -57,7 +57,6 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
         }
       },
       onError: (error: ApolloError): void => {
-        onClose();
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           if (message === "Invalid name") {
             msgError(t(`${tPath}invalidName`));
