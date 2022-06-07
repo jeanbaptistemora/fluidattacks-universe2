@@ -188,6 +188,13 @@ const pageTexts: ResourceKey = {
       },
       title: "Explore our Plans",
     },
+    portrait: {
+      paragraph:
+        "Discover the benefits of our comprehensive " +
+        "Continuous Hacking solution, which hundreds " +
+        "of organizations are already enjoying.",
+      title: "Ready to try Continuous Hacking?",
+    },
   },
   productOverview: {
     cardsSection: {
