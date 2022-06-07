@@ -129,7 +129,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
         onSubmit={handleSubmit}
         validationSchema={rootSchema(isGitAccessible, isDirty)}
       >
-        {({ dirty, isSubmitting, setFieldTouched, values }): JSX.Element => {
+        {({
+          dirty,
+          isSubmitting,
+          setFieldTouched,
+          validateForm,
+          values,
+        }): JSX.Element => {
           if (isSubmitting) {
             setShowSubmitAlert(false);
           }
@@ -137,7 +143,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
           setIsDirty(dirty);
 
           async function handleAccess(): Promise<void> {
-            await checkAccess();
             setFieldTouched("branch", true);
             setFieldTouched("credentials.key", true);
             setFieldTouched("credentials.name", true);
@@ -148,6 +153,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
             setFieldTouched("env", true);
             setFieldTouched("exclusions", true);
             setFieldTouched("url", true);
+            const validateErrors = await validateForm();
+            if (Object.keys(validateErrors).length === 0) {
+              await checkAccess();
+            }
           }
 
           return (
