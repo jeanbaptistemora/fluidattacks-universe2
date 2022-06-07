@@ -45,7 +45,6 @@ from tap_checkly.api2.id_objs import (
 )
 from typing import (
     Callable,
-    Tuple,
     TypeVar,
 )
 
