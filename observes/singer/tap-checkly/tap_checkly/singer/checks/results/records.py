@@ -2,6 +2,7 @@ from ._core import (
     SingerStreams,
 )
 from fa_purity import (
+    Cmd,
     JsonObj,
     PureIter,
 )
@@ -13,6 +14,8 @@ from fa_purity.json.factory import (
 )
 from fa_purity.pure_iter.factory import (
     from_flist,
+    pure_map,
+    unsafe_from_cmd,
 )
 from fa_purity.pure_iter.transform import (
     chain,
@@ -23,6 +26,7 @@ from fa_singer_io.singer import (
 from tap_checkly.api2.checks.results import (
     CheckResultApi,
     CheckResultObj,
+    RolledCheckResult,
     TimingPhases,
     Timings,
 )
@@ -112,5 +116,61 @@ def encode_result(
                 ),
             )
         ),
+    )
+    return chain(from_flist(records))
+
+
+def _encode_times(
+    result: IndexedObj[CheckId, RolledCheckResult]
+) -> PureIter[SingerRecord]:
+    enumerated = unsafe_from_cmd(
+        Cmd.from_cmd(lambda: enumerate(result.obj.response_times))
+    )
+    encoded_objs = enumerated.map(
+        lambda t: from_unfolded_dict(
+            freeze(
+                {
+                    "check_id": result.id_obj.id_str,
+                    "run_location": result.obj.run_location,
+                    "hour": result.obj.hour.isoformat(),
+                    "index": t[0],
+                    "response_times": t[1],
+                }
+            )
+        )
+    )
+    return encoded_objs.map(
+        lambda j: SingerRecord(
+            SingerStreams.rolled_check_results_times.value,
+            j,
+            None,
+        )
+    )
+
+
+def encode_rolled(
+    result: IndexedObj[CheckId, RolledCheckResult]
+) -> PureIter[SingerRecord]:
+    encoded_obj = from_unfolded_dict(
+        freeze(
+            {
+                "check_id": result.id_obj.id_str,
+                "run_location": result.obj.run_location,
+                "hour": result.obj.hour.isoformat(),
+                "error_count": result.obj.error_count,
+                "failure_count": result.obj.failure_count,
+                "results_count": result.obj.results_count,
+            }
+        )
+    )
+    records = (
+        from_flist((encoded_obj,)).map(
+            lambda o: SingerRecord(
+                SingerStreams.rolled_check_results.value,
+                o,
+                None,
+            ),
+        ),
+        _encode_times(result),
     )
     return chain(from_flist(records))

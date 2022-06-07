@@ -6,3 +6,4 @@ from enum import (
 class SingerStreams(Enum):
     check_results = "check_results"
     rolled_check_results = "rolled_check_results"
+    rolled_check_results_times = "rolled_check_results_times"
