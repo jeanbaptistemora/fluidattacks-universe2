@@ -1,3 +1,6 @@
+from . import (
+    _executor,
+)
 from ._streams import (
     SupportedStreams,
 )
@@ -8,10 +11,8 @@ from fa_purity import (
 from tap_checkly.api2 import (
     Credentials,
 )
-from tap_checkly.cli import (
-    _executor,
-)
 from typing import (
+    NoReturn,
     Optional,
 )
 from utils_logger.v2 import (
@@ -33,7 +34,7 @@ from utils_logger.v2 import (
 )
 def stream(
     name: Optional[str], api_user: str, api_key: str, all_streams: bool
-) -> None:
+) -> NoReturn:
     creds = Credentials(api_user, api_key)
     selection = (
         tuple(SupportedStreams)
@@ -43,7 +44,7 @@ def stream(
         .map(lambda i: (i,))
         .unwrap()
     )
-    _executor.emit_streams(creds, selection)
+    _executor.emit_streams(creds, selection).compute()
 
 
 @click.group()  # type: ignore[misc]

@@ -6,6 +6,15 @@ from ._objs import (
 )
 from fa_purity import (
     Cmd,
+    Stream,
+)
+from fa_purity.stream.transform import (
+    chain,
+    consume,
+)
+from fa_singer_io.singer import (
+    emitter,
+    SingerRecord,
 )
 from paginator import (
     AllPages,
@@ -13,15 +22,38 @@ from paginator import (
 from returns.io import (
     IO,
 )
+import sys
+from tap_checkly.api2.alert_channels import (
+    AlertChannelsClient,
+)
+from tap_checkly.api2.checks import (
+    ChecksClient,
+)
+from tap_checkly.api2.id_objs import (
+    IndexedObj,
+)
 from tap_checkly.api import (
     ApiClient,
     ApiPage,
+)
+from tap_checkly.singer.alert_channels.records import (
+    alert_ch_records,
+)
+from tap_checkly.singer.checks.results.records import (
+    encode_result,
 )
 from typing import (
     Iterator,
 )
 
 ALL = AllPages()
+
+
+def _emit_stream(
+    records: Stream[SingerRecord],
+) -> Cmd[None]:
+    emissions = records.map(lambda s: emitter.emit(sys.stdout, s))
+    return consume(emissions)
 
 
 def _stream_data(
@@ -92,6 +124,25 @@ def all_snippets(api: ApiClient) -> Cmd[None]:
     return _stream_data(
         SupportedStreams.SNIPPETS,
         api.snippets.list_snippets(ALL),
+    )
+
+
+def check_results(client: ChecksClient) -> Cmd[None]:
+    return _emit_stream(
+        client.list_ids()
+        .bind(
+            lambda c: client.list_check_results(c).map(
+                lambda r: IndexedObj(c, r)
+            )
+        )
+        .map(encode_result)
+        .transform(chain),
+    )
+
+
+def alert_chs(client: AlertChannelsClient) -> Cmd[None]:
+    return _emit_stream(
+        client.list_all().map(alert_ch_records).transform(chain),
     )
 
 
