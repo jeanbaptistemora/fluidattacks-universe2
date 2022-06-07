@@ -6248,7 +6248,7 @@
           "NonKeyAttributes": [
             "url",
             "created_at",
-            "url_type"
+            "type"
           ]
         },
         {

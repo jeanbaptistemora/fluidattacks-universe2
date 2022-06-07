@@ -26,6 +26,8 @@ type GitEnvironmentUrl {
   id: String!
   "Environment secrets"
   secrets: [Secret]
+  "Environment url type"
+  type: String!
   "Environment url"
   url: String!
 }

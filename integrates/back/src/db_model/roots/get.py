@@ -481,6 +481,7 @@ async def get_git_environment_urls(
             created_at=datetime.fromisoformat(item["created_at"])
             if "created_at" in item
             else None,
+            url_type=item["type"],
         )
         for item in response.items
     )
