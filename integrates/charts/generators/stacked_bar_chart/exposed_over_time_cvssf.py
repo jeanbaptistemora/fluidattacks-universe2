@@ -229,21 +229,20 @@ async def get_many_groups_document(
 def format_document(
     document: Dict[str, Dict[datetime, float]],
 ) -> Dict[str, Any]:
+    columns: list[list[str]] = [
+        [name]
+        + [
+            date.strftime(DATE_FMT)
+            if name == "date"
+            else str(Decimal(document[name][date]).quantize(Decimal("0.1")))
+            for date in tuple(document["date"])[-12:]
+        ]
+        for name in document
+    ]
     return dict(
         data=dict(
             x="date",
-            columns=[
-                [name]
-                + [
-                    date.strftime(DATE_FMT)
-                    if name == "date"
-                    else str(
-                        Decimal(document[name][date]).quantize(Decimal("0.1"))
-                    )
-                    for date in tuple(document["date"])[-12:]
-                ]
-                for name in document
-            ],
+            columns=columns,
             colors=dict(
                 Exposure=RISK.more_agressive,
             ),
@@ -292,7 +291,7 @@ def format_document(
                     enabled=True,
                 ),
             ),
-            r=0,
+            r=0 if len(columns[0]) > 2 else 3,
         ),
         spline=dict(
             interpolation=dict(
