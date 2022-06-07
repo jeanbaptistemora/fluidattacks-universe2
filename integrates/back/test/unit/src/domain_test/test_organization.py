@@ -29,6 +29,7 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationPoliciesToUpdate,
+    OrganizationState,
 )
 from decimal import (
     Decimal,
@@ -38,9 +39,6 @@ from graphql import (
 )
 from group_access import (
     domain as group_access_domain,
-)
-from newutils import (
-    organizations as orgs_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -147,14 +145,26 @@ async def test_add_organization() -> None:
 async def test_remove_organization() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
+    org_name = "tatsumi"
     email = "org_testuser1@gmail.com"
+    modified_date = "2019-11-22T20:07:57+00:00"
     await orgs_domain.update_state(
-        loaders, org_id, email, OrganizationStateStatus.DELETED
+        organization_id=org_id,
+        organization_name=org_name,
+        state=OrganizationState(
+            modified_by=email,
+            modified_date=modified_date,
+            status=OrganizationStateStatus.DELETED,
+            pending_deletion_date="",
+        ),
     )
 
-    new_loaders: Dataloaders = get_new_context()
-    org: Organization = await new_loaders.organization.load(org_id)
-    assert orgs_utils.is_deleted_typed(org)
+    loaders = get_new_context()
+    org: Organization = await loaders.organization.load(org_id)
+    assert org.state.status == OrganizationStateStatus.DELETED
+    assert org.state.modified_by == email
+    assert org.state.modified_date == modified_date
+    assert org.state.pending_deletion_date is None
 
 
 async def test_get_group_names() -> None:

@@ -36,7 +36,6 @@ from freezegun import (  # type: ignore
     freeze_time,
 )
 from newutils import (
-    datetime as datetime_utils,
     organizations as orgs_utils,
 )
 from organizations import (
@@ -44,7 +43,6 @@ from organizations import (
 )
 from organizations.domain import (
     iterate_organizations,
-    update_pending_deletion_date,
 )
 import pytest
 from schedulers import (
@@ -374,16 +372,12 @@ async def test_update_portfolios_indicators() -> None:
 async def test_delete_obsolete_orgs() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
-    org_name = "makoto"
     org_ids = []
     async for organization in iterate_organizations():
         if not orgs_utils.is_deleted_typed(organization):
             org_ids.append(organization.id)
     assert org_id in org_ids
     assert len(org_ids) == 10
-
-    now_str = datetime_utils.get_as_str(datetime_utils.get_now())
-    await update_pending_deletion_date(org_id, org_name, now_str)
 
     await delete_obsolete_orgs.main()
 
@@ -398,11 +392,16 @@ async def test_delete_obsolete_orgs() -> None:
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
 
-    org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
     loaders = get_new_context()
-    new_organization: Organization = await loaders.organization.load(org_id)
-    org_pending_deletion_date = new_organization.state.pending_deletion_date
+    org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
+    test_org = await loaders.organization.load(org_id)
+    org_pending_deletion_date = test_org.state.pending_deletion_date
     assert org_pending_deletion_date == "2020-01-30T00:00:00+00:00"
+
+    org_name = "okada"
+    test_org = await loaders.organization.load(org_name)
+    org_pending_deletion_date = test_org.state.pending_deletion_date
+    assert org_pending_deletion_date is None
 
 
 @pytest.mark.changes_db

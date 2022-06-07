@@ -75,7 +75,6 @@ import sys
 from typing import (
     Any,
     AsyncIterator,
-    Optional,
 )
 from users import (
     domain as users_domain,
@@ -130,24 +129,14 @@ async def add_user(
 
 
 async def update_state(
-    loaders: Any,
     organization_id: str,
-    modified_by: str,
-    state: OrganizationStateStatus,
+    organization_name: str,
+    state: OrganizationState,
 ) -> None:
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
-    historic_state: OrganizationState = organization.state
-    new_state = historic_state._replace(
-        modified_by=modified_by,
-        modified_date=datetime_utils.get_iso_date(),
-        status=state,
-    )
     await orgs_dal.update_state(
         organization_id=organization_id,
-        organization_name=organization.name,
-        state=new_state,
+        organization_name=organization_name,
+        state=state,
     )
 
 
@@ -414,17 +403,6 @@ async def update_invited_stakeholder(
                 "invitation": new_invitation,
             },
         )
-    return success
-
-
-async def update_pending_deletion_date(
-    organization_id: str,
-    organization_name: str,
-    pending_deletion_date: Optional[str],
-) -> bool:
-    """Update pending deletion date"""
-    values: dict[str, Any] = {"pending_deletion_date": pending_deletion_date}
-    success = await orgs_dal.update(organization_id, organization_name, values)
     return success
 
 

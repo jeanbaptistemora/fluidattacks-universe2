@@ -123,6 +123,15 @@ async def update_state(
             new_state,
         ]
     }
+    # This attr is outside the current historic state
+    if state.pending_deletion_date is not None:
+        item_to_update["pending_deletion_date"] = (
+            None
+            if not state.pending_deletion_date
+            else datetime_utils.convert_from_iso_str(
+                state.pending_deletion_date
+            )
+        )
     if not await update(
         organization_id=organization_id,
         organization_name=organization_name,
