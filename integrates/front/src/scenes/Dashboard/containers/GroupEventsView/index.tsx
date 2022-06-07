@@ -379,7 +379,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           groupName,
           image: handleFileListUpload(values.image),
           rootId: values.rootId,
-          rootNickname: values.rootNickname,
         },
       });
     },
