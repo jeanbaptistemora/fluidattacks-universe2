@@ -14,6 +14,7 @@
     searchPaths = {
       bin = [
         inputs.nixpkgs.awscli
+        inputs.nixpkgs.git
         inputs.nixpkgs.gnused
         inputs.nixpkgs.jq
       ];
