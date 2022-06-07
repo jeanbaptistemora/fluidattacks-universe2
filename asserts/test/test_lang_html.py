@@ -30,16 +30,6 @@ NOT_CODE = CODE_DIR + "notexists.html"
 #
 
 
-def test_is_cacheable_open():
-    """Funcion test_is_cacheable_open.
-
-    Validar si las etiquetas que evitan que se almacene la pagina en
-    memoria cache estan definidas en el codigo HTML de
-    vulnerable.html
-    """
-    assert html.is_cacheable(INSECURE_CODE)
-
-
 def test_is_header_content_type_missing_open():
     """Funcion test_is_header_content_type_missing_open.
 
@@ -67,17 +57,6 @@ def test_open_has_not_subresource_integrity():
 #
 # Closing tests
 #
-
-
-def test_is_cacheable_close():
-    """Funcion test_is_cacheable_close.
-
-    Validar si las etiquetas que evitan que se almacene la pagina en
-    memoria cache estan definidas en el codigo HTML de
-    non-vulnerable.html
-    """
-    assert not html.is_cacheable(SECURE_CODE)
-    assert not html.is_cacheable(NOT_CODE)
 
 
 def test_is_header_content_type_missing_close():

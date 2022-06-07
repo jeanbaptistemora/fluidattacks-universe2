@@ -95,53 +95,6 @@ def _get_xpath(tag: Tag) -> str:
 
 
 @api(risk=LOW, kind=SAST)
-def is_cacheable(filename: str) -> tuple:
-    """Check if cache is possible.
-
-    Verifies if the file has the tags::
-       <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> and
-       <META HTTP-EQUIV="Expires" CONTENT="-1">
-
-    :param filename: Path to the ``HTML`` source.
-    :returns: True if tag ``meta`` have attributes ``http-equiv``
-              and ``content`` set as specified, False otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    if not os.path.exists(filename):
-        return UNKNOWN, "File does not exist"
-
-    msg_open: str = "HTML file has miss-configured Pragma/Expires meta tags"
-    msg_closed: str = "HTML file has well configured Pragma/Expires meta tags"
-
-    tag = "meta"
-    tk_pragma = CaselessKeyword("pragma")
-    tk_nocache = CaselessKeyword("no-cache")
-    pragma_attrs = {"http-equiv": tk_pragma, "content": tk_nocache}
-
-    tk_expires = CaselessKeyword("expires")
-    tk_minusone = CaselessKeyword("-1")
-    expires_attrs = {"http-equiv": tk_expires, "content": tk_minusone}
-
-    has_pragma = _has_attributes(filename, tag, pragma_attrs)
-    has_expires = _has_attributes(filename, tag, expires_attrs)
-
-    vulnerable: bool = not has_pragma or not has_expires
-
-    units: List[Unit] = [
-        Unit(
-            where=filename,
-            source="HTML/Meta/Configuration",
-            specific=[msg_open if vulnerable else msg_closed],
-            fingerprint=get_sha256(filename),
-        )
-    ]
-
-    if vulnerable:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
-
-
-@api(risk=LOW, kind=SAST)
 def is_header_content_type_missing(filename: str) -> tuple:
     """Check if Content-Type header is missing.
 
