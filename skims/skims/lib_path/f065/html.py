@@ -105,31 +105,42 @@ def _has_attributes(content: str, tag: str, attrs: dict) -> bool:
     return result
 
 
-def is_cacheable(content: str) -> tuple:
-    """Check if cache is possible.
+def is_cacheable(content: str, path: str) -> tuple:
+    def iterator() -> Iterator[Tuple[int, int]]:
+        """Check if cache is possible.
 
-    Verifies if the file has the tags::
-       <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> and
-       <META HTTP-EQUIV="Expires" CONTENT="-1">
+        Verifies if the file has the tags::
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache"> and
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
 
-    :param filename: Path to the ``HTML`` source.
-    :returns: True if tag ``meta`` have attributes ``http-equiv``
-              and ``content`` set as specified, False otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
+        :param filename: Path to the ``HTML`` source.
+        :returns: True if tag ``meta`` have attributes ``http-equiv``
+                and ``content`` set as specified, False otherwise.
+        :rtype: :class:`fluidasserts.Result`
+        """
 
-    tag = "meta"
-    tk_pragma = CaselessKeyword("pragma")
-    tk_nocache = CaselessKeyword("no-cache")
-    pragma_attrs = {"http-equiv": tk_pragma, "content": tk_nocache}
+        tag = "meta"
+        tk_pragma = CaselessKeyword("pragma")
+        tk_nocache = CaselessKeyword("no-cache")
+        pragma_attrs = {"http-equiv": tk_pragma, "content": tk_nocache}
 
-    tk_expires = CaselessKeyword("expires")
-    tk_minusone = CaselessKeyword("-1")
-    expires_attrs = {"http-equiv": tk_expires, "content": tk_minusone}
+        tk_expires = CaselessKeyword("expires")
+        tk_minusone = CaselessKeyword("-1")
+        expires_attrs = {"http-equiv": tk_expires, "content": tk_minusone}
 
-    has_pragma = _has_attributes(content, tag, pragma_attrs)
-    has_expires = _has_attributes(content, tag, expires_attrs)
+        has_pragma = _has_attributes(content, tag, pragma_attrs)
+        has_expires = _has_attributes(content, tag, expires_attrs)
 
-    vulnerable: bool = not has_pragma or not has_expires  # noqa
+        vulnerable: bool = not has_pragma or not has_expires
+        if vulnerable:
+            line: int = 0
+            column: int = 0
+            yield line, column
 
-    return "test", "test"
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="lib_path.f065.is_cacheable",
+        iterator=iterator(),
+        path=path,
+        method=MethodsEnum.IS_CACHEABLE,
+    )
