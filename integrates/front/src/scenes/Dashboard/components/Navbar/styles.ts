@@ -21,10 +21,14 @@ const NavbarMenu = styled.ul.attrs({
 `;
 
 const NavbarButton = styled.button.attrs({
-  className: "bn flex items-center mh1 outline-0 ph2 pv2 pointer",
+  className: "bn mh1 pa2",
 })`
   background: none;
-  color: #5c5c70;
+  color: #2e2e38;
+
+  :hover {
+    opacity: 0.75;
+  }
 `;
 
 const DropdownMenu = styled.ul.attrs({

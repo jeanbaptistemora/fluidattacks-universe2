@@ -1,4 +1,4 @@
-import { faAngleDown, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
@@ -33,8 +33,6 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
     <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faInfoCircle} />
-        &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>

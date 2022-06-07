@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import {
-  faAngleDown,
   faKey,
   faMobileAlt,
   faSignOutAlt,
@@ -144,8 +143,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     <div ref={ref}>
       <NavbarButton onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faUserCircle} />
-        &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
       </NavbarButton>
       {isDropdownOpen ? (
         <DropdownMenu>
