@@ -679,7 +679,7 @@ async def update_description(
         list(filter(None, description._asdict().values()))
     )
     if description.title:
-        findings_utils.is_valid_finding_title(description.title)
+        await findings_utils.is_valid_finding_title(description.title)
 
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)

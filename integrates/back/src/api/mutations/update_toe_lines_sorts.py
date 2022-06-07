@@ -94,7 +94,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         sorts_suggestions_formatted = _format_sorts_suggestions(
             sorts_suggestions
         )
-        validate_sort_suggestions(sorts_suggestions_formatted)
+        await validate_sort_suggestions(sorts_suggestions_formatted)
 
     try:
         loaders: Dataloaders = info.context.loaders

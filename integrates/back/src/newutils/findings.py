@@ -1,3 +1,4 @@
+import aiohttp
 from custom_exceptions import (
     InvalidFileStructure,
     InvalidFindingTitle,
@@ -15,7 +16,6 @@ from newutils import (
     datetime as datetime_utils,
 )
 import re
-import requests  # type: ignore
 from starlette.datastructures import (
     UploadFile,
 )
@@ -63,7 +63,7 @@ async def append_records_to_file(
     return uploaded_file
 
 
-def get_vulns_file() -> Dict:
+async def get_vulns_file() -> Dict:
     """Parses the vulns info yaml from the repo into a dictionary."""
     base_url: str = (
         "https://gitlab.com/api/v4/projects/20741933/repository/files"
@@ -71,17 +71,19 @@ def get_vulns_file() -> Dict:
     branch_ref: str = "master"
     vulns_file_id = "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml"
     url: str = f"{base_url}/{vulns_file_id}/raw?ref={branch_ref}"
-    response = requests.get(url)
-    return yaml.safe_load(response.text)
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return yaml.safe_load(await response.text())
 
 
-def is_valid_finding_title(title: str) -> bool:
+async def is_valid_finding_title(title: str) -> bool:
     """
     Validates that new Draft and Finding titles conform to the standard
     format and are present in the whitelist.
     """
     if re.match(r"^[0-9]{3}\. .+", title):
-        vulns_info: Dict = get_vulns_file()
+        vulns_info = await get_vulns_file()
         try:
             vuln_number: str = title[:3]
             expected_vuln_title: str = vulns_info[vuln_number]["en"]["title"]

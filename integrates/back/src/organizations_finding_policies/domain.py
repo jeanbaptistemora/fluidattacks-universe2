@@ -82,8 +82,8 @@ async def get_finding_policies(
     return await get_organization_finding_policies(org_name=org_name)
 
 
-def validate_finding_name(name: str) -> None:
-    if not findings_utils.is_valid_finding_title(name):
+async def validate_finding_name(name: str) -> None:
+    if not await findings_utils.is_valid_finding_title(name):
         raise InvalidFindingNamePolicy()
 
 
@@ -107,7 +107,7 @@ async def add_finding_policy(
     tags: Union[Set[str], Dict],
     user_email: str,
 ) -> None:
-    validate_finding_name(finding_name)
+    await validate_finding_name(finding_name)
     finding_policy = await get_finding_policy_by_name(
         org_name=org_name, finding_name=finding_name.lower()
     )

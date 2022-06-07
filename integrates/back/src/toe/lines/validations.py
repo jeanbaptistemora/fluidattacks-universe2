@@ -33,10 +33,12 @@ def validate_sort_risk_level(value: int) -> None:
         raise InvalidSortsRiskLevel.new()
 
 
-def validate_sort_suggestions(suggestions: list[SortsSuggestion]) -> None:
+async def validate_sort_suggestions(
+    suggestions: list[SortsSuggestion],
+) -> None:
     if len(suggestions) > 5:
         raise InvalidSortsSuggestions.new()
     for item in suggestions:
-        is_valid_finding_title(item.finding_title)
+        await is_valid_finding_title(item.finding_title)
         if not 0 <= item.probability <= 100:
             raise InvalidSortsSuggestions.new()
