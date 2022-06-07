@@ -362,12 +362,12 @@ async def update(
     return success
 
 
-async def update_policies_typed(
+async def update_policies(
     organization_id: str,
     organization_name: str,
     policies_to_update: OrganizationPoliciesToUpdate,
     user_email: str,
-) -> bool:
+) -> None:
     historic_policies: list[Item] = []
     if policies_to_update.max_number_acceptances is not None:
         organization_data = await get_by_id(
@@ -389,12 +389,12 @@ async def update_policies_typed(
         modified_date=datetime_utils.get_iso_date(),
         policies=policies_to_update,
     )
-    success = await update(
+    if not await update(
         organization_id=organization_id,
         organization_name=organization_name,
         values=organization_item,
-    )
-    return success
+    ):
+        raise UnavailabilityError()
 
 
 async def update_user(

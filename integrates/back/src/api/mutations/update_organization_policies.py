@@ -77,17 +77,16 @@ async def mutate(
     organization_id = kwargs.pop("organization_id")
     organization_name = kwargs.pop("organization_name")
     policies_to_update = _format_policies_to_update(kwargs)
-    success: bool = await orgs_domain.update_policies(
+    await orgs_domain.update_policies(
         loaders,
         organization_id,
         organization_name,
         user_email,
         policies_to_update,
     )
-    if success:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: User {user_email} updated policies for organization "
-            f"{organization_name} with ID {organization_id}",
-        )
-    return SimplePayload(success=success)
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: User {user_email} updated policies for organization "
+        f"{organization_name} with ID {organization_id}",
+    )
+    return SimplePayload(success=True)

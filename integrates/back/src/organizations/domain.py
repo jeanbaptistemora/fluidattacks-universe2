@@ -38,9 +38,6 @@ from db_model.organizations.types import (
 from decimal import (
     Decimal,
 )
-from graphql import (
-    GraphQLError,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -423,41 +420,24 @@ async def update_policies(
     organization_name: str,
     user_email: str,
     policies_to_update: OrganizationPoliciesToUpdate,
-) -> bool:
-    success: bool = False
-    valid: list[bool] = []
-    try:
-        for attr, value in policies_to_update._asdict().items():
-            if value is not None:
-                value = (
-                    Decimal(value).quantize(Decimal("0.1"))
-                    if isinstance(value, float)
-                    else Decimal(value)
-                )
-                policies_to_update._asdict()[attr] = value
-                validator_func = getattr(
-                    sys.modules[__name__], f"validate_{attr}"
-                )
-                valid.append(validator_func(value))
-        valid.append(
-            await validate_acceptance_severity_range_typed(
-                loaders, organization_id, policies_to_update
+) -> None:
+    validated_policies: dict[str, Any] = {}
+    for attr, value in policies_to_update._asdict().items():
+        if value is not None:
+            value = (
+                Decimal(value).quantize(Decimal("0.1"))
+                if isinstance(value, float)
+                else Decimal(value)
             )
-        )
-    except (
-        InvalidAcceptanceDays,
-        InvalidAcceptanceSeverity,
-        InvalidAcceptanceSeverityRange,
-        InvalidNumberAcceptances,
-        InvalidSeverity,
-    ) as exe:
-        LOGGER.exception(exe, extra={"extra": locals()})
-        raise GraphQLError(str(exe)) from exe
-    if not all(valid):
-        return False
+            validated_policies[attr] = value
+            validator_func = getattr(sys.modules[__name__], f"validate_{attr}")
+            validator_func(value)
+    await validate_acceptance_severity_range(
+        loaders, organization_id, policies_to_update
+    )
 
-    if policies_to_update:
-        success = await orgs_dal.update_policies_typed(
+    if validated_policies:
+        await orgs_dal.update_policies(
             organization_id=organization_id,
             organization_name=organization_name,
             policies_to_update=policies_to_update,
@@ -471,8 +451,6 @@ async def update_policies(
             responsible=user_email,
             date=datetime_utils.get_iso_date(),
         )
-
-    return success
 
 
 # pylint: disable=too-many-arguments
@@ -536,7 +514,7 @@ async def send_mail_policies(
         )
 
 
-async def validate_acceptance_severity_range_typed(
+async def validate_acceptance_severity_range(
     loaders: Any, organization_id: str, values: OrganizationPoliciesToUpdate
 ) -> bool:
     success: bool = True
