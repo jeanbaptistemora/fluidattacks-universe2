@@ -57,8 +57,9 @@ about the new stakeholder:
 email,
 [role](/machine/web/groups/roles)
 and responsibility.
-Bear in mind that we only accept
-Google or Office 365 email addresses.
+Bear in mind that we
+only accept Azure,
+Google or Bitbucket email addresses.
 Click on **Proceed** when you are done.
 The individual will receive an
 email asking them to confirm
