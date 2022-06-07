@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 07, 2022, 12:56 PM",
+    "DateLastModified": "Jun 07, 2022, 01:58 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -6974,7 +6974,7 @@
         {
           "FacetName": "credentials_new_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "CRED#uuid",
+            "PartitionKeyAlias": "CRED#id",
             "SortKeyAlias": "ORG#organization_id"
           },
           "TableData": [
@@ -6983,10 +6983,10 @@
                 "S": "CRED#0b8bf4cb-8735-4232-8199-46cd9802ad2a"
               },
               "sk": {
-                "S": "OWNER#unittesting"
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
-              "type": {
-                "S": "SSH"
+              "owner": {
+                "S": "unittesting"
               },
               "state": {
                 "M": {
@@ -7001,19 +7001,22 @@
                   },
                   "name": {
                     "S": "Product New SSH Key"
+                  },
+                  "type": {
+                    "S": "SSH"
                   }
                 }
               },
               "organization_id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
-              "owner": {
-                "S": "unittesting"
+              "id": {
+                "S": "0b8bf4cb-8735-4232-8199-46cd9802ad2a"
               }
             }
           ],
           "NonKeyAttributes": [
-            "type",
+            "id",
             "state",
             "organization_id",
             "owner"
