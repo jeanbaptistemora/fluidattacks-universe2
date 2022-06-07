@@ -287,9 +287,25 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             replace(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
-            setIsRepository(true);
             setSuccessValues(true, true, true);
+            mixpanel.track("AutoenrollSubmit", {
+              addGroup: true,
+              addOrg: true,
+              addRoot: true,
+              group: values.groupName.toLowerCase(),
+              organization: values.organizationName.toLowerCase(),
+              url: url.trim(),
+            });
+            setIsRepository(true);
           } else {
+            mixpanel.track("AutoenrollSubmit", {
+              addGroup: true,
+              addOrg: true,
+              addRoot: false,
+              group: values.groupName.toLowerCase(),
+              organization: values.organizationName.toLowerCase(),
+              url: url.trim(),
+            });
             setForm("repository");
             push("/autoenrollment/repository");
             setRootMessages({
@@ -304,6 +320,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             message: t("autoenrollment.addOrganization.messages.error.group"),
             type: "error",
           });
+          mixpanel.track("AutoenrollSubmit", {
+            addGroup: false,
+            addOrg: true,
+            addRoot: false,
+            group: values.groupName.toLowerCase(),
+            organization: values.organizationName.toLowerCase(),
+            url: url.trim(),
+          });
         }
       } else {
         setOrgMessages({
@@ -311,6 +335,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             "autoenrollment.addOrganization.messages.error.organization"
           ),
           type: "error",
+        });
+        mixpanel.track("AutoenrollSubmit", {
+          addGroup: false,
+          addOrg: false,
+          addRoot: false,
+          group: values.groupName.toLowerCase(),
+          organization: values.organizationName.toLowerCase(),
+          url: repository.url.trim(),
         });
       }
       setIsSubmitting(false);

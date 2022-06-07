@@ -1,12 +1,3 @@
-interface IGetUserWelcomeResult {
-  me: {
-    userEmail: string;
-    organizations: {
-      name: string;
-    }[];
-  };
-}
-
 interface IAddOrganizationResult {
   addOrganization: {
     organization: {
@@ -24,6 +15,20 @@ type IAlertMessages = React.Dispatch<
   }>
 >;
 
+interface ICheckGitAccessResult {
+  validateGitAccess: {
+    success: boolean;
+  };
+}
+
+interface IGetUserWelcomeResult {
+  me: {
+    userEmail: string;
+    organizations: {
+      name: string;
+    }[];
+  };
+}
 interface IRootAttr {
   branch: string;
   credentials: {
@@ -51,8 +56,9 @@ interface IOrgAttr {
 
 export type {
   IAddOrganizationResult,
+  IAlertMessages,
+  ICheckGitAccessResult,
   IGetUserWelcomeResult,
   IOrgAttr,
   IRootAttr,
-  IAlertMessages,
 };

@@ -1,11 +1,14 @@
 import { Buffer } from "buffer";
 
 import { useMutation } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +24,10 @@ import {
   rootSchema,
 } from "scenes/Autoenrollment/helpers";
 import { VALIDATE_GIT_ACCESS } from "scenes/Autoenrollment/queries";
-import type { IRootAttr } from "scenes/Autoenrollment/types";
+import type {
+  ICheckGitAccessResult,
+  IRootAttr,
+} from "scenes/Autoenrollment/types";
 import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
 
 interface IAddRootProps {
@@ -62,6 +68,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
     setShowCancelModal(true);
   }
   function yesClick(): void {
+    mixpanel.track("AutoenrollCancel");
     location.replace("/logout");
   }
   function noClick(): void {
@@ -88,25 +95,36 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   async function checkAccess(): Promise<void> {
     if (formRef.current !== null) {
-      await validateGitAccess({
-        variables: {
-          credentials: {
-            key: formRef.current.values.credentials.key
-              ? Buffer.from(formRef.current.values.credentials.key).toString(
-                  "base64"
-                )
-              : undefined,
-            name: formRef.current.values.credentials.name,
-            password: formRef.current.values.credentials.password,
-            token: formRef.current.values.credentials.token,
-            type: formRef.current.values.credentials.type,
-            user: formRef.current.values.credentials.user,
+      const response: FetchResult<ICheckGitAccessResult> =
+        await validateGitAccess({
+          variables: {
+            credentials: {
+              key: formRef.current.values.credentials.key
+                ? Buffer.from(formRef.current.values.credentials.key).toString(
+                    "base64"
+                  )
+                : undefined,
+              name: formRef.current.values.credentials.name,
+              password: formRef.current.values.credentials.password,
+              token: formRef.current.values.credentials.token,
+              type: formRef.current.values.credentials.type,
+              user: formRef.current.values.credentials.user,
+            },
+            groupName: group,
+            url: formRef.current.values.url,
           },
-          groupName: group,
-          url: formRef.current.values.url,
-        },
-      });
+        });
       setRepositoryValues(formRef.current.values);
+      const validateSuccess =
+        response.data === null || response.data === undefined
+          ? false
+          : response.data.validateGitAccess.success;
+      mixpanel.track("AutoenrollCheckAccess", {
+        credentialType: formRef.current.values.credentials.type,
+        formErrors: 0,
+        success: validateSuccess,
+        url: formRef.current.values.url,
+      });
     }
   }
 
@@ -156,6 +174,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
             const validateErrors = await validateForm();
             if (Object.keys(validateErrors).length === 0) {
               await checkAccess();
+            } else {
+              mixpanel.track("AutoenrollCheckAccess", {
+                credentialType: values.credentials.type,
+                formErrors: Object.keys(validateErrors).length,
+                success: false,
+                url: values.url,
+              });
             }
           }
 

@@ -1,6 +1,9 @@
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
+// https://github.com/mixpanel/mixpanel-js/issues/321
+// eslint-disable-next-line import/no-named-default
+import { default as mixpanel } from "mixpanel-browser";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
@@ -78,6 +81,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
     setShowCancelModal(true);
   }
   function yesClick(): void {
+    mixpanel.track("AutoenrollCancel");
     location.replace("/logout");
   }
   function noClick(): void {
