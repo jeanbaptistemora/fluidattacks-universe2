@@ -255,30 +255,49 @@ export const Graphic: React.FC<IGraphicProps> = (
       _.includes(allowedDocumentTypes, type)
     );
   }
-  function isDocumentMerged(name: string, type: string): boolean {
-    return (
-      _.includes(Object.keys(mergedDocuments), name) &&
-      mergedDocuments[name].documentType === type
-    );
-  }
-  function getUrl(alternatives: IDocumentValues[]): string {
-    return alternatives.reduce(
-      (url: string, alternative: IDocumentValues): string =>
-        alternative.documentName === currentDocumentName
-          ? alternative.url
-          : url,
-      ""
-    );
-  }
-  function getAdditionalInfoLink(name: string, type: string): string {
-    if (isDocumentMerged(name, type)) {
-      return mergedDocuments[name].default.documentName === currentDocumentName
-        ? mergedDocuments[name].default.url
-        : getUrl(mergedDocuments[name].alt);
-    }
+  const isDocumentMerged = useCallback(
+    (name: string, type: string): boolean => {
+      return (
+        _.includes(Object.keys(mergedDocuments), name) &&
+        mergedDocuments[name].documentType === type
+      );
+    },
+    []
+  );
+  const getUrl = useCallback(
+    (alternatives: IDocumentValues[]): string => {
+      return alternatives.reduce(
+        (url: string, alternative: IDocumentValues): string =>
+          alternative.documentName === currentDocumentName
+            ? alternative.url
+            : url,
+        ""
+      );
+    },
+    [currentDocumentName]
+  );
 
-    return "";
-  }
+  const getAdditionalInfoLink = useCallback(
+    (name: string, type: string): string => {
+      if (isDocumentMerged(name, type)) {
+        return mergedDocuments[name].default.documentName ===
+          currentDocumentName
+          ? mergedDocuments[name].default.url
+          : getUrl(mergedDocuments[name].alt);
+      }
+
+      return "";
+    },
+    [currentDocumentName, getUrl, isDocumentMerged]
+  );
+
+  const shouldDisplayUrl: boolean = useMemo(
+    (): boolean =>
+      isDocumentMerged(documentName, documentType)
+        ? !_.isEmpty(getAdditionalInfoLink(documentName, documentType))
+        : true,
+    [documentName, documentType, getAdditionalInfoLink, isDocumentMerged]
+  );
 
   function retryFrame(): void {
     if (bodyRef.current?.contentWindow !== null) {
@@ -389,7 +408,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   subjectName={subjectName}
                   timeFilter={isDocumentAllowed(documentName, documentType)}
                 />
-                {!_.isUndefined(infoLink) && (
+                {!_.isUndefined(infoLink) && shouldDisplayUrl && (
                   <ExternalLink
                     className={"g-a"}
                     href={
@@ -521,7 +540,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                             documentType
                           )}
                         />
-                        {!_.isUndefined(infoLink) && (
+                        {!_.isUndefined(infoLink) && shouldDisplayUrl && (
                           <ExternalLink
                             className={"g-a"}
                             href={

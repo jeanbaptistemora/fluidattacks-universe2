@@ -73,7 +73,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.tooltip.cvssf"
       ),
-      url: "",
+      url: "#distribution-over-time",
     },
     documentType: "stackedBarChart",
   },
@@ -114,7 +114,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.barChart.meanTimeToRemediate.tooltip.default"
       ),
-      url: "",
+      url: "#mean-average-days-to-remediate",
     },
     documentType: "barChart",
   },
@@ -127,15 +127,15 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.mttrBenchmarking.tooltip.nonTreated"
         ),
-        url: "#mean-time-to-remediate-non-treated-vulnerabilities",
+        url: "",
       },
     ],
     default: {
-      documentName: "mttrBenchmarkingNonTreatedCvssf",
+      documentName: "mttrBenchmarkingCvssf",
       label: "All",
       title: translate.t("analytics.barChart.mttrBenchmarking.title"),
       tooltip: translate.t("analytics.barChart.mttrBenchmarking.tooltip.all"),
-      url: "#mean-time-to-remediate-all-vulnerabilities",
+      url: "#mttr-benchmarking",
     },
     documentType: "barChart",
   },
@@ -148,7 +148,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.stackedBarChart.riskOverTime.tooltip.vulnerabilities"
         ),
-        url: "#severity-over-time",
+        url: "",
       },
     ],
     default: {
@@ -173,7 +173,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.vulnerabilities"
         ),
-        url: "#open-severity-by-type",
+        url: "",
       },
       {
         documentName: "topVulnerabilitiesBySourceCode",
