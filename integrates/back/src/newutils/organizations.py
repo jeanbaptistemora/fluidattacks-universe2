@@ -180,7 +180,7 @@ def format_organization_state_item(org_state: OrganizationState) -> Item:
     }
 
 
-def format_org_policies_item(
+def format_organization_policies_item(
     historic: list[Item],
     modified_by: str,
     modified_date: str,

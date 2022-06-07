@@ -34,9 +34,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.organizations import (
-    format_org_policies_item,
     format_organization,
     format_organization_item,
+    format_organization_policies_item,
     format_organization_state_item,
     remove_org_id_prefix,
 )
@@ -363,13 +363,15 @@ async def update(
 
 
 async def update_policies(
+    *,
+    modified_by: str,
+    modified_date: str,
     organization_id: str,
     organization_name: str,
-    policies_to_update: OrganizationPoliciesToUpdate,
-    user_email: str,
+    policies: OrganizationPoliciesToUpdate,
 ) -> None:
     historic_policies: list[Item] = []
-    if policies_to_update.max_number_acceptances is not None:
+    if policies.max_number_acceptances is not None:
         organization_data = await get_by_id(
             organization_id=organization_id,
             attributes=[
@@ -383,16 +385,16 @@ async def update_policies(
             "historic_max_number_acceptations",
             fallback=[],
         )
-    organization_item = format_org_policies_item(
+    policies_item = format_organization_policies_item(
         historic=historic_policies,
-        modified_by=user_email,
-        modified_date=datetime_utils.get_iso_date(),
-        policies=policies_to_update,
+        modified_by=modified_by,
+        modified_date=modified_date,
+        policies=policies,
     )
     if not await update(
         organization_id=organization_id,
         organization_name=organization_name,
-        values=organization_item,
+        values=policies_item,
     ):
         raise UnavailabilityError()
 

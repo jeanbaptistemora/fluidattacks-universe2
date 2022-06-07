@@ -44,8 +44,6 @@ from group_access import (
 from jose import (
     JWTError,
 )
-import logging
-import logging.config
 from mailer import (
     groups as groups_mail,
 )
@@ -65,9 +63,6 @@ from organizations import (
     dal as orgs_dal,
 )
 import re
-from settings import (
-    LOGGING,
-)
 import sys
 from typing import (
     Any,
@@ -78,12 +73,9 @@ from users import (
 )
 import uuid
 
-logging.config.dictConfig(LOGGING)
-
 # Constants
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
-LOGGER = logging.getLogger(__name__)
 
 
 async def add_group_access(organization_id: str, group_name: str) -> bool:
@@ -437,11 +429,13 @@ async def update_policies(
     )
 
     if validated_policies:
+        today = datetime_utils.get_iso_date()
         await orgs_dal.update_policies(
+            modified_by=user_email,
+            modified_date=today,
             organization_id=organization_id,
             organization_name=organization_name,
-            policies_to_update=policies_to_update,
-            user_email=user_email,
+            policies=policies_to_update,
         )
         await send_mail_policies(
             loaders=loaders,
@@ -449,7 +443,7 @@ async def update_policies(
             organization_id=organization_id,
             organization_name=organization_name,
             responsible=user_email,
-            date=datetime_utils.get_iso_date(),
+            date=today,
         )
 
 
