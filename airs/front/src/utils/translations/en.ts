@@ -146,7 +146,7 @@ const pageTexts: ResourceKey = {
         person: "Cybersecurity MGR",
       },
       client3: {
-        client: "Payvalida",
+        client: "Payválida",
         description:
           "“Fluid Attacks is a cybersecurity company that listens, " +
           "understands and supports their clients.”",

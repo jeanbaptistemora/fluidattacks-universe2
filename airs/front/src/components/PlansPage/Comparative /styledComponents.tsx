@@ -27,15 +27,15 @@ const TableContainer = styled.div.attrs({
   `,
 })`
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 3px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #b0b0bf;
+    background: #e9e9ed;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #5c5c70;
+    background: #d2d2da;
   }
 `;
 
