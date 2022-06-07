@@ -9055,8 +9055,10 @@
     threat: Atacante interno no autorizado.
   category: Manipulate System
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Coding examples do not apply to physical vulnerabilities
+    compliant: |
+      Coding examples do not apply to physical vulnerabilities
   remediation_time: "450"
   score:
     base:
@@ -9396,8 +9398,25 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const rateLimit = require("express-rate-limit");
+      const apiLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: None
+      });
+      ```
+    compliant: |
+      ```javascript
+      import rateLimit from 'express-rate-limit';
+      //Middleware that limits the amount of requests
+      export const rateLimiterUsingThirdParty = rateLimit({
+        windowMs: 24 * 60 * 60 * 1000,
+        max: 100,
+        message: 'You have exceeded the 100 requests in 24 hrs limit!',
+        headers: true,
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -9546,8 +9565,28 @@
     threat: Atacante no autorizado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      //Back end server onfiguration with Proxy
+      ServerRoot "myserver"
+      Listen 10.1.2.3:8087
+      User nobody
+      Group nobody
+      ProxyRequests On
+
+      //Front end server configuration with Firewall settings
+      Firewall set portopening
+        protocol = TCP
+        port = 1433
+        name = SQLPort
+        mode = ENABLE
+        scope = SUBNET
+        profile = CURRENT
+      ```
+    compliant: |
+      ```http
+      The front end and back end servers should share the same web server configuration
+      ```
   remediation_time: "45"
   score:
     base:
@@ -9608,8 +9647,38 @@
       a la aplicación.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //Unbounded buffer reader
+      func NewReaderSize(rd io.Reader, size int) *Reader {
+        b, ok := rd.(*Reader)
+        return &Reader{
+          buf:          make([]byte, size),
+          rd:           rd,
+          lastByte:     -1,
+          lastRuneSize: -1,
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      //Bounded buffer reader
+      func NewReaderSize(rd io.Reader, size int) *Reader {
+        b, ok := rd.(*Reader)
+        if ok && len(b.buf) >= maxReadBufferSize {
+          return b
+        }
+        if size < minReadBufferSize {
+          size = minReadBufferSize
+        }
+        return &Reader{
+          buf:          make([]byte, size),
+          rd:           rd,
+          lastByte:     -1,
+          lastRuneSize: -1,
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -9682,8 +9751,7 @@
 
       try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
-        // Updating db model without filtering user input
-        int count = statement.executeUpdate( sql );
+        // Updating db model without filtering user inpu
         org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
       } catch (java.sql.SQLException e) {
         ...
@@ -9698,8 +9766,7 @@
       String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
 
       try {
-        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
-        int count = statement.executeUpdate( sql );
+        java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement()
         org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
       } catch (java.sql.SQLException e) {
         ...
@@ -9838,8 +9905,10 @@
     threat: Atacante anónimo desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Application does not perform any spam filters
+    compliant: |
+      Application filters spam and conducts awareness campaigns to alert users of possible phishing attempts
   remediation_time: "60"
   score:
     base:
@@ -9888,8 +9957,25 @@
     threat: Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const rateLimit = require("express-rate-limit");
+      const apiLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: None
+      });
+      ```
+    compliant: |
+      ```javascript
+      import rateLimit from 'express-rate-limit';
+      //Middleware that limits the amount of requests
+      export const rateLimiter = rateLimit({
+        windowMs: 24 * 60 * 60 * 1000,
+        max: 100,
+        message: 'You have exceeded the 100 requests in 24 hrs limit!',
+        headers: true,
+      });
+      ```
   remediation_time: "120"
   score:
     base:
@@ -9946,8 +10032,28 @@
     threat: Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/;
+      Content-Security-Policy: NONE
+      X-Frame-Options: ALLOW
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Set-Cookie: session=/; Path=/; SameSite=Lax
+      Content-Security-Policy: frame-ancestors 'none'
+      X-Frame-Options: DENY
+      Vary: Sec-Fetch-Site
+      Cross-Origin-Opener-Policy: same-origin
+
+      //In addition, the server should implement a similar timeout wait time for every request
+      ```
   remediation_time: "30"
   score:
     base:
@@ -10229,8 +10335,24 @@
       aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      dependencies": {
+        "@apollo/client": "*",
+        "@bugsnag/core": "*",
+        "@bugsnag/js": "*",
+        "@bugsnag/plugin-react": "*",
+      }
+      ```
+    compliant: |
+      ```json
+      dependencies": {
+        "@apollo/client": "3.4.17",
+        "@bugsnag/core": "7.13.2",
+        "@bugsnag/js": "7.13.3",
+        "@bugsnag/plugin-react": "7.13.2",
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -10387,8 +10509,31 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 587
+          domain: "yourdomain"
+          authentication: :plain
+          user_name: "appadmin"
+      ```
+    compliant: |
+      ```java
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 587
+          domain: "promotions_domain"
+          authentication: :plain
+          user_name: "appadmin"
+          time_delay: 24h
+      ```
   remediation_time: "60"
   score:
     base:
@@ -10465,8 +10610,35 @@
       - Atacante no autorizado desde red local.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      private String getLocalFile( userReq){
+        try {
+            Path = "/localPath/" + userReq
+            File file = new File(classLoader.getResource(Path).getFile());
+            //Code to do something with that file
+
+        }catch{
+          ...
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      private String getFile(userReq){
+        try {
+            //Function to validate that parameter does not contain relative routes
+            isValidReq = validateReq(userReq)
+            //Read files from a remote direction not local
+            if (isValidReq){
+              File file = new File(classLoader.getResource("secureurl").getFile());
+              //Code to do something with that file
+            }
+        }catch{
+          ...
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -10607,8 +10779,24 @@
       Atacante externo con acceso a la aplicación.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      //server .htaccess file
+      Header set X-Custom "Custom Value"
+      RewriteCond %{HTTP_REFERER} unwanteddomain\.com [NC,OR]
+      RewriteCond %{REQUEST_METHOD} !^(HEAD|OPTIONS|POST|PUT)
+      RewriteRule .* - [F]
+      ```
+    compliant: |
+      ```yaml
+      //server .htaccess file
+      Header set X-Custom "Custom Value"
+      RewriteCond %{HTTP_REFERER} unwanteddomain\.com [NC,OR]
+      RewriteCond %{REQUEST_METHOD} !^(HEAD|OPTIONS|POST|PUT)
+      RewriteRule .* - [F]
+      //Adding rule to deny directory listing
+      Options -Indexes
+      ```
   remediation_time: "15"
   score:
     base:
@@ -11491,8 +11679,18 @@
       desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      X-XSS-Protection: 1; report=<reporting-uri>
+      Content-Type: userID/html; charset=utf-8
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11558,8 +11756,20 @@
       desde red local.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Cache-Control: no-cache
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      Cache-Control: max-age=604800, stale-if-error=86400
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11619,8 +11829,20 @@
       desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      X-Permitted-Cross-Domain-Policies "all"
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self'
+      Content-Type: userID/html; charset=utf-8
+      X-Permitted-Cross-Domain-Policies "none"
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11671,8 +11893,24 @@
       Usuario autorizado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class Main {
+        public double magnitude;
+        private String units;
+      }
+      ```
+    compliant: |
+      ```java
+      public class Main {
+        private double magnitude;
+        private String units;
+
+        public double getMagnitude() {
+            return magnitude;
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -11726,8 +11964,21 @@
       de la dependencia.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      //Deprecated versions of dependencies are still being used in the code
+      dependencies": {
+        "@lodash": "3.0.0",
+        "@uuid": "3.4.0",
+      }
+      ```
+    compliant: |
+      ```json
+      dependencies": {
+        "lodash": "4.0.0",
+        "@uuid": "7.0.0",
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -11793,8 +12044,22 @@
       Atacante autenticado en la aplicación desde Internet
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      def handleUserInput(userReq):
+        try:
+          getFile(userReq)
+        //Next portion of the code
+      ```
+    compliant: |
+      ```python
+      def handleUserInput(userReq):
+        try:
+          getFile(userReq)
+        Except:
+          raise Exception("Error")
+        //Next portion of the code
+      ```
   remediation_time: "40"
   score:
     base:
@@ -11853,8 +12118,20 @@
       para el parámetro radicadoHours.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //Improper authorization requests
+      if (user != null && user.token == "VALID_TOKEN") {
+        //Code to access users information
+      }
+      ```
+    compliant: |
+      ```java
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+        //Code to access user information
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -12014,8 +12291,25 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      def grantAccess(urlInput):
+        userId = getSearchParams(urlInput)
+        if eval(expression, {}, {"url":urlInput}):
+          //Grant permissions
+        else:
+          return None
+      ```
+    compliant: |
+      ```python
+      def grantAccess(urlInput):
+        clearInput = clearUrl(urlInput)
+        userId = getSearchParams(clearInput)
+        if eval(expression, {}, {"url":urlInput}):
+          //Grant permissions
+        else:
+          return None
+      ```
   remediation_time: "120"
   score:
     base:
@@ -12100,8 +12394,21 @@
       Atacante no autorizado con acceso al código.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      import static java.lang.System.*;
+      import static java.lang.Math.*;
+      import static myPublicClass;
+
+      //Code that uses the static imports frequently
+      ```
+    compliant: |
+      ```java
+      import java.util.*;
+      import myPublicClass;
+
+      //Code using the imports
+      ```
   remediation_time: "15"
   score:
     base:
@@ -12220,8 +12527,7 @@
         try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
-        // Updating db model without filtering user input
-        int count = statement.executeUpdate( sql );
+        // Updating db model without filtering user inpu
           org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
         } catch (java.sql.SQLException e) {
           ...
@@ -12240,7 +12546,6 @@
 
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
-          int count = statement.executeUpdate( sql );
           org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
         } catch (java.sql.SQLException e) {
           ...
@@ -12301,8 +12606,30 @@
       Atacante interno sin autenticar.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      sock = tcp_connect(host, port, intention)
+      ssl_ctx = ssl.SSLContext(protocol=SSL)
+      ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
+      try:
+        ssl_sock.do_handshake()
+      except ConnectionResetError as error:
+        socket_has_errors = True
+        return None
+      return ssl_sock
+      ```
+    compliant: |
+      ```python
+      sock = tcp_connect(host, port, intention)
+      ssl_ctx = ssl.SSLContext(protocol=TLSv1.3)
+      ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
+      try:
+        ssl_sock.do_handshake()
+      except ConnectionResetError as error:
+        socket_has_errors = True
+        return None
+      return ssl_sock
+      ```
   remediation_time: "15"
   score:
     base:
@@ -12546,8 +12873,32 @@
       interna ejecutando un MitM.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      sock = tcp_connect(host, port, intention)
+      ssl_ctx = ssl.SSLContext()
+      ssl_protocol = useSslProtocol()
+      ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
+      try:
+        ssl_sock.do_handshake()
+      except ConnectionResetError as error:
+        socket_has_errors = True
+        return None
+      return ssl_sock
+      ```
+    compliant: |
+      ```python
+      sock = tcp_connect(host, port, intention)
+      ssl_ctx = ssl.SSLContext(protocol=TLSv1.3)
+      ssl_protocol = useSslProtocol(SSLContext = ssl_ctx)
+      ssl_sock = ssl_ctx.wrap_socket(sock, do_handshake_on_connect=False)
+      try:
+        ssl_sock.do_handshake()
+      except ConnectionResetError as error:
+        socket_has_errors = True
+      return None
+      return ssl_sock
+      ```
   remediation_time: "15"
   score:
     base:
@@ -12679,8 +13030,18 @@
       Atacante anónimo desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      X-Frame-Options: SAMEORIGIN
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Security-Policy: default-src 'self' frame_ancestors
+      Content-Type: userID/html; charset=utf-8
+      ```
   remediation_time: "30"
   score:
     base:
@@ -12745,8 +13106,18 @@
       Atacante anónimo desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      Accept: */*
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      Accept: text/html, application/xhtml+xml, application/xml;q=0.9,
+      ```
   remediation_time: "30"
   score:
     base:
@@ -12829,8 +13200,38 @@
       Anonymous attacker from an intranet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //userSql contains possible harmful time-delay query
+      static void getQuery(userSql)
+      {
+        try {
+          java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+
+          // make query without filtering user input
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
+    compliant: |
+      ```java
+      static void getQuery(param)
+      {
+        param = java.net.URLDecoder.decode(param, ""UTF-8"");
+        //Clean User parameters
+        cleanParam = getCleanValue(param)
+        //Do Query with a standard sentence
+        String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
+
+        try {
+          java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+          org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
   remediation_time: "60"
   score:
     base:
@@ -12892,8 +13293,38 @@
       en la aplicación.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //userSql contains possible harmful query
+      static void getQuery(userSql)
+      {
+        try {
+          java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
+
+          // make query with access to system Headers without filtering user input
+          updateModel(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
+      ```
+    compliant: |
+      ```java
+      static void getQuery(param)
+      {
+        param = java.net.URLDecoder.decode(param, ""UTF-8"");
+        //Clean User parameters
+        cleanParam = getCleanValue(param)
+        //Do Query with a standard sentence
+        String sql = ""INSERT INTO users (username, password) VALUES ('foo','""+ cleanParam + ""')"";
+
+        try {
+          // make  query with parametrized statements
+          updateModel(sql, response);
+        } catch (java.sql.SQLException e) {
+          ...
+        );
+      }
   remediation_time: "60"
   score:
     base:
@@ -12948,8 +13379,24 @@
       Atacante anónimo desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function redirectUser (userParam) {
+        url = "myhost/" + userParam;
+        //Redirect user to another site in the application
+        window.location.href = url;
+      }
+      ```
+    compliant: |
+      ```javascript
+      function redirectUser (userParam) {
+        if (userParam == "SignOut"){
+          url = "myhost/signout"
+          //Redirect user to another site in the application
+          window.location.href = url;
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -13106,8 +13553,33 @@
       Usuario autorizado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      USER_NAME = "admin";
+      PASSWORD = "accesspassword"
+      public void grantAccess(user_id){
+        ExecutorService service = Executors.newFixedThreadPool(1);
+        AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
+        Future<AuthenticationResult> future = context.acquireToken(
+            "https://graph.windows.net", user_id, USER_NAME, PASSWORD, null);
+        AuthenticationResult result = future.get();
+        //Granted access to the user
+      }
+      ```
+    compliant: |
+      ```java
+      public void grantAccess(user_id){
+        //Check correct permissions
+        if (getUser(user_id).hasPermissions){
+          ExecutorService service = Executors.newFixedThreadPool(1);
+          AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
+          Future<AuthenticationResult> future = context.acquireToken(
+            "https://graph.windows.net", user_id, null);
+          AuthenticationResult result = future.get();
+          //Granted access to the user
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -13197,8 +13669,47 @@
       aplicación desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      class User{
+        UserRole role;
+        //other user concerning stuff
+      }
+
+      abstract class UserRole{
+        abstract void view();
+      }
+
+      class AdminRole extends UserRole{
+        public void add(){}
+        public void view(){}
+        public void edit(){}
+        public void remove(){}
+      }
+      //A class exists that allows a user to get editing permissions
+      class EditRole extends UserRole{
+        public void view(){}
+        public void edit(){}
+      }
+      ```
+    compliant: |
+      ```java
+      class User{
+        UserRole role;
+        //other user concerning stuff
+      }
+
+      abstract class UserRole{
+        abstract void view();
+      }
+
+      private class AdminRole extends UserRole{
+        public void add(){}
+        public void view(){}
+        public void edit(){}
+        public void remove(){}
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -13420,7 +13931,6 @@
         - Use the `attrs` argument
           (an optional list of file attributes
           to set atomically when creating the file).
-
 "161":
   en:
     title: Missing secure obfuscation
@@ -13466,8 +13976,28 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      //Code before obfuscation
+      private void calculatePay(SpecialList clientGroup){
+        while(clientGroup.HasMore()){
+          clientGroup.getNext(true);
+          client.updatePay();
+          makePay(client);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      //Rename Obfuscation method
+      private void calculatePay(a b){
+        while(b.c()){
+          b.a(true);
+          c.a();
+          b(c);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -13543,8 +14073,10 @@
       binarios y ver el código fuente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Some of the apk binary files are not obfuscated with any method.
+    compliant: |
+      The binary files can not be uncompiled because some form of encryption obfuscation
   remediation_time: "60"
   score:
     base:
@@ -13671,8 +14203,20 @@
       Atacante anónimo desde internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      <system.web>
+          <compilation debug="true" targetFramework="4.0" />
+          <httpRuntime requestValidationMode=* />
+      </system.web>
+      ```
+    compliant: |
+      ```http
+      <system.web>
+          <compilation debug="true" targetFramework="4.0" />
+          <httpRuntime requestValidationMode="2.0" />
+      </system.web>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -13737,8 +14281,36 @@
       Atacante externo con credenciales.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        S3Bucket:
+          Type: AWS::S3::Bucket
+          DeletionPolicy: Retain
+          Properties:
+            AccessControl: PublicReadWrite
+            BucketName: SKIMS-PUBLIC-BUCKET
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: aws:kms
+                    KMSMasterKeyID: KMS-KEY-ARN
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        PrivateS3Bucket:
+          Type: AWS::S3::Bucket
+          Properties:
+            AccessControl: Private
+            BucketName: SKIMS-PRIVATE-BUCKET
+            BucketEncryption:
+              ServerSideEncryptionConfiguration:
+                - ServerSideEncryptionByDefault:
+                    SSEAlgorithm: aws:kms
+                    KMSMasterKeyID: KMS-KEY-ARN
+          DeletionPolicy: Delete
+      ```
   remediation_time: "45"
   score:
     base:
@@ -13789,8 +14361,30 @@
       credenciales válidas en la red interna.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Properties:
+        GroupDescription: Domain Controllers Security Group
+        VpcId: !Ref VPCID
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            Description: Kerberos
+            FromPort: 88
+            ToPort: 88
+            SourceSecurityGroupId: Allow
+      ```
+    compliant: |
+      ```yaml
+      Properties:
+        GroupDescription: Domain Controllers Security Group
+        VpcId: !Ref VPCID
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            Description: Kerberos
+            FromPort: 88
+            ToPort: 88
+            SourceSecurityGroupId: !Ref AdminMembersSG
+      ```
   remediation_time: "120"
   score:
     base:
@@ -13868,8 +14462,49 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Defaults:
+        policyProject: 'DefaultPolicies'
+        Policies:
+          MQEndpoint: 'MQEndpoint'
+          remoteDefaultQueueManager: '{MQClientPolicy}:MQEndpoint'
+        RestAdminListener:
+          requireClientCert: false
+        BrokerRegistry:
+          mqKeyRepository: /startup/ssl/keystore
+          ResourceManagers: JVM: jvmSystemProperty: '-Dcom.ibm.fxr.passfileenc=n'
+        Log:
+          consoleLog: true
+          outputFormat: 'ibmjson'
+        AdminLog:
+          enabled: true
+          consoleLog: true
+        Protocol:
+          ssl: enabled
+      ```
+    compliant: |
+      ```yaml
+      Defaults:
+        policyProject: 'DefaultPolicies'
+        Policies:
+          MQEndpoint: 'MQEndpoint'
+          remoteDefaultQueueManager: '{MQClientPolicy}:MQEndpoint'
+        RestAdminListener:
+          requireClientCert: false
+        BrokerRegistry:
+          mqKeyRepository: /startup/ssl/keystore
+          ResourceManagers: JVM: jvmSystemProperty: '-Dcom.ibm.fxr.passfileenc=n'
+        Log:
+          consoleLog: true
+          outputFormat: 'ibmjson'
+        AdminLog:
+          enabled: true
+          consoleLog: true
+        Protocol:
+          tls: enabled
+          version: 1.2
+      ```
   remediation_time: "30"
   score:
     base:
@@ -13961,8 +14596,22 @@
       Atacante autenticado desde intranet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      server:
+        port: 8443
+        ssl:
+          key-store: classpath:keystore.jks
+          key-store-password: "password"
+      ```
+    compliant: |
+      ```yaml
+      server:
+        port: 8443
+        ssl:
+          key-store: classpath:keystore.jks
+          key-store-password: password.secret
+      ```
   remediation_time: "30"
   score:
     base:
@@ -14016,8 +14665,24 @@
       con acceso al código fuente.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class DemoApplication {
+        //Cipher key directly stored on the source code
+        cipherKey = "PlainKEY"
+        public static void main(String[] args) {
+          decryptPass(password, cipherKey);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class DemoApplication {
+        public static void main(String[] args) {
+          decryptPass(password, secretKey);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -14097,8 +14762,10 @@
       Atacante interno en la red.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are currently no code examples for this vulnerability
+    compliant: |
+      There are currently no code examples for this vulnerability
   remediation_time: "60"
   score:
     base:
@@ -14166,8 +14833,25 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      server:
+        port: 8080
+        ssl:
+          key-store: keystore.ks
+          key-store-password: "password"
+      ```
+    compliant: |
+      ```yaml
+      server:
+        port: 8443
+        ssl:
+          key-store: classpath:keystore.jks
+          key-store-password: password.secret
+        permissions:
+          admin: allow
+          user: deny
+      ```
   remediation_time: "45"
   score:
     base:
@@ -14222,8 +14906,24 @@
       dispositivo de un usuario.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      <manifest ... >
+          ...
+          <application android:allowBackup="true" ... >
+              ...
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```yaml
+      <manifest ... >
+          ...
+          <application android:allowBackup="false" ... >
+              ...
+          </application>
+      </manifest>
+      ```
   remediation_time: "15"
   score:
     base:
@@ -14278,8 +14978,24 @@
       físico al dispositivo móvil.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      <manifest ... >
+          ...
+          <application android:allowDataBackup="true" ... >
+              ...
+          </application>
+      </manifest>
+      ```
+    compliant: |
+      ```yaml
+      <manifest ... >
+          ...
+          <application android:allowDataBackup="false" ... >
+              ...
+          </application>
+      </manifest>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -14344,8 +15060,26 @@
       que permite la subida de archivos.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      Defaults:
+        policyProject: 'DefaultPolicies'
+        Policies:
+          MQEndpoint: 'MQEndpoint'
+          remoteDefaultQueueManager: '{MQClientPolicy}:MQEndpoint'
+        ReqAccess:
+          requireClientCert: false
+      ```
+    compliant: |
+      ```java
+      Defaults:
+        policyProject: 'SecurityPolicy'
+        Policies:
+          MQEndpoint: 'MQEndpoint'
+          remoteDefaultQueueManager: '{MQClientPolicy}:MQEndpoint'
+        ReqAccess:
+          requireClientCert: true
+      ```
   remediation_time: "300"
   score:
     base:
@@ -14396,8 +15130,22 @@
       Atacante anónimo desde red interna.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      vars:
+        app_fqdn: myapp
+        timezone: "tz2"
+        dns_servers: ["myserver"]
+        dns_recursion_settings: "Any"
+      ```
+    compliant: |
+      ```yaml
+      vars:
+        app_fqdn: myapp
+        timezone: "tz2"
+        dns_servers: ["myserver"]
+        dns_recursion_settings: "none"
+      ```
   remediation_time: "30"
   score:
     base:
@@ -22735,8 +23483,7 @@
         try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
-        // Updating db model without filtering user input
-        int count = statement.executeUpdate( sql );
+        // Updating db model without filtering user inpu
           org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
         } catch (java.sql.SQLException e) {
           ...
@@ -22755,7 +23502,6 @@
 
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
-          int count = statement.executeUpdate( sql );
           org.owasp.benchmark.helpers.DatabaseHelper.outputUpdateComplete(sql, response);
         } catch (java.sql.SQLException e) {
           ...
@@ -24881,8 +25627,17 @@
       Atacante autenticado desde Internet.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET http://localhost:48000/
+      Date: Tue, 15 Nov 1994 08:12:31 GMT
+      Host: yourhost
+      ```
+    compliant: |
+      ```http
+      GET http://localhost:48000/
+      Content-Type: userID/html; charset=utf-8
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26734,8 +27489,27 @@
       Atacante autenticado en la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      void initStatement(Connection conn, Statement stmt) throws SQLException {
+        int queryTimeout = 3600;
+        rs = stmt.executeQuery(validateQuery);
+        //Handle query without limiting its time to execute
+      }
+      ```
+    compliant: |
+      ```java
+      void initStatement(Connection conn, Statement stmt) throws SQLException {
+        int queryTimeout = 3600;
+        try {
+          stmt.setQueryTimeout(queryTimeout);
+          rs = stmt.executeQuery(validateQuery);
+          return true;
+        } catch {
+          //Throw exception when query takes two long
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -28391,8 +29165,24 @@
       with write access to the provider releases.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json {4,8}
+      required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 3.23.0"
+        }
+      }
+      ```
+    compliant: |
+      ```json {4,8}
+      required_providers {
+        aws = {
+          source  = "github.com/hashicorp/example"
+          version = "3.23.0"
+        }
+      }
+      ```
   remediation_time: "15"
   es:
     title: Supply Chain Attack - Terraform
