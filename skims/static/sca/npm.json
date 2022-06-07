@@ -534,10 +534,10 @@
     "GHSA-jjhg-qw5v-r8xx": "<=0.0.1-security"
   },
   "anchorme": {
-    "CVE-2021-23411": ">=0"
+    "CVE-2021-23411": "<=2.1.2"
   },
   "angluar-cli": {
-    "GHSA-8mm3-2mcj-cx6r": ">=0"
+    "GHSA-8mm3-2mcj-cx6r": "<=0.0.2-security"
   },
   "angular": {
     "CVE-2019-10768": "<1.7.9",
@@ -578,7 +578,7 @@
     "GHSA-8rxg-9g6f-vq9p": "4.1.48"
   },
   "ansi-html": {
-    "CVE-2021-23424": ">=0"
+    "CVE-2021-23424": "<=0.0.9"
   },
   "ansi-regex": {
     "CVE-2021-3807": ">2.1.1 <5.0.1 || >=6.0.0 <6.0.1"
@@ -591,7 +591,7 @@
     "CVE-2021-3377": "<5.0.0"
   },
   "antd-cloud": {
-    "GHSA-j4vm-hg8g-g9qv": ">=0"
+    "GHSA-j4vm-hg8g-g9qv": "<=0.0.1-security"
   },
   "anymatch": {},
   "anywhere": {
@@ -659,7 +659,7 @@
     "CVE-2016-10557": "<2.9.4"
   },
   "appx-compiler": {
-    "GHSA-8q2c-2396-hf7j": ">=0"
+    "GHSA-8q2c-2396-hf7j": "<=0.0.1-security"
   },
   "aproba": {},
   "arcanist": {
@@ -671,14 +671,14 @@
   "arr-diff": {},
   "arr-flatten": {},
   "arr-flatten-unflatten": {
-    "CVE-2020-7713": ">=0"
+    "CVE-2020-7713": "<=1.1.4"
   },
   "array-unique": {},
   "arrayfire-js": {
     "CVE-2016-10598": "<=0.21.4"
   },
   "arsenic-tabasco-cyborg-peanut-butter": {
-    "GHSA-r742-7j4h-hjr8": ">=0"
+    "GHSA-r742-7j4h-hjr8": "<=0.0.1-security"
   },
   "ascii-art": {
     "GHSA-9hqj-38j2-5jgm": "<=1.4.2"
@@ -687,13 +687,13 @@
     "CVE-2020-7771": "<1.0.3"
   },
   "asinc": {
-    "GHSA-87qw-7v97-w34r": ">=0"
+    "GHSA-87qw-7v97-w34r": "<=0.0.1-security"
   },
   "asnc": {
-    "GHSA-2p99-6f47-8x9j": ">=0"
+    "GHSA-2p99-6f47-8x9j": "<=0.0.1-security"
   },
   "asnyc": {
-    "GHSA-v99v-xgjx-7m7g": ">=0"
+    "GHSA-v99v-xgjx-7m7g": "<=0.0.1-security"
   },
   "assert-plus": {},
   "assign-deep": {
@@ -701,10 +701,10 @@
     "CVE-2019-10745": "<0.4.8 || =1.0.0"
   },
   "asycn": {
-    "GHSA-h26f-j4mv-84g7": ">=0"
+    "GHSA-h26f-j4mv-84g7": "<=0.0.1-security"
   },
   "asymc": {
-    "GHSA-x6ch-c6rv-f7wh": ">=0"
+    "GHSA-x6ch-c6rv-f7wh": "<=0.0.1-security"
   },
   "async": {},
   "async-git": {
@@ -712,16 +712,16 @@
     "CVE-2021-3190": "<1.13.2"
   },
   "asynnc": {
-    "GHSA-5fm9-jmv7-fcx5": ">=0"
+    "GHSA-5fm9-jmv7-fcx5": "<=0.0.1-security"
   },
   "asyync": {
-    "GHSA-rm7c-x424-g2mw": ">=0"
+    "GHSA-rm7c-x424-g2mw": "<=0.0.1-security"
   },
   "atlasboard": {
     "CVE-2021-39109": "<1.1.9"
   },
   "atlasboard-atlassian-package": {
-    "GHSA-25v4-mcx4-hh35": ">=0"
+    "GHSA-25v4-mcx4-hh35": "<=0.0.2"
   },
   "atob": {
     "CVE-2018-3745": "<=2.0.3",
@@ -791,22 +791,22 @@
     "npmjs.com/advisories/1124": ">=0.0.0"
   },
   "axois": {
-    "GHSA-wpfc-3w63-g4hm": ">=0"
+    "GHSA-wpfc-3w63-g4hm": "<=0.0.1-security"
   },
   "aysnc": {
-    "GHSA-gfjr-xqhm-qvv3": ">=0"
+    "GHSA-gfjr-xqhm-qvv3": "<=0.0.1-security"
   },
   "b5ffer-xor": {
-    "GHSA-jvfv-jhw9-jmpp": ">=0"
+    "GHSA-jvfv-jhw9-jmpp": "<=0.0.1-security"
   },
   "babel-laoder": {
-    "GHSA-qp6m-jqfr-2f7v": ">=0"
+    "GHSA-qp6m-jqfr-2f7v": "<=0.0.1-security"
   },
   "babel-loadre": {
-    "GHSA-vvfh-mvjv-w38q": ">=0"
+    "GHSA-vvfh-mvjv-w38q": "<=0.0.1-security"
   },
   "babel-loqder": {
-    "GHSA-9cph-cqqh-36pw": ">=0"
+    "GHSA-9cph-cqqh-36pw": "<=0.0.1-security"
   },
   "babel-runtime": {},
   "babel-types": {},
@@ -823,7 +823,7 @@
     "CVE-2017-16036": "<=0.1.11"
   },
   "baes-x": {
-    "GHSA-2jm5-2cqf-6vw9": ">=0"
+    "GHSA-2jm5-2cqf-6vw9": "<=0.0.1-security"
   },
   "balanced-match": {},
   "baryton-saxophone": {
@@ -839,38 +839,38 @@
     "CVE-2014-7205": "<1.5.2"
   },
   "bb-builder": {
-    "GHSA-vm6v-w6q2-mrrq": ">=0"
+    "GHSA-vm6v-w6q2-mrrq": "<=0.0.1-security"
   },
   "bcion": {
-    "GHSA-2fwq-wx47-hm6x": ">=0"
+    "GHSA-2fwq-wx47-hm6x": "<=0.0.1-security"
   },
   "bcoin": {
     "GHSA-hx3r-jv9q-85jw": "<1.0.2"
   },
   "bconi": {
-    "GHSA-7j93-5m2h-rvjx": ">=0"
+    "GHSA-7j93-5m2h-rvjx": "<=0.0.1-security"
   },
   "bcrypt": {
     "CVE-2020-7689": "<5.0.0",
     "SNYK-JS-BCRYPT-575033": "<5.0.0"
   },
   "beffer-xor": {
-    "GHSA-7cvf-p83w-48q6": ">=0"
+    "GHSA-7cvf-p83w-48q6": "<=0.0.1-security"
   },
   "bestzip": {
     "CVE-2020-7730": "<2.1.7"
   },
   "bictoin-ops": {
-    "GHSA-xrrg-wfwc-c7r3": ">=0"
+    "GHSA-xrrg-wfwc-c7r3": "<=0.0.1-security"
   },
   "bictoind-rpc": {
-    "GHSA-jqvv-r4w3-8f7w": ">=0"
+    "GHSA-jqvv-r4w3-8f7w": "<=0.0.1-security"
   },
   "bictoinjs-lib": {
-    "GHSA-hwh3-fhf6-73x9": ">=0"
+    "GHSA-hwh3-fhf6-73x9": "<=0.0.1-security"
   },
   "bictore-lib": {
-    "GHSA-f8vf-6hwg-hw55": ">=0"
+    "GHSA-f8vf-6hwg-hw55": "<=0.0.1-security"
   },
   "bigint-money": {
     "GHSA-9r3m-mhfm-39cm": "<0.6.2"

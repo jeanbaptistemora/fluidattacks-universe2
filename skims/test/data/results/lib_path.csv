@@ -35092,7 +35092,7 @@ F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (System.Secur
   33 | </packages>
      ^ Col 0
 ",nuget.nuget_packages_config
-F011,lines,"namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0) [CVE-2021-29508, GHSA-hpw7-3vq3-mmv6]",32,937,skims,011. Use of software with known vulnerabilities,"Use of Wire at version 1.0.0 with ['CVE-2021-29508', 'GHSA-hpw7-3vq3-mmv6'] in namespace/skims/test/data/lib_path/f011/packages.config","
+F011,lines,namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0) [CVE-2021-29508],32,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with ['CVE-2021-29508'] in namespace/skims/test/data/lib_path/f011/packages.config,"
   13 |   <package id=""Microsoft.Azure.Services.AppAuthentication"" version=""1.0.3"" targetFramework=""net472"" />
   14 |   <package id=""Microsoft.IdentityModel.Clients.ActiveDirectory"" version=""3.14.2"" targetFramework=""net472"" />
   15 |   <package id=""Microsoft.IdentityModel.JsonWebTokens"" version=""5.4.0"" targetFramework=""net472"" />
@@ -35116,7 +35116,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/packages.config (Wire v1.0.0
   33 | </packages>
      ^ Col 0
 ",nuget.nuget_packages_config
-F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508, GHSA-hpw7-3vq3-mmv6]",17,937,skims,011. Use of software with known vulnerabilities,"Use of Wire at version 1.0.0 with ['CVE-2021-29508', 'GHSA-hpw7-3vq3-mmv6'] in namespace/skims/test/data/lib_path/f011/project.csproj","
+F011,lines,namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0) [CVE-2021-29508],17,937,skims,011. Use of software with known vulnerabilities,Use of Wire at version 1.0.0 with ['CVE-2021-29508'] in namespace/skims/test/data/lib_path/f011/project.csproj,"
    7 |   <ItemGroup>
    8 |     <Compile Remove=""test\**"" />
    9 |     <EmbeddedResource Remove=""test\**"" />
