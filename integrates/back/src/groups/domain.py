@@ -17,7 +17,6 @@ from collections import (
 )
 from context import (
     BASE_URL,
-    FI_DEFAULT_ORG,
     FI_ENVIRONMENT,
 )
 from custom_exceptions import (
@@ -501,10 +500,6 @@ async def complete_register_for_organization_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     organization_id = organization_access["pk"]
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
-    organization_name = organization.name
     role = invitation["role"]
     user_email = organization_access["sk"].split("#")[1]
     updated_invitation = invitation.copy()
@@ -528,12 +523,8 @@ async def complete_register_for_organization_invitation(
     user_exists = bool(await users_domain.get_data(user_email, "email"))
     if not user_exists:
         user_created = await add_without_group(
-            loaders,
             user_email,
             "user",
-            should_add_default_org=(
-                FI_DEFAULT_ORG.lower() == organization_name.lower()
-            ),
             is_register_after_complete=True,
         )
 
@@ -660,10 +651,8 @@ async def add_group(  # pylint: disable=too-many-locals
 
 
 async def add_without_group(
-    loaders: Any,
     email: str,
     role: str,
-    should_add_default_org: bool = True,
     is_register_after_complete: bool = False,
 ) -> bool:
     success = False
@@ -681,11 +670,6 @@ async def add_without_group(
                 ]
             )
         )
-        org = await orgs_domain.get_or_add(loaders, FI_DEFAULT_ORG)
-        if should_add_default_org and not await orgs_domain.has_user_access(
-            org.id, email
-        ):
-            await orgs_domain.add_user(loaders, org.id, email, "user")
     return success
 
 
@@ -1847,25 +1831,6 @@ async def validate_group_tags(
     if await _has_repeated_tags(loaders, group_name, tags):
         raise RepeatedValues()
     return [tag for tag in tags if pattern.match(tag)]
-
-
-async def after_complete_register(
-    loaders: Any, group_access: dict[str, Any]
-) -> None:
-    group_name: str = str(get_key_or_fallback(group_access))
-    user_email: str = str(group_access["user_email"])
-    enforcer = await authz.get_user_level_enforcer(user_email)
-    if enforcer("self", "keep_default_organization_access"):
-        return
-    group: Group = await loaders.group.load(group_name)
-    organization_id: str = group.organization_id
-    default_org = await orgs_domain.get_or_add(loaders, FI_DEFAULT_ORG)
-    default_org_id: str = str(default_org.id)
-    if (
-        organization_id != default_org_id
-        and await orgs_domain.has_user_access(default_org_id, user_email)
-    ):
-        await orgs_domain.remove_user(loaders, default_org_id, user_email)
 
 
 async def get_remediation_rate(

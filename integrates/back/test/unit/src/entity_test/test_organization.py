@@ -8,9 +8,6 @@ from ariadne import (
 from back.test.unit.src.utils import (
     create_dummy_session,
 )
-from context import (
-    FI_DEFAULT_ORG,
-)
 from custom_exceptions import (
     InvalidOrganization,
     OrganizationNotFound,
@@ -19,11 +16,6 @@ from custom_exceptions import (
 )
 from dataloaders import (
     apply_context_attrs,
-    Dataloaders,
-    get_new_context,
-)
-from db_model.organizations.types import (
-    Organization,
 )
 from decimal import (
     Decimal,
@@ -186,25 +178,7 @@ async def test_grant_stakeholder_organization_access() -> None:
         ]["email"]
         == stakeholder
     )
-    loaders: Dataloaders = get_new_context()
-    default_org: Organization = await loaders.organization.load(FI_DEFAULT_ORG)
-    default_org_id: str = default_org.id
     assert await orgs_domain.has_user_access(org_id, stakeholder)
-    assert not await orgs_domain.has_user_access(default_org_id, stakeholder)
-
-    data = {
-        "query": query.substitute(
-            email="org_testuser7@gmail.com",
-            org_id=default_org_id,
-            role="USER",
-        )
-    }
-    result = await _get_result_async(data)
-    assert "errors" not in result
-    assert result["data"]["grantStakeholderOrganizationAccess"]["success"]
-    assert await orgs_domain.has_user_access(
-        default_org_id, "org_testuser7@gmail.com"
-    )
 
     data = {
         "query": query.substitute(

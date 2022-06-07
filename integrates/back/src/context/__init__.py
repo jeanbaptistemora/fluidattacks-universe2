@@ -31,7 +31,6 @@ try:
     FI_CHARTS_LOGO_PATH = os.environ["INTEGRATES_CHARTS_LOGO_PATH"]
     FI_DB_MODEL_PATH = os.environ["INTEGRATES_DB_MODEL_PATH"]
     FI_DEBUG = os.environ["DEBUG"]
-    FI_DEFAULT_ORG = os.environ["DEFAULT_ORG"]
     FI_DYNAMODB_HOST = os.environ["DYNAMODB_HOST"]
     FI_DYNAMODB_PORT = os.environ["DYNAMODB_PORT"]
     FI_EMAIL_TEMPLATES: str = os.environ["INTEGRATES_MAILER_TEMPLATES"]

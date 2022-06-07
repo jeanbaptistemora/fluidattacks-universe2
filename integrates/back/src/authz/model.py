@@ -1191,7 +1191,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
             *USER_LEVEL_ROLES["admin"]["actions"],
-            "keep_default_organization_access",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1204,7 +1203,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_organization_mutate",
             "api_resolvers_query_list_user_groups_resolve",
             "front_can_use_groups_searchbar",
-            "keep_default_organization_access",
         },
         tags={
             *USER_LEVEL_ROLES["hacker"]["tags"],
@@ -1215,7 +1213,6 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *USER_LEVEL_ROLES["user"]["actions"],
             "api_mutations_add_group_mutate",
             "front_can_use_groups_searchbar",
-            "keep_default_organization_access",
         },
         tags={
             *USER_LEVEL_ROLES["user"]["tags"],

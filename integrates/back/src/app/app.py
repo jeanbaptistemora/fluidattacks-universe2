@@ -13,7 +13,6 @@ from .views import (
 )
 from aioextensions import (
     in_thread,
-    schedule,
 )
 from api import (
     IntegratesAPI,
@@ -155,11 +154,6 @@ async def confirm_access(request: Request) -> HTMLResponse:
             if success:
                 response = await templates.valid_invitation(
                     request, group_access
-                )
-                schedule(
-                    groups_domain.after_complete_register(
-                        loaders, group_access
-                    )
                 )
             else:
                 response = templates.invalid_invitation(
