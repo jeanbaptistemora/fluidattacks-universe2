@@ -278,7 +278,7 @@ async def invite_to_organization(
                 "user_email": email,
             },
         )
-        success = await update(
+        success = await update_user(
             organization_id,
             email,
             {
@@ -369,7 +369,7 @@ async def reject_register_for_organization_invitation(
     return success
 
 
-async def update(
+async def update_user(
     organization_id: str,
     user_email: str,
     data: dict[str, Any],
@@ -387,7 +387,7 @@ async def update_invited_stakeholder(
     new_invitation = invitation.copy()
     if validate_role_fluid_reqs(email, role):
         new_invitation["role"] = role
-        success = await update(
+        success = await update_user(
             organization_id,
             email,
             {

@@ -30,4 +30,4 @@ async def resolve(
     )
     organizations = await loaders.organization.load_many(organization_ids)
 
-    return orgs_utils.filter_active_organizations_typed(organizations)
+    return orgs_utils.filter_active_organizations(organizations)

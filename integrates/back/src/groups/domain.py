@@ -516,7 +516,7 @@ async def complete_register_for_organization_invitation(
         loaders, organization_id, user_email, role
     )
 
-    await orgs_domain.update(
+    await orgs_domain.update_user(
         organization_id,
         user_email,
         {

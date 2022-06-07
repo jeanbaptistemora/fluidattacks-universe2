@@ -97,7 +97,7 @@ async def delete_obsolete_orgs() -> None:
     modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     async for organization in orgs_domain.iterate_organizations():
-        if orgs_utils.is_deleted_typed(organization):
+        if orgs_utils.is_deleted(organization):
             continue
 
         info(f"Working on organization {organization.name}")

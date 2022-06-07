@@ -23,9 +23,6 @@ from newutils.datetime import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from typing import (
-    Any,
-)
 
 ORGANIZATION_ID_PREFIX = "ORG#"
 
@@ -39,30 +36,13 @@ def remove_org_id_prefix(organization_id: str) -> str:
     return organization_id.lstrip(ORGANIZATION_ID_PREFIX)
 
 
-def is_deleted_typed(organization: Organization) -> bool:
+def is_deleted(organization: Organization) -> bool:
     return organization.state.status == OrganizationStateStatus.DELETED
 
 
-def is_deleted(organization: dict[str, Any]) -> bool:
-    historic_state = organization.get("historic_state", [{}])
-    state_status = historic_state[-1].get("status", "")
-
-    return state_status == "DELETED"
-
-
-def filter_active_organizations_typed(
+def filter_active_organizations(
     organizations: tuple[Organization, ...]
 ) -> tuple[Organization, ...]:
-    return tuple(
-        organization
-        for organization in organizations
-        if not is_deleted_typed(organization)
-    )
-
-
-def filter_active_organizations(
-    organizations: tuple[dict[str, Any], ...]
-) -> tuple[dict[str, Any], ...]:
     return tuple(
         organization
         for organization in organizations

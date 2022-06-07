@@ -374,7 +374,7 @@ async def test_delete_obsolete_orgs() -> None:
     org_id = "ORG#d32674a9-9838-4337-b222-68c88bf54647"
     org_ids = []
     async for organization in iterate_organizations():
-        if not orgs_utils.is_deleted_typed(organization):
+        if not orgs_utils.is_deleted(organization):
             org_ids.append(organization.id)
     assert org_id in org_ids
     assert len(org_ids) == 10
@@ -387,7 +387,7 @@ async def test_delete_obsolete_orgs() -> None:
         new_org: Organization = await loaders.organization.load(
             organization.id
         )
-        if not orgs_utils.is_deleted_typed(new_org):
+        if not orgs_utils.is_deleted(new_org):
             new_org_ids.append(organization.id)
     assert org_id not in new_org_ids
     assert len(new_org_ids) == 9
