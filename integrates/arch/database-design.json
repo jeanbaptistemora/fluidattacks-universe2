@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 03, 2022, 02:51 PM",
+    "DateLastModified": "Jun 07, 2022, 12:56 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -780,6 +780,10 @@
         },
         {
           "AttributeName": "sk_6",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "owner",
           "AttributeType": "S"
         }
       ],
@@ -2301,13 +2305,13 @@
             }
           ],
           "NonKeyAttributes": [
-            "billing_customer",
-            "id",
             "name",
-            "policies",
-            "state",
+            "id",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "state",
+            "policies",
+            "billing_customer"
           ]
         },
         {
@@ -2614,8 +2618,8 @@
             }
           ],
           "NonKeyAttributes": [
-            "modified_by",
             "modified_date",
+            "modified_by",
             "max_acceptance_days",
             "max_acceptance_severity",
             "max_number_acceptances",
@@ -2835,10 +2839,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "modified_by",
+            "status",
             "modified_date",
-            "pending_deletion_date",
-            "status"
+            "modified_by",
+            "pending_deletion_date"
           ]
         },
         {
@@ -6965,6 +6969,54 @@
             "protocol",
             "other",
             "query"
+          ]
+        },
+        {
+          "FacetName": "credentials_new_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "CRED#uuid",
+            "SortKeyAlias": "ORG#organization_id"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "CRED#0b8bf4cb-8735-4232-8199-46cd9802ad2a"
+              },
+              "sk": {
+                "S": "OWNER#unittesting"
+              },
+              "type": {
+                "S": "SSH"
+              },
+              "state": {
+                "M": {
+                  "key": {
+                    "S": "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJRW93SUJBQUtDQVFFQWk3K2RQWmhVMlVLYUxwM3pDMG5hV25paEd0YWs0TGFFYjh4azA4YVdOampEZ0EwdQpVWlFTUDNFMWJ1MEFXZGdxS1ArVWtFVFNZS1hCaFZQRnJ3UU0zdDJVZDFuckJtMDdlUVBXd2t6N1hONjZ3b0JoCnJVa1FOdDIvZEVWUTZOaitxekZoRkd3cXNya0tLU0x4M2F4RW5jbXJwb3BzNXo1dDJ3b3pCYnFPelRCMVNhUUEKd0Q4VUp1VWhMRHZUd1ZwU3lvSEVDbjB1cXhVL3dmZ05Jcno4VkQ0ZlFOenFSZXdhRmxXOW1JTmhycnZNQmFvRApZTUt3bElmcGlHbmEyVEJIOUFEYW8xNWxSQ2R5OEZxRE9aMzlMREtjMGZqVWZPUFJ3d3RzdkYvRXc4YkRJVWNmCnJmdUgyNHJHYUQ5aDlpVFVQc1BpYTFRZDd1WExlUExMTXZkVzB3SURBUUFCQW9JQkFHamhVTUFtY0I5eDFjY0EKc2FRYU5DN0w4NVR4M0dIdGVPMXl4NFVNdURWUFdxSGl3bzFsQkdEcXRNQmdUSEFoUkZycW5YTzh3dXJYMjZvVgpXZnBrbnNnd0libUZHVmNFYWFzRHo0eVpPOWpTSy9YSFpnY29HMndoOWdycjdySWlFTmNvUXdTUnZXWE9hNnE5CjJDbVduUlNTZ3ltRklBQllvUmZQeXNVVTR4Rm9tQ09MMnBPR0lMODFxYmNBZnVJOEVDR0FwbXlhWWdIaWpjSlgKVlJXNDd1NnpNRWhlY3BwSHZmZG9yTS8wU20xbGdwSWE1WGI3SEFIQ2Q4aDVIKzJzazBheFBRcnQwakZIazNYRgpWYjUzeWdjVS92SXRKZkUvM0kyelRIYS94VExJVW1ieEg5eDJEQ2RDRmk2VkprSHFsY04xM2oxUVk1REF0TmVhCnQ3TGRyNGtDZ1lFQTUwUWpSSWR4VHpjcDNQWmttRHZPVzFoOUREU2lWd1Q3bVc2bzdKV2pOOVp4Ui9mdWpvRGYKLzJFcFQ2bThCSnl6UzJjQ3hZZENxRk1pRTh4QVJ2b2plcTYya1FRSkNqYThIbEY3YU5GL1JNL09oTXNFNFo3WgpqMmlFWnhZZHVsU2tmMWJkMi9XczJQby9lNTZoS0VuTXBPWE9RNzVET2N4T3FNQW8rV3NFU1c4Q2dZRUFtckhOCnpDV1FJeXNWMmhNeVBWMlc1NzZoTFFxMHJyb2NJUXBiaXk2elRUckpoK0NBcXFrdkdiSjZ0Qzh5MGhlcm5mWWYKbGIwNWRid1d4KzZkQjM0Y3lwYTZSV1VyaUw3RDB4ZFdxOVlOeC9IaVhrbFFhdERreDdtRmp3UHE5czNGVGpCRgp1TUlUeXRscHFQc3o3WDFaemltYVFCMFRkOXBZaGdYNUkra09MdDBDZ1lCSTU1NEdtSHdMOE9QdG1HOFYzcVNxCi96Wk1ocnMybTRlRlV2RkZ3OVowWDlIT1VrYU4vZXFmWTAzV296ZDJiTC9JNFd4cVFMMnV1cVpmZjJBei85NzMKYWVSN3lyM2V6bXAzVkZDSE5xUGNXWFpOUG9NSGJVQkFpVDVVRVJER0VMRGF3OU9rNThuWmpPbytXaitMcDlndgprNUoyb0tBb3RGT0h0eXd6bEowQldRS0JnR0hTQVpNUVJiOFhaYkFLNTRBS2lIeHUvVGlnUm5VZTF0N0Z6L0dKClRIU1BzaFNzRUhEYW55QWV6cHpXSThyYWtQbElROXpLVldWdjFQQUVvV08xaWJ0SjZPd3M5NFIzTFJsMDdxZW0KcWZ3L3BxZDhzTTk2M05DM0xnK3JxSTc4dThHZm9OY2VVcW01SmFsbmdBU3plWEIydWtYRW5TVHkrM3QwbDREdgp4TG81QW9HQkFMeWhQb25IcVV4U20wTUUrK1FKUU0ySTZiaTJPTHkyODZPbjRHZ2dKbEVDaS9zak0zbzZSdlg2Cmo5WmdyKytSa3ZsUS9STjBEdTh6M2NsUnZ3dWhUa2VUNDNUTDFiTFBFRzBjcWRsT3Foa01JcW90RjNJMXNlTFkKdGJRMmtIRnloNCtmRFZaRUYxYll3cTIrbFc2Yk1VczZFbGsrby8vcnc3VlpHWWllMzAxeAotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0K"
+                  },
+                  "modified_by": {
+                    "S": "jdoe@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2021-12-22T03:45:00+00:00"
+                  },
+                  "name": {
+                    "S": "Product New SSH Key"
+                  }
+                }
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "owner": {
+                "S": "unittesting"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "type",
+            "state",
+            "organization_id",
+            "owner"
           ]
         },
         {
