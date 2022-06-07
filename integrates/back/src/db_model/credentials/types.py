@@ -5,6 +5,7 @@ from typing import (
     List,
     NamedTuple,
     Optional,
+    Union,
 )
 
 
@@ -28,3 +29,32 @@ class CredentialItem(NamedTuple):
     id: str
     metadata: CredentialMetadata
     state: CredentialState
+
+
+# New types
+class HttpsSecret(NamedTuple):
+    user: str
+    password: str
+
+
+class HttpsPatSecret(NamedTuple):
+    token: str
+
+
+class SshSecret(NamedTuple):
+    key: str
+
+
+class CredentialNewState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    name: str
+    type: CredentialType
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
+
+
+class Credential(NamedTuple):
+    id: str
+    organization_id: str
+    owner: str
+    state: CredentialNewState
