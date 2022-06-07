@@ -2307,6 +2307,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.DAST,
     )
+    IS_CACHEABLE = MethodInfo(
+        file_name="html",
+        name="is_cacheable",
+        module="lib_path",
+        finding=FindingEnum.F065,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     HAS_AUTOCOMPLETE = MethodInfo(
         file_name="html",
         name="has_autocomplete",

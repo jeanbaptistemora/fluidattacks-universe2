@@ -6,3 +6,6 @@ lib_path.f065.has_autocomplete:
     La aplicación no deshabilita el almacenamiento en caché
     de los campos de entrada, por lo que la información se almacenará
     en el caché del navegador.
+lib_path.f065.is_cacheable:
+  en: The application doesn't use meta tags to disable data cache.
+  es: La aplicación no usa meta tags para deshabilitar el caché.
