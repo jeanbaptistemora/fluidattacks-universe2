@@ -113,9 +113,10 @@ const CommentsView: React.FC = (): JSX.Element => {
       mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
       void addComment({
         variables: {
+          content: comment.content,
           findingId,
+          parentComment: comment.parentComment,
           type: type.toUpperCase(),
-          ...comment,
         },
         // Can also have the null type but unknown overrides it
       }).then((mtResult: unknown): void => {
