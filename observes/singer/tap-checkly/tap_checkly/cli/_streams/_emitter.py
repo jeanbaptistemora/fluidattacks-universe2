@@ -1,3 +1,6 @@
+from ._objs import (
+    SupportedStreams,
+)
 from returns.curry import (
     partial,
 )
@@ -17,9 +20,6 @@ from singer_io.singer2.json import (
 from tap_checkly.api import (
     ApiPage,
 )
-from tap_checkly.streams.objs import (
-    SupportedStreams,
-)
 from typing import (
     Iterator,
     List,
@@ -33,7 +33,7 @@ def _json_list_srecords(
 ) -> Iterator[SingerRecord]:
     return iter(
         map(
-            lambda item: SingerRecord(
+            lambda item: SingerRecord(  # type: ignore[misc]
                 stream=stream.value.lower(), record=item
             ),
             items,
@@ -55,4 +55,4 @@ def emit_page(stream: SupportedStreams, page: ApiPage) -> None:
 
 
 def emit_iopage(stream: SupportedStreams, page: IO[ApiPage]) -> None:
-    page.map(partial(emit_page, stream))
+    page.map(partial(emit_page, stream))  # type: ignore[misc]

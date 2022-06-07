@@ -1,15 +1,15 @@
+from ._streams import (
+    SupportedStreams,
+)
 import click
 from fa_purity import (
     Maybe,
 )
-from tap_checkly import (
-    executor,
-)
 from tap_checkly.api2 import (
     Credentials,
 )
-from tap_checkly.streams import (
-    SupportedStreams,
+from tap_checkly.cli import (
+    _executor,
 )
 from typing import (
     Optional,
@@ -43,7 +43,7 @@ def stream(
         .map(lambda i: (i,))
         .unwrap()
     )
-    executor.emit_streams(creds, selection)
+    _executor.emit_streams(creds, selection)
 
 
 @click.group()  # type: ignore[misc]

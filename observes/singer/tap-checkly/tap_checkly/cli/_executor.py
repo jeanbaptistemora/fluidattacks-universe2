@@ -1,9 +1,15 @@
+from . import (
+    _streams,
+)
+from ._streams._objs import (
+    SupportedStreams,
+)
 from datetime import (
     datetime,
     timezone,
 )
 from fa_purity import (
-    JsonObj,
+    Cmd,
     Stream,
 )
 from fa_purity.cmd import (
@@ -17,9 +23,6 @@ from fa_singer_io.singer import (
     emitter,
     SingerRecord,
 )
-from fa_singer_io.singer.emitter import (
-    emit,
-)
 import logging
 from purity.v1 import (
     FrozenList,
@@ -28,9 +31,6 @@ from returns.io import (
     IO,
 )
 import sys
-from tap_checkly import (
-    streams,
-)
 from tap_checkly.api2 import (
     Credentials,
 )
@@ -53,45 +53,44 @@ from tap_checkly.singer.alert_channels.records import (
 from tap_checkly.singer.checks.results.records import (
     encode_result,
 )
-from tap_checkly.streams import (
-    SupportedStreams,
-)
 from typing import (
     Callable,
     Mapping,
 )
 
 LOG = logging.getLogger(__name__)
-_stream_executor: Mapping[SupportedStreams, Callable[[ApiClient], None]] = {
-    SupportedStreams.CHECKS: streams.all_checks,
-    SupportedStreams.CHECK_GROUPS: streams.all_chk_groups,
-    SupportedStreams.CHECK_STATUS: streams.all_chk_status,
-    SupportedStreams.DASHBOARD: streams.all_dashboards,
-    SupportedStreams.ENV_VARS: streams.all_env_vars,
-    SupportedStreams.MAINTENACE_WINDOWS: streams.all_maint_windows,
-    SupportedStreams.REPORTS: streams.all_chk_reports,
-    SupportedStreams.SNIPPETS: streams.all_snippets,
+_stream_executor: Mapping[
+    SupportedStreams, Callable[[ApiClient], Cmd[None]]
+] = {
+    SupportedStreams.CHECKS: _streams.all_checks,
+    SupportedStreams.CHECK_GROUPS: _streams.all_chk_groups,
+    SupportedStreams.CHECK_STATUS: _streams.all_chk_status,
+    SupportedStreams.DASHBOARD: _streams.all_dashboards,
+    SupportedStreams.ENV_VARS: _streams.all_env_vars,
+    SupportedStreams.MAINTENACE_WINDOWS: _streams.all_maint_windows,
+    SupportedStreams.REPORTS: _streams.all_chk_reports,
+    SupportedStreams.SNIPPETS: _streams.all_snippets,
 }
 OLD_DATE = datetime(1970, 1, 1, tzinfo=timezone.utc)
 NOW = datetime.now(tz=timezone.utc)
 
 
 def _emit_stream(
-    records: Stream[SingerRecord], stream: SupportedStreams
-) -> None:
+    records: Stream[SingerRecord],
+) -> Cmd[None]:
     emissions = records.map(lambda s: emitter.emit(sys.stdout, s))
-    unsafe_unwrap(consume(emissions))
+    return consume(emissions)
 
 
 def emit_streams(
     creds: Credentials, targets: FrozenList[SupportedStreams]
-) -> IO[None]:
+) -> None:
     api = ApiClient.new(LegacyCreds(creds.account, creds.api_key))
     chks_client = ChecksClient.new(creds, 100, OLD_DATE, NOW)
     for selection in targets:
         LOG.info("Executing stream: %s", selection)
         if selection is SupportedStreams.CHECK_RESULTS:
-            _emit_stream(
+            action = _emit_stream(
                 chks_client.list_ids()
                 .bind(
                     lambda c: chks_client.list_check_results(c).map(
@@ -100,16 +99,17 @@ def emit_streams(
                 )
                 .map(encode_result)
                 .transform(chain),
-                selection,
             )
+            unsafe_unwrap(action)
         elif selection is SupportedStreams.ALERT_CHS:
-            _emit_stream(
+            action = _emit_stream(
                 AlertChannelsClient.new(creds, 100)
                 .list_all()
                 .map(alert_ch_records)
                 .transform(chain),
-                selection,
             )
+            unsafe_unwrap(action)
         else:
-            _stream_executor[selection](api)
-    return IO(None)
+            action = _stream_executor[selection](api)
+            unsafe_unwrap(action)
+    return None
