@@ -107,7 +107,13 @@ const GroupConsultingView: React.FC = (): JSX.Element => {
         };
       }
       mixpanel.track("AddGroupComment", { groupName });
-      void addConsult({ variables: { groupName, ...consult } }).then(
+      void addConsult({
+        variables: {
+          content: consult.content,
+          groupName,
+          parentComment: consult.parentComment,
+        },
+      }).then(
         // Can also be string[] but the unknown type overrides it
         (mtResult: unknown): void => {
           const result: IMutationResult["data"] = (mtResult as IMutationResult)
