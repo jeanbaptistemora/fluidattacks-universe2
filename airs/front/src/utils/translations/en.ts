@@ -132,9 +132,10 @@ const pageTexts: ResourceKey = {
   },
   plansPage: {
     comparative: {
-      tableDescription:
+      tableDescription1:
         "* Data from a 3-year experiment run by Fluid Attacks " +
         "on 6 commercial tools and 6 open source tools.",
+      tableDescription2: "* Reversing: if the source code is not provided",
       title: "Compare us with the competition",
     },
     plansSection: {
