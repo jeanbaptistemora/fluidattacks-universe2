@@ -23,12 +23,15 @@ async def test_get_tag_query() -> None:
         query{
             tag(tag: "test-groups"){
                 lastClosedVulnerability
+                meanRemediateCriticalSeverity
+                meanRemediateHighSeverity
                 maxOpenSeverity
                 maxSeverity
                 meanRemediateLowSeverity
                 meanRemediateMediumSeverity
                 meanRemediate
                 name
+                organization
                 groups {
                     closedVulnerabilities
                     name
@@ -45,11 +48,15 @@ async def test_get_tag_query() -> None:
     assert "errors" not in result
     assert "groups" in result["data"]["tag"]
     assert result["data"]["tag"]["lastClosedVulnerability"] == 50
+    assert result["data"]["tag"]["meanRemediateCriticalSeverity"] == 0
+    assert result["data"]["tag"]["meanRemediateHighSeverity"] == 0
     assert result["data"]["tag"]["meanRemediateLowSeverity"] == 116
     assert result["data"]["tag"]["meanRemediateMediumSeverity"] == 135.9
     assert result["data"]["tag"]["meanRemediate"] == 123
     assert result["data"]["tag"]["maxOpenSeverity"] == 3.3
     assert result["data"]["tag"]["maxSeverity"] == 4.3
+    assert result["data"]["tag"]["organization"] == "makimachi"
+    assert result["data"]["tag"]["name"] == "test-groups"
 
 
 async def test_get_tag_query_access_denied() -> None:

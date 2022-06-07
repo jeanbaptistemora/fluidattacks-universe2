@@ -13,6 +13,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from decorators import (
     require_login,
 )
@@ -28,16 +31,12 @@ from newutils import (
 from tags import (
     domain as tags_domain,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Dict[str, Any]:
+) -> Portfolio:
     loaders: Dataloaders = info.context.loaders
     tag_name: str = kwargs["tag"].lower()
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
@@ -66,11 +65,10 @@ async def resolve(
         allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
             loaders, org_name, group_names_filtered
         )
+
         if tag_name in allowed_tags:
-            tag = await tags_domain.get_attributes(org_name, tag_name)
-            return {
-                "name": tag["tag"],
-                "last_closing_vuln": tag["last_closing_date"],
-                **tag,
-            }
+            portfolio: Portfolio = await loaders.portfolio.load(
+                (org_name, tag_name)
+            )
+            return portfolio
     raise TagNotFound()

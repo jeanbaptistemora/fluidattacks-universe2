@@ -16,6 +16,7 @@ from .organization_tags import (
 )
 from .portfolio import (
     OrganizationPortfoliosTypedLoader,
+    PortfolioTypedLoader,
 )
 from collections import (
     defaultdict,
@@ -123,6 +124,7 @@ class Dataloaders(NamedTuple):
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
+    portfolio: PortfolioTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
@@ -217,6 +219,7 @@ def get_new_context() -> Dataloaders:
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
+        portfolio=PortfolioTypedLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),

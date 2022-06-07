@@ -10,6 +10,9 @@ from dataloaders import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from decorators import (
     require_organization_access,
 )
@@ -21,7 +24,6 @@ from groups import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
 )
 
@@ -32,17 +34,19 @@ async def resolve(
     parent: Dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: str,
-) -> list[Dict[str, Any]]:
+) -> list[Portfolio]:
     loaders: Dataloaders = info.context.loaders
     organization_loader = loaders.organization
-    organization_tags_loader = loaders.organization_tags
+    organization_tags_loader = loaders.organization_portfolios
     user_email = str(parent["user_email"])
     organization_id: str = kwargs["organization_id"]
 
     organization: Organization = await organization_loader.load(
         organization_id
     )
-    org_tags = await organization_tags_loader.load(organization.name)
+    org_tags: tuple[Portfolio] = await organization_tags_loader.load(
+        organization.name
+    )
     user_groups = await groups_domain.get_groups_by_user(
         loaders, user_email, organization_id=organization_id
     )
@@ -56,14 +60,7 @@ async def resolve(
     ]
 
     return [
-        {
-            "name": tag["tag"],
-            "last_closing_vuln": tag["last_closing_date"],
-            **tag,
-        }
+        tag
         for tag in org_tags
-        if any(
-            group in groups_filtered
-            for group in cast(list[str], tag["groups"])
-        )
+        if any(group in groups_filtered for group in tag.groups)
     ]

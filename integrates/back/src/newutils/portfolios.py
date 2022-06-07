@@ -48,7 +48,7 @@ def format_portfolio(
         id=get_key_or_fallback(item, ID, OLD_ID),
         groups=get_key_or_fallback(item, GROUPS, OLD_GROUPS),
         unreliable_indicators=format_unreliable_indicators(item),
-        organization_id=get_key_or_fallback(
+        organization_name=get_key_or_fallback(
             item,
             ORGANIZATION_ID,
             OLD_ORGANIZATION_ID,

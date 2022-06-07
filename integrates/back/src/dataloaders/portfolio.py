@@ -30,3 +30,15 @@ class OrganizationPortfoliosTypedLoader(DataLoader):
             tuple(format_portfolio(item) for item in portfolio_items)
             for portfolio_items in orgs_portfolio_items
         )
+
+
+class PortfolioTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self,
+        keys: Iterable[tuple[str, str]],
+    ) -> tuple[Portfolio, ...]:
+        orgs_portfolio_items = [
+            await dal.get_attributes(name, tag_id) for name, tag_id in keys
+        ]
+        return tuple(format_portfolio(item) for item in orgs_portfolio_items)
