@@ -158,7 +158,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             id={name}
             message={t(`${tPath}recommended.${name}`)}
           >
-            <FontAwesomeIcon icon={faCircleInfo} />
+            <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
           </TooltipWrapper>
         </p>
       ),
