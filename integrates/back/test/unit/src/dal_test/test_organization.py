@@ -18,9 +18,6 @@ from db_model.organizations.types import (
     OrganizationPolicies,
     OrganizationState,
 )
-from decimal import (
-    Decimal,
-)
 from newutils.datetime import (
     get_iso_date,
 )
@@ -79,7 +76,7 @@ async def test_add_user() -> None:
 async def test_add() -> None:
     org_name = "test-create-org"
     email = "org_testuser1@gmail.com"
-    org = Organization(
+    organization = Organization(
         id=str(uuid.uuid4()),
         name=org_name.lower().strip(),
         policies=OrganizationPolicies(
@@ -91,7 +88,7 @@ async def test_add() -> None:
             status=OrganizationStateStatus.ACTIVE,
         ),
     )
-    await orgs_dal.add(org)
+    await orgs_dal.add(organization=organization)
 
 
 @pytest.mark.changes_db
@@ -211,36 +208,6 @@ async def test_has_user_access() -> None:
     non_existent_user = "madeupuser@gmail.com"
     assert await orgs_dal.has_user_access(org_id, existing_user)
     assert not await orgs_dal.has_user_access(org_id, non_existent_user)
-
-
-@pytest.mark.changes_db
-async def test_update() -> None:
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    org_name = "okada"
-    org_details = await orgs_dal.get_by_id(org_id)
-    assert org_details["max_acceptance_days"] == 60
-    assert "max_acceptance_severity" not in org_details
-    assert org_details["max_number_acceptations"] == 2
-    assert "min_acceptance_severity" not in org_details
-    assert org_details["min_breaking_severity"] == Decimal("0.0")
-    assert org_details["vulnerability_grace_period"] == 0
-
-    new_values = {
-        "max_acceptance_days": None,
-        "max_acceptance_severity": Decimal("8.0"),
-        "max_number_acceptations": 5,
-        "min_acceptance_severity": Decimal("2.5"),
-        "min_breaking_severity": Decimal("1.0"),
-        "vulnerability_grace_period": 15,
-    }
-    await orgs_dal.update(org_id, org_name, new_values)
-    org_details = await orgs_dal.get_by_id(org_id)
-    assert "max_acceptance_days" not in org_details
-    assert org_details["max_acceptance_severity"] == Decimal("8.0")
-    assert org_details["max_number_acceptations"] == 5
-    assert org_details["min_acceptance_severity"] == Decimal("2.5")
-    assert org_details["min_breaking_severity"] == Decimal("1.0")
-    assert org_details["vulnerability_grace_period"] == 15
 
 
 async def test_iterate_organizations() -> None:

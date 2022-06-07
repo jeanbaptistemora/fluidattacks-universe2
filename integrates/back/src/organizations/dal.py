@@ -14,6 +14,7 @@ from custom_types import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationMetadataToUpdate,
     OrganizationPoliciesToUpdate,
     OrganizationState,
 )
@@ -36,6 +37,7 @@ from newutils import (
 from newutils.organizations import (
     format_organization,
     format_organization_item,
+    format_organization_metadata_item,
     format_organization_policies_item,
     format_organization_state_item,
     remove_org_id_prefix,
@@ -97,6 +99,7 @@ async def add_user(organization_id: str, email: str) -> bool:
 
 
 async def add(
+    *,
     organization: Organization,
 ) -> None:
     org_item = format_organization_item(organization)
@@ -132,7 +135,7 @@ async def update_state(
                 state.pending_deletion_date
             )
         )
-    if not await update(
+    if not await _update(
         organization_id=organization_id,
         organization_name=organization_name,
         values=item_to_update,
@@ -318,7 +321,7 @@ async def remove_user(organization_id: str, email: str) -> bool:
     return success
 
 
-async def update(
+async def _update(
     organization_id: str, organization_name: str, values: dict[str, Any]
 ) -> bool:
     """
@@ -391,7 +394,7 @@ async def update_policies(
         modified_date=modified_date,
         policies=policies,
     )
-    if not await update(
+    if not await _update(
         organization_id=organization_id,
         organization_name=organization_name,
         values=policies_item,
@@ -434,3 +437,18 @@ async def update_user(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_metadata(
+    *,
+    metadata: OrganizationMetadataToUpdate,
+    organization_id: str,
+    organization_name: str,
+) -> None:
+    item = format_organization_metadata_item(metadata)
+    if not await _update(
+        organization_id=organization_id,
+        organization_name=organization_name,
+        values=item,
+    ):
+        raise UnavailabilityError()

@@ -7,6 +7,7 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationMetadataToUpdate,
     OrganizationPolicies,
     OrganizationPoliciesToUpdate,
     OrganizationState,
@@ -204,6 +205,19 @@ def format_organization_policies_item(
         "max_number_acceptances": policies.max_number_acceptances,
     }
 
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
+
+
+def format_organization_metadata_item(
+    metadata: OrganizationMetadataToUpdate,
+) -> Item:
+    item = {
+        "billing_customer": metadata.billing_customer,
+    }
     return {
         key: None if not value else value
         for key, value in item.items()

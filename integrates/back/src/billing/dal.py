@@ -159,9 +159,9 @@ async def create_customer(
 
     # Assign customer to org
     await orgs_domain.update_billing_customer(
-        org_id=org_id,
-        org_name=org_name,
-        org_billing_customer=customer.id,
+        organization_id=org_id,
+        organization_name=org_name,
+        billing_customer=customer.id,
     )
 
     return customer

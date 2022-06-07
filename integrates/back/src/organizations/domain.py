@@ -31,6 +31,7 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationMetadataToUpdate,
     OrganizationPolicies,
     OrganizationPoliciesToUpdate,
     OrganizationState,
@@ -188,9 +189,10 @@ async def add_organization(
         raise InvalidOrganization("Name taken")
     if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
         raise InvalidOrganization("Invalid name")
+
     modified_date = datetime_utils.get_iso_date()
-    org = Organization(
-        id=str(uuid.uuid4()),
+    organization = Organization(
+        id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),
         policies=OrganizationPolicies(
             modified_by=email,
@@ -202,10 +204,10 @@ async def add_organization(
             status=OrganizationStateStatus.ACTIVE,
         ),
     )
-    await orgs_dal.add(org)
+    await orgs_dal.add(organization=organization)
     if email:
-        await add_user(loaders, org.id, email, "user_manager")
-    return org
+        await add_user(loaders, organization.id, email, "user_manager")
+    return organization
 
 
 async def get_or_add(
@@ -396,14 +398,18 @@ async def update_invited_stakeholder(
 
 
 async def update_billing_customer(
-    org_id: str,
-    org_name: str,
-    org_billing_customer: str,
-) -> bool:
+    organization_id: str,
+    organization_name: str,
+    billing_customer: str,
+) -> None:
     """Update Stripe billing customer."""
-    values: dict[str, Any] = {"billing_customer": org_billing_customer}
-    success = await orgs_dal.update(org_id, org_name, values)
-    return success
+    await orgs_dal.update_metadata(
+        metadata=OrganizationMetadataToUpdate(
+            billing_customer=billing_customer
+        ),
+        organization_id=organization_id,
+        organization_name=organization_name,
+    )
 
 
 async def update_policies(
