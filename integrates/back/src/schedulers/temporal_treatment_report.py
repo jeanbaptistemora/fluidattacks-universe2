@@ -77,11 +77,12 @@ async def send_temporal_treatment_report() -> None:
                         and (end_date := vuln.treatment.accepted_until)
                         and days_to_end(end_date) in [7, 1]
                     ):
-                        locations[vuln.where] = (
-                            "accepted until "
-                            f"{datetime_utils.get_date_from_iso_str(end_date)}"
-                            f" ({days_to_end(end_date)} days)"
-                        )
+                        locations[vuln.where] = {
+                            "accepted_until": (
+                                datetime_utils.get_date_from_iso_str(end_date)
+                            ),
+                            "days_left": days_to_end(end_date),
+                        }
                 if locations:
                     await vulns_mail.send_mail_temporal_treatment_report(
                         loaders=loaders,
