@@ -249,14 +249,14 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const handleSubmit = useCallback(
     async (values: Record<string, unknown>): Promise<void> => {
-      const [matchingSuggestion]: IDraftVariables[] = suggestions.filter(
+      const [matchingSuggestion] = suggestions.filter(
         (suggestion: ISuggestion): boolean =>
           `${suggestion.key}. ${suggestion.title}` === values.title
       );
-
+      const draftData = _.omit(matchingSuggestion, ["key"]);
       await addDraft({
         variables: {
-          ...matchingSuggestion,
+          ...draftData,
           groupName,
           title: values.title as string,
         },

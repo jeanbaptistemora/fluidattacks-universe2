@@ -101,8 +101,13 @@ const DescriptionView: React.FC = (): JSX.Element => {
       setIsEditing(false);
       await updateDescription({
         variables: {
-          ...values,
+          attackVectorDescription: values.attackVectorDescription,
+          description: values.description,
           findingId,
+          recommendation: values.recommendation,
+          sorts: values.sorts,
+          threat: values.threat,
+          title: values.title,
         },
       });
     },
