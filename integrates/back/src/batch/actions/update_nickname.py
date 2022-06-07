@@ -30,6 +30,7 @@ from db_model.vulnerabilities.update import (
     update_metadata,
 )
 import itertools
+import json
 import logging
 import logging.config
 from operator import (
@@ -158,7 +159,7 @@ async def _process_finding(
 async def update_nickname(*, item: BatchProcessing) -> None:
     subject: str = item.subject
     root_id: str = item.entity
-    group_name: str = item.additional_info
+    group_name: str = json.loads(item.additional_info).get("group_name", "")
     loaders: Dataloaders = get_new_context()
 
     LOGGER.info(

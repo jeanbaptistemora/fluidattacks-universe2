@@ -36,6 +36,7 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+import json
 from newutils import (
     logs as logs_utils,
     token as token_utils,
@@ -88,7 +89,13 @@ async def mutate(
     if nickname != old_root.state.nickname:
         await put_action(
             action=Action.UPDATE_NICKNAME,
-            additional_info=group_name,
+            additional_info=json.dumps(
+                {
+                    "group_name": group_name,
+                    "nickname": nickname,
+                    "old_nickname": old_root.state.nickname,
+                }
+            ),
             attempt_duration_seconds=3600,
             entity=root_id,
             memory=3800,
@@ -97,6 +104,9 @@ async def mutate(
             subject=user_email,
             vcpus=2,
         )
+
+    info.context.loaders.root.clear((kwargs["group_name"], kwargs["id"]))
+    info.context.loaders.group_roots.clear(kwargs["group_name"])
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated root {kwargs["id"]}'
     )

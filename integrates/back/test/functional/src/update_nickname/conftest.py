@@ -260,7 +260,13 @@ async def populate() -> bool:
             entity="88637616-41d4-4242-854a-db8ff7fe1ab6",
             subject="test@fluidattacks.com",
             time=str(get_as_epoch(get_now())),
-            additional_info="group123",
+            additional_info=json.dumps(
+                {
+                    "group_name": "group123",
+                    "nickname": "test123",
+                    "old_nickname": "test",
+                }
+            ),
             batch_job_id=None,
             queue="small",
             key="1",
