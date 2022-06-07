@@ -259,10 +259,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     canGetBePresentUntil,
     canGetComments,
     canGetFirstAttackAt,
-    first: 150,
     groupName,
     rootId: formatRootId(filterGroupToeLinesTable.rootId),
-    shouldGetNewToeLines: false,
   };
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeLines: IToeLinesConnection };
@@ -274,7 +272,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
         Logger.error("Couldn't load group toe lines", error);
       });
     },
-    variables: getToeLinesVariables,
+    variables: {
+      ...getToeLinesVariables,
+      first: 150,
+    },
   });
   const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -390,7 +391,10 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
             },
           },
           query: GET_TOE_LINES,
-          variables: getToeLinesVariables,
+          variables: {
+            ...getToeLinesVariables,
+            first: 150,
+          },
         });
       }
     }
@@ -614,6 +618,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
               filename: toeInputData.filename,
               groupName,
               rootId: toeInputData.rootId,
+              shouldGetNewToeLines: false,
             },
           })
       )

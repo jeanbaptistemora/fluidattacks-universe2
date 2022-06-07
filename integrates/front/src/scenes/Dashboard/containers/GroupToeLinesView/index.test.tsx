@@ -43,7 +43,6 @@ describe("groupToeLinesView", (): void => {
           canGetFirstAttackAt: true,
           first: 150,
           groupName: "unittesting",
-          shouldGetNewToeLines: false,
         },
       },
       result: {
@@ -197,7 +196,6 @@ describe("groupToeLinesView", (): void => {
             canGetComments: true,
             canGetFirstAttackAt: true,
             filename: "test/test#.config",
-            first: 150,
             groupName: "unittesting",
             rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
             shouldGetNewToeLines: false,
@@ -216,7 +214,6 @@ describe("groupToeLinesView", (): void => {
             canGetComments: true,
             canGetFirstAttackAt: true,
             filename: "test2/test.sh",
-            first: 150,
             groupName: "unittesting",
             rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
             shouldGetNewToeLines: false,
@@ -237,7 +234,6 @@ describe("groupToeLinesView", (): void => {
           canGetFirstAttackAt: true,
           first: 150,
           groupName: "unittesting",
-          shouldGetNewToeLines: false,
         },
       },
       result: {
