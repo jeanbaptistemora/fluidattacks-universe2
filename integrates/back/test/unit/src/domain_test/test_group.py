@@ -429,6 +429,7 @@ async def test_list_events() -> None:
         "538745942",
         "463578352",
         "484763304",
+        "540462638",
         "418900971",
     ]
     assert expected_output == await list_group_events(group_name)
@@ -831,8 +832,8 @@ async def test_get_group_digest_stats() -> None:
             "undefined": 0,
         },
         "events": {
-            "unsolved": 3,
-            "new": 0,
+            "unsolved": 4,
+            "new": 1,
         },
         "findings": [
             {

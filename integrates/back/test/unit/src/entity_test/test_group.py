@@ -176,7 +176,7 @@ async def test_group() -> None:
     assert result["data"]["group"]["groupContext"] == "Group context test"
     assert len(result["data"]["group"]["drafts"]) == 1
     assert result["data"]["group"]["drafts"][0]["openVulnerabilities"] == 0
-    assert len(result["data"]["group"]["events"]) == 5
+    assert len(result["data"]["group"]["events"]) == 6
     assert (
         result["data"]["group"]["consulting"][0]["content"]
         == "Now we can post comments on groups"

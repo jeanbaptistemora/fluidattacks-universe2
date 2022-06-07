@@ -141,6 +141,69 @@
           "client": {
             "S": "Fluid Attacks"
           },
+          "client_responsible": {
+            "S": "blocked@client.com"
+          },
+          "detail": {
+            "S": "Testing a new event type"
+          },
+          "event_id": {
+            "S": "540462638"
+          },
+          "historic_state": {
+            "L": [
+              {
+                "M": {
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "date": {
+                    "S": "2019-04-02 03:02:00"
+                  },
+                  "state": {
+                    "S": "OPEN"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "analyst": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "date": {
+                    "S": "2021-05-25 09:36:27"
+                  },
+                  "state": {
+                    "S": "CREATED"
+                  }
+                }
+              }
+            ]
+          },
+          "event_type": {
+            "S": "DATA_UPDATE_REQUIRED"
+          },
+          "project_name": {
+            "S": "unittesting"
+          },
+          "subscription": {
+            "S": "CONTINUOUS"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "accessibility": {
+            "S": "Repositorio"
+          },
+          "analyst": {
+            "S": "unittest@fluidattacks.com"
+          },
+          "client": {
+            "S": "Fluid Attacks"
+          },
           "client_project": {
             "S": "0000"
           },
