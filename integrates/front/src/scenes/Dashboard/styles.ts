@@ -12,9 +12,10 @@ const DashboardContainer = styled.div.attrs({
 const DashboardContent = styled.div.attrs({
   className: "flex flex-auto flex-column",
 })`
+  overflow-y: auto;
+  padding-bottom: 40px;
   padding-left: 24px;
   padding-right: 24px;
-  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 8px;

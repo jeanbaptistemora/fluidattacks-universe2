@@ -10,8 +10,8 @@ const FloatButton = styled.div.attrs({
   className: "fixed",
   id: "scroll-up",
 })`
-  bottom: 10px;
-  right: 10px;
+  bottom: 8px;
+  right: 16px;
   z-index: 100;
 `;
 
