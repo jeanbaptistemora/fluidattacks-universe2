@@ -303,7 +303,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },
@@ -590,7 +589,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },
@@ -604,7 +602,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },
@@ -618,7 +615,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },
@@ -632,7 +628,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },
@@ -648,7 +643,6 @@ describe("Organization users view", (): void => {
           variables: {
             email: "testuser1@gmail.com",
             organizationId: mockProps.organizationId,
-            responsibility: "",
             role: "USER_MANAGER",
           },
         },

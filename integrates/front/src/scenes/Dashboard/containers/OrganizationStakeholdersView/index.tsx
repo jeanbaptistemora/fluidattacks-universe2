@@ -235,15 +235,17 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
       if (stakeholderModalAction === "add") {
         void grantStakeholderAccess({
           variables: {
-            ...values,
+            email: values.email,
             organizationId,
+            role: values.role,
           },
         });
       } else {
         void updateStakeholder({
           variables: {
-            ...values,
+            email: values.email,
             organizationId,
+            role: values.role,
           },
         });
       }
