@@ -214,6 +214,21 @@ class AlreadyZeroRiskRequested(CustomBaseException):
         super(AlreadyZeroRiskRequested, self).__init__(msg)
 
 
+class AlreadyZeroRiskConfirmed(CustomBaseException):
+    """Exception to control uploaded vulns that were already flagged as ZR"""
+
+    def __init__(self, info: str = "") -> None:
+        """Constructor"""
+        if info:
+            msg = (
+                "Exception - Uploaded vulnerability is a confirmed Zero "
+                f"Risk: {info}"
+            )
+        else:
+            msg = "Exception - Uploaded vulnerability is a confirmed Zero Risk"
+        super(AlreadyZeroRiskConfirmed, self).__init__(msg)
+
+
 class DocumentNotFound(CustomBaseException):
     """Exception to control analytics data availability"""
 

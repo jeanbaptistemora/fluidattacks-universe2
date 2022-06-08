@@ -7,6 +7,7 @@ import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { errorMessageHelper } from "./helpers";
 
@@ -53,6 +54,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
   findingId,
   refetchData,
 }: IUploadVulnProps): JSX.Element => {
+  const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   function handleUploadError(updateError: ApolloError): void {
@@ -61,6 +63,16 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         const errorObject: IErrorInfoAttr = JSON.parse(message);
         msgError(
           `${translate.t("groupAlerts.rangeError")} ${errorObject.values}`
+        );
+      } else if (
+        message.startsWith(
+          "Exception - Uploaded vulnerability is a confirmed Zero Risk"
+        )
+      ) {
+        msgError(
+          t("groupAlerts.zeroRiskAlreadyUploaded", {
+            info: message.split("Zero Risk:")[1],
+          })
         );
       } else if (message.includes("Exception - Invalid Schema")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);

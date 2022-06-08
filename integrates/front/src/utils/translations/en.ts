@@ -1324,6 +1324,8 @@ export const enTranslations: ResourceKey = {
     verifiedSuccessPlural: "The vulnerabilities were marked as verified",
     vulnClosed: "Vulnerability has already been closed",
     zeroRiskAlreadyRequested: "Zero risk vulnerability already requested",
+    zeroRiskAlreadyUploaded:
+      "Uploaded vulnerability is a confirmed Zero Risk: {{info}}",
     zeroRiskIsNotRequested: "Zero risk vulnerability is not requested",
   },
   info: {
