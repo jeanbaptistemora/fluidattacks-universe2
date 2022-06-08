@@ -39,6 +39,8 @@ import { msgError, msgSuccess } from "utils/notifications";
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
+  const [autoenrollWellcome, setAutoenrollWellcome] = useState(false);
+
   const [rootMessages, setRootMessages] = useState({
     message: "",
     type: "success",
@@ -372,6 +374,11 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const isFirstTimeUser = organizations.length === 0;
 
   if (isFirstTimeUser || !isRepository) {
+    if (!autoenrollWellcome) {
+      mixpanel.track("AutoenrollmentWelcome");
+      setAutoenrollWellcome(true);
+    }
+
     return (
       <Container>
         <Sidebar />
