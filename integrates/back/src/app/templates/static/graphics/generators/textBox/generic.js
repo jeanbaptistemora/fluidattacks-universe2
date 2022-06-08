@@ -6,11 +6,11 @@ const percentage = 100;
 function render(dataDocument, height, width) {
   const fontSize = dataDocument.fontSizeRatio * Math.min(height, width);
   const fontOffset = fontSize * half * half;
-  const value = parseFloat(dataDocument.text * percentage).toFixed(0);
+  const value = parseFloat(parseFloat(dataDocument.text * percentage).toFixed(2));
 
   if (dataDocument.arrow && Math.abs(value) !== 0) {
     const arrowFontSize = dataDocument.arrowFontSizeRatio * Math.min(height, width);
-    const arrowFontOffset = 1.65;
+    const arrowFontOffset = 2.1;
     const plusSign = parseFloat(dataDocument.text) < 0 ? '' : '+';
 
     const svg = d3
