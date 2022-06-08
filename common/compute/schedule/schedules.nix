@@ -768,7 +768,7 @@
     ];
 
     schedule_expression = "cron(0 11 * * ? *)";
-    size = "nano";
+    size = "small";
     attempts = 2;
     timeout = 86400;
     parallel = 1;
