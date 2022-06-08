@@ -15,6 +15,9 @@ from db_model.groups.types import (
     Group,
     GroupUnreliableIndicators,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from decimal import (
     Decimal,
 )
@@ -188,12 +191,14 @@ async def update_portfolios() -> None:
                 extra={"organization": org_name},
             )
 
-        org_tags = await loaders.organization_tags.load(org_name)
+        org_tags: tuple[
+            Portfolio
+        ] = await loaders.organization_portfolios.load(org_name)
         deleted_tags = [
-            tag["tag"] for tag in org_tags if tag["tag"] not in updated_tags
+            tag.id for tag in org_tags if tag.id not in updated_tags
         ]
         await collect(
-            tags_domain.delete(org_name, str(tag)) for tag in deleted_tags
+            tags_domain.delete(org_name, tag_id) for tag_id in deleted_tags
         )
 
 

@@ -19,6 +19,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -335,8 +338,10 @@ async def test_update_portfolios_indicators() -> None:
         "test-tag",
         "test-updates",
     ]
-    org_tags = await loaders.organization_tags.load(org_name)
-    org_tags_names = sorted([tag["tag"] for tag in org_tags])
+    org_tags: tuple[Portfolio] = await loaders.organization_portfolios.load(
+        org_name
+    )
+    org_tags_names = sorted([tag.id for tag in org_tags])
     assert org_tags_names == expected_tags
 
     await update_portfolios.main()
@@ -345,25 +350,39 @@ async def test_update_portfolios_indicators() -> None:
         "another-tag",
         "test-groups",
     ]
-    loaders.organization_tags.clear(org_name)
-    org_tags = await loaders.organization_tags.load(org_name)
-    org_tags_names = sorted([tag["tag"] for tag in org_tags])
+    loaders.organization_portfolios.clear(org_name)
+    org_tags = await loaders.organization_portfolios.load(org_name)
+    org_tags_names = sorted([tag.id for tag in org_tags])
     assert org_tags_names == updated_tags
 
-    tag_test_groups = next(
-        tag for tag in org_tags if tag["tag"] == "test-groups"
+    tag_test_groups: Portfolio = next(
+        tag for tag in org_tags if tag.id == "test-groups"
     )
-    assert tag_test_groups["last_closing_date"] == Decimal("946.0")
-    assert tag_test_groups["max_open_severity"] == Decimal("6.3")
-    assert tag_test_groups["max_severity"] == Decimal("6.3")
-    assert tag_test_groups["mean_remediate"] == Decimal("687.0")
-    assert tag_test_groups["mean_remediate_critical_severity"] == Decimal(
-        "0.0"
+    assert tag_test_groups.unreliable_indicators.last_closing_date == Decimal(
+        "946.0"
     )
-    assert tag_test_groups["mean_remediate_high_severity"] == Decimal("0.0")
-    assert tag_test_groups["mean_remediate_low_severity"] == Decimal("692.0")
-    assert tag_test_groups["mean_remediate_medium_severity"] == Decimal(
-        "374.0"
+    assert tag_test_groups.unreliable_indicators.max_severity == Decimal("6.3")
+    assert tag_test_groups.unreliable_indicators.max_open_severity == Decimal(
+        "6.3"
+    )
+    assert tag_test_groups.unreliable_indicators.mean_remediate == Decimal(
+        "687.0"
+    )
+    assert (
+        tag_test_groups.unreliable_indicators.mean_remediate_critical_severity
+        == Decimal("0.0")
+    )
+    assert (
+        tag_test_groups.unreliable_indicators.mean_remediate_high_severity
+        == Decimal("0.0")
+    )
+    assert (
+        tag_test_groups.unreliable_indicators.mean_remediate_low_severity
+        == Decimal("692.0")
+    )
+    assert (
+        tag_test_groups.unreliable_indicators.mean_remediate_medium_severity
+        == Decimal("374.0")
     )
 
 
