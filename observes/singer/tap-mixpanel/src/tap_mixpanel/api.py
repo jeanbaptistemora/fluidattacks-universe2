@@ -38,9 +38,11 @@ class Credentials(NamedTuple):
 
 def _export(auth: Tuple[str, str], params: JSON) -> Any:
     with rate_limiter:
-        return requests.get(
+        result = requests.get(
             f"{API_BASE_URL}/export/", auth=auth, params=params
         )
+        result.raise_for_status()
+        return result
 
 
 def _load_data(
