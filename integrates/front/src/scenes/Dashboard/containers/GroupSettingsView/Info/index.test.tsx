@@ -73,7 +73,7 @@ describe("Info", (): void => {
       "Business NameTesting Company & Mocks"
     );
     expect(screen.getAllByRole("row")[fifthRow].textContent).toBe(
-      "Sprint Duration2"
+      "Sprint Length2"
     );
   });
 });

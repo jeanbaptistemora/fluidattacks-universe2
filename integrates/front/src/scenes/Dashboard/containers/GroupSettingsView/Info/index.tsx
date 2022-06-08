@@ -50,7 +50,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
       return "businessId";
     } else if (attribute === "Business Name") {
       return "businessName";
-    } else if (attribute === "Sprint Duration") {
+    } else if (attribute === "Sprint Length") {
       return "sprintDuration";
     }
 
@@ -146,7 +146,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
       value: data.group.businessName,
     },
     {
-      attribute: "Sprint Duration",
+      attribute: "Sprint Length",
       value: data.group.sprintDuration,
     },
   ];
