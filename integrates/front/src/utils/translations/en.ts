@@ -820,6 +820,12 @@ export const enTranslations: ResourceKey = {
         state: "State",
       },
       git: {
+        addEnvironment: {
+          success: "Environment added successfully",
+          successTittle: "Added environment",
+          type: "Environment Url Type",
+          url: "Environment Url",
+        },
         confirmBranch: "Make sure the new branch is equivalent to the old one",
         createdAt: "Creation date",
         envUrl: "Environment URL",
@@ -3371,8 +3377,10 @@ export const enTranslations: ResourceKey = {
       "Field cannot contain the following characters: {{chars}}",
     invalidTextPattern:
       "Field cannot contain the following character pattern: {{ chars }}",
+    invalidUrl: "Invalid Url",
     invalidUrlField:
       "URL value cannot contain the following characters: {{chars}}",
+    invalidUrlType: "Invalid Url Type",
     invalidValueInField: "The value inserted in one of the fields is not valid",
     lowerDate: "Invalid date",
     maxLength: "This field requires less than {{count}} characters",

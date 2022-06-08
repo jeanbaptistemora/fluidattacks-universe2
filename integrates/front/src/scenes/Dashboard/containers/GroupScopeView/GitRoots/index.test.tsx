@@ -41,9 +41,11 @@ describe("GitRoots", (): void => {
         environmentUrls: ["https://app.fluidattacks.com"],
         gitEnvironmentUrls: [
           {
+            cloudName: undefined,
             createdAt: "2022-04-27T17:30:07.230355",
             id: "3f6eb6274ec7dc2855451c0fbb4ff9485360be5b",
             secrets: [],
+            type: "URL",
             url: "https://app.fluidattacks.com",
           },
         ],
@@ -230,9 +232,11 @@ describe("GitRoots", (): void => {
       environmentUrls: [],
       gitEnvironmentUrls: [
         {
+          cloudName: undefined,
           createdAt: "2022-04-27T17:30:07.230355",
           id: "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc",
           secrets: [],
+          type: "URL",
           url: "",
         },
       ],

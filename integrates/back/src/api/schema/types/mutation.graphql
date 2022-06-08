@@ -198,7 +198,7 @@ type Mutation {
     "Url value"
     url: String!
     "Url Type"
-    urlType: String!
+    urlType: GitEnvironmentCloud!
   ): SimplePayload!
 
   """

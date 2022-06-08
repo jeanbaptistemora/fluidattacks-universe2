@@ -4,10 +4,12 @@ interface ISecret {
   value: string;
 }
 interface IEnvironmentUrl {
+  cloudName: string | undefined;
   id: string;
   url: string;
   secrets: ISecret[];
   createdAt: string;
+  type: string;
 }
 interface ICredentials {
   id: string;

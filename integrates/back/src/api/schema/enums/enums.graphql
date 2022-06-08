@@ -599,3 +599,14 @@ enum CredentialType {
   "SSH"
   SSH
 }
+
+
+"Environment url types"
+enum GitEnvironmentCloud {
+  "URl"
+  URL
+  "APK"
+  APK
+  "Cloud"
+  CLOUD
+}
