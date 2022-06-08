@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 08, 2022, 02:40 PM",
+    "DateLastModified": "Jun 08, 2022, 04:51 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -789,6 +789,14 @@
         {
           "AttributeName": "sprint_start_date",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "organization_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "groups",
+          "AttributeType": "SS"
         }
       ],
       "TableFacets": [
@@ -1669,6 +1677,20 @@
             "role",
             "responsibility",
             "subscription_period"
+          ]
+        },
+        {
+          "FacetName": "portfolio_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PORTFOLIO#id",
+            "SortKeyAlias": "ORG#name"
+          },
+          "TableData": [],
+          "NonKeyAttributes": [
+            "groups",
+            "id",
+            "organization_name",
+            "unreliable_indicators"
           ]
         },
         {
