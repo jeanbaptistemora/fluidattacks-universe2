@@ -58,3 +58,8 @@ class Credential(NamedTuple):
     organization_id: str
     owner: str
     state: CredentialNewState
+
+
+class CredentialRequest(NamedTuple):
+    id: str
+    organization_id: str

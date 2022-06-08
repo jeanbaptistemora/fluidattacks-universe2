@@ -20,6 +20,7 @@ from db_model.credentials.types import (
     Credential,
     CredentialItem,
     CredentialMetadata,
+    CredentialRequest,
     CredentialState,
 )
 from db_model.credentials.utils import (
@@ -224,9 +225,38 @@ class CredentialStatesLoader(DataLoader):
         )
 
 
+async def get_credentials_new(
+    *, requests: list[CredentialRequest]
+) -> tuple[Credential, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["credentials_new_metadata"],
+            values={
+                "id": request.id,
+                "organization_id": request.organization_id,
+            },
+        )
+        for request in requests
+    )
+    items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+    if len(items) == len(requests):
+        return tuple(format_credential(item) for item in items)
+
+    raise CredentialNotFound()
+
+
+class CredentialNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, requests: list[CredentialRequest]
+    ) -> tuple[Credential, ...]:
+        return await get_credentials_new(requests=requests)
+
+
 async def get_organization_credentials(
     *, organization_id: str
-) -> Tuple[Credential, ...]:
+) -> tuple[Credential, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["credentials_new_metadata"],
         values={"organization_id": organization_id},
@@ -253,7 +283,7 @@ class OrganizationCredentialsNewLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_ids: List[str]
-    ) -> Tuple[Tuple[Credential, ...], ...]:
+    ) -> tuple[tuple[Credential, ...], ...]:
         return await collect(
             get_organization_credentials(organization_id=organization_id)
             for organization_id in organization_ids
