@@ -269,9 +269,9 @@
           ResultSet rs = stmt.executeQuery("select * from products");
 
           while (rs.next()) {
-              System.out.println("code: " + rs.getString("code")
-                      + " ,product: " + rs.getString("name")
-                      + " ,price: " + rs.getDouble("price"));
+            System.out.println("code: " + rs.getString("code")
+                    + " ,product: " + rs.getString("name")
+                    + " ,price: " + rs.getDouble("price"));
           }
         }
       }
@@ -295,9 +295,9 @@
             ResultSet rs = stmt.executeQuery("select * from products");
 
             while (rs.next()) {
-                System.out.println("code: " + rs.getString("code")
-                        + " ,product: " + rs.getString("name")
-                        + " ,price: " + rs.getDouble("price"));
+              System.out.println("code: " + rs.getString("code")
+                      + " ,product: " + rs.getString("name")
+                      + " ,price: " + rs.getDouble("price"));
             }
           } catch (SQLException e) {
               e.printStackTrace();
@@ -371,9 +371,9 @@
           ResultSet rs = stmt.executeQuery("select * from products");
 
           while (rs.next()) {
-              System.out.println("code: " + rs.getString("code")
-                      + " ,product: " + rs.getString("name")
-                      + " ,price: " + rs.getDouble("price"));
+            System.out.println("code: " + rs.getString("code")
+                    + " ,product: " + rs.getString("name")
+                    + " ,price: " + rs.getDouble("price"));
           }
         }
       }
@@ -392,9 +392,9 @@
             ResultSet rs = stmt.executeQuery("select * from products");
 
             while (rs.next()) {
-                System.out.println("code: " + rs.getString("code")
-                        + " ,product: " + rs.getString("name")
-                        + " ,price: " + rs.getDouble("price"));
+              System.out.println("code: " + rs.getString("code")
+                      + " ,product: " + rs.getString("name")
+                      + " ,price: " + rs.getDouble("price"));
             }
           } catch (SQLException e) {
               e.printStackTrace();
@@ -487,13 +487,13 @@
         String osCommand;
         if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
         {
-            /* running on Windows */
-            osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
+          /* running on Windows */
+          osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
         }
         else
         {
-            /* running on non-Windows */
-            osCommand = "/bin/ls ";
+          /* running on non-Windows */
+          osCommand = "/bin/ls ";
         }
 
         /* POTENTIAL FLAW: command injection */
@@ -513,13 +513,13 @@
         String osCommand;
         if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
         {
-            /* running on Windows */
-            osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
+          /* running on Windows */
+          osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
         }
         else
         {
-            /* running on non-Windows */
-            osCommand = "/bin/ls ";
+          /* running on non-Windows */
+          osCommand = "/bin/ls ";
         }
 
         /* POTENTIAL FLAW: command injection */
@@ -831,7 +831,7 @@
           }
           catch (IOException exceptIO)
           {
-              IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
+            IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
           }
           // Not shown: Code to close the socket...
         }
@@ -1058,7 +1058,7 @@
           * @input("message", type = "string", range = [4,])
           */
           public function post(Inputs $inputs){
-              //Validates inputs and throw error when they are not included in the allowed and pre defined lists values
+            //Validates inputs and throw error when they are not included in the allowed and pre defined lists values
           }
       }
 
@@ -1265,12 +1265,12 @@
 
       import java.util.List;
       public interface ParametersJpaRepository extends JpaRepository<Parameter, String> {
-          /* LIKE statement injection */
-          @SqlQuery("select u from User u where u.lastname like %:#{[0]}%")
-          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
-          /* LIKE statement injection */
-          @Query("select u from User u where u.lastname like %:#{" + "[0]}%")
-          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+        /* LIKE statement injection */
+        @SqlQuery("select u from User u where u.lastname like %:#{[0]}%")
+        List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+        /* LIKE statement injection */
+        @Query("select u from User u where u.lastname like %:#{" + "[0]}%")
+        List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
       }
       ```
     compliant: |
@@ -1283,21 +1283,20 @@
 
       import java.util.List;
       public interface ParametersJpaRepository extends JpaRepository<Parameter, String> {
+        /* Secure */
+        @Query(value = "SELECT * FROM schema.table " +
+            "WHERE CODE = ?1", nativeQuery = true)
+        List<Parameter> findByParameterType(String parameterTypeCode);
+        /* Secure */
+        @Query("select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}")
+        List<User> findContainingEscaped(String namePart);
 
-          /* Secure */
-          @Query(value = "SELECT * FROM schema.table " +
-              "WHERE CODE = ?1", nativeQuery = true)
-          List<Parameter> findByParameterType(String parameterTypeCode);
-          /* Secure */
-          @Query("select u from User u where u.firstname like %?#{escape([0])}% escape ?#{escapeCharacter()}")
-          List<User> findContainingEscaped(String namePart);
-
-          /* LIKE statement secure */
-          @Query("select u from User u where u.lastname like %?#{escape([0])}%")
-          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
-          /* LIKE statement secure */
-          @Query("select u from User u where u.firstname like %?#{esc" + "ape([0])}%")
-          List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+        /* LIKE statement secure */
+        @Query("select u from User u where u.lastname like %?#{escape([0])}%")
+        List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
+        /* LIKE statement secure */
+        @Query("select u from User u where u.firstname like %?#{esc" + "ape([0])}%")
+        List<User> findByLastnameWithSpelExpression(@Param("lastname") String lastname);
       }
       ```
   remediation_time: "10"
@@ -2535,9 +2534,9 @@
           p = re.compile(regex)
 
           if(re.search(p, str)):
-              return True
+            return True
           else:
-              return False
+            return False
       if validateFile(uploadControl) {
         uploadFile(file);
       }
@@ -2604,7 +2603,9 @@
             try {
               file = File.createTempFile(credentials, null));
               uploadFile(file)
-            } catch (Exception e) {}
+            } catch (Exception e) {
+              ...
+            }
           }
       }
       ```
@@ -2617,7 +2618,9 @@
             try {
               encryptedHash = encryptInfo(credentials);
               addUser(user, encryptedHash);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+              ...
+            }
           }
       }
       ```
@@ -2970,12 +2973,12 @@
       ```java
       public class PrintingExceptionMessage {
         public static void main(String args[]) throws Exception {
-            String msg = "This is my custom message";
-            try{
-              //Do something
-            } catch (e){
-              throw new Exception("CoustomMessage: "+msg, e);
-            }
+          String msg = "This is my custom message";
+          try{
+            //Do something
+          } catch (e){
+            throw new Exception("CoustomMessage: "+msg, e);
+          }
         }
       }
       ```
@@ -2983,11 +2986,11 @@
       ```java
       public class PrintingExceptionMessage {
         public static void main(String args[]) throws Exception {
-            try{
-              //Do something
-            } catch (e){
-              throw new Exception(e);
-            }
+          try{
+            //Do something
+          } catch (e){
+            throw new Exception(e);
+          }
         }
       }
       ```
@@ -3118,12 +3121,10 @@
         @Override
         public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
           response.setContentType("text/html;charset=UTF-8");
-
           long l = new java.util.Random().nextLong();
           String rememberMeKey = Long.toString(l);
-
           String cookieName = "rememberMe";
-              request.getSession().setAttribute(cookieName, rememberMeKey);
+          request.getSession().setAttribute(cookieName, rememberMeKey);
         }
       }
       ```
@@ -3140,7 +3141,7 @@
           String rememberMeKey = Long.toString(l);
 
           String cookieName = "rememberMe";
-              request.getSession().setAttribute(cookieName, rememberMeKey);
+          request.getSession().setAttribute(cookieName, rememberMeKey);
         }
       }
       ```
@@ -4926,17 +4927,17 @@
     non_compliant: |
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-          <uses-permission android:name="android.permission.SEND_SMS"/>
-          <application android:label="@7F040001" android:icon="@7F020002">
-          </application>
+        <uses-permission android:name="android.permission.SEND_SMS"/>
+        <application android:label="@7F040001" android:icon="@7F020002">
+        </application>
       </manifest>
       ```
     compliant: |
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-          <uses-permission android:name="android.permission.SEND_SMS"/>
-          <application android:label="@7F040001" android:icon="@7F020002" android:allowBackup="False">
-          </application>
+        <uses-permission android:name="android.permission.SEND_SMS"/>
+        <application android:label="@7F040001" android:icon="@7F020002" android:allowBackup="False">
+        </application>
       </manifest>
       ```
   remediation_time: "60"
@@ -5202,17 +5203,17 @@
     non_compliant: |
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-          <uses-permission android:name="android.permission.SEND_SMS"/>
-          <application android:debuggable="true" android:label="@7F040001" android:icon="@7F020002">
-          </application>
+        <uses-permission android:name="android.permission.SEND_SMS"/>
+        <application android:debuggable="true" android:label="@7F040001" android:icon="@7F020002">
+        </application>
       </manifest>
       ```
     compliant: |
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
-          <uses-permission android:name="android.permission.SEND_SMS"/>
-          <application android:debuggable="false" android:label="@7F040001" android:icon="@7F020002">
-          </application>
+        <uses-permission android:name="android.permission.SEND_SMS"/>
+        <application android:debuggable="false" android:label="@7F040001" android:icon="@7F020002">
+        </application>
       </manifest>
       ```
   remediation_time: "15"
@@ -6497,7 +6498,7 @@
           {
             /*
             if(num1 < 4){
-                return 0;
+              return 0;
             }
             */
             int total;
@@ -6614,10 +6615,10 @@
           <uses-permission android:name="android.permission.SEND_SMS"/>
           <application android:label="@7F040001" android:icon="@7F020002">
               <provider
-                  android:authorities="com.andriod.databasetest.contentprovider"
-                  android:name=".db.ContentProviderDb"
-                  android:exported="true"
-                  android:grantUriPermissions="true">
+                android:authorities="com.andriod.databasetest.contentprovider"
+                android:name=".db.ContentProviderDb"
+                android:exported="true"
+                android:grantUriPermissions="true">
               </provider>
           </application>
       </manifest>
@@ -6628,10 +6629,10 @@
           <uses-permission android:name="android.permission.SEND_SMS"/>
           <application android:label="@7F040001" android:icon="@7F020002">
               <provider
-                  android:authorities="com.andriod.databasetest.contentprovider"
-                  android:name=".db.ContentProviderDb"
-                  android:exported="false"
-                  android:grantUriPermissions="true">
+                android:authorities="com.andriod.databasetest.contentprovider"
+                android:name=".db.ContentProviderDb"
+                android:exported="false"
+                android:grantUriPermissions="true">
               </provider>
           </application>
       </manifest>
@@ -6710,25 +6711,21 @@
   examples:
     non_compliant: |
       ```javascript
-      function generateAccessToken(username)
-      {
+      function generateAccessToken(username){
         return jwt.sign(username, process.env.TOKEN_SECRET, {expiresIn: '3600s'});
       }
 
-      function userLogout(userId)
-      {
+      function userLogout(userId){
         logout(userId);
       }
       ```
     compliant: |
       ```javascript
-      function generateAccessToken(username)
-      {
+      function generateAccessToken(username){
         return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s'});
       }
 
-      function userLogout(userId, sessionToken)
-      {
+      function userLogout(userId, sessionToken){
         logout(userId);
         deleteToken(sessionToken);
       }
@@ -7387,13 +7384,13 @@
     non_compliant: |
       Check that the network configuration does not allow LLMNR y NBT-NS
     compliant: |
+      ```java
       gateway: "My gateway name"
       firewall_service:
         enabled: true
         policy: 'drop'
         log_default_action: true
         firewall_rules:
-
         - :id: '1'
           :enabled: true
           :description: 'disallow_conections'
@@ -7402,6 +7399,7 @@
           :destination_ip: '00.01.02.03'
           :source_port_range: '5353'
           :source_ip: 'Any'
+      ```
   remediation_time: "60"
   score:
     base:
@@ -7545,9 +7543,9 @@
       <html>
         <head>
           <script src="https://bam-cell.nr-data.net/thing.js"
-          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-          crossorigin="anonymous"
-          ></script>
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous">
+          </script>
         </head>
       </html>
       ```
@@ -8752,16 +8750,12 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod
-      {
-        public class Controllers
-        {
-          public void ReadContentOfURL(HttpRequest url)
-          {
+      namespace testmod{
+        public class Controllers{
+          public void ReadContentOfURL(HttpRequest url){
             //Insecure
             WebRequest req = WebRequest.Create(url);
-            if (!whiteList.Contains(url))
-            {
+            if (!whiteList.Contains(url)){
               return BadRequest();
             }
           }
@@ -8772,18 +8766,14 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod
-      {
-        public class Controllers
-        {
-          public void ReadContentOfURL(HttpRequest url)
-          {
+      namespace testmod{
+        public class Controllers{
+          public void ReadContentOfURL(HttpRequest url){
             //Secure
             isVerifiedUrl = verifyUrl(url);
-            if isVerifiedUrl
-              {
-                WebRequest request = WebRequest.Create(url);
-              }
+            if isVerifiedUrl{
+              WebRequest request = WebRequest.Create(url);
+            }
           }
         }
       }
@@ -9220,8 +9210,7 @@
       boolean auth = db.authenticate(myUserName, myPassword);
 
       //This method takes user input without sanitizing
-      static void myMethod(user, searchTerm)
-      {
+      static void myMethod(user, searchTerm){
         BasicDBObject searchQuery = new BasicDBObject();
         queryResult = db.customer.find({user: user, info: searchTerm});
         System.out.println(queryResult);
@@ -9234,11 +9223,9 @@
       boolean auth = db.authenticate(myUserName, myPassword);
 
       //Sanitize user input before querying
-      static void myMethod(user, searchTerm)
-      {
+      static void myMethod(user, searchTerm){
         user = cleanUser(user);
-        if isAllowedTerm(searchTerm)
-        {
+        if isAllowedTerm(searchTerm){
           BasicDBObject searchQuery = new BasicDBObject();
           queryResult = db.customer.find({user: cleanUser, info: searchTerm});
           System.out.println(queryResult);
@@ -9304,10 +9291,8 @@
       using System;
       using System.DirectoryServices;
 
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page{
+        protected void Page_Load(object sender, EventArgs e){
           string userName = Request.Params["user"];
           string filter = "(uid=" + userName + ")";
 
@@ -9321,10 +9306,8 @@
       using System;
       using System.DirectoryServices;
 
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page{
+        protected void Page_Load(object sender, EventArgs e){
           string userName = Request.Params["user"];
 
           userNameVerified = cleanUserName(userName);
@@ -11566,26 +11549,20 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod
-      {
-        public class Controllers
-        {
-          public void Configure(IApplicationBuilder app)
-          {
+      namespace testmod{
+        public class Controllers{
+          public void Configure(IApplicationBuilder app){
             var corsBuilder = new CorsPolicyBuilder();
             corsBuilder.AllowAnyHeader();
             corsBuilder.AllowAnyMethod();
             corsBuilder.AllowAnyOrigin();
-
             var policyBuilder = new CorsPolicyBuilder();
             var policy = policyBuilder
               .AllowAnyOrigin()
               .AllowAnyHeader()
               .AllowAnyMethod()
               .Build();
-
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
             app.UseCors( cors => cors
               .AllowAnyMethod()
               .AllowAnyOrigin());
@@ -11597,12 +11574,9 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod
-      {
-        public class Controllers
-        {
-          public void Configure(IApplicationBuilder app)
-          {
+      namespace testmod{
+        public class Controllers{
+          public void Configure(IApplicationBuilder app){
             var SecCorsBuilder = new CorsPolicyBuilder();
             SecCorsBuilder.AllowAnyHeader();
             SecCorsBuilder.AllowAnyMethod();
@@ -12692,12 +12666,13 @@
         requestDir.Credentials = new NetworkCredential("username", "password");
 
         //An FTP connection is stablished
-        if(!m_bConnected)
-            Console.WriteLine("Waiting for connection on DataConnection");
+        if(!m_bConnected){
+          Console.WriteLine("Waiting for connection on DataConnection");
+        }
 
         while(!m_bConnected) {
             Thread.Sleep(100);
-        } // while end
+        }
 
         //Read secure information through the channel
         byte[] btFileContent = File.ReadAllBytes(strFilename);
@@ -12784,7 +12759,7 @@
   examples:
     non_compliant: |
       ```c
-      public static void CreateTestMessage(string server) {
+      public static void Test(string server) {
         string to = "user";
         string from = "user";
         MailMessage message = new MailMessage(from, to);
@@ -12798,7 +12773,7 @@
       ```
     compliant: |
       ```c
-      public static void CreateTestMessage(string server){
+      public static void Test(string server){
         string to = "user";
         string from = "user";
         MailMessage message = new MailMessage(from, to);
@@ -13203,8 +13178,7 @@
     non_compliant: |
       ```java
       //userSql contains possible harmful time-delay query
-      static void getQuery(userSql)
-      {
+      static void getQuery(userSql){
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
@@ -13217,8 +13191,7 @@
       ```
     compliant: |
       ```java
-      static void getQuery(param)
-      {
+      static void getQuery(param){
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
         //Clean User parameters
         cleanParam = getCleanValue(param)
@@ -13296,8 +13269,7 @@
     non_compliant: |
       ```java
       //userSql contains possible harmful query
-      static void getQuery(userSql)
-      {
+      static void getQuery(userSql){
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
@@ -13310,8 +13282,7 @@
       ```
     compliant: |
       ```java
-      static void getQuery(param)
-      {
+      static void getQuery(param){
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
         //Clean User parameters
         cleanParam = getCleanValue(param)
@@ -13325,6 +13296,7 @@
           ...
         );
       }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -13793,17 +13765,12 @@
       using System;
       using System.IO;
 
-      namespace StreamReadWrite
-      {
-        class Program
-        {
-          static void Main(string[] args)
-          {
+      namespace StreamReadWrite{
+        class Program{
+          static void Main(string[] args){
             var tempPath = Path.GetTempFileName();
             var randomPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-            using (var writer = new StreamWriter(tempPath))
-            {
+            using (var writer = new StreamWriter(tempPath)){
               writer.WriteLine("content");
             }
           }
@@ -14909,19 +14876,19 @@
     non_compliant: |
       ```yaml
       <manifest ... >
+        ...
+        <application android:allowBackup="true" ... >
           ...
-          <application android:allowBackup="true" ... >
-              ...
-          </application>
+        </application>
       </manifest>
       ```
     compliant: |
       ```yaml
       <manifest ... >
+        ...
+        <application android:allowBackup="false" ... >
           ...
-          <application android:allowBackup="false" ... >
-              ...
-          </application>
+        </application>
       </manifest>
       ```
   remediation_time: "15"
@@ -14981,19 +14948,19 @@
     non_compliant: |
       ```yaml
       <manifest ... >
-          ...
-          <application android:allowDataBackup="true" ... >
-              ...
-          </application>
+        ...
+        <application android:allowDataBackup="true" ... >
+            ...
+        </application>
       </manifest>
       ```
     compliant: |
       ```yaml
       <manifest ... >
-          ...
-          <application android:allowDataBackup="false" ... >
-              ...
-          </application>
+        ...
+        <application android:allowDataBackup="false" ... >
+            ...
+        </application>
       </manifest>
       ```
   remediation_time: "30"
@@ -15197,8 +15164,38 @@
       Atacante externo sin credenciales.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      //SSH configuration allowing any address
+      name: "myhost""
+        AddressFamily: any
+        AllowTcpForwarding: yes
+        ListenAddress: any
+      ```
+    compliant: |
+      ```yaml
+      name: "myhost""
+        AddressFamily: any
+        AllowAgentForwarding: no
+        AllowTcpForwarding: yes
+        ListenAddress: {{ ansible_default_ipv4.address }}:{{ ssh_port | default('22') }}
+        PubkeyAuthentication: yes
+      //Firewall configuration
+      hosts: myhost.com
+        vars:
+          ansible_port: "{{ ssh_port | default('22') }}"
+        remote_user: sven
+        become: yes
+        roles:
+          - hostnames
+          - users
+          - ssh
+          - my.firewall
+        firewall_allowed_tcp_ports:
+          - 80
+          - 443
+          - 5930
+      ```
   remediation_time: "60"
   score:
     base:
@@ -15338,8 +15335,26 @@
       Atacante anónimo en la Intranet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      name: Configure the Remote Desktop Gateway
+        win_rds_settings:
+          certificate_hash: B0D0FA8408FC67B230338FCA584D03792DA73F4C
+          max_connections: 50
+          cipher_ksuite: ECDHE_ECDSA_WITH_RC4_128_SHA
+        notify:
+          - Restart TSGateway service
+      ```
+    compliant: |
+      ```yaml
+      name: Configure the Remote Desktop Gateway
+        win_rds_settings:
+          certificate_hash: B0D0FA8408FC67B230338FCA584D03792DA73F4C
+          max_connections: 50
+          cipher_suite: TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        notify:
+          - Restart TSGateway service
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15453,8 +15468,31 @@
       Atacante anónimo de Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      host_server:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 25
+          domain: "yourdomain"
+          authentication: plain
+          user_name: "appadmin"
+      ```
+    compliant: |
+      ```yaml
+      host_server:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 587
+          domain: "promotions_domain"
+          authentication: cipher_key
+          user_name: "appadmin"
+          time_delay: 24h
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15504,8 +15542,32 @@
       Usuario de Internet no autorizado con credenciales.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      resource "aws_db_instance" "default" {
+        allocated_storage    = 10
+        engine               = "dynamoDB"
+        engine_version       = "5.7"
+        instance_class       = "db.t3.micro"
+        name                 = "mydb"
+        username             = "admin"
+        password             = "*"
+        allowed_groups       = all
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "aws_db_instance" "default" {
+        allocated_storage    = 10
+        engine               = "dynamoDB"
+        engine_version       = "5.7"
+        instance_class       = "db.t3.micro"
+        name                 = "mydb"
+        username             = "admin"
+        password             = "password"
+        allowed_groups       = admin
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15565,8 +15627,27 @@
       correo utilizando el endpoint sendEmail.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      email_delivery:
+        host: "myhost"
+        port: 5400
+        email_over_ssl: true
+        authentication: :plain
+        user_name: "appadmin"
+        password: "password"
+      ```
+    compliant: |
+      ```yaml
+      email_delivery:
+        host: "myhost"
+        port: 5400
+        email_over_ssl: true
+        authentication: admin
+        allow_anonymous-connection: false
+        user_name: "appadmin"
+        password: "password"
+      ```
   remediation_time: "120"
   score:
     base:
@@ -15621,8 +15702,20 @@
       Atacante externo con acceso a la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      <build>
+          <finalName>remote-debugging</finalName>
+          <plugins>
+              <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+              </plugin>
+          </plugins>
+      </build>
+      ```
+    compliant: |
+      Disable any plugin or dependencies that could allow debugging mode in the application production code
   remediation_time: "15"
   score:
     base:
@@ -15679,8 +15772,23 @@
       Atacante externo con acceso a la aplicación.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      func ErroneousString(request *http.Request) {
+        userId := request.id
+        sql.QueryRow(`INSERT INTO tbl $1`, userId)
+      }
+      ```
+    compliant: |
+      ```javascript
+      func ErroneousString(request *http.Request) {
+        userId := request.id
+        if /[0-9]/.test(str){
+          sql.QueryRow(`INSERT INTO tbl $1`, userId)
+        }else{
+          return "Invalid User ID"
+        }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15741,8 +15849,39 @@
       Atacante en Internet con acceso al servicio.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const server = http.createServer((req,res))
+
+      server.listen(port, (requestedId) => {
+        var options = {
+          port: 8080,
+          host: '127.0.0.1',
+        };
+        var request = http.request(options);
+
+        request.setHeader('Cookie', ['type=ninja', 'language=javascript']);
+        request.setHeader('x-amzn-RequestId', requestedId);
+        request.end();
+      });
+      ```
+    compliant: |
+      ```javascript
+      const server = http.createServer((req,res))
+
+      server.listen(port, (requestedId) => {
+        var options = {
+          port: 8080,
+          host: '127.0.0.1',
+        };
+        var request = http.request(options);
+        if(isValidRequest(requestedId)){
+          request.setHeader('Cookie', ['type=ninja', 'language=javascript']);
+          request.setHeader('x-amzn-RequestId', requestedId);
+        }
+        request.end();
+      });
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15819,26 +15958,27 @@
       ```c
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
-            String fileReq = request.getParameter( "file" );
-            // Process file without validating
+          String fileReq = request.getParameter( "file" );
+          // Process file without validating
         } catch(YourValidationException e ) {
-            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+          response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
         }
       }
       ```
     compliant: |
       ```c
-      private static final Pattern whiteListExample = Pattern.compile("^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.JPG|.gif|.GIF|.doc|.DOC|.pdf|.PDF)$");
+      private static final Pattern whiteListExample =
+        Pattern.compile("^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.jpg|.JPG|.gif|.GIF|.doc|.DOC|.pdf|.PDF)$");
 
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
-            String fileReq = request.getParameter( "file" );
-            if ( !whiteListExample.matcher( fileReq ).matches() ) {
-                throw new YourValidationException( "Improper file" );
-            }
-            // Process after its been validated ..
+          String fileReq = request.getParameter( "file" );
+          if ( !whiteListExample.matcher( fileReq ).matches() ) {
+              throw new YourValidationException( "Improper file" );
+          }
+          // Process after it has been validated ..
         } catch(YourValidationException e ) {
-            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+          response.sendError(response.SC_BAD_REQUEST, e.getMessage());
         }
       }
       ```
@@ -15899,8 +16039,32 @@
       Atacante anónimo desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function ValidateEmail(mail){
+        regex = (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"
+                (?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x
+                0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]
+                (?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)
+                {3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08
+                \x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+        if regex.test(myForm.emailAddr.value)){
+          return (true)
+        }
+        alert("You have entered an invalid email address!")
+        return (false)
+      }
+      ```
+    compliant: |
+      ```javascript
+      function ValidateEmail(mail){
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value)){
+          return (true)
+        }
+        alert("You have entered an invalid email address!")
+        return (false)
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -15957,8 +16121,22 @@
       Atacante autenticado desde Internet
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function ErroneousDOMCreation(request *http.Request) {
+        element = document.createElement(request.content);
+        document.body.appendChild(element);
+      }
+      ```
+    compliant: |
+      ```javascript
+      function DOMCreation(request *http.Request) {
+        userOutput = validateString(request.content);
+        const para = document.createElement("p");
+        para.innerText = userOutput;
+        document.body.appendChild(para);
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -16015,8 +16193,42 @@
       Atacante externo no autorizado con ID de proceso.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function uploadFile(request){
+        const storage = getStorage();
+        const storageRef = ref(storage, `/files/${request.file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, request.file);
+      }
+      ```
+    compliant: |
+      ```javascript
+      function uploadFile(request){
+        const storage = getStorage();
+        const storageRef = ref(storage, `/files/${request.file.name}`);
+        if !checkIfFileExists{
+          const uploadTask = uploadBytesResumable(storageRef, request.file);
+        }
+      }
+
+      //A function to check if the file being uploaded already exists in the db
+      function checkIfFileExists(filePath: string): Promise<boolean> {
+        const storage = getStorage();
+        const storageRef = ref(storage, filePath);
+
+        getDownloadURL(storageRef)
+          .then(url => {
+            return Promise.resolve(true);
+          })
+          .catch(error => {
+            if (error.code === 'storage/object-not-found') {
+              return Promise.resolve(false);
+            } else {
+              return Promise.reject(error);
+            }
+          });
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16071,8 +16283,52 @@
       y con un token válido.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!username) {
+            // If the username isn't present, return an HTTP unauthorized code
+            res.status(401).end()
+            return
+        }
+
+        // generate a random unsafe session token
+        const sessionToken = Math.random()*100000
+        res.cookie("session_token", sessionToken, { expires: expiresAt })
+        res.end()
+      }
+      ```
+    compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!username) {
+          // If the username isn't present, return an HTTP unauthorized code
+          res.status(401).end()
+          return
+        }
+
+        // validate the password against our data
+        // if invalid, send an unauthorized code
+        const expectedPassword = users[username]
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end()
+          return
+        }
+
+        // generate a random UUID as the session token
+        const sessionToken = uuid.v4()
+        const now = new Date()
+        const expiresAt = new Date(+now + 120 * 1000)
+        const session = new Session(username, expiresAt)
+        sessions[sessionToken] = session
+        res.cookie("session_token", sessionToken, { expires: expiresAt })
+        res.end()
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16132,8 +16388,46 @@
       Atacante desde intranet con acceso a la aplicación.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        const expectedPassword = users[username]
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end()
+          return
+        }
+      }
+
+      const returnSessionInfo(req, res)=>{
+        res1 = signinHandler(req, res);
+        //Request data is sent again without validating response
+        if isValid(res1){
+          getInfo(res1, res);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        const expectedPassword = users[username]
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end()
+          return
+        }
+      }
+
+      const returnSessionInfo(req, res)=>{
+        res1 = signinHandler(req, res);
+        //Validate first request and avoid its use
+        if res1.status == 200{
+          getuserInfo(req, res, res1.sessionData);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16187,8 +16481,34 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body;
+        const expectedPassword = users[username];
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end();
+          //Include possible harmful data in the response
+          res.message("Invalid field" + password);
+          return
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body;
+        const expectedPassword = users[username];
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end();
+          //Include possible harmful data in the response
+          res.message("Password provided is not valid");
+          return
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16237,8 +16557,27 @@
       Atacante anónimo desde una red adyacente.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        //Do data manipulation without validating the header request against a whitelist
+      }
+      ```
+    compliant: |
+      ```javascript
+      var http = require('http');
+      const { validateHeaderName } = require('http');
+
+      const signinHandler = (req, res) => {
+        try {
+          validateHeaderName(req.header.name, whitelist);
+          // Do data manipulation
+        } catch (err) {
+          err instanceof TypeError; // true
+          return err.message;
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -16292,8 +16631,22 @@
       Atacante autorizado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function ErroneousDOMCreation(request *http.Request) {
+        element = document.createElement(request.content);
+        document.body.appendChild(element);
+      }
+      ```
+    compliant: |
+      ```javascript
+      function DOMCreation(request *http.Request) {
+        userOutput = validateLength(request.content);
+        const para = document.createElement("p");
+        para.innerText = userOutput;
+        document.body.appendChild(para);
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -16351,8 +16704,28 @@
       Usuario autorizado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const requestHandler = (req, res) => {
+        //Code to handle the request without validating the header against a whitelist
+      }
+      ```
+    compliant: |
+      ```javascript
+      var http = require('http');
+      const { validateHeaderName } = require('http');
+
+      const requestHandler = (req, res) => {
+        try {
+          // validate request header against a predefined whitelist
+          validateHeaderName(req.header.name, whitelist);
+          //  Code to handle the request
+        } catch (err) {
+          err instanceof TypeError; // true
+          return err.message;
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16412,8 +16785,27 @@
       Usuario no autorizado con acceso a la aplicación.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function erroneousDateReq(request *http.Request) {
+        transactions = getTransactionInfo(request.startDate, request.endDate);
+        return transactions;
+      }
+      ```
+    compliant: |
+      ```javascript
+      function dateReq((request *http.Request) {
+        startDate = request.startDate;
+        endDate = request.endDate;
+        //Function to validate date ranges are allowed
+        if isValidDate(startDate) & isValidDate(endDate){
+          transactions = getTransactionInfo(startDate, endDate);
+          return transactions;
+        }else{
+          return None;
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -16466,8 +16858,47 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      item.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        //Set the request data with an invalid transaction draft
+        formData.set(e.submitter.name, e.submitter.value, e.submitter.transactionDraft);
+        fetch(pagePath, {
+          method: "post",
+          body: formData
+        })
+          .then(function (response) {
+            return response.text();
+          })
+          .catch(function (error) {
+            return Message ("Invalid data")
+          });
+      });
+      ```
+    compliant: |
+      ```javascript
+      item.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const confirmationCode = confirm(e.submitter.transactionDraft);
+        if confirmationCode = 200 {
+          //Set the request data with confirmed transaction amount
+          formData.set(e.submitter.name, e.submitter.value, e.submitter.transactionDraft);
+          fetch(pagePath, {
+            method: "post",
+            body: formData
+          })
+            .then(function (response) {
+              return response.text();
+            })
+            .catch(function (error) {
+              return Message ("Invalid data")
+            });
+        }
+      });
+      ```
   remediation_time: "30"
   score:
     base:
@@ -16525,8 +16956,30 @@
       Usuario autenticado en Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public void grantAccess(user){
+        AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
+        AuthenticationResult result = future.get(user.id, user.domain);
+        if result{
+          //The modify files could be used with a relative path to access files outside of the domain restrictions
+          modifyFiles(userid, user.requestedPath, user.request.file);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public void grantAccess(user){
+        AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
+        AuthenticationResult result = future.get(user.id, user.domain);
+        if result{
+          File requestedFile = getFile(user.request.file);
+          //get only allowed paths for each user before accesing domain folders or files
+          userPath = getuserAllowedPath(user.role);
+          modifyFiles(userid, userPath, requestedFile);
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -16583,8 +17036,36 @@
       usuarios enumerados.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      exports.signup = (req, res) => {
+        const token = jwt.sign({email: req.body.email}, config.secret)
+        //Create user without whitelisting the email address
+        const user = new User({
+          username: req.body.username,
+          email: req.body.email,
+          password: bcrypt.hashSync(req.body.password, 8),
+          confirmationCode: token
+        });
+      }
+      ```
+    compliant: |
+      ```javascript
+      exports.signup = (req, res) => {
+        const token = jwt.sign({email: req.body.email}, config.secret)
+        userEmail = req.body.email
+        if isValidAddress(userEmail){
+          //Create user after verifying the address
+          const user = new User({
+          username: req.body.username,
+          email: req.body.email,
+          password: bcrypt.hashSync(req.body.password, 8),
+          confirmationCode: token
+        }else {
+          return Exception("Invalid email address")
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -16642,9 +17123,9 @@
       ```javascript
       function do_something() {
           try {
-              return something;
+            return something;
           } finally {
-              return somethingElse;
+            return somethingElse;
           }
         //Potential uncaught error
       }
@@ -16652,14 +17133,14 @@
     compliant: |
       ```javascript
       try {
-          // a function that potentially throws an error
-          do_Something();
+        // a function that potentially throws an error
+        do_Something();
       } catch (err) {
-          // this code handles exceptions
-          throw new Error(err);
+        // this code handles exceptions
+        throw new Error(err);
       } finally {
-          // this code will always be executed
-          return ResultMsg();
+        // this code will always be executed
+        return ResultMsg();
       }
       ```
   remediation_time: "30"
@@ -16726,8 +17207,43 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Updating user without validating data
+          user.email = emailEdit;
+          user.local.email = emailEdit;
+          user.first_name = first_nameEdit;
+          user.last_name = last_nameEdit;
+          user.username = usernameEdit;
+
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          var usernameEdit = req.body.username;
+          //Validate data before editing
+          if(!isValidData(req.body)){
+            req.flash('error', 'Found several conflicting fields');
+            res.redirect('/edit');
+          }
+          else{
+            user.email = emailEdit;
+            user.local.email = emailEdit;
+            user.first_name = first_nameEdit;
+            user.last_name = last_nameEdit;
+            user.username = usernameEdit;
+
+            res.redirect('/profile/');
+          }
+        }
+      });
+      ```
   remediation_time: "45"
   score:
     base:
@@ -16782,8 +17298,33 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      BucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+          Bucket: APK-BUCKET
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - "s3:Download"
+                Effect: Allow
+                Restriction: None
+      ```
+    compliant: |
+      ```yaml
+      BucketPolicy:
+        Type: AWS::S3::BucketPolicy
+        Properties:
+          Bucket: APK-BUCKET
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - "s3:Download"
+                Effect: Deny
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16918,8 +17459,43 @@
       Usuario autorizado desde Internet.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Updating user without validating data on the server side
+          user.email = emailEdit;
+          user.local.email = emailEdit;
+          user.first_name = first_nameEdit;
+          user.last_name = last_nameEdit;
+          user.username = usernameEdit;
+
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          var usernameEdit = req.body.username;
+          //Validate data before editing
+          if(!isValidData(req.body)){
+            req.flash('error', 'Found several conflicting fields');
+            res.redirect('/edit');
+          }
+          else{
+            user.email = emailEdit;
+            user.local.email = emailEdit;
+            user.first_name = first_nameEdit;
+            user.last_name = last_nameEdit;
+            user.username = usernameEdit;
+
+            res.redirect('/profile/');
+          }
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -16969,8 +17545,10 @@
       Atacante anónimo entrando en la sucursal.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are no code examples for physical vulnerabilities
+    compliant: |
+      There are no code examples for physical vulnerabilities
   remediation_time: __empty__
   score:
     base:
@@ -17035,8 +17613,8 @@
     compliant: |
       ```java
       try {
-          //Code to detect external hooks/files or non native files or procedures
-          throw new Exception("Deteck hook");
+        //Code to detect external hooks/files or non native files or procedures
+        throw new Exception("Deteck hook");
       } catch (Exception e) {
         Log.Careful("HookDetection", e.toString());
       }
@@ -17182,8 +17760,26 @@
       Atacante interno no autorizado.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        DLPPolicy:
+          Name: "MyPolicy"
+          Rule: "Sensitive_Information"
+          Mode: Edit
+          AccessControl: PublicReadWrite
+          DeletionPolicy: Delete
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        DLPPolicy:
+          Name: "MyPolicy"
+          Rule: "Sensitive_Information"
+          Mode: Audit
+          AccessControl: Private
+          DeletionPolicy: False
+      ```
   remediation_time: "120"
   score:
     base:
@@ -19144,12 +19740,12 @@
       ```java
       public class Test{
         public static void main(String[] args){
-            try {
-                throw new IOException();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+          try {
+            throw new IOException();
+          }
+          catch (IOException e) {
+            e.printStackTrace();
+          }
         }
       }
       ```
@@ -19157,12 +19753,12 @@
       ```java
       public class Test{
         public static void main(String[] args){
-            try {
-                throw new IOException();
-            }
-            catch (IOException e) {
-                dealWithException(e);
-            }
+          try {
+            throw new IOException();
+          }
+          catch (IOException e) {
+            dealWithException(e);
+          }
         }
       }
       ```
@@ -19282,9 +19878,8 @@
         {
           public static void Main()
           {
-              BuildWebHost();
+            BuildWebHost();
           }
-
           public static IWebHost BuildWebHost() =>
             WebHost.CreateDefaultBuilder()
               .UseSetting(WebHostDefaults.DetailedErrorsKey, "true")
@@ -19301,7 +19896,7 @@
         {
           public static void Main()
           {
-              BuildWebHost();
+            BuildWebHost();
           }
           public static IWebHost BuildWebHost() =>
             WebHost.CreateDefaultBuilder()
@@ -19375,8 +19970,30 @@
       Atacante no autorizado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/accessProfile', function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //Updating user without validating data on the server side
+          if (length(req.body.ConfirmationCode)>6){
+            user.Login = True;
+          }
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/accessProfile', hashedSentCode, function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //validating the code with the one sent by the server
+          if (req.body.ConfirmationCode == hashedSentCode){
+            user.Login = True;
+          }
+          res.redirect('/profile/');
+        }
+      });
+      ```
   remediation_time: "300"
   score:
     base:
@@ -19603,8 +20220,28 @@
       Usuario no autorizado desde red interna.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/accessAdmin', function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //Allowing access to system files without verifying if user is logged in
+          user.allowAccess = True;
+          res.redirect('/profile/consoleManager');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/accessAdmin', hashedSentCode, function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //Validating user has privileges and is correctly logged in
+          if (req.body.isLoggedIn && user.isAdmin){
+            user.allowAccess = True;
+          }
+          res.redirect('/profile/consoleManager');
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -19671,8 +20308,29 @@
       Atacante interno no autorizado.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/accessAdmin', function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //Allowing access to BIOS without verifying permissions and secure authentication
+          user.allowBIOSAccess = True;
+          res.redirect('/profile/BIOSManager');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/accessAdmin', hashedSentCode, function(req, res, next){
+        User.register({ _id: req.user.id}, req.body, function(err, user){
+          //Validating user has privileges and is correctly logged in
+          if (req.body.isLoggedIn && user.isSuperAdmin){
+            run userMFA();
+            user.allowBIOSAccess = True;
+          }
+          res.redirect('/profile/BIOSManager');
+        }
+      });
+      ```
   remediation_time: "120"
   score:
     base:
@@ -19726,8 +20384,30 @@
       Atacante interno sin autorización realizando un MitM.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function processCreditCarNumber(hashed_CCNumber){
+        //Unsafely saving a hash number that could be accessed through user credentials
+        saveNumber(hashed_CCNumber);
+        return True;
+      }
+      ```
+    compliant: |
+      ```javascript
+      const crypto = require('crypto');
+      const CIPHER_ALGORITHM = 'aes-256-ctr';
+
+      const key = createKey();
+
+      let kg = new KeyGen(key, CIPHER_ALGORITHM);
+
+      function processCreditCarNumber(hashed_CCNumber){
+        cipheredNumber = kg.cipher(hashed_CCNumber);
+        saveNumber(cipheredNumber);
+        return True;
+      }
+      //Be aware you need special secure infrastructure to securely store the keys and be sure to rotate them regularly
+      ```
   remediation_time: "120"
   score:
     base:
@@ -20032,7 +20712,6 @@
       DirectoryEntry de = new DirectoryEntry();
       de.Path = "serverPath";
       de.AuthenticationType = AuthenticationTypes.None;
-
       de(path, username, password);
       ```
     compliant: |
@@ -20181,7 +20860,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```c
+      ```yaml
       //JFrog Docker Repository
       localRepositories:
         docker-local:
@@ -20189,7 +20868,7 @@
           password: "12234"
       ```
     compliant: |
-      ```c
+      ```yaml
       //JFrog Docker Repository
       localRepositories:
         docker-local:
@@ -21394,8 +22073,8 @@
       ARG DEBIAN_FRONTEND=noninteractive
       RUN apt update
       RUN apt install -y nginx php-fpm supervisor && \
-          rm -rf /var/lib/apt/lists/* && \
-          apt clean
+        rm -rf /var/lib/apt/lists/* && \
+        apt clean
       ```
     compliant: |
       ```docker
@@ -21405,8 +22084,8 @@
       USER newuser
       RUN apt update
       RUN apt install -y nginx php-fpm supervisor && \
-          rm -rf /var/lib/apt/lists/* && \
-          apt clean
+        rm -rf /var/lib/apt/lists/* && \
+        apt clean
       ```
   remediation_time: "15"
   score:
@@ -21481,8 +22160,8 @@
             securityContext:
               capabilities:
                   add:
-                      - SYS_ADMIN
-                      - NET_ADMIN
+                    - SYS_ADMIN
+                    - NET_ADMIN
           - name: rss-reader
             image: nickchase/rss-php-nginxv1
             ports:
@@ -21506,8 +22185,8 @@
             securityContext:
               capabilities:
                   add:
-                      - SYS_ADMIN
-                      - NET_ADMIN
+                    - SYS_ADMIN
+                    - NET_ADMIN
           - name: rss-reader
             image: nickchase/rss-php-nginxv1
             ports:
@@ -22296,8 +22975,18 @@
       Atacante con acceso a la APK.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Source code could be executed after vulnerable adjustments
+    compliant: |
+      ```java
+      //A function with this pseudocode should be implemented to check if the source code has been altered before running the app
+      fun isCodeModified(): Boolean {
+        val hash = getString(R.string.crc)
+        val entry = ZipFile(app.packageCodePath).getEntry("classes.dex")
+        val classesCrc = Long.toHexString(entry.crc)
+        return classesCrc != hash
+      }
+      ```
   remediation_time: "450"
   score:
     base:
@@ -22349,8 +23038,50 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!username) {
+          // If the username isn't present, return an HTTP unauthorized code
+          res.status(401).end();
+          return;
+        }
+        // Use a user previous session cookie
+        const sessionToken = user.storedSession;
+        res.cookie("session_token", sessionToken, { expires: expiresAt });
+      }
+      ```
+    compliant: |
+      ```javascript
+      const signinHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!username) {
+          // If the username isn't present, return an HTTP unauthorized code
+          res.status(401).end();
+          return;
+        }
+
+        // validate the password against our data
+        // if invalid, send an unauthorized code
+        const expectedPassword = users[username]
+        if (!expectedPassword || expectedPassword !== password) {
+          res.status(401).end();
+          return;
+        }
+
+        // generate a random UUID as the session token
+        const sessionToken = uuid.v4();
+        const now = new Date();
+        const expiresAt = new Date(+now + 120 * 1000);
+        const session = new Session(username, expiresAt);
+        sessions[sessionToken] = session
+        res.cookie("session_token", sessionToken, { expires: expiresAt })
+        res.end()
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -22605,8 +23336,32 @@
       Atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!username || !password) {
+          res.status(401).end();
+          return;
+        }
+        // Return user information without using token control
+        return UserInformation(username);
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessHandler = (req, res) => {
+        // get users credentials from the JSON body
+        const { username, password } = req.body
+        if (!isValidUser(username, password)) {
+          res.status(401).end();
+          return;
+        }
+        // Return user information according to the sessionToken
+        return UserInformation(username, req.body.sessionToken);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22790,8 +23545,32 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const updateHandler = (req, res) => {
+        const { username, password } = req.body
+        if (!username) {
+          res.status(401).end();
+          return;
+        }
+        // Alter user unique identification
+        Users.username.userUuid = req.uuid;
+        return Users;
+      }
+      ```
+    compliant: |
+      ```javascript
+      const updateHandler = (req, res) => {
+        const { username, password } = req.body
+        if (!username) {
+          res.status(401).end();
+          return;
+        }
+        // Update methods should only update user non-sensitive information
+        Users.username.descriptio = req.description;
+        return Users;
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22874,8 +23653,35 @@
       información corporativa.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const updateFiles = (req, res) => {
+        const { username, password } = req.body
+        if (!isValidUser(username, password)) {
+          res.status(401).end();
+          return;
+        }
+        // Grant Access without checking privileges
+        const accessToken = connectToDataBase(username);
+        return accessToken;
+      }
+      ```
+    compliant: |
+      ```javascript
+      const updateFiles = (req, res) => {
+        const { username, password } = req.body
+        if (!isValidUser(username, password)) {
+          res.status(401).end();
+          return;
+        }
+        // Grant Access without checking privileges
+        const userCredentials = getCredentials(username);
+        if(userCredentials == "admin"){
+          const accessToken = connectToDataBase(username);
+          return accessToken;
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22934,8 +23740,28 @@
       al número de producto encriptado.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const getQueryConsult = (req, res) => {
+        if (!isValidQuery(req.body.user, req.body.product)) {
+          //Getting and returning user credentials only based on the product
+          const expensesReport = getReport(req.body.query, encrypt(req.body.product))
+          return expensesReport
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const getQueryConsult = (req, res) => {
+        if (!isValidQuery(req.body.user, req.body.product)) {
+          const expensesReport = getReport(req.body.query, encrypt(req.body.product))
+          //As en example, you could verify that the owner of the report is the same as the user associated with the query
+          if(expensesReport.owner = req.body.userCredentials){
+            return expensesReport;
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -23421,8 +24247,33 @@
       Usuario desde Internet con acceso a la sesión.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const changePassword = (req, res) => {
+        if (!isConfirmedUser(req.body.user)) {
+          //Change password without checking limit requests
+          const hashed_password = hashPassword(req.body.newPassword);
+          updateUser(req.body.user, {password: hashed_password});
+          res.redirect('/profile/');
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const changePassword = (req, res) => {
+        if (!isConfirmedUser(req.body.user)) {
+          const user = req.body.user;
+          const passTimeStamp = user.password.timestamp;
+          if(passTimeStamp <= MinLimit){
+            return res("Unable to change password");
+          }
+          //Change password after checking limit
+          const hashed_password = hashPassword(req.body.newPassword);
+          updateUser(req.body.user, {password: hashed_password});
+          res.redirect('/profile/');
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -23576,8 +24427,24 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          //Redirect the user to a private page without checking the authorization
+          res.redirect('/profile/credentials');
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        //Redirect the user to sensitive page only if it has access
+        if (isValidUser(req.body.user) && isAuthorizedUser(req.body.user)) {
+          res.redirect('/profile/credentials');
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -23637,8 +24504,24 @@
       Atacante anónimo desde intranet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      //JFROG Configuration Sample
+      artifactoryConfiguration:
+        docker-local:
+          type: docker
+          password: "*"
+          permissions: edit, upload
+      ```
+    compliant: |
+      ```yaml
+      //JFROG Configuration Sample
+      artifactoryConfiguration:
+        docker-local:
+          type: docker
+          password: "*"
+          permissions: read
+      ```
   remediation_time: "60"
   score:
     base:
@@ -23842,8 +24725,28 @@
       Atacante desde Internet con un token de sesión.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessProfiles = (req, res) => {
+        //Redirecting only with a valid username
+        if(isValidUser(req.body.user)){
+          const user = req.body.user;
+          //Make request without validating if user token has expired
+          goToProfileInfo(user.username, user.token);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessProfiles = (req, res) => {
+        //Redirecting only with a valid username
+        if(isValidUser(req.body.user)){
+          const user = req.body.user;
+          //Make request without validating if user token has expired
+          goToProfileInfo(user.username, user.token);
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -25060,10 +25963,10 @@
       ```java
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
-            String qrRequest = request.getParameter( "idQR" );
-            // Process qr code without validating
+          String qrRequest = request.getParameter( "idQR" );
+          // Process qr code without validating
         } catch(YourValidationException e ) {
-            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+          response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
         }
       }
       ```
@@ -25071,14 +25974,14 @@
       ```java
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
-            String qrRequest = request.getParameter( "idQR" );
-            //Use a method to validate that the request is valid using whitelists or similar secure methods
-            if ( isValidQR(qrRequest) ) {
-                throw new YourValidationException( "Improper file" );
-            }
-            // Process after its been validated ..
+          String qrRequest = request.getParameter( "idQR" );
+          //Use a method to validate that the request is valid using whitelists or similar secure methods
+          if ( isValidQR(qrRequest) ) {
+            throw new YourValidationException( "Improper file" );
+          }
+          // Process after its been validated ..
         } catch(YourValidationException e ) {
-            response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+          response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
         }
       }
       ```
@@ -25202,7 +26105,7 @@
     non_compliant: |
       ```c {3,7,15}
       public class XmlToObject {
-          public static void main(String[] args) {
+        public static void main(String[] args) {
           try {
             File file = new File(userInput);
             JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
@@ -25213,24 +26116,27 @@
             System.out.println("Credentials:");
             List<Credential> list=que.getCredentials();
             for(Credential ans:list)
-                System.out.println(ans.getId()+" "+ans.getCredentialname()+"  "+ans.getPostedby());
-            } catch (JAXBException e) {
+            System.out.println(ans.getId()+" "+ans.getCredentialname()+"  "+ans.getPostedby());
+          } catch (JAXBException e) {
               e.printStackTrace();
-            }
           }
+        }
       }
       ```
     compliant: |
       ```c {3,7,15}
       public class XmlToObject {
-          public static void main(String[] args) {
+        public static void main(String[] args) {
           try {
             File file = new File("user.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             User que= (User) jaxbUnmarshaller.unmarshal(file);
             //Do credential treatment in a secure way, not allowing external entries
+          }catch{
+            ....
           }
+        }
       }
       ```
   remediation_time: "120"
@@ -25528,8 +26434,33 @@
       Atacante con acceso a la aplicación desde Internet.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Updating user image without validating data on the server side
+          user.profileImg = req.body.NewImg;
+
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Validate data before editing
+          if(!isValidData(req.body.NewImg)){
+            req.flash('error', 'Found errors on the data');
+            res.redirect('/edit');
+          }
+          else{
+            user.profileImg = req.body.NewImg;
+            res.redirect('/profile/');
+          }
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26767,79 +27698,79 @@
       ```html
       <?xml version="1.0" encoding="utf-8" standalone="no"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" 	android:compileSdkVersionCodename="12" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
-          <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-          <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
-          <uses-permission android:name="android.permission.CAMERA"/>
-          <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-          <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
-          <uses-permission android:name="android.permission.CALL_PHONE"/>
-          <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
-          <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-          <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-          <uses-permission android:name="android.permission.READ_CONTACTS"/>
-          <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-          <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-          <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-          <uses-permission android:name="android.permission.INTERNET"/>
-          <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-          <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-          <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-          <uses-permission android:name="android.permission.READ_SMS"/>
-          <uses-permission android:name="android.permission.SEND_SMS"/>
-          <uses-permission android:name="android.permission.WRITE_SMS"/>
-          <uses-permission android:name="android.permission.RECEIVE_MMS"/>
-          <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+        <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+        <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
+        <uses-permission android:name="android.permission.CAMERA"/>
+        <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+        <uses-permission android:name="android.permission.CALL_PHONE"/>
+        <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+        <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+        <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+        <uses-permission android:name="android.permission.READ_CONTACTS"/>
+        <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+        <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+        <uses-permission android:name="android.permission.READ_SMS"/>
+        <uses-permission android:name="android.permission.SEND_SMS"/>
+        <uses-permission android:name="android.permission.WRITE_SMS"/>
+        <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+        <uses-permission android:name="android.permission.RECORD_AUDIO"/>
       </manifest>
       ```
     compliant: |
       ```yaml
       <?xml version="1.0" encoding="utf-8" standalone="no"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" android:compileSdkVersionCodename="12" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
-          <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-          <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-          <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-          <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-          <uses-permission android:name="android.permission.MMS_SEND_OUTBOX_MSG"/>
-          <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
-          <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-          <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
-          <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-          <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-          <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-          <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-          <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-          <uses-permission android:name="android.permission.VIBRATE"/>
-          <uses-permission android:name="android.permission.WAKE_LOCK"/>
-          <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-          <uses-permission android:name="com.android.vending.BILLING"/>
-          <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-          <uses-permission android:name="android.permission.BLUETOOTH"/>
-          <uses-permission-sdk-23 android:name="android.permission.MANAGE_OWN_CALLS"/>
-          <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
-          <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
-          <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
-          <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
-          <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
-          <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
-          <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
-          <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
-          <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
-          <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
-          <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
-          <uses-permission android:name="android.permission.READ_APP_BADGE"/>
-          <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
-          <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
-          <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
-          <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
-          <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
-          <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-          <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-          <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
-          <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-          <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA"/>
+        <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+        <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+        <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+        <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+        <uses-permission android:name="android.permission.MMS_SEND_OUTBOX_MSG"/>
+        <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+        <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+        <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
+        <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+        <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+        <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+        <uses-permission android:name="android.permission.VIBRATE"/>
+        <uses-permission android:name="android.permission.WAKE_LOCK"/>
+        <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+        <uses-permission android:name="com.android.vending.BILLING"/>
+        <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+        <uses-permission android:name="android.permission.BLUETOOTH"/>
+        <uses-permission-sdk-23 android:name="android.permission.MANAGE_OWN_CALLS"/>
+        <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+        <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+        <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+        <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+        <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+        <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
+        <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+        <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
+        <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+        <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+        <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+        <uses-permission android:name="android.permission.READ_APP_BADGE"/>
+        <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
+        <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+        <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
+        <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
+        <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
+        <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+        <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+        <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+        <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA"/>
       </manifest>
       ```
   remediation_time: "90"
@@ -27380,8 +28311,30 @@
       escritura a un recurso utilizado por la aplicación.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Using data from a third party without validating
+          user.facebookProfileUrl = req.body.Url;
+          user.facebookHeader = downloadData(req.body.url, "header");
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          user.facebookProfileUrl = req.body.Url;
+          headerUpdate = downloadData(req.body.url, "header");
+          if isValidHeader(headerUpdate){
+            user.facebookHeader = headerUpdate;
+          }
+          res.redirect('/profile/');
+        }
+      });
+      ```
   remediation_time: "15"
   score:
     base:
@@ -27433,8 +28386,37 @@
       Atacante en Internet autenticado.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      public static void Test(string server, string txtEmail) {
+        string to = "user";
+        string from = "user";
+        //Create Message without validating length or number of emails
+        MailMessage message = new MailMessage(from, to, txtEmail);
+        message.Subject = "Subject";
+        message.Body = @"Body";
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = true;
+        client.Send(message);
+      }
+      ```
+    compliant: |
+      ```c
+      public static void Test(string server, string txtEmail) {
+        string to = "user";
+        string from = "user";
+        //Validate the txtEmail input field
+        string sanitizedEmail = checkTxtEmailInput(txtEmail);
+        MailMessage message = new MailMessage(from, to, sanitizedEmail);
+        message.Subject = "Subject";
+        message.Body = @"Body";
+        SmtpClient client = new SmtpClient(server);
+        client.UseDefaultCredentials = true;
+        client.EnableSsl = true;
+        client.Send(message);
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -27718,8 +28700,28 @@
       Unauthorized user from the Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //Code before obfuscation
+      function calculatePay(SpecialList clientGroup){
+        while(clientGroup.HasMore()){
+          clientGroup.getNext(true);
+          client.updatePay();
+          makePay(client);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      //Rename Obfuscation method
+      function calculatePay(a b){
+        while(b.c()){
+          b.a(true);
+          c.a();
+          b(c);
+        }
+      }
+      ```
   remediation_time: "60"
   es:
     title: Missing secure obfuscation - JavaScript
@@ -28405,7 +29407,7 @@
 
       function jsEscape(str)
       {
-      return String(str).replace(/[^\w. ]/gi, function(c){
+        return String(str).replace(/[^\w. ]/gi, function(c){
           return '\\u'+('0000'+c.charCodeAt(0).toString(16)).slice(-4);
         });
       }
@@ -28799,8 +29801,29 @@
       and resources embedded within the app to execute dubious actions.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      A simple example showing a possible obfuscation procedure
+      ```java
+      //Code before obfuscation
+      private void calculatePay(SpecialList clientGroup){
+        while(clientGroup.HasMore()){
+          clientGroup.getNext(true);
+          client.updatePay();
+          makePay(client);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      //Rename Obfuscation method
+      private void calculatePay(a b){
+        while(b.c()){
+          b.a(true);
+          c.a();
+          b(c);
+        }
+      }
+      ```
   remediation_time: "450"
   es:
     title: Security controls bypass or absence - Reversing Protection
@@ -28885,8 +29908,52 @@
       man in the middle (MitM) between them.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
+        bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(NAME, MY_UUID)
+      }
+
+      //Allow connection to bluetooth device without any authentication
+      override connectDevice run(){
+        var shouldLoop = true
+        while (shouldLoop) {
+          val socket: BluetoothSocket? = try {
+            mmServerSocket?.accept();
+          } catch (e: IOException) {
+            ...
+          }
+          socket?.also {
+            manageMyConnectedSocket(it);
+            ...
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
+        bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(NAME, MY_UUID)
+      }
+
+      override connectDevice run(){
+        establish_ssh_connection_key();
+        var shouldLoop = true
+        while (shouldLoop) {
+          val socket: BluetoothSocket? = try {
+
+            mmServerSocket?.accept();
+          } catch (e: IOException) {
+            ...
+          }
+          socket?.also {
+            manageMyConnectedSocket(it);
+            mmServerSocket?.close();
+            shouldLoop = false;
+          }
+        }
+      }
+      ```
   remediation_time: "300"
   es:
     title: Insufficient data authenticity validation - Device Binding
@@ -29108,8 +30175,8 @@
       ARG DEBIAN_FRONTEND=noninteractive
       RUN apt update
       RUN apt install -y nginx php-fpm supervisor && \
-          rm -rf /var/lib/apt/lists/* && \
-          apt clean
+        rm -rf /var/lib/apt/lists/* && \
+        apt clean
       ```
   remediation_time: "15"
   es:
@@ -29322,8 +30389,44 @@
       Anonymous attacker from the Internet.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function generateOTP() {
+        //Vulnerable code that generates an OTP on the front end side
+        return OTP;
+      }
+
+      function userRequestedOtp(user){
+        sendCode(generateOTP, user.email);
+      }
+      ```
+    compliant: |
+      ```javascript
+      //OTP generation should be handled on the back end
+      OTP_CONFIG: {
+        upperCaseAlphabets: true,
+        specialChars: false,
+      };
+
+      const otpGenerator = require('otp-generator');
+      const { OTP_LENGTH, OTP_CONFIG } = require('../constants/constants');
+      module.exports.generateOTP = () => {
+        const OTP = otpGenerator.generate(OTP_LENGTH, OTP_CONFIG);
+        return OTP;
+      };
+
+      const nodemailer = require('nodemailer');
+      const transporter = nodemailer.createTransport(MAIL_SETTINGS);
+
+      module.exports.sendMail = async (params) => {
+        try {
+          let info = await transporter.sendMail({MailBody,});
+          return info;
+        } catch (error) {
+          ...
+        }
+      };
+      ```
   remediation_time: "60"
   es:
     title: Insecurely generated token - OTP
@@ -29681,8 +30784,15 @@
       Anonymous attacker from Internet with access to the JAR Files.
   category: Manipulate Data
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The source code has .jar files that were not signed before runtime
+    compliant: |
+      Sign all the JAR files of the application with a certified key tool
+      ```java
+      jarsigner -keystore NONE -certchain "bundle.pem" -tsa "http://time.certum.pl" -storetype PKCS11
+        -providerClass sun.security.pkcs11.SunPKCS11 -providerArg "provider.cfg"
+        -storepass "[your_pin]" "[your_code].jar" "[your_alias]"
+      ```
   remediation_time: "90"
   es:
     title: Insufficient data authenticity validation - JAR signing
@@ -29739,8 +30849,32 @@
       Authenticated attacker from the Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      function modifyPrototype(moduleName, deleteMethod, newMethod) {
+        // modifying the prototype of a module from within another function
+        var newMod = require(moduleName);
+        delete newMod[deleteMethod];
+        newMod.${newMethod} = function() {
+            // function body that modifies the original method
+        };
+
+        module.exports = newMod;
+      }
+      ```
+    compliant: |
+      ```javascript
+      function modifyPrototype(moduleName, deleteMethod, newMethod) {
+        // modifying the prototype of a module from within another function
+        var newMod = new moduleName;
+
+        //Add new method to the new method, without altering the original
+        newMod.${newMethod} = function() {
+            //Add functionality to object
+        };
+        return newMod;
+      }
+      ```
   remediation_time: "60"
   es:
     title: Prototype Pollution
@@ -29859,8 +30993,42 @@
       Anonymous attacker from the Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      gateway: "My gateway name"
+      firewall_service:
+        enabled: true
+        policy: 'drop'
+        log_default_action: true
+        firewall_rules:
+
+        - :id: '1'
+          :enabled: true
+          :description: 'allow_conections'
+          :policy: 'allow'
+          :destination_port_range: '*'
+          :destination_ip: '00.01.02.03'
+          :source_port_range: '*'
+          :source_ip: 'Any'
+      ```
+    compliant: |
+      ```java
+      gateway: "My gateway name"
+      firewall_service:
+        enabled: true
+        policy: 'drop'
+        log_default_action: true
+        firewall_rules:
+
+        - :id: '1'
+          :enabled: true
+          :description: 'disallow_conections'
+          :policy: 'disallow'
+          :destination_port_range: '5353'
+          :destination_ip: '00.01.02.03'
+          :source_port_range: '5353'
+          :source_ip: 'Any'
+      ```
   remediation_time: "60"
   es:
     title: Security controls bypass or absence - Firewall
@@ -30089,8 +31257,28 @@
       with access to the source code.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      from Crypto import Random
+      from Crypto.Cipher import AES
+      from Crypto.Util.Padding import paddef encrypt(value, key):
+        value = value.encode('ascii')
+        iv = "HardCodedValue"
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        ciphertext = cipher.encrypt(pad(bytes(value, encoding='utf8'), size))
+        return iv + ciphertext
+      ```
+    compliant: |
+      ```python
+      from Crypto import Random
+      from Crypto.Cipher import AES
+      from Crypto.Util.Padding import paddef encrypt(value, key):
+        value = value.encode('ascii')
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        ciphertext = cipher.encrypt(pad(bytes(value, encoding='utf8'), size))
+        return iv + ciphertext
+      ```
   remediation_time: "30"
   es:
     title: Insecure generation of random numbers -  Static IV
@@ -30752,10 +31940,10 @@
           <uses-permission android:name="android.permission.SEND_SMS"/>
           <application android:label="@7F040001" android:icon="@7F020002">
               <provider
-                  android:authorities="com.andriod.databasetest.contentprovider"
-                  android:name=".db.ContentProviderDb"
-                  android:exported="true"
-                  android:grantUriPermissions="true">
+                android:authorities="com.andriod.databasetest.contentprovider"
+                android:name=".db.ContentProviderDb"
+                android:exported="true"
+                android:grantUriPermissions="true">
               </provider>
           </application>
       </manifest>
@@ -30766,10 +31954,10 @@
           <uses-permission android:name="android.permission.SEND_SMS"/>
           <application android:label="@7F040001" android:icon="@7F020002">
               <provider
-                  android:authorities="com.andriod.databasetest.contentprovider"
-                  android:name=".db.ContentProviderDb"
-                  android:exported="false"
-                  android:grantUriPermissions="true">
+                android:authorities="com.andriod.databasetest.contentprovider"
+                android:name=".db.ContentProviderDb"
+                android:exported="false"
+                android:grantUriPermissions="true">
               </provider>
           </application>
       </manifest>
@@ -30861,7 +32049,7 @@
         try
           filename_escaped = filename.replace(' ', '\ ')
           command = "%s -q --no-warnings %s --exec \'mv {} %s\' &>/dev/null" % \
-              (filename_escaped)
+            (filename_escaped)
           //Do not use os sensitive functions, use separate safe functions instead
           runCommand(command)
         except
@@ -30937,9 +32125,9 @@
       Capacity:        1Gi
       Message:
       Source:
-          Type:          HostPath
-          Path:          /tmp/data
-          HostPathType:
+        Type:          HostPath
+        Path:          /tmp/data
+        HostPathType:
       Events:            <none>
       ```
     compliant: |
@@ -30954,9 +32142,9 @@
       Capacity:        1Gi
       Message:
       Source:
-          Type:          HostPath
-          Path:          /tmp/data
-          HostPathType:
+        Type:          HostPath
+        Path:          /tmp/data
+        HostPathType:
       Events:            <none>
       ```
   remediation_time: "15"
@@ -31772,11 +32960,11 @@
 
       var storedPolicy = new SharedAccessPolicy()
       {
-          SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
-          Permissions = SharedAccessBlobPermissions.Read |
-                        SharedAccessBlobPermissions.Write |
-                        SharedAccessBlobPermissions.List
-          AccessPolicy = defaultPolicy();
+        SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
+        Permissions = SharedAccessBlobPermissions.Read |
+                      SharedAccessBlobPermissions.Write |
+                      SharedAccessBlobPermissions.List
+        AccessPolicy = defaultPolicy();
       };
       //Generate SAS
       var containerSignature = blobContainer.GetSharedAccessSignature(null, policyName);
@@ -31792,11 +32980,11 @@
 
       var storedPolicy = new SharedAccessPolicy()
       {
-          SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
-          Permissions = SharedAccessBlobPermissions.Read |
-                        SharedAccessBlobPermissions.Write |
-                        SharedAccessBlobPermissions.List
-          AccessPolicy = groupPolicy();
+        SharedAccessExpiryTime = DateTime.UtcNow.AddHours(10),
+        Permissions = SharedAccessBlobPermissions.Read |
+                      SharedAccessBlobPermissions.Write |
+                      SharedAccessBlobPermissions.List
+        AccessPolicy = groupPolicy();
       };
 
       //Define access permissions before generating the key
