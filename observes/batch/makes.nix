@@ -118,6 +118,9 @@ in {
         attemptDurationSeconds = 172800;
         attempts = 1;
         command = ["m" "f" "/observes/etl/dynamo/v2"];
+        vcpus = 4;
+        memory = 7600;
+        queue = "medium";
       };
 
     observesDbMigration =
