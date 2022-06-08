@@ -36,7 +36,6 @@ import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
-import { translate } from "utils/translations/translate";
 import { composeValidators, isValidVulnsFile } from "utils/validations";
 
 interface IUploadVulnProps {
@@ -61,9 +60,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     updateError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
       if (message.includes("Exception - Error in range limit numbers")) {
         const errorObject: IErrorInfoAttr = JSON.parse(message);
-        msgError(
-          `${translate.t("groupAlerts.rangeError")} ${errorObject.values}`
-        );
+        msgError(`${t("groupAlerts.rangeError")} ${errorObject.values}`);
       } else if (
         message.startsWith(
           "Exception - Uploaded vulnerability is a confirmed Zero Risk"
@@ -80,7 +77,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           const listValuesFormated: string[] = Array.from(
             new Set(
               errorObject.values.map((valX: string): string =>
-                translate.t("searchFindings.tabVuln.alerts.uploadFile.value", {
+                t("searchFindings.tabVuln.alerts.uploadFile.value", {
                   pattern: valX,
                 })
               )
@@ -89,7 +86,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           const listKeysFormated: string[] = Array.from(
             new Set(
               errorObject.keys.map((valY: string): string =>
-                translate.t("searchFindings.tabVuln.alerts.uploadFile.key", {
+                t("searchFindings.tabVuln.alerts.uploadFile.key", {
                   key: valY,
                 })
               )
@@ -97,23 +94,23 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           );
           msgErrorStick(
             listKeysFormated.join("") + listValuesFormated.join(""),
-            translate.t("groupAlerts.invalidSchema")
+            t("groupAlerts.invalidSchema")
           );
         } else {
-          msgError(translate.t("groupAlerts.invalidSchema"));
+          msgError(t("groupAlerts.invalidSchema"));
         }
       } else {
         switch (message) {
           case "Exception - The vulnerability path does not exist in the toe lines":
             msgError(
-              translate.t(
+              t(
                 "searchFindings.tabVuln.alerts.uploadFile.linesPathDoesNotExist"
               )
             );
             break;
           case "Exception -  The vulnerability URL and field do not exist in the toe inputs":
             msgError(
-              translate.t(
+              t(
                 "searchFindings.tabVuln.alerts.uploadFile.inputUrlAndFieldDoNotExist"
               )
             );
@@ -131,8 +128,8 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
         if (!_.isUndefined(result)) {
           if (result.uploadFile.success) {
             msgSuccess(
-              translate.t("groupAlerts.fileUpdated"),
-              translate.t("groupAlerts.titleSuccess")
+              t("groupAlerts.fileUpdated"),
+              t("groupAlerts.titleSuccess")
             );
             refetchData();
           }
@@ -178,7 +175,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
       onError: (downloadError: ApolloError): void => {
         downloadError.graphQLErrors.forEach(
           ({ message }: GraphQLError): void => {
-            msgError(translate.t("groupAlerts.errorTextsad"));
+            msgError(t("groupAlerts.errorTextsad"));
             if (message === "Exception - Error Uploading File to S3") {
               Logger.warning(
                 "An error occurred downloading vuln file while uploading file to S3",
@@ -234,10 +231,10 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <Col33>
               <ButtonToolbarLeft>
                 <TooltipWrapper
-                  id={translate.t(
+                  id={t(
                     "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
                   )}
-                  message={translate.t(
+                  message={t(
                     "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
                   )}
                 >
@@ -248,9 +245,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   >
                     <FluidIcon icon={"export"} />
                     &nbsp;
-                    {translate.t(
-                      "searchFindings.tabDescription.downloadVulnerabilities"
-                    )}
+                    {t("searchFindings.tabDescription.downloadVulnerabilities")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarLeft>
@@ -269,10 +264,10 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             <Col33>
               <ButtonToolbarLeft>
                 <TooltipWrapper
-                  id={translate.t(
+                  id={t(
                     "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
                   )}
-                  message={translate.t(
+                  message={t(
                     "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
                   )}
                 >
@@ -283,9 +278,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   >
                     <FluidIcon icon={"import"} />
                     &nbsp;
-                    {translate.t(
-                      "searchFindings.tabDescription.updateVulnerabilities"
-                    )}
+                    {t("searchFindings.tabDescription.updateVulnerabilities")}
                   </Button>
                 </TooltipWrapper>
               </ButtonToolbarLeft>
