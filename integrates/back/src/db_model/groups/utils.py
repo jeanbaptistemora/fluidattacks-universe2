@@ -19,6 +19,9 @@ from .types import (
 from db_model.organizations.utils import (
     add_org_id_prefix,
 )
+from db_model.utils import (
+    get_first_day_iso_date,
+)
 from dynamodb.types import (
     Item,
 )
@@ -61,6 +64,9 @@ def format_group(item: Item) -> Group:
         name=item["name"],
         organization_id=add_org_id_prefix(item["organization_id"]),
         sprint_duration=int(item.get("sprint_duration", 1)),
+        sprint_start_date=item.get(
+            "sprint_start_date", get_first_day_iso_date()
+        ),
         state=format_state(item["state"]),
         tags=set(item["tags"]) if item.get("tags") else None,
     )
@@ -213,6 +219,7 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         "disambiguation": metadata.disambiguation,
         "context": metadata.context,
         "sprint_duration": metadata.sprint_duration,
+        "sprint_start_date": metadata.sprint_start_date,
         "files": [file._asdict() for file in metadata.files]
         if metadata.files is not None
         else None,

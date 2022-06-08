@@ -109,7 +109,7 @@ type Group {
   service: ServiceType!
   "Currently active service attributes"
   serviceAttributes: [String]
-  "Average Sprint duration in weeks"
+  "Average Sprint length in weeks"
   sprintDuration: Int!
   "DateTime of the start date of sprint"
   sprintStartDate: DateTime!

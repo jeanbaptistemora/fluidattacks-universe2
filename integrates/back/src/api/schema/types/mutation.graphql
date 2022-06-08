@@ -990,8 +990,10 @@ type Mutation {
     groupName: String!
     "Language of the group"
     language: Language!
-    "Average Sprint duration of this product in weeks"
+    "Sprint length of this product in weeks"
     sprintDuration: Int
+    "Start date of sprint in the format `yyyy-MM-ddThh:mm:ssZ`"
+    sprintStartDate: DateTime
   ): SimplePayload!
 
   "Update group information on whether it's managed manually"

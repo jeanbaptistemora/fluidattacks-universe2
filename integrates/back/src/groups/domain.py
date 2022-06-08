@@ -38,6 +38,7 @@ from custom_types import (
 )
 from datetime import (
     date,
+    datetime,
 )
 from db_model import (
     groups as groups_model,
@@ -76,6 +77,9 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     Root,
+)
+from db_model.utils import (
+    get_min_iso_date,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -610,6 +614,10 @@ async def add_group(  # pylint: disable=too-many-locals
                 type=subscription,
             ),
             organization_id=organization_id,
+            sprint_duration=1,
+            sprint_start_date=get_min_iso_date(
+                datetime.fromisoformat(datetime_utils.get_iso_date())
+            ).isoformat(),
         )
     )
     await orgs_domain.add_group_access(organization_id, group_name)

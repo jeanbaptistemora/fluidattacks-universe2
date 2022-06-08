@@ -2,6 +2,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    InvalidDate,
     InvalidParameter,
     PermissionDenied,
 )
@@ -11,11 +12,17 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
 )
 from db_model.groups.types import (
     GroupMetadataToUpdate,
+)
+from db_model.utils import (
+    get_min_iso_date,
 )
 from decorators import (
     concurrent_decorators,
@@ -30,12 +37,18 @@ from groups import (
     domain as groups_domain,
 )
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
     validations as validations_utils,
 )
+import pytz  # type: ignore
+from settings import (
+    TIME_ZONE,
+)
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -51,7 +64,7 @@ async def mutate(
     description: str,
     group_name: str,
     language: str,
-    **parameters: str,
+    **parameters: Any,
 ) -> SimplePayloadType:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
@@ -62,6 +75,9 @@ async def mutate(
         business_id = parameters.get("business_id", None)
         business_name = parameters.get("business_name", None)
         sprint_duration = parameters.get("sprint_duration", None)
+        sprint_start_date: Optional[datetime] = parameters.get(
+            "sprint_start_date", None
+        )
         description = description.strip()
         if not description:
             raise InvalidParameter()
@@ -73,6 +89,12 @@ async def mutate(
             validations_utils.validate_int_range(
                 int(sprint_duration), 1, 10, True
             )
+        if sprint_start_date is not None:
+            tzn = pytz.timezone(TIME_ZONE)
+            today = datetime_utils.get_now()
+            if sprint_start_date.astimezone(tzn) > today:
+                raise InvalidDate()
+
         validations_utils.validate_field_length(description, 200)
         validations_utils.validate_group_language(language)
         await groups_domain.update_group_info(
@@ -85,6 +107,11 @@ async def mutate(
                 language=GroupLanguage[language.upper()],
                 sprint_duration=int(sprint_duration)
                 if sprint_duration
+                else None,
+                sprint_start_date=get_min_iso_date(
+                    sprint_start_date.astimezone(tzn)
+                ).isoformat()
+                if sprint_start_date
                 else None,
             ),
             user_email=user_email,
