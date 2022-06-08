@@ -6005,4 +6005,85 @@
     "T_12_2":
       title: Web application assessment - Browsable directories check
       link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_13_2":
+      title: Web application assessment - Test invalidated parameters (Cross Site Scripting)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_13_3":
+      title: Web application assessment - Test invalidated parameters (Cross Site Tracing)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_14_1":
+      title: Web application assessment - URL manipulation
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_14_2":
+      title: Web application assessment - Hidden form fields manipulation
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_14_3":
+      title: Web application assessment - Cookie manipulation
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_16_1":
+      title: Web application assessment - Input validation (validate data)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_16_2":
+      title: Web application assessment - Input Validation (test buffer overflow)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_16_3":
+      title: Web application assessment - Input Validation (PHP insertion)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_17":
+      title: Web application assessment - Test SQL injection
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_19_1":
+      title: Web application assessment - Global Countermeasures (client-side)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_19_2":
+      title: Web application assessment - Global Countermeasures (server-side)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "U_8":
+      title: Web application SQL injections - Check SQL injection vulnerability
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "U_9":
+      title: Web application SQL injections - Bypass user authentication
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "U_11":
+      title: Web application SQL injections - Get control on host
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "U_15":
+      title: Web application SQL injections – Countermeasures
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_6_1":
+      title: Application security - Source code auditing (authentication)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_6_3":
+      title: Application security - Source code auditing (hash or digest authentication)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_6_4":
+      title: Application security - Source code auditing (forms based authentication)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_7":
+      title: Application security - Source code auditing (session management)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_9":
+      title: Application security - Source code auditing (data and input validation)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_10":
+      title: Application security - Source code auditing (Cross Site Scripting XSS)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_11":
+      title: Application security - Source code auditing (buffer overflows)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_12":
+      title: Application security - Source code auditing (error handling)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "V_13":
+      title: Application security - Source code auditing (command injection)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Y_2":
+      title: Database Security - Oracle security assessment
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Y_3_1":
+      title: Database Security - Database services countermeasures
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Y_3_4":
+      title: Database Security - Database services countermeasures
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
   metadata: {}
