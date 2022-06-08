@@ -23,6 +23,9 @@ from newutils.datetime import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from typing import (
+    Any,
+)
 
 ORGANIZATION_ID_PREFIX = "ORG#"
 
@@ -50,21 +53,56 @@ def filter_active_organizations(
     )
 
 
-def format_organization_policies(item: Item) -> OrganizationPolicies:
-    historic_policies = get_key_or_fallback(
+def format_historic_acceptances(
+    item: Item,
+) -> tuple[OrganizationPolicies, ...]:
+    historic_acceptances: list[dict[str, Any]] = get_key_or_fallback(
         item,
         "historic_max_number_acceptances",
         "historic_max_number_acceptations",
         fallback=[],
     )
-    last_entry_policies = historic_policies[-1] if historic_policies else {}
+    return tuple(
+        OrganizationPolicies(
+            modified_date=convert_to_iso_str(entry["date"])
+            if entry.get("date")
+            else convert_to_iso_str(get_now_as_str()),
+            modified_by=entry.get("user") or "unknown",
+            max_number_acceptances=int(
+                get_key_or_fallback(
+                    entry, "max_number_acceptances", "max_number_acceptations"
+                )
+            )
+            if get_key_or_fallback(
+                entry, "max_number_acceptances", "max_number_acceptations"
+            )
+            is not None
+            else None,
+            max_acceptance_severity=None,
+            min_acceptance_severity=None,
+            min_breaking_severity=None,
+        )
+        for entry in historic_acceptances
+    )
+
+
+def format_historic_policies(item: Item) -> tuple[OrganizationPolicies, ...]:
+    historic_acceptances = get_key_or_fallback(
+        item,
+        "historic_max_number_acceptances",
+        "historic_max_number_acceptations",
+        fallback=[],
+    )
+    last_entry_acceptances = (
+        historic_acceptances[-1] if historic_acceptances else {}
+    )
     max_number_acceptances = get_key_or_fallback(
-        last_entry_policies,
+        item,
         "max_number_acceptances",
         "max_number_acceptations",
     )
 
-    return OrganizationPolicies(
+    last_policies_entry = OrganizationPolicies(
         max_acceptance_days=int(item["max_acceptance_days"])
         if item.get("max_acceptance_days") is not None
         else None,
@@ -80,17 +118,23 @@ def format_organization_policies(item: Item) -> OrganizationPolicies:
         min_breaking_severity=item.get(
             "min_breaking_severity", DEFAULT_MIN_SEVERITY
         ),
-        modified_date=convert_to_iso_str(last_entry_policies["date"])
-        if last_entry_policies.get("date")
+        modified_date=convert_to_iso_str(last_entry_acceptances["date"])
+        if last_entry_acceptances.get("date")
         else convert_to_iso_str(get_now_as_str()),
-        modified_by=last_entry_policies.get("user") or "unknown",
+        modified_by=last_entry_acceptances.get("user") or "unknown",
         vulnerability_grace_period=int(item["vulnerability_grace_period"])
         if item.get("vulnerability_grace_period") is not None
         else None,
     )
 
+    formatted_acceptances = format_historic_acceptances(item)
+    return (
+        *formatted_acceptances[:-1],
+        last_policies_entry,
+    )
 
-def format_organization_state(item: Item) -> OrganizationState:
+
+def format_state(item: Item) -> OrganizationState:
     historic_state = item.get("historic_state", [])
     last_entry_state = historic_state[-1] if historic_state else {}
     pending_deletion_date = (
@@ -113,12 +157,13 @@ def format_organization_state(item: Item) -> OrganizationState:
 
 
 def format_organization(item: Item) -> Organization:
+    policies = format_historic_policies(item)
     return Organization(
         billing_customer=item.get("billing_customer"),
         id=item["id"],
         name=item["name"],
-        state=format_organization_state(item),
-        policies=format_organization_policies(item),
+        state=format_state(item),
+        policies=policies[-1],
     )
 
 
@@ -153,7 +198,7 @@ def format_organization_item(organization: Organization) -> Item:
     }
 
 
-def format_organization_state_item(org_state: OrganizationState) -> Item:
+def format_state_item(org_state: OrganizationState) -> Item:
     return {
         "modified_by": org_state.modified_by,
         "modified_date": convert_from_iso_str(org_state.modified_date),
@@ -161,7 +206,7 @@ def format_organization_state_item(org_state: OrganizationState) -> Item:
     }
 
 
-def format_organization_policies_item(
+def format_policies_item(
     historic: list[Item],
     modified_by: str,
     modified_date: str,
@@ -192,7 +237,7 @@ def format_organization_policies_item(
     }
 
 
-def format_organization_metadata_item(
+def format_metadata_item(
     metadata: OrganizationMetadataToUpdate,
 ) -> Item:
     item = {

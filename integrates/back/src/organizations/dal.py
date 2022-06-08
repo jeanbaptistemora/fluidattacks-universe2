@@ -35,11 +35,11 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.organizations import (
+    format_metadata_item,
     format_organization,
     format_organization_item,
-    format_organization_metadata_item,
-    format_organization_policies_item,
-    format_organization_state_item,
+    format_policies_item,
+    format_state_item,
     remove_org_id_prefix,
 )
 from newutils.utils import (
@@ -119,7 +119,7 @@ async def update_state(
     historic_state: list[dict[str, str]] = organization.get(
         "historic_state", []
     )
-    new_state: Item = format_organization_state_item(state)
+    new_state: Item = format_state_item(state)
     item_to_update: Item = {
         "historic_state": [
             *historic_state,
@@ -388,7 +388,7 @@ async def update_policies(
             "historic_max_number_acceptations",
             fallback=[],
         )
-    policies_item = format_organization_policies_item(
+    policies_item = format_policies_item(
         historic=historic_policies,
         modified_by=modified_by,
         modified_date=modified_date,
@@ -445,7 +445,7 @@ async def update_metadata(
     organization_id: str,
     organization_name: str,
 ) -> None:
-    item = format_organization_metadata_item(metadata)
+    item = format_metadata_item(metadata)
     if not await _update(
         organization_id=organization_id,
         organization_name=organization_name,
