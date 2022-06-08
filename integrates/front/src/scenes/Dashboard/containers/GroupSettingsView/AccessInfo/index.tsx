@@ -98,11 +98,14 @@ const AccessInfo: React.FC = (): JSX.Element => {
   });
 
   const handleGroupAccessInfoSubmit = useCallback(
-    async (values): Promise<void> => {
+    async (values: {
+      disambiguation: string;
+      groupContext: string;
+    }): Promise<void> => {
       setIsEditingGroupAccessInfo(false);
       await updateGroupAccessInfo({
         variables: {
-          ...values,
+          groupContext: values.groupContext,
           groupName,
         },
       });
@@ -111,11 +114,14 @@ const AccessInfo: React.FC = (): JSX.Element => {
   );
 
   const handleDisambiguationSubmit = useCallback(
-    async (values): Promise<void> => {
+    async (values: {
+      disambiguation: string;
+      groupContext: string;
+    }): Promise<void> => {
       setIsEditingDisambiguation(false);
       await updateGroupDisambiguation({
         variables: {
-          ...values,
+          disambiguation: values.disambiguation,
           groupName,
         },
       });
