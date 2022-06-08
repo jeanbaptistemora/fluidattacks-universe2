@@ -220,13 +220,13 @@ export const enTranslations: ResourceKey = {
         title: "Service usage",
       },
       remediationCreated: {
-        title: "Severity increased in sprint",
+        title: "Severity increased in Sprint",
       },
       remediationRemediated: {
-        title: "Spring overall",
+        title: "Sprint remediation Overall",
       },
       remediationSolved: {
-        title: "Severity remediated in sprint",
+        title: "Severity remediated in Sprint",
       },
       totalTypes: {
         title: "Total types",
@@ -1593,7 +1593,7 @@ export const enTranslations: ResourceKey = {
             white: "White-box",
           },
           sprintDuration: {
-            text: "Sprint Duration",
+            text: "Sprint Length",
             tooltip:
               "The length of the average Sprint for this product in weeks",
           },
