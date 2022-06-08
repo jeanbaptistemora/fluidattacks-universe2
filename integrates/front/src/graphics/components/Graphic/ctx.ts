@@ -46,7 +46,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
       tooltip: translate.t(
         "analytics.stackedBarChart.assignedVulnerabilities.tooltip.cvssf"
       ),
-      url: "",
+      url: "#severity-by-assignment",
     },
     documentType: "stackedBarChart",
   },
