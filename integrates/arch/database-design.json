@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 08, 2022, 11:41 AM",
+    "DateLastModified": "Jun 08, 2022, 02:40 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -784,6 +784,10 @@
         },
         {
           "AttributeName": "owner",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "sprint_start_date",
           "AttributeType": "S"
         }
       ],
@@ -3888,7 +3892,8 @@
             "business_name",
             "context",
             "disambiguation",
-            "sprint_duration"
+            "sprint_duration",
+            "sprint_start_date"
           ]
         },
         {
@@ -6250,9 +6255,9 @@
             }
           ],
           "NonKeyAttributes": [
+            "type",
             "url",
-            "created_at",
-            "type"
+            "created_at"
           ]
         },
         {
@@ -7027,11 +7032,11 @@
           ],
           "NonKeyAttributes": [
             "id",
+            "pk_2",
+            "sk_2",
             "state",
             "organization_id",
-            "owner",
-            "pk_2",
-            "sk_2"
+            "owner"
           ]
         },
         {

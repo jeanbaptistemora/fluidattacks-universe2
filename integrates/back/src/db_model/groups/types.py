@@ -95,6 +95,7 @@ class Group(NamedTuple):
     disambiguation: Optional[str] = None
     files: Optional[list[GroupFile]] = None
     sprint_duration: int = 1
+    sprint_start_date: str = ""
     tags: Optional[set[str]] = None
 
 
@@ -108,4 +109,5 @@ class GroupMetadataToUpdate(NamedTuple):
     files: Optional[list[GroupFile]] = None
     language: Optional[GroupLanguage] = None
     sprint_duration: Optional[int] = None
+    sprint_start_date: Optional[str] = None
     tags: Optional[set[str]] = None
