@@ -134,7 +134,7 @@ def format_historic_policies(item: Item) -> tuple[OrganizationPolicies, ...]:
     )
 
 
-def format_state(item: Item) -> OrganizationState:
+def format_historic_state(item: Item) -> tuple[OrganizationState, ...]:
     historic_state = item.get("historic_state", [])
     last_entry_state = historic_state[-1] if historic_state else {}
     pending_deletion_date = (
@@ -146,7 +146,15 @@ def format_state(item: Item) -> OrganizationState:
         last_entry_state.get("status") or "ACTIVE"
     ]
 
-    return OrganizationState(
+    historic_state_formatted = [
+        OrganizationState(
+            modified_by=entry["modified_by"],
+            modified_date=convert_to_iso_str(entry["modified_date"]),
+            status=OrganizationStateStatus[entry["status"]],
+        )
+        for entry in historic_state
+    ]
+    last_state_formatted = OrganizationState(
         status=state_status,
         modified_by=last_entry_state.get("modified_by") or "unknown",
         modified_date=convert_to_iso_str(last_entry_state["modified_date"])
@@ -155,14 +163,20 @@ def format_state(item: Item) -> OrganizationState:
         pending_deletion_date=pending_deletion_date,
     )
 
+    return (
+        *historic_state_formatted[:-1],
+        last_state_formatted,
+    )
+
 
 def format_organization(item: Item) -> Organization:
     policies = format_historic_policies(item)
+    states = format_historic_state(item)
     return Organization(
         billing_customer=item.get("billing_customer"),
         id=item["id"],
         name=item["name"],
-        state=format_state(item),
+        state=states[-1],
         policies=policies[-1],
     )
 
