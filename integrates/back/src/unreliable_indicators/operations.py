@@ -3,7 +3,6 @@ from . import (
 )
 from aioextensions import (
     collect,
-    schedule,
 )
 from contextlib import (
     suppress,
@@ -21,7 +20,6 @@ from db_model import (
     vulnerabilities as vulns_model,
 )
 from db_model.findings.enums import (
-    FindingStateStatus,
     FindingStatus,
 )
 from db_model.findings.types import (
@@ -38,9 +36,6 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityUnreliableIndicatorsToUpdate,
 )
-from decimal import (
-    Decimal,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -49,9 +44,6 @@ from dynamodb.exceptions import (
 )
 from findings import (
     domain as findings_domain,
-)
-from mailer import (
-    findings as findings_mail,
 )
 from roots import (
     domain as roots_domain,
@@ -145,11 +137,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     indicators: dict[EntityAttr, Any] = {}
-    group_name = finding.group_name
-    severity_score: Decimal = findings_domain.get_severity_score(
-        finding.severity
-    )
-    severity_level: str = findings_domain.get_severity_level(severity_score)
 
     if EntityAttr.closed_vulnerabilities in attrs_to_update:
         indicators[
@@ -233,24 +220,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
         ),
     )
 
-    if (
-        indicators_to_update.unreliable_status == FindingStatus.CLOSED
-        and finding.state.status == FindingStateStatus.APPROVED
-        and indicators_to_update.unreliable_status
-        != finding.unreliable_indicators.unreliable_status
-    ):
-        if severity_score >= 7.0:
-            schedule(
-                findings_mail.send_mail_vulnerability_report(
-                    loaders=loaders,
-                    group_name=group_name,
-                    finding_title=finding.title,
-                    finding_id=finding_id,
-                    severity_score=severity_score,
-                    severity_level=severity_level,
-                    is_closed=True,
-                )
-            )
     await findings_model.update_unreliable_indicators(
         current_value=finding.unreliable_indicators,
         group_name=finding.group_name,

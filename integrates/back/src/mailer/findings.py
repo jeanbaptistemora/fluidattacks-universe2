@@ -248,6 +248,7 @@ async def send_mail_vulnerability_report(
     group_name: str = "",
     finding_title: str,
     finding_id: str,
+    locations: List[str],
     severity_score: Decimal,
     severity_level: str,
     is_closed: bool = False,
@@ -273,6 +274,7 @@ async def send_mail_vulnerability_report(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
             f"{finding_id}/locations"
         ),
+        "locations": locations,
         "severity_score": severity_score,
         "severity_level": severity_level.capitalize(),
         "state": state,

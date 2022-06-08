@@ -16,6 +16,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -50,6 +53,7 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
+    List,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -97,17 +101,6 @@ async def mutate(
             finding_id=finding_id,
             group_name=group_name,
         )
-        if severity_score >= 7.0 or not group_findings:
-            schedule(
-                findings_mail.send_mail_vulnerability_report(
-                    loaders=loaders,
-                    group_name=group_name,
-                    finding_title=finding.title,
-                    finding_id=finding_id,
-                    severity_score=severity_score,
-                    severity_level=severity_level,
-                )
-            )
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Approved draft {finding_id} in {group_name} "
@@ -124,6 +117,26 @@ async def mutate(
             finding_ids=[finding_id],
             vulnerability_ids=[],
         )
+
+        locations: List[str] = [
+            vuln.where
+            for vuln in vulnerabilities
+            if vuln.state.status == VulnerabilityStateStatus.OPEN
+        ]
+
+        if severity_score >= 7.0 or not group_findings:
+            schedule(
+                findings_mail.send_mail_vulnerability_report(
+                    loaders=loaders,
+                    group_name=group_name,
+                    finding_title=finding.title,
+                    finding_id=finding_id,
+                    locations=locations,
+                    severity_score=severity_score,
+                    severity_level=severity_level,
+                )
+            )
+
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context, f"Security: Attempted to approve draft {finding_id}"

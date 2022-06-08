@@ -672,6 +672,58 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         )
 
 
+async def send_closed_vulnerabilities_report(
+    *,
+    loaders: Any,
+    finding_id: str,
+    closed_vulnerabilities_id: List[str],
+) -> None:
+    finding_vulns_loader = loaders.finding_vulnerabilities_all
+    finding_vulns_loader.clear(finding_id)
+    vulnerabilities: List[Vulnerability] = [
+        vuln
+        for vuln in await finding_vulns_loader.load(finding_id)
+        if vuln.id in closed_vulnerabilities_id
+    ]
+    locations: List[str] = [vuln.where for vuln in vulnerabilities]
+    schedule(
+        send_vulnerability_report(
+            loaders=loaders,
+            finding_id=finding_id,
+            locations=locations,
+            is_closed=True,
+        )
+    )
+
+
+async def send_vulnerability_report(
+    *,
+    loaders: Any,
+    finding_id: str,
+    locations: List[str],
+    is_closed: bool = False,
+) -> None:
+    finding: Finding = await loaders.finding.load(finding_id)
+    severity_score: Decimal = get_severity_score(finding.severity)
+    severity_level: str = get_severity_level(severity_score)
+    if (
+        severity_score >= 7.0
+        and finding.state.status == FindingStateStatus.APPROVED
+    ):
+        schedule(
+            findings_mail.send_mail_vulnerability_report(
+                loaders=loaders,
+                group_name=finding.group_name,
+                finding_title=finding.title,
+                finding_id=finding_id,
+                locations=locations,
+                severity_score=severity_score,
+                severity_level=severity_level,
+                is_closed=is_closed,
+            )
+        )
+
+
 async def update_description(
     loaders: Any, finding_id: str, description: FindingDescriptionToUpdate
 ) -> None:
@@ -816,6 +868,14 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
             closed_vulns_ids=closed_vulns_ids,
             vulns_to_close_from_file=vulns_to_close_from_file,
         )
+        if success and closed_vulns_ids:
+            schedule(
+                send_closed_vulnerabilities_report(
+                    loaders=context.loaders,
+                    finding_id=finding_id,
+                    closed_vulnerabilities_id=closed_vulns_ids,
+                )
+            )
     else:
         LOGGER.error("An error occurred verifying")
     return success
