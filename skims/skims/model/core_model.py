@@ -475,6 +475,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[173, 321],
     )
+    F097: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F097",
+        cwe=502,
+        execution_queue=ExecutionQueue.none,
+        requirements=[173, 324],
+    )
     F098: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F098",
@@ -2506,6 +2513,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F096,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    HAS_REVERSE_TABNABBING = MethodInfo(
+        file_name="html",
+        name="has_reverse_tabnabbing",
+        module="lib_path",
+        finding=FindingEnum.F097,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_PATH_INJECTION = MethodInfo(
         file_name="c_sharp",
