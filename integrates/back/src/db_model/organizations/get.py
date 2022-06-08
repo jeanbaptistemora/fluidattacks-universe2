@@ -89,6 +89,7 @@ async def _get_organization_by_id(*, organization_id: str) -> Organization:
 
 
 async def _get_organization_by_name(*, organization_name: str) -> Organization:
+    organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={"name": organization_name},
