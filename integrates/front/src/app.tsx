@@ -10,8 +10,8 @@ import { ToastContainer } from "react-toastify";
 
 import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
-import { Autoenrollment } from "scenes/Autoenrollment";
 import { Login } from "scenes/Login";
+import { Welcome } from "scenes/Welcome";
 import { ApolloProvider } from "utils/apollo";
 import { authContext } from "utils/auth";
 import {
@@ -71,7 +71,7 @@ const App: React.FC = (): JSX.Element => {
                       >
                         <Switch>
                           <Route component={Login} exact={true} path={"/"} />
-                          <Route component={Autoenrollment} path={"/"} />
+                          <Route component={Welcome} path={"/"} />
                         </Switch>
                       </featurePreviewContext.Provider>
                     </authContext.Provider>

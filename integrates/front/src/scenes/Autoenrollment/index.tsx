@@ -1,12 +1,12 @@
 /* eslint-disable prefer-promise-reject-errors, no-async-promise-executor */
 import { Buffer } from "buffer";
 
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
@@ -24,22 +24,21 @@ import {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
-  GET_USER_WELCOME,
 } from "scenes/Autoenrollment/queries";
 import type {
   IAddOrganizationResult,
-  IGetUserWelcomeResult,
   IOrgAttr,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
-import { Dashboard } from "scenes/Dashboard";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const Autoenrollment: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const [autoenrollWellcome, setAutoenrollWellcome] = useState(false);
+  useEffect((): void => {
+    mixpanel.track("AutoenrollmentWelcome");
+  }, []);
 
   const [rootMessages, setRootMessages] = useState({
     message: "",
@@ -57,7 +56,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   }, [push]);
 
   const [form, setForm] = useState("repository");
-  const [isRepository, setIsRepository] = useState(true);
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
     credentials: {
@@ -81,14 +79,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     organizationName: "",
     reportLanguage: "",
     terms: [],
-  });
-
-  const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
-    onError: (error): void => {
-      error.graphQLErrors.forEach(({ message }): void => {
-        Logger.error("An error occurred loading user welcome", message);
-      });
-    },
   });
 
   const [successMutation, setSuccessMutation] = useState({
@@ -135,7 +125,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           }
         });
       },
-      refetchQueries: [GET_USER_WELCOME],
     }
   );
 
@@ -201,7 +190,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         message: "",
         type: "success",
       });
-      setIsRepository(false);
       setOrganization(values);
       async function successOrg(): Promise<boolean> {
         try {
@@ -298,7 +286,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               organization: values.organizationName.toLowerCase(),
               url: url.trim(),
             });
-            setIsRepository(true);
           } else {
             mixpanel.track("AutoenrollSubmit", {
               addGroup: true,
@@ -357,7 +344,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       push,
       replace,
       repository,
-      setIsRepository,
       setOrganization,
       setSuccessValues,
       successMutation,
@@ -366,21 +352,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     ]
   );
 
-  if (loading) {
-    return <div />;
-  }
-
-  const organizations = data === undefined ? [] : data.me.organizations;
-  const isFirstTimeUser = organizations.length === 0;
-
-  if (isFirstTimeUser || !isRepository) {
-    if (!autoenrollWellcome) {
-      mixpanel.track("AutoenrollmentWelcome");
-      setAutoenrollWellcome(true);
-    }
-
-    return (
-      <Container>
+  return (
+    <Container>
+      <React.Fragment>
         <Sidebar />
         <DashboardContent id={"dashboard"}>
           <Switch>
@@ -444,11 +418,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
             )}
           </Switch>
         </DashboardContent>
-      </Container>
-    );
-  }
-
-  return <Dashboard />;
+      </React.Fragment>
+    </Container>
+  );
 };
 
 export { Autoenrollment };

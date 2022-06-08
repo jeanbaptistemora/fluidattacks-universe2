@@ -66,17 +66,6 @@ const ADD_ORGANIZATION = gql`
   }
 `;
 
-const GET_USER_WELCOME = gql`
-  query GetUserWelcome {
-    me {
-      organizations {
-        name
-      }
-      userEmail
-    }
-  }
-`;
-
 const VALIDATE_GIT_ACCESS = gql`
   mutation ValidateGitAccess(
     $credentials: CredentialsInput!
@@ -97,6 +86,5 @@ export {
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
-  GET_USER_WELCOME,
   VALIDATE_GIT_ACCESS,
 };

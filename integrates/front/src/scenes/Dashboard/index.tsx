@@ -1,12 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import Bugsnag from "@bugsnag/js";
 import type { PureAbility } from "@casl/ability";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -55,7 +51,7 @@ import {
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import { initializeDelighted, initializeZendesk } from "utils/widgets";
+import { initializeDelighted } from "utils/widgets";
 
 export const Dashboard: React.FC = (): JSX.Element => {
   const orgRegex: string = ":organizationName([a-zA-Z0-9]+)";
@@ -104,16 +100,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
           : `+${me.phone.callingCountryCode}${me.phone.nationalNumber}`,
         userName: me.userName,
       });
-      Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-      mixpanel.identify(me.userEmail);
-      mixpanel.register({
-        User: me.userName,
-        // eslint-disable-next-line camelcase -- It is possibly required for the API
-        integrates_user_email: me.userEmail,
-      });
-      mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
       initializeDelighted(me.userEmail, me.userName);
-      initializeZendesk(me.userEmail, me.userName);
       setupSessionCheck(me.sessionExpiration);
 
       permissions.update(
