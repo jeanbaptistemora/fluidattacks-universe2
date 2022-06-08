@@ -26,6 +26,9 @@ from api.validations.query_breadth import (
 from api.validations.query_depth import (
     QueryDepthValidation,
 )
+from api.validations.variables_validation import (
+    variables_check,
+)
 from billing.domain import (
     webhook,
 )
@@ -52,6 +55,10 @@ from decorators import (
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
+)
+from graphql import (
+    DocumentNode,
+    ValidationRule,
 )
 from group_access import (
     domain as group_access_domain,
@@ -109,6 +116,11 @@ from starlette.routing import (
 )
 from starlette.staticfiles import (
     StaticFiles,
+)
+from typing import (
+    Any,
+    Dict,
+    Tuple,
 )
 from users import (
     domain as users_domain,
@@ -355,10 +367,15 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 exception_handlers = {404: not_found, 500: server_error}
 
 
-API_VALIDATIONS = [
-    QueryBreadthValidation,
-    QueryDepthValidation,
-]
+def get_validation_rules(
+    context_value: Any, _document: DocumentNode, _data: Dict[str, Any]
+) -> Tuple[ValidationRule, ...]:
+    return (
+        variables_check(context_value),
+        QueryBreadthValidation,
+        QueryDepthValidation,
+    )
+
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
@@ -371,7 +388,7 @@ STARLETTE_APP = Starlette(
             IntegratesAPI(
                 SCHEMA,
                 debug=DEBUG,
-                validation_rules=API_VALIDATIONS,
+                validation_rules=get_validation_rules,
             ),
         ),
         Route("/authz_azure", auth.authz_azure),
