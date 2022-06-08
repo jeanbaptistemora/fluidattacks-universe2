@@ -2,8 +2,8 @@
 slug: about-us/clients/interbank/
 title: Interbank
 category: about-us
-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+description: Fluid Attacks' solutions help organizations like Interbank to identify security vulnerabilities in their systems and manage their attack surfaces.
+keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking, Interbank
 clientlogo: logo-interbank
 alt: Logo Interbank
 client: yes

@@ -2,8 +2,8 @@
 slug: about-us/clients/bancolombia/
 title: Bancolombia
 category: about-us
-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+description: Fluid Attacks' solutions help organizations like Bancolombia to identify security vulnerabilities in their systems and manage their attack surfaces.
+keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking, Bancolombia
 clientlogo: logo-bancolombia
 alt: Logo Bancolombia
 client: yes

@@ -2,8 +2,8 @@
 slug: about-us/clients/yappy/
 title: Yappy
 category: about-us
-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+description: Fluid Attacks' solutions help organizations like Yappy to identify security vulnerabilities in their systems and manage their attack surfaces.
+keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking, Yappy
 clientlogo: logo-yappy
 alt: Logo Yappy
 client: yes

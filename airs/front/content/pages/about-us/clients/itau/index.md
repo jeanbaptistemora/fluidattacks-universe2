@@ -2,8 +2,8 @@
 slug: about-us/clients/itau/
 title: Itaú
 category: about-us
-description: Fluid Attacks provides cybersecurity solutions, with a strong focus on Continuous Hacking, for clients in multiple industries highlighted in this section.
-keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking
+description: Fluid Attacks' solutions help organizations like Itaú to identify security vulnerabilities in their systems and manage their attack surfaces.
+keywords: Fluid Attacks, Security Testing, Client, Industry, Company, Organization, Pentesting, Ethical Hacking, Itau
 clientlogo: logo-itau
 alt: Logo Itau
 client: yes
