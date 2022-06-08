@@ -2,13 +2,15 @@ import styled from "styled-components";
 
 const Container = styled.div.attrs({
   className: `
+    tc
+    pv5
     h-500
     bg-darker-blue
     center
-    flex
-    flex-wrap
   `,
-})``;
+})<{ bgColor: string }>`
+  background-color: ${({ bgColor }): string => bgColor};
+`;
 
 const ClientsContainer = styled.div.attrs({
   className: `
@@ -17,52 +19,48 @@ const ClientsContainer = styled.div.attrs({
     relative
     center
     overflow-hidden
-    home-clients-container
   `,
-})`
+})<{ gradientColor: string }>`
   z-index: 0;
+
+  @media screen and (min-width: 30em) {
+    &::before,
+    &::after {
+      background: linear-gradient(
+        to left,
+        transparent,
+        ${({ gradientColor }): string => gradientColor}
+      );
+      content: "";
+      height: 100%;
+      position: absolute;
+      width: 200px;
+      z-index: 2;
+    }
+
+    &::after {
+      right: 0;
+      top: 0;
+      transform: rotateZ(180deg);
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
+  }
 `;
-
-const TitleContainer = styled.div.attrs({
-  className: `
-    w-100
-    tc
-    mt5
-    ph-body
-  `,
-})``;
-
-const ArrowButton = styled.button.attrs({
-  className: `
-    bg-fluid-gray
-    bn
-    pa3
-    dib
-    pointer
-    outline-transparent
-  `,
-})``;
 
 const SlideShow = styled.div.attrs({
   className: `
     home-slide-track
     flex
   `,
-})``;
+})`
+  > img {
+    max-width: 382px;
+    max-height: 200px;
+  }
+`;
 
-const ArrowContainer = styled.div.attrs({
-  className: `
-    bt
-    b--light-gray
-    tr
-  `,
-})``;
-
-export {
-  ArrowButton,
-  ArrowContainer,
-  ClientsContainer,
-  Container,
-  SlideShow,
-  TitleContainer,
-};
+export { ClientsContainer, Container, SlideShow };

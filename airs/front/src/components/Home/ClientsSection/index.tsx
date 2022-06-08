@@ -5,325 +5,308 @@
 /* eslint react/jsx-no-bind:0 */
 import React from "react";
 
-import {
-  ClientsContainer,
-  Container,
-  SlideShow,
-  TitleContainer,
-} from "./styledComponents";
+import { ClientsContainer, Container, SlideShow } from "./styledComponents";
 
-import { WhiteBigParagraph } from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
+import { Title } from "../../Texts";
 
-const ClientsSection: React.FC = (): JSX.Element => {
+interface IClientsSectionProps {
+  sectionColor: string;
+  titleColor: string;
+  titleSize: string;
+}
+
+const ClientsSection: React.FC<IClientsSectionProps> = ({
+  sectionColor,
+  titleColor,
+  titleSize,
+}: IClientsSectionProps): JSX.Element => {
   return (
-    <Container>
-      <TitleContainer>
-        <WhiteBigParagraph>
-          {translate.t("clients.newTitleHome")}
-        </WhiteBigParagraph>
-      </TitleContainer>
-      <ClientsContainer>
+    <Container bgColor={sectionColor}>
+      <Title fColor={titleColor} fSize={titleSize} marginBottom={"4"}>
+        {translate.t("clients.newTitleHome")}
+      </Title>
+      <ClientsContainer gradientColor={sectionColor}>
         <SlideShow>
           <CloudImage
             alt={"Logo Abbott"}
-            src={"airs/clients/logo-abbott"}
+            src={"airs/clients-carousel/logo-abbott"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Addi"}
-            src={"airs/clients/logo-addi"}
+            src={"airs/clients-carousel/logo-addi"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Avianca"}
-            src={"airs/clients/logo-avianca"}
-            styles={"mh4"}
-          />
-          <CloudImage
-            alt={"Logo Axxa Colpatria"}
-            src={"airs/clients/logo-axxa-colpatria"}
+            src={"airs/clients-carousel/logo-avianca"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Azul"}
-            src={"airs/clients/logo-banco-azul"}
+            src={"airs/clients-carousel/logo-banco-azul"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco General"}
-            src={"airs/clients/logo-banco-general"}
+            src={"airs/clients-carousel/logo-banco-general"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Industrial"}
-            src={"airs/clients/logo-banco-industrial"}
+            src={"airs/clients-carousel/logo-banco-industrial"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Pichincha"}
-            src={"airs/clients/logo-banco-pichincha"}
+            src={"airs/clients-carousel/logo-banco-pichincha"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Bancolombia"}
-            src={"airs/clients/logo-bancolombia"}
+            src={"airs/clients-carousel/logo-bancolombia"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banesco"}
-            src={"airs/clients/logo-banesco"}
+            src={"airs/clients-carousel/logo-banesco"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banistmo"}
-            src={"airs/clients/logo-banistmo"}
+            src={"airs/clients-carousel/logo-banistmo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Bantrab"}
-            src={"airs/clients/logo-bantrab"}
+            src={"airs/clients-carousel/logo-bantrab"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Bisa"}
-            src={"airs/clients/logo-bisa"}
+            src={"airs/clients-carousel/logo-bisa"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Btg Pactual"}
-            src={"airs/clients/logo-btg"}
+            src={"airs/clients-carousel/logo-btg"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Colmedica"}
-            src={"airs/clients/logo-colmedica"}
+            src={"airs/clients-carousel/logo-colmedica"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Global Bank"}
-            src={"airs/clients/logo-global-bank"}
+            src={"airs/clients-carousel/logo-global-bank"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Interbank"}
-            src={"airs/clients/logo-interbank"}
+            src={"airs/clients-carousel/logo-interbank"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Itau"}
-            src={"airs/clients/logo-itau"}
+            src={"airs/clients-carousel/logo-itau"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Libera"}
-            src={"airs/clients/logo-libera"}
-            styles={"mh4"}
-          />
-          <CloudImage
-            alt={"Logo Manpower"}
-            src={"airs/clients/logo-manpower"}
+            src={"airs/clients-carousel/logo-libera"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Mazda"}
-            src={"airs/clients/logo-mazda"}
+            src={"airs/clients-carousel/logo-mazda"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Oxxo"}
-            src={"airs/clients/logo-oxxo"}
+            src={"airs/clients-carousel/logo-oxxo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Payvalida"}
-            src={"airs/clients/logo-payvalida"}
+            src={"airs/clients-carousel/logo-payvalida"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Quipux"}
-            src={"airs/clients/logo-quipux"}
+            src={"airs/clients-carousel/logo-quipux"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Redeban"}
-            src={"airs/clients/logo-redeban"}
+            src={"airs/clients-carousel/logo-redeban"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Rsa"}
-            src={"airs/clients/logo-rsa"}
+            src={"airs/clients-carousel/logo-rsa"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Sodimac"}
-            src={"airs/clients/logo-sodimac"}
+            src={"airs/clients-carousel/logo-sodimac"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Soy yo"}
-            src={"airs/clients/logo-soy-yo"}
+            src={"airs/clients-carousel/logo-soy-yo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Sura"}
-            src={"airs/clients/logo-sura"}
+            src={"airs/clients-carousel/logo-sura"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Terpel"}
-            src={"airs/clients/logo-terpel"}
+            src={"airs/clients-carousel/logo-terpel"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Abbott"}
-            src={"airs/clients/logo-abbott"}
+            src={"airs/clients-carousel/logo-abbott"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Addi"}
-            src={"airs/clients/logo-addi"}
+            src={"airs/clients-carousel/logo-addi"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Avianca"}
-            src={"airs/clients/logo-avianca"}
-            styles={"mh4"}
-          />
-          <CloudImage
-            alt={"Logo Axxa Colpatria"}
-            src={"airs/clients/logo-axxa-colpatria"}
+            src={"airs/clients-carousel/logo-avianca"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Azul"}
-            src={"airs/clients/logo-banco-azul"}
+            src={"airs/clients-carousel/logo-banco-azul"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco General"}
-            src={"airs/clients/logo-banco-general"}
+            src={"airs/clients-carousel/logo-banco-general"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Industrial"}
-            src={"airs/clients/logo-banco-industrial"}
+            src={"airs/clients-carousel/logo-banco-industrial"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Pichincha"}
-            src={"airs/clients/logo-banco-pichincha"}
+            src={"airs/clients-carousel/logo-banco-pichincha"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Bancolombia"}
-            src={"airs/clients/logo-bancolombia"}
+            src={"airs/clients-carousel/logo-bancolombia"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banesco"}
-            src={"airs/clients/logo-banesco"}
+            src={"airs/clients-carousel/logo-banesco"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banistmo"}
-            src={"airs/clients/logo-banistmo"}
+            src={"airs/clients-carousel/logo-banistmo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Bantrab"}
-            src={"airs/clients/logo-bantrab"}
+            src={"airs/clients-carousel/logo-bantrab"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Banco Bisa"}
-            src={"airs/clients/logo-bisa"}
+            src={"airs/clients-carousel/logo-bisa"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Btg Pactual"}
-            src={"airs/clients/logo-btg"}
+            src={"airs/clients-carousel/logo-btg"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Colmedica"}
-            src={"airs/clients/logo-colmedica"}
+            src={"airs/clients-carousel/logo-colmedica"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Global Bank"}
-            src={"airs/clients/logo-global-bank"}
+            src={"airs/clients-carousel/logo-global-bank"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Interbank"}
-            src={"airs/clients/logo-interbank"}
+            src={"airs/clients-carousel/logo-interbank"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Itau"}
-            src={"airs/clients/logo-itau"}
+            src={"airs/clients-carousel/logo-itau"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Libera"}
-            src={"airs/clients/logo-libera"}
-            styles={"mh4"}
-          />
-          <CloudImage
-            alt={"Logo Manpower"}
-            src={"airs/clients/logo-manpower"}
+            src={"airs/clients-carousel/logo-libera"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Mazda"}
-            src={"airs/clients/logo-mazda"}
+            src={"airs/clients-carousel/logo-mazda"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Oxxo"}
-            src={"airs/clients/logo-oxxo"}
+            src={"airs/clients-carousel/logo-oxxo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Payvalida"}
-            src={"airs/clients/logo-payvalida"}
+            src={"airs/clients-carousel/logo-payvalida"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Quipux"}
-            src={"airs/clients/logo-quipux"}
+            src={"airs/clients-carousel/logo-quipux"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Redeban"}
-            src={"airs/clients/logo-redeban"}
+            src={"airs/clients-carousel/logo-redeban"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Rsa"}
-            src={"airs/clients/logo-rsa"}
+            src={"airs/clients-carousel/logo-rsa"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Sodimac"}
-            src={"airs/clients/logo-sodimac"}
+            src={"airs/clients-carousel/logo-sodimac"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Soy yo"}
-            src={"airs/clients/logo-soy-yo"}
+            src={"airs/clients-carousel/logo-soy-yo"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Sura"}
-            src={"airs/clients/logo-sura"}
+            src={"airs/clients-carousel/logo-sura"}
             styles={"mh4"}
           />
           <CloudImage
             alt={"Logo Terpel"}
-            src={"airs/clients/logo-terpel"}
+            src={"airs/clients-carousel/logo-terpel"}
             styles={"mh4"}
           />
         </SlideShow>

@@ -48,8 +48,8 @@ const MainSection: React.FC<IProps> = ({
       <FullWidthContainer>
         <CloudImage
           alt={"hero-product-overview"}
-          src={"airs/product-overview/portrait/product-hero"}
-          styles={"center flex"}
+          src={"airs/product-overview/portrait/product-portrait"}
+          styles={"center flex product-portrait w-100"}
         />
       </FullWidthContainer>
     </Container>

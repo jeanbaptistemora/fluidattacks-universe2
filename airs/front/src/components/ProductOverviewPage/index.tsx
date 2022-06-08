@@ -1,6 +1,8 @@
 import React from "react";
 
+import { Banner } from "./Banner";
 import { CardsSection } from "./CardsSection";
+import { ClientsSection } from "./ClientsSection";
 import { MainSection } from "./MainSection";
 import { PlansBanner } from "./PlansBanner";
 import { ProductSection } from "./ProductSection";
@@ -20,6 +22,12 @@ const ProductOverviewPage: React.FC<IProps> = ({
       <CardsSection />
       <ProductSection />
       <PlansBanner />
+      <ClientsSection
+        sectionColor={"#2e2e38"}
+        titleColor={"#f4f4f6"}
+        titleSize={"24"}
+      />
+      <Banner />
     </PageArticle>
   );
 };

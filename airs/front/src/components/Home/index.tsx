@@ -27,7 +27,11 @@ const Home: React.FC = (): JSX.Element => (
       url={"https://calendly.com/mauriciog/rsa-conference-2022?month=2022-06"}
     />
     <Portrait />
-    <ClientsSection />
+    <ClientsSection
+      sectionColor={"#1c1c22"}
+      titleColor={"#f4f4f6"}
+      titleSize={"48"}
+    />
     <ServiceSection />
     <NumbersSection />
     <SolutionsSection />

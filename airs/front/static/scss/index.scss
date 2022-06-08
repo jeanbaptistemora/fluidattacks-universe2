@@ -276,35 +276,6 @@ $gray-36: rgba(36, 37, 45, 1);
   .f-home-title { font-size: 4.5rem !important; }
 }
 
-@media screen and (min-width: 30em) {
-  @mixin white-gradient {
-    background: linear-gradient(to left, transparent, $darker-blue);
-  }
-
-  .home-clients-container {
-    &::before,
-    &::after {
-      @include white-gradient;
-      content: '';
-      height: 100%;
-      position: absolute;
-      width: 200px;
-      z-index: 2;
-    }
-
-    &::after {
-      right: 0;
-      top: 0;
-      transform: rotateZ(180deg);
-    }
-
-    &::before {
-      left: 0;
-      top: 0;
-    }
-  }
-}
-
 @media screen and (min-width: 1200px) {
   .db-xl { display: block !important; }
   .dib-xl { display: inline-block !important; }
@@ -448,6 +419,11 @@ $gray-36: rgba(36, 37, 45, 1);
 .check-icon {
   height: 24px;
   width: 24px;
+}
+
+.product-portrait {
+  max-height: 594px;
+  max-width: 1157px;
 }
 
 .machine-icon {
@@ -1424,10 +1400,20 @@ $gray-36: rgba(36, 37, 45, 1);
 
 @keyframes scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-446px * 30));}
+  100% { transform: translateX(calc(-446px * 28));}
 }
 
 .home-slide-track {
   animation: scroll 110s linear infinite;
-  width: calc(446px * 60);
+  width: calc(446px * 56);
+}
+
+@keyframes productScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-227px * 28));}
+}
+
+.product-slide-track {
+  animation: productScroll 110s linear infinite;
+  width: calc(227px * 56);
 }
