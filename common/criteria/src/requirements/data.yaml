@@ -768,6 +768,7 @@
     - "osstmm3.11_15_3"
     - "c2m2.9_2_k"
     - "c2m2.9_3_c"
+    - "issaf.S_5_1"
   metadata: {}
 "034":
   en:
@@ -890,6 +891,8 @@
     - "wasc.A_12"
     - "wasc.W_02"
     - "issaf.A_2_4"
+    - "issaf.P_6_15"
+    - "issaf.Q_16_20"
   metadata: {}
 "036":
   en:
@@ -1042,6 +1045,7 @@
     - "sans25.400"
     - "cmmc.CA_L2-3_12_2"
     - "hitrust.09_j"
+    - "issaf.K_9_1"
   metadata: {}
 "040":
   en:
@@ -1074,6 +1078,8 @@
     - "sans25.434"
     - "wassec.6_2_4_10"
     - "nistssdf.PS_3_1"
+    - "issaf.J_7_3_5"
+    - "issaf.Q_16_27"
   metadata: {}
 "041":
   en:
@@ -1125,6 +1131,7 @@
     - "osstmm3.11_3_1"
     - "nistssdf.PS_3_1"
     - "issaf.J_4"
+    - "issaf.Q_16_27"
   metadata: {}
 "042":
   en:
@@ -1601,6 +1608,7 @@
     - "wasc.A_10"
     - "issaf.E_22"
     - "issaf.H_14_13"
+    - "issaf.Q_16_34"
   metadata: {}
 "075":
   en:
@@ -1741,6 +1749,7 @@
     - "c2m2.5_2_h"
     - "issaf.H_14_7"
     - "issaf.H_16_5"
+    - "issaf.S_5_4"
   metadata: {}
 "077":
   en:
@@ -1810,6 +1819,7 @@
     - "iso27002.8_26"
     - "wassec.6_2_5_2"
     - "c2m2.9_3_f"
+    - "issaf.T_6_6"
   metadata: {}
 "078":
   en:
@@ -1981,6 +1991,7 @@
     - "osstmm3.11_17_2"
     - "c2m2.9_5_h"
     - "issaf.H_14_7"
+    - "issaf.S_5_4"
   metadata: {}
 "083":
   en:
@@ -2547,6 +2558,9 @@
     - "wasc.A_12"
     - "wasc.W_17"
     - "wasc.W_02"
+    - "issaf.P_6_15"
+    - "issaf.Q_16_20"
+    - "issaf.S_5_1"
   metadata: {}
 "114":
   en:
@@ -3256,6 +3270,7 @@
     - "asvs.V2_4_1"
     - "cmmc.IA_L2-3_5_10"
     - "issaf.D_8"
+    - "issaf.Q_16_10"
   metadata: {}
 "135":
   en:
@@ -3285,6 +3300,7 @@
     - "asvs.V2_4_2"
     - "iec62443.CR-1_7"
     - "issaf.D_8"
+    - "issaf.Q_16_10"
   metadata: {}
 "136":
   en:
@@ -3720,6 +3736,7 @@
     - "fedramp.AC-2_3"
     - "c2m2.4_1_c"
     - "c2m2.4_1_e"
+    - "issaf.Q_16_20"
   metadata: {}
 "145":
   en:
@@ -4028,6 +4045,7 @@
     - "issaf.E_21"
     - "issaf.F_5_3"
     - "issaf.H_14_17"
+    - "issaf.Q_16_10"
   metadata: {}
 "151":
   en:
@@ -4084,6 +4102,7 @@
     - "pci.6_3"
     - "bizec.APP-07"
     - "issaf.H_15_9"
+    - "issaf.T_6_6"
   metadata: {}
 "153":
   en:
@@ -4251,6 +4270,7 @@
     - "fedramp.CM-7"
     - "osstmm3.10_9_3"
     - "nistssdf.PO_5_1"
+    - "issaf.Q_16_13"
   metadata: {}
 "155":
   en:
@@ -4418,6 +4438,7 @@
     - "c2m2.9_4_d"
     - "nistssdf.PW_1_1"
     - "nistssdf.PW_5_1"
+    - "issaf.T_6_10"
   metadata: {}
 "157":
   en:
@@ -4527,6 +4548,7 @@
     - "wasc.A_07"
     - "nistssdf.PW_5_1"
     - "nistssdf.PW_6_1"
+    - "issaf.P_6_3"
   metadata: {}
 "159":
   en:
@@ -4765,6 +4787,7 @@
     - "nistssdf.PW_9_2"
     - "issaf.F_5_7"
     - "issaf.G_9_8"
+    - "issaf.T_6_4"
   metadata: {}
 "162":
   en:
@@ -4827,6 +4850,7 @@
     - "cmmc.CA_L2-3_12_2"
     - "iso27002.8_28"
     - "wasc.A_07"
+    - "issaf.P_6_3"
   metadata: {}
 "167":
   en:
@@ -4934,6 +4958,7 @@
     - "wassec.6_2_4_4"
     - "wasc.A_19"
     - "wasc.W_20"
+    - "issaf.T_6_6"
   metadata: {}
 "171":
   en:
@@ -5249,6 +5274,10 @@
     - "wasc.W_20"
     - "issaf.F_5_9"
     - "issaf.G_12"
+    - "issaf.P_6_1"
+    - "issaf.P_6_3"
+    - "issaf.P_6_15"
+    - "issaf.Q_16_20"
   metadata: {}
 "174":
   en:
@@ -5474,6 +5503,10 @@
     - "wasc.W_17"
     - "wasc.W_13"
     - "wasc.W_02"
+    - "issaf.K_9_1"
+    - "issaf.P_6_15"
+    - "issaf.Q_16_20"
+    - "issaf.T_12_2"
   metadata: {}
 "177":
   en:
@@ -5823,6 +5856,8 @@
     - "issaf.G_15"
     - "issaf.H_14_17"
     - "issaf.H_16_5"
+    - "issaf.L_4_5_6"
+    - "issaf.T_10_1"
   metadata: {}
 "183":
   en:
@@ -6041,6 +6076,7 @@
     - "c2m2.9_5_d"
     - "ferpa.D_35_b_1"
     - "nistssdf.PW_1_1"
+    - "issaf.K_9_1"
   metadata: {}
 "186":
   en:
@@ -7267,6 +7303,10 @@
     - "wasc.A_11"
     - "wasc.A_34"
     - "wasc.W_21"
+    - "issaf.P_4"
+    - "issaf.Q_8_6_1"
+    - "issaf.Q_16_34"
+    - "issaf.T_11_1"
   metadata: {}
 "238":
   en:
@@ -7364,6 +7404,7 @@
     - "capec.613"
     - "owasp10.A7"
     - "mitre.M1031"
+    - "issaf.L_3_1"
   metadata: {}
 "248":
   en:
@@ -7389,6 +7430,7 @@
     - "padss.6_1"
     - "iec62443.UC-2_2"
     - "osstmm3.9_5_3"
+    - "issaf.L_4_3"
   metadata: {}
 "249":
   en:
@@ -7433,6 +7475,7 @@
     - "osstmm3.9_4_1"
     - "osstmm3.11_13_1"
     - "c2m2.9_2_d"
+    - "issaf.K_9_1"
   metadata: {}
 "250":
   en:
@@ -7477,6 +7520,7 @@
     - "osstmm3.9_5_5"
     - "osstmm3.9_7_3"
     - "c2m2.9_2_d"
+    - "issaf.L_4_3"
   metadata: {}
 "251":
   en:
@@ -7546,6 +7590,7 @@
     - "iso27002.8_20"
     - "osstmm3.9_7_4"
     - "c2m2.9_2_d"
+    - "issaf.L_8"
   metadata: {}
 "253":
   en:
@@ -7590,6 +7635,7 @@
     - "iec62443.UC-2_2"
     - "c2m2.9_2_d"
     - "issaf.G_14"
+    - "issaf.L_3_1"
   metadata: {}
 "254":
   en:
@@ -7617,6 +7663,7 @@
     - "iec62443.UC-2_2"
     - "osstmm3.9_5_3"
     - "nistssdf.PW_9_1"
+    - "issaf.L_4_3"
   metadata: {}
 "255":
   en:
@@ -7672,6 +7719,7 @@
     - "c2m2.9_3_d"
     - "c2m2.9_3_f"
     - "issaf.E_13"
+    - "issaf.L_4_3"
   metadata: {}
 "257":
   en:
@@ -8183,6 +8231,9 @@
     - "wasc.A_12"
     - "wasc.A_31"
     - "wasc.A_05"
+    - "issaf.P_6_1"
+    - "issaf.P_6_15"
+    - "issaf.Q_16_20"
   metadata: {}
 "266":
   en:
@@ -8303,6 +8354,12 @@
     - "nistssdf.PW_5_1"
     - "nistssdf.RV_2_2"
     - "issaf.F_1"
+    - "issaf.J_7_3_5"
+    - "issaf.P_4"
+    - "issaf.P_4_1"
+    - "issaf.P_6_1"
+    - "issaf.Q_16_10"
+    - "issaf.T_12_2"
   metadata: {}
 "273":
   en:
@@ -8427,6 +8484,7 @@
     - "hitrust.01_j"
     - "hitrust.01_l"
     - "hitrust.01_n"
+    - "issaf.S_5_1"
   metadata: {}
 "300":
   en:
@@ -9536,6 +9594,7 @@
     - "wasc.W_02"
     - "issaf.F_5_9"
     - "issaf.G_15"
+    - "issaf.P_6_15"
   metadata: {}
 "321":
   en:
@@ -9757,6 +9816,7 @@
     - "iso27002.8_28"
     - "wasc.W_01"
     - "nistssdf.PS_3_1"
+    - "issaf.P_6_16"
   metadata: {}
 "324":
   en:
@@ -9944,6 +10004,7 @@
     - "iso27002.7_9"
     - "iso27002.8_26"
     - "c2m2.3_1_b"
+    - "issaf.S_5_8"
   metadata: {}
 "327":
   en:
@@ -10036,6 +10097,9 @@
     - "wasc.A_34"
     - "issaf.E_22"
     - "issaf.H_14_13"
+    - "issaf.P_4"
+    - "issaf.Q_8_6_1"
+    - "issaf.T_11_1"
   metadata: {}
 "328":
   en:
@@ -10150,6 +10214,7 @@
     - "osstmm3.11_11_1"
     - "c2m2.9_5_b"
     - "c2m2.9_5_g"
+    - "issaf.K_9_1"
   metadata: {}
 "330":
   en:
@@ -10826,6 +10891,7 @@
     - "osstmm3.11_11_1"
     - "c2m2.9_2_d"
     - "nistssdf.PS_3_1"
+    - "issaf.K_9_1"
   metadata: {}
 "340":
   en:
@@ -11287,6 +11353,10 @@
     - "wasc.A_03"
     - "wasc.A_10"
     - "wasc.A_26"
+    - "issaf.P_6_3"
+    - "issaf.P_6_4"
+    - "issaf.P_6_5"
+    - "issaf.P_6_6"
   metadata: {}
 "346":
   en:
@@ -11566,6 +11636,7 @@
     - "wassec.6_1_6"
     - "wassec.6_2_3_6"
     - "wasc.A_09"
+    - "issaf.T_10_1"
   metadata: {}
 "350":
   en:
@@ -11721,6 +11792,7 @@
     - "c2m2.9_3_i"
     - "nistssdf.PW_4_1"
     - "issaf.J_7_2"
+    - "issaf.L_4_3"
   metadata: {}
 "354":
   en:
@@ -11811,6 +11883,7 @@
     - "cwe25.200"
     - "agile.11"
     - "c2m2.9_1_e"
+    - "issaf.T_6_5"
   metadata: {}
 "356":
   en:
@@ -12580,6 +12653,7 @@
     - "iso27002.8_26"
     - "c2m2.9_1_e"
     - "nistssdf.PO_5_1"
+    - "issaf.S_5_7"
   metadata: {}
 "375":
   en:
