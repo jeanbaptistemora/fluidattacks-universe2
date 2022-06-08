@@ -5819,4 +5819,94 @@
     "A_2_4":
       title: Assesment - Penetration
       link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "A_2_7":
+      title: Assesment - Compromise remote users or sites
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "D_8":
+      title: Network security - Password security testing (countermeasures)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "E_1":
+      title: Network security - Switch security assessment
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "D_1":
+      title: Network security - Password security testing (gathering authentication credentials)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "E_13":
+      title: Network security - Switch security assessment (assess private VLAN attack)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "E_21":
+      title: Network security - Switch security assessment (VLAN reconfiguration)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "E_22":
+      title: Network security - Switch security assessment (layer 2 port authentication)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_1":
+      title: Network security - Router security assessment (router identification)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_2":
+      title: Network security - Router security assessment (common issues assesment)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5":
+      title: Network security - Router security assessment (global countermeasures)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5_1":
+      title: Network security - Router security assessment (turn on logging)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5_2":
+      title: Network security - Router security assessment (limit telnet)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5_3":
+      title: Network security - Router security assessment (protect passwords)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5_7":
+      title: Network security - Router security assessment (disable non-essential services)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "F_5_9":
+      title: Network security - Router security assessment (configure ingress filtering)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "G_9_8":
+      title: Network security - Firewalls (identify firewall architecture)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "G_12":
+      title: Network security - Firewalls (port redirection)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "G_13_4":
+      title: Network security - Firewalls (application level)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "G_14":
+      title: Network security - Firewalls (countermeasures)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "G_15":
+      title: Network security - Firewalls (compromise remote users/sites)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_14_3":
+      title: Network security - Intrusion detection (detection engine)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_14_7":
+      title: Network security - Intrusion detection (detection engine)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_14_13":
+      title: Network security - Intrusion detection (detection engine)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_14_17":
+      title: Network security - Intrusion detection (detection engine)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_15_9":
+      title: Network security - Intrusion detection (rule configuration and management interface)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "H_16_5":
+      title: Network security - Intrusion detection (logging systems)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "J_4":
+      title: Network security - Anti-virus system (objective)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "J_6_1":
+      title: Network security - Anti-virus system (methology)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "J_6_4":
+      title: Network security - Anti-virus system (methology)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "J_7_2":
+      title: Network security - Anti-virus system (check end user antivirus)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
   metadata: {}
