@@ -113,6 +113,8 @@ async def generate_one(  # pylint: disable=too-many-locals
         if total_open
         else Decimal("0"),
     )
+    created = created if created > Decimal("0.0") else Decimal("0")
+    solved = solved if solved > Decimal("0.0") else Decimal("0")
 
     return FormatSprint(
         solved=solved,
@@ -189,7 +191,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.6,
             fontSizeRatio=0.5,
             text=count,
-            color=RISK.more_passive,
+            color=RISK.more_agressive,
             arrow="\uD83E\uDC2B",
         )
 
