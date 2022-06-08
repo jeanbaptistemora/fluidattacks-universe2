@@ -4,6 +4,13 @@ from contextlib import (
 )
 import datetime
 import json
+from logging import (
+    Formatter,
+    getLogger,
+    INFO,
+    Logger,
+    StreamHandler,
+)
 from singer_io import (
     factory,
 )
@@ -23,6 +30,14 @@ from typing import (
     List,
     Tuple,
 )
+
+_format = "[%(levelname)s] %(message)s"
+formatter = Formatter(_format)
+handler = StreamHandler(sys.stderr)
+handler.setFormatter(formatter)
+LOG: Logger = getLogger(__name__)
+LOG.setLevel(INFO)
+LOG.addHandler(handler)
 
 
 @contextmanager
@@ -134,13 +149,17 @@ def lowercase_keys(data: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def process_line(line: str) -> Dict[str, Any]:
-    data: Dict[str, Any] = json.loads(line)
-    data = handle_null(data)
-    data = new_formatted_data([data])[0]
-    dtypes = take_dtypes([data])
-    data = dict(check_and_parse(data, dtypes))
-    data = lowercase_keys(data)
-    return data
+    try:
+        data: Dict[str, Any] = json.loads(line)
+        data = handle_null(data)
+        data = new_formatted_data([data])[0]
+        dtypes = take_dtypes([data])
+        data = dict(check_and_parse(data, dtypes))
+        data = lowercase_keys(data)
+        return data
+    except json.JSONDecodeError as err:
+        LOG.error("err: %s, while evaluating: %s", err, line)
+        raise err
 
 
 def format_and_emit_data(data_file: IO[str]) -> None:
