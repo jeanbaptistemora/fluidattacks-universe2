@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { NavbarButton } from "../styles";
+import { ButtonOpacity } from "components/Button";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
 
@@ -55,9 +55,9 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
           }`
         )}
       >
-        <NavbarButton onClick={onClick}>
+        <ButtonOpacity onClick={onClick}>
           <span className={"fa-layers fa-fw"}>
-            <FontAwesomeIcon icon={faTasks} />
+            <FontAwesomeIcon color={"#2e2e38"} icon={faTasks} />
             &nbsp;
             {undefinedOrEmpty ? (
               <div />
@@ -70,7 +70,7 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
               </span>
             )}
           </span>
-        </NavbarButton>
+        </ButtonOpacity>
       </TooltipWrapper>
     </React.StrictMode>
   );

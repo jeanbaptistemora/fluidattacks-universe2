@@ -20,17 +20,6 @@ const NavbarMenu = styled.ul.attrs({
   }
 `;
 
-const NavbarButton = styled.button.attrs({
-  className: "bn mh1 pa2",
-})`
-  background: none;
-  color: #2e2e38;
-
-  :hover {
-    opacity: 0.75;
-  }
-`;
-
 const DropdownMenu = styled.ul.attrs({
   className: "absolute f5 list mt3 ph0 pv2 shadow-1",
 })`
@@ -59,7 +48,6 @@ export {
   DropdownButton,
   DropdownDivider,
   DropdownMenu,
-  NavbarButton,
   NavbarContainer,
   NavbarHeader,
   NavbarMenu,

@@ -26,13 +26,9 @@ import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
-import {
-  DropdownButton,
-  DropdownDivider,
-  DropdownMenu,
-  NavbarButton,
-} from "../styles";
+import { DropdownButton, DropdownDivider, DropdownMenu } from "../styles";
 import { clickedPortal } from "../utils";
+import { ButtonOpacity } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -141,9 +137,9 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
 
   return (
     <div ref={ref}>
-      <NavbarButton onClick={toggleDropdown}>
-        <FontAwesomeIcon icon={faUserCircle} />
-      </NavbarButton>
+      <ButtonOpacity onClick={toggleDropdown}>
+        <FontAwesomeIcon color={"#2e2e38"} icon={faUserCircle} />
+      </ButtonOpacity>
       {isDropdownOpen ? (
         <DropdownMenu>
           <li>

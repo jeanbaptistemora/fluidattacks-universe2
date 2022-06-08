@@ -12,6 +12,7 @@ import { openPopupWidget } from "react-calendly";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
+import { ButtonOpacity } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
@@ -22,7 +23,6 @@ import {
   Message,
 } from "scenes/Dashboard/components/Navbar/HelpWidget/styles";
 import { UpgradeGroupsModal } from "scenes/Dashboard/components/Navbar/HelpWidget/UpgradeGroupsModal";
-import { NavbarButton } from "scenes/Dashboard/components/Navbar/styles";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { toggleZendesk } from "utils/widgets";
@@ -122,9 +122,9 @@ export const HelpModal: React.FC<IHelpModal> = ({
 
   return (
     <React.StrictMode>
-      <NavbarButton onClick={toggleModal}>
-        <FontAwesomeIcon icon={faQuestionCircle} />
-      </NavbarButton>
+      <ButtonOpacity onClick={toggleModal}>
+        <FontAwesomeIcon color={"#2e2e38"} icon={faQuestionCircle} />
+      </ButtonOpacity>
       <Modal
         onClose={onClose}
         open={isModalOpen}

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnnounceKit from "announcekit-react";
 import React, { useContext } from "react";
 
-import { NavbarButton } from "../styles";
+import { ButtonOpacity } from "components/Button";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 
@@ -11,15 +11,15 @@ const NewsWidget: React.FC = (): JSX.Element => {
   const { userEmail }: IAuthContext = useContext(authContext);
 
   return (
-    <NavbarButton>
+    <ButtonOpacity>
       <AnnounceKit
         user={{ email: userEmail, id: userEmail }}
         widget={"https://news.fluidattacks.com/widgets/v2/ZmEGk"}
         widgetStyle={{ position: "absolute", top: "25px" }}
       >
-        <FontAwesomeIcon icon={faBullhorn} />
+        <FontAwesomeIcon color={"#2e2e38"} icon={faBullhorn} />
       </AnnounceKit>
-    </NavbarButton>
+    </ButtonOpacity>
   );
 };
 

@@ -20,7 +20,7 @@ import { BreadcrumbContainer, SplitItems } from "./styles";
 import type { IFindingTitle, IUserOrgs, IUserTags } from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
-import { NavbarButton } from "../styles";
+import { ButtonOpacity } from "components/Button";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import type { IGetOrganizationId } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { Can } from "utils/authz/Can";
@@ -368,11 +368,11 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   return (
     <React.Fragment>
       {shouldDisplayGoBack ? (
-        <NavbarButton onClick={goBack}>
+        <ButtonOpacity onClick={goBack}>
           <span className={"fa-layers fa-fw"}>
-            <FontAwesomeIcon icon={faArrowLeft} />
+            <FontAwesomeIcon color={"#2e2e38"} icon={faArrowLeft} />
           </span>
-        </NavbarButton>
+        </ButtonOpacity>
       ) : undefined}
       <BreadcrumbContainer>
         {breadcrumbItems.length === 0 ? orgDropdown : breadcrumbItems}

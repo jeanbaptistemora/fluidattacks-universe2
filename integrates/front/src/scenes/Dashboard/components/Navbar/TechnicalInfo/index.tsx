@@ -4,8 +4,9 @@ import React, { useCallback, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
-import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { DropdownButton, DropdownMenu } from "../styles";
 import { clickedPortal } from "../utils";
+import { ButtonOpacity } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import {
   ASM_DEPLOYMENT_DATE,
@@ -31,9 +32,9 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
 
   return (
     <div ref={ref}>
-      <NavbarButton onClick={toggleDropdown}>
-        <FontAwesomeIcon icon={faInfoCircle} />
-      </NavbarButton>
+      <ButtonOpacity onClick={toggleDropdown}>
+        <FontAwesomeIcon color={"#2e2e38"} icon={faInfoCircle} />
+      </ButtonOpacity>
       {isDropdownOpen ? (
         <DropdownMenu>
           <li>

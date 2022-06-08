@@ -1,5 +1,4 @@
 import {
-  faAngleDown,
   faComment,
   faHeadset,
   faQuestionCircle,
@@ -13,8 +12,9 @@ import { useRouteMatch } from "react-router-dom";
 
 import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
-import { DropdownButton, DropdownMenu, NavbarButton } from "../styles";
+import { DropdownButton, DropdownMenu } from "../styles";
 import { clickedPortal } from "../utils";
+import { ButtonOpacity } from "components/Button";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { toggleZendesk } from "utils/widgets";
@@ -79,11 +79,9 @@ export const HelpWidget: React.FC<IHelpWidgetProps> = ({
 
   return (
     <div ref={ref}>
-      <NavbarButton onClick={toggleDropdown}>
-        <FontAwesomeIcon icon={faQuestionCircle} />
-        &nbsp;
-        <FontAwesomeIcon icon={faAngleDown} size={"xs"} />
-      </NavbarButton>
+      <ButtonOpacity onClick={toggleDropdown}>
+        <FontAwesomeIcon color={"#2e2e38"} icon={faQuestionCircle} />
+      </ButtonOpacity>
       {isDropdownOpen ? (
         <DropdownMenu>
           <li>
