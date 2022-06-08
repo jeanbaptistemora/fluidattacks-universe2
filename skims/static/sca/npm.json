@@ -1169,34 +1169,34 @@
     "GHSA-h2j3-gg8w-4858": "<=0.0.1-security"
   },
   "buffer-xov": {
-    "GHSA-3h9m-9g3g-5wqx": ">=0"
+    "GHSA-3h9m-9g3g-5wqx": "<=0.0.1-security"
   },
   "buffer-xoz": {
-    "GHSA-j6x7-42x2-hpcf": ">=0"
+    "GHSA-j6x7-42x2-hpcf": "<=0.0.1-security"
   },
   "buffer-yor": {
-    "GHSA-g2c4-4m64-vxm3": ">=0"
+    "GHSA-g2c4-4m64-vxm3": "<=0.0.1-security"
   },
   "buffer-zor": {
-    "GHSA-f294-27fc-wgj7": ">=0"
+    "GHSA-f294-27fc-wgj7": "<=0.0.1-security"
   },
   "buffermxor": {
-    "GHSA-536f-268f-6gxc": ">=0"
+    "GHSA-536f-268f-6gxc": "<=0.0.1-security"
   },
   "buffes-xor": {
-    "GHSA-28f4-mjfq-qrvf": ">=0"
+    "GHSA-28f4-mjfq-qrvf": "<=0.0.1-security"
   },
   "buffev-xor": {
-    "GHSA-x3w4-mrmv-cw2x": ">=0"
+    "GHSA-x3w4-mrmv-cw2x": "<=0.0.1-security"
   },
   "buffez-xor": {
-    "GHSA-7frr-c83r-fm22": ">=0"
+    "GHSA-7frr-c83r-fm22": "<=0.0.1-security"
   },
   "buffgr-xor": {
-    "GHSA-r9cj-xj33-4q42": ">=0"
+    "GHSA-r9cj-xj33-4q42": "<=0.0.1-security"
   },
   "buffmr-xor": {
-    "GHSA-wv39-cgmm-cq29": ">=0"
+    "GHSA-wv39-cgmm-cq29": "<=0.0.1-security"
   },
   "buffur-xor": {
     "GHSA-p7qp-3fh7-pv4p": ">=0"
