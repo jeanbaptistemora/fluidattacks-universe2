@@ -1,5 +1,10 @@
 from batch.dal import (
     delete_action,
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
 )
 from batch.types import (
     BatchProcessing,
@@ -7,6 +12,9 @@ from batch.types import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.roots.types import (
+    Root,
 )
 from groups import (
     domain as groups_domain,
@@ -34,11 +42,30 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     )
 
     loaders: Dataloaders = get_new_context()
-    success = await groups_domain.remove_resources(
+    # Get root info
+    group_roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+
+    success: bool
+    removed_resources = await groups_domain.remove_resources(
         loaders=loaders,
         group_name=group_name,
         user_email=user_email,
     )
+    # Delete roots and related cloned repos
+    if group_roots:
+        root_removal = await put_action(
+            action=Action.REMOVE_ROOTS,
+            entity=group_name,
+            subject=user_email,
+            additional_info=",".join(
+                [root.state.nickname for root in group_roots]
+            ),
+            queue="small",
+            product_name=Product.INTEGRATES,
+        )
+        success = removed_resources and root_removal.success
+    else:
+        success = removed_resources
     message = f"Removal result: {success}"
     LOGGER.info(
         ":".join([item.subject, message]),
