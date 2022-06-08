@@ -30,14 +30,9 @@ import {
   ACTIVATE_ROOT,
   ADD_GIT_ROOT,
   SYNC_GIT_ROOT,
-  UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
 } from "../queries";
-import type {
-  IEnvironmentUrl,
-  IGitRootAttr,
-  IUpdateGitEnvironments,
-} from "../types";
+import type { IEnvironmentUrl, IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
@@ -233,17 +228,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
-  const [updateGitEnvs] = useMutation(UPDATE_GIT_ENVIRONMENTS, {
-    onCompleted: (): void => {
-      onUpdate();
-      closeModal();
-      setCurrentRow(undefined);
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      handleUpdateError(graphQLErrors, setRootModalMessages, "envs");
-    },
-  });
-
   const [activateRoot] = useMutation(ACTIVATE_ROOT, {
     onCompleted: (): void => {
       onUpdate();
@@ -301,27 +285,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     isManagingRoot,
     setRootModalMessages,
     updateGitRoot
-  );
-
-  const handleEnvsSubmit = useCallback(
-    async ({
-      environmentUrls,
-      id,
-      reason,
-      other,
-    }: IUpdateGitEnvironments): Promise<void> => {
-      setRootModalMessages({ message: "", type: "success" });
-      if (_.isEmpty(reason)) {
-        await updateGitEnvs({
-          variables: { environmentUrls, groupName, id },
-        });
-      } else {
-        await updateGitEnvs({
-          variables: { environmentUrls, groupName, id, other, reason },
-        });
-      }
-    },
-    [groupName, setRootModalMessages, updateGitEnvs]
   );
 
   function handleChange(columnName: string): void {
@@ -823,7 +786,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           modalMessages={rootModalMessages}
           nicknames={nicknames}
           onClose={closeModal}
-          onSubmitEnvs={handleEnvsSubmit}
           onSubmitRepo={handleGitSubmit}
           runTour={isManagingRoot.mode === "EDIT" ? false : enableTour}
         />

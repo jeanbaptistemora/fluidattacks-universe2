@@ -9,7 +9,7 @@ interface IEnvironmentUrl {
   url: string;
   secrets: ISecret[];
   createdAt: string;
-  type: string;
+  urlType: string;
 }
 interface ICredentials {
   id: string;

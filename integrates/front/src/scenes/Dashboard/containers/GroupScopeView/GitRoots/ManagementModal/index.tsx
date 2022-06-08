@@ -22,7 +22,6 @@ interface IManagementModalProps {
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
-  onSubmitEnvs: (values: IGitRootAttr) => Promise<void>;
   onSubmitRepo: (values: IGitRootAttr) => Promise<void>;
   runTour: boolean;
   finishTour: () => void;
@@ -62,7 +61,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   modalMessages,
   nicknames,
   onClose,
-  onSubmitEnvs,
   onSubmitRepo,
   runTour,
   finishTour,
@@ -159,9 +157,8 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
             </Route>
             <Route path={"/environments"}>
               <Environments
-                modalMessages={modalMessages}
+                groupName={groupName}
                 onClose={onClose}
-                onSubmit={onSubmitEnvs}
                 rootInitialValues={initialValues}
               />
             </Route>

@@ -6,7 +6,8 @@ import { object, string } from "yup";
 
 import { ADD_ENVIRONMENT_URL } from "../../queries";
 import { Button } from "components/Button";
-import { ControlLabel } from "styles/styledComponents";
+import { ModalFooter } from "components/Modal";
+import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -52,7 +53,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
     onCompleted: (): void => {
       msgSuccess(
         t("group.scope.git.addEnvironment.success"),
-        t("group.scope.git.addEnvironment.successTitle")
+        t("group.scope.git.addEnvironment.successTittle")
       );
       closeFunction();
     },
@@ -90,12 +91,14 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
           <Form>
             <div className={"mt3"}>
               <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("group.scope.git.addEnvironment.url")}
               </ControlLabel>
               <Field component={FormikText} name={"url"} type={"text"} />
             </div>
             <div className={"mt3"}>
               <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("group.scope.git.addEnvironment.type")}
               </ControlLabel>
               <Field component={FormikDropdown} name={"urlType"}>
@@ -106,18 +109,20 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
               </Field>
             </div>
             <div className={"mt3"}>
-              <Button
-                disabled={!dirty || isSubmitting || !isValid}
-                id={"add-environment-url-button"}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
+              <ModalFooter>
+                <Button
+                  disabled={!dirty || isSubmitting || !isValid}
+                  id={"add-environment-url-button"}
+                  type={"submit"}
+                  variant={"primary"}
+                >
+                  {t("confirmmodal.proceed")}
+                </Button>
+                <Button onClick={closeFunction} variant={"secondary"}>
+                  {t("confirmmodal.cancel")}
+                </Button>
+              </ModalFooter>
             </div>
-            <Button onClick={closeFunction} variant={"secondary"}>
-              {t("confirmmodal.cancel")}
-            </Button>
           </Form>
         );
       }}

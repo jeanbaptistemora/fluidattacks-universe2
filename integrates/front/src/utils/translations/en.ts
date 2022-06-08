@@ -820,6 +820,7 @@ export const enTranslations: ResourceKey = {
         state: "State",
       },
       git: {
+        addEnvUrl: "Add Environment Url",
         addEnvironment: {
           success: "Environment added successfully",
           successTittle: "Added environment",
@@ -829,6 +830,7 @@ export const enTranslations: ResourceKey = {
         confirmBranch: "Make sure the new branch is equivalent to the old one",
         createdAt: "Creation date",
         envUrl: "Environment URL",
+        envUrlType: "URL Type",
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",

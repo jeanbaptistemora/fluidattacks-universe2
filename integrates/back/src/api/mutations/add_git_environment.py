@@ -37,7 +37,7 @@ async def mutate(  # pylint: disable = too-many-arguments
     url_type: str,
     root_id: str,
     cloud_name: Optional[str] = None,
-    **kwargs: Any,
+    **_kwargs: Any,
 ) -> SimplePayload:
     await roots_domain.add_git_environment_url(
         loaders=info.context.loaders,
@@ -48,7 +48,7 @@ async def mutate(  # pylint: disable = too-many-arguments
         cloud_type=cloud_name,
     )
     logs_utils.cloudwatch_log(
-        info.context, f'Security: Updated git envs for root {kwargs["id"]}'
+        info.context, f"Security: Updated git envs for root {root_id}"
     )
 
     return SimplePayload(success=True)

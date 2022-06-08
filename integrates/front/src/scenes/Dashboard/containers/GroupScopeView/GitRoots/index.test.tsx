@@ -45,8 +45,8 @@ describe("GitRoots", (): void => {
             createdAt: "2022-04-27T17:30:07.230355",
             id: "3f6eb6274ec7dc2855451c0fbb4ff9485360be5b",
             secrets: [],
-            type: "URL",
             url: "https://app.fluidattacks.com",
+            urlType: "URL",
           },
         ],
         gitignore: [],
@@ -145,7 +145,6 @@ describe("GitRoots", (): void => {
               modalMessages={{ message: "", type: "success" }}
               nicknames={["product"]}
               onClose={handleClose}
-              onSubmitEnvs={handleSubmit}
               onSubmitRepo={handleSubmit}
               runTour={false}
             />
@@ -236,8 +235,8 @@ describe("GitRoots", (): void => {
           createdAt: "2022-04-27T17:30:07.230355",
           id: "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc",
           secrets: [],
-          type: "URL",
           url: "",
+          urlType: "URL",
         },
       ],
       gitignore: [],
@@ -269,7 +268,6 @@ describe("GitRoots", (): void => {
             modalMessages={{ message: "", type: "success" }}
             nicknames={[]}
             onClose={handleClose}
-            onSubmitEnvs={handleSubmit}
             onSubmitRepo={handleSubmit}
             runTour={false}
           />
@@ -293,47 +291,6 @@ describe("GitRoots", (): void => {
     await waitFor((): void => {
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       expect(screen.queryAllByRole("link")).toHaveLength(3);
-    });
-
-    // Enter add git environment URLs modal
-    userEvent.click(
-      screen.getByRole("link", { name: "group.scope.git.envUrls" })
-    );
-
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
-
-    // Click add environment URL button
-    userEvent.click(screen.getAllByRole("button")[0]);
-
-    await waitFor((): void => {
-      expect(
-        screen.getByRole("textbox", { name: "environmentUrls[0]" })
-      ).toBeInTheDocument();
-    });
-
-    userEvent.type(
-      screen.getByRole("textbox", { name: "environmentUrls[0]" }),
-      "https://app.fluidattacks.com/"
-    );
-    await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
-    });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
-    await waitFor((): void => {
-      expect(handleSubmit).toHaveBeenCalledWith(
-        {
-          ...initialValues,
-          environmentUrls: ["https://app.fluidattacks.com/"],
-          other: "",
-          reason: "",
-        },
-        expect.anything()
-      );
-    });
-    userEvent.click(screen.getByText("confirmmodal.cancel"));
-
-    await waitFor((): void => {
-      expect(handleClose).toHaveBeenCalledTimes(1);
     });
 
     jest.clearAllMocks();
