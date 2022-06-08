@@ -1459,3 +1459,15 @@ class OnlyCorporateEmails(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Only corporate emails are allowed"
         super(OnlyCorporateEmails, self).__init__(msg)
+
+
+class InvalidCredentialSecret(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Invalid secret for the credential type"
+        super(InvalidCredentialSecret, self).__init__(msg)
+
+
+class RepeatedCredential(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Credential already exists"
+        super(RepeatedCredential, self).__init__(msg)

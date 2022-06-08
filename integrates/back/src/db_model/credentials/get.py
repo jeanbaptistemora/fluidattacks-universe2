@@ -17,7 +17,7 @@ from db_model import (
     TABLE,
 )
 from db_model.credentials.constants import (
-    GSI_2_FACET,
+    OWNER_INDEX_FACET,
 )
 from db_model.credentials.types import (
     Credential,
@@ -228,7 +228,7 @@ class CredentialStatesLoader(DataLoader):
         )
 
 
-async def get_credentials_new(
+async def _get_credentials_new(
     *, requests: list[CredentialRequest]
 ) -> tuple[Credential, ...]:
     primary_keys = tuple(
@@ -254,10 +254,10 @@ class CredentialNewLoader(DataLoader):
     async def batch_load_fn(
         self, requests: list[CredentialRequest]
     ) -> tuple[Credential, ...]:
-        return await get_credentials_new(requests=requests)
+        return await _get_credentials_new(requests=requests)
 
 
-async def get_organization_credentials(
+async def _get_organization_credentials(
     *, organization_id: str
 ) -> tuple[Credential, ...]:
     primary_key = keys.build_key(
@@ -288,14 +288,14 @@ class OrganizationCredentialsNewLoader(DataLoader):
         self, organization_ids: List[str]
     ) -> tuple[tuple[Credential, ...], ...]:
         return await collect(
-            get_organization_credentials(organization_id=organization_id)
+            _get_organization_credentials(organization_id=organization_id)
             for organization_id in organization_ids
         )
 
 
-async def get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
+async def _get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
     primary_key = keys.build_key(
-        facet=GSI_2_FACET,
+        facet=OWNER_INDEX_FACET,
         values={"owner": user_email},
     )
     index = TABLE.indexes["gsi_2"]
@@ -305,7 +305,7 @@ async def get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
         ),
-        facets=(GSI_2_FACET,),
+        facets=(OWNER_INDEX_FACET,),
         index=index,
         table=TABLE,
     )
@@ -319,6 +319,6 @@ class UserCredentialsNewLoader(DataLoader):
         self, user_emails: List[str]
     ) -> tuple[tuple[Credential, ...], ...]:
         return await collect(
-            get_user_credentials(user_email=user_email)
+            _get_user_credentials(user_email=user_email)
             for user_email in user_emails
         )

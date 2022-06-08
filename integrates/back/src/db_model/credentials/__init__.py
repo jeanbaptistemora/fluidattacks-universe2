@@ -1,5 +1,6 @@
 from .add import (
     add,
+    add_new,
 )
 from .get import (
     get_credentials,
@@ -14,6 +15,7 @@ from .update import (
 
 __all__ = [
     "add",
+    "add_new",
     "remove",
     "update_credential_state",
     "update_root_ids",
