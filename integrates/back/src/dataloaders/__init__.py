@@ -26,6 +26,7 @@ from db_model.credentials.get import (
     CredentialNewLoader,
     GroupCredentialsLoader,
     OrganizationCredentialsNewLoader,
+    UserCredentialsNewLoader,
 )
 from db_model.findings.get import (
     FindingHistoricStateLoader,
@@ -146,6 +147,7 @@ class Dataloaders(NamedTuple):
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     user: UserLoader
+    user_credentials_new: UserCredentialsNewLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
@@ -243,6 +245,7 @@ def get_new_context() -> Dataloaders:
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user=UserLoader(),
+        user_credentials_new=UserCredentialsNewLoader(),
         vulnerability=vulnerability,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
         vulnerability_historic_treatment=(

@@ -16,6 +16,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.credentials.constants import (
+    GSI_2_FACET,
+)
 from db_model.credentials.types import (
     Credential,
     CredentialItem,
@@ -287,4 +290,35 @@ class OrganizationCredentialsNewLoader(DataLoader):
         return await collect(
             get_organization_credentials(organization_id=organization_id)
             for organization_id in organization_ids
+        )
+
+
+async def get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
+    primary_key = keys.build_key(
+        facet=GSI_2_FACET,
+        values={"owner": user_email},
+    )
+    index = TABLE.indexes["gsi_2"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(GSI_2_FACET,),
+        index=index,
+        table=TABLE,
+    )
+
+    return tuple(format_credential(item) for item in response.items)
+
+
+class UserCredentialsNewLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, user_emails: List[str]
+    ) -> tuple[tuple[Credential, ...], ...]:
+        return await collect(
+            get_user_credentials(user_email=user_email)
+            for user_email in user_emails
         )
