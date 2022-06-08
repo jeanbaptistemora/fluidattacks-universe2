@@ -603,10 +603,10 @@ enum CredentialType {
 
 "Environment url types"
 enum GitEnvironmentCloud {
-  "URl"
-  URL
   "APK"
   APK
   "Cloud"
   CLOUD
+  "URl"
+  URL
 }

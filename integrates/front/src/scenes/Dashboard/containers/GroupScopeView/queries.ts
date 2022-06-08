@@ -23,6 +23,7 @@ const GET_ROOTS: DocumentNode = gql`
             url
             id
             createdAt
+            urlType
           }
           gitignore
           id
@@ -82,6 +83,7 @@ const GET_ROOT: DocumentNode = gql`
             key
             description
           }
+          urlType
         }
       }
       ... on URLRoot {
@@ -188,6 +190,23 @@ const ADD_ENVIRONMENT_SECRET: DocumentNode = gql`
       value: $value
       description: $description
       groupName: $groupName
+    ) {
+      success
+    }
+  }
+`;
+const ADD_ENVIRONMENT_URL: DocumentNode = gql`
+  mutation AddGitEnvironmentUrl(
+    $groupName: String!
+    $rootId: ID!
+    $url: String!
+    $urlType: GitEnvironmentCloud!
+  ) {
+    addGitEnvironmentUrl(
+      groupName: $groupName
+      rootId: $rootId
+      url: $url
+      urlType: $urlType
     ) {
       success
     }
@@ -438,6 +457,7 @@ const VALIDATE_GIT_ACCESS: DocumentNode = gql`
 export {
   ACTIVATE_ROOT,
   ADD_ENVIRONMENT_SECRET,
+  ADD_ENVIRONMENT_URL,
   ADD_GIT_ROOT,
   ADD_IP_ROOT,
   ADD_SECRET,
