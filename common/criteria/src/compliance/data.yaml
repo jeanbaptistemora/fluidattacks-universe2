@@ -5909,4 +5909,100 @@
     "J_7_2":
       title: Network security - Anti-virus system (check end user antivirus)
       link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "J_7_3_5":
+      title: Network security - Anti-virus system (methology)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "K_9_1":
+      title: Network security - Storage Area Network SAN (practices for the data-at-rest)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "L_3_1":
+      title: Network security - WLAN security (types of threats)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "L_4_3":
+      title: Network security - WLAN security (audit and review)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "L_4_5_6":
+      title: Network security - WLAN security (exploitation and attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "L_8":
+      title: Network security - WLAN security (global countermeasures)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_4":
+      title: Host security - Linux security (identify ports and services)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_4_1":
+      title: Host security - Linux security (identify ports and users)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_1":
+      title: Host security - Linux security (remote attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_3":
+      title: Host security - Linux security (buffer overflows)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_4":
+      title: Host security - Linux security (stack based overflows)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_5":
+      title: Host security - Linux security (heap based overflows)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_6":
+      title: Host security - Linux security (integer overflows)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_15":
+      title: Host security - Linux security (local attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "P_6_16":
+      title: Host security - Linux security (file and directory permission attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_8_6_1":
+      title: Host security - Windows security (brute force passwords or remote attack)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_16_10":
+      title: Host security - Windows security (SMB attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_16_13":
+      title: Host security - Windows security (registry attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_16_20":
+      title: Host security - Windows security (local attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_16_27":
+      title: Host security - Windows security (DLL injection attack)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "Q_16_34":
+      title: Host security - Windows security (denial of service attacks)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "S_5_1":
+      title: Web server security - Countermeasures (secure administrative access)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "S_5_4":
+      title: Web server security - Countermeasures (enable logging and do periodic analysis)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "S_5_7":
+      title: Web server security - Countermeasures (Compartmentalize web server process)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "S_5_8":
+      title: Web server security - Countermeasures (run as a non-root user)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_6_4":
+      title: Web application assessment - Identifying web server vendor and version (default files)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_6_5":
+      title: Web application assessment - Identifying web server vendor and version (by extension of pages on web server)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_6_6":
+      title: Web application assessment - Identifying web server vendor and version (by error)
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_6_10":
+      title: Web application assessment - Test view source bugs
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_10_1":
+      title: Web application assessment – Attack on secure HTTP
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_11_1":
+      title: Web application assessment - Brute force attack
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
+    "T_12_2":
+      title: Web application assessment - Browsable directories check
+      link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
   metadata: {}
