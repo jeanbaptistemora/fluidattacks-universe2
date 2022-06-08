@@ -9787,7 +9787,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.ht
   20 |  </body>
   21 | </html>
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,14,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html","
    1 |
@@ -9812,7 +9812,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.ht
   20 | y>
   21 | >
      ^ Col 6
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,8,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
    1 | <!DOCTYPE html>
@@ -9837,7 +9837,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,8,200,sk
   20 |       </div>
   21 |       <div class=""text-right"">
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,12,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
    2 | <html>
@@ -9862,7 +9862,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,12,200,s
   21 |       <div class=""text-right"">
   22 |     <button type=""submit"" class=""btn btn-primary"">Submit</button>
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,16,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
    6 |  </head>
@@ -9887,7 +9887,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,16,200,s
   25 |  </body>
   26 |
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,9,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable2.html","
    1 |
@@ -9912,7 +9912,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,9,200,s
   20 |          <a href=""#"" data-toggle=""modal"" id=""pw-reset-link"" data-target=""#hg-password-reset"">Reset Password</a>
   21 |       </div>
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,5,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable2.html","
    1 |
@@ -9937,7 +9937,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,5,200,s
   20 |          <a href=""#"" data-toggle=""modal"" id=""pw-reset-link"" data-target=""#hg-password-reset"">Reset Password</a>
   21 |       </div>
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,17,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable2.html","
    7 |    <div class=""form-group"">
@@ -9962,7 +9962,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,17,200,
   26 |  </body>
   27 | </html>
      ^ Col 0
-",html.has_autocomplete
+",html.html_has_autocomplete
 F065,lines,namespace/skims/test/data/lib_path/f065/html/content_type_safe.html,0,200,skims,065. Cached form fields,The application doesn't use meta tags to disable browser's cache. in namespace/skims/test/data/lib_path/f065/html/content_type_safe.html,"
    1 | <!DOCTYPE html>
    2 | <html>
@@ -9980,7 +9980,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/content_type_safe.html,0
   14 | </body>
   15 | </html>
      ^ Col 0
-",html.is_cacheable
+",html.html_is_cacheable
 F065,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0,200,skims,065. Cached form fields,The application doesn't use meta tags to disable browser's cache. in namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,"
    1 | <!DOCTYPE html>
    2 | <html>
@@ -9997,7 +9997,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/content_type_weak.html,0
   13 | </body>
   14 | </html>
      ^ Col 0
-",html.is_cacheable
+",html.html_is_cacheable
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,0,200,skims,065. Cached form fields,The application doesn't use meta tags to disable browser's cache. in namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,"
    1 | <html>
    2 |  <head>
@@ -10021,7 +10021,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.ht
   20 |  </body>
   21 | </html>
      ^ Col 0
-",html.is_cacheable
+",html.html_is_cacheable
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,0,200,skims,065. Cached form fields,The application doesn't use meta tags to disable browser's cache. in namespace/skims/test/data/lib_path/f065/html/vulnerable.html,"
    1 | <!DOCTYPE html>
    2 | <html>
@@ -10045,7 +10045,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,0,200,sk
   20 |       </div>
   21 |       <div class=""text-right"">
      ^ Col 0
-",html.is_cacheable
+",html.html_is_cacheable
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,0,200,skims,065. Cached form fields,The application doesn't use meta tags to disable browser's cache. in namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,"
    1 |
    2 | <!DOCTYPE html>
@@ -10069,7 +10069,7 @@ F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable2.html,0,200,s
   20 |          <a href=""#"" data-toggle=""modal"" id=""pw-reset-link"" data-target=""#hg-password-reset"">Reset Password</a>
   21 |       </div>
      ^ Col 0
-",html.is_cacheable
+",html.html_is_cacheable
 F066,lines,namespace/skims/test/data/lib_root/f066/has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
  in namespace/skims/test/data/lib_root/f066/has_console_functions.cs","
    1 | using System;

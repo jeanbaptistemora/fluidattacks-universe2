@@ -69,7 +69,7 @@ def has_autocomplete(content: str, path: str) -> Vulnerabilities:
         description_key="lib_path.f065.has_autocomplete",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.HAS_AUTOCOMPLETE,
+        method=MethodsEnum.HTML_HAS_AUTOCOMPLETE,
     )
 
 
@@ -136,5 +136,5 @@ def is_cacheable(content: str, path: str) -> Vulnerabilities:
         description_key="lib_path.f065.is_cacheable",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.IS_CACHEABLE,
+        method=MethodsEnum.HTML_IS_CACHEABLE,
     )

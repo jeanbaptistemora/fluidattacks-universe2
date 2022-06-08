@@ -2314,17 +2314,17 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.DAST,
     )
-    IS_CACHEABLE = MethodInfo(
+    HTML_IS_CACHEABLE = MethodInfo(
         file_name="html",
-        name="is_cacheable",
+        name="html_is_cacheable",
         module="lib_path",
         finding=FindingEnum.F065,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    HAS_AUTOCOMPLETE = MethodInfo(
+    HTML_HAS_AUTOCOMPLETE = MethodInfo(
         file_name="html",
-        name="has_autocomplete",
+        name="html_has_autocomplete",
         module="lib_path",
         finding=FindingEnum.F065,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
@@ -2514,9 +2514,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    HAS_REVERSE_TABNABBING = MethodInfo(
+    HTML_HAS_REVERSE_TABNABBING = MethodInfo(
         file_name="html",
-        name="has_reverse_tabnabbing",
+        name="html_has_reverse_tabnabbing",
         module="lib_path",
         finding=FindingEnum.F097,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
