@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/osce3/
 title: Offensive Security Certified Expert 3
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the OSCE3 (Offensive Security Certified Expert 3) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, OSCE
 certificationlogo: logo-osce-3
 alt: Logo OSCE3
 certification: yes

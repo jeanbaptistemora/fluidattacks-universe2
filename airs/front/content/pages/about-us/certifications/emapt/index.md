@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/emapt/
 title: eLearnSecurity Mobile Application Penetration Tester
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the eMAPT (eLearnSecurity Mobile Application Penetration Tester) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, EMAPT
 certificationlogo: logo-emapt
 alt: Logo eMAPT
 certification: yes

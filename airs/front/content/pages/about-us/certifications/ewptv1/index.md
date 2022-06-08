@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/ewptv1/
 title: eLearnSecurity Web Application Penetration Tester
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the eWPTv1 (eLearnSecurity Web Application Penetration Tester) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, EWPT
 certificationlogo: logo-ewptv1
 alt: Logo eWPTv1
 certification: yes

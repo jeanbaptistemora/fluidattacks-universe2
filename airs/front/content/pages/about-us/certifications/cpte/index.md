@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/cpte/
 title: Certified Penetration Testing Engineer
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the C)PTE (Certified Penetration Testing Engineer) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, CPTE
 certificationlogo: logo-cpte
 alt: Logo C)PTE
 certification: yes

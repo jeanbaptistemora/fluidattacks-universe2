@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/osed/
 title: Offensive Security Exploit Developer
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the OSED (Offensive Security Exploit Developer) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, OSED
 certificationlogo: logo-osed
 alt: Logo osed
 certification: yes

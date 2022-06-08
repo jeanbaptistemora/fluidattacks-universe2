@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/osee/
 title: Offensive Security Exploitation Expert
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the OSEE (Offensive Security Exploitation Expert) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, OSEE
 certificationlogo: logo-osee
 alt: Logo OSEE
 certification: yes

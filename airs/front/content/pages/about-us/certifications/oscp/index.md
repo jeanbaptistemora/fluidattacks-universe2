@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/oscp/
 title: Offensive Security Certified Professional
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the OSCP (Offensive Security Certified Professional) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, OSCP
 certificationlogo: logo-oscp
 alt: Logo OSCP
 certification: yes

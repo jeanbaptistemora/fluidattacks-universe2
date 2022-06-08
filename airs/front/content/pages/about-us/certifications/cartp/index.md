@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/cartp/
 title: Certified Az Red Team Professional
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the CARTP (Certified Az Red Team Professional) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, CARTP
 certificationlogo: logo-cartp
 alt: Logo CARTP
 certification: yes

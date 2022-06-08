@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/ecmap/
 title: eLearnSecurity Certified Malware Analysis Professional
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the eCMAP (eLearnSecurity Certified Malware Analysis Professional) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, ECMAP
 certificationlogo: logo-ecmap
 alt: Logo eCMAP
 certification: yes

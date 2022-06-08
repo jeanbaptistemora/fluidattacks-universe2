@@ -1,8 +1,8 @@
 ---
 slug: about-us/certifications/ceh-master/
 title: Certified Ethical Hacker (Master)
-description: Our team of ethical hackers and pentesters counts with high certifications related to cybersecurity information.
-keywords: Fluid Attacks, Ethical Hackers, Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers
+description: Our team of ethical hackers proudly holds the CEH (Certified Ethical Hacker) (Master) certification, among many others.
+keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurity, Pentesters, Whitehat Hackers, CEH
 certificationlogo: logo-ceh-master
 alt: Logo CEH Master
 certification: yes
