@@ -37,7 +37,6 @@ interface IAddRootProps {
     message: string;
     type: string;
   };
-  setForm: React.Dispatch<React.SetStateAction<string>>;
   setRepositoryValues: React.Dispatch<React.SetStateAction<IRootAttr>>;
   setRootMessages: React.Dispatch<
     React.SetStateAction<{
@@ -51,7 +50,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
   initialValues,
   onCompleted,
   rootMessages,
-  setForm,
   setRepositoryValues,
   setRootMessages,
 }: IAddRootProps): JSX.Element => {
@@ -133,7 +131,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
       message: t("group.scope.git.repo.credentials.checkAccess.success"),
       type: "success",
     });
-    setForm("organization");
     onCompleted();
   }
 

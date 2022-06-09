@@ -48,19 +48,34 @@ const Welcome: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const organizations = data === undefined ? [] : data.me.organizations;
-  const isFirstTimeUser = organizations.length === 0;
+  if (data !== undefined) {
+    const orgsLength = data.me.organizations.length;
 
-  if (isFirstTimeUser) {
-    if (hasPersonalEmail === undefined) {
-      return <div />;
+    if (orgsLength === 0) {
+      if (hasPersonalEmail === undefined) {
+        return <div />;
+      }
+
+      if (hasPersonalEmail) {
+        return <Announce message={t("autoenrollment.corporateOnly")} />;
+      }
+
+      return <Autoenrollment />;
     }
-
-    if (hasPersonalEmail) {
-      return <Announce message={t("autoenrollment.corporateOnly")} />;
+    if (orgsLength < 2) {
+      if (orgsLength === 1 && data.me.organizations[0].groups.length > 0) {
+        if (data.me.organizations[0].groups[0].roots.length === 0) {
+          return (
+            <Autoenrollment
+              group={data.me.organizations[0].groups[0].name}
+              organization={data.me.organizations[0].name}
+            />
+          );
+        }
+      } else {
+        return <Autoenrollment organization={data.me.organizations[0].name} />;
+      }
     }
-
-    return <Autoenrollment />;
   }
 
   return <Dashboard />;
