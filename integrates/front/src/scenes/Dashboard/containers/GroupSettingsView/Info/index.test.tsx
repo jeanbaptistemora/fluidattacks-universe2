@@ -28,6 +28,7 @@ describe("Info", (): void => {
             name: "TEST",
             service: "WHITE",
             sprintDuration: "2",
+            sprintStartDate: "2022-06-06T00:00:00",
             subscription: "TEST",
           },
         },

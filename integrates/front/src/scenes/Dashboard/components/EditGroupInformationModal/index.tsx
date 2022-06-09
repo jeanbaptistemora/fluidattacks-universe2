@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
@@ -7,10 +8,10 @@ import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IEditGroupInformation } from "scenes/Dashboard/components/EditGroupInformationModal/types";
 import { Col100, ControlLabel, FormGroup, Row } from "styles/styledComponents";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
+import { FormikDate, FormikDropdown, FormikText } from "utils/forms/fields";
 import {
   composeValidators,
+  isGreaterDate,
   maxLength,
   numberBetween,
   numeric,
@@ -30,19 +31,20 @@ const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
 
-const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
-  props: IEditGroupInformation
-): JSX.Element => {
-  const { initialValues, isOpen, onClose, onSubmit } = props;
+const EditGroupInformationModal: React.FC<IEditGroupInformation> = ({
+  initialValues,
+  isOpen,
+  onClose,
+  onSubmit,
+}: IEditGroupInformation): JSX.Element => {
+  const { t } = useTranslation();
 
   return (
     <React.StrictMode>
       <Modal
         onClose={onClose}
         open={isOpen}
-        title={translate.t(
-          "searchFindings.tabResources.modalEditGroupInformation"
-        )}
+        title={t("searchFindings.tabResources.modalEditGroupInformation")}
       >
         <Formik
           enableReinitialize={true}
@@ -56,15 +58,13 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                 <Col100>
                   <FormGroup>
                     <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.businessId.text"
-                      )}
+                      {t("organization.tabs.groups.newGroup.businessId.text")}
                     </ControlLabel>
                     <TooltipWrapper
                       id={
                         "organization.tabs.groups.newGroup.businessId.tooltip"
                       }
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.businessId.tooltip"
                       )}
                       placement={"top"}
@@ -85,15 +85,13 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   </FormGroup>
                   <FormGroup>
                     <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.businessName.text"
-                      )}
+                      {t("organization.tabs.groups.newGroup.businessName.text")}
                     </ControlLabel>
                     <TooltipWrapper
                       id={
                         "organization.tabs.groups.newGroup.businessName.tooltip"
                       }
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.businessName.tooltip"
                       )}
                       placement={"top"}
@@ -114,15 +112,13 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   </FormGroup>
                   <FormGroup>
                     <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.description.text"
-                      )}
+                      {t("organization.tabs.groups.newGroup.description.text")}
                     </ControlLabel>
                     <TooltipWrapper
                       id={
                         "organization.tabs.groups.newGroup.description.tooltip"
                       }
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.description.tooltip"
                       )}
                       placement={"top"}
@@ -144,13 +140,11 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   </FormGroup>
                   <FormGroup>
                     <ControlLabel>
-                      {translate.t(
-                        "organization.tabs.groups.newGroup.language.text"
-                      )}
+                      {t("organization.tabs.groups.newGroup.language.text")}
                     </ControlLabel>
                     <TooltipWrapper
                       id={"organization.tabs.groups.newGroup.language.tooltip"}
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.language.tooltip"
                       )}
                       placement={"top"}
@@ -158,14 +152,10 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                       <FormGroup>
                         <Field component={FormikDropdown} name={"language"}>
                           <option value={"EN"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.language.EN"
-                            )}
+                            {t("organization.tabs.groups.newGroup.language.EN")}
                           </option>
                           <option value={"ES"}>
-                            {translate.t(
-                              "organization.tabs.groups.newGroup.language.ES"
-                            )}
+                            {t("organization.tabs.groups.newGroup.language.ES")}
                           </option>
                         </Field>
                       </FormGroup>
@@ -173,7 +163,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   </FormGroup>
                   <FormGroup>
                     <ControlLabel>
-                      {translate.t(
+                      {t(
                         "organization.tabs.groups.newGroup.sprintDuration.text"
                       )}
                     </ControlLabel>
@@ -181,7 +171,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                       id={
                         "organization.tabs.groups.newGroup.sprintDuration.tooltip"
                       }
-                      message={translate.t(
+                      message={t(
                         "organization.tabs.groups.newGroup.sprintDuration.tooltip"
                       )}
                       placement={"top"}
@@ -203,6 +193,33 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                       </FormGroup>
                     </TooltipWrapper>
                   </FormGroup>
+                  <FormGroup>
+                    <ControlLabel>
+                      {t(
+                        "organization.tabs.groups.editGroup.sprintStartDate.text"
+                      )}
+                    </ControlLabel>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FormGroup>
+                        <Field
+                          component={FormikDate}
+                          name={"sprintStartDate"}
+                          validate={composeValidators([
+                            required,
+                            isGreaterDate,
+                          ])}
+                        />
+                      </FormGroup>
+                    </TooltipWrapper>
+                  </FormGroup>
                 </Col100>
               </Row>
               <ModalFooter>
@@ -211,10 +228,10 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = (
                   onClick={onClose}
                   variant={"secondary"}
                 >
-                  {translate.t("confirmmodal.cancel")}
+                  {t("confirmmodal.cancel")}
                 </Button>
                 <Button disabled={!dirty} type={"submit"} variant={"primary"}>
-                  {translate.t("confirmmodal.proceed")}
+                  {t("confirmmodal.proceed")}
                 </Button>
               </ModalFooter>
             </Form>

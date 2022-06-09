@@ -530,6 +530,17 @@ const isLowerDate: Validator = (value: string): string | undefined => {
   return undefined;
 };
 
+const isGreaterDate: Validator = (value: string): string | undefined => {
+  const date: Date = new Date(value);
+  const today: Date = new Date();
+
+  if (date > today) {
+    return translate.t("validations.greaterDate");
+  }
+
+  return undefined;
+};
+
 const excludeFormat: Validator = (
   value: string,
   allValues: Record<string, string>
@@ -610,6 +621,7 @@ export {
   isValidFileSize,
   isValidDateAccessToken,
   isLowerDate,
+  isGreaterDate,
   excludeFormat,
   hasSshFormat,
   selected,

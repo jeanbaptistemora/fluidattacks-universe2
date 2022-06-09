@@ -7,6 +7,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
+import moment from "moment";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
@@ -24,6 +25,7 @@ import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/S
 import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { formatIsoDate } from "utils/date";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -52,6 +54,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
       return "businessName";
     } else if (attribute === "Sprint Length") {
       return "sprintDuration";
+    } else if (attribute === "Sprint Start Date") {
+      return "sprintStartDate";
     }
 
     return attribute.toLocaleLowerCase();
@@ -115,6 +119,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           groupName,
           language: values.language,
           sprintDuration: Number(values.sprintDuration),
+          sprintStartDate: moment(values.sprintStartDate).toISOString(),
         },
       });
       setIsGroupSettingsModalOpen(false);
@@ -148,6 +153,10 @@ const GroupInformation: React.FC = (): JSX.Element => {
     {
       attribute: "Sprint Length",
       value: data.group.sprintDuration,
+    },
+    {
+      attribute: "Sprint Start Date",
+      value: formatIsoDate(data.group.sprintStartDate),
     },
   ];
   const tableHeaders: IHeaderConfig[] = [

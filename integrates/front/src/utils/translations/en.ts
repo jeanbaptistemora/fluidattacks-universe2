@@ -1543,6 +1543,12 @@ export const enTranslations: ResourceKey = {
       },
       groups: {
         disabled: "Disabled",
+        editGroup: {
+          sprintStartDate: {
+            text: "Start Date",
+            tooltip: "The start date of Sprint for this product",
+          },
+        },
         enabled: "Enabled",
         filtersTooltips: {
           forces: "Filter by forces",
