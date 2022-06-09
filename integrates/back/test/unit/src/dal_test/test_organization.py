@@ -1,63 +1,12 @@
-# pylint: disable=protected-access
-from custom_exceptions import (
-    GroupNotFound,
-    OrganizationNotFound,
-)
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
-from db_model.groups.types import (
-    Group,
-)
-from db_model.organizations.enums import (
-    OrganizationStateStatus,
-)
-from db_model.organizations.types import (
-    Organization,
-    OrganizationPolicies,
-    OrganizationState,
-)
-from newutils.datetime import (
-    get_iso_date,
-)
 from organizations import (
     dal as orgs_dal,
 )
 import pytest
-import uuid
 
 # Run async tests
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-def test__map_keys_to_domain() -> None:
-    test_dict = {
-        "pk": "primary-key",
-        "sk": "secondary-key",
-        "attr1": "attribute_1",
-        "attr2": "attribute_2",
-    }
-    mapped_dict = orgs_dal._map_keys_to_domain(test_dict)
-    assert mapped_dict["id"] == test_dict["pk"]
-    assert mapped_dict["name"] == test_dict["sk"]
-    assert mapped_dict["attr1"] == test_dict["attr1"]
-    assert mapped_dict["attr2"] == test_dict["attr2"]
-    assert "pk" not in mapped_dict
-    assert "sk" not in mapped_dict
-
-
-def test__map_attributes_to_dal() -> None:
-    test_list = ["id", "name", "attr1", "attr2"]
-    mapped_list = orgs_dal._map_attributes_to_dal(test_list)
-    assert "pk" in mapped_list
-    assert "sk" in mapped_list
-    assert "attr1" in mapped_list
-    assert "attr2" in mapped_list
-    assert "id" not in mapped_list
-    assert "name" not in mapped_list
 
 
 @pytest.mark.changes_db
@@ -73,25 +22,6 @@ async def test_add_user() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add() -> None:
-    org_name = "test-create-org"
-    email = "org_testuser1@gmail.com"
-    organization = Organization(
-        id=str(uuid.uuid4()),
-        name=org_name.lower().strip(),
-        policies=OrganizationPolicies(
-            modified_by=email, modified_date=get_iso_date()
-        ),
-        state=OrganizationState(
-            modified_by=email,
-            modified_date=get_iso_date(),
-            status=OrganizationStateStatus.ACTIVE,
-        ),
-    )
-    await orgs_dal.add(organization=organization)
-
-
-@pytest.mark.changes_db
 async def test_remove_user() -> None:
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testuser2@gmail.com"
@@ -103,62 +33,6 @@ async def test_remove_user() -> None:
     updated_users = await orgs_dal.get_users(org_id)
     assert len(updated_users) == len(users) - 1
     assert user not in updated_users
-
-
-async def test_get_by_id() -> None:
-    ex_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    existing_org = await orgs_dal.get_by_id(ex_org_id)
-    assert isinstance(existing_org, dict)
-    assert "name" in existing_org
-    assert existing_org["id"] == ex_org_id
-
-    not_ex_org_id = "ORG#2395b997-c81a-4094-9dae-b171a7b5428c"
-    with pytest.raises(OrganizationNotFound):
-        await orgs_dal.get_by_id(not_ex_org_id)
-
-
-async def test_get_by_name() -> None:
-    loaders: Dataloaders = get_new_context()
-    ex_org_name = "okada"
-    not_ex_org_name = "no-exists"
-    existing_org = await loaders.organization.load(ex_org_name)
-    assert isinstance(existing_org, Organization)
-    assert existing_org.id.startswith("ORG#")
-    assert existing_org.name == ex_org_name
-    with pytest.raises(OrganizationNotFound):
-        not_existent_org = await loaders.organization.load(not_ex_org_name)
-        assert not not_existent_org
-
-
-async def test_get_many_by_id() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_ids = [
-        "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-        "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
-    ]
-    orgs: tuple[Organization, ...] = await loaders.organization.load_many(
-        org_ids
-    )
-    assert orgs[0].id == org_ids[0]
-    assert orgs[1].name == "bulat"
-
-    org_ids_non_existent = [
-        "ORG#49bcf63c-cd96-442f-be79-aa51574dc187",
-        "ORG#50bcf74c-cd96-442f-be79-aa51574dc187",
-    ]
-    with pytest.raises(OrganizationNotFound):
-        await loaders.organization.load_many(org_ids_non_existent)
-
-
-async def test_get_id_for_group() -> None:
-    existing_group_name = "unittesting"
-    non_existent_group_name = "madeup"
-    loaders: Dataloaders = get_new_context()
-    existing_group: Group = await loaders.group.load(existing_group_name)
-    org_id_1 = existing_group.organization_id
-    assert org_id_1 == "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    with pytest.raises(GroupNotFound):
-        await loaders.group.load(non_existent_group_name)
 
 
 async def test_get_ids_for_user() -> None:
@@ -208,22 +82,3 @@ async def test_has_user_access() -> None:
     non_existent_user = "madeupuser@gmail.com"
     assert await orgs_dal.has_user_access(org_id, existing_user)
     assert not await orgs_dal.has_user_access(org_id, non_existent_user)
-
-
-async def test_iterate_organizations() -> None:
-    expected_organizations = {
-        "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": "okada",
-        "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86": "bulat",
-        "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2": "hajime",
-        "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de": "tatsumi",
-        "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2": "himura",
-        "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1": "makimachi",
-        "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac": "kamiya",
-        "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448": "kiba",
-        "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b": "imamura",
-        "ORG#d32674a9-9838-4337-b222-68c88bf54647": "makoto",
-        "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee": "ikari",
-    }
-    async for organization in orgs_dal.iterate_organizations():
-        assert expected_organizations.pop(organization.id) == organization.name
-    assert expected_organizations == {}
