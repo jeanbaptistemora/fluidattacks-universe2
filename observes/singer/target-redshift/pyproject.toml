@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "target_redshift"
+version = "1.0.0"
+description = "Singer target redshift"
+authors = ["Product Team <development@fluidattacks.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "^1.17.104"
+click = "^7.1.2"
+jsonschema = "^3.2.0"
+psycopg2 = "^2.8.4"
+returns = "^0.16.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
