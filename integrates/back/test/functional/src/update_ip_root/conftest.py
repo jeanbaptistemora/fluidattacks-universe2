@@ -114,6 +114,7 @@ async def populate() -> bool:
                         type=GroupSubscriptionType.CONTINUOUS,
                     ),
                     organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    sprint_start_date="2022-06-06T00:00:00",
                 ),
             },
         ],

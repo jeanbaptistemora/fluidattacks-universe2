@@ -91,6 +91,7 @@ async def get_result(
                 businessId
                 businessName
                 sprintDuration
+                sprintStartDate
                 __typename
             }}
         }}

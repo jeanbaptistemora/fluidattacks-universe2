@@ -19,6 +19,7 @@ async def get_result(
     description: str,
     language: str,
     sprint_duration: int,
+    sprint_start_date: str,
 ) -> dict[str, Any]:
     query: str = f"""
         mutation {{
@@ -29,6 +30,7 @@ async def get_result(
                 groupName: "{group}"
                 language: {language}
                 sprintDuration: {sprint_duration}
+                sprintStartDate: "{sprint_start_date}"
             ) {{
                 success
             }}

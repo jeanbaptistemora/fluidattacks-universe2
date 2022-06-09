@@ -38,6 +38,7 @@ async def test_update_group_info(
     business_id: str = "420938281"
     business_name: str = "Testing Company & Sons"
     sprint_duration: int = 2
+    sprint_start_date: str = "2022-05-30T00:00:00"
     result: dict[str, Any] = await get_result(
         business_id=business_id,
         business_name=business_name,
@@ -46,6 +47,7 @@ async def test_update_group_info(
         group=group_name,
         description=description,
         language=language,
+        sprint_start_date=sprint_start_date,
     )
     assert "errors" not in result
     assert "success" in result["data"]["updateGroupInfo"]
@@ -97,6 +99,7 @@ async def test_update_group_info_fail(
         description=description,
         language=language,
         sprint_duration=sprint_duration,
+        sprint_start_date="",
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
