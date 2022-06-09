@@ -1250,13 +1250,13 @@
     "GHSA-jf8x-wg7f-p3w8": "<=0.0.1-security"
   },
   "cal_rd": {
-    "GHSA-226w-6hhj-69hp": ">=0"
+    "GHSA-226w-6hhj-69hp": "<=0.0.1-security"
   },
   "calipso": {
-    "CVE-2021-23391": ">=0"
+    "CVE-2021-23391": "<=0.3.54"
   },
   "calk": {
-    "GHSA-9mmw-3fmh-96g3": ">=0"
+    "GHSA-9mmw-3fmh-96g3": "<=0.0.1-security"
   },
   "call": {
     "CVE-2016-10543": ">=2.0.1 <3.0.2"
@@ -1273,10 +1273,10 @@
     "npm:caolilinode:20170617": "<=1.0.0"
   },
   "carloprojectdiscord": {
-    "GHSA-9rwj-8mh9-4876": ">=0"
+    "GHSA-9rwj-8mh9-4876": "<=0.0.1-security"
   },
   "carloprojectlesang": {
-    "GHSA-qj2g-642f-4jrv": ">=0"
+    "GHSA-qj2g-642f-4jrv": "<=0.0.1-security"
   },
   "casperjs": {
     "CVE-2020-7679": "<=1.1.4"
@@ -1295,7 +1295,7 @@
     "GHSA-v6cj-r88p-92rm": "<2.4.0"
   },
   "chak": {
-    "GHSA-9q9m-m2f6-jr5q": ">=0"
+    "GHSA-9q9m-m2f6-jr5q": "<=0.0.1-security"
   },
   "chalk": {},
   "changeset": {
@@ -1325,7 +1325,7 @@
     "npm:chownr:20180731": "<1.1.0"
   },
   "chrome-launcher": {
-    "CVE-2020-7645": ">=0"
+    "CVE-2020-7645": "<=0.13.2"
   },
   "chromedriver": {
     "CVE-2016-10579": "<2.26.1"
@@ -1340,7 +1340,7 @@
     "GHSA-5pm8-492c-92p5": ">=3.1.0 <=3.1.3"
   },
   "cionstring": {
-    "GHSA-xh8g-j88w-6v59": ">=0"
+    "GHSA-xh8g-j88w-6v59": "<=0.0.1-security"
   },
   "cipher-base": {},
   "city-weather-abe": {
@@ -1435,7 +1435,7 @@
     "CVE-2016-10657": "<=2.3.2"
   },
   "cocos-utils": {
-    "GHSA-rffp-mc78-wjf7": ">=0"
+    "GHSA-rffp-mc78-wjf7": "<=1.0.0"
   },
   "code-server": {
     "CVE-2021-3810": "<3.12.0"
@@ -1475,7 +1475,7 @@
     "npm:coffescript:20171006": "<=0.0.1-security"
   },
   "coinpayment": {
-    "GHSA-3h99-v4qw-p2h5": ">=0"
+    "GHSA-3h99-v4qw-p2h5": "<=0.0.1-security"
   },
   "coinstirng": {
     "GHSA-ff6g-gm92-rf32": ">=0"
