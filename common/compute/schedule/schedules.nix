@@ -567,7 +567,7 @@
     };
   };
   integrates_subscriptions_daily_digest = {
-    enabled = true;
+    enabled = false;
     command = [
       "m"
       "f"
