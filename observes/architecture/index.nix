@@ -29,8 +29,6 @@ let
       runtime = "${root}/env/runtime";
       dev = "${root}/env/dev";
     };
-    lint = "${root}/lint";
-    test = "${root}/test";
   };
   override_attrs = old: override: old // override old;
 in {
@@ -57,6 +55,8 @@ in {
       (new_std "${etlsPath}/code")
       // {
         root = "/observes/code_etl";
+        lint = "${etlsPath}/code/lint";
+        test = "${etlsPath}/code/test";
       };
   };
   common = {
@@ -95,6 +95,6 @@ in {
     zoho_crm = std_data "${singerPath}/tap-zoho-crm";
   };
   target = {
-    redshift = std_data "${singerPath}/target-redshift";
+    redshift = new_std "${singerPath}/target-redshift";
   };
 }
