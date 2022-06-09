@@ -251,15 +251,19 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       if (userModalAction === "add") {
         await grantStakeholderAccess({
           variables: {
-            ...values,
+            email: values.email,
             groupName,
+            responsibility: values.responsibility,
+            role: values.role,
           },
         });
       } else {
         await updateGroupStakeholder({
           variables: {
-            ...values,
+            email: values.email,
             groupName,
+            responsibility: values.responsibility,
+            role: values.role,
           },
         });
       }
