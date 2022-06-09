@@ -262,3 +262,28 @@ where you want to add,
 delete or edit secrets and
 follow the same procedure
 described above.
+
+## Existing credentials
+
+Credentials help us to have
+access to one or multiple
+repositories.
+When creating or
+editing a root,
+you can see the
+**Existing credentials** field.
+Clicking on it will display a
+list of credentials previously
+used for other repositories.
+
+![Existing Credentials Field](https://res.cloudinary.com/fluid-attacks/image/upload/v1654800380/docs/web/groups/scope/roots_existcredentials_field.png)
+
+If any of the credentials in
+the list is useful for the root
+that you want to create or edit,
+select it,
+and the **Credential type** and
+**Credential name** fields will
+be autofilled.
+
+![Credentials Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1654800380/docs/web/groups/scope/roots_existcredentials_field2.png)
