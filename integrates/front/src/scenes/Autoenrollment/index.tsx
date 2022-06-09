@@ -49,7 +49,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     type: "success",
   });
 
-  const { push, replace } = useHistory();
+  const { push } = useHistory();
   const goToOrg = useCallback((): void => {
     setOrgMessages({ message: "", type: "success" });
     push("/autoenrollment/organization");
@@ -274,9 +274,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           if (rootSuccess) {
             localStorage.clear();
             sessionStorage.clear();
-            replace(
-              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
-            );
             setSuccessValues(true, true, true);
             mixpanel.track("AutoenrollSubmit", {
               addGroup: true,
@@ -286,6 +283,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
               organization: values.organizationName.toLowerCase(),
               url: url.trim(),
             });
+            location.replace(
+              `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
+            );
           } else {
             mixpanel.track("AutoenrollSubmit", {
               addGroup: true,
@@ -342,7 +342,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       addGroup,
       addOrganization,
       push,
-      replace,
       repository,
       setOrganization,
       setSuccessValues,

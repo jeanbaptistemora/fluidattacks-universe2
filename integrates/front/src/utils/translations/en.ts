@@ -274,7 +274,7 @@ export const enTranslations: ResourceKey = {
         "Select the language of your preference to report vulnerabilities",
       role: "User manager",
       roleTitle: "Role",
-      termsOfService: "I read the Terms of Service and Privacy",
+      termsOfService: "I read the Terms of Service and Privacy Policy",
       title: "Let's create your group",
     },
     addRoot: {
@@ -312,7 +312,7 @@ export const enTranslations: ResourceKey = {
       },
       proceed: {
         checkAccess: "Check access",
-        next: "next",
+        next: "Next",
       },
       subtitle: "To begin, add the first code repository",
       title: "Welcome to the Attack Surface Manager (ASM)",
