@@ -5683,14 +5683,14 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Server: Werkzeug/2.0.1 Python/3.8.9
       Date: Tue, 01 Feb 2022 "Wrong Clock" GMT
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Server: Werkzeug/2.0.1 Python/3.8.9
       Date: Tue, 01 Feb 2022 20:38:00 GMT
@@ -10017,7 +10017,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/; Path=/;
@@ -10026,7 +10026,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/; Path=/; SameSite=Lax
@@ -11007,7 +11007,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Set-Cookie: session=/; Path=/
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11015,7 +11015,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11077,7 +11077,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Set-Cookie: session=/; Path=/; SameSite=Lax
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11085,7 +11085,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
       Set-Cookie: session=/; Path=/; SameSite=Strict
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11155,7 +11155,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/; Path=/; secure = false
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11163,7 +11163,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/currentSession; Path=/mypath; secure = true
       Server: Werkzeug/2.0.1 Python/3.8.9
@@ -11231,7 +11231,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/; Path=/; secure = false
@@ -11240,7 +11240,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Strict-Transport-Security: max-age=31536000; includeSubDomains
       Content-Type: userID/html; charset=utf-8
@@ -11372,7 +11372,7 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Set-Cookie: session=/; Path=/; secure = false
@@ -11381,7 +11381,7 @@
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       X-Content-Type-Options: nosniff
@@ -11655,13 +11655,13 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       X-XSS-Protection: 1; report=<reporting-uri>
       Content-Type: userID/html; charset=utf-8
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       ```
@@ -11732,14 +11732,14 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Cache-Control: no-cache
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       Cache-Control: max-age=604800, stale-if-error=86400
@@ -11805,14 +11805,14 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       X-Permitted-Cross-Domain-Policies "all"
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
       Content-Type: userID/html; charset=utf-8
       X-Permitted-Cross-Domain-Policies "none"
@@ -13007,13 +13007,13 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       X-Frame-Options: SAMEORIGIN
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self' frame_ancestors
       Content-Type: userID/html; charset=utf-8
       ```
@@ -13083,13 +13083,13 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       Accept: */*
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       Accept: text/html, application/xhtml+xml, application/xml;q=0.9,
       ```
@@ -16484,7 +16484,6 @@
     non_compliant: |
       ```javascript
       const signinHandler = (req, res) => {
-        // get users credentials from the JSON body
         const { username, password } = req.body;
         const expectedPassword = users[username];
         if (!expectedPassword || expectedPassword !== password) {
@@ -16498,12 +16497,10 @@
     compliant: |
       ```javascript
       const signinHandler = (req, res) => {
-        // get users credentials from the JSON body
         const { username, password } = req.body;
         const expectedPassword = users[username];
         if (!expectedPassword || expectedPassword !== password) {
           res.status(401).end();
-          //Include possible harmful data in the response
           res.message("Password provided is not valid");
           return
         }
@@ -17830,8 +17827,15 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Source code does not check if app is being run on an emulator
+    compliant: |
+      There are several methods to check if an app is being run on an emulator
+      ```java
+      private boolean isEmulator() {
+        return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -17897,8 +17901,42 @@
       Atacante anónimo desde internet con un token válido.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c
+      using namespace std;
+      using namespace cv;
+      // Function for Face Detection
+      void detectAndDraw( Mat& img, CascadeClassifier& cascade,
+                      CascadeClassifier& nestedCascade, double scale );
+      string cascadeName, nestedCascadeName;
+
+      void getAccess(Scanner, imgFile, backUpToken){
+        nestedCascade.detectMultiScale( Scanner img);
+        if (isMatch(Scanner, imgFile)){
+          //Granting access through a secure process
+        }else if (backUpToken != null){
+          //granting access through secondary vulnerable process
+        }
+      }
+      ```
+    compliant: |
+      ```c
+      using namespace std;
+      using namespace cv;
+      // Function for Face Detection
+      void detectAndDraw( Mat& img, CascadeClassifier& cascade,
+                      CascadeClassifier& nestedCascade, double scale );
+      string cascadeName, nestedCascadeName;
+
+      void getAccess(Scanner, imgFile){
+        nestedCascade.detectMultiScale( Scanner img);
+        if (isMatch(Scanner, imgFile)){
+          //Granting access through a secure process
+        }else{
+          //Deny access
+        }
+      }
+      ```
   remediation_time: "450"
   score:
     base:
@@ -18052,8 +18090,29 @@
       Usuario no autorizado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      //The cloudfare uses the server as the default ingress
+      tunnel: The tunnel UUID
+      credentials-file: /path/credentials.json
+      warp-routing:
+          enabled: true
+      ingress:
+        - hostname: gitlab.widgetcorp.tech
+          service: http://localhost:80
+      ```
+    compliant: |
+      the cloudfare
+      ```yaml
+      tunnel: The tunnel UUID
+      credentials-file: /path/credentials.json
+      warp-routing:
+          enabled: true
+      ingress:
+        - hostname: yourhost
+          service: http://localhost:80
+        - service: http_status:404
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18114,8 +18173,32 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        // Validate User Code
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            userName: req.body.user,
+            password: req.body.password,
+        }
+        const token = jwt.sign(data, jwtSecretKey);
+        res.send(token);
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        // Validate User Code
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            time: Date(),
+            userId: 12,
+        }
+        const token = jwt.sign(data, jwtSecretKey);
+        res.send(token);
+      });
+      ```
   remediation_time: "30"
   score:
     base:
@@ -18194,8 +18277,47 @@
       información de la empresa.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Example with a weak password configuration
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForAppA
+            Description: "This secret has a dynamically generated secret password."
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 8
+              ExcludeLowercase: True
+              ExcludeNumbers: False
+              ExcludePunctuation: true
+              ExcludeUppercase: false
+              IncludeSpace: True
+              RequireEachIncludedType: False
+      ```
+    compliant: |
+      Setting a strong password configuration policy
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForAppA
+            Description: "This secret has a dynamically generated secret password."
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 16
+              ExcludeCharacters: '"@/\'
+              ExcludeLowercase: False
+              ExcludeNumbers: False
+              ExcludePunctuation: False
+              ExcludeUppercase: false
+              IncludeSpace: false
+              RequireEachIncludedType: True
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18246,8 +18368,16 @@
       Atacante interno con acceso al código fuente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      jfrog.accesskey   = "AKIA0000000000000000"
+      artifact.password = "123"
+      ```
+    compliant: |
+      ```yaml
+      jfrog.accesskey   = ${access_key}
+      artifact.password = ENC(something-base64-encoded-but-encrypted)
+      ```
   remediation_time: "30"
   score:
     base:
@@ -18308,8 +18438,26 @@
       Atacante interno con acceso al código fuente.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      //There is a file in the source code that stores the employee information
+      ```json
+      Employees {
+        ids {
+          name: "index.html";
+          phone: "localhost:4446 ssl";
+          role: "admin";
+        }
+      }
+      ```
+    compliant: |
+      Sensitive information should be encrypted and stored in a database only accessed with admin privileges
+      ```terraform
+      resource "db_storage_rules" "name" {
+        resource_group_name  = db_resource_group.test.name
+        storage_account_name = db_storage_account.test.name
+        default_action = "Deny"
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18386,8 +18534,28 @@
       Atacante externo con acceso a token válido.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editPaymentMethod', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //The credit card number gets passed to a variable without hashing
+          creditCardId = req.body.creditCardNumber;
+          res.message("creditCardid"+creditCardId);
+          res.redirect('/profile/payments');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editPaymentMethod', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //A credit card gets assigned a random id
+          creditCardId = createUuid(user);
+          res.message("creditCardid"+creditCardId);
+          res.redirect('/profile/payments');
+        }
+      });
+      ```
   remediation_time: "120"
   score:
     base:
@@ -18536,8 +18704,32 @@
       Atacante interno con credenciales Redis.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      serverConfiguration:
+        bind * -::*
+        enable-protected-configs no
+        enable-debug-command no
+        tls-port 6379
+        tls-key-file redis.key
+        tls-auth-clients no
+        tls-protocols "TLSv1.2 TLSv1.3"
+        tls-ciphersuites TLS_CHACHA20_POLY1305_SHA256
+        protected-mode no
+      ```
+    compliant: |
+      ```yaml
+      serverConfiguration:
+        bind * -::*
+        enable-protected-configs no
+        enable-debug-command no
+        tls-port 6379
+        tls-key-file redis.key
+        tls-auth-clients no
+        tls-protocols "TLSv1.2 TLSv1.3"
+        tls-ciphersuites TLS_CHACHA20_POLY1305_SHA256
+        protected-mode yes
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18588,8 +18780,32 @@
       Atacante externo con acceso a los tokens.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        // Validate User Code
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            userName: req.body.user,
+            password: req.body.password,
+        }
+        const token = jwt.sign(data, jwtSecretKey);
+        res.send(token);
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        // Validate User Code
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        let data = {
+            time: Date(),
+            userId: 12,
+        }
+        const token = jwt.sign(data, jwtSecretKey);
+        res.send(token);
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18646,8 +18862,35 @@
       Atacante interno con acceso al código.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/accessUsers', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //It is possible to access the list of users with basic registration
+          if isLoggedIn{
+            const users = getUserList();
+            updateDOM(users);
+            res.message("Valid Access);
+            res.redirect('/database/users');
+          }
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/accessUsers', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Add controls to see if the user is Admin before accessing business information
+          const isUserAdmin = getUserCredentials(user.id);
+          if (isLoggedIn && isUserAdmin){
+            const users = getUserList(user.cipher_key);
+            updateDOM(users);
+            res.message("Valid Access);
+            res.redirect('/database/users');
+          }
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18753,8 +18996,41 @@
       obtenidas desde el código fuente, en Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //The source code shows the db credentials directly
+      let connection = mysql.createConnection({
+          host: 'localhost',
+          user: 'root',
+          password: '1234',
+          database: 'clients'
+      });
+
+      function getUserInfo(isLoggedIn, user){
+        connection.query('SELECT * FROM employee', function (error, results, fields) {
+          if (error)
+            throw error;
+
+          results.forEach(result => {
+            //Code to handle the results
+          });
+        });
+      }
+      ```
+    compliant: |
+      ```javascript
+      function getUserInfo(isLoggedIn, user){
+        //use a secure method to access the db without showing credentials in the source code
+        const connection = createSQLConnection(user.Credentials);
+        connection.query('SELECT * FROM employee', function (error, results, fields) {
+          if (error)
+            throw error;
+          results.forEach(result => {
+            //Code to handle the results
+          });
+        });
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18827,8 +19103,17 @@
       la información empresarial.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Access keys directly stored in the source code
+      ```yaml
+      jfrog.accesskey   = "AKIA0000000000000000"
+      artifact.password = "123"
+      ```
+    compliant: |
+      ```yaml
+      jfrog.accesskey   = ${access_key}
+      artifact.password = ENC(something-base64-encoded-but-encrypted)
+      ```
   remediation_time: "60"
   score:
     base:
@@ -18901,8 +19186,46 @@
       Atacante con acceso a código.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //The source code shows the db credentials directly
+      const AWS = require('aws-sdk');
+      const ID = 'MyBucketID';
+      const SECRET = 'AccessKeyInCode';
+      const BUCKET_NAME = 'bucket';
+
+      const uploadFile = (fileName) => {
+        const fileContent = fs.readFileSync(fileName);
+        // Setting up S3 upload parameters
+        const params = {
+            Bucket: BUCKET_NAME,
+            Key: 'file',
+            Body: fileContent
+        };
+        // Uploading files to the bucket
+        s3.upload(params, function(err, data) {
+          //Code to upload files and handle errors
+        });
+      };
+      ```
+    compliant: |
+      ```javascript
+      const uploadFile = (fileName) => {
+        const fileContent = fs.readFileSync(fileName);
+        //Function to establish connection to the db without storing credentials on the code
+        const s3 = establishBucketConnection();
+        // Setting up S3 upload parameters
+        const params = {
+            Bucket: BUCKET_NAME,
+            Key: 'file',
+            Body: fileContent
+        };
+        // Uploading files to the bucket
+        s3.upload(params, function(err, data) {
+          //Code to upload files and handle errors
+        });
+      };
+      ```
   remediation_time: "120"
   score:
     base:
@@ -18976,8 +19299,38 @@
       la base de datos y arquitectura del servicio.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      var sql = require("mssql");
+
+      // Configuration and credentials directly stored in the source code
+      var dbConfig = {
+        server: "zavier-test.database.windows.net",
+        database: "AdventureWorks",
+        user: "<your username>",
+        password: "<your password>",
+        port: 1433,
+        // Since we're on Windows Azure, we need to set the following options
+        options: {
+          encrypt: true
+        }
+      };
+
+      const uploadFile = (fileName) => {
+        const fileContent = fs.readFileSync(fileName);
+        var conn = new sql.Connection(dbConfig);
+        // Code to handle the upload of files
+      };
+      ```
+    compliant: |
+      ```javascript
+      const uploadFile = (fileName) => {
+        const fileContent = fs.readFileSync(fileName);
+        //Function to establish connection to the db without storing credentials on the code
+        const connection = establishAzureConnection();
+        // Code to handle the upload of files
+      };
+      ```
   remediation_time: "120"
   score:
     base:
@@ -19036,8 +19389,27 @@
       Atacante con acceso al código fuente de la aplicación.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      //There is a file in the source code that stores the employee information
+      ```json
+      Employees {
+        ids {
+          name: "index.html";
+          phone: "localhost:4446 ssl";
+          role: "admin";
+          government_id = "1234095";
+        }
+      }
+      ```
+    compliant: |
+      Sensitive information should be encrypted and stored in a database only accessed with admin privileges
+      ```terraform
+      resource "db_storage_rules" "name" {
+        resource_group_name  = db_resource_group.test.name
+        storage_account_name = db_storage_account.test.name
+        default_action = "Deny"
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -19126,8 +19498,32 @@
       un ataque man-in-the-middle.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      config user nac-policy
+        Description: Configure NAC policy
+        edit <name>
+          set description {description}
+          set category [device]
+          set status [enable]
+          set mac {mac-address}
+          set switch-mac-policy {switchPolicy}
+        next
+      end
+      ```
+    compliant: |
+      ```yaml
+      config user nac-policy
+        Description: Configure NAC policy
+        edit <name>
+          set description {description}
+          set category [device]
+          set status [enable]
+          set host {string}
+          set user {string}
+        next
+      end
+      ```
   remediation_time: "60"
   score:
     base:
@@ -19183,8 +19579,27 @@
       Atacante externo no autenticado en la aplicación.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //Credentials stored on the source code
+      const SW_URL = "myurl";
+      const APIKey = "My APIKEY"
+
+      const getAnalytics= (params) => {
+        const reqUrl = SW_URL + "/?" + APIKey;
+        const analytics = fetch(reqUrl, params)
+        // Code to handle analytics information
+      };
+      ```
+    compliant: |
+      ```javascript
+      const getAnalytics= (params, user) => {
+        //Use a secure encrypted method to get url and Key data
+        const reqUrl = getEncryptedUrl(user.credentials);
+        const analytics = fetch(reqUrl, params)
+        // Code to handle analytics information
+      };
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19255,8 +19670,37 @@
       aplicación desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const request = require('request');
+      //Power BI credentials stored in the source code
+      const getAccessToken = function () {
+        return new Promise(function (resolve, reject) {
+          const url = POWERBI_URL;
+          const username = 'myUserName';
+          const password = 'myPassword';
+          const clientId = 'myClientId';
+
+          //Remaining code to handle connection to Token
+        }
+      };
+      ```
+    compliant: |
+      ```javascript
+      const request = require('request');
+      //Code to handle connection without storing parameters in source code
+      const prepareView: function(req, res) {
+        getAccessToken().then(function(accessToken) {
+          getEmbedToken(accessToken, req.params.groupId, req.params.dashboardId).then(function(embedToken) {
+            res.render('index', {
+              dashboardId: req.params.dashboardId,
+              embedToken,
+              embedUrl: POWERBI_URL + req.params.dashboardId + '&groupId=' + req.params.groupId
+            });
+          });
+        });
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -19306,8 +19750,27 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      let db = firebase.database();
+      //The code attaches user credentials to the response of a db query
+      app.get("/user/request", (req, res) => {
+        const userCredentials = req.body.user.token;
+        const ref = db.ref(req.body.reqDb);
+        res.send(userCredentials);
+        res.send(ref);
+      });
+      ```
+    compliant: |
+      ```javascript
+      let db = firebase.database();
+
+      app.get("/user/request", (req, res) => {
+        const userCredentials = req.body.user.token;
+        const ref = db.ref(req.body.reqDb);
+        //Code to retrieve information and send it back, without displaying user credentials
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -19379,8 +19842,31 @@
       Atacante externo con acceso al código.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 587
+          domain: "yourdomain"
+          authentication: :plain
+          user_name: "appadmin"
+      ```
+    compliant: |
+      ```java
+      email_delivery:
+        delivery_method: :smtp
+        smtp_settings:
+          enable_starttls_auto: true
+          address: "address"
+          port: 587
+          domain: "promotions_domain"
+          authentication: :plain
+          user_name: "appadmin"
+          time_delay: 24h
+      ```
   remediation_time: "15"
   score:
     base:
@@ -19432,8 +19918,10 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is information in the code that displays the ng-version of the system
+    compliant: |
+      No functionalities that show technical information about the system
   remediation_time: "30"
   score:
     base:
@@ -19555,8 +20043,35 @@
       Atacante autenticado desde Internet
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class Test {
+        public static void main(String[ ] args) {
+          try {
+            //Code to handle data that could result in an exception
+          } catch (IndexException e) {
+            if (e.toString() == "Error"){
+              System.out.println("Error");
+            }
+            e.printStackTrace();
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class Test {
+        public static void main(String[ ] args) {
+          try {
+            //Code to handle data that could result in an exception
+          } catch (IndexException e) {
+            if (e.toString() == "Error"){
+              return Exception("Error message")
+            }
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -19606,8 +20121,27 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      HTTP/1.1 200 OK
+      Date: Mon, 27 Jul 2009 12:28:53 GMT
+      Server: Apache/2.2.14 (Win32)
+      Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+      Content-Length: 88
+      Content-Type: text/html
+      Connection: Open
+      Message: System Version 2.0
+      ```
+    compliant: |
+      ```http
+      HTTP/1.1 200 OK
+      Date: Mon, 27 Jul 2009 12:28:53 GMT
+      Server: Apache/2.2.14 (Win32)
+      Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+      Content-Length: 88
+      Content-Type: text/html
+      Connection: Closed
+      ```
   remediation_time: "60"
   score:
     base:
@@ -19657,8 +20191,15 @@
       Usuario no autorizado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The source code includes direct access to SourceMap files
+      ```html
+      <head>
+        <link rel="sourcemap" href="js.map">
+      </head>
+      ```
+    compliant: |
+      The sourceMap files should only be used to debug production code but should not be included in the source code
   remediation_time: "15"
   score:
     base:
@@ -19813,8 +20354,21 @@
       realiza una consulta de introspección.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.use('/graphql', graphqlHTTP({
+        schema: MyGraphQLSchema,
+      + validationRules: [*]
+      }));
+      ```
+    compliant: |
+      ```javascript
+      //In nodejs you can disable introspection for graphql
+      app.use('/graphql', graphqlHTTP({
+        schema: MyGraphQLSchema,
+      + validationRules: [NoIntrospection]
+      }));
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26560,13 +27114,13 @@
   examples:
     non_compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Date: Tue, 15 Nov 1994 08:12:31 GMT
       Host: yourhost
       ```
     compliant: |
       ```http
-      GET http://localhost:48000/
+      HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       ```
   remediation_time: "30"
