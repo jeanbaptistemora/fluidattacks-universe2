@@ -14,12 +14,12 @@ from utils.logs import (
 
 def main() -> None:
     language = sys.argv[1]
-    community_advisories_vulns: Dict[str, Any] = get_remote_advisories(
-        language
-    )
+    advisories: Dict[str, Any] = {}
+    get_remote_advisories(advisories, language)
 
     log_blocking("info", f"Creating file: {language}.json")
     with open(f"{language}.json", "w") as outfile:
-        json.dump(
-            community_advisories_vulns, outfile, indent=2, sort_keys=True
-        )
+        json.dump(advisories, outfile, indent=2, sort_keys=True)
+
+
+main()

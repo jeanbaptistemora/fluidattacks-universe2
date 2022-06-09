@@ -5,6 +5,8 @@ import glob
 import re
 import tempfile
 from typing import (
+    Any,
+    Dict,
     Pattern,
 )
 from utils.logs import (
@@ -35,15 +37,20 @@ def format_range(range: str) -> str:
     return f"{min_operator}{min_r} {max_operator}{max_r}"
 
 
+def fix_npm_range(range: str) -> str:
+    return range.replace("||", " || ")
+
+
 def format_ranges(language: str, range: str) -> str:
-    if language == "maven":
+    if language in ("maven", "nuget"):
         ranges = re.findall(RE_MAVEN_RANGES, range)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
+    if language == "npm":
+        return fix_npm_range(range)
 
 
-def get_remote_advisories(language: str) -> dict:
-    advisories: dict = {}
+def get_remote_advisories(advisories: Dict[str, Any], language: str) -> dict:
     with tempfile.TemporaryDirectory() as tmp_dirname:
         log_blocking("info", "Cloning repository: advisories-community")
         Repo.clone_from(
