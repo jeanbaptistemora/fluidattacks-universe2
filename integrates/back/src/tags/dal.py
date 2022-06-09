@@ -10,8 +10,8 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
-from decimal import (
-    Decimal,
+from db_model.portfolios.types import (
+    Portfolio,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -21,6 +21,9 @@ from dynamodb.types import (
 )
 import logging
 import logging.config
+from newutils.portfolios import (
+    format_portfolio_item,
+)
 from settings import (
     LOGGING,
 )
@@ -92,16 +95,15 @@ async def get_tags(
 
 
 async def update(
-    organization_name: str,
-    tag: str,
-    data: dict[str, Union[list[str], Decimal]],
+    data: Portfolio,
 ) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""
     expression_names = {}
     expression_values = {}
-    for attr, value in data.items():
+    portfolio_item = format_portfolio_item(data)
+    for attr, value in portfolio_item.items():
         if value is None:
             remove_expression += f"#{attr}, "
             expression_names.update({f"#{attr}": attr})
@@ -115,7 +117,7 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
-        "Key": {"organization": organization_name, "tag": tag},
+        "Key": {"organization": data.organization_name, "tag": data.id},
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 

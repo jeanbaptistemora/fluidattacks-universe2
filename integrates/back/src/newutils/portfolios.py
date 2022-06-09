@@ -44,3 +44,34 @@ def format_portfolio(
             "organization",
         ),
     )
+
+
+def format_portfolio_item(portfolio: Portfolio) -> Item:
+    formatted_item = {
+        "groups": portfolio.groups,
+        "max_open_severity": (
+            portfolio.unreliable_indicators.max_open_severity
+        ),
+        "max_severity": portfolio.unreliable_indicators.max_severity,
+        "mean_remediate": portfolio.unreliable_indicators.mean_remediate,
+        "mean_remediate_critical_severity": (
+            portfolio.unreliable_indicators.mean_remediate_critical_severity
+        ),
+        "mean_remediate_high_severity": (
+            portfolio.unreliable_indicators.mean_remediate_high_severity
+        ),
+        "mean_remediate_low_severity": (
+            portfolio.unreliable_indicators.mean_remediate_low_severity
+        ),
+        "mean_remediate_medium_severity": (
+            portfolio.unreliable_indicators.mean_remediate_medium_severity
+        ),
+        "last_closing_date": (
+            portfolio.unreliable_indicators.last_closing_date
+        ),
+    }
+    return {
+        key: value
+        for key, value in formatted_item.items()
+        if value is not None
+    }

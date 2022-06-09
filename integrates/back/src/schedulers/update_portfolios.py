@@ -17,9 +17,13 @@ from db_model.groups.types import (
 )
 from db_model.portfolios.types import (
     Portfolio,
+    PortfolioUnreliableIndicators,
 )
 from decimal import (
     Decimal,
+)
+from dynamodb.types import (
+    Item,
 )
 from groups import (
     domain as groups_domain,
@@ -127,6 +131,35 @@ async def get_group_indicators_and_tags(
     return filtered_indicators
 
 
+def format_portfolio_indicators(
+    tag_id: str, org_name: str, tag_info: Item
+) -> Portfolio:
+    new_portfolio = Portfolio(
+        id=tag_id,
+        groups=set(tag_info["projects"]),
+        organization_name=org_name,
+        unreliable_indicators=PortfolioUnreliableIndicators(
+            max_open_severity=tag_info["max_open_severity"],
+            max_severity=tag_info["max_severity"],
+            mean_remediate=tag_info["mean_remediate"],
+            mean_remediate_critical_severity=tag_info[
+                "mean_remediate_critical_severity"
+            ],
+            mean_remediate_high_severity=tag_info[
+                "mean_remediate_high_severity"
+            ],
+            mean_remediate_low_severity=tag_info[
+                "mean_remediate_low_severity"
+            ],
+            mean_remediate_medium_severity=tag_info[
+                "mean_remediate_medium_severity"
+            ],
+            last_closing_date=int(tag_info["last_closing_date"]),
+        ),
+    )
+    return new_portfolio
+
+
 async def update_organization_indicators(
     loaders: Dataloaders,
     org_name: str,
@@ -160,7 +193,8 @@ async def update_organization_indicators(
     for tag in tags_dict:
         updated_tags.append(tag)
         tag_info = calculate_tag_indicators(tag, tags_dict, indicator_list)
-        success.append(await tags_domain.update(org_name, tag, tag_info))
+        portfolio = format_portfolio_indicators(tag, org_name, tag_info)
+        success.append(await tags_domain.update(portfolio))
     return all(success), updated_tags
 
 

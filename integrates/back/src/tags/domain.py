@@ -14,9 +14,6 @@ from db_model.organizations.types import (
 from db_model.portfolios.types import (
     Portfolio,
 )
-from decimal import (
-    Decimal,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -25,7 +22,6 @@ from tags import (
 )
 from typing import (
     Any,
-    Union,
 )
 
 
@@ -98,8 +94,6 @@ async def is_tag_allowed(
 
 
 async def update(
-    organization_name: str,
-    tag: str,
-    data: dict[str, Union[list[str], Decimal]],
+    data: Portfolio,
 ) -> bool:
-    return await dal.update(organization_name, tag, data)
+    return await dal.update(data)

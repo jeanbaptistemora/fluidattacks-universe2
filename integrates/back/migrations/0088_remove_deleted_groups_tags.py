@@ -37,9 +37,7 @@ async def main() -> None:
             if group["project_status"] == "ACTIVE"
         ]
         if active_groups:
-            await tags_domain.update(
-                tag["organization"], tag["tag"], {"projects": active_groups}
-            )
+            await tags_domain.update(active_groups)
             print(
                 f"Portfolio {tag['tag']} was updated with groups "
                 f"{active_groups}"
