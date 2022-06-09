@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 """
-Migrate group info to "integrates_vms" table.
+Migrate org info to "integrates_vms" table.
 This migration does not include the org user access in "fi_organizations".
 
 Execution Time:    2022-06-09 at 03:19:05 UTC
