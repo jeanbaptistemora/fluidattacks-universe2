@@ -90,7 +90,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    userEvent.click(screen.getByText("navbar.deleteAccount"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
@@ -142,7 +142,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    userEvent.click(screen.getByText("navbar.deleteAccount"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
@@ -196,7 +196,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("navbar.deleteAccount.text"));
+    userEvent.click(screen.getByText("navbar.deleteAccount"));
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")

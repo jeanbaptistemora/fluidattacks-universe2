@@ -1396,7 +1396,6 @@ export const enTranslations: ResourceKey = {
       success: "You'll receive a delete confirmation email shortly",
       successTitle: "Success",
       text: "Delete Account",
-      tooltip: "Delete account from ASM",
     },
     featurePreview: "Feature preview",
     help: {
@@ -1410,22 +1409,10 @@ export const enTranslations: ResourceKey = {
       support: "Support",
       tooltip: "Go to for more information",
     },
-    home: {
-      text: "Home",
-    },
-    logout: {
-      text: "Log out",
-      tooltip: "Log out of ASM",
-    },
-    mobile: {
-      text: "Mobile",
-      tooltip: "Manage the mobile information",
-    },
+    logout: "Log out",
+    mobile: "Mobile",
     newsTooltip: "Latest updates about ASM",
-    notification: {
-      text: "Notifications",
-      tooltip: "Some settings to the notifications here",
-    },
+    notification: "Notifications",
     role: "Role:",
     searchPlaceholder: "Search group",
     task: {
@@ -1435,18 +1422,8 @@ export const enTranslations: ResourceKey = {
         assignedless: "You don't have any vulnerability assigned",
       },
     },
-    token: {
-      text: "API",
-      tooltip: "Get an ASM API Token",
-    },
-    uploadFile: {
-      text: "Upload a file",
-      tooltip: "Upload a file to evaluate",
-    },
-    user: {
-      text: "Add Stakeholder",
-      tooltip: "Add a user",
-    },
+    token: "API token",
+    user: "Add stakeholder",
   },
   organization: {
     tabs: {

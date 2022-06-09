@@ -31,7 +31,6 @@ import { clickedPortal } from "../utils";
 import { ButtonOpacity } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Switch } from "components/Switch";
-import { TooltipWrapper } from "components/TooltipWrapper";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
@@ -174,14 +173,9 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           <DropdownDivider />
           <li>
             <DropdownButton onClick={openTokenModal}>
-              <TooltipWrapper
-                id={"apiToken"}
-                message={t("navbar.token.tooltip")}
-              >
-                <FontAwesomeIcon icon={faKey} />
-                &nbsp;
-                {t("navbar.token.text")}
-              </TooltipWrapper>
+              <FontAwesomeIcon icon={faKey} />
+              &nbsp;
+              {t("navbar.token")}
             </DropdownButton>
             {isTokenModalOpen ? (
               <APITokenModal onClose={closeTokenModal} open={true} />
@@ -189,27 +183,18 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           </li>
           <li>
             <Link onClick={toggleDropdown} to={"/user/config"}>
-              <TooltipWrapper
-                id={"globalConfig"}
-                message={t("navbar.notification.tooltip")}
-              >
-                <DropdownButton>
-                  <FontAwesomeIcon icon={faUserCog} />
-                  &nbsp;{t("navbar.notification.text")}
-                </DropdownButton>
-              </TooltipWrapper>
+              <DropdownButton>
+                <FontAwesomeIcon icon={faUserCog} />
+                &nbsp;
+                {t("navbar.notification")}
+              </DropdownButton>
             </Link>
           </li>
           <li>
             <DropdownButton onClick={openMobileModal}>
-              <TooltipWrapper
-                id={"mobile"}
-                message={t("navbar.mobile.tooltip")}
-              >
-                <FontAwesomeIcon icon={faMobileAlt} />
-                &nbsp;
-                {t("navbar.mobile.text")}
-              </TooltipWrapper>
+              <FontAwesomeIcon icon={faMobileAlt} />
+              &nbsp;
+              {t("navbar.mobile")}
             </DropdownButton>
             {isMobileModalOpen ? (
               <MobileModal onClose={closeMobileModal} />
@@ -217,12 +202,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           </li>
           <Can do={"api_mutations_add_stakeholder_mutate"}>
             <li>
-              <TooltipWrapper id={"addUser"} message={t("navbar.user.tooltip")}>
-                <DropdownButton onClick={openStakeholderModal}>
-                  <FontAwesomeIcon icon={faUserPlus} />
-                  {t("navbar.user.text")}
-                </DropdownButton>
-              </TooltipWrapper>
+              <DropdownButton onClick={openStakeholderModal}>
+                <FontAwesomeIcon icon={faUserPlus} />
+                &nbsp;
+                {t("navbar.user")}
+              </DropdownButton>
               {isStakeholderModalOpen ? (
                 <AddUserModal
                   action={"add"}
@@ -231,7 +215,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   onClose={closeStakeholderModal}
                   onSubmit={handleAddUserSubmit}
                   open={true}
-                  title={t("navbar.user.text")}
+                  title={t("navbar.user")}
                   type={"user"}
                 />
               ) : undefined}
@@ -247,7 +231,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   <Alert>{t("navbar.deleteAccount.modal.text")}</Alert>
                 </React.Fragment>
               }
-              title={t("navbar.deleteAccount.text")}
+              title={t("navbar.deleteAccount")}
             >
               {(confirm): React.ReactNode => {
                 function handleLogoutClick(): void {
@@ -257,23 +241,18 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 }
 
                 return (
-                  <TooltipWrapper
-                    id={"deleteAccount"}
-                    message={t("navbar.deleteAccount.tooltip")}
-                  >
-                    <DropdownButton onClick={handleLogoutClick}>
-                      <FontAwesomeIcon icon={faUserTimes} />
-                      &nbsp;
-                      {t("navbar.deleteAccount.text")}
-                    </DropdownButton>
-                  </TooltipWrapper>
+                  <DropdownButton onClick={handleLogoutClick}>
+                    <FontAwesomeIcon icon={faUserTimes} />
+                    &nbsp;
+                    {t("navbar.deleteAccount")}
+                  </DropdownButton>
                 );
               }}
             </ConfirmDialog>
           </li>
           <DropdownDivider />
           <li>
-            <ConfirmDialog title={t("navbar.logout.text")}>
+            <ConfirmDialog title={t("navbar.logout")}>
               {(confirm): React.ReactNode => {
                 function handleLogoutClick(): void {
                   confirm((): void => {
@@ -283,16 +262,11 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 }
 
                 return (
-                  <TooltipWrapper
-                    id={"logOut"}
-                    message={t("navbar.logout.tooltip")}
-                  >
-                    <DropdownButton onClick={handleLogoutClick}>
-                      <FontAwesomeIcon icon={faSignOutAlt} />
-                      &nbsp;
-                      {t("navbar.logout.text")}
-                    </DropdownButton>
-                  </TooltipWrapper>
+                  <DropdownButton onClick={handleLogoutClick}>
+                    <FontAwesomeIcon icon={faSignOutAlt} />
+                    &nbsp;
+                    {t("navbar.logout")}
+                  </DropdownButton>
                 );
               }}
             </ConfirmDialog>
