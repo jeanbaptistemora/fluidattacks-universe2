@@ -26674,6 +26674,31 @@ F096,lines,namespace/skims/test/data/lib_root/f096/type_name_handling.cs,9,502,s
   11 | }
      ^ Col 0
 ",c_sharp.c_sharp_type_name_handling
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,23,502,skims,097. Reverse tabnabbing,"The system allows the introduction of a link to an external site controlled by a malicious actor.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  13 |
+  14 |    <label>Password</label><input class=""form-control"" id=""password"" type=""password"" autocomplete=""off""/>
+  15 |
+  16 |    <button class=""btn btn-primary btn-block"" id=""btn-login"">
+  17 |     &nbsp; Sign In
+  18 |    </button>
+  19 |   </form>
+  20 |  </body>
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+> 23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+  27 |
+  28 |  <!-- has_not_subresource_integrity -->
+  29 |  <script src=""https://example.com/example-framework.js"">
+  30 |  </script>
+  31 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
+  32 |  </link>
+  33 |
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
 F096,lines,namespace/skims/test/data/lib_root/f096/test.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
  in namespace/skims/test/data/lib_root/f096/test.cs","
    1 | em.Runtime.Serialization.Formatters.Binary;
