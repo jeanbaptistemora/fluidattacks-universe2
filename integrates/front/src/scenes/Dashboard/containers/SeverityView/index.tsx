@@ -131,9 +131,10 @@ const SeverityView: React.FC = (): JSX.Element => {
     useCallback(
       (values: Record<string, unknown>): void => {
         const stringValues = mapSeveritytoStringValues(values);
+        const severityValues = _.omit(stringValues, ["__typename"]);
         setIsEditing(false);
         void updateSeverity({
-          variables: { findingId, ...stringValues },
+          variables: { findingId, ...severityValues },
         });
       },
       [findingId, updateSeverity]

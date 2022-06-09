@@ -252,7 +252,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     }
   );
   const getToeLinesVariables = {
-    bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
     canGetAttackedAt,
     canGetAttackedBy,
     canGetAttackedLines,
@@ -274,6 +273,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     },
     variables: {
       ...getToeLinesVariables,
+      bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
       first: 150,
     },
   });
@@ -393,6 +393,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
           query: GET_TOE_LINES,
           variables: {
             ...getToeLinesVariables,
+            bePresent: formatBePresent(filterGroupToeLinesTable.bePresent),
             first: 150,
           },
         });
