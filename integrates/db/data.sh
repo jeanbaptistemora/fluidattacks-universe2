@@ -30,6 +30,7 @@ function main {
     organization_historic_policies
     organization_historic_state
     organization_metadata
+    portfolio_metadata
     root_services_toe_lines
     toe_input_metadata
     toe_lines_metadata

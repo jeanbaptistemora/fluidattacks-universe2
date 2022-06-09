@@ -41,6 +41,6 @@ def format_portfolio_item(portfolio: Portfolio) -> Item:
     return {
         "id": portfolio.id,
         "organization_name": portfolio.organization_name,
-        "groups": list(portfolio.groups),
+        "groups": portfolio.groups,
         "unreliable_indicators": portfolio.unreliable_indicators._asdict(),
     }
