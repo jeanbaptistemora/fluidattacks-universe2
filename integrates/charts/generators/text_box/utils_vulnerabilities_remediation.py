@@ -30,7 +30,6 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
-    timedelta,
     timezone,
 )
 from db_model.findings.types import (
@@ -38,6 +37,10 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     Group,
+)
+from db_model.utils import (
+    get_first_day_iso_date,
+    get_min_iso_date,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -47,6 +50,10 @@ from decimal import (
 )
 from findings.domain.core import (
     get_severity_score,
+)
+from pandas import (
+    date_range,
+    DatetimeIndex,
 )
 from typing import (
     NamedTuple,
@@ -59,17 +66,46 @@ class FormatSprint(NamedTuple):
     remediated: Decimal
 
 
+def get_last_sprint_start_date(
+    *, sprint_start_date: str, sprint_length: int
+) -> datetime:
+    end_date: datetime = get_min_iso_date(datetime.now()).astimezone(
+        tz=timezone.utc
+    )
+    start_date: datetime = datetime.fromisoformat(
+        sprint_start_date
+    ).astimezone(tz=timezone.utc)
+
+    sprint_dates: DatetimeIndex = date_range(
+        start=start_date.isoformat(),
+        end=end_date,
+        freq=f'{sprint_length}W-{start_date.strftime("%A")[:3].upper()}',
+    )
+
+    if sprint_dates.size > 0:
+        return datetime.combine(
+            sprint_dates.tolist()[-1].date(), datetime.min.time()
+        ).astimezone(tz=timezone.utc)
+
+    return start_date
+
+
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     group_name: str,
 ) -> FormatSprint:
-    sprint_duration: int = 1
+    sprint_length: int = 1
+    sprint_start_date: str = get_first_day_iso_date()
     with suppress(GroupNotFound):
         group: Group = await loaders.group.load(group_name)
-        sprint_duration = group.sprint_duration
+        sprint_length = group.sprint_duration
+        sprint_start_date = group.sprint_start_date
 
+    current_sprint_date = get_last_sprint_start_date(
+        sprint_start_date=sprint_start_date, sprint_length=sprint_length
+    )
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
@@ -86,9 +122,7 @@ async def generate_one(  # pylint: disable=too-many-locals
     total_previous_open, total_previous_closed = await get_totals_by_week(
         vulnerabilities=vulnerabilities,
         findings_cvssf=findings_cvssf,
-        last_day=(
-            datetime.now(tz=timezone.utc) - timedelta(weeks=sprint_duration)
-        ),
+        last_day=current_sprint_date,
         loaders=loaders,
     )
 
@@ -165,7 +199,7 @@ def format_data(count: Decimal, state: str) -> dict:
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_agressive,
-            arrow="\uD83E\uDC29",
+            arrow="&#129065;",
         )
 
     if state == "solved" and count > Decimal("0.0"):
@@ -174,7 +208,7 @@ def format_data(count: Decimal, state: str) -> dict:
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_passive,
-            arrow="\uD83E\uDC29",
+            arrow="&#129065;",
         )
 
     if state == "remediated" and count > Decimal("0.0"):
@@ -183,7 +217,7 @@ def format_data(count: Decimal, state: str) -> dict:
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_passive,
-            arrow="\uD83E\uDC29",
+            arrow="&#129065;",
         )
 
     if state == "remediated" and count < Decimal("0.0"):
@@ -192,7 +226,7 @@ def format_data(count: Decimal, state: str) -> dict:
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_agressive,
-            arrow="\uD83E\uDC2B",
+            arrow="&#129067;",
         )
 
     return dict(
