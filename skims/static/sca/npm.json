@@ -1199,25 +1199,25 @@
     "GHSA-wv39-cgmm-cq29": "<=0.0.1-security"
   },
   "buffur-xor": {
-    "GHSA-p7qp-3fh7-pv4p": ">=0"
+    "GHSA-p7qp-3fh7-pv4p": "<=0.0.1-security"
   },
   "bufger-xor": {
-    "GHSA-2w8q-69fh-9gq6": ">=0"
+    "GHSA-2w8q-69fh-9gq6": "<=0.0.1-security"
   },
   "bufner-xor": {
-    "GHSA-7xf6-cpxm-5mx9": ">=0"
+    "GHSA-7xf6-cpxm-5mx9": "<=0.0.1-security"
   },
   "bufver-xor": {
-    "GHSA-cr4x-w2v7-4mmf": ">=0"
+    "GHSA-cr4x-w2v7-4mmf": "<=0.0.1-security"
   },
   "bugfer-xor": {
-    "GHSA-8g64-9cm2-838j": ">=0"
+    "GHSA-8g64-9cm2-838j": "<=0.0.1-security"
   },
   "bunfer-xor": {
-    "GHSA-6f93-xj8r-jp82": ">=0"
+    "GHSA-6f93-xj8r-jp82": "<=0.0.1-security"
   },
   "buns": {
-    "CVE-2020-7794": ">=0"
+    "CVE-2020-7794": "<=1.1.6"
   },
   "buttercms": {
     "GHSA-3v5x-qjrp-q2hq": "<=1.2.8"
@@ -1227,10 +1227,10 @@
     "CVE-2019-5422": "=0.2.0"
   },
   "buvfer-xor": {
-    "GHSA-wjpj-gmc3-5w56": ">=0"
+    "GHSA-wjpj-gmc3-5w56": "<=0.0.1-security"
   },
   "bwffer-xor": {
-    "GHSA-7qg7-6g3g-8vxg": ">=0"
+    "GHSA-7qg7-6g3g-8vxg": "<=0.0.1-security"
   },
   "byte": {
     "GHSA-xm7f-x4wx-wmgv": "<1.4.1"
@@ -1247,7 +1247,7 @@
     "CVE-2018-16472": "<=1.0.1"
   },
   "cage-js": {
-    "GHSA-jf8x-wg7f-p3w8": ">=0"
+    "GHSA-jf8x-wg7f-p3w8": "<=0.0.1-security"
   },
   "cal_rd": {
     "GHSA-226w-6hhj-69hp": ">=0"
