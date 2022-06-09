@@ -54,7 +54,6 @@ const Environments: React.FC<IEnvironmentsProps> = ({
       <Modal
         onClose={closeAddModal}
         open={isAddEnvModalOpen}
-        size={"medium"}
         title={t("group.scope.git.addEnvUrl")}
       >
         <AddEnvironment

@@ -53,7 +53,6 @@ const SortsSuggestionsModal: React.FC<ISortsSuggestionsModal> = ({
       <Modal
         onClose={onClose}
         open={isSortsSuggestionsOpen}
-        size={"medium"}
         title={<h4>{t("group.toe.lines.sortsSuggestions")}</h4>}
       >
         {sortsSuggestionsItems}

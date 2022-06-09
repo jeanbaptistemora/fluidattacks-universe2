@@ -454,7 +454,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       <Modal
         onClose={closeSeeExecutionDetailsModal}
         open={isExecutionDetailsModalOpen}
-        size={"large"}
         title={t("group.forces.executionDetailsModal.title")}
       >
         <Execution

@@ -1,44 +1,25 @@
 import styled from "styled-components";
 
-const CloseButton = styled.span`
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-
-  :focus,
-  :hover {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-`;
-
 const Container = styled.div.attrs({
   className: "absolute--fill fixed overflow-auto z-999",
 })`
-  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  background-color: #0008;
+  display: flex;
+  justify-content: center;
 `;
 
-interface IDialogProps {
-  size: "large" | "medium" | "small";
-}
-
-const dialogSizes: Record<IDialogProps["size"], string> = {
-  large: "70%",
-  medium: "50%",
-  small: "20%",
-};
-
-const Dialog = styled.div<IDialogProps>`
+const Dialog = styled.div`
   background-color: #f4f4f6;
-  border: 1px solid #b0b0bf;
+  border-radius: 4px;
   color: #2e2e38;
+  display: flex;
+  flex-direction: column;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  margin: 10% auto;
+  max-height: 90%;
+  max-width: 90%;
   padding: 24px;
-  width: ${(props): string => dialogSizes[props.size]};
 `;
 
 const Header = styled.div.attrs({
@@ -46,8 +27,7 @@ const Header = styled.div.attrs({
 })``;
 
 const Title = styled.p.attrs({
-  className: "ma0 pa0 w-100",
+  className: "b f3 ma0",
 })``;
 
-export type { IDialogProps };
-export { CloseButton, Container, Dialog, Header, Title };
+export { Container, Dialog, Header, Title };

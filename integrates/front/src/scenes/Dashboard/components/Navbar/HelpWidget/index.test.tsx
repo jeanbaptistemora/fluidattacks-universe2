@@ -56,7 +56,7 @@ describe("HelpModal", (): void => {
     userEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(3);
+      expect(screen.queryAllByRole("button")).toHaveLength(4);
     });
 
     userEvent.type(screen.getByText("navbar.help.support"), "{esc}");
@@ -101,9 +101,9 @@ describe("HelpModal", (): void => {
     userEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(4);
+      expect(screen.queryAllByRole("button")).toHaveLength(5);
     });
-    userEvent.click(screen.getAllByRole("button")[2]);
+    userEvent.click(screen.getAllByRole("button")[3]);
 
     await waitFor((): void => {
       expect(screen.queryByText("upgrade.title")).not.toBeInTheDocument();
@@ -154,10 +154,10 @@ describe("HelpModal", (): void => {
     userEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(4);
+      expect(screen.queryAllByRole("button")).toHaveLength(5);
     });
 
-    userEvent.click(screen.getAllByRole("button")[2]);
+    userEvent.click(screen.getAllByRole("button")[3]);
 
     await waitFor((): void => {
       expect(screen.queryByText("upgrade.title")).toBeInTheDocument();

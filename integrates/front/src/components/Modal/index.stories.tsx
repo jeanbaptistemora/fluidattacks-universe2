@@ -43,7 +43,6 @@ const Template: Story<PropsWithChildren<IModalProps>> = (
 const Default = Template.bind({});
 Default.args = {
   open: false,
-  size: "medium",
   title: "Test title",
 };
 

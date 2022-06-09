@@ -51,7 +51,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
 
   return (
     <React.Fragment>
-      <Modal onClose={handleClose} open={isOpen} size={"small"} title={title}>
+      <Modal onClose={handleClose} open={isOpen} title={title}>
         {message}
         <ModalFooter>
           <Button

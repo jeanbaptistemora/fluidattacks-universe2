@@ -263,28 +263,20 @@ describe("groupFindingsView", (): void => {
       hidden: true,
     });
 
-    expect(buttons[0].querySelector(".svg-inline--fa")).toHaveAttribute(
-      "data-icon",
-      "file-contract"
-    );
-    expect(buttons[1].querySelector(".svg-inline--fa")).toHaveAttribute(
-      "data-icon",
-      "file-pdf"
-    );
-    expect(buttons[2].querySelector(".svg-inline--fa")).toHaveAttribute(
-      "data-icon",
-      "file-excel"
-    );
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    expect(buttons[3].querySelector(".svg-inline--fa")).toHaveAttribute(
-      "data-icon",
-      "sliders"
-    );
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    expect(buttons[4].querySelector(".svg-inline--fa")).toHaveAttribute(
-      "data-icon",
-      "file-zipper"
-    );
+    [
+      "xmark",
+      "file-contract",
+      "file-pdf",
+      "file-excel",
+      "sliders",
+      "file-zipper",
+    ].forEach((expectedDataIcon, idx): void => {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+      expect(buttons[idx].querySelector(".svg-inline--fa")).toHaveAttribute(
+        "data-icon",
+        expectedDataIcon
+      );
+    });
 
     await waitFor((): void => {
       expect(

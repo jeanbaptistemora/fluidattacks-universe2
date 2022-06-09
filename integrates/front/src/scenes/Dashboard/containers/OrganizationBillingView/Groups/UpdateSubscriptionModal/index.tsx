@@ -41,7 +41,6 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
     <Modal
       onClose={onClose}
       open={true}
-      size={"small"}
       title={t("organization.tabs.billing.groups.updateSubscription.title")}
     >
       <Formik

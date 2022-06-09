@@ -193,7 +193,7 @@ describe("GitRoots", (): void => {
       ).toHaveLength(1);
     });
 
-    userEvent.click(screen.getAllByRole("button")[2]);
+    userEvent.click(screen.getAllByRole("button")[3]);
 
     // Filters
     await waitFor((): void => {

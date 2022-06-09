@@ -38,10 +38,9 @@ describe("Add Tags modal", (): void => {
         onSubmit={functionMock}
       />
     );
-    const numberOfButtons: number = 3;
 
     expect(screen.queryByRole("textbox")).toBeInTheDocument();
-    expect(screen.queryAllByRole("button")).toHaveLength(numberOfButtons);
+    expect(screen.queryAllByRole("button")).toHaveLength(4);
   });
 
   it("should add and remove a input field", async (): Promise<void> => {
@@ -54,20 +53,19 @@ describe("Add Tags modal", (): void => {
         onSubmit={functionMock}
       />
     );
-    const numberOfButtons: number = 3;
 
     expect(screen.queryAllByRole("textbox")).toHaveLength(1);
-    expect(screen.queryAllByRole("button")).toHaveLength(numberOfButtons);
+    expect(screen.queryAllByRole("button")).toHaveLength(4);
     expect(container.querySelector(".fa-trash-can")).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByRole("button")[0]);
+    userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("textbox")).toHaveLength(2);
     });
 
-    expect(screen.queryAllByRole("button")).toHaveLength(4);
+    expect(screen.queryAllByRole("button")).toHaveLength(5);
 
-    userEvent.click(screen.getAllByRole("button")[0]);
+    userEvent.click(screen.getAllByRole("button")[1]);
     await waitFor((): void => {
       expect(screen.queryAllByRole("textbox")).toHaveLength(1);
     });

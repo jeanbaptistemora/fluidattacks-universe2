@@ -131,7 +131,6 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
       <Modal
         onClose={onClose}
         open={true}
-        size={"large"}
         title={t("organization.tabs.groups.newGroup.new.group")}
       >
         <Formik

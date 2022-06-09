@@ -279,7 +279,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   <Modal
                     onClose={noClick}
                     open={showCancelModal}
-                    size={"small"}
                     title={t("autoenrollment.cancelModal.body")}
                   >
                     <ModalFooter>

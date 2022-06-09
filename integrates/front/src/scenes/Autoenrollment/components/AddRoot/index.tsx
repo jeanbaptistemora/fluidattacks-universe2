@@ -499,7 +499,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   <Modal
                     onClose={noClick}
                     open={showCancelModal}
-                    size={"small"}
                     title={t("autoenrollment.cancelModal.body")}
                   >
                     <ModalFooter>

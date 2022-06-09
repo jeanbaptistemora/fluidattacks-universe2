@@ -49,7 +49,6 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
       <Modal
         onClose={handleCloseTableSetClick}
         open={hidden}
-        size={"small"}
         title={t("group.findings.tableSet.modalTitle")}
       >
         <ToggleContainer id={"columns-buttons"}>

@@ -386,7 +386,6 @@ export const Graphic: React.FC<IGraphicProps> = (
       <Modal
         onClose={frameOnFullScreenExit}
         open={fullScreen}
-        size={"large"}
         title={
           <div className={"flex justify-between w-100"}>
             <div className={`${styles.titleBar} w-50`}>{currentTitle}</div>

@@ -1,16 +1,19 @@
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { ModalFooter } from "./Footer";
-import type { IDialogProps } from "./styles";
-import { CloseButton, Container, Dialog, Header, Title } from "./styles";
+import { Container, Dialog, Header, Title } from "./styles";
+
+import { ButtonOpacity } from "../Button";
+import { ScrollContainer } from "components/ScrollContainer";
 
 interface IModalProps {
   children: React.ReactNode;
   title: React.ReactNode | string;
   onClose?: () => void;
   open: boolean;
-  size?: IDialogProps["size"];
 }
 
 const Modal: React.FC<IModalProps> = ({
@@ -18,7 +21,6 @@ const Modal: React.FC<IModalProps> = ({
   title,
   onClose,
   open,
-  size = "medium",
 }: IModalProps): JSX.Element | null => {
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
@@ -36,16 +38,16 @@ const Modal: React.FC<IModalProps> = ({
   return open
     ? createPortal(
         <Container>
-          <Dialog size={size}>
+          <Dialog>
             <Header>
               <Title>{title}</Title>
               {onClose === undefined ? undefined : (
-                <CloseButton id={"close-modal"} onClick={onClose}>
-                  {"×"}
-                </CloseButton>
+                <ButtonOpacity id={"close-modal"} onClick={onClose}>
+                  <FontAwesomeIcon icon={faClose} />
+                </ButtonOpacity>
               )}
             </Header>
-            {children}
+            <ScrollContainer>{children}</ScrollContainer>
           </Dialog>
         </Container>,
         document.body
