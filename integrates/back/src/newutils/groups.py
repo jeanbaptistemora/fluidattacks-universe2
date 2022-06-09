@@ -12,3 +12,11 @@ def filter_active_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
         for group in groups
         if group.state.status == GroupStateStatus.ACTIVE
     )
+
+
+def filter_deleted_groups(groups: tuple[Group, ...]) -> tuple[Group, ...]:
+    return tuple(
+        group
+        for group in groups
+        if group.state.status == GroupStateStatus.DELETED
+    )

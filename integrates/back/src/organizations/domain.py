@@ -168,6 +168,19 @@ async def get_all_active_group_names(
     return active_group_names
 
 
+async def get_all_deleted_groups(
+    loaders: Any,
+) -> tuple[Group, ...]:
+    active_groups = []
+    async for organization in iterate_organizations():
+        org_groups = await loaders.organization_groups.load(organization.id)
+        org_active_groups = list(
+            groups_utils.filter_deleted_groups(org_groups)
+        )
+        active_groups.extend(org_active_groups)
+    return tuple(active_groups)
+
+
 async def get_group_names(
     loaders: Any, organization_id: str
 ) -> tuple[str, ...]:
