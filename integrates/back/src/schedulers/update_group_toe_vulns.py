@@ -32,6 +32,7 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
+import html
 import logging
 import logging.config
 from newutils import (
@@ -103,8 +104,12 @@ async def process_toe_inputs(
             vulnerability.state.status is VulnerabilityStateStatus.OPEN
             # ToeInput is not associated to a root_id
             # and vulnerability.root_id == toe_input.root_id
-            and vulnerability.where.startswith(toe_input.component)
-            and vulnerability.specific.startswith(toe_input.entry_point)
+            and html.unescape(vulnerability.where).startswith(
+                toe_input.component
+            )
+            and html.unescape(vulnerability.specific).startswith(
+                toe_input.entry_point
+            )
             for vulnerability in vulnerabilities
         )
 
@@ -156,7 +161,7 @@ async def process_toe_lines(
             and vulnerability_where_path.startswith(toe_line.filename)
             for vulnerability in vulnerabilities
             for vulnerability_where_repo, vulnerability_where_path in [
-                _strip_first_dir(vulnerability.where)
+                _strip_first_dir(html.unescape(vulnerability.where))
             ]
         )
 
