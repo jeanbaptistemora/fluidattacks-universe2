@@ -17,6 +17,7 @@ from db_model import (
     credentials as creds_model,
     findings as findings_model,
     groups as groups_model,
+    organizations as orgs_model,
     roots as roots_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
@@ -143,7 +144,7 @@ async def populate_organization_users(data: list[Any]) -> bool:
 
 async def populate_organizations(data: list[Any]) -> bool:
     await collect(
-        dal_organizations.add(
+        orgs_model.add(
             organization=item["organization"],
         )
         for item in data

@@ -5,9 +5,6 @@ from .event import (
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
-from .organization import (
-    OrganizationTypedLoader,
-)
 from .organization_stakeholders import (
     OrganizationStakeholdersLoader,
 )
@@ -41,6 +38,9 @@ from db_model.groups.get import (
     GroupLoader,
     GroupUnreliableIndicatorsLoader,
     OrganizationGroupsLoader,
+)
+from db_model.organizations.get import (
+    OrganizationLoader,
 )
 from db_model.roots.get import (
     GitEnvironmentSecretsLoader,
@@ -133,7 +133,7 @@ class Dataloaders(NamedTuple):
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization_tags: OrganizationTagsLoader
-    organization: OrganizationTypedLoader
+    organization: OrganizationLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
@@ -231,7 +231,7 @@ def get_new_context() -> Dataloaders:
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization_tags=OrganizationTagsLoader(),
-        organization=OrganizationTypedLoader(),
+        organization=OrganizationLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),

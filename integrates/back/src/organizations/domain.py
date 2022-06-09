@@ -23,6 +23,9 @@ from custom_exceptions import (
     OrganizationNotFound,
     UserNotInOrganization,
 )
+from db_model import (
+    organizations as orgs_model,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -123,7 +126,7 @@ async def update_state(
     organization_name: str,
     state: OrganizationState,
 ) -> None:
-    await orgs_dal.update_state(
+    await orgs_model.update_state(
         organization_id=organization_id,
         organization_name=organization_name,
         state=state,
@@ -204,7 +207,7 @@ async def add_organization(
             status=OrganizationStateStatus.ACTIVE,
         ),
     )
-    await orgs_dal.add(organization=organization)
+    await orgs_model.add(organization=organization)
     if email:
         await add_user(loaders, organization.id, email, "user_manager")
     return organization
@@ -310,7 +313,7 @@ async def invite_to_organization(
 
 
 async def iterate_organizations() -> AsyncIterator[Organization]:
-    async for organization in orgs_dal.iterate_organizations():
+    async for organization in orgs_model.iterate_organizations():
         # Exception: WF(AsyncIterator is subtype of iterator)
         yield organization  # NOSONAR
 
@@ -403,7 +406,7 @@ async def update_billing_customer(
     billing_customer: str,
 ) -> None:
     """Update Stripe billing customer."""
-    await orgs_dal.update_metadata(
+    await orgs_model.update_metadata(
         metadata=OrganizationMetadataToUpdate(
             billing_customer=billing_customer
         ),
@@ -436,7 +439,7 @@ async def update_policies(
 
     if validated_policies:
         today = datetime_utils.get_iso_date()
-        await orgs_dal.update_policies(
+        await orgs_model.update_policies(
             modified_by=user_email,
             modified_date=today,
             organization_id=organization_id,
