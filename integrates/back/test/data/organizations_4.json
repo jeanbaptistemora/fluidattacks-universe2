@@ -71,48 +71,6 @@
           }
         }
       }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "pk": {
-            "S": "ORG#ed6f051c-2572-420f-bc11-476c4e71b4ee"
-          },
-          "sk": {
-            "S": "INFO#ikari"
-          },
-          "historic_state": {
-            "L": [
-              {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-11-22 15:07:57"
-                  },
-                  "modified_by": {
-                    "S": "integratesmanager@gmail.com"
-                  },
-                  "status": {
-                    "S": "ACTIVE"
-                  }
-                }
-              },
-              {
-                "M": {
-                  "modified_date": {
-                    "S": "2019-11-30 10:00:00"
-                  },
-                  "modified_by": {
-                    "S": "integratesmanager@gmail.com"
-                  },
-                  "status": {
-                    "S": "DELETED"
-                  }
-                }
-              }
-            ]
-          }
-        }
-      }
     }
   ]
 }
