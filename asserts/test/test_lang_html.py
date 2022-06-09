@@ -42,12 +42,6 @@ def test_is_header_content_type_missing_open():
     )
 
 
-def test_open_has_reverse_tab_nabbing():
-    """Test html.has_reverse_tabnabbing."""
-    assert html.has_reverse_tabnabbing(CODE_DIR).is_open()
-    assert html.has_reverse_tabnabbing(INSECURE_CODE).is_open()
-
-
 def test_open_has_not_subresource_integrity():
     """Test html.has_not_subresource_integrity."""
     assert html.has_not_subresource_integrity(CODE_DIR).is_open()
@@ -70,12 +64,6 @@ def test_is_header_content_type_missing_close():
     assert not html.is_header_content_type_missing(
         CODE_DIR + "content_type_safe.html"
     )
-
-
-def test_closed_has_reverse_tab_nabbing():
-    """Test html.has_reverse_tabnabbing."""
-    assert html.has_reverse_tabnabbing(SECURE_CODE).is_closed()
-    assert html.has_reverse_tabnabbing(NOT_CODE).is_unknown()
 
 
 def test_closed_has_not_subresource_integrity():

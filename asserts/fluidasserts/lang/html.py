@@ -153,67 +153,6 @@ def is_header_content_type_missing(filename: str) -> tuple:
     return CLOSED, msg_closed, [], units
 
 
-@api(risk=LOW, kind=SAST)
-def has_reverse_tabnabbing(path: str) -> tuple:
-    r"""
-    Check if an HTML file has links vulnerable to a reverse tabnabbing.
-
-    :param path: Path to the ``HTML`` source.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    if not os.path.exists(path):
-        return UNKNOWN, "File does not exist"
-
-    vulns, safes = [], []
-    http_re = re.compile("^http(s)?://")
-
-    for file_path in get_paths(path, endswith=(".html",)):
-        with open(file_path, "r", encoding="latin-1") as file_desc:
-            html_obj = BeautifulSoup(file_desc.read(), features="html.parser")
-
-        _vulns = Unit(
-            where=file_path,
-            source="XPath",
-            specific=[],
-            fingerprint=get_sha256(file_path),
-        )
-        _safes = Unit(
-            where=file_path,
-            source="XPath",
-            specific=[],
-            fingerprint=get_sha256(file_path),
-        )
-
-        for ahref in html_obj.findAll("a", attrs={"href": http_re}):
-            parsed: dict = {
-                "href": ahref.get("href"),
-                "target": ahref.get("target"),
-                "rel": ahref.get("rel"),
-            }
-
-            if (
-                parsed["href"]
-                and parsed["target"] == "_blank"
-                and (not parsed["rel"] or "noopener" not in parsed["rel"])
-            ):
-                _vulns.specific.append(_get_xpath(ahref))
-            else:
-                _safes.specific.append(_get_xpath(ahref))
-
-        if _vulns.specific:
-            vulns.append(_vulns)
-        if _safes.specific:
-            safes.append(_safes)
-
-    if vulns:
-        msg = "There are a href tags susceptible to reverse tabnabbing"
-        return OPEN, msg, vulns, safes
-    msg = "No a href tags were found"
-    if safes:
-        msg = "There are no a href tags susceptible to reverse tabnabbing"
-    return CLOSED, msg, vulns, safes
-
-
 @api(risk=MEDIUM, kind=SAST)
 def has_not_subresource_integrity(path: str) -> tuple:
     r"""

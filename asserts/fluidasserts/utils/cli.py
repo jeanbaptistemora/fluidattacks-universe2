@@ -1170,7 +1170,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "html",
             "HTML",
         ): """
-            html.has_reverse_tabnabbing('__path__')
             html.has_not_subresource_integrity('__path__')
             """,
         (
