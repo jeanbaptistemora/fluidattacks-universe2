@@ -23,7 +23,7 @@ without relying on third parties.
 First,
 you have to go to the official
 website of our [ASM](/machine/web/asm).
-There you need to log in with a Gmail,
+There you need to log in with a Google,
 Microsoft or Bitbucket business
 email account.
 You must not have
@@ -70,7 +70,8 @@ You will see a new message indicating
 that the whole process is complete.
 From there, it is a matter of
 waiting a few hours while we
-complete the configuration of your group.
+clone your repository and
+perform the first security scan.
 
 ![Notification Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_notif.png)
 
@@ -82,17 +83,21 @@ the Machine Plan free trial.
 
 ![Enrollment Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_notif_email.png)
 
-Once everything is configured,
-you can access your organization
-and group on the ASM and start
-exploring the platform.
+You can also access your
+organization and group on
+the ASM and start exploring
+the platform.
+Bear in mind that it will be
+a bit empty until the results
+of the first security scan
+are available.
 
 ![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_acess.png)
 
-Remember that once vulnerabilities
+Once vulnerabilities
 start being detected,
-you will be receiving notifications
-in your email.
+you will be receiving
+notifications in your email.
 These will inform you about
 the types of vulnerabilities
 we have identified and provide
