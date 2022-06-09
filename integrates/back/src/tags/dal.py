@@ -10,10 +10,6 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
-from db_model.portfolios.constants import (
-    OLD_ID,
-    OLD_ORGANIZATION_ID,
-)
 from decimal import (
     Decimal,
 )
@@ -47,8 +43,8 @@ async def delete(organization_name: str, tag: str) -> bool:
     success: bool = False
     item = DynamoDeleteType(
         Key={
-            OLD_ORGANIZATION_ID: organization_name.lower(),
-            OLD_ID: tag.lower(),
+            "organization": organization_name.lower(),
+            "tag": tag.lower(),
         }
     )
     try:
@@ -64,8 +60,8 @@ async def get_attributes(
     response = {}
     item_attrs: Item = {
         KEY_CONDITION_EXPRESSION: (
-            Key(OLD_ORGANIZATION_ID).eq(organization_name.lower())
-            & Key(OLD_ID).eq(tag.lower())
+            Key("organization").eq(organization_name.lower())
+            & Key("tag").eq(tag.lower())
         ),
     }
     if attributes:
@@ -81,7 +77,7 @@ async def get_tags(
 ) -> list[Item]:
     tags: list[Item] = []
     query_attrs = {
-        KEY_CONDITION_EXPRESSION: Key(OLD_ORGANIZATION_ID).eq(
+        KEY_CONDITION_EXPRESSION: Key("organization").eq(
             organization_name,
         )
     }
@@ -119,7 +115,7 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
-        "Key": {OLD_ORGANIZATION_ID: organization_name, OLD_ID: tag},
+        "Key": {"organization": organization_name, "tag": tag},
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 

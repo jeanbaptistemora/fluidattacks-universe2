@@ -8,9 +8,6 @@ from .group_stakeholders import (
 from .organization_stakeholders import (
     OrganizationStakeholdersLoader,
 )
-from .organization_tags import (
-    OrganizationTagsLoader,
-)
 from .portfolio import (
     OrganizationPortfoliosTypedLoader,
     PortfolioTypedLoader,
@@ -132,7 +129,6 @@ class Dataloaders(NamedTuple):
     portfolio: PortfolioTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
-    organization_tags: OrganizationTagsLoader
     organization: OrganizationLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
@@ -230,7 +226,6 @@ def get_new_context() -> Dataloaders:
         organization_credentials_new=OrganizationCredentialsNewLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
-        organization_tags=OrganizationTagsLoader(),
         organization=OrganizationLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),

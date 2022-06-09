@@ -10,6 +10,9 @@ from datetime import (
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
+from db_model.portfolios.types import (
+    Portfolio,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
@@ -122,12 +125,15 @@ def get_vulnerability_source(vulnerability: Vulnerability) -> str:
 
 
 async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
-    portfolios = await tags_domain.get_tags(org_name, ["tag", "projects"])
+    loaders: Dataloaders = get_new_context()
+    portfolios: tuple[
+        Portfolio, ...
+    ] = await loaders.organization_portfolios.load(org_name)
 
     return [
         PortfoliosGroups(
-            portfolio=data.get("tag", "").lower(),
-            groups=get_key_or_fallback(data, "groups", "projects", []),
+            portfolio=data.id,
+            groups=data.groups,
         )
         for data in portfolios
     ]

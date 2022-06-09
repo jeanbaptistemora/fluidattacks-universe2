@@ -11,8 +11,8 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
-from db_model.portfolios.constants import (
-    OLD_GROUPS,
+from db_model.portfolios.types import (
+    Portfolio,
 )
 from decimal import (
     Decimal,
@@ -25,8 +25,6 @@ from tags import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
     Union,
 )
 
@@ -48,7 +46,8 @@ async def filter_allowed_tags(
         for tag in group.tags
     }
     are_tags_allowed = await collect(
-        is_tag_allowed(groups, organization_name, tag) for tag in all_tags
+        is_tag_allowed(loaders, groups, organization_name, tag)
+        for tag in all_tags
     )
     tags = [
         tag
@@ -58,27 +57,15 @@ async def filter_allowed_tags(
     return tags
 
 
-async def get_attributes(
-    organization: str, tag: str, attributes: Optional[list[str]] = None
-) -> dict[str, Union[list[str], str]]:
-    return await dal.get_attributes(organization, tag, attributes)
-
-
-async def get_tags(
-    organization: str, attributes: Optional[list[str]] = None
-) -> list[Dict[str, Any]]:
-    return await dal.get_tags(organization, attributes)
-
-
 async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
         organization: Organization = await loaders.organization.load(org_id)
         organization_name = organization.name
-        portfolio_info = await get_attributes(
-            organization_name, portfolio, [OLD_GROUPS]
+        portfolio_info: Portfolio = await loaders.portfolio.load(
+            (organization_name, portfolio)
         )
-        portfolio_groups: list[str] = list(portfolio_info.get(OLD_GROUPS, []))
+        portfolio_groups: list[str] = list(portfolio_info.groups)
         org_access, group_access = await collect(
             (
                 orgs_domain.has_user_access(
@@ -95,20 +82,19 @@ async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
 
 
 async def is_tag_allowed(
+    loaders: Any,
     user_groups: tuple[Group, ...],
     organization_name: str,
     tag: str,
 ) -> bool:
-    all_groups_tag = await get_attributes(organization_name, tag, [OLD_GROUPS])
+    org_tag: Portfolio = await loaders.portfolio.load((organization_name, tag))
+    all_groups_tag = org_tag.groups
     user_groups_tag = [
         group.name
         for group in user_groups
         if group.tags and tag in [p_tag.lower() for p_tag in group.tags]
     ]
-    return any(
-        group in user_groups_tag
-        for group in all_groups_tag.get(OLD_GROUPS, [])
-    )
+    return any(group in user_groups_tag for group in all_groups_tag)
 
 
 async def update(

@@ -192,7 +192,7 @@ async def update_portfolios() -> None:
             )
 
         org_tags: tuple[
-            Portfolio
+            Portfolio, ...
         ] = await loaders.organization_portfolios.load(org_name)
         deleted_tags = [
             tag.id for tag in org_tags if tag.id not in updated_tags

@@ -44,7 +44,7 @@ async def resolve(
     organization: Organization = await organization_loader.load(
         organization_id
     )
-    org_tags: tuple[Portfolio] = await organization_tags_loader.load(
+    org_tags: tuple[Portfolio, ...] = await organization_tags_loader.load(
         organization.name
     )
     user_groups = await groups_domain.get_groups_by_user(

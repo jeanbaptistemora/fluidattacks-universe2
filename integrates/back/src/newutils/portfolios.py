@@ -1,19 +1,3 @@
-from db_model.portfolios.constants import (
-    GROUPS,
-    ID,
-    LAST_CLOSING_DATE,
-    MAX_OPEN_SEVERITY,
-    MAX_SEVERITY,
-    MEAN_REMED_CRITICAL_SEV,
-    MEAN_REMED_HIGH_SEV,
-    MEAN_REMED_LOW_SEV,
-    MEAN_REMED_MEDIUM_SEV,
-    MEAN_REMEDIATE,
-    OLD_GROUPS,
-    OLD_ID,
-    OLD_ORGANIZATION_ID,
-    ORGANIZATION_ID,
-)
 from db_model.portfolios.types import (
     Portfolio,
     PortfolioUnreliableIndicators,
@@ -30,14 +14,20 @@ def format_unreliable_indicators(
     item: Item,
 ) -> PortfolioUnreliableIndicators:
     return PortfolioUnreliableIndicators(
-        last_closing_date=item[LAST_CLOSING_DATE],
-        max_open_severity=item[MAX_OPEN_SEVERITY],
-        max_severity=item[MAX_SEVERITY],
-        mean_remediate=item[MEAN_REMEDIATE],
-        mean_remediate_critical_severity=item[MEAN_REMED_CRITICAL_SEV],
-        mean_remediate_high_severity=item[MEAN_REMED_HIGH_SEV],
-        mean_remediate_low_severity=item[MEAN_REMED_LOW_SEV],
-        mean_remediate_medium_severity=item[MEAN_REMED_MEDIUM_SEV],
+        last_closing_date=get_key_or_fallback(
+            item, "last_closing_date", "last_closed_vulnerability_days"
+        ),
+        max_open_severity=item.get("max_open_severity"),
+        max_severity=item.get("max_severity"),
+        mean_remediate=item.get("mean_remediate"),
+        mean_remediate_critical_severity=item.get(
+            "mean_remediate_critical_severity"
+        ),
+        mean_remediate_high_severity=item.get("mean_remediate_high_severity"),
+        mean_remediate_low_severity=item.get("mean_remediate_low_severity"),
+        mean_remediate_medium_severity=item.get(
+            "mean_remediate_medium_severity"
+        ),
     )
 
 
@@ -45,12 +35,12 @@ def format_portfolio(
     item: Item,
 ) -> Portfolio:
     return Portfolio(
-        id=get_key_or_fallback(item, ID, OLD_ID),
-        groups=get_key_or_fallback(item, GROUPS, OLD_GROUPS),
+        id=get_key_or_fallback(item, "id", "tag"),
+        groups=get_key_or_fallback(item, "groups", "projects", set()),
         unreliable_indicators=format_unreliable_indicators(item),
         organization_name=get_key_or_fallback(
             item,
-            ORGANIZATION_ID,
-            OLD_ORGANIZATION_ID,
+            "organization_id",
+            "organization",
         ),
     )
