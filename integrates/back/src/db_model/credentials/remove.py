@@ -56,3 +56,14 @@ async def remove(*, credential_id: str, group_name: str) -> None:
         ),
         table=TABLE,
     )
+
+
+async def remove_new(*, credential_id: str, organization_id: str) -> None:
+    credential_key = keys.build_key(
+        facet=TABLE.facets["credentials_new_metadata"],
+        values={
+            "organization_id": organization_id,
+            "id": credential_id,
+        },
+    )
+    await operations.delete_item(key=credential_key, table=TABLE)
