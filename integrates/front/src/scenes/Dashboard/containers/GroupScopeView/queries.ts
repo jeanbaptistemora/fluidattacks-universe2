@@ -197,6 +197,7 @@ const ADD_ENVIRONMENT_SECRET: DocumentNode = gql`
 `;
 const ADD_ENVIRONMENT_URL: DocumentNode = gql`
   mutation AddGitEnvironmentUrl(
+    $cloudName: String
     $groupName: String!
     $rootId: ID!
     $url: String!
@@ -207,6 +208,7 @@ const ADD_ENVIRONMENT_URL: DocumentNode = gql`
       rootId: $rootId
       url: $url
       urlType: $urlType
+      cloudName: $cloudName
     ) {
       success
     }

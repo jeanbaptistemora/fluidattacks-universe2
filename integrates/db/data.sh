@@ -18,6 +18,9 @@ function main {
     finding_submission
     finding_unreliable_indicators
     finding_verification
+    root_secret
+    git_environment_secret
+    git_root_environment_url
     git_root_historic_cloning
     git_root_historic_state
     git_root_metadata

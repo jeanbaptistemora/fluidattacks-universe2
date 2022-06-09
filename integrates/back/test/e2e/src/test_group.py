@@ -5,6 +5,9 @@ from model import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
+from selenium.webdriver.support.ui import (
+    Select,
+)
 from typing import (
     Tuple,
 )
@@ -257,30 +260,37 @@ def test_group_scope_environments(
     )
     envs_tab.click()
 
-    environment = utils.wait_for_name(driver, "environmentUrls[0]", timeout)
-    environment_name: str = utils.rand_name("https://test.fluidattacks.com")
-    environment.clear()
-    environment.send_keys(environment_name)
-
-    environment = utils.wait_for_name(driver, "reason", timeout)
-    environment.send_keys("REGISTERED_BY_MISTAKE")
-
-    proceed = utils.wait_for_id(
+    utils.wait_for_id(
         driver,
-        "envs-manage-proceed",
+        "add-env-url",
+        timeout,
+    ).click()
+
+    add_environment_url_button = utils.wait_for_id(
+        driver,
+        "add-environment-url-button",
         timeout,
     )
-    proceed.click()
-    assert utils.wait_for_hide_text(driver, "Cancel", timeout)
-    expand_button = utils.wait_for_class_name(
-        driver, "expand-cell-header", timeout
-    )
-    expand_button.click()
-    assert utils.wait_for_text(
+
+    url_input = utils.wait_for_name(
         driver,
-        environment_name,
+        "url",
         timeout,
     )
+    assert add_environment_url_button.get_attribute("disabled")
+
+    url_input.send_keys("https://login.microsoftonline.com/")
+    url_type_input = Select(
+        utils.wait_for_name(
+            driver,
+            "urlType",
+            timeout,
+        )
+    )
+    url_type_input.select_by_index("3")
+    assert add_environment_url_button.get_attribute("disabled") is None
+
+    add_environment_url_button.click()
 
 
 def test_group_scope_files(

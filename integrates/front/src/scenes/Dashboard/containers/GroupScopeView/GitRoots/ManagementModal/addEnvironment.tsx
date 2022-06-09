@@ -1,7 +1,9 @@
 import { useMutation } from "@apollo/client";
+import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
 import { ADD_ENVIRONMENT_URL } from "../../queries";
@@ -41,9 +43,25 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
     url: "",
     urlType: "",
   };
+  const formRef = useRef<FormikProps<IFormProps>>(null);
   const validations = object().shape({
+    cloudName: string().oneOf(["AZURE", "AWS", "GCP"]).nullable(),
     url: string()
-      .url(t("validations.invalidUrl"))
+      .when("urlType", {
+        is: "URL",
+        then: (schema): StringSchema => schema.url(t("validations.invalidUrl")),
+      })
+      .when("cloudName", {
+        is: "AWS",
+        then: string().matches(
+          // eslint-disable-next-line require-unicode-regexp
+          new RegExp(
+            "^arn:(?<Partition>[^:\n]*):(?<Service>[^:\n]*):" +
+              "(?<Region>[^:\n]*):(?<AccountID>[^:\n]*):" +
+              "(?<Ignore>(?<ResourceType>[^:/\n]*)[:/])?(?<Resource>.*)$"
+          )
+        ),
+      })
       .required(t("validations.required")),
     urlType: string()
       .oneOf(["URL", "APK", "CLOUD"])
@@ -66,14 +84,16 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
   });
   const submitForm = useCallback(
     async ({
+      cloudName,
       url,
       urlType,
     }: {
+      cloudName: string | undefined;
       url: string;
       urlType: string;
     }): Promise<void> => {
       await addEnvironmentUrl({
-        variables: { groupName, rootId, url, urlType },
+        variables: { cloudName, groupName, rootId, url, urlType },
       });
     },
     [addEnvironmentUrl, groupName, rootId]
@@ -82,6 +102,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
   return (
     <Formik
       initialValues={formInitialValues}
+      innerRef={formRef}
       name={"addGitEnv"}
       onSubmit={submitForm}
       validationSchema={validations}
@@ -96,17 +117,34 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
               </ControlLabel>
               <Field component={FormikText} name={"url"} type={"text"} />
             </div>
-            <div className={"mt3"}>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.git.addEnvironment.type")}
-              </ControlLabel>
-              <Field component={FormikDropdown} name={"urlType"}>
-                <option value={""}>{""}</option>
-                <option value={"CLOUD"}>{"Cloud"}</option>
-                <option value={"APK"}>{"APK"}</option>
-                <option value={"URL"}>{"URL"}</option>
-              </Field>
+            <div className={"flex mt3"}>
+              <div className={"w-50"}>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t("group.scope.git.addEnvironment.type")}
+                </ControlLabel>
+                <Field component={FormikDropdown} name={"urlType"}>
+                  <option value={""}>{""}</option>
+                  <option value={"CLOUD"}>{"Cloud"}</option>
+                  <option value={"APK"}>{"APK"}</option>
+                  <option value={"URL"}>{"URL"}</option>
+                </Field>
+              </div>
+              {formRef.current !== null &&
+              formRef.current.values.urlType === "CLOUD" ? (
+                <div className={"w-50 ml3"}>
+                  <ControlLabel>
+                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                    {"Cloud Name"}
+                  </ControlLabel>
+                  <Field component={FormikDropdown} name={"cloudName"}>
+                    <option value={""}>{""}</option>
+                    <option value={"AWS"}>{"AWS"}</option>
+                    <option value={"GCP"}>{"Google Cloud Platform"}</option>
+                    <option value={"AZURE"}>{"Azure"}</option>
+                  </Field>
+                </div>
+              ) : undefined}
             </div>
             <div className={"mt3"}>
               <ModalFooter>
