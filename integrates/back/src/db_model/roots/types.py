@@ -76,6 +76,7 @@ class GitRootState(NamedTuple):
     nickname: str
     status: RootStatus
     url: str
+    credential_id: Optional[str] = None
     environment_urls: List[str] = []
     download_url: Optional[str] = None
     git_environment_urls: List[GitEnvironmentUrl] = []

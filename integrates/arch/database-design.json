@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 08, 2022, 04:51 PM",
+    "DateLastModified": "Jun 09, 2022, 02:59 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -797,6 +797,10 @@
         {
           "AttributeName": "groups",
           "AttributeType": "SS"
+        },
+        {
+          "AttributeName": "credential_id",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -2022,10 +2026,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "groups",
             "id",
+            "unreliable_indicators",
             "organization_name",
-            "unreliable_indicators"
+            "groups"
           ]
         },
         {
@@ -3927,9 +3931,6 @@
               },
               "sprint_duration": {
                 "N": "2"
-              },
-              "sprint_start_date": {
-                "S": "2022-06-06T00:00:00"
               },
               "sprint_start_date": {
                 "S": "2022-06-06T00:00:00"
@@ -7518,7 +7519,8 @@
             "user",
             "password",
             "token",
-            "roots"
+            "roots",
+            "credential_id"
           ]
         },
         {

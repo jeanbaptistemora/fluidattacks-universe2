@@ -34,6 +34,7 @@ def format_unreliable_indicators(
 def format_git_state(state: Item) -> GitRootState:
     return GitRootState(
         branch=state["branch"],
+        credential_id=state.get("credential_id"),
         environment_urls=state["environment_urls"],
         environment=state["environment"],
         git_environment_urls=[],
