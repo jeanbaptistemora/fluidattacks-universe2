@@ -2,8 +2,8 @@
 """
 Deletes cloned repos from deleted groups
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-09 at 18:58:06 UTC-5
+Finalization Time: 2022-06-09 at 18:59:15 UTC-5
 """
 from aioextensions import (
     collect,
