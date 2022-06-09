@@ -36,7 +36,6 @@ from more_itertools import (
 from typing import (
     Dict,
     Optional,
-    Tuple,
 )
 from typing_extensions import (
     TypedDict,
@@ -52,8 +51,22 @@ RemediationReport = TypedDict(
 )
 
 
+def get_current_sprint_state(
+    historic_state: tuple[VulnerabilityState, ...],
+    sprint_start_date: datetime,
+) -> Optional[VulnerabilityState]:
+    return next(
+        (
+            item
+            for item in list(reversed(historic_state))
+            if datetime.fromisoformat(item.modified_date) >= sprint_start_date
+        ),
+        None,
+    )
+
+
 def get_last_state(
-    historic_state: Tuple[VulnerabilityState, ...],
+    historic_state: tuple[VulnerabilityState, ...],
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
     return next(
@@ -72,19 +85,27 @@ async def had_state_by_then(
     findings_cvssf: Dict[str, Decimal],
     loaders: Dataloaders,
     state: VulnerabilityStateStatus,
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
+    sprint: bool = False,
 ) -> Decimal:
 
-    historics_states: Tuple[
-        Tuple[VulnerabilityState, ...], ...
+    historics_states: tuple[
+        tuple[VulnerabilityState, ...], ...
     ] = await loaders.vulnerability_historic_state.load_many(
         tuple(vulnerability.id for vulnerability in vulnerabilities)
     )
 
-    lasts_valid_states: Tuple[Optional[VulnerabilityState], ...] = tuple(
-        get_last_state(historic_state, last_day)
-        for historic_state in historics_states
-    )
+    lasts_valid_states: tuple[Optional[VulnerabilityState], ...] = tuple()
+    if sprint:
+        lasts_valid_states = tuple(
+            get_current_sprint_state(historic_state, last_day)
+            for historic_state in historics_states
+        )
+    else:
+        lasts_valid_states = tuple(
+            get_last_state(historic_state, last_day)
+            for historic_state in historics_states
+        )
 
     return Decimal(
         sum(
@@ -100,11 +121,12 @@ async def had_state_by_then(
 
 async def get_totals_by_week(
     *,
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
     findings_cvssf: Dict[str, Decimal],
     last_day: datetime,
     loaders: Dataloaders,
-) -> Tuple[Decimal, Decimal]:
+    sprint: bool = False,
+) -> tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
         await collect(
             tuple(
@@ -114,6 +136,7 @@ async def get_totals_by_week(
                     state=VulnerabilityStateStatus.OPEN,
                     vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
+                    sprint=sprint,
                 )
                 for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
@@ -130,6 +153,7 @@ async def get_totals_by_week(
                     state=VulnerabilityStateStatus.CLOSED,
                     vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
+                    sprint=sprint,
                 )
                 for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
@@ -140,10 +164,10 @@ async def get_totals_by_week(
     return Decimal(open_vulnerabilities), Decimal(closed_vulnerabilities)
 
 
-async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
+async def generate_one(groups: tuple[str, ...]) -> RemediationReport:
     loaders: Dataloaders = get_new_context()
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
+    groups_findings: tuple[
+        tuple[Finding, ...], ...
     ] = await loaders.group_findings.load_many(groups)
     findings_cvssf: Dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
@@ -159,7 +183,7 @@ async def generate_one(groups: Tuple[str, ...]) -> RemediationReport:
     current_rolling_week = datetime.now(tz=timezone.utc)
     previous_rolling_week = current_rolling_week - timedelta(days=7)
 
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         finding_ids

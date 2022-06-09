@@ -90,6 +90,20 @@ def get_last_sprint_start_date(
     return start_date
 
 
+def get_percentage_change(
+    *,
+    current: Decimal,
+    total: Decimal,
+) -> Decimal:
+    if total == Decimal("0.0") and current <= Decimal("0.0"):
+        return Decimal("0.0")
+
+    if total == Decimal("0.0") and current > Decimal("0.0"):
+        return Decimal("1.0")
+
+    return current / total
+
+
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(  # pylint: disable=too-many-locals
     *,
@@ -124,6 +138,7 @@ async def generate_one(  # pylint: disable=too-many-locals
         findings_cvssf=findings_cvssf,
         last_day=current_sprint_date,
         loaders=loaders,
+        sprint=True,
     )
 
     total_current_open, total_current_closed = await get_totals_by_week(
@@ -137,15 +152,11 @@ async def generate_one(  # pylint: disable=too-many-locals
     total_open: Decimal = format_cvssf(total_current_open)
     previous_closed: Decimal = format_cvssf(total_previous_closed)
     previous_open: Decimal = format_cvssf(total_previous_open)
-    solved: Decimal = Decimal(
-        (total_closed - previous_closed) / total_closed
-        if total_closed
-        else Decimal("0"),
+    solved: Decimal = get_percentage_change(
+        current=previous_closed, total=total_closed
     )
-    created: Decimal = Decimal(
-        (total_open - previous_open) / total_open
-        if total_open
-        else Decimal("0"),
+    created: Decimal = get_percentage_change(
+        current=previous_open, total=total_open
     )
     created = created if created > Decimal("0.0") else Decimal("0")
     solved = solved if solved > Decimal("0.0") else Decimal("0")
