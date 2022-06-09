@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    OnlyCorporateEmails,
+)
 import pytest
 from typing import (
     Any,
@@ -14,7 +17,7 @@ async def test_admin(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
     result: Dict[str, Any] = await get_result(
-        user="admin@gmail.com", org=org_name
+        user="admin@fluidattacks.com", org=org_name
     )
     assert "errors" not in result
     assert result["data"]["addOrganization"]["success"]
@@ -36,7 +39,19 @@ async def test_analyst(populate: bool) -> None:
     assert populate
     org_name: str = "TESTORG"
     result: Dict[str, Any] = await get_result(
-        user="hacker@gmail.com", org=org_name
+        user="hacker@fluidattacks.com", org=org_name
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Name taken"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_organization")
+async def test_personal(populate: bool) -> None:
+    assert populate
+    org_name: str = "TESTORG"
+    result: Dict[str, Any] = await get_result(
+        user="hacker@gmail.com", org=org_name
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == OnlyCorporateEmails().args[0]

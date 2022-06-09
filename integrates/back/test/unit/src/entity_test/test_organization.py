@@ -51,6 +51,7 @@ async def _get_result_async(
 
 @pytest.mark.changes_db
 async def test_add_organization() -> None:
+    stakeholder = "admin@fluidattacks.com"
     mutation_tpl = Template(
         """
         mutation {
@@ -67,7 +68,7 @@ async def test_add_organization() -> None:
 
     name = "AKAME"
     data = {"query": mutation_tpl.substitute(name=name)}
-    result = await _get_result_async(data)
+    result = await _get_result_async(data, stakeholder)
 
     assert "errors" not in result
     assert result["data"]["addOrganization"]["success"]
@@ -82,7 +83,7 @@ async def test_add_organization() -> None:
     name = "MADEUP-NAME"
     data = {"query": mutation_tpl.substitute(name=name)}
     exe = InvalidOrganization("Invalid name")
-    result = await _get_result_async(data)
+    result = await _get_result_async(data, stakeholder)
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 

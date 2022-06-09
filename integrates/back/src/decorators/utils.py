@@ -20,7 +20,7 @@ async def is_personal_email(user_email: str) -> bool:
                     text = await response.text()
                     free_email_domains = text.split("\n")
 
-                    return free_email_domains.includes(email_domain)
+                    return email_domain in free_email_domains
 
                 LOGGER.error(error_msg, response)
                 return True

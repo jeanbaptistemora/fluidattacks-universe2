@@ -334,6 +334,8 @@ export const enTranslations: ResourceKey = {
       no: "No",
       yes: "Yes",
     },
+    corporateOnly:
+      "Only corporate users are allowed. Please contact your manager to request access.",
   },
   comments: {
     editorPlaceholder: "Add your comment here",

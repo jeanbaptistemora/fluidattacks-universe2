@@ -2,6 +2,7 @@ from api.mutations import (
     AddOrganizationPayload,
 )
 from decorators import (
+    require_corporate_email,
     require_login,
 )
 from graphql.type.definition import (
@@ -24,6 +25,7 @@ TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 
 
 @require_login
+@require_corporate_email
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, name: str
 ) -> AddOrganizationPayload:
