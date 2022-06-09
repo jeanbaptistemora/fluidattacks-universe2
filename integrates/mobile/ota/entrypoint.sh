@@ -4,10 +4,7 @@ function get_mobile_version {
   local minutes
 
   minutes=$(
-    printf "%05d" $(((\
-    $(date +%d | sed 's/^0//') - 1) * 1440 + \
-    $(date +%H | sed 's/^0//') * 60 + \
-    $(date +%M | sed 's/^0//')))
+    printf "%05d" $((($(date +%d | sed 's/^0//') - 1) * 1440 + $(date +%H | sed 's/^0//') * 60 + $(date +%M | sed 's/^0//')))
   ) \
     && if [ "$1" = "basic" ]; then
       echo "$(date +%y.%m.)${minutes}"

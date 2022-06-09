@@ -1,5 +1,5 @@
 /deployTerraform/integratesInfra:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -25,7 +25,7 @@
     paths:
       - integrates/back/deploy/permissions_matrix
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -50,7 +50,7 @@
   environment:
     name: development/$CI_COMMIT_REF_SLUG
     url: https://$CI_COMMIT_REF_SLUG.app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -75,7 +75,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -99,7 +99,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /taintTerraform/commonUsersKeys1
@@ -121,7 +121,7 @@
   environment:
     name: production
     url: https://app.fluidattacks.com
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /taintTerraform/commonUsersKeys2
@@ -140,7 +140,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/lint/charts:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -162,7 +162,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/lint/schema:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -184,7 +184,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/back/test/check-forces-output:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -211,7 +211,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -238,7 +238,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -265,7 +265,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -292,7 +292,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -319,7 +319,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -346,7 +346,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -373,7 +373,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -400,7 +400,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -427,7 +427,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -454,7 +454,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -481,7 +481,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -508,7 +508,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -535,7 +535,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -562,7 +562,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -589,7 +589,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -616,7 +616,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -643,7 +643,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -670,7 +670,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -697,7 +697,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -724,7 +724,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -751,7 +751,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -778,7 +778,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -805,7 +805,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -832,7 +832,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -859,7 +859,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -886,7 +886,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -913,7 +913,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -940,7 +940,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -967,7 +967,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -994,7 +994,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1021,7 +1021,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1048,7 +1048,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1075,7 +1075,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1102,7 +1102,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1129,7 +1129,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1156,7 +1156,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1183,7 +1183,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1210,7 +1210,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1237,7 +1237,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1264,7 +1264,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1291,7 +1291,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1318,7 +1318,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1345,7 +1345,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1372,7 +1372,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1399,7 +1399,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1426,7 +1426,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1453,7 +1453,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1480,7 +1480,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1507,7 +1507,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1534,7 +1534,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1561,7 +1561,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1588,7 +1588,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1615,7 +1615,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1642,7 +1642,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1669,7 +1669,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1696,7 +1696,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1723,7 +1723,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1750,7 +1750,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1777,7 +1777,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1804,7 +1804,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1831,7 +1831,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1858,7 +1858,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1885,7 +1885,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1912,7 +1912,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1939,7 +1939,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1966,7 +1966,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -1993,7 +1993,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2020,7 +2020,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2047,7 +2047,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2074,7 +2074,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2101,7 +2101,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2128,7 +2128,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2155,7 +2155,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2182,7 +2182,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2209,7 +2209,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2236,7 +2236,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2263,7 +2263,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2290,7 +2290,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2317,7 +2317,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2344,7 +2344,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2371,7 +2371,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2398,7 +2398,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2425,7 +2425,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2452,7 +2452,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2479,7 +2479,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2506,7 +2506,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2533,7 +2533,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2560,7 +2560,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2587,7 +2587,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2614,7 +2614,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2641,7 +2641,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2668,7 +2668,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2695,7 +2695,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2722,7 +2722,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2749,7 +2749,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2776,7 +2776,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2803,7 +2803,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2830,7 +2830,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2857,7 +2857,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2884,7 +2884,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2911,7 +2911,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2938,7 +2938,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2965,7 +2965,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -2992,7 +2992,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3019,7 +3019,7 @@
     name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
     paths:
       - integrates/.coverage*
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3046,7 +3046,7 @@
     paths:
       - integrates/charts
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   parallel: 7
@@ -3074,7 +3074,7 @@
     paths:
       - integrates/charts
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: false
   needs: []
   parallel: 25
@@ -3093,7 +3093,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/charts/snapshots__prod:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: false
   needs:
     - /integrates/charts/documents__prod__25__gitlab
@@ -3117,7 +3117,7 @@
     paths:
       - integrates/build
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/test/unit
@@ -3150,7 +3150,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/test/functional__accept_legal
@@ -3217,7 +3217,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/test/functional__refresh_toe_inputs
@@ -3284,7 +3284,7 @@
     paths:
       - integrates/.coverage*
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/test/functional__update_group
@@ -3330,7 +3330,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/dev:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3352,7 +3352,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/deploy/prod:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   resource_group: deploy/$CI_JOB_NAME
@@ -3373,7 +3373,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/front/lint:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3402,7 +3402,7 @@
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
     paths:
       - integrates/front/coverage.lcov
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3429,7 +3429,7 @@
     paths:
       - integrates/mobile/output/
     when: on_success
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/mobile/ota__prod
@@ -3452,7 +3452,7 @@
 /integrates/mobile/deploy/playstore:
   dependencies:
     - /integrates/mobile/build/android
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/mobile/build/android
@@ -3473,7 +3473,7 @@
     GIT_DEPTH: 5
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/lint:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3495,7 +3495,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__dev:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3517,7 +3517,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/mobile/ota__prod:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3544,7 +3544,7 @@
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
     paths:
       - integrates/mobile/coverage.lcov
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3566,7 +3566,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/secrets/lint:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3588,7 +3588,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__daily:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   retry: 2
@@ -3611,7 +3611,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__hourly:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   retry: 2
@@ -3634,7 +3634,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__monthly:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   retry: 2
@@ -3657,7 +3657,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/analytics__dev__weekly:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   retry: 2
@@ -3680,7 +3680,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/subscriptions/daily-digest__dev:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   retry: 2
@@ -3703,7 +3703,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/web/check-forces-output:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -3726,7 +3726,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /integrates/web/e2e:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -3752,7 +3752,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3774,7 +3774,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3796,7 +3796,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/imports/integrates:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3818,7 +3818,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackDeployPermissionsMatrix:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3840,7 +3840,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3862,7 +3862,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTest:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3884,7 +3884,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTestE2e:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3906,7 +3906,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/integratesInfra:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3928,7 +3928,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/integrates:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3950,7 +3950,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /securePythonWithBandit/integratesBack:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -3972,7 +3972,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/integratesInfra:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:

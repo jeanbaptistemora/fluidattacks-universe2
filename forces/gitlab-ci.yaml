@@ -1,5 +1,5 @@
 /deployContainerImage/forcesDev:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployContainerImage/forcesProd:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -41,7 +41,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /forces/test:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
     - /integrates/back/deploy/dev
@@ -64,7 +64,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forces:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -86,7 +86,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forcesTests:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:
@@ -108,7 +108,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/forces:
-  image: ghcr.io/fluidattacks/makes:22.06
+  image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs: []
   rules:

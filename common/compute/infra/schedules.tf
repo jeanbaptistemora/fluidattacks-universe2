@@ -14,7 +14,7 @@ resource "aws_batch_job_definition" "schedule" {
 
   container_properties = jsonencode(
     {
-      image   = "ghcr.io/fluidattacks/makes:22.06"
+      image   = "ghcr.io/fluidattacks/makes:22.07"
       command = each.value.command
 
       resourceRequirements = [
