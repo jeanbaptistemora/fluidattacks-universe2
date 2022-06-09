@@ -2,7 +2,6 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
-    InvalidCredentialSecret,
     RepeatedCredential,
 )
 from db_model import (
@@ -14,12 +13,9 @@ from db_model.credentials.constants import (
 from db_model.credentials.types import (
     Credential,
     CredentialItem,
-    HttpsPatSecret,
-    HttpsSecret,
-    SshSecret,
 )
-from db_model.enums import (
-    CredentialType,
+from db_model.credentials.utils import (
+    validate_secret,
 )
 from dynamodb import (
     historics,
@@ -65,17 +61,7 @@ async def add(*, credential: CredentialItem) -> None:
 
 
 async def add_new(*, credential: Credential) -> None:
-    if (
-        credential.state.type is CredentialType.SSH
-        and not isinstance(credential.state.secret, SshSecret)
-    ) or (
-        credential.state.type is CredentialType.HTTPS
-        and not isinstance(
-            credential.state.secret, (HttpsSecret, HttpsPatSecret)
-        )
-    ):
-        raise InvalidCredentialSecret()
-
+    validate_secret(credential.state)
     key_structure = TABLE.primary_key
     metadata_key = keys.build_key(
         facet=TABLE.facets["credentials_new_metadata"],

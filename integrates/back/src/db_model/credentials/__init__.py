@@ -11,6 +11,7 @@ from .remove import (
 )
 from .update import (
     update_credential_state,
+    update_credential_state_new,
     update_root_ids,
 )
 
@@ -20,6 +21,7 @@ __all__ = [
     "remove",
     "remove_new",
     "update_credential_state",
+    "update_credential_state_new",
     "update_root_ids",
     "get_credentials",
 ]

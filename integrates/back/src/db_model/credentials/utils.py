@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    InvalidCredentialSecret,
+)
 from db_model.credentials.types import (
     Credential,
     CredentialNewState,
@@ -45,3 +48,14 @@ def format_credential(item: Item) -> Credential:
             type=credential_type,
         ),
     )
+
+
+def validate_secret(state: CredentialNewState) -> None:
+    if (
+        state.type is CredentialType.SSH
+        and not isinstance(state.secret, SshSecret)
+    ) or (
+        state.type is CredentialType.HTTPS
+        and not isinstance(state.secret, (HttpsSecret, HttpsPatSecret))
+    ):
+        raise InvalidCredentialSecret()
