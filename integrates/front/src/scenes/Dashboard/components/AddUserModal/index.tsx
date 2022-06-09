@@ -36,7 +36,6 @@ const groupLevelRoles: string[] = [
   "customer_manager",
   "vulnerability_manager",
   "architect",
-  "executive",
   "hacker",
   "reattacker",
   "resourcer",

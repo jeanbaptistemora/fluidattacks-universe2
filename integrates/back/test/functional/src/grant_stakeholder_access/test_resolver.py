@@ -27,7 +27,7 @@ async def test_grant_stakeholder_access_confirmed(
     assert populate
     group_name: str = "group2"
     stakeholder_responsibility: str = "test"
-    stakeholder_role: str = "EXECUTIVE"
+    stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
@@ -78,7 +78,7 @@ async def test_grant_stakeholder_access_rejected(
     assert populate
     group_name: str = "group2"
     stakeholder_responsibility: str = "test"
-    stakeholder_role: str = "EXECUTIVE"
+    stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
@@ -138,7 +138,7 @@ async def test_grant_stakeholder_access_fail(
     group_name: str = "group2"
     stakeholder_email: str = "hacker@gmail.com"
     stakeholder_responsibility: str = "test"
-    stakeholder_role: str = "EXECUTIVE"
+    stakeholder_role: str = "USER"
     result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
