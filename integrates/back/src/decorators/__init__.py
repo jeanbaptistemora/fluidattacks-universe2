@@ -2,7 +2,6 @@ from aioextensions import (
     collect,
     schedule,
 )
-import aiohttp
 import asyncio
 from asyncio import (
     sleep,
@@ -27,6 +26,9 @@ from db_model.organizations.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from decorators.utils import (
+    is_personal_email,
 )
 import functools
 from graphql import (
@@ -466,22 +468,9 @@ def require_corporate_email(func: Callable[..., Any]) -> TVar:
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         context = args[1].context
         user_data = await token_utils.get_jwt_content(context)
-        email_domain = user_data["user_email"].split("@")[1]
 
-        async with aiohttp.ClientSession() as session:
-            url = (
-                "https://gist.githubusercontent.com/tbrianjones/5992856/raw/"
-                "93213efb652749e226e69884d6c048e595c1280a/"
-                "free_email_provider_domains.txt"
-            )
-
-            async with session.get(url) as response:
-                if response.status == 200:
-                    text = await response.text()
-                    free_email_domains = text.split("\n")
-
-                    if email_domain in free_email_domains:
-                        raise OnlyCorporateEmails()
+        if await is_personal_email(user_data["user_email"]):
+            raise OnlyCorporateEmails()
 
         return await func(*args, **kwargs)
 
