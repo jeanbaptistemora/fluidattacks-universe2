@@ -2035,9 +2035,6 @@
                   },
                   "status": {
                     "S": "ACTIVE"
-                  },
-                  "pending_deletion_date": {
-                    "S": "2019-11-22T20:07:57+00:00"
                   }
                 }
               },

@@ -104,11 +104,10 @@ async def delete_obsolete_orgs() -> None:
         org_pending_deletion_date_str = (
             organization.state.pending_deletion_date
         )
-        org_users = await orgs_domain.get_users(organization.id)
         org_group_names = await orgs_domain.get_group_names(
             loaders, organization.id
         )
-        if len(org_users) == 0 and len(org_group_names) == 0:
+        if len(org_group_names) == 0:
             if org_pending_deletion_date_str:
                 org_pending_deletion_date = (
                     datetime_utils.get_datetime_from_iso_str(
