@@ -1,0 +1,108 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "ORG#esdeath"
+          },
+          "name": {
+            "S": "esdeath"
+          },
+          "policies": {
+            "M": {
+              "modified_by": {
+                "S": "unknown"
+              },
+              "min_breaking_severity": {
+                "N": "0.0"
+              },
+              "modified_date": {
+                "S": "2022-06-09T19:36:16+00:00"
+              },
+              "min_acceptance_severity": {
+                "N": "0.0"
+              },
+              "max_acceptance_severity": {
+                "N": "10.0"
+              }
+            }
+          },
+          "pk_2": {
+            "S": "ORG#all"
+          },
+          "pk": {
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "id": {
+            "S": "59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "state": {
+            "M": {
+              "modified_by": {
+                "S": "customer@domain.com"
+              },
+              "modified_date": {
+                "S": "2022-05-12T00:17:09+00:00"
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            }
+          },
+          "sk_2": {
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "min_acceptance_severity": {
+            "N": "0"
+          },
+          "sk": {
+            "S": "POLICIES#2022-06-09T19:36:16+00:00"
+          },
+          "modified_by": {
+            "S": "unknown"
+          },
+          "min_breaking_severity": {
+            "N": "0"
+          },
+          "pk": {
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "modified_date": {
+            "S": "2022-06-09T19:36:16+00:00"
+          },
+          "max_acceptance_severity": {
+            "N": "10"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "STATE#2022-05-12T00:17:09+00:00"
+          },
+          "modified_by": {
+            "S": "customer@domain.com"
+          },
+          "pk": {
+            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
+          },
+          "modified_date": {
+            "S": "2022-05-12T00:17:09+00:00"
+          },
+          "status": {
+            "S": "ACTIVE"
+          }
+        }
+      }
+    }
+  ]
+}

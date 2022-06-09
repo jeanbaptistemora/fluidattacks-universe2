@@ -3,47 +3,6 @@
     {
       "PutRequest": {
         "Item": {
-          "historic_state": {
-            "L": [
-              {
-                "M": {
-                  "modified_by": {
-                    "S": "customer@domain.com"
-                  },
-                  "modified_date": {
-                    "S": "2022-05-11 19:17:09"
-                  },
-                  "status": {
-                    "S": "ACTIVE"
-                  }
-                }
-              }
-            ]
-          },
-          "pk": {
-            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
-          },
-          "sk": {
-            "S": "INFO#esdeath"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "pk": {
-            "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
-          },
-          "sk": {
-            "S": "GROUP#jessup"
-          }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
           "pk": {
             "S": "ORG#59e95b33-59b3-4d10-b2a5-a0729ad79aad"
           },
