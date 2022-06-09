@@ -685,12 +685,29 @@ async def send_closed_vulnerabilities_report(
         for vuln in await finding_vulns_loader.load(finding_id)
         if vuln.id in closed_vulnerabilities_id
     ]
-    locations: List[str] = [vuln.where for vuln in vulnerabilities]
+    vulns_closed_props: dict[str, Any] = {}
+
+    for vuln in vulnerabilities:
+        vuln_historic: Tuple[
+            VulnerabilityState, ...
+        ] = await loaders.vulnerability_historic_state.load(vuln.id)
+        first_vuln: VulnerabilityState = vuln_historic[0]
+        report_date = datetime_utils.get_date_from_iso_str(
+            first_vuln.modified_date
+        )
+        days_open = (datetime_utils.get_now().date() - report_date).days
+        vulns_closed_props[vuln.id] = {
+            "Location": vuln.where,
+            "Assigned": vuln.treatment.assigned if vuln.treatment else None,
+            "Date": report_date,
+            "Days it was open": days_open,
+        }
+
     schedule(
         send_vulnerability_report(
             loaders=loaders,
             finding_id=finding_id,
-            locations=locations,
+            vulnerabilities_properties=vulns_closed_props,
             is_closed=True,
         )
     )
@@ -700,7 +717,7 @@ async def send_vulnerability_report(
     *,
     loaders: Any,
     finding_id: str,
-    locations: List[str],
+    vulnerabilities_properties: Dict[str, Any],
     is_closed: bool = False,
 ) -> None:
     finding: Finding = await loaders.finding.load(finding_id)
@@ -716,7 +733,7 @@ async def send_vulnerability_report(
                 group_name=finding.group_name,
                 finding_title=finding.title,
                 finding_id=finding_id,
-                locations=locations,
+                vulnerabilities_properties=vulnerabilities_properties,
                 severity_score=severity_score,
                 severity_level=severity_level,
                 is_closed=is_closed,

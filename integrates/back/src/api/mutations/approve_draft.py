@@ -53,7 +53,7 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
-    List,
+    Any,
     Tuple,
 )
 from unreliable_indicators.enums import (
@@ -118,11 +118,13 @@ async def mutate(
             vulnerability_ids=[],
         )
 
-        locations: List[str] = [
-            vuln.where
+        vulns_props: dict[str, Any] = {
+            vuln.id: {
+                "Location": vuln.where,
+            }
             for vuln in vulnerabilities
             if vuln.state.status == VulnerabilityStateStatus.OPEN
-        ]
+        }
 
         if severity_score >= 7.0 or not group_findings:
             schedule(
@@ -131,7 +133,7 @@ async def mutate(
                     group_name=group_name,
                     finding_title=finding.title,
                     finding_id=finding_id,
-                    locations=locations,
+                    vulnerabilities_properties=vulns_props,
                     severity_score=severity_score,
                     severity_level=severity_level,
                 )
