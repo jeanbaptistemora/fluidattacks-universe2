@@ -35,7 +35,7 @@ function render(dataDocument, height, width) {
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(${ fontSize * arrowFontOffset }, ${ fontOffset })`)
       .style('fill', dataDocument.color)
-      .text(dataDocument.arrow);
+      .html(dataDocument.arrow);
   } else {
     const svg = d3
       .select('div')
