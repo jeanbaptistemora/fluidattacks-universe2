@@ -3,8 +3,8 @@
 Migrate group info to "integrates_vms" table.
 This migration does not include the org user access in "fi_organizations".
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-09 at 03:19:05 UTC
+Finalization Time: 2022-06-09 at 03:23:41 UTC
 """
 
 from aioextensions import (
