@@ -118,6 +118,10 @@ class OrganizationAlreadyCreated(_SingleMessageException):
     msg: str = "This organization has already been created"
 
 
+class PortfolioNotFound(_SingleMessageException):
+    msg: str = "Portfolio not found"
+
+
 class SnapshotNotFound(_SingleMessageException):
     msg: str = "Snapshot not found in analytics bucket"
 
