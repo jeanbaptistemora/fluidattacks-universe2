@@ -274,7 +274,6 @@ function check_md_words_case {
     'OSCP'
     'OSWP'
     'OWASP'
-    'Python'
     'Red Hat'
     'RPG'
     'Scala'
