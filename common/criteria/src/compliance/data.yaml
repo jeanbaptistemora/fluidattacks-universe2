@@ -5812,7 +5812,13 @@
   title: ISSAF
   en:
     summary: >
-      .
+      The Information Systems Security
+      Assessment Framework is designed
+      to evaluate the network,
+      system and application controls
+      in penetration testing methodology.
+      The version used in this
+      section is ISSAF 0.2.1B.
   es:
     summary: __empty__
   definitions:
