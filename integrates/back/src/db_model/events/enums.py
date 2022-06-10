@@ -8,6 +8,21 @@ class EventAccessibility(str, Enum):
     REPOSITORY: str = "REPOSITORY"
 
 
+class EventActionsAfterBlocking(str, Enum):
+    EXECUTE_OTHER_GROUP_OTHER_CLIENT: str = "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
+    EXECUTE_OTHER_GROUP_SAME_CLIENT: str = "EXECUTE_OTHER_GROUP_SAME_CLIENT"
+    NONE: str = "NONE"
+    OTHER: str = "OTHER"
+    TRAINING: str = "TRAINING"
+
+
+class EventActionsBeforeBlocking(str, Enum):
+    DOCUMENT_GROUP: str = "DOCUMENT_GROUP"
+    NONE: str = "NONE"
+    OTHER: str = "OTHER"
+    TEST_OTHER_PART_TOE: str = "TEST_OTHER_PART_TOE"
+
+
 class EventAffectedComponents(str, Enum):
     CLIENT_STATION: str = "CLIENT_STATION"
     COMPILE_ERROR: str = "COMPILE_ERROR"

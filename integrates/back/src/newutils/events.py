@@ -3,6 +3,8 @@ from datetime import (
 )
 from db_model.events.enums import (
     EventAccessibility,
+    EventActionsAfterBlocking,
+    EventActionsBeforeBlocking,
     EventAffectedComponents as AffectedComponents,
     EventStateStatus,
     EventType,
@@ -60,6 +62,20 @@ def format_accessibility(item: Item) -> set[EventAccessibility]:
         for item in str(item["accessibility"]).split()
         if item in {"Repositorio", "Ambiente"}
     )
+
+
+def format_actions_after_blocking(action: str) -> EventActionsAfterBlocking:
+    if action == "EXECUTE_OTHER_PROJECT_OTHER_CLIENT":
+        return EventActionsAfterBlocking.EXECUTE_OTHER_GROUP_OTHER_CLIENT
+    if action == "EXECUTE_OTHER_PROJECT_SAME_CLIENT":
+        return EventActionsAfterBlocking.EXECUTE_OTHER_GROUP_SAME_CLIENT
+    return EventActionsAfterBlocking[action]
+
+
+def format_actions_before_blocking(action: str) -> EventActionsBeforeBlocking:
+    if action == "DOCUMENT_PROJECT":
+        return EventActionsBeforeBlocking.DOCUMENT_GROUP
+    return EventActionsBeforeBlocking[action]
 
 
 def format_affected_components(
@@ -125,8 +141,16 @@ def format_state(item: Item) -> EventState:
 
 def format_event(item: Item) -> Event:
     return Event(
-        action_after_blocking=item.get("action_after_blocking", None),
-        action_before_blocking=item.get("action_before_blocking", None),
+        action_after_blocking=format_actions_after_blocking(
+            item["action_after_blocking"]
+        )
+        if item.get("action_after_blocking")
+        else None,
+        action_before_blocking=format_actions_before_blocking(
+            item["action_before_blocking"]
+        )
+        if item.get("action_before_blocking")
+        else None,
         accessibility=format_accessibility(item),
         affected_components=format_affected_components(
             item["affected_components"]

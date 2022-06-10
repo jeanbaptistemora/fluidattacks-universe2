@@ -1,5 +1,7 @@
 from .enums import (
     EventAccessibility,
+    EventActionsAfterBlocking,
+    EventActionsBeforeBlocking,
     EventAffectedComponents,
     EventStateStatus,
     EventType,
@@ -36,8 +38,12 @@ class Event(NamedTuple):
     id: str
     state: EventState
     type: EventType
-    action_after_blocking: Optional[str] = None  # Deprecated
-    action_before_blocking: Optional[str] = None  # Deprecated
+    action_after_blocking: Optional[
+        EventActionsAfterBlocking
+    ] = None  # Deprecated
+    action_before_blocking: Optional[
+        EventActionsBeforeBlocking
+    ] = None  # Deprecated
     affected_components: Optional[set[EventAffectedComponents]] = None
     context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None
