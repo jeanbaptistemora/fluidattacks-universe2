@@ -15,22 +15,26 @@ and the amount of each one
 that belong to each group
 of your organization.
 
-## Remediation rate benchmarking
+## Exposure remediation rate (benchmark)
 
-![Remediation Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925701/docs/web/analytics/organizations/organization_remediation_benchmarking.png)
+![Exposure Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925701/docs/web/analytics/organizations/organization_remediation_benchmarking.png)
 
 How do your numbers compare to those of
 other organizations? How close are you
 to being the best?
-Based on our 20 years of experience, we
-can benchmark how your organization is
-doing in terms of vulnerability remediation
-as compared to other organizations.
-This section shows the percentages of closed,
-accepted and open vulnerabilities by their
-severity for your organization and how your
-numbers compare to those of the best, the
-average and the worst organization.
+Based on our 20 years of experience,
+we can benchmark how your organization
+is doing in terms of vulnerability
+remediation as compared to
+other organizations.
+This chart shows the
+percentages of closed,
+accepted and open risk exposure
+in your organization,
+as well as these percentages in
+the best and the worst organization
+and averaged across organizations
+excluding yours.
 
 ## Open severity by groups
 
