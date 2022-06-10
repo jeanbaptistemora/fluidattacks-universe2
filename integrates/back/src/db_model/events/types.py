@@ -1,6 +1,7 @@
 from .enums import (
     EventAccessibility,
     EventStateStatus,
+    EventType,
 )
 from typing import (
     NamedTuple,
@@ -34,7 +35,7 @@ class Event(NamedTuple):
     hacker: str
     id: str
     state: EventState
-    type: str
+    type: EventType
     action_after_blocking: Optional[str] = None  # Deprecated
     action_before_blocking: Optional[str] = None  # Deprecated
     context: Optional[str] = None  # Deprecated

@@ -4,6 +4,7 @@ from datetime import (
 from db_model.events.enums import (
     EventAccessibility,
     EventStateStatus,
+    EventType,
 )
 from db_model.events.types import (
     Event,
@@ -108,5 +109,5 @@ def format_event(item: Item) -> Event:
         id=item["event_id"],
         root_id=item.get("root_id"),
         state=format_state(item),
-        type=item["event_type"],
+        type=EventType[item["event_type"]],
     )
