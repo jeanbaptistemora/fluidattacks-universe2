@@ -418,6 +418,7 @@ async def send_mail_environment_report(
     group_name: str,
     responsible: str,
     git_root: str,
+    git_root_url: str,
     urls_added: List[str],
     urls_deleted: List[str],
     modified_date: str,
@@ -430,6 +431,7 @@ async def send_mail_environment_report(
             "group_name": group_name,
             "responsible": responsible,
             "git_root": git_root,
+            "git_root_url": git_root_url,
             "urls_added": urls_added,
             "urls_deleted": urls_deleted,
             "report_date": str(

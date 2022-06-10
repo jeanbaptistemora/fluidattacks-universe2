@@ -14,6 +14,8 @@
     </p>
     <p>
       <strong>Git Root</strong>: {{ git_root }}<br>
+      <strong>Git Root URL</strong>:
+      <a href="{{ url_added }}" target="_blank" rel="noopener noreferrer">{{ git_root_url }}</a><br>
       {% if urls_deleted and reason %} <strong>Reason</strong>: {{ reason }}.<br> {% endif %}
       <strong>Date</strong>: {{ report_date }}<br>
       {% if urls_added %}

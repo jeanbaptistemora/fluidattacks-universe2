@@ -612,6 +612,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
             date=modified_date,
             group_name=group_name,
             git_root=root.state.nickname,
+            git_root_url=root.state.url,
             urls_added=urls_added,
             urls_deleted=urls_deleted,
             user_email=user_email,
@@ -1675,11 +1676,12 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     date: str,
     group_name: str,
     git_root: str,
+    git_root_url: str,
     urls_added: List[str],
     urls_deleted: List[str],
     user_email: str,
-    other: Optional[str],
-    reason: Optional[str],
+    other: Optional[str] = None,
+    reason: Optional[str] = None,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
     users_email = await group_access_domain.get_users_email_by_preferences(
@@ -1694,6 +1696,7 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         group_name=group_name,
         responsible=user_email,
         git_root=git_root,
+        git_root_url=git_root_url,
         urls_added=urls_added,
         urls_deleted=urls_deleted,
         modified_date=date,
