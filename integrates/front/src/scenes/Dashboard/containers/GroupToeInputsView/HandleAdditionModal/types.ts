@@ -27,6 +27,7 @@ interface IHandleAdditionModalProps {
 interface IGitRootAttr {
   __typename: "GitRoot";
   environmentUrls: string[];
+  gitEnvironmentUrls: { url: string; id: string; urlType: string }[];
   id: string;
   nickname: string;
   state: "ACTIVE" | "INACTIVE";

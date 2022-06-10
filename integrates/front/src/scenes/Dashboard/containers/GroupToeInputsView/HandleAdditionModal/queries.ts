@@ -27,6 +27,11 @@ const GET_ROOTS: DocumentNode = gql`
         ... on GitRoot {
           __typename
           environmentUrls
+          gitEnvironmentUrls {
+            url
+            id
+            urlType
+          }
           id
           nickname
           state
