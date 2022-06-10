@@ -29,6 +29,7 @@ function render(dataDocument, height, width) {
       .text(`${ plusSign }${ value }%`);
 
     svg
+      .append('g')
       .append('text')
       .attr('font-size', `${ arrowFontSize }`)
       .attr('font-family', 'Arial, Helvetica, sans-serif')
