@@ -3257,6 +3257,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    HTML_IS_HEADER_CONTENT_TYPE_MISSING = MethodInfo(
+        file_name="html",
+        name="html_is_header_content_type_missing",
+        module="lib_path",
+        finding=FindingEnum.F371,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_CONTENT_HTTP = MethodInfo(
         file_name="cloudformation",
         name="cfn_serves_content_over_http",

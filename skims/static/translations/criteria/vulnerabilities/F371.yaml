@@ -1,3 +1,5 @@
 lib_path.f371.is_header_content_type_missing:
-  en: The content-type header is missing or malformed.
-  es: El encabezado content-type falta o está mal formado.
+  en: The content-type header or character encoding is not set or is malformed.
+  es: >
+    El encabezado de content-type o la codificación de caracteres
+    no está configurado o tiene un formato incorrecto.
