@@ -1,5 +1,15 @@
 import styled from "styled-components";
 
+interface IAlertProps {
+  show: boolean;
+  variant: "high" | "low";
+}
+
+interface IAlertVariant {
+  bgColor: string;
+  paddingX: number;
+}
+
 interface IStyledInputProps {
   disabled?: boolean;
   id?: string;
@@ -8,13 +18,20 @@ interface IStyledInputProps {
   variant: "outline" | "solid";
 }
 
-interface IStyledInputAlertProps {
-  show: boolean;
-}
-
 interface IVariant {
   bgColor: string;
 }
+
+const alertVariants: Record<IAlertProps["variant"], IAlertVariant> = {
+  high: {
+    bgColor: "#fdd8da",
+    paddingX: 8,
+  },
+  low: {
+    bgColor: "transparent",
+    paddingX: 0,
+  },
+};
 
 const variants: Record<IStyledInputProps["variant"], IVariant> = {
   outline: {
@@ -26,7 +43,7 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
 };
 
 const StyledInput = styled.input<IStyledInputProps>`
-  background-color: ${(props): string => variants[props.variant].bgColor};
+  background-color: ${({ variant }): string => variants[variant].bgColor};
   border-radius: 4px;
   border: 1px solid #b0b0bf;
   box-sizing: border-box;
@@ -46,17 +63,18 @@ const StyledInput = styled.input<IStyledInputProps>`
   }
 `;
 
-const Alert = styled.p<IStyledInputAlertProps>`
-  background-color: #feeced;
+const Alert = styled.p<IAlertProps>`
+  background-color: ${({ variant }): string => alertVariants[variant].bgColor};
   border-radius: 4px;
-  color: #3a0306;
+  color: #f2182a;
   font-size: 12px;
   font-weight: 500;
-  height: ${(props): number => (props.show ? 25 : 0)}px;
-  line-height: ${(props): number => (props.show ? 25 : 0)}px;
+  height: ${({ show }): number => (show ? 25 : 0)}px;
+  line-height: ${({ show }): number => (show ? 25 : 0)}px;
   margin-bottom: 0;
   margin-top: 6px;
-  padding: 0 0.5rem;
+  overflow: hidden;
+  padding: 0 ${({ variant }): number => alertVariants[variant].paddingX}px;
   transition: all 0.3s ease;
 `;
 
@@ -65,5 +83,5 @@ const Container = styled.div`
   max-width: 350px;
 `;
 
-export type { IStyledInputProps };
+export type { IAlertProps, IStyledInputProps };
 export { Alert, Container, StyledInput };

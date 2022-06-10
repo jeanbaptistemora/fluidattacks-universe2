@@ -1,15 +1,19 @@
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
 
+import type { IAlertProps, IStyledInputProps } from "./styles";
 import { Alert, Container, StyledInput } from "./styles";
-import type { IStyledInputProps } from "./styles";
 
 interface IInputProps extends IStyledInputProps {
   alertMsg?: string;
+  alertType?: IAlertProps["variant"];
   validate?: (val: string) => string | undefined;
 }
 
 const Input: React.FC<IInputProps> = ({
   alertMsg = "",
+  alertType = "low",
   disabled = false,
   id,
   placeholder,
@@ -36,7 +40,11 @@ const Input: React.FC<IInputProps> = ({
         type={type}
         variant={variant}
       />
-      <Alert show={alert.length > 0}>{alert}</Alert>
+      <Alert show={alert.length > 0} variant={alertType}>
+        <FontAwesomeIcon icon={faCircleXmark} />
+        &nbsp;
+        {alert}
+      </Alert>
     </Container>
   );
 };
