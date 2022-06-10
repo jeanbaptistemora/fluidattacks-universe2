@@ -133,7 +133,7 @@ async def generate_one(  # pylint: disable=too-many-locals
         tuple(finding.id for finding in findings)
     )
 
-    total_previous_open, total_previous_closed = await get_totals_by_week(
+    opened_current_sprint, closed_current_sprint = await get_totals_by_week(
         vulnerabilities=vulnerabilities,
         findings_cvssf=findings_cvssf,
         last_day=current_sprint_date,
@@ -150,13 +150,13 @@ async def generate_one(  # pylint: disable=too-many-locals
 
     total_closed: Decimal = format_cvssf(total_current_closed)
     total_open: Decimal = format_cvssf(total_current_open)
-    previous_closed: Decimal = format_cvssf(total_previous_closed)
-    previous_open: Decimal = format_cvssf(total_previous_open)
+    current_closed: Decimal = format_cvssf(closed_current_sprint)
+    current_open: Decimal = format_cvssf(opened_current_sprint)
     solved: Decimal = get_percentage_change(
-        current=previous_closed, total=total_closed
+        current=current_closed, total=total_closed + total_open
     )
     created: Decimal = get_percentage_change(
-        current=previous_open, total=total_open
+        current=current_open, total=total_open + total_closed
     )
     created = created if created > Decimal("0.0") else Decimal("0")
     solved = solved if solved > Decimal("0.0") else Decimal("0")
