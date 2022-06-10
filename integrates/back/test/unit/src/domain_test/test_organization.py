@@ -80,8 +80,9 @@ async def test_add_customer_manager_fail() -> None:
     try:
         await orgs_domain.add_user(loaders, org_id, user, "customer_manager")
     except InvalidUserProvided as ex:
-        assert str(ex) == (
-            "Exception - This role can only be granted to Fluid Attacks "
+        assert (
+            str(ex)
+            == "Exception - This role can only be granted to Fluid Attacks "
             "users"
         )
 
@@ -294,6 +295,7 @@ async def test_has_user_access() -> None:
 @pytest.mark.changes_db
 async def test_remove_user() -> None:
     user = "org_testuser3@gmail.com"
+    modified_by = "org_testadmin@gmail.com"
     group = "sheele"
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     group_users = await group_access_domain.get_group_users(group)
@@ -301,7 +303,9 @@ async def test_remove_user() -> None:
     assert await authz.get_group_level_role(user, group) == "user"
     assert await authz.get_organization_level_role(user, org_id) == "user"
 
-    assert await orgs_domain.remove_user(get_new_context(), org_id, user)
+    assert await orgs_domain.remove_user(
+        get_new_context(), org_id, user, modified_by
+    )
     updated_group_users = await group_access_domain.get_group_users(group)
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ""
@@ -309,7 +313,7 @@ async def test_remove_user() -> None:
 
     with pytest.raises(UserNotInOrganization):
         await orgs_domain.remove_user(
-            get_new_context(), org_id, "madeupuser@gmail.com"
+            get_new_context(), org_id, "madeupuser@gmail.com", modified_by
         )
 
 

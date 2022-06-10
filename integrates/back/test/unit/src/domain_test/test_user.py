@@ -65,6 +65,7 @@ async def test_remove_push_token() -> None:
 @pytest.mark.changes_db
 async def test_remove_user() -> None:
     email: str = "testanewuser@test.test"
+    modified_by: str = "admin@test.test"
     await autoenroll_user(email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
@@ -84,7 +85,9 @@ async def test_remove_user() -> None:
         >= 1
     )
 
-    await remove_user_all_organizations(loaders=get_new_context(), email=email)
+    await remove_user_all_organizations(
+        loaders=get_new_context(), email=email, modified_by=modified_by
+    )
 
     assert await users_domain.get_data(email, "email") == {}
     assert await get_user_subscriptions(user_email=email) == []

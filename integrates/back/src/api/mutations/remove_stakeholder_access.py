@@ -18,6 +18,7 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+    token as token_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -39,8 +40,10 @@ async def mutate(
     user_email: str,
     group_name: str,
 ) -> RemoveStakeholderAccessPayloadType:
+    user_data = await token_utils.get_jwt_content(info.context)
+    requester_email = user_data["user_email"]
     success = await groups_domain.remove_user(
-        info.context.loaders, group_name, user_email
+        info.context.loaders, group_name, user_email, requester_email
     )
     removed_email = user_email if success else ""
     if success:
@@ -50,7 +53,7 @@ async def mutate(
         )
         msg = (
             f"Security: Removed stakeholder: {user_email} from {group_name} "
-            f"group successfully"
+            "group successfully"
         )
         logs_utils.cloudwatch_log(info.context, msg)
     else:

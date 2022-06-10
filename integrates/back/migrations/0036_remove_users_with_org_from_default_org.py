@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,no-value-for-parameter
 """
 This migration will clean IMAMURA from users
 that already have another org.

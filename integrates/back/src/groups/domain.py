@@ -731,6 +731,7 @@ async def remove_group(
     are_users_removed = await remove_all_users(
         loaders=loaders,
         group_name=group_name,
+        modified_by=user_email,
     )
     are_policies_revoked = await authz.revoke_cached_group_service_policies(
         group_name
@@ -1441,6 +1442,7 @@ async def remove_all_users(
     *,
     loaders: Any,
     group_name: str,
+    modified_by: str,
 ) -> bool:
     """Remove user access to group."""
     user_active, user_suspended = await collect(
@@ -1452,7 +1454,10 @@ async def remove_all_users(
     all_users = user_active + user_suspended
     return all(
         await collect(
-            [remove_user(loaders, group_name, user) for user in all_users]
+            [
+                remove_user(loaders, group_name, user, modified_by)
+                for user in all_users
+            ]
         )
     )
 
@@ -1495,10 +1500,11 @@ async def remove_resources(
     )
 
 
-async def remove_user(
+async def remove_user(  # pylint: disable=too-many-locals
     loaders: Any,
     group_name: str,
     email: str,
+    modified_by: str,
 ) -> bool:
     """Remove user access to group."""
     success: bool = await group_access_domain.remove_access(
@@ -1530,7 +1536,7 @@ async def remove_user(
     )
     if has_org_access and not has_groups_in_org:
         success = await orgs_domain.remove_user(
-            loaders, organization_id, email
+            loaders, organization_id, email, modified_by
         )
 
     if not success:
@@ -1556,6 +1562,7 @@ async def unsubscribe_from_group(
         loaders=loaders,
         group_name=group_name,
         email=email,
+        modified_by=email,
     )
     if success:
         await send_mail_unsubscribed(

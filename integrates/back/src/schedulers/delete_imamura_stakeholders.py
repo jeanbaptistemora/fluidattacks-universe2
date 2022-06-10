@@ -21,6 +21,7 @@ async def delete_imamura_stakeholders() -> None:
     Delete stakeholders if only have access to imamura,
     and there are no logins in the last 60 days
     """
+    modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     org_name = "imamura"
     organization: Organization = await loaders.organization.load(org_name)
@@ -57,7 +58,7 @@ async def delete_imamura_stakeholders() -> None:
     await collect(
         [
             orgs_domain.remove_user(
-                loaders, org_id, stakeholder_to_delete["email"]
+                loaders, org_id, stakeholder_to_delete["email"], modified_by
             )
             for stakeholder_to_delete in stakeholders_to_delete
         ]

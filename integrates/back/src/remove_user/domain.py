@@ -82,11 +82,13 @@ mail_confirm_deletion = retry_on_exceptions(
 )(send_mail_confirm_deletion)
 
 
-async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
+async def remove_user_all_organizations(
+    *, loaders: Any, email: str, modified_by: str
+) -> None:
     organizations_ids = await get_user_organizations(email)
     await collect(
         tuple(
-            remove_user(loaders, organization_id, email)
+            remove_user(loaders, organization_id, email, modified_by)
             for organization_id in organizations_ids
         )
     )
@@ -138,7 +140,11 @@ async def remove_user_all_organizations(*, loaders: Any, email: str) -> None:
 async def complete_deletion(*, loaders: Any, user_email: str) -> None:
     await collect(
         (
-            remove_user_all_organizations(loaders=loaders, email=user_email),
+            remove_user_all_organizations(
+                loaders=loaders,
+                email=user_email,
+                modified_by=user_email,
+            ),
             remove_confirm_deletion(user_email, "confirm_deletion"),
         )
     )

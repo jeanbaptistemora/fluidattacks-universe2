@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,missing-kwoa
 """
 In the context of migrating groups to the single table, remove unwanted
 statuses SUSPENDED and FINISHED. These are deprecated and only ACTIVE and

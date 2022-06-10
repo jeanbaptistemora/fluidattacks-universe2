@@ -45,7 +45,10 @@ async def mutate(
     organization_name = organization.name
 
     success: bool = await orgs_domain.remove_user(
-        info.context.loaders, organization_id, user_email.lower()
+        info.context.loaders,
+        organization_id,
+        user_email.lower(),
+        requester_email,
     )
     if success:
         info.context.loaders.organization_stakeholders.clear(organization_id)

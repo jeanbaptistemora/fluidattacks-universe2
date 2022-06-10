@@ -12,9 +12,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.credentials.types import (
-    Credential,
-)
 from db_model.groups.enums import (
     GroupStateRemovalJustification,
 )
@@ -68,7 +65,7 @@ async def _remove_organization(
 ) -> None:
     users = await orgs_domain.get_users(organization_id)
     users_removed = await collect(
-        orgs_domain.remove_user(loaders, organization_id, user)
+        orgs_domain.remove_user(loaders, organization_id, user, modified_by)
         for user in users
     )
     success = all(users_removed) if users else True
@@ -76,20 +73,6 @@ async def _remove_organization(
     group_names = await orgs_domain.get_group_names(loaders, organization_id)
     await collect(
         _remove_group(loaders, group, modified_by) for group in group_names
-    )
-    organization_credentials: tuple[
-        Credential, ...
-    ] = await loaders.organization_credentials_new.load(organization_id)
-    await collect(
-        tuple(
-            orgs_domain.remove_credential(
-                loaders=loaders,
-                organization_id=organization_id,
-                credential_id=credential.id,
-                modified_by=modified_by,
-            )
-            for credential in organization_credentials
-        )
     )
     if success:
         await orgs_domain.update_state(

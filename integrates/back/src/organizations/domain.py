@@ -28,6 +28,9 @@ from db_model import (
     organizations as orgs_model,
     roots as roots_model,
 )
+from db_model.credentials.types import (
+    Credential,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -368,6 +371,7 @@ async def remove_credential(
         )
         for root in organization_roots
         if isinstance(root, GitRoot)
+        and root.state.credential_id == credential_id
     )
     await credentials_model.remove_new(
         credential_id=credential_id,
@@ -375,7 +379,9 @@ async def remove_credential(
     )
 
 
-async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
+async def remove_user(
+    loaders: Any, organization_id: str, email: str, modified_by: str
+) -> bool:
     organization_id = add_org_id_prefix(organization_id)
     if not await has_user_access(organization_id, email):
         raise UserNotInOrganization()
@@ -400,6 +406,20 @@ async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
     has_orgs = bool(await get_user_organizations(email))
     if not has_orgs:
         user_removed = user_removed and await users_domain.delete(email)
+    user_credentials: tuple[
+        Credential, ...
+    ] = await loaders.user_credentials_new.load(email)
+    await collect(
+        tuple(
+            remove_credential(
+                loaders=loaders,
+                organization_id=organization_id,
+                credential_id=credential.id,
+                modified_by=modified_by,
+            )
+            for credential in user_credentials
+        )
+    )
     return user_removed and role_removed and groups_removed
 
 
@@ -414,7 +434,9 @@ async def reject_register_for_organization_invitation(
 
     organization_id = organization_access["pk"]
     user_email = organization_access["sk"].split("#")[1]
-    success = await remove_user(loaders, organization_id, user_email)
+    success = await remove_user(
+        loaders, organization_id, user_email, user_email
+    )
     return success
 
 
@@ -515,18 +537,29 @@ async def send_mail_policies(
         organization_id
     )
     policies_format = {
-        "max_acceptance_days": "Maximum number of calendar days a finding "
-        "can be temporarily accepted",
-        "max_acceptance_severity": "Maximum temporal CVSS 3.1 score range "
-        "between which a finding can be accepted",
-        "min_breaking_severity": "Minimum CVSS 3.1 score of an open "
-        "vulnerability for DevSecOps to break the build in strict mode",
-        "min_acceptance_severity": "Minimum temporal CVSS 3.1 score range "
-        "between which a finding can be accepted",
-        "vulnerability_grace_period": "Grace period in days where newly "
-        "reported vulnerabilities won't break the build (DevSecOps only)",
-        "max_number_acceptances": "Maximum number of times a "
-        "finding can be temporarily accepted",
+        "max_acceptance_days": (
+            "Maximum number of calendar days a finding "
+            "can be temporarily accepted"
+        ),
+        "max_acceptance_severity": (
+            "Maximum temporal CVSS 3.1 score range "
+            "between which a finding can be accepted"
+        ),
+        "min_breaking_severity": (
+            "Minimum CVSS 3.1 score of an open "
+            "vulnerability for DevSecOps to break the build in strict mode"
+        ),
+        "min_acceptance_severity": (
+            "Minimum temporal CVSS 3.1 score range "
+            "between which a finding can be accepted"
+        ),
+        "vulnerability_grace_period": (
+            "Grace period in days where newly "
+            "reported vulnerabilities won't break the build (DevSecOps only)"
+        ),
+        "max_number_acceptances": (
+            "Maximum number of times a finding can be temporarily accepted"
+        ),
     }
 
     policies_content: dict[str, Any] = {}
@@ -540,7 +573,7 @@ async def send_mail_policies(
 
     email_context: dict[str, Any] = {
         "org_name": organization_name,
-        "policies_link": (f"{BASE_URL}/orgs/{organization_name}/policies"),
+        "policies_link": f"{BASE_URL}/orgs/{organization_name}/policies",
         "policies_content": policies_content,
         "responsible": responsible,
         "date": datetime_utils.get_datetime_from_iso_str(date),
