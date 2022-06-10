@@ -91,6 +91,7 @@
   "scripts": {
     "lint": "tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "start": "expo start",
-    "test": "jest"
+    "test:enzyme": "isEnzyme=true jest",
+    "test:rtl": "isEnzyme=false jest"
   }
 }

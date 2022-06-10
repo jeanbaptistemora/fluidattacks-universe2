@@ -3,6 +3,7 @@
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import { configure } from "enzyme";
 import fetchMock from "fetch-mock";
+import "@testing-library/jest-dom";
 
 Object.assign(global, {
   // Mock fetch
