@@ -349,7 +349,7 @@ the percentage change in this
 remediation rate relative to
 the immediately preceding week.
 
-![Application](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,w_431/v1654805990/docs/web/web_asm_mobile_app.png)
+![Application](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,q_100,w_431/v1654805990/docs/web/web_asm_mobile_app.png)
 
 You can download this application at
 [Apple App Store](https://apps.apple.com/co/app/fluid-attacks/id1470450298)
