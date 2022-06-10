@@ -64,7 +64,11 @@ const Welcome: React.FC = (): JSX.Element => {
     }
     if (orgsLength < 2) {
       if (orgsLength === 1 && data.me.organizations[0].groups.length > 0) {
-        if (data.me.organizations[0].groups[0].roots.length === 0) {
+        if (
+          data.me.organizations[0].groups.filter(
+            (group): boolean => group.roots.length > 0
+          ).length === 0
+        ) {
           return (
             <Autoenrollment
               group={data.me.organizations[0].groups[0].name}
