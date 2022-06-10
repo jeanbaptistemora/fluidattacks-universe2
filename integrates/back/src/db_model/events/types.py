@@ -29,15 +29,16 @@ class EventState(NamedTuple):
 
 
 class Event(NamedTuple):
-    accessibility: set[EventAccessibility]
     client: str
     description: str
     evidences: EventEvidences
     group_name: str
     hacker: str
     id: str
+    report_date: str
     state: EventState
     type: EventType
+    accessibility: Optional[set[EventAccessibility]] = None
     action_after_blocking: Optional[
         EventActionsAfterBlocking
     ] = None  # Deprecated

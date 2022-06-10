@@ -54,12 +54,12 @@ def format_data(event: dict[str, Any]) -> dict[str, Any]:
     return event
 
 
-def format_accessibility(item: Item) -> set[EventAccessibility]:
+def format_accessibility(accessibility: str) -> set[EventAccessibility]:
     return set(
         EventAccessibility.REPOSITORY
         if item == "Repositorio"
         else EventAccessibility.ENVIRONMENT
-        for item in str(item["accessibility"]).split()
+        for item in accessibility.split()
         if item in {"Repositorio", "Ambiente"}
     )
 
@@ -140,6 +140,7 @@ def format_state(item: Item) -> EventState:
 
 
 def format_event(item: Item) -> Event:
+    report_date = convert_to_iso_str(item["historic_state"][0]["date"])
     return Event(
         action_after_blocking=format_actions_after_blocking(
             item["action_after_blocking"]
@@ -151,19 +152,22 @@ def format_event(item: Item) -> Event:
         )
         if item.get("action_before_blocking")
         else None,
-        accessibility=format_accessibility(item),
+        accessibility=format_accessibility(item["accessibility"])
+        if item.get("accessibility")
+        else None,
         affected_components=format_affected_components(
             item["affected_components"]
         )
         if item.get("affected_components")
         else None,
         client=item.get("client", ""),
-        context=item.get("context", ""),
+        context=item.get("context"),
         description=item["detail"],
         evidences=format_evidences(item),
         group_name=item["project_name"],
         hacker=item["analyst"],
         id=item["event_id"],
+        report_date=report_date,
         root_id=item.get("root_id"),
         state=format_state(item),
         type=EventType[item["event_type"]],

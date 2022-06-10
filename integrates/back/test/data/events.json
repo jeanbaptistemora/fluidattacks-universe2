@@ -67,10 +67,10 @@
       "PutRequest": {
         "Item": {
           "accessibility": {
-            "S": "Repositorio"
+            "S": "Repositorio Ambiente Repositorio"
           },
           "affected_components": {
-            "S": "CLIENT_STATION"
+            "S": "Estación de pruebas de FLUID\nEstación de pruebas del Cliente\nExclusión de alcance\nDocumentación del proyecto\nConectividad local (LAN, WiFi)\nConectividad a Internet\nConectividad VPN\nUbicación del ToE (IP, URL)\nCredenciales en el ToE\nPrivilegios en el ToE\nDatos de prueba\nInestabilidad del ToE\nInaccesibilidad del ToE\nIndisponibilidad del ToE\nAlteración del ToE\nCódigo fuente\nError en compilación\nOtro(s)"
           },
           "analyst": {
             "S": "unittest@fluidattacks.com"
@@ -118,7 +118,7 @@
             ]
           },
           "event_type": {
-            "S": "HIGH_AVAILABILITY_APPROVAL"
+            "S": "INCORRECT_MISSING_SUPPLIES"
           },
           "project_name": {
             "S": "unittesting"
@@ -276,7 +276,7 @@
             ]
           },
           "event_type": {
-            "S": "CLIENT_DETECTS_ATTACK"
+            "S": "AUTHORIZATION_SPECIAL_ATTACK"
           },
           "evidence": {
             "S": "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6"
@@ -380,7 +380,7 @@
             ]
           },
           "event_type": {
-            "S": "CLIENT_DETECTS_ATTACK"
+            "S": "AUTHORIZATION_SPECIAL_ATTACK"
           },
           "project_name": {
             "S": "unittesting"
@@ -443,7 +443,7 @@
             ]
           },
           "event_type": {
-            "S": "CLIENT_DETECTS_ATTACK"
+            "S": "AUTHORIZATION_SPECIAL_ATTACK"
           },
           "project_name": {
             "S": "unittesting"
