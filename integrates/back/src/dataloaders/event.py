@@ -1,6 +1,9 @@
 from aiodataloader import (
     DataLoader,
 )
+from aioextensions import (
+    collect,
+)
 from collections import (
     defaultdict,
 )
@@ -88,3 +91,19 @@ class EventTypedLoader(DataLoader):
             await events_dal.get_event(id) for id in event_ids
         ]
         return tuple(format_event(item) for item in event_items)
+
+
+async def _get_group_events(group_name: str) -> tuple[Event, ...]:
+    event_ids = await events_dal.list_group_events(group_name)
+    event_items = await collect(events_dal.get_event(id) for id in event_ids)
+    return tuple(format_event(item) for item in event_items)
+
+
+class GroupEventsTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> tuple[Event, ...]:
+        return await collect(
+            _get_group_events(group_name) for group_name in group_names
+        )
