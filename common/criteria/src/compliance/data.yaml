@@ -6102,6 +6102,81 @@
     summary: __empty__
   definitions:
     "2_17_1":
-      title: Pre-engagement interactions - Emergency contact iInformation
+      title: Pre-engagement interactions - Emergency contact information
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "2_18_3":
+      title: Pre-engagement interactions - Rules of engagement
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_4_1_4_1":
+      title: Corporate - Electronic (document metadata)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_4_1_5_2":
+      title: Corporate - Infrastructure assets (email addresses)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_4_1_5_7":
+      title: Corporate - Infrastructure assets (application usage)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_4_1_5_8":
+      title: Corporate - Infrastructure assets (defense technologies)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_6_1_3_2":
+      title: External footprinting - Active footprinting (banner grabbing)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_6_1_3_8":
+      title: External footprinting - Active footprinting (DNS bruteforce)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "3_7_1":
+      title: Identify protection mechanisms - Network based protections
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "4_2_1_5":
+      title: Business asset analysis - Organizational data (technical information)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "4_3_4":
+      title: Business process analysis - Third party integration
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "4_5_3":
+      title: Threat capability analysis - Communication mechanisms
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_2_2_1":
+      title: Vulnerability analysis - Network vulnerability scanners (port based)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_2_2_2":
+      title: Vulnerability analysis - Network vulnerability scanners (service based)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_2_3_1":
+      title: Vulnerability analysis - Web application scanners (application flaw scanners)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_2_3_2":
+      title: Vulnerability analysis - Web application scanners (directory listing or brute forcing)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_2_3_3":
+      title: Vulnerability analysis - Web application scanners (web server version)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_3_1":
+      title: Vulnerability analysis - Metadata
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_3_2":
+      title: Vulnerability analysis - Traffic monitoring
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_4_2_3":
+      title: Vulnerability analysis - Manual validation specific protocol (DNS)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_4_2_5":
+      title: Vulnerability analysis - Manual validation specific protocol (mail)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_5_3":
+      title: Vulnerability analysis - Common/default passwords
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "5_5_7":
+      title: Vulnerability analysis - Disassembly and code analysis
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_2_1":
+      title: Exploitation - Countermeasures (anti-virus)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_2_1_1":
+      title: Exploitation - Countermeasures (anti-virus encoding)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_2_1_3":
+      title: Exploitation - Countermeasures (anti-virus encrypting)
       link: http://www.pentest-standard.org/index.php/Main_Page
   metadata: {}
