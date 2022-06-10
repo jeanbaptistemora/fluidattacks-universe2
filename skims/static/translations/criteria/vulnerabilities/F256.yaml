@@ -2,5 +2,5 @@ src.lib_path.f256.rds_has_not_automated_backups:
   en: BackupRetentionPeriod property should not be 0
   es: La propiedad BackupRetentionPeriod no debería ser 0
 src.lib_path.f256.rds_has_not_termination_protection:
-  en: DeletionProtection property should enabled
-  es: La propiedad DeletionProtection debería habilitada
+  en: DeletionProtection property should be enabled
+  es: La propiedad DeletionProtection debería estar habilitada
