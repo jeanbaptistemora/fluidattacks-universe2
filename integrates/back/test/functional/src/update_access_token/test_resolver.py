@@ -23,7 +23,6 @@ from typing import (
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["customer_manager@fluidattacks.com"],
         ["reviewer@gmail.com"],

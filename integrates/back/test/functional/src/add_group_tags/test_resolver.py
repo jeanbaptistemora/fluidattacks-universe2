@@ -23,7 +23,6 @@ from typing import (
         ("user@gmail.com", "testing2"),
         ("user_manager@gmail.com", "testing3"),
         ("vulnerability_manager@gmail.com", "testing4"),
-        ("executive@gmail.com", "testing5"),
         ("customer_manager@fluidattacks.com", "testing6"),
     ),
 )

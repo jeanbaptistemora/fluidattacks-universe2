@@ -38,7 +38,6 @@ async def test_add_event(populate: bool, email: str) -> None:
     [
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["reviewer@gmail.com"],
         ["vulnerability_manager@gmail.com"],
     ],

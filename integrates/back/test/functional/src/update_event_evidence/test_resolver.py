@@ -33,7 +33,6 @@ async def test_admin(populate: bool, email: str) -> None:
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
     ],
 )

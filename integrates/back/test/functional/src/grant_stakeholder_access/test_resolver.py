@@ -125,7 +125,6 @@ async def test_grant_stakeholder_access_rejected(
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["customer_manager@fluidattacks.com"],

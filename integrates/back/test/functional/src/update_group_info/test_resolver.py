@@ -69,7 +69,6 @@ async def test_update_group_info(
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["executive@gmail.com"],
         ["vulnerability_manager@gmail.com"],
     ],
 )

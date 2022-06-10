@@ -280,7 +280,6 @@ async def test_get_finding(populate: bool, email: str) -> None:
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["reviewer@gmail.com"],
     ],
 )

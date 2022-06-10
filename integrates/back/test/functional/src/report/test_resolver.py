@@ -40,7 +40,6 @@ async def test_get_report(populate: bool, email: str) -> None:
     ["email"],
     [
         ["user@gmail.com"],
-        ["executive@gmail.com"],
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],

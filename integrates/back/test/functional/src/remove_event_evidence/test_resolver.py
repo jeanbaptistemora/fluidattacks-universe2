@@ -33,7 +33,6 @@ async def test_remove_event_evidence(
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_remove_event_evidence_fail(populate: bool, email: str) -> None:

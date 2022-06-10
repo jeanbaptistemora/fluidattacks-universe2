@@ -297,7 +297,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
         ["vulnerability_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_upload_file_access_denied_error(

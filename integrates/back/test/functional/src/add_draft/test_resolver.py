@@ -40,7 +40,6 @@ async def test_add_draft(populate: bool, email: str) -> None:
     ["email"],
     [
         ["user@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_add_draft_fail(populate: bool, email: str) -> None:

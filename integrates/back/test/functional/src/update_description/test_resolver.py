@@ -31,7 +31,7 @@ async def test_update_finding_description(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["executive@gmail.com"],
+        ["user@gmail.com"],
     ],
 )
 async def test_update_finding_description_fail(

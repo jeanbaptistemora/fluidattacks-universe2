@@ -101,7 +101,6 @@ async def test_add_group_invalid_name_fail(
         ["reattacker@gmail.com"],
         ["user@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
     ],

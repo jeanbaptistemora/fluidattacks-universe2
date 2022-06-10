@@ -65,13 +65,6 @@ async def test_update_toe_input(
             "-",
             True,
         ],
-        [
-            "executive@gmail.com",
-            "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-            "https://app.fluidattacks.com:8080/test",
-            "-",
-            True,
-        ],
     ],
 )
 async def test_update_toe_input_fail_3(

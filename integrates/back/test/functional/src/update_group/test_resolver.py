@@ -68,7 +68,6 @@ async def test_update_group(populate: bool, email: str) -> None:
         ["reattacker@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["executive@gmail.com"],
         ["customer_manager@fluidattacks.com"],
     ],
 )

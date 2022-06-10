@@ -106,11 +106,6 @@ async def test_add_toe_input_fail(
             "https://test.com/test",
             "63298a73-9dff-46cf-b42d-9b2f01a56690",
         ],
-        [
-            "executive@gmail.com",
-            "192.168.1.1:8080",
-            "83cadbdc-23f3-463a-9421-f50f8d0cb1e5",
-        ],
     ],
 )
 async def test_add_toe_input_fail_2(

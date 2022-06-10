@@ -96,7 +96,6 @@ async def test_confirm_vulnerabilities_zero_risk_fail(
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
         ),
         ("resourcer@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
-        ("executive@gmail.com", "be09edb7-cd5c-47ed-bee4-97c645acdce10"),
     ),
 )
 async def test_access_denied_fail(

@@ -26,7 +26,6 @@ from typing import (
         ["user@gmail.com", "test-file2.txt"],
         ["user_manager@gmail.com", "test-file3.txt"],
         ["vulnerability_manager@gmail.com", "test-file4.txt"],
-        ["executive@gmail.com", "test-file5.txt"],
     ],
 )
 async def test_add_files_to_db(
@@ -68,7 +67,6 @@ async def test_add_files_to_db(
         ["user@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_add_files_to_db_fail_already_exists(

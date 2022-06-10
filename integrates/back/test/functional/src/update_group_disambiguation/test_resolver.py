@@ -87,7 +87,6 @@ async def test_update_group_info_clear_field(
         ["user@gmail.com"],
         ["reattacker@gmail.com"],
         ["reviewer@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_update_group_info_fail(

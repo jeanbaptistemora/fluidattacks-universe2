@@ -37,7 +37,6 @@ async def test_update_forces_access_token(populate: bool, email: str) -> None:
     [
         ["hacker@gmail.com"],
         ["reattacker@gmail.com"],
-        ["executive@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],

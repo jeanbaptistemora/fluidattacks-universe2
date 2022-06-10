@@ -35,7 +35,6 @@ async def test_remove_finding(
     [
         ["hacker@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
         ["reattacker@gmail.com", "475041520"],
-        ["executive@gmail.com", "475041520"],
     ],
 )
 async def test_remove_finding_fail(

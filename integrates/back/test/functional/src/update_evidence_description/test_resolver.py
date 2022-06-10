@@ -44,7 +44,6 @@ async def test_update_evidence_description(populate: bool, email: str) -> None:
         ["vulnerability_manager@gmail.com"],
         ["resourcer@gmail.com"],
         ["reviewer@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_update_evidence_description_fail(

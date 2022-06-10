@@ -59,17 +59,6 @@ from typing import (
             1,
         ),
         (
-            "executive@gmail.com",
-            "executive",
-            0,
-            {
-                "callingCountryCode": "1",
-                "countryCode": "US",
-                "nationalNumber": "99999999999",
-            },
-            1,
-        ),
-        (
             "hacker@gmail.com",
             "hacker",
             3,

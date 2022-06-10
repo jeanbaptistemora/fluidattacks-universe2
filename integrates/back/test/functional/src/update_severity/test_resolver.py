@@ -32,7 +32,6 @@ async def test_update_severity(populate: bool, email: str) -> None:
     ["email"],
     [
         ["reattacker@gmail.com"],
-        ["executive@gmail.com"],
     ],
 )
 async def test_update_severity_fail(populate: bool, email: str) -> None:
