@@ -11,7 +11,7 @@ from typing import (
 import utils
 
 EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
-    "Remediation Rate Benchmarking",
+    "Exposure remediation rate (benchmark)",
     "MTTR Benchmarking",
     "Total Exposure",
     "Open Severity by type",

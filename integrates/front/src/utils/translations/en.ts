@@ -157,7 +157,7 @@ export const enTranslations: ResourceKey = {
         },
       },
       cvssfBenchmarking: {
-        title: "Remediation Rate Benchmarking",
+        title: "Exposure remediation rate (benchmark)",
       },
       distributionOverTimeCvssf: {
         title: "Distribution over time",

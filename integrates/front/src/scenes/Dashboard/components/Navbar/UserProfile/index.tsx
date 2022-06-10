@@ -149,7 +149,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               {_.isUndefined(userIntPhone) ? undefined : (
                 <React.Fragment>
                   <br />
-                  {t("navbar.mobile.text")}
+                  {t("navbar.mobile")}
                   {":"}&nbsp;
                   {userIntPhone}
                 </React.Fragment>
