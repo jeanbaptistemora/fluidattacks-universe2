@@ -86,7 +86,6 @@ async def get_evidence(request: Request) -> Response:
         "admin",
         "architect",
         "customer_manager",
-        "executive",
         "hacker",
         "reattacker",
         "resourcer",

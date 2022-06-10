@@ -94,14 +94,7 @@ async def get_users_to_notify(
     group_name: str, active: bool = True
 ) -> List[str]:
     users = await get_group_users(group_name, active)
-    user_roles = await collect(
-        authz.get_group_level_role(user, group_name) for user in users
-    )
-    return [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role != "executive"
-    ]
+    return users
 
 
 async def get_users_email_by_preferences(

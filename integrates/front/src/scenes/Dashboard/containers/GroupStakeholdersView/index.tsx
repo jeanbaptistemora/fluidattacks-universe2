@@ -118,7 +118,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       dataField: "role",
       formatter: (value: string): JSX.Element | string => {
         const mappedRole = {
-          executive: roleToUrl(value, "#executive-role"),
           user: roleToUrl(value, "#user-role"),
           // eslint-disable-next-line camelcase
           user_manager: roleToUrl(value, "#user-manager-role"),
@@ -392,7 +391,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         admin: "Admin",
         // eslint-disable-next-line camelcase
         customer_manager: "Customer Manager",
-        executive: "Executive",
         hacker: "Hacker",
         reattacker: "Reattacker",
         resourcer: "Resourcer",
