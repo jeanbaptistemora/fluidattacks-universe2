@@ -1,0 +1,4075 @@
+{
+  "1337qq-js": {
+    "GHSA-7wgh-5q4q-6wx5": "0.0.1-security"
+  },
+  "4equest": {
+    "GHSA-p33q-w45h-2hcj": "0.0.1-security"
+  },
+  "8.9.4": {
+    "GHSA-725f-3pw7-rq6x": ">= 0.0.0"
+  },
+  "@actions/core": {
+    "GHSA-mfwh-5m23-j46w": "<1.2.6"
+  },
+  "@actions/http-client": {
+    "GHSA-9w6v-m7wp-jwg4": "<1.0.8"
+  },
+  "@adobe/git-server": {
+    "GHSA-cgj4-x2hh-2x93": "<1.3.1"
+  },
+  "@advanced-rest-client/base": {
+    "GHSA-v3wr-67px-44xg": "<0.1.10"
+  },
+  "@angular-devkit/core": {},
+  "@angular/core": {
+    "SNYK-JS-ANGULARCORE-1070902": "<11.0.5 || >=11.1.0-next.0 <11.1.0-next.3"
+  },
+  "@apollo/gateway": {
+    "GHSA-74cr-77xc-8g6r": "<0.6.2"
+  },
+  "@apollosproject/data-connector-rock": {
+    "GHSA-r578-pj6f-r4ff": "<2.20.0"
+  },
+  "@asyncapi/java-spring-cloud-stream-template": {
+    "GHSA-xj6r-2jpm-qvxp": "<=0.6.9"
+  },
+  "@asyncapi/modelina": {
+    "GHSA-4jg2-84c2-pj95": "<=0.30.1"
+  },
+  "@atlaskit/editor-core": {
+    "GHSA-p5ch-w78f-xh44": "<113.1.5"
+  },
+  "@auth0/nextjs-auth0": {
+    "GHSA-954c-jjx6-cxv7": "<1.4.2"
+  },
+  "@aws-crypto/client-browser": {
+    "GHSA-h45p-w933-jxh3": "<1.9.0 || >=2.0.0 <2.2.0"
+  },
+  "@aws-crypto/client-node": {
+    "GHSA-h45p-w933-jxh3": "<1.9.0 || >=2.0.0 <2.2.0"
+  },
+  "@babel/code-frame": {},
+  "@babel/generator": {},
+  "@babel/helper-function-name": {},
+  "@babel/helper-plugin-utils": {},
+  "@babel/helper-split-export-declaration": {},
+  "@babel/helper-validator-identifier": {},
+  "@babel/parser": {},
+  "@babel/template": {},
+  "@babel/traverse": {},
+  "@babel/types": {},
+  "@backstage/plugin-auth-backend": {
+    "GHSA-w7fj-336r-vw49": "<0.4.9"
+  },
+  "@backstage/plugin-scaffolder-backend": {
+    "GHSA-2g8g-63j4-9w3r": "<0.15.14"
+  },
+  "@backstage/plugin-techdocs": {
+    "GHSA-gg96-f8wr-p89f": "<0.9.5"
+  },
+  "@backstage/techdocs-common": {
+    "GHSA-pgf8-28gg-vpr6": "<0.6.3"
+  },
+  "@berslucas/liljs": {
+    "GHSA-c53x-wwx2-pg96": "<1.0.2"
+  },
+  "@ckeditor/ckeditor5-engine": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-font": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-image": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-link": {
+    "GHSA-gvpx-9459-w3mj": ">=0.3.0 <10.0.1"
+  },
+  "@ckeditor/ckeditor5-list": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-markdown-gfm": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-media-embed": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-paste-from-office": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@ckeditor/ckeditor5-widget": {
+    "GHSA-3rh3-wfr4-76mj": "<27.0.0"
+  },
+  "@commercial/ammo": {
+    "GHSA-rhc3-76jw-4f2x": "<2.1.1"
+  },
+  "@commercial/hapi": {
+    "GHSA-66mv-xh68-h6v2": "<16.8.2 || >=17.0.0 <17.9.2 || >=18.0.0 <18.4.1 || >=19.0.0 <19.1.1"
+  },
+  "@commercial/subtext": {
+    "GHSA-36c4-4r89-6whg": "<5.1.2"
+  },
+  "@cubejs-backend/api-gateway": {
+    "GHSA-4j6x-w426-6rc6": ">=0.11.0 <=0.11.16"
+  },
+  "@curveball/a12n-server": {
+    "GHSA-8hw9-22v6-9jr9": ">=0.18.0 <0.18.2"
+  },
+  "@cyyynthia/tokenize": {
+    "GHSA-jcjx-c3j3-44pr": ">=1.1.0 <1.1.3"
+  },
+  "@diez/generation": {
+    "CVE-2021-32830": "<=10.6.0"
+  },
+  "@ensdomains/ens": {
+    "GHSA-8f9f-pc5v-9r5h": "<0.4.0"
+  },
+  "@fangrong/xoc": {
+    "GHSA-pjxp-f379-6284": "1.0.6"
+  },
+  "@fast-csv/parse": {
+    "GHSA-8cv5-p934-3hwp": "<4.3.6"
+  },
+  "@fastify/csrf": {
+    "GHSA-rc4q-9m69-gqp8": "<4.0.0"
+  },
+  "@floffah/build": {
+    "GHSA-jcgr-9698-82jx": "<1.0.0"
+  },
+  "@fraction/oasis": {
+    "GHSA-j438-45hc-vjhm": "<2.15.0"
+  },
+  "@frangoteam/fuxa": {
+    "GHSA-9vp3-7qwq-83r9": "<=1.1.3"
+  },
+  "@github/paste-markdown": {
+    "GHSA-gpfj-4j6g-c4w9": "<0.3.4"
+  },
+  "@grafana/data": {
+    "GHSA-3j9m-hcv9-rpj8": ">=8.0.0 <8.2.3"
+  },
+  "@grpc/grpc-js": {
+    "GHSA-pp75-xfpw-37g9": "<1.1.8"
+  },
+  "@hapi/accept": {
+    "GHSA-9vrw-m88g-w75q": ">=3.2.0 <3.2.4 || >=4.0.0 <5.0.1"
+  },
+  "@hapi/ammo": {
+    "GHSA-gjph-xf5q-6mfq": "<3.1.2 || >=4.0.0 <5.0.1"
+  },
+  "@hapi/boom": {
+    "GHSA-2ggq-vfcp-gwhj": "<0.3.8"
+  },
+  "@hapi/hapi": {
+    "GHSA-23vw-mhv5-grv5": "<18.4.1 || >=19.0.0 <19.1.1"
+  },
+  "@hapi/hoek": {
+    "GHSA-22h7-7wwg-qmgg": ">=8.3.2 <8.5.1 || >=9.0.0 <9.0.3"
+  },
+  "@hapi/subtext": {
+    "GHSA-g9cg-h3jm-cwrc": "<6.1.3 || >=7.0.0 <7.0.3"
+  },
+  "@highlightjs/cdn-assets": {
+    "GHSA-7wwv-vh3v-89cq": "<10.4.1"
+  },
+  "@impala/bmap": {
+    "GHSA-c82c-8pjw-6829": "1.0.3"
+  },
+  "@ionic/core": {
+    "GHSA-r3xc-47qg-h929": "<4.0.3 || >=4.1.0 <4.1.3 || >=4.2.0 <4.2.1 || >=4.3.0 <4.3.1"
+  },
+  "@isomorphic-git/cors-proxy": {
+    "GHSA-v82v-rq72-phq9": "<2.7.1"
+  },
+  "@jest/types": {},
+  "@joeattardi/emoji-button": {
+    "GHSA-f34m-x9pj-62vq": "<4.6.2"
+  },
+  "@keystone-6/auth": {
+    "GHSA-hrgx-7j6v-xj82": "<1.0.2"
+  },
+  "@keystone-next/auth": {
+    "GHSA-hrgx-7j6v-xj82": "<=37.0.0"
+  },
+  "@keystonejs/keystone": {
+    "GHSA-27g8-r9vw-765x": "<=19.3.2"
+  },
+  "@knight-lab/timelinejs": {
+    "GHSA-2jpm-827p-j44g": "<3.7.0"
+  },
+  "@liquity/contracts": {
+    "GHSA-xh2p-7p87-fhgh": "<=1.0.0"
+  },
+  "@metamask/eth-ledger-bridge-keyring": {
+    "GHSA-vg44-fw64-cpjx": "<0.2.2"
+  },
+  "@nextcloud/dialogs": {
+    "GHSA-g3fq-3v3g-mh32": "<3.1.2"
+  },
+  "@node-red/runtime": {
+    "GHSA-m33v-338h-4v9f": "<1.2.8"
+  },
+  "@novnc/novnc": {
+    "GHSA-49rv-g7w5-m8xx": "<0.6.2"
+  },
+  "@nozbe/watermelondb": {
+    "GHSA-38f9-m297-6q9g": "<0.15.1 || >=0.16.0 <0.16.2"
+  },
+  "@npmcli/arborist": {
+    "GHSA-2h3h-q99f-3fhc": "<2.8.2",
+    "GHSA-gmw6-94gg-2rc2": "<2.8.2"
+  },
+  "@npmcli/arborist2": {
+    "GHSA-gmw6-94gg-2rc2": "<2.8.23"
+  },
+  "@npmcli/git": {
+    "GHSA-hxwm-x553-x359": "<2.0.8"
+  },
+  "@openzeppelin/contracts": {
+    "GHSA-fg47-3c2x-m2wr": ">=3.3.0 <3.4.2 || >=4.0.0 <4.3.1",
+    "GHSA-vrw4-w73r-6mm8": ">=3.3.0 <3.4.2 || >=4.0.0 <4.3.1"
+  },
+  "@openzeppelin/contracts-upgradeable": {
+    "GHSA-9c22-pwxw-p6hx": ">=3.2.0 <4.4.1",
+    "GHSA-m6w8-fq7v-ph4m": ">=4.3.0 <4.4.2"
+  },
+  "@peertube/embed-api": {
+    "GHSA-mv26-cx23-vrfg": "<=4.0.0"
+  },
+  "@plone/volto": {
+    "GHSA-cfhh-xgwq-5r67": ">=14.0.0-alpha.6 <=14.10.0"
+  },
+  "@podium/layout": {
+    "GHSA-3hjg-vc7r-rcrw": "<4.6.110"
+  },
+  "@podium/proxy": {
+    "GHSA-3hjg-vc7r-rcrw": "<4.2.74"
+  },
+  "@prisma/sdk": {
+    "GHSA-pxcc-hj8w-fmm7": "<2.20.0"
+  },
+  "@progress/kendo-angular-editor": {
+    "GHSA-j7wp-vjj6-cp5m": "<1.2.3"
+  },
+  "@redocly/openapi-cli": {
+    "GHSA-q324-q795-2q5p": "<=1.0.0-beta.58"
+  },
+  "@replit/crosis": {
+    "GHSA-7w54-gp8x-f33m": "<7.3.1"
+  },
+  "@risingstack/protect": {
+    "GHSA-vpch-rxw3-fgx8": "<=1.2.0"
+  },
+  "@rkesters/gnuplot": {
+    "GHSA-f2jw-pr2c-9x96": "<0.1.1"
+  },
+  "@sap-cloud-sdk/core": {
+    "GHSA-gp2f-254m-rh32": "<1.52.0"
+  },
+  "@scandipwa/magento-scripts": {
+    "GHSA-52qp-gwwh-qrg4": ">=1.5.1 <=1.5.2"
+  },
+  "@soketi/soketi": {
+    "GHSA-2w8g-m5j8-7m87": "<0.26.1"
+  },
+  "@solid/identity-token-verifier": {
+    "GHSA-xmh9-rg6f-j3mr": "<0.5.2"
+  },
+  "@starkbank/ecdsa": {
+    "CVE-2021-43571": "1.1.2"
+  },
+  "@theia/console": {
+    "GHSA-cwg9-c9cr-p5fq": "<1.8.1"
+  },
+  "@theia/messages": {
+    "GHSA-c94v-8fff-73ph": "<1.0.0"
+  },
+  "@theia/plugin-ext": {
+    "GHSA-w6v7-w58j-pg5r": "<1.18.0"
+  },
+  "@thi.ng/egf": {
+    "GHSA-rj44-gpjc-29r7": "<0.4.0"
+  },
+  "@toast-ui/editor": {
+    "GHSA-cr56-66mx-293v": "<2.2.0"
+  },
+  "@uppy/companion": {
+    "GHSA-9m4x-8w29-r78g": "<1.13.2 || >=2.0.0-alpha.0 <=2.0.0-alpha.4"
+  },
+  "@viking04/merge": {
+    "GHSA-cqqh-49mx-fq63": "<1.0.2"
+  },
+  "@vivaxy/here": {
+    "GHSA-m4vv-p6fq-jhqp": "<=3.2.1"
+  },
+  "@vuelidate/validators": {
+    "GHSA-vvf2-ppj9-pp49": "<=2.0.0-alpha.21"
+  },
+  "@webassemblyjs/ast": {},
+  "@webassemblyjs/helper-wasm-bytecode": {},
+  "@worker-tools/stripe-webhook": {
+    "GHSA-4g53-vp7q-gfjv": "<1.1.4"
+  },
+  "@wturyn/swagger-injector": {
+    "GHSA-4x7w-frcq-v4m3": ">=0.0.0"
+  },
+  "@zhaoyao91/eval-in-vm": {
+    "GHSA-jp99-5h8w-gmxc": ">=0.0.0"
+  },
+  "a12n-server": {
+    "GHSA-8hw9-22v6-9jr9": ">=0.18.0 <0.18.2"
+  },
+  "aaptjs": {
+    "GHSA-7fw7-gh23-f832": "<=1.3.1"
+  },
+  "aasync": {
+    "GHSA-9mjp-gv34-3jcf": "<=0.0.1-security"
+  },
+  "accepts": {},
+  "accesslog": {
+    "GHSA-8m2f-74r2-x3f2": "<=0.0.2"
+  },
+  "acorn": {
+    "SNYK-JS-ACORN-559469": ">=5.5.0 <5.7.4 || >=6.0.0 <6.4.1 || >=7.0.0 <7.1.1",
+    "www.npmjs.com/advisories/1488": ">=5.5.0 <5.7.4 || >=6.0.0 <6.4.1 || >=7.0.0 <7.1.1"
+  },
+  "adamvr-geoip-lite": {
+    "CVE-2016-10680": "<=1.2.0"
+  },
+  "addax": {
+    "GHSA-4q8f-5xxj-946r": "<1.1.0"
+  },
+  "adm-zip": {
+    "SNYK-JS-ADMZIP-1065796": "<0.5.2"
+  },
+  "aegir": {
+    "GHSA-qfcv-5whw-7pcw": ">=21.7.0 <21.10.1"
+  },
+  "ag-grid-community": {
+    "GHSA-7p6w-x2gr-rrf8": "<14.0.0"
+  },
+  "agent-base": {},
+  "air-sdk": {
+    "CVE-2016-10603": "<=16.0.0-272-16"
+  },
+  "airbrake": {
+    "CVE-2016-10530": "<=0.3.8"
+  },
+  "airtable": {
+    "GHSA-jrj9-5qp6-2v8q": ">=0.1.19 <0.7.2"
+  },
+  "ajv-keywords": {},
+  "algo-httpserv": {
+    "GHSA-cgjv-rghq-qhgp": "<1.1.2"
+  },
+  "ali-contributor": {
+    "GHSA-h3m2-h22h-695r": "<=0.0.1-security"
+  },
+  "ali-contributors": {
+    "GHSA-8m5v-f2wp-wqr9": "<=0.0.1-security"
+  },
+  "alico": {
+    "GHSA-jfx5-7mr2-g8hg": "<=0.0.1-security"
+  },
+  "alipayjsapi": {
+    "GHSA-rjhc-w3fj-j6x9": "<=0.0.1-security"
+  },
+  "ammo": {
+    "www.npmjs.com/advisories/1472": "<=3.0.3"
+  },
+  "an0n-chat-lib": {
+    "GHSA-7xcv-wvr7-4h6p": "<=0.0.1-security"
+  },
+  "anarchy": {
+    "GHSA-jjhg-qw5v-r8xx": "<=0.0.1-security"
+  },
+  "anchorme": {
+    "CVE-2021-23411": "<=2.1.2"
+  },
+  "angluar-cli": {
+    "GHSA-8mm3-2mcj-cx6r": "<=0.0.2-security"
+  },
+  "angular": {
+    "SNYK-JS-ANGULAR-572020": "<1.8.0",
+    "npm:angular:20150315": "<1.6.1",
+    "npm:angular:20150807-1": ">=1.3.1 <1.5.0",
+    "npm:angular:20160527": ">=1.0.0 <1.2.30",
+    "npm:angular:20161101": ">=1.5.0 <1.5.9"
+  },
+  "angular-bmap": {
+    "GHSA-w8hg-mxvh-9h57": "0.0.9"
+  },
+  "angular-expressions": {
+    "GHSA-hxhm-96pp-2m43": "<1.0.1",
+    "GHSA-j6px-jwvv-vpwq": "<1.1.2"
+  },
+  "angular-location-update": {
+    "GHSA-53jx-4wwh-gcqj": "0.0.3"
+  },
+  "angular-material-sidenav-rnd": {
+    "GHSA-qmxf-fxq7-w59f": "0.1.1"
+  },
+  "another-date-picker": {
+    "GHSA-2p62-c4rm-mr72": "2.0.43"
+  },
+  "another-date-range-picker": {
+    "GHSA-8rxg-9g6f-vq9p": "4.1.48"
+  },
+  "ansi-html": {
+    "CVE-2021-23424": "<=0.0.9"
+  },
+  "ansi-regex": {
+    "CVE-2021-3807": ">2.1.1 <5.0.1 || >=6.0.0 <6.0.1"
+  },
+  "ansi-styles": {},
+  "ansi2html": {
+    "CVE-2015-9239": "<=0.0.1"
+  },
+  "antd-cloud": {
+    "GHSA-j4vm-hg8g-g9qv": "<=0.0.1-security"
+  },
+  "anymatch": {},
+  "anywhere": {
+    "npm:anywhere:20180226": "<1.5.0"
+  },
+  "apollo-server": {
+    "GHSA-qm7x-rc44-rrqw": ">=2.0.0 <2.25.3 || >=3.0.0 <3.4.1",
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-azure-functions": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cache-memcached": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cloud-functions": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-cloudflare": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-core": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-express": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-fastify": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-hapi": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-koa": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-lambda": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apollo-server-micro": {
+    "GHSA-w42g-7vfc-xf37": "<2.14.2"
+  },
+  "apostrophe": {
+    "GHSA-pv6r-vchh-cxg9": "<2.97.1"
+  },
+  "appx-compiler": {
+    "GHSA-8q2c-2396-hf7j": "<=0.0.1-security"
+  },
+  "aproba": {},
+  "arr-diff": {},
+  "arr-flatten": {},
+  "arr-flatten-unflatten": {
+    "CVE-2020-7713": "<=1.1.4"
+  },
+  "array-unique": {},
+  "arsenic-tabasco-cyborg-peanut-butter": {
+    "GHSA-r742-7j4h-hjr8": "<=0.0.1-security"
+  },
+  "ascii-art": {
+    "GHSA-9hqj-38j2-5jgm": "<=1.4.2"
+  },
+  "asinc": {
+    "GHSA-87qw-7v97-w34r": "<=0.0.1-security"
+  },
+  "asnc": {
+    "GHSA-2p99-6f47-8x9j": "<=0.0.1-security"
+  },
+  "asnyc": {
+    "GHSA-v99v-xgjx-7m7g": "<=0.0.1-security"
+  },
+  "assert-plus": {},
+  "asycn": {
+    "GHSA-h26f-j4mv-84g7": "<=0.0.1-security"
+  },
+  "asymc": {
+    "GHSA-x6ch-c6rv-f7wh": "<=0.0.1-security"
+  },
+  "asynnc": {
+    "GHSA-5fm9-jmv7-fcx5": "<=0.0.1-security"
+  },
+  "asyync": {
+    "GHSA-rm7c-x424-g2mw": "<=0.0.1-security"
+  },
+  "atlasboard-atlassian-package": {
+    "GHSA-25v4-mcx4-hh35": "<=0.0.2"
+  },
+  "atob": {
+    "hackerone.com/reports/321686": "<2.1.0"
+  },
+  "atompm": {
+    "GHSA-v86x-f47q-f7f4": "<0.8.2"
+  },
+  "augustine": {
+    "CVE-2017-0930": "0.2.3",
+    "npm:augustine:20180123": "<=0.2.3"
+  },
+  "aurelia-framework": {
+    "GHSA-m6j2-v3gq-45r5": "<1.4.1"
+  },
+  "aurelia-path": {
+    "GHSA-3c9c-2p65-qvwv": "<1.1.7"
+  },
+  "auth0": {
+    "GHSA-5jpf-pj32-xx53": "<2.27.1"
+  },
+  "auth0-js": {
+    "GHSA-5jpf-pj32-xx53": "<2.27.1",
+    "GHSA-prfq-f66g-43mp": ">=8.0.0 <=9.13.1"
+  },
+  "auth0-lock": {
+    "GHSA-6gg3-pmm7-97xc": "<=11.25.1",
+    "GHSA-jr3j-whm4-9wwm": "<11.30.1"
+  },
+  "awesome_react_utility": {
+    "GHSA-m25q-fwg4-9v2p": "1.0.2"
+  },
+  "aws-lambda": {
+    "GHSA-934x-72xh-5hrg": "<=1.0.4"
+  },
+  "axios-http": {
+    "npmjs.com/advisories/1123": ">=0.0.0"
+  },
+  "axioss": {
+    "npmjs.com/advisories/1124": ">=0.0.0"
+  },
+  "axois": {
+    "GHSA-wpfc-3w63-g4hm": "<=0.0.1-security"
+  },
+  "aysnc": {
+    "GHSA-gfjr-xqhm-qvv3": "<=0.0.1-security"
+  },
+  "b5ffer-xor": {
+    "GHSA-jvfv-jhw9-jmpp": "<=0.0.1-security"
+  },
+  "babel-laoder": {
+    "GHSA-qp6m-jqfr-2f7v": "<=0.0.1-security"
+  },
+  "babel-loadre": {
+    "GHSA-vvfh-mvjv-w38q": "<=0.0.1-security"
+  },
+  "babel-loqder": {
+    "GHSA-9cph-cqqh-36pw": "<=0.0.1-security"
+  },
+  "babel-runtime": {},
+  "babel-types": {},
+  "babelcli": {
+    "CVE-2017-16060": "<=0.0.2-security"
+  },
+  "baes-x": {
+    "GHSA-2jm5-2cqf-6vw9": "<=0.0.1-security"
+  },
+  "balanced-match": {},
+  "base64-url": {
+    "GHSA-j4mr-9xw3-c9jx": "<2.0.0"
+  },
+  "base64url": {
+    "GHSA-rvg8-pwq2-xj7q": "<3.0.0"
+  },
+  "bb-builder": {
+    "GHSA-vm6v-w6q2-mrrq": "<=0.0.1-security"
+  },
+  "bcion": {
+    "GHSA-2fwq-wx47-hm6x": "<=0.0.1-security"
+  },
+  "bcoin": {
+    "GHSA-hx3r-jv9q-85jw": "<1.0.2"
+  },
+  "bconi": {
+    "GHSA-7j93-5m2h-rvjx": "<=0.0.1-security"
+  },
+  "bcrypt": {
+    "SNYK-JS-BCRYPT-575033": "<5.0.0"
+  },
+  "beffer-xor": {
+    "GHSA-7cvf-p83w-48q6": "<=0.0.1-security"
+  },
+  "bictoin-ops": {
+    "GHSA-xrrg-wfwc-c7r3": "<=0.0.1-security"
+  },
+  "bictoind-rpc": {
+    "GHSA-jqvv-r4w3-8f7w": "<=0.0.1-security"
+  },
+  "bictoinjs-lib": {
+    "GHSA-hwh3-fhf6-73x9": "<=0.0.1-security"
+  },
+  "bictore-lib": {
+    "GHSA-f8vf-6hwg-hw55": "<=0.0.1-security"
+  },
+  "bigint-money": {
+    "GHSA-9r3m-mhfm-39cm": "<0.6.2"
+  },
+  "bin-links": {
+    "GHSA-v45m-2wcp-gg98": "<1.1.6"
+  },
+  "binaryen": {
+    "CVE-2021-46053": "103",
+    "CVE-2021-46055": "104"
+  },
+  "bip30": {
+    "GHSA-wch2-46wj-6x5j": "<=0.0.1-security"
+  },
+  "bitcion-ops": {
+    "GHSA-85q4-v37c-wfpc": "<=0.0.1-security"
+  },
+  "bitcionjs": {
+    "GHSA-qmgf-fp85-55gr": "<=0.0.1-security"
+  },
+  "bitcionjslib": {
+    "GHSA-p4mf-4qvh-w8g5": "<=0.0.1-security"
+  },
+  "bitcoijns-lib": {
+    "GHSA-37vc-gwvp-6cgv": "<=0.0.1-security"
+  },
+  "bitcoimd-rpc": {
+    "GHSA-rwmv-c7v8-v9vf": "<=0.0.1-security"
+  },
+  "bitcoimjs-lib": {
+    "GHSA-rv6q-p3x7-43fx": "<=0.0.1-security"
+  },
+  "bitcoin-osp": {
+    "GHSA-v8g7-9qv2-j865": "<=0.0.1-security"
+  },
+  "bitcoin-sweep": {
+    "GHSA-8hqw-qp6r-vqcm": "<=0.0.1-security"
+  },
+  "bitcoisnj-lib": {
+    "GHSA-629c-j867-3v45": "<=0.0.1-security"
+  },
+  "bitconi-ops": {
+    "GHSA-w9hw-v97w-g5f5": "<=0.0.1-security"
+  },
+  "bitconid-rpc": {
+    "GHSA-9298-m7jf-55h2": "<=0.0.1-security"
+  },
+  "bitconijs-lib": {
+    "GHSA-74hh-4rcv-pp27": "<=0.0.1-security"
+  },
+  "bitcroe-lib": {
+    "GHSA-4m3p-x2hp-2pgx": "<=0.0.1-security"
+  },
+  "bitty": {
+    "CVE-2016-10561": "0.2.10",
+    "npm:bitty:20161014": "<=0.2.10"
+  },
+  "bl": {
+    "CVE-2020-8244": "<1.2.3 || >=2.2.0 <2.2.1 || >=3.0.0 <3.0.1 || >=4.0.0 <4.0.3",
+    "npm:bl:20160119": "<0.9.5 || >=1.0.0 <1.0.1"
+  },
+  "blingjs": {
+    "GHSA-hfc6-79wv-5hpw": "0.0.4"
+  },
+  "blitz": {
+    "GHSA-5888-ffcr-r425": "<0.45.3"
+  },
+  "blubird": {
+    "GHSA-rvww-x6m4-4vc2": "<=0.0.1-security"
+  },
+  "bluebird": {},
+  "blueimp-file-upload": {
+    "GHSA-4cj8-g9cp-v5wr": "<=9.22.0"
+  },
+  "bmap": {
+    "GHSA-p59g-6cqr-m73w": "1.0.3"
+  },
+  "bn.js": {},
+  "body-parse-xml": {
+    "GHSA-jcmh-9fvm-j39w": "<=0.0.1-security"
+  },
+  "bodymen": {
+    "GHSA-8h84-8j4f-p97q": "<1.1.1"
+  },
+  "boogeyman": {
+    "GHSA-9hc2-w9gg-q6jw": "<=0.0.1-security"
+  },
+  "boom": {
+    "npm:boom:20130209": "<0.3.0"
+  },
+  "bootbox": {
+    "GHSA-87mg-h5r3-hw88": "<=5.5.2"
+  },
+  "bootstrap": {
+    "CVE-2016-10735": "<3.4.0 || >=4.0.0-alpha <4.0.0-beta.2",
+    "CVE-2019-8331": "<3.4.1 || >=4.0.0 <4.3.1"
+  },
+  "bootstrap-sass": {
+    "GHSA-wh77-3x4m-4q9g": ">=3.0.0 <3.4.1"
+  },
+  "bootstrap-select": {
+    "GHSA-9r7h-6639-v5mw": "<1.13.6"
+  },
+  "bootstrap-tagsinput": {
+    "npm:bootstrap-tagsinput:20160720": "<=0.7.1"
+  },
+  "bootstrap-vue": {
+    "GHSA-c7pp-x73h-4m2v": "<=2.0.0-rc.11"
+  },
+  "botbait": {
+    "npm:botbait:20170917": "0.0.1-security"
+  },
+  "botframework-connector": {
+    "GHSA-fvcj-hvfw-7f2v": "4.8.0 || >=4.10.0 <4.10.3 || >=4.7.0 <4.7.3 || >=4.9.0 <4.9.4"
+  },
+  "bowe": {
+    "GHSA-xmmp-hrmx-x5g7": "<=0.0.1-security"
+  },
+  "bowee": {
+    "GHSA-wgvj-6v57-wjh3": "<=0.0.1-security"
+  },
+  "bp66": {
+    "GHSA-8gc6-65mm-xr6r": "<=0.0.1-security"
+  },
+  "bpi39": {
+    "GHSA-762c-v946-pf25": "<=0.0.1-security"
+  },
+  "bpi66": {
+    "GHSA-7xc4-793x-25jp": "<=0.0.1-security"
+  },
+  "bpmn-js-properties-panel": {
+    "GHSA-vpj4-89q8-rh38": "<0.31.0"
+  },
+  "bqffer-xor": {
+    "GHSA-pxqp-mv67-g528": "<=0.0.1-security"
+  },
+  "braces": {
+    "npmjs.com/advisories/786": "<2.3.1"
+  },
+  "browserift": {
+    "GHSA-43vf-2x6g-p2m5": "<=0.0.1-security"
+  },
+  "browserless-chrome": {
+    "CVE-2020-7758": "<=1.40.2-chrome-stable"
+  },
+  "bruteser": {
+    "GHSA-v7cp-5326-54fh": "<0.1.0"
+  },
+  "bs-sha3": {
+    "GHSA-88xx-23mf-rcj2": "<=0.0.1-security"
+  },
+  "bs58chcek": {
+    "GHSA-97mp-9g5c-6c93": "<=0.0.1-security"
+  },
+  "bs58chek": {
+    "GHSA-3cpj-mj3q-82wr": "<=0.0.1-security"
+  },
+  "bs58chekc": {
+    "GHSA-fwvq-x4j9-hr5f": "<=0.0.1-security"
+  },
+  "bs85": {
+    "GHSA-gvm7-8fq3-qjj2": "<=0.0.1-security"
+  },
+  "bs85check": {
+    "GHSA-4hq8-v42x-9wx3": "<=0.0.1-security"
+  },
+  "bsae-x": {
+    "GHSA-mgff-xpg3-3gwc": "<=0.0.1-security"
+  },
+  "btffer-xor": {
+    "GHSA-8hrq-9wm7-v3jw": "<=0.0.1-security"
+  },
+  "bubfer-xor": {
+    "GHSA-vm67-mh96-95mq": "<=0.0.1-security"
+  },
+  "budfer-xor": {
+    "GHSA-6584-gfwm-3vc3": "<=0.0.1-security"
+  },
+  "buefy": {
+    "GHSA-xwqw-rf2q-xmhf": "<0.7.2"
+  },
+  "bufber-xor": {
+    "GHSA-p9g3-vpvp-hcj5": "<=0.0.1-security"
+  },
+  "bufder-xor": {
+    "GHSA-w9q5-mvc6-5cw3": "<=0.0.1-security"
+  },
+  "buffar-xor": {
+    "GHSA-f64g-whxf-w8f2": "<=0.0.1-security"
+  },
+  "buffdr-xor": {
+    "GHSA-8549-p68h-m9mc": "<=0.0.1-security"
+  },
+  "buffe2-xor": {
+    "GHSA-3f97-rj68-2pjf": "<=0.0.1-security"
+  },
+  "buffeb-xor": {
+    "GHSA-5ggx-g294-qj3q": "<=0.0.1-security"
+  },
+  "buffep-xor": {
+    "GHSA-73wv-v82c-xmqv": "<=0.0.1-security"
+  },
+  "buffer-8or": {
+    "GHSA-4hm7-73ch-vm59": "<=0.0.1-security"
+  },
+  "buffer-hor": {
+    "GHSA-wh87-3959-vfrq": "<=0.0.1-security"
+  },
+  "buffer-por": {
+    "GHSA-6xg2-cf6h-x4v8": "<=0.0.1-security"
+  },
+  "buffer-xgr": {
+    "GHSA-mp55-2274-4pj8": "<=0.0.1-security"
+  },
+  "buffer-xkr": {
+    "GHSA-rw53-q8x7-ccx8": "<=0.0.1-security"
+  },
+  "buffer-xmr": {
+    "GHSA-5327-gfq5-8f4m": "<=0.0.1-security"
+  },
+  "buffer-xnr": {
+    "GHSA-c4hh-fg8x-6h9p": "<=0.0.1-security"
+  },
+  "buffer-xo2": {
+    "GHSA-f72h-wf57-7xwh": "<=0.0.1-security"
+  },
+  "buffer-xob": {
+    "GHSA-gpg2-7r7j-4pm9": "<=0.0.1-security"
+  },
+  "buffer-xop": {
+    "GHSA-jqjg-v355-hr9q": "<=0.0.1-security"
+  },
+  "buffer-xos": {
+    "GHSA-h2j3-gg8w-4858": "<=0.0.1-security"
+  },
+  "buffer-xov": {
+    "GHSA-3h9m-9g3g-5wqx": "<=0.0.1-security"
+  },
+  "buffer-xoz": {
+    "GHSA-j6x7-42x2-hpcf": "<=0.0.1-security"
+  },
+  "buffer-yor": {
+    "GHSA-g2c4-4m64-vxm3": "<=0.0.1-security"
+  },
+  "buffer-zor": {
+    "GHSA-f294-27fc-wgj7": "<=0.0.1-security"
+  },
+  "buffermxor": {
+    "GHSA-536f-268f-6gxc": "<=0.0.1-security"
+  },
+  "buffes-xor": {
+    "GHSA-28f4-mjfq-qrvf": "<=0.0.1-security"
+  },
+  "buffev-xor": {
+    "GHSA-x3w4-mrmv-cw2x": "<=0.0.1-security"
+  },
+  "buffez-xor": {
+    "GHSA-7frr-c83r-fm22": "<=0.0.1-security"
+  },
+  "buffgr-xor": {
+    "GHSA-r9cj-xj33-4q42": "<=0.0.1-security"
+  },
+  "buffmr-xor": {
+    "GHSA-wv39-cgmm-cq29": "<=0.0.1-security"
+  },
+  "buffur-xor": {
+    "GHSA-p7qp-3fh7-pv4p": "<=0.0.1-security"
+  },
+  "bufger-xor": {
+    "GHSA-2w8q-69fh-9gq6": "<=0.0.1-security"
+  },
+  "bufner-xor": {
+    "GHSA-7xf6-cpxm-5mx9": "<=0.0.1-security"
+  },
+  "bufver-xor": {
+    "GHSA-cr4x-w2v7-4mmf": "<=0.0.1-security"
+  },
+  "bugfer-xor": {
+    "GHSA-8g64-9cm2-838j": "<=0.0.1-security"
+  },
+  "bunfer-xor": {
+    "GHSA-6f93-xj8r-jp82": "<=0.0.1-security"
+  },
+  "buns": {
+    "CVE-2020-7794": "<=1.1.6"
+  },
+  "buttercms": {
+    "GHSA-3v5x-qjrp-q2hq": "<=1.2.8"
+  },
+  "buvfer-xor": {
+    "GHSA-wjpj-gmc3-5w56": "<=0.0.1-security"
+  },
+  "bwffer-xor": {
+    "GHSA-7qg7-6g3g-8vxg": "<=0.0.1-security"
+  },
+  "byte": {
+    "GHSA-xm7f-x4wx-wmgv": "<1.4.1"
+  },
+  "byucslabsix": {
+    "CVE-2017-16166": "0.0.5",
+    "npm:byucslabsix:20170525": "<=0.0.5"
+  },
+  "c3": {
+    "npm:c3:20160817": "<0.4.11"
+  },
+  "cacache": {},
+  "cage-js": {
+    "GHSA-jf8x-wg7f-p3w8": "<=0.0.1-security"
+  },
+  "cal_rd": {
+    "GHSA-226w-6hhj-69hp": "<=0.0.1-security"
+  },
+  "calipso": {
+    "CVE-2021-23391": "<=0.3.54"
+  },
+  "calk": {
+    "GHSA-9mmw-3fmh-96g3": "<=0.0.1-security"
+  },
+  "calmquist.static-server": {
+    "CVE-2017-16165": "0.1.1"
+  },
+  "camelcase": {},
+  "caolilinode": {
+    "CVE-2017-16159": "1.0.0",
+    "npm:caolilinode:20170617": "<=1.0.0"
+  },
+  "carloprojectdiscord": {
+    "GHSA-9rwj-8mh9-4876": "<=0.0.1-security"
+  },
+  "carloprojectlesang": {
+    "GHSA-qj2g-642f-4jrv": "<=0.0.1-security"
+  },
+  "ced": {
+    "GHSA-27wq-qx3q-fxm9": "=0.1.0"
+  },
+  "centra": {
+    "GHSA-v6cj-r88p-92rm": "<2.4.0"
+  },
+  "chak": {
+    "GHSA-9q9m-m2f6-jr5q": "<=0.0.1-security"
+  },
+  "chalk": {},
+  "chart": {
+    "CVE-2020-7746": "<2.9.4"
+  },
+  "chartkick": {
+    "GHSA-5pm8-492c-92p5": ">=3.1.0 <=3.1.3"
+  },
+  "chatbyvista": {
+    "CVE-2017-16177": "0.1.0"
+  },
+  "cheerio": {
+    "npm:cheerio:20120311": "<=0.8.3"
+  },
+  "chokidar": {},
+  "chownr": {
+    "npm:chownr:20180731": "<1.1.0"
+  },
+  "chrome-launcher": {
+    "CVE-2020-7645": "<=0.13.2"
+  },
+  "cicada-render": {
+    "GHSA-5pm8-492c-92p5": ">=3.1.0 <=3.1.3"
+  },
+  "cionstring": {
+    "GHSA-xh8g-j88w-6v59": "<=0.0.1-security"
+  },
+  "cipher-base": {},
+  "city-weather-abe": {
+    "npm:city-weather-abe:20170521": "<=0.1.1"
+  },
+  "ckeditor": {
+    "GHSA-6226-h7ff-ch6c": ">=4.13.0 <4.16.2",
+    "GHSA-7889-rm5j-hpgg": ">=4.5.2 <4.16.2",
+    "GHSA-m94c-37g6-cjhc": "<4.16.2"
+  },
+  "ckeditor4": {
+    "GHSA-6226-h7ff-ch6c": ">=4.13.0 <4.16.2",
+    "GHSA-7889-rm5j-hpgg": ">=4.5.2 <4.16.2",
+    "GHSA-m94c-37g6-cjhc": "<4.16.2"
+  },
+  "ckeditor5": {
+    "GHSA-hgmg-hhc8-g5wr": "<25.0.0"
+  },
+  "class-validator": {
+    "CVE-2019-18413": "0.10.2"
+  },
+  "clean-css": {
+    "npm:clean-css:20180306": "<4.1.11"
+  },
+  "cli": {
+    "GHSA-93f3-23rq-pjfp": "<0"
+  },
+  "cliui": {},
+  "cloudcmd": {
+    "GHSA-m8fw-534v-xm85": "<9.1.6"
+  },
+  "cloudpub-redis": {
+    "CVE-2016-10672": "2.4.5"
+  },
+  "cmmn-js-properties-panel": {
+    "GHSA-vmh4-322v-cfpc": "<0.8.0"
+  },
+  "coa": {
+    "SNYK-JS-COA-1911118": ">2.0.2"
+  },
+  "cobalt-cli": {
+    "CVE-2016-10657": "<=2.3.2"
+  },
+  "cocos-utils": {
+    "GHSA-rffp-mc78-wjf7": "<=1.0.0"
+  },
+  "codecov": {
+    "GHSA-5q88-cjfq-g2mh": "<3.7.1"
+  },
+  "codify": {
+    "GHSA-2q6w-rxf3-4wc9": "0.3.1"
+  },
+  "cofee-script": {
+    "CVE-2017-16206": "1.0.1",
+    "npm:cofee-script:20171006": "<=0.0.1-security"
+  },
+  "cofeescript": {
+    "CVE-2017-16202": "1.0.1",
+    "npm:cofeescript:20171006": "<=0.0.1-security"
+  },
+  "coffe-script": {
+    "CVE-2017-16203": "1.0.1",
+    "npm:coffe-script:20171006": "<=0.0.1-security"
+  },
+  "coffee-project": {
+    "GHSA-3fv6-q5xv-fhpw": "1.7.5"
+  },
+  "coffescript": {
+    "CVE-2017-16205": "1.0.1",
+    "npm:coffescript:20171006": "<=0.0.1-security"
+  },
+  "coinpayment": {
+    "GHSA-3h99-v4qw-p2h5": "<=0.0.1-security"
+  },
+  "coinstirng": {
+    "GHSA-ff6g-gm92-rf32": ">=0"
+  },
+  "coinstrig": {
+    "GHSA-4m3j-h8f2-4xh4": ">=0"
+  },
+  "coinstrng": {
+    "GHSA-hj5w-xgw9-w4rj": ">=0"
+  },
+  "colne": {
+    "GHSA-mhxg-pr3j-v9gr": ">=0"
+  },
+  "color-convert": {},
+  "color-name": {},
+  "color-string": {
+    "SNYK-JS-COLORSTRING-1082939": "<1.5.5"
+  },
+  "colors": {
+    "CVE-2021-23567": "1.4.1 || 1.4.44-liberty-2",
+    "SNYK-JS-COLORS-2331906": ">1.4.0"
+  },
+  "colour-string": {
+    "GHSA-8mmf-qp7j-2w24": ">=0"
+  },
+  "colro-name": {
+    "GHSA-jp9g-5x75-ccp8": ">=0"
+  },
+  "comander": {
+    "GHSA-4xg9-g7qj-jhg4": ">=0"
+  },
+  "comb": {
+    "CVE-2021-23561": "<=2.0.0"
+  },
+  "combined-stream": {},
+  "command-exists": {
+    "GHSA-cff4-rrq6-h78w": "<1.2.4"
+  },
+  "commander": {},
+  "commander-js": {
+    "GHSA-2hqf-qqmq-pgpp": ">=0"
+  },
+  "commandre": {
+    "GHSA-r8hx-3qx6-hxq9": ">=0"
+  },
+  "commanedr": {
+    "GHSA-xcgx-27q5-7634": ">=0"
+  },
+  "commentapp.stetsonwood": {
+    "CVE-2017-16143": "0.0.1"
+  },
+  "commmander": {
+    "GHSA-q42c-rrp3-r3xm": ">=0"
+  },
+  "commnader": {
+    "GHSA-855m-jchh-9qjc": ">=0"
+  },
+  "commqnder": {
+    "GHSA-4xgp-xrg3-c73w": ">=0"
+  },
+  "component-emitter": {},
+  "concat-stream": {
+    "npm:concat-stream:20160901": "<1.3.2 || >=1.4.0 <1.4.11 || >=1.5.0 <1.5.2 "
+  },
+  "concat-with-sourcemaps": {
+    "GHSA-2xv3-h762-ccxv": ">=1.0.0 <1.0.6"
+  },
+  "confucious": {
+    "CVE-2020-7714": ">=0"
+  },
+  "conistring": {
+    "GHSA-cfc5-x58f-869w": ">=0"
+  },
+  "connect": {
+    "CVE-2013-7370": "<2.8.1",
+    "CVE-2013-7371": "<2.8.2"
+  },
+  "connect-pg-simple": {
+    "GHSA-xqh8-5j36-4556": "<6.0.1"
+  },
+  "console-control-strings": {},
+  "console-feed": {
+    "GHSA-g9wg-wq4f-2x5w": "<2.8.10"
+  },
+  "console-io": {
+    "CVE-2016-10532": "<=2.2.13"
+  },
+  "constantinople": {
+    "npm:constantinople:20180421": "<3.1.1"
+  },
+  "content-type-parser": {
+    "npm:content-type-parser:20170905": "<=1.0.2"
+  },
+  "contracts-upgradeable": {
+    "GHSA-5vp3-v4hc-gx76": ">=4.1.0 <4.3.2"
+  },
+  "converse.js": {
+    "CVE-2017-5858": ">=0.10.0 <=0.10.1 || >=0.8.0 <=0.8.6 || >=0.9.0 <=0.9.6 || >=1.0.0 <=1.0.6 || >=2.0.0 <=2.0.4"
+  },
+  "convert-source-map": {},
+  "convert-svg-to-jpeg": {
+    "GHSA-jv7g-9g6q-cxvw": "<=0.5.0"
+  },
+  "convert-svg-to-png": {
+    "GHSA-jv7g-9g6q-cxvw": "<=0.5.0"
+  },
+  "cookies": {
+    "CVE-2017-18589": "<0.7.6"
+  },
+  "cordova-plugin-china-picker": {
+    "GHSA-x9gm-qxhh-rf75": "1.0.910"
+  },
+  "cordova-plugin-inappbrowser": {
+    "GHSA-c6pw-q7f2-97hv": "<3.1.0"
+  },
+  "cordova-plugin-ionic-webview": {
+    "GHSA-xwjh-cp99-cj8q": "<2.2.0"
+  },
+  "core-js": {},
+  "core-util-is": {},
+  "corenlp-js-interface": {
+    "CVE-2020-28440": ">=0"
+  },
+  "corenlp-js-prefab": {
+    "CVE-2020-28439": ">=0"
+  },
+  "create-hash": {},
+  "cross-env.js": {
+    "CVE-2017-16081": "<=0.0.2-security"
+  },
+  "cross-spawn": {},
+  "crossenv": {
+    "CVE-2017-16074": "<=0.0.2-security"
+  },
+  "crpyto-js": {
+    "GHSA-73c6-vwjh-g3qh": ">=0"
+  },
+  "crumb": {
+    "npm:crumb:20140801": "<3.0.0",
+    "npm:crumb:20150213": "<4.0.2"
+  },
+  "cryptiles": {
+    "npmjs.com/advisories/720": ">=3.1.0 <3.1.3 || >=4.0.0 <4.1.2"
+  },
+  "crypto-browserify": {
+    "npm:crypto-browserify:20140722": "<2.1.11"
+  },
+  "crypto-js": {
+    "SNYK-JS-CRYPTOJS-548472": "<3.2.1 || >=3.3.0 <4.0.0"
+  },
+  "crytpo-js": {
+    "GHSA-m4fq-xh7w-jhfm": ">=0"
+  },
+  "csrf-lite": {
+    "CVE-2016-10535": "<=0.1.1"
+  },
+  "css-what": {
+    "CVE-2021-33587": "<5.0.1"
+  },
+  "css_transform_step": {
+    "GHSA-4rx9-58m7-gr8w": "1.0.6"
+  },
+  "css_transform_support": {
+    "GHSA-45cp-hpc9-8347": "1.0.2"
+  },
+  "ctrip-apollo": {
+    "GHSA-xpmx-h7xq-xffh": "<1.7.1"
+  },
+  "cue-sdk-node": {
+    "CVE-2016-10590": "<=1.2.0"
+  },
+  "cuffer-xor": {
+    "GHSA-6xm4-p6r2-mwrc": ">=0"
+  },
+  "cumulative-distribution-function": {
+    "GHSA-58qp-5328-v7mh": "<2.0.0"
+  },
+  "curling": {
+    "GHSA-xmxh-g7wj-8m4m": "<=1.0.0"
+  },
+  "cxct": {
+    "GHSA-c5xm-m64m-f2vq": ">=0"
+  },
+  "cxt": {
+    "GHSA-fpgg-r39h-3x5x": ">=0"
+  },
+  "cyber-js": {
+    "CVE-2017-16093": "<=1.0.7"
+  },
+  "cypserver": {
+    "CVE-2017-16191": "1.0.0"
+  },
+  "d3.js": {
+    "CVE-2017-16044": "<=0.0.2-security"
+  },
+  "dalek-browser-chrome-canary": {
+    "npm:dalek-browser-chrome-canary:20161219": "<=0.0.10-2014-03-24-17-36-27"
+  },
+  "dalek-browser-ie-canary": {
+    "npm:dalek-browser-ie-canary:20170101": "<=0.0.4-2014-04-04-12-11-49"
+  },
+  "dat.gui": {
+    "CVE-2020-7755": ">=0"
+  },
+  "date-and-time": {
+    "GHSA-r92x-f52r-x54g": "<0.14.2"
+  },
+  "dcdcdcdcdc": {
+    "CVE-2017-16190": "1.0.0"
+  },
+  "dcserver": {
+    "CVE-2017-16158": "1.0.0"
+  },
+  "deasyncp": {
+    "GHSA-qfc9-x7gv-27jr": ">=0"
+  },
+  "decompress": {
+    "npmjs.com/advisories/1217": "<4.2.1"
+  },
+  "decompress-tar": {
+    "SNYK-JS-DECOMPRESSTAR-559095": "<=4.1.1"
+  },
+  "decompress-zip": {
+    "npmjs.com/advisories/777": "<0.2.2 || >=0.3.0 <0.3.2"
+  },
+  "deep-get-set": {
+    "CVE-2020-7715": ">=0"
+  },
+  "deep-setter": {
+    "GHSA-9qrg-h9g8-c65q": ">=0"
+  },
+  "deeps": {
+    "CVE-2020-7716": ">=0"
+  },
+  "default-deep": {
+    "GHSA-cqp5-m4pq-gfgp": "<0.2.4"
+  },
+  "define-properties": {},
+  "define-property": {},
+  "degbu": {
+    "GHSA-xr3g-4gg5-w3wq": ">=0"
+  },
+  "depd": {},
+  "destroyer-of-worlds": {
+    "GHSA-w3f3-4j22-2v3p": ">=0"
+  },
+  "detect-character-encoding": {
+    "GHSA-5rwj-j5m3-3chj": "<0.3.1",
+    "GHSA-jqfh-8hw5-fqjr": "<0.7.0"
+  },
+  "device-mqtt": {
+    "GHSA-563h-697m-j7x5": "1.0.11"
+  },
+  "dhkey": {
+    "GHSA-qxrj-x7rm-2h49": ">=0"
+  },
+  "diagram-js": {
+    "GHSA-8fw4-xh83-3j6q": "<2.6.2 || >=3.0.0 <3.3.1"
+  },
+  "diagram-js-direct-editing": {
+    "GHSA-j8r2-2x94-2q67": "<1.4.3"
+  },
+  "diamond-clien": {
+    "GHSA-86gv-xpwv-jprc": ">=0"
+  },
+  "dictum.js": {
+    "GHSA-j5jc-jf8f-86q7": "1.0.5"
+  },
+  "diff": {
+    "npm:diff:20180305": ">=3.0.0 <3.5.0"
+  },
+  "dijit": {
+    "CVE-2018-6561": "1.13.0",
+    "CVE-2020-5259": "<1.11.11 || >=1.12.0 <1.12.9 || >=1.13.0 <1.13.8 || >=1.14.0 <1.14.7 || >=1.15.0 <1.15.4 || >=1.16.0 <1.16.3",
+    "GHSA-cxjc-r2fp-7mq6": "<1.11.11 || >=1.12.0 <1.12.9 || >=1.13.0 <1.13.8 || >=1.14.0 <1.14.7 || >=1.15.0 <1.15.4 || >=1.16.0 <1.16.3"
+  },
+  "directus": {
+    "GHSA-xmjj-3c76-5w84": "<9.7.0"
+  },
+  "discord-fix": {
+    "GHSA-qv2g-99x4-45x6": ">=0"
+  },
+  "discord-markdown": {
+    "GHSA-9r27-994c-4xch": "<2.3.1"
+  },
+  "discord.js-user": {
+    "GHSA-69r6-7h4f-9p7q": ">=0"
+  },
+  "discord_debug_log": {
+    "GHSA-5x8q-gj67-rhf2": ">=0"
+  },
+  "discordi.js": {
+    "CVE-2017-16207": "0.0.1"
+  },
+  "djvalidator": {
+    "CVE-2020-7779": ">=0"
+  },
+  "dmn-js-properties-panel": {
+    "GHSA-h9wr-xr4r-66fh": "<0.3.0"
+  },
+  "docker-cli-js": {
+    "CVE-2021-23732": "<=2.9.0"
+  },
+  "dojo": {
+    "CVE-2020-5259": "<1.14.0",
+    "GHSA-jxfh-8wgv-vfr2": "<1.11.10 || >=1.12.0 <1.12.8 || >=1.13.0 <1.13.7 || >=1.14.0 <1.14.6 || >=1.15.0 <1.15.3 || >=1.16.0 <1.16.2"
+  },
+  "dojox": {
+    "CVE-2019-10785": ">=1.11.0 <1.11.9 || >=1.12.0 <1.12.7 || >=1.13.0 <1.13.6 || >=1.14.0 <1.14.5 || >=1.15.0 <1.15.2 || >=1.16.0 <1.16.1",
+    "GHSA-3hw5-q855-g6cw": "<1.11.10 || >=1.12.0 <1.12.8 || >=1.13.0 <1.13.7 || >=1.14.0 <1.14.6 || >=1.15.0 <1.15.3 || >=1.16.0 <1.16.2"
+  },
+  "domokeeper": {
+    "GHSA-cr67-78jr-j94p": ">=0"
+  },
+  "donotinstallthis": {
+    "GHSA-73hr-6785-f5p8": ">=0"
+  },
+  "dossier": {
+    "GHSA-c8h6-89q2-mgv8": "0.0.4"
+  },
+  "dot-notes": {
+    "CVE-2020-7717": ">=0"
+  },
+  "dot-object": {
+    "CVE-2020-5259": "<2.1.3"
+  },
+  "dot-prop": {
+    "CVE-2020-8116": ">1.0.1 <4.2.1 || >=5.0.0 <5.1.1"
+  },
+  "droppy": {
+    "CVE-2020-7757": "<=12.2.0"
+  },
+  "dylmomo": {
+    "CVE-2017-16163": "1.0.0"
+  },
+  "dynamo-schema": {
+    "GHSA-vp8g-53fw-r9f2": "0.0.3"
+  },
+  "dynamoose": {
+    "GHSA-rrqm-p222-8ph2": ">=2.0.0 <2.7.0"
+  },
+  "eact": {
+    "GHSA-pmgv-94f5-6w7w": ">=0"
+  },
+  "eco": {
+    "GHSA-r32x-jhw5-g48p": ">=0"
+  },
+  "ecruve": {
+    "GHSA-fpf2-pr3j-4cm3": ">=0"
+  },
+  "ecstatic": {
+    "CVE-2019-10775": "<4.1.4"
+  },
+  "ecuvre": {
+    "GHSA-cgvm-rvfv-c92r": ">=0"
+  },
+  "eivindfjeldstad-dot": {
+    "SNYK-JS-EIVINDFJELDSTADDOT-564434": "<=0.0.1"
+  },
+  "ejs": {
+    "SNYK-JS-EJS-2803307": "<3.1.7",
+    "WS-2021-0153": "<3.1.6"
+  },
+  "elding": {
+    "CVE-2017-16222": "1.0.0"
+  },
+  "electorn": {
+    "GHSA-38hx-3542-8fh3": "<=10.0.0"
+  },
+  "electron": {
+    "CVE-2018-1000136": ">1.8.0 <=1.8.3 || >=1.7.0 <=1.7.12 || >=2.0.0-beta.1 <2.0.0-beta.4",
+    "CVE-2020-15096": "<6.1.1 || =9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "CVE-2020-15174": "=11.0.0 || =9.3.0 || >=10.0.0 <=10.0.1 || >=10.1.0 <=10.1.1 || >=8.0.0 <=8.0.3 || >=8.1.0 <=8.1.1 || >=8.2.0 <=8.2.5 || >=8.3.0 <=8.3.4 || >=8.4.0 <=8.4.1 || >=8.5.0 <=8.5.1 || >=9.0.0 <=9.0.6 || >=9.1.0 <=9.1.2 || >=9.2.0 <=9.2.1",
+    "CVE-2020-15215": "=11.0.0 || =9.3.0 || >=10.0.0 <=10.0.1 || >=10.1.0 <=10.1.1 || >=8.0.0 <=8.0.3 || >=8.1.0 <=8.1.1 || >=8.2.0 <=8.2.5 || >=8.3.0 <=8.3.4 || >=8.4.0 <=8.4.1 || >=8.5.0 <=8.5.1 || >=9.0.0 <=9.0.6 || >=9.1.0 <=9.1.2 || >=9.2.0 <=9.2.1",
+    "CVE-2020-26272": ">=10.0.0 <10.2.0 || >=11.0.0 <11.1.0 || >=9.0.0 <9.4.0",
+    "CVE-2020-4075": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "CVE-2020-4076": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "CVE-2020-4077": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "GHSA-2q4g-w47c-4674": "=11.0.0 || =9.3.0 || >=10.0.0 <=10.0.1 || >=10.1.0 <=10.1.1 || >=8.0.0 <=8.0.3 || >=8.1.0 <=8.1.1 || >=8.2.0 <=8.2.5 || >=8.3.0 <=8.3.4 || >=8.4.0 <=8.4.1 || >=8.5.0 <=8.5.1 || >=9.0.0 <=9.0.6 || >=9.1.0 <=9.1.2 || >=9.2.0 <=9.2.1",
+    "GHSA-56pc-6jqp-xqj8": "=11.0.0 || =9.3.0 || >=10.0.0 <=10.0.1 || >=10.1.0 <=10.1.1 || >=8.0.0 <=8.0.3 || >=8.1.0 <=8.1.1 || >=8.2.0 <=8.2.5 || >=8.3.0 <=8.3.4 || >=8.4.0 <=8.4.1 || >=8.5.0 <=8.5.1 || >=9.0.0 <=9.0.6 || >=9.1.0 <=9.1.2 || >=9.2.0 <=9.2.1",
+    "GHSA-6vrv-94jv-crrg": "<6.1.1 || =9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "GHSA-f9mq-jph6-9mhm": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "GHSA-h9jc-284h-533g": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "GHSA-hvf8-h2qh-37m9": ">=10.0.0 <10.2.0 || >=11.0.0 <11.1.0 || >=9.0.0 <9.4.0",
+    "GHSA-m93v-9qjc-3g79": "=9.0.0 || >=7.0.0 <7.2.4 || >=8.0.0 <8.2.4",
+    "GHSA-mpjm-v997-c4h4": ">=10.1.0 <11.5.0 || >=12.0.0 <12.1.0 || >=13.0.0 <13.3.0 || >=14.0.0 <=15.0.0"
+  },
+  "electron-native-notify": {
+    "GHSA-j8qr-rvcv-crhv": ">=0"
+  },
+  "electron-packager": {
+    "CVE-2016-10534": ">=5.2.1 <=6.0.2"
+  },
+  "elliptic": {
+    "SNYK-JS-ELLIPTIC-511941": "<6.5.2"
+  },
+  "elvish": {
+    "GHSA-fpv6-f8jw-rc3r": "<0.14.0"
+  },
+  "ember-power-timepicker": {
+    "GHSA-28f8-hqmc-7ph8": "1.0.8"
+  },
+  "ember_cli_babe": {
+    "GHSA-vm7j-4rj6-mw2p": ">=0"
+  },
+  "emoji-regex": {},
+  "emojione": {
+    "npm:emojione:20160725": "<=1.3.0"
+  },
+  "encodeurl": {},
+  "end-of-stream": {},
+  "entitlements": {
+    "GHSA-g8vp-6hv4-m67c": "<1.3.0"
+  },
+  "ep_imageconvert": {
+    "CVE-2013-7380": "<=0.0.2"
+  },
+  "epress": {
+    "GHSA-vf8q-pw7h-r2x2": ">=0"
+  },
+  "epubjs": {
+    "GHSA-c6rp-xvqv-mwmf": "<0.3.89"
+  },
+  "equest": {
+    "GHSA-mvch-rh6h-2m47": ">=0"
+  },
+  "erquest": {
+    "GHSA-4pmg-jgm5-3jg6": ">=0"
+  },
+  "es-abstract": {},
+  "escape-html": {},
+  "escape-string-regexp": {},
+  "eslint": {
+    "npm:eslint:20180222": ">=1.4.0 <4.18.2"
+  },
+  "eslint-config-airbnb-standard": {
+    "GHSA-m852-866j-69j8": "2.0.0"
+  },
+  "eslint-config-eslint": {
+    "GHSA-hxxf-q3w9-4xgw": "5.0.1",
+    "GHSA-pv55-r6j3-wp94": "5.0.2"
+  },
+  "eslint-fixer": {
+    "GHSA-45w5-pvr8-4rh5": "<=0.1.5"
+  },
+  "eslint-scope": {
+    "SNYK-JS-ESLINTSCOPE-11120": "3.7.2"
+  },
+  "eslint-utils": {
+    "GHSA-3gx7-xhv7-5mx3": "<1.4.1"
+  },
+  "esm": {
+    "SNYK-JS-ESM-72880": "<3.1.0"
+  },
+  "esprima": {},
+  "estraverse": {},
+  "esutils": {},
+  "eth-ledger-bridge-keyring": {
+    "GHSA-vg44-fw64-cpjx": "<0.2.1"
+  },
+  "event-stream": {
+    "SNYK-JS-EVENTSTREAM-72638": "3.3.6"
+  },
+  "evil-package": {
+    "GHSA-p62r-jf56-h429": ">=0"
+  },
+  "ewgaddis.lab6": {
+    "CVE-2017-16175": "0.1.1"
+  },
+  "exiftool-vendored": {
+    "GHSA-4whq-r978-2x68": "<14.3.0"
+  },
+  "experss": {
+    "GHSA-mmph-wp49-r48h": ">=0"
+  },
+  "express": {
+    "CVE-2014-6393": "<3.11.0 || >=4.0.0-rc1 <4.5.0"
+  },
+  "express-basic-auth": {
+    "GHSA-c35v-qwqg-87jc": "<1.1.7"
+  },
+  "express-brute": {
+    "GHSA-984p-xq9m-4rjw": "<=1.0.1"
+  },
+  "express-handlebars": {
+    "GHSA-fr76-2wp8-fp92": "<5.3.1"
+  },
+  "express-jwt": {
+    "GHSA-6g6m-m6h5-w9gf": "<=5.3.3"
+  },
+  "express-laravel-passport": {
+    "GHSA-v66p-w7qx-wv98": ">=0"
+  },
+  "express-validator": {
+    "SNYK-JS-EXPRESSVALIDATOR-174763": ">=4.2.1 <6.0.0"
+  },
+  "expressfs": {
+    "GHSA-mxmj-84q8-34r7": ">=0"
+  },
+  "exprss": {
+    "GHSA-6qc7-jgq7-34rf": ">=0"
+  },
+  "extend-shallow": {},
+  "extend2": {
+    "GHSA-gjm5-83cw-p3p2": "<1.0.1"
+  },
+  "exxxxxxxxxxx": {
+    "CVE-2017-16130": "1.0.0 || 1.0.2"
+  },
+  "eye.js": {
+    "GHSA-mgv2-57vj-99xc": "1.2.0"
+  },
+  "ezseed-transmission": {
+    "npm:ezseed-transmission:20160729": ">=0.0.10 <=0.0.14"
+  },
+  "f-serv": {
+    "GHSA-vx5w-cxch-wwc9": ">=0"
+  },
+  "fabric-js": {
+    "CVE-2017-16053": "<=0.0.2-security"
+  },
+  "faker": {
+    "GHSA-5w9c-rv96-fr7g": "6.6.6"
+  },
+  "fast-csv": {
+    "GHSA-8cv5-p934-3hwp": "<4.3.6"
+  },
+  "fast-deep-equal": {},
+  "fast-json-stable-stringify": {},
+  "fast-requests": {
+    "GHSA-wjf2-7f9g-86f5": ">=0"
+  },
+  "fastify-csrf": {
+    "GHSA-rc4q-9m69-gqp8": "<3.1.0"
+  },
+  "fastify-http-proxy": {
+    "GHSA-c4qr-gmr9-v23w": "<4.3.1"
+  },
+  "fastify-reply-from": {
+    "GHSA-qmw8-3v4g-gwj4": "<4.0.2"
+  },
+  "faye": {
+    "GHSA-qpg4-4w7w-2mq5": ">0.5.0 <1.0.4 || >=1.1.0 <1.1.3 || >=1.2.0 <1.2.5"
+  },
+  "featurebook": {
+    "npm:featurebook:20180115": "<=0.0.32"
+  },
+  "ffmepg": {
+    "CVE-2017-16068": "<=0.0.2-security"
+  },
+  "figgy-pudding": {},
+  "file-logging": {
+    "GHSA-wwwg-6r7f-9c9h": ">=0"
+  },
+  "file-static-server": {
+    "GHSA-qjfh-xc44-rm9x": ">=0"
+  },
+  "fileview": {
+    "GHSA-gvr4-7xgc-gx3w": "<=0.1.6"
+  },
+  "fill-range": {},
+  "find-process": {
+    "SNYK-JS-FINDPROCESS-1090284": "<1.4.5"
+  },
+  "find-up": {},
+  "fis-sass-all": {
+    "CVE-2016-10686": "0.2.0"
+  },
+  "flat": {
+    "SNYK-JS-FLAT-596927": "<1.6.2 || >=2.0.0 <2.0.2 || >=3.0.0 <3.0.1 || >=4.0.0 <4.1.1 || >=5.0.0 <5.0.2"
+  },
+  "flat-wrap": {
+    "GHSA-g7h8-p22m-2rvx": ">=0"
+  },
+  "flatmap-stream": {
+    "SNYK-JS-FLATMAPSTREAM-72637": "0.0.1-security"
+  },
+  "flood": {
+    "GHSA-r587-7jh2-4qr3": "<3.0.0"
+  },
+  "floody": {
+    "GHSA-3p92-886g-qxpq": "<0.1.1"
+  },
+  "fluture-node": {
+    "GHSA-32x6-qvw6-mxj4": ">=4.0.0 <4.0.2"
+  },
+  "foever": {
+    "GHSA-j3qq-qvc8-c6g7": ">=0"
+  },
+  "fomantic-ui": {
+    "GHSA-788m-pj96-7w2c": "<2.7.0"
+  },
+  "font-scrubber": {
+    "GHSA-65j7-66p7-9xgf": ">=0"
+  },
+  "foreman": {
+    "GHSA-xm28-fw2x-fqv2": "<3.0.1"
+  },
+  "fragment-cache": {},
+  "freediskspace": {
+    "GHSA-4gfq-6m28-m5mg": "<=1.2.0"
+  },
+  "freshdom": {
+    "GHSA-8qm2-24qc-c4qg": "0.0.6"
+  },
+  "froever": {
+    "GHSA-2r8f-2665-3gxq": ">=0"
+  },
+  "frourio": {
+    "GHSA-8xxm-h73r-ghfj": "<0.26.0"
+  },
+  "frourio-express": {
+    "GHSA-mmj4-777p-fpq9": "<0.26.0"
+  },
+  "fs-extar": {
+    "GHSA-435c-qcpm-wjw5": ">=0"
+  },
+  "fs.realpath": {},
+  "fsevents": {},
+  "fstream": {
+    "SNYK-JS-FSTREAM-174725": "<1.0.12"
+  },
+  "ftp-srv": {
+    "GHSA-jw37-5gqr-cf9j": "<2.19.6 || >=3.0.0 <3.1.2 || >=4.0.0 <4.3.4",
+    "GHSA-pmw4-jgxx-pcq9": "<4.4.0"
+  },
+  "fuelux": {
+    "npm:fuelux:20160725": "<3.15.7"
+  },
+  "fuffer-xor": {
+    "GHSA-c2g6-57fp-22wp": ">=0"
+  },
+  "function-bind": {},
+  "fury-adapter-swagger": {
+    "CVE-2016-1000249": ">=0.2.0 <=0.9.6"
+  },
+  "gammautils": {
+    "CVE-2020-7718": ">=0"
+  },
+  "gatsby-source-wordpress": {
+    "GHSA-rqjw-p5vr-c695": "<4.0.8 || >=5.0.0 <5.9.2"
+  },
+  "gedi": {
+    "CVE-2020-7727": ">=0"
+  },
+  "generate-password": {
+    "SNYK-JS-GENERATEPASSWORD-73498": "<1.4.1"
+  },
+  "generator-jhipster": {
+    "GHSA-mc84-xr9p-938r": "<6.3.1"
+  },
+  "generator-jhipster-kotlin": {
+    "GHSA-mwp6-j9wf-968c": "<=1.1.0",
+    "GHSA-pfxf-wh96-fvjc": "<1.7.0"
+  },
+  "geoheat": {
+    "GHSA-p32g-242c-76h3": "1.3.2"
+  },
+  "geojson2kml": {
+    "CVE-2020-28429": ">=0"
+  },
+  "get-caller-file": {},
+  "get-setter": {
+    "GHSA-ch82-gqh6-9xj9": ">=0"
+  },
+  "get-stream": {},
+  "get-value": {},
+  "getcityapi.yoehoehne": {
+    "CVE-2017-16192": "0.0.1"
+  },
+  "getcookies": {
+    "npm:getcookies:20180502": "0.0.1-security"
+  },
+  "getsetdeep": {
+    "GHSA-8j49-49jq-vwcq": ">=0"
+  },
+  "ghost": {
+    "GHSA-9fgx-q25h-jxrg": ">=4.0.0 <4.3.3",
+    "GHSA-j5c2-hm46-wp5c": ">=4.0.0 <4.10.0"
+  },
+  "gifsicle": {
+    "CVE-2017-1000421": "<=1.89",
+    "CVE-2017-18120": "1.90",
+    "CVE-2020-19752": "1.92",
+    "npm:gifsicle:20170810": "<1.90"
+  },
+  "git-tags-remote": {
+    "GHSA-gm9x-q798-hmr4": "<1.0.4"
+  },
+  "github-jquery-widgets": {
+    "GHSA-c722-pv5w-cfg2": "0.1.2"
+  },
+  "glob": {},
+  "globals": {},
+  "gnuplot": {
+    "GHSA-cfwc-xjfp-44jg": ">=0"
+  },
+  "googleapis": {
+    "GHSA-7543-mr7h-6v86": "<39.1.0"
+  },
+  "goserv": {
+    "CVE-2017-16133": "1.0.0"
+  },
+  "graceful-fs": {},
+  "graphql-code-generator": {
+    "GHSA-9w87-4j72-gcv7": "<0.18.2"
+  },
+  "graphql-playground-html": {
+    "GHSA-4852-vrh7-28rf": "<1.6.22"
+  },
+  "graphql-playground-react": {
+    "GHSA-59r9-6jp6-jcm7": "<1.7.28"
+  },
+  "graphql-shield": {
+    "HSA-hx78-272p-mqqh": "<6.0.6"
+  },
+  "graylog-web-interface": {
+    "GHSA-9qgh-7pgp-hp7r": ">=0"
+  },
+  "grpc": {
+    "GHSA-pp75-xfpw-37g9": "<1.24.4"
+  },
+  "grpc-ts-health-check": {
+    "GHSA-m86m-5m44-pc93": "<2.0.0"
+  },
+  "grunt-gh-pages": {
+    "CVE-2016-10526": "<0.9.1"
+  },
+  "grunt-radic": {
+    "GHSA-9p49-cwh3-4qhf": "0.1.1"
+  },
+  "grunt-radical": {
+    "GHSA-4627-w373-375v": "0.0.14"
+  },
+  "grunt-webdriver-qunit": {
+    "CVE-2016-10606": ">=0.0.0-alpha"
+  },
+  "gruntcli": {
+    "CVE-2017-16058": "<=0.2.6"
+  },
+  "gun": {
+    "GHSA-886v-mm6p-4m66": "<0.2019.416"
+  },
+  "handlebars": {
+    "GHSA-q42p-pg8m-cqh6": ">=3.0.0 <3.0.7 || >=4.0.0 <4.0.14 || >=4.1.0 <4.1.2",
+    "SNYK-JS-HANDLEBARS-173692": "<4.0.14 || >=4.1.0 <4.1.2",
+    "SNYK-JS-HANDLEBARS-174183": ">=3.0.0 <3.0.7 || >=4.0.0 <4.0.14 || >=4.1.0 <4.1.2",
+    "SNYK-JS-HANDLEBARS-469063": "<3.8.0 || >=4.0.0 <4.3.0",
+    "SNYK-JS-HANDLEBARS-480388": ">=4.0.0 <4.5.5",
+    "SNYK-JS-HANDLEBARS-534478": "<3.0.8 || >=4.0.0 <4.5.3",
+    "SNYK-JS-HANDLEBARS-534988": "<3.0.8 || >=4.0.0 <4.5.3",
+    "SNYK-JS-HANDLEBARS-567742": "<4.6.0",
+    "WS-2019-0291": ">=0 <4.3.0",
+    "hackerone.com/reports/726364": "<4.6.0",
+    "npmjs.com/advisories/1300": "<4.4.5",
+    "npmjs.com/advisories/1316": "<3.0.8 || >=4.0.0 <4.5.3",
+    "npmjs.com/advisories/1324": "<3.0.8 || >=4.0.0 <4.5.3",
+    "npmjs.com/advisories/1325": "<3.0.8 || >=4.0.0 <4.5.3",
+    "npmjs.com/advisories/755": ">=4.0.0 <4.0.14 || >=4.1.0 <4.1.2"
+  },
+  "hapi": {
+    "CVE-2014-3742": "2.0.x || 2.1.x",
+    "CVE-2014-4671A": "<6.1.0",
+    "www.npmjs.com/advisories/1481": "<=18.1.0"
+  },
+  "hapi-auth-jwt2": {
+    "CVE-2016-10525": "<=5.1.1"
+  },
+  "harmlesspackage": {
+    "GHSA-8hmr-w35f-3qgj": ">=0"
+  },
+  "has": {},
+  "has-ansi": {},
+  "has-flag": {},
+  "has-symbols": {},
+  "hawk": {
+    "CVE-2016-2515": "<3.1.3 || >=4.0.0 <4.1.1"
+  },
+  "haxe": {
+    "CVE-2016-10602": "<=5.0.10"
+  },
+  "haxe-dev": {
+    "CVE-2016-10637": "<=0.0.8"
+  },
+  "haxe3": {
+    "npm:haxe3:20161202": "3.1.3"
+  },
+  "hbs": {
+    "CVE-2021-32822": ">=0"
+  },
+  "hcbserver": {
+    "CVE-2017-16171": "1.0.0"
+  },
+  "hdeky": {
+    "GHSA-255r-pghp-r5wh": ">=0"
+  },
+  "hdkye": {
+    "GHSA-8pwx-j4r6-5v38": ">=0"
+  },
+  "healthcenter": {
+    "CVE-2016-10684": "3.0.3"
+  },
+  "helmet-csp": {
+    "SNYK-JS-HELMETCSP-469436": ">=1.2.2 <2.9.2"
+  },
+  "highcharts": {
+    "GHSA-8j65-4pcq-xq95": "<9.0.0"
+  },
+  "highcharts-export-server": {
+    "GHSA-hfwx-c7q6-g54c": "<=2.0.30"
+  },
+  "highlight.js": {
+    "GHSA-vfrc-7r7c-w9mx": "<9.18.2 || >=10.1.0 <10.1.2"
+  },
+  "hoek": {
+    "CVE-2018-3728": "<4.2.1 || >=5.0.0-a0 <5.0.3",
+    "npm:hoek:20180212": "<4.2.1 || >=5.0.0 <5.0.3"
+  },
+  "hooka-tools": {
+    "npm:hooka-tools:20171025": "0.0.1-security"
+  },
+  "hpmm": {
+    "GHSA-vxfp-qmpq-6826": ">=0"
+  },
+  "hs-sha3": {
+    "GHSA-6mrq-7r7m-hh4p": ">=0"
+  },
+  "hsf-clients": {
+    "GHSA-g5q2-fcg9-j526": ">=0"
+  },
+  "html-janitor": {
+    "npm:html-janitor:20180123-1": "<=2.0.4"
+  },
+  "html-parse-stringify": {
+    "SNYK-JS-ANSIREGEX-1583908": "<2.0.1"
+  },
+  "html-parse-stringify2": {
+    "GHSA-545q-3fg6-48m7": "<=2.0.1"
+  },
+  "html-pdf-chrome": {
+    "GHSA-5p98-wpc9-g498": ">=0"
+  },
+  "html-purify": {
+    "GHSA-5p28-63mc-cgr9": "<=1.1.0"
+  },
+  "htmr": {
+    "GHSA-f8rq-m28h-8hxj": "<0.8.7"
+  },
+  "http-auth": {
+    "SNYK-JS-HTTPAUTH-471683": "<3.2.4"
+  },
+  "http-errors": {},
+  "http-proxy": {
+    "SNYK-JS-HTTPPROXY-569139": "<1.18.1",
+    "www.npmjs.com/advisories/1486": "<1.18.1"
+  },
+  "http-proxy-agent": {
+    "npm:http-proxy-agent:20180406": "<2.1.0"
+  },
+  "http-proxy.js": {
+    "CVE-2017-16075": "<=0.0.2-security"
+  },
+  "http-server-node": {
+    "CVE-2021-23797": "<=1.0.2"
+  },
+  "http_static_simple": {
+    "CVE-2017-16134": "0.1.1"
+  },
+  "https-proxy-agent": {
+    "SNYK-JS-HTTPSPROXYAGENT-469131": "<2.2.3",
+    "npm:https-proxy-agent:20180402": "<2.2.0"
+  },
+  "https-signature": {
+    "npm:http-signature:20150122": "<1.0.0"
+  },
+  "hubot-scripts": {
+    "CVE-2013-7378": "<2.4.4"
+  },
+  "hulp": {
+    "GHSA-fqw7-8v6m-2f86": ">=0"
+  },
+  "hw-trnasport-u2f": {
+    "GHSA-4363-x42f-xph6": ">=0"
+  },
+  "i": {
+    "SNYK-JS-I-1726768": "<0.3.7"
+  },
+  "i18next": {
+    "SNYK-JS-I18NEXT-1065979": "<19.8.5",
+    "SNYK-JS-I18NEXT-575536": "<19.5.5"
+  },
+  "ibm_db": {
+    "SNYK-JS-IBMDB-459762": "<2.6.0"
+  },
+  "iconv-lite": {},
+  "ids-enterprise": {
+    "GHSA-hpfq-8wx8-cgqw": "<4.18.2"
+  },
+  "igniteui": {
+    "GHSA-2r5h-gh4x-8hp9": "<=0.0.5"
+  },
+  "iie-viz": {
+    "GHSA-jf55-rgpx-p6rx": "1.0.4"
+  },
+  "impala": {
+    "GHSA-92px-q4w8-hrr5": "1.1.7"
+  },
+  "import-mysql": {
+    "GHSA-whjr-jj69-7prm": ">=0"
+  },
+  "imurmurhash": {},
+  "inflight": {},
+  "infraserver": {
+    "CVE-2017-16142": "0.0.1"
+  },
+  "inherits": {},
+  "iniparserjs": {
+    "CVE-2021-23328": ">=0"
+  },
+  "install-g-test": {
+    "CVE-2016-10630": "<2.0.12"
+  },
+  "intsol-package": {
+    "CVE-2017-16178": "1.0.0"
+  },
+  "ioredis": {
+    "SNYK-JS-IOREDIS-1567196": " <4.27.8"
+  },
+  "ip": {
+    "npm:ip:20170304": "<1.1.5"
+  },
+  "ipfs-bitswap": {
+    "GHSA-6fcr-9h9g-23fq": "<0.24.1"
+  },
+  "ipns": {
+    "GHSA-j59f-6m4q-62h6": "<0.1.3"
+  },
+  "ircdkit": {
+    "GHSA-f7r3-p866-q9qr": "<=1.0.3"
+  },
+  "is-accessor-descriptor": {},
+  "is-buffer": {},
+  "is-data-descriptor": {},
+  "is-descriptor": {},
+  "is-extendable": {},
+  "is-extglob": {},
+  "is-fullwidth-code-point": {},
+  "is-glob": {},
+  "is-my-json-valid": {
+    "npm:is-my-json-valid:20180214": "<1.4.1 || >=2.0.0 <2.17.2"
+  },
+  "is-number": {},
+  "is-plain-object": {},
+  "is-stream": {},
+  "is-url": {
+    "npm:is-url:20180319": "<1.2.4"
+  },
+  "isarray": {},
+  "isobject": {},
+  "isolated-vm": {
+    "GHSA-mmhj-4w6j-76h7": "<4.0.0"
+  },
+  "istanbul-lib-coverage": {},
+  "istanbul-reports": {
+    "SNYK-JS-ISTANBULREPORTS-2328088": "<3.1.3"
+  },
+  "iter-server": {
+    "CVE-2017-16183": "1.0.0"
+  },
+  "j3-sha3": {
+    "GHSA-p3jx-g34v-q56j": ">=0"
+  },
+  "jajajejejiji": {
+    "GHSA-rggq-f2wf-m6cp": ">=0"
+  },
+  "jansenstuffpleasework": {
+    "CVE-2017-16176": " <0.3.1"
+  },
+  "jasmin": {
+    "GHSA-9cq4-mhmr-84gm": "0.0.3"
+  },
+  "jasmine-core": {
+    "npm:jasmine-core:20180216": "<3.1.0"
+  },
+  "jc-sha3": {
+    "GHSA-gfj6-p24g-6hpm": ">=0"
+  },
+  "jekyll-for-github-projects": {
+    "GHSA-j5qg-46p9-w2rp": "0.2.12"
+  },
+  "jikes": {
+    "CVE-2017-16139": "0.0.1"
+  },
+  "jingo": {
+    "GHSA-mpjf-8cmf-p789": "<1.9.2"
+  },
+  "jose": {
+    "GHSA-58f5-hfqc-jgch": ">=1.0.0 <1.28.1 || >=2.0.0 <2.0.5 || >=3.0.0 <3.11.4"
+  },
+  "jose-browser-runtime": {
+    "GHSA-94hh-pjjg-rwmr": "<3.11.4"
+  },
+  "jose-node-cjs-runtime": {
+    "GHSA-rvcw-f68w-8h8h": "<3.11.4"
+  },
+  "jose-node-esm-runtime": {
+    "GHSA-4v4g-726h-xvfv": "<3.11.4"
+  },
+  "jq-sha3": {
+    "GHSA-x8m7-cv39-xmg9": ">=0"
+  },
+  "jqeury": {
+    "GHSA-4964-cjrr-jg97": ">=0"
+  },
+  "jquery": {
+    "CVE-2011-4969": "<1.6.3",
+    "CVE-2012-6708": ">=1.7.1 <1.9.0",
+    "CVE-2014-6071": "1.4.2",
+    "CVE-2017-16011": ">=1.7.1 <1.9.0",
+    "CVE-2017-16012": "<3.0.0",
+    "CVE-2019-5428": "<3.4.0",
+    "GHSA-gxr4-xjj5-5px2": ">=1.2 <3.5.0",
+    "GHSA-jpcq-cgw6-v4j6": ">=1.0.3 <3.5.0"
+  },
+  "jquery-airload": {
+    "GHSA-78p3-96hc-3j47": "0.2.5"
+  },
+  "jquery-mobile": {
+    "GHSA-fj93-7wm4-8x2g": ">=0"
+  },
+  "jquery-ujs": {
+    "CVE-2015-1840": "<=1.0.3"
+  },
+  "jquery.js": {
+    "CVE-2017-16045": "<=0.0.2-security"
+  },
+  "jquery.json-viewer": {
+    "GHSA-v9wp-8r97-v6xg": "<1.3.0"
+  },
+  "jquerz": {
+    "GHSA-c6f3-3c98-2j2f": ">=0"
+  },
+  "jquey": {
+    "CVE-2017-16204": "1.0.1"
+  },
+  "jr-sha3": {
+    "GHSA-67mp-pcv9-vvq6": ">=0"
+  },
+  "js-3ha3": {
+    "GHSA-52c9-458g-whrf": ">=0"
+  },
+  "js-base64-int": {
+    "GHSA-76qf-6mvw-c5hm": ">=0"
+  },
+  "js-cha3": {
+    "GHSA-7xf9-74cp-8hx3": ">=0"
+  },
+  "js-data": {
+    "CVE-2020-28442": ">=0"
+  },
+  "js-given": {
+    "CVE-2016-10638": "<=0.1.8"
+  },
+  "js-qha3": {
+    "GHSA-vf5m-q45w-8mh9": ">=0"
+  },
+  "js-regular": {
+    "GHSA-qcc9-q247-3m2m": ">=0"
+  },
+  "js-rha3": {
+    "GHSA-95cg-3r4g-7w6j": ">=0"
+  },
+  "js-sha7": {
+    "GHSA-hvgc-mggg-pxr2": ">=0"
+  },
+  "js-shas": {
+    "GHSA-5wq6-v5cw-jvfr": ">=0"
+  },
+  "js-shc3": {
+    "GHSA-69mf-2cw2-38m8": ">=0"
+  },
+  "js-she3": {
+    "GHSA-f8jj-45fj-44r6": ">=0"
+  },
+  "js-shi3": {
+    "GHSA-g37j-v5gh-g25c": ">=0"
+  },
+  "js-shq3": {
+    "GHSA-766v-7gjx-55hf": ">=0"
+  },
+  "js-sia3": {
+    "GHSA-3mhm-jvqj-fvhg": ">=0"
+  },
+  "js-sja3": {
+    "GHSA-6343-m2qr-66gf": ">=0"
+  },
+  "js-sla3": {
+    "GHSA-h6m3-cx24-9626": ">=0"
+  },
+  "js-stellar-sdk": {
+    "GHSA-6cgh-hjpw-q3gq": "<8.2.3"
+  },
+  "js-sxa3": {
+    "/GHSA-jh67-3wqw-cvhr": ">=0"
+  },
+  "js-tokens": {},
+  "js-wha3": {
+    "GHSA-785g-gx74-gr39": ">=0"
+  },
+  "js-yaml": {
+    "CVE-2013-4660": "<2.0.5",
+    "SNYK-JS-JSYAML-173999": ">=3.0.0 <3.13.0",
+    "SNYK-JS-JSYAML-174129": "<3.13.1",
+    "npmjs.com/advisories/813": "<3.13.1"
+  },
+  "jsen": {
+    "CVE-2020-7777": ">=0"
+  },
+  "jsesc": {},
+  "jsmsha3": {
+    "GHSA-657v-jjf8-83gh": ">=0"
+  },
+  "json-logic-js": {
+    "GHSA-m9hw-7xfv-wqg7": ">=0"
+  },
+  "json-parse-better-errors": {},
+  "json-schema": {
+    "SNYK-JS-JSONSCHEMA-1920922": "<0.4.0"
+  },
+  "json-schema-traverse": {},
+  "json-serializer": {
+    "GHSA-chh2-rvhg-wqwr": "2.0.10"
+  },
+  "jsonpointer": {
+    "SNYK-JS-JSONPOINTER-1577288": "<5.0.0"
+  },
+  "jsrsasign": {
+    "SNYK-JS-JSRSASIGN-561755": "<8.0.13"
+  },
+  "jstestdriver": {
+    "CVE-2016-10643": "1.0.0"
+  },
+  "jsuites": {
+    "GHSA-qh7x-j4v8-qw5w": "<4.9.11"
+  },
+  "juffer-xor": {
+    "GHSA-gqq4-937c-2282": ">=0"
+  },
+  "jw-sha3": {
+    "GHSA-8g3r-968r-c644": ">=0"
+  },
+  "jws": {
+    "npm:jws:20160726": "<3.0.0"
+  },
+  "jwt-simple": {
+    "CVE-2016-10555": "<0.3.0",
+    "SNYK-JS-JWTSIMPLE-174523": "<0.5.3"
+  },
+  "k0a_multer": {
+    "GHSA-v95x-h953-x7fg": ">=0"
+  },
+  "karma": {
+    "SNYK-JS-KARMA-2395349": "<6.3.14"
+  },
+  "keycloak-auth-utils": {
+    "CVE-2017-7474": "=3.0.0 || >=2.5.0 <=2.5.7"
+  },
+  "keycloak-connect": {
+    "CVE-2018-14655": "=3.4.3 || =4.0.0.beta2 || =4.3.0"
+  },
+  "keycloak-js": {
+    "GHSA-mw35-24gh-f82w": ">=2.5 <3.1.0"
+  },
+  "keypair": {
+    "GHSA-3f99-hvg4-qjwj": "<1.0.4"
+  },
+  "kill-process-on-port": {
+    "CVE-2020-28426": ">=0"
+  },
+  "kind-of": {
+    "CVE-2019-20149": ">=6.0.0 <6.0.3"
+  },
+  "kindeditor": {
+    "GHSA-3ww4-cp53-6g2x": "<=4.1.12"
+  },
+  "knockout": {
+    "GHSA-vcjj-xf2r-mwvc": "<3.5.0"
+  },
+  "koa-body-parse": {
+    "GHSA-wqgq-mfvj-6qxp": ">=0"
+  },
+  "koa-shopify-auth": {
+    "GHSA-jqh7-w5pr-cr56": ">=3.1.61 <=3.1.62"
+  },
+  "kraken-api": {
+    "GHSA-fgfj-rj24-mj7q": "0.1.8"
+  },
+  "ks-sha3": {
+    "GHSA-563h-49v8-g7x4": ">=0"
+  },
+  "lactate": {
+    "npm:lactate:20180123": "<=0.13.12"
+  },
+  "ladder-text-js": {
+    "GHSA-33gc-f8v9-v8hm": ">=0"
+  },
+  "larvitbase-www": {
+    "GHSA-88h9-fc6v-jcw7": ">=0"
+  },
+  "launchpad": {
+    "GHSA-7h8x-wmq2-7mff": "<=0.7.5"
+  },
+  "ldapauth": {
+    "npm:ldapauth:20150918": "<=2.2.4"
+  },
+  "ldapauth-fork": {
+    "CVE-2015-7294": "<2.3.3"
+  },
+  "leaflet-gpx": {
+    "GHSA-gjc9-932x-c59p": "1.0.1"
+  },
+  "leetlog": {
+    "GHSA-gfm8-g3vm-53jh": ">=0.1.2"
+  },
+  "lemonldap-ng-handler": {
+    "GHSA-x44x-r84w-8v67": "<=0.5.2"
+  },
+  "less-openui5": {
+    "GHSA-3crj-w4f5-gwh4": "<0.10.0"
+  },
+  "libp2p-secio": {
+    "npm:libp2p-secio:20180115": "<0.9.0"
+  },
+  "libubx": {
+    "GHSA-m7xv-7p93-g6q8": "1.0.3"
+  },
+  "libxl": {
+    "CVE-2016-10585": "<=0.3.0"
+  },
+  "lighter-vm": {
+    "GHSA-c3hq-7mxh-mqxf": ">=0"
+  },
+  "lightning-server": {
+    "CVE-2020-7747": ">=0"
+  },
+  "limbus-buildgen": {
+    "npm:limbus-buildgen:20161202": "<0.1.1"
+  },
+  "limdu": {
+    "GHSA-77qv-gh6f-pgh4": "<0.95"
+  },
+  "lix": {
+    "GHSA-q8xg-8xwf-m598": "<=15.11.4"
+  },
+  "load-from-cwd-or-npm": {
+    "GHSA-jxf5-7x3j-8j9m": "=3.0.2"
+  },
+  "loader-utils": {},
+  "loadyaml": {
+    "GHSA-mfc2-93pr-jf92": "<=1.0.2"
+  },
+  "local-devices": {
+    "GHSA-w725-67p7-xv22": "<3.0.0"
+  },
+  "localeval": {
+    "GHSA-mmqv-m45h-q2hp": ">=0.0.0 <15.3.0"
+  },
+  "locate-path": {},
+  "locutus": {
+    "SNYK-JS-LOCUTUS-1009836": "<2.0.15"
+  },
+  "lodash": {
+    "SNYK-JS-LODASH-567746": "<4.17.16",
+    "SNYK-JS-LODASH-590103": "<4.17.20",
+    "SNYK-JS-LODASH-608086": "<4.17.17",
+    "SNYK-JS-LODASH-73639": "<4.17.11"
+  },
+  "lodash-amd": {
+    "GHSA-jf85-cpcp-j695": "<4.17.13"
+  },
+  "lodash-es": {
+    "GHSA-jf85-cpcp-j695": "<4.17.14"
+  },
+  "lodash.defaultsdeep": {
+    "GHSA-h5mp-5q4p-ggf5": "<4.6.1"
+  },
+  "lodash.merge": {
+    "SNYK-JS-LODASHMERGE-173732": "<4.6.2",
+    "SNYK-JS-LODASHMERGE-173733": "<4.6.2"
+  },
+  "lodash.mergewith": {
+    "GHSA-779f-wgxg-qr8f": "<4.6.2"
+  },
+  "lodash.set": {
+    "SNYK-JS-LODASHSET-1320032": "<=4.3.2"
+  },
+  "lodash.template": {
+    "SNYK-JS-LODASHTEMPLATE-1088054": "<=4.5.0"
+  },
+  "log-symboles": {
+    "GHSA-h232-fpqx-mqgr": ">=0"
+  },
+  "logsymbles": {
+    "GHSA-vcg5-9xw6-r56c": ">=0"
+  },
+  "loopback": {
+    "GHSA-724c-6vrf-99rq": "<=2.41.0 || >=3.0.0 <=3.25.0"
+  },
+  "loopback-connector-mongodb": {
+    "GHSA-m734-r4g6-34f9": "<3.6.0"
+  },
+  "looppake": {
+    "CVE-2017-16169": "3.0.0"
+  },
+  "lru-cache": {},
+  "ltt.js": {
+    "GHSA-6qh5-wx38-q92g": "1.0.0"
+  },
+  "luna-mock": {
+    "GHSA-qm4q-f956-fg64": ">=0"
+  },
+  "lutils": {
+    "CVE-2021-23396": ">=0"
+  },
+  "lutils-merge": {
+    "GHSA-f7qw-5pvg-mmwp": "<=0.2.6"
+  },
+  "m-backdoor": {
+    "GHSA-vv52-3mrp-455m": ">=0"
+  },
+  "macaca-chromedriver-zxa": {
+    "CVE-2016-10623": "<1.0.29"
+  },
+  "macfromip": {
+    "CVE-2020-7786": ">=0"
+  },
+  "make-dir": {},
+  "maleficent": {
+    "GHSA-cr5w-6rv4-r2qg": ">=0"
+  },
+  "malicious-do-not-install": {
+    "GHSA-6879-xr95-5gf4": ">=0"
+  },
+  "malicious-npm-package": {
+    "GHSA-6879-xr95-5gf4": ">=0"
+  },
+  "mapbox.js": {
+    "CVE-2017-1000042": "=1.6.4 || >=1.0.0 <=1.0.4 || >=1.1.0 <=1.3.1 || >=1.4.0 <=1.4.2 || >=1.5.0 <=1.5.2 || >=1.6.0 <=1.6.2 || >=2.0.0 <=2.0.1 || >=2.1.0 <=2.1.6"
+  },
+  "markdown": {
+    "GHSA-wx77-rp39-c6vg": ">=0"
+  },
+  "markdown-it": {
+    "GHSA-6vfc-qv3f-vr6c": "<=12.3.1"
+  },
+  "markdown-it-katex": {
+    "GHSA-5ff8-jcf9-fw62": ">=0"
+  },
+  "markdown-it-toc-and-anchor": {
+    "GHSA-x6m6-5hrf-fh6r": "<4.2.0"
+  },
+  "markdown-to-jsx": {
+    "SNYK-JS-MARKDOWNTOJSX-570059": "<6.11.4"
+  },
+  "marked": {
+    "GHSA-4r62-v4vq-hr96": ">=1.1.1 <2.0.0",
+    "SNYK-JS-MARKED-174116": ">=0.1.3 <0.6.2",
+    "npm:marked:20170815": "<0.3.9",
+    "npm:marked:20180225": "<0.3.18"
+  },
+  "marky-markdown": {
+    "GHSA-pxmp-fwjc-4x7q": ">=0"
+  },
+  "marsdb": {
+    "GHSA-5mrr-rgp6-x4gr": ">=0"
+  },
+  "massif": {
+    "CVE-2016-10682": "0.0.1-1"
+  },
+  "matrix-appservice-bridge": {
+    "GHSA-35g4-qx3c-vjhx": "<2.6.1"
+  },
+  "matrix-react-sdk": {
+    "GHSA-52mq-6jcv-j79x": "<3.15.0",
+    "GHSA-8796-gc9j-63rv": "<3.21.0"
+  },
+  "mavon-editor": {
+    "GHSA-jfcc-rm7f-xgf8": "<2.8.2"
+  },
+  "maybemaliciouspackage": {
+    "GHSA-m9r7-q9fc-qwx5": ">=0"
+  },
+  "md-data-table": {
+    "GHSA-hgr5-82rc-p936": ">=0"
+  },
+  "mem": {
+    "npm:mem:20180117": "<4.0.0"
+  },
+  "merge-deep2": {
+    "CVE-2021-23700": "<=3.0.6"
+  },
+  "merge-objects": {
+    "GHSA-992f-wf4w-x36v": ">=0"
+  },
+  "mergify": {
+    "GHSA-3f95-w5h5-fq86": ">=0"
+  },
+  "meta-git": {
+    "GHSA-qcff-ffx3-m25c": ">=0"
+  },
+  "mfrs": {
+    "CVE-2017-16193": "1.0.0"
+  },
+  "micromatch": {},
+  "midway-dataproxy": {
+    "GHSA-mq9h-cwc2-6j5r": ">=0"
+  },
+  "midway-xtpl": {
+    "GHSA-w65v-hx54-xrqx": ">=0"
+  },
+  "millisecond": {
+    "GHSA-m489-xr35-fjxr": "<0.1.2"
+  },
+  "mime-types": {},
+  "min-dash": {
+    "GHSA-2m53-83f3-562j": "<3.8.1"
+  },
+  "minimalistic-assert": {},
+  "minipass": {},
+  "mirador": {
+    "GHSA-hgwm-pv9h-q5m7": "<=2.7.2"
+  },
+  "misskey-reversi": {
+    "GHSA-mqv7-gxh4-r5vf": "<12.90.0",
+    "GHSA-pmmv-jwqh-f5ww": "<12.51.0"
+  },
+  "mithril": {
+    "GHSA-c3px-v9c7-m734": "<1.1.7 || >=2.0.0 <2.0.2"
+  },
+  "mixme": {
+    "GHSA-79jw-6wg7-r9g4": "<0.5.1"
+  },
+  "mkdirp": {},
+  "mobile-icon-resizer": {
+    "npm:mobile-icon-resizer:20160408": "<0.4.3"
+  },
+  "mocha": {
+    "SNYK-JS-MOCHA-561476": "<6.0.0"
+  },
+  "modlibrary": {
+    "GHSA-94m7-w873-6wwf": "0.1.1"
+  },
+  "mogobd": {
+    "GHSA-jchg-g94r-64qg": ">=0"
+  },
+  "mogodb": {
+    "GHSA-w3pp-wp5v-fjvp": ">=0"
+  },
+  "mogodb-core": {
+    "GHSA-g4m3-rpxr-h7vg": ">=0"
+  },
+  "mogoose": {
+    "GHSA-5mm9-55c9-p5r7": ">=0"
+  },
+  "momen": {
+    "GHSA-h5vm-jhq7-w647": ">=0"
+  },
+  "mongo-express": {
+    "CVE-2021-23372": ">=0",
+    "GHSA-7p8h-86p5-wv3p": "<=0.54.0 || =1.0.0"
+  },
+  "mongodb": {
+    "GHSA-mh5c-679w-hh4r": "<3.1.13"
+  },
+  "mongodb-client-encryption": {
+    "GHSA-rjmf-p882-645m": "1.2.0"
+  },
+  "mongodb-query-parser": {
+    "GHSA-97mg-3cr6-3x4c": "<2.0.0"
+  },
+  "mongoose": {
+    "snyk.io/vuln/npm:mongoose:20150925": ">=4.0.0 <4.1.10"
+  },
+  "mongose": {
+    "CVE-2017-16077": "<=0.0.2-security"
+  },
+  "mootools": {
+    "CVE-2021-23432": ">=0"
+  },
+  "motiv.scss": {
+    "GHSA-2vqq-jgxx-fxjc": "0.4.20"
+  },
+  "mout": {
+    "CVE-2020-7792": ">=0"
+  },
+  "mqtt": {
+    "npm:mqtt:20160817": "<1.0.0"
+  },
+  "mrk.js": {
+    "GHSA-hpr5-wp7c-hh5q": "<2.0.1"
+  },
+  "ms": {
+    "npm:ms:20170412": ">=0.7.1 <2.0.0"
+  },
+  "msgpack5": {
+    "GHSA-gmjw-49p4-pcfm": "<3.6.1 || >=4.0.0 <4.5.1 || >=5.0.0 <5.2.1"
+  },
+  "msrcrypto": {
+    "GHSA-9x9j-836w-8f55": "<1.5.8"
+  },
+  "mssql-node": {
+    "CVE-2017-16059": "<=0.0.2-security"
+  },
+  "mssql.js": {
+    "CVE-2017-16056": "<=0.0.2-security"
+  },
+  "mversion": {
+    "GHSA-qjg4-w4c6-f6c6": "<2.0.0"
+  },
+  "mx-nested-menu": {
+    "GHSA-48hw-37g6-3gw4": "0.1.30"
+  },
+  "my-very-own-package": {
+    "GHSA-crr2-ph72-c52g": ">=0"
+  },
+  "myserver.alexcthomas18": {
+    "CVE-2017-16144": "0.0.1"
+  },
+  "mysql": {
+    "CVE-2015-9244": ">=2.0.0-alpha <2.0.0-alpha8",
+    "npm:mysql:20140514": ">=2.0.0 <2.3.0",
+    "npm:mysql:20170317": "<2.14.0"
+  },
+  "mysql-koa": {
+    "GHSA-x45v-pvpg-hcrh": ">=0"
+  },
+  "mysql2": {
+    "SNYK-JS-MYSQL2-536208": "<1.0.0-rc.1"
+  },
+  "mysqljs": {
+    "CVE-2017-16047": "<=0.0.2-security"
+  },
+  "native-opencv": {
+    "CVE-2016-10658": "3.0.0"
+  },
+  "nats.ws": {
+    "GHSA-82rf-q3pr-4f6p": ">=1.0.0-85 <=1.0.0-110"
+  },
+  "nbdime-jupyterlab": {
+    "GHSA-p6rw-44q7-3fw4": ">=1.0.0 <1.1.1 || >=2.0.0 <2.1.1"
+  },
+  "nedb": {
+    "GHSA-339j-hqgx-qrrx": "<=1.8.0"
+  },
+  "negotiator": {
+    "CVE-2016-10539": "<=0.6.0"
+  },
+  "netmask": {
+    "GHSA-pch5-whg9-qr2r": "<=1.0.6"
+  },
+  "next": {
+    "GHSA-9gr3-7897-pp7m": ">=10.0.0 <11.1.1",
+    "GHSA-fq77-7p7r-83rj": "<9.3.2",
+    "GHSA-vxf5-wxwp-m7g9": ">=10.0.5 <=10.2.0 || >=11.0.0 <=11.1.1",
+    "GHSA-x56p-c8cg-q435": ">=9.5.0 <9.5.4"
+  },
+  "next-auth": {
+    "GHSA-pg53-56cg-4m8q": "<3.3.0"
+  },
+  "nextcloud-vue-collections": {
+    "GHSA-whv6-rj84-2vh2": "<0.4.2"
+  },
+  "ng-ui-library": {
+    "GHSA-2xw5-3767-qxvm": "1.0.987"
+  },
+  "nginxbeautifier": {
+    "GHSA-28xx-8j99-m32j": "1.0.14"
+  },
+  "ngx-bootstrap": {
+    "SNYK-JS-NGXBOOTSTRAP-174319": "<=7.1.0"
+  },
+  "ngx-context-menu": {
+    "GHSA-xwg3-gjxh-c8pm": "0.0.26"
+  },
+  "ngx-md": {
+    "GHSA-xr53-m937-jr9c": "<6.0.3"
+  },
+  "ngx-pica": {
+    "GHSA-76wf-2xcf-6wmx": "1.1.5"
+  },
+  "njwt": {
+    "npm:njwt:20180614": "<1.0.0"
+  },
+  "nobelprizeparser": {
+    "GHSA-4wv4-mgfq-598v": "<1.0.2"
+  },
+  "node-air-sdk": {
+    "CVE-2016-10647": "<=0.3.0"
+  },
+  "node-buc": {
+    "GHSA-x3m6-rprw-862w": ">=0"
+  },
+  "node-degenerator": {
+    "GHSA-9j49-mfvp-vmhm": "<3.0.1"
+  },
+  "node-etsy-client": {
+    "GHSA-xw22-wv29-3299": "<=0.3.0"
+  },
+  "node-fabric": {
+    "CVE-2017-16052": "<=0.0.2-security"
+  },
+  "node-fetch": {
+    "GHSA-w7rc-rwvf-8q5r": "<2.6.1 || =3.0.0"
+  },
+  "node-ftp": {
+    "GHSA-5jgp-pg4f-q8vj": ">=0"
+  },
+  "node-git-server": {
+    "GHSA-cv3v-7846-6pxm": "<0.6.1"
+  },
+  "node-ipc": {
+    "GHSA-3mpp-xfvh-qh37": ">=11.0.0",
+    "GHSA-8gr3-2gjw-jj7g": "9.2.2"
+  },
+  "node-krb5": {
+    "pm:node-krb5:20160804": "<=0.0.6"
+  },
+  "node-oojs": {
+    "CVE-2020-7721": ">=0"
+  },
+  "node-opencv": {
+    "CVE-2017-16067": "<=0.0.2-security"
+  },
+  "node-opensl": {
+    "CVE-2017-16063": "<=0.0.2-security"
+  },
+  "node-openssl": {
+    "CVE-2017-16064": "0.0.2-security"
+  },
+  "node-os-utils": {
+    "GHSA-j9f8-8h89-j69x": "<1.1.0"
+  },
+  "node-ps": {
+    "CVE-2020-7785": ">=0"
+  },
+  "node-red": {
+    "GHSA-m33v-338h-4v9f": "<1.2.8",
+    "GHSA-xp9c-82x8-7f67": "<1.2.8"
+  },
+  "node-sass": {
+    "CVE-2018-11499": ">3.3.3 <3.6.0",
+    "CVE-2018-11694": "<3.6.0",
+    "CVE-2018-11697": "<3.6.0",
+    "CVE-2018-11698": "<3.6.0",
+    "CVE-2018-19797": "=3.5.5",
+    "CVE-2018-19827": "=3.5.5",
+    "CVE-2018-19839": "<3.5.5",
+    "CVE-2018-20190": "=3.5.5",
+    "CVE-2018-20821": "<=3.5.5",
+    "CVE-2018-20822": "=3.5.4",
+    "CVE-2019-18797": "=3.6.1",
+    "CVE-2019-18798": "<3.6.3",
+    "CVE-2019-18799": "<3.6.3",
+    "CVE-2019-6283": "<=6.0.1",
+    "CVE-2019-6284": "=3.5.5",
+    "CVE-2019-6286": "=3.5.5",
+    "SNYK-JS-NODESASS-540996": "<3.6.0",
+    "SNYK-JS-NODESASS-542662": ">=3.3.0 <4.13.1"
+  },
+  "node-serialize": {
+    "CVE-2017-5941": "<=0.0.4"
+  },
+  "node-spdy": {
+    "GHSA-wfjh-3hq2-r276": ">=0"
+  },
+  "node-sqlite": {
+    "CVE-2017-16048": "<=0.0.2-security"
+  },
+  "node-static": {
+    "GHSA-8r4g-cg4m-x23c": "<=0.7.11"
+  },
+  "node-tkinter": {
+    "CVE-2017-16062": "<=0.0.2-security"
+  },
+  "node-weakauras-parser": {
+    "GHSA-86mr-6m89-vgj3": ">=1.0.4 <1.0.5 || >=2.0.0 <2.0.2 || >=3.0.0 <3.0.1"
+  },
+  "node-wifi": {
+    "GHSA-4x6x-782q-jfc4": "<2.0.12"
+  },
+  "node-windows": {
+    "CVE-2021-45459": "1.0.0 || <=0.1.14"
+  },
+  "nodebb": {
+    "CVE-2020-15149": "<0",
+    "GHSA-43m5-c88r-cjvv": "<0.7.0",
+    "GHSA-hr66-c8pg-5mg7": "<0"
+  },
+  "nodebb-plugin-blog-comments": {
+    "GHSA-43m5-c88r-cjvv": "<0.7.0"
+  },
+  "nodecaffe": {
+    "CVE-2017-16070": "<=0.0.2-security"
+  },
+  "nodee-utils": {
+    "CVE-2020-7722": ">=0"
+  },
+  "nodefabric": {
+    "CVE-2017-16054": "<=0.0.2-security"
+  },
+  "nodeffmpeg": {
+    "CVE-2017-16069": "<=0.0.2-security"
+  },
+  "nodeload-nmickuli": {
+    "npm:nodeload-nmickuli:20170418": "<=1.0.3"
+  },
+  "nodemailer-js": {
+    "CVE-2017-16071": "<=0.0.2-security"
+  },
+  "nodemailer.js": {
+    "CVE-2017-16072": "<=0.0.2-security"
+  },
+  "nodemssql": {
+    "CVE-2017-16057": "<=0.0.2-security"
+  },
+  "noderequest": {
+    "CVE-2017-16073": "<=0.0.2-security"
+  },
+  "nodes.js": {
+    "GHSA-38vq-cjh5-vw7x": ">=0"
+  },
+  "nodesass": {
+    "CVE-2017-16080": "<=0.0.2-security"
+  },
+  "nodesqlite": {
+    "CVE-2017-16049": "<=0.0.2-security"
+  },
+  "nodewebkit": {
+    "CVE-2016-10580": "<=0.11.2-1"
+  },
+  "nopt": {},
+  "normalize-package-data": {},
+  "normalize-path": {},
+  "normalize-url": {
+    "CVE-2021-33502": "=6.0.0 || >=4.3.0 <4.5.1 || >=5.0.0 <5.3.1"
+  },
+  "notevil": {
+    "GHSA-9gxr-rhx6-4jgv": "<1.3.3"
+  },
+  "nothing-js": {
+    "GHSA-353r-3v84-9pjj": ">=0"
+  },
+  "npm": {
+    "GHSA-4328-8hgf-7wjr": "<6.13.4",
+    "GHSA-93f3-23rq-pjfp": "<6.14.6",
+    "GHSA-x8qc-rrcw-4r46": "<6.13.3"
+  },
+  "npm-git-publish": {
+    "GHSA-49mg-94fc-2fx6": ">=0"
+  },
+  "npm-groovy-lint": {
+    "GHSA-qc22-qwm9-j8rx": "<9.1.0"
+  },
+  "npm-lockfile": {
+    "CVE-2022-0841": ">=2.0.3 <2.0.5"
+  },
+  "npm-package-arg": {},
+  "npm-registry-fetch": {
+    "SNYK-JS-NPMREGISTRYFETCH-575432": "<4.0.5 || >=5.0.0 <8.1.1"
+  },
+  "npm-script-demo": {
+    "CVE-2017-16128": "0.0.1"
+  },
+  "npm-test-sqlite3-trunk": {
+    "CVE-2016-10695": "<=4.0.1"
+  },
+  "npm-user-validate": {
+    "GHSA-xgh6-85xh-479p": "<1.0.1"
+  },
+  "npmconf": {
+    "GHSA-57cf-349j-352g": "<2.1.3"
+  },
+  "ns-sha3": {
+    "GHSA-j67m-jg9p-ppg4": ">=0"
+  },
+  "ntfserver": {
+    "npm:ntfserver:20170101": "<=0.0.6"
+  },
+  "nuance-gulp-build-common": {
+    "CVE-2020-28430": ">=0"
+  },
+  "number-is-nan": {},
+  "nunjucks": {
+    "SNYK-JS-NUNJUCKS-1079083": "<3.2.3"
+  },
+  "nw": {
+    "CVE-2016-10588": "<0.23.6-1"
+  },
+  "nwmatcher": {
+    "npm:nwmatcher:20180305": "<1.4.4"
+  },
+  "oauth-validator": {
+    "GHSA-cxcf-78mr-wpg7": "1.0.2"
+  },
+  "object-assign": {},
+  "object-keys": {},
+  "object-path": {
+    "GHSA-cwx2-736x-mf6w": "<0.11.5"
+  },
+  "object.pick": {},
+  "obsidian-dataview": {
+    "CVE-2021-42057": "<=0.4.11"
+  },
+  "office-converter": {
+    "GHSA-9p64-h5q4-phpm": ">=0"
+  },
+  "on-finished": {},
+  "once": {},
+  "only-test-not-install": {
+    "GHSA-g9wf-393q-4w38": ">=0"
+  },
+  "open": {
+    "SNYK-JS-OPEN-174041": "<6.0.0",
+    "npm:open:20180512": "<6.0.0"
+  },
+  "opencv.js": {
+    "CVE-2017-16066": "<=1.2.1"
+  },
+  "openframe-ascii-image": {
+    "CVE-2016-10690": "0.1.0"
+  },
+  "openframe-glslviewer": {
+    "CVE-2016-10607": "<=0.2.7"
+  },
+  "openframe-image": {
+    "CVE-2016-10616": "<=0.2.0"
+  },
+  "openssl.js": {
+    "CVE-2017-16065": "<=1.0.2"
+  },
+  "os-tmpdir": {},
+  "osenv": {},
+  "osm-static-maps": {
+    "CVE-2020-7749": ">=0"
+  },
+  "otpauth": {
+    "GHSA-rmmc-8cqj-hfp3": "<3.2.8"
+  },
+  "owl-orchard-apple-sunshine": {
+    "GHSA-h24p-2c3m-5qf4": ">=0"
+  },
+  "p-limit": {},
+  "p-locate": {},
+  "p-try": {},
+  "pandora-doomsday": {
+    "CVE-2017-16127": "0.0.1"
+  },
+  "papaparse": {
+    "GHSA-qvjc-g5vr-mfgr": "<5.2.0"
+  },
+  "parcel-bundler": {
+    "GHSA-37q6-576q-vgr7": "<1.10.0"
+  },
+  "parse": {
+    "GHSA-wvh7-5p38-2qfc": "<2.10.0"
+  },
+  "parse-link-header": {
+    "SNYK-JS-PARSELINKHEADER-1582783": "<2.0.0"
+  },
+  "parse-server": {
+    "GHSA-236h-rqv8-8q73": ">=3.5.0 <4.3.0",
+    "GHSA-23r4-5mxp-c7g5": "<4.5.1",
+    "GHSA-2xm2-xj2q-qgpj": "<=4.3.0",
+    "GHSA-4w46-w44m-3jq3": "<4.5.0",
+    "GHSA-7pr3-p5fm-8r9x": "<4.10.4",
+    "GHSA-h4mf-75hf-67w4": "<4.1.0",
+    "GHSA-xqp8-w826-hh6x": "<4.10.3"
+  },
+  "parsel": {
+    "GHSA-wqgx-4q47-j2w5": ">=0"
+  },
+  "parseurl": {},
+  "passport-cognito": {
+    "GHSA-v6c5-hwqg-3x5q": ">=0"
+  },
+  "passport-saml": {
+    "GHSA-5379-r78w-42h2": "<3.1.0"
+  },
+  "path-exists": {},
+  "path-is-absolute": {},
+  "path-key": {},
+  "path-to-regxep": {
+    "GHSA-f7gc-6hcj-wc42": ">=0"
+  },
+  "payload": {
+    "GHSA-w8xh-93qh-35vw": "<=0.15.0"
+  },
+  "pekeupload": {
+    "GHSA-89q5-mj78-pw5w": "<=2.1.1"
+  },
+  "pem": {
+    "GHSA-pgcr-7wm4-mcv6": "<1.13.2"
+  },
+  "pensi-scheduler": {
+    "GHSA-j4ch-mw66-xmqv": "1.1.3"
+  },
+  "personnummer": {
+    "GHSA-vpgc-7h78-gx8f": "<3.1.0"
+  },
+  "pg": {
+    "CVE-2017-16082": ">5.0.0 <5.2.1 || >=2.0.0 <2.11.2 || >=3.0.0 <3.6.4 || >=4.0.0 <4.5.7 || >=6.0.0 <6.4.2 || >=7.0.0 <7.1.2"
+  },
+  "phoenix": {
+    "CVE-2017-1000163": "=1.2.0 || =1.2.2 || =1.3.0-rc.0 || >=1.0.0 <=1.0.4 || >=1.1.0 <=1.1.6"
+  },
+  "phpjs": {
+    "GHSA-m428-jqc4-2p5j": "<=1.3.2"
+  },
+  "pi_video_recording": {
+    "GHSA-9wjh-jr2j-6r4x": ">=0"
+  },
+  "pify": {},
+  "pinkie-promise": {},
+  "pitboss-ng": {
+    "GHSA-3gpc-w23c-w59w": "<2.0.0"
+  },
+  "pivottable": {
+    "npm:pivottable:20160817": ">=1.4.0 <2.0.0"
+  },
+  "pizza-pasta": {
+    "GHSA-wxrm-2h86-v95f": ">=0"
+  },
+  "pk-app-wonderbox": {
+    "CVE-2016-10685": "1.0.0"
+  },
+  "pkg-dir": {},
+  "plotly.js": {
+    "CVE-2017-1000006": "1.15.0 || >=1.11.0 <=1.14.2"
+  },
+  "plotter": {
+    "GHSA-65xx-c85x-wg76": ">=0"
+  },
+  "pm-controls": {
+    "GHSA-84qj-9qf2-q92r": "1.1.8"
+  },
+  "pm2-kafka": {
+    "CVE-2016-10693": "1.0.0"
+  },
+  "poco": {
+    "npm:poco:20170102": "0.0.1 || 1.5.4"
+  },
+  "polaris-website": {
+    "GHSA-whrh-9j4q-g7ph": "<1.1.1"
+  },
+  "ponse": {
+    "GHSA-wfhx-6pcm-7m55": "<2.0.2"
+  },
+  "popper.js": {
+    "CVE-2005-1870": "1.41_r2"
+  },
+  "portionfatty12": {
+    "GHSA-p8fm-w787-x6x3": ">=0"
+  },
+  "portprocesses": {
+    "GHSA-vm67-7vmg-66vm": "<1.0.5"
+  },
+  "post-loader": {
+    "GHSA-66ww-999q-mffq": ">=0"
+  },
+  "postcss-value-parser": {},
+  "pouchdb": {
+    "CVE-2016-10546": "<=6.0.4"
+  },
+  "preact": {
+    "GHSA-cg48-9hh2-x6mx": ">=10.0.0-alpha.0 <=10.0.0-beta.0"
+  },
+  "precode.js": {
+    "GHSA-5w4r-wwc3-6qcp": "1.1.1"
+  },
+  "priest-runner": {
+    "GHSA-9px9-f7jw-fwhj": ">=0"
+  },
+  "primefaces": {
+    "GHSA-fw5f-7c6c-3vmv": "<=7.0.11"
+  },
+  "primeng": {
+    "SNYK-JS-PRIMENG-537902": "<9.0.0-rc.3"
+  },
+  "prince": {
+    "CVE-2016-10591": ">=1.4.4 <1.4.6",
+    "npm:prince:20161201": "<1.4.5"
+  },
+  "printer": {
+    "CVE-2014-3741": "<=0.0.1"
+  },
+  "prismjs": {
+    "GHSA-gj77-59wh-66hg": "<1.24.0",
+    "GHSA-wvhm-4hhf-97x9": ">=1.1.0 <1.21.0"
+  },
+  "process-nextick-args": {},
+  "projen": {
+    "GHSA-gg2g-m5wc-vccq": ">=0.6.0 <0.16.41"
+  },
+  "promisehelpers": {
+    "CVE-2020-7723": ">=0"
+  },
+  "prompts": {
+    "SNYK-JS-PROMPTS-1729737": "<2.4.2"
+  },
+  "proto": {
+    "CVE-2021-23426": ">=0"
+  },
+  "proxy.js": {
+    "CVE-2017-16076": "<=0.0.2-security"
+  },
+  "pug": {
+    "GHSA-p493-635q-r6gr": "<3.0.1"
+  },
+  "pug-code-gen": {
+    "GHSA-p493-635q-r6gr": "<2.0.3 || >=3.0.0 <3.0.2"
+  },
+  "pullit": {
+    "GHSA-8px5-63x9-5c7p": "<1.4.0"
+  },
+  "pump": {},
+  "punycode": {},
+  "pupa": {
+    "SNYK-JS-PUPA-174563": "<2.0.0"
+  },
+  "puppeteer": {
+    "SNYK-JS-PUPPETEER-174321": "<1.13.0"
+  },
+  "put": {
+    "GHSA-v6gv-fg46-h89j": ">=0"
+  },
+  "pyramid-proportion": {
+    "GHSA-v6vv-hhqc-6hh2": "1.0.5"
+  },
+  "pytservce": {
+    "CVE-2017-16195": "1.0.0"
+  },
+  "q-io": {
+    "npm:q-io:20180212": "<1.13.5"
+  },
+  "qbs": {
+    "CVE-2016-10656": "<=1.4.3-1"
+  },
+  "qingting": {
+    "GHSA-559q-92vx-xvjp": ">=0"
+  },
+  "qinserve": {
+    "CVE-2017-16197": "1.0.0"
+  },
+  "qs": {
+    "CVE-2014-7191": "<=0.10.18"
+  },
+  "querystringify": {
+    "npm:querystringify:20180419": "<2.0.0"
+  },
+  "quickserver": {
+    "CVE-2017-16196": "1.1.0 || >=1.0.0 <=1.0.1"
+  },
+  "radic-util": {
+    "GHSA-8qh7-xw58-3ww7": "1.0.2"
+  },
+  "radicjs": {
+    "GHSA-56r9-v65c-34jm": "0.2.1"
+  },
+  "rails-session-decoder": {
+    "GHSA-44vf-8ffm-v2qh": ">=0"
+  },
+  "randombytes": {},
+  "range-parser": {},
+  "rate-map": {
+    "GHSA-x48m-gp6r-gp4v": "1.0.3"
+  },
+  "rc": {
+    "SNYK-JS-RC-1911120": ">1.2.8"
+  },
+  "rc-calendar-jhorst": {
+    "GHSA-4c87-gg2q-fc6m": "8.4.3"
+  },
+  "rceat": {
+    "GHSA-7w7c-867m-4mqc": ">=0"
+  },
+  "rdf-graph-array": {
+    "GHSA-prv2-xwr7-hr57": "<=0.3.0-rc6"
+  },
+  "react-adal": {
+    "CVE-2020-7787": ">=0"
+  },
+  "react-bootstrap-table": {
+    "CVE-2021-23398": ">=0"
+  },
+  "react-datepicker-plus": {
+    "GHSA-4wcx-c9c4-89p2": ">=2.4.2 <=2.4.3"
+  },
+  "react-dates-sc": {
+    "GHSA-5645-gc7h-98h8": "0.3.0"
+  },
+  "react-dev-utils": {
+    "CVE-2017-16028": "<11.0.4"
+  },
+  "react-dom": {
+    "npm:react-dom:20180802": ">=16.0.0 <16.0.1 || >=16.1.0 <16.1.2 || >=16.2.0 <16.2.1 || >=16.3.0 <16.3.3 || >=16.4.0 <16.4.2"
+  },
+  "react-marked-markdown": {
+    "GHSA-m7qm-r2r5-f77q": ">=0"
+  },
+  "react-native": {
+    "CVE-2020-1920": ">=0.59.0 <0.64.1"
+  },
+  "react-native-baidu-voice-synthesizer": {
+    "CVE-2016-10697": "1.0.0"
+  },
+  "react-native-meteor-oauth": {
+    "npm:react-native-meteor-oauth:20170414": "0.1.0"
+  },
+  "react-native-webview": {
+    "GHSA-36j3-xxf7-4pqg": "<=10.10.2"
+  },
+  "react-oauth-flow": {
+    "GHSA-65m9-m259-7jqw": ">=0"
+  },
+  "react-server-native": {
+    "GHSA-fwvp-x5gj-773j": "0.0.7"
+  },
+  "react-svg": {
+    "GHSA-8xqr-4cpm-wx7g": "<2.2.18"
+  },
+  "readable-stream": {},
+  "realms-shim": {
+    "GHSA-7cg8-pq9v-x98q": "<1.2.1"
+  },
+  "rebber": {
+    "GHSA-2c83-wfv3-q25f": "<5.2.1"
+  },
+  "record-like-deep-assign": {
+    "CVE-2021-23402": ">=0"
+  },
+  "redbird": {
+    "GHSA-8948-ffc6-jg52": "<=0.9.0"
+  },
+  "redis-commander": {
+    "npm:redis-commander:20180109": " <0.5.0"
+  },
+  "reduce-css-calc": {
+    "CVE-2016-10548": "<=1.2.4"
+  },
+  "reequest": {
+    "GHSA-rw4r-h883-8pf9": ">=0"
+  },
+  "regenraotr": {
+    "GHSA-5x7p-gm79-383m": ">=0"
+  },
+  "regenrator": {
+    "GHSA-m5p4-7wf9-6w99": ">=0"
+  },
+  "regex-not": {},
+  "reggae": {
+    "GHSA-q9wr-gcjc-hq52": ">=0"
+  },
+  "remark-html": {
+    "GHSA-9q5w-79cv-947m": "<13.0.2 || >=14.0.0 <14.0.1"
+  },
+  "rendr": {
+    "npm:rendr:20160311": "<1.1.4"
+  },
+  "renovate": {
+    "GHSA-36rh-ggpr-j3gj": ">=19.180.0 <23.25.1",
+    "GHSA-v7x3-7hw7-pcjg": "<19.38.7"
+  },
+  "repeat-element": {},
+  "repeat-string": {},
+  "reqest": {
+    "GHSA-hg5q-rj62-c43g": ">=0"
+  },
+  "reqquest": {
+    "GHSA-4jfq-q299-g4cr": ">=0"
+  },
+  "requeest": {
+    "GHSA-8vj3-jgcf-77jv": ">=0"
+  },
+  "reques": {
+    "GHSA-g8jc-mm3c-cwhj": ">=0"
+  },
+  "requesst": {
+    "GHSA-6c37-2rw5-9j7x": ">=0"
+  },
+  "request": {
+    "CVE-2017-16026": ">2.51.0 <=2.67.0 || >=2.2.6 <2.47.0",
+    "CVE-2018-18074": "<2.20.0",
+    "npmjs.com/advisories/309": ">2.2.5 <2.68.0"
+  },
+  "requestt": {
+    "GHSA-2563-83p7-f34p": ">=0"
+  },
+  "requet": {
+    "GHSA-h44f-769q-j6px": ">=0"
+  },
+  "requets": {
+    "GHSA-f3pc-c2gf-hvgw": ">=0"
+  },
+  "require-directory": {},
+  "require-main-filename": {},
+  "require-node": {
+    "GHSA-8j6j-4h2c-c65p": "<1.3.4 || >2.0.0 <2.0.4"
+  },
+  "require-port": {
+    "GHSA-rrvm-gqq8-q2wx": ">=0"
+  },
+  "require-ports": {
+    "GHSA-qj3g-wfr7-3cv7": ">=0"
+  },
+  "requset": {
+    "GHSA-w7wg-24g3-2c78": ">=0"
+  },
+  "requst": {
+    "GHSA-8qx4-r7fx-xc4v": ">=0"
+  },
+  "requuest": {
+    "GHSA-frxq-v7fm-m4pv": ">=0"
+  },
+  "resolve": {},
+  "resolve-from": {},
+  "resourcehacker": {
+    "CVE-2016-10646": "<=4.2.51"
+  },
+  "resquel": {
+    "GHSA-crpm-fm48-chj7": ">=0"
+  },
+  "restify-swagger-jsdoc": {
+    "GHSA-gvff-25cc-4f66": "<3.2.1"
+  },
+  "retcodelog": {
+    "GHSA-j8hw-49gg-vq3w": ">=0"
+  },
+  "reuest": {
+    "GHSA-r863-p739-275c": ">=0"
+  },
+  "rgb2hex": {
+    "GHSA-65p8-3hm4-h9h8": "<0.1.6"
+  },
+  "rimraf": {},
+  "rimrafall": {
+    "GHSA-8hq2-fcqm-39hq": ">=0"
+  },
+  "riped160": {
+    "GHSA-rwcq-qpm6-7867": ">=0"
+  },
+  "ripedm160": {
+    "GHSA-9272-59x2-gwf2": ">=0"
+  },
+  "ripmed160": {
+    "GHSA-gmjp-776j-2394": ">=0"
+  },
+  "river-mock": {
+    "GHSA-2h3x-95c6-885r": ">=0"
+  },
+  "roslib-socketio": {
+    "npm:roslib-socketio:20170102": "0.11.0"
+  },
+  "rpc-websocket": {
+    "GHSA-x87g-rgrh-r6g3": ">=0.7.7"
+  },
+  "rqeuest": {
+    "GHSA-pj97-j597-ppm7": ">=0"
+  },
+  "rrequest": {
+    "GHSA-wc7q-qpm4-8pqv": ">=0"
+  },
+  "rrgod": {
+    "GHSA-277p-xwpp-3jf7": ">=0"
+  },
+  "rsshub": {
+    "GHSA-pgjj-866w-fc5c": "<1.0.0-master.bda9d72"
+  },
+  "ruffer-xor": {
+    "GHSA-2mxc-m4c3-wqhq": ">=0"
+  },
+  "rxjs": {},
+  "s3asy": {
+    "GHSA-3wjm-33mw-h388": "0.4.8"
+  },
+  "safe-buffer": {},
+  "safe-eval": {
+    "CVE-2020-7710": "<=0.4.1"
+  },
+  "safe-object2": {
+    "CVE-2020-7726": ">=0"
+  },
+  "safer-buffer": {},
+  "safetydance": {
+    "CVE-2020-7737": ">=0"
+  },
+  "sahmat": {
+    "GHSA-83pq-466j-fc6j": ">=0"
+  },
+  "sailclothjs": {
+    "GHSA-m5pf-5894-jmx7": "1.2.6"
+  },
+  "sails-hook-sockets": {
+    "GHSA-f7f4-hqp2-7prc": "<1.5.5"
+  },
+  "sails-mysql": {
+    "GHSA-hx5x-49mm-vmhw": "<0.10.8"
+  },
+  "sailsjs-cacheman": {
+    "GHSA-5w65-6875-rhq8": "<=1.0.0"
+  },
+  "samsung-remote": {
+    "GHSA-xhjx-mfr6-9rr4": "<1.3.5"
+  },
+  "sandbox": {
+    "GHSA-gc25-3vc5-2jf9": ">=0"
+  },
+  "sapper": {
+    "GHSA-f3vw-587g-r29g": "<0.27.11"
+  },
+  "save-server": {
+    "GHSA-wwrj-35w6-77ff": "<1.0.5"
+  },
+  "sax": {},
+  "saync": {
+    "GHSA-pm9v-325f-5g74": ">=0"
+  },
+  "sb58": {
+    "GHSA-674r-xx4c-gj7x": ">=0"
+  },
+  "schema-inspector": {
+    "GHSA-f38p-c2gq-4pmr": "<2.0.0"
+  },
+  "schema-utils": {},
+  "scott-blanch-weather-app": {
+    "CVE-2017-16184": "1.0.0"
+  },
+  "scroool": {
+    "GHSA-p7w2-mc6m-mfx2": "0.1.7"
+  },
+  "scryptys": {
+    "GHSA-vrxj-4qhw-5vwq": ">=0"
+  },
+  "scrytsy": {
+    "GHSA-vv7g-pjw9-4qj9": ">=0"
+  },
+  "sdfjghlkfjdshlkjdhsfg": {
+    "GHSA-gcfc-mgg3-8j2c": ">=0"
+  },
+  "section2.madisonjbrooks12": {
+    "CVE-2017-16172": "0.1.1"
+  },
+  "secure-compare": {
+    "CVE-2015-9238": "<=3.0.0"
+  },
+  "secure_identity_login_module": {
+    "GHSA-59x8-7wx6-4hj9": ">=0"
+  },
+  "seeftl": {
+    "GHSA-4g46-5grc-wq49": "<=0.1.1"
+  },
+  "selenium-portal": {
+    "CVE-2016-10667": ">=0.0.0-alpha"
+  },
+  "selenium-standalone-painful": {
+    "CVE-2016-10667": "<=0.0.1-2"
+  },
+  "semantic-release": {
+    "GHSA-r2j6-p67h-q639": "<17.2.3"
+  },
+  "semantic-ui-search": {
+    "GHSA-p9vv-3945-x93h": ">=0"
+  },
+  "semver": {
+    "SNYK-JS-SEMVERREGEX-1047770": "<3.1.2"
+  },
+  "semver-regex": {
+    "SNYK-JS-SEMVERREGEX-1047770": "<3.1.2"
+  },
+  "sequelize-cli": {
+    "GHSA-3xc7-xg67-pw99": "<=5.4.0"
+  },
+  "serc.js": {
+    "CVE-2016-10678": "0.0.1"
+  },
+  "seria-number": {
+    "GHSA-53xj-v576-3ch2": "<=0.0.8"
+  },
+  "serialize-javascript": {
+    "GHSA-h9rv-jmmf-4pgx": "<2.1.1"
+  },
+  "serialize-to-js": {
+    "GHSA-3fjq-93xj-3f3f": "<3.0.1"
+  },
+  "serializes": {
+    "GHSA-j899-348x-h3rq": ">=0"
+  },
+  "serilize": {
+    "GHSA-fw76-p9p2-6pvf": ">=0"
+  },
+  "serve-here": {
+    "npm:serve-here:20171225": "<=3.2.0"
+  },
+  "serve46": {
+    "CVE-2017-16148": "1.0.0"
+  },
+  "serverabc": {
+    "CVE-2017-16180": "1.0.0"
+  },
+  "serverless-offline": {
+    "SNYK-JS-SERVERLESSOFFLINE-1540299": "<=8.2.0"
+  },
+  "serverxxx": {
+    "CVE-2017-16182": "1.0.0"
+  },
+  "serverzyy": {
+    "CVE-2017-16135": "1.0.0"
+  },
+  "ses": {
+    "GHSA-6jg8-7333-554w": "<0.6.3"
+  },
+  "set-blocking": {},
+  "sey": {
+    "CVE-2021-23663": "<=0.3.0"
+  },
+  "shadowsock": {
+    "CVE-2017-16078": "<=0.0.2-security"
+  },
+  "shave": {
+    "GHSA-gh4g-3gm9-5wrq": "<2.5.3"
+  },
+  "sheetjs": {
+    "CVE-2021-32013": "<=0.16.9"
+  },
+  "shelljs": {
+    "SNYK-JS-SHELLJS-2332187": "<0.8.5"
+  },
+  "shescape": {
+    "GHSA-f2rp-38vg-j3gh": "<1.1.3"
+  },
+  "shit-server": {
+    "CVE-2017-16147": "1.0.0"
+  },
+  "showdown": {
+    "GHSA-h6mq-3cj6-h738": "<1.9.1"
+  },
+  "shrugging-logging": {
+    "GHSA-qv78-398w-cxp7": ">=0"
+  },
+  "siganle": {
+    "GHSA-p5p2-rhc3-wmf3": ">=0"
+  },
+  "signal-exit": {},
+  "signqle": {
+    "GHSA-m794-qv59-gj7c": ">=0"
+  },
+  "simple-alipay": {
+    "GHSA-3wh2-2pp3-2823": "1.0.1"
+  },
+  "simple-crypto-js": {
+    "GHSA-5v7r-jg9r-vq44": "<2.3.0"
+  },
+  "simple-plist": {
+    "GHSA-gff7-g5r8-mg8m": "<=1.3.0"
+  },
+  "simple-server": {
+    "GHSA-rch9-xh7r-mqgw": "<1.1.0"
+  },
+  "simplehttpserver": {
+    "CVE-2018-3716": "<=0.3.0"
+  },
+  "simplemde": {
+    "GHSA-wg85-p6j7-gp3w": "<=1.11.2"
+  },
+  "singale": {
+    "GHSA-crfh-jmv2-2f9v": ">=0"
+  },
+  "sj-labc": {
+    "GHSA-4fqg-89cc-5pv5": ">=0"
+  },
+  "sj-tw-abc": {
+    "GHSA-4hfc-fv33-ph9p": ">=0"
+  },
+  "sj-tw-sec": {
+    "GHSA-692h-g37c-qv44": ">=0"
+  },
+  "sj-tw-test-security": {
+    "GHSA-rcv7-4w2m-gj9v": ">=0"
+  },
+  "slash": {},
+  "slimerjs-edge": {
+    "CVE-2016-10644": "<=0.10.0-pre-3"
+  },
+  "slp-validate": {
+    "GHSA-4w97-57v2-3w44": "<1.2.1",
+    "GHSA-6jmr-jfh7-xg3h": "<1.2.2",
+    "GHSA-wmx6-vxcf-c3gr": "=1.0.0"
+  },
+  "slpjs": {
+    "GHSA-425c-ccf3-3jrr": "<0.21.4",
+    "GHSA-cc2p-4jhr-xhhx": "<0.27.4",
+    "GHSA-jc83-cpf9-q7c6": "<0.27.2"
+  },
+  "slush-fullstack-framework": {
+    "GHSA-4j54-mmmv-hjpm": "0.9.2"
+  },
+  "sly07": {
+    "CVE-2017-16189": "0.1.2"
+  },
+  "smart-extend": {
+    "GHSA-f8h3-rqrm-47v9": ">=0"
+  },
+  "smartbanner.js": {
+    "GHSA-9mrq-cjgh-32g2": "<1.14.1"
+  },
+  "smartsearchwp": {
+    "GHSA-fgp6-8g62-qx6w": ">=0"
+  },
+  "smartstore": {
+    "GHSA-8g9m-jx26-qp4h": ">=4.0.0 <=4.0.1"
+  },
+  "smb": {
+    "CVE-2017-16079": "<=0.0.2-security"
+  },
+  "snapdragon": {},
+  "snapdragon-node": {},
+  "snekserve": {
+    "GHSA-hv4w-jhcj-6wfw": ">=0"
+  },
+  "socket.io-file": {
+    "GHSA-6495-8jvh-f28x": "<=2.0.31",
+    "GHSA-9h4g-27m8-qjrg": "<=2.0.31"
+  },
+  "socket.io-parser": {
+    "CVE-2021-32013": "<3.4.1"
+  },
+  "soket.io": {
+    "CVE-2020-28481": "<2.4.0"
+  },
+  "soket.js": {
+    "GHSA-x6gq-467r-hwcc": ">=0"
+  },
+  "soletta-dev-app": {
+    "GHSA-8mgg-5x65-m4m4": ">=0"
+  },
+  "sonatype": {
+    "GHSA-w8fh-pvq2-x8c4": ">=0"
+  },
+  "source-map": {},
+  "source-map-support": {},
+  "sparkies": {
+    "GHSA-c4fm-46gm-4469": ">=0"
+  },
+  "spdx-expression-parse": {},
+  "spdx-license-ids": {},
+  "split-string": {},
+  "spritesheet-js": {
+    "CVE-2020-7782": ">=0"
+  },
+  "sql": {
+    "GHSA-8f93-rv4p-x4jw": "<=0.78.0"
+  },
+  "sql-injection": {
+    "GHSA-hvxq-j2r4-4jm8": ">=0"
+  },
+  "sqlite.js": {
+    "CVE-2017-16050": "<=0.0.2-security"
+  },
+  "sqliter": {
+    "CVE-2017-16051": "<=0.0.2-security"
+  },
+  "squel": {
+    "GHSA-4qhx-g9wp-g9m6": "<=5.13.0"
+  },
+  "ssb-db": {
+    "GHSA-mpgr-2cx9-327h": "=20.0.0"
+  },
+  "ssh2": {
+    "GHSA-652h-xwhf-q4h6": "<1.4.0"
+  },
+  "sshpk": {
+    "CVE-2018-7651": "1.13.1"
+  },
+  "sspa": {
+    "CVE-2017-16145": "0.1.0"
+  },
+  "stacktable.js": {
+    "GHSA-r9j3-hgxr-75xg": "<1.0.4"
+  },
+  "standard-version": {
+    "GHSA-7xcx-6wjh-7xp2": "<8.0.1"
+  },
+  "starkbank-ecdsa": {
+    "GHSA-q9q6-f556-gpm7": "<1.1.3"
+  },
+  "startserver": {
+    "CVE-2021-23430": ">=0"
+  },
+  "status-board": {
+    "GHSA-8864-rhmw-5m6f": "<1.1.82"
+  },
+  "statuses": {},
+  "stellar-sdk": {
+    "GHSA-6cgh-hjpw-q3gq": "<8.2.3"
+  },
+  "strapi-plugin-content-manager": {
+    "GHSA-qvp5-mm7v-4f36": "<3.2.5"
+  },
+  "strapi-plugin-content-type-builder": {
+    "GHSA-4p55-xj37-fx7g": "<3.2.5"
+  },
+  "stream-combine": {
+    "GHSA-w6xj-45gv-fw35": "=2.0.2"
+  },
+  "strider-sauce": {
+    "CVE-2016-10611": "<=0.6.3"
+  },
+  "string-width": {},
+  "string_decoder": {},
+  "stringstream": {
+    "npm:stringstream:20180511": "<0.0.6"
+  },
+  "strip-ansi": {},
+  "strip-bom": {},
+  "striptags": {
+    "GHSA-qxg5-2qff-p49r": "<3.2.0"
+  },
+  "strong-nginx-controller": {
+    "GHSA-4v9w-pvwr-38h3": "<=1.0.2"
+  },
+  "subtext": {
+    "SNYK-JS-SUBTEXT-467257": "<=6.0.12",
+    "www.npmjs.com/advisories/1168": "<=6.0.12",
+    "www.npmjs.com/advisories/1478": ">=4.1.0",
+    "www.npmjs.com/advisories/1479": "<=6.0.12"
+  },
+  "superagent": {
+    "npm:superagent:20181108": "<3.8.1",
+    "npmjs.com/advisories/479": "<3.7.0"
+  },
+  "superhappyfuntime": {
+    "GHSA-6qgx-f452-7699": ">=0"
+  },
+  "superjson": {
+    "GHSA-5888-ffcr-r425": "<1.8.1"
+  },
+  "supermixer": {
+    "GHSA-7prf-vw4p-qr59": "<1.0.5"
+  },
+  "superstatic": {
+    "GHSA-wm77-q74p-5763": "<5.0.2"
+  },
+  "supports-color": {},
+  "susu-sum": {
+    "CVE-2017-16199": "1.0.0"
+  },
+  "swagger-injector": {
+    "GHSA-v4x8-gw49-7hv4": ">=0"
+  },
+  "swagger-ui-dist": {
+    "GHSA-qrmm-w75w-3wpx": "<4.1.3"
+  },
+  "syntax-error": {
+    "CVE-2014-7192": "<1.1.1"
+  },
+  "systeminformation": {
+    "GHSA-2m8v-572m-ff2v": "<5.3.1",
+    "GHSA-4v2w-h9jm-mqjg": "<4.30.5",
+    "GHSA-fj59-f6c3-3vw4": "<4.26.2",
+    "GHSA-jff2-qjw8-5476": "<5.6.4",
+    "GHSA-m57p-p67h-mq74": "<4.31.1"
+  },
+  "tableexport.jquery.plugin": {
+    "GHSA-j636-crp3-m584": "<1.25.0"
+  },
+  "taffy": {
+    "GHSA-mxhp-79qh-mcx6": "<=2.6.2"
+  },
+  "tar": {
+    "CVE-2021-37701": "<4.4.17 || >=5.0.0 <5.0.9 || >=6.0.0 <6.1.8",
+    "CVE-2021-37713": "<=4.4.17 || >=5.0.0 <=5.0.9 || >=6.0.0 <=6.1.8",
+    "GHSA-5955-9wpr-37jh": "<=4.4.17 || >=5.0.0 <=5.0.9 || >=6.0.0 <=6.1.8",
+    "GHSA-9r2w-394v-53qc": "<4.4.17 || >=5.0.0 <5.0.9 || >=6.0.0 <6.1.8",
+    "GHSA-qq89-hq3f-393p": "<=4.4.17 || >=5.0.0 <=5.0.9 || >=6.0.0 <=6.1.8",
+    "SNYK-JS-TAR-1536758": "<4.4.16 || >=5.0.0 <5.0.8 || >=6.0.0 <6.1.4"
+  },
+  "tensorplow": {
+    "GHSA-m2fp-c79h-rr79": ">=0"
+  },
+  "tenvoy": {
+    "GHSA-7r96-8g3x-g36m": "<7.0.3"
+  },
+  "terriajs-server": {
+    "GHSA-p72p-rjr2-r439": "<2.7.4"
+  },
+  "tesseract.js": {
+    "GHSA-83rx-c8cr-6j8q": "<1.0.19"
+  },
+  "test-module-a": {
+    "GHSA-76xq-58hj-vwm2": ">=0"
+  },
+  "text-qrcode": {
+    "GHSA-h5vj-f7r9-w564": ">=0"
+  },
+  "theme-core": {
+    "CVE-2020-28432": ">=0"
+  },
+  "think-config": {
+    "GHSA-6cj2-92m5-7mvp": "<1.1.3"
+  },
+  "think-helper": {
+    "GHSA-vr5m-3h59-7jcp": "<1.1.3"
+  },
+  "through": {
+    "CVE-2021-29940": "<2.3.8"
+  },
+  "through2": {},
+  "tiar": {
+    "GHSA-4hjg-w3ww-38c6": ">=0"
+  },
+  "tiny-conf": {
+    "CVE-2020-7724": ">=0"
+  },
+  "tinymce": {
+    "GHSA-27gm-ghr9-4v95": "<4.9.7 || >=5.0.0 <5.1.4"
+  },
+  "tkinter": {
+    "CVE-2017-16061": "<=0.0.2-security"
+  },
+  "to-fast-properties": {},
+  "to-regex": {},
+  "to-regex-range": {},
+  "tough-cookie": {
+    "CVE-2016-1000232": ">=0.9.7 <2.3.0",
+    "npm:tough-cookie:20170905": "<2.3.3"
+  },
+  "traceroute": {
+    "GHSA-rjvj-673q-4hfw": ">=0"
+  },
+  "tree-kill": {
+    "hackerone.com/reports/701183": "<1.2.2"
+  },
+  "treekill": {
+    "hackerone.com/reports/703415": "<1.0.0"
+  },
+  "trim": {
+    "CVE-2020-7753": "<0.0.3"
+  },
+  "trim-off-newlines": {
+    "CVE-2021-23425": ">=0"
+  },
+  "ts-nodash": {
+    "CVE-2021-23403": ">=0"
+  },
+  "tslib": {},
+  "tunnel-agent": {
+    "npm:tunnel-agent:20170305": "<0.6.0"
+  },
+  "type-graphql": {
+    "GHSA-xf64-2f9p-6pqq": "<0.17.6"
+  },
+  "ua-parser": {
+    "CVE-2020-7733": "<0.7.22",
+    "CVE-2020-7793": "<0.7.23",
+    "CVE-2021-27292": ">=0.7.14 <0.7.24",
+    "npm:ua-parser-js:20171012": "<0.7.26"
+  },
+  "ua-parser-js": {
+    "npm:ua-parser-js:20180227": "<0.7.18"
+  },
+  "uap-core": {
+    "GHSA-cmcx-xhr8-3w9p": "<0.7.3",
+    "GHSA-p4pj-mg4r-x6v4": "<0.11.0"
+  },
+  "uglyfi-js": {
+    "GHSA-9xww-fwh9-95c5": ">=0"
+  },
+  "uglyfi.js": {
+    "GHSA-8jf2-cq6v-w234": ">=0"
+  },
+  "underscore": {
+    "CVE-2021-23358": ">=1.13.0-0 <1.13.0-2 || >=1.3.2 <1.12.1"
+  },
+  "underscore.string": {
+    "npm:underscore.string:20170908": ">2.4.0 <=3.3.5"
+  },
+  "unflatten": {
+    "GHSA-6fh5-8wq8-w3wr": ">=0"
+  },
+  "unset-value": {
+    "SNYK-JS-UNSETVALUE-2400660": "<2.0.1"
+  },
+  "untitled-model": {
+    "GHSA-hq8g-qq57-5275": ">=0"
+  },
+  "uploader-plugin": {
+    "GHSA-fx6f-fpfv-5hmc": "1.0.2"
+  },
+  "upmerge": {
+    "GHSA-gm9g-2g8v-fvxj": "<=0.1.8"
+  },
+  "urijs": {
+    "GHSA-3329-pjwv-fjpg": "<1.19.4"
+  },
+  "url-parse": {
+    "SNYK-JS-URLPARSE-1078283": "<1.5.0"
+  },
+  "url-relative": {
+    "GHSA-86p3-4gfq-38f2": "<=1.0.0"
+  },
+  "useragent": {
+    "SNYK-JS-USERAGENT-174737": "<=2.3.0"
+  },
+  "utahcityfinder": {
+    "CVE-2017-16173": "0.0.1"
+  },
+  "util-deprecate": {},
+  "uuid": {},
+  "uv-tj-demo": {
+    "CVE-2017-16200": "1.0.0"
+  },
+  "validator": {
+    "SNYK-JS-VALIDATOR-1090599": "<13.6.0"
+  },
+  "value-censorship": {
+    "GHSA-xrr6-6ww3-f3qm": ">=0"
+  },
+  "vant": {
+    "GHSA-9xr8-8hmc-389f": "<2.1.8"
+  },
+  "vega": {
+    "GHSA-r2qc-w64x-6j54": "<5.17.3"
+  },
+  "verdaccio": {
+    "GHSA-78j5-gcmf-vqc8": "<3.12.0"
+  },
+  "veval": {
+    "GHSA-54qm-37qr-w5wq": ">=0"
+  },
+  "vp-toolkit": {
+    "GHSA-p94w-42g3-f7h4": "<0.2.2"
+  },
+  "vue-backbone": {
+    "GHSA-5635-9mvj-r6hp": "0.1.2"
+  },
+  "vue-moment": {
+    "GHSA-hrpp-f84w-xhfg": "<4.1.0"
+  },
+  "wallet-address-vaildator": {
+    "GHSA-m6q2-9pfm-2wvr": ">=0"
+  },
+  "wallet-address-validtaor": {
+    "GHSA-pc7q-c837-3wjq": ">=0"
+  },
+  "wangeditor": {
+    "GHSA-g7mw-5cq6-fv82": ">=0"
+  },
+  "wasdk": {
+    "CVE-2016-10587": "<1.0.42"
+  },
+  "waterline-sequel": {
+    "CVE-2016-10551": "0.5.0"
+  },
+  "wazuh": {
+    "GHSA-w36g-q975-37rg": ">=4.0.0 <=4.0.3"
+  },
+  "wbe3": {
+    "GHSA-hg7w-2pf7-mxm2": ">=0"
+  },
+  "wc-cmd": {
+    "CVE-2020-28431": ">=0"
+  },
+  "we3b": {
+    "GHSA-36r8-9qq7-mh43": ">=0"
+  },
+  "web3": {
+    "GHSA-27v7-qhfv-rqq8": "<=1.5.2"
+  },
+  "web3-eht": {
+    "GHSA-29fh-xcjr-p7rx": ">=0"
+  },
+  "webpack-bundle-analyzer": {
+    "GHSA-pgr8-jg6h-8gw6": "<3.3.2"
+  },
+  "webpack-dev-server": {
+    "SNYK-JS-WEBPACKDEVSERVER-72405": "<3.1.11",
+    "npmjs.com/advisories/725": ">=2.0.0 <2.11.4 || >=3.0.0 <3.1.11"
+  },
+  "webpack-sources": {},
+  "webpack-subresource-integrity": {
+    "GHSA-4fc4-chg7-h8gh": "<1.5.1"
+  },
+  "websocket-driver": {
+    "npm:websocket-driver:20131012": " <0.3.1"
+  },
+  "websocket-extensions": {
+    "GHSA-g78m-2chm-r7qv": "<0.1.4"
+  },
+  "wenluhong1": {
+    "npm:wenluhong1": "1.0.0"
+  },
+  "wepack-cli": {
+    "GHSA-fpw3-x4xq-6vxq": ">=0"
+  },
+  "wffserve": {
+    "CVE-2017-16168": "1.0.0"
+  },
+  "whatwg-mimetype": {
+    "npm:whatwg-mimetype:20170907": "<2.0.0"
+  },
+  "which": {},
+  "which-module": {},
+  "whiteproject": {
+    "GHSA-8j7x-pr59-m5h8": ">=0"
+  },
+  "wiki-plugin-datalog": {
+    "GHSA-pm52-wwrw-c282": "<0.1.6"
+  },
+  "wincred": {
+    "GHSA-v85c-hgq5-7pfw": "<=1.0.2"
+  },
+  "windows-iedriver": {
+    "CVE-2016-10689": "2.48.0"
+  },
+  "windows-latestchromedriver": {
+    "CVE-2016-10696": "0.1.0"
+  },
+  "windows-selenium-chromedriver": {
+    "CVE-2016-10687": "0.1.0"
+  },
+  "windows-seleniumjar": {
+    "CVE-2016-10691": "2.48.2"
+  },
+  "wintiwebdev": {
+    "CVE-2017-16181": "1.0.0"
+  },
+  "wizard-syncronizer": {
+    "GHSA-wgw3-gf4p-62xc": ">=0"
+  },
+  "worksmith": {
+    "CVE-2020-7725": ">=0"
+  },
+  "wrap-ansi": {},
+  "wrappy": {},
+  "ws": {
+    "CVE-2021-32640": " <5.2.3 || >=6.0.0 <6.2.2 || >=7.0.0 <7.4.6",
+    "GHSA-6fc8-4gx4-v693": ">=5.0.0 <6.2.2 || >=7.0.0 <7.4.6",
+    "npm:ws:20160920": "<1.1.2",
+    "npm:ws:20171108": "<1.1.5 || >=2.0.0 <3.3.1"
+  },
+  "wxchangba": {
+    "GHSA-j6v9-xgvh-f796": ">=0"
+  },
+  "xcode": {
+    "CVE-2015-3187": "<7.2.1"
+  },
+  "xdlocalstorage": {
+    "GHSA-c6c4-jmqx-3r33": "<=2.0.5"
+  },
+  "xlsx": {
+    "SNYK-JS-XLSX-585898": "<0.16.0"
+  },
+  "xml-crypto": {
+    "GHSA-c27r-x354-4m68": "<=1.5.3"
+  },
+  "xmldom": {
+    "GHSA-5fg8-2547-mr8q": "<0.7.0",
+    "GHSA-h6q6-9hqw-rwfv": "<0.5.0"
+  },
+  "xmlhttprequest-ssl": {
+    "CVE-2020-28502": "<1.7.0"
+  },
+  "xoc": {
+    "GHSA-54cr-gv8w-8324": "1.0.7"
+  },
+  "xtalk": {
+    "CVE-2017-16091": ">=0.0.2 <=0.0.7"
+  },
+  "xtend": {},
+  "yallist": {},
+  "yapi-vendor": {
+    "GHSA-2h3h-vw8r-82rp": "<=1.9.2"
+  },
+  "yar": {
+    "npm:yar:20140616": "<2.2.0"
+  },
+  "yargs": {},
+  "yeoman-genrator": {
+    "GHSA-fm7r-2pr7-rw2p": ">=0"
+  },
+  "yjmyjmyjm": {
+    "npm:yjmyjmyjm:20170617": "1.0.0"
+  },
+  "yui": {
+    "CVE-2013-4939": "=3.10.2 || >=3.0.0 <3.10.0"
+  },
+  "yyooopack": {
+    "CVE-2017-16167": "3.0.0"
+  },
+  "yzt": {
+    "CVE-2017-16221": "1.4.0"
+  },
+  "zemen": {
+    "GHSA-377f-vvrc-9wgg": "0.0.5"
+  },
+  "zencashjs": {
+    "GHSA-xfrc-7mj2-5xh9": "<1.2.0"
+  },
+  "zero": {
+    "GHSA-crf7-fvjx-863q": "<1.0.6"
+  },
+  "zjjserver": {
+    "CVE-2017-16201": "1.0.0"
+  },
+  "zrender": {
+    "GHSA-fhv8-fx5f-7fxf": "<5.2.1"
+  },
+  "zs-sha3": {
+    "GHSA-7696-qr5q-pg37": ">=0"
+  }
+}
