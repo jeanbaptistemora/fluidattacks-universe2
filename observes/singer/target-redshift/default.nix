@@ -1,16 +1,17 @@
 {
-  pkgs,
+  nixpkgs,
   python_version,
   src,
+  system,
 }: let
   metadata = (builtins.fromTOML (builtins.readFile "${src}/pyproject.toml")).tool.poetry;
   lib = {
-    buildEnv = pkgs."${python_version}".buildEnv.override;
-    buildPythonPackage = pkgs."${python_version}".pkgs.buildPythonPackage;
-    fetchPypi = pkgs.python3Packages.fetchPypi;
+    buildEnv = nixpkgs."${python_version}".buildEnv.override;
+    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
+    fetchPypi = nixpkgs.python3Packages.fetchPypi;
   };
   python_pkgs = import ./build/deps {
-    inherit pkgs lib python_version;
+    inherit nixpkgs lib python_version system;
   };
   self_pkgs = import ./build/pkg {
     inherit src lib metadata python_pkgs;

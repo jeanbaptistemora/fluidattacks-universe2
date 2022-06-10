@@ -6,25 +6,16 @@ fetchNixpkgs: projectPath: observesIndex: let
     sha256 = "0ayz07vsl38h9jsnib4mff0yh3d5ajin6xi3bb2xjqwmad99n8p6";
   };
 
-  _fa_purity_src = builtins.fetchGit {
-    url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.18.1";
-  };
-  fa-purity = import _fa_purity_src {
-    inherit system legacy_pkgs;
-    src = _fa_purity_src;
-  };
-
   _utils_logger_src = projectPath observesIndex.common.utils_logger.root;
   utils-logger."${python_version}" = import _utils_logger_src {
     inherit legacy_pkgs python_version;
     src = _utils_logger_src;
   };
 
-  local_pkgs = {inherit fa-purity utils-logger;};
+  local_pkgs = {inherit utils-logger;};
   out = import ./. {
-    inherit python_version;
-    pkgs = legacy_pkgs // local_pkgs;
+    inherit python_version system;
+    nixpkgs = legacy_pkgs // local_pkgs;
     src = ./.;
   };
 in

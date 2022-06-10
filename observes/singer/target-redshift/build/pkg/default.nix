@@ -7,6 +7,8 @@
   runtime_deps = with python_pkgs; [
     boto3
     click
+    fa-purity
+    fa-singer-io
     jsonschema
     psycopg2
     returns

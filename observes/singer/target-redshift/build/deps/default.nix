@@ -1,10 +1,12 @@
 {
   lib,
-  pkgs,
+  nixpkgs,
   python_version,
+  system,
 }: let
-  pkg_override = import ./pkg_override.nix;
-  _python_pkgs = pkgs."${python_version}Packages";
+  pkg_override = names: (import ./pkg_override.nix) (x: builtins.elem x.pname names);
+  _python_pkgs = nixpkgs."${python_version}Packages";
+  fa-purity = import ./fa-purity {inherit nixpkgs system;};
   python_pkgs =
     _python_pkgs
     // {
@@ -12,14 +14,21 @@
         inherit lib;
         python_pkgs = _python_pkgs;
       };
-      fa-purity = pkgs.fa-purity."${python_version}".pkg;
+      fa-purity = fa-purity."${python_version}".pkg;
+      fa-singer-io =
+        (import ./fa-singer-io {
+          inherit nixpkgs system;
+          purity = fa-purity;
+        })
+        ."${python_version}"
+        .pkg;
       import-linter = import ./import-linter {
         inherit lib;
         python_pkgs = _python_pkgs;
       };
     };
-  typing_ext_override = pkg_override (x: (x.pname == "typing-extensions" || x.pname == "typing_extensions")) python_pkgs.typing-extensions;
-  click_override = pkg_override (x: (x.pname == "click")) python_pkgs.click;
+  typing_ext_override = pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
+  click_override = pkg_override ["click"] python_pkgs.click;
 in
   python_pkgs
   // {
