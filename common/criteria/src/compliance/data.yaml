@@ -6093,3 +6093,15 @@
       title: Database Security - Database services countermeasures
       link: http://cuchillac.net/archivos/pre_seguridad_pymes/2_hakeo_etico/lects/metodologia_oissg.pdf
   metadata: {}
+"ptes":
+  title: PTES
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "2_17_1":
+      title: Pre-engagement interactions - Emergency contact iInformation
+      link: http://www.pentest-standard.org/index.php/Main_Page
+  metadata: {}
