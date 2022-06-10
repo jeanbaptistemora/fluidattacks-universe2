@@ -231,7 +231,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   <Alert>{t("navbar.deleteAccount.modal.text")}</Alert>
                 </React.Fragment>
               }
-              title={t("navbar.deleteAccount")}
+              title={t("navbar.deleteAccount.text")}
             >
               {(confirm): React.ReactNode => {
                 function handleLogoutClick(): void {
@@ -244,7 +244,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   <DropdownButton onClick={handleLogoutClick}>
                     <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
-                    {t("navbar.deleteAccount")}
+                    {t("navbar.deleteAccount.text")}
                   </DropdownButton>
                 );
               }}
