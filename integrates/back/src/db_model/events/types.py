@@ -1,5 +1,6 @@
 from .enums import (
     EventAccessibility,
+    EventAffectedComponents,
     EventStateStatus,
     EventType,
 )
@@ -27,7 +28,6 @@ class EventState(NamedTuple):
 
 class Event(NamedTuple):
     accessibility: set[EventAccessibility]
-    affected_components: str
     client: str
     description: str
     evidences: EventEvidences
@@ -38,5 +38,6 @@ class Event(NamedTuple):
     type: EventType
     action_after_blocking: Optional[str] = None  # Deprecated
     action_before_blocking: Optional[str] = None  # Deprecated
+    affected_components: Optional[set[EventAffectedComponents]] = None
     context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None

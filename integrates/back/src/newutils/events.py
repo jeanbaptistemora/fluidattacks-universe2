@@ -3,6 +3,7 @@ from datetime import (
 )
 from db_model.events.enums import (
     EventAccessibility,
+    EventAffectedComponents as AffectedComponents,
     EventStateStatus,
     EventType,
 )
@@ -61,6 +62,34 @@ def format_accessibility(item: Item) -> set[EventAccessibility]:
     )
 
 
+def format_affected_components(
+    affected_components: str,
+) -> set[AffectedComponents]:
+    affected_components_map = {
+        "Alteración del ToE": AffectedComponents.TOE_ALTERATION,
+        "Código fuente": AffectedComponents.SOURCE_CODE,
+        "Conectividad a Internet": AffectedComponents.INTERNET_CONNECTION,
+        "Conectividad local (LAN, WiFi)": AffectedComponents.LOCAL_CONNECTION,
+        "Conectividad VPN": AffectedComponents.VPN_CONNECTION,
+        "Credenciales en el ToE": AffectedComponents.TOE_CREDENTIALS,
+        "Datos de prueba": AffectedComponents.TEST_DATA,
+        "Documentación del proyecto": AffectedComponents.DOCUMENTATION,
+        "Estación de pruebas de FLUID": AffectedComponents.FLUID_STATION,
+        "Estación de pruebas del Cliente": AffectedComponents.CLIENT_STATION,
+        "Exclusión de alcance": AffectedComponents.TOE_EXCLUSSION,
+        "Error en compilación": AffectedComponents.COMPILE_ERROR,
+        "Inaccesibilidad del ToE": AffectedComponents.TOE_UNACCESSIBLE,
+        "Indisponibilidad del ToE": AffectedComponents.TOE_UNAVAILABLE,
+        "Inestabilidad del ToE": AffectedComponents.TOE_UNSTABLE,
+        "Privilegios en el ToE": AffectedComponents.TOE_PRIVILEGES,
+        "Otro(s)": AffectedComponents.OTHER,
+        "Ubicación del ToE (IP, URL)": AffectedComponents.TOE_LOCATION,
+    }
+
+    components_list = affected_components.split("\n")
+    return set(affected_components_map[item] for item in components_list)
+
+
 def format_evidences(item: Item) -> EventEvidences:
     evidence_file = (
         EventEvidence(
@@ -99,7 +128,11 @@ def format_event(item: Item) -> Event:
         action_after_blocking=item.get("action_after_blocking", None),
         action_before_blocking=item.get("action_before_blocking", None),
         accessibility=format_accessibility(item),
-        affected_components=item.get("affected_components", ""),
+        affected_components=format_affected_components(
+            item["affected_components"]
+        )
+        if item.get("affected_components")
+        else None,
         client=item.get("client", ""),
         context=item.get("context", ""),
         description=item["detail"],

@@ -8,15 +8,32 @@ class EventAccessibility(str, Enum):
     REPOSITORY: str = "REPOSITORY"
 
 
+class EventAffectedComponents(str, Enum):
+    CLIENT_STATION: str = "CLIENT_STATION"
+    COMPILE_ERROR: str = "COMPILE_ERROR"
+    DOCUMENTATION: str = "DOCUMENTATION"
+    FLUID_STATION: str = "FLUID_STATION"
+    INTERNET_CONNECTION: str = "INTERNET_CONNECTION"
+    LOCAL_CONNECTION: str = "LOCAL_CONNECTION"
+    OTHER: str = "OTHER"
+    SOURCE_CODE: str = "SOURCE_CODE"
+    TEST_DATA: str = "TEST_DATA"
+    TOE_ALTERATION: str = "TOE_ALTERATION"
+    TOE_CREDENTIALS: str = "TOE_CREDENTIALS"
+    TOE_EXCLUSSION: str = "TOE_EXCLUSSION"
+    TOE_LOCATION: str = "TOE_LOCATION"
+    TOE_PRIVILEGES: str = "TOE_PRIVILEGES"
+    TOE_UNACCESSIBLE: str = "TOE_UNACCESSIBLE"
+    TOE_UNAVAILABLE: str = "TOE_UNAVAILABLE"
+    TOE_UNSTABLE: str = "TOE_UNSTABLE"
+    VPN_CONNECTION: str = "VPN_CONNECTION"
+
+
 class EventStateStatus(str, Enum):
-    APPROVED: str = "APPROVED"
-    CREATED: str = "CREATED"
-    DELETED: str = "DELETED"
-    MASKED: str = "MASKED"
-    REJECTED: str = "REJECTED"
-    SUBMITTED: str = "SUBMITTED"
     CLOSED: str = "CLOSED"
+    CREATED: str = "CREATED"
     OPEN: str = "OPEN"
+    SOLVED: str = "SOLVED"
 
 
 class EventType(str, Enum):
