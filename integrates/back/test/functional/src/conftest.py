@@ -160,8 +160,6 @@ def generic_data(  # pylint: disable=too-many-locals
     architect_email: str = "architect@gmail.com"
     architect_fluid_email: str = "architect@fluidattacks.com"
     customer_manager_fluid_email: str = "customer_manager@fluidattacks.com"
-    executive_email: str = "executive@gmail.com"
-    executive_fluid_email: str = "executive@fluidattacks.com"
     hacker_email: str = "hacker@gmail.com"
     hacker_fluid_email: str = "hacker@fluidattacks.com"
     reattacker_email: str = "reattacker@gmail.com"
@@ -186,8 +184,6 @@ def generic_data(  # pylint: disable=too-many-locals
             "architect_email": architect_email,
             "architect_fluid_email": architect_fluid_email,
             "customer_manager_fluid_email": customer_manager_fluid_email,
-            "executive_email": executive_email,
-            "executive_fluid_email": executive_fluid_email,
             "hacker_email": hacker_email,
             "hacker_fluid_email": hacker_fluid_email,
             "reattacker_email": reattacker_email,
@@ -329,36 +325,6 @@ def generic_data(  # pylint: disable=too-many-locals
                         "calling_country_code": "1",
                         "country_code": "US",
                         "national_number": "88888888888",
-                    },
-                },
-                {
-                    "email": executive_email,
-                    "first_login": "",
-                    "first_name": "",
-                    "last_login": "",
-                    "last_name": "",
-                    "legal_remember": False,
-                    "push_tokens": [],
-                    "registered": True,
-                    "phone": {
-                        "calling_country_code": "1",
-                        "country_code": "US",
-                        "national_number": "99999999999",
-                    },
-                },
-                {
-                    "email": executive_fluid_email,
-                    "first_login": "",
-                    "first_name": "",
-                    "last_login": "",
-                    "last_name": "",
-                    "legal_remember": False,
-                    "push_tokens": [],
-                    "registered": True,
-                    "phone": {
-                        "calling_country_code": "57",
-                        "country_code": "CO",
-                        "national_number": "111111111111",
                     },
                 },
                 {
@@ -581,8 +547,6 @@ def generic_data(  # pylint: disable=too-many-locals
                         user_fluid_email,
                         user_manager_email,
                         user_manager_fluid_email,
-                        executive_email,
-                        executive_fluid_email,
                         resourcer_email,
                         resourcer_fluid_email,
                         reviewer_email,
@@ -732,18 +696,6 @@ def generic_data(  # pylint: disable=too-many-locals
                 },
                 {
                     "level": "user",
-                    "subject": executive_email,
-                    "object": "self",
-                    "role": "executive",
-                },
-                {
-                    "level": "user",
-                    "subject": executive_fluid_email,
-                    "object": "self",
-                    "role": "executive",
-                },
-                {
-                    "level": "user",
                     "subject": resourcer_email,
                     "object": "self",
                     "role": "resourcer",
@@ -879,18 +831,6 @@ def generic_data(  # pylint: disable=too-many-locals
                     "subject": vuln_manager_fluid_email,
                     "object": "group1",
                     "role": "vulnerability_manager",
-                },
-                {
-                    "level": "group",
-                    "subject": executive_email,
-                    "object": "group1",
-                    "role": "executive",
-                },
-                {
-                    "level": "group",
-                    "subject": executive_fluid_email,
-                    "object": "group1",
-                    "role": "executive",
                 },
                 {
                     "level": "group",
@@ -1017,18 +957,6 @@ def generic_data(  # pylint: disable=too-many-locals
                     "subject": vuln_manager_fluid_email,
                     "object": org_id,
                     "role": "user",
-                },
-                {
-                    "level": "organization",
-                    "subject": executive_email,
-                    "object": org_id,
-                    "role": "executive",
-                },
-                {
-                    "level": "organization",
-                    "subject": executive_fluid_email,
-                    "object": org_id,
-                    "role": "executive",
                 },
                 {
                     "level": "organization",

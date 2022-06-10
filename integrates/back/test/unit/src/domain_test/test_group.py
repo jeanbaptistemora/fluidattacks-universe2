@@ -457,7 +457,6 @@ async def test_get_users() -> None:
         "integratesreattacker@fluidattacks.com",
         "unittest2@fluidattacks.com",
         "customer_manager@fluidattacks.com",
-        "integratesexecutive@gmail.com",
         "integratesuser2@fluidattacks.com",
         "integratesresourcer@fluidattacks.com",
         "integratesuser2@gmail.com",

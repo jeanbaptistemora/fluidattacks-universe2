@@ -22,7 +22,6 @@ async def test_get_organization_ver_1(
     org_stakeholders: list[str] = [
         "admin@gmail.com",
         "customer_manager@fluidattacks.com",
-        "executive@gmail.com",
         "hacker@gmail.com",
         "reattacker@gmail.com",
         "resourcer@gmail.com",

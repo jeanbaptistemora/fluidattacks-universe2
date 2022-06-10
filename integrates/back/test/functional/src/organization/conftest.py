@@ -123,7 +123,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     "user@gmail.com",
                     "user_manager@gmail.com",
                     "vulnerability_manager@gmail.com",
-                    "executive@gmail.com",
                     "customer_manager@fluidattacks.com",
                     "resourcer@gmail.com",
                     "reviewer@gmail.com",
