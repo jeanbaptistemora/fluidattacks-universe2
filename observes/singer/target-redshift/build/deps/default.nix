@@ -14,6 +14,9 @@
     inherit nixpkgs projectPath python_version;
     utils-logger = _utils_logger;
   };
+  _legacy_singer_io."${python_version}" = import ./legacy/singer-io.nix {
+    inherit nixpkgs projectPath python_version system;
+  };
   python_pkgs =
     _python_pkgs
     // {
@@ -34,6 +37,7 @@
         python_pkgs = _python_pkgs;
       };
       legacy-postgres-client = _legacy_postgres_client."${python_version}".pkg;
+      legacy-singer-io = _legacy_singer_io."${python_version}".pkg;
       utils-logger = _utils_logger."${python_version}".pkg;
     };
   typing_ext_override = pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;

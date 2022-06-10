@@ -14,6 +14,7 @@ jsonschema = "^3.2.0"
 postgres-client = "^1.0.0"
 psycopg2 = "^2.8.4"
 returns = ">=0.16.0 <1.0.0"
+singer-io = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

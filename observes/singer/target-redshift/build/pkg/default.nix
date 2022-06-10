@@ -11,6 +11,7 @@
     fa-singer-io
     jsonschema
     legacy-postgres-client
+    legacy-singer-io
     psycopg2
     returns
   ];
