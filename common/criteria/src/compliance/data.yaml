@@ -6179,4 +6179,64 @@
     "6_2_1_3":
       title: Exploitation - Countermeasures (anti-virus encrypting)
       link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_2_3":
+      title: Exploitation - Countermeasures (data execution prevention)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_2_5":
+      title: Exploitation - Countermeasures (web application firewall)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_7":
+      title: Exploitation - Zero day angle
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_7_1_1":
+      title: Exploitation - Zero day angle (buffer overflows)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_7_4":
+      title: Exploitation - Zero day angle (traffic analysis)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_7_6_1":
+      title: Exploitation - Proximity access (wifi attacks)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "6_7_6_2":
+      title: Exploitation - Proximity access (attacking the user)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_2_1":
+      title: Post exploitation - Rules of engagement (protect the client)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_3_1":
+      title: Post exploitation - Infrastructure analysis (network configuration)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_3_1_3":
+      title: Post exploitation - Network infrastructure analysis (DNS servers)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_3_1_5":
+      title: Post exploitation - Network infrastructure analysis (proxy servers)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_3_1_6":
+      title: Post exploitation - Network infrastructure analysis (ARP entries)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_2_3":
+      title: Post exploitation - Pillaging (database servers)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_2_7":
+      title: Post exploitation - Pillaging (certificate authority)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_2_12":
+      title: Post exploitation - Pillaging (monitoring and management)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_4_1":
+      title: Post Exploitation - Pillaging (user information on system)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_4_2":
+      title: Post Exploitation - Pillaging (user information on web browsers)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_5_1":
+      title: Post Exploitation - Pillaging (system configuration password policy)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_4_5_2":
+      title: Post Exploitation - Pillaging (system configuration - configured wireless networks and keys)
+      link: http://www.pentest-standard.org/index.php/Main_Page
+    "7_7":
+      title: Post Exploitation - Persistence
+      link: http://www.pentest-standard.org/index.php/Main_Page
   metadata: {}
