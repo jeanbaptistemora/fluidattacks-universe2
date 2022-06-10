@@ -12,6 +12,9 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     CredentialNotFound,
     HasVulns,
@@ -19,6 +22,7 @@ from custom_exceptions import (
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
+    RepeatedCredential,
     RepeatedRoot,
     RootNotFound,
 )
@@ -36,9 +40,14 @@ from db_model.credentials.get import (
     get_credentials,
 )
 from db_model.credentials.types import (
+    Credential,
     CredentialItem,
     CredentialMetadata,
+    CredentialNewState,
     CredentialState,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
 )
 from db_model.enums import (
     CredentialType,
@@ -164,6 +173,51 @@ def format_git_repo_url(raw_url: str) -> str:
     return unquote(url).rstrip(" /")
 
 
+def format_credential(
+    credential: CredentialItem, organization_id: str, owner: str
+) -> Credential:
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
+        SshSecret(key=credential.state.key or "")
+        if credential.metadata.type is CredentialType.SSH
+        else HttpsPatSecret(token=credential.state.token or "")
+        if credential.state.token
+        else HttpsSecret(
+            user=credential.state.user or "",
+            password=credential.state.password or "",
+        )
+    )
+
+    return Credential(
+        id=credential.id,
+        organization_id=organization_id,
+        owner=owner,
+        state=CredentialNewState(
+            modified_by=credential.state.modified_by,
+            modified_date=credential.state.modified_date,
+            name=credential.state.name,
+            secret=secret,
+            type=credential.metadata.type,
+        ),
+    )
+
+
+async def get_organization_credential_id(
+    loaders: Any, group: Group, current_credential: CredentialItem
+) -> Optional[str]:
+    org_credentials: tuple[
+        Credential, ...
+    ] = await loaders.organization_credentials_new.load(group.organization_id)
+    current_org_credential = next(
+        (
+            credential
+            for credential in org_credentials
+            if credential.state.name == current_credential.state.name
+        ),
+        None,
+    )
+    return current_org_credential.id if current_org_credential else None
+
+
 async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
@@ -272,6 +326,20 @@ async def add_git_root(  # pylint: disable=too-many-locals
             ] = await loaders.group_credentials.load(root.group_name)
             validations.validate_credential_name(credential, group_credentials)
             await creds_model.add(credential=credential)
+            organization_credential_id = await get_organization_credential_id(
+                loaders=loaders,
+                group=group,
+                current_credential=credential,
+            )
+            with suppress(RepeatedCredential):
+                if not organization_credential_id:
+                    await creds_model.add_new(
+                        credential=format_credential(
+                            credential=credential,
+                            organization_id=group.organization_id,
+                            owner=credential.state.modified_by,
+                        )
+                    )
 
     await roots_model.add(root=root)
 
@@ -608,10 +676,11 @@ async def _remove_root_from_credential(
 
 async def _update_git_root_credentials(  # noqa: MC0001
     loaders: Any,
+    group: Group,
     root: GitRoot,
     credentials: Optional[Dict[str, str]],
     user_email: str,
-) -> None:
+) -> Optional[str]:
     credential_id = credentials.get("id") if credentials else None
     credential_to_add = None
     if credentials and credential_id is None:
@@ -657,6 +726,19 @@ async def _update_git_root_credentials(  # noqa: MC0001
                 group_name=current_credential.group_name,
             )
 
+        organization_credential_id = await get_organization_credential_id(
+            loaders=loaders, group=group, current_credential=credential_to_add
+        )
+        if not organization_credential_id:
+            await creds_model.add_new(
+                credential=format_credential(
+                    credential=credential_to_add,
+                    organization_id=group.organization_id,
+                    owner=credential_to_add.state.modified_by,
+                )
+            )
+        return organization_credential_id or credential_to_add.id
+
     if (
         current_credential
         and credential_to_update
@@ -679,6 +761,11 @@ async def _update_git_root_credentials(  # noqa: MC0001
                 credential_id=current_credential.id,
                 group_name=current_credential.group_name,
             )
+        return await get_organization_credential_id(
+            loaders=loaders,
+            group=group,
+            current_credential=credential_to_update,
+        )
 
     if current_credential is None and credential_to_update:
         # Add the root to the credential
@@ -688,6 +775,11 @@ async def _update_git_root_credentials(  # noqa: MC0001
             group_name=credential_to_update.group_name,
             credential_id=credential_to_update.id,
             root_ids=(root.id, *credential_to_update.state.roots),
+        )
+        return await get_organization_credential_id(
+            loaders=loaders,
+            group=group,
+            current_credential=credential_to_update,
         )
 
     if credentials is None and current_credential:
@@ -701,6 +793,17 @@ async def _update_git_root_credentials(  # noqa: MC0001
                 credential_id=current_credential.id,
                 group_name=current_credential.group_name,
             )
+        return None
+
+    return (
+        await get_organization_credential_id(
+            loaders=loaders,
+            group=group,
+            current_credential=current_credential,
+        )
+        if current_credential
+        else None
+    )
 
 
 async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
@@ -774,8 +877,9 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     if not validations.is_exclude_valid(gitignore, root.state.url):
         raise InvalidRootExclusion()
 
-    await _update_git_root_credentials(
+    credential_id = await _update_git_root_credentials(
         loaders=loaders,
+        group=group,
         root=root,
         credentials=cast(Optional[Dict[str, str]], kwargs.get("credentials")),
         user_email=user_email,
@@ -783,6 +887,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
 
     new_state = GitRootState(
         branch=branch,
+        credential_id=credential_id,
         environment=kwargs["environment"],
         environment_urls=root.state.environment_urls,
         git_environment_urls=[],
