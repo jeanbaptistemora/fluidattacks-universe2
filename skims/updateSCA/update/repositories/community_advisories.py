@@ -65,11 +65,18 @@ def get_remote_advisories(advisories: Dict[str, Any], language: str) -> dict:
             with open(filename, "r") as stream:
                 try:
                     parsed_yaml = yaml.safe_load(stream)
-                    key = filename.replace(
-                        f"{tmp_dirname}/{language}/", ""
-                    ).replace("/", ":")
-                    package_key = key.rsplit(":", 1)[0]
-                    cve_key = parsed_yaml["identifier"]
+                    if (
+                        cve_key := parsed_yaml["identifier"]
+                    ) and cve_key.startswith("GMS"):
+                        continue
+                    key = filename.replace(f"{tmp_dirname}/{language}/", "")
+                    if language == "npm" and key.startswith("@"):
+                        package_key = key.rsplit("/", 1)[0].lower()
+                    elif language == "nuget":
+                        package_key = key.rsplit("/", 1)[0].lower()
+                    else:
+                        key = key.replace("/", ":")
+                        package_key = key.rsplit(":", 1)[0].lower()
                     if package_key not in advisories:
                         advisories.update({package_key: {}})
                     if cve_key not in advisories[package_key]:
