@@ -4355,13 +4355,12 @@
       The source code defines and initializes variables
       that are not used, making it a dead store.
     impact: >
+      - Lead the compiler to takes a
+      long time to execute the code
+      and overloads the storage.
+
       - Overload memory stack when there
       are unused variables in the code.
-
-      - Lead to further bugs and the
-      introduction of weaknesses.
-
-      - Compiler will take more time to run the code.
 
       - Could be an indication of a bug in
       the program or a deprecated variable that was not
@@ -4377,14 +4376,12 @@
       variables que no se utilizan, lo que lo
       convierte en un almacén muerto.
     impact: >
+      - Lleva al compilador a que tarde mucho
+      en ejecutar el código y sobrecargue el
+      almacenamiento.
+
       - Sobrecargar la memoria de pila cuando
       hay variables no utilizadas en el código.
-
-      - Llevar a más errores y a la introducción
-      de debilidades.
-
-      - El compilador tardará más tiempo en
-      ejecutar el código.
 
       - Podría ser una indicación de un error en el
       programa o de una variable obsoleta que no fue
@@ -4418,7 +4415,7 @@
       scope: "U"
       confidentiality: "N"
       integrity: "L"
-      availability: "N"
+      availability: "H"
     temporal:
       exploit_code_maturity: "X"
       remediation_level: "X"
