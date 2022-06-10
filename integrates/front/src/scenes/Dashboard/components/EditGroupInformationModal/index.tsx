@@ -42,6 +42,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = ({
   return (
     <React.StrictMode>
       <Modal
+        minWidth={600}
         onClose={onClose}
         open={isOpen}
         title={t("searchFindings.tabResources.modalEditGroupInformation")}

@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface IDialogProps {
+  minWidth: number;
+}
+
 const Container = styled.div.attrs({
   className: "absolute--fill fixed overflow-auto z-999",
 })`
@@ -9,7 +13,7 @@ const Container = styled.div.attrs({
   justify-content: center;
 `;
 
-const Dialog = styled.div`
+const Dialog = styled.div<IDialogProps>`
   background-color: #f4f4f6;
   border-radius: 4px;
   color: #2e2e38;
@@ -19,6 +23,7 @@ const Dialog = styled.div`
   font-size: 16px;
   max-height: 90%;
   max-width: 90%;
+  min-width: ${({ minWidth }): number => minWidth}px;
   padding: 24px;
 `;
 
@@ -30,4 +35,5 @@ const Title = styled.p.attrs({
   className: "b f3 ma0",
 })``;
 
+export type { IDialogProps };
 export { Container, Dialog, Header, Title };

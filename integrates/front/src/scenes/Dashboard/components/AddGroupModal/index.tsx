@@ -129,6 +129,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   return (
     <React.StrictMode>
       <Modal
+        minWidth={600}
         onClose={onClose}
         open={true}
         title={t("organization.tabs.groups.newGroup.new.group")}

@@ -41,6 +41,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
   return (
     <React.StrictMode>
       <Modal
+        minWidth={400}
         onClose={onClose}
         open={isOpen}
         title={t("searchFindings.tabIndicators.tags.modalTitle")}

@@ -11,13 +11,15 @@ import { ScrollContainer } from "components/ScrollContainer";
 
 interface IModalProps {
   children: React.ReactNode;
-  title: React.ReactNode | string;
+  minWidth?: number;
   onClose?: () => void;
   open: boolean;
+  title: React.ReactNode | string;
 }
 
 const Modal: React.FC<IModalProps> = ({
   children,
+  minWidth = 250,
   title,
   onClose,
   open,
@@ -38,7 +40,7 @@ const Modal: React.FC<IModalProps> = ({
   return open
     ? createPortal(
         <Container>
-          <Dialog>
+          <Dialog minWidth={minWidth}>
             <Header>
               <Title>{title}</Title>
               {onClose === undefined ? undefined : (
