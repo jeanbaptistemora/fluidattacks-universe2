@@ -131,6 +131,32 @@ To discard or apply the changes
 you can click on **Cancel**
 or **Proceed** respectively.
 
+## Editing Git roots
+
+If you want to edit the
+details of an active root,
+you need to click on it.
+A pop-up window will appear,
+where you can navigate
+three tabs: **Git repository**,
+**Environment URLs**
+and **Secrets**.
+
+![Edir Git Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1654884640/docs/web/groups/scope/root_editing_git_roots.png)
+
+The Git repository tab allows
+you to change details of your
+Git repository.
+Keep in mind that modifying the
+repository’s URL and branch is
+only allowed if absolutely no
+vulnerabilities have been
+reported in it.
+If there are reported vulnerabilities,
+you will have to add a new root
+with the URL and branch you need
+to include in the security tests.
+
 ## Deactivating roots
 
 :::caution
