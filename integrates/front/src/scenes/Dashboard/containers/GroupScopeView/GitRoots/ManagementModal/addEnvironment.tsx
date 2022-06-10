@@ -1,6 +1,9 @@
-import { useMutation } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { StringSchema } from "yup";
@@ -9,6 +12,11 @@ import { object, string } from "yup";
 import { ADD_ENVIRONMENT_URL } from "../../queries";
 import { Button } from "components/Button";
 import { ModalFooter } from "components/Modal";
+import { GET_FILES } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import type {
+  IGetFilesQuery,
+  IGroupFileAttr,
+} from "scenes/Dashboard/containers/GroupSettingsView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -28,6 +36,11 @@ interface IFormProps {
   rootId: string;
   urlType: string;
 }
+interface IFile {
+  description: string;
+  fileName: string;
+  uploadDate: string;
+}
 
 const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
   groupName,
@@ -44,6 +57,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
     urlType: "",
   };
   const formRef = useRef<FormikProps<IFormProps>>(null);
+
   const validations = object().shape({
     cloudName: string().oneOf(["AZURE", "AWS", "GCP"]).nullable(),
     url: string()
@@ -67,6 +81,21 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
       .oneOf(["URL", "APK", "CLOUD"])
       .defined(t("validations.invalidUrlType")),
   });
+
+  const { data } = useQuery<IGetFilesQuery>(GET_FILES, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading group files", error);
+      });
+    },
+    variables: { groupName },
+  });
+  const resourcesFiles: IGroupFileAttr[] =
+    _.isUndefined(data) || _.isEmpty(data) || _.isNull(data.resources.files)
+      ? []
+      : data.resources.files;
+  const filesDataset: IFile[] = resourcesFiles as IFile[];
   const [addEnvironmentUrl] = useMutation(ADD_ENVIRONMENT_URL, {
     onCompleted: (): void => {
       msgSuccess(
@@ -115,7 +144,21 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("group.scope.git.addEnvironment.url")}
               </ControlLabel>
-              <Field component={FormikText} name={"url"} type={"text"} />
+              {formRef.current !== null &&
+              formRef.current.values.urlType === "APK" ? (
+                <Field component={FormikDropdown} name={"url"}>
+                  <option value={""}>{""}</option>
+                  {filesDataset.map(
+                    (file): JSX.Element => (
+                      <option key={file.fileName} value={file.fileName}>
+                        {file.fileName}
+                      </option>
+                    )
+                  )}
+                </Field>
+              ) : (
+                <Field component={FormikText} name={"url"} type={"text"} />
+              )}
             </div>
             <div className={"flex mt3"}>
               <div className={"w-50"}>
