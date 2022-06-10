@@ -682,23 +682,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={320}
                 className={"g1"}
-                documentName={"meanTimeToRemediateCvssf"}
-                documentType={"barChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"barChart"}
-                infoLink={`${graphInfoLink}common`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("tagIndicator.meanRemediate")}
-              />
-            </Col100>
-          </RowCenter>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
                 documentName={"assignedVulnerabilitiesCvssf"}
                 documentType={"stackedBarChart"}
                 entity={entity}
@@ -726,6 +709,23 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 reportMode={reportMode}
                 subject={subject}
                 title={t("analytics.barChart.touchedFiles.title")}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
+                documentName={"meanTimeToRemediateCvssf"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"barChart"}
+                infoLink={`${graphInfoLink}common`}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.meanRemediate")}
               />
             </Col100>
           </RowCenter>
