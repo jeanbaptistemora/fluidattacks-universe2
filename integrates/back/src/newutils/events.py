@@ -6,6 +6,8 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    EventEvidence,
+    EventEvidences,
     EventState,
 )
 from dynamodb.types import (
@@ -13,6 +15,9 @@ from dynamodb.types import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from newutils.datetime import (
+    convert_to_iso_str,
 )
 from typing import (
     Any,
@@ -44,6 +49,29 @@ def format_data(event: dict[str, Any]) -> dict[str, Any]:
     return event
 
 
+def format_evidences(item: Item) -> EventEvidences:
+    evidence_file = (
+        EventEvidence(
+            file_name=item["evidence_file"],
+            modified_date=convert_to_iso_str(item["evidence_file_date"]),
+        )
+        if item.get("evidence_file") and item.get("evidence_file_date")
+        else None
+    )
+    evidence_image = (
+        EventEvidence(
+            file_name=item["evidence"],
+            modified_date=convert_to_iso_str(item["evidence_date"]),
+        )
+        if item.get("evidence") and item.get("evidence_date")
+        else None
+    )
+    return EventEvidences(
+        file=evidence_file,
+        image=evidence_image,
+    )
+
+
 def format_state(item: Item) -> EventState:
     historic_state = item["historic_state"]
     last_state = historic_state[-1]
@@ -63,10 +91,7 @@ def format_event(item: Item) -> Event:
         client=item.get("client", ""),
         context=item.get("context", ""),
         description=item["detail"],
-        evidence=item.get("event_id", ""),
-        evidence_date=item.get("evidence_date", None),
-        evidence_file=item.get("event_id", ""),
-        evidence_file_date=item.get("evidence_file_date", None),
+        evidences=format_evidences(item),
         group_name=item["project_name"],
         hacker=item["analyst"],
         id=item["event_id"],
