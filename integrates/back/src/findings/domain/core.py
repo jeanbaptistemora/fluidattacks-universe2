@@ -688,19 +688,19 @@ async def send_closed_vulnerabilities_report(
     vulns_closed_props: dict[str, Any] = {}
 
     for vuln in vulnerabilities:
-        vuln_historic: Tuple[
-            VulnerabilityState, ...
-        ] = await loaders.vulnerability_historic_state.load(vuln.id)
-        first_vuln: VulnerabilityState = vuln_historic[0]
         report_date = datetime_utils.get_date_from_iso_str(
-            first_vuln.modified_date
+            vuln.unreliable_indicators.unreliable_report_date
         )
         days_open = (datetime_utils.get_now().date() - report_date).days
+        reattack_requester = (
+            vuln.unreliable_indicators.unreliable_last_reattack_requester
+        )
         vulns_closed_props[vuln.id] = {
             "Location": vuln.where,
             "Assigned": vuln.treatment.assigned if vuln.treatment else None,
-            "Date": report_date,
+            "Report date": report_date,
             "Days it was open": days_open,
+            "Reattack requester": reattack_requester,
         }
 
     schedule(
