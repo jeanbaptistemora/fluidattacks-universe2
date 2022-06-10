@@ -10,6 +10,7 @@
     fa-purity
     fa-singer-io
     jsonschema
+    legacy-postgres-client
     psycopg2
     returns
   ];

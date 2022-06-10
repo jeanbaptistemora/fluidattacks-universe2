@@ -1,12 +1,19 @@
 {
+  observesIndex,
   lib,
   nixpkgs,
+  projectPath,
   python_version,
   system,
 }: let
   pkg_override = names: (import ./pkg_override.nix) (x: builtins.elem x.pname names);
   _python_pkgs = nixpkgs."${python_version}Packages";
-  fa-purity = import ./fa-purity {inherit nixpkgs system;};
+  _fa_purity = import ./fa-purity {inherit nixpkgs system;};
+  _utils_logger."${python_version}" = import ./utils-logger {inherit observesIndex nixpkgs projectPath python_version;};
+  _legacy_postgres_client."${python_version}" = import ./legacy/postgres-client.nix {
+    inherit nixpkgs projectPath python_version;
+    utils-logger = _utils_logger;
+  };
   python_pkgs =
     _python_pkgs
     // {
@@ -14,11 +21,11 @@
         inherit lib;
         python_pkgs = _python_pkgs;
       };
-      fa-purity = fa-purity."${python_version}".pkg;
+      fa-purity = _fa_purity."${python_version}".pkg;
       fa-singer-io =
         (import ./fa-singer-io {
           inherit nixpkgs system;
-          purity = fa-purity;
+          purity = _fa_purity;
         })
         ."${python_version}"
         .pkg;
@@ -26,6 +33,8 @@
         inherit lib;
         python_pkgs = _python_pkgs;
       };
+      legacy-postgres-client = _legacy_postgres_client."${python_version}".pkg;
+      utils-logger = _utils_logger."${python_version}".pkg;
     };
   typing_ext_override = pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
   click_override = pkg_override ["click"] python_pkgs.click;
