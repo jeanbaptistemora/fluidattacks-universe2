@@ -17,8 +17,7 @@ opportunity to explore our
 [Attack Surface Manager (ASM)](/machine/web/asm)
 platform.
 Here is a short step-by-step guide
-to enroll in this free trial
-without relying on third parties.
+to enroll in this free trial.
 
 First,
 you have to go to the official
@@ -47,18 +46,9 @@ click on the Check access button.
 If the details you
 provided are valid,
 click the **Next** button.
-If they are not valid,
-you will have to review
-them and try again.
-When you click **Next**,
-you will see a new window
-asking you to create your
+You will see a new window asking you to create your
 [organization](/machine/web/creating-organization)
 and [group](/machine/web/groups).
-Be sure to read the Terms of
-Service and Privacy Policy,
-after which you can tick the
-check box indicating you did so.
 
 ![Create Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_creating.png)
 
@@ -66,12 +56,11 @@ After providing the
 requested information,
 click on the
 **Start your free trial now** button.
-You will see a new message indicating
-that the whole process is complete.
-From there, it is a matter of
-waiting a few hours while we
-clone your repository and
-perform the first security scan.
+From there,
+it is a matter of waiting a
+few hours while we clone your
+repository and perform the
+first security scan.
 
 ![Notification Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_notif.png)
 
@@ -87,10 +76,6 @@ You can also access your
 organization and group on
 the ASM and start exploring
 the platform.
-Bear in mind that it will be
-a bit empty until the results
-of the first security scan
-are available.
 
 ![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_acess.png)
 
@@ -98,11 +83,6 @@ Once vulnerabilities
 start being detected,
 you will be receiving
 notifications in your email.
-These will inform you about
-the types of vulnerabilities
-we have identified and provide
-you with links to the ASM
-to manage them.
 
 ![Vulnerabilities Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783881/docs/web/enrollment/enrollment_vuln_notification.png)
 
@@ -121,26 +101,22 @@ We invite you to follow
 for more information about
 managing your vulnerabilities
 from the ASM.
-If you have any questions,
-you can write to us at `help@fluidattacks.com`.
 
 ![Management](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_manage_vulns.png)
 
-You can enjoy all of Machine Plan's
-features for 21 days for free.
-When this time is about to run out,
-you will receive messages to decide
-if you want to extend the free trial
-for nine more days or become
-a client of `Fluid Attacks`.
-The latter option will allow
-you to use the Machine Plan
-without limitations.
-You can even talk to our
-staff to know about and
-request the comprehensive
-and more accurate Squad Plan
-(automated and manual testing service).
+When your 21-day free trial
+is about to run out,
+you will receive messages to
+decide if you want to extend
+it for nine more days or
+become a client of `Fluid Attacks`
+to use Machine Plan without
+limitations.
+You can even talk to our staff
+to know about and request the
+comprehensive and more accurate
+Squad Plan (automated and manual
+testing service).
 
 ![End Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1654783880/docs/web/enrollment/enrollment_21days.png)
 
@@ -149,9 +125,8 @@ start paying for Machine Plan,
 you will be taken to the ASM
 and see a window to enter
 your payment details.
-If these are correct,
-the transaction will be successful,
-and you will be able to continue
+If the transaction is successful,
+you will be able to continue
 testing the security of your
 systems with our automated tools.
 
