@@ -24,7 +24,9 @@ from custom_exceptions import (
     UserNotInOrganization,
 )
 from db_model import (
+    credentials as credentials_model,
     organizations as orgs_model,
+    roots as roots_model,
 )
 from db_model.groups.types import (
     Group,
@@ -38,6 +40,10 @@ from db_model.organizations.types import (
     OrganizationPolicies,
     OrganizationPoliciesToUpdate,
     OrganizationState,
+)
+from db_model.roots.types import (
+    GitRoot,
+    Root,
 )
 from decimal import (
     Decimal,
@@ -340,6 +346,33 @@ async def iterate_organizations_and_groups(
         yield organization.id, organization.name, await get_group_names(
             loaders, organization.id
         )  # NOSONAR
+
+
+async def remove_credential(
+    loaders: Any, organization_id: str, credential_id: str, modified_by: str
+) -> None:
+    organization: Organization = await loaders.organization.load(credential_id)
+    organization_roots: tuple[
+        Root, ...
+    ] = await loaders.organization_roots.load(organization.name)
+    await collect(
+        roots_model.update_root_state(
+            current_value=root.state,
+            group_name=root.group_name,
+            root_id=root.id,
+            state=root.state._replace(
+                credential_id=None,
+                modified_by=modified_by,
+                modified_date=datetime_utils.get_iso_date(),
+            ),
+        )
+        for root in organization_roots
+        if isinstance(root, GitRoot)
+    )
+    await credentials_model.remove_new(
+        credential_id=credential_id,
+        organization_id=organization_id,
+    )
 
 
 async def remove_user(loaders: Any, organization_id: str, email: str) -> bool:
