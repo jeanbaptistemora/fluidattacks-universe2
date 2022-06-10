@@ -5118,7 +5118,7 @@
   examples:
     non_compliant: |
       ```http
-      GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+      GET HTTP/1.1
       Host: hostname
       User-Agent: Mozilla/5.0
       Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -5128,7 +5128,7 @@
       ```
     compliant: |
       ```http
-      GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
+      GET HTTP/1.1
       Host: hostname
       User-Agent: Mozilla/5.0
       Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -15949,8 +15949,32 @@
       Atacante anónimo desde intranet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3, 7 ,15}
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+          String fileReq = request.getParameter( "file" );
+          // Process file without validating
+        } catch(YourValidationException e ) {
+          response.sendError( response.SC_BAD_REQUEST, e.getMessage() );
+        }
+      }
+      ```
+    compliant: |
+      ```c {3, 7 ,15}
+      public void doPost( HttpServletRequest request, HttpServletResponse response){
+        try {
+          String fileReq = request.getParameter( "file" );
+          //Whitelist the input parameter against a verified string
+          if ( !whiteListExample.matcher( fileReq ).matches() ) {
+            throw new YourValidationException( "Improper file" );
+          }
+          // Code to process the file after it has been validated
+        } catch(YourValidationException e ) {
+          response.sendError(response.SC_BAD_REQUEST, e.getMessage());
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -17951,8 +17975,33 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```c {3,7,15}
+      using System.Text.RegularExpressions;
+      namespace Controllers {
+        public class Controller : Controller {
+          public IActionResult Validate(string regex, string input) {
+            var expreg = "ComplexRegExpression";
+            Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+            bool match2 = reg.IsMatch(input, expreg);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      using System.Text.RegularExpressions;
+      //use standard regex to verify and sanitize input
+      namespace Controllers {
+        public class Controller : Controller {
+          public IActionResult Validate(string regex, string input) {
+            var expreg = "SimpleRegex";
+            Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
+            bool match = reg.IsMatch(input, reg.Escape(regex));
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22080,8 +22129,38 @@
       Atacante interno con acceso al IPA.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      sample_app = executable('sample_app',
+        'app/main.c',
+        dependencies: libc_dep,
+        # Added flag below
+        c_args: '-fstack-protector-none',
+        c_args: '-fno-objc-arc',
+        link_args: [
+            linker_script_flags,
+            map_file.format(meson.current_build_dir()+'/sample_app'),
+        ],
+        link_depends: linker_script_deps,
+        native: false
+      )
+      ```
+    compliant: |
+      ```java
+      sample_app = executable('sample_app',
+        'app/main.c',
+        dependencies: libc_dep,
+        # Added flag below
+        c_args: '-fstack-protector-all',
+        c_args: '-f-objc-arc',
+        link_args: [
+            linker_script_flags,
+            map_file.format(meson.current_build_dir()+'/sample_app'),
+        ],
+        link_depends: linker_script_deps,
+        native: false
+      )
+      ```
   remediation_time: "450"
   score:
     base:
@@ -25296,8 +25375,30 @@
       Usuario autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          //Line of code commented out that assigns the variable
+          # const validateToken = getToken(req.body.user)
+          if (validateToken == req.body.token){
+            //Code to handle user sign in
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          //Verify the source code does not have any commented out lines
+          const validateToken = getToken(req.body.user)
+          if (validateToken == req.body.token){
+            //Code to handle user sign in
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -25369,8 +25470,26 @@
       Usuario anónimo con acceso a la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      class Main {
+        public static void main(User user) {
+          //Ineficcient method to store user posts that could consume many computer resources
+          StringBuffer str = new StringBuffer(user.posts);
+          str.append(user.newPost);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      class Main {
+        public static void main(User user) {
+          //You could replace the method with an OOP approach
+          private userPost = new Post(user.newPost);
+          user.posts.append(userPost);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -25425,8 +25544,33 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const addBeneficiaries = (req, res) => {
+        if (isValidUser(req.body.user) && length(req.body.newBeneficiariesAmount) < 4) {
+          //Unchecked server side data added to the user model
+          const beneficiaries = req.body.beneficiaries;
+          addNewBeneficiaries(beneficiaries);
+        }else{
+          res.message("Unable to add beneficiaries, verify the limitations and requirements");
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const addBeneficiaries = (req, res) => {
+        if (isValidUser(req.body.user) && length(req.body.newBeneficiariesAmount) < 4) {
+          //Check data on the server side
+          const beneficiaries = req.body.beneficiaries;
+          const areBeneficiariesValid = verifyBeneficiaries(beneficiaries);
+          if areBeneficiariesvalid{
+            addNewBeneficiaries(beneficiaries);
+          }
+        }else{
+          res.message("Unable to add beneficiaries, verify the limitations and requirements");
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -25553,8 +25697,33 @@
       Usuario autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessStore = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const store = req.body.store;
+          //Accessing store only with the id number
+          if storesModel.find(store.id){
+            //Code that allows access to the user to edit the store
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessStore = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const store = req.body.store;
+          //Accessing store only with the id number
+          if storesModel.find(store.id){
+            const isAccessgranted = verifyUserAccess(store, req.body.id)
+            if isAccessgranted{
+              //Code that allows access to the user to edit the store
+            }
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -25610,8 +25779,17 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      //Check the server configuration for the default index pages
+      ```yaml
+      #Alternate default index pages
+      DirectoryIndex first.html index.htm index.html sensitiveFile.php
+      ```
+    compliant: |
+      ```yaml
+      #Alternate default index pages
+      DirectoryIndex first.html index.htm index.html
+      ```
   remediation_time: "15"
   score:
     base:
@@ -25678,8 +25856,22 @@
       Atacante anónimo desde Internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      // Create a token signature with an insecure algorithm
+      const token = jwt.sign({ username }, jwtKey, {
+        algorithm: "RC128",
+        expiresIn: jwtExpirySeconds,
+      })
+      ```
+    compliant: |
+      ```javascript
+      // Create token with a secure encryption method
+      const token = jwt.sign({ username }, jwtKey, {
+        algorithm: "HS256",
+        expiresIn: jwtExpirySeconds,
+      })
+      ```
   remediation_time: "60"
   score:
     base:
@@ -25818,8 +26010,18 @@
       Atacante externo no autorizado.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      java.util.Properties config = new java.util.Properties();
+      config.put("StrictHostKeyChecking", "no");
+      session.setConfig(config);
+      ```
+    compliant: |
+      ```java
+      java.util.Properties config = new java.util.Properties();
+      config.put("StrictHostKeyChecking", "yes");
+      session.setConfig(config);
+      ```
   remediation_time: "15"
   score:
     base:
@@ -25871,8 +26073,18 @@
       Atacante sin autorización desde internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      APKSigner:
+        V1_SIGNATURE: true
+        V2_SIGNATURE: false
+      ```
+    compliant: |
+      ```yaml
+      APKSigner:
+        V1_SIGNATURE: false
+        V2_SIGNATURE: true
+      ```
   remediation_time: "60"
   score:
     base:
@@ -25925,26 +26137,12 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```json
-      android {
-        defaultConfig {
-          minSdkVersion 17
-          targetSdkVersion 20
-        }
-      }
+      ```html
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="17" android:compileSdkVersionCodename="20" minSdkVersion="17" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
       ```
     compliant: |
       ```json
-      android {
-        compileSdkVersion 31
-        ...
-        defaultConfig {
-          minSdkVersion 25
-          targetSdkVersion 30
-          ...
-        }
-        ...
-      }
+      <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" android:compileSdkVersionCodename="2" minSdkVersion="25" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
       ```
   remediation_time: "60"
   score:
@@ -25993,8 +26191,43 @@
       Usuario de Internet con credenciales.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      version: "3.9"
+      services:
+        web:
+          build: .
+          ports:
+            - "8000:80"
+          depends_on:
+            - db
+        db:
+          image: "/mssql/server"
+          environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"
+          group_permissions
+            AllowEdit: all
+      ```
+    compliant: |
+      Restrict access only to authorized users
+      ```yaml
+      version: "3.9"
+      services:
+        web:
+          build: .
+          ports:
+            - "8000:80"
+          depends_on:
+            - db
+        db:
+          image: "/mssql/server"
+          environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"
+          group_permissions
+            AllowEdit: admin
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26055,8 +26288,24 @@
       que yacen en el código fuente desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      "indexes": {
+        "search-cloud": {
+          "analyzer": "all",
+          "index": "function: any"
+        }
+      }
+      ```
+    compliant: |
+      ```json
+      "indexes": {
+        "search-cloud": {
+          "analyzer": "standard",
+          "index": "function(doc) { index(\"keyword\", doc.name); }"
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26113,8 +26362,26 @@
       Atacante con acceso a la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      class Main {
+        public static void main(User user) {
+          //Ineficcient method to store user posts that could consume many computer resources
+          StringBuffer str = new StringBuffer(user.posts);
+          str.append(user.newPost);
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      class Main {
+        public static void main(User user) {
+          //You could replace it with StringBuilder
+          StringBuilder str = new StringBuilder(user.posts);
+          str.append(user.newPost);
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26165,8 +26432,37 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```python
+      //Function that leaves an opened socket
+      def createConnection(host, port, limit):
+        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = socket.gethostname()
+        serversocket.bind((host, port))
+        serversocket.listen(limit)
+
+        while True:
+          clientsocket,addr = serversocket.accept()
+          msg = 'Thank you for connecting'+ "\r\n"
+          clientsocket.send(msg.encode('ascii'))
+        return
+      ```
+    compliant: |
+      ```python
+      def createConnection(host, port, limit):
+        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        host = socket.gethostname()
+        serversocket.bind((host, port))
+        serversocket.listen(limit)
+
+        while True:
+          clientsocket,addr = serversocket.accept()
+          msg = 'Thank you for connecting'+ "\r\n"
+          clientsocket.send(msg.encode('ascii'))
+          //Close resources after consuming them
+          clientsocket.close()
+        return
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26228,8 +26524,26 @@
       Atacante anónimo desde internet.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        const token = jwt.sign({ username }, jwtKey, {
+          //Using a user/browser defined value as the signing algorithm
+          algorithm: req.body.algorithm,
+          expiresIn: jwtExpirySeconds,
+        })
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessCredentials = (req, res) => {
+        const token = jwt.sign({ username }, jwtKey, {
+          //Setting the encryption algorithm
+          algorithm: "HS256",
+          expiresIn: jwtExpirySeconds,
+        })
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26284,8 +26598,28 @@
       Usuario no autorizado con accesso a información sensible.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```json
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "mydatabase:role/user"
+          "mydatabase:role/admin"
+        ]
+      }
+      ```
+    compliant: |
+      //Restrict access following a minimum permissions approach
+      ```json
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "mydatabase:role/admin"
+        ]
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26698,8 +27032,33 @@
       para añadir usuarios.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const grantAccess = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            const vuln = req.body.vulnId;
+            assignVulnToUser(req.body.user, vuln);
+            //Code to alert user of the reassign vulnerability
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const grantAccess = (req, res) => {
+        const user = req.body.user;
+        const vulnGroup = req.body.vulnGroup;
+        const isVulnInGroup = user.vulnGroups.find(vulnGroup)
+        //Only allow user to access the vulnerability if he has the relevant permissions
+        if (isValidUser(req.body.user) && isVulnInGroup) {
+          if (validateToken == req.body.token){
+            assignVulnToUser(req.body.user, vuln);
+            //Code to alert user of the reassign vulnerability
+          }
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -26987,8 +27346,27 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const logOut = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+          //Closing a session without validating the email belongs to the same user and token
+          closeSession(req.body.email);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const logOut = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+          const validateCredentials(req.body.user);
+          if validateCredentials{
+            //The close session function verifies that id, token and email all belong to the same user
+            closeSession(req.body.userid, req.body.token, req.body.email);
+          }
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -27101,8 +27479,29 @@
       Atacante anónimo desde Internet.
   category: Probabilistic Techniques
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const validatePromoCode = (req, res) => {
+        if (isValidCode(req.body.code)) {
+          //Application does not establish a fallback or limit when the code is not valid
+          applyDiscount(req.body.code, req.body.item);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const validatePromoCode = (req, res) => {
+        if (isValidCode(req.body.code)) {
+          //Application does not establish a fallback or limit when the code is not valid
+          applyDiscount(req.body.code, req.body.item);
+        }else{
+          //Set a fallback mechanism to prevent brut force algorithms from guessing discount codes
+          if(req.body.numRequests > 5){
+            blockUserCodes(req.body.userid, 36000);
+          }
+        }
+      }
+      ```
   remediation_time: "10"
   score:
     base:
@@ -27398,8 +27797,49 @@
       Atacante interno con acceso a configuraciones de servicios.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```terraform
+      resource "aws_iam_policy" "policy" {
+        name        = "test_policy"
+        path        = "/mypath"
+        description = "My test policy"
+
+        policy = jsonencode({
+          Version = "2012-10-17"
+          Statement = [
+            {
+              Action = [
+                "ec2:Describe*",
+              ]
+              Effect   = "Allow"
+              Resource = "db_critical"
+              Password = "my_service_password"
+            },
+          ]
+        })
+      }
+      ```
+    compliant: |
+      ```terraform
+      resource "aws_iam_policy" "policy" {
+        name        = "test_policy"
+        path        = "/mypath"
+        description = "My test policy"
+
+        policy = jsonencode({
+          Version = "2012-10-17"
+          Statement = [
+            {
+              Action = [
+                "ec2:Describe*",
+              ]
+              Effect   = "Allow"
+              Resource = "db_critical"
+            },
+          ]
+        })
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -27556,8 +27996,29 @@
       Atacante con acceso a la aplicación desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const getUserInfo = (req, res) => {
+        //The function does not validate the user permissions to access the information
+        if (isValidUser(req.body.user)) {
+          const requestedUser = req.body.requiredUser;
+          res.send(requestedUser.email);
+          res.send(requestedUser.phone);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const getUserInfo = (req, res) => {
+        const userCredentials = getCredentials(req.body.userId);
+        //Allow only admin users to access the sensitive information
+        if (isValidUser(req.body.user) && userCredentials == "ADMIN") {
+          const requestedUser = req.body.requiredUser;
+          res.send(requestedUser.email);
+          res.send(requestedUser.phone);
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -27749,8 +28210,20 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      <system.web>
+          <compilation debug="true" targetFramework="4.0" />
+          <httpRuntime requestValidationMode=* />
+      </system.web>
+      ```
+    compliant: |
+      ```http
+      <system.web>
+          <compilation debug="true" targetFramework="4.0" />
+          <httpRuntime requestValidationMode="2.0" />
+      </system.web>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -27798,8 +28271,37 @@
       Atacante anónimo desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Updating user without validating data on the server side
+          user.email = req.body.data.emailEdit;
+          user.first_name = req.body.data.first_nameEdit;
+          user.last_name = req.body.data.last_nameEdit;
+          user.username = req.body.data.usernameEdit;
+          res.redirect('/profile/');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      //String to validate data does not contain special characters
+      const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          //Function to compare data and see it does not contain special characters
+          const isDataValid = validateData(req.body.data, format)
+          if isDataValid{
+            user.email = req.body.data.emailEdit;
+            user.first_name = req.body.data.first_nameEdit;
+            user.last_name = req.body.data.last_nameEdit;
+            user.username = req.body.data.usernameEdit;
+            res.redirect('/profile/');
+          }
+        }
+      });
+      ```
   remediation_time: "30"
   score:
     base:
@@ -27948,8 +28450,41 @@
       Usuario anónimo en Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          const isDataValid = validateData(req.body.data)
+          if isDataValid{
+            user.email = req.body.data.emailEdit;
+            user.first_name = req.body.data.first_nameEdit;
+            user.last_name = req.body.data.last_nameEdit;
+            user.username = req.body.data.usernameEdit;
+            res.redirect('/profile/');
+          }else{
+            //Insecure function used
+            alert("Data is not valid");
+          }
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/editProfile', isLoggedIn, function(req, res, next){
+        User.update({ _id: req.user.id}, req.body, function(err, user){
+          const isDataValid = validateData(req.body.data)
+          if isDataValid{
+            user.email = req.body.data.emailEdit;
+            user.first_name = req.body.data.first_nameEdit;
+            user.last_name = req.body.data.last_nameEdit;
+            user.username = req.body.data.usernameEdit;
+            res.redirect('/profile/');
+          }else{
+            //Code to handle the wrong data without exposing the system
+          }
+        }
+      });
+      ```
   remediation_time: "15"
   score:
     base:
@@ -28020,8 +28555,24 @@
       (ataque man-in-the-middle).
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```http
+      GET HTTP/1.1
+      Host: hostname
+      User-Agent: Mozilla/5.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      Accept-Language: en-us,en;q=0.5
+      content-encoding: gzip
+      ```
+    compliant: |
+      ```http
+      GET HTTP/1.1
+      Host: hostname
+      User-Agent: Mozilla/5.0
+      Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+      Accept-Language: en-us,en;q=0.5
+      content-encoding: compress
+      ```
   remediation_time: "30"
   score:
     base:
@@ -28072,8 +28623,38 @@
       Atacante autenticado desde Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      Private main (String userInput){
+        String homeDirectory = System.getProperty("user.home");
+        Process process;
+        if (isWindows) {
+          process = Runtime.getRuntime().exec(String.format("cmd.exe /c dir %s", homeDirectory));
+        } else {
+          process = Runtime.getRuntime().exec(String.format("sh -c ls %s", homeDirectory));
+        }
+        StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+        Executors.newSingleThreadExecutor().submit(streamGobbler);
+        int exitCode = process.waitFor();
+        assert exitCode == 0;
+      }
+      ```
+    compliant: |
+      ```java
+      Private main ([] args){
+        String homeDirectory = System.getProperty("fixedPath");
+        Process process;
+        if (isWindows) {
+          process = Runtime.getRuntime().exec(String.format("cmd.exe /c dir %s", homeDirectory));
+        } else {
+          process = Runtime.getRuntime().exec(String.format("sh -c ls %s", homeDirectory));
+        }
+        StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream(), System.out::println);
+        Executors.newSingleThreadExecutor().submit(streamGobbler);
+        int exitCode = process.waitFor();
+        assert exitCode == 0;
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -28141,8 +28722,27 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+
+          redirect('users/main');
+        }else if (req.body.session.contains("auto")){
+          redirect('users/main');
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+
+          redirect('users/main');
+        }
+        //Delete all development code
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -28333,8 +28933,24 @@
       Usuario no autorizado con acceso a la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      <manifest ... >
+        ...
+        <application android:launchMode="singleTask" ... >
+            ...
+        </application>
+      </manifest>
+      ```
+    compliant: |
+      ```yaml
+      <manifest ... >
+        ...
+        <application android:launchMode="singleInstance" ... >
+            ...
+        </application>
+      </manifest>
+      ```
   remediation_time: "60"
   score:
     base:
@@ -28443,8 +29059,26 @@
       Atacante anónimo consulta la página de login.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+          //the callScript method stores a secret key in plaint text
+          res.message(callScript());
+          redirect('users/main');
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
+          //Avoid external scripts that contain sensitive information
+          res.message("Successful login");
+          redirect('users/main');
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -30118,8 +30752,24 @@
       Unauthorized attacker from the Internet.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      //Take user input without validating
+      var search = document.getElementById('search').value;
+      var results = document.getElementById('results');
+      results.innerHTML = "You searched for:" + search;
+      ```
+    compliant: |
+      ```javascript
+      var search = document.getElementById('search').value;
+      var results = document.getElementById('results');
+      //Perform validation of user input
+      results.innerHTML = "You searched for:" + verifyData(search);
+      function verifyData(str){
+        return String(str).replace("ValidRegex");
+      }
+      //Server side validation should also be included in the code
+      ```
   remediation_time: "90"
   es:
     title: DOM-Based cross-site scripting (XSS)
