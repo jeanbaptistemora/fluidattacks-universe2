@@ -18762,6 +18762,7 @@
         // Validate User Code
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         let data = {
+          //Include confidential information in the response
           userName: req.body.user,
           password: req.body.password,
         }
@@ -21666,8 +21667,22 @@
       con hashes de usuarios del dominio.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      //The server configuration has LM hash storing allowed, which makes it vulnerable to brut force attacks
+      ```yaml
+      Security Policy:
+        Control Set:
+          LSA:
+            LMHash
+      ```
+    compliant: |
+      //Configure the server to avoid LM Hashing
+      ```yaml
+      Security Policy:
+        Control Set:
+          LSA:
+            NoLMHash
+      ```
   remediation_time: "60"
   score:
     base:
@@ -22959,8 +22974,32 @@
       Usuario autenticado desde internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The server side of the application does not validate user permissions before creating a file
+      ```javascript
+      const createFile = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const fileToDelete = req.body.filePath;
+          if (!db.has(fileToDelete)){
+            db.createFile(fileToDelete);
+          }
+        }
+      }
+      ```
+    compliant: |
+      Always perform both front end and server side validation of a users credentials
+      ```javascript
+      const createFile = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const fileToDelete = req.body.filePath;
+          if (!db.has(fileToDelete) && req.body.userId.role == "ADMIN"){
+            db.createFile(fileToDelete);
+          }esle{
+            //Code to handle unauthorized users trying to create files
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -23016,8 +23055,26 @@
       Atacante con acceso a la aplicación desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The server side of the application does not validate user permissions before changing passwords
+      ```javascript
+      const changePassword = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const newPassword = req.body.newPassword;
+          changeUserPassword(req.body.userId, newPassword);
+        }
+      }
+      ```
+    compliant: |
+      The server side of the application performs credential validation for each user
+      ```javascript
+      const changePassword = (req, res) => {
+        if (isValidUser(req.body.user) && isValidCredentials(req.body.userSession)) {
+          const newPassword = req.body.newPassword;
+          changeUserPassword(req.body.userId, newPassword);
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -23072,8 +23129,31 @@
       ejecutando un MitM.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessRecoveryEmail = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            //Sending unmasked sensitive information
+            const recoveryEmail = getRecoveryEmail(req.body.userId);
+            res.end(recoveryEmail);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessRecoveryEmail = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            //Implement a function to mask sensitive information
+            const recoveryEmail = getRecoveryEmail(req.body.userId);
+            const maskedEmail = MaskData.maskJSONFields(recoveryEmail, maskJSONOptions);
+            res.end(maskedEmail);
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -23120,8 +23200,31 @@
       Atacante autenticado en Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const updateInfo = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            //There is no server side validation of the field the user is trying to change
+            const updatedField = req.body.infoChange;
+            updateUser("password", updatedField);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const updateInfo = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            const fieldToUpdate = req.body.field;
+            const updatedField = req.body.infoChange;
+            //Change the correct user field (Code to validate/clean input data must also be included)
+            updateUser(fieldtoUpdate, updatedField);
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -23198,8 +23301,24 @@
       información de los empleados.
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const createUser = (req, res) => {
+        const userId = req.body.userId;
+        //The function to add user information depends on the userId and does not validate if userId already exists
+        updateUserDB(userId, req.body.info);
+      }
+      ```
+    compliant: |
+      ```javascript
+      const createUser = (req, res) => {
+        //Verify userId is not already registered
+        if (!isValidUser(req.body.userId)) {
+          const userId = req.body.userId;
+          addNewUserDB(userId, req.body.info);
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -23344,8 +23463,27 @@
       Atacante no autorizado con acceso local a la máquina.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const getSession = (req, res) => {
+        //Not shown: Code to check user session credentials
+
+        //Include the jwt in the response url
+        app.get('/users/:userJWT', (req, res) => {
+          res.send(req.params);
+        })
+      }
+      ```
+    compliant: |
+      ```javascript
+      const getSession = (req, res) => {
+        //Not shown: Code to check user session credentials
+        //The application should not include sensitive information in the url
+        app.get('/users/login', (req, res) => {
+          res.send();
+        })
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -23478,8 +23616,32 @@
       Atacante no autorizado desde internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class SimpleTesting{
+        static String str;
+        public static void main(String[] args) {
+          try {
+            //Code that could generate a nullPointerException
+          }catch(NullPointerException e) {
+            System.out.println("Null Pointer: "+e.getMessage());
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```java
+      public class SimpleTesting{
+        static String str;
+        public static void main(String[] args) {
+          try {
+            //Code that should generate an exception with an speficied message
+          }catch(Exception e) {
+            //Handle specified exception
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -23984,8 +24146,36 @@
       fuente desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The server could have a user class that stores the passwords in Base64
+      ```python
+      class User(db.Model, UserMixin):
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(255), unique=True)
+        password_hash = db.Column(db.String(128))
+
+        @property
+        def password(self):
+            raise AttributeError('password not readable')
+        @password.setter
+        def password(self, password):
+            self.password_hash = base64.b64encode('password')
+      ```
+    compliant: |
+      //The encrypted values of sensitive information should be stored in the code
+      ```python
+      class User(db.Model, UserMixin):
+        id = db.Column(db.Integer, primary_key=True)
+        email = db.Column(db.String(255), unique=True)
+        password_hash = db.Column(db.String(128))
+
+        @property
+        def password(self):
+            raise AttributeError('password not readable')
+        @password.setter
+        def password(self, password):
+            self.password_hash = bcrypt.hashpw('password', bcrypt.gensalt())
+      ```
   remediation_time: "60"
   score:
     base:
@@ -24044,8 +24234,39 @@
       Atacante interno en el mismo segmento de red.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The info.plist file has some of these parameters
+      ```html
+      <key>NSAppTransportSecurity</key>
+      <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+          <key>yourdomain.com</key>
+          <dict>
+            <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+          </dict>
+        </dict>
+      </dict>
+      ```
+    compliant: |
+      ```html
+      <key>NSAppTransportSecurity</key>
+      <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+          <key>yourdomain.com</key>
+          <dict>
+            <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+            <false/>
+            <key>NSAllowsArbitraryLoads</key>
+            <false/>
+          </dict>
+        </dict>
+      </dict>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -24377,8 +24598,36 @@
       Atacante externo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The source code contains a file that could potentially display system logs
+      ```html
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+      </head>
+      <body>
+        <script type="text/javascript">
+          (function () {
+            var old = system.log;
+            var logger = document.getElementById('log');
+            old = function (message) {
+              if (typeof message == 'object') {
+                logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+              } else {
+                logger.innerHTML += message + '<br />';
+              }
+            }
+          })();
+        </script>
+      </body>
+      </html>
+      ```
+    compliant: |
+      Delete all logging functions in the production source code
   remediation_time: "30"
   score:
     base:
@@ -24501,8 +24750,33 @@
       Un atacante autenticado desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is a method in the application that includes sensitive data in the response
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        let data = {
+          userName: req.body.user,
+          password: req.body.password,
+          ...other user sensitive information
+        }
+        res.send(data);
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post("/user/generateToken", (req, res) => {
+        if user.isLoggedIn{
+          let data = {
+            userName: req.body.user,
+            password: req.body.password,
+            ...other user sensitive information
+          }
+          if(req.body.userCredentials == "ADMIN"){
+            res.send(data);
+          }
+        }
+      });
+      ```
   remediation_time: "120"
   score:
     base:
@@ -24568,8 +24842,20 @@
       Atacante no autorizado con acceso a la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```java
+      public class UserExample {
+        public static user_key a;
+        public static user_id b;
+      }
+      ```
+    compliant: |
+      ```java
+      public class UserExample {
+        private user_key a;
+        private static user_id b;
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -24636,8 +24922,18 @@
       Atacantea anónimo en red adyancente.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      jarsigner -keystore "password1" -certchain "bundle.pem" -tsa "http://time.certum.pl" -storetype PKCS11
+        -providerClass sun.security.pkcs11.SunPKCS11 -providerArg "provider.cfg" -keypass "password1"
+        -storepass "password1" "[your_code].jar" "[your_alias]"
+      ```
+    compliant: |
+      ```yaml
+      jarsigner -keystore "enc_password" -certchain "bundle.pem" -tsa "http://time.certum.pl" -storetype PKCS11
+        -providerClass sun.security.pkcs11.SunPKCS11 -providerArg "provider.cfg" -keypass "enc_password1"
+        -storepass "enc_password2" "[your_code].jar" "[your_alias]"
+      ```
   remediation_time: "60"
   score:
     base:
@@ -24696,8 +24992,36 @@
       la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const otpGenerator = require('otp-generator');
+      const { OTP_LENGTH, OTP_CONFIG } = require('../constants/constants');
+      //The code still contains the default OTP used during development
+      module.exports.generateOTP = () => {
+        const OTP = "OneTimeValue";
+        return OTP;
+      };
+
+      OTP_CONFIG: {
+        upperCaseAlphabets: true,
+        specialChars: false,
+      },
+      ```
+    compliant: |
+      ```javascript
+      const otpGenerator = require('otp-generator');
+      const { OTP_LENGTH, OTP_CONFIG } = require('../constants/constants');
+      //Implement a secure version of the OTP generator
+      module.exports.generateOTP = () => {
+        const OTP = otpGenerator.generate(OTP_LENGTH, OTP_CONFIG);
+        return OTP;
+      };
+
+      OTP_CONFIG: {
+        upperCaseAlphabets: true,
+        specialChars: false,
+      },
+      ```
   remediation_time: "60"
   score:
     base:
@@ -29274,8 +29598,34 @@
       El atacante externo puede ejecutar las pipelines.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessRecoveryPasswd = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            //Implement a function to mask sensitive information
+            const recoveryPasswd = getRecoveryPasswd(req.body.userId);
+            const maskedPasswd = MaskData.maskJSONFields(recoveryPasswd, maskJSONOptions);
+            //A log job in the code could be used to access the unmasked variable with sensitive information
+            console.log(maskedPasswd)
+            res.end(maskedPasswd);
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessRecoveryPasswd = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token){
+            //Implement a function to mask sensitive information
+            const recoveryPasswd = getRecoveryPasswd(req.body.userId);
+            const maskedPasswd = MaskData.maskJSONFields(recoveryPasswd, maskJSONOptions);
+            res.end(maskedPasswd);
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -30209,8 +30559,46 @@
       Anonymous attacker from the Internet
   category: Inject Unexpected
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForTemporaruPassword
+            Description: "This secret generates temporary passwords"
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 6
+              ExcludeCharacters: '"@/\'
+              ExcludeLowercase: true
+              ExcludeNumbers: true
+              ExcludePunctuation: true
+              ExcludeUppercase: true
+              IncludeSpace: true
+              RequireEachIncludedType: false
+      ```
+    compliant: |
+      ```yaml
+      Resources:
+        MySecret1:
+          Type: 'AWS::SecretsManager::Secret'
+          Properties:
+            Name: MySecretForTemporaruPassword
+            Description: "This secret generates temporary passwords"
+            GenerateSecretString:
+              SecretStringTemplate: '{"username": "test-user"}'
+              GenerateStringKey: "password"
+              PasswordLength: 18
+              ExcludeCharacters: '"@/\'
+              ExcludeLowercase: False
+              ExcludeNumbers: False
+              ExcludePunctuation: False
+              ExcludeUppercase: false
+              IncludeSpace: false
+              RequireEachIncludedType: True
+      ```
   remediation_time: "30"
   es:
     title: Weak credential policy - Temporary passwords
@@ -31893,8 +32281,20 @@
       Attacker authenticated in the application from the Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      A module includes a wildcard export
+      ```javascript
+      //Module code...
+
+      export *
+      ```
+    compliant: |
+      Explicitly export the functions and variable required for the application
+      ```javascript
+      //Module code...
+      export { myFunction as function,
+        myVariable as variable};
+      ```
   remediation_time: "30"
   es:
     title: Inappropriate coding practices - Wildcard export
@@ -32085,8 +32485,28 @@
       Anonymous attacker from the Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          //The OTP generated is not expired after the user uses it to sign in for the first time
+          if (validateToken == req.body.token || req.body.password = user.OTpasswd){
+            //Code to handle user sign in
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const logIn = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          if (validateToken == req.body.token || req.body.password = user.OTpasswd){
+            user.OTPasswd = Null
+            //Code to handle user sign in
+          }
+        }
+      }
+      ```
   remediation_time: "90"
   es:
     title: Insecure service configuration - Object Reutilization
@@ -32138,8 +32558,17 @@
       Anonymous attacker from adjacent network performing a MitM.
   category: Protocol Manipulation
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The server configuration file contains NTML authentication protocol
+      ```yaml
+      adminSecurity: active
+      authMode: NTLM
+      ```
+    compliant: |
+      ```yaml
+      adminSecurity: active
+      authMode: Kerberos
+      ```
   remediation_time: "120"
   es:
     title: Insecure authentication method - NTLM
