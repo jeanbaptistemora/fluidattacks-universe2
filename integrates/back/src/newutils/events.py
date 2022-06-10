@@ -17,14 +17,12 @@ from newutils import (
 from typing import (
     Any,
     cast,
-    Dict,
-    List,
 )
 
 
-def format_data(event: Dict[str, Any]) -> Dict[str, Any]:
+def format_data(event: dict[str, Any]) -> dict[str, Any]:
     historic_state = cast(
-        List[Dict[str, str]], event.get("historic_state", [{}, {}])
+        list[dict[str, str]], event.get("historic_state", [{}, {}])
     )
     event["closing_date"] = "-"
     if historic_state[-1].get("state") == "SOLVED":
@@ -63,9 +61,9 @@ def format_event(item: Item) -> Event:
 
 
 async def filter_events_date(
-    events: List[Dict[str, Any]],
+    events: list[dict[str, Any]],
     min_date: datetime,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     return [
         event
         for event in events

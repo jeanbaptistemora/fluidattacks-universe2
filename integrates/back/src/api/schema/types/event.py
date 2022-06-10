@@ -1,6 +1,3 @@
-# None
-
-
 from api.resolvers.event import (
     affected_reattacks,
     consulting,
