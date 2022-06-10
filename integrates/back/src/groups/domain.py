@@ -2144,3 +2144,21 @@ async def get_treatment_summary(
         ],
         new=treatment_counter[VulnerabilityTreatmentStatus.NEW],
     )
+
+
+async def get_oldest_finding_date(
+    loaders: Any, group_name: str
+) -> Optional[datetime]:
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        group_name
+    )
+    ages: list[datetime] = [
+        datetime.fromisoformat(
+            finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
+        )
+        for finding in findings
+        if finding.unreliable_indicators.unreliable_oldest_vulnerability_report_date  # noqa
+    ]
+    if ages:
+        return min(ages)
+    return None

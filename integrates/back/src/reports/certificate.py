@@ -50,6 +50,7 @@ from s3 import (
 import subprocess  # nosec
 import tempfile
 from typing import (
+    Optional,
     TypedDict,
     Union,
     ValuesView,
@@ -202,8 +203,16 @@ class CertificateCreator(CreatorPdf):
         )
         remediation_table = make_remediation_table(context_findings, words)
         group: Group = await loaders.group.load(group_name)
-        start_date: datetime = get_datetime_from_iso_str(
+        group_creation_date: datetime = get_datetime_from_iso_str(
             await groups_domain.get_creation_date(loaders, group_name)
+        )
+        oldest_vuln_date: Optional[
+            datetime
+        ] = await groups_domain.get_oldest_finding_date(loaders, group_name)
+        start_date: datetime = (
+            min(group_creation_date, oldest_vuln_date)
+            if oldest_vuln_date
+            else group_creation_date
         )
         current_date: datetime = get_now()
 
