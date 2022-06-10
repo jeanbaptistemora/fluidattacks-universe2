@@ -34,6 +34,8 @@ from pyparsing import (
     cppStyleComment,
     delimitedList,
     lineno,
+    makeHTMLTags,
+    ParseException,
     ParserElement,
     pythonStyleComment,
     QuotedString,
@@ -105,6 +107,37 @@ SHIELD_BLOCKING: Callable[[TFun], TFun] = shield_blocking(on_error_return=())
 
 # Lint config
 # pylint: disable=too-many-arguments
+
+
+def has_attributes(content: str, tag: str, attrs: dict) -> bool:
+    """
+    Check ``HTML`` attributes` values.
+
+    This method checks whether the tag (``tag``) inside the code file
+    has attributes (``attr``) with the specific values.
+
+    :param tag: ``HTML`` tag to search.
+    :param attrs: Attributes with values to search.
+    :returns: True if attribute set as specified, False otherwise.
+    """
+
+    tag_s, _ = makeHTMLTags(tag)
+    tag_expr = tag_s
+
+    result = False
+
+    for expr in tag_expr.searchString(content):
+        for attr, value in attrs.items():
+            try:
+                value.parseString(getattr(expr, attr))
+                result = True
+            except ParseException:
+                result = False
+                break
+        if result:
+            break
+
+    return result
 
 
 def get_matching_lines_blocking(

@@ -3,6 +3,7 @@ from bs4 import (
 )
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
+    has_attributes,
 )
 from model.core_model import (
     MethodsEnum,
@@ -10,8 +11,6 @@ from model.core_model import (
 )
 from pyparsing import (
     CaselessKeyword,
-    makeHTMLTags,
-    ParseException,
 )
 from typing import (
     Iterator,
@@ -73,37 +72,6 @@ def has_autocomplete(content: str, path: str) -> Vulnerabilities:
     )
 
 
-def _has_attributes(content: str, tag: str, attrs: dict) -> bool:
-    """
-    Check ``HTML`` attributes` values.
-
-    This method checks whether the tag (``tag``) inside the code file
-    has attributes (``attr``) with the specific values.
-
-    :param tag: ``HTML`` tag to search.
-    :param attrs: Attributes with values to search.
-    :returns: True if attribute set as specified, False otherwise.
-    """
-
-    tag_s, _ = makeHTMLTags(tag)
-    tag_expr = tag_s
-
-    result = False
-
-    for expr in tag_expr.searchString(content):
-        for attr, value in attrs.items():
-            try:
-                value.parseString(getattr(expr, attr))
-                result = True
-            except ParseException:
-                result = False
-                break
-        if result:
-            break
-
-    return result
-
-
 def is_cacheable(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
         """Check if cache is possible.
@@ -122,8 +90,8 @@ def is_cacheable(content: str, path: str) -> Vulnerabilities:
         tk_minusone = CaselessKeyword("-1")
         expires_attrs = {"http-equiv": tk_expires, "content": tk_minusone}
 
-        has_pragma = _has_attributes(content, tag, pragma_attrs)
-        has_expires = _has_attributes(content, tag, expires_attrs)
+        has_pragma = has_attributes(content, tag, pragma_attrs)
+        has_expires = has_attributes(content, tag, expires_attrs)
 
         vulnerable: bool = not has_pragma or not has_expires
         if vulnerable:
