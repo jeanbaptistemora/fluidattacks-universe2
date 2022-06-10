@@ -3,7 +3,7 @@ from enum import (
 )
 
 
-class EventStatus(str, Enum):
+class EventStateStatus(str, Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"
     DELETED: str = "DELETED"

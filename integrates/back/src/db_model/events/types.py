@@ -1,5 +1,5 @@
 from .enums import (
-    EventStatus,
+    EventStateStatus,
 )
 from typing import (
     NamedTuple,
@@ -7,26 +7,26 @@ from typing import (
 )
 
 
-class EventHistory(NamedTuple):
-    date: str
-    state: EventStatus
+class EventState(NamedTuple):
+    modified_by: str
+    modified_date: str
+    status: EventStateStatus
 
 
 class Event(NamedTuple):
-    type: str
     accessibility: str
     affected_components: str
-    analyst: str
     client: str
-    closing_date: str
-    context: str
-    detail: str
-    evidence_file: str
-    evidence: str
-    historic_state: EventHistory
+    description: str
+    group_name: str
+    hacker: str
     id: str
-    subscription: str
-    action_after_blocking: Optional[str] = None
-    action_before_blocking: Optional[str] = None
+    state: EventState
+    type: str
+    action_after_blocking: Optional[str] = None  # Deprecated
+    action_before_blocking: Optional[str] = None  # Deprecated
+    context: Optional[str] = None  # Deprecated
+    evidence: Optional[str] = None
     evidence_date: Optional[str] = None
+    evidence_file: Optional[str] = None
     evidence_file_date: Optional[str] = None
