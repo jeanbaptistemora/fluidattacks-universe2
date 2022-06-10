@@ -11,7 +11,6 @@ from charts.generators.single_value_indicator.remediation import (
     get_totals_by_week,
 )
 from charts.utils import (
-    format_cvssf,
     get_cvssf,
     get_portfolios_groups,
     iterate_groups,
@@ -101,11 +100,11 @@ def get_percentage_change(
     if total == Decimal("0.0") and current > Decimal("0.0"):
         return Decimal("1.0")
 
-    return current / total
+    return Decimal(current / total).normalize()
 
 
 @alru_cache(maxsize=None, typed=True)
-async def generate_one(  # pylint: disable=too-many-locals
+async def generate_one(
     *,
     loaders: Dataloaders,
     group_name: str,
@@ -148,15 +147,13 @@ async def generate_one(  # pylint: disable=too-many-locals
         loaders=loaders,
     )
 
-    total_closed: Decimal = format_cvssf(total_current_closed)
-    total_open: Decimal = format_cvssf(total_current_open)
-    current_closed: Decimal = format_cvssf(closed_current_sprint)
-    current_open: Decimal = format_cvssf(opened_current_sprint)
     solved: Decimal = get_percentage_change(
-        current=current_closed, total=total_closed + total_open
+        current=closed_current_sprint,
+        total=total_current_closed + total_current_open,
     )
     created: Decimal = get_percentage_change(
-        current=current_open, total=total_open + total_closed
+        current=opened_current_sprint,
+        total=total_current_open + total_current_closed,
     )
     created = created if created > Decimal("0.0") else Decimal("0")
     solved = solved if solved > Decimal("0.0") else Decimal("0")
