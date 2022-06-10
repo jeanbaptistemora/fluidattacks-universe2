@@ -94,65 +94,6 @@ def _get_xpath(tag: Tag) -> str:
     return "/" + "/".join(components)
 
 
-@api(risk=LOW, kind=SAST)
-def is_header_content_type_missing(filename: str) -> tuple:
-    """Check if Content-Type header is missing.
-
-    Verifies if the file has the tags::
-       <META HTTP-EQUIV="Content-Type" CONTENT="no-cache">
-
-    :param filename: Path to the ``HTML`` source.
-    :returns: True if tag ``meta`` have attributes ``http-equiv``
-              and ``content`` set as specified, False otherwise.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    if not os.path.exists(filename):
-        return UNKNOWN, "File does not exist"
-
-    msg_open: str = "HTML file has a bad configured Content-Type meta tag"
-    msg_closed: str = "HTML file has a well configured Content-Type meta tag"
-
-    tag = "meta"
-    tk_content = CaselessKeyword("content")
-    tk_type = CaselessKeyword("type")
-    prs_cont_typ = tk_content + Literal("-") + tk_type
-
-    tk_type = SkipTo(Literal("/"), include=True)
-    tk_subtype = Optional(SkipTo(Literal(";"), include=True))
-    prs_mime = tk_type + tk_subtype
-
-    tk_charset = CaselessKeyword("charset")
-    tk_charset_value = SkipTo(stringEnd)
-    prs_charset = tk_charset + Literal("=") + tk_charset_value
-
-    prs_content_val = prs_mime + prs_charset
-
-    attrs = {"http-equiv": prs_cont_typ, "content": prs_content_val}
-
-    has_content_type = _has_attributes(filename, tag, attrs)
-
-    if not has_content_type:
-        attrs = {"http-equiv": prs_cont_typ, "content": prs_mime}
-
-        valid = _has_attributes(filename, tag, attrs)
-        if valid:
-            attrs = {"charset": Regex(r"[A-Za-z_][A-Za-z_0-9]*")}
-            has_content_type = _has_attributes(filename, tag, attrs)
-
-    units: List[Unit] = [
-        Unit(
-            where=filename,
-            source="HTML/Meta/Content-Type",
-            specific=[msg_closed if has_content_type else msg_open],
-            fingerprint=get_sha256(filename),
-        )
-    ]
-
-    if not has_content_type:
-        return OPEN, msg_open, units, []
-    return CLOSED, msg_closed, [], units
-
-
 @api(risk=MEDIUM, kind=SAST)
 def has_not_subresource_integrity(path: str) -> tuple:
     r"""
