@@ -2,6 +2,7 @@ from datetime import (
     datetime,
 )
 from db_model.events.enums import (
+    EventAccessibility,
     EventStateStatus,
 )
 from db_model.events.types import (
@@ -49,6 +50,16 @@ def format_data(event: dict[str, Any]) -> dict[str, Any]:
     return event
 
 
+def format_accessibility(item: Item) -> set[EventAccessibility]:
+    return set(
+        EventAccessibility.REPOSITORY
+        if item == "Repositorio"
+        else EventAccessibility.ENVIRONMENT
+        for item in str(item["accessibility"]).split()
+        if item in {"Repositorio", "Ambiente"}
+    )
+
+
 def format_evidences(item: Item) -> EventEvidences:
     evidence_file = (
         EventEvidence(
@@ -86,7 +97,7 @@ def format_event(item: Item) -> Event:
     return Event(
         action_after_blocking=item.get("action_after_blocking", None),
         action_before_blocking=item.get("action_before_blocking", None),
-        accessibility=item.get("accessibility", ""),
+        accessibility=format_accessibility(item),
         affected_components=item.get("affected_components", ""),
         client=item.get("client", ""),
         context=item.get("context", ""),
@@ -95,6 +106,7 @@ def format_event(item: Item) -> Event:
         group_name=item["project_name"],
         hacker=item["analyst"],
         id=item["event_id"],
+        root_id=item.get("root_id"),
         state=format_state(item),
         type=item["event_type"],
     )

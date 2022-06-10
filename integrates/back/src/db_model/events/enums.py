@@ -3,6 +3,11 @@ from enum import (
 )
 
 
+class EventAccessibility(str, Enum):
+    ENVIRONMENT: str = "ENVIRONMENT"
+    REPOSITORY: str = "REPOSITORY"
+
+
 class EventStateStatus(str, Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"
