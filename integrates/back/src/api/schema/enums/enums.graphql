@@ -424,14 +424,6 @@ enum StakeholderRole {
     )
   "Customer Manager"
   CUSTOMER_MANAGER
-  "Executive"
-  EXECUTIVE
-    @deprecated(
-      reason: """
-      The executive role was removed.
-      This enum field will be removed soon
-      """
-    )
   "Hacker"
   HACKER
   "Internal Manager"
