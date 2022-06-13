@@ -11,10 +11,6 @@ interface IAlertVariant {
 }
 
 interface IStyledInputProps {
-  disabled?: boolean;
-  id?: string;
-  placeholder?: string;
-  type?: "email" | "password" | "text";
   variant: "outline" | "solid";
 }
 

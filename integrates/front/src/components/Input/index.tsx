@@ -1,53 +1,31 @@
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback, useState } from "react";
+import { Field } from "formik";
+import type { FC } from "react";
+import React from "react";
 
-import type { IAlertProps, IStyledInputProps } from "./styles";
-import { Alert, Container, StyledInput } from "./styles";
+import type { IInputProps } from "./CustomInput";
+import { CustomInput } from "./CustomInput";
 
-interface IInputProps extends IStyledInputProps {
-  alertMsg?: string;
-  alertType?: IAlertProps["variant"];
-  validate?: (val: string) => string | undefined;
-}
-
-const Input: React.FC<IInputProps> = ({
-  alertMsg = "",
-  alertType = "low",
-  disabled = false,
-  id,
+const Input: FC<IInputProps> = ({
+  alertType,
+  customBlur,
+  customKeyDown,
+  disabled,
+  name,
   placeholder,
-  type = "text",
-  validate = (): undefined => undefined,
-  variant = "solid",
-}: Readonly<IInputProps>): JSX.Element => {
-  const [alert, setAlert] = useState<string>(alertMsg);
-  const handleChange = useCallback(
-    (ev: React.ChangeEvent<HTMLInputElement>): void => {
-      ev.preventDefault();
-      setAlert(validate(ev.target.value) ?? "");
-    },
-    [validate]
-  );
+  type,
+  variant,
+}: Readonly<IInputProps>): JSX.Element => (
+  <Field
+    alertType={alertType}
+    component={CustomInput}
+    customBlur={customBlur}
+    customKeyDown={customKeyDown}
+    disabled={disabled}
+    name={name}
+    placeholder={placeholder}
+    type={type}
+    variant={variant}
+  />
+);
 
-  return (
-    <Container>
-      <StyledInput
-        disabled={disabled}
-        id={id}
-        onChange={handleChange}
-        placeholder={placeholder}
-        type={type}
-        variant={variant}
-      />
-      <Alert show={alert.length > 0} variant={alertType}>
-        <FontAwesomeIcon icon={faCircleXmark} />
-        &nbsp;
-        {alert}
-      </Alert>
-    </Container>
-  );
-};
-
-export type { IInputProps };
 export { Input };
