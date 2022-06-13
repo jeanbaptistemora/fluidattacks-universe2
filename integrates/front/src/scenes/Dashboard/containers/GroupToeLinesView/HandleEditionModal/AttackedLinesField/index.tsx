@@ -42,9 +42,9 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
       </ControlLabel>
       <Field
         component={FormikText}
-        customKeyDown={handleKeyDown}
         min={"0"}
         name={"attackedLines"}
+        onKeyDown={handleKeyDown}
         step={"1"}
         type={"number"}
         validate={composeValidators([

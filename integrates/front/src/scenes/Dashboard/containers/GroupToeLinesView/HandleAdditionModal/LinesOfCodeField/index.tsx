@@ -31,9 +31,9 @@ const LinesOfCodeField: React.FC = (): JSX.Element => {
       </ControlLabel>
       <Field
         component={FormikText}
-        customKeyDown={handleKeyDown}
         min={"0"}
         name={"loc"}
+        onKeyDown={handleKeyDown}
         step={"1"}
         type={"number"}
         validate={composeValidators([

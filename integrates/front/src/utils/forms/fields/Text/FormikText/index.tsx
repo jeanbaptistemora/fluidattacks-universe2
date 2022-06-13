@@ -1,4 +1,4 @@
-import type { FieldProps, FormikHandlers } from "formik";
+import type { FieldProps } from "formik";
 import { ErrorMessage } from "formik";
 import React from "react";
 
@@ -12,41 +12,32 @@ interface ITextProps extends FieldProps<string, Record<string, string>> {
   placeholder: string;
   type: string;
   className: string;
-  customKeyDown:
-    | ((event: React.KeyboardEvent<HTMLInputElement>) => void)
-    | undefined;
-  customBlur: FormikHandlers["handleBlur"] | undefined;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export const FormikText: React.FC<ITextProps> = (
-  props: ITextProps
-): JSX.Element => {
-  const {
-    className,
-    customBlur,
-    customKeyDown,
-    disabled,
-    field,
-    id,
-    max,
-    min,
-    placeholder,
-    type,
-  } = props;
+export const FormikText: React.FC<ITextProps> = ({
+  className,
+  onBlur: customBlur,
+  onFocus,
+  onKeyDown,
+  disabled,
+  field,
+  id,
+  max,
+  min,
+  placeholder,
+  type,
+}: Readonly<ITextProps>): JSX.Element => {
   const { name, onBlur, onChange, value } = field;
 
-  function handleBlur(event: unknown): void {
+  function handleBlur(event: React.FocusEvent<HTMLInputElement>): void {
     onBlur(event);
 
     if (customBlur !== undefined) {
       customBlur(event);
     }
-  }
-
-  function capitalize(text: string): string {
-    return name === "email" || type === "number" || name === "url"
-      ? text
-      : text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
   }
 
   return (
@@ -63,10 +54,11 @@ export const FormikText: React.FC<ITextProps> = (
         name={name}
         onBlur={handleBlur}
         onChange={onChange}
-        onKeyDown={customKeyDown}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         type={type}
-        value={disabled ? capitalize(value) : value}
+        value={value}
       />
       <ValidationError>
         <ErrorMessage name={name} />

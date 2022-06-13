@@ -146,9 +146,9 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                   </ControlLabel>
                   <Field
                     component={FormikText}
-                    customBlur={loadAutofillData}
                     disabled={action === "edit"}
                     name={"email"}
+                    onBlur={loadAutofillData}
                     placeholder={t("userModal.emailPlaceholder")}
                     type={"text"}
                   />
