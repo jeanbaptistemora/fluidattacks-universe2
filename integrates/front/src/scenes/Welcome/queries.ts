@@ -15,6 +15,7 @@ const GET_USER_WELCOME = gql`
         name
       }
       userEmail
+      userName
     }
   }
 `;
