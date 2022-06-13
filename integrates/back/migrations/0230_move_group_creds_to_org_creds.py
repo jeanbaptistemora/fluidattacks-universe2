@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Move the group credentials information into the organization credentials
+
+Execution Time:    2022-06-13 at 14:53:02 UTC
+Finalization Time: 2022-06-13 at 15:12:32 UTC
 """
 from aioextensions import (
     run,
@@ -170,6 +173,7 @@ async def add_org_credential(  # pylint: disable=too-many-locals
         ),
     )
     await credentials_model.add_new(credential=new_credential)
+    loaders.organization_credentials_new.clear(organization_id)
 
 
 async def set_org_credential_to_roots(
