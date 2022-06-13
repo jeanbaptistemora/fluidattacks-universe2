@@ -15513,11 +15513,11 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_user_missing_role
   25 |         ],
      ^ Col 0
 ",terraform.tfm_iam_user_missing_role_based_security
-F266,lines,namespace/skims/test/data/lib_path/f266/Dockerfile,3,250,skims,266. Excessive Privileges - Docker,"Make sure the container is running as non-root, by creating a user or group for it
+F266,lines,namespace/skims/test/data/lib_path/f266/Dockerfile,0,250,skims,266. Excessive Privileges - Docker,"No command found to create a group or user, make sure the container is running as non-root
  in namespace/skims/test/data/lib_path/f266/Dockerfile","
   1 | # Insecure
   2 | # Must have RUN adduser or USER command
-> 3 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+  3 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
   4 | ARG DEBIAN_FRONTEND=noninteractive
   5 | RUN apt update
   6 | RUN apt install -y nginx php-fpm supervisor && \
@@ -15525,10 +15525,10 @@ F266,lines,namespace/skims/test/data/lib_path/f266/Dockerfile,3,250,skims,266. E
   8 |     apt clean
     ^ Col 0
 ",docker.container_whitout_user
-F266,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,2,250,skims,266. Excessive Privileges - Docker,"Make sure the container is running as non-root, by creating a user or group for it
+F266,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,0,250,skims,266. Excessive Privileges - Docker,"No command found to create a group or user, make sure the container is running as non-root
  in namespace/skims/test/data/lib_path/f380/Dockerfile","
    1 | # Insecure
->  2 | FROM node
+   2 | FROM node
    3 | RUN apk add --no-cache python g++ make
    4 | WORKDIR /app
    5 | COPY . .

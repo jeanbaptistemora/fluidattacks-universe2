@@ -8,7 +8,6 @@ from model.core_model import (
 import re
 from typing import (
     Iterator,
-    Optional,
     Tuple,
 )
 
@@ -22,21 +21,22 @@ COMMANDS_REGEX = [
 ]
 
 
-def get_container_image(content: str) -> Optional[Tuple[int, int]]:
-    for line_number, line in enumerate(content.splitlines(), start=1):
+def get_container_image(content: str) -> bool:
+    for _, line in enumerate(content.splitlines(), start=1):
         if re.match(r"FROM\s+\S+", line):
-            return line_number, 0
-    return None
+            return True
+    return False
 
 
 def container_whitout_user(content: str, path: str) -> Vulnerabilities:
     def iterator() -> Iterator[Tuple[int, int]]:
+        no_line = (0, 0)
         has_user = False
         for _, line in enumerate(content.splitlines(), start=1):
             if any(regex.match(line) for regex in COMMANDS_REGEX):
                 has_user = True
-        if (lines := get_container_image(content)) and not has_user:
-            yield lines
+        if get_container_image(content) and not has_user:
+            yield no_line
 
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
