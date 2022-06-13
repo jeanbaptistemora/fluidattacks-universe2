@@ -265,6 +265,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             kwargs.get("identifier")
             or kwargs.get("organization_id")
             or kwargs.get("organization_name")
+            or (getattr(args[0], "organization_id", None) if args else None)
             or orgs_utils.add_org_id_prefix(args[0].id)
         )
         loaders = context.loaders
@@ -289,7 +290,10 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
         if not enforcer(object_, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError("Access denied")
-        return await _func(*args, **kwargs)
+        if asyncio.iscoroutinefunction(_func):
+            return await _func(*args, **kwargs)
+
+        return _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)
 
