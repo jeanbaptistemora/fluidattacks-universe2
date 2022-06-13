@@ -394,19 +394,6 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     report_date: date_type = datetime_utils.get_date_from_iso_str(
         event["historic_state"][0]["date"]
     )
-    schedule(
-        events_mail.send_mail_event_report(
-            loaders=loaders,
-            group_name=group_name,
-            event_id=event_id,
-            event_type=event_type,
-            description=description,
-            reason=reason,
-            other=other,
-            is_closed=True,
-            report_date=report_date,
-        )
-    )
 
     today = datetime_utils.get_now()
     history = cast(List[Dict[str, str]], event.get("historic_state", []))
@@ -427,6 +414,22 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
         },
     ]
     success = await events_dal.update(event_id, {"historic_state": history})
+
+    if success:
+        schedule(
+            events_mail.send_mail_event_report(
+                loaders=loaders,
+                group_name=group_name,
+                event_id=event_id,
+                event_type=event_type,
+                description=description,
+                reason=reason,
+                other=other,
+                is_closed=True,
+                report_date=report_date,
+            )
+        )
+
     if has_reattacks:
         return (success, reattacks_dict, verifications_dict)
     return (success, {}, {})
