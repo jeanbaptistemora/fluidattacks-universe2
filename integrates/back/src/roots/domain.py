@@ -1652,7 +1652,7 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
         if cloud_type:
             _cloud_type = GitEnvironmentCloud[cloud_type]
     except KeyError as exc:
-        raise InvalidField("type") from exc
+        raise InvalidField("url_type") from exc
 
     await loaders.root.load((group_name, root_id))
     environment = GitEnvironmentUrl(
@@ -1662,7 +1662,28 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
         url_type=_url_type,
         cloud_type=_cloud_type,
     )
-    return await roots_model.add_git_environment_url(root_id, url=environment)
+    result_environment = await roots_model.add_git_environment_url(
+        root_id, url=environment
+    )
+    if not result_environment:
+        return result_environment
+
+    if cloud_type and cloud_type == GitEnvironmentCloud.AWS:
+        await add_git_environment_secret(
+            environment.id,
+            key="AWS_ACCESS_KEY_ID",
+            value="",
+            description="AWS access keys to make programmatic calls to AWS",
+        )
+        await add_git_environment_secret(
+            environment.id,
+            key="AWS_SECRET_ACCESS_KEY",
+            value="",
+            description=(
+                "AWS secret access keys to make programmatic calls to AWS"
+            ),
+        )
+    return result_environment
 
 
 async def remove_environment_url(root_id: str, url: str) -> None:
