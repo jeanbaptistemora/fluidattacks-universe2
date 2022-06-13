@@ -43,7 +43,7 @@ async def main() -> None:
                 f"{active_groups}"
             )
         else:
-            await tags_domain.delete(tag["organization"], tag["tag"])
+            await tags_domain.remove(tag["organization"], tag["tag"])
             print(f"Portfolio {tag['tag']} was deleted")
 
 

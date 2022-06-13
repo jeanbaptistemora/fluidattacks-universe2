@@ -42,7 +42,7 @@ PROJECTION_EXPRESSION = "ProjectionExpression"
 TABLE_NAME = "fi_portfolios"
 
 
-async def delete(organization_name: str, tag: str) -> bool:
+async def remove(organization_name: str, tag: str) -> bool:
     success: bool = False
     item = DynamoDeleteType(
         Key={

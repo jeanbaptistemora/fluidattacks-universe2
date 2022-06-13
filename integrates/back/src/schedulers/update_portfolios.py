@@ -32,7 +32,6 @@ from organizations import (
     domain as orgs_domain,
 )
 from schedulers.common import (
-    error,
     info,
 )
 from tags import (
@@ -164,8 +163,7 @@ async def update_organization_indicators(
     loaders: Dataloaders,
     org_name: str,
     groups: tuple[Group, ...],
-) -> tuple[bool, list[str]]:
-    success: list[bool] = []
+) -> list[str]:
     updated_tags: list[str] = []
     indicator_list: list[str] = [
         "max_open_severity",
@@ -194,8 +192,8 @@ async def update_organization_indicators(
         updated_tags.append(tag)
         tag_info = calculate_tag_indicators(tag, tags_dict, indicator_list)
         portfolio = format_portfolio_indicators(tag, org_name, tag_info)
-        success.append(await tags_domain.update(portfolio))
-    return all(success), updated_tags
+        await tags_domain.update(portfolio)
+    return updated_tags
 
 
 async def update_portfolios() -> None:
@@ -216,14 +214,9 @@ async def update_portfolios() -> None:
             for group in org_groups
             if group.state.status == GroupStateStatus.ACTIVE and group.tags
         )
-        success, updated_tags = await update_organization_indicators(
+        updated_tags = await update_organization_indicators(
             loaders, org_name, tag_groups
         )
-        if not success:
-            error(
-                "[scheduler]: error updating portfolio indicators",
-                extra={"organization": org_name},
-            )
 
         org_tags: tuple[
             Portfolio, ...
@@ -232,7 +225,7 @@ async def update_portfolios() -> None:
             tag.id for tag in org_tags if tag.id not in updated_tags
         ]
         await collect(
-            tags_domain.delete(org_name, tag_id) for tag_id in deleted_tags
+            tags_domain.remove(org_name, tag_id) for tag_id in deleted_tags
         )
 
 

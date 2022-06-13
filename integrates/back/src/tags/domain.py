@@ -5,6 +5,9 @@ import authz
 from contextlib import (
     suppress,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -25,8 +28,8 @@ from typing import (
 )
 
 
-async def delete(organization_name: str, tag: str) -> bool:
-    return await dal.delete(organization_name, tag)
+async def remove(organization_name: str, portfolio_id: str) -> bool:
+    return await dal.remove(organization_name, portfolio_id)
 
 
 async def filter_allowed_tags(
@@ -94,6 +97,7 @@ async def is_tag_allowed(
 
 
 async def update(
-    data: Portfolio,
-) -> bool:
-    return await dal.update(data)
+    portfolio: Portfolio,
+) -> None:
+    if not await dal.update(portfolio):
+        raise UnavailabilityError()
