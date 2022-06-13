@@ -22,9 +22,9 @@ closed, open, temporarily accepted
 and permanently accepted vulnerabilities
 categorized by group.
 
-## Remediation Rate Benchmarking
+## Exposure remediation rate (benchmark)
 
-![Remediated Rate Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1646411325/docs/web/analytics/portfolios/remediation_rate_benchmarking.png)
+![Exposure Remediation Rate](https://res.cloudinary.com/fluid-attacks/image/upload/v1646411325/docs/web/analytics/portfolios/remediation_rate_benchmarking.png)
 
 This section shows the
 percentages of closed,

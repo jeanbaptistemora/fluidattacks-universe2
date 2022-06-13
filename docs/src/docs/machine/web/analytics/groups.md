@@ -5,22 +5,6 @@ sidebar_label: Group
 slug: /machine/web/analytics/groups
 ---
 
-## Systems risk
-
-![Systems Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984583/docs/web/analytics/groups/groups_system_risk.png)
-
-- Each grey dot
-  represents a resource
-  (IP, URL, or repository).
-- Red and green dots
-  represent the open and closed findings
-  for that system,
-  respectively.
-- Size and darkness
-  are proportional
-  to the security impact
-  on that system.
-
 ## Findings by tags
 
 ![Finding By Tags](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984798/docs/web/analytics/groups/groups_findings_tags.png)
