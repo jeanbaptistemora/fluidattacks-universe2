@@ -100,6 +100,9 @@ from .vulnerability import (
 from .vulnerability_historic_state import (
     VULNERABILITY_HISTORIC_STATE,
 )
+from api.schema.types.credentials import (
+    CREDENTIALS,
+)
 from api.schema.types.mutation_payloads import (
     UPDATETOELINESPAYLOAD,
 )
@@ -120,6 +123,7 @@ TYPES: Tuple[ObjectType, ...] = (
     AUTHORS,
     BILLING,
     CONSULT,
+    CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
     EXECUTION_VULNERABILITIES,
