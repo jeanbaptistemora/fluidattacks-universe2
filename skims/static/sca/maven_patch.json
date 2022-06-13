@@ -2008,6 +2008,7 @@
     "CVE-2021-26987": ">=0 <1.5.9.release"
   },
   "org.springframework.boot:spring-boot-starter-undertow": {},
+  "org.springframework.boot:spring-boot-starter-web": {},
   "org.springframework.boot:spring-boot-starter-webflux": {
     "GHSA-36p3-wjmg-h94x": "<2.5.12 || >=2.6.0 <2.6.6"
   },

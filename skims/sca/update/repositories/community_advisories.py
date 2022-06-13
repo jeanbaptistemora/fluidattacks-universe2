@@ -14,7 +14,10 @@ from utils.logs import (
 )
 import yaml
 
-RE_MAVEN_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
+RE_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
+URL_ADVISORIES_COMMUNITY: str = (
+    "https://gitlab.com/gitlab-org/advisories-community.git"
+)
 
 
 def format_range(range: str) -> str:
@@ -43,7 +46,7 @@ def fix_npm_range(range: str) -> str:
 
 def format_ranges(language: str, range: str) -> str:
     if language in ("maven", "nuget"):
-        ranges = re.findall(RE_MAVEN_RANGES, range)
+        ranges = re.findall(RE_RANGES, range)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
     if language == "npm":
@@ -53,10 +56,7 @@ def format_ranges(language: str, range: str) -> str:
 def get_remote_advisories(advisories: Dict[str, Any], language: str) -> dict:
     with tempfile.TemporaryDirectory() as tmp_dirname:
         log_blocking("info", "Cloning repository: advisories-community")
-        Repo.clone_from(
-            "https://gitlab.com/gitlab-org/advisories-community.git",
-            tmp_dirname,
-        )
+        Repo.clone_from(URL_ADVISORIES_COMMUNITY, tmp_dirname)
         filenames = sorted(
             glob.glob(f"{tmp_dirname}/{language}/**/*yml", recursive=True)
         )
