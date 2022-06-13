@@ -1,6 +1,7 @@
 from .event import (
     EventLoader,
     EventTypedLoader,
+    GroupEventsTypedLoader,
 )
 from .group_stakeholders import (
     GroupStakeholdersLoader,
@@ -92,6 +93,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     credential: CredentialLoader
     credential_new: CredentialNewLoader
+    environment_secrets: GitEnvironmentSecretsLoader
     event: EventLoader
     event_typed: EventTypedLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
@@ -111,11 +113,12 @@ class Dataloaders(NamedTuple):
     finding_vulnerabilities_zr_c: (
         FindingVulnerabilitiesOnlyZeroRiskConnectionLoader
     )
-    me_vulnerabilities: AssignedVulnerabilitiesLoader
+    git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
+    group_events: GroupEventsTypedLoader
     group_findings: GroupFindingsLoader
     group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
@@ -123,18 +126,17 @@ class Dataloaders(NamedTuple):
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
+    me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_credentials_new: OrganizationCredentialsNewLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosTypedLoader
-    portfolio: PortfolioTypedLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization: OrganizationLoader
+    portfolio: PortfolioTypedLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
-    environment_secrets: GitEnvironmentSecretsLoader
-    git_environment_urls: GitEnvironmentUrlsLoader
     root_historic_cloning: RootHistoricCloningLoader
     root_historic_states: RootHistoricStatesLoader
     root_toe_inputs: RootToeInputsLoader
@@ -189,6 +191,7 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         credential=CredentialLoader(),
         credential_new=CredentialNewLoader(),
+        environment_secrets=GitEnvironmentSecretsLoader(),
         event=EventLoader(),
         event_typed=EventTypedLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
@@ -208,11 +211,12 @@ def get_new_context() -> Dataloaders:
         finding_vulnerabilities_zr_c=(
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
-        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
+        git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
+        group_events=GroupEventsTypedLoader(),
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
@@ -220,20 +224,19 @@ def get_new_context() -> Dataloaders:
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
+        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosTypedLoader(),
-        portfolio=PortfolioTypedLoader(),
         organization_credentials_new=OrganizationCredentialsNewLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization=OrganizationLoader(),
+        portfolio=PortfolioTypedLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),
         root_secrets=RootSecretsLoader(),
-        environment_secrets=GitEnvironmentSecretsLoader(),
-        git_environment_urls=GitEnvironmentUrlsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
