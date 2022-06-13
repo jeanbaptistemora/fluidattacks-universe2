@@ -63,8 +63,8 @@ async def mutate(
         loaders=loaders,
         group_name=group_name,
         root_id=root.id,
-        status=GitCloningStatus.CLONING,
-        message="Cloning in progress...",
+        status=GitCloningStatus.QUEUED,
+        message="Cloning queued...",
     )
     logs_utils.cloudwatch_log(
         info.context,

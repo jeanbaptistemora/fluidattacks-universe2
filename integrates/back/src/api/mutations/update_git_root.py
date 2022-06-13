@@ -81,8 +81,8 @@ async def mutate(
                 loaders=info.context.loaders,
                 group_name=root.group_name,
                 root_id=root.id,
-                status=GitCloningStatus.CLONING,
-                message="Cloning in progress...",
+                status=GitCloningStatus.QUEUED,
+                message="Cloning queued...",
             )
 
     nickname: str = kwargs.get("nickname") or old_root.state.nickname
