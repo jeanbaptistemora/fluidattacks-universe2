@@ -95,14 +95,14 @@ async def get_tags(
 
 
 async def update(
-    data: Portfolio,
+    portfolio: Portfolio,
 ) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""
     expression_names = {}
     expression_values = {}
-    portfolio_item = format_portfolio_item(data)
+    portfolio_item = format_portfolio_item(portfolio)
     for attr, value in portfolio_item.items():
         if value is None:
             remove_expression += f"#{attr}, "
@@ -117,7 +117,10 @@ async def update(
     if remove_expression:
         remove_expression = f'REMOVE {remove_expression.strip(", ")}'
     update_attrs = {
-        "Key": {"organization": data.organization_name, "tag": data.id},
+        "Key": {
+            "organization": portfolio.organization_name,
+            "tag": portfolio.id,
+        },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
     }
 

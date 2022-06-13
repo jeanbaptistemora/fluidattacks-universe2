@@ -47,11 +47,9 @@ async def test_update() -> None:
         Decimal("0")
     )
 
-    assert await update(test_1)
-    new_load: Dataloaders = get_new_context()
-    updated: Portfolio = await new_load.portfolio.load(
-        ("okada", "test-groups")
-    )
+    await update(portfolio=test_1)
+    loaders = get_new_context()
+    updated: Portfolio = await loaders.portfolio.load(("okada", "test-groups"))
     assert updated.unreliable_indicators.mean_remediate_critical_severity == (
         Decimal("1.5")
     )

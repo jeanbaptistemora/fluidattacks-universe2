@@ -28,6 +28,9 @@ from groups import (
 from newutils import (
     token as token_utils,
 )
+from organizations import (
+    domain as orgs_domain,
+)
 from tags import (
     domain as tags_domain,
 )
@@ -50,25 +53,34 @@ async def resolve(
             for group_name in user_group_names
         )
     )
-    group_names_filtered = [
+    user_group_names_filtered = [
         group_name
         for group_name, is_valid in zip(user_group_names, are_valid_groups)
         if is_valid
     ]
 
-    if group_names_filtered:
-        group: Group = await loaders.group.load(group_names_filtered[0])
-        org_id: str = group.organization_id
-        organization: Organization = await loaders.organization.load(org_id)
-        org_name: str = organization.name
+    if not user_group_names_filtered:
+        raise TagNotFound()
 
-        allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
-            loaders, org_name, group_names_filtered
-        )
+    group: Group = await loaders.group.load(user_group_names_filtered[0])
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    org_group_names_filtered = [
+        group_name
+        for group_name in user_group_names_filtered
+        if group_name
+        in await orgs_domain.get_group_names(loaders, organization.id)
+    ]
 
-        if tag_name in allowed_tags:
-            portfolio: Portfolio = await loaders.portfolio.load(
-                (org_name, tag_name)
-            )
-            return portfolio
-    raise TagNotFound()
+    allowed_tags: list[str] = await tags_domain.filter_allowed_tags(
+        loaders, organization.name, org_group_names_filtered
+    )
+
+    if tag_name not in allowed_tags:
+        raise TagNotFound()
+
+    portfolio: Portfolio = await loaders.portfolio.load(
+        (organization.name, tag_name)
+    )
+    return portfolio

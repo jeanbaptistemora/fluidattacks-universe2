@@ -6,6 +6,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
+    PortfolioNotFound,
     UnavailabilityError,
 )
 from db_model.groups.types import (
@@ -28,8 +29,11 @@ from typing import (
 )
 
 
-async def remove(organization_name: str, portfolio_id: str) -> bool:
-    return await dal.remove(organization_name, portfolio_id)
+async def remove(organization_name: str, portfolio_id: str) -> None:
+    if not await dal.remove(
+        organization_name=organization_name, tag=portfolio_id
+    ):
+        raise UnavailabilityError()
 
 
 async def filter_allowed_tags(
@@ -86,7 +90,12 @@ async def is_tag_allowed(
     organization_name: str,
     tag: str,
 ) -> bool:
-    org_tag: Portfolio = await loaders.portfolio.load((organization_name, tag))
+    try:
+        org_tag: Portfolio = await loaders.portfolio.load(
+            (organization_name, tag)
+        )
+    except PortfolioNotFound:
+        return False
     all_groups_tag = org_tag.groups
     user_groups_tag = [
         group.name
