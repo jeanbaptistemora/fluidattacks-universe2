@@ -40,16 +40,11 @@
       using Microsoft.EntityFrameworkCore;
       using WebApplication1.Controllers;
 
-      namespace WebApplicationDotNetCore.Controllers
-      {
-        public class RSPEC3649SQLiNoncompliant
-        {
-          public IActionResult Authenticate(UserAccountContext context, string user)
-          {
+      namespace WebApplicationDotNetCore.Controllers{
+        public class RSPEC3649SQLiNoncompliant{
+          public IActionResult Authenticate(UserAccountContext context, string user){
             string insecure_query = "SELECT * FROM Users WHERE Username = '" + user + "'";
-
             insecure_obj = new SqlCommand(insecure_query);
-
             insecure_methd = sqcontext.Database.ExecuteSqlCommand(insecure_query);
           }
         }
@@ -61,16 +56,11 @@
       using Microsoft.EntityFrameworkCore;
       using WebApplication1.Controllers;
 
-      namespace WebApplicationDotNetCore.Controllers
-      {
-        public class RSPEC3649SQLiNoncompliant
-        {
-          public IActionResult Authenticate(UserAccountContext context, string user)
-          {
+      namespace WebApplicationDotNetCore.Controllers{
+        public class RSPEC3649SQLiNoncompliant{
+          public IActionResult Authenticate(UserAccountContext context, string user){
             string secure_query = "UPDATE Sales.Store SET Demographics = @demographics " + "WHERE CustomerID = @ID;";
-
             secure_obj = new SqlCommand(secure_query);
-
             secure_methd = sqcontext.Database.ExecuteSqlCommand(secure_query);
           }
         }
@@ -363,7 +353,6 @@
     non_compliant: |
       ```java
       public class QueryTimeout {
-
         public static void main(String[] args) {
           Statement stmt = connection.createStatement();
 
@@ -384,7 +373,6 @@
         public static void main(String[] args) {
           try {
             Statement stmt = connection.createStatement();
-
             //Set a query timeout limit
             stmt.setQueryTimeout(60);
 
@@ -476,23 +464,16 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      public void bad() throws Throwable
-      {
+      public void bad() throws Throwable{
         String data;
-
-        /* get environment variable ADD */
         /* POTENTIAL FLAW: Read data from an environment variable */
         data = System.getenv("ADD");
 
         String osCommand;
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-        {
-          /* running on Windows */
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
           osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
         }
-        else
-        {
-          /* running on non-Windows */
+        else{
           osCommand = "/bin/ls ";
         }
 
@@ -506,18 +487,14 @@
       private void goodG2B() throws Throwable
       {
         String data;
-
         /* FIX: Use a hardcoded string */
         data = "foo";
-
         String osCommand;
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-        {
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
           /* running on Windows */
           osCommand = "c:\\WINDOWS\\SYSTEM32\\cmd.exe /c dir ";
         }
-        else
-        {
+        else{
           /* running on non-Windows */
           osCommand = "/bin/ls ";
         }
@@ -738,6 +715,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Vulnerable request that could be potentially handled by the application
       ```http
       POST /email/change HTTP/1.1
       Host: vulnerable-website.com
@@ -815,28 +793,22 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      public void bad(HttpServletRequest request, HttpServletResponse response) throws Throwable
-      {
+      public void bad(HttpServletRequest request, HttpServletResponse response) throws Throwable{
         String data = "";
-        {
-          Socket socket = null;
-          BufferedReader readerBuffered = null;
-          InputStreamReader readerInputStream = null;
-          try
-          {
-            socket = new Socket("host.example.org", 39544);
-            readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
-            readerBuffered = new BufferedReader(readerInputStream);
-            data = readerBuffered.readLine();
-          }
-          catch (IOException exceptIO)
-          {
-            IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
-          }
-          // Not shown: Code to close the socket...
+        Socket socket = null;
+        BufferedReader readerBuffered = null;
+        InputStreamReader readerInputStream = null;
+        try{
+          socket = new Socket("host.example.org", 39544);
+          readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
+          readerBuffered = new BufferedReader(readerInputStream);
+          data = readerBuffered.readLine();
         }
-        if (data != null)
-        {
+        catch (IOException exceptIO){
+          IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
+        }
+        // Not shown: Code to close the socket...
+        if (data != null){
           //* POTENTIAL FLAW: Display of data in web page after using replaceAll() to remove script tags,
           // which will still allow XSS with strings like <scr<script>ipt>
           response.getWriter().println("<br>bad(): data = " + data.replaceAll("(<script>)", ""));
@@ -845,18 +817,14 @@
       ```
     compliant:  |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class Calculate
-        {
-          public static void ProcessRequest(HttpRequest req, HttpResponse res)
-          {
+      namespace Controllers{
+        public class Calculate{
+          public static void ProcessRequest(HttpRequest req, HttpResponse res){
             string name = req.QueryString["name"];
             res.Write("Hello " + name);
 
             string value = req.QueryString["value"];
-            if (value == null || !Regex.IsMatch(value, "^[a-zA-Z0-9]+$"))
-            {
+            if (value == null || !Regex.IsMatch(value, "^[a-zA-Z0-9]+$")){
               throw new InvalidOperationException("Invalid value");
             }
             res.AddHeader("X-Header", value);
@@ -1037,8 +1005,7 @@
     non_compliant: |
       ```java
       class ContactForm{
-        public function configure(InputsMeta $inputs)
-        {
+        public function configure(InputsMeta $inputs){
           addWidgets(
             new sfWidgetFormInput($inputs->name),
             new sfWidgetFormInput($inputs->email),
@@ -1063,8 +1030,7 @@
       }
 
       class ContactForm extends sfFormX {
-        public function configure(InputsMeta $inputs)
-        {
+        public function configure(InputsMeta $inputs){
           //Bind the form to the input list of the @controller.@method
           //throws error when the @controller.@method.@input is not defined for a widget
           $this->addWidgets(
@@ -1153,10 +1119,8 @@
       Example using software with known vulnerabilities
       ```c {3,7,15}
       using System;
-      class ExampleClass
-      {
-        public void ExampleMethod()
-        {
+      class ExampleClass{
+        public void ExampleMethod(){
           //Is the URI is tainted, it may lead to parsing of a malicious XML schema
           XmlSchemaCollection xsc = new XmlSchemaCollection();
           xsc.Add("urn: bookstore - schema", "books.xsd");
@@ -1594,10 +1558,8 @@
       using Microsoft.WindowsAzure.Storage;
       using Microsoft.WindowsAzure.Storage.File;
 
-      class ExampleClass
-      {
-        public void ExampleMethod(SharedAccessFilePolicy policy, SharedAccessFileHeaders headers, string groupPolicyIdentifier, IPAddressOrRange ipAddressOrRange)
-        {
+      class ExampleClass{
+        public void ExampleMethod(SharedAccessFilePolicy policy, SharedAccessFileHeaders headers, string groupPolicyIdentifier, IPAddressOrRange ipAddressOrRange){
           CloudFile cloudFile = new CloudFile(null);
           SharedAccessProtocol protocols = SharedAccessProtocol.HttpsOrHttp;
           cloudFile.GetSharedAccessSignature(policy, headers, groupPolicyIdentifier, protocols, ipAddressOrRange);
@@ -1941,12 +1903,9 @@
       using Microsoft.EntityFrameworkCore;
       using WebApplication1.Controllers;
 
-      namespace WebApplicationDotNetCore.Controllers
-      {
-        public class Query
-        {
-          public IActionResult Authenticate(UserAccountContext context, string user)
-          {
+      namespace WebApplicationDotNetCore.Controllers{
+        public class Query{
+          public IActionResult Authenticate(UserAccountContext context, string user){
             access_key = "this_db_access_key";
             string query = "SELECT * FROM Users WHERE Username = user AND Key = access_key;
           }
@@ -1959,12 +1918,9 @@
       using Microsoft.EntityFrameworkCore;
       using WebApplication1.Controllers;
 
-      namespace WebApplicationDotNetCore.Controllers
-      {
-        public class Query
-        {
-          public IActionResult Authenticate(UserAccountContext context, string user)
-          {
+      namespace WebApplicationDotNetCore.Controllers{
+        public class Query{
+          public IActionResult Authenticate(UserAccountContext context, string user){
             access_key = encrypted_key;
             string query = "SELECT * FROM Users WHERE Username = user AND Key = access_key;
           }
@@ -2044,16 +2000,14 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      public void bad() throws Throwable
-      {
+      public void bad() throws Throwable{
         String data = "";
         /* Read data using an outbound tcp connection */
         {
           Socket socket = null;
           BufferedReader readerBuffered = null;
           InputStreamReader readerInputStream = null;
-          try
-          {
+          try {
             socket = new Socket("host.example.org", 39544);
             readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
             readerBuffered = new BufferedReader(readerInputStream);
@@ -2063,23 +2017,17 @@
         }
 
         String xmlFile = null;
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-        {
-          /* running on Windows */
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
           xmlFile = "\\src\\testcases\\CWE643_Xpath Injection\\CWE643_Xpath_Injection__Helper.xml";
         }
-        else
-        {
-          /* running on non-Windows */
+        else{
           xmlFile = "./src/testcases/CWE643_Xpath Injection/CWE643_Xpath_Injection__Helper.xml";
         }
 
-        if (data != null)
-        {
+        if (data != null){
           /* assume username||password as source */
           String [] tokens = data.split("||");
-          if (tokens.length < 2)
-          {
+          if (tokens.length < 2){
             return;
           }
           String username = tokens[0];
@@ -2101,10 +2049,8 @@
       ```c {3,7,15}
       using System;
       using System.Xml.XPath;
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load()
-        {
+      public partial class WebForm : System.Web.UI.Page{
+        protected void Page_Load(){
           string operation = Request.Form["operation"];
           XPathNavigator AuthorizedOperations  = new XPathNavigator();
           // Must report
@@ -2233,7 +2179,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant:  |
-      ```json
+      ```http
       GET http://localhost/
       X-Forwarded-Host: id42.example-cdn.com
       ```
@@ -2242,7 +2188,7 @@
       <script src="http://<?php echo _SERVER['HOST'] ?>/script.js">
       ```
     compliant:  |
-      ```json
+      ```http
       GET http://localhost/
       Validate HOST from ALLOWED_HOSTS
       ```
@@ -2383,7 +2329,6 @@
         type: http
         x_forwarded: true
         bind_addresses: ['::1', '127.0.0.1']
-
         resources:
           - names: [client, federation]
             compress: false
@@ -2395,7 +2340,6 @@
         type: http
         x_forwarded: true
         bind_addresses: ['::1', '127.0.0.1']
-
         resources:
           - names: [client, federation]
             compress: false
@@ -2532,14 +2476,12 @@
       def validateFile(str):
           regex = "^.*\.(jpg|JPG|gif|GIF|doc|DOC|pdf|PDF)$"
           p = re.compile(regex)
-
           if(re.search(p, str)):
             return True
           else:
             return False
-      if validateFile(uploadControl) {
+      if validateFile(uploadControl):
         uploadFile(file);
-      }
       ```
   remediation_time: "30"
   score:
@@ -3200,12 +3142,9 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class DBaccess
-        {
-          public void dbauth()
-          {
+      namespace Controllers {
+        public class DBaccess {
+          public void dbauth() {
             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
             con_str = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=";
             optionsBuilder.UseSqlServer(con_str);
@@ -3218,12 +3157,9 @@
       ```
     compliant: |
       ```c {3,7,15}
-      public class Startup
-      {
-        public void start(IServiceCollection services)
-        {
-          services.Configure<IdentityOptions>( options =>
-          {
+      public class Startup {
+        public void start(IServiceCollection services) {
+          services.Configure<IdentityOptions>( options => {
             options.Password.RequireDigit = true;
             options.Password.RequireDigit = true;
             options.Password.RequiredLength = 16;
@@ -3790,12 +3726,10 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace cookies
-      {
-        public class CookieExample
-        {
-          public static void Main(string[] args)
-          {
+
+      namespace cookies{
+        public class CookieExample{
+          public static void Main(string[] args) {
             var insecure_cookie = new HttpCookie(key , value);
             insecure_cookie.Expires = DateTime.Now.AddDays(expireDay);
             insecure_cookie.HttpOnly = true;
@@ -3809,12 +3743,10 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace cookies
-      {
-        public class CookieExample
-        {
-          public static void Main(string[] args)
-          {
+
+      namespace cookies {
+        public class CookieExample {
+          public static void Main(string[] args) {
             var secure_cookie = new HttpCookie(key , value);
             secure_cookie.Expires = DateTime.Now.AddDays(expireDay);
             secure_cookie.HttpOnly = true;
@@ -4076,7 +4008,7 @@
       ```
     compliant: |
       ```python
-      def cleanStr(str)
+      def cleanStr(str):
         if (str == None):
           return False
         return re.sub(r'[-\(\)\"#\/@;:<>\{\}\-=~|\.\?]', '', str)
@@ -4664,12 +4596,9 @@
       ```c {3,7,15}
       using System.Security.Cryptography;
 
-      namespace Cypher_Example
-      {
-        class CypherExample
-        {
-          public static void Main()
-          {
+      namespace Cypher_Example{
+        class CypherExample{
+          public static void Main(){
             HMACMD5 myAes = HMACMD5.Create();
             DES myAes = DES.Create();
             TripleDES myAes = TripleDES.Create();
@@ -4693,12 +4622,9 @@
       ```c {3,7,15}
       using System.Security.Cryptography;
 
-      namespace Cypher_Example
-      {
-        class CypherExample
-        {
-          public static void Main()
-          {
+      namespace Cypher_Example{
+        class CypherExample{
+          public static void Main(){
             var hashProvider3 = new RC2CryptoServiceProvider();
           }
         }
@@ -4777,8 +4703,7 @@
     compliant: |
       ```jsx
       import ReCAPTCHA from "react-google-recaptcha"
-      function onChange(value)
-      {
+      function onChange(value){
         return (
           <div className="App">
             <ReCAPTCHA
@@ -5393,10 +5318,8 @@
   examples:
     non_compliant: |
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void File_Load(object file, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page{
+        protected void File_Load(object file, EventArgs e){
           runScrypt(file);
         }
       }
@@ -5404,10 +5327,8 @@
     compliant: |
       Implement a check for every fragment introduced to the application
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void File_Load(object file, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void File_Load(object file, EventArgs e) {
           verifiedFile = secureFileContents(file, args*)
           runScrypt(verifiedFile);
         }
@@ -5558,10 +5479,8 @@
   examples:
     non_compliant: |
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page{
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form[""url""];
           Response.Redirect(input);
         }
@@ -5569,49 +5488,42 @@
       ```
 
       ```c {3,7,15}
-      public void bad() throws Throwable
-      {
+      public void bad() throws Throwable {
         String data;
         data = "";
         {
           Socket socket = null;
           BufferedReader readerBuffered = null;
           InputStreamReader readerInputStream = null;
-          try
-          {
+          try {
             socket = new Socket("host.example.org", 39544);
             readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
             readerBuffered = new BufferedReader(readerInputStream);
             data = readerBuffered.readLine();
           }
-          catch (IOException exceptIO)
-          {
+          catch (IOException exceptIO) {
             IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
           }
           //Not shown code to close the socket
         }
 
         String root;
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-        {
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
           /* running on Windows */
           root = "C:\\uploads\\";
         }
-        else
-        {
+        else {
           /* running on non-Windows */
           root = "/home/user/uploads/";
         }
 
-        if (data != null)
-        {
+        if (data != null) {
           // POTENTIAL FLAW: no validation of concatenated value
           File file = new File(root + data);
           FileInputStream streamFileInputSink = null;
           InputStreamReader readerInputStreamSink = null;
           BufferedReader readerBufferdSink = null;
-          if (file.exists() && file.isFile())
-          {
+          if (file.exists() && file.isFile()) {
             dosomething()
           }
         }
@@ -5619,10 +5531,8 @@
       ```
     compliant: |
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form[""url""];
           input = input.replaceAll("[~^\\(/.)]*", "");
           Response.Redirect(input);
@@ -5834,12 +5744,9 @@
     non_compliant: |
       ```c {3,7,15}
       using System;
-      namespace Example
-      {
-        public class Example
-        {
-          public Test()
-          {
+      namespace Example {
+        public class Example {
+          public Test() {
             var text_str = "hello world";
             Console.WriteLine($"String: {text_str}");
           }
@@ -5964,7 +5871,7 @@
     non_compliant: |
       ```java
       //Non-converging sorting algorithm
-      public class QuickSortDemo{
+      public class QuickSortDemo {
         public static void main(String args[unsorted]) {
           System.out.println("Unsorted array :" + Arrays.toString(unsorted));
 
@@ -6487,12 +6394,9 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class Calculate
-        {
-          public static int Sum(int num1, int num2)
-          {
+      namespace Controllers {
+        public class Calculate {
+          public static int Sum(int num1, int num2) {
             /*
             if(num1 < 4){
               return 0;
@@ -6508,12 +6412,9 @@
       ```
     compliant: |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class Calculate
-        {
-          public static int Sum(int num1, int num2)
-          {
+      namespace Controllers {
+        public class Calculate {
+          public static int Sum(int num1, int num2) {
             int total;
             //This is a sum
             total = num1 + num2;
@@ -7213,20 +7114,16 @@
   examples:
     non_compliant: |
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object fileToDelete, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object fileToDelete, EventArgs e) {
           file.delete(fileToDelete);
         }
       }
       ```
     compliant: |
       ```java
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object fileToDelete, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object fileToDelete, EventArgs e) {
           overWriteFile(fileToDelete, "0000000000000")
           file.delete(fileToDelete);
         }
@@ -7294,8 +7191,7 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      public void bad() throws Throwable
-      {
+      public void bad() throws Throwable {
         InputSource inputXml = new InputSource(xmlFile);
         String query = "SELECT * from Data";
         String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
@@ -7303,8 +7199,7 @@
       ```
     compliant: |
       ```c {3,7,15}
-      public void bad() throws Throwable
-      {
+      public void bad() throws Throwable {
         InputSource inputXml = new InputSource(xmlFile);
         cleanInput = cleanXml(xmlFile, allowedList);
         String query = "SELECT * from Data";
@@ -7381,7 +7276,7 @@
     non_compliant: |
       Check that the network configuration does not allow LLMNR y NBT-NS
     compliant: |
-      ```java
+      ```yaml
       gateway: "My gateway name"
       firewall_service:
         enabled: true
@@ -7793,8 +7688,7 @@
   examples:
     non_compliant: |
       ```javascript
-      function loadFiles(csvFile)
-      {
+      function loadFiles(csvFile) {
         // User csv file could contain harmful fields
         inputCsv = new InputSource(csvFile);
         dataToServer = convertXls(inputCsv);
@@ -7804,8 +7698,7 @@
       ```
     compliant: |
       ```javascript
-      function loadFiles(csvFile)
-      {
+      function loadFiles(csvFile) {
         // User csv file could contain harmful fields
         inputCsv = new InputSource(csvFile);
         //Function to sanitize csv file, escaping characters such as \= and cleaning the data
@@ -7885,10 +7778,8 @@
       using System;
       using Microsoft.AspNetCore.Mvc;
 
-      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
-      {
-        public void LogSomething(HttpRequest id)
-        {
+      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller {
+        public void LogSomething(HttpRequest id) {
           private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
           _logger.Info(id);
           var logger = new DBLogger();
@@ -7903,10 +7794,8 @@
       using System;
       using Microsoft.AspNetCore.Mvc;
 
-      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
-      {
-        public void LogSomething(HttpRequest id)
-        {
+      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller {
+        public void LogSomething(HttpRequest id) {
           private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
           id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
           sec_log.Info(id);
@@ -8376,10 +8265,8 @@
   examples:
     non_compliant: |
       ```c {3,7,15}
-      public class XmlSerializerTestCase : Controller
-      {
-        public ActionResult unsecuredeserialization(HttpRequest typeName)
-        {
+      public class XmlSerializerTestCase : Controller {
+        public ActionResult unsecuredeserialization(HttpRequest typeName) {
           Tpe t = Type.GetType(typeName);
           XmlSerializer serializer = new XmlSerializer(t);
           XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
@@ -8388,10 +8275,8 @@
       ```
     compliant: |
       ```c {3,7,15}
-      public class XmlSerializerTestCase : Controller
-      {
-        public ActionResult unsecuredeserialization(HttpRequest typeName)
-        {
+      public class XmlSerializerTestCase : Controller {
+        public ActionResult unsecuredeserialization(HttpRequest typeName) {
           ExpectedType obj = null;
           XmlSerializer serializer = new XmlSerializer(typeof(ExpectedType));
         }
@@ -8536,10 +8421,8 @@
       ```c {3,7,15}
       using System;
       using System.IO;
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string userInput = Request.Params["UserInput"];
           var elem = File.Open(userInput, FileMode.Open);
         }
@@ -8549,10 +8432,8 @@
       ```c {3,7,15}
       using System;
       using System.IO;
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string VerifiedFilePath = "/myTrustedPath"
           var elem = File.Open(userInput, FileMode.Open);
         }
@@ -8747,8 +8628,9 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod{
-        public class Controllers{
+
+      namespace testmod {
+        public class Controllers {
           public void ReadContentOfURL(HttpRequest url){
             //Insecure
             WebRequest req = WebRequest.Create(url);
@@ -8763,8 +8645,9 @@
       ```c {3,7,15}
       using System.Net;
       using System;
-      namespace testmod{
-        public class Controllers{
+
+      namespace testmod {
+        public class Controllers {
           public void ReadContentOfURL(HttpRequest url){
             //Secure
             isVerifiedUrl = verifyUrl(url);
@@ -10409,8 +10292,7 @@
         const url='https://myurl' + userQuery;
         Http.open("GET", url);
         Http.send();
-        Http.onreadystatechange = (e) =>
-        {
+        Http.onreadystatechange = (e) => {
           showState(Http.responseText);
         }
       }
@@ -10424,8 +10306,7 @@
         const url='https://myurl' + userQuery;
         Http.open("GET", url);
         Http.send();
-        Http.onreadystatechange = (e) =>
-        {
+        Http.onreadystatechange = (e) => {
           showState(Http.responseText);
         }
       }
@@ -10597,7 +10478,6 @@
             Path = "/localPath/" + userReq
             File file = new File(classLoader.getResource(Path).getFile());
             //Code to do something with that file
-
         }catch{
           ...
         }
@@ -12020,7 +11900,7 @@
       def handleUserInput(userReq):
         try:
           getFile(userReq)
-        //Next portion of the code
+        //Next portion of the code without a catch sentence
       ```
     compliant: |
       ```python
@@ -12186,7 +12066,7 @@
       ```javascript
       const API_KEY = "KEY_inplaneText";
 
-      function getInformation(userInput){
+      function getInformation(userInput) {
         const info = fetch("url", API_KEY);
         //Return information
       }
@@ -12493,8 +12373,7 @@
   examples:
     non_compliant: |
       ```java
-      static void getQuery(sql)
-      {
+      static void getQuery(sql) {
         try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
@@ -12507,8 +12386,7 @@
       ```
     compliant: |
       ```java
-      static void getQuery(param)
-      {
+      static void getQuery(param) {
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
         //Clean User parameters
         cleanParam = getCleanValue(param)
@@ -14727,9 +14605,9 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      There are currently no code examples for this vulnerability
+      Some anti virus tools in the network are not up to date
     compliant: |
-      There are currently no code examples for this vulnerability
+      Every disk in the network has monitoring systems to detect malicious tools
   remediation_time: "60"
   score:
     base:
@@ -20400,10 +20278,8 @@
     non_compliant: |
       ```c {3,7,15}
       using System;
-      namespace API
-      {
-        public class Program
-        {
+      namespace API {
+        public class Program{
           public static void Main()
           {
             BuildWebHost();
@@ -20418,12 +20294,9 @@
     compliant: |
       ```c {3,7,15}
       using System;
-      namespace API
-      {
-        public class Program
-        {
-          public static void Main()
-          {
+      namespace API{
+        public class Program{
+          public static void Main(){
             BuildWebHost();
           }
           public static IWebHost BuildWebHost() =>
@@ -21563,8 +21436,29 @@
       Atacante anónimo desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is a wildcard passrole that could potentially expose all resources
+      ```terraform
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "*"
+        ]
+      }
+      ```
+    compliant: |
+      The access for each passrole whould have the resources defined with given specific roles
+      ```terraform
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "arn:aws:::123456789012:role/admin"
+          "arn:aws:::123456789012:role/user"
+        ]
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -21612,8 +21506,28 @@
       Atacante con acceso a la aplicación desde internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application only checks the CC number before accesing a list of them
+      ```javascript
+      const accessCreditCards = (req, res) => {
+        if (isValidNumber(req.body.creditCard)) {
+          //Sending credit card information based only on CC number
+          const creditCards = listCards(req.body.creditCard);
+          res.end(creditCards);
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessCreditCards = (req, res) => {
+        //verify the credit card is valid using all the information (Number, expiry date and security code)
+        if (isValidNumber(req.body.creditCardInfo)) {
+          //Sending credit card information based on CC info and user Id
+          const creditCards = listCards(req.body.creditCardinfo, req.body.userId);
+          res.end(creditCards);
+        }
+      }
+      ```
   remediation_time: "120"
   score:
     base:
@@ -22828,7 +22742,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```javascript
+      ```java
       @Override
       protected void processLogic(Bundle savedInstanceState) {
         mContentWv.getSettings().setJavaScriptEnabled(true);
@@ -22836,7 +22750,7 @@
       }
       ```
     compliant: |
-      ```javascript
+      ```java
       @Override
       protected void processLogic(Bundle savedInstanceState) {
         mContentWv.getSettings().setJavaScriptEnabled(false);
@@ -24674,8 +24588,28 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Due to a missconfiguration in one of the web pages of the app, the http header returns the ip address of the server
+      ```http
+      HTTP/1.1 200 OK
+      Connection: close
+      Date: Tue, 18 Aug 2015 15: 44 : 04 GMT
+      Server: Apache/2.2.3 (CentOS) 255.235.10.10
+      Last-Modified: Tue, 18 Aug 2015 15:11:03 GMT
+      Content-Length: 6821
+      Content-Type: text/html
+      ```
+    compliant: |
+      Delete all services that could potentially share sensitive information
+      ```http
+      HTTP/1.1 200 OK
+      Connection: close
+      Date: Tue, 18 Aug 2015 15: 44 : 04 GMT
+      Server: Apache/2.2.3 (CentOS)
+      Last-Modified: Tue, 18 Aug 2015 15:11:03 GMT
+      Content-Length: 6821
+      Content-Type: text/html
+      ```
   remediation_time: "30"
   score:
     base:
@@ -25210,8 +25144,7 @@
   examples:
     non_compliant: |
       ```java
-      static void getQuery(sql)
-      {
+      static void getQuery(sql) {
         try {
         java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
 
@@ -25224,8 +25157,7 @@
       ```
     compliant: |
       ```java
-      static void getQuery(param)
-      {
+      static void getQuery(param) {
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
         //Clean User parameters
         cleanParam = getCleanValue(param)
@@ -25951,8 +25883,32 @@
       Usuario no autorizado desde red local.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const accessFile = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const File = req.body.file;
+          //Accessing File only with the id number
+          if filesModel.find(File.id){
+            //Code that allows access to the user to access the File
+          }
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const accessfile = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          const file = req.body.File;
+          if FilesModel.find(file.id){
+            const isAccessgranted = verifyUserAccess(file, req.body.id)
+            if isAccessgranted{
+              //Code that allows access to the user to edit the File only if the user has access
+            }
+          }
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -26038,7 +25994,6 @@
       const accessStore = (req, res) => {
         if (isValidUser(req.body.user)) {
           const store = req.body.store;
-          //Accessing store only with the id number
           if storesModel.find(store.id){
             const isAccessgranted = verifyUserAccess(store, req.body.id)
             if isAccessgranted{
@@ -26260,8 +26215,10 @@
       la aplicación de GLIA.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application shows user sensitive information in the registration process without using some form of secure id validation
+    compliant: |
+      User sensitive information is only accesible to an identifiable authorized user
   remediation_time: "120"
   score:
     base:
@@ -27012,8 +26969,7 @@
       ```c {3,7,15}
       using System;
       class cipher{
-        public void Encrypt()
-        {
+        public void Encrypt() {
           DirectoryEntry myDirectoryEntry = new DirectoryEntry(adPath);
           myDirectoryEntry.AuthenticationType = AuthenticationTypes.None;
           DirectoryEntry sndDirectoryEntry = new DirectoryEntry(adPath, "u", "p", AuthenticationTypes.None);
@@ -27024,8 +26980,7 @@
       ```c {3,7,15}
       using System;
       class cipher{
-        public void Encrypt()
-        {
+        public void Encrypt() {
           DirectoryEntry thrdDirectoryEntry = new DirectoryEntry(adPath, "u", "p", AuthenticationTypes.Secure);
         }
       }
@@ -27535,8 +27490,23 @@
       Atacante interno con acceso al artifactory.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The code has a dependency imported which stores sensitive credentials
+      ```java
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>vulnerableDependency</groupId>
+            <artifactId>vulnerableId</artifactId>
+            <version>3.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      ```
+    compliant: |
+      Verify that none of the dependencies imported on the application store sensitive data like private keys
   remediation_time: "60"
   score:
     base:
@@ -28407,8 +28377,38 @@
       Atacante desde Internet sin autenticación.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/user/payment', (req, res) => {
+        const { username, password, paymentInfo } = req.body;
+        const user = users.find(u => { return u.username === username && u.password === password });
+        if (user) {
+          processPayment(user, paymentInfo);
+          //The same header is included in the payments after processing which could be exploited
+          res.json({
+            accessKey
+          });
+        } else {
+            res.send('Unable to generate token. Login again to re try');
+        }
+      });
+      ```
+    compliant: |
+      Including functionality to authenticate a user by sending them a token before accepting payment
+      ```javascript
+      app.post('/user/payment', (req, res) => {
+        const { username, password, paymentInfo } = req.body;
+        const user = users.find(u => { return u.username === username && u.password === password });
+        if (user) {
+          const token = jwt.sign({ username: user.username,  role: user.role }, accessTokenSecret);
+          //function in charge of sending unique token for user to be authorized
+          sendAuthToken(user, token)
+          ...Code to handle redirection for token to be processed
+        } else {
+            res.send('Unable to generate token. Login again to re try');
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -28456,12 +28456,9 @@
   examples:
     non_compliant:  |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class Encrypt
-        {
-          public static void Process(string password)
-          {
+      namespace Controllers {
+        public class Encrypt {
+          public static void Process(string password) {
             var salt = Encoding.UTF8.GetBytes("salt");
             var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
             var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes("test"));
@@ -28472,12 +28469,9 @@
       ```
     compliant: |
       ```c {3,7,15}
-      namespace Controllers
-      {
-        public class Encrypt
-        {
-          public static void Process(string password)
-          {
+      namespace Controllers {
+        public class Encrypt {
+          public static void Process(string password) {
             var salt = RNGCryptoServiceProvider().GetBytes(salt=new byte[16]);
             var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
             var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes("test"));
@@ -29050,9 +29044,9 @@
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
-
           redirect('users/main');
         }else if (req.body.session.contains("auto")){
+          //This clause was used in a development environment to test code and bypass the authentication
           redirect('users/main');
         }
       }
@@ -29061,7 +29055,6 @@
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
-
           redirect('users/main');
         }
         //Delete all development code
@@ -29512,8 +29505,25 @@
       Atacante externo con acceso a integrates.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      const getFindings = (req, res) => {
+        if (isValidUser(req.body.user) && isExistingFinding(req.body.findingId)) {
+          res.message("the finding Id exists in our database");
+          redirect('users/findingId');
+        }else if (isValidUser){
+          res.message("The finding ID does not exist");
+        }
+      }
+      ```
+    compliant: |
+      ```javascript
+      const getFindings = (req, res) => {
+        if (isValidUser(req.body.user)) {
+          //Code to handle finding search that does not diferentiate response between existing and unexisting findings
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -31500,8 +31510,32 @@
       Authorized attacker from the Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      ```javascript
+      app.post('/user/payment', (req, res) => {
+        const { username, password, paymentInfo } = req.body;
+        const user = users.find(u => { return u.username === username && u.password === password });
+        const validPayInfo = isValidPayment(paymentInfo.number, user.pendingBills);
+        if (user && validPayInfo) {
+          //Continue with the process without performing extra validation
+        } else {
+            res.send('Unable to process payment. Try again');
+        }
+      });
+      ```
+    compliant: |
+      ```javascript
+      app.post('/user/payment', (req, res) => {
+        const { username, password, paymentInfo } = req.body;
+        const user = users.find(u => { return u.username === username && u.password === password });
+        const validPayInfo = isValidPayment(paymentInfo.number, user.pendingBills);
+        if (user && validPayInfo) {
+          //This code should validate the rest of the application process, setting limits for number of tries and verifying user settings limitations
+        } else {
+            res.send('Unable to process payment. Try again');
+        }
+      });
+      ```
   remediation_time: "450"
   es:
     title: Security controls bypass or absence - Tampering Protection
@@ -32431,8 +32465,10 @@
       Attacker on the Internet sending malicious links.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The app provides a different ftps when a query is successful than when the login has failed because of a delay in getting the data
+    compliant: |
+      The application defines the same timing frame functions without distinguishing outcomes of queries
   remediation_time: "120"
   es:
     title: Cross-Site Leak - Frame Counting
@@ -32709,6 +32745,7 @@
         newMod.${newMethod} = function() {
             //Add functionality to object
         };
+
         return newMod;
       }
       ```
@@ -32838,7 +32875,6 @@
         policy: 'drop'
         log_default_action: true
         firewall_rules:
-
         - :id: '1'
           :enabled: true
           :description: 'allow_conections'
@@ -32856,7 +32892,6 @@
         policy: 'drop'
         log_default_action: true
         firewall_rules:
-
         - :id: '1'
           :enabled: true
           :description: 'disallow_conections'
@@ -34627,10 +34662,8 @@
       ```c {3,7,15}
       using System;
       using System.Reflection;
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form["in"];
           byte[] rawAssembly = Convert.FromBase64String(input);
           Assembly.Load(rawAssembly);
@@ -34641,10 +34674,8 @@
       ```c {3,7,15}
       using System;
       using System.Reflection;
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form["in"];
           string cleanInput = clearRawUserInput(input);
           byte[] rawAssembly = Convert.FromBase64String(cleanInput);
@@ -34711,10 +34742,8 @@
       using System;
       using System.Web.Configuration;
 
-      class TestClass
-      {
-        public void TestMethod()
-        {
+      class TestClass {
+        public void TestMethod() {
           HttpRuntimeSection httpRuntimeSection = new HttpRuntimeSection();
           httpRuntimeSection.EnableHeaderChecking = false;
         }
@@ -34725,10 +34754,8 @@
       using System;
       using System.Web.Configuration;
 
-      class TestClass
-      {
-        public void TestMethod()
-        {
+      class TestClass {
+        public void TestMethod() {
           HttpRuntimeSection httpRuntimeSection = new HttpRuntimeSection();
           httpRuntimeSection.EnableHeaderChecking = true;
         }
@@ -34893,10 +34920,8 @@
       using System;
       using System.IO;
 
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form["in"];
           byte[] bytes = Convert.FromBase64String(input);
           MemoryStream ms = new MemoryStream(bytes);
@@ -34909,10 +34934,8 @@
       using System;
       using System.IO;
 
-      public partial class WebForm : System.Web.UI.Page
-      {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+      public partial class WebForm : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
           string input = Request.Form["in"];
           string cleanInput = clearRawUserInput(input);
           byte[] bytes = Convert.FromBase64String(cleaninput);
@@ -34982,8 +35005,7 @@
     non_compliant: |
       ```java
       public void recoverAccount(useremail, userId){
-        if(isValidUser(userId))
-        {
+        if(isValidUser(userId)) {
           Account account = application.sendPasswordResetEmail(userEmail);
           Account account = application.resetPassword("newPassword");
         }
@@ -34992,8 +35014,7 @@
     compliant: |
       ```java
       public void recoverAccount(userEmail, userId){
-        if(isValidUser(userId, userEmail))
-        {
+        if(isValidUser(userId, userEmail)) {
           Account account = application.sendPasswordResetEmail(userEmail);
           Account account = application.resetPassword("$TOKEN", "newPassword");
         }
