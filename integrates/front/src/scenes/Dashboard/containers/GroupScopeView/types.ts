@@ -27,7 +27,7 @@ interface IGitRootAttr {
     message: string;
     status: "FAIL" | "N/A" | "OK" | "UNKNOWN";
   };
-  credentials: ICredentials;
+  credentials: ICredentials | null;
   environment: string;
   environmentUrls: string[];
   gitEnvironmentUrls: IEnvironmentUrl[];
@@ -70,6 +70,27 @@ interface IUpdateGitEnvironments extends IGitRootAttr {
 
 type Root = IGitRootAttr | IIPRootAttr | IURLRootAttr;
 
+interface IFormValues {
+  branch: string;
+  cloningStatus: {
+    message: string;
+    status: "FAIL" | "N/A" | "OK" | "UNKNOWN";
+  };
+  credentials: ICredentials;
+  environment: string;
+  environmentUrls: string[];
+  gitEnvironmentUrls: IEnvironmentUrl[];
+  gitignore: string[];
+  healthCheckConfirm: string[] | undefined;
+  includesHealthCheck: boolean | null;
+  id: string;
+  nickname: string;
+  secrets: ISecret[];
+  state: "ACTIVE" | "INACTIVE";
+  url: string;
+  useVpn: boolean;
+}
+
 export type {
   Root,
   IGitRootAttr,
@@ -79,4 +100,5 @@ export type {
   ISecret,
   ICredentials,
   IUpdateGitEnvironments,
+  IFormValues,
 };

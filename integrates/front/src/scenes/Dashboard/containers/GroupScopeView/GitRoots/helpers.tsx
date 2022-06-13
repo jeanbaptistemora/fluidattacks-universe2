@@ -13,7 +13,7 @@ import type { BaseSchema, InferType } from "yup";
 import { array, boolean, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
 
-import type { IGitRootAttr } from "../types";
+import type { IFormValues, IGitRootAttr } from "../types";
 import { Alert } from "components/Alert";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -51,7 +51,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
 const gitModalSchema = (
   credExists: boolean,
   hasSquad: boolean,
-  initialValues: IGitRootAttr,
+  initialValues: IFormValues,
   isCheckedHealthCheck: boolean,
   isDuplicated: (field: string) => boolean,
   isGitAccessible: boolean,
@@ -59,7 +59,7 @@ const gitModalSchema = (
   nicknames: string[]
 ): InferType<TypedSchema> =>
   lazy(
-    (values: IGitRootAttr): BaseSchema =>
+    (values: IFormValues): BaseSchema =>
       object().shape({
         branch: string().required(translate.t("validations.required")),
         credentials: object({
@@ -403,7 +403,7 @@ function useGitSubmit(
   nickname,
   url,
   useVpn,
-}: IGitRootAttr) => Promise<void> {
+}: IFormValues) => Promise<void> {
   return useCallback(
     async ({
       branch,
@@ -415,7 +415,7 @@ function useGitSubmit(
       nickname,
       url,
       useVpn,
-    }: IGitRootAttr): Promise<void> => {
+    }: IFormValues): Promise<void> => {
       setModalMessages({ message: "", type: "success" });
       if (isManagingRoot !== false) {
         if (isManagingRoot.mode === "ADD") {

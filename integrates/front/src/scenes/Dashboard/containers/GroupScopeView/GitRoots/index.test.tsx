@@ -8,7 +8,7 @@ import { MemoryRouter } from "react-router-dom";
 import { ManagementModal } from "./ManagementModal";
 
 import { GitRoots } from ".";
-import type { IGitRootAttr } from "../types";
+import type { IFormValues, IGitRootAttr } from "../types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GitRoots", (): void => {
@@ -211,8 +211,7 @@ describe("GitRoots", (): void => {
     const finishTour: jest.Mock = jest.fn();
     const handleClose: jest.Mock = jest.fn();
     const handleSubmit: jest.Mock = jest.fn();
-    const initialValues: IGitRootAttr = {
-      __typename: "GitRoot",
+    const initialValues: IFormValues = {
       branch: "",
       cloningStatus: {
         message: "",

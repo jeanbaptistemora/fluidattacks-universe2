@@ -16,7 +16,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
-import type { ICredentials, IGitRootAttr } from "../../types";
+import type { ICredentials, IFormValues } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
@@ -45,12 +45,12 @@ import { hasSshFormat } from "utils/validations";
 
 interface IRepositoryProps {
   groupName: string;
-  initialValues: IGitRootAttr;
+  initialValues: IFormValues;
   isEditing: boolean;
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
-  onSubmit: (values: IGitRootAttr) => Promise<void>;
+  onSubmit: (values: IFormValues) => Promise<void>;
   runTour: boolean;
   finishTour: () => void;
 }
@@ -91,10 +91,10 @@ const Repository: React.FC<IRepositoryProps> = ({
 
   const [isGitAccessible, setIsGitAccessible] = useState(true);
   const [credExists, setCredExists] = useState(
-    initialValues.credentials.id !== ""
+    !_.isNull(initialValues.credentials) && initialValues.credentials.id !== ""
   );
   const [disabledCredsEdit, setDisabledCredsEdit] = useState(
-    initialValues.credentials.id !== ""
+    !_.isNull(initialValues.credentials) && initialValues.credentials.id !== ""
   );
 
   const [hasSquad, setHasSquad] = useState(false);
@@ -157,7 +157,7 @@ const Repository: React.FC<IRepositoryProps> = ({
     },
   });
 
-  const formRef = useRef<FormikProps<IGitRootAttr>>(null);
+  const formRef = useRef<FormikProps<IFormValues>>(null);
   const groupedExistingCreds =
     !_.isUndefined(data) && data.group.credentials.length > 0
       ? Object.fromEntries(
@@ -191,7 +191,7 @@ const Repository: React.FC<IRepositoryProps> = ({
     }
   }
 
-  function rootChanged(values: IGitRootAttr): null {
+  function rootChanged(values: IFormValues): null {
     setIsRootChange([values.url, values.branch].join(""));
     if (
       [values.url, values.branch].join("") !==
@@ -203,7 +203,7 @@ const Repository: React.FC<IRepositoryProps> = ({
     return null;
   }
 
-  const submittableCredentials = (values: IGitRootAttr): boolean => {
+  const submittableCredentials = (values: IFormValues): boolean => {
     return values.credentials.type === "SSH"
       ? !values.credentials.name ||
           !values.credentials.key ||

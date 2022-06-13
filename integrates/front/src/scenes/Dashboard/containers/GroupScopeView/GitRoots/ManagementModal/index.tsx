@@ -8,7 +8,7 @@ import { Environments } from "./environments";
 import { Repository } from "./repository";
 
 import { Secrets } from "../../Secrets";
-import type { IGitRootAttr } from "../../types";
+import type { IFormValues } from "../../types";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
@@ -18,11 +18,11 @@ import { authzPermissionsContext } from "utils/authz/config";
 
 interface IManagementModalProps {
   groupName: string;
-  initialValues: IGitRootAttr | undefined;
+  initialValues: IFormValues | undefined;
   modalMessages: { message: string; type: string };
   nicknames: string[];
   onClose: () => void;
-  onSubmitRepo: (values: IGitRootAttr) => Promise<void>;
+  onSubmitRepo: (values: IFormValues) => Promise<void>;
   runTour: boolean;
   finishTour: () => void;
 }
@@ -30,7 +30,6 @@ interface IManagementModalProps {
 const ManagementModal: React.FC<IManagementModalProps> = ({
   groupName,
   initialValues = {
-    __typename: "GitRoot",
     branch: "",
     cloningStatus: {
       message: "",
@@ -121,7 +120,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               >
                 {(confirm): React.ReactNode => {
                   async function confirmAndSubmit(
-                    values: IGitRootAttr
+                    values: IFormValues
                   ): Promise<void> {
                     if (isEditing && values.branch !== initialValues.branch) {
                       return new Promise((resolve): void => {

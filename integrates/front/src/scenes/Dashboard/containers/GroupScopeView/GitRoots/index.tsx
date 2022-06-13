@@ -32,7 +32,7 @@ import {
   SYNC_GIT_ROOT,
   UPDATE_GIT_ROOT,
 } from "../queries";
-import type { IEnvironmentUrl, IGitRootAttr } from "../types";
+import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
@@ -548,6 +548,38 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const resultEnvironmentsUrlsDataset: Record<string, unknown>[] =
     filterSearchText(envUrlsDataSet, searchEnvsTextFilter);
 
+  const managementInitialValues: IFormValues | undefined = _.isUndefined(
+    currentRow
+  )
+    ? undefined
+    : {
+        branch: currentRow.branch,
+        cloningStatus: currentRow.cloningStatus,
+        credentials: _.isNull(currentRow.credentials)
+          ? {
+              id: "",
+              key: "",
+              name: "",
+              password: "",
+              token: "",
+              type: "",
+              user: "",
+            }
+          : currentRow.credentials,
+        environment: currentRow.environment,
+        environmentUrls: currentRow.environmentUrls,
+        gitEnvironmentUrls: currentRow.gitEnvironmentUrls,
+        gitignore: currentRow.gitignore,
+        healthCheckConfirm: currentRow.healthCheckConfirm,
+        id: currentRow.id,
+        includesHealthCheck: currentRow.includesHealthCheck,
+        nickname: currentRow.nickname,
+        secrets: currentRow.secrets,
+        state: currentRow.state,
+        url: currentRow.url,
+        useVpn: currentRow.useVpn,
+      };
+
   return (
     <React.Fragment>
       <h2>{t("group.scope.git.title")}</h2>
@@ -781,7 +813,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           finishTour={finishTour}
           groupName={groupName}
           initialValues={
-            isManagingRoot.mode === "EDIT" ? currentRow : undefined
+            isManagingRoot.mode === "EDIT" ? managementInitialValues : undefined
           }
           modalMessages={rootModalMessages}
           nicknames={nicknames}

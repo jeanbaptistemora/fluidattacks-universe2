@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 
 import { AddEnvironment } from "./addEnvironment";
 
-import type { IGitRootAttr } from "../../types";
+import type { IFormValues } from "../../types";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { Table } from "components/Table";
 
 interface IEnvironmentsProps {
-  rootInitialValues: IGitRootAttr;
+  rootInitialValues: IFormValues;
   groupName: string;
   onClose: () => void;
 }

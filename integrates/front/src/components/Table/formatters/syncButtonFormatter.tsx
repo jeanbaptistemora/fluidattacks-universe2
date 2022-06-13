@@ -1,5 +1,6 @@
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import React from "react";
 
 import { Button } from "components/Button";
@@ -26,7 +27,11 @@ export const syncButtonFormatter: (
 
   return (
     <Button
-      disabled={row.state !== "ACTIVE" || row.credentials.name === ""}
+      disabled={
+        row.state !== "ACTIVE" ||
+        _.isNull(row.credentials) ||
+        (!_.isNull(row.credentials) && row.credentials.name === "")
+      }
       id={"gitRootSync"}
       onClick={handleOnChange}
       variant={"secondary"}
