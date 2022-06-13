@@ -2457,6 +2457,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    HTML_HAS_NOT_SUB_RESOURCE_INTEGRITY = MethodInfo(
+        file_name="html",
+        name="html_has_not_sub_resource_integrity",
+        module="lib_path",
+        finding=FindingEnum.F086,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     SUB_RESOURCE_INTEGRITY = MethodInfo(
         file_name="analyze_content",
         name="sub_resource_integrity",
