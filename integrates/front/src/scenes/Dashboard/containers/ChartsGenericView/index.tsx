@@ -390,27 +390,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
             </RowCenter>
           </React.Fragment>
         ) : undefined}
-        {doesEntityMatch(["group"]) ? (
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"whereToFindings"}
-                documentType={"disjointForceDirectedGraph"}
-                entity={entity}
-                generatorName={"whereToFindings"}
-                generatorType={"disjointForceDirectedGraph"}
-                infoLink={`${graphInfoLink}groups#systems-risk`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t(
-                  "analytics.disjointForceDirectedGraph.whereToFindings.title"
-                )}
-              />
-            </Col100>
-          </RowCenter>
-        ) : undefined}
       </div>
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (
         <div className={reportClassName}>

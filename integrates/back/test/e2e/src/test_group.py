@@ -120,7 +120,6 @@ def test_group_analytics(
             "Sprint remediation Overall",
             "Severity",
             "Active resources distribution",
-            "Systems Risk",
             "Vulnerabilities by tag",
             "Vulnerabilities by level",
             "Accepted vulnerabilities by user",
