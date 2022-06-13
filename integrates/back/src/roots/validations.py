@@ -155,7 +155,9 @@ def validate_credential_name(
 
 def validate_git_root_component(root: Root, component: str) -> None:
     if isinstance(root, GitRoot):
-        if not is_valid_url(component):
+        if component not in [
+            x.url for x in root.state.git_environment_urls
+        ] and not is_valid_url(component):
             raise InvalidUrl()
         for environment_url in root.state.environment_urls:
             formatted_environment_url = (
