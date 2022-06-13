@@ -126,16 +126,18 @@ async def add_org_credential(  # pylint: disable=too-many-locals
     owner = older_states[0].modified_by
     if next(
         (
-            older_state.modified_by == kospina_email
+            older_state
             for older_state in older_states
+            if older_state.modified_by == kospina_email
         ),
         None,
     ):
         owner = kospina_email
     if next(
         (
-            older_state.modified_by == ccarrasco_email
+            older_state
             for older_state in older_states
+            if older_state.modified_by == ccarrasco_email
         ),
         None,
     ):
