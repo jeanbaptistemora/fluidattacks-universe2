@@ -494,6 +494,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       selectOptions: {
         FAILED: "Failed",
         OK: "Ok",
+        QUEUED: "Queued",
         UNKNOWN: "Unknown",
       },
       tooltipId: "group.scope.git.filtersTooltips.status.id",

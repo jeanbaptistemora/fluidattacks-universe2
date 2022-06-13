@@ -27,6 +27,7 @@ class GitCloningStatus(str, Enum):
     CLONING: str = "CLONING"
     FAILED: str = "FAILED"
     OK: str = "OK"
+    QUEUED: str = "QUEUED"
     UNKNOWN: str = "UNKNOWN"
 
 

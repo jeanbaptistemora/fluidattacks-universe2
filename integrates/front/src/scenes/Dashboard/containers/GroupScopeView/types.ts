@@ -25,7 +25,7 @@ interface IGitRootAttr {
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "N/A" | "OK" | "UNKNOWN";
+    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
   };
   credentials: ICredentials | null;
   environment: string;
@@ -74,7 +74,7 @@ interface IFormValues {
   branch: string;
   cloningStatus: {
     message: string;
-    status: "FAIL" | "N/A" | "OK" | "UNKNOWN";
+    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
   };
   credentials: ICredentials;
   environment: string;

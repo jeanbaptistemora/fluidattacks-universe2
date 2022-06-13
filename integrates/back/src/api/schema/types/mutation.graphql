@@ -1090,7 +1090,7 @@ type Mutation {
     groupName: String!
     "ID of the root"
     id: ID!
-    "Whether the root is cloning or not"
+    "Whether the root cloning is queued, running or done"
     status: CloningStatus!
     "Message when cloning is finished"
     message: String!

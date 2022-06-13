@@ -100,6 +100,8 @@ enum CloningStatus {
   FAILED
   "Cloning was successful"
   OK
+  "Cloning was requested but has not started yet"
+  QUEUED
   "Cloning status unknown"
   UNKNOWN
 }
