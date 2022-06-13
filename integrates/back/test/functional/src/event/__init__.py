@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,29 +14,37 @@ async def get_result(
     *,
     user: str,
     event: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""{{
         event(identifier: "{event}"){{
-            client
-            evidence
-            groupName
-            eventType
-            detail
-            eventDate
-            eventStatus
-            historicState
             accessibility
             affectedComponents
-            context
-            subscription
+            affectedReattacks {{
+                id
+            }}
+            client
             closingDate
             consulting {{
                 content
             }}
+            context
+            detail
+            eventDate
+            eventStatus
+            eventType
+            evidence
+            evidenceDate
+            evidenceFile
+            evidenceFileDate
+            groupName
+            hacker
+            historicState
+            id
+            subscription
             __typename
         }}
     }}"""
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

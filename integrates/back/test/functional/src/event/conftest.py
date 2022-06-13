@@ -5,21 +5,20 @@ from back.test import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("event")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
-    data: Dict[str, Any] = {
+async def populate(generic_data: dict[str, Any]) -> bool:
+    data: dict[str, Any] = {
         "events": [
             {
                 "group_name": "group1",
                 "event_id": "418900971",
                 "accessibility": "Repositorio",
-                "affected_components": "affected_components_test",
+                "affected_components": "Estación de pruebas de FLUID",
                 "analyst": "unittest@fluidattacks.com",
                 "client": "Fluid",
                 "client_project": "group1",
