@@ -2,6 +2,7 @@ from .common import (
     GENERAL_TAG,
     send_mails_async,
 )
+import authz
 from context import (
     BASE_URL,
 )
@@ -50,6 +51,7 @@ async def send_mail_updated_treatment(
         if Notification.UPDATED_TREATMENT
         in user.notifications_preferences.email
     ]
+    user_role = await authz.get_group_level_role(modified_by, group_name)
     email_context: dict[str, Any] = {
         "assigned": assigned,
         "group": group_name,
@@ -57,6 +59,7 @@ async def send_mail_updated_treatment(
         "responsible": modified_by,
         "treatment": treatment,
         "finding": finding_title,
+        "user_role": user_role.replace("_", " "),
         "vulnerabilities": vulnerabilities.splitlines(),
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
@@ -75,7 +78,7 @@ async def send_mail_updated_treatment(
     )
 
 
-async def send_mail_treatment_report(
+async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     assigned: str,
@@ -91,6 +94,8 @@ async def send_mail_treatment_report(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     approve_state: str = "has been approved" if is_approved else "is requested"
+    user_email: str = modified_by if modified_by else ""
+    user_role = await authz.get_group_level_role(user_email, group_name)
     email_context: dict[str, Any] = {
         "assigned": assigned,
         "date": datetime_utils.get_date_from_iso_str(modified_date),
@@ -100,6 +105,7 @@ async def send_mail_treatment_report(
         "finding": finding_title,
         "location": location,
         "approve_state": approve_state,
+        "user_role": user_role.replace("_", " "),
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/vulns/{finding_id}"

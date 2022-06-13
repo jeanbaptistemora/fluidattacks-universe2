@@ -9,12 +9,14 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <div style="padding-left: 2rem !important;">
-      <p>A type of vulnerability in group <strong>{{ group }}</strong> has been deleted by
+      <p>
+        A type of vulnerability in group <strong>{{ group }}</strong> has been deleted by
         <strong>
           <a href="mailto:{{ hacker_email }}" target="_blank" rel="noopener noreferrer" style="color: #ff3435;">
             {{ hacker_email }}
           </a>
-        </strong>.
+        </strong>
+        as {{ user_role }}.
       </p>
       <p><strong>Type of vulnerability</strong>: {{ finding_name }}</p>
       <p><strong>ID</strong>: {{ finding_id }}</p>

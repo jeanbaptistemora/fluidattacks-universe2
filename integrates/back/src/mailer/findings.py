@@ -4,6 +4,7 @@ from .common import (
     send_mails_async,
     VERIFY_TAG,
 )
+import authz
 from context import (
     BASE_URL,
     FI_MAIL_REVIEWERS,
@@ -102,12 +103,14 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         StateRemovalJustification.REPORTING_ERROR: "It is a reporting error",
     }
     recipients = FI_MAIL_REVIEWERS.split(",")
+    user_role = await authz.get_group_level_role(discoverer_email, group_name)
     mail_context: dict[str, Any] = {
         "hacker_email": discoverer_email,
         "finding_name": finding_name,
         "finding_id": finding_id,
         "justification": justification_dict[justification],
         "group": group_name,
+        "user_role": user_role.replace("_", " "),
     }
     users: Tuple[User, ...] = await loaders.user.load_many(recipients)
     users_email = [
@@ -134,6 +137,7 @@ async def send_mail_new_draft(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
+    user_role = await authz.get_group_level_role(hacker_email, group_name)
     email_context: dict[str, Any] = {
         "hacker_email": hacker_email,
         "finding_id": finding_id,
@@ -144,6 +148,7 @@ async def send_mail_new_draft(
         ),
         "group": group_name,
         "organization": org_name,
+        "user_role": user_role.replace("_", " "),
     }
     users: Tuple[User, ...] = await loaders.user.load_many(recipients)
     users_email = [
@@ -183,6 +188,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     org_name = await get_organization_name(loaders, group_name)
     recipients = FI_MAIL_REVIEWERS.split(",")
     recipients.append(discoverer_email)
+    user_role = await authz.get_group_level_role(discoverer_email, group_name)
     email_context: dict[str, Any] = {
         "admin_mail": reviewer_email,
         "analyst_mail": discoverer_email,
@@ -194,6 +200,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         "finding_name": finding_name,
         "group": group_name,
         "organization": org_name,
+        "user_role": user_role.replace("_", " "),
     }
     await send_mails_async(
         recipients,

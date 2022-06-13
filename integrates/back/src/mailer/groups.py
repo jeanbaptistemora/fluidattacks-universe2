@@ -4,6 +4,7 @@ from .common import (
     GENERAL_TAG,
     send_mails_async,
 )
+import authz
 from context import (
     BASE_URL,
 )
@@ -144,6 +145,7 @@ async def send_mail_added_root(
         True: "Yes",
         False: "No",
     }
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -154,6 +156,7 @@ async def send_mail_added_root(
             "responsible": responsible,
             "health_check": bool_translations[health_check],
             "root_url": root_url,
+            "user_role": user_role.replace("_", " "),
             "vpn_required": bool_translations[vpn_required],
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
@@ -178,6 +181,7 @@ async def send_mail_updated_root(
         "url": "URL",
         "includes_health_check": "Health check",
     }
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -188,6 +192,7 @@ async def send_mail_updated_root(
             "old_state": old_state,
             "root_nickname": root_nickname,
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=f"Root has been changed in [{group_name}]",
@@ -213,6 +218,8 @@ async def send_mail_deactivated_root(
         if last_root_state == "OK"
         else last_root_state.capitalize()
     )
+    responsible: str = kwargs["responsible"]
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -227,7 +234,8 @@ async def send_mail_deactivated_root(
             "last_clone_date": last_clone_date,
             "sast_vulns": kwargs["sast_vulns"],
             "dast_vulns": kwargs["dast_vulns"],
-            "responsible": kwargs["responsible"],
+            "responsible": responsible,
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=("Root deactivated"),
@@ -246,6 +254,7 @@ async def send_mail_file_report(
     email_to: List[str],
 ) -> None:
     state_format: str = "added" if is_added else "deleted"
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -255,6 +264,7 @@ async def send_mail_file_report(
             "file_name": file_name,
             "file_description": file_description,
             "report_date": report_date,
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=(f"Root file {state_format}"),
@@ -326,6 +336,7 @@ async def send_mail_portfolio_report(
     report_date: date,
     email_to: List[str],
 ) -> None:
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -334,6 +345,7 @@ async def send_mail_portfolio_report(
             "responsible": responsible,
             "portfolios": portfolio,
             "report_date": report_date,
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=(f"The portfolio has been modified in [{group_name}]"),
@@ -349,6 +361,7 @@ async def send_mail_updated_services(
     report_date: str,
     email_to: List[str],
 ) -> None:
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -356,6 +369,7 @@ async def send_mail_updated_services(
             "responsible": responsible,
             "group_changes": group_changes,
             "report_date": datetime_utils.get_date_from_iso_str(report_date),
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=(f"[ASM] Group edited: {group_name}"),
@@ -374,12 +388,14 @@ async def send_mail_devsecops_agent_token(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     token_status: str = "reset" if had_token else "generated"
+    user_role = await authz.get_group_level_role(user_email, group_name)
 
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group_name": group_name,
         "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
         "responsible": user_email,
+        "user_role": user_role.replace("_", " "),
         "had_token": had_token,
     }
     await send_mails_async(
@@ -425,6 +441,7 @@ async def send_mail_environment_report(
     other: Optional[str],
     reason: Optional[str],
 ) -> None:
+    user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
@@ -434,6 +451,7 @@ async def send_mail_environment_report(
             "git_root_url": git_root_url,
             "urls_added": urls_added,
             "urls_deleted": urls_deleted,
+            "user_role": user_role.replace("_", " "),
             "report_date": str(
                 datetime_utils.get_date_from_iso_str(modified_date)
             ),
@@ -496,6 +514,8 @@ async def send_mail_updated_group_information(
         ),
     }
 
+    user_role = await authz.get_group_level_role(responsible, group_name)
+
     await send_mails_async(
         email_to=email_to,
         context={
@@ -503,6 +523,7 @@ async def send_mail_updated_group_information(
             "responsible": responsible,
             "group_changes": group_info_modified,
             "report_date": datetime_utils.get_date_from_iso_str(report_date),
+            "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
         subject=f"Group information has been modified in [{group_name}]",
@@ -513,6 +534,8 @@ async def send_mail_updated_group_information(
 async def send_mail_updated_policies(
     *, email_to: List[str], context: Dict[str, Any]
 ) -> None:
+    user_role = await authz.get_user_level_role(context["responsible"])
+    context["user_role"] = user_role.replace("_", " ")
     await send_mails_async(
         email_to,
         context,

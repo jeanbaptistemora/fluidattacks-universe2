@@ -1259,6 +1259,7 @@ async def invite_to_group(
         confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
         mail_to = [email]
+        user_role = await authz.get_group_level_role(modified_by, group_name)
         email_context: dict[str, Any] = {
             "admin": email,
             "group": group_name,
@@ -1266,6 +1267,7 @@ async def invite_to_group(
             "group_description": group.description,
             "confirm_access_url": confirm_access_url,
             "reject_access_url": reject_access_url,
+            "user_role": user_role.replace("_", " "),
         }
         schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success

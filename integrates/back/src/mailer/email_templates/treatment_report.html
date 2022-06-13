@@ -9,8 +9,8 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      A permanent treatment {{ approve_state }} in the group
-      <strong>{{ group }}</strong> by <strong>{{ responsible }}</strong>:
+      A permanent treatment {{ approve_state }} in the group <strong>{{ group }}</strong>
+      {% if responsible %}by <strong>{{ responsible }}</strong> as {{ user_role }}{% endif %}:
     </p>
     <p>
       <strong>Date</strong>: {{ date }}<br>

@@ -323,12 +323,14 @@ async def invite_to_organization(
             f"{BASE_URL}/reject_access_organization/{url_token}"
         )
         mail_to = [email]
+        user_role = await authz.get_user_level_role(modified_by)
         email_context: dict[str, Any] = {
             "admin": email,
             "group": organization_name,
             "responsible": modified_by,
             "confirm_access_url": confirm_access_url,
             "reject_access_url": reject_access_url,
+            "user_role": user_role.replace("_", " "),
         }
         schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
     return success
