@@ -12,8 +12,12 @@
     jsonschema
     legacy-postgres-client
     legacy-singer-io
+    mypy-boto3-s3
     psycopg2
     returns
+    types-boto3
+    types-click
+    types-psycopg2
   ];
   build_deps = with python_pkgs; [poetry];
   test_deps = with python_pkgs; [
