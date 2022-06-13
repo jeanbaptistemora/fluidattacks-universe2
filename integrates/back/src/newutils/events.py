@@ -129,18 +129,21 @@ def format_evidences(item: Item) -> EventEvidences:
     )
 
 
-def format_state(item: Item) -> EventState:
+def format_historic_state(item: Item) -> tuple[EventState, ...]:
     historic_state = item["historic_state"]
-    last_state = historic_state[-1]
-    return EventState(
-        modified_by=last_state["analyst"],
-        modified_date=last_state["date"],
-        status=EventStateStatus[last_state["state"]],
+    return tuple(
+        EventState(
+            modified_by=state["analyst"],
+            modified_date=convert_to_iso_str(state["date"]),
+            status=EventStateStatus[state["state"]],
+        )
+        for state in historic_state
     )
 
 
 def format_event(item: Item) -> Event:
     report_date = convert_to_iso_str(item["historic_state"][0]["date"])
+    historic_state = format_historic_state(item)
     return Event(
         action_after_blocking=format_actions_after_blocking(
             item["action_after_blocking"]
@@ -169,6 +172,6 @@ def format_event(item: Item) -> Event:
         id=item["event_id"],
         report_date=report_date,
         root_id=item.get("root_id"),
-        state=format_state(item),
+        state=historic_state[-1],
         type=EventType[item["event_type"]],
     )
