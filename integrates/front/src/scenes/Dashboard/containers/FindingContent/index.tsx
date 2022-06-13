@@ -231,16 +231,18 @@ const FindingContent: React.FC = (): JSX.Element => {
               <TitleContainer>
                 <Title>{headerData.finding.title}</Title>
                 <ButtonCol>
-                  <FindingActions
-                    hasSubmission={hasSubmission}
-                    hasVulns={hasVulns}
-                    isDraft={isDraft}
-                    loading={approving || deleting || rejecting || submitting}
-                    onApprove={approveDraft}
-                    onDelete={openDeleteModal}
-                    onReject={rejectDraft}
-                    onSubmit={submitDraft}
-                  />
+                  <Have I={"can_report_vulnerabilities"}>
+                    <FindingActions
+                      hasSubmission={hasSubmission}
+                      hasVulns={hasVulns}
+                      isDraft={isDraft}
+                      loading={approving || deleting || rejecting || submitting}
+                      onApprove={approveDraft}
+                      onDelete={openDeleteModal}
+                      onReject={rejectDraft}
+                      onSubmit={submitDraft}
+                    />
+                  </Have>
                 </ButtonCol>
               </TitleContainer>
               <div>

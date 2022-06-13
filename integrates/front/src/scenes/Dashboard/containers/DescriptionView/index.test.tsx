@@ -19,7 +19,7 @@ import type {
   IFindingDescriptionVars,
   ILanguageData,
 } from "scenes/Dashboard/containers/DescriptionView/types";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 const mockedFetch: FetchMockStatic = fetch as FetchMockStatic & typeof fetch;
 const baseUrl: string =
@@ -158,10 +158,14 @@ describe("Finding Description", (): void => {
           addTypename={false}
           mocks={[languageQuery, descriptionQuery]}
         >
-          <Route
-            component={DescriptionView}
-            path={"/:groupName/vulns/:findingId/description"}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={DescriptionView}
+              path={"/:groupName/vulns/:findingId/description"}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -185,10 +189,16 @@ describe("Finding Description", (): void => {
           mocks={[languageQuery, descriptionQuery]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={DescriptionView}
-              path={"/:groupName/vulns/:findingId/description"}
-            />
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([{ action: "can_report_vulnerabilities" }])
+              }
+            >
+              <Route
+                component={DescriptionView}
+                path={"/:groupName/vulns/:findingId/description"}
+              />
+            </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>

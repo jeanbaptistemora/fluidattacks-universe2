@@ -27,23 +27,27 @@ describe("ActionButtons", (): void => {
 
     render(
       <authzPermissionsContext.Provider value={new PureAbility([])}>
-        <ActionButtons
-          areVulnerabilitiesPendingToAcceptance={true}
-          areVulnsSelected={false}
-          isEditing={false}
-          isFindingReleased={true}
-          isOpen={false}
-          isReattackRequestedInAllVuln={false}
-          isRequestingReattack={false}
-          isVerified={false}
-          isVerifying={false}
-          onEdit={jest.fn()}
-          onRequestReattack={jest.fn()}
-          onVerify={jest.fn()}
-          openHandleAcceptance={jest.fn()}
-          openModal={jest.fn()}
-          state={"open"}
-        />
+        <authzGroupContext.Provider
+          value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+        >
+          <ActionButtons
+            areVulnerabilitiesPendingToAcceptance={true}
+            areVulnsSelected={false}
+            isEditing={false}
+            isFindingReleased={true}
+            isOpen={false}
+            isReattackRequestedInAllVuln={false}
+            isRequestingReattack={false}
+            isVerified={false}
+            isVerifying={false}
+            onEdit={jest.fn()}
+            onRequestReattack={jest.fn()}
+            onVerify={jest.fn()}
+            openHandleAcceptance={jest.fn()}
+            openModal={jest.fn()}
+            state={"open"}
+          />
+        </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
     );
 
@@ -58,23 +62,27 @@ describe("ActionButtons", (): void => {
     ]);
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areVulnerabilitiesPendingToAcceptance={true}
-          areVulnsSelected={false}
-          isEditing={false}
-          isFindingReleased={true}
-          isOpen={false}
-          isReattackRequestedInAllVuln={false}
-          isRequestingReattack={false}
-          isVerified={false}
-          isVerifying={false}
-          onEdit={jest.fn()}
-          onRequestReattack={jest.fn()}
-          onVerify={jest.fn()}
-          openHandleAcceptance={jest.fn()}
-          openModal={jest.fn()}
-          state={"open"}
-        />
+        <authzGroupContext.Provider
+          value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+        >
+          <ActionButtons
+            areVulnerabilitiesPendingToAcceptance={true}
+            areVulnsSelected={false}
+            isEditing={false}
+            isFindingReleased={true}
+            isOpen={false}
+            isReattackRequestedInAllVuln={false}
+            isRequestingReattack={false}
+            isVerified={false}
+            isVerifying={false}
+            onEdit={jest.fn()}
+            onRequestReattack={jest.fn()}
+            onVerify={jest.fn()}
+            openHandleAcceptance={jest.fn()}
+            openModal={jest.fn()}
+            state={"open"}
+          />
+        </authzGroupContext.Provider>
       </authzPermissionsContext.Provider>
     );
 
@@ -94,6 +102,7 @@ describe("ActionButtons", (): void => {
     ]);
     const mockedServices: PureAbility<string> = new PureAbility([
       { action: "is_continuous" },
+      { action: "can_report_vulnerabilities" },
     ]);
     const { rerender } = render(
       <authzPermissionsContext.Provider value={mockedPermissions}>

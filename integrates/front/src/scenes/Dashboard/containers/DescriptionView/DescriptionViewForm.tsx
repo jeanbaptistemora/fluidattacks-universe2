@@ -26,6 +26,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { Have } from "utils/authz/Have";
 import {
   EditableField,
   FormikAutocompleteText,
@@ -172,12 +173,14 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
 
   return (
     <Form id={"editDescription"}>
-      <ActionButtons
-        isEditing={isEditing}
-        isPristine={isDescriptionPristine}
-        onEdit={toggleEdit}
-        onUpdate={handleSubmit}
-      />
+      <Have I={"can_report_vulnerabilities"}>
+        <ActionButtons
+          isEditing={isEditing}
+          isPristine={isDescriptionPristine}
+          onEdit={toggleEdit}
+          onUpdate={handleSubmit}
+        />
+      </Have>
       <br />
       <div>
         <div>

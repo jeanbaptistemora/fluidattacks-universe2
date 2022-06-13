@@ -5,6 +5,7 @@ import { useAbility } from "@casl/react";
 import { default as mixpanel } from "mixpanel-browser";
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -38,7 +39,7 @@ import {
   getNonSelectableVulnerabilitiesOnVerifyIds,
   getVulnerabilitiesIndex,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 function usePreviousProps(value: boolean): boolean {
   const ref = useRef(false);
@@ -69,6 +70,7 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   onVulnSelect,
 }: IVulnComponentProps): JSX.Element => {
   const { t } = useTranslation();
+  const attributes: PureAbility<string> = useContext(authzGroupContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canRemoveVulnsTags: boolean = permissions.can(
     "api_mutations_remove_vulnerability_tags_mutate"
@@ -79,9 +81,9 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );
-  const canRemoveVulns: boolean = permissions.can(
-    "api_mutations_remove_vulnerability_mutate"
-  );
+  const canRemoveVulns: boolean =
+    permissions.can("api_mutations_remove_vulnerability_mutate") &&
+    attributes.can("can_report_vulnerabilities");
 
   const [selectedVulnerabilities, setSelectedVulnerabilities] = useState<
     IVulnRowAttr[]

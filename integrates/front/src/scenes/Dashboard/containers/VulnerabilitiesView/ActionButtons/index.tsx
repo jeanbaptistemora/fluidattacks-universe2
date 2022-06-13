@@ -66,27 +66,31 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
         isVerifying={isVerifying}
         openHandleAcceptance={openHandleAcceptance}
       />
-      <VerifyVulnerabilitiesButton
-        areVulnsSelected={areVulnsSelected}
-        isEditing={isEditing}
-        isRequestingReattack={isRequestingReattack}
-        isVerified={isVerified}
-        isVerifying={isVerifying}
-        onVerify={onVerify}
-        openModal={openModal}
-      />
-      <Have I={"is_continuous"}>
-        <ReattackVulnButton
+      <Have I={"can_report_vulnerabilities"}>
+        <VerifyVulnerabilitiesButton
           areVulnsSelected={areVulnsSelected}
           isEditing={isEditing}
-          isFindingReleased={isFindingReleased}
-          isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
           isRequestingReattack={isRequestingReattack}
+          isVerified={isVerified}
           isVerifying={isVerifying}
-          onRequestReattack={onRequestReattack}
+          onVerify={onVerify}
           openModal={openModal}
-          state={state}
         />
+      </Have>
+      <Have I={"is_continuous"}>
+        <Have I={"can_report_vulnerabilities"}>
+          <ReattackVulnButton
+            areVulnsSelected={areVulnsSelected}
+            isEditing={isEditing}
+            isFindingReleased={isFindingReleased}
+            isReattackRequestedInAllVuln={isReattackRequestedInAllVuln}
+            isRequestingReattack={isRequestingReattack}
+            isVerifying={isVerifying}
+            onRequestReattack={onRequestReattack}
+            openModal={openModal}
+            state={state}
+          />
+        </Have>
       </Have>
       <EditButton
         isDisabled={!areVulnsSelected}

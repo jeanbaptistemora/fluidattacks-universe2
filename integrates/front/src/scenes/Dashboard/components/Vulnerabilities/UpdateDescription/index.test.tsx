@@ -27,7 +27,7 @@ import {
   GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
 import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
@@ -312,14 +312,18 @@ describe("Update Description component", (): void => {
     render(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <UpdateDescription
-            findingId={"422286126"}
-            groupName={"testgroupname"}
-            handleClearSelected={handleClearSelected}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulnerabilities={vulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <UpdateDescription
+              findingId={"422286126"}
+              groupName={"testgroupname"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              refetchData={handleRefetchData}
+              vulnerabilities={vulns}
+            />
+          </authzGroupContext.Provider>
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
@@ -396,14 +400,18 @@ describe("Update Description component", (): void => {
         mocks={[...mocksMutation, mocksVulnGroups]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <UpdateDescription
-            findingId={"422286126"}
-            groupName={"testgroupname"}
-            handleClearSelected={handleClearSelected}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulnerabilities={vulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <UpdateDescription
+              findingId={"422286126"}
+              groupName={"testgroupname"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              refetchData={handleRefetchData}
+              vulnerabilities={vulns}
+            />
+          </authzGroupContext.Provider>
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
@@ -541,14 +549,18 @@ describe("Update Description component", (): void => {
         mocks={[...mocksMutation, ...mocksVulns, mocksVulnGroups]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <UpdateDescription
-            findingId={"422286126"}
-            groupName={"testgroupname"}
-            handleClearSelected={handleClearSelected}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulnerabilities={vulnsToUpdate}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <UpdateDescription
+              findingId={"422286126"}
+              groupName={"testgroupname"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              refetchData={handleRefetchData}
+              vulnerabilities={vulnsToUpdate}
+            />
+          </authzGroupContext.Provider>
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );
@@ -648,14 +660,18 @@ describe("Update Description component", (): void => {
         mocks={[mocksError, ...mocksVulns, mocksVulnGroups]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
-          <UpdateDescription
-            findingId={"422286126"}
-            groupName={"testgroupname"}
-            handleClearSelected={handleClearSelected}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulnerabilities={vulnsToUpdate}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <UpdateDescription
+              findingId={"422286126"}
+              groupName={"testgroupname"}
+              handleClearSelected={handleClearSelected}
+              handleCloseModal={handleOnClose}
+              refetchData={handleRefetchData}
+              vulnerabilities={vulnsToUpdate}
+            />
+          </authzGroupContext.Provider>
         </authzPermissionsContext.Provider>
       </MockedProvider>
     );

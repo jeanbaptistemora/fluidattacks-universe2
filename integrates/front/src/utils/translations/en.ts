@@ -63,11 +63,6 @@ export const enTranslations: ResourceKey = {
         tooltip: "Reload the default chart",
       },
     },
-    disjointForceDirectedGraph: {
-      whereToFindings: {
-        title: "Systems Risk",
-      },
-    },
     emptyChart: {
       text: "Your data will be available soon!",
     },

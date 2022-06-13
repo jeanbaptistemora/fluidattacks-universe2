@@ -15,7 +15,7 @@ import {
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/HandleAcceptanceModal/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
@@ -103,13 +103,17 @@ describe("handle vulns acceptance modal", (): void => {
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <HandleAcceptanceModal
-            findingId={"1"}
-            groupName={""}
-            handleCloseModal={handleOnClose}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"1"}
+              groupName={""}
+              handleCloseModal={handleOnClose}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -197,13 +201,17 @@ describe("handle vulns acceptance modal", (): void => {
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MockedProvider addTypename={false} mocks={mocksMutation}>
-          <HandleAcceptanceModal
-            findingId={"1"}
-            groupName={""}
-            handleCloseModal={jest.fn()}
-            refetchData={jest.fn()}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"1"}
+              groupName={""}
+              handleCloseModal={jest.fn()}
+              refetchData={jest.fn()}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -333,13 +341,17 @@ describe("handle vulns acceptance modal", (): void => {
             ...mocksFindingVulnInfo,
           ]}
         >
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -489,13 +501,17 @@ describe("handle vulns acceptance modal", (): void => {
             ...mocksFindingVulnInfo,
           ]}
         >
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -645,13 +661,17 @@ describe("handle vulns acceptance modal", (): void => {
             ...mocksFindingVulnInfo,
           ]}
         >
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -806,13 +826,17 @@ describe("handle vulns acceptance modal", (): void => {
             ...mocksFindingVulnInfo,
           ]}
         >
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -894,13 +918,17 @@ describe("handle vulns acceptance modal", (): void => {
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MockedProvider addTypename={false}>
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
@@ -996,13 +1024,17 @@ describe("handle vulns acceptance modal", (): void => {
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MockedProvider addTypename={false}>
-          <HandleAcceptanceModal
-            findingId={"422286126"}
-            groupName={"group name"}
-            handleCloseModal={handleCloseModal}
-            refetchData={handleRefetchData}
-            vulns={mokedVulns}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );

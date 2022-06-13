@@ -1,9 +1,10 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import type { Moment } from "moment";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
@@ -25,6 +26,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { authzGroupContext } from "utils/authz/config";
 import {
   FormikAutocompleteText,
   FormikCheckbox,
@@ -91,8 +93,10 @@ const AddModal: React.FC<IAddModalProps> = ({
       variables: { groupName },
     }
   );
+  const attributes: PureAbility<string> = useContext(authzGroupContext);
   const findings =
     findingsData === undefined ? [] : findingsData.group.findings;
+  const canOnHold: boolean = attributes.can("can_report_vulnerabilities");
   const hasReattacks = findings.some(
     (finding: IFinding): boolean => !finding.verified
   );
@@ -438,7 +442,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                   </FormGroup>
                 </Col50>
               </Row>
-              {hasReattacks ? (
+              {hasReattacks && canOnHold ? (
                 <FormGroup>
                   <ControlLabel>
                     {t("group.events.form.affectedReattacks.sectionTitle")}

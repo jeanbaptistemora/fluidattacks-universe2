@@ -232,12 +232,18 @@ describe("VulnerabilitiesView", (): void => {
           ]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={VulnsView}
-              path={
-                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([{ action: "can_report_vulnerabilities" }])
               }
-            />
+            >
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
@@ -271,12 +277,18 @@ describe("VulnerabilitiesView", (): void => {
           ]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={VulnsView}
-              path={
-                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([{ action: "can_report_vulnerabilities" }])
               }
-            />
+            >
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
@@ -319,6 +331,7 @@ describe("VulnerabilitiesView", (): void => {
     ]);
     const mockedServices: PureAbility<string> = new PureAbility([
       { action: "is_continuous" },
+      { action: "can_report_vulnerabilities" },
     ]);
     render(
       <MemoryRouter
@@ -402,12 +415,18 @@ describe("VulnerabilitiesView", (): void => {
           ]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
-            <Route
-              component={VulnsView}
-              path={
-                "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+            <authzGroupContext.Provider
+              value={
+                new PureAbility([{ action: "can_report_vulnerabilities" }])
               }
-            />
+            >
+              <Route
+                component={VulnsView}
+                path={
+                  "/orgs/:organizationName/groups/:groupName/vulns/:findingId/locations"
+                }
+              />
+            </authzGroupContext.Provider>
           </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>

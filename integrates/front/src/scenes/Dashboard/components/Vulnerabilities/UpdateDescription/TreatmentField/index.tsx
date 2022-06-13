@@ -1,11 +1,11 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ITreatmentFieldProps } from "./types";
 
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { formatDropdownField } from "utils/formatHelpers";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
 import { required } from "utils/validations";
@@ -16,10 +16,11 @@ const TreatmentField: React.FC<ITreatmentFieldProps> = ({
 }: ITreatmentFieldProps): JSX.Element => {
   const { t } = useTranslation();
 
+  const attributes: PureAbility<string> = useContext(authzGroupContext);
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
-  const canRequestZeroRiskVuln: boolean = permissions.can(
-    "api_mutations_request_vulnerabilities_zero_risk_mutate"
-  );
+  const canRequestZeroRiskVuln: boolean =
+    permissions.can("api_mutations_request_vulnerabilities_zero_risk_mutate") &&
+    attributes.can("can_report_vulnerabilities");
   const canUpdateVulnsTreatment: boolean = permissions.can(
     "api_mutations_update_vulnerabilities_treatment_mutate"
   );

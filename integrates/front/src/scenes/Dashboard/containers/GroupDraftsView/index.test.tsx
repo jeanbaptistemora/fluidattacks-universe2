@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import type { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { FetchMockStatic } from "fetch-mock";
@@ -10,6 +11,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import { authzGroupContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
 jest.mock("../../../../utils/notifications", (): Dictionary => {
@@ -158,10 +160,14 @@ describe("GroupDraftsView", (): void => {
     render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={GroupDraftsView}
-            path={"/groups/:groupName/drafts"}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={GroupDraftsView}
+              path={"/groups/:groupName/drafts"}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -197,10 +203,14 @@ describe("GroupDraftsView", (): void => {
     render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
         <MockedProvider addTypename={false} mocks={mockError}>
-          <Route
-            component={GroupDraftsView}
-            path={"/groups/:groupName/drafts"}
-          />
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={GroupDraftsView}
+              path={"/groups/:groupName/drafts"}
+            />
+          </authzGroupContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );

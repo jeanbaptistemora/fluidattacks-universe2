@@ -49,6 +49,7 @@ import { isPendingToAcceptance } from "scenes/Dashboard/containers/Vulnerabiliti
 import { Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
+import { Have } from "utils/authz/Have";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -544,12 +545,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
   function columnHelper(): JSX.Element {
     return (
       <Col100>
-        <Can do={"api_mutations_upload_file_mutate"}>
-          <UploadVulnerabilities
-            findingId={findingId}
-            refetchData={refetchVulnsData}
-          />
-        </Can>
+        <Have I={"can_report_vulnerabilities"}>
+          <Can do={"api_mutations_upload_file_mutate"}>
+            <UploadVulnerabilities
+              findingId={findingId}
+              refetchData={refetchVulnsData}
+            />
+          </Can>
+        </Have>
       </Col100>
     );
   }
