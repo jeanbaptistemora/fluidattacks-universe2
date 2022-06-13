@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 09, 2022, 02:59 PM",
+    "DateLastModified": "Jun 13, 2022, 11:22 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -160,11 +160,11 @@
         },
         {
           "AttributeName": "affected_components",
-          "AttributeType": "S"
+          "AttributeType": "SS"
         },
         {
           "AttributeName": "accessibility",
-          "AttributeType": "S"
+          "AttributeType": "SS"
         },
         {
           "AttributeName": "parent_id",
@@ -800,6 +800,26 @@
         },
         {
           "AttributeName": "credential_id",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "client",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "hacker",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "report_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "action_after_blocking",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "action_before_blocking",
           "AttributeType": "S"
         }
       ],
@@ -6470,71 +6490,39 @@
         {
           "FacetName": "event_metadata",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid",
+            "PartitionKeyAlias": "EVENT#id",
             "SortKeyAlias": "GROUP#name"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "description": {
-                "S": "Después de iniciar sesión, el servidor devuelve error"
-              },
-              "type": {
-                "S": "INCORRECT_MISSING_SUPPLIES"
-              },
-              "affected_components": {
-                "S": "Inestabilidad del ToE"
-              },
-              "accessibility": {
-                "S": "Ambiente"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "description",
-            "type",
+            "accessibility",
+            "action_after_blocking",
+            "action_before_blocking",
             "affected_components",
-            "accessibility"
+            "client",
+            "context",
+            "description",
+            "evidences",
+            "group_name",
+            "hacker",
+            "id",
+            "report_date",
+            "root_id",
+            "state",
+            "type"
           ]
         },
         {
           "FacetName": "event_historic_state",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid#STATE#iso8601utc",
-            "SortKeyAlias": "GROUP#name"
+            "PartitionKeyAlias": "EVENT#id",
+            "SortKeyAlias": "STATE#iso8601utc"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae#STATE#2021-02-15T14:01:16Z"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "status": {
-                "S": "OPEN"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "evidences": {
-                "M": {}
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "status",
-            "modified_date",
             "modified_by",
-            "evidences"
+            "modified_date",
+            "status"
           ]
         },
         {

@@ -47,6 +47,7 @@ class EventAffectedComponents(str, Enum):
 class EventStateStatus(str, Enum):
     CLOSED: str = "CLOSED"
     CREATED: str = "CREATED"
+    MASKED: str = "MASKED"
     OPEN: str = "OPEN"
     SOLVED: str = "SOLVED"
 
