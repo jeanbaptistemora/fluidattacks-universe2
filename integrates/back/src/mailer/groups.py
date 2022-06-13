@@ -267,7 +267,7 @@ async def send_mail_file_report(
             "user_role": user_role.replace("_", " "),
         },
         tags=GENERAL_TAG,
-        subject=(f"Root file {state_format}"),
+        subject=(f"Root file {state_format} in [{group_name}]"),
         template_name="file_report",
     )
 
