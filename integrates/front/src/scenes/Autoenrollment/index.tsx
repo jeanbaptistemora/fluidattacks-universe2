@@ -8,16 +8,15 @@ import type { ApolloError, FetchResult } from "@apollo/client";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Lottie from "react-lottie-player";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
 import { AddRoot } from "./components/AddRoot";
 import { Sidebar } from "./components/Sidebar";
+import { Standby } from "./components/Standby";
 import { Container, DashboardContent, FormContent } from "./styles";
 
 import { Col, Row } from "components/Layout";
-import scan from "resources/scan.json";
 import {
   handleGroupCreateError,
   handleRootCreateError,
@@ -64,6 +63,8 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
     setOrgMessages({ message: "", type: "success" });
     push("/autoenrollment/organization");
   }, [push]);
+
+  const [asmLocation, setAsmLocation] = useState("/logout");
 
   const [repository, setRepository] = useState<IRootAttr>({
     branch: "",
@@ -295,9 +296,10 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
               organization: values.organizationName.toLowerCase(),
               url: url.trim(),
             });
-            location.replace(
+            setAsmLocation(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
+            push("/autoenrollment/standby");
           } else {
             mixpanel.track("AutoenrollSubmit", {
               addGroup: true,
@@ -353,6 +355,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
       addOrganization,
       push,
       repository,
+      setAsmLocation,
       setOrganizationValues,
       setSuccessValues,
       successMutation,
@@ -360,6 +363,10 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
       timeoutPromise,
     ]
   );
+
+  function asmRedirect(): void {
+    location.replace(asmLocation);
+  }
 
   return (
     <Container>
@@ -419,22 +426,10 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
                 <Row justify={"center"}>
                   <Col large={"30"} medium={"50"} small={"70"}>
                     <FormContent>
-                      <Row align={"center"} justify={"center"}>
-                        <Col>
-                          <Lottie
-                            animationData={scan}
-                            play={true}
-                            // eslint-disable-next-line react/forbid-component-props
-                            style={{ height: 150, margin: "auto", width: 150 }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row justify={"center"}>
-                        <Col>
-                          <h2>{t("autoenrollment.standby.title")}</h2>
-                          <p>{t("autoenrollment.standby.subtitle")}</p>
-                        </Col>
-                      </Row>
+                      <Standby onClose={asmRedirect}>
+                        <h2>{t("autoenrollment.standby.title")}</h2>
+                        <p>{t("autoenrollment.standby.subtitle")}</p>
+                      </Standby>
                     </FormContent>
                   </Col>
                 </Row>
