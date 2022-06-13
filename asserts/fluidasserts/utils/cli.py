@@ -1167,12 +1167,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             dotnetconfig.not_custom_errors('__path__')
             """,
         (
-            "html",
-            "HTML",
-        ): """
-            html.has_not_subresource_integrity('__path__')
-            """,
-        (
             "java",
             "Java",
         ): """
