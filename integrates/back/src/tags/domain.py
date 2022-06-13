@@ -7,7 +7,9 @@ from contextlib import (
 )
 from custom_exceptions import (
     PortfolioNotFound,
-    UnavailabilityError,
+)
+from db_model import (
+    portfolios as portfolios_model,
 )
 from db_model.groups.types import (
     Group,
@@ -21,19 +23,15 @@ from db_model.portfolios.types import (
 from organizations import (
     domain as orgs_domain,
 )
-from tags import (
-    dal,
-)
 from typing import (
     Any,
 )
 
 
 async def remove(organization_name: str, portfolio_id: str) -> None:
-    if not await dal.remove(
-        organization_name=organization_name, tag=portfolio_id
-    ):
-        raise UnavailabilityError()
+    await portfolios_model.remove(
+        organization_name=organization_name, portfolio_id=portfolio_id
+    )
 
 
 async def filter_allowed_tags(
@@ -108,5 +106,4 @@ async def is_tag_allowed(
 async def update(
     portfolio: Portfolio,
 ) -> None:
-    if not await dal.update(portfolio):
-        raise UnavailabilityError()
+    await portfolios_model.update(portfolio=portfolio)

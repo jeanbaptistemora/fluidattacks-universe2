@@ -77,7 +77,7 @@ async def _get_portfolio(
     return format_portfolio(item)
 
 
-class OrganizationPorfoliosLoader(DataLoader):
+class OrganizationPortfoliosLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_names: Iterable[str]

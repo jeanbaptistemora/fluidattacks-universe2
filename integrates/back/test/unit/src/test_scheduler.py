@@ -346,11 +346,11 @@ async def test_update_portfolios_indicators() -> None:
 
     await update_portfolios.main()
 
+    loaders = get_new_context()
     updated_tags = [
         "another-tag",
         "test-groups",
     ]
-    loaders.organization_portfolios.clear(org_name)
     org_tags = await loaders.organization_portfolios.load(org_name)
     org_tags_names = sorted([tag.id for tag in org_tags])
     assert org_tags_names == updated_tags

@@ -2,6 +2,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.portfolios import (
+    update,
+)
 from db_model.portfolios.types import (
     Portfolio,
     PortfolioUnreliableIndicators,
@@ -10,9 +13,6 @@ from decimal import (
     Decimal,
 )
 import pytest
-from tags.dal import (
-    update,
-)
 
 pytestmark = [
     pytest.mark.asyncio,

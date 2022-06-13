@@ -9,10 +9,6 @@ from .group_stakeholders import (
 from .organization_stakeholders import (
     OrganizationStakeholdersLoader,
 )
-from .portfolio import (
-    OrganizationPortfoliosTypedLoader,
-    PortfolioTypedLoader,
-)
 from collections import (
     defaultdict,
 )
@@ -39,6 +35,10 @@ from db_model.groups.get import (
 )
 from db_model.organizations.get import (
     OrganizationLoader,
+)
+from db_model.portfolios.get import (
+    OrganizationPortfoliosLoader,
+    PortfolioLoader,
 )
 from db_model.roots.get import (
     GitEnvironmentSecretsLoader,
@@ -129,11 +129,11 @@ class Dataloaders(NamedTuple):
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_credentials_new: OrganizationCredentialsNewLoader
     organization_groups: OrganizationGroupsLoader
-    organization_portfolios: OrganizationPortfoliosTypedLoader
+    organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
     organization: OrganizationLoader
-    portfolio: PortfolioTypedLoader
+    portfolio: PortfolioLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_secrets: RootSecretsLoader
@@ -226,12 +226,12 @@ def get_new_context() -> Dataloaders:
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         organization_groups=OrganizationGroupsLoader(),
-        organization_portfolios=OrganizationPortfoliosTypedLoader(),
+        organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials_new=OrganizationCredentialsNewLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization=OrganizationLoader(),
-        portfolio=PortfolioTypedLoader(),
+        portfolio=PortfolioLoader(),
         root=RootLoader(),
         root_machine_executions=RootMachineExecutionsLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),
