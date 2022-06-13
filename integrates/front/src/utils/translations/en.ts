@@ -336,6 +336,12 @@ export const enTranslations: ResourceKey = {
     },
     corporateOnly:
       "Only corporate users are allowed. Please contact your manager to request access.",
+    standby: {
+      subtitle:
+        "You have created your group. You can relax and wait for the " +
+        "results of the security testing",
+      title: "Our Machine is running!",
+    },
   },
   comments: {
     editorPlaceholder: "Add your comment here",

@@ -23,6 +23,7 @@
       "utils/*": [ "utils/*" ],
     },
     "noEmit": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es2019",

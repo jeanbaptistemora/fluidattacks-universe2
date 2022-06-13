@@ -8,6 +8,7 @@ import type { ApolloError, FetchResult } from "@apollo/client";
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Lottie from "react-lottie-player";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 
 import { AddOrganization } from "./components/AddOrganization";
@@ -16,6 +17,7 @@ import { Sidebar } from "./components/Sidebar";
 import { Container, DashboardContent, FormContent } from "./styles";
 
 import { Col, Row } from "components/Layout";
+import scan from "resources/scan.json";
 import {
   handleGroupCreateError,
   handleRootCreateError,
@@ -366,55 +368,77 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
         <DashboardContent id={"dashboard"}>
           <Switch>
             <Route exact={true} path={"/autoenrollment/organization"}>
-              <Row align={"center"} justify={"center"}>
-                <Col>
-                  <Row justify={"center"}>
-                    <Col>
-                      <h2>{t("autoenrollment.addOrganization.title")}</h2>
-                    </Col>
-                  </Row>
-                  <Row justify={"center"}>
-                    <Col large={"40"} medium={"60"} small={"90"}>
-                      <FormContent>
-                        <AddOrganization
-                          isSubmitting={isSubmitting}
-                          onSubmit={handleSubmit}
-                          orgMessages={orgMessages}
-                          orgValues={organizationValues}
-                          setShowSubmitAlert={setShowSubmitAlert}
-                          showSubmitAlert={showSubmitAlert}
-                          successMutation={successMutation}
-                        />
-                      </FormContent>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <Col large={"100"} medium={"100"} small={"100"}>
+                <Row justify={"center"}>
+                  <Col>
+                    <h2>{t("autoenrollment.addOrganization.title")}</h2>
+                  </Col>
+                </Row>
+                <Row justify={"center"}>
+                  <Col large={"40"} medium={"60"} small={"90"}>
+                    <FormContent>
+                      <AddOrganization
+                        isSubmitting={isSubmitting}
+                        onSubmit={handleSubmit}
+                        orgMessages={orgMessages}
+                        orgValues={organizationValues}
+                        setShowSubmitAlert={setShowSubmitAlert}
+                        showSubmitAlert={showSubmitAlert}
+                        successMutation={successMutation}
+                      />
+                    </FormContent>
+                  </Col>
+                </Row>
+              </Col>
             </Route>
             <Route exact={true} path={"/autoenrollment/repository"}>
-              <Row align={"center"} justify={"center"}>
-                <Col>
-                  <Row justify={"center"}>
-                    <Col>
-                      <h2>{t("autoenrollment.addRoot.title")}</h2>
-                      <p>{t("autoenrollment.addRoot.subtitle")}</p>
-                    </Col>
-                  </Row>
-                  <Row justify={"center"}>
-                    <Col large={"40"} medium={"60"} small={"90"}>
-                      <FormContent>
-                        <AddRoot
-                          initialValues={repository}
-                          onCompleted={goToOrg}
-                          rootMessages={rootMessages}
-                          setRepositoryValues={setRepository}
-                          setRootMessages={setRootMessages}
-                        />
-                      </FormContent>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
+              <Col large={"100"} medium={"100"} small={"100"}>
+                <Row justify={"center"}>
+                  <Col>
+                    <h2>{t("autoenrollment.addRoot.title")}</h2>
+                    <p>{t("autoenrollment.addRoot.subtitle")}</p>
+                  </Col>
+                </Row>
+                <Row justify={"center"}>
+                  <Col large={"40"} medium={"60"} small={"90"}>
+                    <FormContent>
+                      <AddRoot
+                        initialValues={repository}
+                        onCompleted={goToOrg}
+                        rootMessages={rootMessages}
+                        setRepositoryValues={setRepository}
+                        setRootMessages={setRootMessages}
+                      />
+                    </FormContent>
+                  </Col>
+                </Row>
+              </Col>
+            </Route>
+            <Route exact={true} path={"/autoenrollment/standby"}>
+              <Col large={"100"} medium={"100"} small={"100"}>
+                <Row justify={"center"}>
+                  <Col large={"30"} medium={"50"} small={"70"}>
+                    <FormContent>
+                      <Row align={"center"} justify={"center"}>
+                        <Col>
+                          <Lottie
+                            animationData={scan}
+                            play={true}
+                            // eslint-disable-next-line react/forbid-component-props
+                            style={{ height: 150, margin: "auto", width: 150 }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row justify={"center"}>
+                        <Col>
+                          <h2>{t("autoenrollment.standby.title")}</h2>
+                          <p>{t("autoenrollment.standby.subtitle")}</p>
+                        </Col>
+                      </Row>
+                    </FormContent>
+                  </Col>
+                </Row>
+              </Col>
             </Route>
             <Redirect to={"/autoenrollment/repository"} />
           </Switch>

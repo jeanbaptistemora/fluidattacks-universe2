@@ -276,11 +276,8 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   <Button onClick={cancelClick} variant={"basic"}>
                     {t("confirmmodal.cancel")}
                   </Button>
-                  <Modal
-                    onClose={noClick}
-                    open={showCancelModal}
-                    title={t("autoenrollment.cancelModal.body")}
-                  >
+                  <Modal onClose={noClick} open={showCancelModal} title={""}>
+                    <p>{t("autoenrollment.cancelModal.body")}</p>
                     <ModalFooter>
                       <Button onClick={yesClick} variant={"primary"}>
                         {t("autoenrollment.cancelModal.yes")}
