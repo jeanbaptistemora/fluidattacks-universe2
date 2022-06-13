@@ -24308,6 +24308,56 @@ F034,lines,namespace/skims/test/data/lib_path/f034/Test.java,11,330,skims,034. I
   13 | }
      ^ Col 0
 ",query.query_f034
+F086,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable.html,28,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
+ in namespace/skims/test/data/lib_path/f065/html/vulnerable.html","
+  13 |    </div>
+  14 |    <div class=""form-group"">
+  15 |     <label class=""control-label"" for=""password"">Password:</label>
+  16 |     <input type=""password"" id=""password"" name=""password"" class=""form-control"" />
+  17 |    </div>
+  18 |    <div class=""col-lg-4 pw-reset-link"">
+  19 |          <a href=""#"" data-toggle=""modal"" id=""pw-reset-link"" data-target=""#hg-password-reset"">Reset Password</a>
+  20 |       </div>
+  21 |       <div class=""text-right"">
+  22 |     <button type=""submit"" class=""btn btn-primary"">Submit</button>
+  23 |    </div>
+  24 |   </form>
+  25 |  </body>
+  26 |
+  27 |  <!-- has_not_subresource_integrity -->
+> 28 |  <script src=""https://example.com/example-framework.js"">
+  29 |  </script>
+  30 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
+  31 |  </link>
+  32 |
+  33 | </html>
+     ^ Col 0
+",html.html_has_not_sub_resource_integrity
+F086,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,29,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  14 |    <label>Password</label><input class=""form-control"" id=""password"" type=""password"" autocomplete=""off""/>
+  15 |
+  16 |    <button class=""btn btn-primary btn-block"" id=""btn-login"">
+  17 |     &nbsp; Sign In
+  18 |    </button>
+  19 |   </form>
+  20 |  </body>
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+  23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+  27 |
+  28 |  <!-- has_not_subresource_integrity -->
+> 29 |  <script src=""https://example.com/example-framework.js"">
+  30 |  </script>
+  31 |  <link href=""/media/examples/link-element-example.css"" rel=""stylesheet"">
+  32 |  </link>
+  33 |
+  34 | </html>
+     ^ Col 0
+",html.html_has_not_sub_resource_integrity
 F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
 ",generic.unverifiable_files
