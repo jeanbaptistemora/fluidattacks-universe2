@@ -401,6 +401,9 @@ REQUIRE_SQUAD = require_attribute("has_squad")
 REQUIRE_ASM = require_attribute("has_asm")
 REQUIRE_SERVICE_BLACK = require_attribute("has_service_black")
 REQUIRE_SERVICE_WHITE = require_attribute("has_service_white")
+REQUIRE_REPORT_VULNERABILITIES = require_attribute(
+    "can_report_vulnerabilities"
+)
 
 
 def require_continuous(func: TVar) -> TVar:
@@ -456,6 +459,10 @@ def require_asm(func: TVar) -> TVar:
 
 def require_squad(func: TVar) -> TVar:
     return REQUIRE_SQUAD(func)
+
+
+def require_report_vulnerabilities(func: TVar) -> TVar:
+    return REQUIRE_REPORT_VULNERABILITIES(func)
 
 
 def require_corporate_email(func: Callable[..., Any]) -> TVar:

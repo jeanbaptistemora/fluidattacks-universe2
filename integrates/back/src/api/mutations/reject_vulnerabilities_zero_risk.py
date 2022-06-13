@@ -11,6 +11,7 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_login,
+    require_report_vulnerabilities,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -39,6 +40,7 @@ from vulnerabilities import (
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
+    require_report_vulnerabilities,
     enforce_group_level_auth_async,
 )
 async def mutate(

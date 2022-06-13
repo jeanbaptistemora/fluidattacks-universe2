@@ -130,9 +130,18 @@ async def _get_service_policies(group: Group) -> list[ServicePolicy]:
     has_asm = group.state.status == GroupStateStatus.ACTIVE
     service = group.state.service
     type_ = group.state.type
+    proper_type: bool = type_ in {
+        GroupSubscriptionType.CONTINUOUS,
+        GroupSubscriptionType.ONESHOT,
+    }
+    has_machine_squad: bool = has_squad or group.state.has_machine
 
     business_rules = (
         (has_asm, "asm"),
+        (
+            proper_type and has_asm and has_machine_squad,
+            "report_vulnerabilities",
+        ),
         (service == GroupService.BLACK and has_asm, "service_black"),
         (service == GroupService.WHITE and has_asm, "service_white"),
         (

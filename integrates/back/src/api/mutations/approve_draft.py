@@ -32,6 +32,7 @@ from decorators import (
     require_asm,
     require_finding_access,
     require_login,
+    require_report_vulnerabilities,
 )
 from findings import (
     domain as findings_domain,
@@ -70,6 +71,7 @@ from unreliable_indicators.operations import (
     require_login,
     enforce_group_level_auth_async,
     require_asm,
+    require_report_vulnerabilities,
     require_finding_access,
 )
 async def mutate(

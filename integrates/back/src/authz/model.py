@@ -1172,6 +1172,7 @@ SERVICE_ATTRIBUTES: Dict[str, Set[str]] = dict(
         "is_fluidattacks_customer",
         "must_only_have_fluidattacks_hackers",
     },
+    report_vulnerabilities={"can_report_vulnerabilities"},
     forces={
         "has_forces",
         "is_fluidattacks_customer",

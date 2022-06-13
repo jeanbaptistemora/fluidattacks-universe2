@@ -23,6 +23,7 @@ from decorators import (
     rename_kwargs,
     require_asm,
     require_login,
+    require_report_vulnerabilities,
 )
 from findings import (
     domain as findings_domain,
@@ -50,6 +51,7 @@ from typing import (
     require_login,
     enforce_group_level_auth_async,
     require_asm,
+    require_report_vulnerabilities,
 )
 async def mutate(
     _parent: None,

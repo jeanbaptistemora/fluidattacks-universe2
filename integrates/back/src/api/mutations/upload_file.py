@@ -27,6 +27,7 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
     require_login,
+    require_report_vulnerabilities,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -59,6 +60,7 @@ from vulnerability_files import (
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,
+    require_report_vulnerabilities,
     require_asm,
 )
 async def mutate(
