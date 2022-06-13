@@ -3122,7 +3122,8 @@
   needs:
     - /integrates/back/test/unit
     - /integrates/front/test
-    - /integrates/mobile/test
+    - /integrates/mobile/test/enzyme
+    - /integrates/mobile/test/rtl
     - /integrates/coverage/combine__1
     - /integrates/coverage/combine__2
     - /integrates/coverage/combine__3
@@ -3536,9 +3537,9 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/mobile/test:
+/integrates/mobile/test/enzyme:
   after_script:
-    - cp ~/.makes/out-integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov
+    - cp ~/.makes/out-integrates-mobile-test-enzyme/coverage/lcov.info integrates/mobile/coverage.lcov
   artifacts:
     expire_in: 1 week
     name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
@@ -3558,7 +3559,36 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
   script:
-    - m . /integrates/mobile/test
+    - m . /integrates/mobile/test/enzyme
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/integrates/mobile/test/rtl:
+  after_script:
+    - cp ~/.makes/out-integrates-mobile-test-rtl/coverage/lcov.info integrates/mobile/coverage.lcov
+  artifacts:
+    expire_in: 1 week
+    name: coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA
+    paths:
+      - integrates/mobile/coverage.lcov
+  image: ghcr.io/fluidattacks/makes:22.07
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/mobile/test/rtl
   stage: test-code
   tags:
     - autoscaling

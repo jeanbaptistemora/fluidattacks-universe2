@@ -12,7 +12,7 @@ makeDerivation {
     envSrcIntegratesMobile = projectPath "/integrates/mobile";
   };
   builder = ./builder.sh;
-  name = "integrates-mobile-test";
+  name = "integrates-mobile-test-rtl";
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash

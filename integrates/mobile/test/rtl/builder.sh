@@ -5,7 +5,7 @@ function main {
   copy "${envSrcIntegratesMobile}" "${out}" \
     && copy "${envSetupIntegratesMobileDevRuntime}" "${out}/node_modules" \
     && pushd "${out}" \
-    && npm test \
+    && npm run test:rtl \
     && popd \
     || return 1
 }

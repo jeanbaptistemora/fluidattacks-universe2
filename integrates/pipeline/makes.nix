@@ -387,7 +387,8 @@ in {
                   [
                     "/integrates/back/test/unit"
                     "/integrates/front/test"
-                    "/integrates/mobile/test"
+                    "/integrates/mobile/test/enzyme"
+                    "/integrates/mobile/test/rtl"
                   ]
                   ++ (
                     builtins.map
@@ -520,12 +521,27 @@ in {
             gitlabExtra = gitlabPreBuildProd;
           }
           {
-            output = "/integrates/mobile/test";
+            output = "/integrates/mobile/test/enzyme";
             gitlabExtra =
               gitlabTest
               // {
                 after_script = [
-                  "cp ~/.makes/out-integrates-mobile-test/coverage/lcov.info integrates/mobile/coverage.lcov"
+                  "cp ~/.makes/out-integrates-mobile-test-enzyme/coverage/lcov.info integrates/mobile/coverage.lcov"
+                ];
+                artifacts = {
+                  expire_in = "1 week";
+                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
+                  paths = ["integrates/mobile/coverage.lcov"];
+                };
+              };
+          }
+          {
+            output = "/integrates/mobile/test/rtl";
+            gitlabExtra =
+              gitlabTest
+              // {
+                after_script = [
+                  "cp ~/.makes/out-integrates-mobile-test-rtl/coverage/lcov.info integrates/mobile/coverage.lcov"
                 ];
                 artifacts = {
                   expire_in = "1 week";
