@@ -6097,7 +6097,18 @@
   title: PTES
   en:
     summary: >
-      __empty__
+      The Penetration Testing Execution
+      Standard (PTES) is a penetration
+      testing method and a standard that
+      provides a baseline for what is
+      required of a penetration test.
+      Developed by a team of information
+      security practitioners with the
+      aim of addressing the need for a
+      complete and up-to-date standard
+      in penetration testing.
+      The version used in this section
+      is PTES 1.1, 2014.
   es:
     summary: __empty__
   definitions:
