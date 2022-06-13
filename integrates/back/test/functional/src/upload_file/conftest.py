@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from collections import (
+    defaultdict,
+)
 from datetime import (
     datetime,
 )
@@ -22,6 +25,17 @@ from db_model.findings.types import (
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+)
+from db_model.groups.enums import (
+    GroupLanguage,
+    GroupService,
+    GroupStateStatus,
+    GroupSubscriptionType,
+    GroupTier,
+)
+from db_model.groups.types import (
+    Group,
+    GroupState,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -66,7 +80,45 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "groups": [
+            {
+                "group": Group(
+                    description="-",
+                    language=GroupLanguage.EN,
+                    name="group123",
+                    state=GroupState(
+                        has_machine=False,
+                        has_squad=False,
+                        managed=True,
+                        modified_by="admin@gmail.com",
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        service=GroupService.WHITE,
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.FREE,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    sprint_start_date="2022-06-06T00:00:00",
+                ),
+            },
+        ],
         "findings": [
+            {
+                "finding": Finding(
+                    id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="group123",
+                    state=FindingState(
+                        modified_by="test@fluidattacks.com",
+                        modified_date="2017-04-08T00:45:11+00:00",
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                    ),
+                    title="001. SQL injection",
+                    hacker_email="test@fluidattacks.com",
+                ),
+                "historic_state": [],
+                "historic_verification": [],
+            },
             {
                 "finding": Finding(
                     id="3c475384-834c-47b0-ac71-a41a022e401c",
@@ -515,5 +567,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             },
         ],
+        "policies": [
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "group123",
+                "role": "admin",
+            },
+        ],
     }
-    return await db.populate({**generic_data["db_data"], **data})
+    merge_dict = defaultdict(list)
+    for dict_data in (generic_data["db_data"], data):
+        for key, value in dict_data.items():
+            merge_dict[key].extend(value)
+
+    return await db.populate(merge_dict)

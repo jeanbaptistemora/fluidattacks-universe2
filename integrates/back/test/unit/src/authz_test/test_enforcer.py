@@ -88,6 +88,7 @@ async def test_group_service_attributes_enforcer() -> None:
     }
 
     for group_name, attribute, result in [
+        ("unittesting", "can_report_vulnerabilities", True),
         ("unittesting", "has_service_black", False),
         ("unittesting", "has_service_white", True),
         ("unittesting", "has_forces", True),
@@ -97,6 +98,7 @@ async def test_group_service_attributes_enforcer() -> None:
         ("unittesting", "is_fluidattacks_customer", True),
         ("unittesting", "must_only_have_fluidattacks_hackers", True),
         ("unittesting", "non_existing_attribute", False),
+        ("oneshottest", "can_report_vulnerabilities", True),
         ("oneshottest", "has_asm", True),
         ("oneshottest", "has_service_black", True),
         ("oneshottest", "has_service_white", False),

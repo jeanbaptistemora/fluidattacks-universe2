@@ -3274,7 +3274,7 @@
                     "S": "unknown"
                   },
                   "has_machine": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "modified_date": {
                     "S": "2020-05-20T22:00:00+00:00"
@@ -4340,7 +4340,7 @@
                 "S": "unknown"
               },
               "has_machine": {
-                "BOOL": false
+                "BOOL": true
               },
               "pk": {
                 "S": "GROUP#oneshottest"

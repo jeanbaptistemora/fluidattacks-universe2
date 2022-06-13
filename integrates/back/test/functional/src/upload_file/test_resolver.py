@@ -361,3 +361,24 @@ async def test_upload_error(populate: bool, email: str) -> None:
         result["errors"][0]["message"]
         == InvalidCannotModifyNicknameWhenClosing.msg
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_upload_file_not_able(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "918fbc15-2121-4c2a-83a8-dfa8748bcb2e"
+    file_name: str = "test-vulns.yaml"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

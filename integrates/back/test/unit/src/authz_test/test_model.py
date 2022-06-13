@@ -69,6 +69,7 @@ pytestmark = [
                 "asm",
                 "continuous",
                 "forces",
+                "report_vulnerabilities",
                 "service_black",
                 "service_white",
                 "squad",

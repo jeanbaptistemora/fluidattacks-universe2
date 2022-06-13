@@ -25,12 +25,14 @@ async def test_get_cached_group_service_attributes_policies() -> None:
 
     assert sorted(await function(await loaders.group.load("oneshottest"))) == [
         "asm",
+        "report_vulnerabilities",
         "service_black",
     ]
     assert sorted(await function(await loaders.group.load("unittesting"))) == [
         "asm",
         "continuous",
         "forces",
+        "report_vulnerabilities",
         "service_white",
         "squad",
     ]
