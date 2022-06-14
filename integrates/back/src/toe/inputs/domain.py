@@ -68,7 +68,7 @@ async def add(  # pylint: disable=too-many-arguments
             (group_name, attributes.unreliable_root_id)
         )
         validate_active_root(root)
-        validate_component(root, formatted_component)
+        await validate_component(loaders, root, formatted_component)
 
     be_present_until = _get_optional_be_present_until(attributes.be_present)
     first_attack_at = attributes.first_attack_at or attributes.attacked_at

@@ -52,6 +52,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                             GitEnvironmentUrl(
                                 url="https://test.com",
                                 id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                                group_name="group_1",
                             )
                         ],
                         gitignore=["bower_components/*", "node_modules/*"],

@@ -57,19 +57,27 @@ async def test_validate_component() -> None:
     git_root: Root = await loaders.root.load(
         ("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
     )
-    validate_component(git_root, "https://app.fluidattacks.com/test")
+    await validate_component(
+        loaders, git_root, "https://app.fluidattacks.com/test"
+    )
     url_root: Root = await loaders.root.load(
         ("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
     )
-    validate_component(url_root, "https://app.fluidattacks.com:443/test")
+    await validate_component(
+        loaders, url_root, "https://app.fluidattacks.com:443/test"
+    )
     ip_root: Root = await loaders.root.load(
         ("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
     )
-    validate_component(ip_root, "127.0.0.1:8080/test")
+    await validate_component(loaders, ip_root, "127.0.0.1:8080/test")
     with pytest.raises(InvalidRootComponent):
-        validate_component(git_root, "https://app.invalid.com/test")
-        validate_component(url_root, "https://app.fluidattacks.com:443")
-        validate_component(ip_root, "127.0.0.1/test")
+        await validate_component(
+            loaders, git_root, "https://app.invalid.com/test"
+        )
+        await validate_component(
+            loaders, url_root, "https://app.fluidattacks.com:443"
+        )
+        await validate_component(loaders, ip_root, "127.0.0.1/test")
 
 
 def test_validate_fields() -> None:

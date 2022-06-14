@@ -38,6 +38,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.roots.types import (
+    GitRoot,
     Root,
 )
 from db_model.toe_inputs.types import (
@@ -335,6 +336,14 @@ async def populate_vulnerabilities(data: List[Dict[str, Any]]) -> bool:
 async def populate_roots(data: List[Dict[str, Any]]) -> bool:
     await collect(tuple(roots_model.add(root=item["root"]) for item in data))
     await collect([_populate_root_historic_state(item) for item in data])
+    await collect(
+        [
+            roots_model.add_git_environment_url(item["root"].id, url)
+            for item in data
+            if isinstance(item["root"], GitRoot)
+            for url in item["root"].state.git_environment_urls
+        ]
+    )
 
     return True
 

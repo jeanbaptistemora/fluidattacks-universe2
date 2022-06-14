@@ -18,6 +18,7 @@ from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
+    GitEnvironmentUrl,
     GitRoot,
     IPRoot,
     Root,
@@ -34,6 +35,7 @@ import newutils.git
 import os
 import re
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -153,19 +155,26 @@ def validate_credential_name(
         raise CredentialAlreadyExists()
 
 
-def validate_git_root_component(root: Root, component: str) -> None:
+async def validate_git_root_component(
+    loaders: Any, root: Root, component: str
+) -> None:
     if isinstance(root, GitRoot):
-        if component not in [
-            x.url for x in root.state.git_environment_urls
-        ] and not is_valid_url(component):
+        env_urls: list[
+            GitEnvironmentUrl
+        ] = await loaders.git_environment_urls.load(root.id)
+        env_urls = [*env_urls, *root.state.git_environment_urls]
+        if component not in [x.url for x in env_urls] and not is_valid_url(
+            component
+        ):
             raise InvalidUrl()
-        for environment_url in root.state.environment_urls:
+
+        for environment_url in env_urls:
             formatted_environment_url = (
-                environment_url
-                if environment_url.endswith("/")
-                else f"{environment_url}/"
+                environment_url.url
+                if environment_url.url.endswith("/")
+                else f"{environment_url.url}/"
             )
-            if component == environment_url or component.startswith(
+            if component == environment_url.url or component.startswith(
                 formatted_environment_url
             ):
                 return
@@ -209,8 +218,8 @@ def validate_ip_root_component(root: Root, component: str) -> None:
         raise InvalidRootComponent()
 
 
-def validate_component(root: Root, component: str) -> None:
-    validate_git_root_component(root, component)
+async def validate_component(loaders: Any, root: Root, component: str) -> None:
+    await validate_git_root_component(loaders, root, component)
     validate_url_root_component(root, component)
     validate_ip_root_component(root, component)
 
