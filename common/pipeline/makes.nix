@@ -111,15 +111,7 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/lintPython/module/commonGoogleCloseSessions";
-          gitlabExtra = gitlabLint;
-        }
-        {
           output = "/lintPython/module/commonOktaParse";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintPython/module/commonOktaCloseSessions";
           gitlabExtra = gitlabLint;
         }
         {
