@@ -4851,9 +4851,6 @@
   "path-parse": {
     "CVE-2021-23343": "<1.0.7"
   },
-  "path-to-regxep": {
-    "GHSA-f7gc-6hcj-wc42": ">=0"
-  },
   "pathval": {
     "CVE-2020-7751": "<1.1.1"
   },
@@ -5210,9 +5207,6 @@
   "rc-calendar-jhorst": {
     "GHSA-4c87-gg2q-fc6m": "8.4.3"
   },
-  "rceat": {
-    "GHSA-7w7c-867m-4mqc": ">=0"
-  },
   "rdf-graph-array": {
     "GHSA-prv2-xwr7-hr57": "<=0.3.0-rc6"
   },
@@ -5433,15 +5427,6 @@
   "riot-compiler": {
     "CVE-2016-10527": "=2.3.21"
   },
-  "riped160": {
-    "GHSA-rwcq-qpm6-7867": ">=0"
-  },
-  "ripedm160": {
-    "GHSA-9272-59x2-gwf2": ">=0"
-  },
-  "ripmed160": {
-    "GHSA-gmjp-776j-2394": ">=0"
-  },
   "ritp": {
     "CVE-2017-16198": ">=1.0.2 <=1.0.5"
   },
@@ -5575,9 +5560,6 @@
   "saync": {
     "GHSA-pm9v-325f-5g74": "<=0.0.1-security"
   },
-  "sb58": {
-    "GHSA-674r-xx4c-gj7x": ">=0"
-  },
   "scala-bin": {
     "CVE-2016-10627": "<=0.3.3"
   },
@@ -5603,12 +5585,6 @@
   },
   "scroool": {
     "GHSA-p7w2-mc6m-mfx2": "0.1.7"
-  },
-  "scryptys": {
-    "GHSA-vrxj-4qhw-5vwq": ">=0"
-  },
-  "scrytsy": {
-    "GHSA-vv7g-pjw9-4qj9": ">=0"
   },
   "sdfjghlkfjdshlkjdhsfg": {
     "GHSA-gcfc-mgg3-8j2c": "<=0.0.1-security"
@@ -5842,13 +5818,7 @@
   "shvl": {
     "CVE-2020-28278": ">=1.0.0 <=2.0.1"
   },
-  "siganle": {
-    "GHSA-p5p2-rhc3-wmf3": ">=0"
-  },
   "signal-exit": {},
-  "signqle": {
-    "GHSA-m794-qv59-gj7c": ">=0"
-  },
   "simditor": {
     "CVE-2018-19048": "<2.3.22",
     "CVE-2018-6464": "=2.3.11"
@@ -5887,9 +5857,6 @@
   },
   "simplemde": {
     "GHSA-wg85-p6j7-gp3w": "<=1.11.2"
-  },
-  "singale": {
-    "GHSA-crfh-jmv2-2f9v": ">=0"
   },
   "sj-labc": {
     "GHSA-4fqg-89cc-5pv5": "<=0.0.1-security"
@@ -6261,9 +6228,6 @@
   },
   "test-module-a": {
     "GHSA-76xq-58hj-vwm2": "<=0.0.1-security"
-  },
-  "text-qrcode": {
-    "GHSA-h5vj-f7r9-w564": ">=0"
   },
   "theme-core": {
     "CVE-2020-28432": "<=0.2.5"
