@@ -95,6 +95,7 @@ interface IData {
             codename: string;
             cveid: string;
             date: string;
+            definition: string;
             description: string;
             filter: string;
             image: string;
@@ -106,6 +107,7 @@ interface IData {
             spanish: string;
             subtitle: string;
             tags: string;
+            template: string;
             title: string;
             writer: string;
           };

@@ -1195,6 +1195,28 @@ $gray-36: rgba(36, 37, 45, 1);
   }
 }
 
+.services-benefits {
+  .sect2 {
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: top;
+    width: 300px;
+
+    h3 {
+      color: $fluid-black;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    p {
+      color: $black-gray;
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 36px;
+    }
+  }
+}
+
 .counter-container {
   min-height: 18.125rem;
   width: 18.125rem;

@@ -1653,6 +1653,33 @@ const TitleContainer = styled.div.attrs({
   `,
 })``;
 
+const ServicesHeaderContainer = styled.div.attrs({
+  className: `
+    center
+  `,
+})`
+  max-width: 1000px;
+`;
+
+const ServicesGrid = styled.div.attrs({
+  className: `
+    flex
+    center
+    flex-wrap
+    services-benefits
+  `,
+})`
+  max-width: 1000px;
+`;
+
+const SectionContainer = styled.div.attrs({
+  className: `
+    tc
+    pv5
+    ph-body
+  `,
+})``;
+
 export {
   AdvisoriesContainer,
   AdvisoryContainer,
@@ -1764,6 +1791,9 @@ export {
   RadioLabel,
   RedMark,
   RegularRedButton,
+  SectionContainer,
+  ServicesHeaderContainer,
+  ServicesGrid,
   SidebarContainer,
   SocialMediaLink,
   SolutionCardContainer,
