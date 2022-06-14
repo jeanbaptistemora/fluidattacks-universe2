@@ -678,16 +678,20 @@ async def send_closed_vulnerabilities_report(
     finding_id: str,
     closed_vulnerabilities_id: List[str],
 ) -> None:
+    finding: Finding = await loaders.finding.load(finding_id)
     finding_vulns_loader = loaders.finding_vulnerabilities_all
     finding_vulns_loader.clear(finding_id)
-    vulnerabilities: List[Vulnerability] = [
+    severity_score: Decimal = get_severity_score(finding.severity)
+    closed_vulnerabilities: List[Vulnerability] = [
         vuln
         for vuln in await finding_vulns_loader.load(finding_id)
         if vuln.id in closed_vulnerabilities_id
     ]
+
+    exposure: Decimal = 4 ** (severity_score - 4)
     vulns_closed_props: dict[str, Any] = {}
 
-    for vuln in vulnerabilities:
+    for vuln in closed_vulnerabilities:
         report_date = datetime_utils.get_date_from_iso_str(
             vuln.unreliable_indicators.unreliable_report_date
         )
@@ -701,6 +705,7 @@ async def send_closed_vulnerabilities_report(
             "Report date": report_date,
             "Days it was open": days_open,
             "Reattack requester": reattack_requester,
+            "Reduction in exposure": round(exposure, 1),
         }
 
     schedule(
