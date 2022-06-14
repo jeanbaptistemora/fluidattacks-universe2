@@ -35136,3 +35136,90 @@
   metadata:
     en:
       details: __empty__
+"419":
+  en:
+    title: Insecure service configuration - Docker
+    description: >
+      The kubernetes configuration does not set a logging
+      property, which prevents log files from being created.
+      These files are useful for identifying and tracking
+      malicious actions or anomalous behavior. Alternatively,
+      log files do not have sufficient level of detail.
+    impact: >
+      Perform harmful actions without raising an alert.
+    recommendation: >
+      Enable auditing on the Kubernetes API Server and
+      set the desired audit log path. 
+    threat: >
+      Authenticated attacker from the Internet.
+  category: Abuse Functionality
+  examples:
+    non_compliant: |
+      ```yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        creationTimestamp: null
+        labels:
+          component: kube-apiserver
+          tier: control-plane
+        name: kube-apiserver
+        namespace: kube-system
+      spec:
+        containers:
+        - command:
+      +  - kube-apiserver
+      ```
+    compliant: |
+      ```yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        creationTimestamp: null
+        labels:
+          component: kube-apiserver
+          tier: control-plane
+        name: kube-apiserver
+        namespace: kube-system
+      spec:
+        containers:
+        - command:
+      +  - kube-apiserver
+      +  - --audit-log-path=/path/to/log
+          image: gcr.io/google_containers/kube-apiserver-amd64:v1.6.0
+          ...
+      ```
+  remediation_time: "60"
+  es:
+    title: Insecure service configuration - Docker
+    description: >
+      La configuración de kubernetes no establece una propiedad de
+      registro, lo que evita que se creen archivos de registro. Estos
+      archivos son útiles para identificar y rastrear acciones maliciosas
+      o comportamientos anómalos. Alternativamente, los archivos de
+      registro no tienen suficiente nivel de detalle.
+    impact: >
+      Realizar acciones perjudiciales sin que se produzca una alerta.
+    recommendation: >
+      Habilite la auditoría en el servidor API de Kubernetes y configure
+      la ruta de registro de auditoría deseada.
+    threat: >
+      Atacante autenticado desde internet. 
+  score:
+    base:
+      attack_vector: "L"
+      attack_complexity: "H"
+      privileges_required: "H"
+      user_interaction: "N"
+      scope: "U"
+      confidentiality: "N"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "P"
+      remediation_level: "O"
+      report_confidence: "C"
+  requirements: ["075","376","377","378"]
+  metadata:
+    en:
+      details: __empty__
