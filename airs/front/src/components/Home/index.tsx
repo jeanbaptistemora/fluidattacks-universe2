@@ -9,8 +9,6 @@ import { ResourcesSection } from "./ResourcesSection";
 import { ServiceSection } from "./ServiceSection";
 import { SolutionsSection } from "./SolutionsSection";
 
-import { InformativeBanner } from "../InformativeBanner";
-
 const Home: React.FC = (): JSX.Element => (
   <React.Fragment>
     <Helmet>
@@ -19,13 +17,6 @@ const Home: React.FC = (): JSX.Element => (
         name={"facebook-domain-verification"}
       />
     </Helmet>
-    <InformativeBanner
-      bgColor={"#ff3435"}
-      buttonText={"Book now"}
-      subtitle={"Book your appointment!"}
-      title={"Meet us at RSA® Conference!"}
-      url={"https://calendly.com/mauriciog/rsa-conference-2022?month=2022-06"}
-    />
     <Portrait />
     <ClientsSection
       sectionColor={"#1c1c22"}
