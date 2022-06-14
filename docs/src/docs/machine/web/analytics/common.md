@@ -146,14 +146,19 @@ for more information
 
 ![Severity By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
 
-Here you can see information about
-the assigned vulnerabilities,
-those that are temporarily accepted,
-open, closed and permanently accepted,
-adjusted by their severity level
-according to our standard
+This bar chart in an organization,
+group or portfolio has
+two modes of presentation,
+which can be accessed using
+the filter function.
+It shows you each of your team
+members with the percentages
+corresponding to the different
+treatments they have given to
+(a) the total vulnerabilities
+or (b) the total risk exposure
 [CVSSF](/about/faq/#severity-vs-vulnerabilities)
-and the users they were assigned to.
+assigned to them.
 
 ## Accepted vulnerabilities by user
 
@@ -266,9 +271,12 @@ metric.
 
 ![Vulnerabilities By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654033821/docs/web/analytics/common/vulnerabilities_by_assignment.png)
 
-The percentage of open vulnerabilities
-that have been assigned to a developer
-versus those that have not.
+This pie chart in an organization,
+group or portfolio shows you the
+percentage of open vulnerabilities
+assigned to your team members
+versus the percentage of those
+vulnerabilities not yet assigned.
 
 ## Vulnerabilities treatment
 
