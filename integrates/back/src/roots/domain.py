@@ -44,6 +44,7 @@ from db_model.credentials.types import (
     CredentialItem,
     CredentialMetadata,
     CredentialNewState,
+    CredentialRequest,
     CredentialState,
     HttpsPatSecret,
     HttpsSecret,
@@ -266,6 +267,60 @@ async def add_git_root(  # pylint: disable=too-many-locals
     ):
         raise RepeatedRoot()
 
+    credentials: Optional[Dict[str, str]] = cast(
+        Optional[Dict[str, str]], kwargs.get("credentials")
+    )
+    organization_credential: Optional[Credential] = None
+    root_id = str(uuid4())
+
+    if credentials:
+        if (credential_id := credentials.get("id")) and credential_id:
+            with suppress(CredentialNotFound):
+                organization_credential = await loaders.credential_new.load(
+                    CredentialRequest(
+                        id=credential_id,
+                        organization_id=group.organization_id,
+                    )
+                )
+
+            credential: CredentialItem = await loaders.credential.load(
+                (group_name, credential_id)
+            )
+            await update_root_ids(
+                current_value=credential.state,
+                modified_by=user_email,
+                group_name=group_name,
+                credential_id=credential.id,
+                root_ids=(
+                    *credential.state.roots,
+                    root_id,
+                ),
+            )
+        else:
+            credential = _format_root_credential(
+                credentials, group_name, user_email, root_id
+            )
+            group_credentials: Tuple[
+                CredentialItem, ...
+            ] = await loaders.group_credentials.load(group_name)
+            validations.validate_credential_name(credential, group_credentials)
+            await creds_model.add(credential=credential)
+            organization_credential_id = await get_organization_credential_id(
+                loaders=loaders,
+                group=group,
+                current_credential=credential,
+            )
+            with suppress(RepeatedCredential):
+                if not organization_credential_id:
+                    organization_credential = format_credential(
+                        credential=credential,
+                        organization_id=group.organization_id,
+                        owner=credential.state.modified_by,
+                    )
+                    await creds_model.add_new(
+                        credential=organization_credential
+                    )
+
     modified_date = datetime_utils.get_iso_date()
     root = GitRoot(
         cloning=GitRootCloning(
@@ -274,10 +329,13 @@ async def add_git_root(  # pylint: disable=too-many-locals
             status=GitCloningStatus("UNKNOWN"),
         ),
         group_name=group_name,
-        id=str(uuid4()),
+        id=root_id,
         organization_name=organization_name,
         state=GitRootState(
             branch=branch,
+            credential_id=organization_credential.id
+            if organization_credential
+            else None,
             environment_urls=[],
             environment=kwargs["environment"],
             git_environment_urls=[],
@@ -297,50 +355,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
             unreliable_last_status_update=modified_date,
         ),
     )
-
-    credentials: Optional[Dict[str, str]] = cast(
-        Optional[Dict[str, str]], kwargs.get("credentials")
-    )
-
-    if credentials:
-        if (credential_id := credentials.get("id")) and credential_id:
-            credential: CredentialItem = await loaders.credential.load(
-                (group_name, credential_id)
-            )
-            await update_root_ids(
-                current_value=credential.state,
-                modified_by=user_email,
-                group_name=group_name,
-                credential_id=credential.id,
-                root_ids=(
-                    *credential.state.roots,
-                    root.id,
-                ),
-            )
-        else:
-            credential = _format_root_credential(
-                credentials, group_name, user_email, root.id
-            )
-            group_credentials: Tuple[
-                CredentialItem, ...
-            ] = await loaders.group_credentials.load(root.group_name)
-            validations.validate_credential_name(credential, group_credentials)
-            await creds_model.add(credential=credential)
-            organization_credential_id = await get_organization_credential_id(
-                loaders=loaders,
-                group=group,
-                current_credential=credential,
-            )
-            with suppress(RepeatedCredential):
-                if not organization_credential_id:
-                    await creds_model.add_new(
-                        credential=format_credential(
-                            credential=credential,
-                            organization_id=group.organization_id,
-                            owner=credential.state.modified_by,
-                        )
-                    )
-
     await roots_model.add(root=root)
 
     if includes_health_check:
