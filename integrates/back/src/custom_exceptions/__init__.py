@@ -57,6 +57,10 @@ class ExpectedVulnToBeOfLinesType(_SingleMessageException):
     msg: str = "Expected vulnerability to be of type: lines"
 
 
+class EventAlreadyCreated(_SingleMessageException):
+    msg: str = "This event has already been created"
+
+
 class GroupAlreadyCreated(_SingleMessageException):
     msg: str = "This group has already been created"
 
