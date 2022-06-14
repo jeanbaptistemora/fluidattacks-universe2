@@ -19,7 +19,7 @@ interface IModalProps {
 
 const Modal: React.FC<IModalProps> = ({
   children,
-  minWidth = 250,
+  minWidth = 300,
   title,
   onClose,
   open,

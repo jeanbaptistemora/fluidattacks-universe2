@@ -61,6 +61,7 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
   return (
     <React.StrictMode>
       <Modal
+        minWidth={400}
         onClose={onClose}
         open={isOpen}
         title={t("searchFindings.tabResources.modalFileTitle")}

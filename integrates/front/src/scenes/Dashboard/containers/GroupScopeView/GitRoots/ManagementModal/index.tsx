@@ -73,6 +73,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
 
   return (
     <Modal
+      minWidth={700}
       onClose={onClose}
       open={true}
       title={t(`group.scope.common.${isEditing ? "edit" : "add"}`)}
