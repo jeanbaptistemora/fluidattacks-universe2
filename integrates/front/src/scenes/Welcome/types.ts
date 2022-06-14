@@ -6,6 +6,8 @@ interface IGetUserWelcomeResult {
         roots: {
           url: string;
         }[];
+        service: string;
+        subscription: string;
       }[];
       name: string;
     }[];

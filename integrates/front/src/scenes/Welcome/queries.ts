@@ -11,6 +11,8 @@ const GET_USER_WELCOME = gql`
               url
             }
           }
+          service
+          subscription
         }
         name
       }

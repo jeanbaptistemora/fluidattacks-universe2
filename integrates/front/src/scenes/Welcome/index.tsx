@@ -73,7 +73,10 @@ const Welcome: React.FC = (): JSX.Element => {
       if (orgsLength === 1 && data.me.organizations[0].groups.length > 0) {
         if (
           data.me.organizations[0].groups.filter(
-            (group): boolean => group.roots.length > 0
+            (group): boolean =>
+              group.roots.length > 0 ||
+              group.service === "BLACK" ||
+              group.subscription === "oneshot"
           ).length === 0
         ) {
           return (
