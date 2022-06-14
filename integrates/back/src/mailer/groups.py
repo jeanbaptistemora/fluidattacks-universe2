@@ -211,14 +211,15 @@ async def send_mail_deactivated_root(
     reason: str,
     root_age: int,
     root_nickname: str,
-    **kwargs: str,
+    sast_vulns: int,
+    dast_vulns: int,
+    responsible: str,
 ) -> None:
     format_last_root_state = (
         last_root_state
         if last_root_state == "OK"
         else last_root_state.capitalize()
     )
-    responsible: str = kwargs["responsible"]
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
@@ -232,8 +233,8 @@ async def send_mail_deactivated_root(
             "root_nickname": root_nickname,
             "last_root_state": format_last_root_state,
             "last_clone_date": last_clone_date,
-            "sast_vulns": kwargs["sast_vulns"],
-            "dast_vulns": kwargs["dast_vulns"],
+            "sast_vulns": sast_vulns,
+            "dast_vulns": dast_vulns,
             "responsible": responsible,
             "user_role": user_role.replace("_", " "),
         },
