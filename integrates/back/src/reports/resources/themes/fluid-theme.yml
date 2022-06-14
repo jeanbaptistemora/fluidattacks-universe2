@@ -11,16 +11,16 @@ font:
       bold: sourcesans/SourceSansPro-Bold.ttf
       italic: sourcesans/SourceSansPro-Italic.ttf
       bold_italic: sourcesans/SourceSansPro-BoldItalic.ttf
+    Roboto:
+      normal: roboto/Roboto-Regular.ttf
+      bold: roboto/Roboto-Bold.ttf
+      italic: roboto/Roboto-Italic.ttf
+      bold_italic: roboto/Roboto-BoldItalic.ttf
 base:
   align: justify
   # color as hex string (leading # is optional)
-  font_color: 333333
-  # color as RGB array
-  #font_color: [51, 51, 51]
-  # color as CMYK array (approximated)
-  #font_color: [0, 0, 0, 0.92]
-  #font_color: [0, 0, 0, 92%]
-  font_family: Source Sans
+  font_color: 2e2e38
+  font_family: Roboto
   font_size: 12
   line_height_length: 15
   line_height: $base_line_height_length / $base_font_size
@@ -50,7 +50,7 @@ title_page:
 page:
   background_color: ffffff
   layout: portrait
-  margin: [3cm, 3cm, 3cm, 3cm]
+  margin: [4cm, 2cm, 3cm, 2cm]
   size: letter
   background_image: image:background.png[]
 # FIXME vertical_rhythm is weird; we should think in terms of ems
@@ -68,7 +68,7 @@ literal:
 heading:
   #font_color: 181818
   font_color: $base_font_color
-  font_family: Montserrat
+  font_family: Roboto
   font_style: bold
   # h1 is used for part titles
   h1_font_size: floor($base_font_size * 2.6)

@@ -15,7 +15,10 @@ makeScript {
   name = "integrates-charts-snapshots";
   searchPaths = {
     bin = [
+      inputs.nixpkgs.noto-fonts
       inputs.nixpkgs.python39
+      inputs.nixpkgs.roboto
+      inputs.nixpkgs.roboto-mono
       outputs."/integrates/cache"
       outputs."/integrates/db"
       outputs."/integrates/storage"
