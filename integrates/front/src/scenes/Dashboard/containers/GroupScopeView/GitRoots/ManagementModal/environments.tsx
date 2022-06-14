@@ -1,12 +1,18 @@
+import type { ApolloError } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddEnvironment } from "./addEnvironment";
 
-import type { IFormValues } from "../../types";
+import { GET_ROOT_ENVIRONMENT_URLS } from "../../queries";
+import type { IFormValues, IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
 import { Modal, ModalFooter } from "components/Modal";
 import { Table } from "components/Table";
+import { Logger } from "utils/logger";
 
 interface IEnvironmentsProps {
   rootInitialValues: IFormValues;
@@ -23,6 +29,17 @@ const Environments: React.FC<IEnvironmentsProps> = ({
 
   const [isAddEnvModalOpen, setIsAddEnvModalOpen] = useState(false);
   const initialValues = { ...rootInitialValues, other: "", reason: "" };
+  const { data, refetch } = useQuery<{ root: IGitRootAttr }>(
+    GET_ROOT_ENVIRONMENT_URLS,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load secrets", error);
+        });
+      },
+      variables: { groupName, rootId: initialValues.id },
+    }
+  );
 
   function openAddModal(): void {
     setIsAddEnvModalOpen(true);
@@ -34,7 +51,11 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   return (
     <React.Fragment>
       <Table
-        dataset={initialValues.gitEnvironmentUrls}
+        dataset={
+          _.isUndefined(data) || _.isNull(data)
+            ? []
+            : data.root.gitEnvironmentUrls
+        }
         exportCsv={false}
         headers={[
           {
@@ -59,6 +80,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
         <AddEnvironment
           closeFunction={closeAddModal}
           groupName={groupName}
+          onSubmit={refetch}
           rootId={initialValues.id}
         />
       </Modal>

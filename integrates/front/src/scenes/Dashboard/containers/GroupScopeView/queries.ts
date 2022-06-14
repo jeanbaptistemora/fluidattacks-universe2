@@ -97,6 +97,24 @@ const GET_ROOT: DocumentNode = gql`
     }
   }
 `;
+const GET_ROOT_ENVIRONMENT_URLS: DocumentNode = gql`
+  query GetRootEnvironmentUrls($groupName: String!, $rootId: ID!) {
+    root(groupName: $groupName, rootId: $rootId) {
+      ... on GitRoot {
+        gitEnvironmentUrls {
+          url
+          id
+          secrets {
+            value
+            key
+            description
+          }
+          urlType
+        }
+      }
+    }
+  }
+`;
 
 const GET_GIT_ROOT_DETAILS = gql`
   query GetGitRootDetails($groupName: String!, $rootId: ID!) {
@@ -481,4 +499,5 @@ export {
   VALIDATE_GIT_ACCESS,
   REMOVE_ENVIRONMENT_URL_SECRET,
   GET_GROUP_CREDENTIALS,
+  GET_ROOT_ENVIRONMENT_URLS,
 };

@@ -5,6 +5,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { GET_GIT_ROOT_DETAILS } from "../queries";
+import type { IEnvironmentUrl } from "../types";
 import { Col50, Row } from "styles/styledComponents";
 import { formatIsoDate } from "utils/date";
 import { Logger } from "utils/logger";
@@ -24,7 +25,7 @@ interface ILastMachineExecutions {
 interface IDescriptionProps {
   cloningStatus: { message: string };
   environment: string;
-  environmentUrls: string[];
+  gitEnvironmentUrls: IEnvironmentUrl[];
   gitignore: string[];
   id: string;
   nickname: string;
@@ -33,7 +34,7 @@ interface IDescriptionProps {
 const Description = ({
   cloningStatus,
   environment,
-  environmentUrls,
+  gitEnvironmentUrls,
   gitignore,
   groupName,
   id,
@@ -92,9 +93,9 @@ const Description = ({
           {t("group.scope.git.envUrls")}
           {":"}
           <ul>
-            {environmentUrls.map(
+            {gitEnvironmentUrls.map(
               (url): JSX.Element => (
-                <li key={url}>{url}</li>
+                <li key={url.id}>{url.url}</li>
               )
             )}
           </ul>
@@ -163,7 +164,7 @@ const renderDescriptionComponent = (
   <Description
     cloningStatus={props.cloningStatus}
     environment={props.environment}
-    environmentUrls={props.environmentUrls}
+    gitEnvironmentUrls={props.gitEnvironmentUrls}
     gitignore={props.gitignore}
     groupName={groupName}
     id={props.id}
