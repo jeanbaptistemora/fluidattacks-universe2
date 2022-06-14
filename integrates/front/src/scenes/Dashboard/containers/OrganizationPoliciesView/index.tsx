@@ -158,7 +158,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             id={name}
             message={t(`${tPath}recommended.${name}`)}
           >
-            <ButtonOpacity>
+            <ButtonOpacity disabled={true}>
               <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
             </ButtonOpacity>
           </TooltipWrapper>
