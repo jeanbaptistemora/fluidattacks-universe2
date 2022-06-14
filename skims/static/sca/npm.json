@@ -431,11 +431,8 @@
   "@worker-tools/stripe-webhook": {
     "GHSA-4g53-vp7q-gfjv": "<1.1.4"
   },
-  "@wturyn/swagger-injector": {
-    "GHSA-4x7w-frcq-v4m3": ">=0.0.0"
-  },
   "@zhaoyao91/eval-in-vm": {
-    "GHSA-jp99-5h8w-gmxc": ">=0.0.0"
+    "GHSA-jp99-5h8w-gmxc": "0.0.0"
   },
   "a12n-server": {
     "CVE-2021-29452": ">=0.18.0 <0.18.2",
@@ -785,10 +782,10 @@
     "CVE-2021-3749": "<=0.21.1"
   },
   "axios-http": {
-    "npmjs.com/advisories/1123": ">=0.0.0"
+    "SNYK-JS-AXIOSHTTP-460539": "<=0.0.1-security"
   },
   "axioss": {
-    "npmjs.com/advisories/1124": ">=0.0.0"
+    "SNYK-JS-AXIOSS-460538": "<=0.0.1-security"
   },
   "axois": {
     "GHSA-wpfc-3w63-g4hm": "<=0.0.1-security"
@@ -3265,7 +3262,8 @@
     "CVE-2021-20087": "=0.5.1"
   },
   "jquery-file-upload": {
-    "CVE-2018-9207": ">=0.0.0"
+    "CVE-2018-9207": "<=4.0.2",
+    "CVE-2021-37504": "4.0.11"
   },
   "jquery-mobile": {
     "GHSA-fj93-7wm4-8x2g": "<=1.5.0-alpha.1"
@@ -6553,12 +6551,6 @@
   "w-zip": {
     "CVE-2022-0401": "<1.0.12"
   },
-  "wallet-address-vaildator": {
-    "GHSA-m6q2-9pfm-2wvr": ">=0"
-  },
-  "wallet-address-validtaor": {
-    "GHSA-pc7q-c837-3wjq": ">=0"
-  },
   "wangeditor": {
     "GHSA-g7mw-5cq6-fv82": "<=4.7.15"
   },
@@ -6574,23 +6566,14 @@
   "wazuh": {
     "GHSA-w36g-q975-37rg": ">=4.0.0 <=4.0.3"
   },
-  "wbe3": {
-    "GHSA-hg7w-2pf7-mxm2": ">=0"
-  },
   "wc-cmd": {
     "CVE-2020-28431": "<=1.0.9"
-  },
-  "we3b": {
-    "GHSA-36r8-9qq7-mh43": ">=0"
   },
   "weather.swlyons": {
     "CVE-2017-16110": ">=0.1.1 <=0.1.6"
   },
   "web3": {
     "GHSA-27v7-qhfv-rqq8": "<=1.5.2"
-  },
-  "web3-eht": {
-    "GHSA-29fh-xcjr-p7rx": ">=0"
   },
   "webdriver-launcher": {
     "CVE-2016-10651": "<=0.1.3"
