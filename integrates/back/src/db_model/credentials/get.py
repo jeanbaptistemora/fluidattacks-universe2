@@ -244,7 +244,14 @@ async def _get_credentials_new(
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
     if len(items) == len(requests):
-        return tuple(format_credential(item) for item in items)
+        response = {
+            (credential.id, credential.organization_id): credential
+            for credential in tuple(format_credential(item) for item in items)
+        }
+        return tuple(
+            response[(request.id, request.organization_id)]
+            for request in requests
+        )
 
     raise CredentialNotFound()
 
