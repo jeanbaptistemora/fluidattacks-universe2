@@ -49,3 +49,36 @@ async def get_result(
             context=get_new_context(),
         )
     return result
+
+
+async def update_services(
+    *,
+    user: str,
+    group: str,
+    has_machine: str,
+    has_squad: str,
+    subscription: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        mutation {{
+            updateGroup(
+                comments: "",
+                groupName: "{group}",
+                subscription: {subscription},
+                hasSquad: {has_squad},
+                hasAsm: true,
+                hasMachine: {has_machine},
+                reason: NONE,
+                tier: OTHER,
+                service: WHITE,
+            ) {{
+                success
+            }}
+        }}
+    """
+    data: dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )

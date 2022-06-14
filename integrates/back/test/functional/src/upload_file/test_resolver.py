@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    update_services,
 )
 from custom_exceptions import (
     InvalidCannotModifyNicknameWhenClosing,
@@ -20,6 +21,9 @@ from db_model.findings.types import (
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerificationSummary,
+)
+from db_model.groups.enums import (
+    GroupSubscriptionType,
 )
 from db_model.roots.types import (
     Root,
@@ -371,7 +375,10 @@ async def test_upload_error(populate: bool, email: str) -> None:
         ["admin@gmail.com"],
     ],
 )
-async def test_upload_file_not_able(populate: bool, email: str) -> None:
+async def test_upload_file_continuous_not_able(
+    populate: bool, email: str
+) -> None:
+    """if type is continuous should have either squad or machine active"""
     assert populate
     finding_id: str = "918fbc15-2121-4c2a-83a8-dfa8748bcb2e"
     file_name: str = "test-vulns.yaml"
@@ -382,3 +389,54 @@ async def test_upload_file_not_able(populate: bool, email: str) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_upload_file_oneshot_able(populate: bool, email: str) -> None:
+    """if type is oneshot is not necessary to have squad or machine active"""
+    assert populate
+    mutation_1 = await update_services(
+        user=email,
+        group="group1",
+        has_squad="false",
+        has_machine="false",
+        subscription=GroupSubscriptionType.ONESHOT,
+    )
+    assert "errors" not in mutation_1
+    assert mutation_1["data"]["updateGroup"]["success"]
+
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name: str = "test-vulnerability.yaml"
+    result_1: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" not in result_1
+    assert result_1["data"]["uploadFile"]["success"]
+
+    mutation_2 = await update_services(
+        user=email,
+        group="group1",
+        has_squad="false",
+        has_machine="false",
+        subscription=GroupSubscriptionType.CONTINUOUS,
+    )
+    assert "errors" not in mutation_2
+    assert mutation_2["data"]["updateGroup"]["success"]
+
+    result_2: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+
+    assert "errors" in result_2
+    assert result_2["errors"][0]["message"] == "Access denied"
