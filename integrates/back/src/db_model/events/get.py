@@ -10,6 +10,9 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
+from boto3.dynamodb.conditions import (
+    Key,
+)
 from custom_exceptions import (
     EventNotFound,
 )
@@ -44,6 +47,31 @@ async def _get_event(*, event_id: str, group_name: str) -> Event:
     return format_event(item)
 
 
+async def _get_group_events(
+    group_name: str,
+) -> tuple[Event, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_metadata"],
+        values={"name": group_name},
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["event_metadata"],),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_event(item) for item in response.items)
+
+
 class EventLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -57,3 +85,11 @@ class EventLoader(DataLoader):
                 for group_name, event_id in event_keys
             )
         )
+
+
+class GroupEventsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[Event, ...], ...]:
+        return await collect(tuple(map(_get_group_events, group_names)))

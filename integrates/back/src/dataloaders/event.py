@@ -74,6 +74,12 @@ async def _batch_load_fn(event_ids: list[str]) -> list[dict[str, Any]]:
     return [events.get(event_id, {}) for event_id in event_ids]
 
 
+async def _get_group_events(group_name: str) -> tuple[Event, ...]:
+    event_ids = await events_dal.list_group_events(group_name)
+    event_items = await collect(events_dal.get_event(id) for id in event_ids)
+    return tuple(format_event(item) for item in event_items)
+
+
 class EventLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -91,12 +97,6 @@ class EventTypedLoader(DataLoader):
             await events_dal.get_event(id) for id in event_ids
         ]
         return tuple(format_event(item) for item in event_items)
-
-
-async def _get_group_events(group_name: str) -> tuple[Event, ...]:
-    event_ids = await events_dal.list_group_events(group_name)
-    event_items = await collect(events_dal.get_event(id) for id in event_ids)
-    return tuple(format_event(item) for item in event_items)
 
 
 class GroupEventsTypedLoader(DataLoader):
