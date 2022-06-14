@@ -200,6 +200,5 @@ concept.
 And what does that term mean?
 
 We break down the concept
-[here](../devsecops-concept/)
 and mention some of its basics
-[here](../what-is-devsecops/).
+[here](../devsecops-concept/).
