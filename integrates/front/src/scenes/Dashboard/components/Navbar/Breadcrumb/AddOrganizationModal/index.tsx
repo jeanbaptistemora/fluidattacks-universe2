@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import { object, string } from "yup";
 
 import { Button } from "components/Button";
+import { Input } from "components/Input";
 import { Modal, ModalFooter } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
@@ -19,7 +20,6 @@ import type {
   IAddOrganizationMtProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
 import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields/";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -45,15 +45,8 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
             OrganizationId: id,
             OrganizationName: name,
           });
-          msgSuccess(
-            t(`${tPath}success`, {
-              name: result.addOrganization.organization.name,
-            }),
-            t(`${tPath}successTitle`)
-          );
-          push(
-            `/orgs/${result.addOrganization.organization.name.toLowerCase()}/`
-          );
+          msgSuccess(t(`${tPath}success`, { name }), t(`${tPath}successTitle`));
+          push(`/orgs/${name.toLowerCase()}/`);
         }
       },
       onError: (error: ApolloError): void => {
@@ -103,13 +96,17 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
           <Form>
             <Row>
               <FormGroup>
-                <ControlLabel>{t(`${tPath}name`)}</ControlLabel>
+                <ControlLabel>{}</ControlLabel>
                 <TooltipWrapper
                   id={"addOrgTooltip"}
                   message={t(`${tPath}nameTooltip`)}
                   placement={"top"}
                 >
-                  <Field component={FormikText} name={"name"} type={"text"} />
+                  <Input
+                    name={"name"}
+                    placeholder={t(`${tPath}name`)}
+                    type={"text"}
+                  />
                 </TooltipWrapper>
               </FormGroup>
             </Row>
