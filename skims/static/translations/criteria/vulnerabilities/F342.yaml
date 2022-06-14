@@ -1,0 +1,3 @@
+lib_path.f342.uses_console_log:
+  en: console.log() calls in a JavaScript file or directory.
+  es: Se llama a console.log() en un archivo JavaScript o un directorio
