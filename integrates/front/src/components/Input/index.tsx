@@ -7,8 +7,8 @@ import { CustomInput } from "./CustomInput";
 
 const Input: FC<IInputProps> = ({
   alertType,
-  customBlur,
-  customKeyDown,
+  onBlur,
+  onKeyDown,
   disabled,
   name,
   placeholder,
@@ -18,10 +18,10 @@ const Input: FC<IInputProps> = ({
   <Field
     alertType={alertType}
     component={CustomInput}
-    customBlur={customBlur}
-    customKeyDown={customKeyDown}
     disabled={disabled}
     name={name}
+    onBlur={onBlur}
+    onKeyDown={onKeyDown}
     placeholder={placeholder}
     type={type}
     variant={variant}
