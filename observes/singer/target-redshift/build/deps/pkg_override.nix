@@ -1,7 +1,7 @@
 let
   pkg_override = is_pkg: new_pkg: let
     override = x:
-      if x ? overridePythonAttrs && is_pkg x
+      if is_pkg x
       then new_pkg
       else pkg_override is_pkg new_pkg x;
   in

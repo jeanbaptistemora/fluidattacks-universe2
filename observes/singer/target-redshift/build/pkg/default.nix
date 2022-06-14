@@ -19,7 +19,7 @@
     types-click
     types-psycopg2
   ];
-  build_deps = with python_pkgs; [poetry];
+  build_deps = with python_pkgs; [poetry-core];
   test_deps = with python_pkgs; [
     import-linter
     mypy
