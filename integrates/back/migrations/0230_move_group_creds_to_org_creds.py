@@ -8,6 +8,9 @@ Finalization Time: 2022-06-13 at 15:12:32 UTC
 from aioextensions import (
     run,
 )
+from boto3.dynamodb.conditions import (
+    Attr,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -18,6 +21,7 @@ from datetime import (
 from db_model import (
     credentials as credentials_model,
     roots as roots_model,
+    TABLE,
 )
 from db_model.credentials.types import (
     Credential,
@@ -34,6 +38,10 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+)
+from dynamodb import (
+    keys,
+    operations,
 )
 from itertools import (
     chain,
@@ -83,6 +91,24 @@ def _get_secret_info(
     return secret
 
 
+async def _update_owner(credential: Credential, owner: str) -> None:
+    key_structure = TABLE.primary_key
+    credential_key = keys.build_key(
+        facet=TABLE.facets["credentials_new_metadata"],
+        values={
+            "organization_id": credential.organization_id,
+            "id": credential.id,
+        },
+    )
+    credential_item = {"owner": owner}
+    await operations.update_item(
+        condition_expression=(Attr(key_structure.partition_key).exists()),
+        item=credential_item,
+        key=credential_key,
+        table=TABLE,
+    )
+
+
 async def add_org_credential(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     organization_id: str,
@@ -95,21 +121,21 @@ async def add_org_credential(  # pylint: disable=too-many-locals
     org_new_credentials: tuple[
         Credential, ...
     ] = await loaders.organization_credentials_new.load(organization_id)
-    new_credential_names = [
-        credential.state.name for credential in org_new_credentials
-    ]
-    if credential_name in new_credential_names:
-        return
 
-    group_credentials_with_the_same_name = [
+    group_credentials_with_the_same_name = tuple(
+        credential
+        for credential in org_credentials
+        if credential.state.name == credential_name
+    )
+    group_credentials_ids_with_the_same_name = tuple(
         credential.id
         for credential in org_credentials
         if credential.state.name == credential_name
-    ]
+    )
     historics = cast(
         tuple[tuple[CredentialState, ...], ...],
         await loaders.credential_historic_state.load_many(
-            group_credentials_with_the_same_name
+            group_credentials_ids_with_the_same_name
         ),
     )
     older_states: list[CredentialState] = []
@@ -153,27 +179,39 @@ async def add_org_credential(  # pylint: disable=too-many-locals
         }:
             raise Exception(f"Unhandled owner in {organization_name}")
 
-    last_credential = max(
-        org_credentials,
-        key=lambda credential: datetime.fromisoformat(
-            credential.state.modified_date
+    current_new_org_cred = next(
+        (
+            credential
+            for credential in org_new_credentials
+            if credential.state.name == credential_name
         ),
+        None,
     )
+    if current_new_org_cred and current_new_org_cred.owner != owner:
+        await _update_owner(current_new_org_cred, owner)
 
-    new_credential = Credential(
-        id=str(uuid4()),
-        organization_id=organization_id,
-        owner=owner,
-        state=CredentialNewState(
-            modified_by=last_credential.state.modified_by,
-            modified_date=last_credential.state.modified_date,
-            name=last_credential.state.name,
-            secret=_get_secret_info(last_credential),
-            type=last_credential.metadata.type,
-        ),
-    )
-    await credentials_model.add_new(credential=new_credential)
-    loaders.organization_credentials_new.clear(organization_id)
+    if not current_new_org_cred:
+        last_credential = max(
+            group_credentials_with_the_same_name,
+            key=lambda credential: datetime.fromisoformat(
+                credential.state.modified_date
+            ),
+        )
+
+        new_credential = Credential(
+            id=str(uuid4()),
+            organization_id=organization_id,
+            owner=owner,
+            state=CredentialNewState(
+                modified_by=last_credential.state.modified_by,
+                modified_date=last_credential.state.modified_date,
+                name=last_credential.state.name,
+                secret=_get_secret_info(last_credential),
+                type=last_credential.metadata.type,
+            ),
+        )
+        await credentials_model.add_new(credential=new_credential)
+        loaders.organization_credentials_new.clear(organization_id)
 
 
 async def set_org_credential_to_roots(
