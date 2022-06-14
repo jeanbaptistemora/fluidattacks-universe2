@@ -20,7 +20,7 @@ from dynamodb.operations_legacy import (
 from tags import (
     domain as tags_domain,
 )
-from tags.dal import (
+from tags.dal import (  # pylint: disable=import-error
     TABLE_NAME as TAGS_TABLE,
 )
 import time
