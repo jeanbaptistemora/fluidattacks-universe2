@@ -2,8 +2,8 @@
 """
 Migrate portfolios metadata to "integrates_vms" table.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-14 at 01:45:11 UTC
+Finalization Time: 2022-06-14 at 01:46:19 UTC
 """
 
 from aioextensions import (
