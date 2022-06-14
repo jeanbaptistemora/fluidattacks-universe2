@@ -29,7 +29,11 @@ const ProgressIndicator: React.FC<IProgressIndicatorProps> = ({
           {Array.from(
             Array(max - value),
             (el: number): JSX.Element => (
-              <FontAwesomeIcon icon={faCircle} key={`n${el}`} />
+              <FontAwesomeIcon
+                color={"#b0b0bf"}
+                icon={faCircle}
+                key={`n${el}`}
+              />
             )
           )}
         </StepsContainer>

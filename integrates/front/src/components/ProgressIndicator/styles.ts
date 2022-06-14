@@ -14,6 +14,7 @@ const Container = styled.div`
 
 const ProgressBar = styled.div<IProgressBarProps>`
   background-color: #d2d2da;
+  border-radius: 4px;
   height: 100%;
   position: relative;
   width: 100%;
