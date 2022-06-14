@@ -14,6 +14,7 @@ const GET_USER_WELCOME = gql`
         }
         name
       }
+      remember
       userEmail
       userName
     }

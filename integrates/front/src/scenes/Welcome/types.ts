@@ -9,6 +9,7 @@ interface IGetUserWelcomeResult {
       }[];
       name: string;
     }[];
+    remember: boolean;
     userEmail: string;
     userName: string;
   };

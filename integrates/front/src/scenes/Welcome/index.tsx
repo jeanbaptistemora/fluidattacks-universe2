@@ -67,7 +67,8 @@ const Welcome: React.FC = (): JSX.Element => {
       data.me.organizations.reduce(
         (orgA, orgB): number => orgA + orgB.groups.length,
         0
-      ) < 2
+      ) < 2 &&
+      !data.me.remember
     ) {
       if (orgsLength === 1 && data.me.organizations[0].groups.length > 0) {
         if (
