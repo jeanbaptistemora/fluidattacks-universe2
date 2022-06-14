@@ -2,9 +2,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.portfolios import (
-    update,
-)
 from db_model.portfolios.types import (
     Portfolio,
     PortfolioUnreliableIndicators,
@@ -13,6 +10,9 @@ from decimal import (
     Decimal,
 )
 import pytest
+from tags import (
+    domain as tags_domain,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -47,7 +47,7 @@ async def test_update() -> None:
         Decimal("0")
     )
 
-    await update(portfolio=test_1)
+    await tags_domain.update(portfolio=test_1)
     loaders = get_new_context()
     updated: Portfolio = await loaders.portfolio.load(("okada", "test-groups"))
     assert updated.unreliable_indicators.mean_remediate_critical_severity == (
