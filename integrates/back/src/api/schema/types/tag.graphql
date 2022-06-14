@@ -4,7 +4,7 @@ type Tag {
   groups: [Group!]
   """Days since last remediation of a vulnerability in the groups where the tag
   is present"""
-  lastClosedVulnerability: Float
+  lastClosedVulnerability: Int
   """Maximum severity of a currently open vulnerability in the groups where
   the tag is present"""
   maxOpenSeverity: Float

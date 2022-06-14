@@ -14,5 +14,4 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[int]:
-    last_closing_vuln = parent.unreliable_indicators.last_closing_date
-    return last_closing_vuln
+    return parent.unreliable_indicators.last_closing_date

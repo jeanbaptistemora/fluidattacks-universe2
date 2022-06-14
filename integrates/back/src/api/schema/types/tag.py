@@ -1,9 +1,6 @@
-# None
-
-
 from api.resolvers.tag import (
     groups,
-    last_closing_vuln,
+    last_closing_date,
     max_open_severity,
     max_severity,
     mean_remediate,
@@ -21,7 +18,7 @@ from ariadne import (
 TAG = ObjectType("Tag")
 TAG.set_field("groups", groups.resolve)
 TAG.set_field("name", name.resolve)
-TAG.set_field("lastClosedVulnerability", last_closing_vuln.resolve)
+TAG.set_field("lastClosedVulnerability", last_closing_date.resolve)
 TAG.set_field("maxOpenSeverity", max_open_severity.resolve)
 TAG.set_field("maxSeverity", max_severity.resolve)
 TAG.set_field("meanRemediate", mean_remediate.resolve)
