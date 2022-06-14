@@ -64,24 +64,25 @@ def get_remote_advisories(advisories: Dict[str, Any], language: str) -> dict:
         for filename in filenames:
             with open(filename, "r") as stream:
                 try:
-                    parsed_yaml = yaml.safe_load(stream)
+                    parsed_yaml: dict = yaml.safe_load(stream)
                     if (
-                        cve_key := parsed_yaml["identifier"]
+                        cve_key := parsed_yaml.get("identifier")
                     ) and cve_key.startswith("GMS"):
                         continue
-                    key = filename.replace(f"{tmp_dirname}/{language}/", "")
-                    if language == "npm" and key.startswith("@"):
-                        package_key = key.rsplit("/", 1)[0].lower()
-                    elif language == "nuget":
-                        package_key = key.rsplit("/", 1)[0].lower()
-                    else:
-                        key = key.replace("/", ":")
-                        package_key = key.rsplit(":", 1)[0].lower()
+                    package_slug: str = parsed_yaml.get("package_slug")
+                    package_key = package_slug.replace(
+                        f"{language}/", "", 1
+                    ).lower()
+                    if language in (
+                        "maven",
+                        "npm",
+                    ) and not package_key.startswith("@"):
+                        package_key = package_key.replace("/", ":")
                     if package_key not in advisories:
                         advisories.update({package_key: {}})
                     if cve_key not in advisories[package_key]:
                         formatted_ranges = format_ranges(
-                            language, parsed_yaml["affected_range"]
+                            language, parsed_yaml.get("affected_range")
                         )
                         advisories[package_key].update(
                             {cve_key: formatted_ranges}
