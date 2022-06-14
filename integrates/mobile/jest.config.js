@@ -7,7 +7,7 @@ const rtlTestMatch = ["<rootDir>/**/*.test.tsx"];
 const common = {
   moduleFileExtensions: ["js", "jsx", "ts", "tsx", "mjs"],
   setupFilesAfterEnv: ["<rootDir>/jestSetup.ts"],
-  testEnvironment: isUsingEnzyme ? "jsdom" : "jest-environment-jsdom",
+  testEnvironment: "jsdom",
   testMatch: isUsingEnzyme ? enzymeTestMatch : rtlTestMatch,
   transformIgnorePatterns: ["node_modules/(?!react-router-native)/"],
 };
