@@ -1,4 +1,7 @@
 data "aws_caller_identity" "current" {}
+data "okta_group" "everyone" {
+  name = "Everyone"
+}
 variable "oktaApiToken" {}
 
 variable "oktaDataApps" {}

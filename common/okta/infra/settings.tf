@@ -67,3 +67,26 @@ resource "okta_policy_mfa_default" "main" {
     okta_factor.okta_push,
   ]
 }
+
+resource "okta_policy_signon" "main" {
+  name            = "main"
+  status          = "ACTIVE"
+  groups_included = [data.okta_group.everyone.id]
+}
+
+resource "okta_policy_rule_signon" "main" {
+  policy_id          = okta_policy_signon.main.id
+  name               = "main"
+  access             = "ALLOW"
+  network_connection = "ANYWHERE"
+  status             = "ACTIVE"
+  risc_level         = ""
+
+  mfa_required = true
+  mfa_prompt   = "ALWAYS"
+
+  mfa_lifetime       = 1440
+  session_idle       = 1440
+  session_lifetime   = 10080
+  session_persistent = false
+}
