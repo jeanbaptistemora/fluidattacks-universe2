@@ -20,11 +20,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
       <MenuSectionContainer>
         <div className={"nowrap"}>
           <MenuDesktopSectionList>
-            <HeadLink
-              link={"/services/continuous-hacking/"}
-              margin={"mb4"}
-              name={"Services"}
-            />
+            <HeadLink link={"/services/"} margin={"mb4"} name={"Services"} />
             <BodyLink
               link={"/services/continuous-hacking/"}
               name={"Continuous Hacking"}

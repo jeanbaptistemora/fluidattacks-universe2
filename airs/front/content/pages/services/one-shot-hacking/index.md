@@ -5,8 +5,8 @@ description: Our One-Shot Hacking service reports security vulnerabilities in sp
 keywords: Fluid Attacks, Services, Ethical Hacking, Security, Application, Vulnerabilities, One-Shot Hacking, Pentesting
 template: service
 definition: We detect and report all vulnerability and security issues within one specific version of your application. The rigorous inspection carried out by our team allows us to detect all existing security issues with very low rates of false positives.
-banner: bg-one-shot
-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619629858/airs/services/main-one-shot_lgkizl.webp
+subtext: You can choose on which surface of your system and based on which standards you want to apply evaluations by our certified ethical hackers. They will perform Penetration Testing involving techniques such as SAST, DAST and SCA, and the project’s duration will depend on the Target of Evaluation’s size. During that time, you will find the collected data on our ASM until a final report is issued. Finally, we will conduct reattacks to verify your success in remediating the reported vulnerabilities.
+image: one-shot
 ---
 
 <div class="sect2">

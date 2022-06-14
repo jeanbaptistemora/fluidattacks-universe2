@@ -5,8 +5,8 @@ description: Our Continuous Hacking detects and reports all the vulnerabilities 
 keywords: Fluid Attacks, Services, Continuous Hacking, Ethical Hacking, Security, Software Development Lifecycle, Pentesting
 template: service
 definition: We detect and report all vulnerabilities and security issues during the whole software development lifecycle. With this method, we perform comprehensive testing, detecting security issues continuously as software evolves. The inspection is done with very low rates of false positives and ensures previous issues were resolved before going to production.
-banner: bg-continuous
-image: https://res.cloudinary.com/fluid-attacks/image/upload/v1619629767/airs/services/main-continuous-hacking_fhlonl.webp
+subtext: Based on the characteristics of your project, you may decide that the right choice is to check for vulnerabilities across the entire software development lifecycle. We offer comprehensive security tests that combine automation, AI and our ethical hackers' expertise to continuously detect and report your system's vulnerabilities as it evolves. This method gives you the advantage of reducing vulnerability remediation costs by 90% if the testing starts at the early stages of development.
+image: continuous
 ---
 
 <div class="sect2">

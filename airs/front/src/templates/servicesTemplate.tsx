@@ -9,7 +9,6 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-/* eslint import/no-namespace:0 */
 import { graphql } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
@@ -17,20 +16,12 @@ import React from "react";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { ServiceSeo } from "../components/ServiceSeo";
-import { Paragraph } from "../components/Texts";
-import {
-  BigPageContainer,
-  BlackH2,
-  MarkedTitle,
-  PageArticle,
-  RedMark,
-  ServicesGrid,
-  ServicesHeaderContainer,
-} from "../styles/styledComponents";
+import { ServicesPage } from "../components/ServicesPage";
+import { Title } from "../components/Texts";
+import { PageArticle, SectionContainer } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
-const ContinuousHackingIndex: React.FC<IQueryData> = ({
+const ServicesIndex: React.FC<IQueryData> = ({
   data,
   pageContext,
 }: IQueryData): JSX.Element => {
@@ -38,7 +29,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { description, image, keywords, slug, subtext, title } =
+  const { description, image, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   return (
@@ -50,12 +41,6 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
         title={`${title} | Fluid Attacks`}
         url={slug}
       />
-      <ServiceSeo
-        description={description}
-        image={image.replace(".webp", ".png")}
-        title={`${title} | Fluid Attacks`}
-        url={`https://fluidattacks.com/${slug}`}
-      />
 
       <Layout>
         <div>
@@ -66,23 +51,13 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle bgColor={"#f9f9f9"}>
-            <BigPageContainer>
-              <ServicesHeaderContainer>
-                <RedMark>
-                  <MarkedTitle>{title}</MarkedTitle>
-                </RedMark>
-                <Paragraph fColor={"#2e2e38"} fSize={"16"} maxWidth={"1864"}>
-                  {subtext}
-                </Paragraph>
-              </ServicesHeaderContainer>
-              <BlackH2>{"Key Features"}</BlackH2>
-              <ServicesGrid
-                dangerouslySetInnerHTML={{
-                  __html: data.markdownRemark.html,
-                }}
-              />
-            </BigPageContainer>
+          <PageArticle bgColor={"#f4f4f6"}>
+            <SectionContainer>
+              <Title fColor={"#2e2e38"} fSize={"48"}>
+                {title}
+              </Title>
+              <ServicesPage />
+            </SectionContainer>
           </PageArticle>
         </div>
       </Layout>
@@ -90,23 +65,21 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
   );
 };
 
-export default ContinuousHackingIndex;
+export default ServicesIndex;
 
 export const query: void = graphql`
-  query ServiceIndex($slug: String!) {
+  query ServicesIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       fields {
         slug
       }
       frontmatter {
-        banner
-        description
         keywords
+        description
         slug
-        subtext
-        image
         title
+        image
       }
     }
   }
