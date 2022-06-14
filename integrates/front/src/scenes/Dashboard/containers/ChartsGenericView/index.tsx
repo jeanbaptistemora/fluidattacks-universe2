@@ -570,15 +570,14 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={160}
                 className={"g2"}
-                documentName={"vulnerabilitiesWithUndefinedTreatment"}
+                documentName={"assignedVulnerabilitiesStatus"}
                 documentType={"pieChart"}
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
-                infoLink={`${graphInfoLink}${entity}#undefined-treatment-by-group`}
                 reportMode={reportMode}
                 subject={subject}
-                title={t("tagIndicator.undefinedTitle")}
+                title={t("tagIndicator.assignedVulnerabilitiesStatus")}
               />
             </Col50>
           </RowCenter>
@@ -614,11 +613,28 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col50>
           </RowCenter>
+          <Row>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
+                documentName={"vulnerabilitiesWithUndefinedTreatment"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                infoLink={`${graphInfoLink}${entity}#undefined-treatment-by-group`}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.undefinedTitle")}
+              />
+            </Col50>
+          </Row>
         </div>
       ) : undefined}
       {doesEntityMatch(["group"]) ? (
         <div className={reportClassName}>
-          <Row>
+          <RowCenter>
             <Col50>
               <Graphic
                 bsHeight={160}
@@ -634,7 +650,21 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 title={t("tagIndicator.assignedVulnerabilities")}
               />
             </Col50>
-          </Row>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
+                documentName={"assignedVulnerabilitiesStatus"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.assignedVulnerabilitiesStatus")}
+              />
+            </Col50>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (
