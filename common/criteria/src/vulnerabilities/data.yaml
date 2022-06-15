@@ -35323,7 +35323,7 @@
       details: __empty__
 "419":
   en:
-    title: Insecure service configuration - Docker
+    title: Tracebility Loss - Kubernetes
     description: >
       The kubernetes configuration does not set a logging
       property, which prevents log files from being created.
@@ -35376,7 +35376,7 @@
       ```
   remediation_time: "60"
   es:
-    title: Insecure service configuration - Docker
+    title: Tracebility Loss - Kubernetes
     description: >
       La configuración de kubernetes no establece una propiedad de
       registro, lo que evita que se creen archivos de registro. Estos
@@ -35392,7 +35392,7 @@
       Atacante autenticado desde internet.
   score:
     base:
-      attack_vector: "L"
+      attack_vector: "N"
       attack_complexity: "H"
       privileges_required: "H"
       user_interaction: "N"
