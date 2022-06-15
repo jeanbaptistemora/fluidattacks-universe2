@@ -33,7 +33,6 @@ def open_redirect(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_OPEN_REDIRECT
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -51,9 +50,7 @@ def open_redirect(
                 pred = g.pred_ast(shard.graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     if (
-                        evaluation := evaluate(
-                            c_sharp, finding, graph, path, pred
-                        )
+                        evaluation := evaluate(method, graph, path, pred)
                     ) and evaluation.danger:
                         yield shard, pred
 

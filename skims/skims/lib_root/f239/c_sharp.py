@@ -29,7 +29,6 @@ def info_leak_errors(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INFO_LEAK_ERRORS
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     rules = {"WebHostDefaults.DetailedErrorsKey", '"true"'}
@@ -43,7 +42,7 @@ def info_leak_errors(
             graph = shard.syntax_graph
             for n_id in search_method_invocation_naive(graph, {"UseSetting"}):
                 for path in get_backward_paths(graph, n_id):
-                    evaluation = evaluate(c_sharp, finding, graph, path, n_id)
+                    evaluation = evaluate(method, graph, path, n_id)
                     if (
                         evaluation
                         and evaluation.danger

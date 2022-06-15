@@ -1,12 +1,11 @@
 from model.core_model import (
-    FindingEnum,
+    MethodsEnum,
     Vulnerabilities,
     Vulnerability,
 )
 from model.graph_model import (
     Graph,
     GraphShard,
-    GraphShardMetadataLanguage as GraphLanguage,
     NId,
 )
 from typing import (
@@ -34,8 +33,7 @@ class SymbolicEvaluation(NamedTuple):
 
 class SymbolicEvalArgs(NamedTuple):
     generic: Callable[[SYMBOLIC_EVAL_ARGS], SymbolicEvaluation]
-    language: GraphLanguage
-    finding: FindingEnum
+    method: MethodsEnum
     evaluation: Dict[NId, bool]
     graph: Graph
     path: Path
@@ -45,8 +43,7 @@ class SymbolicEvalArgs(NamedTuple):
     def fork_n_id(self, n_id: NId) -> SYMBOLIC_EVAL_ARGS:
         return SymbolicEvalArgs(
             generic=self.generic,
-            language=self.language,
-            finding=self.finding,
+            method=self.method,
             evaluation=self.evaluation,
             triggers=self.triggers,
             graph=self.graph,

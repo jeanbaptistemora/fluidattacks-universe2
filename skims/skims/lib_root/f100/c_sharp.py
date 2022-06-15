@@ -38,7 +38,6 @@ def insec_create(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.SYMB_INSEC_CREATE
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -58,9 +57,7 @@ def insec_create(
                     continue
                 for path in get_backward_paths(graph, n_id):
                     if (
-                        evaluation := evaluate(
-                            c_sharp, finding, graph, path, n_id
-                        )
+                        evaluation := evaluate(method, graph, path, n_id)
                     ) and evaluation.danger:
                         yield shard, n_id
 

@@ -104,7 +104,6 @@ def regex_injection(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_REGEX_INJETCION
-    finding = method.value.finding
     c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> graph_model.GraphShardNodes:
@@ -120,9 +119,7 @@ def regex_injection(
                 pred = g.pred_ast(shard.graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     if (
-                        evaluation := evaluate(
-                            c_sharp, finding, graph, path, pred
-                        )
+                        evaluation := evaluate(method, graph, path, pred)
                     ) and evaluation.danger:
                         yield shard, pred
 

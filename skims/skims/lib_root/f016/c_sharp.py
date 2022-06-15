@@ -79,7 +79,6 @@ def service_point_manager_disabled(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
-    finding = method.value.finding
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
     member_str = (
@@ -106,7 +105,7 @@ def service_point_manager_disabled(
                 graph = shard.syntax_graph
                 pred = g.pred_ast(shard.graph, member)[0]
                 for path in get_backward_paths(graph, pred):
-                    evaluation = evaluate(c_sharp, finding, graph, path, pred)
+                    evaluation = evaluate(method, graph, path, pred)
                     if (
                         evaluation
                         and evaluation.danger
@@ -127,7 +126,6 @@ def insecure_shared_access_protocol(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
-    finding = method.value.finding
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -156,7 +154,7 @@ def insecure_shared_access_protocol(
                 ):
                     continue
                 for path in get_backward_paths(s_graph, nid):
-                    evaluation = evaluate(c_sharp, finding, s_graph, path, nid)
+                    evaluation = evaluate(method, s_graph, path, nid)
                     if evaluation and evaluation.danger:
                         yield shard, nid
 
@@ -173,7 +171,6 @@ def httpclient_no_revocation_list(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_HTTPCLIENT_NO_REVOCATION_LIST
-    finding = method.value.finding
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -193,7 +190,7 @@ def httpclient_no_revocation_list(
                 if not s_graph.nodes[nid].get("name") == "HttpClient":
                     continue
                 for path in get_backward_paths(s_graph, nid):
-                    evaluation = evaluate(c_sharp, finding, s_graph, path, nid)
+                    evaluation = evaluate(method, s_graph, path, nid)
                     if evaluation and evaluation.danger:
                         yield shard, nid
 

@@ -21,7 +21,7 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     danger = [args.generic(args.fork_n_id(p_id)).danger for p_id in param_ids]
     args.evaluation[args.n_id] = any(danger)
 
-    if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
+    if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

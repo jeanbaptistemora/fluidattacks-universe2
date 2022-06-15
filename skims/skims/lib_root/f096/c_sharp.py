@@ -132,7 +132,6 @@ def js_deserialization(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_JS_DESERIALIZATION
     c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
-    finding = method.value.finding
 
     serializer = {"JavaScriptSerializer"}
 
@@ -144,9 +143,7 @@ def js_deserialization(
                 graph = shard.syntax_graph
                 for path in get_backward_paths(graph, n_id):
                     if (
-                        evaluation := evaluate(
-                            c_sharp, finding, graph, path, n_id
-                        )
+                        evaluation := evaluate(method, graph, path, n_id)
                     ) and evaluation.danger:
                         yield shard, n_id
 
@@ -164,7 +161,6 @@ def type_name_handling(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_TYPE_NAME_HANDLING
     c_sharp = graph_model.GraphShardMetadataLanguage.CSHARP
-    finding = method.value.finding
 
     serializer = {"JsonSerializerSettings"}
 
@@ -194,9 +190,7 @@ def type_name_handling(
                     for path in get_backward_paths(shard.syntax_graph, assign):
                         graph = shard.syntax_graph
                         if (
-                            evaluation := evaluate(
-                                c_sharp, finding, graph, path, assign
-                            )
+                            evaluation := evaluate(method, graph, path, assign)
                         ) and evaluation.danger:
                             yield shard, member
 

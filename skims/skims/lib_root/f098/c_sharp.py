@@ -38,7 +38,6 @@ def path_injection(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_PATH_INJECTION
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -59,9 +58,7 @@ def path_injection(
                     continue
                 for path in get_backward_paths(syn_graph, nid):
                     if (
-                        evaluation := evaluate(
-                            c_sharp, finding, syn_graph, path, nid
-                        )
+                        evaluation := evaluate(method, syn_graph, path, nid)
                     ) and evaluation.danger:
                         yield shard, nid
 

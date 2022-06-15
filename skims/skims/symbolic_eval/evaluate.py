@@ -1,9 +1,8 @@
 from model.core_model import (
-    FindingEnum,
+    MethodsEnum,
 )
 from model.graph_model import (
     Graph,
-    GraphShardMetadataLanguage as GraphLanguage,
     NId,
 )
 from symbolic_eval.cases import (
@@ -76,8 +75,7 @@ def generic(args: SymbolicEvalArgs) -> SymbolicEvaluation:
 
 
 def evaluate(
-    lang: GraphLanguage,
-    finding: FindingEnum,
+    method: MethodsEnum,
     graph: Graph,
     path: Path,
     n_id: NId,
@@ -87,7 +85,7 @@ def evaluate(
 
         return generic(
             SymbolicEvalArgs(
-                generic, lang, finding, evaluation, graph, path, n_id, set()
+                generic, method, evaluation, graph, path, n_id, set()
             )
         )
     except MissingSymbolicEval as error:

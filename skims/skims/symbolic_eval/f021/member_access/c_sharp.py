@@ -1,12 +1,10 @@
+from symbolic_eval.common import (
+    check_http_inputs,
+)
 from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-
-
-def is_request_form(args: SymbolicEvalArgs) -> bool:
-    ma_attr = args.graph.nodes[args.n_id]
-    return ma_attr["expression"] == "Request" and ma_attr["member"] == "Form"
 
 
 def is_select_single_node(args: SymbolicEvalArgs) -> bool:
@@ -18,8 +16,8 @@ def is_select_single_node(args: SymbolicEvalArgs) -> bool:
     return False
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    if is_request_form(args) or is_select_single_node(args):
+def symb_xpath_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    if check_http_inputs(args) or is_select_single_node(args):
         args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

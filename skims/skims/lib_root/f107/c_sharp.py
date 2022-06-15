@@ -28,7 +28,6 @@ def ldap_injection(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_LDAP_INJECTION
-    finding = method.value.finding
     csharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -42,7 +41,7 @@ def ldap_injection(
             for obj_id in yield_shard_object_creation(shard, ldap_obj):
                 graph = shard.syntax_graph
                 for path in get_backward_paths(graph, obj_id):
-                    evaluation = evaluate(csharp, finding, graph, path, obj_id)
+                    evaluation = evaluate(method, graph, path, obj_id)
                     if evaluation and evaluation.danger:
                         yield shard, obj_id
 

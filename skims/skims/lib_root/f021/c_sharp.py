@@ -33,7 +33,6 @@ def xpath_injection(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.SYMB_XPATH_INJECTION
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -52,9 +51,7 @@ def xpath_injection(
                 ) and shard.graph.nodes[memb].get("label_text") in xpath_obj:
                     for path in get_backward_paths(graph, n_id):
                         if (
-                            evaluation := evaluate(
-                                c_sharp, finding, graph, path, n_id
-                            )
+                            evaluation := evaluate(method, graph, path, n_id)
                         ) and evaluation.danger:
                             yield shard, n_id
 

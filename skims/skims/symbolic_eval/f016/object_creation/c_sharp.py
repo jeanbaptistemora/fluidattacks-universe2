@@ -8,7 +8,9 @@ from symbolic_eval.utils import (
 )
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_httpclient_revocation_lst(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id].get("name") == "WinHttpHandler":
         for ident in get_object_identifiers(args.graph, {"WinHttpHandler"}):
             if (

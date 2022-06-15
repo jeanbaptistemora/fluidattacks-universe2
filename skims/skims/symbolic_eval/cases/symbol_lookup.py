@@ -36,7 +36,7 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         args.generic(args.fork_n_id(cfg_id))
         args.evaluation[symbol_id] = args.evaluation[ref_id]
 
-    if finding_evaluator := FINDING_EVALUATORS.get(args.finding):
+    if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

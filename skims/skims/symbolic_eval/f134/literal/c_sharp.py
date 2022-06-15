@@ -4,7 +4,7 @@ from symbolic_eval.types import (
 )
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_insecure_cors_origin(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id]["value"] == '"*"':
         args.evaluation[args.n_id] = True
 

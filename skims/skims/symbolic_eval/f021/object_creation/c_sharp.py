@@ -4,7 +4,7 @@ from symbolic_eval.types import (
 )
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def symb_xpath_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if args.graph.nodes[args.n_id]["name"] == "XPathNavigator":
         args.evaluation[args.n_id] = True
 

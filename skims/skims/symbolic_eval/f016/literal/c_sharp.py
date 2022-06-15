@@ -4,7 +4,9 @@ from symbolic_eval.types import (
 )
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_service_point_disabled(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
     member_str = (
         "Switch.System.ServiceModel."
         + "DisableUsingServicePointManagerSecurityProtocols"

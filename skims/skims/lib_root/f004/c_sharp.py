@@ -33,7 +33,6 @@ def remote_command_execution(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_REMOTE_COMMAND_EXECUTION
-    finding = method.value.finding
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
@@ -64,7 +63,7 @@ def remote_command_execution(
                 for path in get_backward_paths(syntax_graph, n_id):
                     if (
                         evaluation := evaluate(
-                            c_sharp, finding, syntax_graph, path, n_id
+                            method, syntax_graph, path, n_id
                         )
                     ) and evaluation.danger:
                         yield shard, n_id

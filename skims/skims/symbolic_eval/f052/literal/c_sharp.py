@@ -4,7 +4,7 @@ from symbolic_eval.types import (
 )
 
 
-def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_disabled_strong_crypto(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if (
         args.graph.nodes[args.n_id]["value"]
         == '"Switch.System.Net.DontEnableSchUseStrongCrypto"'

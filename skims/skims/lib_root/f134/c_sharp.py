@@ -127,8 +127,6 @@ def insecure_cors_origin(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.CS_INSECURE_CORS_ORIGIN
-    finding = method.value.finding
-    c_sharp = GraphShardMetadataLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
@@ -158,7 +156,7 @@ def insecure_cors_origin(
                     for path in get_backward_paths(graph, pred_nid):
                         if (
                             evaluation := evaluate(
-                                c_sharp, finding, graph, path, pred_nid
+                                method, graph, path, pred_nid
                             )
                         ) and evaluation.danger:
                             yield shard, pred_nid
