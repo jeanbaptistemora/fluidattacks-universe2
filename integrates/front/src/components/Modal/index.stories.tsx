@@ -2,10 +2,10 @@
 import { useArgs } from "@storybook/addons";
 import type { Meta, Story } from "@storybook/react";
 import type { PropsWithChildren } from "react";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
 import type { IModalProps } from ".";
-import { Modal, ModalFooter } from ".";
+import { Modal } from ".";
 import { Button } from "components/Button";
 
 const config: Meta = {
@@ -17,24 +17,25 @@ const Template: Story<PropsWithChildren<IModalProps>> = (
   props
 ): JSX.Element => {
   const [, setArgs] = useArgs();
+  const [count, setCount] = useState(0);
   const openModal = useCallback((): void => {
     setArgs({ open: true });
   }, [setArgs]);
   const closeModal = useCallback((): void => {
     setArgs({ open: false });
   }, [setArgs]);
+  const onConfirm = useCallback((): void => {
+    setCount(count + 1);
+  }, [count, setCount]);
 
   return (
     <React.Fragment>
       <Button onClick={openModal} variant={"primary"}>
         {"Open modal"}
       </Button>
-      <Modal {...props} onClose={closeModal}>
+      <Modal {...props} onClose={closeModal} onConfirm={onConfirm}>
         <p>{"Modal body goes here"}</p>
-        <ModalFooter>
-          <Button variant={"secondary"}>{"Secondary button"}</Button>
-          <Button variant={"primary"}>{"Primary button"}</Button>
-        </ModalFooter>
+        <p>{`Count: ${count}`}</p>
       </Modal>
     </React.Fragment>
   );

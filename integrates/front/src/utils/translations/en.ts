@@ -350,6 +350,10 @@ export const enTranslations: ResourceKey = {
     send: "Comment",
   },
   components: {
+    modal: {
+      cancel: "Cancel",
+      confirm: "Confirm",
+    },
     scrollUpButton: "Back to top",
   },
   configuration: {

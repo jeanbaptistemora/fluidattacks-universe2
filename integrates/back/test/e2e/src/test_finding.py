@@ -51,7 +51,7 @@ def test_finding_description(
 
     close = utils.wait_for_id(
         driver,
-        "close-modal",
+        "modal-close",
         timeout,
     )
     close.click()
@@ -411,7 +411,7 @@ def test_finding_vulnerabilities(
 
     close = utils.wait_for_id(
         driver,
-        "close-modal",
+        "modal-close",
         timeout,
     )
     close.click()

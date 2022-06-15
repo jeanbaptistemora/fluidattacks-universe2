@@ -56,7 +56,6 @@ const Button = styled.button.attrs<IButtonProps>(
   border-width: 2px;
   color: ${(props): string => variants[props.variant].color};
   font-weight: 400;
-  margin-left: 12px;
   padding: 10px 16px;
   text-decoration: none;
   transition: all 0.3s ease;
