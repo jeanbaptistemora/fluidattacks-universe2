@@ -24,7 +24,10 @@ import {
   Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { castAffectedComponents } from "utils/formatHelpers";
+import {
+  castAffectedComponents,
+  formatAccessibility,
+} from "utils/formatHelpers";
 import {
   EditableField,
   FormikDateTime,
@@ -33,6 +36,7 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   dateTimeBeforeToday,
@@ -48,7 +52,7 @@ interface IAffectedReattacks {
 
 interface IEventDescriptionData {
   event: {
-    accessibility: string;
+    accessibility: string[];
     affectedComponents: string;
     affectedReattacks: IAffectedReattacks[];
     hacker: string;
@@ -364,7 +368,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     <EditableField
                       alignField={"horizontalWide"}
                       component={FormikText}
-                      currentValue={data.event.accessibility}
+                      currentValue={data.event.accessibility
+                        .map((item: string): string =>
+                          translate.t(formatAccessibility(item))
+                        )
+                        .join(", ")}
                       label={t("searchFindings.tabEvents.eventIn")}
                       name={"accessibility"}
                       renderAsEditable={false}
