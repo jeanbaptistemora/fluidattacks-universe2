@@ -5,11 +5,12 @@ import type { PropsWithChildren } from "react";
 import React, { useCallback, useState } from "react";
 
 import type { IModalProps } from ".";
-import { Modal } from ".";
+import { Modal, ModalFooter } from ".";
 import { Button } from "components/Button";
 
 const config: Meta = {
   component: Modal,
+  subcomponents: { ModalFooter },
   title: "components/Modal",
 };
 
