@@ -546,6 +546,7 @@ def require_organization_access(func: TVar) -> TVar:
             kwargs.get("identifier")
             or kwargs.get("organization_id")
             or kwargs.get("organization_name")
+            or (getattr(args[0], "organization_id", None) if args else None)
         )
 
         user_data = await token_utils.get_jwt_content(context)
