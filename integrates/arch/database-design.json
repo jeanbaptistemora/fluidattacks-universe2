@@ -6569,7 +6569,7 @@
                 "S": "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "sk": {
-                "S": "SECRET#user_name"
+                "S": "SECRET#username"
               },
               "key": {
                 "S": "username"
@@ -6600,7 +6600,7 @@
                 "S": "URL#fa3489de74100b90cd053ab1bbb2d0e66e50e2d4"
               },
               "sk": {
-                "S": "ENVIRONMENT_SECRET#user_name"
+                "S": "ENVIRONMENT_SECRET#username"
               },
               "key": {
                 "S": "username"

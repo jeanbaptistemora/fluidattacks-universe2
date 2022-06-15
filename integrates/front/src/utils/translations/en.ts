@@ -908,7 +908,7 @@ export const enTranslations: ResourceKey = {
               add: "Add secret",
               description: "Secret description",
               key: "Key",
-              remove: "Remove",
+              remove: "Remove secret",
               removed: "Removed secret",
               success: "Added secret",
               successTitle: "Success",

@@ -12,6 +12,7 @@ import type { BaseSchema } from "yup";
 
 import { ADD_SECRET, REMOVE_SECRET } from "../queries";
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
@@ -211,13 +212,30 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     {t("confirmmodal.proceed")}
                   </Button>
                   {isUpdate && canRemoveSecret ? (
-                    <Button
-                      id={"git-root-remove-secret"}
-                      onClick={handleRemoveClick}
-                      variant={"secondary"}
+                    <ConfirmDialog
+                      message={t("confirmmodal.message")}
+                      title={t(
+                        "group.scope.git.repo.credentials.secrets.remove"
+                      )}
                     >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </Button>
+                      {(confirm): JSX.Element => {
+                        function onConfirmDelete(): void {
+                          confirm((): void => {
+                            handleRemoveClick();
+                          });
+                        }
+
+                        return (
+                          <Button
+                            id={"git-root-remove-secret"}
+                            onClick={onConfirmDelete}
+                            variant={"secondary"}
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                          </Button>
+                        );
+                      }}
+                    </ConfirmDialog>
                   ) : undefined}
                   <Button
                     id={"git-root-add-secret-cancel"}
