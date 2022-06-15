@@ -45,6 +45,11 @@ class EventAffectedComponents(str, Enum):
     VPN_CONNECTION: str = "VPN_CONNECTION"
 
 
+class EventEvidenceType(str, Enum):
+    FILE: str = "FILE"
+    IMAGE: str = "IMAGE"
+
+
 class EventStateStatus(str, Enum):
     CLOSED: str = "CLOSED"
     CREATED: str = "CREATED"

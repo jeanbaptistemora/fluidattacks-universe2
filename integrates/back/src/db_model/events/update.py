@@ -1,4 +1,5 @@
 from .types import (
+    EventEvidence,
     EventState,
 )
 from boto3.dynamodb.conditions import (
@@ -11,6 +12,7 @@ from db_model import (
     TABLE,
 )
 from db_model.events.enums import (
+    EventEvidenceType,
     EventStateStatus,
 )
 from dynamodb import (
@@ -21,6 +23,32 @@ from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
 import simplejson as json  # type: ignore
+from typing import (
+    Optional,
+)
+
+
+async def update_evidence(
+    *,
+    event_id: str,
+    group_name: str,
+    evidence_info: Optional[EventEvidence],
+    evidence_type: EventEvidenceType,
+) -> None:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_metadata"],
+        values={"id": event_id, "name": group_name},
+    )
+    attribute = f"evidences.{str(evidence_type.value).lower()}"
+    await operations.update_item(
+        item={
+            attribute: json.loads(json.dumps(evidence_info))
+            if evidence_info
+            else None
+        },
+        key=primary_key,
+        table=TABLE,
+    )
 
 
 async def update_state(
