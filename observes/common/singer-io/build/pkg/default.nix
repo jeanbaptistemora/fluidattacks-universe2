@@ -1,22 +1,19 @@
 {
   lib,
-  pythonPkgs,
+  python_pkgs,
   src,
   metadata,
 }: let
-  runtime_deps = with pythonPkgs; [
+  runtime_deps = with python_pkgs; [
     jsonschema
     legacy-purity
     pyRFC3339
     pytz
   ];
-  dev_deps = [
-    pythonPkgs.poetry
-  ];
+  build_deps = with python_pkgs; [poetry-core];
+  test_deps = [];
   pkg = (import ./build.nix) {
-    inherit lib src metadata;
-    nativeBuildInputs = dev_deps;
-    propagatedBuildInputs = runtime_deps;
+    inherit lib src metadata runtime_deps build_deps test_deps;
   };
   build_env = extraLibs:
     lib.buildEnv {
@@ -26,6 +23,7 @@
 in {
   inherit pkg;
   env.runtime = build_env runtime_deps;
-  env.dev = build_env (runtime_deps ++ dev_deps);
+  env.dev = build_env (runtime_deps ++ test_deps);
+  env.build = build_env (runtime_deps ++ test_deps ++ build_deps);
   env.bin = build_env [pkg];
 }

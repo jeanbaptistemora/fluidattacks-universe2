@@ -10,12 +10,12 @@
     buildPythonPackage = legacyPkgs."${pythonVersion}".pkgs.buildPythonPackage;
     fetchPypi = legacyPkgs.python3Packages.fetchPypi;
   };
-  pythonPkgs = import ./build/deps {
+  python_pkgs = import ./build/deps {
     inherit lib system pythonVersion legacyPkgs;
     pythonPkgs = legacyPkgs."${pythonVersion}Packages";
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata pythonPkgs;
+    inherit src lib metadata python_pkgs;
   };
 in
   self_pkgs
