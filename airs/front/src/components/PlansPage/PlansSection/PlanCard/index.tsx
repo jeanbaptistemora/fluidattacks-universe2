@@ -27,7 +27,7 @@ const PlanCard: React.FC<IPlansCard> = ({
   return (
     <div className={"mh3"}>
       {isMachine ? (
-        <MachineHead>{"Try it free for 30 days"}</MachineHead>
+        <MachineHead>{"Try it free for 21 days"}</MachineHead>
       ) : undefined}
       <CardContainer isMachine={isMachine}>
         <CardTitleContainer>

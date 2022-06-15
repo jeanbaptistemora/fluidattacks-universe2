@@ -9,6 +9,7 @@ import {
   MainContentHome,
   MainCoverHome,
   NewRegularRedButton,
+  PhantomRegularRedButton,
   WhiteBigParagraph,
 } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
@@ -32,8 +33,13 @@ const Portrait: React.FC = (): JSX.Element => (
         <div className={"cf mt4 mb5"}>
           <Link className={"no-underline"} to={"/free-trial/"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
-              {"Start your free trial"}
+              {"Start free trial"}
             </NewRegularRedButton>
+          </Link>
+          <Link className={"no-underline"} to={"/product-overview/"}>
+            <PhantomRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
+              {"Product overview"}
+            </PhantomRegularRedButton>
           </Link>
         </div>
       </InnerMainContentHome>
