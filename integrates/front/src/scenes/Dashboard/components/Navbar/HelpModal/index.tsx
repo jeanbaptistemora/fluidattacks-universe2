@@ -12,17 +12,14 @@ import { openPopupWidget } from "react-calendly";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
+import { Button, ExtraMessage, Message } from "./styles";
+import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
+
 import { ButtonOpacity } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import {
-  Button,
-  ExtraMessage,
-  Message,
-} from "scenes/Dashboard/components/Navbar/HelpWidget/styles";
-import { UpgradeGroupsModal } from "scenes/Dashboard/components/Navbar/HelpWidget/UpgradeGroupsModal";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { toggleZendesk } from "utils/widgets";

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Breadcrumb } from "./Breadcrumb";
-import { HelpModal } from "./HelpWidget/modal";
+import { HelpModal } from "./HelpModal";
 import { NewsWidget } from "./NewsWidget";
 import { Searchbar } from "./Searchbar";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";

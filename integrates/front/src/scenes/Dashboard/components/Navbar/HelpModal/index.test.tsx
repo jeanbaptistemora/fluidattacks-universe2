@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { HelpModal } from "scenes/Dashboard/components/Navbar/HelpWidget/modal";
+import { HelpModal } from ".";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
