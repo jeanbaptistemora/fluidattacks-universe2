@@ -20,35 +20,4 @@ const NavbarMenu = styled.ul.attrs({
   }
 `;
 
-const DropdownMenu = styled.ul.attrs({
-  className: "absolute f5 list mt3 ph0 pv2 shadow-1",
-})`
-  background-color: #f4f4f6;
-  min-width: 240px;
-  right: 0;
-  & li {
-    padding: 0;
-  }
-`;
-
-const DropdownButton = styled.button.attrs({
-  className: "bn gray hover-bg-light-gray outline-0 ph3 pv2 pointer tl w-100",
-})`
-  background: none;
-  & svg {
-    margin-right: 5px;
-  }
-`;
-
-const DropdownDivider = styled.hr.attrs({
-  className: "mv2",
-})``;
-
-export {
-  DropdownButton,
-  DropdownDivider,
-  DropdownMenu,
-  NavbarContainer,
-  NavbarHeader,
-  NavbarMenu,
-};
+export { NavbarContainer, NavbarHeader, NavbarMenu };
