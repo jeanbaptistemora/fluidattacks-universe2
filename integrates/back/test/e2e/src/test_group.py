@@ -124,6 +124,7 @@ def test_group_analytics(
             "Vulnerabilities by level",
             "Accepted vulnerabilities by user",
             "Vulnerabilities by assignment",
+            "Status of assigned vulnerabilities",
             "Accepted vulnerabilities by severity",
             "Severity by assignment",
             "Files with open vulnerabilities in the last 20 weeks",
