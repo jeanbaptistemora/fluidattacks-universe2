@@ -19,7 +19,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "project_name": "group1",
                 "event_id": "418900971",
                 "accessibility": "Repositorio",
-                "affected_components": "affected_components_test",
+                "affected_components": "Otro(s)",
                 "analyst": "unittest@fluidattacks.com",
                 "client": "Fluid",
                 "client_project": "group1",

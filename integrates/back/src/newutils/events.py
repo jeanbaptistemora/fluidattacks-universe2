@@ -23,13 +23,12 @@ from dynamodb.types import (
 from newutils import (
     datetime as datetime_utils,
 )
-from newutils.datetime import (
-    convert_to_iso_str,
-)
 from typing import (
     Any,
     cast,
 )
+
+MASKED: str = "Masked"
 
 
 def adjust_historic_dates(
@@ -50,6 +49,20 @@ def adjust_historic_dates(
             ).isoformat()
         new_historic.append(entry._replace(modified_date=comparison_date))
     return tuple(new_historic)
+
+
+def convert_to_iso_str(date_str: str) -> str:
+    """
+    From "%Y-%m-%d %H:%M:%S" or "%Y-%m-%d %H:%M"
+    to "YYYY-MM-DDTHH:MM:SS+HH:MM".
+    """
+    date_format_alt: str = "%Y-%m-%d %H:%M"  # Present in old data
+    if datetime_utils.is_valid_format(date_str, date_format_alt):
+        datetime_ = datetime_utils.get_from_str(date_str, date_format_alt)
+    else:
+        datetime_ = datetime_utils.get_from_str(date_str)
+
+    return datetime_utils.get_as_utc_iso_format(datetime_)
 
 
 async def filter_events_date(
@@ -132,7 +145,9 @@ def format_evidences(item: Item) -> EventEvidences:
     evidence_file = (
         EventEvidence(
             file_name=item["evidence_file"],
-            modified_date=convert_to_iso_str(item["evidence_file_date"]),
+            modified_date=convert_to_iso_str(item["evidence_file_date"])
+            if item["evidence_file_date"] != MASKED
+            else MASKED,
         )
         if item.get("evidence_file") and item.get("evidence_file_date")
         else None
@@ -140,7 +155,9 @@ def format_evidences(item: Item) -> EventEvidences:
     evidence_image = (
         EventEvidence(
             file_name=item["evidence"],
-            modified_date=convert_to_iso_str(item["evidence_date"]),
+            modified_date=convert_to_iso_str(item["evidence_date"])
+            if item["evidence_date"] != MASKED
+            else MASKED,
         )
         if item.get("evidence") and item.get("evidence_date")
         else None
@@ -161,6 +178,18 @@ def format_historic_state(item: Item) -> tuple[EventState, ...]:
         )
         for state in historic_state
     )
+
+
+def format_type(event_type: str) -> EventType:
+    if event_type in {
+        "CLIENT_APPROVES_CHANGE_TOE",
+        "CLIENT_EXPLICITLY_SUSPENDS_PROJECT",
+        "CLIENT_CANCELS_PROJECT_MILESTONE",
+        "CLIENT_DETECTS_ATTACK",
+        "HIGH_AVAILABILITY_APPROVAL",
+    }:
+        return EventType.OTHER
+    return EventType[event_type]
 
 
 def format_event(item: Item) -> Event:
@@ -195,5 +224,5 @@ def format_event(item: Item) -> Event:
         report_date=report_date,
         root_id=item.get("root_id"),
         state=historic_state[-1],
-        type=EventType[item["event_type"]],
+        type=format_type(item.get("event_type", "OTHER")),
     )

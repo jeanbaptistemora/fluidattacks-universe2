@@ -192,13 +192,14 @@ def get_iso_date() -> str:
     return datetime.now(tz=timezone.utc).isoformat()
 
 
-def is_valid_format(date_str: str) -> bool:
+def is_valid_format(
+    date_str: str, date_format: str = DEFAULT_DATE_FORMAT
+) -> bool:
     try:
-        get_from_str(date_str)
-        resp = True
+        get_from_str(date_str, date_format)
+        return True
     except ValueError:
-        resp = False
-    return resp
+        return False
 
 
 def get_date_from_iso_str(iso8601utc_str: str) -> datetype:
@@ -212,12 +213,12 @@ def get_datetime_from_iso_str(iso8601utc_str: str) -> datetime:
 
 
 def convert_to_iso_str(date_str: str) -> str:
-    """From "%Y-%m-%d %H:%M:%S" to "YYYY-MM-DDTHH:MM:SS+HH:MM" """
+    """From "%Y-%m-%d %H:%M:%S" to "YYYY-MM-DDTHH:MM:SS+HH:MM"."""
     return get_as_utc_iso_format(get_from_str(date_str))
 
 
 def convert_from_iso_str(iso8601utc_str: str) -> str:
-    """From "YYYY-MM-DDTHH:MM:SS+HH:MM" to "%Y-%m-%d %H:%M:%S" """
+    """From "YYYY-MM-DDTHH:MM:SS+HH:MM" to "%Y-%m-%d %H:%M:%S"."""
     iso8601utc = datetime.fromisoformat(iso8601utc_str)
     return get_as_str(iso8601utc)
 
