@@ -101,6 +101,20 @@ locals {
           "management:type"    = "product"
         }
       }
+      common_vpn = {
+        admins = [
+          "prod_common",
+        ]
+        users = [
+          "dev",
+        ]
+        tags = {
+          "Name"               = "common_vpn"
+          "management:area"    = "cost"
+          "management:product" = "common"
+          "management:type"    = "product"
+        }
+      }
       prod_common = {
         admins = [
           "prod_common",

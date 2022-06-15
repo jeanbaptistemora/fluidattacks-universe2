@@ -50,7 +50,7 @@ in {
     };
     commonVpnData = {
       vars = ["VPN_DATA_RAW"];
-      manifest = "/common/secrets/dev.yaml";
+      manifest = "/common/vpn/data.yaml";
     };
   };
   secretsForTerraformFromEnv = {
