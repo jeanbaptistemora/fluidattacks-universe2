@@ -825,6 +825,8 @@ export const enTranslations: ResourceKey = {
       git: {
         addEnvUrl: "Add Environment Url",
         addEnvironment: {
+          apk: "APK file",
+          aws: "AWS account ID",
           success: "Environment added successfully",
           successTittle: "Added environment",
           type: "Environment Url Type",

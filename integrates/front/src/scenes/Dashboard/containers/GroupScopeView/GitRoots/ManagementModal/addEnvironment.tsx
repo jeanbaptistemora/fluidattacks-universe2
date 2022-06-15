@@ -59,7 +59,6 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
     urlType: "",
   };
   const formRef = useRef<FormikProps<IFormProps>>(null);
-
   const validations = object().shape({
     cloudName: string().oneOf(["AZURE", "AWS", "GCP"]).nullable(),
     url: string()
@@ -69,14 +68,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
       })
       .when("cloudName", {
         is: "AWS",
-        then: string().matches(
-          // eslint-disable-next-line require-unicode-regexp
-          new RegExp(
-            "^arn:(?<Partition>[^:\n]*):(?<Service>[^:\n]*):" +
-              "(?<Region>[^:\n]*):(?<AccountID>[^:\n]*):" +
-              "(?<Ignore>(?<ResourceType>[^:/\n]*)[:/])?(?<Resource>.*)$"
-          )
-        ),
+        then: string().matches(/^\d{12}$/u),
       })
       .required(t("validations.required")),
     urlType: string()
@@ -142,27 +134,6 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
       {({ isValid, dirty, isSubmitting }): JSX.Element => {
         return (
           <Form>
-            <div className={"mt3"}>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.git.addEnvironment.url")}
-              </ControlLabel>
-              {formRef.current !== null &&
-              formRef.current.values.urlType === "APK" ? (
-                <Field component={FormikDropdown} name={"url"}>
-                  <option value={""}>{""}</option>
-                  {filesDataset.map(
-                    (file): JSX.Element => (
-                      <option key={file.fileName} value={file.fileName}>
-                        {file.fileName}
-                      </option>
-                    )
-                  )}
-                </Field>
-              ) : (
-                <Field component={FormikText} name={"url"} type={"text"} />
-              )}
-            </div>
             <div className={"flex mt3"}>
               <div className={"w-50"}>
                 <ControlLabel>
@@ -191,6 +162,34 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
                   </Field>
                 </div>
               ) : undefined}
+            </div>
+            <div className={"mt3"}>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {formRef.current === null
+                  ? t("group.scope.git.addEnvironment.url")
+                  : formRef.current.values.urlType === "CLOUD" &&
+                    formRef.current.values.cloudName === "AWS"
+                  ? t("group.scope.git.addEnvironment.aws")
+                  : formRef.current.values.urlType === "APK"
+                  ? t("group.scope.git.addEnvironment.apk")
+                  : t("group.scope.git.addEnvironment.url")}
+              </ControlLabel>
+              {formRef.current !== null &&
+              formRef.current.values.urlType === "APK" ? (
+                <Field component={FormikDropdown} name={"url"}>
+                  <option value={""}>{""}</option>
+                  {filesDataset.map(
+                    (file): JSX.Element => (
+                      <option key={file.fileName} value={file.fileName}>
+                        {file.fileName}
+                      </option>
+                    )
+                  )}
+                </Field>
+              ) : (
+                <Field component={FormikText} name={"url"} type={"text"} />
+              )}
             </div>
             <div className={"mt3"}>
               <ModalFooter>
