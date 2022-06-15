@@ -70,7 +70,6 @@ async def mutate(
     )
     if kwargs.get("credentials") and isinstance(root, GitRoot):
         with suppress(RootAlreadyCloning):
-            info.context.loaders.group_credentials.clear(group_name)
             await clone_roots.queue_sync_git_roots(
                 loaders=info.context.loaders,
                 roots=(root,),

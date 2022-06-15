@@ -33,11 +33,18 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.credentials.types import (
+    Credential,
     CredentialItem,
+    CredentialRequest,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
 )
 from db_model.enums import (
-    CredentialType,
     GitCloningStatus,
+)
+from db_model.groups.types import (
+    Group,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -66,6 +73,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    cast,
     Dict,
     List,
     Optional,
@@ -125,10 +133,8 @@ async def clone_roots(  # pylint: disable=too-many-locals
         )
         if not root_cred:
             LOGGER.error(
-                (
-                    "Root could not be determined or it"
-                    " does not have any credentials"
-                ),
+                "Root could not be determined or it"
+                " does not have any credentials",
                 extra=dict(extra=locals()),
             )
             continue
@@ -192,26 +198,36 @@ async def clone_roots(  # pylint: disable=too-many-locals
 
 
 async def _ls_remote_root(
-    root: GitRoot, cred: CredentialItem, use_vpn: bool = False
+    root: GitRoot, cred: Credential, use_vpn: bool = False
 ) -> Tuple[str, Optional[str]]:
     if use_vpn:
         return (root.id, None)
 
-    if cred.metadata.type == CredentialType.SSH and cred.state.key is not None:
+    if (
+        isinstance(cred.state.secret, SshSecret)
+        and cred.state.secret.key is not None
+    ):
         return (
             root.id,
             await ssh_ls_remote(
-                repo_url=root.state.url, credential_key=cred.state.key
+                repo_url=root.state.url, credential_key=cred.state.secret.key
             ),
         )
-    if cred.metadata.type == CredentialType.HTTPS:
+    if isinstance(cred.state.secret, HttpsSecret):
         return (
             root.id,
             await newutils.git.https_ls_remote(
                 repo_url=root.state.url,
-                user=cred.state.user,
-                password=cred.state.password,
-                token=cred.state.token,
+                user=cred.state.secret.user,
+                password=cred.state.secret.password,
+            ),
+        )
+    if isinstance(cred.state.secret, HttpsPatSecret):
+        return (
+            root.id,
+            await newutils.git.https_ls_remote(
+                repo_url=root.state.url,
+                token=cred.state.secret.token,
             ),
         )
     raise InvalidParameter()
@@ -263,6 +279,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     force: bool = False,
     queue_with_vpn: bool = False,
 ) -> Optional[PutActionResult]:
+    group: Group = await loaders.group.load(group_name)
     roots_in_current_actions: Set[str] = set()
     roots = roots or await loaders.group_roots.load(group_name)
     roots = tuple(
@@ -277,22 +294,29 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if not roots:
         raise InactiveRoot()
 
-    credentials_for_roots_tupled: dict[str, tuple[CredentialItem, ...]] = {
-        root_id: tuple(
-            cred
-            for cred in tuple(
-                cred
-                for cred in await loaders.group_credentials.load(group_name)
-                if set(cred.state.roots).intersection(set(roots_dict.keys()))
+    root_credentials = cast(
+        tuple[Credential, ...],
+        await loaders.credential_new.load_many(
+            tuple(
+                CredentialRequest(
+                    id=credential_id,
+                    organization_id=group.organization_id,
+                )
+                for credential_id in {
+                    root.state.credential_id
+                    for root in roots
+                    if root.state.credential_id
+                }
             )
-            if root_id in cred.state.roots
-        )
-        for root_id in roots_dict.keys()
+        ),
+    )
+    root_credentials_dict: dict[str, Credential] = {
+        credential.id: credential for credential in root_credentials
     }
-    credentials_for_roots: dict[str, CredentialItem] = {
-        root_id: creds[0]
-        for root_id, creds in credentials_for_roots_tupled.items()
-        if creds
+    credentials_for_roots: dict[str, Credential] = {
+        root.id: root_credentials_dict[root.state.credential_id]
+        for root in roots
+        if root.state.credential_id
     }
 
     if not credentials_for_roots:

@@ -12,17 +12,12 @@ from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
 )
-from contextlib import (
-    suppress,
-)
 from custom_exceptions import (
-    CredentialNotFound,
     HasVulns,
     InvalidField,
     InvalidParameter,
     InvalidRootExclusion,
     PermissionDenied,
-    RepeatedCredential,
     RepeatedRoot,
     RootNotFound,
 )
@@ -33,19 +28,11 @@ from db_model import (
     credentials as creds_model,
     roots as roots_model,
 )
-from db_model.credentials import (
-    update_root_ids,
-)
-from db_model.credentials.get import (
-    get_credentials,
-)
 from db_model.credentials.types import (
     Credential,
     CredentialItem,
-    CredentialMetadata,
     CredentialNewState,
     CredentialRequest,
-    CredentialState,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -275,51 +262,27 @@ async def add_git_root(  # pylint: disable=too-many-locals
 
     if credentials:
         if (credential_id := credentials.get("id")) and credential_id:
-            with suppress(CredentialNotFound):
-                organization_credential = await loaders.credential_new.load(
-                    CredentialRequest(
-                        id=credential_id,
-                        organization_id=group.organization_id,
-                    )
-                )
-
-            credential: CredentialItem = await loaders.credential.load(
-                (group_name, credential_id)
+            await validations.validate_credential_in_group_or_user(
+                loaders,
+                credential_id,
+                group.name,
+                user_email,
             )
-            await update_root_ids(
-                current_value=credential.state,
-                modified_by=user_email,
-                group_name=group_name,
-                credential_id=credential.id,
-                root_ids=(
-                    *credential.state.roots,
-                    root_id,
-                ),
+            organization_credential = await loaders.credential_new.load(
+                CredentialRequest(
+                    id=credential_id,
+                    organization_id=group.organization_id,
+                )
             )
         else:
-            credential = _format_root_credential(
-                credentials, group_name, user_email, root_id
+            organization_credential = _format_root_credential_new(
+                credentials, organization.id, user_email
             )
-            group_credentials: Tuple[
-                CredentialItem, ...
-            ] = await loaders.group_credentials.load(group_name)
-            validations.validate_credential_name(credential, group_credentials)
-            await creds_model.add(credential=credential)
-            organization_credential_id = await get_organization_credential_id(
-                loaders=loaders,
-                group=group,
-                current_credential=credential,
+            await validations.validate_credential_name_in_organization(
+                loaders,
+                organization_credential,
             )
-            with suppress(RepeatedCredential):
-                if not organization_credential_id:
-                    organization_credential = format_credential(
-                        credential=credential,
-                        organization_id=group.organization_id,
-                        owner=credential.state.modified_by,
-                    )
-                    await creds_model.add_new(
-                        credential=organization_credential
-                    )
+            await creds_model.add_new(credential=organization_credential)
 
     modified_date = datetime_utils.get_iso_date()
     root = GitRoot(
@@ -540,30 +503,38 @@ def _format_credential_key(key_type: CredentialType, key: str) -> str:
     return encoded_key
 
 
-def _format_root_credential(
-    credentials: Dict[str, str], group_name: str, user_email: str, root_id: str
-) -> CredentialItem:
+def _format_root_credential_new(
+    credentials: Dict[str, str], organization_id: str, user_email: str
+) -> Credential:
     credential_name = credentials["name"]
     credential_type = CredentialType(credentials["type"])
 
     if not credential_name:
         raise InvalidParameter()
 
-    return CredentialItem(
-        group_name=group_name,
-        id=str(uuid4()),
-        metadata=CredentialMetadata(type=credential_type),
-        state=CredentialState(
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
+        SshSecret(
             key=_format_credential_key(credential_type, credentials["key"])
-            if "key" in credentials and credentials["key"]
-            else None,
-            user=credentials.get("user") or None,
-            password=credentials.get("password") or None,
-            token=credentials.get("token") or None,
+        )
+        if credential_type is CredentialType.SSH
+        else HttpsPatSecret(token=credentials["token"])
+        if "token" in credentials
+        else HttpsSecret(
+            user=credentials["user"],
+            password=credentials["password"],
+        )
+    )
+
+    return Credential(
+        id=str(uuid4()),
+        organization_id=organization_id,
+        owner=user_email,
+        state=CredentialNewState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            name=credential_name,
-            roots=[root_id],
+            name=credentials["name"],
+            secret=secret,
+            type=credential_type,
         ),
     )
 
@@ -657,38 +628,6 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     )
 
 
-async def _remove_root_from_credential(
-    root_id: str,
-    group_name: str,
-    user_email: str,
-    credential: Optional[CredentialItem],
-) -> None:
-    if credential:
-        credential_roots = [*credential.state.roots]
-        credential_roots.remove(root_id)
-        await update_root_ids(
-            current_value=credential.state,
-            modified_by=user_email,
-            group_name=group_name,
-            credential_id=credential.id,
-            root_ids=tuple(credential_roots),
-        )
-
-    # Check the others credential until cleaning up the db
-    group_credentials = await get_credentials(group_name=group_name)
-    for cred in group_credentials:
-        if root_id in cred.state.roots:
-            cred_roots = [*cred.state.roots]
-            cred_roots.remove(root_id)
-            await update_root_ids(
-                current_value=cred.state,
-                modified_by=user_email,
-                group_name=group_name,
-                credential_id=cred.id,
-                root_ids=tuple(cred_roots),
-            )
-
-
 async def _update_git_root_credentials(  # noqa: MC0001
     loaders: Any,
     group: Group,
@@ -697,128 +636,32 @@ async def _update_git_root_credentials(  # noqa: MC0001
     user_email: str,
 ) -> Optional[str]:
     credential_id = credentials.get("id") if credentials else None
-    credential_to_add = None
+    credential_to_add: Optional[Credential] = None
     if credentials and credential_id is None:
-        credential_to_add = _format_root_credential(
-            credentials, root.group_name, user_email, root.id
+        credential_to_add = _format_root_credential_new(
+            credentials, group.organization_id, user_email
         )
 
-    group_credentials: Tuple[
-        CredentialItem, ...
-    ] = await loaders.group_credentials.load(root.group_name)
-    current_credential = next(
-        (
-            credential
-            for credential in group_credentials
-            if root.id in credential.state.roots
-        ),
-        None,
-    )
-    credential_to_update = next(
-        (
-            credential
-            for credential in group_credentials
-            if credential_id == credential.id
-        ),
-        None,
-    )
-    if credential_to_update is None and credential_id is not None:
-        raise CredentialNotFound()
-
-    if credential_to_update is None and credential_to_add:
-        # Add new credential to group and delete credential if only that root
-        validations.validate_credential_name(
-            credential_to_add, group_credentials
-        )
-
-        await _remove_root_from_credential(
-            root.id, root.group_name, user_email, current_credential
-        )
-        await creds_model.add(credential=credential_to_add)
-        if current_credential and len(current_credential.state.roots) <= 1:
-            await creds_model.remove(
-                credential_id=current_credential.id,
-                group_name=current_credential.group_name,
-            )
-
-        organization_credential_id = await get_organization_credential_id(
-            loaders=loaders, group=group, current_credential=credential_to_add
-        )
-        if not organization_credential_id:
-            await creds_model.add_new(
-                credential=format_credential(
-                    credential=credential_to_add,
-                    organization_id=group.organization_id,
-                    owner=credential_to_add.state.modified_by,
-                )
-            )
-        return organization_credential_id or credential_to_add.id
-
-    if (
-        current_credential
-        and credential_to_update
-        and current_credential.id != credential_to_update.id
-    ):
-        # Add the root to another credential and delete credential if only
-        # has that root
-        await _remove_root_from_credential(
-            root.id, root.group_name, user_email, current_credential
-        )
-        await update_root_ids(
-            current_value=credential_to_update.state,
-            modified_by=user_email,
-            group_name=credential_to_update.group_name,
-            credential_id=credential_to_update.id,
-            root_ids=(root.id, *credential_to_update.state.roots),
-        )
-        if len(current_credential.state.roots) <= 1:
-            await creds_model.remove(
-                credential_id=current_credential.id,
-                group_name=current_credential.group_name,
-            )
-        return await get_organization_credential_id(
-            loaders=loaders,
-            group=group,
-            current_credential=credential_to_update,
-        )
-
-    if current_credential is None and credential_to_update:
-        # Add the root to the credential
-        await update_root_ids(
-            current_value=credential_to_update.state,
-            modified_by=user_email,
-            group_name=credential_to_update.group_name,
-            credential_id=credential_to_update.id,
-            root_ids=(root.id, *credential_to_update.state.roots),
-        )
-        return await get_organization_credential_id(
-            loaders=loaders,
-            group=group,
-            current_credential=credential_to_update,
-        )
-
-    if credentials is None and current_credential:
-        # Delete credential from root and delete credential if only has that
-        # root
-        await _remove_root_from_credential(
-            root.id, root.group_name, user_email, current_credential
-        )
-        if len(current_credential.state.roots) <= 1:
-            await creds_model.remove(
-                credential_id=current_credential.id,
-                group_name=current_credential.group_name,
-            )
+    if not credential_to_add and credential_id is None:
         return None
 
-    return (
-        await get_organization_credential_id(
-            loaders=loaders,
-            group=group,
-            current_credential=current_credential,
+    if credential_to_add and credential_id is None:
+        await validations.validate_credential_name_in_organization(
+            loaders,
+            credential_to_add,
         )
-        if current_credential
-        else None
-    )
+        await creds_model.add_new(credential=credential_to_add)
+        return credential_to_add.id
+
+    if credential_id is not None:
+        await validations.validate_credential_in_group_or_user(
+            loaders,
+            credential_id,
+            group.name,
+            user_email,
+        )
+        return credential_id
+    return root.state.credential_id
 
 
 async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001

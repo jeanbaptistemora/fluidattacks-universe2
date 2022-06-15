@@ -1479,3 +1479,9 @@ class RepeatedCredential(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Credential already exists"
         super(RepeatedCredential, self).__init__(msg)
+
+
+class CredentialCanNotBeUsedInGroup(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The credential can not be used in the group"
+        super(CredentialCanNotBeUsedInGroup, self).__init__(msg)

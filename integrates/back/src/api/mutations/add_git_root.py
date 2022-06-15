@@ -83,7 +83,6 @@ async def mutate(
         notification=Notification.ROOT_UPDATE,
         roles=roles,
     )
-    info.context.loaders.group_credentials.clear(group_name)
     if (
         kwargs.get("credentials")
         and (
