@@ -30,9 +30,9 @@ const Portrait: React.FC = (): JSX.Element => (
           {"Accurate automation + AI prioritization + Expert intelligence"}
         </GrayBigParagraph>
         <div className={"cf mt4 mb5"}>
-          <Link className={"no-underline"} to={"/contact-us-demo/"}>
+          <Link className={"no-underline"} to={"/free-trial/"}>
             <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
-              {"Get a free demo"}
+              {"Start your free trial"}
             </NewRegularRedButton>
           </Link>
         </div>
