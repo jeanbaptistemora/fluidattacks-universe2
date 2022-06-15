@@ -6493,7 +6493,477 @@
             "PartitionKeyAlias": "EVENT#id",
             "SortKeyAlias": "GROUP#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "Fluid"
+              },
+              "description": {
+                "S": "Test con evidencia."
+              },
+              "pk": {
+                "S": "EVENT#463578352"
+              },
+              "id": {
+                "S": "463578352"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-12-26T18:37:00+00:00"
+                  },
+                  "status": {
+                    "S": "SOLVED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "AUTHORIZATION_SPECIAL_ATTACK"
+              },
+              "report_date": {
+                "S": "2018-12-17T21:20:00+00:00"
+              }
+            },
+            {
+              "group_name": {
+                "S": "unittesting"
+              },
+              "accessibility": {
+                "SS": [
+                  "ENVIRONMENT",
+                  "REPOSITORY"
+                ]
+              },
+              "description": {
+                "S": "test test test"
+              },
+              "type": {
+                "S": "INCORRECT_MISSING_SUPPLIES"
+              },
+              "affected_components": {
+                "SS": [
+                  "CLIENT_STATION",
+                  "COMPILE_ERROR",
+                  "DOCUMENTATION",
+                  "FLUID_STATION",
+                  "INTERNET_CONNECTION",
+                  "LOCAL_CONNECTION",
+                  "OTHER",
+                  "SOURCE_CODE",
+                  "TEST_DATA",
+                  "TOE_ALTERATION",
+                  "TOE_CREDENTIALS",
+                  "TOE_EXCLUSSION",
+                  "TOE_LOCATION",
+                  "TOE_PRIVILEGES",
+                  "TOE_UNACCESSIBLE",
+                  "TOE_UNAVAILABLE",
+                  "TOE_UNSTABLE",
+                  "VPN_CONNECTION"
+                ]
+              },
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "Fluid Attacks"
+              },
+              "pk": {
+                "S": "EVENT#540462628"
+              },
+              "id": {
+                "S": "540462628"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-25T14:36:27+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "report_date": {
+                "S": "2019-04-02T08:02:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "Fluid"
+              },
+              "description": {
+                "S": "Integrates unit test"
+              },
+              "pk": {
+                "S": "EVENT#418900971"
+              },
+              "id": {
+                "S": "418900971"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-06-27T19:40:05+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "OTHER"
+              },
+              "report_date": {
+                "S": "2018-06-27T12:00:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "accessibility": {
+                "SS": [
+                  "REPOSITORY"
+                ]
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "Fluid Attacks"
+              },
+              "description": {
+                "S": "Testing a new event type"
+              },
+              "pk": {
+                "S": "EVENT#540462638"
+              },
+              "id": {
+                "S": "540462638"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2021-05-25T14:36:27+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "DATA_UPDATE_REQUIRED"
+              },
+              "report_date": {
+                "S": "2019-04-02T08:02:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "accessibility": {
+                "SS": [
+                  "ENVIRONMENT"
+                ]
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "test"
+              },
+              "description": {
+                "S": "Esta eventualidad fue levantada para poder realizar pruebas de unittesting"
+              },
+              "pk": {
+                "S": "EVENT#538745942"
+              },
+              "id": {
+                "S": "538745942"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-09-19T15:43:43+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "AUTHORIZATION_SPECIAL_ATTACK"
+              },
+              "report_date": {
+                "S": "2019-09-19T13:09:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "client": {
+                "S": "Fluid"
+              },
+              "description": {
+                "S": "Oneshot event test 2"
+              },
+              "pk": {
+                "S": "EVENT#418900979"
+              },
+              "id": {
+                "S": "418900979"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-03T20:24:25+00:00"
+                  },
+                  "status": {
+                    "S": "SOLVED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "OTHER"
+              },
+              "report_date": {
+                "S": "2019-01-03T12:01:55+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "oneshottest"
+              },
+              "sk": {
+                "S": "GROUP#oneshottest"
+              },
+              "client": {
+                "S": "Fluid"
+              },
+              "description": {
+                "S": "Oneshot event test"
+              },
+              "pk": {
+                "S": "EVENT#418900978"
+              },
+              "id": {
+                "S": "418900978"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-01-02T19:40:05+00:00"
+                  },
+                  "status": {
+                    "S": "CREATED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "OTHER"
+              },
+              "report_date": {
+                "S": "2019-01-02T12:00:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "accessibility": {
+                "SS": [
+                  "REPOSITORY"
+                ]
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "client": {
+                "S": "Fluid Attacks"
+              },
+              "description": {
+                "S": "This is an eventuality with evidence"
+              },
+              "pk": {
+                "S": "EVENT#484763304"
+              },
+              "id": {
+                "S": "484763304"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2019-04-11T18:37:00+00:00"
+                  },
+                  "status": {
+                    "S": "SOLVED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {
+                  "image": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-03-11T15:57:45+00:00"
+                      },
+                      "file_name": {
+                        "S": "1bhEW8rN33fq01SBmWjjEwEtK6HWkdMq6"
+                      }
+                    }
+                  },
+                  "file": {
+                    "M": {
+                      "modified_date": {
+                        "S": "2019-03-11T15:57:45+00:00"
+                      },
+                      "file_name": {
+                        "S": "1mvStFSToOL3bl47zaVZHBpRMZUUhU0Ad"
+                      }
+                    }
+                  }
+                }
+              },
+              "type": {
+                "S": "AUTHORIZATION_SPECIAL_ATTACK"
+              },
+              "report_date": {
+                "S": "2019-03-11T14:00:00+00:00"
+              }
+            },
+            {
+              "hacker": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "continuoustesting"
+              },
+              "sk": {
+                "S": "GROUP#continuoustesting"
+              },
+              "client": {
+                "S": "Fluid"
+              },
+              "description": {
+                "S": "Continuoustest event test"
+              },
+              "pk": {
+                "S": "EVENT#418900923"
+              },
+              "id": {
+                "S": "418900923"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "modified_date": {
+                    "S": "2018-01-03T20:24:25+00:00"
+                  },
+                  "status": {
+                    "S": "SOLVED"
+                  }
+                }
+              },
+              "evidences": {
+                "M": {}
+              },
+              "type": {
+                "S": "OTHER"
+              },
+              "report_date": {
+                "S": "2018-01-03T12:01:55+00:00"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "accessibility",
             "action_after_blocking",
