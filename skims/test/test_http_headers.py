@@ -159,7 +159,7 @@ def test_content_security_policy() -> None:
     header = parse(
         (
             "content-security-policy:   script-src 'self'  'unsafe-inline' "
-            "localhost:* cdn.announcekit.app  ;"
+            "localhost:* cdn.announcekit.app,"
         )
     )
     assert header is not None

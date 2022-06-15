@@ -133,7 +133,8 @@ def _content_security_policy_frame_acestors(
     header: Header,
 ) -> None:
     if isinstance(header, ContentSecurityPolicyHeader):
-        if values := header.directives.get("frame-ancestors"):
+        if "frame-ancestors" in header.directives:
+            values = header.directives.get("frame-ancestors", [])
             for value in values:
                 _content_security_policy_wild_uri(locations, value)
         else:
@@ -157,10 +158,15 @@ def _content_security_policy_script_src(
 ) -> None:
     if not isinstance(header, ContentSecurityPolicyHeader):
         return
-    if values := (
-        header.directives.get("script-src")
-        or header.directives.get("default-src")
+    if any(
+        directive in header.directives
+        for directive in ["default-src", "script-src"]
     ):
+        values = (
+            header.directives.get("script-src", [])
+            if "script-src" in header.directives
+            else header.directives.get("default-src", [])
+        )
         for value in values:
             if value == "'unsafe-inline'":
                 locations.append(
