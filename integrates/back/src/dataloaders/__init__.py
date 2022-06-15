@@ -1,5 +1,6 @@
 from .event import (
     EventLoader,
+    EventsHistoricStateTypedLoader,
     EventTypedLoader,
     GroupEventsTypedLoader,
 )
@@ -95,6 +96,7 @@ class Dataloaders(NamedTuple):
     credential_new: CredentialNewLoader
     environment_secrets: GitEnvironmentSecretsLoader
     event: EventLoader
+    event_historic_state: EventsHistoricStateTypedLoader
     event_typed: EventTypedLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
@@ -193,6 +195,7 @@ def get_new_context() -> Dataloaders:
         credential_new=CredentialNewLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event=EventLoader(),
+        event_historic_state=EventsHistoricStateTypedLoader(),
         event_typed=EventTypedLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),

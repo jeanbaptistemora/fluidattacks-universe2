@@ -1,5 +1,7 @@
 from datetime import (
     datetime,
+    timedelta,
+    timezone,
 )
 from db_model.events.enums import (
     EventAccessibility,
@@ -28,6 +30,26 @@ from typing import (
     Any,
     cast,
 )
+
+
+def adjust_historic_dates(
+    historic: tuple[EventState, ...],
+) -> tuple[EventState, ...]:
+    """Ensure dates are not the same and in ascending order."""
+    new_historic = []
+    comparison_date = ""
+    for entry in historic:
+        if entry.modified_date > comparison_date:
+            comparison_date = entry.modified_date
+        else:
+            fixed_date = datetime.fromisoformat(comparison_date) + timedelta(
+                seconds=1
+            )
+            comparison_date = fixed_date.astimezone(
+                tz=timezone.utc
+            ).isoformat()
+        new_historic.append(entry._replace(modified_date=comparison_date))
+    return tuple(new_historic)
 
 
 async def filter_events_date(

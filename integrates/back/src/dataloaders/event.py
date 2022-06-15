@@ -9,6 +9,7 @@ from collections import (
 )
 from db_model.events.types import (
     Event,
+    EventState,
 )
 from dynamodb.types import (
     Item,
@@ -18,7 +19,9 @@ from events import (
     domain as events_domain,
 )
 from newutils.events import (
+    adjust_historic_dates,
     format_event,
+    format_historic_state,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -86,6 +89,20 @@ class EventLoader(DataLoader):
         self, event_ids: list[str]
     ) -> list[dict[str, Any]]:
         return await _batch_load_fn(event_ids)
+
+
+class EventsHistoricStateTypedLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, event_ids: Iterable[str]
+    ) -> tuple[tuple[EventState, ...], ...]:
+        event_items: list[Item] = [
+            await events_dal.get_event(id) for id in event_ids
+        ]
+        return tuple(
+            adjust_historic_dates(format_historic_state(item))
+            for item in event_items
+        )
 
 
 class EventTypedLoader(DataLoader):
