@@ -44,6 +44,7 @@ const Title = styled.p.attrs({
   color: ${(props): string => props.fColor};
   margin-bottom: ${(props): string => getMargin(props.marginBottom)};
   margin-top: ${(props): string => getMargin(props.marginTop)};
+  max-width: ${(props): string => getWidth(props.maxWidth)};
 
   @media screen and (min-width: 60em) {
     font-size: ${(props): string => getSize(props.fSize)};
