@@ -10,7 +10,7 @@ function render(dataDocument, height, width) {
 
   if (dataDocument.arrow && Math.abs(value) !== 0) {
     const arrowFontSize = dataDocument.arrowFontSizeRatio * Math.min(height, width);
-    const arrowFontOffset = 2.1;
+    const arrowFontOffset = 2.25;
     const plusSign = parseFloat(dataDocument.text) < 0 ? '' : '+';
 
     const svg = d3

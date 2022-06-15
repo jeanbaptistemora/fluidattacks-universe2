@@ -1,10 +1,10 @@
 html, body, #root {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'Noto Sans JP', sans-serif;
   color: #333;
 }
 
 .c3 svg {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', 'Noto Sans JP', sans-serif;
   font-size: 13px;
   color: #333;
 }

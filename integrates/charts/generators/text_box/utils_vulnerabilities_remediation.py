@@ -203,38 +203,38 @@ async def get_many_groups(
 def format_data(count: Decimal, state: str) -> dict:
     if state == "created" and count > Decimal("0.0"):
         return dict(
-            arrowFontSizeRatio=0.6,
+            arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_agressive,
-            arrow="&#129065;",
+            arrow="&#11014;",
         )
 
     if state == "solved" and count > Decimal("0.0"):
         return dict(
-            arrowFontSizeRatio=0.6,
+            arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_passive,
-            arrow="&#129065;",
+            arrow="&#11014;",
         )
 
     if state == "remediated" and count > Decimal("0.0"):
         return dict(
-            arrowFontSizeRatio=0.6,
+            arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_passive,
-            arrow="&#129065;",
+            arrow="&#11014;",
         )
 
     if state == "remediated" and count < Decimal("0.0"):
         return dict(
-            arrowFontSizeRatio=0.6,
+            arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_agressive,
-            arrow="&#129067;",
+            arrow="&#11015;",
         )
 
     return dict(

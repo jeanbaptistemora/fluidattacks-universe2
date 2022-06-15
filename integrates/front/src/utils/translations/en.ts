@@ -215,13 +215,13 @@ export const enTranslations: ResourceKey = {
         title: "Service usage",
       },
       remediationCreated: {
-        title: "Severity increased in Sprint",
+        title: "Sprint exposure increment",
       },
       remediationRemediated: {
-        title: "Sprint remediation Overall",
+        title: "Sprint exposure change overall",
       },
       remediationSolved: {
-        title: "Severity remediated in Sprint",
+        title: "Sprint exposure decrement",
       },
       totalTypes: {
         title: "Total types",
