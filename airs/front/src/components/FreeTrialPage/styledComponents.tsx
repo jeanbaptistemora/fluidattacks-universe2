@@ -17,7 +17,7 @@ const WhiteContainer = styled.div.attrs({
     w-100
     flex
     flex-wrap
-    ph5
+    ph-body
     items-center
     flex-column
     justify-center
@@ -31,7 +31,7 @@ const BlackContainer = styled.div.attrs({
     w-50-l
     w-100
     flex
-    ph5
+    ph-body
     items-center
   `,
 })`
@@ -49,6 +49,7 @@ const InternalContainer = styled.div.attrs({
 const ImageContainer = styled.div.attrs({
   className: `
     mw-1366
+    mv4
   `,
 })``;
 
