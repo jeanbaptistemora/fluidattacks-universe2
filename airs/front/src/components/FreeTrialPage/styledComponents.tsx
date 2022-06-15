@@ -53,7 +53,7 @@ const InternalContainer = styled.div.attrs({
 const ImageContainer = styled.div.attrs({
   className: `
     mw-1366
-    mv4
+    mt4
   `,
 })``;
 

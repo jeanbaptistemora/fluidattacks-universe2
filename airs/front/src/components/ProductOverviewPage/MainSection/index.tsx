@@ -33,7 +33,7 @@ const MainSection: React.FC<IProps> = ({
         </Title>
         <ProductParagraph>{description}</ProductParagraph>
         <FlexCenterItemsContainer className={"flex-wrap"}>
-          <Link to={"/contact-us-demo/"}>
+          <Link to={"/free-trial/"}>
             <NewRegularRedButton className={"mh2 mv3"}>
               {translate.t("productOverview.mainButton1")}
             </NewRegularRedButton>
