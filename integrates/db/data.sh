@@ -8,6 +8,8 @@ function main {
     credentials_historic_state
     credentials_metadata
     credentials_state
+    event_historic_state
+    event_metadata
     finding_approval
     finding_creation
     finding_historic_state
