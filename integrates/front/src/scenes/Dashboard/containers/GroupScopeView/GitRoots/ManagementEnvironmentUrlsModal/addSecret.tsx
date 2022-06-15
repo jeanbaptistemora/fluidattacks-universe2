@@ -15,6 +15,7 @@ import {
   REMOVE_ENVIRONMENT_URL_SECRET,
 } from "../../queries";
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -201,13 +202,29 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     <Can
                       do={"api_mutations_remove_environment_url_secret_mutate"}
                     >
-                      <Button
-                        id={"git-root-remove-secret"}
-                        onClick={handleRemoveClick}
-                        variant={"secondary"}
+                      <ConfirmDialog
+                        title={t(
+                          "group.scope.git.repo.credentials.secrets.remove"
+                        )}
                       >
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </Button>
+                        {(confirm): JSX.Element => {
+                          function onConfirmDelete(): void {
+                            confirm((): void => {
+                              handleRemoveClick();
+                            });
+                          }
+
+                          return (
+                            <Button
+                              id={"git-root-remove-secret"}
+                              onClick={onConfirmDelete}
+                              variant={"secondary"}
+                            >
+                              <FontAwesomeIcon icon={faTrashAlt} />
+                            </Button>
+                          );
+                        }}
+                      </ConfirmDialog>
                     </Can>
                   ) : undefined}
                   <Button

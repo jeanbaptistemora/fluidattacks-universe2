@@ -213,7 +213,6 @@ const AddSecret: React.FC<ISecretsProps> = ({
                   </Button>
                   {isUpdate && canRemoveSecret ? (
                     <ConfirmDialog
-                      message={t("confirmmodal.message")}
                       title={t(
                         "group.scope.git.repo.credentials.secrets.remove"
                       )}
