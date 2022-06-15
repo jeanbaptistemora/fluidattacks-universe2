@@ -228,11 +228,6 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     )
 
 
-@retry_on_exceptions(
-    exceptions=(IndicatorAlreadyUpdated,),
-    max_attempts=20,
-    sleep_seconds=0,
-)
 async def update_vulnerabilities_unreliable_indicators(
     vulnerability_ids: List[str],
     attrs_to_update: Set[EntityAttr],
@@ -248,7 +243,8 @@ async def update_vulnerabilities_unreliable_indicators(
                 attrs_to_update,
             )
             for vulnerability_id in set(vulnerability_ids)
-        )
+        ),
+        workers=16,
     )
 
 
@@ -296,9 +292,12 @@ async def update_roots_unreliable_indicators(
 
 
 @retry_on_exceptions(
-    exceptions=(UnavailabilityError,),
+    exceptions=(
+        IndicatorAlreadyUpdated,
+        UnavailabilityError,
+    ),
     max_attempts=20,
-    sleep_seconds=0,
+    sleep_seconds=float("0.2"),
 )
 async def update_vulnerability_unreliable_indicators(
     loaders: Dataloaders,
@@ -363,6 +362,7 @@ async def update_vulnerability_unreliable_indicators(
         unreliable_report_date=result.get(EntityAttr.report_date),
         unreliable_treatment_changes=result.get(EntityAttr.treatment_changes),
     )
+
     await vulns_model.update_unreliable_indicators(
         current_value=vulnerability,
         indicators=indicators_to_udpate,

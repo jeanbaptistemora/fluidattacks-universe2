@@ -70,9 +70,19 @@ from time import (
     strptime,
 )
 from typing import (
+    cast,
     NamedTuple,
     Optional,
     Union,
+)
+from unreliable_indicators.enums import (
+    Entity,
+)
+from unreliable_indicators.model import (
+    ENTITIES,
+)
+from unreliable_indicators.operations import (
+    update_vulnerabilities_unreliable_indicators,
 )
 
 
@@ -212,6 +222,20 @@ def format_exposed_chart_yearly(
     for key, value in plot_points.items():
         result_data.append(list({data["x"]: data for data in value}.values()))
     return result_data
+
+
+async def update_vulnerabilities_indicators(
+    loaders: Dataloaders, group: str
+) -> None:
+    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
+        [finding.id for finding in findings]
+    )
+
+    await update_vulnerabilities_unreliable_indicators(
+        [vulnerability.id for vulnerability in vulnerabilities],
+        set(cast(dict, ENTITIES[Entity.vulnerability]["attrs"]).keys()),
+    )
 
 
 @retry_on_exceptions(
@@ -1015,6 +1039,7 @@ async def get_group_indicators(  # pylint: disable=too-many-locals
     treatment_summary = await groups_domain.get_treatment_summary(
         loaders, group.name
     )
+    await update_vulnerabilities_indicators(loaders, group.name)
 
     return GroupUnreliableIndicators(
         last_closed_vulnerability_days=last_closed_vulnerability_days,
