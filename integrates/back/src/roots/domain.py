@@ -1114,6 +1114,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         root_id=root_id,
     )
 
+    loaders.group.clear(group_name)
     group: Group = await loaders.group.load(group_name)
     is_failed: bool = (
         status == GitCloningStatus.FAILED
