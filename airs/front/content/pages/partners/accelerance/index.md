@@ -1,8 +1,8 @@
 ---
 slug: partners/accelerance/
 title: Accelerance
-description: Our partners allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
-keywords: Fluid Attacks, Partners, Services, Security Testing, Software Development, Pentesting, Ethical Hacking
+description: Partners like Accelerance allow us to complete our portfolio and offer better security testing services. Get to know them and become one of them.
+keywords: Fluid Attacks, Partners, Accelerance, Services, Security Testing, Software Development, Red Team, Pentesting, Ethical Hacking
 partnerlogo: logo-accelerance
 alt: Logo Accelerance
 partner: yes
