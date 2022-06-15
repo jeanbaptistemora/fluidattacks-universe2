@@ -311,3 +311,44 @@ to their assigned treatment:
   permanently.
 
 ![Vulner Treatment](https://res.cloudinary.com/fluid-attacks/image/upload/v1643932056/docs/web/analytics/common/common_vulnerabilities_treatment.png)
+
+## Sprint exposure change overall
+
+This figure is the resulting
+percentage change in risk
+exposure in the last sprint
+(i.e.,
+the exposure decrement minus
+the exposure increment).
+A negative value means that
+more exposure was reported
+than remediated.
+A positive value means that
+more exposure was remediated
+than reported.
+A zero value means that as much
+exposure was remediated as reported.
+
+## Sprint exposure increment
+
+This figure is the percentage
+increase in risk exposure in
+the last sprint (i.e.,
+the newly reported exposure
+value relative to the initial
+exposure value).
+The value is zero when no
+vulnerability has been
+reported in the period.
+
+## Sprint exposure decrement
+
+This figure is the percentage
+decrease in risk exposure in
+the last sprint (i.e.,
+the newly remediated exposure
+value relative to the initial
+exposure value).
+The value is zero when no
+vulnerability has been
+remediated in the period.
