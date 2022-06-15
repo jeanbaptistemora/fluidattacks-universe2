@@ -26,10 +26,10 @@ import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
-import { DropdownButton, DropdownDivider, DropdownMenu } from "../styles";
 import { clickedPortal } from "../utils";
 import { ButtonOpacity } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { Menu, MenuDivider, MenuItem } from "components/Menu";
 import { Switch } from "components/Switch";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { Alert, ControlLabel } from "styles/styledComponents";
@@ -140,9 +140,9 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
         <FontAwesomeIcon color={"#2e2e38"} icon={faUserCircle} />
       </ButtonOpacity>
       {isDropdownOpen ? (
-        <DropdownMenu>
-          <li>
-            <DropdownButton>
+        <Menu align={"right"}>
+          <MenuItem>
+            <button>
               <b>{userName}</b>
               <br />
               {userEmail}
@@ -168,45 +168,45 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 name={"featurePreview"}
                 onChange={toggleFeaturePreview}
               />
-            </DropdownButton>
-          </li>
-          <DropdownDivider />
-          <li>
-            <DropdownButton onClick={openTokenModal}>
+            </button>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem>
+            <button onClick={openTokenModal}>
               <FontAwesomeIcon icon={faKey} />
               &nbsp;
               {t("navbar.token")}
-            </DropdownButton>
+            </button>
             {isTokenModalOpen ? (
               <APITokenModal onClose={closeTokenModal} open={true} />
             ) : undefined}
-          </li>
-          <li>
+          </MenuItem>
+          <MenuItem>
             <Link onClick={toggleDropdown} to={"/user/config"}>
-              <DropdownButton>
+              <React.Fragment>
                 <FontAwesomeIcon icon={faUserCog} />
                 &nbsp;
                 {t("navbar.notification")}
-              </DropdownButton>
+              </React.Fragment>
             </Link>
-          </li>
-          <li>
-            <DropdownButton onClick={openMobileModal}>
+          </MenuItem>
+          <MenuItem>
+            <button onClick={openMobileModal}>
               <FontAwesomeIcon icon={faMobileAlt} />
               &nbsp;
               {t("navbar.mobile")}
-            </DropdownButton>
+            </button>
             {isMobileModalOpen ? (
               <MobileModal onClose={closeMobileModal} />
             ) : undefined}
-          </li>
+          </MenuItem>
           <Can do={"api_mutations_add_stakeholder_mutate"}>
-            <li>
-              <DropdownButton onClick={openStakeholderModal}>
+            <MenuItem>
+              <button onClick={openStakeholderModal}>
                 <FontAwesomeIcon icon={faUserPlus} />
                 &nbsp;
                 {t("navbar.user")}
-              </DropdownButton>
+              </button>
               {isStakeholderModalOpen ? (
                 <AddUserModal
                   action={"add"}
@@ -219,9 +219,9 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                   type={"user"}
                 />
               ) : undefined}
-            </li>
+            </MenuItem>
           </Can>
-          <li>
+          <MenuItem>
             <ConfirmDialog
               message={
                 <React.Fragment>
@@ -241,17 +241,17 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 }
 
                 return (
-                  <DropdownButton onClick={handleLogoutClick}>
+                  <button onClick={handleLogoutClick}>
                     <FontAwesomeIcon icon={faUserTimes} />
                     &nbsp;
                     {t("navbar.deleteAccount.text")}
-                  </DropdownButton>
+                  </button>
                 );
               }}
             </ConfirmDialog>
-          </li>
-          <DropdownDivider />
-          <li>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem>
             <ConfirmDialog title={t("navbar.logout")}>
               {(confirm): React.ReactNode => {
                 function handleLogoutClick(): void {
@@ -262,16 +262,16 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
                 }
 
                 return (
-                  <DropdownButton onClick={handleLogoutClick}>
+                  <button onClick={handleLogoutClick}>
                     <FontAwesomeIcon icon={faSignOutAlt} />
                     &nbsp;
                     {t("navbar.logout")}
-                  </DropdownButton>
+                  </button>
                 );
               }}
             </ConfirmDialog>
-          </li>
-        </DropdownMenu>
+          </MenuItem>
+        </Menu>
       ) : undefined}
     </div>
   );

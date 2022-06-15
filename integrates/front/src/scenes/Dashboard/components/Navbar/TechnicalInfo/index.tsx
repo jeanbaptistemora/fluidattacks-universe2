@@ -4,10 +4,10 @@ import React, { useCallback, useState } from "react";
 import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 
-import { DropdownButton, DropdownMenu } from "../styles";
 import { clickedPortal } from "../utils";
 import { ButtonOpacity } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
+import { Menu, MenuItem } from "components/Menu";
 import {
   ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
@@ -36,9 +36,9 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
         <FontAwesomeIcon color={"#2e2e38"} icon={faInfoCircle} />
       </ButtonOpacity>
       {isDropdownOpen ? (
-        <DropdownMenu>
-          <li>
-            <DropdownButton>
+        <Menu align={"right"}>
+          <MenuItem>
+            <button>
               <div>
                 {t("info.commit")}&nbsp;
                 <ExternalLink
@@ -51,9 +51,9 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
                 {t("info.deploymentDate")}&nbsp;
                 {ASM_DEPLOYMENT_DATE}
               </small>
-            </DropdownButton>
-          </li>
-        </DropdownMenu>
+            </button>
+          </MenuItem>
+        </Menu>
       ) : undefined}
     </div>
   );

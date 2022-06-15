@@ -3,14 +3,14 @@ import styled from "styled-components";
 const MenuItem = styled.li.attrs({
   className: "hover-bg-light-gray pointer tl w-100",
 })`
-  & a,
+  > a,
   button {
     color: #777;
     display: inline-block;
     padding: 0.5rem 1rem;
     width: 100%;
   }
-  & button {
+  > button {
     background-color: transparent;
     border: none;
     cursor: pointer;
