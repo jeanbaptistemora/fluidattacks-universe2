@@ -38,9 +38,9 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
         <InternalContainer>
           <Title
             fColor={"#2e2e38"}
-            fSize={"48"}
+            fSize={"32"}
             marginBottom={"1.5"}
-            maxWidth={"670"}
+            maxWidth={"450"}
           >
             {translate.t("freeTrial.title")}
           </Title>

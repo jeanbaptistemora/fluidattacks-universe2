@@ -44,7 +44,11 @@ const InternalContainer = styled.div.attrs({
     center
     mv4
   `,
-})``;
+})`
+  > ul {
+    padding-left: 1rem;
+  }
+`;
 
 const ImageContainer = styled.div.attrs({
   className: `
