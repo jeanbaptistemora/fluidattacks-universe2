@@ -37,7 +37,7 @@ def insec_create(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.SYMB_INSEC_CREATE
+    method = MethodsEnum.CS_INSEC_CREATE
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:

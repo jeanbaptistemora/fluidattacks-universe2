@@ -1280,9 +1280,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    SYMB_INSEC_ADDHEADER_WRITE = MethodInfo(
+    CS_INSEC_ADDHEADER_WRITE = MethodInfo(
         file_name="c_sharp",
-        name="insec_addheader_write",
+        name="c_sharp_insec_addheader_write",
         module="lib_root",
         finding=FindingEnum.F008,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
@@ -1648,9 +1648,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    SYMB_XPATH_INJECTION = MethodInfo(
+    CS_XPATH_INJECTION = MethodInfo(
         file_name="c_sharp",
-        name="xpath_injection",
+        name="c_sharp_xpath_injection",
         module="lib_root",
         finding=FindingEnum.F021,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
@@ -2584,9 +2584,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
-    SYMB_INSEC_CREATE = MethodInfo(
+    CS_INSEC_CREATE = MethodInfo(
         file_name="c_sharp",
-        name="insec_create",
+        name="c_sharp_insec_create",
         module="lib_root",
         finding=FindingEnum.F100,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,

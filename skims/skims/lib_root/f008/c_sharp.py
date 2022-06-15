@@ -28,7 +28,7 @@ def insec_addheader_write(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.SYMB_INSEC_ADDHEADER_WRITE
+    method = MethodsEnum.CS_INSEC_ADDHEADER_WRITE
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:

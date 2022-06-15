@@ -16,7 +16,7 @@ def is_select_single_node(args: SymbolicEvalArgs) -> bool:
     return False
 
 
-def symb_xpath_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_xpath_injection(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     if check_http_inputs(args) or is_select_single_node(args):
         args.evaluation[args.n_id] = True
 

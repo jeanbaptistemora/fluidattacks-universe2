@@ -2,7 +2,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f100.member_access.c_sharp import (
-    symb_insec_create,
+    cs_insec_create,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -14,7 +14,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.SYMB_INSEC_CREATE: symb_insec_create,
+    MethodsEnum.CS_INSEC_CREATE: cs_insec_create,
 }
 
 

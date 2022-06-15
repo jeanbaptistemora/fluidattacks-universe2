@@ -2,7 +2,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f008.member_access.c_sharp import (
-    symb_insec_addheader_write,
+    cs_insec_addheader_write,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -14,7 +14,7 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.SYMB_INSEC_ADDHEADER_WRITE: symb_insec_addheader_write,
+    MethodsEnum.CS_INSEC_ADDHEADER_WRITE: cs_insec_addheader_write,
 }
 
 

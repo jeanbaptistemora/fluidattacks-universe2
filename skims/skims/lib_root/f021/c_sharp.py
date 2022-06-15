@@ -32,7 +32,7 @@ def xpath_injection(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.SYMB_XPATH_INJECTION
+    method = MethodsEnum.CS_XPATH_INJECTION
     c_sharp = GraphLanguage.CSHARP
 
     def n_ids() -> GraphShardNodes:

@@ -7,6 +7,6 @@ from symbolic_eval.types import (
 )
 
 
-def symb_insec_addheader_write(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+def cs_insec_addheader_write(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[args.n_id] = check_http_inputs(args)
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
