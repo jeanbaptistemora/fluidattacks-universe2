@@ -157,6 +157,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
                 commit=root_cloned.commit,
                 commit_date=root_cloned.commit_date,
             )
+            LOGGER.info("Changed the status of %s", root.state.nickname)
             cloned_roots_nicknames = (
                 *cloned_roots_nicknames,
                 root.state.nickname,
@@ -169,6 +170,7 @@ async def clone_roots(  # pylint: disable=too-many-locals
                 status=GitCloningStatus.FAILED,
                 message=root_cloned.message or "Clone failed",
             )
+            LOGGER.info("Failed to clone %s", root.state.nickname)
 
     findings = tuple(key for key in FINDINGS.keys() if is_check_available(key))
     if cloned_roots_nicknames:
