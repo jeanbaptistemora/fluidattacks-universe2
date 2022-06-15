@@ -38,8 +38,15 @@ more about roles
 [here](/machine/web/groups/roles).
 (Be sure to check out the
 [role table](/machine/web/groups/roles/#roles-table).)
+Below the user role information is
+the Feature preview option,
+which you can toggle on to enable
+early access to changes to the
+platform features,
+i.e.,
+before they are officially released.
 
-Under the user role information,
+Further down,
 there’s an option that says **API**.
 Clicking on it will allow you to
 generate an access token to
