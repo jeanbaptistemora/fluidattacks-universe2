@@ -13,13 +13,12 @@ import { object, string } from "yup";
 import { Button } from "components/Button";
 import { Input } from "components/Input";
 import { Modal, ModalFooter } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
 import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
-import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
+import { FormGroup, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -96,18 +95,7 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
           <Form>
             <Row>
               <FormGroup>
-                <ControlLabel>{}</ControlLabel>
-                <TooltipWrapper
-                  id={"addOrgTooltip"}
-                  message={t(`${tPath}nameTooltip`)}
-                  placement={"top"}
-                >
-                  <Input
-                    name={"name"}
-                    placeholder={t(`${tPath}name`)}
-                    type={"text"}
-                  />
-                </TooltipWrapper>
+                <Input name={"name"} placeholder={t(`${tPath}name`)} />
               </FormGroup>
             </Row>
             <ModalFooter>
