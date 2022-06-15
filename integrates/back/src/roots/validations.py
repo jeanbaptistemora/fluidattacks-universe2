@@ -202,8 +202,12 @@ async def validate_git_root_component(
             GitEnvironmentUrl
         ] = await loaders.git_environment_urls.load(root.id)
         env_urls = [*env_urls, *root.state.git_environment_urls]
-        if component not in [x.url for x in env_urls] and not is_valid_url(
-            component
+        print(component)
+        print([x.url for x in env_urls])
+        if (
+            component not in [x.url for x in env_urls]
+            and not is_valid_url(component)
+            and not any(component.startswith(x.url) for x in env_urls)
         ):
             raise InvalidUrl()
 
@@ -216,6 +220,7 @@ async def validate_git_root_component(
             if component == environment_url.url or component.startswith(
                 formatted_environment_url
             ):
+
                 return
         raise InvalidRootComponent()
 
