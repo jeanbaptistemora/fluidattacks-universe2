@@ -111,7 +111,7 @@ def test_group_analytics(
             "Vulnerabilities by source",
             "Total types",
             "Days until zero exposure",
-            "Vulnerabilities with not-defined treatment",
+            "Treatmentless vulnerabilities",
             "Vulnerabilities being re-attacked",
             "Days since last remediation",
             "Total vulnerabilities",
