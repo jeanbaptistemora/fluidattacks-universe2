@@ -29,15 +29,16 @@ one you subscribe to the ASM.
 Remember your privileges
 are attached to this
 email address.
+
 Differences in access
 privileges are managed depending
 on your role on the ASM,
 which is also shown on this menu.
 You can find out
 more about roles
-[here](/machine/web/groups/roles).
-(Be sure to check out the
-[role table](/machine/web/groups/roles/#roles-table).)
+[here](/machine/web/groups/roles)
+(be sure to check out the
+[role table](/machine/web/groups/roles/#roles-table)).
 Below the user role information is
 the Feature preview option,
 which you can toggle on to enable
