@@ -30,23 +30,27 @@ from typing import (
 )
 
 
-async def _get_event(*, event_id: str, group_name: str) -> Event:
+async def _get_event(*, event_id: str) -> Event:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_metadata"],
-        values={
-            "id": event_id,
-            "name": group_name,
-        },
+        values={"id": event_id},
     )
-    item = await operations.get_item(
+
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
         facets=(TABLE.facets["event_metadata"],),
-        key=primary_key,
+        limit=1,
         table=TABLE,
     )
-    if not item:
+
+    if not response.items:
         raise EventNotFound()
 
-    return format_event(item)
+    return format_event(response.items[0])
 
 
 async def _get_group_events(
@@ -111,14 +115,10 @@ class EventLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self,
-        event_keys: Iterable[tuple[str, str]],
+        event_keys: Iterable[str],
     ) -> tuple[Event, ...]:
-        # This loaders receives a tuple with (group_name, event_id)
         return await collect(
-            tuple(
-                _get_event(event_id=event_id, group_name=group_name)
-                for group_name, event_id in event_keys
-            )
+            tuple(_get_event(event_id=event_id) for event_id in event_keys)
         )
 
 
