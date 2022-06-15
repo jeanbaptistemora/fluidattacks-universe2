@@ -64,7 +64,7 @@ interface IEventsDataset {
   group: {
     events: {
       accessibility: string[];
-      affectedComponents: string;
+      affectedComponents: string[];
       closingDate: string;
       detail: string;
       eventDate: string;

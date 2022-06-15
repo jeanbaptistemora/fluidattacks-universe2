@@ -53,7 +53,7 @@ interface IAffectedReattacks {
 interface IEventDescriptionData {
   event: {
     accessibility: string[];
-    affectedComponents: string;
+    affectedComponents: string[];
     affectedReattacks: IAffectedReattacks[];
     hacker: string;
     client: string;
@@ -354,9 +354,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       <EditableField
                         alignField={"horizontalWide"}
                         component={FormikText}
-                        currentValue={t(
-                          castAffectedComponents(data.event.affectedComponents)
-                        )}
+                        currentValue={data.event.affectedComponents
+                          .map((item: string): string =>
+                            translate.t(castAffectedComponents(item))
+                          )
+                          .join(", ")}
                         label={t("searchFindings.tabEvents.affectedComponents")}
                         name={"affectedComponents"}
                         renderAsEditable={false}

@@ -10,7 +10,7 @@ import { translate } from "utils/translations/translate";
 
 interface IEventInput {
   accessibility: string[];
-  affectedComponents: string;
+  affectedComponents: string[];
   eventStatus: string;
   eventType: string;
 }
@@ -30,9 +30,9 @@ const formatEvents: (dataset: IEventInput[]) => IEventConfig[] = (
     const accessibility: string = event.accessibility
       .map((item: string): string => translate.t(formatAccessibility(item)))
       .join(", ");
-    const affectedComponents: string = translate.t(
-      castAffectedComponents(event.affectedComponents)
-    );
+    const affectedComponents: string = event.affectedComponents
+      .map((item: string): string => translate.t(castAffectedComponents(item)))
+      .join(", ");
 
     return {
       ...event,

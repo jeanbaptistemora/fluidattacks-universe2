@@ -11,9 +11,9 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> set[str]:
-    access: set[str] = (
-        set(str(parent["accessibility"]).split())
+    affected_components: set[str] = (
+        set(str(parent["affected_components"]).split("\n"))
         if parent["affected_components"]
         else set()
     )
-    return access
+    return affected_components

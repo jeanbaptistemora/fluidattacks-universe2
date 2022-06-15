@@ -21,7 +21,7 @@ describe("EventDescriptionView", (): void => {
         data: {
           event: {
             accessibility: ["REPOSITORY"],
-            affectedComponents: "-",
+            affectedComponents: ["-"],
             affectedReattacks: [],
             client: "Test",
             detail: "Something happened",

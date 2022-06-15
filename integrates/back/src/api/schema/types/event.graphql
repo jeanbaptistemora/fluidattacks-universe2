@@ -17,7 +17,7 @@ type Event {
       """
     )
   "Components involved or affected by the event, if applicable"
-  affectedComponents: String
+  affectedComponents: [AffectedComponents!]!
   """
   Vulnerabilities requested for a reattack that had to be put on hold
   because of this Event
