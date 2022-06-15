@@ -73,6 +73,7 @@ const formatAccessibility: (field: string) => string = (
   const eventAccessibility: Record<string, string> = {
     ENVIRONMENT: "group.events.form.accessibility.environment",
     REPOSITORY: "group.events.form.accessibility.repository",
+    VPN_CONNECTION: "group.events.form.accessibility.vpnConnection",
   };
 
   return eventAccessibility[field] ? eventAccessibility[field] : "-";

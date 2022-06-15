@@ -254,62 +254,6 @@ const AddModal: React.FC<IAddModalProps> = ({
                       <br />
                       <Field
                         component={FormikCheckbox}
-                        label={t("group.events.form.components.fluidStation")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"FLUID_STATION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.clientStation")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"CLIENT_STATION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toeExclusion")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_EXCLUSSION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.documentation")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"DOCUMENTATION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.localConn")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"LOCAL_CONNECTION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.internetConn")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"INTERNET_CONNECTION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.vpnConn")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"VPN_CONNECTION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toeLocation")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_LOCATION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
                         label={t("group.events.form.components.toeCredentials")}
                         name={"affectedComponents"}
                         type={"checkbox"}
@@ -324,26 +268,10 @@ const AddModal: React.FC<IAddModalProps> = ({
                       />
                       <Field
                         component={FormikCheckbox}
-                        label={t("group.events.form.components.testData")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TEST_DATA"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
                         label={t("group.events.form.components.toeUnstability")}
                         name={"affectedComponents"}
                         type={"checkbox"}
                         value={"TOE_UNSTABLE"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t(
-                          "group.events.form.components.toeUnaccessible"
-                        )}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_UNACCESSIBLE"}
                       />
                       <Field
                         component={FormikCheckbox}
@@ -354,31 +282,10 @@ const AddModal: React.FC<IAddModalProps> = ({
                       />
                       <Field
                         component={FormikCheckbox}
-                        label={t("group.events.form.components.toeAlteration")}
+                        label={t("group.events.form.components.testData")}
                         name={"affectedComponents"}
                         type={"checkbox"}
-                        value={"TOE_ALTERATION"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.sourceCode")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"SOURCE_CODE"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.compileError")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"COMPILE_ERROR"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.other")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"OTHER"}
+                        value={"TEST_DATA"}
                       />
                     </FormGroup>
                   </Col50>

@@ -483,6 +483,7 @@ export const enTranslations: ResourceKey = {
           environment: "Environment",
           repository: "Repository",
           title: "Accessibility",
+          vpnConnection: "VPN connectivity",
         },
         actionAfter: {
           otherOther: "Execute another group of a different client",

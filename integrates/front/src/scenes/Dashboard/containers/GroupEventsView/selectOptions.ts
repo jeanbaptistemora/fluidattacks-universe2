@@ -21,6 +21,8 @@ const accessibilityOptions: Record<string, string> = {
     "group.events.form.accessibility.environment",
   [translate.t("group.events.form.accessibility.repository")]:
     "group.events.form.accessibility.repository",
+  [translate.t("group.events.form.accessibility.vpnConnection")]:
+    "group.events.form.accessibility.vpnConnection",
 };
 const afectCompsOptions: Record<string, string> = {
   [translate.t(
