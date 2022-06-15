@@ -1,0 +1,38 @@
+{% extends "layouts/common.html" %}
+{% from 'layouts/components/forms.html' import banner_group, go_to_button %}
+
+{% block layout %}
+<div class="container">
+  {% include 'layouts/components/logo_header.html' %}
+  {{ banner_group('Welcome to Machine Plan </br> Its a pleasure for us to have
+    you as a client') }}
+
+  <div class="main-content">
+    <p>Hello {{ name }},</p>
+    <p>
+      After enjoying the free trial, you have agreed to subscribe to our Machine
+      Plan, and we warmly welcome you. You will continue to benefit in terms of
+      security thanks to the vulnerabilities we detect in your software quickly
+      and cost-effectively.
+    </p>
+    <p>
+      As a reminder, here are the benefits of using our
+      <strong>Machine Plan</strong>:
+    </p>
+    <ul>
+      <li>Control of the whole remediation process</li>
+      <li>Continuous vulnerability reporting</li>
+      <li>Attack Surface Manager (GraphQL API)</li>
+      <li>Automatic SAST, DAST and SCA</li>
+      <li>CI/CD DevSecOps</li>
+    </ul>
+    </br>
+    <p>Best Regards,
+      </br>
+      Fluid Attacks Team
+    </p>
+  </div>
+
+  {% include 'layouts/components/footer.html' %}
+</div>
+{% endblock %}
