@@ -34,7 +34,7 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
     bgColor: "transparent",
   },
   solid: {
-    bgColor: "#e9e9ed",
+    bgColor: "#f4f4f6",
   },
 };
 
@@ -43,7 +43,7 @@ const StyledInput = styled.input<IStyledInputProps>`
   border-radius: 4px;
   border: 1px solid #b0b0bf;
   box-sizing: border-box;
-  color: #000;
+  color: #121216;
   font-weight: 400;
   outline: none;
   padding: 10px 16px;
@@ -77,6 +77,7 @@ const Alert = styled.p<IAlertProps>`
 const Container = styled.div`
   font-family: "Roboto", sans-serif;
   max-width: 350px;
+  width: 100%;
 `;
 
 export type { IAlertProps, IStyledInputProps };

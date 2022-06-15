@@ -56,7 +56,7 @@ const Modal: React.FC<IModalProps> = ({
             <ScrollContainer>
               {children}
               {onConfirm ? (
-                <div className={"flex-row justify-between mt3"}>
+                <div className={"mt3"}>
                   <Button
                     id={"modal-confirm"}
                     onClick={onConfirm}
