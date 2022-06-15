@@ -13,14 +13,14 @@ any files that you find useful
 or necessary for performing
 penetration tests on the group.
 
-![File Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/scope/file_section_valeou.webp)
+![File Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1655303316/docs/web/groups/scope/file_section.png)
 
 You can add them
 by clicking on the **Add** button
 and then the following window
 will show up
 
-![Add File](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211894/docs/web/groups/scope/add_file_modal_nhjdcb.webp)
+![Add File](https://res.cloudinary.com/fluid-attacks/image/upload/v1655303316/docs/web/groups/scope/file_add_modal.png)
 
 Here you can look for the file
 that you want to upload,
@@ -38,7 +38,7 @@ and if you want to download it,
 you can click on it
 for the following window to show up
 
-![File Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211895/docs/web/groups/scope/file_options_modal_ojnsli.webp)
+![File Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1655303316/docs/web/groups/scope/file_options_modal.png)
 
 This way you can easily download
 or delete the file that you selected.
