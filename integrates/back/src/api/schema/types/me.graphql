@@ -4,6 +4,8 @@ type Me {
   accessToken: String!
   "Origin of the requests made to the endpoint by this user"
   callerOrigin: CallerOrigin!
+  "Credentials that belong to the stakeholder"
+  credentials: [Credentials!]
   "Indicates if user has mobile app"
   hasMobileApp: Boolean!
   "Indicator to see if there's more than one open session currently"
@@ -20,8 +22,10 @@ type Me {
   remember: Boolean!
   "Gets the user-level role of the current stakeholder/user"
   role: String!
-  """Unix timestamp representing the moment where the user's API access
-  token will expire"""
+  """
+  Unix timestamp representing the moment where the user's API access
+  token will expire
+  """
   sessionExpiration: String!
   "User subscriptions"
   subscriptionsToEntityReport: [EntityReportSubscription]

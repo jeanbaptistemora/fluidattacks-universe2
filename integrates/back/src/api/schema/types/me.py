@@ -3,6 +3,7 @@
 
 from api.resolvers.me import (
     access_token,
+    credentials,
     has_mobile_app,
     is_concurrent_session,
     notifications_preferences,
@@ -22,6 +23,7 @@ from ariadne import (
 
 ME = ObjectType("Me")
 ME.set_field("accessToken", access_token.resolve)
+ME.set_field("credentials", credentials.resolve)
 ME.set_field("hasMobileApp", has_mobile_app.resolve)
 ME.set_field("isConcurrentSession", is_concurrent_session.resolve)
 ME.set_field("organizations", organizations.resolve)
