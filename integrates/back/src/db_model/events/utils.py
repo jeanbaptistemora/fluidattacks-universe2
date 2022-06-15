@@ -106,3 +106,11 @@ def format_event_item(event: Event) -> Item:
         "context": event.context,
         "root_id": event.root_id,
     }
+
+
+def format_state(item: Item) -> EventState:
+    return EventState(
+        modified_by=item["modified_by"],
+        modified_date=item["modified_date"],
+        status=EventStateStatus[item["status"]],
+    )
