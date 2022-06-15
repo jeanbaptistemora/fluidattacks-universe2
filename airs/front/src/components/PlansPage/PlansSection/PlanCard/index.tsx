@@ -51,7 +51,7 @@ const PlanCard: React.FC<IPlansCard> = ({
               </NewRegularRedButton>
             </Link>
           ) : (
-            <Link to={"/contact-us"}>
+            <Link to={"/contact-us-demo"}>
               <PhantomRegularRedButton className={"mv4 w-100"}>
                 {"Request a demo"}
               </PhantomRegularRedButton>
