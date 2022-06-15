@@ -53,12 +53,14 @@ def format_ranges(language: str, range: str) -> str:
         return fix_npm_range(range)
 
 
-def get_remote_advisories(advisories: Dict[str, Any], language: str) -> dict:
+def get_community_advisories(
+    advisories: Dict[str, Any], language: str
+) -> dict:
     with tempfile.TemporaryDirectory() as tmp_dirname:
         log_blocking("info", "Cloning repository: advisories-community")
         Repo.clone_from(URL_ADVISORIES_COMMUNITY, tmp_dirname)
         filenames = sorted(
-            glob.glob(f"{tmp_dirname}/{language}/**/*yml", recursive=True)
+            glob.glob(f"{tmp_dirname}/{language}/**/*.yml", recursive=True)
         )
         log_blocking("info", "Processing vulnerabilities")
         for filename in filenames:

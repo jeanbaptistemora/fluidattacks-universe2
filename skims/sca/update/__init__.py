@@ -1,6 +1,6 @@
 import json
 from repositories.community_advisories import (
-    get_remote_advisories,
+    get_community_advisories,
 )
 import sys
 from typing import (
@@ -19,7 +19,8 @@ def main(language: str = None) -> None:
         return None
     language = sys.argv[1]
     advisories: Dict[str, Any] = {}
-    get_remote_advisories(advisories, language)
+    for fun in (get_community_advisories,):
+        fun(advisories, language)
 
     log_blocking("info", f"Creating file: {language}.json")
     with open(f"static/sca/{language}.json", "w") as outfile:
