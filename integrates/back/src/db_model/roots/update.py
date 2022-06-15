@@ -120,20 +120,20 @@ async def update_git_root_cloning(
             table=TABLE,
         )
 
-        historic_key = keys.build_key(
-            facet=TABLE.facets["git_root_historic_cloning"],
-            values={"uuid": root_id, "iso8601utc": cloning.modified_date},
-        )
-        historic_item = {
-            key_structure.partition_key: historic_key.partition_key,
-            key_structure.sort_key: historic_key.sort_key,
-            **cloning_item,
-        }
-        await operations.put_item(
-            facet=TABLE.facets["git_root_historic_cloning"],
-            item=historic_item,
-            table=TABLE,
-        )
+    historic_key = keys.build_key(
+        facet=TABLE.facets["git_root_historic_cloning"],
+        values={"uuid": root_id, "iso8601utc": cloning.modified_date},
+    )
+    historic_item = {
+        key_structure.partition_key: historic_key.partition_key,
+        key_structure.sort_key: historic_key.sort_key,
+        **cloning_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["git_root_historic_cloning"],
+        item=historic_item,
+        table=TABLE,
+    )
 
 
 async def update_unreliable_indicators(
