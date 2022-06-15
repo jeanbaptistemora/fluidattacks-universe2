@@ -820,7 +820,7 @@ class FindingEnum(Enum):
     )
     F342: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F346",
+        code="F342",
         cwe=200,
         execution_queue=ExecutionQueue.leak,
         requirements=[77, 176],
@@ -3246,6 +3246,14 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F338,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_USES_CONSOLE_LOG = MethodInfo(
+        file_name="javascript",
+        name="js_uses_console_log",
+        module="lib_path",
+        finding=FindingEnum.F342,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
     DANGEROUS_PERMISSIONS = MethodInfo(
