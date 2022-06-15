@@ -90,13 +90,15 @@ def format_data(event: dict[str, Any]) -> dict[str, Any]:
 
 
 def format_accessibility(accessibility: str) -> set[EventAccessibility]:
-    return set(
-        EventAccessibility.REPOSITORY
-        if item == "Repositorio"
-        else EventAccessibility.ENVIRONMENT
-        for item in accessibility.split()
-        if item in {"Repositorio", "Ambiente"}
-    )
+    accessibility_map = {
+        "Repositorio": EventAccessibility.REPOSITORY,
+        "Ambiente": EventAccessibility.ENVIRONMENT,
+        "VPN_CONNECTION": EventAccessibility.VPN_CONNECTION,
+    }
+
+    accessibility_list = accessibility.split()
+
+    return set(accessibility_map[item] for item in accessibility_list)
 
 
 def format_actions_after_blocking(action: str) -> EventActionsAfterBlocking:

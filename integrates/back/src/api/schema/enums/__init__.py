@@ -100,7 +100,11 @@ ENUMS: Tuple[EnumType, ...] = (
     ),
     EnumType(
         "EventAccessibility",
-        {"ENVIRONMENT": "Ambiente", "REPOSITORY": "Repositorio"},
+        {
+            "ENVIRONMENT": "Ambiente",
+            "REPOSITORY": "Repositorio",
+            "VPN_CONNECTION": "VPN_CONNECTION",
+        },
     ),
     EnumType(
         "SolveEventReason",

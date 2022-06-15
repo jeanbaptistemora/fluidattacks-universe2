@@ -6,6 +6,7 @@ from enum import (
 class EventAccessibility(str, Enum):
     ENVIRONMENT: str = "ENVIRONMENT"
     REPOSITORY: str = "REPOSITORY"
+    VPN_CONNECTION: str = "VPN_CONNECTION"
 
 
 class EventActionsAfterBlocking(str, Enum):
