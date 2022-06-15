@@ -1,11 +1,5 @@
-from custom_exceptions import (
-    InvalidParameter,
-)
 from dataloaders import (
     get_new_context,
-)
-from db_model.credentials.types import (
-    CredentialItem,
 )
 from db_model.enums import (
     CredentialType,
@@ -56,43 +50,17 @@ def test_format_credential_key() -> None:
     )
 
 
-def test_format_root_credential() -> None:
-    credentials = {"key": "VGVzdCBTU0ggS2V5bgo=", "name": "", "type": "SSH"}
-    with pytest.raises(InvalidParameter):
-        roots_domain._format_root_credential(
-            credentials=credentials,
-            group_name="group1",
-            user_email="admin@gmail.com",
-            root_id="f052c6ca-587b-48ee-a0f7-299f0dd8402a",
-        )
-
-    credentials.update({"name": "SSH Key"})
-    assert isinstance(
-        roots_domain._format_root_credential(
-            credentials=credentials,
-            group_name="group1",
-            user_email="admin@gmail.com",
-            root_id="f052c6ca-587b-48ee-a0f7-299f0dd8402a",
-        ),
-        CredentialItem,
-    )
-
-
 @pytest.mark.parametrize(
     "url_input,expected",
     [
         (
-            (
-                "https://mycompany@dev.azure.com/"
-                "mycompany/myproject/_git/myproject"
-            ),
+            "https://mycompany@dev.azure.com/"
+            "mycompany/myproject/_git/myproject",
             "https://dev.azure.com/mycompany/myproject/_git/myproject",
         ),
         (
-            (
-                "https://mycompany@dev.azure.com:30/"
-                "mycompany/myproject/_git/myproject"
-            ),
+            "https://mycompany@dev.azure.com:30/"
+            "mycompany/myproject/_git/myproject",
             "https://dev.azure.com:30/mycompany/myproject/_git/myproject",
         ),
         (

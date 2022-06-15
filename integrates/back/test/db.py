@@ -25,6 +25,7 @@ from db_model import (
     vulnerabilities as vulns_model,
 )
 from db_model.credentials.types import (
+    Credential,
     CredentialItem,
 )
 from db_model.findings.enums import (
@@ -466,6 +467,13 @@ async def populate_toe_lines(data: Tuple[ToeLines, ...]) -> bool:
 async def populate_credentials(data: Tuple[CredentialItem, ...]) -> bool:
     await collect(
         (creds_model.add(credential=credential)) for credential in data
+    )
+    return True
+
+
+async def populate_credentials_new(data: Tuple[Credential, ...]) -> bool:
+    await collect(
+        (creds_model.add_new(credential=credential)) for credential in data
     )
     return True
 

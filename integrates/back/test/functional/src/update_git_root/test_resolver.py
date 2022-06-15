@@ -47,6 +47,7 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     )
     cred_new_name = "New SSH Key"
     group_name: str = "group1"
+    organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     result: Dict[str, Any] = await get_result_1(
         user=email,
         group=group_name,
@@ -57,6 +58,8 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     assert result["data"]["updateGitRoot"]["success"]
 
     loaders = get_new_context()
-    credentials = await loaders.group_credentials.load(group_name)
+    credentials = await loaders.organization_credentials_new.load(
+        organization_id
+    )
     credential_names = [credential.state.name for credential in credentials]
     assert cred_new_name in credential_names

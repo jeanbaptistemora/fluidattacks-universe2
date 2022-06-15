@@ -6,9 +6,13 @@ from batch.enums import (
     Action,
 )
 from db_model.credentials.types import (
+    Credential,
     CredentialItem,
     CredentialMetadata,
+    CredentialNewState,
     CredentialState,
+    HttpsPatSecret,
+    SshSecret,
 )
 from db_model.enums import (
     CredentialType,
@@ -48,6 +52,72 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
+        "credentials_new": (
+            Credential(
+                id="3912827d-2b35-4e08-bd35-1bb24457951d",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialNewState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.SSH,
+                    secret=SshSecret(key="VGVzdCBTU0gK"),
+                ),
+            ),
+            Credential(
+                id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialNewState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.SSH,
+                    secret=SshSecret(key="VGVzdCBTU0gK"),
+                ),
+            ),
+            Credential(
+                id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialNewState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.SSH,
+                    secret=SshSecret(key="VGVzdCBTU0gK"),
+                ),
+            ),
+            Credential(
+                id="5a6dacda-2d63-76c-6269-f6fd6dfe1000",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialNewState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.SSH,
+                    secret=SshSecret(
+                        key=os.environ["TEST_GITHUB_SSH_PRIVATE_KEY"]
+                    ),
+                ),
+            ),
+            Credential(
+                id="6a7dacda-3d64-87c-7370-f7fd7dfe2111",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialNewState(
+                    modified_by="admin@gmail.com",
+                    modified_date="2022-02-10T14:58:10+00:00",
+                    name="SSH Key",
+                    type=CredentialType.HTTPS,
+                    secret=HttpsPatSecret(
+                        token=os.environ["TEST_GITHUB_API_TOKEN"]
+                    ),
+                ),
+            ),
+        ),
         "credentials": (
             CredentialItem(
                 group_name="group1",
@@ -124,6 +194,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
+                        credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
                         environment_urls=[],
                         environment="production",
                         git_environment_urls=[],
@@ -154,6 +225,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
+                        credential_id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
                         environment_urls=[],
                         environment="production",
                         git_environment_urls=[],
@@ -183,6 +255,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
+                        credential_id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
                         environment_urls=[],
                         environment="production",
                         git_environment_urls=[],
@@ -275,6 +348,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="main",
+                        credential_id="5a6dacda-2d63-76c-6269-f6fd6dfe1000",
                         environment_urls=[],
                         environment="production",
                         git_environment_urls=[],
@@ -304,6 +378,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="main",
+                        credential_id="6a7dacda-3d64-87c-7370-f7fd7dfe2111",
                         environment_urls=[],
                         environment="production",
                         git_environment_urls=[],
