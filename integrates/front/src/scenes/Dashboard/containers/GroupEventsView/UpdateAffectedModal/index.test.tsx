@@ -27,7 +27,7 @@ describe("Update Affected Modal", (): void => {
       group: {
         events: [
           {
-            accessibility: "Repository",
+            accessibility: ["REPOSITORY"],
             affectedComponents: "",
             closingDate: "-",
             detail: "Test description",

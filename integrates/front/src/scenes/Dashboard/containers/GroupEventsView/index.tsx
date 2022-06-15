@@ -63,7 +63,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 interface IEventsDataset {
   group: {
     events: {
-      accessibility: string;
+      accessibility: string[];
       affectedComponents: string;
       closingDate: string;
       detail: string;
@@ -417,7 +417,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       t,
     ]
   );
-
   const dataset = data === undefined ? [] : formatEvents(data.group.events);
   const hasOpenEvents = dataset.some(
     (event: IEventConfig): boolean =>

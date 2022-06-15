@@ -1,6 +1,9 @@
 from aiodataloader import (
     DataLoader,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -9,22 +12,23 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any],
+    parent: Union[dict[str, Any], Event],
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> List[Vulnerability]:
-    event_id = str(parent["id"])
-
+) -> list[Vulnerability]:
+    if isinstance(parent, dict):
+        event_id = str(parent["id"])
+    else:
+        event_id = parent.id
     event_vulns_loader: DataLoader = (
         info.context.loaders.event_vulnerabilities_loader
     )
-    vulns = await event_vulns_loader.load((event_id))
+    vulns = await event_vulns_loader.load(event_id)
 
     if vulns is None:
         return []

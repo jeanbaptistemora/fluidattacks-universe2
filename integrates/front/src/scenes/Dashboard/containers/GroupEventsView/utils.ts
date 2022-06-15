@@ -8,6 +8,12 @@ import {
 } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
+interface IEventInput {
+  accessibility: string[];
+  affectedComponents: string;
+  eventStatus: string;
+  eventType: string;
+}
 interface IEventConfig {
   accessibility: string;
   affectedComponents: string;
@@ -15,15 +21,15 @@ interface IEventConfig {
   eventType: string;
 }
 
-const formatEvents: (dataset: IEventConfig[]) => IEventConfig[] = (
-  dataset: IEventConfig[]
+const formatEvents: (dataset: IEventInput[]) => IEventConfig[] = (
+  dataset: IEventInput[]
 ): IEventConfig[] =>
-  dataset.map((event: IEventConfig): IEventConfig => {
+  dataset.map((event: IEventInput): IEventConfig => {
     const eventType: string = translate.t(castEventType(event.eventType));
     const eventStatus: string = translate.t(castEventStatus(event.eventStatus));
-    const accessibility: string = translate.t(
-      formatAccessibility(event.accessibility)
-    );
+    const accessibility: string = event.accessibility
+      .map((item: string): string => translate.t(formatAccessibility(item)))
+      .join(", ");
     const affectedComponents: string = translate.t(
       castAffectedComponents(event.affectedComponents)
     );

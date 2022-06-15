@@ -71,8 +71,8 @@ const formatAccessibility: (field: string) => string = (
   field: string
 ): string => {
   const eventAccessibility: Record<string, string> = {
-    Ambiente: "group.events.form.accessibility.environment",
-    Repositorio: "group.events.form.accessibility.repository",
+    ENVIRONMENT: "group.events.form.accessibility.environment",
+    REPOSITORY: "group.events.form.accessibility.repository",
   };
 
   return eventAccessibility[field] ? eventAccessibility[field] : "-";

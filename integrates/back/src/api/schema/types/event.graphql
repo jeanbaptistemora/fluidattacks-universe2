@@ -1,7 +1,7 @@
 "Event type definition"
 type Event {
   "Where the event was present"
-  accessibility: String
+  accessibility: [EventAccessibility!]!
   "Actions after getting blocked by an event"
   actionAfterBlocking: ActionsAfterBlocking
     @deprecated(
