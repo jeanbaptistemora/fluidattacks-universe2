@@ -6252,7 +6252,24 @@
   title: OWASP Privacy Risks
   en:
     summary: >
-      __empty__
+      The OWASP Privacy Risks Project provides
+      a list for privacy risks in web
+      applications and related countermeasures,
+      furthermore,
+      it covers technological and
+      organizational aspects that
+      focus on real-life risks.
+      The project provides tips on
+      how to implement privacy by
+      design in web applications with
+      the aim of helping developers
+      and web application providers
+      to better understand and
+      improve privacy.
+      The version used in this section
+      is OWASP Top 10 Privacy
+      Risks version 2.0,
+      2014.
   es:
     summary: __empty__
   definitions:
