@@ -6259,4 +6259,49 @@
     "P1":
       title: Web application vulnerabilities
       link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P2":
+      title: Operator-sided data leakage
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P3":
+      title: Insufficient data breach response
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P4":
+      title: Consent on everything
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P5":
+      title:  Non-transparent policies, terms and conditions
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P6":
+      title: Insufficient deletion of personal data
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P7":
+      title: Insufficient data quality
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P8":
+      title: Missing or insufficient session expiration
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P9":
+      title: Inability of users to access and modify data
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P10":
+      title: Collection of data not required for the user-consented purpose
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P12":
+      title: Sharing of data with third party
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P14":
+      title: Insecure data transfer
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P15":
+      title: Transfer or processing through third party
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P16":
+      title: Misleading content
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P17":
+      title: Collection without consent
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+    "P20":
+      title: Form field design issues
+      link: https://owasp.org/www-project-top-10-privacy-risks/
   metadata: {}
