@@ -6,6 +6,7 @@ import React from "react";
 import {
   BlackContainer,
   Container,
+  ImageContainer,
   InternalContainer,
   WhiteContainer,
 } from "./styledComponents";
@@ -28,11 +29,12 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
   return (
     <Container>
       <WhiteContainer>
-        <CloudImage
-          alt={"Fluid Logo"}
-          src={"airs/logo_fluid_attacks_2021_eqop3k"}
-          styles={"absolute"}
-        />
+        <ImageContainer>
+          <CloudImage
+            alt={"Fluid Logo"}
+            src={"airs/logo_fluid_attacks_2021_eqop3k"}
+          />
+        </ImageContainer>
         <InternalContainer>
           <Title
             fColor={"#2e2e38"}

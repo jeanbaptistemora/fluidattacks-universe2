@@ -16,15 +16,14 @@ const WhiteContainer = styled.div.attrs({
     w-50-l
     w-100
     flex
+    flex-wrap
     ph5
     items-center
-    relative
+    flex-column
+    justify-center
   `,
 })`
   background-color: #f4f4f6;
-  > img {
-    top: 50px;
-  }
 `;
 
 const BlackContainer = styled.div.attrs({
@@ -43,7 +42,20 @@ const InternalContainer = styled.div.attrs({
   className: `
     mw-1366
     center
+    mv4
   `,
 })``;
 
-export { BlackContainer, Container, InternalContainer, WhiteContainer };
+const ImageContainer = styled.div.attrs({
+  className: `
+    mw-1366
+  `,
+})``;
+
+export {
+  BlackContainer,
+  Container,
+  ImageContainer,
+  InternalContainer,
+  WhiteContainer,
+};
