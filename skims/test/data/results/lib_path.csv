@@ -10108,6 +10108,221 @@ F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13
   17 | }
      ^ Col 0
 ",csharp.csharp_info_leak_errors
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+   1 |
+   2 | try {
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+>  6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,13,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+   6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+> 13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,20,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+> 20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,27,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+> 27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,36,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+> 36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+  44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,44,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+> 44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+  47 |
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f052/javascript.js,16,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f052/javascript.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+   6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+> 16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,5,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,"
+    1 | function functionAWithConsoleLog() {
+    2 |     var a = 13
+    3 |     var b = 31
+    4 |     var c = Math.floor((Math.random() * 100) + 1);
+>   5 |     console.log()
+    6 |     localStorage.getItem('key');
+    7 |     try {
+    8 |         if(a == """") throw ""empty"";
+    9 |         if(isNaN(a)) throw ""not a number"";
+   10 |         c = Number(a);
+   11 |         if(c < 5) throw ""too low"";
+   12 |         if(c > 10) throw ""too high"";
+   13 |         eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
+   14 |     }
+   15 |     catch(err) {
+   16 |         // a comment
+   17 |         /* a comment */
+   18 |         /*
+   19 |             a comment
+   20 |         */
+   21 |     }
+      ^ Col 0
+",javascript.js_uses_console_log
+F342,lines,namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,67,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,"
+   57 |             break;
+   58 |         case 6:
+   59 |             day = ""Saturday"";
+   60 |             break;
+   61 |     }
+   62 | }
+   63 |
+   64 | function functionBWithConsoleLog() {
+   65 |     var a = 13
+   66 |     var b = 31
+>  67 |     console.log(a+b)
+   68 |     localStorage.clear();
+   69 |     try {
+   70 |         if(a == """") throw ""empty"";
+   71 |         if(isNaN(a)) throw ""not a number"";
+   72 |         c = Number(a);
+   73 |         if(c < 5) throw ""too low"";
+   74 |         if(c > 10) throw ""too high"";
+   75 |     }
+   76 |     catch(err) {
+   77 |         //console.log(a+b)
+      ^ Col 0
+",javascript.js_uses_console_log
 F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
