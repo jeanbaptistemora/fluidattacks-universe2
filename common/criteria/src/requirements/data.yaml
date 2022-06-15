@@ -89,6 +89,7 @@
     - "c2m2.4_1_c"
     - "wasc.W_47"
     - "issaf.T_19_1"
+    - "owasprisks.P8"
   metadata: {}
 "024":
   en:
@@ -120,6 +121,7 @@
     - "iec62443.CR-3_1-RE_1"
     - "wassec.6_2_2_5"
     - "osstmm3.10_7_2"
+    - "owasprisks.P14"
   metadata: {}
 "025":
   en:
@@ -262,6 +264,7 @@
     - "pci.6_5_10"
     - "mitre.M1036"
     - "cmmc.AC_L2-3_1_10"
+    - "owasprisks.P8"
   metadata: {}
 "028":
   en:
@@ -323,6 +326,7 @@
     - "pci.6_5_10"
     - "fedramp.AC-2_5"
     - "wassec.3_1"
+    - "owasprisks.P8"
   metadata: {}
 "029":
   en:
@@ -427,6 +431,7 @@
     - "issaf.T_19_1"
     - "issaf.V_10"
     - "ptes.5_2_3_1"
+    - "owasprisks.P17"
   metadata: {}
 "030":
   en:
@@ -520,6 +525,7 @@
     - "wasc.A_37"
     - "wasc.W_47"
     - "issaf.T_19_1"
+    - "owasprisks.P17"
   metadata: {}
 "031":
   en:
@@ -589,6 +595,7 @@
     - "hitrust.01_t"
     - "iec62443.SI-3_8"
     - "wassec.3_1"
+    - "owasprisks.P8"
   metadata: {}
 "032":
   en:
@@ -905,6 +912,7 @@
     - "issaf.P_6_15"
     - "issaf.Q_16_20"
     - "issaf.Y_3_4"
+    - "owasprisks.P2"
   metadata: {}
 "036":
   en:
@@ -2653,6 +2661,7 @@
     - "c2m2.4_1_c"
     - "wasc.W_02"
     - "nistssdf.PW_1_1"
+    - "owasprisks.P8"
   metadata: {}
 "115":
   en:
@@ -3792,6 +3801,7 @@
     - "c2m2.4_1_e"
     - "issaf.Q_16_20"
     - "issaf.U_9"
+    - "owasprisks.P6"
   metadata: {}
 "145":
   en:
@@ -4421,6 +4431,7 @@
     - "iec62443.SI-3_2"
     - "osstmm3.10_9_3"
     - "c2m2.7_2_h"
+    - "owasprisks.P1"
   metadata: {}
 "156":
   en:
@@ -4855,6 +4866,7 @@
     - "issaf.T_6_4"
     - "issaf.Y_3_1"
     - "ptes.5_5_7"
+    - "owasprisks.P15"
   metadata: {}
 "162":
   en:
@@ -5365,6 +5377,7 @@
     - "ptes.5_2_3_1"
     - "ptes.6_2_3"
     - "ptes.7_4_2_3"
+    - "owasprisks.P7"
   metadata: {}
 "174":
   en:
@@ -5401,6 +5414,7 @@
     - "wassec.6_1_2"
     - "wassec.6_2_3_5"
     - "wasc.A_09"
+    - "owasprisks.P20"
   metadata: {}
 "175":
   en:
@@ -5599,6 +5613,9 @@
     - "issaf.V_6_1"
     - "ptes.5_2_3_2"
     - "ptes.7_2_1"
+    - "owasprisks.P1"
+    - "owasprisks.P2"
+    - "owasprisks.P7"
   metadata: {}
 "177":
   en:
@@ -5672,6 +5689,7 @@
     - "wasc.W_13"
     - "nistssdf.PS_3_1"
     - "ptes.7_4_4_2"
+    - "owasprisks.P20"
   metadata: {}
 "178":
   en:
@@ -5955,6 +5973,7 @@
     - "ptes.3_6_1_3_2"
     - "ptes.6_7_4"
     - "ptes.7_4_4_2"
+    - "owasprisks.P14"
   metadata: {}
 "183":
   en:
@@ -6075,6 +6094,7 @@
     - "c2m2.9_5_b"
     - "nistssdf.PW_6_2"
     - "ptes.6_2_1_1"
+    - "owasprisks.P1"
   metadata: {}
 "185":
   en:
@@ -6281,6 +6301,7 @@
     - "c2m2.9_3_c"
     - "c2m2.9_3_d"
     - "wasc.W_17"
+    - "owasprisks.P2"
   metadata: {}
 "189":
   en:
@@ -6362,6 +6383,9 @@
     - "hitrust.13_a"
     - "hitrust.13_d"
     - "lgpd.26"
+    - "owasprisks.P4"
+    - "owasprisks.P10"
+    - "owasprisks.P16"
   metadata: {}
 "205":
   en:
@@ -6842,6 +6866,7 @@
     - "c2m2.9_5_d"
     - "nistssdf.PS_2_1"
     - "ptes.7_7"
+    - "owasprisks.P2"
   metadata: {}
 "225":
   en:
@@ -7151,6 +7176,7 @@
     - "wasc.W_01"
     - "ferpa.D_31_c"
     - "issaf.Y_3_1"
+    - "owasprisks.P7"
   metadata: {}
 "231":
   en:
@@ -8066,6 +8092,8 @@
     - "ferpa.D_35_b_1"
     - "nistssdf.PW_1_1"
     - "issaf.T_19_2"
+    - "owasprisks.P1"
+    - "owasprisks.P2"
   metadata: {}
 "262":
   en:
@@ -8175,6 +8203,8 @@
     - "nistssdf.PW_4_4"
     - "ptes.4_3_4"
     - "ptes.5_2_3_3"
+    - "owasprisks.P12"
+    - "owasprisks.P15"
   metadata: {}
 "264":
   en:
@@ -8498,6 +8528,8 @@
     - "ptes.7_3_1_3"
     - "ptes.7_3_1_5"
     - "ptes.7_4_4_1"
+    - "owasprisks.P1"
+    - "owasprisks.P3"
   metadata: {}
 "273":
   en:
@@ -8699,6 +8731,7 @@
     - "wasc.W_13"
     - "nistssdf.PW_1_1"
     - "ptes.7_2_1"
+    - "owasprisks.P2"
   metadata: {}
 "301":
   en:
@@ -8991,6 +9024,9 @@
     - "lgpd.11_I"
     - "lgpd.14-1"
     - "lgpd.18_VI"
+    - "owasprisks.P4"
+    - "owasprisks.P10"
+    - "owasprisks.P17"
   metadata: {}
 "311":
   en:
@@ -9124,6 +9160,7 @@
     - "lgpd.15_III"
     - "lgpd.18_IX"
     - "lgpd.60"
+    - "owasprisks.P4"
   metadata: {}
 "313":
   en:
@@ -9194,6 +9231,7 @@
     - "hitrust.11_a"
     - "iec62443.SI-3_7"
     - "nistssdf.RV_2_2"
+    - "owasprisks.P3"
   metadata: {}
 "314":
   en:
@@ -9264,6 +9302,8 @@
     - "lgpd.18_I"
     - "lgpd.19"
     - "c2m2.7_2_h"
+    - "owasprisks.P12"
+    - "owasprisks.P15"
   metadata: {}
 "315":
   en:
@@ -9383,6 +9423,12 @@
     - "lgpd.14-2"
     - "lgpd.23_I"
     - "c2m2.7_2_h"
+    - "owasprisks.P5"
+    - "owasprisks.P6"
+    - "owasprisks.P10"
+    - "owasprisks.P12"
+    - "owasprisks.P15"
+    - "owasprisks.P17"
   metadata: {}
 "316":
   en:
@@ -9445,6 +9491,7 @@
     - "lgpd.18_III"
     - "lgpd.20"
     - "c2m2.7_2_h"
+    - "owasprisks.P9"
   metadata: {}
 "317":
   en:
@@ -9512,6 +9559,8 @@
     - "lgpd.60"
     - "c2m2.1_2_i"
     - "c2m2.7_2_h"
+    - "owasprisks.P6"
+    - "owasprisks.P9"
   metadata: {}
 "318":
   en:
@@ -9589,6 +9638,7 @@
     - "lgpd.8-6"
     - "lgpd.9_VII-2"
     - "c2m2.7_2_h"
+    - "owasprisks.P7"
   metadata: {}
 "319":
   en:
@@ -10483,6 +10533,7 @@
     - "wassec.8_4_1"
     - "osstmm3.9_1_1"
     - "ptes.7_2_1"
+    - "owasprisks.P5"
   metadata: {}
 "332":
   en:
@@ -10732,6 +10783,7 @@
     - "wassec.3_4"
     - "osstmm3.8_7_2"
     - "wasc.W_47"
+    - "owasprisks.P8"
   metadata: {}
 "336":
   en:
@@ -10990,6 +11042,8 @@
     - "issaf.A_2_7"
     - "ptes.2_17_1"
     - "ptes.4_5_3"
+    - "owasprisks.P14"
+    - "owasprisks.P15"
   metadata: {}
 "339":
   en:
@@ -12155,6 +12209,7 @@
     - "cmmc.AC_L2-3_1_9"
     - "fedramp.SI-5"
     - "iec62443.IAC-1_12"
+    - "owasprisks.P8"
   metadata: {}
 "359":
   en:
@@ -12288,6 +12343,7 @@
     - "c2m2.1_2_i"
     - "c2m2.4_1_e"
     - "ferpa.D_35_b_2"
+    - "owasprisks.P6"
   metadata: {}
 "361":
   en:
@@ -12425,6 +12481,7 @@
     - "fedramp.PE-3"
     - "iec62443.CR-1_1-RE_2"
     - "c2m2.4_1_b"
+    - "owasprisks.P2"
   metadata: {}
 "363":
   en:
@@ -12664,6 +12721,7 @@
     - "hitrust.01_u"
     - "iec62443.CR-3_1-RE_1"
     - "wasc.W_47"
+    - "owasprisks.P8"
   metadata: {}
 "370":
   en:
