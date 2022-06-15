@@ -2,19 +2,18 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useTranslation } from "react-i18next";
 
+import { ModalConfirm } from "./Confirm";
 import { ModalFooter } from "./Footer";
 import { Container, Dialog, Header, Title } from "./styles";
 
-import { Button, ButtonOpacity } from "components/Button";
+import { ButtonOpacity } from "components/Button";
 import { ScrollContainer } from "components/ScrollContainer";
 
 interface IModalProps {
   children: React.ReactNode;
   minWidth?: number;
   onClose?: () => void;
-  onConfirm?: () => void;
   open: boolean;
   title: React.ReactNode | string;
 }
@@ -24,10 +23,8 @@ const Modal: React.FC<IModalProps> = ({
   minWidth = 300,
   title,
   onClose,
-  onConfirm,
   open,
 }: IModalProps): JSX.Element | null => {
-  const { t } = useTranslation();
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
@@ -53,29 +50,7 @@ const Modal: React.FC<IModalProps> = ({
                 </ButtonOpacity>
               ) : undefined}
             </Header>
-            <ScrollContainer>
-              {children}
-              {onConfirm ? (
-                <div className={"mt3"}>
-                  <Button
-                    id={"modal-confirm"}
-                    onClick={onConfirm}
-                    variant={"primary"}
-                  >
-                    {t("components.modal.confirm")}
-                  </Button>
-                  <span className={"ml3"}>
-                    <Button
-                      id={"modal-cancel"}
-                      onClick={onClose}
-                      variant={"secondary"}
-                    >
-                      {t("components.modal.cancel")}
-                    </Button>
-                  </span>
-                </div>
-              ) : undefined}
-            </ScrollContainer>
+            <ScrollContainer>{children}</ScrollContainer>
           </Dialog>
         </Container>,
         document.body
@@ -84,4 +59,4 @@ const Modal: React.FC<IModalProps> = ({
 };
 
 export type { IModalProps };
-export { Modal, ModalFooter };
+export { Modal, ModalConfirm, ModalFooter };

@@ -5,7 +5,7 @@ import type { PropsWithChildren } from "react";
 import React, { useCallback, useState } from "react";
 
 import type { IModalProps } from ".";
-import { Modal, ModalFooter } from ".";
+import { Modal, ModalConfirm, ModalFooter } from ".";
 import { Button } from "components/Button";
 
 const config: Meta = {
@@ -34,9 +34,10 @@ const Template: Story<PropsWithChildren<IModalProps>> = (
       <Button onClick={openModal} variant={"primary"}>
         {"Open modal"}
       </Button>
-      <Modal {...props} onClose={closeModal} onConfirm={onConfirm}>
+      <Modal {...props} onClose={closeModal}>
         <p>{"Modal body goes here"}</p>
         <p>{`Count: ${count}`}</p>
+        <ModalConfirm onCancel={closeModal} onConfirm={onConfirm} />
       </Modal>
     </React.Fragment>
   );
