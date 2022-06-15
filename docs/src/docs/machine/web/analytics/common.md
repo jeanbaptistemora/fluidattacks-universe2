@@ -27,7 +27,7 @@ A type is a group of vulnerabilities
 on your system related to the same
 attack vector.
 
-## Vulnerabilities with not-defined treatment
+## Treatmentless vulnerabilities
 
 Number of vulnerabilities without
 a remediation plan specified by
