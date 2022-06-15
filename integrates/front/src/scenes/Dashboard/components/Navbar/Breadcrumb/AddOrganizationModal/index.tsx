@@ -10,15 +10,13 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { object, string } from "yup";
 
-import { Button } from "components/Button";
 import { Input } from "components/Input";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ADD_NEW_ORGANIZATION } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/queries";
 import type {
   IAddOrganizationModalProps,
   IAddOrganizationMtProps,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/AddOrganizationModal/types";
-import { FormGroup, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -93,19 +91,12 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
           validationSchema={validations}
         >
           <Form>
-            <Row>
-              <FormGroup>
-                <Input name={"name"} placeholder={t(`${tPath}name`)} />
-              </FormGroup>
-            </Row>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button disabled={submitting} type={"submit"} variant={"primary"}>
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <Input name={"name"} placeholder={t(`${tPath}name`)} />
+            <ModalConfirm
+              disabled={submitting}
+              onCancel={onClose}
+              onConfirm={"submit"}
+            />
           </Form>
         </Formik>
       </Modal>
