@@ -45,15 +45,15 @@ const PlanCard: React.FC<IPlansCard> = ({
             {description}
           </Paragraph>
           {isMachine ? (
-            <Link to={"/contact-us"}>
+            <Link to={"/free-trial"}>
               <NewRegularRedButton className={"mv4 w-100"}>
-                {"Contact sales"}
+                {"Start free trial"}
               </NewRegularRedButton>
             </Link>
           ) : (
             <Link to={"/contact-us"}>
               <PhantomRegularRedButton className={"mv4 w-100"}>
-                {"Contact sales"}
+                {"Request a demo"}
               </PhantomRegularRedButton>
             </Link>
           )}

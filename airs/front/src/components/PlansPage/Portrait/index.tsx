@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
 import React from "react";
 
@@ -8,7 +9,11 @@ import {
   PortraitContainer,
 } from "./styledComponents";
 
-import { NewRegularRedButton } from "../../../styles/styledComponents";
+import {
+  FlexCenterItemsContainer,
+  NewRegularRedButton,
+  PhantomRegularRedButton,
+} from "../../../styles/styledComponents";
 import { translate } from "../../../utils/translations/translate";
 import { CloudImage } from "../../CloudImage";
 import { Paragraph, Title } from "../../Texts";
@@ -37,9 +42,18 @@ const Portrait: React.FC = (): JSX.Element => {
           >
             {translate.t("plansPage.portrait.paragraph")}
           </Paragraph>
-          <Link to={"/contact-us"}>
-            <NewRegularRedButton>{"Contact sales"}</NewRegularRedButton>
-          </Link>
+          <FlexCenterItemsContainer className={"flex-wrap"}>
+            <Link to={"/free-trial/"}>
+              <NewRegularRedButton className={"mh2 mv3"}>
+                {"Start free trial"}
+              </NewRegularRedButton>
+            </Link>
+            <Link to={"/contact-us-demo/"}>
+              <PhantomRegularRedButton className={"mh2"}>
+                {"Request a demo"}
+              </PhantomRegularRedButton>
+            </Link>
+          </FlexCenterItemsContainer>
         </CardContainer>
       </PortraitContainer>
     </Container>
