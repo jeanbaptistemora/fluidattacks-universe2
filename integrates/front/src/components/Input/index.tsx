@@ -8,6 +8,7 @@ import { CustomInput } from "./CustomInput";
 const Input: FC<IInputProps> = ({
   alertType,
   onBlur,
+  onFocus,
   onKeyDown,
   disabled,
   name,
@@ -21,6 +22,7 @@ const Input: FC<IInputProps> = ({
     disabled={disabled}
     name={name}
     onBlur={onBlur}
+    onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}
     type={type}
