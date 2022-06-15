@@ -4253,12 +4253,33 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      The app has no methods to check if Android System is rooted
-    compliant: |
+      A not recommended method to check for rooting could be testing for test-keys, which is correlated but does not guarantee root access
       ```java
       private static boolean checkRootMethod1() {
         String buildTags = android.os.Build.TAGS;
         return buildTags != null && buildTags.contains("test-keys");
+      }
+      ```
+    compliant: |
+      Better methods to check for root access include examples like this one, that runs the su command to verify root access
+      ```java
+      public static boolean isRootGiven(){
+        if (isRootAvailable()) {
+          Process process = null;
+          try {
+            process = Runtime.getRuntime().exec(new String[]{"su", "-c", "id"});
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String output = in.readLine();
+            if (output != null && output.toLowerCase().contains("uid=0"))
+              return false;
+          } catch (Exception e) {
+            e.printStackTrace();
+          } finally {
+            if (process != null)
+              process.destroy();
+          }
+        }
+        return true;
       }
       ```
   remediation_time: "120"
@@ -9429,26 +9450,34 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Different header configurations between front-end and back end servers allow a potential attacker to infiltrate the backend server by sending a request to the front end that is ultimately interpreted by the back end
       ```http
-      //Back end server onfiguration with Proxy
-      ServerRoot "myserver"
-      Listen 10.1.2.3:8087
-      User nobody
-      Group nobody
-      ProxyRequests On
+      //Front end server uses the content-length header
+      POST /search HTTP/1.1
+      Host: vulnerable-website.com
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 11
 
-      //Front end server configuration with Firewall settings
-      Firewall set portopening
-        protocol = TCP
-        port = 1433
-        name = SQLPort
-        mode = ENABLE
-        scope = SUBNET
-        profile = CURRENT
+      //Back end server uses the Transfer-Encoding header
+      POST / HTTP/1.1
+      Host: vulnerable-website.com
+      Content-Length: 13
+      Transfer-Encoding: chunked
       ```
     compliant: |
-      ```http
       The front end and back end servers should share the same web server configuration
+      ```http
+      //Front end server uses the content-length header
+      POST /search HTTP/1.1
+      Host: normal-website.com
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 11
+
+      //Back end server uses the Transfer-Encoding header
+      POST / HTTP/1.1
+      Host: normal-website.com
+      Content-Type: application/x-www-form-urlencoded
+      Content-Length: 11
       ```
   remediation_time: "45"
   score:
@@ -13848,9 +13877,20 @@
   category: Collect Information
   examples:
     non_compliant: |
-      Some of the apk binary files are not obfuscated with any method.
+      you may have a function like this in the source code:
+      ```javascript
+      const rateLimit = require("express-rate-limit");
+      const apiLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: None
+      });
+      ```
+      This could be accesed by an attacker and it is easy to understand its purpose
     compliant: |
-      The binary files can not be uncompiled because some form of encryption obfuscation
+      Applying some obfuscation technique, the function above could be mabe uninteligible to an attacker
+      ```javascript
+      function _0x5760(){const _0x5b43e6=['318ZFoYzZ','13572pkItrl','2840LJWeoj','express-rate-limit','1464175ucMfwb','651524FvQCOL','2517774aEwpWg','2888lRwrdU','6748SYAhfv','1686jgfuoM','169575nYzNCZ'];_0x5760=function(){return _0x5b43e6;};return _0x5760();}const _0x1b2ce3=_0x49ea;function _0x49ea(_0x1abde5,_0x4c6e26){const _0x576075=_0x5760();return _0x49ea=function(_0x49eadd,_0x427b84){_0x49eadd=_0x49eadd-0xaf;let _0x5cf1f9=_0x576075[_0x49eadd];return _0x5cf1f9;},_0x49ea(_0x1abde5,_0x4c6e26);}(function(_0x1a041f,_0x32de2e){const _0x3f5060=_0x49ea,_0x335ce6=_0x1a041f();while(!![]){try{const _0x42fc9f=parseInt(_0x3f5060(0xb0))/0x1*(parseInt(_0x3f5060(0xb9))/0x2)+parseInt(_0x3f5060(0xaf))/0x3+-parseInt(_0x3f5060(0xb5))/0x4+-parseInt(_0x3f5060(0xb4))/0x5+-parseInt(_0x3f5060(0xb6))/0x6+-parseInt(_0x3f5060(0xb8))/0x7*(-parseInt(_0x3f5060(0xb7))/0x8)+parseInt(_0x3f5060(0xb1))/0x9*(parseInt(_0x3f5060(0xb2))/0xa);if(_0x42fc9f===_0x32de2e)break;else _0x335ce6['push'](_0x335ce6['shift']());}catch(_0xcc228){_0x335ce6['push'](_0x335ce6['shift']());}}}(_0x5760,0x370fa));const rateLimit=require(_0x1b2ce3(0xb3)),apiLimiter=rateLimit({'windowMs':0xf*0x3c*0x3e8,'max':None});
+      ```
   remediation_time: "60"
   score:
     base:
@@ -17620,12 +17660,33 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      Source code does not check if app is being run on an emulator
-    compliant: |
-      There are several methods to check if an app is being run on an emulator
+      Source code does not sufficiently check if the app is being run on an emulator
       ```java
       private boolean isEmulator() {
         return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+      }
+      ```
+    compliant: |
+      The methods used to check if the app is being run on an emulator should be as strong as possible given current techiniques
+      ```java
+      private boolean isEmulator() {
+      return (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+              || Build.FINGERPRINT.startsWith("generic")
+              || Build.FINGERPRINT.startsWith("unknown")
+              || Build.HARDWARE.contains("goldfish")
+              || Build.HARDWARE.contains("ranchu")
+              || Build.MODEL.contains("google_sdk")
+              || Build.MODEL.contains("Emulator")
+              || Build.MODEL.contains("Android SDK built for x86")
+              || Build.MANUFACTURER.contains("Genymotion")
+              || Build.PRODUCT.contains("sdk_google")
+              || Build.PRODUCT.contains("google_sdk")
+              || Build.PRODUCT.contains("sdk")
+              || Build.PRODUCT.contains("sdk_x86")
+              || Build.PRODUCT.contains("sdk_gphone64_arm64")
+              || Build.PRODUCT.contains("vbox86p")
+              || Build.PRODUCT.contains("emulator")
+              || Build.PRODUCT.contains("simulator");
       }
       ```
   remediation_time: "120"
@@ -19977,13 +20038,48 @@
   examples:
     non_compliant: |
       The source code includes direct access to SourceMap files
-      ```html
-      <head>
-        <link rel="sourcemap" href="js.map">
-      </head>
+      ```javascript
+      (function() {
+        var greet, greetButton, person;
+        person = document.getElementById('person');
+        greet = function(greeting) {
+          return console.log(greeting + " " + person.value);
+        };
+        person.addEventListener("focus", function() {
+          return person.value = "";
+        });
+        greetButton = document.getElementById('greet');
+        greetButton.addEventListener("click", function() {
+          var greeting, helloOption;
+          helloOption = document.querySelector("#hello");
+          greeting = helloOption.checked ? "Hello" : "Goodbye";
+          return greet(greeting);
+        });
+      }).call(this);
+
+      //# sourceMappingURL=http://example.com/path/to/your/sourcemap.map</pre>
       ```
     compliant: |
       The sourceMap files should only be used to debug production code but should not be included in the source code
+      ```javascript
+      (function() {
+        var greet, greetButton, person;
+        person = document.getElementById('person');
+        greet = function(greeting) {
+          return console.log(greeting + " " + person.value);
+        };
+        person.addEventListener("focus", function() {
+          return person.value = "";
+        });
+        greetButton = document.getElementById('greet');
+        greetButton.addEventListener("click", function() {
+          var greeting, helloOption;
+          helloOption = document.querySelector("#hello");
+          greeting = helloOption.checked ? "Hello" : "Goodbye";
+          return greet(greeting);
+        });
+      }).call(this);
+      ```
   remediation_time: "15"
   score:
     base:
@@ -23541,15 +23637,50 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      Source code could be executed after vulnerable adjustments
-    compliant: |
+      Source code could be executed after vulnerable adjustments because of an incorrectly implemented integrity check
       ```java
-      //A function with this pseudocode should be implemented to check if the source code has been altered before running the app
-      fun isCodeModified(): Boolean {
-        val hash = getString(R.string.crc)
-        val entry = ZipFile(app.packageCodePath).getEntry("classes.dex")
-        val classesCrc = Long.toHexString(entry.crc)
-        return classesCrc != hash
+      public static boolean checkDexCrcValue() {
+        String apkPath = BaseApplication.getInstance().getPackageCodePath();
+        Long dexCrc = Long.parseLong(QianJinSuoApplication.getInstance().getString(R.string.classesdex_crc));
+        try {
+          ZipFile zipfile = new ZipFile(apkPath);
+          ZipEntry dexentry = zipfile.getEntry("classes.dex");
+          #The CRC32 check could be bypassed anyway because of debugging code included in the function
+          Log.i("checkDexCrcValue", "classes.dexcrc=" + dexentry.getCrc());
+          if (dexentry.getCrc() == dexCrc) {
+            return true;
+          }
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        return false;
+      }
+      ```
+    compliant: |
+      A function implemented to check if the source code has been altered before running the app.
+      A possible option is to include a MD5 hash within the code, generated at each build, and adding a check to the code to ensure that this hash is the same as the one stored before running the app
+      ```java
+      public static boolean checkApkSha(){
+        String apkPath = appExample.getInstance().getPackageCodePath();
+        MessageDigest msgDigest = null;
+        try {
+          msgDigest = MessageDigest.getInstance("SHA-1");
+          byte[] bytes = new byte[1024];
+          int byteCount;
+          FileInputStream fis = new FileInputStream(new File(apkPath));
+          while ((byteCount = fis.read(bytes)) > 0){
+            msgDigest.update(bytes, 0, byteCount);
+          }
+          BigInteger bi = new BigInteger(1, msgDigest.digest());
+          String sha = bi.toString(16);
+          fis.close();
+          if(BaseApplication.getInstance().getString(R.string.apk_sha).equals(sha)){
+            return true;
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        return false;
       }
       ```
   remediation_time: "450"
@@ -32399,8 +32530,61 @@
   examples:
     non_compliant: |
       The app provides a different ftps when a query is successful than when the login has failed because of a delay in getting the data
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username;
+        String password;
+        username = input.next();
+        password = input.next();
+
+        try {
+          Thread.sleep(5000);
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                users check = new users(username, password);
+                signIn(user, check)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+          }
+        } catch (InterruptedException e) {
+          //Code to catch the exception that executes faster than the login code...
+        }
+      }
+      ```
     compliant: |
       The application defines the same timing frame functions without distinguishing outcomes of queries
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username;
+        String password;
+        username = input.next();
+        password = input.next();
+
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                users check = new users(username, password);
+                signIn(user, check)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+          }
+        } catch (InterruptedException e) {
+          //The code to catch the exception takes the same amount of time to execute, on purpose
+          ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                failedSignin(user)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+        }
+      }
+      ```
   remediation_time: "120"
   es:
     title: Cross-Site Leak - Frame Counting
@@ -35081,7 +35265,7 @@
       Perform harmful actions without raising an alert.
     recommendation: >
       Enable auditing on the Kubernetes API Server and
-      set the desired audit log path. 
+      set the desired audit log path.
     threat: >
       Authenticated attacker from the Internet.
   category: Abuse Functionality
@@ -35136,7 +35320,7 @@
       Habilite la auditoría en el servidor API de Kubernetes y configure
       la ruta de registro de auditoría deseada.
     threat: >
-      Atacante autenticado desde internet. 
+      Atacante autenticado desde internet.
   score:
     base:
       attack_vector: "L"
