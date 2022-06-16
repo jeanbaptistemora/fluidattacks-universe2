@@ -30,16 +30,6 @@ NPM_SECURE_PACKAGE = "test/static/sca/npm/close/package.json"
 #
 
 
-def test_uses_console_log_open():
-    """Search console.log calls."""
-    assert javascript.uses_console_log(INSECURE_CODE)
-
-
-def test_uses_console_log_in_dir_open():
-    """Search console.log calls."""
-    assert javascript.uses_console_log(CODE_DIR)
-
-
 def test_uses_localstorage_open():
     """Search localStorage calls."""
     assert javascript.uses_localstorage(INSECURE_CODE)
@@ -106,39 +96,9 @@ def test_uses_eval_in_dir_open():
     assert javascript.uses_eval(CODE_DIR)
 
 
-def test_has_vulnerable_dependencies_open():
-    """Search eval function calls."""
-    dependencies = {"lodash": ["4.14.116"], "jquery": ["3.3.29"]}
-    result = javascript.has_vulnerable_dependencies(
-        NPM_INSECURE_PACKAGE, dependencies
-    )
-    assert result.is_open()
-    assert result.get_vulns_number() == 1 + 1
-
-
 #
 # Closing tests
 #
-
-
-def test_has_vulnerable_dependencies_close():
-    """Search eval function calls."""
-    dependencies = {
-        "react-i18next": ["8.3.9"],
-    }
-    assert javascript.has_vulnerable_dependencies(
-        NPM_SECURE_PACKAGE, dependencies
-    ).is_closed()
-    assert javascript.has_vulnerable_dependencies(
-        NOT_EXISTANT_CODE, dependencies
-    ).is_unknown()
-
-
-def test_uses_console_log_close():
-    """Search console.log calls."""
-    assert not javascript.uses_console_log(SECURE_CODE)
-    assert not javascript.uses_console_log(CODE_DIR, exclude=["test"])
-    assert not javascript.uses_console_log(NOT_EXISTANT_CODE)
 
 
 def test_uses_localstorage_close():
