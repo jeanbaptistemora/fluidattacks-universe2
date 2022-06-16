@@ -67,4 +67,10 @@ type Event {
   id: String
   "Type of hacking subscription"
   subscription: String
+  @deprecated(
+      reason: """
+      This field will be removed after 2022/12/16.
+      Use Group `subscription` instead.
+      """
+    )
 }
