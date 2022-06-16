@@ -20,7 +20,6 @@ module "cluster" {
 
   eks_managed_node_groups = {
     development = {
-      min_size = 1
       max_size = 10
 
       instance_types = [
@@ -29,6 +28,24 @@ module "cluster" {
         "m5d.xlarge",
         "m5ad.xlarge",
       ]
+
+      labels = {
+        worker_group = "development"
+      }
+    }
+    production = {
+      max_size = 10
+
+      instance_types = [
+        "m5.large",
+        "m5a.large",
+        "m5d.large",
+        "m5ad.large",
+      ]
+
+      labels = {
+        worker_group = "production"
+      }
     }
   }
 

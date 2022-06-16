@@ -5,6 +5,8 @@ module "eks" {
   cluster_version = "1.19"
   enable_irsa     = true
 
+  write_kubeconfig = false
+
   subnets = [
     for subnet in data.aws_subnet.main : subnet.id
   ]
