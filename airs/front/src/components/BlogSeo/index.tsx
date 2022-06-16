@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 interface ISeoProps {
   title?: string;
   date?: string;
+  dateModified?: string;
   description?: string;
   url?: string;
   author?: string;
@@ -16,6 +17,7 @@ interface ISeoProps {
 const BlogSeo: React.FC<ISeoProps> = ({
   title,
   date,
+  dateModified,
   description,
   url,
   author,
@@ -23,6 +25,7 @@ const BlogSeo: React.FC<ISeoProps> = ({
 }: ISeoProps): JSX.Element => {
   const siteTitle: string = title!;
   const siteDate: string = date!;
+  const siteDateModified: string = dateModified!;
   const siteDescription: string = description!;
   const siteUrl: string = url!;
   const siteAuthor: string = author!;
@@ -48,7 +51,7 @@ const BlogSeo: React.FC<ISeoProps> = ({
             "address": "95 3rd St, 2nd Floor",
             "location": "San Francisco, CA, 94107, Estados Unidos"
           },
-          "dateModified": "${siteDate}",
+          "dateModified": "${siteDateModified}",
           "mainEntityOfPage": "${siteUrl}",
           "description": "${siteDescription}"
         }
@@ -61,6 +64,7 @@ const BlogSeo: React.FC<ISeoProps> = ({
 BlogSeo.propTypes = {
   author: string,
   date: string,
+  dateModified: string,
   description: string,
   image: string,
   title: string,
@@ -71,6 +75,7 @@ BlogSeo.propTypes = {
 BlogSeo.defaultProps = {
   author: "",
   date: "",
+  dateModified: "",
   description: "",
   image: "",
   title: "",

@@ -2,6 +2,7 @@
 slug: devsecops-concept/
 title: What Is DevSecOps?
 date: 2020-05-14
+modified: 2022-06-13
 subtitle: Best practices and a description of the basics
 category: philosophy
 tags: security, devops, software, training, company, cybersecurity

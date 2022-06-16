@@ -52,6 +52,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
     description,
     image,
     keywords,
+    modified,
     slug,
     subtitle,
     tags,
@@ -74,6 +75,9 @@ const BlogsIndex: React.FC<IQueryData> = ({
       <BlogSeo
         author={author}
         date={fDate}
+        dateModified={
+          modified ? utc(modified.toLocaleString()).format("LL") : fDate
+        }
         description={description}
         image={image.replace(".webp", ".png")}
         title={`${decode(title)} | Fluid Attacks`}
@@ -164,6 +168,7 @@ export const query: void = graphql`
         author
         category
         date
+        modified
         description
         image
         keywords

@@ -30,6 +30,7 @@ interface IQueryData {
         description: string;
         image: string;
         keywords: string;
+        modified: string;
         partnersindex: string;
         phrase: string;
         product: string;
