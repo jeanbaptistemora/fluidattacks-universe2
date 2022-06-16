@@ -27,8 +27,8 @@ def get_vulnerabilities_ranges(
         ecosystem: str = package.get("ecosystem")
         if ecosystem.lower() != language:
             continue
-        pkg_name = package.get("name")
-        ranges: List[dict] = pkg_obj.get("ranges")
+        pkg_name: str = package.get("name").lower()
+        ranges: List[dict] = pkg_obj.get("ranges") or []
         for range in ranges:
             events: List[dict] = range.get("events")
             str_range: str
