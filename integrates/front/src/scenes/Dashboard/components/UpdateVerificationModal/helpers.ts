@@ -31,7 +31,7 @@ const handleRequestVerification = (
 };
 
 const handleRequestVerificationError = (error: unknown): void => {
-  switch (String(error)) {
+  switch (String(error).replace(/^Error: /u, "")) {
     case "Exception - Request verification already requested":
       msgError(translate.t("groupAlerts.verificationAlreadyRequested"));
       break;
@@ -40,6 +40,9 @@ const handleRequestVerificationError = (error: unknown): void => {
       break;
     case "Exception - Vulnerability not found":
       msgError(translate.t("groupAlerts.noFound"));
+      break;
+    case "Exception - Access denied or credential not found":
+      msgError(translate.t("group.scope.git.sync.noCredentials"));
       break;
     default:
       msgError(translate.t("groupAlerts.errorTextsad"));

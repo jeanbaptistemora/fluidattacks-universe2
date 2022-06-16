@@ -117,8 +117,14 @@ const MachineView: React.FC = (): JSX.Element => {
     graphQLErrors,
   }: ApolloError): void => {
     graphQLErrors.forEach((error: GraphQLError): void => {
-      Logger.warning("An error occurred submitting job", error);
-      msgError(translate.t("groupAlerts.errorTextsad"));
+      switch (error.message) {
+        case "Exception - Access denied or credential not found":
+          msgError(translate.t("group.scope.git.sync.noCredentials"));
+          break;
+        default:
+          Logger.warning("An error occurred submitting job", error);
+          msgError(translate.t("groupAlerts.errorTextsad"));
+      }
     });
   };
   const [submitMachineJob, { loading: submittingMachineJob }] = useMutation(
