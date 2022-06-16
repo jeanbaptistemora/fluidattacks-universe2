@@ -225,7 +225,7 @@ Additionally to the practices summarized above,
 our advice at `Fluid Attacks` is to search for vulnerabilities
 in your software third-party components
 and your own code
-throughout the entire software development life cycle.
+throughout the entire software development lifecycle.
 Our automated and manual [Software Composition Analysis](../../categories/sca/)
 helps you identify issues
 that you can fix to prevent falling victim to supply chain attacks.
