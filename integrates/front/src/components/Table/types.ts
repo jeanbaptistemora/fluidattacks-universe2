@@ -104,6 +104,7 @@ interface IHeaderConfig extends Omit<ColumnDescription, "text" | "width"> {
   approveFunction?: (arg1?: Record<string, string>) => void;
   changeFunction?: (arg1: Readonly<Record<string, string>>) => void;
   deleteFunction?: (arg1?: Record<string, string>) => void;
+  editFunction?: (arg1?: Record<string, string>) => void;
   onSort?: (dataField: string, order: SortOrder) => void;
 }
 
