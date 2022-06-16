@@ -243,6 +243,13 @@ const AddModal: React.FC<IAddModalProps> = ({
                       type={"checkbox"}
                       value={"repository"}
                     />
+                    <Field
+                      component={FormikCheckbox}
+                      label={t("group.events.form.accessibility.vpnConnection")}
+                      name={"accessibility"}
+                      type={"checkbox"}
+                      value={"vpn_connection"}
+                    />
                   </FormGroup>
                 </Col50>
                 {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (

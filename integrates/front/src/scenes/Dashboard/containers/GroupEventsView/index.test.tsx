@@ -146,7 +146,7 @@ describe("EventsView", (): void => {
     );
     expect(
       screen.getAllByRole("checkbox", { name: "accessibility" })
-    ).toHaveLength(2);
+    ).toHaveLength(3);
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("file")).toHaveLength(1);
     expect(screen.getAllByTestId("image")).toHaveLength(1);
