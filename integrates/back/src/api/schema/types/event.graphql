@@ -43,7 +43,7 @@ type Event {
   "Current status of the Event"
   eventStatus: String
   "The kind of event that happened"
-  eventType: String
+  eventType: EventType
   "Filename of the event evidence"
   evidence: String
   "Upload date of evidence image"
@@ -58,6 +58,11 @@ type Event {
   hacker: String
   "List of historic configurations of the Event"
   historicState: [GenericScalar]
+  @deprecated(
+      reason: """
+      This field will be removed after 2022/12/16.
+      """
+    )
   "Identifier of the event"
   id: String
   "Type of hacking subscription"
