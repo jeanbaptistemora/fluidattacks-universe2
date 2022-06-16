@@ -23,7 +23,7 @@ interface ILastMachineExecutions {
 }
 
 interface IDescriptionProps {
-  cloningStatus: { message: string };
+  cloningStatus: { message: string; status: string };
   environment: string;
   gitEnvironmentUrls: IEnvironmentUrl[];
   gitignore: string[];
@@ -137,7 +137,8 @@ const Description = ({
           {":"}&nbsp;
           {lastMachineExecutions.complete === null
             ? t("group.scope.git.repo.machineExecutions.noExecutions")
-            : lastMachineExecutions.complete.stoppedAt === null
+            : lastMachineExecutions.complete.stoppedAt === null &&
+              cloningStatus.status === "OK"
             ? t("group.scope.git.repo.machineExecutions.active")
             : lastMachineExecutions.complete.stoppedAt}
         </Col50>

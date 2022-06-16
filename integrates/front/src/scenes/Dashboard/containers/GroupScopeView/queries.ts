@@ -143,6 +143,7 @@ const GET_GIT_ROOT_DETAILS = gql`
       ... on GitRoot {
         cloningStatus {
           message
+          status
         }
         environment
         environmentUrls
