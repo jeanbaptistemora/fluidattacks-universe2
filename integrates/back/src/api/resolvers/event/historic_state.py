@@ -10,7 +10,7 @@ async def resolve(
     parent: dict[str, Any],
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> str:
-    detail = parent["historic_state"]
+) -> list[dict[str, str]]:
+    historic_state = parent["historic_state"]
 
-    return detail
+    return historic_state
