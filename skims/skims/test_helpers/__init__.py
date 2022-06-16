@@ -25,6 +25,7 @@ def create_test_context(
             include=(),
         ),
         checks=set(core_model.FindingEnum),
+        dast=None,
         group=None,
         http=core_model.SkimsHttpConfig(
             include=(),

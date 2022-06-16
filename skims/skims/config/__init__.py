@@ -87,6 +87,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 include=config_apk.pop("include", ()),
             ),
             checks=load_checks(config),
+            dast=None,
             group=group,
             http=core_model.SkimsHttpConfig(
                 include=config_http.pop("include", ()),

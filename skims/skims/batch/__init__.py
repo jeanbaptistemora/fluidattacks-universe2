@@ -253,6 +253,7 @@ async def main(  # pylint: disable=too-many-locals)
             nickname=current_root.nickname,
             gitignore=current_root.gitignore,
             download_url=download_url,
+            git_environment_urls=current_root.git_environment_urls,
         )
 
     log_blocking("info", "Downloading roots")

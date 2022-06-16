@@ -69,6 +69,7 @@ async def test_generate_config(test_group: str) -> None:
             include=("glob(**/*.apk)",),
         ),
         checks=({FindingEnum.F001, FindingEnum.F008}),
+        dast=None,
         group=test_group,
         http=SkimsHttpConfig(
             include=(

@@ -316,6 +316,7 @@ async def get_group_open_severity(
 class ResultGetGroupRoots(NamedTuple):
     id: str
     environment_urls: List[str]
+    git_environment_urls: List[Dict[str, List[Dict[str, str]]]]
     nickname: str
     gitignore: List[str]
     download_url: Optional[str] = None
@@ -336,6 +337,15 @@ async def get_group_roots(
                     roots {
                         ... on GitRoot {
                             environmentUrls
+                            gitEnvironmentUrls {
+                              url
+                              id
+                              secrets {
+                                value
+                                key
+                              }
+                              urlType
+                            }
                             nickname
                             url
                             id
@@ -359,6 +369,7 @@ async def get_group_roots(
                 nickname=root["nickname"],
                 gitignore=root["gitignore"],
                 id=root["id"],
+                git_environment_urls=root["gitEnvironmentUrls"],
             )
             for root in result["data"]["group"]["roots"]
         )

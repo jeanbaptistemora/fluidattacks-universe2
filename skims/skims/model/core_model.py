@@ -1087,6 +1087,15 @@ class SkimsSslConfig(NamedTuple):
     include: Tuple[SkimsSslTarget, ...]
 
 
+class SkimsDastConfig(NamedTuple):
+    aws_credentials: List[Optional[AwsCredentials]]
+
+
+class AwsCredentials(NamedTuple):
+    access_key_id: str
+    secret_access_key: str
+
+
 class SkimsConfig(NamedTuple):
     apk: SkimsAPKConfig
     checks: Set[FindingEnum]
@@ -1099,6 +1108,7 @@ class SkimsConfig(NamedTuple):
     ssl: SkimsSslConfig
     start_dir: str
     working_dir: str
+    dast: Optional[SkimsDastConfig]
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

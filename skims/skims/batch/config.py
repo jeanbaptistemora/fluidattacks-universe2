@@ -8,10 +8,12 @@ from integrates.graphql import (
     create_session,
 )
 from model.core_model import (
+    AwsCredentials,
     FindingEnum,
     LocalesEnum,
     SkimsAPKConfig,
     SkimsConfig,
+    SkimsDastConfig,
     SkimsHttpConfig,
     SkimsPathConfig,
     SkimsSslConfig,
@@ -296,8 +298,33 @@ async def generate_config(
     scopes: Set[str] = set()
     urls: List[str] = []
     ssl_targets: List[Tuple[str, str]] = []
+    dast_config: Optional[SkimsDastConfig] = None
     if is_main:
-        scopes = await get_scopes_from_group(group_name, namespace)
+        roots = await get_group_roots(group=group_name)
+        scopes = {
+            environment_url
+            for root in roots
+            for environment_url in root.environment_urls
+            if root.nickname == namespace
+        }
+        secrets = {
+            secret["key"]: secret["value"]
+            for root in roots
+            for environment_url in root.git_environment_urls
+            if root.nickname == namespace
+            and environment_url["urlType"] == "cloud"  # type: ignore
+            for secret in environment_url["secrets"]
+        }
+        if (key_id := secrets.get("AWS_ACCESS_KEY_ID")) and (
+            secret := secrets.get("AWS_SECRET_ACCESS_KEY")
+        ):
+            dast_config = SkimsDastConfig(
+                aws_credentials=[
+                    AwsCredentials(
+                        access_key_id=key_id, secret_access_key=secret
+                    )
+                ]
+            )
         urls = get_urls_from_scopes(scopes)
         ssl_targets = get_ssl_targets(urls)
 
@@ -315,6 +342,7 @@ async def generate_config(
             if checks
             else set(FindingEnum)
         ),
+        dast=dast_config,
         group=group_name,
         http=SkimsHttpConfig(
             include=tuple(urls),
