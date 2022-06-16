@@ -7,11 +7,21 @@ from botocore.exceptions import (
 from context import (
     FI_AWS_S3_BUCKET,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
+from db_model.events.types import (
+    Event,
+    EventState,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
+from newutils import (
+    events as events_utils,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -41,6 +51,15 @@ async def add(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def add_typed(
+    *,
+    event: Event,
+) -> None:
+    item = events_utils.format_event_item(event)
+    if not await dynamodb_ops.put_item(TABLE_NAME, item):
+        raise UnavailabilityError()
 
 
 async def get_event(event_id: str) -> dict[str, Any]:
@@ -117,3 +136,20 @@ async def update(event_id: str, data: dict[str, Any]) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_state(
+    *,
+    event_id: str,
+    group_name: str,
+    state: EventState,
+) -> None:
+    event_item = await get_event(event_id=event_id)
+    current_historic = event_item["historic_state"]
+    state_to_add = events_utils.format_state_item(state)
+    historic_state = [*current_historic, state_to_add]
+    if not await update(
+        event_id=event_id,
+        data={"historic_state": historic_state, "project_name": group_name},
+    ):
+        raise UnavailabilityError()

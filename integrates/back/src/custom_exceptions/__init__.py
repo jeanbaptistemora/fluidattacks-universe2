@@ -678,9 +678,9 @@ class InvalidParameter(CustomBaseException):
     def __init__(self, field: str = "") -> None:
         """Constructor"""
         if field:
-            msg = f"Exception - Field {field} cannot be empty"
+            msg = f"Exception - Field {field} is invalid"
         else:
-            msg = "Exception - Error empty value is not valid"
+            msg = "Exception - Error value is not valid"
         super(InvalidParameter, self).__init__(msg)
 
 
