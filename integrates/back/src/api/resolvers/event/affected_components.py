@@ -5,7 +5,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.events import (
-    format_affected_components_item,
+    format_affected_components,
 )
 from typing import (
     Any,
@@ -19,19 +19,14 @@ async def resolve(
     **_kwargs: None,
 ) -> set[str]:
     if isinstance(parent, dict):
-        affected_components: set[str] = (
-            set(str(parent["affected_components"]).split("\n"))
-            if parent["affected_components"]
-            else set()
+        if not parent["affected_components"]:
+            return set()
+        affected_components = format_affected_components(
+            parent["affected_components"]
         )
     else:
-        affected_components = (
-            set(
-                format_affected_components_item(
-                    parent.affected_components
-                ).split("\n")
-            )
-            if parent.affected_components
-            else set()
-        )
-    return affected_components
+        if not parent.affected_components:
+            return set()
+        affected_components = parent.affected_components
+
+    return set(item.value for item in affected_components)

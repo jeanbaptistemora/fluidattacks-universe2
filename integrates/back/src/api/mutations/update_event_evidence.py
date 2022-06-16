@@ -1,11 +1,11 @@
-# None
-
-
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
     SimplePayload,
+)
+from db_model.events.enums import (
+    EventEvidenceType,
 )
 from decorators import (
     concurrent_decorators,
@@ -41,10 +41,11 @@ async def mutate(
     file: UploadFile,
 ) -> SimplePayload:
     success = False
-    if await events_domain.validate_evidence(evidence_type, file):
+    evidence_type_enum = EventEvidenceType[evidence_type]
+    if await events_domain.validate_evidence(evidence_type_enum, file):
         success = await events_domain.update_evidence(
             event_id,
-            evidence_type,
+            evidence_type_enum,
             file,
             get_now(),
         )

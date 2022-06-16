@@ -31,6 +31,7 @@ from db_model import (
 from db_model.events.enums import (
     EventAccessibility,
     EventAffectedComponents,
+    EventEvidenceType,
     EventStateStatus,
     EventType,
 )
@@ -143,7 +144,7 @@ async def add_comment(
     return success
 
 
-async def add_event(  # pylint: disable=too-many-locals
+async def add_event(
     loaders: Any,
     hacker_email: str,
     group_name: str,
@@ -156,10 +157,10 @@ async def add_event(  # pylint: disable=too-many-locals
     root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
         raise InvalidParameter(field="rootId")
-    if file and not await validate_evidence("evidence_file", file):
+    if file and not await validate_evidence(EventEvidenceType.FILE, file):
         raise InvalidParameter(field="evidenceFile")
-    if image and not await validate_evidence("evidence", image):
-        raise InvalidParameter(field="evidence")
+    if image and not await validate_evidence(EventEvidenceType.IMAGE, image):
+        raise InvalidParameter(field="evidenceImage")
 
     tzn = pytz.timezone(TIME_ZONE)
     event_date: datetime = kwargs["event_date"].astimezone(tzn)
@@ -167,18 +168,20 @@ async def add_event(  # pylint: disable=too-many-locals
         raise InvalidDate()
 
     group: Group = await loaders.group.load(group_name)
-    affected_components: Optional[set[EventAffectedComponents]] = None
-    if "affected_components" in kwargs:
-        affected_components_str = "\n".join(
-            list(set(kwargs["affected_components"]))
-        )
-        affected_components = events_utils.format_affected_components(
-            affected_components_str
-        )
     accessibility: Optional[set[EventAccessibility]] = None
     if "accessibility" in kwargs:
-        accessibility_str = " ".join(list(set(kwargs["accessibility"])))
-        accessibility = events_utils.format_accessibility(accessibility_str)
+        accessibility = set(
+            EventAccessibility[item]
+            for item in kwargs["accessibility"]
+            if item
+        )
+    affected_components: Optional[set[EventAffectedComponents]] = None
+    if "affected_components" in kwargs:
+        affected_components = set(
+            EventAffectedComponents[item]
+            for item in kwargs["affected_components"]
+            if item
+        )
     event = Event(
         accessibility=accessibility,
         affected_components=affected_components,
@@ -209,9 +212,13 @@ async def add_event(  # pylint: disable=too-many-locals
     )
 
     if file:
-        await update_evidence(event.id, "evidence_file", file, event_date)
+        await update_evidence(
+            event.id, EventEvidenceType.FILE, file, event_date
+        )
     if image:
-        await update_evidence(event.id, "evidence", image, event_date)
+        await update_evidence(
+            event.id, EventEvidenceType.IMAGE, image, event_date
+        )
 
     report_date: date_type = datetime_utils.get_date_from_iso_str(
         event.event_date
@@ -308,14 +315,21 @@ async def mask(event_id: str) -> bool:
     return all(await collect(mask_events_coroutines))
 
 
-async def remove_evidence(evidence_type: str, event_id: str) -> bool:
+async def remove_evidence(
+    evidence_type: EventEvidenceType, event_id: str
+) -> bool:
     event = await get_event(event_id)
     group_name = get_key_or_fallback(event)
 
-    full_name = f"{group_name}/{event_id}/{event[evidence_type]}"
+    evidence_type_str = (
+        "evidence"
+        if evidence_type == EventEvidenceType.IMAGE
+        else "evidence_file"
+    )
+    full_name = f"{group_name}/{event_id}/{event[evidence_type_str]}"
     await events_dal.remove_evidence(full_name)
     return await events_dal.update(
-        event_id, {evidence_type: None, f"{evidence_type}_date": None}
+        event_id, {evidence_type_str: None, f"{evidence_type_str}_date": None}
     )
 
 
@@ -438,7 +452,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
 
 async def update_evidence(
     event_id: str,
-    evidence_type: str,
+    evidence_type: EventEvidenceType,
     file: UploadFile,
     update_date: datetime,
 ) -> bool:
@@ -462,7 +476,12 @@ async def update_evidence(
         "text/csv": ".csv",
         "text/plain": ".txt",
     }.get(file.content_type, "")
-    evidence_id = f"{group_name}-{event_id}-{evidence_type}{extension}"
+    evidence_type_str = (
+        "evidence"
+        if evidence_type == EventEvidenceType.IMAGE
+        else "evidence_file"
+    )
+    evidence_id = f"{group_name}-{event_id}-{evidence_type_str}{extension}"
     full_name = f"{group_name}/{event_id}/{evidence_id}"
     validations.validate_sanitized_csv_input(full_name)
     validations.validate_sanitized_csv_input(file.filename, file.content_type)
@@ -471,25 +490,29 @@ async def update_evidence(
     return await events_dal.update(
         event_id,
         {
-            evidence_type: evidence_id,
-            f"{evidence_type}_date": datetime_utils.get_as_str(update_date),
+            evidence_type_str: evidence_id,
+            f"{evidence_type_str}_date": datetime_utils.get_as_str(
+                update_date
+            ),
         },
     )
 
 
-async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
+async def validate_evidence(
+    evidence_type: EventEvidenceType, file: UploadFile
+) -> bool:
     mib = 1048576
     success = False
     validations.validate_file_name(file.filename)
     validations.validate_fields([file.content_type])
 
-    if evidence_type == "evidence":
+    if evidence_type == EventEvidenceType.IMAGE:
         allowed_mimes = ["image/gif", "image/jpeg", "image/png"]
         if not await files_utils.assert_uploaded_file_mime(
             file, allowed_mimes
         ):
             raise InvalidFileType("EVENT_IMAGE")
-    else:
+    elif evidence_type == EventEvidenceType.FILE:
         allowed_mimes = [
             "application/csv",
             "application/pdf",
@@ -501,6 +524,8 @@ async def validate_evidence(evidence_type: str, file: UploadFile) -> bool:
             file, allowed_mimes
         ):
             raise InvalidFileType("EVENT_FILE")
+    else:
+        raise InvalidFileType("EVENT")
 
     if await files_utils.get_file_size(file) < 10 * mib:
         success = True

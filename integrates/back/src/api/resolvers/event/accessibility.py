@@ -5,7 +5,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils.events import (
-    format_accessibility_item,
+    format_accessibility,
 )
 from typing import (
     Any,
@@ -19,15 +19,12 @@ async def resolve(
     **_kwargs: None,
 ) -> set[str]:
     if isinstance(parent, dict):
-        access: set[str] = (
-            set(str(parent["accessibility"]).split())
-            if parent["affected_components"]
-            else set()
-        )
+        if not parent["accessibility"]:
+            return set()
+        accessibility = format_accessibility(parent["accessibility"])
     else:
-        access = (
-            set(format_accessibility_item(parent.accessibility).split(" "))
-            if parent.accessibility
-            else set()
-        )
-    return access
+        if not parent.accessibility:
+            return set()
+        accessibility = parent.accessibility
+
+    return set(item.value for item in accessibility)

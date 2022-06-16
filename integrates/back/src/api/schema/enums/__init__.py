@@ -5,9 +5,6 @@ from typing import (
     Tuple,
 )
 
-# None
-
-
 ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "ActionsAfterBlocking",
@@ -35,24 +32,24 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "AffectedComponents",
         {
-            "CLIENT_STATION": "Estación de pruebas del Cliente",
-            "COMPILE_ERROR": "Error en compilación",
-            "DOCUMENTATION": "Documentación del proyecto",
-            "FLUID_STATION": "Estación de pruebas de FLUID",
-            "INTERNET_CONNECTION": "Conectividad a Internet",
-            "LOCAL_CONNECTION": "Conectividad local (LAN, WiFi)",
-            "OTHER": "Otro(s)",
-            "SOURCE_CODE": "Código fuente",
-            "TEST_DATA": "Datos de prueba",
-            "TOE_ALTERATION": "Alteración del ToE",
-            "TOE_CREDENTIALS": "Credenciales en el ToE",
-            "TOE_EXCLUSSION": "Exclusión de alcance",
-            "TOE_LOCATION": "Ubicación del ToE (IP, URL)",
-            "TOE_PRIVILEGES": "Privilegios en el ToE",
-            "TOE_UNACCESSIBLE": "Inaccesibilidad del ToE",
-            "TOE_UNAVAILABLE": "Indisponibilidad del ToE",
-            "TOE_UNSTABLE": "Inestabilidad del ToE",
-            "VPN_CONNECTION": "Conectividad VPN",
+            "CLIENT_STATION": "CLIENT_STATION",
+            "COMPILE_ERROR": "COMPILE_ERROR",
+            "DOCUMENTATION": "DOCUMENTATION",
+            "FLUID_STATION": "FLUID_STATION",
+            "INTERNET_CONNECTION": "INTERNET_CONNECTION",
+            "LOCAL_CONNECTION": "LOCAL_CONNECTION",
+            "OTHER": "OTHER",
+            "SOURCE_CODE": "SOURCE_CODE",
+            "TEST_DATA": "TEST_DATA",
+            "TOE_ALTERATION": "TOE_ALTERATION",
+            "TOE_CREDENTIALS": "TOE_CREDENTIALS",
+            "TOE_EXCLUSSION": "TOE_EXCLUSSION",
+            "TOE_LOCATION": "TOE_LOCATION",
+            "TOE_PRIVILEGES": "TOE_PRIVILEGES",
+            "TOE_UNACCESSIBLE": "TOE_UNACCESSIBLE",
+            "TOE_UNAVAILABLE": "TOE_UNAVAILABLE",
+            "TOE_UNSTABLE": "TOE_UNSTABLE",
+            "VPN_CONNECTION": "VPN_CONNECTION",
         },
     ),
     EnumType(
@@ -101,8 +98,8 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "EventAccessibility",
         {
-            "ENVIRONMENT": "Ambiente",
-            "REPOSITORY": "Repositorio",
+            "ENVIRONMENT": "ENVIRONMENT",
+            "REPOSITORY": "REPOSITORY",
             "VPN_CONNECTION": "VPN_CONNECTION",
         },
     ),
@@ -121,9 +118,7 @@ ENUMS: Tuple[EnumType, ...] = (
             "TOE_WILL_REMAIN_UNCHANGED": "TOE_WILL_REMAIN_UNCHANGED",
         },
     ),
-    EnumType(
-        "EventEvidenceType", {"FILE": "evidence_file", "IMAGE": "evidence"}
-    ),
+    EnumType("EventEvidenceType", {"FILE": "FILE", "IMAGE": "IMAGE"}),
     EnumType(
         "EventType",
         {

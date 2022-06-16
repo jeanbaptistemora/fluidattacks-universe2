@@ -1,11 +1,11 @@
-# None
-
-
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
     SimplePayload,
+)
+from db_model.events.enums import (
+    EventEvidenceType,
 )
 from decorators import (
     concurrent_decorators,
@@ -33,8 +33,8 @@ from newutils import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, event_id: str, evidence_type: str
 ) -> SimplePayload:
-    """Resolve remove_event_evidence mutation."""
-    success = await events_domain.remove_evidence(evidence_type, event_id)
+    evidence_type_enum = EventEvidenceType[evidence_type]
+    success = await events_domain.remove_evidence(evidence_type_enum, event_id)
     if success:
         info.context.loaders.event.clear(event_id)
         logs_utils.cloudwatch_log(
