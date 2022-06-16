@@ -7,7 +7,7 @@ import { Loading } from ".";
 
 const config: Meta = {
   component: Loading,
-  title: "components/Load",
+  title: "components/Loading",
 };
 
 const Template: Story<ILoadingProps> = (props): JSX.Element => (
