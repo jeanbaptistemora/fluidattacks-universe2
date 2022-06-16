@@ -5,10 +5,10 @@ import { createPortal } from "react-dom";
 
 import { ModalConfirm } from "./Confirm";
 import { ModalFooter } from "./Footer";
-import { Container, Dialog, Header, Title } from "./styles";
+import { Container as ContainerModal, Dialog, Header, Title } from "./styles";
 
 import { ButtonOpacity } from "components/Button";
-import { ScrollContainer } from "components/ScrollContainer";
+import { Container } from "components/Container";
 
 interface IModalProps {
   children: React.ReactNode;
@@ -40,8 +40,8 @@ const Modal: React.FC<IModalProps> = ({
 
   return open
     ? createPortal(
-        <Container>
-          <Dialog minWidth={minWidth}>
+        <ContainerModal>
+          <Dialog>
             <Header>
               <Title>{title}</Title>
               {onClose ? (
@@ -50,9 +50,11 @@ const Modal: React.FC<IModalProps> = ({
                 </ButtonOpacity>
               ) : undefined}
             </Header>
-            <ScrollContainer>{children}</ScrollContainer>
+            <Container minWidth={`${minWidth}px`} padding={"10px"}>
+              {children}
+            </Container>
           </Dialog>
-        </Container>,
+        </ContainerModal>,
         document.body
       )
     : null;
