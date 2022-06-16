@@ -61,11 +61,11 @@ def format_event(item: Item) -> Event:
         client=item["client"],
         context=item.get("context"),
         description=item["description"],
+        event_date=item["event_date"],
         evidences=format_evidences(item["evidences"]),
         group_name=item["group_name"],
         hacker=item["hacker"],
         id=item["id"],
-        report_date=item["report_date"],
         root_id=item.get("root_id"),
         state=EventState(
             modified_by=item["state"]["modified_by"],
@@ -80,11 +80,11 @@ def format_event_item(event: Event) -> Item:
     return {
         "client": event.client,
         "description": event.description,
+        "event_date": event.event_date,
         "evidences": json.loads(json.dumps(event.evidences)),
         "group_name": event.group_name,
         "hacker": event.hacker,
         "id": event.id,
-        "report_date": event.report_date,
         "state": json.loads(json.dumps(event.state)),
         "type": event.type.value,
         "accessibility": set(

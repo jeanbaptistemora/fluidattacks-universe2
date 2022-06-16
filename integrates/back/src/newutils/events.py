@@ -213,7 +213,7 @@ def format_type(event_type: str) -> EventType:
 
 
 def format_event(item: Item) -> Event:
-    report_date = convert_to_iso_str(item["historic_state"][0]["date"])
+    event_date = convert_to_iso_str(item["historic_state"][0]["date"])
     historic_state = format_historic_state(item)
     return Event(
         action_after_blocking=format_actions_after_blocking(
@@ -241,7 +241,7 @@ def format_event(item: Item) -> Event:
         group_name=item["project_name"],
         hacker=item["analyst"],
         id=item["event_id"],
-        report_date=report_date,
+        event_date=event_date,
         root_id=item.get("root_id"),
         state=historic_state[-1],
         type=format_type(item.get("event_type", "OTHER")),

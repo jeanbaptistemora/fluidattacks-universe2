@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -15,22 +14,23 @@ async def get_result(
     *,
     user: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         mutation {{
             addEvent(
-                groupName: "{group}",
-                accessibility: ENVIRONMENT,
+                accessibility: [ENVIRONMENT, VPN_CONNECTION],
+                affectedComponents: [TEST_DATA, TOE_PRIVILEGES],
                 detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
-                eventType: INCORRECT_MISSING_SUPPLIES
-                rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690"
+                eventType: INCORRECT_MISSING_SUPPLIES,
+                groupName: "{group}",
+                rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
             ) {{
                 success
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

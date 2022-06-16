@@ -31,11 +31,11 @@ class EventState(NamedTuple):
 class Event(NamedTuple):
     client: str
     description: str
+    event_date: str
     evidences: EventEvidences
     group_name: str
     hacker: str
     id: str
-    report_date: str
     state: EventState
     type: EventType
     accessibility: Optional[set[EventAccessibility]] = None
