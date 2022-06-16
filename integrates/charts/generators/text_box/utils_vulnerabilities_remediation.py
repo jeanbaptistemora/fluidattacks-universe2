@@ -189,14 +189,14 @@ async def get_many_groups(
         return FormatSprint(
             created=Decimal(
                 sum(group.created for group in groups_data) / number_of_groups
-            ),
+            ).quantize(Decimal("0.01")),
             solved=Decimal(
                 sum(group.solved for group in groups_data) / number_of_groups
-            ),
+            ).quantize(Decimal("0.01")),
             remediated=Decimal(
                 sum(group.remediated for group in groups_data)
                 / number_of_groups
-            ),
+            ).quantize(Decimal("0.01")),
         )
 
     return FormatSprint(
@@ -256,9 +256,9 @@ def format_data(count: Decimal, state: str) -> dict:
 
 def format_count(count: FormatSprint) -> dict[str, Decimal]:
     return {
-        "created": count.created,
-        "remediated": count.remediated,
-        "solved": count.solved,
+        "created": count.created.quantize(Decimal("0.01")),
+        "remediated": count.remediated.quantize(Decimal("0.01")),
+        "solved": count.solved.quantize(Decimal("0.01")),
     }
 
 
