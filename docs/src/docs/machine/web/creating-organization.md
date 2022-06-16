@@ -13,7 +13,7 @@ On the top left, you can make a
 list of your organizations appear
 by clicking on the **drop-down menu**
 icon next to your organization’s name.
-Using the option **New…**, you can
+Using the option **New org…**, you can
 create as many organizations as you
 want on your ASM account.
 
