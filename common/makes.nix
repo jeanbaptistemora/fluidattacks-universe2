@@ -3,6 +3,7 @@
   imports = [
     ./ci/makes.nix
     ./compute/makes.nix
+    ./cluster/makes.nix
     ./criteria/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
