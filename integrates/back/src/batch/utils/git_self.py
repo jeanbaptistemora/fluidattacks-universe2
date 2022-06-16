@@ -11,10 +11,10 @@ from datetime import (
     datetime,
 )
 from db_model.credentials.types import (
-    CredentialItem,
-)
-from db_model.enums import (
-    CredentialType,
+    Credential,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
 )
 from git.exc import (
     GitError,
@@ -42,32 +42,33 @@ async def clone_root(
     root_nickname: str,
     branch: str,
     root_url: str,
-    cred: CredentialItem,
+    cred: Credential,
 ) -> CloneResult:
     with tempfile.TemporaryDirectory() as temp_dir:
-        if (
-            cred.metadata.type == CredentialType.SSH
-            and cred.state.key is not None
-        ):
+        if isinstance(cred.state.secret, SshSecret):
             folder_to_clone_root, stderr = await newutils.git.ssh_clone(
                 branch=branch,
-                credential_key=cred.state.key,
+                credential_key=cred.state.secret.key,
                 repo_url=root_url,
                 temp_dir=temp_dir,
             )
-        elif cred.metadata.type == CredentialType.HTTPS and (
-            cred.state.token is not None
-            or (
-                cred.state.user is not None and cred.state.password is not None
-            )
-        ):
+        elif isinstance(cred.state.secret, HttpsPatSecret):
             folder_to_clone_root, stderr = await newutils.git.https_clone(
                 branch=branch,
-                password=cred.state.password,
+                password=None,
                 repo_url=root_url,
                 temp_dir=temp_dir,
-                token=cred.state.token,
-                user=cred.state.user,
+                token=cred.state.secret.token,
+                user=None,
+            )
+        elif isinstance(cred.state.secret, HttpsSecret):
+            folder_to_clone_root, stderr = await newutils.git.https_clone(
+                branch=branch,
+                password=cred.state.secret.password,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=None,
+                user=cred.state.secret.user,
             )
         else:
             raise InvalidParameter()

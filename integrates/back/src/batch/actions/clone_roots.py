@@ -34,7 +34,6 @@ from dataloaders import (
 )
 from db_model.credentials.types import (
     Credential,
-    CredentialItem,
     CredentialRequest,
     HttpsPatSecret,
     HttpsSecret,
@@ -87,9 +86,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def clone_roots(  # pylint: disable=too-many-locals
-    *, item: BatchProcessing
-) -> None:
+async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     root_nicknames: List[str] = item.additional_info.split(",")
 
@@ -100,10 +97,9 @@ async def clone_roots(  # pylint: disable=too-many-locals
     )
 
     dataloaders: Dataloaders = get_new_context()
-    group_root_creds_loader = dataloaders.group_credentials
     group_roots_loader = dataloaders.group_roots
-    group_creds = await group_root_creds_loader.load(group_name)
     group_roots = await group_roots_loader.load(group_name)
+    group: Group = await dataloaders.group.load(group_name)
 
     # In the off case there are multiple roots with the same nickname
     root_ids = tuple(
@@ -128,8 +124,15 @@ async def clone_roots(  # pylint: disable=too-many-locals
             status=GitCloningStatus.CLONING,
             message="Cloning in progress...",
         )
-        root_cred: Optional[CredentialItem] = next(
-            (cred for cred in group_creds if root.id in cred.state.roots), None
+        root_cred: Optional[Credential] = (
+            await dataloaders.credential_new.load(
+                CredentialRequest(
+                    id=root.state.credential_id,
+                    organization_id=group.organization_id,
+                )
+            )
+            if root.state.credential_id
+            else None
         )
         if not root_cred:
             LOGGER.error(
@@ -305,7 +308,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                 for credential_id in {
                     root.state.credential_id
                     for root in roots
-                    if root.state.credential_id
+                    if root.state.credential_id is not None
                 }
             )
         ),
@@ -316,7 +319,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     credentials_for_roots: dict[str, Credential] = {
         root.id: root_credentials_dict[root.state.credential_id]
         for root in roots
-        if root.state.credential_id
+        if root.state.credential_id is not None
     }
 
     if not credentials_for_roots:
