@@ -5,6 +5,9 @@ from aioextensions import (
     collect,
     schedule,
 )
+from asyncio.tasks import (
+    sleep,
+)
 import authz
 import base64
 import binascii
@@ -71,6 +74,9 @@ from db_model.roots.types import (
     Secret,
     URLRoot,
     URLRootState,
+)
+from dynamodb.exceptions import (
+    ConditionalCheckFailedException,
 )
 from group_access import (
     domain as group_access_domain,
@@ -944,18 +950,38 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     if not isinstance(root, GitRoot):
         raise InvalidParameter()
 
-    await roots_model.update_git_root_cloning(
-        current_value=root.cloning,
-        cloning=GitRootCloning(
-            modified_date=modified_date,
-            reason=message,
-            status=status,
-            commit=commit,
-            commit_date=commit_date,
-        ),
-        group_name=group_name,
-        root_id=root_id,
-    )
+    # As this operation can fail due to optimistic locking to avoid concurrency
+    # issues (esp. the modified date being slightly different in fractions of
+    # a second) a retry backup is needed
+    try:
+        await roots_model.update_git_root_cloning(
+            current_value=root.cloning,
+            cloning=GitRootCloning(
+                modified_date=modified_date,
+                reason=message,
+                status=status,
+                commit=commit,
+                commit_date=commit_date,
+            ),
+            group_name=group_name,
+            root_id=root_id,
+        )
+    except ConditionalCheckFailedException:
+        await sleep(1.0)
+        loaders.root.clear((group_name, root_id))
+        rroot: GitRoot = await loaders.root.load((group_name, root_id))
+        await roots_model.update_git_root_cloning(
+            current_value=rroot.cloning,
+            cloning=GitRootCloning(
+                modified_date=modified_date,
+                reason=message,
+                status=status,
+                commit=commit,
+                commit_date=commit_date,
+            ),
+            group_name=group_name,
+            root_id=root_id,
+        )
 
     loaders.group.clear(group_name)
     group: Group = await loaders.group.load(group_name)

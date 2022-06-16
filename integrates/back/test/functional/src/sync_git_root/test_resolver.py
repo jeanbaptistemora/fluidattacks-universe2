@@ -17,7 +17,7 @@ from typing import (
     ["email", "root_id", "expected_status"],
     [
         ["admin@gmail.com", "e22a3a0d-05ac-4d13-8c81-7c829f8f96e3", "QUEUED"],
-        ["admin@gmail.com", "888648ed-a71c-42e5-b3e5-c3a370d26c68", "FAILED"],
+        ["admin@gmail.com", "888648ed-a71c-42e5-b3e5-c3a370d26c68", "QUEUED"],
     ],
 )
 async def test_sync_git_root(

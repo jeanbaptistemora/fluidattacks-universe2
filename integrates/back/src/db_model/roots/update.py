@@ -104,21 +104,20 @@ async def update_git_root_cloning(
     key_structure = TABLE.primary_key
     cloning_item = json.loads(json.dumps(cloning))
 
-    with suppress(ConditionalCheckFailedException):
-        root_key = keys.build_key(
-            facet=TABLE.facets["git_root_metadata"],
-            values={"name": group_name, "uuid": root_id},
-        )
-        root_item = {"cloning": cloning_item}
-        await operations.update_item(
-            condition_expression=(
-                Attr(key_structure.partition_key).exists()
-                & Attr("cloning.modified_date").eq(current_value.modified_date)
-            ),
-            item=root_item,
-            key=root_key,
-            table=TABLE,
-        )
+    root_key = keys.build_key(
+        facet=TABLE.facets["git_root_metadata"],
+        values={"name": group_name, "uuid": root_id},
+    )
+    root_item = {"cloning": cloning_item}
+    await operations.update_item(
+        condition_expression=(
+            Attr(key_structure.partition_key).exists()
+            & Attr("cloning.modified_date").eq(current_value.modified_date)
+        ),
+        item=root_item,
+        key=root_key,
+        table=TABLE,
+    )
 
     historic_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_cloning"],
