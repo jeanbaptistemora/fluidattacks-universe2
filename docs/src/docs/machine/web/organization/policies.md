@@ -158,3 +158,22 @@ a submitted status, ready to be
 accepted or rejected.
 
 ![Enter New Vulnerability Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537790/docs/web/organizations/policies_add_newvuln.png)
+
+## Tags
+
+In the Policies section
+of your organization,
+you can find a table under the
+title **Permanent acceptance**.
+There you can add types of
+vulnerabilities to accept
+them permanently.
+When doing that,
+you can also add one or more
+tags under which you would
+like to classify the type
+of vulnerability.
+After clicking the add button,
+the tag(s) you chose will be
+applied automatically to all
+the vulnerabilities of that type.
