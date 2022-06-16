@@ -6322,3 +6322,15 @@
       title: Form field design issues
       link: https://owasp.org/www-project-top-10-privacy-risks/
   metadata: {}
+"mvsp":
+  title: Minimum Viable Secure Product
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "1_6":
+      title: Business controls - Compliance
+      link: https://owasp.org/www-project-top-10-privacy-risks/
+  metadata: {}
