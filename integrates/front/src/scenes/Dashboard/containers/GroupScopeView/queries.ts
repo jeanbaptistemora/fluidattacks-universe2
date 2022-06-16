@@ -54,18 +54,39 @@ const GET_ROOTS: DocumentNode = gql`
     }
   }
 `;
+const BASIC_CREDENTIAL_FRAGMENT: DocumentNode = gql`
+  fragment credentialFields on Credentials {
+    __typename
+    id
+    name
+    type
+  }
+`;
 const GET_GROUP_CREDENTIALS: DocumentNode = gql`
   query GetGroupCredentials($groupName: String!) {
     group(groupName: $groupName) {
       name
       credentials {
-        id
-        name
-        type
+        ...credentialFields
       }
     }
   }
+  ${BASIC_CREDENTIAL_FRAGMENT}
 `;
+
+const GET_STAKEHOLDER_BASIC_CREDENTIALS: DocumentNode = gql`
+  query GetStakeholderBasicCredentials {
+    me(callerOrigin: "FRONT") {
+      __typename
+      credentials {
+        ...credentialFields
+      }
+      userEmail
+    }
+  }
+  ${BASIC_CREDENTIAL_FRAGMENT}
+`;
+
 const GET_ROOT: DocumentNode = gql`
   query GetRoot($groupName: String!, $rootId: ID!) {
     root(groupName: $groupName, rootId: $rootId) {
@@ -489,6 +510,7 @@ export {
   GET_ENVIRONMENT_URL,
   GET_ROOT,
   GET_ROOTS,
+  GET_STAKEHOLDER_BASIC_CREDENTIALS,
   MOVE_ROOT,
   REMOVE_SECRET,
   SYNC_GIT_ROOT,

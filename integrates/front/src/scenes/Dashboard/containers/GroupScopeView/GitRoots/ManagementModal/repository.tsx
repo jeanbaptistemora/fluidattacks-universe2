@@ -15,7 +15,11 @@ import _ from "lodash";
 import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { GET_GROUP_CREDENTIALS, VALIDATE_GIT_ACCESS } from "../../queries";
+import {
+  GET_GROUP_CREDENTIALS,
+  GET_STAKEHOLDER_BASIC_CREDENTIALS,
+  VALIDATE_GIT_ACCESS,
+} from "../../queries";
 import type { ICredentials, IFormValues } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
@@ -74,7 +78,17 @@ const Repository: React.FC<IRepositoryProps> = ({
   }>(GET_GROUP_CREDENTIALS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load roots", error);
+        Logger.error("Couldn't load group credentials", error);
+      });
+    },
+    variables: { groupName },
+  });
+  const { data: stakeholderCredentialsData } = useQuery<{
+    me: { credentials: ICredentials[] };
+  }>(GET_STAKEHOLDER_BASIC_CREDENTIALS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load stakeholder basic credentials", error);
       });
     },
     variables: { groupName },
@@ -158,10 +172,16 @@ const Repository: React.FC<IRepositoryProps> = ({
   });
 
   const formRef = useRef<FormikProps<IFormValues>>(null);
+
+  const groupAndStakeholderCredentials =
+    !_.isUndefined(data) && !_.isUndefined(stakeholderCredentialsData)
+      ? data.group.credentials.concat(stakeholderCredentialsData.me.credentials)
+      : [];
+
   const groupedExistingCreds =
-    !_.isUndefined(data) && data.group.credentials.length > 0
+    groupAndStakeholderCredentials.length > 0
       ? Object.fromEntries(
-          data.group.credentials.map((cred): [string, ICredentials] => [
+          groupAndStakeholderCredentials.map((cred): [string, ICredentials] => [
             cred.id,
             cred,
           ])
@@ -340,8 +360,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                     ) : undefined}
                     <div id={"git-root-add-credentials"}>
                       <div className={"flex"}>
-                        {!_.isUndefined(data) &&
-                        data.group.credentials.length > 0 ? (
+                        {_.isEmpty(groupedExistingCreds) ? null : (
                           <div className={"w-30 mr3"}>
                             <ControlLabel>
                               {"Existing credentials"}
@@ -352,7 +371,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                               name={"credentials.id"}
                             >
                               <option value={""}>{""}</option>
-                              {data.group.credentials.map(
+                              {Object.values(groupedExistingCreds).map(
                                 (cred): JSX.Element => {
                                   return (
                                     <option key={cred.id} value={cred.id}>
@@ -363,7 +382,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                               )}
                             </Field>
                           </div>
-                        ) : null}
+                        )}
                         <div className={"w-20 mr3"}>
                           <ControlLabel>
                             {t("group.scope.git.repo.credentials.type")}
