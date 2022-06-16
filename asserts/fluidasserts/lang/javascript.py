@@ -46,32 +46,6 @@ L_CHAR = QuotedString("'")
 L_STRING = QuotedString('"')
 
 
-@api(risk=LOW, kind=SAST)
-def uses_console_log(js_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for ``console.log()`` calls in a JavaScript file or directory.
-
-    :param js_dest: Path to a JavaScript source file or directory.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = Keyword("console") + "." + Keyword("log") + nestedExpr()
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    return lang.generic_method(
-        path=js_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code uses Console.log() method",
-            CLOSED: "Code does not use Console.log() method",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 def uses_eval(js_dest: str, exclude: list = None) -> tuple:
     """
