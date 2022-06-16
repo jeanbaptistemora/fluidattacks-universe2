@@ -140,7 +140,7 @@ async def get_totals_by_week(
                 )
                 for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
-            workers=16,
+            workers=8,
         )
     )
 
@@ -157,7 +157,7 @@ async def get_totals_by_week(
                 )
                 for chunked_vulnerabilities in chunked(vulnerabilities, 16)
             ),
-            workers=16,
+            workers=8,
         )
     )
 

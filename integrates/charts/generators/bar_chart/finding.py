@@ -49,7 +49,7 @@ async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
 async def get_data_many_groups(
     groups: List[str],
 ) -> List[PortfoliosGroupsInfo]:
-    groups_data = await collect(map(get_data_one_group, groups), workers=32)
+    groups_data = await collect(map(get_data_one_group, groups), workers=16)
 
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 

@@ -16,6 +16,7 @@ from charts.utils import (
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
+    retry_on_exceptions,
 )
 from contextlib import (
     suppress,
@@ -46,6 +47,9 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from findings.domain.core import (
     get_severity_score,
@@ -177,7 +181,7 @@ async def get_many_groups(
             generate_one(loaders=loaders, group_name=group_name)
             for group_name in group_names
         ),
-        workers=32,
+        workers=16,
     )
     number_of_groups: int = len(groups_data)
 
@@ -258,6 +262,11 @@ def format_count(count: FormatSprint) -> dict[str, Decimal]:
     }
 
 
+@retry_on_exceptions(
+    default_value=None,
+    exceptions=(UnavailabilityError,),
+    retry_times=5,
+)
 async def generate_all(state: str) -> None:
     loaders: Dataloaders = get_new_context()
     async for group_name in iterate_groups():

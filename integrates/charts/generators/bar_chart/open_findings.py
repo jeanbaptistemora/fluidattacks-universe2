@@ -20,6 +20,9 @@ from charts.generators.pie_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
+from dynamodb.exceptions import (
+    UnavailabilityError,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -47,7 +50,7 @@ async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
 async def get_data_many_groups(
     groups: List[str],
 ) -> List[PortfoliosGroupsInfo]:
-    groups_data = await collect(map(get_data_one_group, groups), workers=32)
+    groups_data = await collect(map(get_data_one_group, groups), workers=16)
 
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
@@ -88,6 +91,11 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     )
 
 
+@utils.retry_on_exceptions(
+    default_value=None,
+    exceptions=(UnavailabilityError,),
+    retry_times=5,
+)
 async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
