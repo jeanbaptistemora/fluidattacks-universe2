@@ -141,7 +141,7 @@ describe("GroupScopeView", (): void => {
         query: ADD_GIT_ROOT,
         variables: {
           branch: "master",
-          credentials: null,
+          credentials: undefined,
           environment: "production",
           gitignore: [],
           groupName: "unittesting",

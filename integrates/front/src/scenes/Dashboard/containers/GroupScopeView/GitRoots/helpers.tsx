@@ -423,25 +423,25 @@ function useGitSubmit(
           await addGitRoot({
             variables: {
               branch: branch.trim(),
-              credentials:
-                credentials.key === "" &&
-                credentials.user === "" &&
-                credentials.password === "" &&
-                credentials.id === "" &&
-                credentials.token === ""
-                  ? null
+              credentials: _.isEmpty(credentials.id)
+                ? _.isEmpty(credentials.key) &&
+                  _.isEmpty(credentials.user) &&
+                  _.isEmpty(credentials.password) &&
+                  _.isEmpty(credentials.token)
+                  ? undefined
                   : {
-                      id: credentials.id,
-                      key:
-                        credentials.key === ""
-                          ? undefined
-                          : Buffer.from(credentials.key).toString("base64"),
+                      key: _.isEmpty(credentials.key)
+                        ? undefined
+                        : Buffer.from(credentials.key).toString("base64"),
                       name: credentials.name,
                       password: credentials.password,
                       token: credentials.token,
                       type: credentials.type,
                       user: credentials.user,
-                    },
+                    }
+                : {
+                    id: credentials.id,
+                  },
               environment,
               gitignore,
               groupName,
@@ -456,32 +456,25 @@ function useGitSubmit(
           await updateGitRoot({
             variables: {
               branch,
-              credentials:
-                _.isUndefined(credentials.key) &&
-                _.isUndefined(credentials.user) &&
-                _.isUndefined(credentials.password) &&
-                _.isUndefined(credentials.token)
-                  ? !_.isUndefined(credentials.id) && credentials.id !== ""
-                    ? {
-                        id: credentials.id,
-                        name: credentials.name,
-                        type: credentials.type,
-                      }
-                    : undefined
+              credentials: _.isEmpty(credentials.id)
+                ? _.isEmpty(credentials.key) &&
+                  _.isEmpty(credentials.user) &&
+                  _.isEmpty(credentials.password) &&
+                  _.isEmpty(credentials.token)
+                  ? undefined
                   : {
-                      id: _.isEmpty(credentials.id)
+                      key: _.isEmpty(credentials.key)
                         ? undefined
-                        : credentials.id,
-                      key:
-                        credentials.key === "" || _.isUndefined(credentials.key)
-                          ? undefined
-                          : Buffer.from(credentials.key).toString("base64"),
+                        : Buffer.from(credentials.key).toString("base64"),
                       name: credentials.name,
                       password: credentials.password,
                       token: credentials.token,
                       type: credentials.type,
                       user: credentials.user,
-                    },
+                    }
+                : {
+                    id: credentials.id,
+                  },
               environment,
               gitignore,
               groupName,
