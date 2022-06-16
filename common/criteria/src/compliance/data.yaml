@@ -6326,7 +6326,10 @@
   title: MVSP
   en:
     summary: >
-      __empty__
+      Minimum Viable Secure Product (MVSP)
+      is a cybersecurity checklist baseline
+      that lists controls to ensure minimally
+      viable security posture of a product.
   es:
     summary: __empty__
   definitions:
