@@ -382,12 +382,22 @@ async def test_queue_sync_git_roots_already_in_queue_running(
     )
 
     loaders: Dataloaders = get_new_context()
+    roots: tuple[GitRoot, ...] = await loaders.root.load_many(
+        [
+            ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
+            ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
+            ("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
+            ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
+            ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
+        ]
+    )
 
     with pytest.raises(RootAlreadyCloning):
         await clone_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
+            roots=roots,
         )
 
 
@@ -508,12 +518,22 @@ async def test_queue_sync_git_roots(
     )
 
     loaders: Dataloaders = get_new_context()
+    roots: tuple[GitRoot, ...] = await loaders.root.load_many(
+        [
+            ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
+            ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
+            ("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
+            ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
+            ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
+        ]
+    )
 
     try:
         await clone_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
+            roots=roots,
         )
         assert not must_rise
     except RootAlreadyCloning:

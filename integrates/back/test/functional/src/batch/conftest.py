@@ -314,6 +314,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
+                        credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
                         environment="production",
                         environment_urls=["https://test.com"],
                         git_environment_urls=[

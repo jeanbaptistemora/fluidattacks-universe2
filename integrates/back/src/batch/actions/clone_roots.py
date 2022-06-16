@@ -206,10 +206,7 @@ async def _ls_remote_root(
     if use_vpn:
         return (root.id, None)
 
-    if (
-        isinstance(cred.state.secret, SshSecret)
-        and cred.state.secret.key is not None
-    ):
+    if isinstance(cred.state.secret, SshSecret):
         return (
             root.id,
             await ssh_ls_remote(
@@ -292,6 +289,10 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         if isinstance(root, GitRoot)
         and (root.state.use_vpn if queue_with_vpn else True)
     )
+    for root in roots:
+        if root.state.credential_id is None:
+            raise CredentialNotFound()
+
     roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
 
     if not roots:
@@ -321,9 +322,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         for root in roots
         if root.state.credential_id is not None
     }
-
-    if not credentials_for_roots:
-        raise CredentialNotFound()
 
     current_action: Optional[BatchProcessing] = None
     roots_in_current_actions = await cancel_current_jobs(group_name=group_name)
