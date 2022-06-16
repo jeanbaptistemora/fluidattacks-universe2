@@ -1,4 +1,7 @@
 import json
+from repositories.advisory_database import (
+    get_advisory_database,
+)
 from repositories.community_advisories import (
     get_community_advisories,
 )
@@ -19,7 +22,10 @@ def main(language: str = None) -> None:
         return None
     language = sys.argv[1]
     advisories: Dict[str, Any] = {}
-    for fun in (get_community_advisories,):
+    for fun in (
+        get_community_advisories,
+        get_advisory_database,
+    ):
         fun(advisories, language)
 
     log_blocking("info", f"Creating file: {language}.json")

@@ -31,17 +31,10 @@ def get_vulnerabilities_ranges(
         ranges: List[dict] = pkg_obj.get("ranges")
         for range in ranges:
             events: List[dict] = range.get("events")
-            introduced = (
-                events[0].get("introduced")
-                if "introduced" in events[0]
-                else events[1].get("introduced")
-            )
-            fixed = (
-                events[1].get("fixed")
-                if "fixed" in events[1]
-                else events[0].get("fixed")
-            )
-            str_range = f">={introduced} <{fixed}"
+            str_range: str
+            introduced = f">={events[0].get('introduced')}"
+            fixed = f" <{events[1].get('fixed')}" if len(events) > 1 else ""
+            str_range = f"{introduced}{fixed}"
             if pkg_name not in advisories:
                 advisories.update({pkg_name: {}})
             if ghsa_vuln := advisories[pkg_name].get(vuln_id):
