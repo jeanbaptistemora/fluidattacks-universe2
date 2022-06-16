@@ -29,6 +29,31 @@ from typing import (
 )
 
 MASKED: str = "Masked"
+ACCESSIBILITY_MAP = {
+    "Repositorio": EventAccessibility.REPOSITORY,
+    "Ambiente": EventAccessibility.ENVIRONMENT,
+    "VPN_CONNECTION": EventAccessibility.VPN_CONNECTION,
+}
+AFFECTED_COMPONENTS_MAP = {
+    "Alteración del ToE": AffectedComponents.TOE_ALTERATION,
+    "Código fuente": AffectedComponents.SOURCE_CODE,
+    "Conectividad a Internet": AffectedComponents.INTERNET_CONNECTION,
+    "Conectividad local (LAN, WiFi)": AffectedComponents.LOCAL_CONNECTION,
+    "Conectividad VPN": AffectedComponents.VPN_CONNECTION,
+    "Credenciales en el ToE": AffectedComponents.TOE_CREDENTIALS,
+    "Datos de prueba": AffectedComponents.TEST_DATA,
+    "Documentación del proyecto": AffectedComponents.DOCUMENTATION,
+    "Estación de pruebas de FLUID": AffectedComponents.FLUID_STATION,
+    "Estación de pruebas del Cliente": AffectedComponents.CLIENT_STATION,
+    "Exclusión de alcance": AffectedComponents.TOE_EXCLUSSION,
+    "Error en compilación": AffectedComponents.COMPILE_ERROR,
+    "Inaccesibilidad del ToE": AffectedComponents.TOE_UNACCESSIBLE,
+    "Indisponibilidad del ToE": AffectedComponents.TOE_UNAVAILABLE,
+    "Inestabilidad del ToE": AffectedComponents.TOE_UNSTABLE,
+    "Privilegios en el ToE": AffectedComponents.TOE_PRIVILEGES,
+    "Otro(s)": AffectedComponents.OTHER,
+    "Ubicación del ToE (IP, URL)": AffectedComponents.TOE_LOCATION,
+}
 
 
 def adjust_historic_dates(
@@ -78,27 +103,14 @@ async def filter_events_date(
     ]
 
 
-def format_data(event: dict[str, Any]) -> dict[str, Any]:
-    historic_state = cast(
-        list[dict[str, str]], event.get("historic_state", [{}, {}])
-    )
-    event["closing_date"] = "-"
-    if historic_state[-1].get("state") == "SOLVED":
-        event["closing_date"] = historic_state[-2].get("date", "")
-
-    return event
-
-
 def format_accessibility(accessibility: str) -> set[EventAccessibility]:
-    accessibility_map = {
-        "Repositorio": EventAccessibility.REPOSITORY,
-        "Ambiente": EventAccessibility.ENVIRONMENT,
-        "VPN_CONNECTION": EventAccessibility.VPN_CONNECTION,
-    }
+    return set(ACCESSIBILITY_MAP[item] for item in accessibility.split())
 
-    accessibility_list = accessibility.split()
 
-    return set(accessibility_map[item] for item in accessibility_list)
+def format_accessibility_item(items: set[EventAccessibility]) -> str:
+    map_reversed = {v: k for k, v in ACCESSIBILITY_MAP.items()}
+    mapped_items = set(map_reversed[item] for item in items)
+    return " ".join(mapped_items)
 
 
 def format_actions_after_blocking(action: str) -> EventActionsAfterBlocking:
@@ -118,29 +130,27 @@ def format_actions_before_blocking(action: str) -> EventActionsBeforeBlocking:
 def format_affected_components(
     affected_components: str,
 ) -> set[AffectedComponents]:
-    affected_components_map = {
-        "Alteración del ToE": AffectedComponents.TOE_ALTERATION,
-        "Código fuente": AffectedComponents.SOURCE_CODE,
-        "Conectividad a Internet": AffectedComponents.INTERNET_CONNECTION,
-        "Conectividad local (LAN, WiFi)": AffectedComponents.LOCAL_CONNECTION,
-        "Conectividad VPN": AffectedComponents.VPN_CONNECTION,
-        "Credenciales en el ToE": AffectedComponents.TOE_CREDENTIALS,
-        "Datos de prueba": AffectedComponents.TEST_DATA,
-        "Documentación del proyecto": AffectedComponents.DOCUMENTATION,
-        "Estación de pruebas de FLUID": AffectedComponents.FLUID_STATION,
-        "Estación de pruebas del Cliente": AffectedComponents.CLIENT_STATION,
-        "Exclusión de alcance": AffectedComponents.TOE_EXCLUSSION,
-        "Error en compilación": AffectedComponents.COMPILE_ERROR,
-        "Inaccesibilidad del ToE": AffectedComponents.TOE_UNACCESSIBLE,
-        "Indisponibilidad del ToE": AffectedComponents.TOE_UNAVAILABLE,
-        "Inestabilidad del ToE": AffectedComponents.TOE_UNSTABLE,
-        "Privilegios en el ToE": AffectedComponents.TOE_PRIVILEGES,
-        "Otro(s)": AffectedComponents.OTHER,
-        "Ubicación del ToE (IP, URL)": AffectedComponents.TOE_LOCATION,
-    }
-
     components_list = affected_components.split("\n")
-    return set(affected_components_map[item] for item in components_list)
+    return set(AFFECTED_COMPONENTS_MAP[item] for item in components_list)
+
+
+def format_affected_components_item(
+    items: set[AffectedComponents],
+) -> str:
+    map_reversed = {v: k for k, v in AFFECTED_COMPONENTS_MAP.items()}
+    mapped_items = set(map_reversed[item] for item in items)
+    return "\n".join(mapped_items)
+
+
+def format_data(event: dict[str, Any]) -> dict[str, Any]:
+    historic_state = cast(
+        list[dict[str, str]], event.get("historic_state", [{}, {}])
+    )
+    event["closing_date"] = "-"
+    if historic_state[-1].get("state") == "SOLVED":
+        event["closing_date"] = historic_state[-2].get("date", "")
+
+    return event
 
 
 def format_evidences(item: Item) -> EventEvidences:
@@ -180,6 +190,14 @@ def format_historic_state(item: Item) -> tuple[EventState, ...]:
         )
         for state in historic_state
     )
+
+
+def format_state_item(state: EventState) -> Item:
+    return {
+        "analyst": state.modified_by,
+        "date": datetime_utils.convert_from_iso_str(state.modified_date),
+        "state": state.status.value,
+    }
 
 
 def format_type(event_type: str) -> EventType:
@@ -228,3 +246,39 @@ def format_event(item: Item) -> Event:
         state=historic_state[-1],
         type=format_type(item.get("event_type", "OTHER")),
     )
+
+
+def format_event_item(event: Event) -> Item:
+    item = {
+        "action_after_blocking": event.action_after_blocking,
+        "action_before_blocking": event.action_before_blocking,
+        "accessibility": format_accessibility_item(event.accessibility)
+        if event.accessibility
+        else None,
+        "affected_components": format_affected_components_item(
+            event.affected_components
+        )
+        if event.affected_components
+        else None,
+        "client": event.client,
+        "context": event.context,
+        "detail": event.description,
+        "project_name": event.group_name,
+        "analyst": event.hacker,
+        "event_id": event.id,
+        "root_id": event.root_id,
+        "historic_state": [format_state_item(event.state)],
+        "event_type": event.type.value,
+    }
+    if event.evidences.image:
+        item["evidence"] = event.evidences.image.file_name
+        item["evidence_date"] = datetime_utils.convert_from_iso_str(
+            event.evidences.image.modified_date
+        )
+    if event.evidences.file:
+        item["evidence_file"] = event.evidences.file.file_name
+        item["evidence_file_date"] = datetime_utils.convert_from_iso_str(
+            event.evidences.file.modified_date
+        )
+
+    return item
