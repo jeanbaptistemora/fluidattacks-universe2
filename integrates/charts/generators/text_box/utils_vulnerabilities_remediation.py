@@ -100,7 +100,9 @@ def get_percentage_change(
     if total == Decimal("0.0") and current > Decimal("0.0"):
         return Decimal("1.0")
 
-    return Decimal(current / total).normalize()
+    return Decimal(
+        Decimal(current / total).normalize() * Decimal("100.0")
+    ).quantize(Decimal("0.01"))
 
 
 @alru_cache(maxsize=None, typed=True)
@@ -161,7 +163,7 @@ async def generate_one(
     return FormatSprint(
         solved=solved,
         created=created,
-        remediated=solved - created,
+        remediated=Decimal(solved - created).quantize(Decimal("0.01")),
     )
 
 
@@ -208,6 +210,7 @@ def format_data(count: Decimal, state: str) -> dict:
             text=count,
             color=RISK.more_agressive,
             arrow="&#11014;",
+            percentage=True,
         )
 
     if state == "solved" and count > Decimal("0.0"):
@@ -217,6 +220,7 @@ def format_data(count: Decimal, state: str) -> dict:
             text=count,
             color=RISK.more_passive,
             arrow="&#11014;",
+            percentage=True,
         )
 
     if state == "remediated" and count > Decimal("0.0"):
@@ -226,6 +230,7 @@ def format_data(count: Decimal, state: str) -> dict:
             text=count,
             color=RISK.more_passive,
             arrow="&#11014;",
+            percentage=True,
         )
 
     if state == "remediated" and count < Decimal("0.0"):
@@ -235,11 +240,13 @@ def format_data(count: Decimal, state: str) -> dict:
             text=count,
             color=RISK.more_agressive,
             arrow="&#11015;",
+            percentage=True,
         )
 
     return dict(
         fontSizeRatio=0.5,
         text=count,
+        percentage=True,
     )
 
 
