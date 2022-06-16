@@ -56,11 +56,11 @@ async def test_get_event() -> None:
 @pytest.mark.changes_db
 async def test_add_event() -> None:
     attrs = {
-        "accessibility": "REPOSITORY",
+        "accessibility": ["VPN_CONNECTION"],
         "context": "OTHER",
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
-        "event_type": "CLIENT_DETECTS_ATTACK",
+        "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
     event_payload = await events_domain.add_event(
@@ -75,10 +75,10 @@ async def test_add_event() -> None:
 @pytest.mark.changes_db
 async def test_add_event_file_image() -> None:
     attrs = {
-        "accessibility": "REPOSITORY",
+        "accessibility": ["VPN_CONNECTION"],
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
-        "event_type": "CLIENT_DETECTS_ATTACK",
+        "event_type": "AUTHORIZATION_SPECIAL_ATTACK",
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
     filename = os.path.dirname(os.path.abspath(__file__))

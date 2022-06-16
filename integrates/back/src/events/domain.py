@@ -1,5 +1,4 @@
-"""Domain functions for events."""  # pylint:disable=cyclic-import
-
+# pylint:disable=cyclic-import
 from aioextensions import (
     collect,
     schedule,
@@ -28,6 +27,17 @@ from datetime import (
 )
 from db_model import (
     findings as findings_model,
+)
+from db_model.events.enums import (
+    EventAccessibility,
+    EventAffectedComponents,
+    EventStateStatus,
+    EventType,
+)
+from db_model.events.types import (
+    Event,
+    EventEvidences,
+    EventState,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus,
@@ -143,86 +153,81 @@ async def add_event(  # pylint: disable=too-many-locals
 ) -> AddEventPayload:
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
-
-    event_id = str(random.randint(10000000, 170000000))  # nosec
-    tzn = pytz.timezone(TIME_ZONE)
-    today = datetime_utils.get_now()
-
-    group: Group = await loaders.group.load(group_name)
-    subscription = group.state.type
-
     root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
-        raise InvalidParameter()
+        raise InvalidParameter(field="rootId")
+    if file and not await validate_evidence("evidence_file", file):
+        raise InvalidParameter(field="evidenceFile")
+    if image and not await validate_evidence("evidence", image):
+        raise InvalidParameter(field="evidence")
 
-    event_attrs = kwargs.copy()
-    event_date = event_attrs.pop("event_date").astimezone(tzn)
-    if event_date > today:
+    tzn = pytz.timezone(TIME_ZONE)
+    event_date: datetime = kwargs["event_date"].astimezone(tzn)
+    if event_date > datetime_utils.get_now():
         raise InvalidDate()
 
-    event_attrs.update(
-        {
-            "accessibility": " ".join(list(set(event_attrs["accessibility"]))),
-            "analyst": hacker_email,
-            "client": group.organization_id,
-            "historic_state": [
-                {
-                    "analyst": hacker_email,
-                    "date": datetime_utils.get_as_str(event_date),
-                    "state": "OPEN",
-                },
-                {
-                    "analyst": hacker_email,
-                    "date": datetime_utils.get_as_str(today),
-                    "state": "CREATED",
-                },
-            ],
-            "root_id": root.id,
-            "subscription": subscription.value,
-        }
+    group: Group = await loaders.group.load(group_name)
+    affected_components: Optional[set[EventAffectedComponents]] = None
+    if "affected_components" in kwargs:
+        affected_components_str = "\n".join(
+            list(set(kwargs["affected_components"]))
+        )
+        affected_components = events_utils.format_affected_components(
+            affected_components_str
+        )
+    accessibility: Optional[set[EventAccessibility]] = None
+    if "accessibility" in kwargs:
+        accessibility_str = " ".join(list(set(kwargs["accessibility"])))
+        accessibility = events_utils.format_accessibility(accessibility_str)
+    event = Event(
+        accessibility=accessibility,
+        affected_components=affected_components,
+        client=group.organization_id,
+        description=kwargs["detail"],
+        event_date=datetime_utils.get_as_utc_iso_format(event_date),
+        evidences=EventEvidences(),
+        group_name=group_name,
+        hacker=hacker_email,
+        id=str(random.randint(10000000, 170000000)),  # nosec
+        root_id=root.id,
+        state=EventState(
+            modified_by=hacker_email,
+            modified_date=datetime_utils.get_as_utc_iso_format(event_date),
+            status=EventStateStatus.OPEN,
+        ),
+        type=EventType[kwargs["event_type"]],
     )
-    if "affected_components" in event_attrs:
-        event_attrs["affected_components"] = "\n".join(
-            list(set(event_attrs["affected_components"]))
-        )
+    await events_dal.add_typed(event=event)
+    await events_dal.update_state(
+        event_id=event.id,
+        group_name=group_name,
+        state=EventState(
+            modified_by=hacker_email,
+            modified_date=datetime_utils.get_iso_date(),
+            status=EventStateStatus.CREATED,
+        ),
+    )
 
-    valid_files: bool = True
     if file:
-        valid_files = valid_files and await validate_evidence(
-            "evidence_file", file
-        )
+        await update_evidence(event.id, "evidence_file", file, event_date)
     if image:
-        valid_files = valid_files and await validate_evidence(
-            "evidence", image
-        )
+        await update_evidence(event.id, "evidence", image, event_date)
 
-    success: bool = False
-    if valid_files:
-        success = await events_dal.add(event_id, group_name, event_attrs)
-
-    if success:
-        if file:
-            await update_evidence(event_id, "evidence_file", file, event_date)
-        if image:
-            await update_evidence(event_id, "evidence", image, event_date)
-
-    event_type = event_attrs["event_type"]
-    description = event_attrs["detail"]
     report_date: date_type = datetime_utils.get_date_from_iso_str(
-        event_attrs["historic_state"][0]["date"]
+        event.event_date
     )
     schedule(
         events_mail.send_mail_event_report(
             loaders=loaders,
             group_name=group_name,
-            event_id=event_id,
-            event_type=event_type,
-            description=description,
+            event_id=event.id,
+            event_type=event.type,
+            description=event.description,
             report_date=report_date,
         )
     )
 
-    return AddEventPayload(event_id, success)
+    return AddEventPayload(event.id, True)
 
 
 async def get_event(event_id: str) -> dict[str, Any]:

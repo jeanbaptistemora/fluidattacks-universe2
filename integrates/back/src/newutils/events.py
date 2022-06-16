@@ -131,7 +131,9 @@ def format_affected_components(
     affected_components: str,
 ) -> set[AffectedComponents]:
     components_list = affected_components.split("\n")
-    return set(AFFECTED_COMPONENTS_MAP[item] for item in components_list)
+    return set(
+        AFFECTED_COMPONENTS_MAP[item] for item in components_list if item
+    )
 
 
 def format_affected_components_item(
