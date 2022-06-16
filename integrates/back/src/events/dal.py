@@ -20,8 +20,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -31,8 +29,8 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = "fi_events"
 
 
-async def create(
-    event_id: str, group_name: str, event_attributes: Dict[str, Any]
+async def add(
+    event_id: str, group_name: str, event_attributes: dict[str, Any]
 ) -> bool:
     success = False
     try:
@@ -45,7 +43,7 @@ async def create(
     return success
 
 
-async def get_event(event_id: str) -> Dict[str, Any]:
+async def get_event(event_id: str) -> dict[str, Any]:
     """Retrieve all attributes from an event"""
     response = {}
     query_attrs = {
@@ -60,7 +58,7 @@ async def get_event(event_id: str) -> Dict[str, Any]:
     return response
 
 
-async def list_group_events(group_name: str) -> List[str]:
+async def list_group_events(group_name: str) -> list[str]:
     key_exp = Key("project_name").eq(group_name)
     query_attrs = {
         "KeyConditionExpression": key_exp,
@@ -79,7 +77,7 @@ async def save_evidence(file_object: object, file_name: str) -> None:
     )
 
 
-async def search_evidence(file_name: str) -> List[str]:
+async def search_evidence(file_name: str) -> list[str]:
     return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
@@ -91,7 +89,7 @@ async def remove_evidence(file_name: str) -> None:
     await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
-async def update(event_id: str, data: Dict[str, Any]) -> bool:
+async def update(event_id: str, data: dict[str, Any]) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""

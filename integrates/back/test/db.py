@@ -368,7 +368,7 @@ async def populate_events(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend(
         [
-            dal_event.create(
+            dal_event.add(
                 event["event_id"],
                 get_key_or_fallback(event),
                 event,

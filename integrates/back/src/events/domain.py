@@ -87,11 +87,7 @@ from time import (
 from typing import (
     Any,
     cast,
-    Dict,
-    List,
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 from users import (
@@ -110,10 +106,10 @@ LOGGER = logging.getLogger(__name__)
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
-    comment_data: Dict[str, Any],
+    comment_data: dict[str, Any],
     event_id: str,
     parent_comment: str,
-) -> Tuple[Union[str, None], bool]:
+) -> tuple[Union[str, None], bool]:
     parent_comment = str(parent_comment)
     content = str(comment_data["content"])
     event_loader = info.context.loaders.event
@@ -202,7 +198,7 @@ async def add_event(  # pylint: disable=too-many-locals
 
     success: bool = False
     if valid_files:
-        success = await events_dal.create(event_id, group_name, event_attrs)
+        success = await events_dal.add(event_id, group_name, event_attrs)
 
     if success:
         if file:
@@ -229,24 +225,24 @@ async def add_event(  # pylint: disable=too-many-locals
     return AddEventPayload(event_id, success)
 
 
-async def get_event(event_id: str) -> Dict[str, Any]:
+async def get_event(event_id: str) -> dict[str, Any]:
     event = await events_dal.get_event(event_id)
     if not event:
         raise EventNotFound()
     return events_utils.format_data(event)
 
 
-async def get_events(event_ids: List[str]) -> List[Dict[str, Any]]:
+async def get_events(event_ids: list[str]) -> list[dict[str, Any]]:
     return cast(
-        List[Dict[str, Any]],
+        list[dict[str, Any]],
         await collect(get_event(event_id) for event_id in event_ids),
     )
 
 
-async def get_unsolved_events(group_name: str) -> List[Dict[str, Any]]:
+async def get_unsolved_events(group_name: str) -> list[dict[str, Any]]:
     events_list = await list_group_events(group_name)
     events = await get_events(events_list)
-    unsolved: List[Dict[str, Any]] = [
+    unsolved: list[dict[str, Any]] = [
         event
         for event in events
         if event["historic_state"][-1]["state"] == "CREATED"
@@ -268,7 +264,7 @@ async def has_access_to_event(email: str, event_id: str) -> bool:
     return bool(await authz.has_access_to_group(email, group))
 
 
-async def list_group_events(group_name: str) -> List[str]:
+async def list_group_events(group_name: str) -> list[str]:
     return await events_dal.list_group_events(group_name)
 
 
@@ -325,7 +321,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     date: datetime,
     reason: str,
     other: Optional[str],
-) -> Tuple[bool, Dict[str, Set[str]], Dict[str, List[str]]]:
+) -> tuple[bool, dict[str, set[str]], dict[str, list[str]]]:
     """Solves an Event, can either return a bool and two empty dicts or a bool
     with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
     and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
@@ -336,23 +332,23 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     other_reason: str = other if other else ""
 
     if (
-        cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
+        cast(list[dict[str, str]], event.get("historic_state", []))[-1].get(
             "state"
         )
         == "SOLVED"
     ):
         raise EventAlreadyClosed()
 
-    affected_reattacks: Tuple[
+    affected_reattacks: tuple[
         Vulnerability, ...
     ] = await loaders.event_vulnerabilities_loader.load((event_id))
     has_reattacks: bool = len(affected_reattacks) > 0
     if has_reattacks:
         user_info = await token_utils.get_jwt_content(info.context)
         # For open vulns on hold
-        reattacks_dict: Dict[str, Set[str]] = {}
+        reattacks_dict: dict[str, set[str]] = {}
         # For closed vulns on hold (yes, that can happen)
-        verifications_dict: Dict[str, List[str]] = {}
+        verifications_dict: dict[str, list[str]] = {}
         for vuln in affected_reattacks:
             if vuln.state.status == VulnerabilityStateStatus.OPEN:
                 reattacks_dict.setdefault(vuln.finding_id, set()).add(vuln.id)
@@ -396,7 +392,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     )
 
     today = datetime_utils.get_now()
-    history = cast(List[Dict[str, str]], event.get("historic_state", []))
+    history = cast(list[dict[str, str]], event.get("historic_state", []))
     history += [
         {
             "analyst": hacker_email,
@@ -444,7 +440,7 @@ async def update_evidence(
     validations.validate_sanitized_csv_input(event_id)
     event = await get_event(event_id)
     if (
-        cast(List[Dict[str, str]], event.get("historic_state", []))[-1].get(
+        cast(list[dict[str, str]], event.get("historic_state", []))[-1].get(
             "state"
         )
         == "SOLVED"
@@ -512,10 +508,10 @@ async def request_vulnerabilities_hold(
     loaders: Any,
     finding_id: str,
     event_id: str,
-    user_info: Dict[str, str],
-    vulnerability_ids: Set[str],
+    user_info: dict[str, str],
+    vulnerability_ids: set[str],
 ) -> None:
-    vulnerabilities: Union[Tuple[Vulnerability, ...], list[Vulnerability]]
+    vulnerabilities: Union[tuple[Vulnerability, ...], list[Vulnerability]]
     justification: str = (
         f"These reattacks have been put on hold because of Event #{event_id}"
     )
@@ -555,7 +551,7 @@ async def request_vulnerabilities_hold(
             for vuln in vulnerabilities
         )
     )
-    comment_data: Dict[str, Any] = {
+    comment_data: dict[str, Any] = {
         "comment_type": "verification",
         "content": justification,
         "parent": "0",
