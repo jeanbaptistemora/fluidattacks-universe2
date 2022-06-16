@@ -61,7 +61,7 @@ The second way to subscribe is through are ASM.
 
 - Subscribe either through “Email or RSS”.
 
-![Subscription Ways](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_suscription-ways.png)
+![Subscription Ways](https://res.cloudinary.com/fluid-attacks/image/upload/v1655391894/docs/web/news/subscription/subscription_through_asm.png)
 
 - Based on the email you subscribed
   to you will be getting an email from
