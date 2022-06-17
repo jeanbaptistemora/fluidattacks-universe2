@@ -1,3 +1,4 @@
+aioboto3: "9.6.0"
 aioextensions: "20.11.1621472"
 aiofiles: "0.6.0"
 aiogqlc: "2.0.0b1"
