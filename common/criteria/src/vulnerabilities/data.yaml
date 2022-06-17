@@ -4601,6 +4601,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Weak hashing algorithm used
       ```javascript
       function hashPassword(password) {
         const md5sum = crypto.createHash('md5');
@@ -4609,6 +4610,7 @@
       };
       ```
     compliant: |
+      The application should use strong hashing and encryption algorithms
       ```javascript
       function hashPassword(password) {
         this.salt = crypto.randomBytes(256).toString('hex');
@@ -4781,6 +4783,7 @@
   category: Probabilistic Techniques
   examples:
     non_compliant: |
+      There are forms in the application that do not implement any kind of security control against automation attacks
       ```javascript
       <div class="container">
         <label for="uname"><strong>Name</strong></label>
@@ -4791,6 +4794,7 @@
       </div>
       ```
     compliant: |
+      Implement some captcha controls in the registry forms
       ```jsx
       import ReCAPTCHA from "react-google-recaptcha"
       function onChange(value){
@@ -5010,6 +5014,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      A service is configured to allow anonymous authentication
       ```json
       {
         "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -5020,6 +5025,7 @@
       }
       ```
     compliant: |
+      Correctly configure services to deny anonymous authentication
       ```json
       {
         "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -5132,6 +5138,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Tha application has an http header poorly configured
       ```http
       GET HTTP/1.1
       Host: hostname
@@ -5140,8 +5147,10 @@
       Accept-Language: en-us,en;q=0.5
       Keep-Alive: 300
       Connection: keep-alive
+      content-length: 100000
       ```
     compliant: |
+      The http headers of the application have a reasonable content length limit and a timeout limit set
       ```http
       GET HTTP/1.1
       Host: hostname
@@ -5213,6 +5222,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has debugging enabled on the AndroidManifest
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
         <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -5221,6 +5231,7 @@
       </manifest>
       ```
     compliant: |
+      The application does not enable debugging in a production environment
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
         <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -5334,6 +5345,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application allows connections to unverified host
       ```python
       def doConnection(host, port, intention):
         sock = tcp_connect(host, port, intention)
@@ -5341,6 +5353,7 @@
         return ssl_sock
       ```
     compliant: |
+      The application should validate all connections against a white list of allowable hosts
       ```python
       def doConnection(host, port, intention):
         isValidHost = validateHost(host, port)
@@ -5407,6 +5420,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Some fragments can be inserted into the application without server side verification
       ```java
       public partial class WebForm : System.Web.UI.Page{
         protected void File_Load(object file, EventArgs e){
@@ -5568,6 +5582,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There are some inputs used to redirect the user without validation
       ```java
       public partial class WebForm : System.Web.UI.Page{
         protected void Page_Load(object sender, EventArgs e) {
@@ -5580,32 +5595,7 @@
       ```c {3,7,15}
       public void bad() throws Throwable {
         String data;
-        data = "";
-        {
-          Socket socket = null;
-          BufferedReader readerBuffered = null;
-          InputStreamReader readerInputStream = null;
-          try {
-            socket = new Socket("host.example.org", 39544);
-            readerInputStream = new InputStreamReader(socket.getInputStream(), "UTF-8");
-            readerBuffered = new BufferedReader(readerInputStream);
-            data = readerBuffered.readLine();
-          }
-          catch (IOException exceptIO) {
-            IO.logger.log(Level.WARNING, "Error with stream reading", exceptIO);
-          }
-          //Not shown code to close the socket
-        }
-
-        String root;
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
-          /* running on Windows */
-          root = "C:\\uploads\\";
-        }
-        else {
-          /* running on non-Windows */
-          root = "/home/user/uploads/";
-        }
+        //Code to open the connection and read the data not shown
 
         if (data != null) {
           // POTENTIAL FLAW: no validation of concatenated value
@@ -5620,6 +5610,7 @@
       }
       ```
     compliant: |
+      The application should avoid redirecting based on external inputs, but, if needed, should always validate the values and sanitize them
       ```java
       public partial class WebForm : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
@@ -5679,6 +5670,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The http headers shown an incorrectly set up clock
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -5686,6 +5678,7 @@
       Date: Tue, 01 Feb 2022 "Wrong Clock" GMT
       ```
     compliant: |
+      The clock is correctly configured for all the server responses
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -5759,6 +5752,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are forms in the application that allow for auto-complete functionalities
       ```html
       <form class="container" autocomplete="on">
         <input type="text" placeholder="Enter Name" name="uname" required>
@@ -5767,6 +5761,7 @@
       </form>
       ```
     compliant: |
+      The http headers of the application are set to prevent cache
       ```http
       GET /tutorials/other/top-20-mysql-best-practices/ HTTP/1.1
       Host: hostname
@@ -5832,6 +5827,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are console functions in the production code
       ```c {3,7,15}
       using System;
       namespace Example {
@@ -5845,6 +5841,17 @@
       ```
     compliant:  |
       No console functions in production code
+      ```c {3,7,15}
+      using System;
+      namespace Example {
+        public class Example {
+          public Test() {
+            var text_str = "hello world";
+            //Code to do something
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -5959,8 +5966,8 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      An improper sorting algorithm is an example of improper resource allocation
       ```java
-      //Non-converging sorting algorithm
       public class QuickSortDemo {
         public static void main(String args[unsorted]) {
           System.out.println("Unsorted array :" + Arrays.toString(unsorted));
@@ -5974,6 +5981,7 @@
       }
       ```
     compliant: |
+      Efficient algorithms should be used to handle data
       ```java
       public static void bubbleSort(int[] numbers) {
         System.out.printf("Unsorted array in Java :%s %n", Arrays.toString(numbers));
@@ -6186,10 +6194,11 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The port property of the resource is not set to a secure value
       ```terraform
       resource "aws_lb_listener" "front_end" {
         load_balancer_arn = aws_lb.front_end.arn
-        port              = "443"
+        port              = "40"
         protocol          = "HTTPS"
         ssl_policy        = "ELBSecurityPolicy-FS-1-1-2019-08"
         certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
@@ -6201,6 +6210,7 @@
       }
       ```
     compliant: |
+      The port property and security policy are set to secure values
       ```terraform
       <resource "aws_lb_listener" "front_end" {
         load_balancer_arn = aws_lb.front_end.arn
@@ -6276,14 +6286,16 @@
   category: Protocol Manipulation
   examples:
     non_compliant:  |
+      The referrer policy of the http headers are insecurely configured
       ```http
       GET http://localhost/
       Referrer-Policy: none
       ```
     compliant:  |
+      The referrer policy are set to a secure value
       ```http
       GET http://localhost/
-      Referrer-Policy: origin-when-cross-origin
+      Referrer-Policy: strict-origin-when-cross-origin
       ```
   remediation_time: "30"
   score:
@@ -6397,6 +6409,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is a publicly accessible sensitive resource
       ```terraform
       resource "aws_rds_cluster_instance" "cluster_instances" {
         count               = 2
@@ -6409,6 +6422,7 @@
       }
       ```
     compliant: |
+      All sensitive resources are safely configured with restricted access
       ```terraform
       resource "aws_rds_cluster_instance" "cluster_instances" {
         count               = 2
@@ -6483,6 +6497,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Some commented out code could cause downstream vulnerabilities in the code
       ```c {3,7,15}
       namespace Controllers {
         public class Calculate {
@@ -6501,6 +6516,7 @@
       }
       ```
     compliant: |
+      There is no commented out code in the production environment
       ```c {3,7,15}
       namespace Controllers {
         public class Calculate {
@@ -6598,6 +6614,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows external content providers with an export and Uri permissions set to true
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
           <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -6612,6 +6629,7 @@
       </manifest>
       ```
     compliant: |
+      Ideally, there should be no access allowed to third party content providers
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
           <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -6620,7 +6638,7 @@
                 android:authorities="com.andriod.databasetest.contentprovider"
                 android:name=".db.ContentProviderDb"
                 android:exported="false"
-                android:grantUriPermissions="true">
+                android:grantUriPermissions="false">
               </provider>
           </application>
       </manifest>
@@ -6698,6 +6716,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The log out functionality of the application does not delete the session tokens
       ```javascript
       function generateAccessToken(username){
         return jwt.sign(username, process.env.TOKEN_SECRET, {expiresIn: '3600s'});
@@ -6708,6 +6727,7 @@
       }
       ```
     compliant: |
+      After logging out of the application, the session token of the user should be deleted too
       ```javascript
       function generateAccessToken(username){
         return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: '1800s'});
@@ -6784,6 +6804,7 @@
   category: Manipulate System
   examples:
     non_compliant: |
+      There is a switch with port-security disabled
       ```json
       server {
         index: "index.html";
@@ -6796,6 +6817,7 @@
       }
       ```
     compliant: |
+      All switches should have the port security enabled
       ```json
       server {
         index: "index.html";
@@ -6854,6 +6876,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      An insecure hashing algorithm is used to create the token hash
       ```javascript
       function hashPassword(password) {
         const md5sum = crypto.createHash('md5');
@@ -6862,6 +6885,7 @@
       }
       ```
     compliant: |
+      Secure and modern hashing algorithms are used by the application
       ```javascript
       function hashPassword(password) {
         this.salt = crypto.randomBytes(256).toString('hex');
@@ -6940,6 +6964,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are some undeclared dependencies in the code
       ```javascript
       var moduleName = require("<name of dependency>");
       const createUser = (user) => {
@@ -6947,6 +6972,7 @@
       }
       ```
     compliant: |
+      All code dependencies are correctly referenced with a defined version
       ```json
       {
         "name": "test",
@@ -7012,6 +7038,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Some sensitive information (Password) in returned in plain text values
       ```javascript
       const registerUser = async (req, res, next) => {
         const { username, password } = req.body
@@ -7023,18 +7050,20 @@
             res.status(200).json({
               message: "User successfully created",
               user,
+              password,
             })
           )
           return user, password
         } catch (err) {
           res.status(401).json({
-            message: "User not successful created",
+            message: "Something went wrong: User not created",
             error: error.mesage,
           })
         }
       }
       ```
     compliant: |
+      Passwords should always be stored in encrypted values and never returned as plain text in a response
       ```c {3,7,15}
       const registerUser = async (req, res, next) => {
         const { username, HashPassword } = req.body
@@ -7050,7 +7079,7 @@
           )
         } catch (err) {
           res.status(401).json({
-            message: "User not successful created",
+            message: "Something went wrong. User not created",
             error: error.mesage,
           })
         }
@@ -7123,7 +7152,8 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      ```tf
+      Some resources do not allow multi-factor authentication
+      ```terraform
       resource "aws_s3_bucket" "bucket" {
         bucket = "some_test_bucket"
         acl    = "private"
@@ -7134,7 +7164,8 @@
       }
       ```
     compliant: |
-      ```tf
+      All resources should be set up to allow multi-factor authentication
+      ```terraform
       resource "aws_s3_bucket" "bucket" {
         bucket = "some_test_bucket"
         acl    = "private"
@@ -7203,6 +7234,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The files are deleted without making changes to their content, which could still allow for information to be retrieved
       ```java
       public partial class WebForm : System.Web.UI.Page {
         protected void Page_Load(object fileToDelete, EventArgs e) {
@@ -7211,6 +7243,7 @@
       }
       ```
     compliant: |
+      A recommended practice is to overwrite the contents of a file before deleting it
       ```java
       public partial class WebForm : System.Web.UI.Page {
         protected void Page_Load(object fileToDelete, EventArgs e) {
@@ -7280,20 +7313,22 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application does not sanitize input content, which could allow for xml code injection
       ```c {3,7,15}
       public void bad() throws Throwable {
-        InputSource inputXml = new InputSource(xmlFile);
+        InputSource  input = new InputSource(userFile);
         String query = "SELECT * from Data";
-        String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
+        String secret = (String)xPath.evaluate(query, input, XPathConstants.STRING);
       }
       ```
     compliant: |
+      All input content should be correctly sanitized and filtered
       ```c {3,7,15}
       public void bad() throws Throwable {
-        InputSource inputXml = new InputSource(xmlFile);
-        cleanInput = cleanXml(xmlFile, allowedList);
+        InputSource input = new InputSource(userFile);
+        String cleanInput = clearInput(input, allowedContent);
         String query = "SELECT * from Data";
-        String secret = (String)xPath.evaluate(query, inputXml, XPathConstants.STRING);
+        String secret = (String)xPath.evaluate(query, cleanInput, XPathConstants.STRING);
       }
       ```
   remediation_time: "60"
@@ -7364,8 +7399,24 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
-      Check that the network configuration does not allow LLMNR y NBT-NS
+      Network configuration that allows LLMNR
+      ```yaml
+      gateway: "My gateway name"
+      firewall_service:
+        enabled: true
+        policy: 'drop'
+        log_default_action: true
+        firewall_rules:
+        - :id: '1'
+          :enabled: true
+          :llmnr: yes
+          :destination_port_range: '5353'
+          :destination_ip: '00.01.02.03'
+          :source_port_range: '5353'
+          :source_ip: 'Any'
+      ```
     compliant: |
+      Verify that the application does not allow LLMNR and NBT-NS
       ```yaml
       gateway: "My gateway name"
       firewall_service:
@@ -7448,6 +7499,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Password and session ids are stored in the client side using tools like local storage
       ```javascript
       localStorage.getItem('password');
       localStorage.setItem('whatever', sessionID);
@@ -7455,6 +7507,7 @@
       localStorage.getItem(session_token);
       ```
     compliant: |
+      Local storage should only be used for non sensitive data storage
       ```javascript
       localStorage.setItem('whatever','non-sensitive');
       localStorage.getItem(non.sensitive);
@@ -7513,6 +7566,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      There is no integrity secure attribute set on the script tags
       ```html
       <html>
         <head>
@@ -7521,6 +7575,7 @@
       </html>
       ```
     compliant: |
+      All script tags on the application have the integrity attribute set
       ```html
       <html>
         <head>
@@ -7703,19 +7758,23 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application mixes insecure unvalidated data and insecure id generating method to set critical data
       ```java
-      public void insecure() {
+      public void insecure(args*) {
         HttpServletRequest request = new HttpServletRequest();
-        User currentUser = new User("Jane", "Doe", "xxxxxxxxxx");
+        User currentUser = new User(name, lastname, password);
         currentUser.userId = this.createRandom();
         request.getSession().setAttribute("testInstanceReference", currentUser.getUserId());
       }
       ```
     compliant: |
+      Input data is validated and secure methods to generate ids are used to set critical data
       ```java
-      public void secure() {
+      public void secure(args*) {
         HttpServletRequest request = new HttpServletRequest();
-        User currentUser = new User("Jane", "Doe");
+        String name = clearInput(userName);
+        String lastName = clearInput(userLastName);
+        User currentUser = new User(name, lastName);
         currentUser.userId = this.getSecureUuid();
         request.getSession().setAttribute("testInstanceReference", currentUser.name);
       }
@@ -7777,6 +7836,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      An input csv file is not correctly validated before uploading into the application system
       ```javascript
       function loadFiles(csvFile) {
         // User csv file could contain harmful fields
@@ -7787,6 +7847,7 @@
       }
       ```
     compliant: |
+      All input csv files have their fields validated to avoid input formulas
       ```javascript
       function loadFiles(csvFile) {
         // User csv file could contain harmful fields
@@ -7864,11 +7925,12 @@
   category: Manipulate System
   examples:
     non_compliant: |
+      Some of the logs use unsanitized input
       ```c {3,7,15}
       using System;
       using Microsoft.AspNetCore.Mvc;
 
-      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller {
+      public class Log4NetNoncompliantController : Controller {
         public void LogSomething(HttpRequest id) {
           private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
           _logger.Info(id);
@@ -7880,11 +7942,12 @@
       }
       ```
     compliant: |
+      System logs should use correctly sanitize input
       ```c {3,7,15}
       using System;
       using Microsoft.AspNetCore.Mvc;
 
-      public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller {
+      public class Log4NetNoncompliantController : Controller {
         public void LogSomething(HttpRequest id) {
           private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
           id = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
@@ -7945,6 +8008,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are insecure cipher algorithms used in the application
       ```json
       http {
         server {
@@ -7952,7 +8016,7 @@
           listen: "localhost:4446 ssl";
           server_name: "localhost";
           ssl_prefer_server_ciphers: "off";
-          ssl_ciphers: "*";
+          ssl_ciphers: "TLS_DH_RSA_WITH_SEED_CBC_SHA";
           ssl_certificate: "cert.crt";
           ssl_certificate_key: "cert.key";
           ssl_protocols: "SSLv3 TLSv1 TLSv1.1";
@@ -7960,6 +8024,7 @@
       }
       ```
     compliant: |
+      The application has secure cipher algorithms set
       ```json
       http {
         server {
@@ -8103,6 +8168,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are hidden fields in the application forms that could be manipulated
       ```html
       <form action="/action_page.php">
         <h1>Login Form</h1>
@@ -8118,6 +8184,7 @@
       </form>
       ```
     compliant: |
+      Avoid using hidden input fields without handling them from the server side
       ```html
       <form action="/action_page.php">
         <h1>Login Form</h1>
@@ -8182,6 +8249,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      CBC algorithms could be forced in feasible time
       ```json
       http {
         server {
@@ -8197,6 +8265,7 @@
       }
       ```
     compliant: |
+      Secure cipher algorithms are defined in the application
       ```json
       http {
         server {
@@ -8268,38 +8337,26 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```php
-      <?php
-        if (!isset($_SERVER['PHP_AUTH_USER'])
-        {
-          //Unverified site_url from the user
-          function __construct($site_url)
-          {
-            $this->site_path = $this->removeSlash($site_path);
-          }
+      A verification code that should only be used once is stored inside the user data
+      ```javascript
+      function recoverPassword(verificationCode) {
+        if isValid(verificationCode){
+          user.verificationCode = verificationCode
+          //Code to handle user recover password
+          ...
         }
-      ?>
+      }
       ```
     compliant: |
-      ```php
-      <?php
-        function authenticateUniqueness(urls)
-        {
-          /Function to prevent multiple urls to be accessed
-          ...
-          exit;
-        }
+      verification codes should expire after a timeout and be deleted after a single use
+      ```javascript
+      function hashPassword(verificationCode) {
 
-        if (!isset($_SERVER['PHP_AUTH_USER'])
-        {
-          authenticateUniqueness(URLS);
-          //Treat the authenticated urls
-          ...
-        } else
-        {
-          ...
+        if (isValid(verificationCode) & isNotExpired(verificationCode.timestamp){
+          //Code to handle user recover password
+          deleteCode(verificationCode)
         }
-      ?>
+      }
       ```
   remediation_time: "45"
   score:
@@ -8354,6 +8411,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      Input data is not correctly sanitized
       ```c {3,7,15}
       public class XmlSerializerTestCase : Controller {
         public ActionResult unsecuredeserialization(HttpRequest typeName) {
@@ -8364,6 +8422,7 @@
       }
       ```
     compliant: |
+      Verify the expected type of the input before starting a serializer
       ```c {3,7,15}
       public class XmlSerializerTestCase : Controller {
         public ActionResult unsecuredeserialization(HttpRequest typeName) {
@@ -8441,11 +8500,13 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
-      ```c
+      Some external links are not securely set on the application
+      ```html
       <a href="uncontrolledUrl">Link to external web</a>
       ```
     compliant: |
-      ```c
+      The rel:noopener attribute is set in all external links of the application
+      ```html
       <a href="uncontrolledUrl" rel="noopener">Link to external web</a>
       ```
   remediation_time: "15"
@@ -8508,24 +8569,28 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      User input is not validated before opening a file
       ```c {3,7,15}
       using System;
       using System.IO;
       public partial class WebForm : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
           string userInput = Request.Params["UserInput"];
-          var elem = File.Open(userInput, FileMode.Open);
+          stirng filePath = userInput.path;
+          var elem = File.Open(userInput, filePath,  FileMode.Edit);
         }
       }
       ```
     compliant: |
+      User input is validated on the server side before granting access to a file
       ```c {3,7,15}
       using System;
       using System.IO;
       public partial class WebForm : System.Web.UI.Page {
         protected void Page_Load(object sender, EventArgs e) {
-          string VerifiedFilePath = "/myTrustedPath"
-          var elem = File.Open(userInput, FileMode.Open);
+          string userInput = clearInput(Request.Params["UserInput"]);
+          string verifiedFilePath = "/myTrustedPath"
+          var elem = File.Open(userInput, verifiedFilePath,  FileMode.Open);
         }
       }
       ```
@@ -8584,6 +8649,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There is an unencrypted resource that stores sensitive data
       ```yaml
       Resources:
         UnencryptedS3Bucket:
@@ -8593,6 +8659,7 @@
             BucketName: SKIMS-EXAMPLE-BUCKET
       ```
     compliant: |
+      Sensitive data is stored in a resource with properly defined encryption
       ```yaml
       Resources:
         EncryptedS3Bucket:
@@ -8715,6 +8782,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The system allows for a request redirect to be set by the user without verifying the data
       ```c {3,7,15}
       using System.Net;
       using System;
@@ -8724,14 +8792,12 @@
           public void ReadContentOfURL(HttpRequest url){
             //Insecure
             WebRequest req = WebRequest.Create(url);
-            if (!whiteList.Contains(url)){
-              return BadRequest();
-            }
           }
         }
       }
       ```
     compliant: |
+      Avoid request redirection to be set by the user, only if absolutely necessary, input should be validated against a whitelist
       ```c {3,7,15}
       using System.Net;
       using System;
@@ -8743,6 +8809,9 @@
             isVerifiedUrl = verifyUrl(url);
             if isVerifiedUrl{
               WebRequest request = WebRequest.Create(url);
+              if (!whiteList.Contains(url)){
+                return BadRequest();
+              }
             }
           }
         }
@@ -8810,6 +8879,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is a resource configure without deletion prevention policies and safeguards
       ```terraform
       resource "azurerm_key_vault" "vulnerable" {
         name                       = "examplekeyvault"
@@ -8820,6 +8890,7 @@
       }
       ```
     compliant: |
+      Sensitive resources have protection against deletion and backup policies
       ```terraform
       resource "azurerm_key_vault" "not_vulnerable" {
         name                       = "examplekeyvault"
@@ -9091,11 +9162,10 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      //The application uses unsanitized user input to make a query and display possible harmful information
       ```c
-      //This function uses unsanitized user input to make a query and display possible harmful information
       public static void searchIndex(String whichField, String start, String end, boolean inclusive)
         throws IOException, ParseException {
-        System.out.println("\\nSearching for range '" + start + " to " + end + "' using RangeQuery");
         Directory directory = FSDirectory.getDirectory(INDEX_DIRECTORY);
         IndexSearcher indexSearcher = new IndexSearcher(directory);
         Term startTerm = new Term(whichField, start);
@@ -9106,12 +9176,10 @@
       }
       ```
     compliant: |
+      Sanitize user input on the server side and make parameterised queries to the system end points
       ```c
-      //This function uses unsanitized user input to make a query and display possible harmful information
       public static void searchIndex(String userInput, boolean inclusive)
         throws IOException, ParseException {
-        System.out.println("\\nSearching for range '" + start + " to " + end + "' using RangeQuery");
-
         Directory directory = FSDirectory.getDirectory(INDEX_DIRECTORY);
         IndexSearcher indexSearcher = new IndexSearcher(directory);
         string cleanInput = sanitizeInput(userInput);
@@ -9174,12 +9242,12 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input to make NoSQL sentences without validation
       ```c
       MongoClient mongoClient = new MongoClient();
       DB db = mongoClient.getDB("test");
       boolean auth = db.authenticate(myUserName, myPassword);
 
-      //This method takes user input without sanitizing
       static void myMethod(user, searchTerm){
         BasicDBObject searchQuery = new BasicDBObject();
         queryResult = db.customer.find({user: user, info: searchTerm});
@@ -9187,6 +9255,7 @@
       }
       ```
     compliant: |
+      Perform server side validation of user inputs before making NoSQL sentences
       ```c
       MongoClient mongoClient = new MongoClient();
       DB db = mongoClient.getDB("test");
@@ -9257,6 +9326,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses dynamic user inputs to make LDAP sentences
       ```c {3,7,15}
       using System;
       using System.DirectoryServices;
@@ -9272,6 +9342,7 @@
       }
       ```
     compliant: |
+      Perform server side validation of all inputs before making LDAP sentences
       ```c {3,7,15}
       using System;
       using System.DirectoryServices;
@@ -9352,6 +9423,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not restrict the number of requests performed by a single user
       ```javascript
       const rateLimit = require("express-rate-limit");
       const apiLimiter = rateLimit({
@@ -9360,6 +9432,7 @@
       });
       ```
     compliant: |
+      Set a reasonable limit to the number of requests allowed for a user
       ```javascript
       import rateLimit from 'express-rate-limit';
       //Middleware that limits the amount of requests
@@ -9420,26 +9493,42 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```terraform
-      resource "aws_rds_cluster" "cluster_instances" {
-        count              = 2
-        identifier         = "aurora-cluster-demo-${count.index}"
-        cluster_identifier = aws_rds_cluster.default.id
-        instance_class     = "db.r4.large"
-        engine             = aws_rds_cluster.default.engine
-        engine_version     = aws_rds_cluster.default.engine_version
-      }
+      There are some resources which use the pre defined security group or do not define one
+      ```yaml
+      Resources:
+        MyLaunchTemplate:
+          Type: AWS::EC2::LaunchTemplate
+          Properties:
+            LaunchTemplateName: MyLaunchTemplate
+            LaunchTemplateData:
+              InstanceType: t2.micro
+              KeyName: MyKeyPair
+        MyEC2Instance:
+          Type: AWS::EC2::Instance
+          Properties:
+            ImageId: "ami-79fd7eee"
+            KeyName: "testkey"
       ```
     compliant: |
-      ```terraform
-      resource "aws_rds_cluster" "cluster_instances" {
-        count              = 2
-        identifier         = "aurora-cluster-demo-${count.index}"
-        cluster_identifier = aws_rds_cluster.default.id
-        instance_class     = "db.r4.large"
-        engine             = aws_rds_cluster.default.engine
-        engine_version     = aws_rds_cluster.default.engine_version
-      }
+      The resources have defined security groups
+      ```yaml
+      Resources:
+        MyLaunchTemplate:
+          Type: AWS::EC2::LaunchTemplate
+          Properties:
+            LaunchTemplateName: MyLaunchTemplate
+            LaunchTemplateData:
+              InstanceType: t2.micro
+              KeyName: MyKeyPair
+              SecurityGroupIds:
+                - sg-083cd3bfb8example
+        MyEC2Instance:
+          Type: AWS::EC2::Instance
+          Properties:
+            ImageId: "ami-79fd7eee"
+            KeyName: "testkey"
+            SecurityGroups:
+              - name1
       ```
   remediation_time: "90"
   score:
@@ -9609,8 +9698,8 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application uses an unbounded buffer reader
       ```java
-      //Unbounded buffer reader
       func NewReaderSize(rd io.Reader, size int) *Reader {
         b, ok := rd.(*Reader)
         return &Reader{
@@ -9622,8 +9711,8 @@
       }
       ```
     compliant: |
+      Buffer readers should always be bounded
       ```java
-      //Bounded buffer reader
       func NewReaderSize(rd io.Reader, size int) *Reader {
         b, ok := rd.(*Reader)
         if ok && len(b.buf) >= maxReadBufferSize {
@@ -9705,6 +9794,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There are some unsanitized inputs used to perform queries
       ```java
       param = java.net.URLDecoder.decode(param, ""UTF-8"");
 
@@ -9719,6 +9809,7 @@
       );
       ```
     compliant: |
+      The inputs used to performed queries are either parameterized or correctly validated
       ```java
       param = java.net.URLDecoder.decode(param, ""UTF-8"");
 
@@ -9919,6 +10010,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There is no limit to the number of request which could overload the server
       ```javascript
       const rateLimit = require("express-rate-limit");
       const apiLimiter = rateLimit({
@@ -9927,6 +10019,7 @@
       });
       ```
     compliant: |
+      The application correctly sets up a limit to the number of requests based on the business needs
       ```javascript
       import rateLimit from 'express-rate-limit';
       //Middleware that limits the amount of requests
@@ -9994,26 +10087,61 @@
   category: Collect Information
   examples:
     non_compliant: |
-      ```http
-      HTTP/1.1 200 OK
-      Content-Security-Policy: default-src 'self'
-      Content-Type: userID/html; charset=utf-8
-      Set-Cookie: session=/; Path=/;
-      Content-Security-Policy: NONE
-      X-Frame-Options: ALLOW
+      The app provides a different ftps when a query is successful than when the login has failed because of a delay in getting the data
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username;
+        String password;
+        username = input.next();
+        password = input.next();
+
+        try {
+          Thread.sleep(5000);
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                users check = new users(username, password);
+                signIn(user, check)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+          }
+        } catch (InterruptedException e) {
+          //Code to catch the exception that executes faster than the login code...
+        }
+      }
       ```
     compliant: |
-      ```http
-      HTTP/1.1 200 OK
-      Content-Security-Policy: default-src 'self'
-      Content-Type: userID/html; charset=utf-8
-      Set-Cookie: session=/; Path=/; SameSite=Lax
-      Content-Security-Policy: frame-ancestors 'none'
-      X-Frame-Options: DENY
-      Vary: Sec-Fetch-Site
-      Cross-Origin-Opener-Policy: same-origin
+      The application defines the same timing frame functions without distinguishing outcomes of queries
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username;
+        String password;
+        username = input.next();
+        password = input.next();
 
-      //In addition, the server should implement a similar timeout wait time for every request
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                users check = new users(username, password);
+                signIn(user, check)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+          }
+        } catch (InterruptedException e) {
+          //The code to catch the exception takes the same amount of time to execute, on purpose
+          ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            executor.schedule(new Runnable(){
+              public void run() {
+                failedSignin(user)
+              }
+            }, delay, TimeUnit.MILLISECONDS);
+        }
+      }
       ```
   remediation_time: "30"
   score:
@@ -10297,6 +10425,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Incorrectly declared dependencies inside the source code
       ```json
       dependencies": {
         "@apollo/client": "*",
@@ -10306,6 +10435,7 @@
       }
       ```
     compliant: |
+      All dependencies should be defined with a given version number
       ```json
       dependencies": {
         "@apollo/client": "3.4.17",
@@ -10384,6 +10514,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      Use unsanitized parameters to perform queries to the server
       ```javascript
       function getinfo(userQuery) {
         const Http = new XMLHttpRequest();
@@ -10396,6 +10527,7 @@
       }
       ```
     compliant: |
+      Include validation of inputs to verify that the parameters expected by the server are the same being given
       ```javascript
       function getinfo(userQuery) {
         //Extensive method that performs all the required validations to the userQuery
@@ -10469,6 +10601,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is no limit set in the email delivery configuration setting of the application
       ```yaml
       email_delivery:
         delivery_method: :smtp
@@ -10481,6 +10614,7 @@
           user_name: "appadmin"
       ```
     compliant: |
+      The email delivery settings include a time delay to prevent flooding users with spam in any attack event
       ```java
       email_delivery:
         delivery_method: :smtp
@@ -10570,6 +10704,7 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application includes a reference to a local path that could be altered by the user
       ```java
       private String getLocalFile( userReq){
         try {
@@ -10582,6 +10717,7 @@
       }
       ```
     compliant: |
+      All input parameters are validated to ensure they do not contain relative routes
       ```java
       private String getFile(userReq){
         try {
@@ -10738,6 +10874,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are some server configuration settings that allow directories to be listed
       ```yaml
       //server .htaccess file
       Header set X-Custom "Custom Value"
@@ -10746,6 +10883,7 @@
       RewriteRule .* - [F]
       ```
     compliant: |
+      The configuration settings deny directory listing for all unauthorized users
       ```yaml
       //server .htaccess file
       Header set X-Custom "Custom Value"
@@ -10877,9 +11015,8 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application includes functions that could be penetrated because of type confusion
       ```javascript
-      package f127
-
       import (
         "dabatase/sql"
         "db"
@@ -10891,16 +11028,10 @@
         amount := strconv.ParseFloat(request.Amount)
         sql.QueryRow(`INSERT INTO tbl $1`, amount)
       }
-
-      func DangerousFloat2(request *http.Request) {
-        amount := strconv.ParseFloat(request.Amount)
-        DBQuerySameFile("Message", amount, 0)
-      }
       ```
     compliant: |
+      Verify types of user inputs to avoid problems on the server side
       ```javascript
-      package f127
-
       import (
         "dabatase/sql"
         "db"
@@ -10914,14 +11045,6 @@
           return "Not a valid value"
         }
         sql.QueryRow(`INSERT INTO tbl $1`, amount)
-      }
-
-      func SafeFloat2(request *http.Request) {
-        amount := strconv.ParseFloat(request.Amount)
-        if math.IsNaN(amount) || math.IsInf(amount, 0) {
-          return "Not a valid value"
-        }
-        DBQuerySameFile("Message", amount, 0)
       }
       ```
   remediation_time: "30"
@@ -10981,6 +11104,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The http headers do not correctly define the Set-Cookie attribute
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -10989,6 +11113,7 @@
       Date: Tue, 01 Feb 2022 20:29:25 GMT
       ```
     compliant: |
+      The http headers allow only http to generate cookies
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -11051,6 +11176,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The http headers do not correctly define the Same-Site attribute
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -11059,6 +11185,7 @@
       Date: Tue, 01 Feb 2022 20:29:25 GMT
       ```
     compliant: |
+      The Set-Cookie attribute is correctly configured for the Set-Cookie http header
       ```http
       HTTP/1.1 200 OK
       Content-Type: text/html; charset=utf-8
@@ -11129,6 +11256,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The http headers do not correctly define the Set-Cookie field
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
@@ -11137,6 +11265,7 @@
       Date: Tue, 01 Feb 2022 20:29:25 GMT
       ```
     compliant: |
+      The Set-Cookie is correctly configure using a secure channel
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
@@ -11205,6 +11334,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      An http response without a Strict-Transport-Security configuration
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11214,6 +11344,7 @@
       Date: Tue, 01 Feb 2022 20:29:25 GMT
       ```
     compliant: |
+      All http responses include the Content-Security-Policy correctly configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11346,6 +11477,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The server response lacks the X-Content-Type-Options header
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11355,6 +11487,7 @@
       Date: Tue, 01 Feb 2022 20:29:25 GMT
       ```
     compliant: |
+      The X-Content-Type-Options header is correctly defined in the server responses
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11428,6 +11561,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Some insecure encryption algorithms are included in the server configuration
       ```json
       http {
         server {
@@ -11446,6 +11580,7 @@
       }
       ```
     compliant: |
+      The application only includes secure encryption algorithms
       ```json
       http {
         server {
@@ -11521,50 +11656,35 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The application does not define allowed origins
       ```c {3,7,15}
       using System.Net;
       using System;
       namespace testmod{
         public class Controllers{
           public void Configure(IApplicationBuilder app){
-            var corsBuilder = new CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
-            corsBuilder.AllowAnyOrigin();
-            var policyBuilder = new CorsPolicyBuilder();
-            var policy = policyBuilder
-              .AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .Build();
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseCors( cors => cors
-              .AllowAnyMethod()
-              .AllowAnyOrigin());
+            var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+            policy.Headers.Add(""*"");
+            policy.Methods.Add(""*"");
+            policy.Origins.Add(""*"");
+            policy.SupportsCredentials = true;
           }
         }
       }
       ```
     compliant: |
+      The CORS policy is defined using predefined values to define permitted origins
       ```c {3,7,15}
       using System.Net;
       using System;
       namespace testmod{
         public class Controllers{
           public void Configure(IApplicationBuilder app){
-            var SecCorsBuilder = new CorsPolicyBuilder();
-            SecCorsBuilder.AllowAnyHeader();
-            SecCorsBuilder.AllowAnyMethod();
-
-            var SecPolicyBuilder = new CorsPolicyBuilder();
-            var SecPolicy = SecPolicyBuilder
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .Build();
-
-            app.UseCors( x => x
-              .AllowAnyMethod()
-              .AllowAnyHeader());
+            var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+            policy.Headers.Add(definedList);
+            policy.Methods.Add(definedList);
+            policy.Origins.Add(DefinedList);
+            policy.SupportsCredentials = true;
           }
         }
       }
@@ -11629,12 +11749,14 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The X-XSS-Protection header is wrongly configured
       ```http
       HTTP/1.1 200 OK
       X-XSS-Protection: 1; report=<reporting-uri>
       Content-Type: userID/html; charset=utf-8
       ```
     compliant: |
+      The X-XSS-Protection header is securely configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11706,6 +11828,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The Cache control header is insecurely configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11713,6 +11836,7 @@
       Cache-Control: no-cache
       ```
     compliant: |
+      The Cache control header is correctly configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11779,6 +11903,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The X-Permitted-Cross-Domain-Policies header is wrongly configured to allow all policies
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11786,6 +11911,7 @@
       X-Permitted-Cross-Domain-Policies "all"
       ```
     compliant: |
+      The X-Permitted-Cross-Domain-Policies is correctly configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self'
@@ -11843,6 +11969,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are some public fields defined inside some classes of the application
       ```java
       public class Main {
         public double magnitude;
@@ -11850,6 +11977,7 @@
       }
       ```
     compliant: |
+      All attributes of the application clases should be defined as private
       ```java
       public class Main {
         private double magnitude;
@@ -11926,6 +12054,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are some try sentences without their respective catch to handle exceptions
       ```python
       def handleUserInput(userReq):
         try:
@@ -11933,6 +12062,7 @@
         //Next portion of the code without a catch sentence
       ```
     compliant: |
+      All try sentences are accompanied by a catch sentence that correctly handles any exception
       ```python
       def handleUserInput(userReq):
         try:
@@ -12000,17 +12130,20 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application only verifies a valid token to allow access to users sensitive information
       ```java
       //Improper authorization requests
       if (user != null && user.token == "VALID_TOKEN") {
-        //Code to access users information
+        const usersInfo = getInfobyDate(user.req.date)
+        //Code to display users information
       }
       ```
     compliant: |
+      Only authorized users can get access to sensitive information
       ```java
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-        //Code to access user information
+        //Code to access user information only to authorized users
       }
       ```
   remediation_time: "60"
@@ -12093,6 +12226,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The API jeys are stored in plain text value inside the code
       ```javascript
       const API_KEY = "KEY_inplaneText";
 
@@ -12102,6 +12236,7 @@
       }
       ```
     compliant: |
+      API Keys and sensitive information are stored as encrypted values
       ```javascript
       //Store API_KEY as a secret encrypted
       const key = Buffer.from(keyString.substring(0, 8), "utf8");
@@ -12173,6 +12308,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application uses the eval function with unvalidated user inputs
       ```python
       def grantAccess(urlInput):
         userId = getSearchParams(urlInput)
@@ -12182,6 +12318,7 @@
           return None
       ```
     compliant: |
+      All user inputs are validated and sanitized before being evaluated
       ```python
       def grantAccess(urlInput):
         clearInput = clearUrl(urlInput)
@@ -12276,6 +12413,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are static imports used in the application
       ```java
       import static java.lang.System.*;
       import static java.lang.Math.*;
@@ -12284,6 +12422,7 @@
       //Code that uses the static imports frequently
       ```
     compliant: |
+      Static imports are always used in the application classes and methods
       ```java
       import java.util.*;
       import myPublicClass;
@@ -12402,6 +12541,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses unsanitized user inputs to perform queries
       ```java
       static void getQuery(sql) {
         try {
@@ -12415,6 +12555,7 @@
       }
       ```
     compliant: |
+      All queries should be parameterized and dynamic inputs should be sanitized
       ```java
       static void getQuery(param) {
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -12486,6 +12627,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Ther is an insecure protocol set when perfoming a connection
       ```python
       sock = tcp_connect(host, port, intention)
       ssl_ctx = ssl.SSLContext(protocol=SSL)
@@ -12498,6 +12640,7 @@
       return ssl_sock
       ```
     compliant: |
+      Safe protocols are used when perfoming a connection
       ```python
       sock = tcp_connect(host, port, intention)
       ssl_ctx = ssl.SSLContext(protocol=TLSv1.3)
@@ -12565,6 +12708,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses unsafe communication channels like FTP to establish connections
       ```c
       public void SendFile(String strFilename){
         FtpWebRequest requestDir = (FtpWebRequest)FtpWebRequest.Create("ftp:url");
@@ -12587,6 +12731,7 @@
       }
       ```
     compliant: |
+      The application uses safe communication channels, like sftp
       ```c
       // Setup session options with a sftp channel
       SessionOptions sessionOptions = new SessionOptions{
@@ -12663,6 +12808,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses unsafe communication  SMTP channels to establish connections
       ```c
       public static void Test(string server) {
         string to = "user";
@@ -12677,6 +12823,7 @@
       }
       ```
     compliant: |
+      The application uses safe communication SMTP channels
       ```c
       public static void Test(string server){
         string to = "user";
@@ -12754,6 +12901,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses unsafe communication  channels, like the useSslProtocol without a defined Context
       ```python
       sock = tcp_connect(host, port, intention)
       ssl_ctx = ssl.SSLContext()
@@ -12767,6 +12915,7 @@
       return ssl_sock
       ```
     compliant: |
+      The application uses safe communication channels
       ```python
       sock = tcp_connect(host, port, intention)
       ssl_ctx = ssl.SSLContext(protocol=TLSv1.3)
@@ -12834,6 +12983,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses an insecure channel to transmit data
       ```c
       public static void CreateTestMessage(string server){
         TcpClient telnet = new TcpClient("10.5.6.59", 23);
@@ -12844,6 +12994,7 @@
       }
       ```
     compliant: |
+      The application uses an secure channel to transmit data
       ```c
       public static void CreateTestMessage(string server){
         SmtpClient client = new SmtpClient(server);
@@ -12911,12 +13062,14 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The X-Frame-Options header is enabled
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       X-Frame-Options: SAMEORIGIN
       ```
     compliant: |
+      The X-Frame-Options header is disabled
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: default-src 'self' frame_ancestors
@@ -12987,12 +13140,14 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The Accept header is wrongly configured
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
       Accept: */*
       ```
     compliant: |
+      The Accept header is securely configured to restrict certain contents
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
@@ -13081,8 +13236,8 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application contains possible harmful time-delay query
       ```java
-      //userSql contains possible harmful time-delay query
       static void getQuery(userSql){
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
@@ -13095,6 +13250,7 @@
       }
       ```
     compliant: |
+      The application performs queries using standardized and sanitized parameters
       ```java
       static void getQuery(param){
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -13172,8 +13328,8 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application contains possible harmful queries
       ```java
-      //userSql contains possible harmful query
       static void getQuery(userSql){
         try {
           java.sql.Statement statement = org.owasp.benchmark.helpers.DatabaseHelper.getSqlStatement();
@@ -13186,6 +13342,7 @@
       }
       ```
     compliant: |
+      The application performs queries using standardized and sanitized parameters
       ```java
       static void getQuery(param){
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -13257,6 +13414,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The application does not control all input parameters in a redirection
       ```javascript
       function redirectUser (userParam) {
         url = "myhost/" + userParam;
@@ -13265,6 +13423,7 @@
       }
       ```
     compliant: |
+      The application correctly validates input parameters before redirecting to a url
       ```javascript
       function redirectUser (userParam) {
         if (userParam == "SignOut"){
@@ -13332,6 +13491,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      A resource does not have proper network segments
       ```terraform
       resource "azurerm_key_vault" "vulnerable" {
         name                       = "examplekeyvault"
@@ -13348,6 +13508,7 @@
       }
       ```
     compliant: |
+      All resources in the application have properly defined network segments
       ```terraform
       resource "azurerm_key_vault" "not_vulnerable" {
         name                       = "examplekeyvault"
@@ -13431,6 +13592,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The credentials to access azure services are found stored in the source code
       ```java
       USER_NAME = "admin";
       PASSWORD = "accesspassword"
@@ -13444,6 +13606,7 @@
       }
       ```
     compliant: |
+      Azure resources are configured to only be accessible to authorized users
       ```java
       public void grantAccess(user_id){
         //Check correct permissions
@@ -13547,6 +13710,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There are poorly configured access roles found in the application
       ```java
       class User{
         UserRole role;
@@ -13570,6 +13734,7 @@
       }
       ```
     compliant: |
+      Access roles have clearly defined permissions
       ```java
       class User{
         UserRole role;
@@ -13654,6 +13819,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application creates temporary files in a default path
       ```java
       import java.io.File;
 
@@ -13683,6 +13849,7 @@
       }
       ```
     compliant: |
+      When using temporary files, the application clearly defines a directory path and user permissions
       ```import java.nio.file.Files;
       public class Test {
           public static void main(String[] args){
@@ -13849,8 +14016,8 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The source code was not obfuscated
       ```java
-      //Code before obfuscation
       private void calculatePay(SpecialList clientGroup){
         while(clientGroup.HasMore()){
           clientGroup.getNext(true);
@@ -13860,6 +14027,7 @@
       }
       ```
     compliant: |
+      The source code was obfuscated, preventing an attacker to understand the inner workings of the code
       ```java
       //Rename Obfuscation method
       private void calculatePay(a b){
@@ -13946,7 +14114,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      you may have a function like this in the source code:
+      A function that recreates a sensistive part of the business model can be accesed by an attacker
       ```javascript
       const rateLimit = require("express-rate-limit");
       const apiLimiter = rateLimit({
@@ -13954,7 +14122,6 @@
         max: None
       });
       ```
-      This could be accesed by an attacker and it is easy to understand its purpose
     compliant: |
       Applying some obfuscation technique, the function above could be mabe uninteligible to an attacker
       ```javascript
@@ -14087,14 +14254,16 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```http
+      The application does not request validation mode
+      ```html
       <system.web>
           <compilation debug="true" targetFramework="4.0" />
-          <httpRuntime requestValidationMode=* />
+          <httpRuntime requestValidationMode=None />
       </system.web>
       ```
     compliant: |
-      ```http
+      The application enables request Validation mode
+      ```html
       <system.web>
           <compilation debug="true" targetFramework="4.0" />
           <httpRuntime requestValidationMode="2.0" />
@@ -14165,6 +14334,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      An AWS resource is configured to be publicly accesible with editing permissions
       ```yaml
       Resources:
         S3Bucket:
@@ -14180,6 +14350,7 @@
                     KMSMasterKeyID: KMS-KEY-ARN
       ```
     compliant: |
+      All AWS sensitive resources have defined security configurations and are private
       ```yaml
       Resources:
         PrivateS3Bucket:
@@ -14245,6 +14416,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      A Kerberoast service uses the default security group configuration
       ```yaml
       Properties:
         GroupDescription: Domain Controllers Security Group
@@ -14257,6 +14429,7 @@
             SourceSecurityGroupId: Allow
       ```
     compliant: |
+      The service should have a defined security group id, that allows a logger to be activated in case of an attack
       ```yaml
       Properties:
         GroupDescription: Domain Controllers Security Group
@@ -14346,6 +14519,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      A service is configured with poor security protocols, such as ssl
       ```yaml
       Defaults:
         policyProject: 'DefaultPolicies'
@@ -14367,6 +14541,7 @@
           ssl: enabled
       ```
     compliant: |
+      All services use secure configurations and protocols
       ```yaml
       Defaults:
         policyProject: 'DefaultPolicies'
@@ -14374,7 +14549,7 @@
           MQEndpoint: 'MQEndpoint'
           remoteDefaultQueueManager: '{MQClientPolicy}:MQEndpoint'
         RestAdminListener:
-          requireClientCert: false
+          requireClientCert: true
         BrokerRegistry:
           mqKeyRepository: /startup/ssl/keystore
           ResourceManagers: JVM: jvmSystemProperty: '-Dcom.ibm.fxr.passfileenc=n'
@@ -14480,6 +14655,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      A service is configured with a default password
       ```yaml
       server:
         port: 8443
@@ -14488,6 +14664,7 @@
           key-store-password: "password"
       ```
     compliant: |
+      Password access is correctly and unique for all services
       ```yaml
       server:
         port: 8443
@@ -14549,9 +14726,9 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Cipher key directly stored on the source code
       ```java
       public class DemoApplication {
-        //Cipher key directly stored on the source code
         cipherKey = "PlainKEY"
         public static void main(String[] args) {
           decryptPass(password, cipherKey);
@@ -14559,6 +14736,7 @@
       }
       ```
     compliant: |
+      Cipher keys are safely used as encrypted secrets in the code
       ```java
       public class DemoApplication {
         public static void main(String[] args) {
@@ -14717,6 +14895,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is a vulnerable service, configured for public access
       ```yaml
       server:
         port: 8080
@@ -14725,6 +14904,7 @@
           key-store-password: "password"
       ```
     compliant: |
+      All sensitive services are configured with restricted access
       ```yaml
       server:
         port: 8443
@@ -14790,6 +14970,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The allowBackup option is set to true in the app manifest
       ```yaml
       <manifest ... >
         ...
@@ -14799,6 +14980,7 @@
       </manifest>
       ```
     compliant: |
+      The app manifest does not allow backup
       ```yaml
       <manifest ... >
         ...
@@ -14862,6 +15044,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The allowBackup option is set to true in the app manifest
       ```yaml
       <manifest ... >
         ...
@@ -14871,6 +15054,7 @@
       </manifest>
       ```
     compliant: |
+      The app does not allow backup data
       ```yaml
       <manifest ... >
         ...
@@ -14944,7 +15128,8 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      ```java
+      A service is wrongly configured to not requiring client certificates
+      ```yaml
       Defaults:
         policyProject: 'DefaultPolicies'
         Policies:
@@ -14954,7 +15139,8 @@
           requireClientCert: false
       ```
     compliant: |
-      ```java
+      All services should be configured to require client certificates
+      ```yaml
       Defaults:
         policyProject: 'SecurityPolicy'
         Policies:
@@ -15014,6 +15200,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The DNS servers allow recursive settings
       ```yaml
       vars:
         app_fqdn: myapp
@@ -15022,6 +15209,7 @@
         dns_recursion_settings: "Any"
       ```
     compliant: |
+      The DNS server has no recursion services allowed
       ```yaml
       vars:
         app_fqdn: myapp
@@ -15081,14 +15269,15 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is a resource with an SSH configuration allowing any address
       ```yaml
-      //SSH configuration allowing any address
       name: "myhost""
         AddressFamily: any
         AllowTcpForwarding: yes
         ListenAddress: any
       ```
     compliant: |
+      The service only allows safe access to certain users
       ```yaml
       name: "myhost""
         AddressFamily: any
@@ -15169,6 +15358,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are services with the default security groups configured
       ```yaml
       Resources:
         MyLaunchTemplate:
@@ -15187,6 +15377,7 @@
             KeyName: "testkey"
       ```
     compliant: |
+      The services have specific security groups configured
       ```yaml
       Resources:
         MyLaunchTemplate2:
@@ -15252,16 +15443,18 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The server allows a RC4 cipher suite
       ```yaml
       name: Configure the Remote Desktop Gateway
         win_rds_settings:
           certificate_hash: B0D0FA8408FC67B230338FCA584D03792DA73F4C
           max_connections: 50
-          cipher_ksuite: ECDHE_ECDSA_WITH_RC4_128_SHA
+          cipher_suite: ECDHE_ECDSA_WITH_RC4_128_SHA
         notify:
           - Restart TSGateway service
       ```
     compliant: |
+      The server allows only secure cipher suites
       ```yaml
       name: Configure the Remote Desktop Gateway
         win_rds_settings:
@@ -15318,6 +15511,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The SMBv1 version is used by the application
       ```c
       public static void CreateTestMessage(string server){
         SmbClient client = new SmbClient(server);
@@ -15326,6 +15520,7 @@
       }
       ```
     compliant: |
+      The SMBv3 version is used
       ```c
       public static void CreateTestMessage(string server){
         SmbClient client = new SmbClient(server);
@@ -15383,6 +15578,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are unsafe smtp ports opened
       ```yaml
       host_server:
         delivery_method: :smtp
@@ -15395,6 +15591,7 @@
           user_name: "appadmin"
       ```
     compliant: |
+      The smtp ports are securely configured
       ```yaml
       host_server:
         delivery_method: :smtp
@@ -15457,6 +15654,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The dynamo db service does not have restricted access configuration
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage    = 10
@@ -15470,6 +15668,7 @@
       }
       ```
     compliant: |
+      All sensitive resources have restricted access configuration
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage    = 10
@@ -15478,7 +15677,7 @@
         instance_class       = "db.t3.micro"
         name                 = "mydb"
         username             = "admin"
-        password             = "password"
+        password             = "encrypted_password"
         allowed_groups       = admin
       }
       ```
@@ -15542,16 +15741,19 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The end point of the sendEmail delivery allows anonymous configuration
       ```yaml
       email_delivery:
         host: "myhost"
         port: 5400
         email_over_ssl: true
         authentication: :plain
+        allow_anonymous-connection: true
         user_name: "appadmin"
-        password: "password"
+        password: "*"
       ```
     compliant: |
+      The end point of the Email delivery does not allow anonyous configuration
       ```yaml
       email_delivery:
         host: "myhost"
@@ -15560,7 +15762,7 @@
         authentication: admin
         allow_anonymous-connection: false
         user_name: "appadmin"
-        password: "password"
+        password: "encrypted_password"
       ```
   remediation_time: "120"
   score:
@@ -15617,6 +15819,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Debugging mode is active in a production environment
       ```java
       <build>
           <finalName>remote-debugging</finalName>
@@ -15687,6 +15890,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application performs a query with unvalidated user input
       ```javascript
       func ErroneousString(request *http.Request) {
         userId := request.id
@@ -15694,6 +15898,7 @@
       }
       ```
     compliant: |
+      All user input is validated and sanitize before using it to access resources
       ```javascript
       func ErroneousString(request *http.Request) {
         userId := request.id
@@ -15764,6 +15969,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The x-amzn-RequestId header is set by a potentially unsafe unverified input
       ```javascript
       const server = http.createServer((req,res))
 
@@ -15780,6 +15986,7 @@
       });
       ```
     compliant: |
+      The x-amzn-RequestId header is set by the application with a sanitized/verified input
       ```javascript
       const server = http.createServer((req,res))
 
@@ -15869,6 +16076,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```c {3, 7 ,15}
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
@@ -15880,6 +16088,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after validating/sanitizing it
       ```c {3, 7 ,15}
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
@@ -15952,6 +16161,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       function ValidateEmail(mail){
         regex = {ComplexRegEx}
@@ -15962,6 +16172,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after validating/sanitizing the information
       ```javascript
       function ValidateEmail(mail){
         if ({simpleRegex}).test(myForm.emailAddr.value)){
@@ -16027,6 +16238,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       function ErroneousDOMCreation(request *http.Request) {
         element = document.createElement(request.content);
@@ -16034,6 +16246,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after validating its contents
       ```javascript
       function DOMCreation(request *http.Request) {
         userOutput = validateString(request.content);
@@ -16099,6 +16312,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       function uploadFile(request){
         const storage = getStorage();
@@ -16107,6 +16321,7 @@
       }
       ```
     compliant: |
+      The application uses user input after validating its contents
       ```javascript
       function uploadFile(request){
         const storage = getStorage();
@@ -16189,6 +16404,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses an unsafe method to generate session cookies
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -16206,6 +16422,7 @@
       }
       ```
     compliant: |
+      The application uses a safe method to generate unique session cookies
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -16294,6 +16511,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -16314,6 +16532,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after validating the contents
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -16387,6 +16606,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       const signinHandler = (req, res) => {
         const { username, password } = req.body;
@@ -16400,6 +16620,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after validating it on the server side
       ```javascript
       const signinHandler = (req, res) => {
         const { username, password } = req.body;
@@ -16460,12 +16681,14 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       const signinHandler = (req, res) => {
         //Do data manipulation without validating the header request against a whitelist
       }
       ```
     compliant: |
+      The application uses user input after validating it on the server side
       ```javascript
       var http = require('http');
       const { validateHeaderName } = require('http');
@@ -16534,6 +16757,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       function ErroneousDOMCreation(request *http.Request) {
         element = document.createElement(request.content);
@@ -16541,6 +16765,7 @@
       }
       ```
     compliant: |
+      The application uses user input after validating its length
       ```javascript
       function DOMCreation(request *http.Request) {
         userOutput = validateLength(request.content);
@@ -16607,12 +16832,14 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       const requestHandler = (req, res) => {
         //Code to handle the request without validating the header against a whitelist
       }
       ```
     compliant: |
+      The application uses user input after validating it against a white list
       ```javascript
       var http = require('http');
       const { validateHeaderName } = require('http');
@@ -16688,6 +16915,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       function erroneousDateReq(request *http.Request) {
         transactions = getTransactionInfo(request.startDate, request.endDate);
@@ -16695,6 +16923,7 @@
       }
       ```
     compliant: |
+      The application uses user input after validating on the server side
       ```javascript
       function dateReq((request *http.Request) {
         startDate = request.startDate;
@@ -16761,6 +16990,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application does not validate the transaction values after they were modified
       ```javascript
       item.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -16780,6 +17010,7 @@
       });
       ```
     compliant: |
+      The application performs validation of the transaction values and aborts in case of any modification to the values
       ```javascript
       item.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -16859,6 +17090,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```java
       public void grantAccess(user){
         AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
@@ -16870,6 +17102,7 @@
       }
       ```
     compliant: |
+      The application uses user input after validating it on the server side
       ```java
       public void grantAccess(user){
         AuthenticationContext context = new AuthenticationContext(AUTHORITY, false, service);
@@ -16939,6 +17172,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application uses user input without server side validation
       ```javascript
       exports.signup = (req, res) => {
         const token = jwt.sign({email: req.body.email}, config.secret)
@@ -16952,6 +17186,7 @@
       }
       ```
     compliant: |
+      The application uses user input only after verifying it according to business logic
       ```javascript
       exports.signup = (req, res) => {
         const token = jwt.sign({email: req.body.email}, config.secret)
@@ -17022,6 +17257,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has an expression that does not correctly track exceptions and errors
       ```javascript
       function do_something() {
         try {
@@ -17033,6 +17269,7 @@
       }
       ```
     compliant: |
+      The application correctly handles all possible errors and exceptions
       ```javascript
       try {
         // a function that potentially throws an error
@@ -17110,6 +17347,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows unauthorized users to access sensitive information
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -17124,6 +17362,7 @@
       });
       ```
     compliant: |
+      The application restricts access to sensitive information to authorized users
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
