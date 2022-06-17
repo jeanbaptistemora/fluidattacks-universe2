@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-interface IContainerProps {
+interface IDropdownContainerProps {
   align: "center" | "left" | "right";
 }
 
-const sideMap: Record<IContainerProps["align"], string> = {
+const sideMap: Record<IDropdownContainerProps["align"], string> = {
   center: `
     left: 50%;
     transform: translateX(-50%);
@@ -13,7 +13,19 @@ const sideMap: Record<IContainerProps["align"], string> = {
   right: "left: 0;",
 };
 
-const Wrapper = styled.div`
+const DropdownContainer = styled.div<IDropdownContainerProps>`
+  ${({ align }): string => sideMap[align]}
+  background-color: #e9e9ed;
+  border: 1px solid #c7c7d1;
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  top: 100%;
+`;
+
+const Wrapper = styled.div.attrs({
+  className: "comp-dropdown",
+})`
   display: inline-block;
   position: relative;
   :hover > div {
@@ -21,18 +33,5 @@ const Wrapper = styled.div`
   }
 `;
 
-const Container = styled.div<IContainerProps>`
-  ${({ align }): string => sideMap[align]}
-  background-color: #e9e9ed;
-  border: 1px solid #c7c7d1;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  display: none;
-  min-width: 240px;
-  padding: 8px;
-  position: absolute;
-  top: 100%;
-`;
-
-export type { IContainerProps };
-export { Wrapper, Container };
+export type { IDropdownContainerProps };
+export { DropdownContainer, Wrapper };
