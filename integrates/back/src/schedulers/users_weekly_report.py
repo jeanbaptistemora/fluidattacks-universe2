@@ -10,6 +10,9 @@ import logging
 from mailer import (
     groups as groups_mail,
 )
+from newutils import (
+    datetime as datetime_utils,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -18,12 +21,36 @@ from settings import (
 )
 from typing import (
     Any,
+    Dict,
+    List,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+INACTIVE_DAYS = 7
+
+
+def get_inactive_users(
+    group_stakeholders: Tuple[Dict[str, Any], ...],
+) -> List[str]:
+    inactive_users: list[str] = [
+        stakeholder["email"]
+        for stakeholder in group_stakeholders
+        if (
+            stakeholder["last_login"]
+            and (
+                datetime_utils.get_now()
+                - datetime_utils.get_datetime_from_iso_str(
+                    stakeholder["last_login"]
+                )
+            ).days
+            >= INACTIVE_DAYS
+        )
+    ]
+    return inactive_users
 
 
 async def send_users_weekly_report() -> None:
@@ -41,7 +68,8 @@ async def send_users_weekly_report() -> None:
     users: dict[str, list[str]] = {}
 
     for group in group_names:
-        for stakeholder in await loaders.group_stakeholders.load(group):
+        group_stakeholders = await loaders.group_stakeholders.load(group)
+        for stakeholder in group_stakeholders:
             if stakeholder["role"] in ["customer_manager", "user_manager"]:
                 if users[stakeholder["email"]]:
                     users[stakeholder["email"]].append(group)
