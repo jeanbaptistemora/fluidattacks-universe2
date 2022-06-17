@@ -546,6 +546,18 @@ async def send_mail_updated_policies(
     )
 
 
+async def send_mail_users_weekly_report(
+    *, email_to: List[str], context: Dict[str, Any]
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context=context,
+        tags=GENERAL_TAG,
+        subject="[Week #] ASM Users Report",
+        template_name="users_weekly_report",
+    )
+
+
 async def send_mail_reminder(
     *,
     context: dict[str, Any],
