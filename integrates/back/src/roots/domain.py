@@ -617,6 +617,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
         root_id=root_id,
         state=GitRootState(
             branch=root.state.branch,
+            credential_id=root.state.credential_id,
             environment_urls=environment_urls,
             environment=root.state.environment,
             git_environment_urls=[],
@@ -1070,6 +1071,7 @@ async def activate_root(
                 root_id=root.id,
                 state=GitRootState(
                     branch=root.state.branch,
+                    credential_id=root.state.credential_id,
                     environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
                     git_environment_urls=[],
@@ -1164,6 +1166,7 @@ async def deactivate_root(
                 root_id=root.id,
                 state=GitRootState(
                     branch=root.state.branch,
+                    credential_id=root.state.credential_id,
                     environment=root.state.environment,
                     environment_urls=root.state.environment_urls,
                     git_environment_urls=[],
