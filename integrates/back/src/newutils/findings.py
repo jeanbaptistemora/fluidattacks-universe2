@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 import aiohttp
 from custom_exceptions import (
     InvalidFileStructure,
@@ -77,13 +80,16 @@ async def get_vulns_file() -> Dict:
             return yaml.safe_load(await response.text())
 
 
-async def is_valid_finding_title(title: str) -> bool:
+async def is_valid_finding_title(
+    title: str, vulns_info: Optional[Dict] = None
+) -> bool:
     """
     Validates that new Draft and Finding titles conform to the standard
     format and are present in the whitelist.
     """
     if re.match(r"^[0-9]{3}\. .+", title):
-        vulns_info = await get_vulns_file()
+        if not vulns_info:
+            vulns_info = await get_vulns_file()
         try:
             vuln_number: str = title[:3]
             expected_vuln_title: str = vulns_info[vuln_number]["en"]["title"]
@@ -96,6 +102,16 @@ async def is_valid_finding_title(title: str) -> bool:
             raise InvalidFindingTitle() from error
     # Invalid format
     raise InvalidFindingTitle()
+
+
+async def is_valid_finding_titles(titles: list[str]) -> bool:
+    vulns_info = await get_vulns_file()
+    return all(
+        await collect(
+            is_valid_finding_title(title=title, vulns_info=vulns_info)
+            for title in titles
+        )
+    )
 
 
 def get_updated_evidence_date(

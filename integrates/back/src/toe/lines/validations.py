@@ -14,7 +14,7 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.findings import (
-    is_valid_finding_title,
+    is_valid_finding_titles,
 )
 
 
@@ -38,7 +38,7 @@ async def validate_sort_suggestions(
 ) -> None:
     if len(suggestions) > 5:
         raise InvalidSortsSuggestions.new()
+    await is_valid_finding_titles([item.finding_title for item in suggestions])
     for item in suggestions:
-        await is_valid_finding_title(item.finding_title)
         if not 0 <= item.probability <= 100:
             raise InvalidSortsSuggestions.new()
