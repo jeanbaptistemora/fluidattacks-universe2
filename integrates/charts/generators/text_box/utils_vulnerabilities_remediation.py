@@ -154,7 +154,9 @@ async def generate_one(
     )
 
     solved: Decimal = get_percentage_change(
-        current=closed_current_sprint,
+        current=closed_current_sprint * Decimal("-1.0")
+        if closed_current_sprint > Decimal("0.0")
+        else closed_current_sprint,
         total=total_current_closed + total_current_open,
     )
     created: Decimal = get_percentage_change(
@@ -162,12 +164,11 @@ async def generate_one(
         total=total_current_open + total_current_closed,
     )
     created = created if created > Decimal("0.0") else Decimal("0")
-    solved = solved if solved > Decimal("0.0") else Decimal("0")
 
     return FormatSprint(
         solved=solved,
         created=created,
-        remediated=Decimal(solved - created).quantize(Decimal("0.01")),
+        remediated=Decimal(solved + created).quantize(Decimal("0.01")),
     )
 
 
@@ -217,12 +218,22 @@ def format_data(count: Decimal, state: str) -> dict:
             percentage=True,
         )
 
-    if state == "solved" and count > Decimal("0.0"):
+    if state == "solved" and count < Decimal("0.0"):
         return dict(
             arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
             color=RISK.more_passive,
+            arrow="&#11015;",
+            percentage=True,
+        )
+
+    if state == "solved" and count > Decimal("0.0"):
+        return dict(
+            arrowFontSizeRatio=0.45,
+            fontSizeRatio=0.5,
+            text=count,
+            color=RISK.more_agressive,
             arrow="&#11014;",
             percentage=True,
         )
@@ -232,7 +243,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
-            color=RISK.more_passive,
+            color=RISK.more_agressive,
             arrow="&#11014;",
             percentage=True,
         )
@@ -242,7 +253,7 @@ def format_data(count: Decimal, state: str) -> dict:
             arrowFontSizeRatio=0.45,
             fontSizeRatio=0.5,
             text=count,
-            color=RISK.more_agressive,
+            color=RISK.more_passive,
             arrow="&#11015;",
             percentage=True,
         )
