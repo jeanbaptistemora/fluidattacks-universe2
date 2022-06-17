@@ -6,7 +6,10 @@
   ...
 }: let
   searchPaths = makeSearchPaths {
-    bin = [inputs.nixpkgs.git];
+    bin = [
+      inputs.nixpkgs.awscli
+      inputs.nixpkgs.git
+    ];
   };
 in {
   deployTerraform = {

@@ -5,11 +5,6 @@ module "cluster" {
   cluster_version = "1.22"
   enable_irsa     = true
 
-  vpc_id = data.aws_vpc.main.id
-  subnet_ids = [
-    for subnet in data.aws_subnet.main : subnet.id
-  ]
-
   eks_managed_node_group_defaults = {
     disk_size              = 30
     capacity_type          = "SPOT"
@@ -18,7 +13,6 @@ module "cluster" {
     enable_monitoring      = true
     vpc_security_group_ids = [data.aws_security_group.cloudflare.id]
   }
-
   eks_managed_node_groups = {
     development = {
       max_size = 10
@@ -47,6 +41,47 @@ module "cluster" {
       labels = {
         worker_group = "production"
       }
+    }
+  }
+
+  vpc_id = data.aws_vpc.main.id
+  subnet_ids = [
+    for subnet in data.aws_subnet.main : subnet.id
+  ]
+  cluster_security_group_additional_rules = {
+    egress_to_nodes_all = {
+      description                = "Cluster to node all ports/protocols"
+      protocol                   = "-1"
+      from_port                  = 0
+      to_port                    = 0
+      type                       = "egress"
+      source_node_security_group = true
+    }
+  }
+  node_security_group_additional_rules = {
+    ingress_self_all = {
+      description = "Node to node all ports/protocols"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "ingress"
+      self        = true
+    }
+    egress_all = {
+      description = "Node to anywhere all ports/protocols"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "egress"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    ingress_cluster_all = {
+      description                   = "Cluster to node all ports/protocols"
+      protocol                      = "-1"
+      from_port                     = 0
+      to_port                       = 0
+      type                          = "ingress"
+      source_cluster_security_group = true
     }
   }
 

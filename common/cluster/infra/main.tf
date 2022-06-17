@@ -6,9 +6,21 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.18.0"
     }
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "~> 2.2.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.5.1"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.11.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 3.4.0"
     }
   }
 
@@ -24,9 +36,25 @@ terraform {
 
 provider "aws" {}
 
+provider "helm" {
+  kubernetes {
+    host                   = module.cluster.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
+
+    exec {
+      api_version = "client.authentication.k8s.io/v1alpha1"
+      command     = "aws"
+      args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
+    }
+  }
+}
 provider "kubernetes" {
-  config_path            = split(":", var.kubeConfig)[0]
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  host                   = module.cluster.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
+
+  exec {
+    api_version = "client.authentication.k8s.io/v1alpha1"
+    command     = "aws"
+    args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
+  }
 }
