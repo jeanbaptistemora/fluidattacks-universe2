@@ -1,10 +1,19 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.events.enums import (
+    EventStateStatus,
+)
+from db_model.events.types import (
+    Event,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -22,9 +31,18 @@ from typing import (
 )
 async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, event=event_id)
+    loaders: Dataloaders = get_new_context()
+    event: Event = await loaders.event_typed.load(event_id)
+    assert event.state.status == EventStateStatus.CREATED
+
+    result: dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" not in result
     assert "success" in result["data"]["solveEvent"]
+
+    loaders = get_new_context()
+    event = await loaders.event_typed.load(event_id)
+    assert event.state.status == EventStateStatus.SOLVED
+    assert event.state.modified_by == email
 
 
 @pytest.mark.asyncio
@@ -41,6 +59,6 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
 async def test_solve_event_fail(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
-    result: Dict[str, Any] = await get_result(user=email, event=event_id)
+    result: dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
