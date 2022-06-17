@@ -1756,6 +1756,18 @@ export const enTranslations: ResourceKey = {
     },
   },
   profile: {
+    credentialModal: {
+      table: {
+        columns: {
+          action: "Action",
+          id: "Id",
+          name: "Name",
+          organization: "Organization",
+          type: "Type",
+        },
+      },
+      title: "Credentials",
+    },
     mobileModal: {
       add: "Add",
       alerts: {
