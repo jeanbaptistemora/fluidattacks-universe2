@@ -4,6 +4,7 @@ import React from "react";
 
 import type { IDropdownProps } from ".";
 import { Dropdown } from ".";
+import { ButtonOpacity } from "components/Button";
 
 const config: Meta = {
   component: Dropdown,
@@ -19,7 +20,7 @@ const Template: Story<IDropdownProps> = (props): JSX.Element => (
 const Default = Template.bind({});
 Default.args = {
   align: "center",
-  buttonChildren: "ShowOnHover",
+  button: <ButtonOpacity>{"ShowOnHover"}</ButtonOpacity>,
   children: (
     <React.Fragment>
       {Array.from(Array(4).keys()).map(

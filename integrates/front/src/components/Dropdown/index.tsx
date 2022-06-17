@@ -3,20 +3,18 @@ import React from "react";
 import type { IContainerProps } from "./styles";
 import { Container, Wrapper } from "./styles";
 
-import { ButtonOpacity } from "components/Button";
-
-interface IDropdownProps extends IContainerProps {
-  buttonChildren: React.ReactNode;
+interface IDropdownProps extends Partial<IContainerProps> {
+  button: React.ReactNode;
   children: React.ReactNode;
 }
 
 const Dropdown: React.FC<IDropdownProps> = ({
   align = "center",
-  buttonChildren,
+  button,
   children,
 }: Readonly<IDropdownProps>): JSX.Element => (
   <Wrapper>
-    <ButtonOpacity>{buttonChildren}</ButtonOpacity>
+    {button}
     <Container align={align}>{children}</Container>
   </Wrapper>
 );
