@@ -481,6 +481,15 @@ const SelectDate = styled.input.attrs({
   type: `date`,
 })``;
 
+const SwitchItem: StyledComponent<
+  "li",
+  Record<string, unknown>
+> = styled.li.attrs({
+  className: `
+  br0 db overflow-hidden pointer pa0 ma0 relative switch-mh tc w-100
+  `,
+})``;
+
 const TabContent = styled.div.attrs({
   className: "mt3",
 })``;
@@ -563,6 +572,7 @@ export {
   Select,
   SelectContainer,
   SelectDate,
+  SwitchItem,
   TabContent,
   TableOptionsColBar,
   Well,

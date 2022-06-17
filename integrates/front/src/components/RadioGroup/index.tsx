@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
+import _ from "lodash";
 import React, { useState } from "react";
 
-import { MenuItem, Radio, RadioLabel } from "styles/styledComponents";
+import { Radio, RadioLabel, SwitchItem } from "styles/styledComponents";
 
 interface IRadioGroupProps {
   selected: (value: unknown) => void;
   labels: string[];
-  onSelect: (checked: boolean) => void;
+  onSelect?: (checked: boolean) => void;
   initialState?: string;
   switchColor?: string;
 }
@@ -27,10 +28,14 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
   function handleSelectChange(label: string): void {
     setSelect(label);
     if (label === labels[0]) {
-      onSelect(true);
+      if (!_.isUndefined(onSelect)) {
+        onSelect(true);
+      }
       selected(true);
     } else {
-      onSelect(false);
+      if (!_.isUndefined(onSelect)) {
+        onSelect(false);
+      }
       selected(false);
     }
   }
@@ -59,7 +64,7 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
     )
   );
 
-  return <MenuItem>{listItems}</MenuItem>;
+  return <SwitchItem>{listItems}</SwitchItem>;
 };
 
 export type { IRadioGroupProps };

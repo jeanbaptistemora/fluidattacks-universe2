@@ -471,6 +471,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                             onSelect={setIsHttpsCredentialsTypeUser}
                             type={"Radio"}
                           />
+                          <br />
                           {isHttpsCredentialsTypeUser && (
                             <div className={"flex"}>
                               <div className={"w-30 mr3"}>
