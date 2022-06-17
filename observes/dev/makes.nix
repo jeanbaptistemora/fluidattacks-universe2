@@ -12,6 +12,7 @@
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
     observesTapGitlab = tap.gitlab;
+    observesTargetRedshift = target.redshift;
     observesEtlDynamoConf = etl.dynamo;
   };
   dev_envs =
