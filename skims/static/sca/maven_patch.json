@@ -58,9 +58,6 @@
     "CVE-2021-29442": "<1.4.1",
     "GHSA-qf76-pr7x-h7r4": "<1.2.0"
   },
-  "com.alibaba:dubbo": {
-    "GHSA-qmfc-6www-fjqw": ">=2.5.0 <2.6.9"
-  },
   "com.alipay.sofa:hessian": {
     "CVE-2019-9212": "<=4.0.2"
   },
@@ -79,9 +76,6 @@
   "com.bmuschko:gradle-vagrant-plugin": {
     "GHSA-jpcm-4485-69p7": ">=0 <0.6 || >=2.0 <3.0.0"
   },
-  "com.browserup:browserup-proxy": {
-    "GHSA-wmfg-55f9-j8hq": ">=0 <2.1.2"
-  },
   "com.bstek.ureport:ureport2-console": {
     "GHSA-6q3p-36f4-cwxv": "<=2.2.9",
     "GHSA-729f-wvj3-c4pj": "<=2.2.9"
@@ -92,14 +86,8 @@
   "com.caverock:androidsvg": {
     "GHSA-g556-x5vx-qh59": "<1.3"
   },
-  "com.charleskorn.kaml:kaml": {
-    "GHSA-fmm9-3gv8-58f4": ">=0 <0.35.3"
-  },
   "com.convertigo.jenkins.plugins:convertigo-mobile-platform": {
     "CVE-2022-25210": "<=1.1"
-  },
-  "com.cronutils:cron-utils": {
-    "GHSA-pfj3-56hm-jwq5": ">=0 <9.1.3"
   },
   "com.ctrip.framework.apollo:apollo": {
     "CVE-2019-10686": "<=1.3.0"
@@ -118,9 +106,6 @@
   },
   "com.drewnoakes:metadata-extractor": {
     "CVE-2022-24614": "<=2.16.0"
-  },
-  "com.epam.reportportal:service-api": {
-    "GHSA-24wf-7vf2-pv59": ">=3.1.0 <5.4.0"
   },
   "com.fasterxml.jackson.core:jackson-core": {
     "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31519": "<2.8.6",
@@ -197,9 +182,6 @@
     "CVE-2021-42392": ">=1.1.100 <2.0.206",
     "CVE-2022-23221": "<2.1.210"
   },
-  "com.hazelcast.jet:hazelcast-jet": {
-    "GHSA-v57x-gxfj-484q": ">=4.1 <4.5.3"
-  },
   "com.hotels.styx:styx-api": {
     "GHSA-6v7p-v754-j89v": "<=1.0.0.beta8"
   },
@@ -228,9 +210,6 @@
     "CVE-2021-43795": "<1.13.4",
     "GHSA-24r8-fm9r-cpj2": "<0.97.0"
   },
-  "com.manydesigns:portofino": {
-    "GHSA-6g3c-2mh5-7q6x": ">=5.0.0 <5.2.1"
-  },
   "com.mchange:c3p0": {
     "GHSA-84p2-vf58-xhxv": "<=0.9.5.3",
     "GHSA-q485-j897-qc27": "<=0.9.5.2"
@@ -243,6 +222,9 @@
   },
   "com.netflix.conductor:conductor-core": {
     "CVE-2020-9296": "<=2.25.3"
+  },
+  "com.netflix.hollow:hollow": {
+    "CVE-2021-28099": "<=7.1.1"
   },
   "com.netflix.priam:priam": {
     "GHSA-f4jh-ww96-9h9j": "<=3.1.104"
@@ -289,9 +271,6 @@
   "com.rabbitmq:amqp-client": {
     "GHSA-w4g2-9hj6-5472": "<4.8.0 || >=5.0.0 <5.4.0"
   },
-  "com.sap.scimono:scimono-server": {
-    "GHSA-29q4-gxjq-rx5c": ">=0 <0.0.19"
-  },
   "com.shopizer:shopizer": {
     "GHSA-8pc4-gvfw-634p": ">=0 <2.11.0",
     "GHSA-w8rc-pgxq-x2cj": ">=0 <2.11.0"
@@ -324,35 +303,7 @@
     "CVE-2020-24164": "<2.14.2"
   },
   "com.thoughtworks.xstream:xstream": {
-    "GHSA-2p3x-qw9c-25hh": ">=0 <1.4.16",
-    "GHSA-2q8x-2p7f-574v": ">=0 <1.4.18",
-    "GHSA-3ccq-5vw3-2p6x": ">=0 <1.4.18",
-    "GHSA-43gc-mjxg-gvrq": ">=0 <1.4.16",
-    "GHSA-4cch-wxpw-8p28": ">=0 <1.4.15",
-    "GHSA-4hrm-m67v-5cxr": ">=0 <1.4.16",
-    "GHSA-56p8-3fh9-4cvq": ">=0 <1.4.16",
-    "GHSA-59jw-jqf4-3wq3": ">=0 <1.4.16",
-    "GHSA-64xx-cq4q-mf44": ">=0 <1.4.18",
-    "GHSA-6w62-hx7r-mw68": ">=0 <1.4.18",
-    "GHSA-6wf9-jmg9-vxcc": ">=0 <1.4.18",
-    "GHSA-74cv-f58x-f9wf": ">=0 <1.4.16",
-    "GHSA-7chv-rrw6-w6fc": ">=0 <1.4.17",
-    "GHSA-8jrj-525p-826v": ">=0 <1.4.18",
-    "GHSA-cxfm-5m4g-x7xp": ">=0 <1.4.18",
-    "GHSA-f6hm-88x3-mfjv": ">=0 <1.4.16",
-    "GHSA-g5w6-mrj7-75h2": ">=0 <1.4.18",
-    "GHSA-h7v4-7xg3-hxcc": ">=0 <1.4.18",
-    "GHSA-hph2-m3g5-xxv4": ">=0 <1.4.18",
-    "GHSA-hrcp-8f3q-4w2c": ">=0 <1.4.16",
-    "GHSA-hvv8-336g-rx3m": ">=0 <1.4.16",
-    "GHSA-hwpc-8xqv-jvj4": ">=0 <1.4.16",
-    "GHSA-j9h8-phrw-h4fh": ">=0 <1.4.18",
-    "GHSA-jfvx-7wrx-43fh": ">=0 <1.4.15",
-    "GHSA-mw36-7c6c-q4q2": ">=0 <1.4.14",
-    "GHSA-p8pq-r894-fm8f": ">=0 <1.4.18",
-    "GHSA-qpfq-ph7r-qv6f": ">=0 <1.4.16",
-    "GHSA-qrx8-8545-4wg2": ">=0 <1.4.18",
-    "GHSA-xw4p-crpj-vjx2": ">=0 <1.4.18"
+    "GHSA-mw36-7c6c-q4q2": ">=0 <1.4.14"
   },
   "com.twitter:twitter-server_2.12": {
     "GHSA-3mqv-8gxg-pfm4": "<20.12.0"
@@ -361,33 +312,21 @@
     "CVE-2017-1000034": "2.5 || >=0 <=2.4.16"
   },
   "com.typesafe.akka:akka-actor_2.11": {
-    "GHSA-mm57-9j6q-rxm2": "<2.4.17",
-    "GHSA-mr95-9rr4-668f": ">=2.5.0 <2.5.16"
+    "GHSA-mm57-9j6q-rxm2": "<2.4.17"
   },
   "com.typesafe.akka:akka-actor_2.12": {
-    "GHSA-mm57-9j6q-rxm2": "<2.4.17",
-    "GHSA-mr95-9rr4-668f": ">=2.5.0 <2.5.16"
+    "GHSA-mm57-9j6q-rxm2": "<2.4.17"
   },
   "com.typesafe.akka:akka-http-core_2.11": {
-    "GHSA-9qgc-p27w-3hjg": ">=10.1.0 <10.1.4",
     "GHSA-gfx6-ph4q-q54q": "<10.0.6"
   },
   "com.typesafe.akka:akka-http-core_2.12": {
-    "GHSA-9qgc-p27w-3hjg": ">=10.1.0 <10.1.4",
     "GHSA-gfx6-ph4q-q54q": "<10.0.6"
-  },
-  "com.typesafe.play:play": {
-    "GHSA-h48w-c35p-6m8x": ">=2.6.0 <2.7.6 || >=2.8.0 <2.8.3",
-    "GHSA-v9mf-jgq3-c28h": ">=2.8.0 <2.8.5"
-  },
-  "com.typesafe.play:play-java": {
-    "GHSA-h48w-c35p-6m8x": ">=2.6.0 <2.7.6 || >=2.8.0 <2.8.3"
   },
   "com.typesafe.play:play_2.12": {
     "GHSA-cf8j-64h9-6q58": "<2.7.5 || >=2.8.0 <2.8.2"
   },
   "com.upokecenter:cbor": {
-    "GHSA-fj2w-wfgv-mwq6": ">=4.0.0 <4.5.1",
     "GHSA-mm44-wc5p-wqhq": "<4.0.0"
   },
   "com.vaadin:flow": {
@@ -397,11 +336,7 @@
     "CVE-2021-31406": "19.0.0 || >=15.0.0 <18.0.7"
   },
   "com.vaadin:vaadin-bom": {
-    "GHSA-2wqp-jmcc-mc77": ">=14.0.6 <14.4.4 || >=15.0.0 <17.0.11",
-    "GHSA-75xc-qvxh-27f8": ">=7.0.0 <7.7.24 || >=8.0.0 <8.12.3",
-    "GHSA-hw7r-qrhp-5pff": ">=12.0.0 <14.6.8 || >=15.0.0 <20.0.6",
     "GHSA-mr8h-j9cv-4m8h": ">=18.0.0 <=19.0.3",
-    "GHSA-qcgx-crrx-38v5": ">=8.0.0 <8.14.1",
     "GHSA-qrg9-f472-qwfm": ">=10.0.0 <=10.0.18 || >=11.0.0 <14.0.0 || >=15.0.0 <=19.0.8"
   },
   "com.vaadin:vaadin-compatibility-server": {
@@ -418,9 +353,6 @@
   },
   "com.xuxueli:xxl-job-core": {
     "GHSA-wc73-w5r9-x9pc": "<2.3.0"
-  },
-  "com.yahoo.elide:elide-core": {
-    "GHSA-2mxr-89gf-rc4v": ">=0 <4.5.14"
   },
   "com.yahoo.elide:elide-datastore-aggregation": {
     "GHSA-8xpj-9j9g-fc9r": "6.1.3"
@@ -517,7 +449,6 @@
     "GHSA-2457-2263-mm9f": "<3.2.7"
   },
   "io.micronaut:micronaut-http-client": {
-    "GHSA-694p-xrhg-x3wm": ">=0 <1.2.11 || >=1.3.0 <1.3.2",
     "GHSA-cjx7-399x-p2rj": ">=0 <2.5.9"
   },
   "io.micronaut:micronaut-http-server-netty": {
@@ -560,10 +491,7 @@
   },
   "io.ratpack:ratpack-core": {
     "GHSA-2cc5-23r7-vc4v": ">=0 <1.9.0",
-    "GHSA-hc33-32vw-rpp9": ">=0 <1.9.0",
-    "GHSA-mvqp-q37c-wf9j": ">=0 <1.7.5",
-    "GHSA-phj8-4cq3-794g": ">=0 <1.9.0",
-    "GHSA-w6rq-6h34-vh7q": ">=0 <1.9.0"
+    "GHSA-phj8-4cq3-794g": ">=0 <1.9.0"
   },
   "io.ratpack:ratpack-groovy": {
     "GHSA-54mg-vgrp-mwx9": "<1.6.1"
@@ -617,16 +545,10 @@
     "CVE-2019-14888": ">=0 <2.0.29.final",
     "CVE-2019-3888": ">=0 <2.0.21.final"
   },
-  "io.vertx:vertx-core": {
-    "GHSA-45xm-v8gq-7jqx": ">=3.0.0 <3.5.4"
-  },
   "javax.servlet:jstl": {
     "SNYK-JAVA-JAVAXSERVLET-30449": "<=1.2.1"
   },
   "javax.validation:validation-api": {},
-  "junit:junit": {
-    "GHSA-269g-pwp5-87pp": ">=4.7 <4.13.1"
-  },
   "log4j:log4j": {
     "CVE-2021-4104": ">=1.2 <=1.2.17"
   },
@@ -844,9 +766,6 @@
   "org.apache.flink:flink-metrics-core": {
     "CVE-2020-1960": "1.10.0 || >=1.1.0 <=1.1.5 || >=1.2.0 <=1.2.1 || >=1.3.0 <=1.3.3 || >=1.4.0 <=1.4.2 || >=1.5.0 <=1.5.6 || >=1.6.0 <=1.6.4 || >=1.7.0 <=1.7.2 || >=1.8.0 <=1.8.3 || >=1.9.0 <=1.9.2"
   },
-  "org.apache.flink:flink-parent": {
-    "GHSA-7q5g-gph2-4rc6": ">=1.5.1 <1.11.3"
-  },
   "org.apache.flink:flink-runtime_2.11": {
     "GHSA-395w-qhqr-9fr6": "<1.11.3"
   },
@@ -877,7 +796,6 @@
     "CVE-2018-1296": "2.9.0 || 3.0.0 || >=2.5.0 <=2.7.5 || >=2.8.0 <=2.8.3"
   },
   "org.apache.hbase:hbase": {
-    "GHSA-535v-4x9q-446c": ">=2.0.0 <2.0.5 || >=2.1.0 <2.1.4",
     "GHSA-p8xr-4v2c-rvgp": "1.1.0 || >=0.98 <=0.98.12.0 || >=1.0.0 <=1.0.1.0"
   },
   "org.apache.heron:heron-simulator": {
@@ -888,7 +806,6 @@
   },
   "org.apache.hive:hive-exec": {
     "GHSA-rrfq-g5fq-fc9c": "<2.3.4 || >=3.0.0 <3.1.1",
-    "GHSA-rxmr-c9jm-7mm8": ">=0.6.0 <2.3.3",
     "GHSA-w4x9-4f5x-8jj8": "<0.13.1"
   },
   "org.apache.hive:hive-jdbc": {
@@ -996,12 +913,6 @@
   "org.apache.nifi:nifi-framework-cluster-protocol": {
     "GHSA-xwx6-vmj4-5rv8": "<1.5.0"
   },
-  "org.apache.nifi:nifi-security": {
-    "GHSA-744r-vv2g-2x6g": ">=1.3.0 <1.10.0"
-  },
-  "org.apache.nifi:nifi-web-api": {
-    "GHSA-26p8-xrj2-mv53": ">=1.3.0 <1.10.0"
-  },
   "org.apache.olingo:odata-client-core": {
     "GHSA-v4qh-6367-4cx2": ">=4.0.0 <=4.7.0"
   },
@@ -1033,9 +944,6 @@
   "org.apache.pdfbox:pdfbox": {
     "CVE-2016-2175": ">=1.8 <=1.8.11 || >=2.alpha0 <=2.0.0"
   },
-  "org.apache.pdfbox:pdfbox-parent": {
-    "GHSA-7grw-6pjh-jpc9": ">=2.0.0 <2.0.24"
-  },
   "org.apache.pinot:pinot": {
     "CVE-2022-23974": "<0.10.0",
     "GHSA-29f8-q7mf-7cqj": "<0.10.0"
@@ -1064,7 +972,6 @@
     "GHSA-c9h6-xhg9-xxrv": "7.1.0 || <7.0.7"
   },
   "org.apache.qpid:qpid-broker": {
-    "GHSA-4r7g-7cpj-5jr7": ">=6.1.0 <6.1.5",
     "GHSA-jj9h-mwhq-8vhm": "<6.0.3"
   },
   "org.apache.qpid:qpid-broker-plugins-amqp-0-8-protocol": {
@@ -1080,17 +987,11 @@
   "org.apache.sanselan:sanselan": {
     "GHSA-g99m-3m46-4gm9": "<=0.97-incubator"
   },
-  "org.apache.servicecomb:java-chassis": {
-    "GHSA-px4w-rcv2-6x8x": ">=1.0.0 <1.3.2 || >=2.0.0 <2.1.5"
-  },
   "org.apache.shenyu:shenyu": {
     "CVE-2021-45029": "2.4.0 || 2.4.1"
   },
   "org.apache.shenyu:shenyu-admin": {
     "CVE-2021-37580": "2.3.0 || 2.4.0"
-  },
-  "org.apache.shenyu:shenyu-common": {
-    "GHSA-7rjp-fgwj-47rw": ">=2.4.0 <2.4.2"
   },
   "org.apache.shiro:shiro-spring": {
     "GHSA-7cj4-gj8m-m2f7": "< 1.7.0"
@@ -1119,20 +1020,15 @@
     "GHSA-pccr-q7v9-5f27": "<8.11.1"
   },
   "org.apache.spark:spark-core": {
+    "CVE-2018-17190": "<=3.2.1",
     "GHSA-m394-8rww-3jr7": "3.1.1"
   },
   "org.apache.spark:spark-core_2.10": {
-    "GHSA-phg2-9c5g-m4q7": ">=0",
-    "GHSA-r34r-f84j-5x4x": "<2.2.0"
+    "GHSA-r34r-f84j-5x4x": "<2.2.0",
+    "SNYK-JAVA-ORGAPACHESPARK-1586030": "<=2.2.3"
   },
   "org.apache.spark:spark-parent_2.11": {
     "GHSA-wgx7-jwwm-cgjv": "<=2.4.5"
-  },
-  "org.apache.sshd:sshd-core": {
-    "GHSA-9279-7hph-r3xw": ">=2.0.0 <2.7.0"
-  },
-  "org.apache.sshd:sshd-mina": {
-    "GHSA-9279-7hph-r3xw": ">=2.0.0 <2.7.0"
   },
   "org.apache.storm:storm": {
     "CVE-2017-9799": "1.1 || >=1.0 <=1.0.3"
@@ -1327,28 +1223,22 @@
     "GHSA-6xx3-rg99-gc3p": "<=1.0.2"
   },
   "org.bouncycastle:bcprov-ext-jdk15on": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.bouncycastle:bcprov-ext-jdk16": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.bouncycastle:bcprov-jdk14": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.bouncycastle:bcprov-jdk15": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.bouncycastle:bcprov-jdk15to18": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.bouncycastle:bcprov-jdk16": {
-    "GHSA-6xx3-rg99-gc3p": "<1.66",
-    "GHSA-73xv-w5gp-frxh": ">=1.65 <1.67"
+    "GHSA-6xx3-rg99-gc3p": "<1.66"
   },
   "org.codehaus.groovy:groovy-all": {
     "CVE-2020-17521": "4.0.0 || >=2.0.0 <=2.4.20 || >=2.5.0 <=2.5.13 || >=3.0.0 <=3.0.6"
@@ -1357,9 +1247,6 @@
   "org.codehaus.jackson:jackson-xc": {},
   "org.cometd.java:cometd-java-oort": {
     "GHSA-rjmq-6v55-4rjv": "<5.0.11 || >=6.0.0 <6.0.6 || >=7.0.0 <7.0.6"
-  },
-  "org.craftercms:crafter-search": {
-    "GHSA-2wr2-8qjq-gh55": ">=3.1.0 <3.1.15"
   },
   "org.craftercms:crafter-studio": {
     "GHSA-9fcp-vcq9-9h2h": "<=3.0.18"
@@ -1372,9 +1259,6 @@
     "CVE-2020-10683": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.3",
     "SNYK-JAVA-ORGDOM4J-32474": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.1",
     "SNYK-JAVA-ORGDOM4J-565810": ">=2.0.0 <2.0.3 || >=2.1.0 <2.1.3"
-  },
-  "org.dspace:dspace-api": {
-    "GHSA-cf2j-vf36-c6w8": ">=7.0 <7.1"
   },
   "org.dspace:dspace-xmlui": {
     "GHSA-4m9r-5gqp-7j82": "<3.6 || >=4.0 <4.5 || >=5.0 <5.5"
@@ -1461,9 +1345,6 @@
     "GHSA-m6cp-vxjx-65j6": ">=0 <=9.4.40 || >=10.0.0 <=10.0.2 || >=11.0.0 <=11.0.2",
     "GHSA-v7ff-8wcx-gmc5": ">=9.4.37 <=9.4.38"
   },
-  "org.eclipse.jetty:jetty-servlets": {
-    "GHSA-gwcr-j4wh-j3cq": ">=0 <9.4.41 || >=10.0.0 <10.0.3 || >=11.0.0 <11.0.3"
-  },
   "org.eclipse.jetty:jetty-util": {
     "CVE-2020-27216": ">=1.0 <9.3.29 || >=10.0.0 <=11.0.0 || >=9.4.0 <=9.4.32",
     "CVE-2020-27223": "10.0.0 || 11.0.0 || >=9.4.6 <=9.4.36",
@@ -1513,9 +1394,6 @@
   },
   "org.geysermc:connector": {
     "GHSA-h77f-xxx7-4858": "<=1.4.1-snapshot"
-  },
-  "org.glassfish.jersey.core:jersey-common": {
-    "GHSA-c43q-5hpj-4crv": ">=2.28 <2.34 || >=3.0.0 <3.0.2"
   },
   "org.glassfish:mojarra-parent": {
     "GHSA-rpq8-mmwh-q9hm": "<2.3.14"
@@ -1801,17 +1679,11 @@
   "org.jooby:jooby": {
     "GHSA-px9h-x66r-8mpc": "<2.8.2"
   },
-  "org.jsoup:jsoup": {
-    "GHSA-m72m-mhq2-9p6c": ">=0 <1.14.2"
-  },
   "org.jvnet.hudson.plugins:instant-messaging": {
     "CVE-2022-28135": "<=1.41"
   },
   "org.jvnet.hudson.plugins:sitemonitor": {
     "CVE-2022-28153": "<=0.6"
-  },
-  "org.keycloak:keycloak-parent": {
-    "GHSA-2mq8-99q7-55wx": ">=9.0.0 <12.0.3"
   },
   "org.keycloak:keycloak-services": {
     "CVE-2014-3655": ">=0 <=1.0.1.final"
@@ -1821,18 +1693,6 @@
   },
   "org.lucee:lucee": {
     "GHSA-2xvv-723c-8p7r": ">=5.3.5.00 <5.3.5.96 || >=5.3.6.00 <5.3.6.68 || >=5.3.7.00 <5.3.7.47"
-  },
-  "org.mapfish.print:print-lib": {
-    "GHSA-vjv6-gq77-3mjw": ">=0 <3.24",
-    "GHSA-w534-q4xf-h5v2": ">=0 <3.24"
-  },
-  "org.mapfish.print:print-servlet": {
-    "GHSA-vjv6-gq77-3mjw": ">=0 <3.24",
-    "GHSA-w534-q4xf-h5v2": ">=0 <3.24"
-  },
-  "org.mapfish.print:print-standalone": {
-    "GHSA-vjv6-gq77-3mjw": ">=0 <3.24",
-    "GHSA-w534-q4xf-h5v2": ">=0 <3.24"
   },
   "org.mitre:openid-connect-server": {
     "GHSA-792r-mh2q-p8qp": "<=1.3.3"
@@ -1845,9 +1705,6 @@
   },
   "org.neo4j:neo4j": {
     "GHSA-pc4w-8v5j-29w9": "<3.5.0"
-  },
-  "org.neo4j:neo4j-enterprise": {
-    "GHSA-h5f5-rj4r-42f6": ">=3.4.0 <3.4.9"
   },
   "org.netbeans.html:pom": {
     "GHSA-ppc3-fpvh-7396": "<1.7.1"
@@ -1885,8 +1742,6 @@
   "org.opencastproject:opencast-kernel": {
     "CVE-2020-5206": "8.0 || >=0 <7.6",
     "CVE-2020-5222": "8.0 || >=0 <7.6",
-    "GHSA-44cw-p2hm-gpf6": ">=0 <7.9 || >=8.0 <8.9",
-    "GHSA-9gwx-9cwp-5c2m": ">=0 <9.6",
     "GHSA-h362-m8f2-5x7c": ">=0 <8.1",
     "GHSA-mh8g-hprg-8363": "8.0 || >=0 <7.6",
     "GHSA-vmm6-w4cf-7f3x": "8.0 || >=0 <7.6",
@@ -1902,20 +1757,8 @@
     "GHSA-36hf-6hp2-9g4c": "<11.0.1",
     "GHSA-g6v7-vqhx-6v6c": ">=11.0.0 <=11.0.2"
   },
-  "org.opencrx:opencrx-client": {
-    "GHSA-rwh9-8xx8-4wfm": ">=4.0.0 <5.2.0"
-  },
   "org.opencrx:opencrx-core": {
     "CVE-2020-7378": "5.0.0 || >=0 <=4.3.0"
-  },
-  "org.opencrx:opencrx-core-config": {
-    "GHSA-rwh9-8xx8-4wfm": ">=4.0.0 <5.2.0"
-  },
-  "org.opencrx:opencrx-core-models": {
-    "GHSA-rwh9-8xx8-4wfm": ">=4.0.0 <5.2.0"
-  },
-  "org.opencrx:opencrx-gradle": {
-    "GHSA-rwh9-8xx8-4wfm": ">=4.0.0 <5.2.0"
   },
   "org.openhab.addons.bundles:org.openhab.binding.exec": {
     "GHSA-w698-693g-23hv": ">=0 <2.5.2"
@@ -1926,9 +1769,6 @@
   },
   "org.openmrs.module.htmlformentry": {
     "CVE-2020-24621": "<3.11.0"
-  },
-  "org.opennms:opennms": {
-    "GHSA-jjhw-5mxp-2g2q": ">=1.0.0 <27.1.1"
   },
   "org.ops4j.pax.logging:pax-logging-log4j2": {
     "GHSA-xxfh-x98p-j8fr": "<1.11.10 || >=2.0.0 <2.0.11"
@@ -2008,7 +1848,6 @@
     "CVE-2021-26987": ">=0 <1.5.9.release"
   },
   "org.springframework.boot:spring-boot-starter-undertow": {},
-  "org.springframework.boot:spring-boot-starter-web": {},
   "org.springframework.boot:spring-boot-starter-webflux": {
     "GHSA-36p3-wjmg-h94x": "<2.5.12 || >=2.6.0 <2.6.6"
   },
@@ -2076,9 +1915,6 @@
   "org.springframework.integration:spring-integration-zip": {
     "CVE-2018-1261": ">=0 <1.0.1.release",
     "CVE-2021-22114": "<1.0.4.release"
-  },
-  "org.springframework.security.oauth:spring-security-oauth": {
-    "GHSA-mmf6-6597-3v6m": ">=2.0.0 <2.0.18 || >=2.1.0 <2.1.5 || >=2.2.0 <2.2.5 || >=2.3.0 <2.3.6"
   },
   "org.springframework.security.oauth:spring-security-oauth2": {
     "CVE-2018-1260": ">=0 <=2.0.14.release || >=2.1.release <=2.1.1.release || >=2.2.release <=2.2.1.release || >=2.3.release <=2.3.2.release",
@@ -2312,9 +2148,6 @@
   "org.xwiki.platform:xwiki-platform-rendering-wikimacro-store": {
     "GHSA-v662-xpcc-9xf6": ">=11.4 <11.10.11 || >=12.0 <12.6.3 || >=12.7 <=12.7.1"
   },
-  "org.xwiki.platform:xwiki-platform-security-authentication-script": {
-    "GHSA-m738-3rc4-5xv3": ">=11.6 <12.6.8 || >=12.7 <12.10.4"
-  },
   "org.xwiki.platform:xwiki-platform-skin-skinx": {
     "GHSA-7ph6-5cmq-xgjq": ">= 6.2-rc-1, < 13.6"
   },
@@ -2362,6 +2195,7 @@
     "CVE-2021-24122": ">=10.0.0-m1 <=10.0.0-m9 || >=7.0.0 <=7.0.106 || >=8.5.0 <=8.5.59 || >=9.0.0 <=9.0.39"
   },
   "tomcat:jasper-runtime": {
+    "CVE-2016-5018": "<=5.5.23",
     "CVE-2021-24122": ">=10.0.0-m1 <=10.0.0-m9 || >=7.0.0 <=7.0.106 || >=8.5.0 <=8.5.59 || >=9.0.0 <=9.0.39"
   }
 }
