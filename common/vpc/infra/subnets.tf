@@ -69,8 +69,10 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
+        "kubernetes.io/cluster/common"    = "shared"
         "kubernetes.io/cluster/makes-k8s" = "shared"
         "kubernetes.io/role/elb"          = "1"
+        "karpenter.sh/discovery"          = "common"
       }
     },
     {
@@ -79,8 +81,10 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
+        "kubernetes.io/cluster/common"    = "shared"
         "kubernetes.io/cluster/makes-k8s" = "shared"
         "kubernetes.io/role/elb"          = "1"
+        "karpenter.sh/discovery"          = "common"
       }
     },
     {
@@ -89,8 +93,10 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
+        "kubernetes.io/cluster/common"    = "shared"
         "kubernetes.io/cluster/makes-k8s" = "shared"
         "kubernetes.io/role/elb"          = "1"
+        "karpenter.sh/discovery"          = "common"
       }
     },
   ]

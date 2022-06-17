@@ -1,7 +1,7 @@
 module "cluster" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "~> 18.23.0"
-  cluster_name    = "common"
+  cluster_name    = local.cluster_name
   cluster_version = "1.22"
   enable_irsa     = true
 
@@ -14,6 +14,18 @@ module "cluster" {
     vpc_security_group_ids = [data.aws_security_group.cloudflare.id]
   }
   eks_managed_node_groups = {
+    karpenter = {
+      max_size = 3
+
+      instance_types = [
+        "t3.medium",
+        "t3a.medium",
+      ]
+
+      iam_role_additional_policies = [
+        "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+      ]
+    }
     development = {
       max_size = 10
 
@@ -49,7 +61,7 @@ module "cluster" {
     for subnet in data.aws_subnet.main : subnet.id
   ]
   cluster_security_group_additional_rules = {
-    egress_to_nodes_all = {
+    egress_nodes_all = {
       description                = "Cluster to node all ports/protocols"
       protocol                   = "-1"
       from_port                  = 0
@@ -67,7 +79,7 @@ module "cluster" {
       type        = "ingress"
       self        = true
     }
-    egress_all = {
+    egress_any_all = {
       description = "Node to anywhere all ports/protocols"
       protocol    = "-1"
       from_port   = 0
@@ -90,12 +102,13 @@ module "cluster" {
   aws_auth_accounts = var.map_accounts
 
   tags = {
-    "Name"               = "common-kubernetes"
-    "Environment"        = "production"
-    "GithubRepo"         = "terraform-aws-eks"
-    "GithubOrg"          = "terraform-aws-modules"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
+    "Name"                   = "common-kubernetes"
+    "Environment"            = "production"
+    "GithubRepo"             = "terraform-aws-eks"
+    "GithubOrg"              = "terraform-aws-modules"
+    "karpenter.sh/discovery" = local.cluster_name
+    "management:area"        = "cost"
+    "management:product"     = "common"
+    "management:type"        = "product"
   }
 }

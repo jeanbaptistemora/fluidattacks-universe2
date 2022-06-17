@@ -3,11 +3,9 @@ variable "kubeConfig" {}
 data "aws_security_group" "cloudflare" {
   name = "CloudFlare"
 }
-data "aws_eks_cluster" "cluster" {
-  name = module.cluster.cluster_id
-}
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.cluster.cluster_id
+
+locals {
+  cluster_name = "common"
 }
 
 data "aws_vpc" "main" {
