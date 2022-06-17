@@ -7,7 +7,7 @@
   system,
 }: let
   pkg_override = names: (import ./pkg_override.nix) (x: (x ? overridePythonAttrs && builtins.elem x.pname names));
-  typing_ext_override = python_pkgs: pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
+  pycheck_override = python_pkgs: (import ./pkg_override.nix) (x: (x ? name && x.name == "pytest-check-hook")) python_pkgs.pytestCheckHook;
 
   override_1 = python_pkgs:
     python_pkgs
@@ -23,6 +23,11 @@
       click = import ./click {
         inherit lib python_pkgs;
       };
+      pytestCheckHook = python_pkgs.pytestCheckHook.override {
+        pytest = typing_ext_override python_pkgs python_pkgs.pytest;
+      };
+      pytz = import ./pytz lib python_pkgs;
+      jsonschema = import ./jsonschema lib python_pkgs;
     };
   override_3 = python_pkgs:
     python_pkgs
@@ -40,7 +45,7 @@
     };
   override_4 = let
     _utils_logger."${python_version}" = import ./utils-logger {
-      inherit observesIndex nixpkgs projectPath python_version;
+      inherit nixpkgs observesIndex projectPath python_version;
     };
     _legacy_postgres_client."${python_version}" = import ./legacy/postgres-client.nix {
       inherit nixpkgs projectPath python_version;
@@ -49,7 +54,9 @@
     _legacy_singer_io."${python_version}" = import ./legacy/singer-io.nix {
       inherit nixpkgs projectPath python_version system;
     };
-    _fa_purity = import ./fa-purity {inherit system nixpkgs;};
+    _fa_purity = import ./fa-purity {
+      inherit nixpkgs system;
+    };
     _fa_singer_io = import ./fa-singer-io {
       inherit nixpkgs system;
       purity = _fa_purity;
@@ -64,11 +71,22 @@
         legacy-singer-io = _legacy_singer_io."${python_version}".pkg;
         utils-logger = _utils_logger."${python_version}".pkg;
       };
-  override_5 = python_pkgs: builtins.mapAttrs (_: typing_ext_override python_pkgs) python_pkgs;
+  typing_ext_override = python_pkgs: pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
+  pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
+  jsonschema_override = python_pkgs: pkg_override ["jsonschema"] python_pkgs.jsonschema;
+  fa_purity_override = python_pkgs: pkg_override ["fa_purity"] python_pkgs.fa-purity;
+  pkgs_overrides = override: python_pkgs: builtins.mapAttrs (_: override python_pkgs) python_pkgs;
+  overrides = map pkgs_overrides [
+    typing_ext_override
+    pycheck_override
+    pytz_override
+    jsonschema_override
+    fa_purity_override
+  ];
   compose = let
     apply = x: f: f x;
   in
     functions: val: builtins.foldl' apply val functions;
-  final_nixpkgs = compose [override_1 override_2 override_3 override_4 override_5] (nixpkgs."${python_version}Packages");
+  final_nixpkgs = compose ([override_1 override_2 override_3 override_4] ++ overrides) (nixpkgs."${python_version}Packages");
 in
   final_nixpkgs

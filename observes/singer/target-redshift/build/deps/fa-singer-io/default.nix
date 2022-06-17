@@ -5,7 +5,8 @@
 }: let
   src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/singer_io";
-    ref = "refs/tags/v1.1.0";
+    ref = "main";
+    rev = "5a9421e3323e4e8b701fa702b8157139298cf43f";
   };
 in
   import src {

@@ -14,6 +14,7 @@ let
             buildInputs = map override (old.buildInputs or []);
             nativeBuildInputs = map override (old.nativeBuildInputs or []);
             propagatedBuildInputs = map override (old.propagatedBuildInputs or []);
+            propagatedNativeBuildInputs = map override (old.propagatedNativeBuildInputs or []);
             pythonPath = map override (old.pythonPath or []);
           }
         )

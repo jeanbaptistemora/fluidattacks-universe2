@@ -4,7 +4,8 @@
 }: let
   src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "refs/tags/v1.18.1";
+    ref = "main";
+    rev = "1816492d1ac416becac6bcdd9ebb9b1be06ffddd";
   };
 in
   import src {
