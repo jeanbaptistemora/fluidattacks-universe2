@@ -7,6 +7,9 @@ from ariadne.utils import (
 from custom_types import (
     DownloadFilePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -33,8 +36,11 @@ from newutils import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, event_id: str, file_name: str
 ) -> DownloadFilePayload:
+    loaders: Dataloaders = info.context.loaders
     success = False
-    signed_url = await events_domain.get_evidence_link(event_id, file_name)
+    signed_url = await events_domain.get_evidence_link(
+        loaders, event_id, file_name
+    )
     if signed_url:
         logs_utils.cloudwatch_log(
             info.context,

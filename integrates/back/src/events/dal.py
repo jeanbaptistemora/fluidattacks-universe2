@@ -100,10 +100,6 @@ async def search_evidence(file_name: str) -> list[str]:
     return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
 
 
-async def sign_url(file_url: str) -> str:
-    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
-
-
 async def remove_evidence(file_name: str) -> None:
     await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
 

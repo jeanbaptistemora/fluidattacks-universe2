@@ -7,6 +7,9 @@ import authz
 from comments import (
     domain as comments_domain,
 )
+from context import (
+    FI_AWS_S3_BUCKET,
+)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -85,6 +88,9 @@ from newutils.utils import (
 )
 import pytz  # type: ignore
 import random
+from s3 import (
+    operations as s3_ops,
+)
 from settings import (
     LOGGING,
     TIME_ZONE,
@@ -262,11 +268,13 @@ async def get_unsolved_events(group_name: str) -> list[dict[str, Any]]:
     return unsolved
 
 
-async def get_evidence_link(event_id: str, file_name: str) -> str:
-    event = await get_event(event_id)
-    group_name = get_key_or_fallback(event)
+async def get_evidence_link(
+    loaders: Any, event_id: str, file_name: str
+) -> str:
+    event: Event = await loaders.event_typed.load(event_id)
+    group_name = event.group_name
     file_url = f"{group_name}/{event_id}/{file_name}"
-    return await events_dal.sign_url(file_url)
+    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
 
 
 async def has_access_to_event(email: str, event_id: str) -> bool:
