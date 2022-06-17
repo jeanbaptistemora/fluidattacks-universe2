@@ -58,6 +58,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
         ) {
             finding(identifier: $finding_id) {
                 id
+                title
                 vulnerabilitiesConnection(
                     after: $after,
                     first: $first,
@@ -99,6 +100,7 @@ def get_vulnerabilities(finding_id: str) -> List[Vulnerability]:
                         kind=VulnerabilityKindEnum(
                             vuln_edge["node"]["vulnerabilityType"]
                         ),
+                        title=result["finding"]["title"],
                         where=vuln_edge["node"]["where"],
                     )
                     for vuln_edge in vulnerability_edges
@@ -243,6 +245,42 @@ def update_toe_lines_sorts(
             root_nickname=root_nickname,
             filename=filename,
             risk_level=risk_level,
+        ),
+    )
+
+    return result["updateToeLinesSorts"]["success"]
+
+
+def update_toe_lines_suggestions(
+    group_name: str,
+    root_nickname: str,
+    filename: str,
+    sorts_suggestions: List[Dict],
+) -> bool:
+    result = _execute(
+        query="""
+            mutation SortsUpdateToeLinesSorts(
+                $group_name: String!,
+                $root_nickname: String!,
+                $filename: String!,
+                $sorts_suggestions: [SortsSuggestionInput!]
+            ) {
+                updateToeLinesSorts(
+                    groupName: $group_name,
+                    rootNickname: $root_nickname,
+                    filename: $filename,
+                    sortsSuggestions: $sorts_suggestions
+                ) {
+                    success
+                }
+            }
+        """,
+        operation="SortsUpdateToeLinesSorts",
+        variables=dict(
+            group_name=group_name,
+            root_nickname=root_nickname,
+            filename=filename,
+            sorts_suggestions=sorts_suggestions,
         ),
     )
 

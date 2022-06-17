@@ -169,6 +169,12 @@ def reset(model_name: str) -> None:
                     insert("training", item)
 
 
+def fetch_data(query: str) -> List:
+    with db_cursor() as cursor:
+        cursor.execute(query)
+        return cursor.fetchall()
+
+
 @click.group(
     help="Redshift integration for Sorts. Handles all Sorts stored data"
 )

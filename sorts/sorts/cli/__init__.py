@@ -2,6 +2,10 @@ import click
 from integrates.graphql import (
     create_session,
 )
+import os
+from sorts.association.file import (
+    execute_association_rules,
+)
 from sorts.integrates.dal import (
     get_user_email,
 )
@@ -45,6 +49,11 @@ from training.redshift import (
     ),
 )
 @click.option(
+    "--association-rules",
+    is_flag=True,
+    help="Assign vulnerability suggestions to all the subscription files",
+)
+@click.option(
     "--get-file-data",
     is_flag=True,
     help="Extract file features from the subscription to train ML models",
@@ -58,6 +67,7 @@ from training.redshift import (
 @shield(on_error_return=False)
 def execute_sorts(
     subscription: str,
+    association_rules: bool,
     get_file_data: bool,
     token: str,
 ) -> None:
@@ -69,6 +79,10 @@ def execute_sorts(
         user_email: str = get_user_email()
         if get_file_data:
             success = get_subscription_file_metadata(subscription)
+        elif association_rules:
+            group: str = os.path.basename(os.path.normpath(subscription))
+            execute_association_rules(group)
+            success = True
         else:
             success = prioritize_files(subscription)
 
@@ -78,6 +92,7 @@ def execute_sorts(
             subscription=subscription,
             time=f"Finished after {execution_time:.2f} seconds",
             get_file_data=get_file_data,
+            association_rules=association_rules,
             user=user_email,
         )
         redshift.insert(
