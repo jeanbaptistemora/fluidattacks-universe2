@@ -1,3 +1,5 @@
+import type { IOrganizationAttr } from "../types";
+
 interface IFormValues {
   accessToken: string | undefined;
   isHttpsPasswordType: boolean;
@@ -9,4 +11,8 @@ interface IFormValues {
   user: string | undefined;
 }
 
-export type { IFormValues };
+interface ICredentialFormProps {
+  organizations: IOrganizationAttr[];
+}
+
+export type { IFormValues, ICredentialFormProps };

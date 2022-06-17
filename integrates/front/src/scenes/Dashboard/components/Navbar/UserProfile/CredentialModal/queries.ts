@@ -21,4 +21,17 @@ const GET_STAKEHOLDER_CREDENTIALS: DocumentNode = gql`
   }
 `;
 
-export { GET_STAKEHOLDER_CREDENTIALS };
+const GET_STAKEHOLDER_ORGANIZATIONS: DocumentNode = gql`
+  query GetStakeholderOrganizations {
+    me(callerOrigin: "FRONT") {
+      __typename
+      organizations {
+        id
+        name
+      }
+      userEmail
+    }
+  }
+`;
+
+export { GET_STAKEHOLDER_CREDENTIALS, GET_STAKEHOLDER_ORGANIZATIONS };

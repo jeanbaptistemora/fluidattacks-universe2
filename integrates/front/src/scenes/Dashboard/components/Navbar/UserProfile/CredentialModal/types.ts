@@ -8,6 +8,11 @@ interface ICredentialAttr {
   };
 }
 
+interface IOrganizationAttr {
+  id: string;
+  name: string;
+}
+
 interface ICredentialData {
   id: string;
   name: string;
@@ -24,4 +29,9 @@ interface ICredentialModalProps {
   onClose: () => void;
 }
 
-export type { ICredentialAttr, ICredentialData, ICredentialModalProps };
+export type {
+  ICredentialAttr,
+  ICredentialData,
+  ICredentialModalProps,
+  IOrganizationAttr,
+};

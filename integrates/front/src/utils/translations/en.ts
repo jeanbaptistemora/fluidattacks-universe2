@@ -1767,6 +1767,7 @@ export const enTranslations: ResourceKey = {
           label: "Name",
           placeholder: "",
         },
+        organization: "Organization",
         password: "Repository password",
         ssh: "SSH",
         sshKey: {
