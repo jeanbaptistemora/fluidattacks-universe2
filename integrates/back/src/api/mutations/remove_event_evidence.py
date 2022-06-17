@@ -38,12 +38,10 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     evidence_type_enum = EventEvidenceType[evidence_type]
-    success = await events_domain.remove_evidence(
-        loaders, evidence_type_enum, event_id
+    await events_domain.remove_evidence(loaders, evidence_type_enum, event_id)
+    info.context.loaders.event.clear(event_id)
+    logs_utils.cloudwatch_log(
+        info.context, f"Security: Removed evidence in event {event_id}"
     )
-    if success:
-        info.context.loaders.event.clear(event_id)
-        logs_utils.cloudwatch_log(
-            info.context, f"Security: Removed evidence in event {event_id}"
-        )
-    return SimplePayload(success=success)
+
+    return SimplePayload(success=True)

@@ -326,7 +326,7 @@ async def mask(event_id: str) -> bool:
 
 async def remove_evidence(
     loaders: Any, evidence_type: EventEvidenceType, event_id: str
-) -> bool:
+) -> None:
     event: Event = await loaders.event_typed.load(event_id)
     group_name = event.group_name
 
@@ -334,13 +334,14 @@ async def remove_evidence(
         full_name = (
             f"{group_name}/{event_id}/{event.evidences.image.file_name}"
         )
-        evidence_type_str = "evidence"
     elif event.evidences.file:
         full_name = f"{group_name}/{event_id}/{event.evidences.file.file_name}"
-        evidence_type_str = "evidence_file"
     await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
-    return await events_dal.update(
-        event_id, {evidence_type_str: None, f"{evidence_type_str}_date": None}
+    await events_dal.update_evidence(
+        event_id=event_id,
+        group_name=group_name,
+        evidence_info=None,
+        evidence_type=evidence_type,
     )
 
 
