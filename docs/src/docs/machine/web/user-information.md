@@ -6,16 +6,21 @@ slug: /machine/web/user-information
 ---
 
 On the ASM, it is quite easy to
-find the options to access the
-platform’s API, configure what
-notifications you want to receive
-in your email, delete your
-account, and log out.
+find the options to enable early
+access to changes to the platform,
+access the platform’s API,
+configure what notifications
+you want to receive
+in your email,
+delete your
+account,
+and log out.
 These are shown on a drop-down
 menu that appears when you click
 the user icon on the upper-right
 part of your screen.
-Your username, email address and
+Your username,
+email address and
 role are shown as well.
 
 ![User Drop Down Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_dropdown_menu.png)
