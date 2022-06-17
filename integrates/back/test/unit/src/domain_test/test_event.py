@@ -21,10 +21,14 @@ from custom_types import (
     AddEventPayload,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.events.enums import (
     EventEvidenceType,
+)
+from db_model.events.types import (
+    Event,
 )
 from events import (
     dal as events_dal,
@@ -185,6 +189,7 @@ async def test_add_comment() -> None:
 
 @pytest.mark.changes_db
 async def test_update_evidence() -> None:
+    loaders: Dataloaders = get_new_context()
     event_id = "418900978"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -193,18 +198,24 @@ async def test_update_evidence() -> None:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
         )
-        test_data = await events_domain.update_evidence(
+        await events_domain.update_evidence(
+            loaders,
             event_id,
             evidence_type,
             uploaded_file,
             datetime_utils.get_now(),
         )
-    expected_output = True
-    assert isinstance(test_data, bool)
-    assert test_data == expected_output
+
+    loaders.event_typed.clear(event_id)
+    event_updated: Event = await loaders.event_typed.load(event_id)
+    assert (
+        event_updated.evidences.file.file_name
+        == "oneshottest-418900978-evidence_file.csv"
+    )
 
 
 async def test_update_evidence_invalid_id() -> None:
+    loaders: Dataloaders = get_new_context()
     event_id = "=malicious-code-here"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -215,6 +226,7 @@ async def test_update_evidence_invalid_id() -> None:
         )
         with pytest.raises(UnsanitizedInputFound):
             await events_domain.update_evidence(
+                loaders,
                 event_id,
                 evidence_type,
                 uploaded_file,
@@ -223,6 +235,7 @@ async def test_update_evidence_invalid_id() -> None:
 
 
 async def test_update_evidence_invalid_filename() -> None:
+    loaders: Dataloaders = get_new_context()
     event_id = "418900978"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
@@ -233,6 +246,7 @@ async def test_update_evidence_invalid_filename() -> None:
         )
         with pytest.raises(UnsanitizedInputFound):
             await events_domain.update_evidence(
+                loaders,
                 event_id,
                 evidence_type,
                 uploaded_file,
@@ -265,7 +279,8 @@ async def test_validate_evidence_invalid_file_size() -> None:
 
 
 @pytest.mark.changes_db
-async def test_mask_event() -> None:
+async def test_mask_event() -> None:  # pylint: disable=too-many-locals
+    loaders: Dataloaders = get_new_context()
     event_id = "418900971"
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
@@ -292,6 +307,7 @@ async def test_mask_event() -> None:
             "test-file-records.csv", test_file, "text/csv"
         )
         await events_domain.update_evidence(
+            loaders,
             event_id,
             evidence_type,
             uploaded_file,

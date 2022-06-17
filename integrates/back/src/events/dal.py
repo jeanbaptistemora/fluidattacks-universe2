@@ -10,8 +10,12 @@ from context import (
 from custom_exceptions import (
     UnavailabilityError,
 )
+from db_model.events.enums import (
+    EventEvidenceType,
+)
 from db_model.events.types import (
     Event,
+    EventEvidence,
     EventState,
 )
 from dynamodb import (
@@ -20,6 +24,7 @@ from dynamodb import (
 import logging
 import logging.config
 from newutils import (
+    datetime as datetime_utils,
     events as events_utils,
 )
 from s3 import (
@@ -30,6 +35,7 @@ from settings import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -147,5 +153,33 @@ async def update_state(
     if not await update(
         event_id=event_id,
         data={"historic_state": historic_state, "project_name": group_name},
+    ):
+        raise UnavailabilityError()
+
+
+async def update_evidence(
+    *,
+    event_id: str,
+    group_name: str,
+    evidence_info: Optional[EventEvidence],
+    evidence_type: EventEvidenceType,
+) -> None:
+    evidence_type_str = (
+        "evidence"
+        if evidence_type == EventEvidenceType.IMAGE
+        else "evidence_file"
+    )
+    item = {
+        evidence_type_str: evidence_info.file_name if evidence_info else None,
+        f"{evidence_type_str}_date": datetime_utils.convert_from_iso_str(
+            evidence_info.modified_date
+        )
+        if evidence_info
+        else None,
+        "project_name": group_name,
+    }
+    if not await update(
+        event_id=event_id,
+        data=item,
     ):
         raise UnavailabilityError()

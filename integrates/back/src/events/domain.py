@@ -40,6 +40,7 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    EventEvidence,
     EventEvidences,
     EventState,
 )
@@ -219,11 +220,11 @@ async def add_event(
 
     if file:
         await update_evidence(
-            event.id, EventEvidenceType.FILE, file, event_date
+            loaders, event.id, EventEvidenceType.FILE, file, event_date
         )
     if image:
         await update_evidence(
-            event.id, EventEvidenceType.IMAGE, image, event_date
+            loaders, event.id, EventEvidenceType.IMAGE, image, event_date
         )
 
     report_date: date_type = datetime_utils.get_date_from_iso_str(
@@ -459,22 +460,17 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
 
 
 async def update_evidence(
+    loaders: Any,
     event_id: str,
     evidence_type: EventEvidenceType,
     file: UploadFile,
     update_date: datetime,
-) -> bool:
+) -> None:
     validations.validate_sanitized_csv_input(event_id)
-    event = await get_event(event_id)
-    if (
-        cast(list[dict[str, str]], event.get("historic_state", []))[-1].get(
-            "state"
-        )
-        == "SOLVED"
-    ):
+    event: Event = await loaders.event_typed.load(event_id)
+    if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
 
-    group_name = str(get_key_or_fallback(event, fallback=""))
     extension = {
         "image/gif": ".gif",
         "image/jpeg": ".jpg",
@@ -489,20 +485,21 @@ async def update_evidence(
         if evidence_type == EventEvidenceType.IMAGE
         else "evidence_file"
     )
+    group_name = event.group_name
     evidence_id = f"{group_name}-{event_id}-{evidence_type_str}{extension}"
     full_name = f"{group_name}/{event_id}/{evidence_id}"
     validations.validate_sanitized_csv_input(full_name)
     validations.validate_sanitized_csv_input(file.filename, file.content_type)
 
     await events_dal.save_evidence(file, full_name)
-    return await events_dal.update(
-        event_id,
-        {
-            evidence_type_str: evidence_id,
-            f"{evidence_type_str}_date": datetime_utils.get_as_str(
-                update_date
-            ),
-        },
+    await events_dal.update_evidence(
+        event_id=event_id,
+        group_name=group_name,
+        evidence_info=EventEvidence(
+            file_name=evidence_id,
+            modified_date=datetime_utils.get_as_utc_iso_format(update_date),
+        ),
+        evidence_type=evidence_type,
     )
 
 

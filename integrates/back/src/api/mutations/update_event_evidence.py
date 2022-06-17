@@ -4,6 +4,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.enums import (
     EventEvidenceType,
 )
@@ -40,16 +43,17 @@ async def mutate(
     evidence_type: str,
     file: UploadFile,
 ) -> SimplePayload:
-    success = False
+    loaders: Dataloaders = info.context.loaders
     evidence_type_enum = EventEvidenceType[evidence_type]
     await events_domain.validate_evidence(evidence_type_enum, file)
 
-    success = await events_domain.update_evidence(
+    await events_domain.update_evidence(
+        loaders,
         event_id,
         evidence_type_enum,
         file,
         get_now(),
     )
-    info.context.loaders.event.clear(event_id)
+    loaders.event.clear(event_id)
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)
