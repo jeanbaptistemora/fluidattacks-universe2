@@ -104,7 +104,7 @@ async def get_evidence(request: Request) -> Response:
         and await has_access_to_finding(loaders, username, finding_id)
     ) or (
         evidence_type == "events"
-        and await has_access_to_event(username, finding_id)
+        and await has_access_to_event(loaders, username, finding_id)
     ):
         if file_id is None:
             return Response("Error - Unsent image ID", media_type="text/html")

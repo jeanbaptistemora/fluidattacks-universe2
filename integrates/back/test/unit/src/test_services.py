@@ -30,7 +30,10 @@ async def test_has_access_to_finding() -> None:
 
 
 async def test_has_access_to_event() -> None:
-    assert await has_access_to_event("unittest@fluidattacks.com", "418900971")
+    loaders = get_new_context()
+    assert await has_access_to_event(
+        loaders, "unittest@fluidattacks.com", "418900971"
+    )
 
 
 async def test_has_valid_access_token() -> None:

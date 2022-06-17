@@ -4,6 +4,9 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.enums import (
     EventEvidenceType,
 )
@@ -33,8 +36,11 @@ from newutils import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, event_id: str, evidence_type: str
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     evidence_type_enum = EventEvidenceType[evidence_type]
-    success = await events_domain.remove_evidence(evidence_type_enum, event_id)
+    success = await events_domain.remove_evidence(
+        loaders, evidence_type_enum, event_id
+    )
     if success:
         info.context.loaders.event.clear(event_id)
         logs_utils.cloudwatch_log(

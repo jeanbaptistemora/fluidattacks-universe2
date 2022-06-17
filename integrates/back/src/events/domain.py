@@ -278,10 +278,10 @@ async def get_evidence_link(
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
 
 
-async def has_access_to_event(email: str, event_id: str) -> bool:
+async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     """Verify if the user has access to a event submission."""
-    event = await get_event(event_id)
-    group = cast(str, get_key_or_fallback(event, fallback=""))
+    event: Event = await loaders.event_typed.load(event_id)
+    group = event.group_name
     return bool(await authz.has_access_to_group(email, group))
 
 
@@ -325,18 +325,20 @@ async def mask(event_id: str) -> bool:
 
 
 async def remove_evidence(
-    evidence_type: EventEvidenceType, event_id: str
+    loaders: Any, evidence_type: EventEvidenceType, event_id: str
 ) -> bool:
-    event = await get_event(event_id)
-    group_name = get_key_or_fallback(event)
+    event: Event = await loaders.event_typed.load(event_id)
+    group_name = event.group_name
 
-    evidence_type_str = (
-        "evidence"
-        if evidence_type == EventEvidenceType.IMAGE
-        else "evidence_file"
-    )
-    full_name = f"{group_name}/{event_id}/{event[evidence_type_str]}"
-    await events_dal.remove_evidence(full_name)
+    if evidence_type == EventEvidenceType.IMAGE and event.evidences.image:
+        full_name = (
+            f"{group_name}/{event_id}/{event.evidences.image.file_name}"
+        )
+        evidence_type_str = "evidence"
+    elif event.evidences.file:
+        full_name = f"{group_name}/{event_id}/{event.evidences.file.file_name}"
+        evidence_type_str = "evidence_file"
+    await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
     return await events_dal.update(
         event_id, {evidence_type_str: None, f"{evidence_type_str}_date": None}
     )
