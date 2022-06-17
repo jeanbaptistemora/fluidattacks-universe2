@@ -66,7 +66,9 @@ ANY = AnyTime()
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
-        behind_work_days(ANY, 12): (Jobs.DYNAMO_INTEGRATES_MAIN,),
+        week_days(ANY, 12, DaysRange(Days.SUN, Days.SAT)).unwrap(): (
+            Jobs.DYNAMO_INTEGRATES_MAIN,
+        ),
         behind_work_days(ANY, 23): (Jobs.MAILCHIMP_ETL,),
         work_days(ANY, 0).unwrap(): (
             Jobs.MIRROR,
@@ -87,10 +89,10 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
         ),
         work_days(ANY, (11, 18)).unwrap(): (Jobs.FORMSTACK,),
         week_days(
-            ANY, range(0, 16, 5), DaysRange(Days.SUN, Days.FRI)
+            ANY, range(0, 16, 5), DaysRange(Days.MON, Days.SAT)
         ).unwrap(): (Jobs.DYNAMO_FORCES,),
         week_days(
-            ANY, range(5, 19, 3), DaysRange(Days.SUN, Days.FRI)
+            ANY, range(5, 19, 3), DaysRange(Days.MON, Days.SAT)
         ).unwrap(): (Jobs.DYNAMO_INTEGRATES,),
     }
 )
