@@ -7,6 +7,9 @@ from custom_types import (
 from datetime import (
     datetime,
 )
+from db_model.events.types import (
+    Event,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -22,9 +25,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -65,9 +65,9 @@ async def mutate(
     )
 
     if success:
-        info.context.loaders.event.clear(event_id)
-        event = await events_domain.get_event(event_id)
-        group_name = str(get_key_or_fallback(event, fallback=""))
+        info.context.loaders.event_typed.clear(event_id)
+        event: Event = await info.context.loaders.event_typed.load(event_id)
+        group_name = event.group_name
         redis_del_by_deps_soon("solve_event", group_name=group_name)
         logs_utils.cloudwatch_log(
             info.context, f"Security: Solved event {event_id} successfully"

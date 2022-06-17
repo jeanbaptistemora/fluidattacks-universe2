@@ -1,6 +1,9 @@
 from dataloaders import (
     Dataloaders,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -15,10 +18,6 @@ from events import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 @concurrent_decorators(
@@ -29,12 +28,10 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Dict[str, Any]]:
+) -> tuple[Event, ...]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     event_ids = await events_domain.list_group_events(group_name)
-    events: list[Dict[str, Any]] = await loaders.event_typed.load_many(
-        event_ids
-    )
+    events: tuple[Event, ...] = await loaders.event_typed.load_many(event_ids)
 
     return events
