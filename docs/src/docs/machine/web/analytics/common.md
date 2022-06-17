@@ -314,9 +314,11 @@ to their assigned treatment:
 
 ## Sprint exposure change overall
 
+![Sprint Exposure Overall](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_exposure_overall.png)
+
 This figure is the resulting
 percentage change in risk
-exposure in the last sprint
+exposure in the current sprint
 (i.e.,
 the exposure decrement minus
 the exposure increment).
@@ -331,9 +333,11 @@ exposure was remediated as reported.
 
 ## Sprint exposure increment
 
+![Sprint Exposure Increment](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_increment.png)
+
 This figure is the percentage
 increase in risk exposure in
-the last sprint (i.e.,
+the current sprint (i.e.,
 the newly reported exposure
 value relative to the initial
 exposure value).
@@ -343,9 +347,11 @@ reported in the period.
 
 ## Sprint exposure decrement
 
+![Sprint Exposure Decrement](https://res.cloudinary.com/fluid-attacks/image/upload/v1655482748/docs/web/analytics/common/sprint_decrement.png)
+
 This figure is the percentage
 decrease in risk exposure in
-the last sprint (i.e.,
+the current sprint (i.e.,
 the newly remediated exposure
 value relative to the initial
 exposure value).
