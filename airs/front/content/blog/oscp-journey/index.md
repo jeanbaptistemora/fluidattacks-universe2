@@ -17,11 +17,16 @@ about2: '"Be formless, shapeless like water" Bruce Lee'
 source: https://unsplash.com/photos/dYEuFB8KQJk
 ---
 
-Before taking the exam I already had years of work experience as a
-penetration tester at `Fluid Attacks`. So, I already knew how to
-perform a penetration test and how to build a technical report of my
-findings. However, if you don't have any work experience on the field or
-you're just starting out, this post may help you pass your exam.
+Before taking the exam,
+I already had years of work experience as a penetration tester
+at `Fluid Attacks`.
+So,
+I already knew how to perform a [penetration test](../../solutions/penetration-testing/)
+and how to build a technical report of my findings.
+However,
+if you don't have any work experience on the field
+or you're just starting out,
+this post may help you pass your exam.
 
 The most important phase on a penetration test is scanning. Here you
 will use tools to get information about your target, such as its

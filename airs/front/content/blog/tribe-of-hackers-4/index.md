@@ -153,22 +153,33 @@ in your systems.
 (Have you heard about our main service
 of [Continuous Hacking](../../services/continuous-hacking/)?)
 
-In addition, Tinker believes that for the sake of your firm, you should
-not employ only vulnerability scanners. It is better when you mix
-penetration tests with them. As he says, the two "cover different areas
-and have different strengths and applications, and companies should
-employ both." According to him, it’s typical to see firms implementing
-vulnerability scanners from top providers and using them to detect
-security issues, for then, after several months, remediate only some of
-them, usually ignoring medium and low severity findings. There is no
-creation of programs for managing and repairing vulnerabilities, and in
-subsequent analyses appear more extensive vulnerability lists, on which,
-again, no proper action is taken. (Now, I repeat the question for those
-companies that have fallen into that error but recognize it as such:
-Have you heard about our main service of [Continuous
-Hacking](../../services/continuous-hacking/)?)
+In addition,
+Tinker believes that for the sake of your firm,
+you should not employ only vulnerability scanners.
+It is better when you mix [penetration tests](../../solutions/penetration-testing/)
+with them.
+As he says,
+the two "cover different areas and have different strengths and applications,
+and companies should employ both."
+According to him,
+it's typical to see firms implementing vulnerability scanners
+from top providers
+and using them to detect security issues,
+for then,
+after several months,
+remediate only some of them,
+usually ignoring medium and low severity findings.
+There is no creation of programs
+for managing and repairing vulnerabilities,
+and in subsequent analyses appear more extensive vulnerability lists,
+on which, again, no proper action is taken.
+(Now,
+I repeat the question for those companies that have fallen into that error
+but recognize it as such:
+Have you heard about our main service
+of [Continuous Hacking](../../services/continuous-hacking/)?)
 
-## That’s all, folks!
+## That's all, folks!
 
 Of course, you can access the complete information of the interview in
 [Carey and Jin’s

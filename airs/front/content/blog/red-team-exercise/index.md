@@ -31,10 +31,13 @@ in order to weaken a system.
 
 ## Red Team (the concept)
 
-In cybersecurity, a Red Team’s knowledge, skills, and abilities go
-beyond those of a pentester whose role is to search, find, and report
-system vulnerabilities. A Red Team also simulates a real attack by
-assuming an adversarial role.
+In cybersecurity,
+a Red Team's knowledge,
+skills and abilities go beyond those of a [pentester](../../solutions/penetration-testing/)
+whose role is to search,
+find and report system vulnerabilities.
+A Red Team also simulates a real attack
+by assuming an adversarial role.
 
 ## Divide and conquer
 

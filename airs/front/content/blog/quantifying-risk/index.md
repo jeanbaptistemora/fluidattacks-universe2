@@ -174,14 +174,22 @@ can be further refined by a simple rule from basic probability theory:
 probabilities, the ones computed after observing a certain piece of
 evidence.
 
-Without going into details, which we will leave for the next articles,
-it can be shown that, from five expert inputs, including the probability
-of a successful [penetration test](../importance-pentesting/), and the
-probability of remotely exploitable vulnerabilities when the pen test is
-positive, that in that case, the probability of suffering a major data
-breach can go from a prior of 1.24% goes up to a resounding 24%. If the
-test is negative, it goes down to 1.01%. This shows, by the way, the
-benefit of a proper pen test regarding the value of information.
+Without going into details,
+which we will leave for the next articles,
+it can be shown that,
+from five expert inputs,
+including the probability of a successful [penetration test](../importance-pentesting/),
+and the probability of remotely exploitable vulnerabilities
+when the pen test is positive,
+that in that case,
+the probability of suffering a major data breach
+can go from a prior of 1.24% goes up to a resounding 24%.
+If the test is negative,
+it goes down to 1.01%.
+This shows,
+by the way,
+the benefit of a proper [pen test](../../solutions/penetration-testing/)
+regarding the value of information.
 
 Later we will also discuss more advanced methods based on Bayes rule
 such as [iteratively adjusting distributions](../hit-miss/), which

@@ -84,17 +84,26 @@ Figure 1. Statue facing wrong
 
 </div>
 
-Who performs penetration testing for your organization? It is a critical
-question in light of previous insights. If those who handle the defenses
-(i.e., Security Operations Center —SOC) are the same in charge of
-offensive operations, there is a conflict of interest you should
-address, and not by disclosure. That setting creates incentives that are
-likely to influence audit results. Think about it: if you are
-responsible for defenses, it is in your interest to show little holes or
-none at all. How do you ensure penetration testing is not biased to your
-favor? *“…​the NSA’s dual mission of providing security and conducting
-surveillance means it has an inherent conflict of interest in
-cybersecurity,”*
+Who performs [penetration testing](../../solutions/penetration-testing/)
+for your organization?
+It is a critical question
+in light of previous insights.
+If those who handle the defenses
+(i.e., Security Operations Center —SOC)
+are the same in charge of offensive operations,
+there is a conflict of interest you should address,
+and not by disclosure.
+That setting creates incentives
+that are likely to influence audit results.
+Think about it:
+if you are responsible for defenses,
+it is in your interest to show little holes
+or none at all.
+How do you ensure penetration testing is not biased
+to your favor?
+*"…​the NSA's dual mission of providing security
+and conducting surveillance
+means it has an inherent conflict of interest in cybersecurity,"*
 [wrote](https://www.schneier.com/essays/archives/2009/03/who_should_be_in_cha.html)
 Bruce Schneier related to this years ago.
 
