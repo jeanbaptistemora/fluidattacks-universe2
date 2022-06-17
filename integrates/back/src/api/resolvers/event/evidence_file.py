@@ -1,16 +1,20 @@
+from db_model.events.types import (
+    Event,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    Any,
+    Optional,
 )
 
 
 async def resolve(
-    parent: dict[str, Any],
+    parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> str:
-    evidence_file = str(parent["evidence_file"])
-
+) -> Optional[str]:
+    evidence_file: Optional[str] = (
+        parent.evidences.file.file_name if parent.evidences.file else None
+    )
     return evidence_file

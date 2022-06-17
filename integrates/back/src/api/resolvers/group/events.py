@@ -33,6 +33,8 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     event_ids = await events_domain.list_group_events(group_name)
-    events: list[Dict[str, Any]] = await loaders.event.load_many(event_ids)
+    events: list[Dict[str, Any]] = await loaders.event_typed.load_many(
+        event_ids
+    )
 
     return events

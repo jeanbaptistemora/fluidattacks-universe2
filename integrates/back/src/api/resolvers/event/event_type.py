@@ -1,16 +1,15 @@
+from db_model.events.types import (
+    Event,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from typing import (
-    Any,
 )
 
 
 async def resolve(
-    parent: dict[str, Any],
+    parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
-    event_type = str(parent["event_type"] if parent["event_type"] else "OTHER")
-
+    event_type = parent.type
     return event_type

@@ -1,16 +1,16 @@
+from db_model.events.types import (
+    Event,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from typing import (
-    Any,
 )
 
 
 async def resolve(
-    parent: dict[str, Any],
+    parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
-    detail = str(parent["detail"])
+    detail = parent.description
 
     return detail

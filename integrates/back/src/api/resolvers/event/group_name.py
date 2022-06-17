@@ -1,16 +1,15 @@
+from db_model.events.types import (
+    Event,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from typing import (
-    Any,
 )
 
 
 async def resolve(
-    parent: dict[str, Any],
+    parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
-    group_name = str(parent["group_name"])
-
+    group_name = parent.group_name
     return group_name

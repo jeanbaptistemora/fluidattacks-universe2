@@ -31,7 +31,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Dict[str, Any]:
     event_id: str = kwargs["identifier"]
-    event_loader: DataLoader = info.context.loaders.event
+    event_loader: DataLoader = info.context.loaders.event_typed
     event: Dict[str, Any] = await event_loader.load(event_id)
 
     return event
