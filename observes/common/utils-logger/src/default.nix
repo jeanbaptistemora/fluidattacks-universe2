@@ -10,19 +10,12 @@
     else abort "Python version not supported";
   metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).tool.poetry;
   lib = {
+    buildEnv = legacy_pkgs."${python_version}".buildEnv.override;
     buildPythonPackage = legacy_pkgs."${python}".pkgs.buildPythonPackage;
   };
-  pythonPkgs = legacy_pkgs."${python}Packages";
+  python_pkgs = legacy_pkgs."${python}Packages";
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata pythonPkgs;
+    inherit src lib metadata python_pkgs;
   };
-  build_env = pkg:
-    legacy_pkgs."${python}".buildEnv.override {
-      extraLibs = [pkg];
-      ignoreCollisions = false;
-    };
-in {
-  env.runtime = build_env self_pkgs.runtime;
-  env.dev = build_env self_pkgs.dev;
-  pkg = self_pkgs.runtime;
-}
+in
+  self_pkgs

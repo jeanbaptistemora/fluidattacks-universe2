@@ -1,21 +1,28 @@
 {
   lib,
   metadata,
-  pythonPkgs,
+  python_pkgs,
   src,
 }: let
-  runtime_deps = [
-    pythonPkgs.bugsnag
+  runtime_deps = with python_pkgs; [
+    bugsnag
   ];
-  dev_deps = [
-    pythonPkgs.mypy
+  build_deps = with python_pkgs; [poetry-core];
+  test_deps = with python_pkgs; [
+    mypy
   ];
-  build_pkg = propagatedBuildInputs:
-    (import ./build.nix) {
-      nativeBuildInputs = [pythonPkgs.poetry] ++ dev_deps;
-      inherit lib src metadata propagatedBuildInputs;
+  pkg = (import ./build.nix) {
+    inherit lib src metadata runtime_deps build_deps test_deps;
+  };
+  build_env = extraLibs:
+    lib.buildEnv {
+      inherit extraLibs;
+      ignoreCollisions = false;
     };
 in {
-  runtime = build_pkg runtime_deps;
-  dev = build_pkg (runtime_deps ++ dev_deps);
+  inherit pkg;
+  env.runtime = build_env runtime_deps;
+  env.dev = build_env (runtime_deps ++ test_deps);
+  env.build = build_env (runtime_deps ++ test_deps ++ build_deps);
+  env.bin = build_env [pkg];
 }
