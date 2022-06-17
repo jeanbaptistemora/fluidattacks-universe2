@@ -1757,6 +1757,28 @@ export const enTranslations: ResourceKey = {
   },
   profile: {
     credentialModal: {
+      form: {
+        https: "HTTPS",
+        httpsType: {
+          accessToken: "Access Token",
+          userAndPassword: "User and Password",
+        },
+        name: {
+          label: "Name",
+          placeholder: "",
+        },
+        password: "Repository password",
+        ssh: "SSH",
+        sshKey: {
+          label: "Private SSH Key",
+          placeholder:
+            "-----BEGIN OPENSSH PRIVATE KEY-----\n" +
+            "SSH PRIVATE KEY...\n" +
+            "-----END OPENSSH PRIVATE KEY-----",
+        },
+        token: "Repository access token",
+        user: "Repository user",
+      },
       table: {
         columns: {
           action: "Action",
