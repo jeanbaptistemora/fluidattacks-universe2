@@ -157,10 +157,10 @@ async def add_event(
     root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
         raise InvalidParameter(field="rootId")
-    if file and not await validate_evidence(EventEvidenceType.FILE, file):
-        raise InvalidParameter(field="evidenceFile")
-    if image and not await validate_evidence(EventEvidenceType.IMAGE, image):
-        raise InvalidParameter(field="evidenceImage")
+    if file:
+        await validate_evidence(EventEvidenceType.FILE, file)
+    if image:
+        await validate_evidence(EventEvidenceType.IMAGE, image)
 
     tzn = pytz.timezone(TIME_ZONE)
     event_date: datetime = kwargs["event_date"].astimezone(tzn)
@@ -500,9 +500,8 @@ async def update_evidence(
 
 async def validate_evidence(
     evidence_type: EventEvidenceType, file: UploadFile
-) -> bool:
+) -> None:
     mib = 1048576
-    success = False
     validations.validate_file_name(file.filename)
     validations.validate_fields([file.content_type])
 
@@ -527,11 +526,8 @@ async def validate_evidence(
     else:
         raise InvalidFileType("EVENT")
 
-    if await files_utils.get_file_size(file) < 10 * mib:
-        success = True
-    else:
+    if not await files_utils.get_file_size(file) < 10 * mib:
         raise InvalidFileSize()
-    return success
 
 
 async def request_vulnerabilities_hold(

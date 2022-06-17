@@ -42,13 +42,14 @@ async def mutate(
 ) -> SimplePayload:
     success = False
     evidence_type_enum = EventEvidenceType[evidence_type]
-    if await events_domain.validate_evidence(evidence_type_enum, file):
-        success = await events_domain.update_evidence(
-            event_id,
-            evidence_type_enum,
-            file,
-            get_now(),
-        )
-        info.context.loaders.event.clear(event_id)
+    await events_domain.validate_evidence(evidence_type_enum, file)
+
+    success = await events_domain.update_evidence(
+        event_id,
+        evidence_type_enum,
+        file,
+        get_now(),
+    )
+    info.context.loaders.event.clear(event_id)
 
     return SimplePayload(success=success)
