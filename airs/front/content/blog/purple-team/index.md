@@ -24,20 +24,24 @@ information.
 
 ## Concept
 
-In cybersecurity, organizations should understand that a Purple Team is
-a communication bridge that allows Blue and Red Teams to work together
-in a simulated cyberattack. The main goal is to help improve
-organization security posture. In other words, they can help coordinate
-and increase the effectiveness of both teams. We have to be careful with
-the implementation and execution of a Purple team
-[<sup>\[1\]</sup>](#r1), as Julian Arango [<sup>\[2\]</sup>](#r6) says:
+In cybersecurity,
+organizations should understand that
+a Purple Team is a communication bridge
+that allows Blue and [Red Teams](../../solutions/red-teaming/)
+to work together
+in a [simulated cyberattack](../../solutions/attack-simulation/).
+The main goal is to help improve organization security posture.
+In other words,
+they can help coordinate
+and increase the effectiveness of both teams.
+We have to be careful with the implementation
+and execution of a Purple team [<sup>\[1\]</sup>](#r1),
+as Julian Arango [<sup>\[2\]</sup>](#r6) says:
 
-**A Conflict of Interest?**
-
-> " In some cases, this interaction can propitiate malfunctions inside
-> the organizations, especially when the affected parties are biased by
-> their interest and can manipulate or conduct the results of a
-> pentest.”
+> In some cases,
+> this interaction can propitiate malfunctions inside the organizations,
+> especially when the affected parties are biased by their interest
+> and can manipulate or conduct the results of a pentest.
 
 ## What does a Purple Team do?
 

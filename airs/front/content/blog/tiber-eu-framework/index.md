@@ -94,7 +94,7 @@ On the other hand,
 there are TI and RT providers.
 The first company analyzes the spectrum of potential threats
 and conducts a reconnaissance of the entity.
-The second company is in charge of ethical hacking
+The second company is in charge of [ethical hacking](../../solutions/ethical-hacking/)
 or well-meaning attacks against the entity's systems
 and their critical operations.
 Lastly,

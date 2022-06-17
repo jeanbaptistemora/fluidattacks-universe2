@@ -18,18 +18,28 @@ source: https://unsplash.com/photos/oTrebzk1v54
 
 Here we are in a third post with [Tribe of Hackers Red
 Team](https://www.amazon.com/Tribe-Hackers-Red-Team-Cybersecurity/dp/1119643325)
-by Marcus J. Carey and Jennifer Jin (2019) as reference. On previous
-occasions, we had appreciated opinions and received advice from two men,
-red teaming experts: [(1.0) Marcus Carey](../tribe-of-hackers-1/) and
-[(2.0) Benjamin Donnelly](../tribe-of-hackers-2/). Now is the time to
-open up space for the female gender within this enthralling context. Few
-women appear in the cited book, just as few women work in red teams such
-as `Fluid Attacks`. In fact, they still do not have much presence in the
-area of Ethical Hacking, something we would like to contribute to
-change. That’s why in this post, like a little incentive, we want to
-focus on the point of view and some recommendations of [Georgia
-Weidman](https://twitter.com/georgiaweidman) —"serial entrepreneur,
-penetration tester, security researcher, speaker, trainer, and author"—
+by Marcus J. Carey and Jennifer Jin (2019) as reference.
+On previous occasions,
+we had appreciated opinions
+and received advice from two men,
+[red teaming](../../solutions/red-teaming/) experts:
+[(1.0) Marcus Carey](../tribe-of-hackers-1/) and
+[(2.0) Benjamin Donnelly](../tribe-of-hackers-2/).
+Now is the time to open up space for the female gender
+within this enthralling context.
+Few women appear in the cited book,
+just as few women work in red teams such as `Fluid Attacks`.
+In fact,
+they still do not have much presence
+in the area of [Ethical Hacking](../../solutions/ethical-hacking/),
+something we would like to contribute to change.
+That's why in this post,
+like a little incentive,
+we want to focus on the point of view
+and some recommendations of [Georgia Weidman](https://twitter.com/georgiaweidman)
+—"serial entrepreneur,
+penetration tester, security researcher, speaker,
+trainer, and author"—
 for those of us interested in red teaming.
 
 <div class="imgblock">

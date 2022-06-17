@@ -102,18 +102,24 @@ en [Unsplash](https://unsplash.com/photos/v_OICS4SdEA)
 
 </div>
 
-`Fluid Attacks` nació directamente en el software libre y de código
-abierto, haciendo uso de él y manteniéndolo en esa condición. Como dijo
-[Mauricio Gomez](https://www.linkedin.com/in/mgomezarango/en-us),
-cofundador de la empresa, ellos comenzaron a trabajar directamente en
-Linux y se encargaron de la creación de redes, basadas en **OSS**, antes
-de convertirse en un Red Team en 2008, el cual no ha dejado de compartir
-su código. Un código que no está adherido exclusivamente a un par de
-mentes privilegiadas de las que siempre dependerá su existencia y
-funcionamiento. Cada vez que alguien abandone `Fluid Attacks`, otra
-persona con habilidades y experiencia similares podrá relevarle, porque
-la materia prima con la que trabajamos no pretendemos dejar de
-compartirla.
+`Fluid Attacks` nació directamente en el software libre
+y de código abierto,
+haciendo uso de él y manteniéndolo en esa condición.
+Como dijo [Mauricio Gomez](https://www.linkedin.com/in/mgomezarango/en-us),
+cofundador de la empresa,
+ellos comenzaron a trabajar directamente en Linux
+y se encargaron de la creación de redes,
+basadas en **OSS**,
+antes de convertirse en un [Red Team](../../solutions/red-teaming/)
+en 2008,
+el cual no ha dejado de compartir su código.
+Un código que no está adherido
+exclusivamente a un par de mentes privilegiadas
+de las que siempre dependerá su existencia y funcionamiento.
+Cada vez que alguien abandone `Fluid Attacks`,
+otra persona con habilidades y experiencia similares podrá relevarle,
+porque la materia prima con la que trabajamos
+no pretendemos dejar de compartirla.
 
 Aparte de la colaboración que podemos recibir de personas inteligentes
 de [nuestra comunidad](https://docs.fluidattacks.com/) y no afiliadas

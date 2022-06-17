@@ -68,14 +68,19 @@ in the IT industry (sometimes ignored by practitioners),
 for example,
 Cloud and [DevOps](../../solutions/devsecops/).
 
-Like other experts whose views have been presented in this series,
+Like other experts
+whose views have been presented in this series,
 Carlos reminds us that it is unnecessary to engage in illegal activities
-to gain red team skills. "Information, training, and reference material
-to learn all aspects of it are available publicly, and all can be
-simulated in a lab environment to test and validate concepts." Don’t
-make the stupid mistake of playing the bad boy/girl when you can
-probably learn the same skills in the process of becoming an ethical
-hacker, being an ethical hacker.
+to gain red team skills.
+"Information, training, and reference material
+to learn all aspects of it
+are available publicly,
+and all can be simulated in a lab environment
+to test and validate concepts."
+Don't make the stupid mistake of playing the bad boy/girl
+when you can probably learn the same skills
+in the process of becoming an [ethical hacker](../../solutions/ethical-hacking/),
+being an ethical hacker.
 
 ## For those already sweating blood on red teams
 
@@ -88,11 +93,15 @@ progresses, regular meetings should be held to review actions. At the
 end of an engagement, "a debrief should be done where egos are left
 outside and people are honest about what needs improvement."
 
-For Carlos, it is false to say that new techniques and exploits need to
-be kept secret, even from clients, to avoid losing advantages in other
-engagements. Red teaming is not simply about emulation but also involves
-cultivating a relationship with the customer, where critical thinking
-can help manage potential risks and improve cybersecurity.
+For Carlos,
+it is false to say that
+new techniques and exploits need to be kept secret,
+even from clients,
+to avoid losing advantages in other engagements.
+[Red teaming](../../solutions/red-teaming/) is not simply about emulation
+but also involves cultivating a relationship with the customer,
+where critical thinking can help manage potential risks
+and improve cybersecurity.
 
 When, for example, in a pentesting or attack simulation exercise, the
 client’s security teams succeed to catch you, keep in mind something
@@ -152,10 +161,10 @@ security team can begin to profile typical behavior within the
 environment to build an automatic detection system for abnormal
 behavior.
 
-## That’s all, folks!
+## That's all, folks!
 
-Don’t forget that you can access the full interview with Carlos Perez in
-[Carey and Jin’s
+Don't forget that you can access the full interview with Carlos Perez in
+[Carey and Jin's
 book](https://www.amazon.com/Tribe-Hackers-Red-Team-Cybersecurity/dp/1119643325).
 By the way, keep in mind that if you want to be part of the `Fluid
 Attacks'` red team, you can check out [our Careers

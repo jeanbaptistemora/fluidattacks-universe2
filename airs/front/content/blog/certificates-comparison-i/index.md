@@ -17,13 +17,13 @@ source: https://unsplash.com/photos/htpU_wGEcW0
 ---
 
 So, are you looking to obtain a certification in the cybersecurity
-world, but you don’t know where to start? Don’t worry, here is
+world, but you don't know where to start? Don't worry, here is
 everything you should know about the most important certifications in
 the field. In this post, we will take a look at almost every
 certification `Fluid Attacks’s` members have acquired. So, what we are
 about to tell you is based on our experience too.
 
-Let’s start with some preliminary clarifications for this and subsequent
+Let's start with some preliminary clarifications for this and subsequent
 posts related to certifications. We have decided to group the
 certificates according to their level of difficulty. Of course, the
 difficulty of the tests that must be passed to obtain each certificate
@@ -96,9 +96,12 @@ environments](https://blog.netwrix.com/2019/04/04/comptia-security-vs-sscp-cissp
 ## [**Certified DevSecOps Professional (CDP)**](https://www.practical-devsecops.com/certified-devsecops-professional/)
 
 Granted by Practical DevSecOps.\
-It is a beginner-intermediate certification. If most certificates are
-focused on pentesters who want to be part of a red team, the CDP is
-designed for developers to strengthen their techniques, especially those
+It is a beginner-intermediate certification.
+If most certificates are focused on pentesters
+who want to be part of a [red team](../../solutions/red-teaming/),
+the CDP is designed for developers
+to strengthen their techniques,
+especially those
 related with [Development Security Operations](../devsecops-concept/)
 ([DevSecOps](../../solutions/devsecops/)).
 The exam to obtain it

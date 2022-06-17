@@ -1,8 +1,8 @@
 ---
 slug: what-is-ethical-hacking/
-title: What Do Those in White Hats Do?
+title: What Is Ethical Hacking?
 date: 2022-04-11
-subtitle: A very brief introduction to ethical hacking
+subtitle: A very brief introduction
 category: philosophy
 tags: cybersecurity, ethical-hacking, pentesting, red-team, security-testing, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1649710011/blog/what-is-ethical-hacking/cover_ethical_hacking.webp
@@ -111,7 +111,7 @@ Namely,
 if there is malicious hacking,
 there is also **ethical hacking**.
 
-## What is ethical hacking?
+## Ethical hacking
 
 Ethical hacking is perhaps the best way to respond to malicious hacking.
 In ethical hacking,

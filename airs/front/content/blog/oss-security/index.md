@@ -95,15 +95,22 @@ on [Unsplash](https://unsplash.com/photos/v_OICS4SdEA).
 </div>
 
 `Fluid Attacks` was born directly in the free and open-source software,
-making use of it and keeping it in that condition. As
-[Gomez](https://www.linkedin.com/in/mgomezarango/en-us), co-founder of
-the company, said, they started working directly on Linux and were in
-charge of networking, based on **OSS**, before becoming a red team in
-2008, which has not stopped sharing its code. Code that is not
-exclusively adhered to a pair of privileged minds on which it’ll always
-depend to exist and operate. Whenever someone leaves `Fluid Attacks`,
-someone else with similar skills and experience will take over because
-the raw material with which we work will never cease to be shared.
+making use of it and keeping it in that condition.
+As [Gomez](https://www.linkedin.com/in/mgomezarango/en-us),
+co-founder of the company, said,
+they started working directly on Linux
+and were in charge of networking,
+based on **OSS**,
+before becoming a [red team](../../solutions/red-teaming/)
+in 2008,
+which has not stopped sharing its code.
+Code that is not exclusively adhered to a pair of privileged minds
+on which it'll always depend to exist and operate.
+Whenever someone leaves `Fluid Attacks`,
+someone else with similar skills and experience will take over
+because the raw material
+with which we work
+will never cease to be shared.
 
 Apart from the collaboration that we can receive from smart people of
 our [community](https://docs.fluidattacks.com/) and not legally

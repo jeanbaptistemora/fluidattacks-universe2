@@ -16,13 +16,17 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/WAR4DbHdiKA
 ---
 
-This year 2020 has not had a similar close precedent, with a
-[COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
-spread worldwide affecting millions of people and, linked to it, within
-our particular context as a red team, considerable growth in the number
-of cyberattacks. Due to isolation, virtual activities have increased
-(e.g., learning, shopping, meeting, working). Consequently, the areas of
-action for cybercriminals have expanded.
+This year 2020 has not had a similar close precedent,
+with a [COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+spread worldwide affecting millions of people and,
+linked to it,
+within our particular context as a [red team](../../solutions/red-teaming/),
+considerable growth in the number of cyberattacks.
+Due to isolation,
+virtual activities have increased
+(e.g., learning, shopping, meeting, working).
+Consequently,
+the areas of action for cybercriminals have expanded.
 
 Let’s start this first part of the State of Cybersecurity 2020-21 with
 some statistics that you may find a bit shocking:

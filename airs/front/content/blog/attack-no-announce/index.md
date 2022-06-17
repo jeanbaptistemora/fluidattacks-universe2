@@ -69,7 +69,9 @@ Can I check the medical record of another person from the internet?
 The question "how secure is my organization" is answered
 by making real (well meant) attacks;
 this goes by many names:
-ethical hacking, penetration testing, and red teaming,
+[ethical hacking](../../solutions/ethical-hacking/),
+[penetration testing](../../solutions/penetration-testing/)
+and [red teaming](../../solutions/red-teaming/),
 among others.
 The first policy we recommend is:
 

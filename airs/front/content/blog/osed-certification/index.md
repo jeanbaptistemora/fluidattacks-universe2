@@ -188,11 +188,12 @@ that?**
 Thank you so much, Oscar, for your time in sharing your experience with
 the OSED certification.
 
-We at `Fluid Attacks` are very proud of Oscar’s achievement\! We do not
-stop at our mission to offer the best [Red
-Team](../../solutions/red-teaming/) to our clients. That’s why we are
-constantly facing new challenges and strengthening our [Ethical
-Hacking](../../solutions/ethical-hacking/) skills.
+We at `Fluid Attacks` are very proud of Oscar's achievement\!
+We do not stop at our mission
+to offer the best [red team](../../solutions/red-teaming/) to our clients.
+That's why we are constantly facing new challenges
+and strengthening our [ethical hacking](../../solutions/ethical-hacking/)
+skills.
 
 If you want to [know more about the
 certifications](../certificates-comparison-i/) that the members of our

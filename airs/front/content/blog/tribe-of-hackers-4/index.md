@@ -102,12 +102,18 @@ Figure 2. A quote from Tinker Secor.
 
 ## For those already sweating blood on red teams
 
-Tinker boils "red teaming down to quality assurance." As simple as that.
-Therefore, when you intend to offer your services to some reluctant or
-nontechnical clients (reflecting no need for security), use some
-assessment as a demo, and prove to them that red teaming is really
-necessary nowadays if they want to *guarantee quality* in their systems
-not only for them but also for their customers or users.
+Tinker boils "red teaming down to quality assurance."
+As simple as that.
+Therefore,
+when you intend to offer your services
+to some reluctant or nontechnical clients
+(reflecting no need for security),
+use some assessment as a demo,
+and prove to them that
+[red teaming](../../solutions/red-teaming/) is really necessary nowadays
+if they want to *guarantee quality* in their systems
+not only for them
+but also for their customers or users.
 
 A well-established red team should possess a clear as a day
 understanding of each of its members' particular skills. As Tinker says,
@@ -130,15 +136,22 @@ blue team detected, responded to, and contained the attacks."
 
 ## For firms that in security aspire to be on the ball
 
-"Security quality assurance assessments and penetration tests can and
-should be conducted at all stages of a security maturity model." That’s
-the answer Tinker gives to the question of when to introduce a red team
-into an organization’s security program, for you to keep in mind. (You
-should not forget the term [DevSecOps](../devsecops-concept/).) After
-that, if it’s possible for your company, following Tinker’s advice, it’d
-be excellent to have a dedicated person or a team that continuously
-conducts ethical hacking in your systems. (Have you heard about our main
-service of [Continuous Hacking](../../services/continuous-hacking/)?)
+"Security quality assurance assessments and penetration tests
+can and should be conducted
+at all stages of a security maturity model."
+That's the answer Tinker gives
+to the question of when to introduce a red team
+into an organization's security program,
+for you to keep in mind.
+(You should not forget the term [DevSecOps](../devsecops-concept/).)
+After that,
+if it's possible for your company,
+following Tinker's advice,
+it'd be excellent to have a dedicated person
+or a team that continuously conducts [ethical hacking](../../solutions/ethical-hacking/)
+in your systems.
+(Have you heard about our main service
+of [Continuous Hacking](../../services/continuous-hacking/)?)
 
 In addition, Tinker believes that for the sake of your firm, you should
 not employ only vulnerability scanners. It is better when you mix

@@ -16,14 +16,18 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/aYJr4MWXBv4
 ---
 
-In [the previous part](../cybersecurity-2020-21-i/), we focused our
-attention mainly on some current trends of cybercriminals. Now we intend
-to make room for the preventive and defensive sectors in cybersecurity,
-estimating some important tendencies in 2020. These trends are related,
-in different degrees, to the approaches, methodologies, and activities
-that we carry out at `Fluid Attacks`. A red team focused on detecting
-vulnerabilities in IT systems. That’s why we’ll also speak here from our
-experience.
+In [the previous part](../cybersecurity-2020-21-i/),
+we focused our attention mainly on some current trends of cybercriminals.
+Now we intend to make room
+for the preventive and defensive sectors in cybersecurity,
+estimating some important tendencies in 2020.
+These trends are related,
+in different degrees,
+to the approaches, methodologies, and activities
+that we carry out at `Fluid Attacks`.
+A [red team](../../solutions/red-teaming/)
+focused on detecting vulnerabilities in IT systems.
+That's why we'll also speak here from our experience.
 
 ## Cybersecurity as a necessity and responsibility
 

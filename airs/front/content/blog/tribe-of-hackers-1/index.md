@@ -35,14 +35,22 @@ rather, something that characterizes us as humans regardless of the
 information we pursue. That hungry mind of Marcus made it possible to
 give birth to this book that I currently hold in my hands.
 
-Let’s take a look at what we can learn from these almost **300** pages.
-In the beginning, Marcus says: "You probably picked up this book to
-learn from the best in red teams." Yeah, we’re indeed interested in [red
-teams](../red-team-exercise/). It is also true that, as in many branches
-of knowledge, the information shared by 'the best' is usually valuable.
-Here, the questions, formulated with the support of a cybersecurity
-community on Twitter, are addressed to hackers specialized in offensive
-security, aka red teaming. That sounds great\!
+Let's take a look at what we can learn
+from these almost **300** pages.
+In the beginning,
+Marcus says:
+"You probably picked up this book to learn
+from the best in red teams."
+Yeah, we're indeed interested in [red teams](../red-team-exercise/).
+It is also true that,
+as in many branches of knowledge,
+the information shared by 'the best' is usually valuable.
+Here,
+the questions,
+formulated with the support of a cybersecurity community on Twitter,
+are addressed to hackers specialized in offensive security,
+aka [red teaming](../../solutions/red-teaming/).
+That sounds great\!
 
 - \- - - - - - - - - - - - - - - - - - - - -
 
