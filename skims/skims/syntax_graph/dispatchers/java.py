@@ -13,12 +13,21 @@ from syntax_graph.syntax_readers.common import (
     string_literal as common_string_literal,
     while_statement as common_while_statement,
 )
+from syntax_graph.syntax_readers.java import (
+    program as java_program,
+)
 from syntax_graph.types import (
     Dispatcher,
     Dispatchers,
 )
 
 JAVA_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "program",
+        },
+        syntax_reader=java_program.reader,
+    ),
     Dispatcher(
         applicable_types={
             "boolean_literal",
