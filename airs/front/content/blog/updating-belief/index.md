@@ -220,10 +220,14 @@ Figure 6. Attack Negative Test
 
 </div>
 
-Whatever its results, penetration testing gives you more information
-about the risk your organization is facing. It is especially remarkable
-that the initial estimate of 1.3% goes up by more than 18 times when the
-test is positive.
+Whatever its results,
+[penetration testing](../../solutions/penetration-testing/)
+gives you more information
+about the risk your organization is facing.
+It is especially remarkable that
+the initial estimate of 1.3% goes up
+by more than 18 times
+when the test is positive.
 
 Suppose a year passed, and no denial of service attack happened. Does
 that mean there are no vulnerabilities? We know the probabilities of

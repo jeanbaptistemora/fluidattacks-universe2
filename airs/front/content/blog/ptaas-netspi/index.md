@@ -42,7 +42,7 @@ While the above can significantly improve the relationship between
 vendor and client. It is still common to see companies that maintain a
 process that Reynolds calls "traditional" in their pentesting work. That
 is, point in time pentesting. Here, the client delivers, for example, a
-`URL` address, and then the vendor simply tells him that in about three
+URL address, and then the vendor simply tells him that in about three
 weeks, he will provide the results.
 
 As the author shares with us, it is a rather static and serialized
@@ -58,9 +58,11 @@ It is then suggested that an excellent pentesting partner accompanies
 his client throughout the entire process. And thus facilitates his or
 her understanding of the findings and their remediation.
 
-This is where the need arises to use a **platform**, as a product for
-the client, to assist the **Penetration Testing as a Service**
-(`PTaaS`).
+This is where the need arises to use a **platform**,
+as a product for the client,
+to assist the **[Penetration Testing](../../solutions/penetration-testing/)
+as a Service**
+(PTaaS).
 
 ## Vulnerabilities management platform
 
@@ -130,7 +132,7 @@ necessity **to make pentesting processes more transparent**, and yes,
 **more friendly to customers**. That’s something we’re also looking
 for\!
 
-**PD.** Don’t forget that at `Fluid Attacks`, in addition to
+**PD.** Don't forget that at `Fluid Attacks`, in addition to
 infrastructure and applications, we also evaluate source code. Besides,
 we provide black box, gray box, and white box testing. [Contact
 us](../../contact-us/), and we will give you more information.

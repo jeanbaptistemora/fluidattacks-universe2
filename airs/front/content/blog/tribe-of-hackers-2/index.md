@@ -16,18 +16,27 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/OFzTf6iZb2Y
 ---
 
-In July this year, [I wrote a post](../tribe-of-hackers-1/) based on the
-book [*Tribe of Hackers Red
-Team*](https://www.amazon.com/Tribe-Hackers-Red-Team-Cybersecurity/dp/1119643325)
-by Marcus J. Carey and Jennifer Jin (2019). On that occasion, I
-presented a short description of the book, which is primarily aimed at
-all those interested in red teams (`Fluid Attacks`, for example, is a
-red team). Additionally, I referred to Marcus’s answers to the questions
-that he and Jin then addressed to the more than 40 experts that appear
-in their book. For this post, I will focus on what was shared by one of
-those red team experts. I hope it will be of your interest —bear in mind
-the meaningful value other people’s experiences will always have for our
-learning.
+In July this year,
+[I wrote a post](../tribe-of-hackers-1/)
+based on the book [*Tribe of Hackers Red Team*](https://www.amazon.com/Tribe-Hackers-Red-Team-Cybersecurity/dp/1119643325)
+by Marcus J. Carey and Jennifer Jin (2019).
+On that occasion,
+I presented a short description of the book,
+which is primarily aimed at all those interested in red teams
+(`Fluid Attacks`,
+for example,
+is a [red team](../../solutions/red-teaming/)).
+Additionally,
+I referred to Marcus's answers to the questions
+that he and Jin then addressed
+to the more than 40 experts
+that appear in their book.
+For this post,
+I will focus on what was shared
+by one of those red team experts.
+I hope it will be of your interest
+—bear in mind the meaningful value
+other people's experiences will always have for our learning.
 
 In this case, we have the
 [American-Canadian](https://en.everybodywiki.com/Benjamin_Donnelly_\(polymath\))

@@ -70,7 +70,7 @@ requirements to fulfill at that time to become part of the company?**
 **What kind of skills and knowledge do you think a person should possess
 to achieve this OSCE certification?**
 
-1. The `CTP` course is designed to help you think in a creative way
+1. The CTP course is designed to help you think in a creative way
     when you are doing an intrusion. Knowledge is gained through study
     and discipline, but the key is the ability to think outside the box
     to resolve problems.
@@ -97,8 +97,8 @@ these lab and test exercises?**
 
 1. Hack The Box machines do a great job making you think
     out-of-the-box. These machines use different techniques, commonly
-    employed on `CTF` challenges, but are uncommon in the real world. On
-    the other hand, the `CTP` course has exercises to exploit real
+    employed on CTF challenges, but are uncommon in the real world. On
+    the other hand, the CTP course has exercises to exploit real
     applications and real vulnerabilities using fuzzing and reverse
     engineering techniques and focused on finding 0-days.
 
@@ -115,29 +115,31 @@ these lab and test exercises?**
 certification?**
 
 1. As I mentioned in [the blog post](../osce-journey/), you should
-    perform extra self-training after the `CTP` course. I, for instance,
+    perform extra self-training after the CTP course. I, for instance,
     exploited several known vulnerabilities from scratch, using my
     methods and exploits. Furthermore, although it’s not required to
-    have the `OSCP` certification to obtain the `OSCE`, I strongly
+    have the OSCP certification to obtain the OSCE, I strongly
     recommend it. Offensive Security certifications are meant to be
-    hard, and having experience with other certifications before `OSCE`
+    hard, and having experience with other certifications before OSCE
     will be an advantage.
 
 **Regarding certificates, what is the next goal you have in mind?**
 
-1. The current version of `OSCE` certification will disappear this
+1. The current version of OSCE certification will disappear this
     year. It will be replaced by 2 different certifications that, along
-    with `OSWE`, would be a new `OSCE`. However, those 2 new
+    with OSWE, would be a new OSCE. However, those 2 new
     certifications are not ready yet. For now, I already have a spot for
     the Advanced Windows Exploitation course that will take place in
     London in April 2021. That is the course required before attempting
-    to obtain the `OSEE` certification, which is regarded as the most
+    to obtain the OSEE certification, which is regarded as the most
     difficult exploitation certification in the world.
 
 </div>
 
 Thanks to Andres for sharing about his achievement.
-[Here](../osce-journey/) you can read the previous post about his
-experience with `OSCE`, and if you want to know more about the
-certifications that the members of our red team have obtained, you can
-follow [this link](../../about-us/certifications/).
+[Here](../osce-journey/) you can read the previous post
+about his experience with OSCE,
+and if you want to know more about the certifications
+that the members of our [red team](../../solutions/red-teaming/)
+have obtained,
+you can follow [this link](../../about-us/certifications/).

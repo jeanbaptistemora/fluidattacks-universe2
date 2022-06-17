@@ -229,17 +229,28 @@ cost is clearly worth it. Try to compare that cost to having 2
 red-colored risks and 3 yellow ones.
 
 ---
-To recap, this loss exceedance curve is obtained by running several
-simulations which, in turn, feed from two expert estimates: the
-estimated cost of a security event, reported as a confidence interval,
-and the probability of an event occurring, given the context in which
-such a vulnerability would happen. The first can be easily estimated
-internally, but the second can only be determined from a thorough
-security audit and penetration testing. From the above numbers, which
-are of course made up, but not so out of this world, you can make a more
-informed decision regarding the investments your organization is willing
-to make regarding both offensive and defensive security. With the above
-tool, you have the gist to make these simulations yourself.
+To recap,
+this loss exceedance curve is obtained
+by running several simulations which,
+in turn,
+feed from two expert estimates:
+the estimated cost of a security event,
+reported as a confidence interval,
+and the probability of an event occurring,
+given the context in which
+such a vulnerability would happen.
+The first can be easily estimated internally,
+but the second can only be determined
+from a thorough security audit
+and [penetration testing](../../solutions/penetration-testing/).
+From the above numbers,
+which are of course made up,
+but not so out of this world,
+you can make a more informed decision
+regarding the investments your organization is willing to make
+regarding both offensive and defensive security.
+With the above tool,
+you have the gist to make these simulations yourself.
 
 ## References
 

@@ -22,11 +22,15 @@ as an **excellent pentester\!** If you want to know more about his
 previous certification, you can check out our [post about
 OSCE](../recent-osce/).
 
-On this occasion, we are talking about the **eLearnSecurity Web
-application Penetration Tester** certification (**eWPT**). It assesses a
-cybersecurity professional’s web application penetration testing skill.
-The exam is a skill-based test that requires candidates to perform a
-real-world web app pentesting simulation.
+On this occasion,
+we are talking about
+the **eLearnSecurity Web application Penetration Tester** certification
+(**eWPT**).
+It assesses a cybersecurity professional's web application
+[penetration testing](../../solutions/penetration-testing/) skill.
+The exam is a skill-based test
+that requires candidates
+to perform a real-world web app pentesting simulation.
 
 [eWPTv1 is
 different](https://elearnsecurity.com/product/ewpt-certification/) from

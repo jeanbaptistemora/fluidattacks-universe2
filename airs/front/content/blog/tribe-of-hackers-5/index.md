@@ -103,14 +103,22 @@ but also involves cultivating a relationship with the customer,
 where critical thinking can help manage potential risks
 and improve cybersecurity.
 
-When, for example, in a pentesting or attack simulation exercise, the
-client’s security teams succeed to catch you, keep in mind something
-that Carlos shares from his experience: It may not necessarily be a
-negative thing with your work and your capabilities; it may be that on
-the client-side, they have already learned from previous engagements and
-have applied the required measures. Following his words, you can remind
-yourself that your task is to help them test their security and make
-their systems more secure.
+When,
+for example,
+in a [pentesting](../../solutions/penetration-testing/)
+or [attack simulation](../../solutions/attack-simulation/) exercise,
+the client's security teams succeed to catch you,
+keep in mind something that Carlos shares
+from his experience:
+It may not necessarily be a negative thing
+with your work and your capabilities;
+it may be that on the client-side,
+they have already learned from previous engagements
+and have applied the required measures.
+Following his words,
+you can remind yourself that
+your task is to help them test their security
+and make their systems more secure.
 
 <div class="imgblock">
 

@@ -78,7 +78,8 @@ and thus drive their growth in their cybersecurity maturity level.
 (This reminds us of the [OWASP SAMM](https://fluidattacks.docsend.com/view/4k524b3gviwqubri),
 which you can employ,
 for instance,
-to assess the maturity of your security tests.)
+to assess the maturity
+of your [security tests](../../solutions/security-testing/).)
 
 Several teams are involved in the TIBER-EU tests.
 On the side of the entity

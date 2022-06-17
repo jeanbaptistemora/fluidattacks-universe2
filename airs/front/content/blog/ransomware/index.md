@@ -241,7 +241,9 @@ their links and attachments.
 It is vitally important that you constantly maintain an *offline* backup
 of your files so that they are safe whenever you are attacked.
 
-And don’t forget that here at `Fluid Attacks` we can identify and report
-the vulnerabilities of your organization’s systems and networks, with
-our penetration testing service. *[Simply get in touch with
-us\!](../../contact-us/)*
+And don't forget that
+here at `Fluid Attacks`
+we can identify and report the vulnerabilities
+of your organization's systems and networks,
+with our [penetration testing solution](../../solutions/penetration-testing/).
+[Simply get in touch with us\!](../../contact-us/)

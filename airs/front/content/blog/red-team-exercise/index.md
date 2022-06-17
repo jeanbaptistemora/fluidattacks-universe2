@@ -17,11 +17,17 @@ about2: '"Test" -Anonymous Tester'
 source: https://unsplash.com/photos/va-B5dBbpr4
 ---
 
-Red Team refers to a team of professional hackers that attempts to
-access a system by simulating a cyberattack. During a Red Team exercise,
-each team member plays a specific role while the team, as a whole, uses
-offensive strategies, a variety of techniques, and tools in order to
-weaken a system.
+[Red Team](../../solutions/red-teaming/)
+refers to a team of professional hackers
+that attempts to access a system
+by simulating a cyberattack.
+During a Red Team exercise,
+each team member plays a specific role
+while the team,
+as a whole,
+uses offensive strategies,
+a variety of techniques, and tools
+in order to weaken a system.
 
 ## Red Team (the concept)
 
@@ -198,10 +204,13 @@ attack [strategy](https://en.wikipedia.org/wiki/Military_strategy).
 
 ## Customer benefits
 
-Then, what are the benefits on the client side? Simply put, Red Team’s
-cyberattack simulations expose the weaknesses within a client’s systems
-or applications so that a client can better protect its information from
-a real attack scenario.
+Then,
+what are the benefits on the client side?
+Simply put,
+Red Team's [cyberattack simulations](../../solutions/attack-simulation/)
+expose the weaknesses within a client's systems or applications
+so that a client can better protect its information
+from a real attack scenario.
 
 The client can then fix, build, design, and maximize its
 cybersecurity[\[3\]](#r4); this is why the [Blue
