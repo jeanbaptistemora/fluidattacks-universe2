@@ -25,7 +25,7 @@ Default.args = {
       )}
     </div>
   ),
-  height: "",
+  height: "300px",
 };
 
 export { Default };

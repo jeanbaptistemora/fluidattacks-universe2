@@ -16,7 +16,7 @@ const Container = styled.div.attrs({
   className: "comp-container",
 })<IContainerProps>`
   ${({
-    height = "100%",
+    height = "max-content",
     margin = "0",
     maxHeight = "100%",
     maxWidth = "100%",
@@ -24,7 +24,7 @@ const Container = styled.div.attrs({
     minWidth = "0",
     padding = "0",
     scroll = "y",
-    width = "100%",
+    width = "auto",
   }): string => `
 height: ${height};
 margin: ${margin};
@@ -35,6 +35,7 @@ min-width: ${minWidth};
 overflow-x: ${scroll.includes("x") ? "auto" : "hidden"};
 overflow-y: ${scroll.includes("y") ? "auto" : "hidden"};
 padding: ${padding};
+transition: all 0.3s ease;
 width: ${width};
 
 ::-webkit-scrollbar {
