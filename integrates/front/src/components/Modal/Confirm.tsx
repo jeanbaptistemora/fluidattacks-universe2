@@ -29,11 +29,9 @@ const ModalConfirm: React.FC<IModalConfirmProps> = ({
         {t("components.modal.confirm")}
       </Button>
       {onCancel ? (
-        <span className={"ml3"}>
-          <Button id={"modal-cancel"} onClick={onCancel} variant={"secondary"}>
-            {t("components.modal.cancel")}
-          </Button>
-        </span>
+        <Button id={"modal-cancel"} onClick={onCancel} variant={"secondary"}>
+          {t("components.modal.cancel")}
+        </Button>
       ) : undefined}
     </div>
   );

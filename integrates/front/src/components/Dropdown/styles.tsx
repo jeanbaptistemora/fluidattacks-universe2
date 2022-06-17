@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 const Container = styled.div<IContainerProps>`
   ${({ align }): string => sideMap[align]}
   background-color: #e9e9ed;
+  border: 1px solid #c7c7d1;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   display: none;
