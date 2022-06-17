@@ -10,8 +10,8 @@
     fa-purity
     fa-singer-io
     jsonschema
-    # legacy-postgres-client
-    # legacy-singer-io
+    legacy-postgres-client
+    legacy-singer-io
     mypy-boto3-s3
     psycopg2
     returns
