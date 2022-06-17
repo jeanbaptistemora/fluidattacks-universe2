@@ -60,6 +60,9 @@ const BASIC_CREDENTIAL_FRAGMENT: DocumentNode = gql`
     id
     name
     type
+    organization {
+      name
+    }
   }
 `;
 const GET_GROUP_CREDENTIALS: DocumentNode = gql`
@@ -496,6 +499,15 @@ const VALIDATE_GIT_ACCESS: DocumentNode = gql`
   }
 `;
 
+const GET_GROUP_ORGANIZATION: DocumentNode = gql`
+  query GetGroupOrganization($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      organization
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_ENVIRONMENT_SECRET,
@@ -511,6 +523,7 @@ export {
   GET_ENVIRONMENT_URL,
   GET_ROOT,
   GET_ROOTS,
+  GET_GROUP_ORGANIZATION,
   GET_STAKEHOLDER_BASIC_CREDENTIALS,
   MOVE_ROOT,
   REMOVE_SECRET,

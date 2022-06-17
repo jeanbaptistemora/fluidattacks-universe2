@@ -20,6 +20,14 @@ interface ICredentials {
   type: "" | "HTTPS" | "SSH";
   user: string;
 }
+interface ICredentialsAttr {
+  id: string;
+  name: string;
+  type: "" | "HTTPS" | "SSH";
+  organization: {
+    name: string;
+  };
+}
 interface IGitRootAttr {
   __typename: "GitRoot";
   branch: string;
@@ -99,6 +107,7 @@ export type {
   IEnvironmentUrl,
   ISecret,
   ICredentials,
+  ICredentialsAttr,
   IUpdateGitEnvironments,
   IFormValues,
 };

@@ -17,10 +17,11 @@ import { useTranslation } from "react-i18next";
 
 import {
   GET_GROUP_CREDENTIALS,
+  GET_GROUP_ORGANIZATION,
   GET_STAKEHOLDER_BASIC_CREDENTIALS,
   VALIDATE_GIT_ACCESS,
 } from "../../queries";
-import type { ICredentials, IFormValues } from "../../types";
+import type { ICredentialsAttr, IFormValues } from "../../types";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
@@ -74,7 +75,7 @@ const Repository: React.FC<IRepositoryProps> = ({
 
   // GraphQL operations
   const { data } = useQuery<{
-    group: { credentials: ICredentials[] };
+    group: { credentials: ICredentialsAttr[] };
   }>(GET_GROUP_CREDENTIALS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -84,11 +85,20 @@ const Repository: React.FC<IRepositoryProps> = ({
     variables: { groupName },
   });
   const { data: stakeholderCredentialsData } = useQuery<{
-    me: { credentials: ICredentials[] };
+    me: { credentials: ICredentialsAttr[] };
   }>(GET_STAKEHOLDER_BASIC_CREDENTIALS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load stakeholder basic credentials", error);
+      });
+    },
+  });
+  const { data: groupOrganizationData } = useQuery<{
+    group: { organization: string };
+  }>(GET_GROUP_ORGANIZATION, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load group organization", error);
       });
     },
     variables: { groupName },
@@ -174,17 +184,24 @@ const Repository: React.FC<IRepositoryProps> = ({
   const formRef = useRef<FormikProps<IFormValues>>(null);
 
   const groupAndStakeholderCredentials =
-    !_.isUndefined(data) && !_.isUndefined(stakeholderCredentialsData)
-      ? data.group.credentials.concat(stakeholderCredentialsData.me.credentials)
+    !_.isUndefined(data) &&
+    !_.isUndefined(stakeholderCredentialsData) &&
+    !_.isUndefined(groupOrganizationData)
+      ? data.group.credentials
+          .concat(stakeholderCredentialsData.me.credentials)
+          .filter(
+            (credential: ICredentialsAttr): boolean =>
+              credential.organization.name.toLowerCase() ===
+              groupOrganizationData.group.organization.toLowerCase()
+          )
       : [];
 
   const groupedExistingCreds =
     groupAndStakeholderCredentials.length > 0
       ? Object.fromEntries(
-          groupAndStakeholderCredentials.map((cred): [string, ICredentials] => [
-            cred.id,
-            cred,
-          ])
+          groupAndStakeholderCredentials.map(
+            (cred): [string, ICredentialsAttr] => [cred.id, cred]
+          )
         )
       : {};
 
