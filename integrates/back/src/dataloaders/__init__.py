@@ -20,6 +20,9 @@ from db_model.credentials.get import (
     OrganizationCredentialsNewLoader,
     UserCredentialsNewLoader,
 )
+from db_model.enrollment.get import (
+    EnrollmentLoader,
+)
 from db_model.findings.get import (
     FindingHistoricStateLoader,
     FindingHistoricVerificationLoader,
@@ -94,6 +97,7 @@ from typing import (
 class Dataloaders(NamedTuple):
     credential: CredentialLoader
     credential_new: CredentialNewLoader
+    enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
     event: EventLoader
     event_historic_state: EventsHistoricStateTypedLoader
@@ -193,6 +197,7 @@ def get_new_context() -> Dataloaders:
     return Dataloaders(
         credential=CredentialLoader(),
         credential_new=CredentialNewLoader(),
+        enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event=EventLoader(),
         event_historic_state=EventsHistoricStateTypedLoader(),

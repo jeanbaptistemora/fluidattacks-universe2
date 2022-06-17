@@ -1,0 +1,9 @@
+"Enrollment type definition"
+type Enrollment {
+  "Email address"
+  email: String!
+  "If true, the user has completed initial enrollment process successfully"
+  enrolled: Boolean!
+  "Free trial information"
+  trial: Trial!
+}

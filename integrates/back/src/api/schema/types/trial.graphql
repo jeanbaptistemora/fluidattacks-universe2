@@ -1,0 +1,11 @@
+"Trial type definition"
+type Trial {
+  "If true, the user has finished the ASM trial"
+  completed: Boolean!
+  "DateTime for an extension of the ASM trial"
+  extensionDate: String!
+  "Days for an extension in the ASM trial"
+  extensionDays: Int!
+  "Beginning date of the ASM trial"
+  startDate: String!
+}

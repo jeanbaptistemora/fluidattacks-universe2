@@ -3,6 +3,12 @@ type Query {
   "Billing entity"
   billing: Billing
 
+  "Enrollment entity"
+  enrollment(
+    "User email"
+    email: String!
+  ): Enrollment!
+
   "Environment URL entity"
   environmentUrl(
     "Name of the group to query"
