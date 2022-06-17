@@ -1,10 +1,16 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.events.types import (
+    Event,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -21,8 +27,13 @@ async def test_remove_event_evidence(
     populate: bool, email: str, event_id: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(user=email, event=event_id)
+    result: dict[str, Any] = await get_result(user=email, event=event_id)
     assert result["data"]["removeEventEvidence"]["success"]
+
+    loaders: Dataloaders = get_new_context()
+    event: Event = await loaders.event_typed.load(event_id)
+    assert event.evidences.image is None
+    assert event.evidences.file
 
 
 @pytest.mark.asyncio
@@ -38,6 +49,6 @@ async def test_remove_event_evidence(
 async def test_remove_event_evidence_fail(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900972"
-    result: Dict[str, Any] = await get_result(user=email, event=event_id)
+    result: dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"

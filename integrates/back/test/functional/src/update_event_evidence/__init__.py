@@ -11,7 +11,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -19,7 +18,7 @@ async def get_result(
     *,
     user: str,
     event: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation updateEventEvidence(
             $eventId: String!,
@@ -39,13 +38,13 @@ async def get_result(
         uploaded_file: UploadFile = UploadFile(
             "test-anim.gif", test_file, "image/gif"
         )
-        variables: Dict[str, Any] = {
+        variables: dict[str, Any] = {
             "eventId": event,
             "evidenceType": "IMAGE",
             "file": uploaded_file,
         }
-        data: Dict[str, Any] = {"query": query, "variables": variables}
-        result: Dict[str, Any] = await get_graphql_result(
+        data: dict[str, Any] = {"query": query, "variables": variables}
+        result: dict[str, Any] = await get_graphql_result(
             data,
             stakeholder=user,
             context=get_new_context(),
