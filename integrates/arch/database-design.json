@@ -821,6 +821,34 @@
         {
           "AttributeName": "action_before_blocking",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "completed",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "email",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "enrolled",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "extension_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "extension_days",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "start_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "trial",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -2694,6 +2722,84 @@
             "state",
             "policies",
             "billing_customer"
+          ]
+        },
+        {
+          "FacetName": "enrollment_metadata",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "ENROLL#email",
+            "SortKeyAlias": "ENROLL#email"
+          },
+          "TableData": [
+            {
+              "sk": {
+                "S": "ENROLL#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "extension_date": {
+                    "S": "2022-06-10T20:07:57+00:00"
+                  },
+                  "extension_days": {
+                    "N": "5"
+                  },
+                  "start_date": {
+                    "S": "2022-06-01T20:07:57+00:00"
+                  }
+                }
+              },
+              "pk": {
+                "S": "ENROLL#integratesmanager@gmail.com"
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#unittest@fluidattacks.com"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "extension_date": {
+                    "S": "2022-06-10T20:07:57+00:00"
+                  },
+                  "extension_days": {
+                    "N": "5"
+                  },
+                  "start_date": {
+                    "S": "2022-06-01T20:07:57+00:00"
+                  }
+                }
+              },
+              "pk": {
+                "S": "ENROLL#unittest@fluidattacks.com"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "completed",
+            "email",
+            "enrolled",
+            "extension_date",
+            "extension_days",
+            "start_date",
+            "trial"
           ]
         },
         {
