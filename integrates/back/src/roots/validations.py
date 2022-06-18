@@ -254,7 +254,7 @@ def validate_ip_root_component(root: Root, component: str) -> None:
     if isinstance(root, IPRoot):
         host = (
             f"{root.state.address}:{root.state.port}"
-            if root.state.port
+            if root.state.port != "0"
             else root.state.address
         )
         if component == host or component.startswith(f"{host}/"):
