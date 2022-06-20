@@ -605,9 +605,9 @@
     ];
 
     schedule_expression = "cron(0 9,18 ? * 2-6 *)";
-    size = "nano";
+    size = "small";
     attempts = 3;
-    timeout = 86400;
+    timeout = 129600;
     parallel = 1;
 
     environment = ["PRODUCT_API_TOKEN"];
