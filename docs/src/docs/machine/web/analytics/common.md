@@ -322,10 +322,10 @@ exposure in the current sprint
 (i.e.,
 the exposure decrement minus
 the exposure increment).
-A negative value means that
+A positive value means that
 more exposure was reported
 than remediated.
-A positive value means that
+A negative value means that
 more exposure was remediated
 than reported.
 A zero value means that as much
