@@ -13,7 +13,7 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "events": [
+        "evnts": [
             {
                 "project_name": "group1",
                 "event_id": "418900971",

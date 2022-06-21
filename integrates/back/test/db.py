@@ -28,6 +28,9 @@ from db_model.credentials.types import (
     Credential,
     CredentialItem,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -364,7 +367,7 @@ async def populate_consultings(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_events(data: List[Any]) -> bool:
+async def populate_evnts(data: List[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     coroutines.extend(
         [
@@ -377,6 +380,26 @@ async def populate_events(data: List[Any]) -> bool:
         ]
     )
     return all(await collect(coroutines))
+
+
+async def _populate_event_historic_state(data: Dict[str, Any]) -> None:
+    event: Event = data["event"]
+    historic = data.get("historic_state", [])
+    for state in historic:
+        await dal_event.update_state(
+            event_id=event.id, group_name=event.group_name, state=state
+        )
+
+
+async def populate_events(data: List[Any]) -> bool:
+    await collect(
+        dal_event.add_typed(
+            event=item["event"],
+        )
+        for item in data
+    )
+    await collect([_populate_event_historic_state(item) for item in data])
+    return True
 
 
 async def populate_comments(data: List[Any]) -> bool:

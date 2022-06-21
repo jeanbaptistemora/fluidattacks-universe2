@@ -15,6 +15,9 @@ from custom_exceptions import (
     OnlyCorporateEmails,
     UserNotInOrganization,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -87,9 +90,9 @@ TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
-    event_loader = context.loaders.event
-    data = await event_loader.load(identifier)
-    group_name: str = get_key_or_fallback(data)
+    event_loader = context.loaders.event_typed
+    data: Event = await event_loader.load(identifier)
+    group_name = data.group_name
     return group_name
 
 

@@ -597,7 +597,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "user_id": 123456789,
             },
         ],
-        "events": [
+        "evnts": [
             {
                 "accessibility": "Repositorio",
                 "analyst": generic_data["global_vars"]["hacker_email"],
