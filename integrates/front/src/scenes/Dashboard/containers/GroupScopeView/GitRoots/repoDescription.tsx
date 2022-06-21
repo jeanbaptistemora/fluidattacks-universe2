@@ -74,6 +74,24 @@ const Description = ({
     lastStateStatusUpdate,
   } = rootDetails;
 
+  function fillMessageSpecific(): string {
+    if (lastMachineExecutions.specific === null) {
+      return t("group.scope.git.repo.machineExecutions.noExecutions");
+    } else if (
+      lastMachineExecutions.specific.stoppedAt === null &&
+      cloningStatus.status === "OK"
+    ) {
+      return `${t("group.scope.git.repo.machineExecutions.active")} for ${
+        lastMachineExecutions.specific.findingsExecuted[0].finding
+      }`;
+    } else if (lastMachineExecutions.specific.stoppedAt !== null) {
+      return `${lastMachineExecutions.specific.findingsExecuted[0].finding} on
+        ${lastMachineExecutions.specific.stoppedAt}`;
+    }
+
+    return t("group.scope.git.repo.machineExecutions.noExecutions");
+  }
+
   return (
     <div>
       <h3>{t("group.findings.description.title")}</h3>
@@ -145,13 +163,7 @@ const Description = ({
         <Col50>
           {t("group.scope.git.repo.machineExecutions.messageSpecific")}
           {":"}&nbsp;
-          {lastMachineExecutions.specific === null
-            ? t("group.scope.git.repo.machineExecutions.noExecutions")
-            : lastMachineExecutions.specific.stoppedAt === null
-            ? `${t("group.scope.git.repo.machineExecutions.active")} for ${
-                lastMachineExecutions.specific.findingsExecuted[0].finding
-              }`
-            : `${lastMachineExecutions.specific.findingsExecuted[0].finding} on ${lastMachineExecutions.specific.stoppedAt}`}
+          {fillMessageSpecific()}
         </Col50>
       </Row>
     </div>
