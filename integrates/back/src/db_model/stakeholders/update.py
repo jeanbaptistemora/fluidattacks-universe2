@@ -14,7 +14,7 @@ async def update_metadata(
     *, stakeholder_email: str, notifications_preferences: dict[str, Any]
 ) -> None:
     primary_key = keys.build_key(
-        facet=TABLE.facets["user_metadata"],
+        facet=TABLE.facets["stakeholder_metadata"],
         values={"email": stakeholder_email},
     )
 

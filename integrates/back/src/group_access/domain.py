@@ -113,15 +113,15 @@ async def get_users_email_by_preferences(
         for user, user_role in zip(users, user_roles)
         if user_role in roles
     ]
-    users_data: tuple[Stakeholder, ...] = await loaders.user.load_many(
-        email_list
-    )
-    users_email = [
-        user.email
-        for user in users_data
-        if notification in user.notifications_preferences.email
+    stakeholders_data: tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(email_list)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders_data
+        if notification in stakeholder.notifications_preferences.email
     ]
-    return users_email
+    return stakeholders_email
 
 
 async def remove_access(

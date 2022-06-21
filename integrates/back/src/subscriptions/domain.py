@@ -255,8 +255,11 @@ async def _send_analytics_report(
 
     report_subject = report_subject.lower()
 
-    user: Stakeholder = await loaders.user.load(user_email)
-    if Notification.CHARTS_REPORT in user.notifications_preferences.email:
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    if (
+        Notification.CHARTS_REPORT
+        in stakeholder.notifications_preferences.email
+    ):
         await analytics_mail.send_mail_analytics(
             user_email,
             date=datetime_utils.get_as_str(

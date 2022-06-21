@@ -69,14 +69,17 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.NEW_COMMENT in user.notifications_preferences.email
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.NEW_COMMENT
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         email_context,
         COMMENTS_TAG,
         (
@@ -112,15 +115,17 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         "group": group_name,
         "user_role": user_role.replace("_", " "),
     }
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
         if Notification.REMEDIATE_FINDING
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         mail_context,
         GENERAL_TAG,
         f"Type of vulnerability removed [{finding_name}] in [{group_name}]",
@@ -150,14 +155,17 @@ async def send_mail_new_draft(
         "organization": org_name,
         "user_role": user_role.replace("_", " "),
     }
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.NEW_DRAFT in user.notifications_preferences.email
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.NEW_DRAFT
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         email_context,
         GENERAL_TAG,
         f"Draft submitted [{finding_title}] in [{group_name}]",
@@ -221,12 +229,14 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(group_name)
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
         if Notification.REMEDIATE_FINDING
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ]
     mail_context: dict[str, Any] = {
         "group": group_name.lower(),
@@ -241,7 +251,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         "solution_description": justification.splitlines(),
     }
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         mail_context,
         VERIFY_TAG,
         f"New remediation for [{finding_name}] in [{group_name}]",
@@ -262,16 +272,18 @@ async def send_mail_vulnerability_report(
 ) -> None:
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
-    stakeholders: Tuple[
+    group_stakeholders: Tuple[
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
-    recipients = [stakeholder["email"] for stakeholder in stakeholders]
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
+    recipients = [stakeholder["email"] for stakeholder in group_stakeholders]
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
         if Notification.VULNERABILITY_REPORT
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ]
 
     email_context: dict[str, Any] = {
@@ -287,7 +299,7 @@ async def send_mail_vulnerability_report(
         "state": state,
     }
     await send_mails_async(
-        email_to=users_email,
+        email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
         subject=f"[{finding_title}] {state} in [{group_name}].",

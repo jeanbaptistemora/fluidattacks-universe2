@@ -610,10 +610,10 @@ async def validate_and_send_notification_request(
         list(vuln.where for vuln in assigned_vulns)
     )
 
-    user: Stakeholder = await loaders.user.load(assigned)
+    stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
     if (
         Notification.VULNERABILITY_ASSIGNED
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ):
         await vulns_mailer.send_mail_assigned_vulnerability(
             loaders=loaders,

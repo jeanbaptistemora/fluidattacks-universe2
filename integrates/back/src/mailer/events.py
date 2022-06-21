@@ -62,14 +62,17 @@ async def send_mail_comment(
         "has_squad": has_squad,
         "user_email": user_mail,
     }
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.NEW_COMMENT in user.notifications_preferences.email
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.NEW_COMMENT
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         email_context,
         COMMENTS_TAG,
         f"New comment in event #{event_id} for [{group_name}]",
@@ -99,15 +102,18 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     )
     event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
-    stakeholders: Tuple[
+    group_stakeholders: Tuple[
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
-    recipients = [stakeholder["email"] for stakeholder in stakeholders]
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.EVENT_REPORT in user.notifications_preferences.email
+    recipients = [stakeholder["email"] for stakeholder in group_stakeholders]
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.EVENT_REPORT
+        in stakeholder.notifications_preferences.email
     ]
     event_type_format = {
         "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
@@ -130,7 +136,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "state": state,
     }
     await send_mails_async(
-        email_to=users_email,
+        email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
         subject=(f"Event {state} #[{event_id}] for [{group_name}]"),

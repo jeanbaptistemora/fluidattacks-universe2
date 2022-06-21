@@ -150,7 +150,7 @@ class Dataloaders(NamedTuple):
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    user: StakeholderLoader
+    stakeholder: StakeholderLoader
     user_credentials_new: UserCredentialsNewLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -248,9 +248,9 @@ def get_new_context() -> Dataloaders:
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
+        stakeholder=StakeholderLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
-        user=StakeholderLoader(),
         user_credentials_new=UserCredentialsNewLoader(),
         vulnerability=vulnerability,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),

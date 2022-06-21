@@ -849,7 +849,7 @@
       ],
       "TableFacets": [
         {
-          "FacetName": "user_metadata",
+          "FacetName": "stakeholder_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "USER#email"

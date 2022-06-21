@@ -585,10 +585,10 @@ async def move_root(*, item: BatchProcessing) -> None:
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    user: Stakeholder = await loaders.user.load(item.subject)
-    if Notification.ROOT_UPDATE in user.notifications_preferences.email:
+    stakeholder: Stakeholder = await loaders.stakeholder.load(item.subject)
+    if Notification.ROOT_UPDATE in stakeholder.notifications_preferences.email:
         LOGGER.info(
-            "Notifying user",
+            "Notifying stakeholder",
             extra={
                 "extra": {
                     "subject": item.subject,

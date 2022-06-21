@@ -14,7 +14,9 @@ from typing import (
 async def resolve(
     parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> NotificationsPreferences:
-    user_email = str(parent["user_email"])
-    user: Stakeholder = await info.context.loaders.user.load(user_email)
+    email = str(parent["user_email"])
+    stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
+        email
+    )
 
-    return user.notifications_preferences
+    return stakeholder.notifications_preferences

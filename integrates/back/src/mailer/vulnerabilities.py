@@ -44,14 +44,18 @@ async def send_mail_updated_treatment(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     managers = await group_access_domain.get_managers(group_name)
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(managers)
-    users_email = [
-        user.email
-        for user in users
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(managers)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
         if Notification.UPDATED_TREATMENT
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ]
-    user_role = await authz.get_group_level_role(modified_by, group_name)
+    stakeholder_role = await authz.get_group_level_role(
+        modified_by, group_name
+    )
     email_context: dict[str, Any] = {
         "assigned": assigned,
         "group": group_name,
@@ -59,7 +63,7 @@ async def send_mail_updated_treatment(
         "responsible": modified_by,
         "treatment": treatment,
         "finding": finding_title,
-        "user_role": user_role.replace("_", " "),
+        "user_role": stakeholder_role.replace("_", " "),
         "vulnerabilities": vulnerabilities.splitlines(),
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
@@ -67,7 +71,7 @@ async def send_mail_updated_treatment(
         ),
     }
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         email_context,
         GENERAL_TAG,
         (

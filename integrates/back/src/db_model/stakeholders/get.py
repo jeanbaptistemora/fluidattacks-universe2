@@ -22,12 +22,12 @@ from dynamodb import (
 
 async def _get_stakeholder(*, stakeholder_email: str) -> Stakeholder:
     primary_key = keys.build_key(
-        facet=TABLE.facets["user_metadata"],
+        facet=TABLE.facets["stakeholder_metadata"],
         values={"email": stakeholder_email},
     )
 
     item = await operations.get_item(
-        facets=(TABLE.facets["user_metadata"],),
+        facets=(TABLE.facets["stakeholder_metadata"],),
         key=primary_key,
         table=TABLE,
     )

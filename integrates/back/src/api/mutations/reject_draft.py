@@ -61,18 +61,21 @@ async def mutate(
     try:
         finding_loader = info.context.loaders.finding
         user_info = await token_utils.get_jwt_content(info.context)
-        user_email = user_info["user_email"]
+        reviewer_email = user_info["user_email"]
         await findings_domain.reject_draft(
-            info.context, finding_id, user_email
+            info.context, finding_id, reviewer_email
         )
         redis_del_by_deps_soon(
             "reject_draft",
             finding_id=finding_id,
         )
-        user: Stakeholder = await info.context.loaders.user.load(user_email)
+        stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
+            reviewer_email
+        )
         if (
             requests_utils.get_source_new(info.context) != Source.MACHINE
-            and Notification.NEW_DRAFT in user.notifications_preferences.email
+            and Notification.NEW_DRAFT
+            in stakeholder.notifications_preferences.email
         ):
             finding: Finding = await finding_loader.load(finding_id)
             schedule(
@@ -82,7 +85,7 @@ async def mutate(
                     finding.title,
                     finding.group_name,
                     finding.hacker_email,
-                    user_email,
+                    reviewer_email,
                 )
             )
         logs_utils.cloudwatch_log(

@@ -61,14 +61,17 @@ async def send_mail_daily_digest(
     # Unique number needed to avoid the email client generating unwanted html
     # code in the template
     context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(email_to)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.DAILY_DIGEST in user.notifications_preferences.email
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(email_to)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.DAILY_DIGEST
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         context,
         DIGEST_TAG,
         f"Daily Digest ({report_date})",
@@ -113,14 +116,17 @@ async def send_mail_comment(
         "has_squad": has_squad,
         "user_email": user_mail,
     }
-    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
-    users_email = [
-        user.email
-        for user in users
-        if Notification.NEW_COMMENT in user.notifications_preferences.email
+    stakeholders: Tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
+        if Notification.NEW_COMMENT
+        in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
-        users_email,
+        stakeholders_email,
         email_context,
         COMMENTS_TAG,
         f"New comment in [{group_name}]",

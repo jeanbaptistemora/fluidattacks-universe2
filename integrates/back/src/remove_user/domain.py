@@ -108,7 +108,7 @@ async def remove_user_all_organizations(
     await collect(
         (
             delete(email),
-            remove_stakeholder(user_email=email),
+            remove_stakeholder(stakeholder_email=email),
         )
     )
 

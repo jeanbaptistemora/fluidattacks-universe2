@@ -58,11 +58,11 @@ async def test_remove_stakeholder(
         entity="ORGANIZATION",
     )
     old_loaders: Dataloaders = get_new_context()
-    old_user: Stakeholder = await old_loaders.user.load(email)
+    old_stakeholder: Stakeholder = await old_loaders.stakeholder.load(email)
 
-    assert old_user.email == email
-    assert "ACCESS_GRANTED" in old_user.notifications_preferences.email
-    assert "DAILY_DIGEST" in old_user.notifications_preferences.email
+    assert old_stakeholder.email == email
+    assert "ACCESS_GRANTED" in old_stakeholder.notifications_preferences.email
+    assert "DAILY_DIGEST" in old_stakeholder.notifications_preferences.email
 
     assert not result_me_query["data"]["me"]["remember"]
     assert result_me_query["data"]["me"]["role"] == role
@@ -116,10 +116,15 @@ async def test_remove_stakeholder(
     )
 
     new_loaders: Dataloaders = get_new_context()
-    new_user: Stakeholder = await new_loaders.user.load(email)
-    assert new_user.email == ""
-    assert "ACCESS_GRANTED" not in new_user.notifications_preferences.email
-    assert "DAILY_DIGEST" not in new_user.notifications_preferences.email
-    assert new_user.notifications_preferences == NotificationsPreferences(
-        email=[]
+    new_stakeholder: Stakeholder = await new_loaders.stakeholder.load(email)
+    assert new_stakeholder.email == ""
+    assert (
+        "ACCESS_GRANTED" not in new_stakeholder.notifications_preferences.email
+    )
+    assert (
+        "DAILY_DIGEST" not in new_stakeholder.notifications_preferences.email
+    )
+    assert (
+        new_stakeholder.notifications_preferences
+        == NotificationsPreferences(email=[])
     )

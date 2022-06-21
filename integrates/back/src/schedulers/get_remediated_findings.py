@@ -60,40 +60,42 @@ async def get_remediated_findings() -> None:
         )
     )
 
-    if findings:
-        try:
-            mail_to = [FI_MAIL_PROJECTS]
-            mail_context_findings: list[dict[str, str]] = [
-                {
-                    "finding_name": finding.title,
-                    "finding_url": (
-                        f"{BASE_URL}/groups/{finding.group_name}/"
-                        f"{finding.id}/description"
-                    ),
-                    "group": finding.group_name,
-                }
-                for finding in findings
-            ]
-            mail_context: dict[str, Any] = {
-                "findings": mail_context_findings,
-                "total": len(findings),
+    if not findings:
+        return
+
+    try:
+        mail_to = [FI_MAIL_PROJECTS]
+        mail_context_findings: list[dict[str, str]] = [
+            {
+                "finding_name": finding.title,
+                "finding_url": (
+                    f"{BASE_URL}/groups/{finding.group_name}/"
+                    f"{finding.id}/description"
+                ),
+                "group": finding.group_name,
             }
-            users: tuple[Stakeholder, ...] = await loaders.user.load_many(
-                mail_to
-            )
-            users_email = [
-                user.email
-                for user in users
-                if Notification.REMEDIATE_FINDING
-                in user.notifications_preferences.email
-            ]
-            scheduler_send_mail(
-                findings_mail.send_mail_new_remediated,
-                users_email,
-                mail_context,
-            )
-        except (TypeError, KeyError) as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
+            for finding in findings
+        ]
+        mail_context: dict[str, Any] = {
+            "findings": mail_context_findings,
+            "total": len(findings),
+        }
+        stakeholders: tuple[
+            Stakeholder, ...
+        ] = await loaders.stakeholder.load_many(mail_to)
+        stakeholders_email = [
+            stakeholder.email
+            for stakeholder in stakeholders
+            if Notification.REMEDIATE_FINDING
+            in stakeholder.notifications_preferences.email
+        ]
+        scheduler_send_mail(
+            findings_mail.send_mail_new_remediated,
+            stakeholders_email,
+            mail_context,
+        )
+    except (TypeError, KeyError) as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
 
 
 async def main() -> None:

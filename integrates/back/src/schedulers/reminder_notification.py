@@ -71,20 +71,20 @@ async def send_reminder_notification() -> None:
         key for key, _ in groupby(sorted(stakeholders_emails))
     ]
 
-    users: tuple[Stakeholder, ...] = await loaders.user.load_many(
-        stakeholders_emails_filtered
-    )
-    users_email = [
-        user.email
-        for user in users
+    stakeholders: tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(stakeholders_emails_filtered)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders
         if Notification.REMINDER_NOTIFICATION
-        in user.notifications_preferences.email
+        in stakeholder.notifications_preferences.email
     ]
 
-    if users_email:
+    if stakeholders_email:
         await groups_mail.send_mail_reminder(
             context={},
-            email_to=users_email,
+            email_to=stakeholders_email,
         )
     else:
         LOGGER.info("- reminder notification NOT sent")
