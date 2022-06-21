@@ -15,6 +15,7 @@ from db_model.events.types import (
     Event,
     EventEvidence,
     EventEvidences,
+    EventMetadataToUpdate,
     EventState,
 )
 from dynamodb.types import (
@@ -192,6 +193,14 @@ def format_historic_state(item: Item) -> tuple[EventState, ...]:
         )
         for state in historic_state
     )
+
+
+def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
+    item = {
+        "client": metadata.client,
+        "detail": metadata.description,
+    }
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_state_item(state: EventState) -> Item:

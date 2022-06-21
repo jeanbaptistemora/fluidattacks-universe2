@@ -319,7 +319,8 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     assert len(await comments_domain.get("event", event_id)) >= 1
     assert len(await events_dal.search_evidence(evidence_prefix)) >= 1
 
-    test_data = await events_domain.mask(event_id)
+    loaders = get_new_context()
+    test_data = await events_domain.mask(loaders, event_id)
     expected_output = True
 
     assert isinstance(test_data, bool)

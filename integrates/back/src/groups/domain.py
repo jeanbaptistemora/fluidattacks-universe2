@@ -1482,7 +1482,9 @@ async def remove_resources(
     )
     events = await events_domain.list_group_events(group_name)
     are_events_masked = all(
-        await collect(events_domain.mask(event_id) for event_id in events)
+        await collect(
+            events_domain.mask(loaders, event_id) for event_id in events
+        )
     )
     are_comments_masked = await mask_comments(group_name)
     await mask_files(loaders, group_name)

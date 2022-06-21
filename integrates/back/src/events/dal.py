@@ -16,6 +16,7 @@ from db_model.events.enums import (
 from db_model.events.types import (
     Event,
     EventEvidence,
+    EventMetadataToUpdate,
     EventState,
 )
 from dynamodb import (
@@ -181,5 +182,22 @@ async def update_evidence(
     if not await update(
         event_id=event_id,
         data=item,
+    ):
+        raise UnavailabilityError()
+
+
+async def update_metadata(
+    *,
+    event_id: str,
+    group_name: str,
+    metadata: EventMetadataToUpdate,
+) -> None:
+    item = events_utils.format_metadata_item(metadata)
+    if not await update(
+        event_id=event_id,
+        data={
+            **item,
+            "project_name": group_name,
+        },
     ):
         raise UnavailabilityError()

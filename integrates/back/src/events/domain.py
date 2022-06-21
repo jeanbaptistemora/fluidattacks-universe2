@@ -42,6 +42,7 @@ from db_model.events.types import (
     Event,
     EventEvidence,
     EventEvidences,
+    EventMetadataToUpdate,
     EventState,
 )
 from db_model.findings.enums import (
@@ -289,36 +290,31 @@ async def list_group_events(group_name: str) -> list[str]:
     return await events_dal.list_group_events(group_name)
 
 
-async def mask(event_id: str) -> bool:
-    event = await events_dal.get_event(event_id)
-    attrs_to_mask = [
-        "client",
-        "detail",
-        "evidence",
-        "evidence_date",
-        "evidence_file",
-        "evidence_file_date",
-    ]
-
-    mask_events_coroutines = [
-        events_dal.update(event_id, {attr: "Masked" for attr in attrs_to_mask})
-    ]
+async def mask(loaders: Any, event_id: str) -> bool:
+    event: Event = await loaders.event_typed.load(event_id)
+    group_name = event.group_name
 
     list_comments = await comments_domain.get("event", event_id)
-    mask_events_coroutines.extend(
-        [
-            comments_domain.delete(str(comment["comment_id"]), event_id)
-            for comment in list_comments
-        ]
-    )
+    mask_events_coroutines = [
+        comments_domain.delete(str(comment["comment_id"]), event_id)
+        for comment in list_comments
+    ]
 
-    group_name = str(get_key_or_fallback(event, fallback=""))
+    mask_events_coroutines_none = [
+        events_dal.update_metadata(
+            event_id=event_id,
+            group_name=group_name,
+            metadata=EventMetadataToUpdate(
+                client="Masked",
+                description="Masked",
+            ),
+        )
+    ]
     evidence_prefix = f"{group_name}/{event_id}"
     list_evidences = await events_dal.search_evidence(evidence_prefix)
-    # These coroutines return none instead of bool
-    mask_events_coroutines_none = [
-        events_dal.remove_evidence(file_name) for file_name in list_evidences
-    ]
+    mask_events_coroutines_none.extend(
+        [events_dal.remove_evidence(file_name) for file_name in list_evidences]
+    )
 
     await collect(mask_events_coroutines_none)
     return all(await collect(mask_events_coroutines))
