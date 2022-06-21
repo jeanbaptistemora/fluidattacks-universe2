@@ -453,7 +453,7 @@ async def remove_user(
 
     has_orgs = bool(await get_user_organizations(email))
     if not has_orgs:
-        user_removed = user_removed and await users_domain.delete(email)
+        user_removed = user_removed and await users_domain.remove(email)
     user_credentials: tuple[
         Credential, ...
     ] = await loaders.user_credentials_new.load(email)

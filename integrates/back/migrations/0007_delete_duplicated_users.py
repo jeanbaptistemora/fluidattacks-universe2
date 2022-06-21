@@ -18,8 +18,8 @@ from typing import (
     List,
 )
 from users.dal import (
-    delete as delete_dynamo_user,
     get_all as get_all_dynamo_users,
+    remove as remove_dynamo_user,
 )
 
 PROVIDER = "azuread-tenant-oauth2"
@@ -33,7 +33,7 @@ def delete_duplicated_users_dynamo() -> None:
             if STAGE == "test":
                 print(f'User {user["email"]} will be deleted from DynamoDB...')
             else:
-                delete_dynamo_user(user["email"])
+                remove_dynamo_user(user["email"])
                 log(
                     f'Migration 0007: User {user["email"]} was deleted '
                     "from DynamoDB"

@@ -93,7 +93,7 @@ from users import (
 async def populate_users(data: List[Any]) -> bool:
     await collect(
         [
-            dal_users.create(
+            dal_users.add(
                 user["email"],
                 user,
             )

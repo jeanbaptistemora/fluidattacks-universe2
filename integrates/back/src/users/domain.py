@@ -58,8 +58,6 @@ from typing import (
     Any,
     Awaitable,
     cast,
-    Dict,
-    List,
     Optional,
 )
 from users import (
@@ -89,7 +87,7 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
         raise InvalidPushToken()
 
     user_attrs: dict = await get_attributes(user_email, ["push_tokens"])
-    tokens: List[str] = user_attrs.get("push_tokens", [])
+    tokens: list[str] = user_attrs.get("push_tokens", [])
     if push_token not in tokens:
         return await users_dal.update(
             user_email, {"push_tokens": tokens + [push_token]}
@@ -123,16 +121,16 @@ async def check_session_web_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def create(email: str, data: Dict[str, Any]) -> bool:
-    return await users_dal.create(email, data)
+async def add(email: str, data: dict[str, Any]) -> bool:
+    return await users_dal.add(email, data)
 
 
-async def delete(email: str) -> bool:
+async def remove(email: str) -> bool:
     success = all(
         await collect(
             [
                 authz.revoke_user_level_role(email),
-                users_dal.delete(email),
+                users_dal.remove(email),
             ]
         )
     )
@@ -140,12 +138,12 @@ async def delete(email: str) -> bool:
     return success
 
 
-async def update_user_information(
-    context: Any, modified_user_data: Dict[str, str], group_name: str
+async def update_information(
+    context: Any, modified_data: dict[str, str], group_name: str
 ) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    email = modified_user_data["email"]
-    responsibility = modified_user_data["responsibility"]
+    coroutines: list[Awaitable[bool]] = []
+    email = modified_data["email"]
+    responsibility = modified_data["responsibility"]
     success: bool = False
 
     if responsibility:
@@ -169,12 +167,12 @@ async def update_user_information(
     return success
 
 
-async def ensure_user_exists(email: str) -> bool:
+async def ensure_exists(email: str) -> bool:
     return bool(await users_dal.get(email))
 
 
 def get_invitation_state(
-    invitation: dict[str, Any], stakeholder: Dict[str, Any]
+    invitation: dict[str, Any], stakeholder: dict[str, Any]
 ) -> str:
     if invitation and not invitation["is_used"]:
         return "PENDING"
@@ -183,7 +181,7 @@ def get_invitation_state(
     return "CONFIRMED"
 
 
-async def format_stakeholder(email: str, group_name: str) -> Dict[str, Any]:
+async def format_stakeholder(email: str, group_name: str) -> dict[str, Any]:
     group_access, stakeholder = await collect(
         (
             group_access_domain.get_user_access(email, group_name),
@@ -206,17 +204,17 @@ async def format_stakeholder(email: str, group_name: str) -> Dict[str, Any]:
     }
 
 
-async def get(email: str) -> Dict[str, Any]:
+async def get(email: str) -> dict[str, Any]:
     return await users_dal.get(email)
 
 
-async def get_attributes(email: str, data: List[str]) -> Dict[str, Any]:
+async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
     """Get attributes of a user."""
     return await users_dal.get_attributes(email, data)
 
 
-async def get_by_email(email: str) -> Dict[str, Any]:
-    stakeholder_data: Dict[str, Any] = {
+async def get_by_email(email: str) -> dict[str, Any]:
+    stakeholder_data: dict[str, Any] = {
         "email": email,
         "first_login": "",
         "first_name": "",
@@ -231,7 +229,7 @@ async def get_by_email(email: str) -> Dict[str, Any]:
             "new_root": False,
         },
     }
-    user: Dict[str, Any] = await users_dal.get(email)
+    user: dict[str, Any] = await users_dal.get(email)
     if user:
         stakeholder_data.update(
             {
@@ -259,18 +257,18 @@ async def get_by_email(email: str) -> Dict[str, Any]:
     return stakeholder_data
 
 
-async def get_data(email: str, attr: str) -> Dict[str, Any]:
+async def get_data(email: str, attr: str) -> dict[str, Any]:
     data_attr = await get_attributes(email, [attr])
     if data_attr and attr in data_attr:
         return data_attr[attr]
     return {}
 
 
-async def get_stakeholders(
+async def get_group_stakeholders(
     group_name: str,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     group_stakeholders_emails = cast(
-        List[str],
+        list[str],
         list(
             chain.from_iterable(
                 await collect(
@@ -283,7 +281,7 @@ async def get_stakeholders(
         ),
     )
     group_stakeholders = cast(
-        List[Dict[str, Any]],
+        list[dict[str, Any]],
         await collect(
             tuple(
                 format_stakeholder(email, group_name)
@@ -294,15 +292,15 @@ async def get_stakeholders(
     return group_stakeholders
 
 
-async def get_user_name(mail: str) -> Dict[str, Dict[str, Any]]:
+async def get_name(mail: str) -> dict[str, dict[str, Any]]:
     return {mail: await get_attributes(mail, ["last_name", "first_name"])}
 
 
 async def has_valid_access_token(
-    email: str, context: Dict[str, str], jti: str
+    email: str, context: dict[str, str], jti: str
 ) -> bool:
     """Verify if has active access token and match."""
-    access_token = cast(Dict[str, str], await get_data(email, "access_token"))
+    access_token = cast(dict[str, str], await get_data(email, "access_token"))
     resp = False
     if context and access_token:
         resp = token_utils.verificate_hash_token(access_token, jti)
@@ -331,7 +329,7 @@ async def remove_access_token(email: str) -> bool:
 
 async def remove_push_token(user_email: str, push_token: str) -> bool:
     user_attrs: dict = await get_attributes(user_email, ["push_tokens"])
-    tokens: List[str] = list(
+    tokens: list[str] = list(
         filter(
             lambda token: token != push_token,
             user_attrs.get("push_tokens", []),
@@ -387,7 +385,7 @@ async def update_last_login(email: str) -> bool:
 
 
 async def update_invited_stakeholder(
-    updated_data: Dict[str, str],
+    updated_data: dict[str, str],
     invitation: dict[str, Any],
     group: Group,
 ) -> bool:
@@ -417,9 +415,7 @@ async def update_invited_stakeholder(
     return success
 
 
-async def update_multiple_user_attributes(
-    email: str, data_dict: Dict[str, Any]
-) -> bool:
+async def update_attributes(email: str, data_dict: dict[str, Any]) -> bool:
     return await users_dal.update(email, data_dict)
 
 
@@ -446,7 +442,7 @@ async def update_mobile(
     await users_dal.update(email, {"phone": stakeholder_phone._asdict()})
 
 
-async def update_tours(email: str, tours: Dict[str, bool]) -> bool:
+async def update_tours(email: str, tours: dict[str, bool]) -> bool:
     """New user workflow acknowledgment"""
     return await users_dal.update(email, {"tours": tours})
 

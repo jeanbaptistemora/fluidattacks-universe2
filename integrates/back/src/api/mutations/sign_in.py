@@ -234,4 +234,4 @@ async def log_user_in(user: Dict[str, str]) -> None:
     else:
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_user(email)
-        await users_domain.update_multiple_user_attributes(email, data_dict)
+        await users_domain.update_attributes(email, data_dict)

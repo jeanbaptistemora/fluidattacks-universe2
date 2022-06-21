@@ -1,8 +1,8 @@
 import pytest
 from users.dal import (
-    create,
-    delete,
+    add,
     get,
+    remove,
     update,
 )
 
@@ -23,7 +23,7 @@ async def test_delete() -> None:
         "organization": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64",
         "registered": False,
     } == await get(test_1)
-    assert await delete(test_1)
+    assert await remove(test_1)
     assert {} == await get(test_1)
 
 
@@ -31,7 +31,7 @@ async def test_delete() -> None:
 async def test_update() -> None:
     assert await get("unittest5") == {}
 
-    await create("unittest4", {})
+    await add("unittest4", {})
     assert await get("unittest4") == {"email": "unittest4"}
 
     await update("unittest4", {"last_name": "testing"})

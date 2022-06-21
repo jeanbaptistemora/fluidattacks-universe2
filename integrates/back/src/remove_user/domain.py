@@ -72,7 +72,7 @@ from typing import (
     Any,
 )
 from users.domain import (
-    delete,
+    remove,
 )
 
 mail_confirm_deletion = retry_on_exceptions(
@@ -107,7 +107,7 @@ async def remove_user_all_organizations(
 
     await collect(
         (
-            delete(email),
+            remove(email),
             remove_stakeholder(stakeholder_email=email),
         )
     )

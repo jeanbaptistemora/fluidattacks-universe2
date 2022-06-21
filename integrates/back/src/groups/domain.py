@@ -674,7 +674,7 @@ async def add_without_group(
             await collect(
                 [
                     authz.grant_user_level_role(email, role),
-                    users_domain.create(email, new_user_data),
+                    users_domain.add(email, new_user_data),
                 ]
             )
         )
@@ -1552,7 +1552,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
-        success = await users_domain.delete(email)
+        success = await users_domain.remove(email)
     return success
 
 

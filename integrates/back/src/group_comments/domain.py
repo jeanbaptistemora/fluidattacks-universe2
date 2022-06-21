@@ -103,7 +103,7 @@ async def get_comments(group_name: str) -> List[Dict[str, Any]]:
     comments = await group_comments_dal.get_comments(group_name)
     comments_name_data = await collect(
         [
-            users_domain.get_user_name(mail)
+            users_domain.get_name(mail)
             for mail in set(str(comment["email"]) for comment in comments)
         ]
     )

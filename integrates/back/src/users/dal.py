@@ -1,13 +1,8 @@
 from boto3.dynamodb.conditions import (
-    Attr,
     Key,
-    Not,
 )
 from botocore.exceptions import (
     ClientError,
-)
-from context import (
-    FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
     UnavailabilityError,
@@ -25,21 +20,15 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
 
-# Constants
 LOGGER = logging.getLogger(__name__)
-
-# Shared resources
-ACCESS_TABLE_NAME = "FI_project_access"
 USERS_TABLE_NAME = "FI_users"
 
 
-async def create(email: str, data: Dict[str, Any]) -> bool:
+async def add(email: str, data: dict[str, Any]) -> bool:
     resp = False
     try:
         data.update({"email": email})
@@ -49,7 +38,7 @@ async def create(email: str, data: Dict[str, Any]) -> bool:
     return resp
 
 
-async def delete(email: str) -> bool:
+async def remove(email: str) -> bool:
     resp = False
     try:
         delete_attrs = DynamoDeleteType(Key={"email": email.lower()})
@@ -59,7 +48,7 @@ async def delete(email: str) -> bool:
     return resp
 
 
-async def get(email: str) -> Dict[str, Any]:
+async def get(email: str) -> dict[str, Any]:
     response = {}
     query_attrs = {
         "KeyConditionExpression": Key("email").eq(email.lower()),
@@ -73,7 +62,7 @@ async def get(email: str) -> Dict[str, Any]:
 
 async def get_all(
     filter_exp: object, data_attr: str = ""
-) -> List[Dict[str, Dict[str, Any]]]:
+) -> list[dict[str, dict[str, Any]]]:
     scan_attrs = {}
     scan_attrs["FilterExpression"] = filter_exp
     if data_attr:
@@ -82,7 +71,7 @@ async def get_all(
     return items
 
 
-async def get_attributes(email: str, attributes: List[str]) -> Dict[str, Any]:
+async def get_attributes(email: str, attributes: list[str]) -> dict[str, Any]:
     items = {}
     try:
         query_attrs = {"KeyConditionExpression": Key("email").eq(email)}
@@ -99,17 +88,7 @@ async def get_attributes(email: str, attributes: List[str]) -> Dict[str, Any]:
     return items
 
 
-async def get_platform_users() -> List[Dict[str, Dict[str, Any]]]:
-    filter_exp = (
-        Attr("has_access").eq(True)
-        & Not(Attr("user_email").contains("@fluidattacks.com"))
-        & Not(Attr("project_name").is_in(FI_TEST_PROJECTS.split(",")))
-    )
-    scan_attrs = {"FilterExpression": filter_exp}
-    return await dynamodb_ops.scan(ACCESS_TABLE_NAME, scan_attrs)
-
-
-async def update(email: str, data: Dict[str, Any]) -> bool:
+async def update(email: str, data: dict[str, Any]) -> bool:
     success = False
     set_expression = ""
     remove_expression = ""

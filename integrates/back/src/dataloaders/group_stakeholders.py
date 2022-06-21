@@ -27,7 +27,7 @@ class GroupStakeholdersLoader(DataLoader):
             Tuple[List[Dict[str, Any]], ...],
             await collect(
                 tuple(
-                    users_domain.get_stakeholders(group_name)
+                    users_domain.get_group_stakeholders(group_name)
                     for group_name in group_names
                 )
             ),
