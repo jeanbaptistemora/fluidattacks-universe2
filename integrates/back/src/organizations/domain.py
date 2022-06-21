@@ -30,6 +30,13 @@ from db_model import (
 )
 from db_model.credentials.types import (
     Credential,
+    CredentialNewState,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
+)
+from db_model.enums import (
+    CredentialType,
 )
 from db_model.groups.types import (
     Group,
@@ -74,12 +81,17 @@ from newutils.validations import (
 )
 from organizations import (
     dal as orgs_dal,
+    validations as orgs_validations,
+)
+from organizations.types import (
+    CredentialAttributesToAdd,
 )
 import re
 import sys
 from typing import (
     Any,
     AsyncIterator,
+    Union,
 )
 from users import (
     domain as users_domain,
@@ -89,6 +101,40 @@ import uuid
 # Constants
 DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
+
+
+async def add_credential(
+    loaders: Any,
+    attributes: CredentialAttributesToAdd,
+    organization_id: str,
+    modified_by: str,
+) -> None:
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
+        SshSecret(key=attributes.key or "")
+        if attributes.type is CredentialType.SSH
+        else HttpsPatSecret(token=attributes.token)
+        if attributes.token is not None
+        else HttpsSecret(
+            user=attributes.user or "",
+            password=attributes.password or "",
+        )
+    )
+    credential = Credential(
+        id=(str(uuid.uuid4())),
+        organization_id=organization_id,
+        owner=modified_by,
+        state=CredentialNewState(
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_iso_date(),
+            name=attributes.name,
+            secret=secret,
+            type=attributes.type,
+        ),
+    )
+    await orgs_validations.validate_credential_name_in_organization(
+        loaders, credential
+    )
+    await credentials_model.add_new(credential=credential)
 
 
 async def add_group_access(organization_id: str, group_name: str) -> bool:
