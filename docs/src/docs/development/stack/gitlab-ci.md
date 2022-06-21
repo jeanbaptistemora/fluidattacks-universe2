@@ -246,6 +246,33 @@ Once inside, you can:
 1. Watch `/etc/gitlab-runner/config.toml`
     for bastion configurations.
 
+### Local reproducibility in schedules
+
+Following this link,
+you can find all schedules.
+Once a new schedule is
+declared in that file,
+two things happen:
+
+- All the infrastructure is created
+  via Terraform to execute the
+  schedule periodically.
+- A job in Makes is created
+  with the format
+  `computeOnAwsBatch/schedule_<name>`
+  for local reproducibility.
+
+Generally,
+to run any schedule,
+all that is necessary is to
+export the `PRODUCT_API_TOKEN`
+variable.
+Bear in mind that `schedules.nix`
+becomes the single source of
+truth regarding schedules.
+Everything is defined there,
+albeit with a few exceptions.
+
 ### Pending tasks
 
 1. [External cache module fails when referenced before creation](https://github.com/npalm/terraform-aws-gitlab-runner/issues/298),

@@ -24,7 +24,7 @@ will show up
 
 Here you can look for the file
 that you want to upload,
-which cannot exceed a size of 100 MB,
+which cannot exceed a size of 5GB,
 and also add a meaningful description
 for the usage or purpose
 of the added file.
