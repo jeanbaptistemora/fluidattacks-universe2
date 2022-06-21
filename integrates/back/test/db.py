@@ -367,21 +367,6 @@ async def populate_consultings(data: List[Any]) -> bool:
     return all(await collect(coroutines))
 
 
-async def populate_evnts(data: List[Any]) -> bool:
-    coroutines: List[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            dal_event.add(
-                event["event_id"],
-                get_key_or_fallback(event),
-                event,
-            )
-            for event in data
-        ]
-    )
-    return all(await collect(coroutines))
-
-
 async def _populate_event_historic_state(data: Dict[str, Any]) -> None:
     event: Event = data["event"]
     historic = data.get("historic_state", [])
