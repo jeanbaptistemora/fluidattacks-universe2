@@ -6,7 +6,9 @@ const Tabs = styled.ul.attrs({
   className: "flex justify-around list ma0",
 })`
   background-color: #f4f4f6;
-  padding: 12px 0;
+  border: 1px solid #d2d2da;
+  border-radius: 4px;
+  padding: 0;
 `;
 
 export { Tab, Tabs };

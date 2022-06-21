@@ -4,8 +4,10 @@ const NavbarContainer = styled.nav.attrs({
   className: "flex flex-wrap",
 })`
   background-color: #f4f4f6;
-  border-bottom: 1px solid #bfbfb0;
-  padding: 12px 24px;
+  border: 1px solid #d2d2da;
+  border-radius: 4px;
+  margin: 4px 0;
+  padding: 8px 12px;
 `;
 
 const NavbarHeader = styled.div.attrs({

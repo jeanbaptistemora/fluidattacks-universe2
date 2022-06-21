@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const TabLink = styled(NavLink)`
+  box-sizing: border-box;
   color: #b0b0bf;
+  display: block;
   font-size: 20px;
-  padding-bottom: 12px;
+  padding: 8px;
   text-decoration: none;
 
   &.active {
@@ -13,7 +15,7 @@ const TabLink = styled(NavLink)`
   }
 
   :hover {
-    color: #2e2e38;
+    color: #49495a;
   }
 `;
 
