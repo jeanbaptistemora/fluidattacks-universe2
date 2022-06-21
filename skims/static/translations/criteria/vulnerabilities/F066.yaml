@@ -9,3 +9,6 @@ lib_root.f066.has_console_functions:
     cuya salidas normalmentese muestran en el stdout (salida estándar).
     En ambiente de desarrollo es aceptable utilizar esta función para ver errores (Debug),
     pero utilizarla en ambiente de producción es igual a exponerse a mostrar información sensible de la aplicación.
+lib_path.f066.uses_console_log:
+  en: console.log() calls in a JavaScript file or directory.
+  es: Se llama a console.log() en un archivo JavaScript o un directorio
