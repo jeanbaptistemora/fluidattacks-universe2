@@ -123,18 +123,27 @@ Attacks` has also been there (I know because I was responsible for one).
 The "FCK" story and, more broadly, the pratfall effect tells us
 something valuable about handling incidents and signaling who we are.
 
-Back in 2014, one of our customers angrily called us because of a
-security incident provoked presumably by one of our pentesters. He
-performed a denial of service attack on one workstation, and it appeared
-to have collapsed a middle network security device, leaving large
-corporate systems offline for around 45 minutes. You read that right: a
-pentesting company hired to make IT more secure, causing
-mission-critical systems to be out of service (a contradiction). We met
-immediately with the manager who hired us. We asked him to tell us about
-the incident; the losses seemed financially significant. It was an
-awkward, tense 30-minute meeting. Our colleague admitted his mistake,
-and we had nothing more to do than offer a sincere apology and come back
-with a proposal to compensate for the outage. The project was halted.
+Back in 2014,
+one of our customers angrily called us
+because of a security incident
+provoked presumably by one of our pentesters.
+He performed a denial of service attack on one workstation,
+and it appeared to have collapsed a middle network security device,
+leaving large corporate systems offline
+for around 45 minutes.
+You read that right:
+a [pentesting](../../solutions/penetration-testing/) company
+hired to make IT more secure,
+causing mission-critical systems to be out of service
+(a contradiction).
+We met immediately with the manager who hired us.
+We asked him to tell us about the incident;
+the losses seemed financially significant.
+It was an awkward, tense 30-minute meeting.
+Our colleague admitted his mistake,
+and we had nothing more to do than offer a sincere apology
+and come back with a proposal to compensate for the outage.
+The project was halted.
 
 A few days later, my boss met with the customer, who agreed to resume
 the project and our compensation proposal. We then reflected on this

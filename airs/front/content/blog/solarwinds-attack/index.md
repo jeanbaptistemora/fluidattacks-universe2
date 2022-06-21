@@ -35,18 +35,24 @@ involved then said that that event was related to the hack reported a
 few days ago by [FireEye](https://www.fireeye.com/), a worldwide
 distinguished cybersecurity company.
 
-[FireEye
-emphasized](https://www.zdnet.com/article/fireeye-one-of-the-worlds-largest-security-firms-discloses-security-breach/)
-a 'highly sophisticated' attack where the actors accessed their internal
-network, looked for data about their government clients, and even stole
-some of their pentesting tools. It was striking that they talked about
-observing a novel combination of techniques in this attack. Some sources
-associated it with the group **APT29** or [**Cozy
-Bear**](https://en.wikipedia.org/wiki/Cozy_Bear), linked to the Russian
-Foreign Intelligence Service (SVR). However, FireEye preferred to be
-neutral and used the codename **UNC2452**. An official investigation by
-[CISA](https://www.cisa.gov/) and the FBI began because some individuals
-affected were seeing this whole incident as a cyberespionage campaign.
+[FireEye emphasized](https://www.zdnet.com/article/fireeye-one-of-the-worlds-largest-security-firms-discloses-security-breach/)
+a 'highly sophisticated' attack
+where the actors accessed their internal network,
+looked for data about their government clients,
+and even stole some of their [pentesting](../../solutions/penetration-testing/)
+tools.
+It was striking that they talked about
+observing a novel combination of techniques
+in this attack.
+Some sources associated it with the group **APT29**
+or [**Cozy Bear**](https://en.wikipedia.org/wiki/Cozy_Bear),
+linked to the Russian Foreign Intelligence Service (SVR).
+However,
+FireEye preferred to be neutral
+and used the codename **UNC2452**.
+An official investigation by [CISA](https://www.cisa.gov/) and the FBI began
+because some individuals affected were seeing this whole incident
+as a cyberespionage campaign.
 
 All of this was part of the sizable SolarWinds breach, which seemed to
 have started several months ago. [The deployment of a malware-laced

@@ -79,16 +79,25 @@ Suppose the dots are files in a repository. Some might actually contain
 vulnerabilities, that is the left half of the rectangle, labeled
 "relevant elements" above.
 
-Ideally, a tool would detect them all, and nothing else.
+Ideally,
+a tool would detect them all,
+and nothing else.
 
-Our vulnerability classifier, or maybe a human pentester, or any other
-tool, tags as vulnerable those contained in the circle. Some right (the
-true positives) and some wrong (the false positives). The files
-containing vulnerabilities which weren’t tagged, labeled false negatives
-above, we like to call them *escapes*, those vulnerabilities which
-resist scrutiny. These are actually more dangerous than the false
-positives, since they are the ones that black hat hackers might take
-advantage of in the wild. But I digress.
+Our vulnerability classifier,
+or maybe a human [pentester](../../solutions/penetration-testing/),
+or any other tool,
+tags as vulnerable those contained in the circle.
+Some right (the true positives)
+and some wrong (the false positives).
+The files containing vulnerabilities
+which weren't tagged,
+labeled false negatives above,
+we like to call them *escapes*,
+those vulnerabilities which resist scrutiny.
+These are actually more dangerous than the false positives,
+since they are the ones
+that black hat hackers might take advantage of in the wild.
+But I digress.
 
 The precision is thus the ratio of actual vulnerabilities (true
 positives) found in the analysis to all those which were tagged, i.e.,

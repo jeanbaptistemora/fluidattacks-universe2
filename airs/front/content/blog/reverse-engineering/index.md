@@ -76,7 +76,7 @@ why reverse engineering is employed:
 We can apply reverse engineering within Information Technology (IT),
 [either for software or
 hardware](https://www.youtube.com/watch?v=7v7UaMsgg_c). In this case we
-focus on **Software Reverse Engineering** (`SRE`), which, as it is
+focus on **Software Reverse Engineering** (SRE), which, as it is
 understood, applies to the analysis of software, [the discovery of its
 general
 properties](https://www.mitre.org/sites/default/files/publications/pr-15-2630-reverse-engineering-cognition.pdf),
@@ -88,7 +88,7 @@ This process emerged from software maintenance and support, [largely
 from malware
 analysis](https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6).
 
-We can separate `SRE` [into two
+We can separate SRE [into two
 phases](https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley\(2005\).pdf):
 The first one can be seen as a large scale observation to determine the
 general structure, and sometimes areas of special interest, of the
@@ -114,7 +114,7 @@ Figure 2. Photo acquired from
 
 </div>
 
-According to the above information, `SRE` depends considerably on the
+According to the above information, SRE depends considerably on the
 use of tools, many of which were [not designed directly for this
 purpose](https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley\(2005\).pdf).
 
@@ -124,7 +124,7 @@ software languages on two general levels.
 
 The lower level is generally made up of binary code (ones and zeros) or
 hexadecimal code. This executable representation of software, what the
-`CPU` reads, is known as **machine language** or also as byte code.
+CPU reads, is known as **machine language** or also as byte code.
 
 On the same level of languages, being a different form of representation
 of the same thing, are the **assembly languages**. These are easier for
@@ -134,10 +134,10 @@ memorable character sequences).
 
 The upper level covers even more understandable languages, possessing
 keywords and constructs that developers use as building blocks in their
-programs. This is where, for example, `COBOL`, `Java` and `C` are
+programs. This is where, for example, COBOL, Java and C are
 situated.
 
-Now, in relation to the tools, one of the main ones in `SRE` is the
+Now, in relation to the tools, one of the main ones in SRE is the
 **disassembler**, which develops a process contrary to an assembler, and
 which will be different [depending on the platform on which it is
 used](https://link.springer.com/chapter/10.1007/978-3-319-74950-1_6).
@@ -188,13 +188,13 @@ and
 
 ## SRE for Security
 
-`SRE` can be useful for modifying software structures, altering code,
+SRE can be useful for modifying software structures, altering code,
 adding or removing commands and changing functions, thus affecting their
-logical flow. From the security area, the `SRE` provides techniques for
+logical flow. From the security area, the SRE provides techniques for
 hacking, whether it is malicious or ethical. In other words, it is
 useful to do damage or to generate protection and prevent it.
 
-On the positive side, `SRE` has involved finding flaws and
+On the positive side, SRE has involved finding flaws and
 vulnerabilities in, for example, systems and encryption algorithms.
 There is also the analysis of the behavior and properties of malware on
 test systems or on already infected foreign systems (hence the
@@ -202,17 +202,25 @@ development of antivirus software). Likewise, there is prevention of
 piracy of the program and the information contained, thus protecting the
 digital rights.
 
-On the negative side, through `SRE` criminals find vulnerabilities in
+On the negative side, through SRE criminals find vulnerabilities in
 systems, and well…​ they take advantage of them.
 
-Ethical hacking is what we do within `Fluid Attacks`, with our security
-experts, and with the permission of the client organizations. Thus, in
-their programs and systems, we discover and compel the remedy of
-weaknesses in security. Therefore, we protect them from future attacks
-by cyber-criminals. Our hackers, in their ethical stance, and as part of
-reverse engineering, must simulate the behavior of malicious hackers,
-and thus understand their intentions and design parameters in the
-attack. All this in order to establish a proper defense or
-counterattack.
+[Ethical hacking](../../solutions/ethical-hacking/) is what we do
+within `Fluid Attacks`,
+with our security experts,
+and with the permission of the client organizations.
+Thus,
+in their programs and systems,
+we discover and compel the remedy of weaknesses in security.
+Therefore,
+we protect them from future attacks by cybercriminals.
+Our hackers,
+in their ethical stance,
+and as part of reverse engineering,
+must simulate the behavior of malicious hackers,
+and thus understand their intentions
+and design parameters in the attack.
+All this in order to establish a proper defense or counterattack.
 
-[Contact us](../../contact-us/), and learn more about our services\!
+[Contact us](../../contact-us/),
+and learn more about our services\!

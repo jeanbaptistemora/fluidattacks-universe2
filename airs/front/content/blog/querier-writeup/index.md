@@ -18,14 +18,22 @@ source: https://unsplash.com/photos/wh-7GeXxItI
 ---
 
 In my opinion,
-[Querier](https://www.hackthebox.eu/home/machines/profile/175) is a
-great box. By following the steps below we will learn a bit about
-`Windows` (a widely used operating system) pentesting. The challenge
-begins with a public `SMB`; this is our first challenge level. Next, we
-will work with `SQL Server` and we will need to use a special `SQL`
-query to get the user hash. Finally, we will take advantage of an
-insecure configuration in `Group Policy Preferences` in `Windows` to
-escalate to administrator privileges.
+[Querier](https://www.hackthebox.eu/home/machines/profile/175) is
+a great box.
+By following the steps below
+we will learn a bit about Windows
+(a widely used operating system)
+[pentesting](../../solutions/penetration-testing/).
+The challenge begins with a public SMB;
+this is our first challenge level.
+Next,
+we will work with SQL Server
+and we will need to use a special SQL query
+to get the user hash.
+Finally,
+we will take advantage of an insecure configuration
+in Group Policy Preferences in Windows
+to escalate to administrator privileges.
 
 ## Scanning Phase
 
@@ -85,8 +93,8 @@ Figure 3. Port scanning
 We see 4 open ports (`135`, `139`, `445` and `1433`) and among these, we
 found two interesting services, `microsoft-ds (SMB)` in port `445` and
 `ms-sql-s` in port `1433`. When we try to access via SMB, it shows us a
-shared folder called `Report` with a `.xlsm` file, the extension
-indicating a `Microsoft Excel Document`.
+shared folder called Report with a .xlsm file, the extension
+indicating a Microsoft Excel Document.
 
 <div class="imgblock">
 
@@ -100,7 +108,7 @@ Figure 4. Public share
 
 </div>
 
-Then we open the specified file with `Microsoft Excel` and a warning
+Then we open the specified file with Microsoft Excel and a warning
 message appears telling us that the file contains a suspicious macro.
 
 <div class="imgblock">
@@ -115,9 +123,9 @@ Figure 5. Macro alert
 
 </div>
 
-We can explore the macro code in `Microsoft Excel` using the option
-`Visual Basic` in the Developer Tab. The macro has an insecure
-configuration of a connection to `SQL Server`, the credentials are in
+We can explore the macro code in Microsoft Excel using the option
+Visual Basic in the Developer Tab. The macro has an insecure
+configuration of a connection to SQL Server, the credentials are in
 plain text and now we can use them. It’s a good example of something
 that we should never do.
 
@@ -136,9 +144,9 @@ Figure 6. Macro code
 ## Getting User
 
 Now we can connect to the other interesting service that we found:
-`ms-sql-s`. We use the module `mssqlclient.py` of `Impacket` to do
+`ms-sql-s`. We use the module `mssqlclient.py` of Impacket to do
 queries to the server interactively using the credentials found in the
-last step, for example a query to know the version of `SQL Server` like
+last step, for example a query to know the version of SQL Server like
 the first testing query.
 
 ``` bash
@@ -158,11 +166,11 @@ Figure 7. Mssql conection
 </div>
 
 We will use this service to gain system access, as a user without
-privileges. We mount an `SMB` server in our machine to capture the
+privileges. We mount an SMB server in our machine to capture the
 authentication of any Windows user, in this case, the user that executes
 the service `ms-sql-s`. We tell it to enter our share to capture its
-`NTLMv2` hash with an `xp_dirtree` query. This stored procedure of `SQL
-Server` will access our `SMB` share to display a list of every folder,
+`NTLMv2` hash with an `xp_dirtree` query. This stored procedure of SQL
+Server will access our SMB share to display a list of every folder,
 every subfolder, and every file.
 
 ``` bash
@@ -185,9 +193,9 @@ Figure 8. User hash
 
 </div>
 
-Then we copy the hash to a plain text file and use `John the Ripper`
+Then we copy the hash to a plain text file and use John the Ripper
 with the dictionary `rockyou.txt` to crack the captured hash. We need to
-specify the correct hash format because `John the Ripper` occasionally
+specify the correct hash format because John the Ripper occasionally
 recognizes your hashes as the wrong type. This is inevitable because
 some hashes look identical, in this case the correct format for `NTLMv2`
 is `netntlmv2`.
@@ -209,7 +217,7 @@ Figure 9. Runnnig John
 
 </div>
 
-Now we can connect to `SQL Server` as user `mssql-svc`. We try to
+Now we can connect to SQL Server as user `mssql-svc`. We try to
 execute the command `whoami`, however, it responds telling us that
 component `xp_cmdshell` is blocked. Since we are the service
 administrator, we can enable it using a few queries.
@@ -288,8 +296,8 @@ Figure 13. Invoke-PowerShellTcp code
 
 </div>
 
-Then it is necessary to start an `HTTP` server in our machine. We can do
-it with `Python3`.
+Then it is necessary to start an HTTP server in our machine. We can do
+it with Python3.
 
 ``` bash
 python -m http.server
@@ -307,7 +315,7 @@ Figure 14. Http server
 
 </div>
 
-To make the server download our file, we can use `Powershell` as
+To make the server download our file, we can use Powershell as
 follows.
 
 ``` bash
@@ -317,7 +325,7 @@ follows.
 ```
 
 Now to get an interactive shell we set our machine to listen
-`port 30000` and execute the script in the `HTB` machine.
+`port 30000` and execute the script in the HTB machine.
 
 ``` bash
 nc -lvp 30000
@@ -343,7 +351,7 @@ Figure 15. Interactive shell
 At this point we use the module `PowerUp.ps1` from the `PowerSploit`
 collection to scan the system to find a way to escalate privileges. We
 can use the same method as in the last step. We upload the file to the
-server with `Python3`.
+server with Python3.
 
 To execute the script we need to import it first, next we can run all
 checks with the command `Invoke-AllChecks`. It will output any
@@ -368,8 +376,8 @@ Figure 16. Running PowerUp.ps1
 </div>
 
 We can see the Administrator credentials in plain text in the script
-output. The script took advantage of an insecure configuration in `Group
-Policy Preferences` of `Windows`; it saves credentials with weak
+output. The script took advantage of an insecure configuration in Group
+Policy Preferences of Windows; it saves credentials with weak
 encryptions. It’s time to prove these and to obtain the root flag.
 
 <div class="imgblock">
@@ -412,7 +420,7 @@ C:\ProgramData\Microsoft\Group Policy\History\{31B2F340-016D-11D2-945F-00C04FB98
 ```
 
 using a native tool like `findstr` and decrypt the password using the
-`gpp-decrypt` tool of `Kali Linux`.
+`gpp-decrypt` tool of Kali Linux.
 
 <div class="imgblock">
 
@@ -439,7 +447,7 @@ Figure 20. Decrypted password
 </div>
 
 In this challenge, we saw some insecure configurations such as saved
-credentials in plain text in code. We also learned how to start an `SMB`
+credentials in plain text in code. We also learned how to start an SMB
 server in our machine to capture hashes and finally, we learned and used
-some important tools for pentesting in `Windows` like `Impacket`,
-`Nishang`, and `PowerSploit`.
+some important tools for pentesting in Windows like Impacket,
+Nishang, and PowerSploit.

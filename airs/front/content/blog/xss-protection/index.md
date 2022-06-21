@@ -32,9 +32,9 @@ trusted web site. These attacks can occur when data enters a web
 application through an untrusted source, most frequently a web request,
 and that data is included in dynamic content that is sent to a web user
 without being validated for malicious content. The malicious content
-sent to the web browser is often `JavaScript`, but may also include
-`HTML`, `Flash`, or any other type of code that the browser may execute.
-`XSS` based attacks most commonly include transmitting private data,
+sent to the web browser is often JavaScript, but may also include
+HTML, Flash, or any other type of code that the browser may execute.
+XSS based attacks most commonly include transmitting private data,
 like cookies or other session information, to the attacker, redirecting
 the victim to web content controlled by the attacker, or performing
 other malicious operations on the user’s machine under the guise of the
@@ -88,7 +88,7 @@ set and is not NULL. Inside the conditional check we see three very
 similar instructions followed by an echo. The three similar instructions
 all take one of the input fields from the form, pass it through the
 strip\_tags() method and assign the new value to a variable. The echo
-message then echoes or prints on screen an `HTML` \<div\> tag. The tag
+message then echoes or prints on screen an HTML \<div\> tag. The tag
 has some basic attributes and one of the attributes used is the title
 variable with my input after strip\_tags. So the echo instruction
 displays the message along side the user name.
@@ -106,11 +106,13 @@ Our input IS validated for malicious content, strip\_tags() is applied
 to all my input strings. So if we can find a way to bypass that
 validation, we can then exploit the XSS vulnerability.
 
-OWASP provides very helpful and complete documentation on various
-security topics. For attacks it provides great cheat sheets that can
-guide you in the Ethical Hacking process. Here is [TheirOfficial
-Homepage](https://www.owasp.org/index.php/Main_Page) for a look into the
-many topics and resources `OWASP` offers.
+OWASP provides very helpful and complete documentation
+on various security topics.
+For attacks it provides great cheat sheets
+that can guide you
+in the [Ethical Hacking](../../solutions/ethical-hacking/) process.
+Here is [TheirOfficial Homepage](https://www.owasp.org/index.php/Main_Page)
+for a look into the many topics and resources OWASP offers.
 
 After further research on filter evasion, we can find that the
 strip\_tags() method has a common and well known vulnerability. Since
@@ -131,7 +133,7 @@ Figure 3. Can you say XSS
 </div>
 
 Note that in the echo message, one of the input strings, $title, is used
-inside the actual `HTML` tag. This gives us a possible injection. We
+inside the actual HTML tag. This gives us a possible injection. We
 know we can’t add any tags, but no one has said anything about adding
 attributes. We can add an event as an attribute and in that event call
 our JavaScript alert code. The best way to do this is through the
@@ -139,11 +141,11 @@ our JavaScript alert code. The best way to do this is through the
 pointer is moved onto an element. So what we need to do is inject our
 JavaScript alert as the event.
 
-Note that the `HTML` tag puts single quotes " ' " before and after the
+Note that the HTML tag puts single quotes " ' " before and after the
 $title input. Hence we need to close the first " ' " in order to be able
 to add an other attribute. We can’t forget about the closing single
 quote, when adding the attribute we need to leave the quotes open in
-order to use the single quote added by the `HTML` tag and therefore
+order to use the single quote added by the HTML tag and therefore
 maintain a valid syntax.
 
 <div class="imgblock">

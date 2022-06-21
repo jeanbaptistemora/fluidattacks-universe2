@@ -18,18 +18,26 @@ source: https://unsplash.com/photos/aWDgqexSxA0
 
 The activity of [cybersecurity testing](../../solutions/security-testing/)
 at present,
-according to the information
-given to us by [Sylvester](https://www.youtube.com/watch?time_continue=1&v=rc8-0LV4tlU&feature=emb_logo)
+according to the information given to us
+by [Sylvester](https://www.youtube.com/watch?time_continue=1&v=rc8-0LV4tlU&feature=emb_logo)
 and [Cuervo](https://lumu.io/wp-content/uploads/2019/10/en_wp_itstesting.pdf),
-can prompt us to remember its beginnings. Among them, for example, what
-was carried out by the US Navy in the eighties. On that occasion, it was
-a pentesting procedure, intended to reveal how simple it might be to
-breach on one of its own bases. This type of process, framed in the
-ethical hacking activity, has achieved remarkable improvements. It can
-be considered a 'traditional' security testing together with the
-vulnerability assessment process. This testing continues to be
-enormously important in a variety of industries and organizations within
-our current society.
+can prompt us to remember its beginnings.
+Among them,
+for example,
+is the procedure carried out by the U.S. Navy
+in the eighties.
+On that occasion,
+it was a [pentesting](../../solutions/penetration-testing/) procedure
+intended to reveal how simple it might be to breach
+on one of its own bases.
+This type of process,
+framed in the [ethical hacking](../../solutions/ethical-hacking/) activity,
+has achieved remarkable improvements.
+It can be considered a 'traditional' security testing
+together with the vulnerability assessment process.
+This testing continues to be enormously important
+in a variety of industries and organizations
+within our current society.
 
 Nevertheless, according to the authors, something is happening with this
 traditional procedure. It seems that the breaches in companies continue
