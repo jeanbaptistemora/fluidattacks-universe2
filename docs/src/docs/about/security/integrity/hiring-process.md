@@ -15,7 +15,7 @@ involves solving programming and hacking challenges,
 uploading them to a Git repository
 with highly strict linters and compilers,
 and ascending in an
-[organizational ranking](https://autonomicmind.com/challenges/).
+[organizational ranking](https://app.autonomicjump.com/).
 
 The human values section of the testing process
 includes creating a portfolio
