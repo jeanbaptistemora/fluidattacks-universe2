@@ -10,6 +10,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from typing import (
+    Any,
     Dict,
     List,
     Optional,
@@ -45,7 +46,7 @@ async def run_boto3_fun(
     service: str,
     function: str,
     parameters: Optional[Dict[str, str]] = None,
-) -> Dict[str, str]:
+) -> Dict[str, Any]:
     session = aioboto3.Session(
         aws_access_key_id=credentials.access_key_id,
         aws_secret_access_key=credentials.secret_access_key,
