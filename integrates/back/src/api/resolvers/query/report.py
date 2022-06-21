@@ -27,6 +27,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from decorators import (
@@ -63,22 +64,28 @@ def _filter_unique_report(
     old_additional_info: str,
     new_type: str,
     new_treatments: set[VulnerabilityTreatmentStatus],
+    new_states: set[VulnerabilityStateStatus],
 ) -> bool:
     additional_info: dict[str, Any] = json.loads(old_additional_info)
     if new_type == "XLS":
-        return new_type == additional_info.get("report_type") and list(
-            sorted(new_treatments)
-        ) == list(sorted(additional_info.get("treatments", [])))
+        return (
+            new_type == additional_info.get("report_type")
+            and list(sorted(new_treatments))
+            == list(sorted(additional_info.get("treatments", [])))
+            and list(sorted(new_states))
+            == list(sorted(additional_info.get("states", [])))
+        )
 
     return new_type == additional_info.get("report_type")
 
 
 @enforce_group_level_auth_async
-async def _get_url_group_report(
+async def _get_url_group_report(  # pylint: disable = too-many-arguments
     _info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
     group_name: str,
+    states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verification_code: str,
 ) -> bool:
@@ -90,7 +97,7 @@ async def _get_url_group_report(
         filter(
             lambda x: x.subject.lower() == user_email.lower()
             and _filter_unique_report(
-                x.additional_info, report_type, treatments
+                x.additional_info, report_type, treatments, states
             ),
             existing_actions,
         )
@@ -111,6 +118,7 @@ async def _get_url_group_report(
         {
             "report_type": report_type,
             "treatments": list(sorted(treatments)),
+            "states": list(sorted(states)),
         }
     )
 
@@ -168,7 +176,17 @@ async def resolve(
             raise RequestedReportError(
                 expr="Only user managers can request certificates"
             )
-    treatments = (
+    states: set[VulnerabilityStateStatus] = (
+        {VulnerabilityStateStatus[state] for state in kwargs["states"]}
+        if kwargs.get("states")
+        else set(
+            [
+                VulnerabilityStateStatus["CLOSED"],
+                VulnerabilityStateStatus["OPEN"],
+            ]
+        )
+    )
+    treatments: set[VulnerabilityTreatmentStatus] = (
         {
             VulnerabilityTreatmentStatus[treatment]
             for treatment in kwargs["treatments"]
@@ -184,6 +202,7 @@ async def resolve(
             user_email,
             group_name=group_name,
             treatments=treatments,
+            states=states,
             verification_code=verification_code,
         )
     }

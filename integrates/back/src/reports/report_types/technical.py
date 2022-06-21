@@ -12,6 +12,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from findings import (
@@ -165,12 +166,14 @@ async def generate_xls_file(
     loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
-    treatments: Set[VulnerabilityTreatmentStatus],
+    states: set[VulnerabilityStateStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
         group_name=group_name,
         treatments=treatments,
+        states=states,
         loaders=loaders,
     )
     await it_report.create()

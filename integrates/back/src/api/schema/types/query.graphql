@@ -101,6 +101,8 @@ type Query {
       )
     "Language of the requested report"
     lang: ReportLang
+    "States to include"
+    states: [VulnerabilityState!]
     "Treatments to include"
     treatments: [VulnerabilityTreatment!]
     "OTP code to verify the stakeholder"

@@ -11,6 +11,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from magic import (
@@ -110,6 +111,12 @@ async def _append_xls_report(
         findings_ord=findings_ord,
         group_name=group_name,
         treatments=set(VulnerabilityTreatmentStatus),
+        states=set(
+            [
+                VulnerabilityStateStatus["CLOSED"],
+                VulnerabilityStateStatus["OPEN"],
+            ]
+        ),
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:

@@ -53,8 +53,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 
@@ -83,7 +81,7 @@ class ITReport:
         "RL": "remediation_level",
         "RC": "report_confidence",
     }
-    data: Tuple[Finding, ...] = tuple()
+    data: tuple[Finding, ...] = tuple()
     filters = None
     lang = None
     result_filename = ""
@@ -98,11 +96,12 @@ class ITReport:
         EMPTY for _ in range(len(vulnerability) + 1)
     ]
 
-    def __init__(
+    def __init__(  # pylint: disable = too-many-arguments
         self,
-        data: Tuple[Finding, ...],
+        data: tuple[Finding, ...],
         group_name: str,
-        treatments: Set[VulnerabilityTreatmentStatus],
+        states: set[VulnerabilityStateStatus],
+        treatments: set[VulnerabilityTreatmentStatus],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -110,6 +109,7 @@ class ITReport:
         self.loaders = loaders
         self.group_name = group_name
         self.treatments = treatments
+        self.states = states
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -121,8 +121,8 @@ class ITReport:
         self.save()
 
     async def _get_findings_vulnerabilities(
-        self, findings_ids: Tuple[str, ...]
-    ) -> Tuple[Vulnerability, ...]:
+        self, findings_ids: tuple[str, ...]
+    ) -> tuple[Vulnerability, ...]:
         return (
             await self.loaders.finding_vulnerabilities_nzr.load_many_chained(
                 list(findings_ids)
@@ -130,14 +130,16 @@ class ITReport:
         )
 
     async def _get_findings_historics_verifications(
-        self, findings_ids: Tuple[str, ...]
-    ) -> Tuple[FindingVerification, ...]:
+        self, findings_ids: tuple[str, ...]
+    ) -> tuple[tuple[FindingVerification], ...]:
         return await self.loaders.finding_historic_verification.load_many(
             findings_ids
         )
 
-    async def generate(self, data: Tuple[Finding, ...]) -> None:
+    async def generate(self, data: tuple[Finding, ...]) -> None:
         findings_ids = tuple(finding.id for finding in data)
+        findings_vulnerabilities: tuple[Vulnerability, ...]
+        findings_verifications: tuple[tuple[FindingVerification], ...]
         findings_vulnerabilities, findings_verifications = await collect(
             (
                 self._get_findings_vulnerabilities(findings_ids),
@@ -147,20 +149,25 @@ class ITReport:
         finding_data: Dict[str, Finding] = {
             finding.id: finding for finding in data
         }
-        finding_verification: Dict[str, Tuple[FindingVerification]] = {
+        finding_verification: Dict[str, tuple[FindingVerification]] = {
             finding.id: verification
             for finding, verification in zip(data, findings_verifications)
         }
 
-        vulnerabilities_filtered: Tuple[Vulnerability, ...] = tuple(
+        vulnerabilities_filtered: tuple[Vulnerability, ...] = tuple(
             vulnerability
             for vulnerability in findings_vulnerabilities
-            if vulnerability.treatment.status in self.treatments
+            if (
+                vulnerability.treatment
+                and vulnerability.treatment.status in self.treatments
+            )
+            and vulnerability.state.status in self.states
         )
-        vulnerabilities_historics: Tuple[
-            Tuple[
-                Tuple[VulnerabilityTreatment, ...],
-                Tuple[VulnerabilityVerification, ...],
+
+        vulnerabilities_historics: tuple[
+            tuple[
+                tuple[VulnerabilityTreatment, ...],
+                tuple[VulnerabilityVerification, ...],
             ],
             ...,
         ] = await collect(
@@ -317,8 +324,8 @@ class ITReport:
     def set_reattack_data(
         self,
         vuln: Vulnerability,
-        historic_verification: Tuple[VulnerabilityVerification, ...],
-        finding_verification: Tuple[FindingVerification, ...],
+        historic_verification: tuple[VulnerabilityVerification, ...],
+        finding_verification: tuple[FindingVerification, ...],
     ) -> None:
         reattack_requested = None
         reattack_date = None
@@ -386,10 +393,10 @@ class ITReport:
     def set_treatment_data(
         self,
         vuln: Vulnerability,
-        historic_treatment: Tuple[VulnerabilityTreatment, ...],
+        historic_treatment: tuple[VulnerabilityTreatment, ...],
     ) -> None:
         def get_first_treatment(
-            treatments: Tuple[VulnerabilityTreatment, ...]
+            treatments: tuple[VulnerabilityTreatment, ...]
         ) -> Optional[VulnerabilityTreatment]:
 
             return next(
@@ -471,23 +478,23 @@ class ITReport:
 
     async def _get_historic_treatment(
         self, vulnerability_id: str
-    ) -> Tuple[VulnerabilityTreatment, ...]:
+    ) -> tuple[VulnerabilityTreatment, ...]:
         return await self.loaders.vulnerability_historic_treatment.load(
             vulnerability_id
         )
 
     async def _get_historic_verification(
         self, vulnerability_id: str
-    ) -> Tuple[VulnerabilityVerification, ...]:
+    ) -> tuple[VulnerabilityVerification, ...]:
         return await self.loaders.vulnerability_historic_verification.load(
             vulnerability_id
         )
 
     async def _get_vulnerability_data(
         self, vuln: Vulnerability
-    ) -> Tuple[
-        Tuple[VulnerabilityTreatment, ...],
-        Tuple[VulnerabilityVerification, ...],
+    ) -> tuple[
+        tuple[VulnerabilityTreatment, ...],
+        tuple[VulnerabilityVerification, ...],
     ]:
         return await collect(
             (
@@ -499,7 +506,7 @@ class ITReport:
     @staticmethod
     def _get_reattack_requester(
         vuln: Vulnerability,
-        historic_verification: Tuple[FindingVerification, ...],
+        historic_verification: tuple[FindingVerification, ...],
     ) -> Optional[str]:
         reversed_historic_verification = tuple(reversed(historic_verification))
         for verification in reversed_historic_verification:
@@ -515,9 +522,9 @@ class ITReport:
         self,
         row: Vulnerability,
         finding: Finding,
-        historic_verification: Tuple[VulnerabilityVerification, ...],
-        historic_treatment: Tuple[VulnerabilityTreatment, ...],
-        finding_verification: Tuple[FindingVerification, ...],
+        historic_verification: tuple[VulnerabilityVerification, ...],
+        historic_treatment: tuple[VulnerabilityTreatment, ...],
+        finding_verification: tuple[FindingVerification, ...],
     ) -> None:
         vuln = self.vulnerability
         specific = row.specific

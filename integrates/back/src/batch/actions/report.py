@@ -10,6 +10,7 @@ from custom_exceptions import (
     UnavailabilityError,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from decorators import (
@@ -36,7 +37,6 @@ from typing import (
     Any,
     Dict,
     Optional,
-    Set,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +57,8 @@ async def get_report(
     *,
     item: BatchProcessing,
     report_type: str,
-    treatments: Set[VulnerabilityTreatmentStatus],
+    states: set[VulnerabilityStateStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -66,6 +67,7 @@ async def get_report(
             group_name=item.entity,
             user_email=item.subject,
             treatments=treatments,
+            states=states,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -133,10 +135,23 @@ async def report(*, item: BatchProcessing) -> None:
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]
     }
+    states = {
+        VulnerabilityStateStatus[state]
+        for state in additional_info.get(
+            "states",
+            set(
+                [
+                    VulnerabilityStateStatus["CLOSED"],
+                    VulnerabilityStateStatus["OPEN"],
+                ]
+            ),
+        )
+    }
     report_url = await get_report(
         item=item,
         report_type=report_type,
         treatments=treatments,
+        states=states,
     )
     if report_url:
         await send_report(

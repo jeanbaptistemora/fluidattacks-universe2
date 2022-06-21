@@ -14,6 +14,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from findings import (
@@ -21,7 +22,6 @@ from findings import (
 )
 from typing import (
     Optional,
-    Set,
     Tuple,
 )
 
@@ -31,7 +31,8 @@ async def get_group_report_url(
     report_type: str,
     group_name: str,
     user_email: str,
-    treatments: Set[VulnerabilityTreatmentStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
+    states: set[VulnerabilityStateStatus],
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -55,6 +56,7 @@ async def get_group_report_url(
             findings_ord=findings_ord,
             group_name=group_name,
             treatments=treatments,
+            states=states,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(
