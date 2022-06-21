@@ -1756,7 +1756,12 @@ export const enTranslations: ResourceKey = {
     },
   },
   profile: {
-    credentialModal: {
+    credentialsModal: {
+      add: "Add",
+      alerts: {
+        additionSuccess: "Credentials has been added.",
+      },
+      cancel: "Cancel",
       form: {
         https: "HTTPS",
         httpsType: {
@@ -1795,9 +1800,7 @@ export const enTranslations: ResourceKey = {
       add: "Add",
       alerts: {
         additionSuccess: "Mobile has been added.",
-
         editionSuccess: "Mobile has been updated.",
-
         invalidVerificationCode: "The verification code is invalid",
         nonSentVerificationCode:
           "Check your mobile number and retry in a minute",
@@ -3394,7 +3397,8 @@ export const enTranslations: ResourceKey = {
     invalidChar:
       "Invalid characters, use: alphanumerics, spaces and punctuations",
     invalidCommentParent: "The comment parent is invalid",
-    invalidCredentialName: "A credential exists with the same name",
+    invalidCredentialName:
+      "There is credentials with the same name in the organization",
     invalidEmailInField: "The email address inserted is not valid",
     invalidEnvironmentUrl: "The environment URL is invalid",
     invalidFieldLength: "The value inserted in one of the fields is too large",

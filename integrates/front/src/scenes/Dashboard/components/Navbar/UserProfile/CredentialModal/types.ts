@@ -1,3 +1,9 @@
+interface IAddCredentialsResultAttr {
+  addCredentials: {
+    success: boolean;
+  };
+}
+
 interface ICredentialAttr {
   id: string;
   name: string;
@@ -30,6 +36,7 @@ interface ICredentialModalProps {
 }
 
 export type {
+  IAddCredentialsResultAttr,
   ICredentialAttr,
   ICredentialData,
   ICredentialModalProps,

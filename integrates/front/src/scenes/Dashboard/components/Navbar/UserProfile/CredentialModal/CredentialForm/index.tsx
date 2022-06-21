@@ -1,31 +1,26 @@
-import { Field, Formik } from "formik";
-import _ from "lodash";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { HttpsTypeField } from "./HttpsTypeField";
+import { NameField } from "./NameField";
+import { OrganizationField } from "./OrganizationField";
+import { PasswordField } from "./PasswordField";
+import { SshKeyField } from "./SshKeyField";
+import { TokenField } from "./TokenField";
+import { TypeField } from "./TypeField";
 import type { ICredentialFormProps, IFormValues } from "./types";
+import { UserField } from "./UserField";
 
-import type { IOrganizationAttr } from "../types";
-import { disabled } from "styles/global.css";
-import { Col100, Col50, ControlLabel, Row } from "styles/styledComponents";
-import {
-  FormikDropdown,
-  FormikRadioGroup,
-  FormikText,
-  FormikTextArea,
-} from "utils/forms/fields";
-import { composeValidators, required } from "utils/validations";
+import { Button } from "components/Button";
+import { Col100, Col50, Row } from "styles/styledComponents";
 
 const CredentialForm: React.FC<ICredentialFormProps> = (
   props: ICredentialFormProps
 ): JSX.Element => {
-  const { organizations } = props;
+  const { isAdding, isEditing, organizations, onCancel, onSubmit } = props;
   const { t } = useTranslation();
 
-  function handleSubmit(values: IFormValues): void {
-    // eslint-disable-next-line no-console
-    console.log({ values });
-  }
   const initialValues: IFormValues = {
     accessToken: undefined,
     isHttpsPasswordType: true,
@@ -37,168 +32,78 @@ const CredentialForm: React.FC<ICredentialFormProps> = (
     user: undefined,
   };
 
+  if (!(isAdding || isEditing)) {
+    return <div />;
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      name={"credential"}
-      onSubmit={handleSubmit}
+      name={"credentials"}
+      onSubmit={onSubmit}
     >
       {({ values }): JSX.Element => {
         return (
-          <div id={"stakeholder-credential"}>
+          <Form id={"credentials"}>
             <Row>
               <Col50>
-                <ControlLabel>
-                  {t("profile.credentialModal.form.name.label")}
-                </ControlLabel>
-                <Field
-                  component={FormikText}
-                  disabled={disabled}
-                  name={"name"}
-                  placeholder={t(
-                    "profile.credentialModal.form.name.placeholder"
-                  )}
-                  type={"text"}
-                  validate={composeValidators([required])}
-                />
+                <NameField />
               </Col50>
               <Col50>
-                <ControlLabel>
-                  {t("profile.credentialModal.form.organization")}
-                </ControlLabel>
-                <Field
-                  component={FormikDropdown}
-                  disabled={disabled}
-                  name={"organization"}
-                  validate={composeValidators([required])}
-                >
-                  <option value={""}>{""}</option>
-                  {organizations.map(
-                    (organization: IOrganizationAttr): JSX.Element => (
-                      <option key={organization.id} value={organization.id}>
-                        {_.capitalize(organization.name)}
-                      </option>
-                    )
-                  )}
-                </Field>
+                <OrganizationField organizations={organizations} />
               </Col50>
             </Row>
-            <br />
             <Row>
-              <Col50>
-                <Field
-                  component={FormikRadioGroup}
-                  initialState={
-                    _.isUndefined(values.isHttpsType)
-                      ? t("profile.credentialModal.form.ssh")
-                      : values.isHttpsType
-                      ? t("profile.credentialModal.form.https")
-                      : t("profile.credentialModal.form.ssh")
-                  }
-                  labels={[
-                    t("profile.credentialModal.form.https"),
-                    t("profile.credentialModal.form.ssh"),
-                  ]}
-                  name={"isHttpsType"}
-                  type={"Radio"}
-                  validate={composeValidators([required])}
-                />
-              </Col50>
               {values.isHttpsType ? (
-                <Col50>
-                  <Field
-                    component={FormikRadioGroup}
-                    initialState={
-                      _.isUndefined(values.isHttpsPasswordType)
-                        ? t(
-                            "profile.credentialModal.form.httpsType.accessToken"
-                          )
-                        : values.isHttpsPasswordType
-                        ? t(
-                            "profile.credentialModal.form.httpsType.userAndPassword"
-                          )
-                        : t(
-                            "profile.credentialModal.form.httpsType.accessToken"
-                          )
-                    }
-                    labels={[
-                      t(
-                        "profile.credentialModal.form.httpsType.userAndPassword"
-                      ),
-                      t("profile.credentialModal.form.httpsType.accessToken"),
-                    ]}
-                    name={"isHttpsPasswordType"}
-                    type={"Radio"}
-                    validate={composeValidators([required])}
-                  />
-                </Col50>
-              ) : undefined}
+                <React.Fragment>
+                  <Col50>
+                    <TypeField />
+                  </Col50>
+                  <Col50>
+                    <HttpsTypeField />
+                  </Col50>
+                </React.Fragment>
+              ) : (
+                <Col100>
+                  <TypeField />
+                </Col100>
+              )}
             </Row>
-            <br />
             {values.isHttpsType ? (
               values.isHttpsPasswordType ? (
                 <Row>
                   <Col50>
-                    <ControlLabel>
-                      {t("profile.credentialModal.form.user")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      disabled={disabled}
-                      name={"user"}
-                      type={"text"}
-                      validate={composeValidators([required])}
-                    />
+                    <UserField />
                   </Col50>
                   <Col50>
-                    <ControlLabel>
-                      {t("profile.credentialModal.form.password")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      disabled={disabled}
-                      name={"password"}
-                      type={"text"}
-                      validate={composeValidators([required])}
-                    />
+                    <PasswordField />
                   </Col50>
                 </Row>
               ) : (
                 <Row>
                   <Col100>
-                    <ControlLabel>
-                      {t("profile.credentialModal.form.token")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      disabled={disabled}
-                      name={"accessToken"}
-                      type={"text"}
-                      validate={composeValidators([required])}
-                    />
+                    <TokenField />
                   </Col100>
                 </Row>
               )
             ) : (
               <Row>
                 <Col100>
-                  <ControlLabel>
-                    {t("profile.credentialModal.form.sshKey.label")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikTextArea}
-                    disabled={disabled}
-                    name={"sshKey"}
-                    placeholder={t(
-                      "profile.credentialModal.form.sshKey.placeholder"
-                    )}
-                    type={"text"}
-                    validate={composeValidators([required])}
-                  />
+                  <SshKeyField />
                 </Col100>
               </Row>
             )}
-          </div>
+            <Row>
+              <Col100>
+                <Button onClick={onCancel} variant={"secondary"}>
+                  {t("profile.credentialsModal.cancel")}
+                </Button>
+                <Button type={"submit"} variant={"primary"}>
+                  {t("profile.credentialsModal.add")}
+                </Button>
+              </Col100>
+            </Row>
+          </Form>
         );
       }}
     </Formik>

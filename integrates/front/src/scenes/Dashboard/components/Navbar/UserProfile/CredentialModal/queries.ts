@@ -1,6 +1,17 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const ADD_CREDENTIALS: DocumentNode = gql`
+  mutation AddCredentialsMutation(
+    $organizationId: String!
+    $credentials: CredentialsInput!
+  ) {
+    addCredentials(organizationId: $organizationId, credentials: $credentials) {
+      success
+    }
+  }
+`;
+
 const GET_STAKEHOLDER_CREDENTIALS: DocumentNode = gql`
   query GetStakeholderCredentials {
     me(callerOrigin: "FRONT") {
@@ -34,4 +45,8 @@ const GET_STAKEHOLDER_ORGANIZATIONS: DocumentNode = gql`
   }
 `;
 
-export { GET_STAKEHOLDER_CREDENTIALS, GET_STAKEHOLDER_ORGANIZATIONS };
+export {
+  ADD_CREDENTIALS,
+  GET_STAKEHOLDER_CREDENTIALS,
+  GET_STAKEHOLDER_ORGANIZATIONS,
+};

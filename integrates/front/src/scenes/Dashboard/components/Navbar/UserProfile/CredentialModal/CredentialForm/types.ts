@@ -1,3 +1,5 @@
+import type { FormikHelpers } from "formik";
+
 import type { IOrganizationAttr } from "../types";
 
 interface IFormValues {
@@ -12,7 +14,14 @@ interface IFormValues {
 }
 
 interface ICredentialFormProps {
+  isAdding: boolean;
+  isEditing: boolean;
   organizations: IOrganizationAttr[];
+  onCancel: () => void;
+  onSubmit: (
+    values: IFormValues,
+    formikHelpers: FormikHelpers<IFormValues>
+  ) => void;
 }
 
 export type { IFormValues, ICredentialFormProps };
