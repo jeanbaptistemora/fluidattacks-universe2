@@ -330,6 +330,11 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
                     user_email="integrates@fluidattacks.com",
                     group_name=group_name,
                     force=True,
+                    roots=tuple(
+                        root
+                        for root in git_roots
+                        if root.state.nickname in roots
+                    ),
                 )
             )
         )
