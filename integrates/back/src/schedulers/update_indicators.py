@@ -1104,7 +1104,7 @@ async def update_group_indicators(group: Group) -> None:
 async def update_indicators() -> None:
     """Update in dynamo indicators."""
     groups = await orgs_domain.get_all_active_groups(loaders=get_new_context())
-    await collect(map(update_group_indicators, groups), workers=2)
+    await collect(map(update_group_indicators, groups), workers=1)
 
 
 async def main() -> None:

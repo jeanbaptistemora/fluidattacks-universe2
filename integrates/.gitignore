@@ -13,7 +13,7 @@
 /charts/generators/**/*.json
 /app
 /build
-/src/reports/tpls/*.tpl
+back/src/reports/tpls/*.tpl
 db/.data/
 expoClient.apk
 coverage.xml
