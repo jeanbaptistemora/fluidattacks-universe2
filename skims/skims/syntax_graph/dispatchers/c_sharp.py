@@ -25,7 +25,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     local_declaration_statement as c_sharp_local_declaration_statement,
     member_access_expression as c_sharp_member_access_expression,
     member_binding_expression as c_sharp_member_binding_expression,
-    method_declaration as c_sharp_method_declaration,
     namespace_declaration as c_sharp_namespace_declaration,
     object_creation_expression as c_sharp_object_creation_expression,
     parameter as c_sharp_parameter,
@@ -55,6 +54,7 @@ from syntax_graph.syntax_readers.common import (
     execution_block as common_execution_block,
     identifier as common_identifier,
     interpolation as common_interpolation,
+    method_declaration as common_method_declaration,
     null_literal as common_null_literal,
     number_literal as common_number_literal,
     string_literal as common_string_literal,
@@ -286,7 +286,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "method_declaration",
         },
-        syntax_reader=c_sharp_method_declaration.reader,
+        syntax_reader=common_method_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
