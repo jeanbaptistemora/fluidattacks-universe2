@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
+    class_declaration as common_class_declaration,
     conditional_expression as common_conditional_expression,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
@@ -51,6 +52,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "catch_declaration",
         },
         syntax_reader=common_catch_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_declaration",
+        },
+        syntax_reader=common_class_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
