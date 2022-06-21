@@ -17438,6 +17438,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      An S3 AWS service allows the source code to be downloaded by anyone
       ```yaml
       BucketPolicy:
         Type: AWS::S3::BucketPolicy
@@ -17452,6 +17453,7 @@
                 Restriction: None
       ```
     compliant: |
+      Sensitive resources are restricted to be read only by authorized users
       ```yaml
       BucketPolicy:
         Type: AWS::S3::BucketPolicy
@@ -17513,6 +17515,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      An S3 AWS bucket has public permissions to allow deletion of files
       ```yaml
       Resources:
         S3Bucket:
@@ -17528,6 +17531,7 @@
           DeletionPolicy: Delete
       ```
     compliant: |
+      All AWS buckets have restricted permissions only accesible to authorized users
       ```yaml
       Resources:
         PrivateS3Bucket:
@@ -17599,6 +17603,7 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application does not validate input data on the server side
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -17613,6 +17618,7 @@
       });
       ```
     compliant: |
+      The application implements server side validation for all input fields
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -17748,6 +17754,7 @@
     non_compliant: |
       There are no specific protection methods in the application to detect external hooks and stop the runtime
     compliant: |
+      The application should implement several methods to detect non native files
       ```java
       try {
         //Code to detect external hooks/files or non native files or procedures
@@ -17820,6 +17827,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application does not define any SSLPining mechanisms in the security configuration xml file
       ```html
       <?xml version="1.0" encoding="utf-8"?>
       <network-security-config>
@@ -17829,6 +17837,7 @@
       </network-security-config>
       ```
     compliant: |
+      There are correctly defined pin-sets in the security configuration file
       ```html
       <?xml version="1.0" encoding="utf-8"?>
       <network-security-config>
@@ -17898,6 +17907,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      A resource storing sensitive information (Like the antivirus configuration) has unsafe restriction policies
       ```yaml
       Resources:
         DLPPolicy:
@@ -17908,6 +17918,7 @@
           DeletionPolicy: Delete
       ```
     compliant: |
+      Sensitive resources have strict access policies
       ```yaml
       Resources:
         DLPPolicy:
@@ -18063,6 +18074,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There are methods in the code that allow the facil recognition features to be bypassed in some scenarios
       ```c
       using namespace std;
       using namespace cv;
@@ -18081,6 +18093,7 @@
       }
       ```
     compliant: |
+      The secure facial recognition procedures should never be allowed to be bypassed
       ```c
       using namespace std;
       using namespace cv;
@@ -18155,12 +18168,13 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Complex regular expressions can cause a server overload
       ```c {3,7,15}
       using System.Text.RegularExpressions;
       namespace Controllers {
         public class Controller : Controller {
           public IActionResult Validate(string regex, string input) {
-            var expreg = "ComplexRegExpression";
+            var expreg = "^(http|https|ftp):[\/]{2}([a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,4})(:[0-9]+)?\/?([a-zA-Z0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~]*);
             Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
             bool match2 = reg.IsMatch(input, expreg);
           }
@@ -18168,13 +18182,14 @@
       }
       ```
     compliant: |
+      The application simplifies the regular expressions used to compare input strings
       ```java
       using System.Text.RegularExpressions;
       //use standard regex to verify and sanitize input
       namespace Controllers {
         public class Controller : Controller {
           public IActionResult Validate(string regex, string input) {
-            var expreg = "SimpleRegex";
+            var expreg = ^\+[0-9]{11};
             Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
             bool match = reg.IsMatch(input, reg.Escape(regex));
           }
@@ -18246,8 +18261,8 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The cloudfare uses the server as the default ingress
       ```yaml
-      //The cloudfare uses the server as the default ingress
       tunnel: The tunnel UUID
       credentials-file: /path/credentials.json
       warp-routing:
@@ -18257,7 +18272,7 @@
           service: http://localhost:80
       ```
     compliant: |
-      the cloudfare
+      The cloudfare is securely configured
       ```yaml
       tunnel: The tunnel UUID
       credentials-file: /path/credentials.json
@@ -18329,6 +18344,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The jwt token response includes password and username
       ```javascript
       app.post("/user/generateToken", (req, res) => {
         // Validate User Code
@@ -18342,6 +18358,7 @@
       });
       ```
     compliant: |
+      The jwt token is securely configured to avoid including sensitive information
       ```javascript
       app.post("/user/generateToken", (req, res) => {
         // Validate User Code
@@ -18524,11 +18541,13 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The JFrog credential are stored directly in the source code
       ```yaml
       jfrog.accesskey   = "AKIA0000000000000000"
       artifact.password = "123"
       ```
     compliant: |
+      The sensitive credentials are stored as encrypted secrets
       ```yaml
       jfrog.accesskey   = ${access_key}
       artifact.password = ENC(something-base64-encoded-but-encrypted)
@@ -18594,7 +18613,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      //There is a file in the source code that stores the employee information
+      There is a file in the source code that stores the employee information
       ```json
       Employees {
         ids {
@@ -18690,6 +18709,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Credit card numbers are passed as plain text to variable that can be accessed
       ```javascript
       app.post('/editPaymentMethod', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -18701,6 +18721,7 @@
       });
       ```
     compliant: |
+      Credit card numbers are correctly handled by using secure encrypting algorithms
       ```javascript
       app.post('/editPaymentMethod', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -18771,6 +18792,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Secure transport encryption is disabled
       ```c
       public static void CreateTestMessage(string server){
         SmtpClient client = new SmtpClient(server);
@@ -18780,6 +18802,7 @@
       }
       ```
     compliant: |
+      Secure transport encryption is enabled
       ```c
       public static void CreateTestMessage(string server){
         SmtpClient client = new SmtpClient(server);
@@ -18860,6 +18883,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server configuration does not enable protected mode
       ```yaml
       serverConfiguration:
         bind * -::*
@@ -18873,6 +18897,7 @@
         protected-mode no
       ```
     compliant: |
+      Servers with sensitive information have protected modes enabled
       ```yaml
       serverConfiguration:
         bind * -::*
@@ -18936,6 +18961,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The response token includes sensitive information as plain text
       ```javascript
       app.post("/user/generateToken", (req, res) => {
         // Validate User Code
@@ -18950,6 +18976,7 @@
       });
       ```
     compliant: |
+      The response token does not include any sensitive user information
       ```javascript
       app.post("/user/generateToken", (req, res) => {
         // Validate User Code
@@ -19019,6 +19046,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application includes functionality that could allow an unauthorized user to access sensitive data
       ```javascript
       app.post('/accessUsers', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -19033,6 +19061,7 @@
       });
       ```
     compliant: |
+      Only authorized users with high credentials can access sensitive information
       ```javascript
       app.post('/accessUsers', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -19153,8 +19182,8 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The source code shows the db credentials directly
       ```javascript
-      //The source code shows the db credentials directly
       let connection = mysql.createConnection({
           host: 'localhost',
           user: 'root',
@@ -19172,9 +19201,9 @@
       }
       ```
     compliant: |
+      The application uses a secure method to access the db without showing credentials in the source code
       ```javascript
       function getUserInfo(isLoggedIn, user){
-        //use a secure method to access the db without showing credentials in the source code
         const connection = createSQLConnection(user.Credentials);
         connection.query('SELECT * FROM employee', function (error, results, fields) {
           if (error) throw error;
@@ -19263,6 +19292,7 @@
       artifact.password = "123"
       ```
     compliant: |
+      The access keys to sensitive resources are stored correctly encrypted
       ```yaml
       jfrog.accesskey   = ${access_key}
       artifact.password = ENC(something-base64-encoded-but-encrypted)
@@ -19340,8 +19370,8 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The source code shows the db credentials directly
       ```javascript
-      //The source code shows the db credentials directly
       const AWS = require('aws-sdk');
       const ID = 'MyBucketID';
       const SECRET = 'AccessKeyInCode';
@@ -19362,10 +19392,11 @@
       };
       ```
     compliant: |
+      The application correctly sets up access to the databases without showing credentials
       ```javascript
       const uploadFile = (fileName) => {
         const fileContent = fs.readFileSync(fileName);
-        //Function to establish connection to the db without storing credentials on the code
+        //Function to establish connection to the db without storing plain text credentials on the code
         const s3 = establishBucketConnection();
         // Setting up S3 upload parameters
         const params = {
@@ -19453,10 +19484,9 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Configuration and credentials directly stored in the source code
       ```javascript
       var sql = require("mssql");
-
-      // Configuration and credentials directly stored in the source code
       var dbConfig = {
         server: "zavier-test.database.windows.net",
         database: "AdventureWorks",
@@ -19476,6 +19506,7 @@
       };
       ```
     compliant: |
+      The application is correctly configured to access the databases without showing credentials on the source code
       ```javascript
       const uploadFile = (fileName) => {
         const fileContent = fs.readFileSync(fileName);
@@ -19543,7 +19574,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      //There is a file in the source code that stores the employee information
+      There is a file in the source code that stores the employee information
       ```json
       Employees {
         ids {
@@ -19652,6 +19683,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The NAC policy is based on MAC
       ```yaml
       config user nac-policy
         Description: Configure NAC policy
@@ -19665,6 +19697,7 @@
       end
       ```
     compliant: |
+      The NAC policy is correctly configured
       ```yaml
       config user nac-policy
         Description: Configure NAC policy
@@ -19733,8 +19766,8 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are credentials stored on the source code as plain text
       ```javascript
-      //Credentials stored on the source code
       const SW_URL = "myurl";
       const APIKey = "My APIKEY"
 
@@ -19745,6 +19778,7 @@
       };
       ```
     compliant: |
+      Access credentials based on authorized user credentials
       ```javascript
       const getAnalytics= (params, user) => {
         //Use a secure encrypted method to get url and Key data
@@ -19824,9 +19858,9 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are Power BI credentials stored in the source code
       ```javascript
       const request = require('request');
-      //Power BI credentials stored in the source code
       const getAccessToken = function () {
         return new Promise(function (resolve, reject) {
           const url = POWERBI_URL;
@@ -19839,9 +19873,9 @@
       };
       ```
     compliant: |
+      The application handles connections without storing parameters in source code
       ```javascript
       const request = require('request');
-      //Code to handle connection without storing parameters in source code
       const prepareView: function(req, res) {
         getAccessToken().then(function(accessToken) {
           getEmbedToken(accessToken, req.params.groupId, req.params.dashboardId).then(function(embedToken) {
@@ -19904,9 +19938,9 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application attaches user credentials to the response of a db query
       ```javascript
       let db = firebase.database();
-      //The code attaches user credentials to the response of a db query
       app.get("/user/request", (req, res) => {
         const userCredentials = req.body.user.token;
         const ref = db.ref(req.body.reqDb);
@@ -19915,6 +19949,7 @@
       });
       ```
     compliant: |
+      The responses of the application do not include user sensitive data
       ```javascript
       let db = firebase.database();
 
@@ -19996,6 +20031,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The email delivery configuration does not set a time-delay limit
       ```yaml
       email_delivery:
         delivery_method: :smtp
@@ -20008,6 +20044,7 @@
           user_name: "appadmin"
       ```
     compliant: |
+      Accordign to business needs, the email delivery configuration sets a minimun time-delay to avoid overflooding
       ```java
       email_delivery:
         delivery_method: :smtp
@@ -20197,6 +20234,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses stacktrace functions that could potentially print sensitive information
       ```java
       public class Test {
         public static void main(String[ ] args) {
@@ -20212,6 +20250,7 @@
       }
       ```
     compliant: |
+      The application correctly handles exceptions without using print functions that leak technical information
       ```java
       public class Test {
         public static void main(String[ ] args) {
@@ -20275,6 +20314,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The http responses include the system versions and names
       ```http
       HTTP/1.1 200 OK
       Date: Mon, 27 Jul 2009 12:28:53 GMT
@@ -20286,6 +20326,7 @@
       Message: System Version 2.0
       ```
     compliant: |
+      The http responses do not include any system versions or names
       ```http
       HTTP/1.1 200 OK
       Date: Mon, 27 Jul 2009 12:28:53 GMT
@@ -20466,6 +20507,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The source code contains printing functions that could potentially disclose sensitive information
       ```java
       public class Test{
         public static void main(String[] args){
@@ -20479,6 +20521,7 @@
       }
       ```
     compliant: |
+      The application does not make use of any printing functions
       ```java
       public class Test{
         public static void main(String[] args){
@@ -20486,7 +20529,7 @@
             throw new IOException();
           }
           catch (IOException e) {
-            dealWithException(e);
+            //Code to handle the exception
           }
         }
       }
@@ -20543,6 +20586,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application has introspection queries that could potentially leak the GraphQL Schema Structure
       ```javascript
       app.use('/graphql', graphqlHTTP({
         schema: MyGraphQLSchema,
@@ -20550,8 +20594,8 @@
       }));
       ```
     compliant: |
+      The back end correctly disables introspection for graphql
       ```javascript
-      //In nodejs you can disable introspection for graphql
       app.use('/graphql', graphqlHTTP({
         schema: MyGraphQLSchema,
       + validationRules: [NoIntrospection]
@@ -20612,6 +20656,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application uses response messages that include sensitive information
       ```c {3,7,15}
       using System;
       namespace API {
@@ -20628,6 +20673,7 @@
       }
       ```
     compliant: |
+      The response messages do not include any specific or sensitive information in the content
       ```c {3,7,15}
       using System;
       namespace API{
@@ -20708,10 +20754,10 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application updates user credentials without validating the confirmation code
       ```javascript
       app.post('/accessProfile', function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
-          //Updating user without validating data on the server side
           if (length(req.body.ConfirmationCode)>6){
             user.Login = True;
           }
@@ -20720,10 +20766,10 @@
       });
       ```
     compliant: |
+      The application correctly verifies the confirmation code is equal to the one sent to the user
       ```javascript
       app.post('/accessProfile', hashedSentCode, function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
-          //validating the code with the one sent by the server
           if (req.body.ConfirmationCode == hashedSentCode){
             user.Login = True;
           }
@@ -20787,6 +20833,18 @@
   examples:
     non_compliant: |
       The system does not define any authentication mechanisms
+      ```terraform
+      resource "aws_iam_saml_provider" "default" {
+        name                   = "my-saml-provider"
+        saml_metadata_document = file("saml-metadata.xml")
+      }
+
+      resource "aws_cognito_identity_pool" "main" {
+        identity_pool_name               = "identity pool"
+        allow_unauthenticated_identities = true
+        allow_classic_flow               = true
+      }
+      ```
     compliant: |
       There is at least one authentication mechanism enabled in the system
       ```terraform
@@ -20871,6 +20929,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application uses an unsafe encryption method as authentication protocol
       ```html
       <authentication>
         <anonymousAuthentication enabled="true" />
@@ -20882,6 +20941,7 @@
       </authentication>
       ```
     compliant: |
+      A secure authentication method is provided
       ```html
       <authentication>
         <anonymousAuthentication enabled="false" />
@@ -20958,6 +21018,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows access to sensitive data without requiring user credentials
       ```javascript
       app.post('/accessAdmin', function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
@@ -20968,6 +21029,7 @@
       });
       ```
     compliant: |
+      Sensitive resources are restricted from being access by unauthorized users
       ```javascript
       app.post('/accessAdmin', hashedSentCode, function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
@@ -21046,16 +21108,17 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows access to BIOS without verifying permissions and secure authentication
       ```javascript
       app.post('/accessAdmin', function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
-          //Allowing access to BIOS without verifying permissions and secure authentication
           user.allowBIOSAccess = True;
           res.redirect('/profile/BIOSManager');
         }
       });
       ```
     compliant: |
+      The application restricts access to sensitive resources only to authorized users
       ```javascript
       app.post('/accessAdmin', hashedSentCode, function(req, res, next){
         User.register({ _id: req.user.id}, req.body, function(err, user){
@@ -21122,14 +21185,15 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application unsafely saves a hash number that could be accessed through user credentials
       ```javascript
       function processCreditCarNumber(hashed_CCNumber){
-        //Unsafely saving a hash number that could be accessed through user credentials
         saveNumber(hashed_CCNumber);
         return True;
       }
       ```
     compliant: |
+      All sensitive information is securely encrypted
       ```javascript
       const crypto = require('crypto');
       const CIPHER_ALGORITHM = 'aes-256-ctr';
@@ -21199,6 +21263,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      A resource is insecurely configured with the credentials stored in the code
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
@@ -21216,6 +21281,7 @@
       }
       ```
     compliant: |
+      All sensitive resources are correctly configured without storing their credentials in the source code
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
@@ -21291,6 +21357,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Some sensitive resources have their access credentials exposed in the source code
       ```terraform
       provider "aws" {
         region     = "us-west-2"
@@ -21306,6 +21373,7 @@
       }
       ```
     compliant: |
+      Sensitive resources should have access credentials stored as encrypted values
       ```terraform
       provider "aws" {
         region     = "us-west-2"
@@ -21371,6 +21439,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The LDAP service has the access credentials stored in the source code
       ```c
       password = "PlainPassword"
       DirectoryEntry de = new DirectoryEntry();
@@ -21380,6 +21449,7 @@
       de(path, username, password);
       ```
     compliant: |
+      The LDAP service is securely accessed
       ```c
       DirectoryEntry de = new DirectoryEntry();
       de.Path = "LDAP://myserver/OU=People,O=mycompany";
@@ -21444,6 +21514,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Some credentials are stored as plain text in the source code
       ```c
       password = "PlainPassword"
       DirectoryEntry de = new DirectoryEntry();
@@ -21452,6 +21523,7 @@
       de(path, username, password);
       ```
     compliant: |
+      There are no sensitive access credentials stored in the source code
       ```c
       DirectoryEntry de = new DirectoryEntry();
       de.Path = "serverPath";
@@ -21518,6 +21590,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Some storing services are unencrypted
       ```yaml
       Resources:
         NewVolume1:
@@ -21529,6 +21602,7 @@
           DeletionPolicy: Snapshot
       ```
     compliant: |
+      All storing resources are securely configured through the use of encryption
       ```yaml
       Resources:
         NewVolume1:
@@ -21597,6 +21671,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Password are stored in plain text in the source code
       ```yaml
       //JFrog Docker Repository
       localRepositories:
@@ -21605,6 +21680,7 @@
           password: "12234"
       ```
     compliant: |
+      Sensitive services are correctly configured to use secure encryption algorithms for the credentials
       ```yaml
       //JFrog Docker Repository
       localRepositories:
@@ -21680,6 +21756,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There is an insecure range of ports enabled on the service
       ```yaml
       Resources:
         InstanceSecurityGroup:
@@ -21700,6 +21777,7 @@
                 CidrIp: 0.0.0.0/0
       ```
     compliant: |
+      The service has a secure port configuration
       ```yaml
       Resources:
         InstanceSecurityGroup:
@@ -21854,9 +21932,9 @@
       }
       ```
     compliant: |
+      The application verifies the credit card is valid using all the information (Number, expiry date and security code)
       ```javascript
       const accessCreditCards = (req, res) => {
-        //verify the credit card is valid using all the information (Number, expiry date and security code)
         if (isValidNumber(req.body.creditCardInfo)) {
           //Sending credit card information based on CC info and user Id
           const creditCards = listCards(req.body.creditCardinfo, req.body.userId);
@@ -21918,7 +21996,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      //The server configuration has LM hash storing allowed, which makes it vulnerable to brut force attacks
+      The server configuration has LM hash storing allowed, which makes it vulnerable to brut force attacks
       ```yaml
       Security Policy:
         Control Set:
@@ -21926,7 +22004,7 @@
             LMHash
       ```
     compliant: |
-      //Configure the server to avoid LM Hashing
+      Configure the server to avoid LM Hashing
       ```yaml
       Security Policy:
         Control Set:
@@ -21988,6 +22066,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have any protection against deletion
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
@@ -21996,7 +22075,7 @@
         instance_class          = "db.t3.micro"
         name                    = "mydb"
         username                = "foo"
-        deletion_protection     = true
+        deletion_protection     = false
         password                = "foobarbaz"
         backup_retention_period = 0
         parameter_group_name    = "default.mysql5.7"
@@ -22004,6 +22083,7 @@
       }
       ```
     compliant: |
+      All resources have a secure protection mechanism against deletion
       ```terraform
       resource "aws_db_instance" "default" {
         allocated_storage       = 10
@@ -22072,6 +22152,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have any protection against deletion
       ```yaml
       Resources:
         MyLaunchTemplate:
@@ -22084,6 +22165,7 @@
               DisableApiTermination: False
       ```
     compliant: |
+      The resource has correctly configured protection against deletion
       ```yaml
       Resources:
         MyLaunchTemplate:
@@ -22157,6 +22239,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have any protection against deletion
       ```yaml
       Resources:
         LoadBalancer:
@@ -22171,6 +22254,7 @@
               Value: "bk"
       ```
     compliant: |
+      The resource has correctly configured its protection against deletion
       ```yaml
       Resources:
         LoadBalancer:
@@ -22241,6 +22325,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have any protection against deletion
       ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         name           = "GameScores"
@@ -22258,39 +22343,11 @@
           name = "UserId"
           type = "S"
         }
-
-        attribute {
-          name = "GameTitle"
-          type = "S"
-        }
-
-        attribute {
-          name = "TopScore"
-          type = "N"
-        }
-
-        ttl {
-          attribute_name = "TimeToExist"
-          enabled        = false
-        }
-
-        global_secondary_index {
-          name               = "GameTitleIndex"
-          hash_key           = "GameTitle"
-          range_key          = "TopScore"
-          write_capacity     = 10
-          read_capacity      = 10
-          projection_type    = "INCLUDE"
-          non_key_attributes = ["UserId"]
-        }
-
-        tags = {
-          Name        = "dynamodb-table-1"
-          Environment = "production"
-        }
+        //Other service configuration settings not shown
       }
       ```
     compliant: |
+      The resource has correctly configured protection against deletion
       ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         name           = "GameScores"
@@ -22308,36 +22365,7 @@
           name = "UserId"
           type = "S"
         }
-
-        attribute {
-          name = "GameTitle"
-          type = "S"
-        }
-
-        attribute {
-          name = "TopScore"
-          type = "N"
-        }
-
-        ttl {
-          attribute_name = "TimeToExist"
-          enabled        = false
-        }
-
-        global_secondary_index {
-          name               = "GameTitleIndex"
-          hash_key           = "GameTitle"
-          range_key          = "TopScore"
-          write_capacity     = 10
-          read_capacity      = 10
-          projection_type    = "INCLUDE"
-          non_key_attributes = ["UserId"]
-        }
-
-        tags = {
-          Name        = "dynamodb-table-1"
-          Environment = "production"
-        }
+        //Other service configuration settings not shown
       }
       ```
   remediation_time: "30"
@@ -22395,6 +22423,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has insecure configuration for binary file compilation
       ```java
       sample_app = executable('sample_app',
         'app/main.c',
@@ -22411,6 +22440,7 @@
       )
       ```
     compliant: |
+      The application includes ARC and fstack-protector-all flags configured for binary file compilation
       ```java
       sample_app = executable('sample_app',
         'app/main.c',
@@ -22473,6 +22503,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure DSA cipher algorithm
       ```json
       http {
         server {
@@ -22488,6 +22519,7 @@
       }
       ```
     compliant: |
+      The server uses a secure encryption algorithm
       ```json
       http {
         server {
@@ -22551,6 +22583,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure SHA1 cipher algorithm
       ```json
       http {
         server {
@@ -22566,6 +22599,7 @@
       }
       ```
     compliant: |
+      The server uses a secure encryption algorithm
       ```json
       http {
         server {
@@ -22631,6 +22665,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure MD5 cipher algorithm
       ```json
       http {
         server {
@@ -22646,6 +22681,7 @@
       }
       ```
     compliant: |
+      The server uses a secure cipher algorithm
       ```json
       http {
         server {
@@ -22716,6 +22752,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure DES cipher algorithm
       ```json
       http {
         server {
@@ -22731,6 +22768,7 @@
       }
       ```
     compliant: |
+      The server uses an secure cipher algorithm
       ```json
       http {
         server {
@@ -22801,6 +22839,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure AES cipher algorithm
       ```json
       http {
         server {
@@ -22816,6 +22855,7 @@
       }
       ```
     compliant: |
+      The server uses a secure cipher algorithm
       ```json
       http {
         server {
@@ -22823,7 +22863,7 @@
           listen: "localhost:4446 ssl";
           server_name: "localhost";
           ssl_prefer_server_ciphers: "on";
-          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"";
+          ssl_ciphers: "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256";
           ssl_certificate: "cert.crt";
           ssl_certificate_key: "cert.key";
           ssl_protocols: "SSLv3 TLSv1.2";
@@ -22890,6 +22930,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The container is insecurely configured to allow access as root
       ```docker
       FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
       ARG DEBIAN_FRONTEND=noninteractive
@@ -22899,6 +22940,7 @@
         apt clean
       ```
     compliant: |
+      The containers have specific user configurations to restrict access
       ```docker
       FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
       ARG DEBIAN_FRONTEND=noninteractive
@@ -22965,6 +23007,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not enable safe security policies allowing privileged execution
       ```yaml
       apiVersion: v1
       kind: Pod
@@ -22990,6 +23033,7 @@
               - containerPort: 88
       ```
     compliant: |
+      The resource has enabled safe security policies by restricting privileges to authorized users
       ```yaml
       apiVersion: v1
       kind: Pod
@@ -23078,6 +23122,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application uses the insecure setJavaScriptEnabled method
       ```java
       @Override
       protected void processLogic(Bundle savedInstanceState) {
@@ -23086,6 +23131,7 @@
       }
       ```
     compliant: |
+      The application does not enable the insecure setJavaScriptEnabled method
       ```java
       @Override
       protected void processLogic(Bundle savedInstanceState) {
@@ -23141,6 +23187,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource uses the blowfish insecure encryption algorithm
       ```json
       http {
         server {
@@ -23157,6 +23204,7 @@
       }
       ```
     compliant: |
+      The resource correctly configures a secure encryption algorithm
       ```json
       http {
         server {
@@ -23380,6 +23428,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application sends potential sensitive information without masking
       ```javascript
       const accessRecoveryEmail = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -23392,6 +23441,7 @@
       }
       ```
     compliant: |
+      Sensitive user information is sent masked
       ```javascript
       const accessRecoveryEmail = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -23451,11 +23501,11 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not perform server side validation to confirm the field the user is trying to change
       ```javascript
       const updateInfo = (req, res) => {
         if (isValidUser(req.body.user)) {
           if (validateToken == req.body.token){
-            //There is no server side validation of the field the user is trying to change
             const updatedField = req.body.infoChange;
             updateUser("password", updatedField);
           }
@@ -23463,6 +23513,7 @@
       }
       ```
     compliant: |
+      The application securely ensures the field the user is trying to update
       ```javascript
       const updateInfo = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -23552,6 +23603,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application does not verify user credentials before allowing editing access
       ```javascript
       const createUser = (req, res) => {
         const userId = req.body.userId;
@@ -23560,12 +23612,16 @@
       }
       ```
     compliant: |
+      The application correctly verifies the user authorization before accessing sensitive information
       ```javascript
       const createUser = (req, res) => {
         //Verify userId is not already registered
         if (!isValidUser(req.body.userId)) {
           const userId = req.body.userId;
-          addNewUserDB(userId, req.body.info);
+          const userCredentials = req.body.credentials;
+          if(isAuthuser(userCredentials)){
+            updateUserDB(userId, req.body.info);
+          }
         }
       }
       ```
@@ -23628,6 +23684,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      A resource has the access credentials insecurely stored in the source code
       ```javascript
       import { initializeApp } from 'firebase/app';
       import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
@@ -23645,6 +23702,7 @@
       }
       ```
     compliant: |
+      There are no unencrypted sensitive credentials stored in the source code
       ```javascript
       import { initializeApp } from 'firebase/app';
       import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
@@ -23714,23 +23772,24 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application includes the jwt access token in the url response
       ```javascript
       const getSession = (req, res) => {
         //Not shown: Code to check user session credentials
 
         //Include the jwt in the response url
         app.get('/users/:userJWT', (req, res) => {
-          res.send(req.params);
+          res.redirect("url/"+req.params);
         })
       }
       ```
     compliant: |
+      The url responses does not include sensitive information
       ```javascript
       const getSession = (req, res) => {
         //Not shown: Code to check user session credentials
-        //The application should not include sensitive information in the url
         app.get('/users/login', (req, res) => {
-          res.send();
+          res.redirect("/profile/main");
         })
       }
       ```
@@ -23799,16 +23858,18 @@
   category: Probabilistic Techniques
   examples:
     non_compliant: |
+      The resource does not enable password expiration
       ```terraform
       resource "system_passwordpolicy" "strict" {
         enable_password_expiration = disable
       }
       ```
     compliant: |
+      The resource correctly configures password expiration
       ```terraform
       resource "system_passwordpolicy" "strict" {
         enable_password_expiration = enable
-        expire_day                 = 90
+        expire_day                 = 30
       }
       ```
   remediation_time: "30"
@@ -23867,6 +23928,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application includes code that could potentially generate a null pointer exception
       ```java
       public class SimpleTesting{
         static String str;
@@ -23880,6 +23942,7 @@
       }
       ```
     compliant: |
+      All exceptions in the code are correctly handled and accounted for
       ```java
       public class SimpleTesting{
         static String str;
@@ -24043,6 +24106,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application does not update the user cookie after a login
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -24058,6 +24122,7 @@
       }
       ```
     compliant: |
+      The application updates user cookies after every sucessful login
       ```javascript
       const signinHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -24155,6 +24220,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The AWS resource does not enable secure transport configuration
       ```yaml
       Resources:
         BucketPolicy1:
@@ -24178,6 +24244,7 @@
                       'aws:SecureTransport': False
       ```
     compliant: |
+      The AWS resource enables secure transport configuration
       ```yaml
       Resources:
         BucketPolicy1:
@@ -24247,6 +24314,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The server uses the insecure ECB encryption algorithm
       ```json
       http {
         server {
@@ -24262,6 +24330,7 @@
       }
       ```
     compliant: |
+      The server uses a secure encryption algorithm
       ```json
       http {
         server {
@@ -24341,6 +24410,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application does not verify the session token before allowing access to sensitive information
       ```javascript
       const accessHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -24354,6 +24424,7 @@
       }
       ```
     compliant: |
+      The application correctly validates the user session token before allowing access to user information
       ```javascript
       const accessHandler = (req, res) => {
         // get users credentials from the JSON body
@@ -24447,7 +24518,7 @@
             self.password_hash = base64.b64encode('password')
       ```
     compliant: |
-      //The encrypted values of sensitive information should be stored in the code
+      The encrypted values of sensitive information should be stored in the code
       ```python
       class User(db.Model, UserMixin):
         id = db.Column(db.Integer, primary_key=True)
@@ -24520,7 +24591,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      The info.plist file has some of these parameters
+      The info.plist file has some insecure parameters
       ```html
       <key>NSAppTransportSecurity</key>
       <dict>
@@ -24537,6 +24608,7 @@
       </dict>
       ```
     compliant: |
+      The info.plist is correctly configured to avoid insecure http loads
       ```html
       <key>NSAppTransportSecurity</key>
       <dict>
@@ -24609,6 +24681,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows an unauthorized user to edit unique identification
       ```javascript
       const updateHandler = (req, res) => {
         const { username, password } = req.body
@@ -24622,15 +24695,16 @@
       }
       ```
     compliant: |
+      There are no methods in the application that allows an unauthorized user to edit sensitive information
       ```javascript
       const updateHandler = (req, res) => {
         const { username, password } = req.body
-        if (!username) {
+        if (!username || !isVerifiedUser(req.body.userId, password)) {
           res.status(401).end();
           return;
         }
         // Update methods should only update user non-sensitive information
-        Users.username.descriptio = req.description;
+        Users.username.description = req.description;
         return Users;
       }
       ```
@@ -24717,6 +24791,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application grants access to sensitive information without verifying authorization credentials
       ```javascript
       const updateFiles = (req, res) => {
         const { username, password } = req.body
@@ -24730,6 +24805,7 @@
       }
       ```
     compliant: |
+      The application allows access to sensitive information only to authorized users
       ```javascript
       const updateFiles = (req, res) => {
         const { username, password } = req.body
@@ -24804,6 +24880,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application grants access to sensitive information without verifying authorization credentials
       ```javascript
       const getQueryConsult = (req, res) => {
         if (!isValidQuery(req.body.user, req.body.product)) {
@@ -24814,6 +24891,7 @@
       }
       ```
     compliant: |
+      The application correctly verifies user authorization credentials before accesing sensitive information
       ```javascript
       const getQueryConsult = (req, res) => {
         if (!isValidQuery(req.body.user, req.body.product)) {
@@ -25068,6 +25146,7 @@
       });
       ```
     compliant: |
+      The application does not include any sensitive data in the responses
       ```javascript
       app.post("/user/generateToken", (req, res) => {
         if user.isLoggedIn{
@@ -25148,6 +25227,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application uses static variable declaration when not strictly necessary
       ```java
       public class UserExample {
         public static user_key a;
@@ -25155,10 +25235,11 @@
       }
       ```
     compliant: |
+      The application does not use static variable declaration
       ```java
       public class UserExample {
         private user_key a;
-        private static user_id b;
+        private user_id b;
       }
       ```
   remediation_time: "15"
@@ -25228,12 +25309,14 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are shared key pairs for several sensitive resources
       ```yaml
       jarsigner -keystore "password1" -certchain "bundle.pem" -tsa "http://time.certum.pl" -storetype PKCS11
         -providerClass sun.security.pkcs11.SunPKCS11 -providerArg "provider.cfg" -keypass "password1"
         -storepass "password1" "[your_code].jar" "[your_alias]"
       ```
     compliant: |
+      Every sensitive resource has a secure key pair configuration
       ```yaml
       jarsigner -keystore "enc_password" -certchain "bundle.pem" -tsa "http://time.certum.pl" -storetype PKCS11
         -providerClass sun.security.pkcs11.SunPKCS11 -providerArg "provider.cfg" -keypass "enc_password1"
@@ -25298,6 +25381,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The OTP service is insecurely configured to allow default access
       ```javascript
       const otpGenerator = require('otp-generator');
       const { OTP_LENGTH, OTP_CONFIG } = require('../constants/constants');
@@ -25313,6 +25397,7 @@
       },
       ```
     compliant: |
+      The OTP service is securely configured, verifying the uniqueness of the code generated
       ```javascript
       const otpGenerator = require('otp-generator');
       const { OTP_LENGTH, OTP_CONFIG } = require('../constants/constants');
@@ -25434,6 +25519,7 @@
   category: Probabilistic Techniques
   examples:
     non_compliant: |
+      The application allows multiple password changes without establishing time out limits
       ```javascript
       const changePassword = (req, res) => {
         if (!isConfirmedUser(req.body.user)) {
@@ -25445,6 +25531,7 @@
       }
       ```
     compliant: |
+      The application sets a limit on the number of change password attempts
       ```javascript
       const changePassword = (req, res) => {
         if (!isConfirmedUser(req.body.user)) {
@@ -25514,6 +25601,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There are unvalidated SQL queries that use input data
       ```java
       static void getQuery(sql) {
         try {
@@ -25527,6 +25615,7 @@
       }
       ```
     compliant: |
+      The SQL queries are used by parameterized queries using sanitized user data
       ```java
       static void getQuery(param) {
         param = java.net.URLDecoder.decode(param, ""UTF-8"");
@@ -25612,15 +25701,16 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application allows to redirect the user to a private page without checking the authorization
       ```javascript
       const accessCredentials = (req, res) => {
         if (isValidUser(req.body.user)) {
-          //Redirect the user to a private page without checking the authorization
           res.redirect('/profile/credentials');
         }
       }
       ```
     compliant: |
+      The application checks user credentials before accessing sensitive resources
       ```javascript
       const accessCredentials = (req, res) => {
         //Redirect the user to sensitive page only if it has access
@@ -25689,8 +25779,8 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The JFrog service has a default access configuration to edit
       ```yaml
-      //JFROG Configuration Sample
       artifactoryConfiguration:
         docker-local:
           type: docker
@@ -25698,8 +25788,8 @@
           permissions: edit, upload
       ```
     compliant: |
+      The JFrog service only has read access to unauthorized users
       ```yaml
-      //JFROG Configuration Sample
       artifactoryConfiguration:
         docker-local:
           type: docker
@@ -25771,8 +25861,9 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The authentication mechanism of the azure resource can be bypassed due to wrong configurations
       ```terraform
-      resource "azurerm_app_service" "not_vulnerable" {
+      resource "azurerm_app_service" "vulnerable" {
         name                = var.functionapp_name
         location            = var.rg_location
         resource_group_name = var.resource_group_name
@@ -25780,11 +25871,12 @@
         https_only          = true
         tags                = var.modtags
         auth_settings {
-          enabled = true
+          enabled = false
         }
       }
       ```
     compliant: |
+      The azure resources have secure authentication mechanisms configured
       ```terraform
       resource "azurerm_function_app" "not_vulnerable" {
         name                       = "test-azure-functions"
