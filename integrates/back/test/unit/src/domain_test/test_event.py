@@ -26,6 +26,7 @@ from dataloaders import (
 )
 from db_model.events.enums import (
     EventEvidenceType,
+    EventSolutionReason,
 )
 from db_model.events.types import (
     Event,
@@ -116,28 +117,28 @@ async def test_add_event_file_image() -> None:
 async def test_solve_event() -> None:
     request = await create_dummy_session("unittesting@fluidattacks.com")
     info = create_dummy_info(request)
-    (
-        success,
-        _reattacks_dict,
-        _verifications_dict,
-    ) = await events_domain.solve_event(
+    await events_domain.solve_event(
         info=info,
         event_id="538745942",
         hacker_email="unittesting@fluidattacks.com",
         date=parse_datetime("2019-12-09T05:00:00.000Z"),
-        reason="PERMISSION_GRANTED",
-        other=None,
+        reason=EventSolutionReason.PERMISSION_GRANTED,
+        other="Other info",
     )
-    assert success
     event = await events_domain.get_event("538745942")
     assert event["historic_state"][-1]["state"] == "SOLVED"
+    assert event["historic_state"][-1]["other"] == "Other info"
+    assert event["historic_state"][-1]["reason"] == "PERMISSION_GRANTED"
+
+    request = await create_dummy_session("unittesting@fluidattacks.com")
+    info = create_dummy_info(request)
     with pytest.raises(EventAlreadyClosed):
         assert await events_domain.solve_event(
             info=info,
             event_id="538745942",
             hacker_email="unittesting@fluidattacks.com",
             date=parse_datetime("2019-12-09T05:00:00.000Z"),
-            reason="PERMISSION_GRANTED",
+            reason=None,
             other=None,
         )
 

@@ -4,8 +4,14 @@ from ariadne.utils import (
 from custom_types import (
     SimplePayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
+)
+from db_model.events.enums import (
+    EventSolutionReason,
 )
 from db_model.events.types import (
     Event,
@@ -56,45 +62,41 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
-    (
-        success,
-        reattacks_dict,
-        verifications_dict,
-    ) = await events_domain.solve_event(
-        info, event_id, hacker_email, date, reason, other
+    (reattacks_dict, verifications_dict,) = await events_domain.solve_event(
+        info, event_id, hacker_email, date, EventSolutionReason[reason], other
     )
 
-    if success:
-        info.context.loaders.event_typed.clear(event_id)
-        event: Event = await info.context.loaders.event_typed.load(event_id)
-        group_name = event.group_name
-        redis_del_by_deps_soon("solve_event", group_name=group_name)
-        logs_utils.cloudwatch_log(
-            info.context, f"Security: Solved event {event_id} successfully"
+    loaders: Dataloaders = info.context.loaders
+    loaders.event_typed.clear(event_id)
+    event: Event = await loaders.event_typed.load(event_id)
+    group_name = event.group_name
+    redis_del_by_deps_soon("solve_event", group_name=group_name)
+    logs_utils.cloudwatch_log(
+        info.context, f"Security: Solved event {event_id} successfully"
+    )
+    if bool(reattacks_dict):
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.request_vulnerabilities_verification,
+            finding_ids=list(reattacks_dict.keys()),
+            vulnerability_ids=[
+                vuln_id
+                for reattack_ids in reattacks_dict.values()
+                for vuln_id in reattack_ids
+            ],
         )
-        if bool(reattacks_dict):
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.request_vulnerabilities_verification,
-                finding_ids=list(reattacks_dict.keys()),
-                vulnerability_ids=[
-                    vuln_id
-                    for reattack_ids in reattacks_dict.values()
-                    for vuln_id in reattack_ids
-                ],
-            )
-        if bool(verifications_dict):
-            await update_unreliable_indicators_by_deps(
-                EntityDependency.verify_vulnerabilities_request,
-                finding_ids=list(verifications_dict.keys()),
-                vulnerability_ids=[
-                    vuln_id
-                    for verification_ids in verifications_dict.values()
-                    for vuln_id in verification_ids
-                ],
-            )
+    if bool(verifications_dict):
+        await update_unreliable_indicators_by_deps(
+            EntityDependency.verify_vulnerabilities_request,
+            finding_ids=list(verifications_dict.keys()),
+            vulnerability_ids=[
+                vuln_id
+                for verification_ids in verifications_dict.values()
+                for vuln_id in verification_ids
+            ],
+        )
     else:
         logs_utils.cloudwatch_log(
             info.context, f"Security: Attempted to solve event {event_id}"
         )
 
-    return SimplePayload(success=success)
+    return SimplePayload(success=True)

@@ -35,6 +35,7 @@ from db_model.events.enums import (
     EventAccessibility,
     EventAffectedComponents,
     EventEvidenceType,
+    EventSolutionReason,
     EventStateStatus,
     EventType,
 )
@@ -346,24 +347,18 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     event_id: str,
     hacker_email: str,
     date: datetime,
-    reason: str,
+    reason: EventSolutionReason,
     other: Optional[str],
-) -> tuple[bool, dict[str, set[str]], dict[str, list[str]]]:
-    """Solves an Event, can either return a bool and two empty dicts or a bool
-    with the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
+) -> tuple[dict[str, set[str]], dict[str, list[str]]]:
+    """Solves an Event, can either return two empty dicts or
+    the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
     and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
-    event = await get_event(event_id)
-    success = False
     loaders = info.context.loaders
-    group_name = str(get_key_or_fallback(event, fallback=""))
+    event: Event = await loaders.event_typed.load(event_id)
+    group_name = event.group_name
     other_reason: str = other if other else ""
 
-    if (
-        cast(list[dict[str, str]], event.get("historic_state", []))[-1].get(
-            "state"
-        )
-        == "SOLVED"
-    ):
+    if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
 
     affected_reattacks: tuple[
@@ -412,50 +407,46 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
                 is_closing_event=True,
             )
 
-    event_type = str(event["event_type"])
-    description = str(event["detail"])
-    report_date: date_type = datetime_utils.get_date_from_iso_str(
-        event["historic_state"][0]["date"]
+    await events_dal.update_state(
+        event_id=event_id,
+        group_name=group_name,
+        state=EventState(
+            modified_by=hacker_email,
+            modified_date=datetime_utils.get_as_utc_iso_format(date),
+            other=other_reason,
+            reason=reason,
+            status=EventStateStatus.CLOSED,
+        ),
+    )
+    await events_dal.update_state(
+        event_id=event_id,
+        group_name=group_name,
+        state=EventState(
+            modified_by=hacker_email,
+            modified_date=datetime_utils.get_iso_date(),
+            other=other_reason,
+            reason=reason,
+            status=EventStateStatus.SOLVED,
+        ),
     )
 
-    today = datetime_utils.get_now()
-    history = cast(list[dict[str, str]], event.get("historic_state", []))
-    history += [
-        {
-            "analyst": hacker_email,
-            "date": datetime_utils.get_as_str(date),
-            "state": "CLOSED",
-            "reason": reason,
-            "other": other_reason,
-        },
-        {
-            "analyst": hacker_email,
-            "date": datetime_utils.get_as_str(today),
-            "state": "SOLVED",
-            "reason": reason,
-            "other": other_reason,
-        },
-    ]
-    success = await events_dal.update(event_id, {"historic_state": history})
-
-    if success:
-        schedule(
-            events_mail.send_mail_event_report(
-                loaders=loaders,
-                group_name=group_name,
-                event_id=event_id,
-                event_type=event_type,
-                description=description,
-                reason=reason,
-                other=other,
-                is_closed=True,
-                report_date=report_date,
-            )
+    schedule(
+        events_mail.send_mail_event_report(
+            loaders=loaders,
+            group_name=group_name,
+            event_id=event_id,
+            event_type=event.type.value,
+            description=event.description,
+            reason=reason.value,
+            other=other,
+            is_closed=True,
+            report_date=datetime_utils.get_date_from_iso_str(event.event_date),
         )
+    )
 
     if has_reattacks:
-        return (success, reattacks_dict, verifications_dict)
-    return (success, {}, {})
+        return (reattacks_dict, verifications_dict)
+    return ({}, {})
 
 
 async def update_evidence(
