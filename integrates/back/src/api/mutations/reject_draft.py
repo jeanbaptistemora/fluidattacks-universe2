@@ -18,7 +18,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from decorators import (
     concurrent_decorators,
@@ -69,7 +69,7 @@ async def mutate(
             "reject_draft",
             finding_id=finding_id,
         )
-        user: User = await info.context.loaders.user.load(user_email)
+        user: Stakeholder = await info.context.loaders.user.load(user_email)
         if (
             requests_utils.get_source_new(info.context) != Source.MACHINE
             and Notification.NEW_DRAFT in user.notifications_preferences.email

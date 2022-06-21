@@ -22,7 +22,7 @@ from db_model.roots.types import (
     GitRootCloning,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from mailer.utils import (
     get_organization_name,
@@ -61,7 +61,7 @@ async def send_mail_daily_digest(
     # Unique number needed to avoid the email client generating unwanted html
     # code in the template
     context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
-    users: Tuple[User, ...] = await loaders.user.load_many(email_to)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(email_to)
     users_email = [
         user.email
         for user in users
@@ -113,7 +113,7 @@ async def send_mail_comment(
         "has_squad": has_squad,
         "user_email": user_mail,
     }
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users

@@ -13,7 +13,7 @@ from dataloaders import (
 )
 from db_model.users.types import (
     NotificationsPreferences,
-    User,
+    Stakeholder,
 )
 import pytest
 from typing import (
@@ -58,7 +58,7 @@ async def test_remove_stakeholder(
         entity="ORGANIZATION",
     )
     old_loaders: Dataloaders = get_new_context()
-    old_user: User = await old_loaders.user.load(email)
+    old_user: Stakeholder = await old_loaders.user.load(email)
 
     assert old_user.email == email
     assert "ACCESS_GRANTED" in old_user.notifications_preferences.email
@@ -116,7 +116,7 @@ async def test_remove_stakeholder(
     )
 
     new_loaders: Dataloaders = get_new_context()
-    new_user: User = await new_loaders.user.load(email)
+    new_user: Stakeholder = await new_loaders.user.load(email)
     assert new_user.email == ""
     assert "ACCESS_GRANTED" not in new_user.notifications_preferences.email
     assert "DAILY_DIGEST" not in new_user.notifications_preferences.email

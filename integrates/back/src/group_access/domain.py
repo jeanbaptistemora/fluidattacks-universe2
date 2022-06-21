@@ -13,7 +13,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -113,7 +113,9 @@ async def get_users_email_by_preferences(
         for user, user_role in zip(users, user_roles)
         if user_role in roles
     ]
-    users_data: tuple[User, ...] = await loaders.user.load_many(email_list)
+    users_data: tuple[Stakeholder, ...] = await loaders.user.load_many(
+        email_list
+    )
     users_email = [
         user.email
         for user in users_data

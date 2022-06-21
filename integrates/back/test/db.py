@@ -99,8 +99,8 @@ async def populate_users(data: List[Any]) -> bool:
     )
     await collect(
         [
-            users_model.update_user(
-                user_email=user["email"],
+            users_model.update_metadata(
+                stakeholder_email=user["email"],
                 notifications_preferences={
                     "email": [
                         "ACCESS_GRANTED",

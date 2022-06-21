@@ -7,16 +7,15 @@ from dynamodb import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
-async def update_user(
-    *, user_email: str, notifications_preferences: Dict[str, Any]
+async def update_metadata(
+    *, stakeholder_email: str, notifications_preferences: dict[str, Any]
 ) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["user_metadata"],
-        values={"email": user_email},
+        values={"email": stakeholder_email},
     )
 
     await operations.update_item(

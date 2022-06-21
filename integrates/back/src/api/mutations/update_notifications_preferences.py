@@ -28,8 +28,8 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    await user_model.update_user(
-        user_email=user_email,
+    await user_model.update_metadata(
+        stakeholder_email=user_email,
         notifications_preferences=notifications_preferences,
     )
     return SimplePayload(success=True)

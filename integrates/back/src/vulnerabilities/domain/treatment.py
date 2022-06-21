@@ -41,7 +41,7 @@ from db_model.organizations.types import (
     Organization,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -610,7 +610,7 @@ async def validate_and_send_notification_request(
         list(vuln.where for vuln in assigned_vulns)
     )
 
-    user: User = await loaders.user.load(assigned)
+    user: Stakeholder = await loaders.user.load(assigned)
     if (
         Notification.VULNERABILITY_ASSIGNED
         in user.notifications_preferences.email

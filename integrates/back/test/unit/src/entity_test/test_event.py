@@ -139,8 +139,8 @@ async def test_solve_event() -> None:
     """
     data = {"query": query}
     request = await create_dummy_session()
-    await users_model.update_user(
-        user_email="unittest",
+    await users_model.update_metadata(
+        stakeholder_email="unittest",
         notifications_preferences={
             "email": [
                 "CHARTS_REPORT",

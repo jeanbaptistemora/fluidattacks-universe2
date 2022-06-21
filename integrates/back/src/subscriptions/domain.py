@@ -37,7 +37,7 @@ from db_model.organizations.types import (
     Organization,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from decorators import (
     retry_on_exceptions,
@@ -255,7 +255,7 @@ async def _send_analytics_report(
 
     report_subject = report_subject.lower()
 
-    user: User = await loaders.user.load(user_email)
+    user: Stakeholder = await loaders.user.load(user_email)
     if Notification.CHARTS_REPORT in user.notifications_preferences.email:
         await analytics_mail.send_mail_analytics(
             user_email,

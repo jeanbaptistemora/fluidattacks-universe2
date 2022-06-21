@@ -16,7 +16,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from mailer.utils import (
     get_organization_name,
@@ -62,7 +62,7 @@ async def send_mail_comment(
         "has_squad": has_squad,
         "user_email": user_mail,
     }
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users
@@ -103,7 +103,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
     recipients = [stakeholder["email"] for stakeholder in stakeholders]
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users

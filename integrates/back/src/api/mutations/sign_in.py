@@ -57,8 +57,8 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_user(email: str) -> None:
-    await user_model.update_user(
-        user_email=email,
+    await user_model.update_metadata(
+        stakeholder_email=email,
         notifications_preferences={
             "email": [
                 "ACCESS_GRANTED",

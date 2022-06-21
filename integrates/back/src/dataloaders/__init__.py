@@ -66,7 +66,7 @@ from db_model.toe_lines.get import (
     ToeLinesLoader,
 )
 from db_model.users.get import (
-    UserLoader,
+    StakeholderLoader,
 )
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,
@@ -150,7 +150,7 @@ class Dataloaders(NamedTuple):
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    user: UserLoader
+    user: StakeholderLoader
     user_credentials_new: UserCredentialsNewLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -250,7 +250,7 @@ def get_new_context() -> Dataloaders:
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
-        user=UserLoader(),
+        user=StakeholderLoader(),
         user_credentials_new=UserCredentialsNewLoader(),
         vulnerability=vulnerability,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),

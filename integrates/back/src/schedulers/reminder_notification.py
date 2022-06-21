@@ -10,7 +10,7 @@ from db_model.enums import (
     Notification,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from itertools import (
     groupby,
@@ -71,7 +71,7 @@ async def send_reminder_notification() -> None:
         key for key, _ in groupby(sorted(stakeholders_emails))
     ]
 
-    users: tuple[User, ...] = await loaders.user.load_many(
+    users: tuple[Stakeholder, ...] = await loaders.user.load_many(
         stakeholders_emails_filtered
     )
     users_email = [

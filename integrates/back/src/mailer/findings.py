@@ -17,7 +17,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from decimal import (
     Decimal,
@@ -69,7 +69,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users
@@ -112,7 +112,7 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         "group": group_name,
         "user_role": user_role.replace("_", " "),
     }
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users
@@ -150,7 +150,7 @@ async def send_mail_new_draft(
         "organization": org_name,
         "user_role": user_role.replace("_", " "),
     }
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users
@@ -221,7 +221,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(group_name)
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users
@@ -266,7 +266,7 @@ async def send_mail_vulnerability_report(
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
     recipients = [stakeholder["email"] for stakeholder in stakeholders]
-    users: Tuple[User, ...] = await loaders.user.load_many(recipients)
+    users: Tuple[Stakeholder, ...] = await loaders.user.load_many(recipients)
     users_email = [
         user.email
         for user in users

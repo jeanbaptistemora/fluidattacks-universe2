@@ -54,7 +54,7 @@ from db_model.toe_lines.types import (
     ToeLinesRequest,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -585,7 +585,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             additional_info=target_root.state.nickname,
             product_name=Product.INTEGRATES,
         )
-    user: User = await loaders.user.load(item.subject)
+    user: Stakeholder = await loaders.user.load(item.subject)
     if Notification.ROOT_UPDATE in user.notifications_preferences.email:
         LOGGER.info(
             "Notifying user",

@@ -1,9 +1,9 @@
 from .types import (
     NotificationsPreferences,
-    User,
+    Stakeholder,
 )
 from .utils import (
-    format_user,
+    format_stakeholder,
 )
 from aiodataloader import (
     DataLoader,
@@ -18,12 +18,9 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Tuple,
-)
 
 
-async def _get_user(*, user_email: str) -> User:
+async def _get_stakeholder(*, user_email: str) -> Stakeholder:
     primary_key = keys.build_key(
         facet=TABLE.facets["user_metadata"],
         values={"email": user_email},
@@ -36,17 +33,19 @@ async def _get_user(*, user_email: str) -> User:
     )
 
     if item:
-        return format_user(item)
+        return format_stakeholder(item)
 
-    return User(
+    return Stakeholder(
         email="",
         notifications_preferences=NotificationsPreferences(email=[]),
     )
 
 
-class UserLoader(DataLoader):
+class StakeholderLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
-    async def batch_load_fn(self, emails: Tuple[str, ...]) -> Tuple[User, ...]:
+    async def batch_load_fn(
+        self, emails: tuple[str, ...]
+    ) -> tuple[Stakeholder, ...]:
         return await collect(
-            tuple(_get_user(user_email=email) for email in emails)
+            tuple(_get_stakeholder(user_email=email) for email in emails)
         )

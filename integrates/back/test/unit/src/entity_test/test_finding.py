@@ -53,8 +53,8 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
-    await users_model.update_user(
-        user_email=user,
+    await users_model.update_metadata(
+        stakeholder_email=user,
         notifications_preferences={
             "email": [
                 "CHARTS_REPORT",

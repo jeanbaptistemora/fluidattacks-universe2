@@ -16,7 +16,7 @@ from db_model.enums import (
     Notification,
 )
 from db_model.users.types import (
-    User,
+    Stakeholder,
 )
 from findings import (
     domain as findings_domain,
@@ -78,7 +78,9 @@ async def get_remediated_findings() -> None:
                 "findings": mail_context_findings,
                 "total": len(findings),
             }
-            users: tuple[User, ...] = await loaders.user.load_many(mail_to)
+            users: tuple[Stakeholder, ...] = await loaders.user.load_many(
+                mail_to
+            )
             users_email = [
                 user.email
                 for user in users

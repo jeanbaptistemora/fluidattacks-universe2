@@ -54,8 +54,8 @@ USERS_TABLE = "FI_users"
 async def main() -> None:
     users = await operations_legacy.scan(USERS_TABLE, {})
     for user in users:
-        await users_model.update_user(
-            user_email=user["email"],
+        await users_model.update_metadata(
+            stakeholder_email=user["email"],
             notifications_preferences={
                 "email": [
                     "ACCESS_GRANTED",

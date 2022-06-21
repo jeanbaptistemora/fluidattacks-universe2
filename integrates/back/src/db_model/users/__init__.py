@@ -1,7 +1,7 @@
 from .update import (
-    update_user,
+    update_metadata,
 )
 
 __all__ = [
-    "update_user",
+    "update_metadata",
 ]

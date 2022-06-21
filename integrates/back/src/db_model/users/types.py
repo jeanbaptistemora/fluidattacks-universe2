@@ -1,13 +1,12 @@
 from typing import (
-    List,
     NamedTuple,
 )
 
 
 class NotificationsPreferences(NamedTuple):
-    email: List[str]
+    email: list[str]
 
 
-class User(NamedTuple):
+class Stakeholder(NamedTuple):
     email: str
     notifications_preferences: NotificationsPreferences
