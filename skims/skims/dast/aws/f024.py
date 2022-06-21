@@ -13,11 +13,15 @@ from model import (
 )
 from model.core_model import (
     AwsCredentials,
+    Vulnerability,
 )
 from typing import (
     Any,
+    Callable,
+    Coroutine,
     Dict,
     List,
+    Tuple,
 )
 
 
@@ -35,7 +39,7 @@ def _port_in_open_seggroup(port: int, group: Dict[str, Any]) -> List[str]:
 
 async def allows_anyone_to_admin_ports(
     credentials: AwsCredentials,
-) -> tuple:
+) -> core_model.Vulnerabilities:
 
     admin_ports = {
         22,  # SSH
@@ -78,3 +82,8 @@ async def allows_anyone_to_admin_ports(
         locations=locations,
         method=core_model.MethodsEnum.AWS_ANYONE_ADMIN_PORTS,
     )
+
+
+CHECKS: Tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]]
+] = (allows_anyone_to_admin_ports,)

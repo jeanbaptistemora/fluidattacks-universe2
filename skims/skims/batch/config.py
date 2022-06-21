@@ -312,7 +312,7 @@ async def generate_config(
             for root in roots
             for environment_url in root.git_environment_urls
             if root.nickname == namespace
-            and environment_url["urlType"] == "cloud"  # type: ignore
+            and environment_url["urlType"] == "CLOUD"  # type: ignore
             for secret in environment_url["secrets"]
         }
         if (key_id := secrets.get("AWS_ACCESS_KEY_ID")) and (
