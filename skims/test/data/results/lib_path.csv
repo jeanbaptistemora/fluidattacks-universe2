@@ -10108,7 +10108,7 @@ F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13
   17 | }
      ^ Col 0
 ",csharp.csharp_info_leak_errors
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
    1 |
    2 | try {
    3 |     var a = 1 / 0;
@@ -10132,7 +10132,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,6,200,skims,342
   21 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,13,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,13,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
    3 |     var a = 1 / 0;
    4 | }
    5 | catch (err) {
@@ -10156,7 +10156,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,13,200,skims,34
   23 | try {
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,20,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,20,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
   10 |     var a = 1 / 0;
   11 | }
   12 | catch {
@@ -10180,7 +10180,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,20,200,skims,34
   30 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,27,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,27,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
   17 |     var a = 1 / 0;
   18 | }
   19 | catch (err) {
@@ -10204,7 +10204,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,27,200,skims,34
   37 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,36,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,36,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
   26 | catch (err) {
   27 |     console.log(""error"");
   28 |     console.warn(err);
@@ -10228,7 +10228,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,36,200,skims,34
   46 | }
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,44,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f037/javascript.js,44,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f037/javascript.js,"
   27 |     console.log(""error"");
   28 |     console.warn(err);
   29 |     throw err;
@@ -10252,7 +10252,7 @@ F342,lines,namespace/skims/test/data/lib_path/f037/javascript.js,44,200,skims,34
   47 |
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f052/javascript.js,16,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f052/javascript.js,"
+F066,lines,namespace/skims/test/data/lib_path/f052/javascript.js,16,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f052/javascript.js,"
    1 | const crypto = require(""crypto"");
    2 |
    3 | let keyString = ""*4wQZgn+U2RW_mb="";
@@ -10275,7 +10275,7 @@ F342,lines,namespace/skims/test/data/lib_path/f052/javascript.js,16,200,skims,34
   20 | cipher.end();
      ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,5,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,"
+F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,5,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
     1 | function functionAWithConsoleLog() {
     2 |     var a = 13
     3 |     var b = 31
@@ -10299,7 +10299,7 @@ F342,lines,namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,5,200,skims
    21 |     }
       ^ Col 0
 ",javascript.js_uses_console_log
-F342,lines,namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,67,200,skims,342. Technical information leak - Alert,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f342/ConsoleLogOpen.js,"
+F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,67,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
    57 |             break;
    58 |         case 6:
    59 |             day = ""Saturday"";

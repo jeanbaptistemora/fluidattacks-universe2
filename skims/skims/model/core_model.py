@@ -818,13 +818,6 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.f014,
         requirements=[266],
     )
-    F342: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F342",
-        cwe=200,
-        execution_queue=ExecutionQueue.leak,
-        requirements=[77, 176],
-    )
     F346: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F346",
@@ -3262,7 +3255,7 @@ class MethodsEnum(Enum):
         file_name="javascript",
         name="js_uses_console_log",
         module="lib_path",
-        finding=FindingEnum.F342,
+        finding=FindingEnum.F066,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )

@@ -719,14 +719,6 @@
       "title": "338. Insecure service configuration - Salt"
     }
   },
-  "F342": {
-    "EN": {
-      "title": "342. Technical information leak - Alert"
-    },
-    "ES": {
-      "title": "342. Technical information leak - Alert"
-    }
-  },
   "F346": {
     "EN": {
       "title": "346. Excessive privileges - Mobile App"
