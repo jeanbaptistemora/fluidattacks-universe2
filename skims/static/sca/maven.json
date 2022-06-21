@@ -2398,8 +2398,8 @@
     "GHSA-m394-8rww-3jr7": "3.1.1"
   },
   "org.apache.spark:spark-core_2.10": {
-    "SNYK-JAVA-ORGAPACHESPARK-1586030": "<=2.2.3",
-    "GHSA-r34r-f84j-5x4x": "<2.2.0"
+    "GHSA-r34r-f84j-5x4x": "<2.2.0",
+    "SNYK-JAVA-ORGAPACHESPARK-1586030": "<=2.2.3"
   },
   "org.apache.spark:spark-core_2.11": {
     "CVE-2017-12612": ">=1.6.0 <=2.1.1",

@@ -367,6 +367,9 @@
   "@scullyio/scully": {
     "CVE-2020-28470": "<1.0.9"
   },
+  "@shopify/hydrogen": {
+    "CVE-2022-29230": ">=0.10.0 <=0.18.0"
+  },
   "@soketi/soketi": {
     "GHSA-2w8g-m5j8-7m87": "<0.26.1"
   },
@@ -378,6 +381,9 @@
   },
   "@stoplight/simplemde": {
     "CVE-2018-19057": "=1.11.2"
+  },
+  "@strapi/strapi": {
+    "GHSA-vgj7-895j-gpr6": "<4.1.9"
   },
   "@strikeentco/set": {
     "CVE-2020-28267": "=1.0.0"
@@ -430,6 +436,9 @@
   "@webassemblyjs/helper-wasm-bytecode": {},
   "@worker-tools/stripe-webhook": {
     "GHSA-4g53-vp7q-gfjv": "<1.1.4"
+  },
+  "@yaireo/tagify": {
+    "CVE-2022-25854": "<4.9.8"
   },
   "@zhaoyao91/eval-in-vm": {
     "GHSA-jp99-5h8w-gmxc": "0.0.0"
@@ -872,6 +881,9 @@
   "bigint-money": {
     "GHSA-9r3m-mhfm-39cm": "<0.6.2"
   },
+  "bignum": {
+    "CVE-2022-25324": "<=0.13.1"
+  },
   "bin-links": {
     "GHSA-v45m-2wcp-gg98": "<1.1.6"
   },
@@ -1278,6 +1290,9 @@
   "casperjs": {
     "CVE-2020-7679": "<=1.1.4"
   },
+  "cassproject": {
+    "CVE-2022-29229": "<1.5.8"
+  },
   "cd-messenger": {
     "CVE-2020-7675": "<=2.7.26"
   },
@@ -1613,6 +1628,9 @@
   "convert-svg-to-png": {
     "GHSA-jv7g-9g6q-cxvw": "<=0.5.0"
   },
+  "convict": {
+    "CVE-2022-21190": "<6.2.3"
+  },
   "cookie-signature": {
     "CVE-2016-1000236": "<=1.0.5"
   },
@@ -1650,6 +1668,9 @@
   "create-hash": {},
   "cross-env.js": {
     "CVE-2017-16081": "<=0.0.2-security"
+  },
+  "cross-fetch": {
+    "CVE-2022-1365": "<3.1.5"
   },
   "cross-spawn": {},
   "crossenv": {
@@ -2701,6 +2722,9 @@
   "graphql-shield": {
     "HSA-hx78-272p-mqqh": "<6.0.6"
   },
+  "graphql-tools": {
+    "CVE-2021-23326": "<6.2.6"
+  },
   "graylog-web-interface": {
     "GHSA-9qgh-7pgp-hp7r": "<=2.4.3"
   },
@@ -3276,6 +3300,9 @@
   },
   "jquery-validation": {
     "CVE-2021-21252": "<1.19.3"
+  },
+  "jquery.cookie": {
+    "CVE-2022-23395": "1.4.1"
   },
   "jquery.js": {
     "CVE-2017-16045": "<=0.0.2-security"
@@ -4608,6 +4635,9 @@
     "GHSA-4328-8hgf-7wjr": "<6.13.4",
     "GHSA-93f3-23rq-pjfp": "<6.14.6",
     "GHSA-x8qc-rrcw-4r46": "<6.13.3"
+  },
+  "npm-dependency-versions": {
+    "CVE-2022-29080": "<=0.3.0"
   },
   "npm-git-publish": {
     "GHSA-49mg-94fc-2fx6": "<=0.2.4-beta"
