@@ -16,6 +16,7 @@ interface IDropdownProps extends Partial<IDropdownContainerProps> {
 
 const Dropdown: React.FC<IDropdownProps> = ({
   align = "center",
+  bgColor = "#f4f4f6",
   button,
   children,
   maxHeight,
@@ -24,7 +25,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 }: Readonly<IDropdownProps>): JSX.Element => (
   <Wrapper>
     {button}
-    <DropdownContainer align={align}>
+    <DropdownContainer align={align} bgColor={bgColor}>
       <Container maxHeight={maxHeight} minWidth={minWidth} padding={padding}>
         {children}
       </Container>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface IDropdownContainerProps {
   align: "center" | "left" | "right";
+  bgColor: string;
 }
 
 const sideMap: Record<IDropdownContainerProps["align"], string> = {
@@ -15,7 +16,7 @@ const sideMap: Record<IDropdownContainerProps["align"], string> = {
 
 const DropdownContainer = styled.div<IDropdownContainerProps>`
   ${({ align }): string => sideMap[align]}
-  background-color: #e9e9ed;
+  background-color: ${({ bgColor }): string => bgColor};
   border: 1px solid #c7c7d1;
   border-radius: 4px;
   display: none;
