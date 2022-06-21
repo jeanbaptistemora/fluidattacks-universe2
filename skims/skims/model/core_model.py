@@ -650,13 +650,6 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[72],
     )
-    F234: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
-        code="F234",
-        cwe=544,
-        execution_queue=ExecutionQueue.leak,
-        requirements=[77, 176],
-    )
     F237: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F237",
@@ -2850,14 +2843,6 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F211,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
-    )
-    PYTHON_LEAK_STACKTRACE = MethodInfo(
-        file_name="python",
-        name="python_has_generic_exceptions",
-        module="lib_path",
-        finding=FindingEnum.F234,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
-        technique=TechniqueEnum.BASIC_SAST,
     )
     JAVA_LEAK_STACKTRACE = MethodInfo(
         file_name="java",
