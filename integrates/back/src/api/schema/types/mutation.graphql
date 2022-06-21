@@ -94,6 +94,9 @@ type Mutation {
     userInteraction: String
   ): AddDraftPayload!
 
+  "Add enrollment user data"
+  addEnrollment: SimplePayload!
+
   "Reports an unexpected Event when dealing with the ToE"
   addEvent(
     "Where the event was present"

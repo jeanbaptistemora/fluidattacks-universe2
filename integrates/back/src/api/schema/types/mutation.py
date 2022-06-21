@@ -7,6 +7,7 @@ from api.mutations import (
     activate_root,
     add_credentials,
     add_draft,
+    add_enrollment,
     add_event,
     add_event_consult,
     add_files_to_db,
@@ -125,6 +126,7 @@ MUTATION.set_field(
 MUTATION.set_field("activateRoot", activate_root.mutate)
 MUTATION.set_field("addCredentials", add_credentials.mutate)
 MUTATION.set_field("addDraft", add_draft.mutate)
+MUTATION.set_field("addEnrollment", add_enrollment.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
 MUTATION.set_field("addEventConsult", add_event_consult.mutate)
 MUTATION.set_field("addFilesToDb", add_files_to_db.mutate)
