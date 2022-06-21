@@ -63,8 +63,6 @@ def run_java_properties_sensitive_data(
 
 @SHIELD_BLOCKING
 def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
-    print(content)
-    print(path)
     return sensitive_key_in_json(content=content, path=path)
 
 
