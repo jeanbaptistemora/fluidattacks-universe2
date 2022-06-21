@@ -1,11 +1,43 @@
 import aioboto3
+from dast.aws.types import (
+    Location,
+)
+from model import (
+    core_model,
+)
 from model.core_model import (
     AwsCredentials,
+    MethodsEnum,
 )
 from typing import (
     Dict,
+    List,
     Optional,
 )
+from vulnerabilities import (
+    build_inputs_vuln,
+    build_metadata,
+)
+
+
+def build_vulnerabilities(
+    locations: List[Location],
+    method: MethodsEnum,
+) -> core_model.Vulnerabilities:
+    return tuple(
+        build_inputs_vuln(
+            method=method,
+            what=location.arn,
+            where=location.access_pattern,
+            stream="skims",
+            metadata=build_metadata(
+                method=method,
+                description=location.description,
+                snippet="",
+            ),
+        )
+        for location in locations
+    )
 
 
 async def run_boto3_fun(

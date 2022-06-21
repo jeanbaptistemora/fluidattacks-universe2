@@ -1691,6 +1691,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    AWS_ANYONE_ADMIN_PORTS = MethodInfo(
+        file_name="aws",
+        name="allows_anyone_to_admin_ports",
+        module="dast",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",
