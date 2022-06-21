@@ -18,7 +18,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
-    users as users_model,
+    stakeholders as stakeholders_model,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -53,7 +53,7 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
-    await users_model.update_metadata(
+    await stakeholders_model.update_metadata(
         stakeholder_email=user,
         notifications_preferences={
             "email": [

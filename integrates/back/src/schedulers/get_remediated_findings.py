@@ -15,7 +15,7 @@ from dataloaders import (
 from db_model.enums import (
     Notification,
 )
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     Stakeholder,
 )
 from findings import (

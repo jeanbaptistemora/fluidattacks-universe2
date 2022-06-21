@@ -12,7 +12,7 @@ from datetime import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     Stakeholder,
 )
 from db_model.vulnerabilities.types import (

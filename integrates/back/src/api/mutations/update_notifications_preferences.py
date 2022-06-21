@@ -5,7 +5,7 @@ from custom_types import (
     SimplePayload,
 )
 from db_model import (
-    users as user_model,
+    stakeholders as stakeholders_model,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -28,7 +28,7 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
-    await user_model.update_metadata(
+    await stakeholders_model.update_metadata(
         stakeholder_email=user_email,
         notifications_preferences=notifications_preferences,
     )

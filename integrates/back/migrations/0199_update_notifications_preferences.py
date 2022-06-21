@@ -41,7 +41,7 @@ from aioextensions import (
     run,
 )
 from db_model import (
-    users as users_model,
+    stakeholders as stakeholders_model,
 )
 from dynamodb import (
     operations_legacy,
@@ -54,7 +54,7 @@ USERS_TABLE = "FI_users"
 async def main() -> None:
     users = await operations_legacy.scan(USERS_TABLE, {})
     for user in users:
-        await users_model.update_metadata(
+        await stakeholders_model.update_metadata(
             stakeholder_email=user["email"],
             notifications_preferences={
                 "email": [

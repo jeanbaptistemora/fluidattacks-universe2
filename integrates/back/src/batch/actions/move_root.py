@@ -43,6 +43,9 @@ from db_model.roots.types import (
     Root,
     URLRoot,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
@@ -52,9 +55,6 @@ from db_model.toe_lines.types import (
     RootToeLinesRequest,
     ToeLines,
     ToeLinesRequest,
-)
-from db_model.users.types import (
-    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,

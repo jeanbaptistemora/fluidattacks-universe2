@@ -21,7 +21,7 @@ from db_model.groups.types import (
 from db_model.roots.types import (
     GitRootCloning,
 )
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     Stakeholder,
 )
 from mailer.utils import (

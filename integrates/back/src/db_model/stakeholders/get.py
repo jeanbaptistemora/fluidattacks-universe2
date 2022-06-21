@@ -20,10 +20,10 @@ from dynamodb import (
 )
 
 
-async def _get_stakeholder(*, user_email: str) -> Stakeholder:
+async def _get_stakeholder(*, stakeholder_email: str) -> Stakeholder:
     primary_key = keys.build_key(
         facet=TABLE.facets["user_metadata"],
-        values={"email": user_email},
+        values={"email": stakeholder_email},
     )
 
     item = await operations.get_item(
@@ -47,5 +47,7 @@ class StakeholderLoader(DataLoader):
         self, emails: tuple[str, ...]
     ) -> tuple[Stakeholder, ...]:
         return await collect(
-            tuple(_get_stakeholder(user_email=email) for email in emails)
+            tuple(
+                _get_stakeholder(stakeholder_email=email) for email in emails
+            )
         )

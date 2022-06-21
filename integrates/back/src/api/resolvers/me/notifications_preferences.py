@@ -1,4 +1,4 @@
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
 )

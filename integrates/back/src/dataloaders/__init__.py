@@ -55,6 +55,9 @@ from db_model.roots.get import (
     RootMachineExecutionsLoader,
     RootSecretsLoader,
 )
+from db_model.stakeholders.get import (
+    StakeholderLoader,
+)
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
     RootToeInputsLoader,
@@ -64,9 +67,6 @@ from db_model.toe_lines.get import (
     GroupToeLinesLoader,
     RootToeLinesLoader,
     ToeLinesLoader,
-)
-from db_model.users.get import (
-    StakeholderLoader,
 )
 from db_model.vulnerabilities.get import (
     AssignedVulnerabilitiesLoader,

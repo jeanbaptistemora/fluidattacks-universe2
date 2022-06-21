@@ -15,7 +15,7 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     Stakeholder,
 )
 from mailer.utils import (

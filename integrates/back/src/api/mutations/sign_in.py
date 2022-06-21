@@ -9,7 +9,7 @@ from custom_types import (
     SignInPayload as SignInPayloadType,
 )
 from db_model import (
-    users as user_model,
+    stakeholders as stakeholders_model,
 )
 from decorators import (
     retry_on_exceptions,
@@ -57,7 +57,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_user(email: str) -> None:
-    await user_model.update_metadata(
+    await stakeholders_model.update_metadata(
         stakeholder_email=email,
         notifications_preferences={
             "email": [

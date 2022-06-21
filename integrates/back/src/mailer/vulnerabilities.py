@@ -9,7 +9,7 @@ from context import (
 from db_model.enums import (
     Notification,
 )
-from db_model.users.types import (
+from db_model.stakeholders.types import (
     Stakeholder,
 )
 from group_access import (
