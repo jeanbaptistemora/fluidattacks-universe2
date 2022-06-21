@@ -12,13 +12,13 @@ from singer_io.singer import (
     SingerSchema,
     SingerState,
 )
-from target_redshift.batcher import (
+from target_redshift.legacy.batcher import (
     Batcher,
 )
-from target_redshift.data_schema import (
+from target_redshift.legacy.data_schema import (
     RedshiftSchema,
 )
-from target_redshift.utils import (
+from target_redshift.legacy.utils import (
     escape,
     str_len,
 )

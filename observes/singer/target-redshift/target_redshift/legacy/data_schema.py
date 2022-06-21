@@ -28,7 +28,7 @@ from singer_io import (
 from singer_io.singer import (
     SingerSchema,
 )
-from target_redshift.data_types import (
+from target_redshift.legacy.data_types import (
     from_json,
 )
 from typing import (

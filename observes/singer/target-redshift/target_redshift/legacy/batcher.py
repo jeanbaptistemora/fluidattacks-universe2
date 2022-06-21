@@ -3,7 +3,7 @@ from datetime import (
 )
 import logging
 import psycopg2 as postgres
-from target_redshift.utils import (
+from target_redshift.legacy.utils import (
     PGCURR,
     str_len,
     stringify,

@@ -4,10 +4,10 @@ import re
 from returns.maybe import (
     Maybe,
 )
-from target_redshift.loader import (
+from target_redshift.legacy.loader import (
     load_data,
 )
-from target_redshift.singer_handlers import (
+from target_redshift.legacy.singer_handlers import (
     StateId,
 )
 from typing import (

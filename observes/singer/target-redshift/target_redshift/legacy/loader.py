@@ -23,11 +23,13 @@ from singer_io.factory import (
     singer_handler,
 )
 import sys
-import target_redshift
-from target_redshift.batcher import (
+from target_redshift import (
+    legacy,
+)
+from target_redshift.legacy.batcher import (
     Batcher,
 )
-from target_redshift.singer_handlers import (
+from target_redshift.legacy.singer_handlers import (
     record_handler,
     schema_handler,
     SchemasMap,
@@ -111,7 +113,7 @@ def load_data(
             #   LOAD loading_schema
             if old:
                 # old version support
-                target_redshift.persist_messages(batcher, str(loading_schema))
+                legacy.persist_messages(batcher, str(loading_schema))
             else:
                 persist_messages(
                     batcher, client.cursor, str(loading_schema), state_id
