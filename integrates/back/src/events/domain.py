@@ -260,13 +260,15 @@ async def get_events(event_ids: list[str]) -> list[dict[str, Any]]:
     )
 
 
-async def get_unsolved_events(group_name: str) -> list[dict[str, Any]]:
+async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
     events_list = await list_group_events(group_name)
-    events = await get_events(events_list)
-    unsolved: list[dict[str, Any]] = [
+    events: tuple[Event, ...] = await loaders.event_typed.load_many(
+        events_list
+    )
+    unsolved: list[Event] = [
         event
         for event in events
-        if event["historic_state"][-1]["state"] == "CREATED"
+        if event.state.status == EventStateStatus.CREATED
     ]
     return unsolved
 

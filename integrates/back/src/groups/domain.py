@@ -1965,7 +1965,7 @@ async def get_group_digest_stats(
     content["main"]["comments"] = await get_total_comments_date(
         findings_ids, group_name, last_day
     )
-    unsolved = await events_domain.get_unsolved_events(group_name)
+    unsolved = await events_domain.get_unsolved_events(loaders, group_name)
     new_events = await events_utils.filter_events_date(unsolved, last_day)
     content["events"]["unsolved"] = len(unsolved)
     content["events"]["new"] = len(new_events)

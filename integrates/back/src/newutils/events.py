@@ -93,14 +93,14 @@ def convert_to_iso_str(date_str: str) -> str:
 
 
 async def filter_events_date(
-    events: list[dict[str, Any]],
+    events: list[Event],
     min_date: datetime,
-) -> list[dict[str, Any]]:
+) -> list[Event]:
     return [
         event
         for event in events
         if min_date
-        and datetime_utils.get_from_str(event["historic_state"][-1]["date"])
+        and datetime_utils.get_datetime_from_iso_str(event.state.modified_date)
         >= min_date
     ]
 

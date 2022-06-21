@@ -9,6 +9,9 @@ from dataloaders import (
 from datetime import (
     date as date_type,
 )
+from db_model.events.types import (
+    Event,
+)
 from events import (
     domain as events_domain,
 )
@@ -19,17 +22,11 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from organizations import (
     domain as orgs_domain,
 )
 from settings import (
     LOGGING,
-)
-from typing import (
-    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -60,27 +57,27 @@ async def send_event_report() -> None:
     unsolved_events = [
         event
         for group in groups_names
-        for event in await events_domain.get_unsolved_events(group)
+        for event in await events_domain.get_unsolved_events(loaders, group)
     ]
 
-    events_filtered: list[dict[str, Any]] = [
+    events_filtered: list[Event] = [
         event
         for event in unsolved_events
-        if days_to_date(event["historic_state"][-1]["date"]) in [7, 30]
+        if days_to_date(event.state.modified_date) in [7, 30]
     ]
 
     if events_filtered:
         for event in events_filtered:
-            group_name = str(get_key_or_fallback(event, fallback=""))
-            event_type = event["event_type"]
-            description = event["detail"]
+            group_name = event.group_name
+            event_type = event.type
+            description = event.description
             report_date: date_type = datetime_utils.get_date_from_iso_str(
-                event["historic_state"][0]["date"]
+                event.event_date
             )
             await events_mail.send_mail_event_report(
                 loaders=loaders,
                 group_name=group_name,
-                event_id=event["event_id"],
+                event_id=event.id,
                 event_type=event_type,
                 description=description,
                 report_date=report_date,

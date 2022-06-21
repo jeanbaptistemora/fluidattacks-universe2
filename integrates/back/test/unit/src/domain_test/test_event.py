@@ -27,6 +27,7 @@ from dataloaders import (
 from db_model.events.enums import (
     EventEvidenceType,
     EventSolutionReason,
+    EventStateStatus,
 )
 from db_model.events.types import (
     Event,
@@ -53,12 +54,13 @@ pytestmark = [
 
 
 async def test_get_event() -> None:
+    loaders: Dataloaders = get_new_context()
     event_id = "418900971"
-    test_data = await events_domain.get_event(event_id)
+    test_data: Event = await loaders.event_typed.load(event_id)
     expected_output = "unittesting"
-    assert test_data.get("group_name") == expected_output
+    assert test_data.group_name == expected_output
     with pytest.raises(EventNotFound):
-        await events_domain.get_event("000001111")
+        await loaders.event_typed.load("000001111")
 
 
 @pytest.mark.changes_db
@@ -125,10 +127,11 @@ async def test_solve_event() -> None:
         reason=EventSolutionReason.PERMISSION_GRANTED,
         other="Other info",
     )
-    event = await events_domain.get_event("538745942")
-    assert event["historic_state"][-1]["state"] == "SOLVED"
-    assert event["historic_state"][-1]["other"] == "Other info"
-    assert event["historic_state"][-1]["reason"] == "PERMISSION_GRANTED"
+    loaders: Dataloaders = get_new_context()
+    event: Event = await loaders.event_typed.load("538745942")
+    assert event.state.status == EventStateStatus.SOLVED
+    assert event.state.other == "Other info"
+    assert event.state.reason == EventSolutionReason.PERMISSION_GRANTED
 
     request = await create_dummy_session("unittesting@fluidattacks.com")
     info = create_dummy_info(request)
@@ -328,6 +331,6 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     assert test_data == expected_output
     assert len(await comments_domain.get("event", event_id)) == 0
     assert len(await events_dal.search_evidence(evidence_prefix)) == 0
-
-    event = await events_domain.get_event(event_id)
-    assert event.get("detail") == "Masked"
+    new_loaders = get_new_context()
+    event: Event = await new_loaders.event_typed.load(event_id)
+    assert event.description == "Masked"

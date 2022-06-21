@@ -8,6 +8,7 @@ from context import (
     FI_AWS_S3_BUCKET,
 )
 from custom_exceptions import (
+    EventNotFound,
     UnavailabilityError,
 )
 from db_model.events.enums import (
@@ -77,10 +78,11 @@ async def get_event(event_id: str) -> dict[str, Any]:
         "Limit": 1,
     }
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-    if response_items:
-        response = response_items[0]
-        # Compatibility with old API
-        response["group_name"] = response["project_name"]
+    if not response_items:
+        raise EventNotFound()
+    response = response_items[0]
+    # Compatibility with old API
+    response["group_name"] = response["project_name"]
     return response
 
 
