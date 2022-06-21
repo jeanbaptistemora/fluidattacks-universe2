@@ -10,8 +10,7 @@ interface IParameter extends IAvailableParameter {
 }
 
 interface ISearchBarProps {
-  availableParameters: IAvailableParameter[];
-  onSubmit: (parameters: IParameter[]) => void;
+  onSubmit: (search: string) => void;
   placeholder?: string;
 }
 

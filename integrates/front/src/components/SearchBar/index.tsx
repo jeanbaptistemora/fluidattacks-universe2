@@ -1,9 +1,51 @@
-import React from "react";
+import { Form, Formik } from "formik";
+import React, { useCallback } from "react";
 
-import type { ISearchBarProps } from "./types";
+import type { IFormValues, ISearchBarProps } from "./types";
 
-const SearchBar: React.FC<ISearchBarProps> = (): JSX.Element => {
-  return <div />;
+import { Button } from "components/Button";
+import { Input } from "components/Input";
+import { Col, Row } from "components/Layout";
+
+const SearchBar: React.FC<ISearchBarProps> = ({
+  onSubmit,
+  placeholder = "Search",
+}: Readonly<ISearchBarProps>): JSX.Element => {
+  const handleSubmit = useCallback(
+    ({ search }: IFormValues): void => {
+      if (search) {
+        onSubmit(search);
+      }
+    },
+    [onSubmit]
+  );
+
+  return (
+    <div>
+      <Formik initialValues={{ search: "" }} onSubmit={handleSubmit}>
+        {({ resetForm }): JSX.Element => {
+          function clear(): void {
+            resetForm();
+          }
+
+          return (
+            <Form>
+              <Row justify={"flex-start"} role={"searchbox"}>
+                <Col large={"30"} medium={"40"} small={"60"}>
+                  <Input name={"search"} placeholder={placeholder} />
+                </Col>
+                <Col>
+                  <Button onClick={clear} variant={"secondary"}>
+                    {"Clear"}
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
 };
 
 export type { ISearchBarProps };
