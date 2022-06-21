@@ -52,6 +52,7 @@
     service.job_last_success
     tap.checkly
     tap.gitlab
+    target.redshift
   ];
   _if_exists = attrs: key: gitlabExtra:
     if builtins.hasAttr key attrs
@@ -243,10 +244,6 @@ in {
           }
           {
             output = "/lintPython/module/observesTapTimedoctor";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesTargetRedshift";
             gitlabExtra = gitlabLint;
           }
           {
