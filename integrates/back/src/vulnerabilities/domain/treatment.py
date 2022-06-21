@@ -412,7 +412,7 @@ async def handle_vulnerabilities_acceptance(
                 if vuln.id in accepted_vulns
             ]
         )
-    await collect(coroutines)
+    await collect(coroutines, workers=40)
 
 
 async def send_treatment_change_mail(
