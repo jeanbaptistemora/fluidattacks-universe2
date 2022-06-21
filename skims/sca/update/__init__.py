@@ -14,22 +14,24 @@ from utils.logs import (
     log_blocking,
 )
 
+Advisories = Dict[str, Dict[str, str]]
 
-def main(language: str = None) -> None:
-    language = language or sys.argv[1] if len(sys.argv) > 1 else ""
-    if language not in ("maven", "npm", "nuget"):
+
+def main(platform: str = None) -> None:
+    platform = platform or sys.argv[1] if len(sys.argv) > 1 else ""
+    if platform not in ("maven", "npm", "nuget"):
         log_blocking("error", f"Invalid/Missing parameter")
         return None
-    language = sys.argv[1]
-    advisories: Dict[str, Any] = {}
+    platform = sys.argv[1]
+    advisories: Advisories = {}
     for fun in (
         get_community_advisories,
         get_advisory_database,
     ):
-        fun(advisories, language)
+        fun(advisories, platform)
 
-    log_blocking("info", f"Creating file: {language}.json")
-    with open(f"static/sca/{language}.json", "w") as outfile:
+    log_blocking("info", f"Creating file: {platform}.json")
+    with open(f"static/sca/{platform}.json", "w") as outfile:
         json.dump(advisories, outfile, indent=2, sort_keys=True)
 
 

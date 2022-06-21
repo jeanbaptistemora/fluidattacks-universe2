@@ -9,6 +9,9 @@ from typing import (
     Dict,
     List,
 )
+from update import (
+    Advisories,
+)
 from utils.logs import (
     log_blocking,
 )
@@ -19,18 +22,18 @@ URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
 def get_vulnerabilities_ranges(
     affected: List[dict],
     vuln_id: str,
-    language: str,
-    advisories: Dict[str, Any],
+    platform: str,
+    advisories: Advisories,
 ) -> None:
     for pkg_obj in affected:
-        package: dict = pkg_obj.get("package")
-        ecosystem: str = package.get("ecosystem")
-        if ecosystem.lower() != language:
+        package: Dict[str, Any] = pkg_obj.get("package")
+        ecosystem: str = str(package.get("ecosystem"))
+        if ecosystem.lower() != platform:
             continue
-        pkg_name: str = package.get("name").lower()
-        ranges: List[dict] = pkg_obj.get("ranges") or []
+        pkg_name: str = str(package.get("name")).lower()
+        ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []
         for range in ranges:
-            events: List[dict] = range.get("events")
+            events: List[Dict[str, str]] = list(range.get("events"))
             str_range: str
             introduced = f">={events[0].get('introduced')}"
             fixed = f" <{events[1].get('fixed')}" if len(events) > 1 else ""
@@ -45,7 +48,7 @@ def get_vulnerabilities_ranges(
                 advisories[pkg_name].update({vuln_id: str_range})
 
 
-def get_advisory_database(advisories: Dict[str, Any], language: str) -> dict:
+def get_advisory_database(advisories: Advisories, platform: str) -> dict:
     with tempfile.TemporaryDirectory() as tmp_dirname:
         log_blocking("info", "Cloning repository: advisory-database")
         Repo.clone_from(URL_ADVISORY_DATABASE, tmp_dirname, depth=1)
@@ -60,10 +63,10 @@ def get_advisory_database(advisories: Dict[str, Any], language: str) -> dict:
             with open(filename, "r") as stream:
                 try:
                     from_json: dict = json.load(stream)
-                    vuln_id = from_json.get("id")
-                    affected = from_json.get("affected")
+                    vuln_id = str(from_json.get("id"))
+                    affected = list(from_json.get("affected"))
                     get_vulnerabilities_ranges(
-                        affected, vuln_id, language, advisories
+                        affected, vuln_id, platform, advisories
                     )
                 except json.JSONDecodeError as exc:
                     print(exc)

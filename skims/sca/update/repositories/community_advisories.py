@@ -5,9 +5,10 @@ import glob
 import re
 import tempfile
 from typing import (
-    Any,
-    Dict,
     Pattern,
+)
+from update import (
+    Advisories,
 )
 from utils.logs import (
     log_blocking,
@@ -30,7 +31,7 @@ def format_range(range: str) -> str:
     min_operator = ""
     max_operator = ""
     if min_r == "":
-        min_r = 0
+        min_r = "0"
         min_operator = ">="
     else:
         min_operator = ">" if prefix == "(" else ">="
@@ -44,23 +45,21 @@ def fix_npm_range(range: str) -> str:
     return range.replace("||", " || ")
 
 
-def format_ranges(language: str, range: str) -> str:
-    if language in ("maven", "nuget"):
+def format_ranges(platform: str, range: str) -> str:
+    if platform in ("maven", "nuget"):
         ranges = re.findall(RE_RANGES, range)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
-    if language == "npm":
+    else:  # npm
         return fix_npm_range(range)
 
 
-def get_community_advisories(
-    advisories: Dict[str, Any], language: str
-) -> dict:
+def get_community_advisories(advisories: Advisories, platform: str) -> dict:
     with tempfile.TemporaryDirectory() as tmp_dirname:
         log_blocking("info", "Cloning repository: advisories-community")
         Repo.clone_from(URL_ADVISORIES_COMMUNITY, tmp_dirname)
         filenames = sorted(
-            glob.glob(f"{tmp_dirname}/{language}/**/*.yml", recursive=True)
+            glob.glob(f"{tmp_dirname}/{platform}/**/*.yml", recursive=True)
         )
         log_blocking("info", "Processing vulnerabilities")
         for filename in filenames:
@@ -71,11 +70,11 @@ def get_community_advisories(
                         cve_key := parsed_yaml.get("identifier")
                     ) and cve_key.startswith("GMS"):
                         continue
-                    package_slug: str = parsed_yaml.get("package_slug")
+                    package_slug = str(parsed_yaml.get("package_slug"))
                     package_key = package_slug.replace(
-                        f"{language}/", "", 1
+                        f"{platform}/", "", 1
                     ).lower()
-                    if language in (
+                    if platform in (
                         "maven",
                         "npm",
                     ) and not package_key.startswith("@"):
@@ -84,7 +83,7 @@ def get_community_advisories(
                         advisories.update({package_key: {}})
                     if cve_key not in advisories[package_key]:
                         formatted_ranges = format_ranges(
-                            language, parsed_yaml.get("affected_range")
+                            platform, str(parsed_yaml.get("affected_range"))
                         )
                         advisories[package_key].update(
                             {cve_key: formatted_ranges}
