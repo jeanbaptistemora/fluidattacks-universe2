@@ -51,7 +51,7 @@ Important features are [<sup>\[3\]</sup>](#r2):
     Red and Blue Teams. Throughout the process, they can also generate
     recommendations, suggestions, and improvements for both parties.
     However in practice, if there are not [well-defined cybersecurity
-    objectives](../attack-no-announce/) [<sup>\[4\]</sup>](#r7) and
+    objectives](../attacking-without-announcing/) [<sup>\[4\]</sup>](#r7) and
     there are personal interests regarding the test outcome, it is
     likely that there will be a [conflict of
     interest](../conflict-interest/). The organization can then
@@ -197,4 +197,4 @@ permanent group to mediate the relationship between a Red and Blue Team.
 
 6. [A Conflict of Interest?](../conflict-interest/)
 
-7. [Attacking Without Announce](../attack-no-announce/).
+7. [Attacking Without Announcing](../attacking-without-announcing/).

@@ -464,7 +464,7 @@ that [only some people](../tiber-eu-framework/)
 in your organization
 should be aware of the contractual agreement with the red team;
 the rest will have to respond to the attacks,
-which will be carried out [without any previous announcement](../attack-no-announce/).
+which will be carried out [without any previous announcement](../attacking-without-announcing/).
 Security should be all about being prepared for actual attacks anytime,
 and this is how DevSecOps relates to red teams.
 
