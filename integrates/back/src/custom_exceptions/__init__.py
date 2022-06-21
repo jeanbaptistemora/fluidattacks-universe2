@@ -25,6 +25,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class EnrollmentUserExists(_SingleMessageException):
+    msg: str = "Enrollment user already exists"
+
+
 class ErrorFileNameAlreadyExists(_SingleMessageException):
     msg: str = "File name already exists in group files"
 
@@ -337,6 +341,15 @@ class GroupNameNotFound(CustomBaseException):
         """Constructor"""
         msg = "Exception - Group name has not been found"
         super(GroupNameNotFound, self).__init__(msg)
+
+
+class EnrollmentNotFound(CustomBaseException):
+    """Exception to control enrollment availability"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Access denied or enrollment not found"
+        super(EnrollmentNotFound, self).__init__(msg)
 
 
 class GroupNotFound(CustomBaseException):
