@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 alias tap-formstack="observes-singer-tap-formstack-bin"
-alias target-redshift="observes-target-redshift"
 
 function start_etl {
   local formstack_creds

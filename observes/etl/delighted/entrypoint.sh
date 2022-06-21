@@ -2,7 +2,6 @@
 
 alias tap-delighted="observes-singer-tap-delighted-bin"
 alias tap-json="observes-singer-tap-json-bin"
-alias target-redshift="observes-target-redshift"
 
 function start_etl {
   local db_creds

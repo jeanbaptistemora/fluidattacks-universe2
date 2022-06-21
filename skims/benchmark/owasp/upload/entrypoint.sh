@@ -9,7 +9,7 @@ function upload {
       < 'benchmark.json' \
       > '.singer' \
     && echo '[INFO] Running target' \
-    && observes-target-redshift \
+    && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
       --schema-name 'skims_benchmark' \

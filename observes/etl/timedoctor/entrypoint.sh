@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 alias tap-timedoctor="observes-singer-tap-timedoctor-bin"
-alias target-redshift="observes-target-redshift"
 
 function job_timedoctor {
   local db_creds

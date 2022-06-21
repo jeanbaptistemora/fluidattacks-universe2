@@ -1,26 +1,19 @@
 {
+  fetchNixpkgs,
   inputs,
   makeTemplate,
-  outputs,
   projectPath,
   ...
 }: let
-  self = projectPath inputs.observesIndex.target.redshift.root;
+  root = projectPath inputs.observesIndex.target.redshift.root;
+  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
+  env = pkg.env.runtime;
 in
   makeTemplate {
     name = "observes-singer-target-redshift-env-runtime";
     searchPaths = {
-      pythonMypy = [
-        self
-      ];
-      pythonPackage = [
-        self
-      ];
-      source = [
-        outputs."${inputs.observesIndex.target.redshift.env.runtime}/python"
-        outputs."/observes/common/postgres-client/env/runtime"
-        outputs."/observes/common/singer-io/env/runtime"
-        outputs."${inputs.observesIndex.common.utils_logger.env.runtime}"
+      bin = [
+        env
       ];
     };
   }
