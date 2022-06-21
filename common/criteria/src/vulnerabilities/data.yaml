@@ -26002,6 +26002,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not verify if the user token has expired
       ```javascript
       const accessProfiles = (req, res) => {
         //Redirecting only with a valid username
@@ -26013,12 +26014,13 @@
       }
       ```
     compliant: |
+      The application verifies the user token before accessing sensitive information
       ```javascript
       const accessProfiles = (req, res) => {
-        //Redirecting only with a valid username
-        if(isValidUser(req.body.user)){
-          const user = req.body.user;
-          //Make request without validating if user token has expired
+        const user = req.body.user;
+        const token = req.body.token
+        if(isuserAuth(user, token)){
+          //Make request after validating user token
           goToProfileInfo(user.username, user.token);
         }
       }
@@ -26095,6 +26097,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is code in the application that uses an unassigned variable
       ```javascript
       const accessCredentials = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26107,6 +26110,7 @@
       }
       ```
     compliant: |
+      All variables in the application are correctly initialized
       ```javascript
       const accessCredentials = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26190,20 +26194,20 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application uses an ineficcient method to store user posts that could consume many computer resources
       ```java
       class Main {
         public static void main(User user) {
-          //Ineficcient method to store user posts that could consume many computer resources
           StringBuffer str = new StringBuffer(user.posts);
           str.append(user.newPost);
         }
       }
       ```
     compliant: |
+      The application uses efficient methods to prevent consuming extra resources in the machine
       ```java
       class Main {
         public static void main(User user) {
-          //You could replace the method with an OOP approach
           private userPost = new Post(user.newPost);
           user.posts.append(userPost);
         }
@@ -26264,6 +26268,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There is unvalidated/unsanitized input data being handled by the application
       ```javascript
       const addBeneficiaries = (req, res) => {
         if (isValidUser(req.body.user) && length(req.body.newBeneficiariesAmount) < 4) {
@@ -26276,6 +26281,7 @@
       }
       ```
     compliant: |
+      All user input is correctly validated before being handled by the application
       ```javascript
       const addBeneficiaries = (req, res) => {
         if (isValidUser(req.body.user) && length(req.body.newBeneficiariesAmount) < 4) {
@@ -26347,6 +26353,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application only checks userId before allowing access to sensitive information
       ```javascript
       const accessFile = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26359,6 +26366,7 @@
       }
       ```
     compliant: |
+      The application verifies user credentials before accessing sensitive information
       ```javascript
       const accessfile = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26441,6 +26449,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application only checks userId before allowing access to sensitive information
       ```javascript
       const accessStore = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26453,6 +26462,7 @@
       }
       ```
     compliant: |
+      The application verifies user credentials before accessing sensitive information
       ```javascript
       const accessStore = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -26522,12 +26532,13 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      //Check the server configuration for the default index pages
+      The server configuration for the default index pages is activated
       ```yaml
       #Alternate default index pages
       DirectoryIndex first.html index.htm index.html sensitiveFile.php
       ```
     compliant: |
+      The server configuration does not allow sensitive information in the default index pages
       ```yaml
       #Alternate default index pages
       DirectoryIndex first.html index.htm index.html
@@ -26599,16 +26610,16 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The application creates a token signature with an insecure algorithm
       ```javascript
-      // Create a token signature with an insecure algorithm
       const token = jwt.sign({ username }, jwtKey, {
         algorithm: "RC128",
         expiresIn: jwtExpirySeconds,
       })
       ```
     compliant: |
+      The application creates token signature with a secure encryption method
       ```javascript
-      // Create token with a secure encryption method
       const token = jwt.sign({ username }, jwtKey, {
         algorithm: "HS256",
         expiresIn: jwtExpirySeconds,
@@ -26755,12 +26766,14 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The JSch has the StrictHostKeyChecking disabled
       ```java
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
       session.setConfig(config);
       ```
     compliant: |
+      The JSch has enabled StrictHostKeyChecking
       ```java
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "yes");
@@ -26818,12 +26831,14 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has the V1 signature enabled
       ```yaml
       APKSigner:
         V1_SIGNATURE: true
         V2_SIGNATURE: false
       ```
     compliant: |
+      The application uses a secure signature
       ```yaml
       APKSigner:
         V1_SIGNATURE: false
@@ -26881,10 +26896,12 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application manifest misconfigures the allowed certificates
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="17" android:compileSdkVersionCodename="20" minSdkVersion="17" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
       ```
     compliant: |
+      The application manifest is safely configured
       ```json
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" android:compileSdkVersionCodename="2" minSdkVersion="25" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
       ```
@@ -26936,6 +26953,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The db server allows editing permissions for unauthorized users
       ```yaml
       version: "3.9"
       services:
@@ -26954,7 +26972,7 @@
             AllowEdit: all
       ```
     compliant: |
-      Restrict access only to authorized users
+      The db server restricts access only to authorized users
       ```yaml
       version: "3.9"
       services:
@@ -27033,6 +27051,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The search cloud service is not securely restricted
       ```json
       "indexes": {
         "search-cloud": {
@@ -27042,6 +27061,7 @@
       }
       ```
     compliant: |
+      The search cloud service is restricted based on certain parameters
       ```json
       "indexes": {
         "search-cloud": {
@@ -27107,6 +27127,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has unsafe methods that could affect application performance
       ```java
       class Main {
         public static void main(User user) {
@@ -27117,10 +27138,10 @@
       }
       ```
     compliant: |
+      The application uses safe methods that do not put application performance at risk
       ```java
       class Main {
         public static void main(User user) {
-          //You could replace it with StringBuilder
           StringBuilder str = new StringBuilder(user.posts);
           str.append(user.newPost);
         }
@@ -27177,8 +27198,8 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application includes a function that leaves an opened socket
       ```python
-      //Function that leaves an opened socket
       def createConnection(host, port, limit):
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host = socket.gethostname()
@@ -27192,6 +27213,7 @@
         return
       ```
     compliant: |
+      The outflows of the application are explicitly shut down after use
       ```python
       def createConnection(host, port, limit):
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -27269,16 +27291,17 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The application does not correctly set up the signing method to generate the tokens
       ```javascript
       const accessCredentials = (req, res) => {
         const token = jwt.sign({ username }, jwtKey, {
-          //Using a user/browser defined value as the signing algorithm
           algorithm: req.body.algorithm,
           expiresIn: jwtExpirySeconds,
         })
       }
       ```
     compliant: |
+      The application uses a safe encryption algorithm to generate the jwt signature
       ```javascript
       const accessCredentials = (req, res) => {
         const token = jwt.sign({ username }, jwtKey, {
@@ -27343,6 +27366,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application has misconfigured role access credentials
       ```json
       {
         "Effect": "Allow",
@@ -27354,7 +27378,7 @@
       }
       ```
     compliant: |
-      //Restrict access following a minimum permissions approach
+      The application restricts access following a minimum permissions approach
       ```json
       {
         "Effect": "Allow",
@@ -27429,6 +27453,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There is sensitive information store as plain text
       ```c {3,7,15}
       using System;
       class cipher{
@@ -27440,6 +27465,7 @@
       }
       ```
     compliant: |
+      Sensitive resources do not have their credentials stored in the source code
       ```c {3,7,15}
       using System;
       class cipher{
@@ -27514,6 +27540,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There is unvalidated input data handled by the application
       ```java
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
@@ -27525,6 +27552,7 @@
       }
       ```
     compliant: |
+      All input data correctly validates input data before using it
       ```java
       public void doPost( HttpServletRequest request, HttpServletResponse response){
         try {
@@ -27657,6 +27685,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The XML unmarshaller displays sensitive information without validating credentials
       ```c {3,7,15}
       public class XmlToObject {
         public static void main(String[] args) {
@@ -27678,6 +27707,7 @@
       }
       ```
     compliant: |
+      The XML unmarshaller is securely configured to avoid displaying sensitive information
       ```c {3,7,15}
       public class XmlToObject {
         public static void main(String[] args) {
@@ -27775,6 +27805,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not properly check user permissions before accesing sensitive information
       ```javascript
       const grantAccess = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -27787,6 +27818,7 @@
       }
       ```
     compliant: |
+      The application securely checks user authorization credentials before accesing sensitive information
       ```javascript
       const grantAccess = (req, res) => {
         const user = req.body.user;
@@ -27862,6 +27894,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Unnecesary privileges are given by the use of a wildcard "*"
       ```terraform
       data "aws_iam_policy_document" "example" {
         statement {
@@ -27881,6 +27914,7 @@
       }
       ```
     compliant: |
+      Access to resources is securely configured for each security policy
       ```terraform
       data "aws_iam_policy_document" "example" {
         statement {
@@ -28029,6 +28063,7 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application does not validate user input on the server side
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -28040,6 +28075,7 @@
       });
       ```
     compliant: |
+      All user input is correctly validated before being used
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -28104,21 +28140,21 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Closing a session without validating the email belongs to the same user and token
       ```javascript
       const logOut = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
-          //Closing a session without validating the email belongs to the same user and token
           closeSession(req.body.email);
         }
       }
       ```
     compliant: |
+      The close session functionality verifies that id, token and email all belong to the same user
       ```javascript
       const logOut = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
           const validateCredentials(req.body.user);
           if validateCredentials{
-            //The close session function verifies that id, token and email all belong to the same user
             closeSession(req.body.userid, req.body.token, req.body.email);
           }
         }
@@ -28172,12 +28208,14 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The http response do not set content type header
       ```http
       HTTP/1.1 200 OK
       Date: Tue, 15 Nov 1994 08:12:31 GMT
       Host: yourhost
       ```
     compliant: |
+      All responses from the application set the content type header
       ```http
       HTTP/1.1 200 OK
       Content-Type: userID/html; charset=utf-8
@@ -28237,22 +28275,21 @@
   category: Probabilistic Techniques
   examples:
     non_compliant: |
+      Application does not establish a fallback or limit when the authorization code is not valid
       ```javascript
       const validatePromoCode = (req, res) => {
         if (isValidCode(req.body.code)) {
-          //Application does not establish a fallback or limit when the code is not valid
           applyDiscount(req.body.code, req.body.item);
         }
       }
       ```
     compliant: |
+      There is a fallback mechanism to prevent brut force algorithms from guessing discount codes
       ```javascript
       const validatePromoCode = (req, res) => {
         if (isValidCode(req.body.code)) {
-          //Application does not establish a fallback or limit when the code is not valid
           applyDiscount(req.body.code, req.body.item);
         }else{
-          //Set a fallback mechanism to prevent brut force algorithms from guessing discount codes
           if(req.body.numRequests > 5){
             blockUserCodes(req.body.userid, 36000);
           }
@@ -28369,6 +28406,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The service uses an insecure encryption method (CBC)
       ```json
       http {
         server {
@@ -28384,6 +28422,7 @@
       }
       ```
     compliant: |
+      All services use a secure encryption method
       ```json
       http {
         server {
@@ -28447,6 +28486,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The EC2 instance has an insecure configuration, it has the disable api termination set to true
       ```yaml
       Resources:
         MyLaunchTemplate:
@@ -28467,6 +28507,7 @@
                 - sg-083cd3bfb8example
       ```
     compliant: |
+      All EC2 instances are securely configured
       ```yaml
       Resources:
         MyLaunchTemplate:
@@ -28555,6 +28596,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      Some resources have their credentials stored in the code
       ```terraform
       resource "aws_iam_policy" "policy" {
         name        = "test_policy"
@@ -28577,6 +28619,7 @@
       }
       ```
     compliant: |
+      All resource credentials are stored using environment variables
       ```terraform
       resource "aws_iam_policy" "policy" {
         name        = "test_policy"
@@ -28658,6 +28701,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are services without the versioning configuration resource configured
       ```terraform
       resource "aws_s3_bucket" "state_bucket" {
         bucket        = "${data.aws_caller_identity.current.account_id}-terraform-state"
@@ -28679,6 +28723,7 @@
       }
       ```
     compliant: |
+      All services should have the versioning configuration correctly configured
       ```terraform
       resource "aws_s3_bucket" "state_bucket" {
         bucket        = "${data.aws_caller_identity.current.account_id}-terraform-state"
@@ -28754,9 +28799,9 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application does not validate the user permissions to access the information
       ```javascript
       const getUserInfo = (req, res) => {
-        //The function does not validate the user permissions to access the information
         if (isValidUser(req.body.user)) {
           const requestedUser = req.body.requiredUser;
           res.send(requestedUser.email);
@@ -28765,10 +28810,10 @@
       }
       ```
     compliant: |
+      The application restrics only admin users to access the sensitive information
       ```javascript
       const getUserInfo = (req, res) => {
         const userCredentials = getCredentials(req.body.userId);
-        //Allow only admin users to access the sensitive information
         if (isValidUser(req.body.user) && userCredentials == "ADMIN") {
           const requestedUser = req.body.requiredUser;
           res.send(requestedUser.email);
@@ -28841,13 +28886,13 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      the same header is included in the payments after processing which could be exploited by an attacker
       ```javascript
       app.post('/user/payment', (req, res) => {
         const { username, password, paymentInfo } = req.body;
         const user = users.find(u => { return u.username === username && u.password === password });
         if (user) {
           processPayment(user, paymentInfo);
-          //The same header is included in the payments after processing which could be exploited
           res.json({
             accessKey
           });
@@ -28864,9 +28909,8 @@
         const user = users.find(u => { return u.username === username && u.password === password });
         if (user) {
           const token = jwt.sign({ username: user.username,  role: user.role }, accessTokenSecret);
-          //function in charge of sending unique token for user to be authorized
           sendAuthToken(user, token)
-          ...Code to handle redirection for token to be processed
+          //Code to handle redirection for token to be processed
         } else {
             res.send('Unable to generate token. Login again to re try');
         }
@@ -28918,6 +28962,7 @@
   category: Abuse Functionality
   examples:
     non_compliant:  |
+      The service configuration uses an insecure hashing function
       ```c {3,7,15}
       namespace Controllers {
         public class Encrypt {
@@ -28931,6 +28976,7 @@
       }
       ```
     compliant: |
+      The hashing configuration is set up with a secure hashing function
       ```c {3,7,15}
       namespace Controllers {
         public class Encrypt {
@@ -28992,6 +29038,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The requestValidationMode is not correctly configured
       ```http
       <system.web>
           <compilation debug="true" targetFramework="4.0" />
@@ -28999,6 +29046,7 @@
       </system.web>
       ```
     compliant: |
+      The requestValidationMode header is correctly configured
       ```http
       <system.web>
           <compilation debug="true" targetFramework="4.0" />
@@ -29053,10 +29101,10 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application updates user information with inputs without validating data on the server side
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
-          //Updating user without validating data on the server side
           user.email = req.body.data.emailEdit;
           user.first_name = req.body.data.first_nameEdit;
           user.last_name = req.body.data.last_nameEdit;
@@ -29066,6 +29114,7 @@
       });
       ```
     compliant: |
+      The application correctly validates all input data on the server side
       ```javascript
       //String to validate data does not contain special characters
       const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -29142,6 +29191,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application includes functionality that allows multiple token codes to be send without ending the user session
       ```javascript
       exports.signin = (req, res) => {
         const token = req.body.tokenCode;
@@ -29149,12 +29199,12 @@
         if isValidToken{
           //Handle user signin
         }else{
-          //This allows multiple token codes to be send without ending the session
           return res.message("Invalid Token. Try Again")
         }
       }
       ```
     compliant: |
+      The user session expires in case an incorrect token is used
       ```javascript
       exports.signin = (req, res) => {
         const token = req.body.tokenCode;
@@ -29232,6 +29282,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application includes common debugging functions in the production code
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -29250,6 +29301,7 @@
       });
       ```
     compliant: |
+      All debugging functions in the code are replaced with proper functionality to handle exceptions and errors
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -29337,6 +29389,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The http responses of the application use the g-zip content-encoding
       ```http
       GET HTTP/1.1
       Host: hostname
@@ -29346,6 +29399,7 @@
       content-encoding: gzip
       ```
     compliant: |
+      There is a secure configuration of the content-encoding header in the http responses
       ```http
       GET HTTP/1.1
       Host: hostname
@@ -29405,9 +29459,10 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There are functionalities using unvalidated input data to build system commands
       ```java
       Private main (String userInput){
-        String homeDirectory = System.getProperty("user.home");
+        String homeDirectory = System.getProperty(user.profile);
         Process process;
         if (isWindows) {
           process = Runtime.getRuntime().exec(String.format("cmd.exe /c dir %s", homeDirectory));
@@ -29421,6 +29476,7 @@
       }
       ```
     compliant: |
+      System commands, when needed, are always built using validated or parameterized data
       ```java
       Private main ([] args){
         String homeDirectory = System.getProperty("fixedPath");
@@ -29504,6 +29560,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There is a functionality that allows breaching due to a missconfiguration of the source code
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
@@ -29515,6 +29572,7 @@
       }
       ```
     compliant: |
+      All functionalities of the application correctly handle the authorization of users
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
@@ -29577,6 +29635,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application manifest sets unsafe permissions not necessary for its functionality
       ```html
       <?xml version="1.0" encoding="utf-8" standalone="no"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" 	android:compileSdkVersionCodename="12" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
@@ -29608,6 +29667,7 @@
       </manifest>
       ```
     compliant: |
+      The application sets only secure permissions
       ```yaml
       <?xml version="1.0" encoding="utf-8" standalone="no"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="31" android:compileSdkVersionCodename="12" android:installLocation="internalOnly" package="com.example" platformBuildVersionCode="31" platformBuildVersionName="12">
@@ -29619,22 +29679,6 @@
         <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
         <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
         <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"/>
-        <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-        <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-        <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-        <uses-permission android:name="android.permission.VIBRATE"/>
-        <uses-permission android:name="android.permission.WAKE_LOCK"/>
-        <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-        <uses-permission android:name="com.android.vending.BILLING"/>
-        <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-        <uses-permission android:name="android.permission.BLUETOOTH"/>
-        <uses-permission-sdk-23 android:name="android.permission.MANAGE_OWN_CALLS"/>
-        <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
-        <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
-        <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
-        <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
         <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
         <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
         <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
@@ -29647,12 +29691,6 @@
         <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
         <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ"/>
         <uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE"/>
-        <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES"/>
-        <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
-        <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-        <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
-        <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-        <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA"/>
       </manifest>
       ```
   remediation_time: "90"
@@ -29714,6 +29752,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application manifest allows launchMode with the singletask Option
       ```yaml
       <manifest ... >
         ...
@@ -29723,6 +29762,7 @@
       </manifest>
       ```
     compliant: |
+      The application manifest correctly configures launchMode to singleInstance
       ```yaml
       <manifest ... >
         ...
@@ -29840,6 +29880,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are scripts being used that contain plain text access keys
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
@@ -29850,6 +29891,7 @@
       }
       ```
     compliant: |
+      The application does not contain any method that contains sensitive information
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user) && isValidToken(req.body.user.token)) {
@@ -29969,6 +30011,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The application sets different response messages that differ based on the finding status
       ```javascript
       const getFindings = (req, res) => {
         if (isValidUser(req.body.user) && isExistingFinding(req.body.findingId)) {
@@ -29980,6 +30023,7 @@
       }
       ```
     compliant: |
+      The application sends the same response regardless of the finding status
       ```javascript
       const getFindings = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -30072,6 +30116,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application contains functionality that displays sensitive information without hashing
       ```javascript
       const accessRecoveryPasswd = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -30087,6 +30132,7 @@
       }
       ```
     compliant: |
+      All sensitive information is hashed before sending it in a response
       ```javascript
       const accessRecoveryPasswd = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -30161,12 +30207,11 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application does not verify the jwt signature
       ```javascript
       function verifyToken(req.token, res)=>{
         const jwtHeader = JWT.split('.')[0];
         const jwtPayload = JWT.split('.')[1];
-
-        //the application does not verify the jwt signature
         const isVerified = verifyFunction.write(jwtHeader + '.' + jwtPayload);
 
         if isVerified {
@@ -30178,6 +30223,7 @@
       }
       ```
     compliant: |
+      The application correctly verifies the jwt signature
       ```javascript
       function verifyToken(req.token, res)=>{
         const jwtHeader = JWT.split('.')[0];
@@ -30255,6 +30301,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application uploads files without verifying the content
       ```javascript
       const upload = async (userFile) => {
         try {
@@ -30277,6 +30324,7 @@
       }
       ```
     compliant: |
+      The application performs server side validation of all input data to be uploaded
       ```javascript
       const upload = async (userFile) => {
         try {
@@ -30350,6 +30398,7 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application does not perform server side validation of the input data
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -30361,6 +30410,7 @@
       });
       ```
     compliant: |
+      All inputs are correctly validated on the server side before being used
       ```javascript
       app.post('/editProfile', isLoggedIn, function(req, res, next){
         User.update({ _id: req.user.id}, req.body, function(err, user){
@@ -30425,6 +30475,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not perform server side validation of some input data
       ```c
       public static void Test(string server, string txtEmail) {
         string to = "user";
@@ -30440,6 +30491,7 @@
       }
       ```
     compliant: |
+      All input data is correctly verified on the server side
       ```c
       public static void Test(string server, string txtEmail) {
         string to = "user";
@@ -30510,6 +30562,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application performs potentially large queries without setting a timeout limit
       ```java
       void initStatement(Connection conn, Statement stmt) throws SQLException {
         int queryTimeout = 3600;
@@ -30518,6 +30571,7 @@
       }
       ```
     compliant: |
+      Potentially large queries include a timeout limit to avoid overloading
       ```java
       void initStatement(Connection conn, Statement stmt) throws SQLException {
         int queryTimeout = 3600;
@@ -30580,6 +30634,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The DocumentBuilderFactory does not have a secure configuration
       ```java
       public static DocumentBuilderFactory secureDocumentBuilderFactory(final DocumentBuilderFactory factory, final String    callerNamespace) throws ParserConfigurationException{
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -30590,6 +30645,7 @@
       }
       ```
     compliant: |
+      There are additional settings in the DocumentBuilderFactory to securely configure the service
       ```java
       import com.sap.security.hardener.nw.facade.HardenerFacade;
 
@@ -30666,6 +30722,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The API key is stored in plain text in the source code
       ```javascript
       const API_KEY = "KEY_inplaneText";
 
@@ -30675,8 +30732,8 @@
       }
       ```
     compliant: |
+      All credentials are stored as encrypted secrets
       ```javascript
-      //Store API_KEY as a secret encrypted
       const key = Buffer.from(keyString.substring(0, 8), "utf8");
 
       function getInformation(userInput){
@@ -30735,11 +30792,13 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The Content Security Policy header has an insecure configuration
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: frame-ancestors 'none';
       ```
     compliant: |
+      The Content security Policy is securely configured
       ```http
       HTTP/1.1 200 OK
       Content-Security-Policy: frame-ancestors <source>;
@@ -30785,8 +30844,8 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The source code has been stored without using any form of obfuscation
       ```javascript
-      //Code before obfuscation
       function calculatePay(SpecialList clientGroup){
         while(clientGroup.HasMore()){
           clientGroup.getNext(true);
@@ -30796,8 +30855,8 @@
       }
       ```
     compliant: |
+      The source code is stored using obfuscation techniques like a rename method
       ```javascript
-      //Rename Obfuscation method
       function calculatePay(a b){
         while(b.c()){
           b.a(true);
@@ -30862,6 +30921,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The source code includes code to debug the php.ini configuration files
       ```php
       function debug_to_console($data) {
         $output = $data;
@@ -30870,11 +30930,18 @@
         echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
       }
 
-      //In production you can find a function to debug the php.ini configuration
       debug_to_console(phpinfo());
       ```
     compliant: |
-      Remove all functions or files that expose sensitive information like configuration settings
+      The source code does not contain functions or files that expose sensitive information like configuration settings
+      ```php
+      function debug_to_console($data) {
+        $output = $data;
+        if (is_array($output))
+          $output = implode(',', $output);
+        echo "Output message";
+      }
+      ```
   remediation_time: "60"
   es:
     title: Technical information leak - Content response
@@ -30931,6 +30998,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The resource has a weak password configuration settings
       ```yaml
       Resources:
         MySecret1:
@@ -30956,6 +31024,7 @@
             Description: "This secret has a dynamically generated secret password."
       ```
     compliant: |
+      The resource has strong secure password configuration settings
       ```yaml
       Resources:
         MySecret1:
@@ -31033,6 +31102,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The resource has weak password configuration settings
       ```yaml
       Resources:
         MySecret1:
@@ -31053,6 +31123,7 @@
               RequireEachIncludedType: false
       ```
     compliant: |
+      The resource has strong secure password configuration settings
       ```yaml
       Resources:
         MySecret1:
@@ -31125,6 +31196,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The OTP functionality sends an insecure temporary password
       ```javascript
       const requestPasswordTemporary = async (user) => {
         if (!user) throw new Error("User does not exist");
@@ -31136,6 +31208,7 @@
       };
       ```
     compliant: |
+      The OTP uses a secure method to generate temporary passwords
       ```javascript
       const requestPasswordReset = async (email) => {
         const user = await User.findOne({ email });
@@ -31224,6 +31297,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are nested transparency annotations in the source code
       ```c {3,7,15}
       using System;
       using System.Security;
@@ -31245,6 +31319,7 @@
       }
       ```
     compliant: |
+      The source code does not have any transparency annotations in production
       ```c {3,7,15}
       using System;
       using System.Security;
@@ -31367,12 +31442,14 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The application does not enable Strict Host Key Checking
       ```java
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "no");
       session.setConfig(config);
       ```
     compliant: |
+      The application enables Strict Host Key Checking
       ```java
       java.util.Properties config = new java.util.Properties();
       config.put("StrictHostKeyChecking", "yes");
@@ -31448,9 +31525,9 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      The user input is not validated on the server side, which could potentially allow all users to be deleted
       ```javascript
       router.delete('/delete/:username', (req, res) => {
-          //The user is not checked on the server side, which could potentially allow all users to be deleted
           const { username } = req.params;
           db.collection('username').findAndDelete({username: username},
           (err, result) => {
@@ -31460,6 +31537,7 @@
       });
       ```
     compliant: |
+      All inputs are correctly validated on the server side
       ```javascript
       router.delete('/delete/:username', (req, res) => {
           const { username, password} = req.params;
@@ -31535,6 +31613,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There is a functionality to bypass the verification of the user credentials and accees sensitive information
       ```javascript
       app.Register('/userRegister', function(req, res, next){
         const img = req.user.secImg;
@@ -31549,6 +31628,7 @@
       });
       ```
     compliant: |
+      The application correctly validates credentials and handles wrong credentials by redirecting user to login
       ```javascript
       app.Register('/userRegister', function(req, res, next){
         const img = req.user.secImg;
@@ -31558,7 +31638,7 @@
           res.redirect('/profile/SecurityCredentials');
         }else{
           //Code to redirect and retry to validate security credentials
-          res.redirect('/userRegister');
+          res.redirect('/userLogin');
         }
       });
       ```
@@ -31614,17 +31694,17 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      The application takes user input without validating it on the server side
       ```javascript
-      //Take user input without validating
       var search = document.getElementById('search').value;
       var results = document.getElementById('results');
       results.innerHTML = "You searched for:" + search;
       ```
     compliant: |
+      The application performs server side validation of all user inputs
       ```javascript
       var search = document.getElementById('search').value;
       var results = document.getElementById('results');
-      //Perform validation of user input
       results.innerHTML = "You searched for:" + verifyData(search);
       function verifyData(str){
         return String(str).replace("ValidRegex");
@@ -31685,6 +31765,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource uses an insecure http configuration
       ```terraform
       resource "azurerm_storage_account" "vulnerable" {
         name                      = "storageaccountname"
@@ -31692,7 +31773,7 @@
         location                  = azurerm_resource_group.example.location
         account_tier              = "Standard"
         account_replication_type  = "GRS"
-        min_tls_version           = "TLS1_2"
+        min_tls_version           = "TLS1_0"
         enable_https_traffic_only = false
         queue_properties {
           logging {
@@ -31709,6 +31790,7 @@
       }
       ```
     compliant: |
+      The resource has https channel over tls securely configured
       ```terraform
       resource "azurerm_storage_account" "not_vulnerable" {
         name                     = "storageaccountname"
@@ -31797,11 +31879,13 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The db service uses an insecure encryption algorithm
       ```c
       SQLNET.ENCRYPTION_SERVER = [accepted]
       SQLNET.ENCRYPTION_TYPES_SERVER = (AES128)
       ```
     compliant: |
+      The db service uses a secure encryption algorithm
       ```c
       SQLNET.ENCRYPTION_SERVER = [accepted]
       SQLNET.ENCRYPTION_TYPES_SERVER = (AES256)
@@ -31883,8 +31967,8 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      Debug functions like printStackTrace are present in production code
       ```c {3,7,15}
-      //Debug functions like printStackTrace are present in production code
       public class myClass {
         public static void main(String[] args) {
           try {
@@ -31897,8 +31981,8 @@
       }
       ```
     compliant: |
+      There are no debugging functions present in the source code
       ```c {3,7,15}
-      //Remove all debugging lines from the production code
       public class myClass {
         public static void main(String[] args) {
           try {
@@ -31974,6 +32058,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
+      There is a functionality on the code that allows the user to bypass the authorization verification
       ```javascript
       app.post('/user/payment', (req, res) => {
         const { username, password, paymentInfo } = req.body;
@@ -31987,13 +32072,14 @@
       });
       ```
     compliant: |
+      The application securely checks the user credentials before accesing sensitive information
       ```javascript
       app.post('/user/payment', (req, res) => {
         const { username, password, paymentInfo } = req.body;
         const user = users.find(u => { return u.username === username && u.password === password });
         const validPayInfo = isValidPayment(paymentInfo.number, user.pendingBills);
         if (user && validPayInfo) {
-          //This code should validate the rest of the application process, setting limits for number of tries and verifying user settings limitations
+          //This code should validate the rest of the application process, setting limits for number of tries and verifying user settings
         } else {
             res.send('Unable to process payment. Try again');
         }
@@ -32079,8 +32165,8 @@
       }
       ```
     compliant: |
+      The source code includes a rename Obfuscation method
       ```java
-      //Rename Obfuscation method
       private void calculatePay(a b){
         while(b.c()){
           b.a(true);
@@ -32174,12 +32260,12 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      The application allow sconnection to bluetooth device without any authentication
       ```java
       private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
         bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(NAME, MY_UUID)
       }
 
-      //Allow connection to bluetooth device without any authentication
       override connectDevice run(){
         var shouldLoop = true
         while (shouldLoop) {
@@ -32196,6 +32282,7 @@
       }
       ```
     compliant: |
+      The bluetooth connections are validated before being authorized
       ```java
       private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
         bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(NAME, MY_UUID)
@@ -32288,6 +32375,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource uses insecure encryption algorithms
       ```yaml
       Resources:
         EncryptedS3Bucket:
@@ -32300,6 +32388,7 @@
           DeletionPolicy: Delete
       ```
     compliant: |
+      All resources use secure encryption algorithms
       ```yaml
       Resources:
         EncryptedS3Bucket:
@@ -32369,11 +32458,12 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      Verify that all imports are used in the model
+      There are some imports declarations not used in the model
       ```javascript
       import unusedDataStructure from dbmodel
       ```
     compliant: |
+      There are no import declarations unused
       ```javascript
       import dataStructure from dbmodel
 
@@ -32437,6 +32527,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are docker dependencies not pinned
       ```docker
       FROM node:12.2
       RUN apk add --no-cache python g++ make
@@ -32446,6 +32537,7 @@
       CMD ["node", "src/index.js"]
       ```
     compliant: |
+      All docker dependencies are pinned using secure mechanisms
       ```docker
       FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
       ARG DEBIAN_FRONTEND=noninteractive
@@ -32509,6 +32601,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are unpinned terraform dependencies
       ```json {4,8}
       required_providers {
         aws = {
@@ -32518,6 +32611,7 @@
       }
       ```
     compliant: |
+      All terraform dependencies are pinned
       ```json {4,8}
       required_providers {
         aws = {
@@ -32606,8 +32700,8 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not validate credentials on the back end
       ```java
-      //The application does not validate credentials on the back end
       public void createUser(user) throws Exception {
         VOUserDetails u = createUniqueUser();
         u.setName(user.name);
@@ -32616,8 +32710,8 @@
       }
       ```
     compliant: |
+      The application validates user credentials on the back end
       ```java
-      //Add validation checks in the backend, for example whitelisting the password entered
       public static boolean isValidPassword(String password,String regex){
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
@@ -32683,9 +32777,9 @@
   category: Manipulate Data
   examples:
     non_compliant: |
+      There is code present on the front end that generates the OTP
       ```javascript
       function generateOTP() {
-        //Vulnerable code that generates an OTP on the front end side
         return OTP;
       }
 
@@ -32694,8 +32788,8 @@
       }
       ```
     compliant: |
+      OTP generation is handled on the back end
       ```javascript
-      //OTP generation should be handled on the back end
       OTP_CONFIG: {
         upperCaseAlphabets: true,
         specialChars: false,
@@ -32849,6 +32943,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      There are sensitive credentials stored in the source code
       ```javascript
       import { initializeDB } from db_model;
 
@@ -32862,6 +32957,7 @@
       }
       ```
     compliant: |
+      All sensitive credentials are stored as encrypted secrets
       ```javascript
       import { initializeDB } from db_model;
 
@@ -33038,10 +33134,10 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The OTP generated is not expired after the user uses it to sign in for the first time
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user)) {
-          //The OTP generated is not expired after the user uses it to sign in for the first time
           if (validateToken == req.body.token || req.body.password = user.OTpasswd){
             //Code to handle user sign in
           }
@@ -33049,6 +33145,7 @@
       }
       ```
     compliant: |
+      The OTP generated is correctly expired after a single use
       ```javascript
       const logIn = (req, res) => {
         if (isValidUser(req.body.user)) {
@@ -33117,6 +33214,7 @@
       authMode: NTLM
       ```
     compliant: |
+      The server configuration uses a safe authentication mechanism
       ```yaml
       adminSecurity: active
       authMode: Kerberos
@@ -33239,6 +33337,7 @@
   category: Inject Unexpected
   examples:
     non_compliant: |
+      There are functionalities that can be overwritten due to insecure coding practices
       ```javascript
       function modifyPrototype(moduleName, deleteMethod, newMethod) {
         // modifying the prototype of a module from within another function
@@ -33252,12 +33351,12 @@
       }
       ```
     compliant: |
+      There are no harmful functionalities on vulnerable objects
       ```javascript
       function modifyPrototype(moduleName, deleteMethod, newMethod) {
-        // modifying the prototype of a module from within another function
         var newMod = new moduleName;
 
-        //Add new method to the new method, without altering the original
+        //Add new method to the object, without altering the original
         newMod.${newMethod} = function() {
             //Add functionality to object
         };
@@ -33384,6 +33483,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The firewall configuration allows insecure port connections
       ```java
       gateway: "My gateway name"
       firewall_service:
@@ -33401,6 +33501,7 @@
           :source_ip: 'Any'
       ```
     compliant: |
+      The firewall is safely configured over a secure port
       ```java
       gateway: "My gateway name"
       firewall_service:
@@ -33586,6 +33687,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not enable log file validation
       ```yaml
       Resources:
         trail1:
@@ -33596,6 +33698,7 @@
             EnableLogFileValidation: false
       ```
     compliant: |
+      The resource correctly enables log file validation
       ```yaml
       Resources:
         trail1:
@@ -33646,6 +33749,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application uses insecure encryption algorithms
       ```python
       from Crypto import Random
       from Crypto.Cipher import AES
@@ -33657,6 +33761,7 @@
         return iv + ciphertext
       ```
     compliant: |
+      The application includes secure encryption algorithms
       ```python
       from Crypto import Random
       from Crypto.Cipher import AES
@@ -33725,6 +33830,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not enable automatic key rotation
       ```yaml
       Resources:
         key1:
@@ -33746,6 +33852,7 @@
                   Resource: '*'
       ```
     compliant: |
+      The resource has automatic key rotation enabled
       ```yaml
       Resources:
         key1:
@@ -33837,12 +33944,14 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
+      The LDAP server does not include SSL encryption for sensitive traffic
       ```c
       DirectoryEntry de = new DirectoryEntry();
       de.Path = "LDAP://myserver/OU=People,O=mycompany";
       de.AuthenticationType = AuthenticationTypes.None;
       ```
     compliant: |
+      The LDAP server is securely configure to use SSL encryption on sensitive traffic
       ```c
       DirectoryEntry de = new DirectoryEntry();
       de.Path = "LDAP://myserver/OU=People,O=mycompany";
@@ -33925,6 +34034,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are unverified inputs that are used to put fragments into the application
       ```java
       @Override
       String initialFragment = getIntent().getStringExtra(EXTRA_SHOW_FRAGMENT);
@@ -34064,6 +34174,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have the logging property set
       ```yaml
       Resources:
         LoadBalancer1:
@@ -34079,6 +34190,7 @@
               Protocol: HTTPS
       ```
     compliant: |
+      The resource has the logging property correctly configured
       ```yaml
       Resources:
         LoadBalancer1:
@@ -34148,6 +34260,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The azure secrets do not have an expiration date or limit set
       ```terraform
       resource "azurerm_key_vault_secret" "vulnerable" {
         name         = "example"
@@ -34156,6 +34269,7 @@
       }
       ```
     compliant: |
+      There is a correctly set expiration date on the azure secrets
       ```terraform
       resource "azurerm_key_vault_secret" "not_vulnerable" {
         name            = "kvAzsqlRevApphist"
@@ -34219,6 +34333,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not enable logging for sensitive requests
       ```terraform
       resource "azurerm_storage_account" "vulnerable" {
         name                     = "example"
@@ -34238,6 +34353,7 @@
       }
       ```
     compliant: |
+      The resource correctly enables logging for sensitive requests
       ```terraform
       resource "azurerm_storage_account" "not_vulnerable" {
         name                     = "example"
@@ -34323,6 +34439,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application manifest has usesCleartextTraffic set to true
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" android:usesCleartextTraffic= "True" package="com.android.zerosms">
           <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -34337,6 +34454,7 @@
       </manifest>
       ```
     compliant: |
+      The application manifest has usesCleartextTraffic set to false
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" android:usesCleartextTraffic= "False" package="com.android.zerosms">
           <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -34421,24 +34539,24 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      There are functionalities that execute a command without checking or treating user input
       ```python
       import os
       def upload_file( filename)
         try
-          //Executing a command without checking or treating user input
           command = userCommand + filename
           os.system(command)
         except
           return "Error"
       ```
     compliant: |
+      The application do not use system sensitive functions
       ```python
       def upload_file(filename)
         try
           filename_escaped = filename.replace(' ', '\ ')
           command = "%s -q --no-warnings %s --exec \'mv {} %s\' &>/dev/null" % \
             (filename_escaped)
-          //Do not use os sensitive functions, use separate safe functions instead
           runCommand(command)
         except
           return "Error"
@@ -34502,6 +34620,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The access modes are too permissive
       ```yaml
       Name:            task-pv-volume
       Labels:          type=local
@@ -34519,6 +34638,7 @@
       Events:            <none>
       ```
     compliant: |
+      There is a secure access mode configuration
       ```yaml
       Name:            task-pv-volume
       Labels:          type=local
@@ -34590,6 +34710,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource does not have encryption correctly set up
       ```yaml
       Resources:
         FileSystemResource:
@@ -34601,6 +34722,7 @@
             Encrypted: false
       ```
     compliant: |
+      The resource has encryption correctly configured with a KMS Key
       ```yaml
       Resources:
         FileSystemResource:
@@ -34610,6 +34732,7 @@
             BackupPolicy:
               Status: ENABLED
             Encrypted: true
+            KMS_Key: ${encrypted_key}
       ```
   remediation_time: "20"
   es:
@@ -34667,6 +34790,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource does not have an encryption mechanism correctly configured
       ```yaml
       Resources:
         myLaunchConfig:
@@ -34689,6 +34813,7 @@
                   Encrypted : false
       ```
     compliant: |
+      The resource has encryption mechanism enabled
       ```yaml
       Resources:
         myLaunchConfig:
@@ -34769,6 +34894,7 @@
   category: Deceptive Interactions
   examples:
     non_compliant: |
+      The resource does not have the logging feature enabled
       ```yaml
       Resources:
         Dev:
@@ -34781,6 +34907,7 @@
               Stack: Prod
       ```
     compliant: |
+      The resource has the logging feature correctly enabled
       ```yaml
       Resources:
         Prod:
@@ -34852,6 +34979,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      The resource is not using server side encryption
       ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         server_side_encryption {
@@ -34861,6 +34989,7 @@
       }
       ```
     compliant: |
+      The resource has server side encryption enabled
       ```terraform
       resource "aws_dynamodb_table" "basic-dynamodb-table" {
         server_side_encryption {
@@ -34930,8 +35059,8 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      there is configuration to upload the package without the organization id
       ```java
-      //Configuration to upload the package without the organization id
       <distributionManagement>
         <repository>
           <url>https://{WORKSPACE}.bytesafe.dev/maven/{REGISTRY}/</url>
@@ -34942,6 +35071,7 @@
       </distributionManagement>
       ```
     compliant: |
+      All the registries of the package manager have the organization id set
       ```java
       <distributionManagement>
         <repository>
@@ -35015,6 +35145,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource has unsafe KMS configuration
       ```yaml
       Resources:
         MySecret:
@@ -35029,6 +35160,7 @@
               ExcludeCharacters: '"@/\'
       ```
     compliant: |
+      The resource has safe configuration of KMS Key for encryption
       ```yaml
       Resources:
         MySecret:
@@ -35100,6 +35232,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The resource does not have any protection against deletion enabled
       ```terraform
       resource "azurerm_key_vault" "vulnerable" {
         name                       = "examplekeyvault"
@@ -35109,6 +35242,7 @@
       }
       ```
     compliant: |
+      All resources have protection against deletion enabled
       ```terraform
       resource "azurerm_key_vault" "not_vulnerable" {
         name                       = "examplekeyvault"
@@ -35175,6 +35309,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not verify on the server side the inputs before a file upload
       ```c {3,7,15}
       using System;
       using System.Reflection;
@@ -35187,6 +35322,7 @@
       }
       ```
     compliant: |
+      The application performs server side validation for all inputs
       ```c {3,7,15}
       using System;
       using System.Reflection;
@@ -35254,6 +35390,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      the application has the EnableHeaderchecking disabled
       ```c {3,7,15}
       using System;
       using System.Web.Configuration;
@@ -35266,6 +35403,7 @@
       }
       ```
     compliant: |
+      The application correctly configures the EnableHeaderChecking
       ```c {3,7,15}
       using System;
       using System.Web.Configuration;
@@ -35331,6 +35469,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The service SAS does not specify any group policy identifier
       ```javascript
       var storageAccount = CloudStorageAccount.Parse(connectionString);
       var blobClient = storageAccount.CreateCloudBlobClient();
@@ -35351,6 +35490,7 @@
       var uri = blobContainer.Uri + containerSignature;
       ```
     compliant: |
+      The service SAS is correctly configured with a group policy
       ```javascript
       var storageAccount = CloudStorageAccount.Parse(connectionString);
       var blobClient = storageAccount.CreateCloudBlobClient();
@@ -35432,6 +35572,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not perform any server side validation for user inputs
       ```c {3,7,15}
       using System;
       using System.IO;
@@ -35446,6 +35587,7 @@
       }
       ```
     compliant: |
+      The application perform server side validation of all system inputs
       ```c {3,7,15}
       using System;
       using System.IO;
@@ -35519,6 +35661,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application does not validate the account owner is the same resetting the password
       ```java
       public void recoverAccount(useremail, userId){
         if(isValidUser(userId)) {
@@ -35528,6 +35671,7 @@
       }
       ```
     compliant: |
+      The application includes methods to validate the account owner is requesting the password change
       ```java
       public void recoverAccount(userEmail, userId){
         if(isValidUser(userId, userEmail)) {
@@ -35595,6 +35739,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The Docker service performs an insecure use of the ADD command
       ```yaml
       FROM python:3.7-alpine
       WORKDIR /code
@@ -35607,6 +35752,7 @@
       CMD ["flask", "run"]
       ```
     compliant: |
+      The Docker service avoids the use of the ADD command
       ```yaml
       FROM python:3.7-alpine
       WORKDIR /code
@@ -35671,6 +35817,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The Kubernetes configuration does not set a log file configuration
       ```yaml
       apiVersion: v1
       kind: Pod
@@ -35687,6 +35834,7 @@
       +  - kube-apiserver
       ```
     compliant: |
+      The Kubernetes configuration includes the desired log path
       ```yaml
       apiVersion: v1
       kind: Pod
