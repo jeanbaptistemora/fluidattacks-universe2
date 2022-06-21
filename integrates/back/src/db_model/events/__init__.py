@@ -3,11 +3,13 @@ from .add import (
 )
 from .update import (
     update_evidence,
+    update_metadata,
     update_state,
 )
 
 __all__ = [
     "add",
-    "update_state",
     "update_evidence",
+    "update_metadata",
+    "update_state",
 ]

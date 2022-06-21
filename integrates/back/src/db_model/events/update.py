@@ -1,5 +1,6 @@
 from .types import (
     EventEvidence,
+    EventMetadataToUpdate,
     EventState,
 )
 from boto3.dynamodb.conditions import (
@@ -14,6 +15,9 @@ from db_model import (
 from db_model.events.enums import (
     EventEvidenceType,
     EventStateStatus,
+)
+from db_model.events.utils import (
+    format_metadata_item,
 )
 from dynamodb import (
     keys,
@@ -49,6 +53,35 @@ async def update_evidence(
         key=primary_key,
         table=TABLE,
     )
+
+
+async def update_metadata(
+    *,
+    event_id: str,
+    group_name: str,
+    metadata: EventMetadataToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_metadata"],
+        values={
+            "id": event_id,
+            "name": group_name,
+        },
+    )
+    item = format_metadata_item(metadata)
+    if item:
+        try:
+            await operations.update_item(
+                condition_expression=Attr(
+                    key_structure.partition_key
+                ).exists(),
+                item=item,
+                key=primary_key,
+                table=TABLE,
+            )
+        except ConditionalCheckFailedException as ex:
+            raise EventNotFound() from ex
 
 
 async def update_state(

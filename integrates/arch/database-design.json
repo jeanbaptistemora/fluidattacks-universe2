@@ -811,7 +811,7 @@
           "AttributeType": "S"
         },
         {
-          "AttributeName": "report_date",
+          "AttributeName": "event_date",
           "AttributeType": "S"
         },
         {
@@ -6637,7 +6637,7 @@
               "type": {
                 "S": "AUTHORIZATION_SPECIAL_ATTACK"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2018-12-17T21:20:00+00:00"
               }
             },
@@ -6710,7 +6710,7 @@
               "evidences": {
                 "M": {}
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-04-02T08:02:00+00:00"
               }
             },
@@ -6755,7 +6755,7 @@
               "type": {
                 "S": "OTHER"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2018-06-27T12:00:00+00:00"
               }
             },
@@ -6805,7 +6805,7 @@
               "type": {
                 "S": "DATA_UPDATE_REQUIRED"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-04-02T08:02:00+00:00"
               }
             },
@@ -6855,7 +6855,7 @@
               "type": {
                 "S": "AUTHORIZATION_SPECIAL_ATTACK"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-09-19T13:09:00+00:00"
               }
             },
@@ -6900,7 +6900,7 @@
               "type": {
                 "S": "OTHER"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-01-03T12:01:55+00:00"
               }
             },
@@ -6945,7 +6945,7 @@
               "type": {
                 "S": "OTHER"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-01-02T12:00:00+00:00"
               }
             },
@@ -7016,7 +7016,7 @@
               "type": {
                 "S": "AUTHORIZATION_SPECIAL_ATTACK"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2019-03-11T14:00:00+00:00"
               }
             },
@@ -7061,7 +7061,7 @@
               "type": {
                 "S": "OTHER"
               },
-              "report_date": {
+              "event_date": {
                 "S": "2018-01-03T12:01:55+00:00"
               }
             }
@@ -7074,11 +7074,11 @@
             "client",
             "context",
             "description",
+            "event_date",
             "evidences",
             "group_name",
             "hacker",
             "id",
-            "report_date",
             "root_id",
             "state",
             "type"

@@ -48,3 +48,8 @@ class Event(NamedTuple):
     affected_components: Optional[set[EventAffectedComponents]] = None
     context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None
+
+
+class EventMetadataToUpdate(NamedTuple):
+    client: Optional[str] = None
+    description: Optional[str] = None

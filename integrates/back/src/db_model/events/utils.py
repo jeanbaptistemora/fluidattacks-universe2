@@ -2,6 +2,7 @@ from .types import (
     Event,
     EventEvidence,
     EventEvidences,
+    EventMetadataToUpdate,
     EventState,
 )
 from db_model.events.enums import (
@@ -106,6 +107,14 @@ def format_event_item(event: Event) -> Item:
         "context": event.context,
         "root_id": event.root_id,
     }
+
+
+def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
+    item = {
+        "client": metadata.client,
+        "description": metadata.description,
+    }
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_state(item: Item) -> EventState:
