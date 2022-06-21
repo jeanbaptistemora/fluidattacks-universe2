@@ -17,6 +17,14 @@ type Mutation {
     id: ID!
   ): SimplePayload!
 
+  "Add a new credentials to the organization"
+  addCredentials(
+    "Id of the organization"
+    organizationId: String!
+    "New credentials information"
+    credentials: CredentialsInput!
+  ): SimplePayload!
+
   "Adds a new draft Finding to the specified Group"
   addDraft(
     """
@@ -208,7 +216,7 @@ type Mutation {
     "Repository branch to be tested"
     branch: String!
     "Credentials used to clone the repository"
-    credentials: CredentialsInput
+    credentials: RootCredentialsInput
     "Kind of environment to test. E.g. production, QA, etc."
     environment: String!
     "Repository paths to be ignored"
@@ -914,7 +922,7 @@ type Mutation {
     "Repository branch to be tested"
     branch: String!
     "Credentials used to clone the repository"
-    credentials: CredentialsInput
+    credentials: RootCredentialsInput
     "Kind of environment to test. E.g. Production, QA, Dev, etc..."
     environment: String!
     "Repository paths to be ignored"
@@ -1323,7 +1331,7 @@ type Mutation {
   "Validate if Git root is accessible with the credentials provided"
   validateGitAccess(
     "Credentials used to access the repository"
-    credentials: CredentialsInput!
+    credentials: RootCredentialsInput!
     "Name of the group"
     groupName: String!
     "Url of the Git repository to check access"

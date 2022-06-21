@@ -175,7 +175,7 @@ const GET_GIT_ROOT_DETAILS = gql`
 const ADD_GIT_ROOT: DocumentNode = gql`
   mutation AddGitRoot(
     $branch: String!
-    $credentials: CredentialsInput
+    $credentials: RootCredentialsInput
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
@@ -303,7 +303,7 @@ const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $branch: String!
-    $credentials: CredentialsInput
+    $credentials: RootCredentialsInput
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
@@ -485,7 +485,7 @@ const SYNC_GIT_ROOT: DocumentNode = gql`
 
 const VALIDATE_GIT_ACCESS: DocumentNode = gql`
   mutation ValidateGitAccess(
-    $credentials: CredentialsInput!
+    $credentials: RootCredentialsInput!
     $groupName: String!
     $url: String!
   ) {

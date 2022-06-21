@@ -40,6 +40,30 @@ input NotificationPreferences {
 
 "Credentials definition"
 input CredentialsInput {
+  "SSH key"
+  key: String
+  "Name of the credential"
+  name: String!
+  "Https password"
+  password: String
+  "Https token"
+  token: String
+  "Type of authentication"
+  type: CredentialType!
+  "Https user"
+  user: String
+}
+
+"Phone definition"
+input PhoneInput {
+  "International dialing prefix"
+  callingCountryCode: String!
+  "Phone number without the calling country code"
+  nationalNumber: String!
+}
+
+"Root credentials definition"
+input RootCredentialsInput {
   "ID of an existing credential"
   id: String
   "SSH key"
@@ -54,14 +78,6 @@ input CredentialsInput {
   type: CredentialType
   "Https user"
   user: String
-}
-
-"Phone definition"
-input PhoneInput {
-  "International dialing prefix"
-  callingCountryCode: String!
-  "Phone number without the calling country code"
-  nationalNumber: String!
 }
 
 "Sorts vulnerability suggestion"

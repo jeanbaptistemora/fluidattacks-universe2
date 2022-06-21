@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 const ADD_GIT_ROOT = gql`
   mutation AddGitRoot(
     $branch: String!
-    $credentials: CredentialsInput
+    $credentials: RootCredentialsInput
     $environment: String!
     $gitignore: [String!]!
     $groupName: String!
@@ -68,7 +68,7 @@ const ADD_ORGANIZATION = gql`
 
 const VALIDATE_GIT_ACCESS = gql`
   mutation ValidateGitAccess(
-    $credentials: CredentialsInput!
+    $credentials: RootCredentialsInput!
     $groupName: String!
     $url: String!
   ) {

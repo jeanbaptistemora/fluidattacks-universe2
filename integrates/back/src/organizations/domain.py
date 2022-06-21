@@ -103,7 +103,7 @@ DEFAULT_MAX_SEVERITY = Decimal("10.0")
 DEFAULT_MIN_SEVERITY = Decimal("0.0")
 
 
-async def add_credential(
+async def add_credentials(
     loaders: Any,
     attributes: CredentialAttributesToAdd,
     organization_id: str,
