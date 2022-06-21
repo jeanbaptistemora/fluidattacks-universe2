@@ -6,7 +6,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     assignment_expression as c_sharp_assignment_expression,
     binary_expression as c_sharp_binary_expression,
     bracketed_argument_list as c_sharp_bracketed_argument_list,
-    comment as c_sharp_comment,
     compilation_unit as c_sharp_compilation_unit,
     conditional_access_expression as c_sharp_conditional_access_expression,
     constructor_declaration as c_sharp_constructor_declaration,
@@ -48,6 +47,7 @@ from syntax_graph.syntax_readers.common import (
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
     class_declaration as common_class_declaration,
+    comment as common_comment,
     conditional_expression as common_conditional_expression,
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
@@ -142,7 +142,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "comment",
         },
-        syntax_reader=c_sharp_comment.reader,
+        syntax_reader=common_comment.reader,
     ),
     Dispatcher(
         applicable_types={
