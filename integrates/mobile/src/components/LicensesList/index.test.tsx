@@ -13,7 +13,7 @@ describe("LicensesList", (): void => {
   it("should display licenses_list", (): void => {
     expect.hasAssertions();
 
-    const component = (
+    const component = render(
       <LicensesList
         licenses={[
           {
@@ -29,8 +29,6 @@ describe("LicensesList", (): void => {
       />
     );
 
-    const { getByTestId } = render(component);
-
-    expect(getByTestId("licenses-list")).toBeDefined();
+    expect(component).toBeDefined();
   });
 });

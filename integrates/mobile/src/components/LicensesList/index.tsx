@@ -36,7 +36,6 @@ export const LicensesList: React.FC<ILicenses> = ({
       keyExtractor={getKey}
       renderItem={renderItem}
       style={styles.list}
-      testID={"licenses-list"}
     />
   );
 };
