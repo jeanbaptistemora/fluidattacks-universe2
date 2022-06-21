@@ -15,6 +15,7 @@ from syntax_graph.syntax_readers.common import (
     while_statement as common_while_statement,
 )
 from syntax_graph.syntax_readers.java import (
+    class_body as java_class_body,
     program as java_program,
 )
 from syntax_graph.types import (
@@ -52,6 +53,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "catch_declaration",
         },
         syntax_reader=common_catch_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_body",
+        },
+        syntax_reader=java_class_body.reader,
     ),
     Dispatcher(
         applicable_types={
