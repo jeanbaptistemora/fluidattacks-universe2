@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    get_result_states,
     get_result_treatments,
 )
 from custom_exceptions import (
@@ -114,6 +115,46 @@ async def test_get_report_treatments(
     )
     assert "success" in result_data["data"]["report"]
     assert result_data["data"]["report"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states"],
+    [
+        ["admin@gmail.com", ["ACCEPTED", "IN_PROGRESS", "NEW"], ["OPEN"]],
+        [
+            "user_manager@gmail.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+        ],
+        [
+            "vulnerability_manager@gmail.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+        ],
+        ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS", "NEW"], ["OPEN"]],
+        [
+            "customer_manager@fluidattacks.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+        ],
+    ],
+)
+async def test_get_report_states(
+    populate: bool, email: str, treatments: list[str], states: list[str]
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: dict[str, Any] = await get_result_states(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+        states=states,
+    )
+    assert "success" in result_xls["data"]["report"]
+    assert result_xls["data"]["report"]["success"]
 
 
 @pytest.mark.asyncio
@@ -259,3 +300,80 @@ async def test_get_report_treatments_second_time_fail(
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states", "should_fail"],
+    [
+        [
+            "admin@gmail.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+            True,
+        ],
+        ["admin@gmail.com", ["ACCEPTED", "NEW"], ["OPEN"], False],
+    ],
+)
+async def test_get_report_states_second_time_fail(
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    should_fail: bool,
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: dict[str, Any] = await get_result_states(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+        states=states,
+    )
+    if should_fail:
+        assert "errors" in result_xls
+        assert result_xls["errors"][0]["message"] == str(
+            ReportAlreadyRequested()
+        )
+    else:
+        assert "success" in result_xls["data"]["report"]
+        assert result_xls["data"]["report"]["success"]
+
+    result_data: dict[str, Any] = await get_result_states(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+        states=states,
+    )
+    assert "errors" in result_data
+    assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states"],
+    [
+        ["admin@gmail.com", ["ACCEPTED_UNDEFINED", "NEW"], ["NONVALID"]],
+    ],
+)
+async def test_get_report_invalid_state(
+    populate: bool, email: str, treatments: list[str], states: list[str]
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_data: dict[str, Any] = await get_result_states(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+        states=states,
+    )
+    assert "errors" in result_data
+    assert (
+        "Variable '$states' got invalid value"
+        in result_data["errors"][0]["message"]
+    )

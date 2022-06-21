@@ -4,13 +4,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "40788c77edde690bbcc2f92c26fcec35414ead748ffe91e9fa5adcd8b6a9ac2f"
+            "S": "6cb3ed3caf472607a5833341f7cc9d7e389e643a3144e42f164e3806fc6f9c88"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\"]}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\"], \"states\": [\"OPEN\"]}"
           },
           "entity": {
             "S": "unittesting"

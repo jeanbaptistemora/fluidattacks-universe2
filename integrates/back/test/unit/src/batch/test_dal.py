@@ -38,6 +38,7 @@ async def test_get_action() -> None:
             {
                 "report_type": "XLS",
                 "treatments": list(sorted(["ACCEPTED"])),
+                "states": ["OPEN"],
             }
         ),
         entity="unittesting",
