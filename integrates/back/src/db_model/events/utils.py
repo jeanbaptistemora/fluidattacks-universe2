@@ -10,6 +10,7 @@ from db_model.events.enums import (
     EventActionsAfterBlocking,
     EventActionsBeforeBlocking,
     EventAffectedComponents,
+    EventSolutionReason,
     EventStateStatus,
     EventType,
 )
@@ -122,4 +123,8 @@ def format_state(item: Item) -> EventState:
         modified_by=item["modified_by"],
         modified_date=item["modified_date"],
         status=EventStateStatus[item["status"]],
+        other=item.get("other"),
+        reason=EventSolutionReason[item["reason"]]
+        if item.get("reason")
+        else None,
     )

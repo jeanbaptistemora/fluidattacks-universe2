@@ -3,6 +3,7 @@ from .enums import (
     EventActionsAfterBlocking,
     EventActionsBeforeBlocking,
     EventAffectedComponents,
+    EventSolutionReason,
     EventStateStatus,
     EventType,
 )
@@ -26,6 +27,8 @@ class EventState(NamedTuple):
     modified_by: str
     modified_date: str
     status: EventStateStatus
+    other: Optional[str] = None
+    reason: Optional[EventSolutionReason] = None
 
 
 class Event(NamedTuple):

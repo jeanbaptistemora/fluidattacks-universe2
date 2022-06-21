@@ -8,6 +8,7 @@ from db_model.events.enums import (
     EventActionsAfterBlocking,
     EventActionsBeforeBlocking,
     EventAffectedComponents as AffectedComponents,
+    EventSolutionReason,
     EventStateStatus,
     EventType,
 )
@@ -190,6 +191,10 @@ def format_historic_state(item: Item) -> tuple[EventState, ...]:
             modified_by=state["analyst"],
             modified_date=convert_to_iso_str(state["date"]),
             status=EventStateStatus[state["state"]],
+            other=state.get("other"),
+            reason=EventSolutionReason[state["reason"]]
+            if state.get("reason")
+            else None,
         )
         for state in historic_state
     )
@@ -204,11 +209,17 @@ def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
 
 
 def format_state_item(state: EventState) -> Item:
-    return {
+    item = {
         "analyst": state.modified_by,
         "date": datetime_utils.convert_from_iso_str(state.modified_date),
         "state": state.status.value,
     }
+    if state.other:
+        item["other"] = state.other
+    if state.reason:
+        item["reason"] = state.reason.value
+
+    return item
 
 
 def format_type(event_type: str) -> EventType:
