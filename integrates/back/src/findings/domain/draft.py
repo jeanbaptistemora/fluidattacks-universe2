@@ -36,6 +36,9 @@ from newutils import (
     findings as findings_utils,
     requests as requests_utils,
 )
+from newutils.findings import (
+    get_formatted_evidence,
+)
 from newutils.validations import (
     validate_field_length,
 )
@@ -180,8 +183,13 @@ async def submit_draft(
         finding.severity
     ) > Decimal(0)
     has_vulns = bool(await finding_vulns_loader.load(finding_id))
+    has_evidence = any(
+        bool(evidence["url"])
+        for evidence in get_formatted_evidence(finding).values()
+    )
     if not has_severity or not has_vulns:
         required_fields: Dict[str, bool] = {
+            "evidences": has_evidence,
             "severity": has_severity,
             "vulnerabilities": has_vulns,
         }
