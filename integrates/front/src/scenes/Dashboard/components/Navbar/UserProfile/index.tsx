@@ -16,7 +16,6 @@ import _ from "lodash";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useContext, useState } from "react";
-import { useDetectClickOutside } from "react-detect-click-outside";
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 
@@ -26,10 +25,10 @@ import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
-import { clickedPortal } from "../utils";
 import { ButtonOpacity } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Menu, MenuDivider, MenuItem } from "components/Menu";
+import { Dropdown } from "components/Dropdown";
+import { MenuDivider, MenuItem } from "components/Menu";
 import { Switch } from "components/Switch";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { Alert, ControlLabel } from "styles/styledComponents";
@@ -61,19 +60,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       return !currentValue;
     });
   }, [setFeaturePreview]);
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const toggleDropdown = useCallback((): void => {
-    setIsDropdownOpen((currentValue): boolean => !currentValue);
-  }, []);
-  const ref = useDetectClickOutside({
-    onTriggered: (event): void => {
-      // Exclude clicks in portals to prevent modals from closing the dropdown
-      if (!clickedPortal(event)) {
-        setIsDropdownOpen(false);
-      }
-    },
-  });
 
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
@@ -112,7 +98,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           t("navbar.deleteAccount.success"),
           t("navbar.deleteAccount.successTitle")
         );
-        toggleDropdown();
       } else {
         push("/home");
       }
@@ -129,150 +114,149 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           msgError(t("groupAlerts.errorTextsad"));
         }
       });
-      toggleDropdown();
       push("/home");
     },
   });
 
   return (
-    <div ref={ref}>
-      <ButtonOpacity onClick={toggleDropdown}>
-        <FontAwesomeIcon color={"#2e2e38"} icon={faUserCircle} />
-      </ButtonOpacity>
-      {isDropdownOpen ? (
-        <Menu align={"right"}>
-          <MenuItem>
-            <button>
-              <b>{userName}</b>
-              <br />
-              {userEmail}
-              {_.isUndefined(userIntPhone) ? undefined : (
-                <React.Fragment>
-                  <br />
-                  {t("navbar.mobile")}
-                  {":"}&nbsp;
-                  {userIntPhone}
-                </React.Fragment>
-              )}
-              {userRole === undefined ? undefined : (
-                <React.Fragment>
-                  <br />
-                  {t("navbar.role")}&nbsp;
-                  {t(`userModal.roles.${_.camelCase(userRole)}`)}
-                </React.Fragment>
-              )}
-              <br />
-              {t("navbar.featurePreview")}&nbsp;
-              <Switch
-                checked={featurePreview}
-                name={"featurePreview"}
-                onChange={toggleFeaturePreview}
-              />
-            </button>
-          </MenuItem>
-          <MenuDivider />
-          <MenuItem>
-            <button onClick={openTokenModal}>
-              <FontAwesomeIcon icon={faKey} />
-              &nbsp;
-              {t("navbar.token")}
-            </button>
-            {isTokenModalOpen ? (
-              <APITokenModal onClose={closeTokenModal} open={true} />
-            ) : undefined}
-          </MenuItem>
-          <MenuItem>
-            <Link onClick={toggleDropdown} to={"/user/config"}>
-              <React.Fragment>
-                <FontAwesomeIcon icon={faUserCog} />
-                &nbsp;
-                {t("navbar.notification")}
-              </React.Fragment>
-            </Link>
-          </MenuItem>
-          <MenuItem>
-            <button onClick={openMobileModal}>
-              <FontAwesomeIcon icon={faMobileAlt} />
-              &nbsp;
+    <Dropdown
+      align={"left"}
+      button={
+        <ButtonOpacity>
+          <FontAwesomeIcon color={"#2e2e38"} icon={faUserCircle} />
+        </ButtonOpacity>
+      }
+    >
+      <MenuItem>
+        <button>
+          <p className={"b f5 ma0"}>{userName}</p>
+          <p className={"f5 ma0"}>{userEmail}</p>
+          {_.isUndefined(userIntPhone) ? undefined : (
+            <p className={"b f5 ma0"}>
               {t("navbar.mobile")}
-            </button>
-            {isMobileModalOpen ? (
-              <MobileModal onClose={closeMobileModal} />
-            ) : undefined}
-          </MenuItem>
-          <Can do={"api_mutations_add_stakeholder_mutate"}>
-            <MenuItem>
-              <button onClick={openStakeholderModal}>
-                <FontAwesomeIcon icon={faUserPlus} />
+              &nbsp;
+              {userIntPhone}
+            </p>
+          )}
+          {userRole === undefined ? undefined : (
+            <p className={"f5 ma0"}>
+              {t("navbar.role")}
+              &nbsp;
+              {t(`userModal.roles.${_.camelCase(userRole)}`)}
+            </p>
+          )}
+          <p className={"f5 ma0"}>
+            {t("navbar.featurePreview")}
+            &nbsp;
+            <Switch
+              checked={featurePreview}
+              name={"featurePreview"}
+              onChange={toggleFeaturePreview}
+            />
+          </p>
+        </button>
+      </MenuItem>
+      <MenuDivider />
+      <MenuItem>
+        <button className={"f5"} onClick={openTokenModal}>
+          <FontAwesomeIcon icon={faKey} />
+          &nbsp;
+          {t("navbar.token")}
+        </button>
+        {isTokenModalOpen ? (
+          <APITokenModal onClose={closeTokenModal} open={true} />
+        ) : undefined}
+      </MenuItem>
+      <MenuItem>
+        <Link to={"/user/config"}>
+          <p className={"f5 ma0"}>
+            <FontAwesomeIcon icon={faUserCog} />
+            &nbsp;
+            {t("navbar.notification")}
+          </p>
+        </Link>
+      </MenuItem>
+      <MenuItem>
+        <button className={"f5"} onClick={openMobileModal}>
+          <FontAwesomeIcon icon={faMobileAlt} />
+          &nbsp;
+          {t("navbar.mobile")}
+        </button>
+        {isMobileModalOpen ? (
+          <MobileModal onClose={closeMobileModal} />
+        ) : undefined}
+      </MenuItem>
+      <Can do={"api_mutations_add_stakeholder_mutate"}>
+        <MenuItem>
+          <button className={"f5 ma0"} onClick={openStakeholderModal}>
+            <FontAwesomeIcon icon={faUserPlus} />
+            &nbsp;
+            {t("navbar.user")}
+          </button>
+          {isStakeholderModalOpen ? (
+            <AddUserModal
+              action={"add"}
+              editTitle={""}
+              initialValues={{}}
+              onClose={closeStakeholderModal}
+              onSubmit={handleAddUserSubmit}
+              open={true}
+              title={t("navbar.user")}
+              type={"user"}
+            />
+          ) : undefined}
+        </MenuItem>
+      </Can>
+      <MenuItem>
+        <ConfirmDialog
+          message={
+            <React.Fragment>
+              <ControlLabel>
+                {t("navbar.deleteAccount.modal.warning")}
+              </ControlLabel>
+              <Alert>{t("navbar.deleteAccount.modal.text")}</Alert>
+            </React.Fragment>
+          }
+          title={t("navbar.deleteAccount.text")}
+        >
+          {(confirm): React.ReactNode => {
+            function handleLogoutClick(): void {
+              confirm((): void => {
+                void removeStakeholder();
+              });
+            }
+
+            return (
+              <button className={"f5"} onClick={handleLogoutClick}>
+                <FontAwesomeIcon icon={faUserTimes} />
                 &nbsp;
-                {t("navbar.user")}
+                {t("navbar.deleteAccount.text")}
               </button>
-              {isStakeholderModalOpen ? (
-                <AddUserModal
-                  action={"add"}
-                  editTitle={""}
-                  initialValues={{}}
-                  onClose={closeStakeholderModal}
-                  onSubmit={handleAddUserSubmit}
-                  open={true}
-                  title={t("navbar.user")}
-                  type={"user"}
-                />
-              ) : undefined}
-            </MenuItem>
-          </Can>
-          <MenuItem>
-            <ConfirmDialog
-              message={
-                <React.Fragment>
-                  <ControlLabel>
-                    {t("navbar.deleteAccount.modal.warning")}
-                  </ControlLabel>
-                  <Alert>{t("navbar.deleteAccount.modal.text")}</Alert>
-                </React.Fragment>
-              }
-              title={t("navbar.deleteAccount.text")}
-            >
-              {(confirm): React.ReactNode => {
-                function handleLogoutClick(): void {
-                  confirm((): void => {
-                    void removeStakeholder();
-                  });
-                }
+            );
+          }}
+        </ConfirmDialog>
+      </MenuItem>
+      <MenuDivider />
+      <MenuItem>
+        <ConfirmDialog title={t("navbar.logout")}>
+          {(confirm): React.ReactNode => {
+            function handleLogoutClick(): void {
+              confirm((): void => {
+                mixpanel.reset();
+                location.assign("/logout");
+              });
+            }
 
-                return (
-                  <button onClick={handleLogoutClick}>
-                    <FontAwesomeIcon icon={faUserTimes} />
-                    &nbsp;
-                    {t("navbar.deleteAccount.text")}
-                  </button>
-                );
-              }}
-            </ConfirmDialog>
-          </MenuItem>
-          <MenuDivider />
-          <MenuItem>
-            <ConfirmDialog title={t("navbar.logout")}>
-              {(confirm): React.ReactNode => {
-                function handleLogoutClick(): void {
-                  confirm((): void => {
-                    mixpanel.reset();
-                    location.assign("/logout");
-                  });
-                }
-
-                return (
-                  <button onClick={handleLogoutClick}>
-                    <FontAwesomeIcon icon={faSignOutAlt} />
-                    &nbsp;
-                    {t("navbar.logout")}
-                  </button>
-                );
-              }}
-            </ConfirmDialog>
-          </MenuItem>
-        </Menu>
-      ) : undefined}
-    </div>
+            return (
+              <button className={"f5"} onClick={handleLogoutClick}>
+                <FontAwesomeIcon icon={faSignOutAlt} />
+                &nbsp;
+                {t("navbar.logout")}
+              </button>
+            );
+          }}
+        </ConfirmDialog>
+      </MenuItem>
+    </Dropdown>
   );
 };

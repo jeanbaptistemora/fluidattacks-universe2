@@ -76,15 +76,7 @@ describe("User Profile", (): void => {
     );
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
-
-    userEvent.click(screen.getByRole("button"));
-    const NUMBER_OF_DROPDOWN_BUTTONS: number = 6;
-
-    await waitFor((): void => {
-      expect(screen.getAllByRole("button")).toHaveLength(
-        NUMBER_OF_DROPDOWN_BUTTONS
-      );
-    });
+    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(6);
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
@@ -182,15 +174,7 @@ describe("User Profile", (): void => {
     );
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
-
-    userEvent.click(screen.getByRole("button"));
-    const NUMBER_OF_DROPDOWN_BUTTONS: number = 6;
-
-    await waitFor((): void => {
-      expect(screen.getAllByRole("button")).toHaveLength(
-        NUMBER_OF_DROPDOWN_BUTTONS
-      );
-    });
+    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(6);
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
