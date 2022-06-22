@@ -26,7 +26,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     member_binding_expression as c_sharp_member_binding_expression,
     namespace_declaration as c_sharp_namespace_declaration,
     object_creation_expression as c_sharp_object_creation_expression,
-    parameter as c_sharp_parameter,
     parameter_list as c_sharp_parameter_list,
     parenthesized_expression as c_sharp_parenthesized_expression,
     postfix_unary_expression as c_sharp_postfix_unary_expression,
@@ -57,6 +56,7 @@ from syntax_graph.syntax_readers.common import (
     method_declaration as common_method_declaration,
     null_literal as common_null_literal,
     number_literal as common_number_literal,
+    parameter as common_parameter,
     string_literal as common_string_literal,
     while_statement as common_while_statement,
 )
@@ -316,7 +316,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "parameter",
         },
-        syntax_reader=c_sharp_parameter.reader,
+        syntax_reader=common_parameter.reader,
     ),
     Dispatcher(
         applicable_types={

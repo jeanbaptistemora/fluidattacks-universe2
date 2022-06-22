@@ -20,7 +20,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     childs = adj_ast(graph, args.n_id)
 
-    if len(childs) > 2:
+    if len(childs) > 3:
         raise MissingCaseHandling(f"Bad parameter handling in {args.n_id}")
 
     parameter = graph.nodes[args.n_id]
