@@ -131,7 +131,7 @@ async def add_credentials(
             type=attributes.type,
         ),
     )
-    await orgs_validations.validate_credential_name_in_organization(
+    await orgs_validations.validate_credentials_name_in_organization(
         loaders, credential
     )
     await credentials_model.add_new(credential=credential)
@@ -399,10 +399,12 @@ async def iterate_organizations_and_groups(
         )  # NOSONAR
 
 
-async def remove_credential(
-    loaders: Any, organization_id: str, credential_id: str, modified_by: str
+async def remove_credentials(
+    loaders: Any, organization_id: str, credentials_id: str, modified_by: str
 ) -> None:
-    organization: Organization = await loaders.organization.load(credential_id)
+    organization: Organization = await loaders.organization.load(
+        organization_id
+    )
     organization_roots: tuple[
         Root, ...
     ] = await loaders.organization_roots.load(organization.name)
@@ -419,10 +421,10 @@ async def remove_credential(
         )
         for root in organization_roots
         if isinstance(root, GitRoot)
-        and root.state.credential_id == credential_id
+        and root.state.credential_id == credentials_id
     )
     await credentials_model.remove_new(
-        credential_id=credential_id,
+        credential_id=credentials_id,
         organization_id=organization_id,
     )
 
@@ -459,10 +461,10 @@ async def remove_user(
     ] = await loaders.user_credentials_new.load(email)
     await collect(
         tuple(
-            remove_credential(
+            remove_credentials(
                 loaders=loaders,
                 organization_id=organization_id,
-                credential_id=credential.id,
+                credentials_id=credential.id,
                 modified_by=modified_by,
             )
             for credential in user_credentials

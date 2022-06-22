@@ -20,7 +20,7 @@ type Mutation {
   "Add a new credentials to the organization"
   addCredentials(
     "Id of the organization"
-    organizationId: String!
+    organizationId: ID!
     "New credentials information"
     credentials: CredentialsInput!
   ): SimplePayload!

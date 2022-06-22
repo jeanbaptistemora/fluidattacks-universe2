@@ -1498,3 +1498,9 @@ class CredentialCanNotBeUsedInGroup(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The credential can not be used in the group"
         super(CredentialCanNotBeUsedInGroup, self).__init__(msg)
+
+
+class StakeholderIsNotCredentialsOwner(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Stakeholder is not the credentials owner"
+        super(StakeholderIsNotCredentialsOwner, self).__init__(msg)
