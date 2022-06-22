@@ -16,7 +16,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
@@ -495,14 +495,12 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   </Button>
                   <Modal onClose={noClick} open={showCancelModal} title={""}>
                     <p>{t("autoenrollment.cancelModal.body")}</p>
-                    <ModalFooter>
-                      <Button onClick={yesClick} variant={"primary"}>
-                        {t("autoenrollment.cancelModal.yes")}
-                      </Button>
-                      <Button onClick={noClick} variant={"basic"}>
-                        {t("autoenrollment.cancelModal.no")}
-                      </Button>
-                    </ModalFooter>
+                    <ModalConfirm
+                      onCancel={noClick}
+                      onConfirm={yesClick}
+                      txtCancel={t("autoenrollment.cancelModal.no")}
+                      txtConfirm={t("autoenrollment.cancelModal.yes")}
+                    />
                   </Modal>
                 </Col>
               </Row>
