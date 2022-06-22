@@ -3,7 +3,7 @@ import type { DocumentNode } from "graphql";
 
 const ADD_CREDENTIALS: DocumentNode = gql`
   mutation AddCredentialsMutation(
-    $organizationId: String!
+    $organizationId: ID!
     $credentials: CredentialsInput!
   ) {
     addCredentials(organizationId: $organizationId, credentials: $credentials) {

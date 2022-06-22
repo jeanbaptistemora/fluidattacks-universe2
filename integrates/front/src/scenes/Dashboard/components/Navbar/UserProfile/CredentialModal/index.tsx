@@ -24,8 +24,8 @@ import type {
 
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
-import { editAndDeleteActionFormatter } from "components/Table/formatters/editAndDeleteActionFormatter";
 import type { IHeaderConfig } from "components/Table/types";
+import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialModal/formatters/editAndDeleteActionFormatter";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -100,31 +100,6 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
     ? []
     : organizationsData.me.organizations;
 
-  // Table config
-  const tableHeaders: IHeaderConfig[] = [
-    {
-      dataField: "name",
-      header: t("profile.credentialsModal.table.columns.name"),
-      wrapped: true,
-    },
-    {
-      dataField: "type",
-      header: t("profile.credentialsModal.table.columns.type"),
-      wrapped: true,
-    },
-    {
-      dataField: "organizationName",
-      header: t("profile.credentialsModal.table.columns.organization"),
-      wrapped: true,
-    },
-    {
-      dataField: "id",
-      formatter: editAndDeleteActionFormatter,
-      header: t("profile.credentialsModal.table.columns.action"),
-      width: "60px",
-    },
-  ];
-
   // Handle actions
   async function handleSubmit(
     values: IFormValues,
@@ -168,6 +143,38 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
     setIsAdding(false);
     setIsEditing(false);
   }
+  function handleOnDelete(
+    credential: Record<string, string> | undefined
+  ): void {
+    // eslint-disable-next-line no-console
+    console.log({ credential });
+  }
+
+  // Table config
+  const tableHeaders: IHeaderConfig[] = [
+    {
+      dataField: "name",
+      header: t("profile.credentialsModal.table.columns.name"),
+      wrapped: true,
+    },
+    {
+      dataField: "type",
+      header: t("profile.credentialsModal.table.columns.type"),
+      wrapped: true,
+    },
+    {
+      dataField: "organizationName",
+      header: t("profile.credentialsModal.table.columns.organization"),
+      wrapped: true,
+    },
+    {
+      dataField: "id",
+      deleteFunction: handleOnDelete,
+      formatter: editAndDeleteActionFormatter,
+      header: t("profile.credentialsModal.table.columns.action"),
+      width: "60px",
+    },
+  ];
 
   return (
     <Modal

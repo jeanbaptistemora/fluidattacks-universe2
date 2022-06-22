@@ -1787,6 +1787,16 @@ export const enTranslations: ResourceKey = {
         token: "Repository access token",
         user: "Repository user",
       },
+      formatters: {
+        actions: {
+          removeCredentials: {
+            confirmModal: {
+              message: "Credentials will be removed from all git roots",
+              title: "Remove credentials",
+            },
+          },
+        },
+      },
       table: {
         columns: {
           action: "Action",

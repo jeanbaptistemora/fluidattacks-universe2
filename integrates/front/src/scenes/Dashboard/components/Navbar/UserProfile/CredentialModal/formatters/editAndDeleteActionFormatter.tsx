@@ -4,7 +4,9 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
+import { ConfirmDialog } from "components/ConfirmDialog";
 import type { IHeaderConfig } from "components/Table/types";
+import { translate } from "utils/translations/translate";
 
 const ActionButton: StyledComponent<
   "button",
@@ -22,6 +24,15 @@ const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: "flex",
 })``;
 
+const RemoveMessage: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs<{
+  className: string;
+}>({
+  className: "mb4",
+})``;
+
 export const editAndDeleteActionFormatter: (
   value: string,
   row: Readonly<Record<string, string>>,
@@ -33,9 +44,8 @@ export const editAndDeleteActionFormatter: (
   _rowIndex: number,
   key: Readonly<IHeaderConfig>
 ): JSX.Element => {
-  function handleDelete(event: React.FormEvent<HTMLButtonElement>): void {
+  function handleDelete(): void {
     if (key.deleteFunction !== undefined) {
-      event.stopPropagation();
       key.deleteFunction(row);
     }
   }
@@ -52,9 +62,30 @@ export const editAndDeleteActionFormatter: (
       <ActionButton onClick={handleEdit}>
         <FontAwesomeIcon icon={faPen} />
       </ActionButton>
-      <ActionButton onClick={handleDelete}>
-        <FontAwesomeIcon icon={faTrashAlt} />
-      </ActionButton>
+      <ConfirmDialog
+        message={
+          <RemoveMessage>
+            {translate.t(
+              "profile.credentialsModal.formatters.actions.removeCredentials.confirmModal.message"
+            )}
+          </RemoveMessage>
+        }
+        title={translate.t(
+          "profile.credentialsModal.formatters.actions.removeCredentials.confirmModal.title"
+        )}
+      >
+        {(confirm): React.ReactNode => {
+          function handleClick(): void {
+            confirm(handleDelete);
+          }
+
+          return (
+            <ActionButton onClick={handleClick}>
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </ActionButton>
+          );
+        }}
+      </ConfirmDialog>
     </Row>
   );
 };
