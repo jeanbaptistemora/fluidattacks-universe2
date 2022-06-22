@@ -18,6 +18,7 @@ from syntax_graph.syntax_readers.common import (
 )
 from syntax_graph.syntax_readers.java import (
     class_body as java_class_body,
+    parameter_list as java_parameter_list,
     program as java_program,
 )
 from syntax_graph.types import (
@@ -91,6 +92,13 @@ JAVA_DISPATCHERS: Dispatchers = (
             "do_statement",
         },
         syntax_reader=common_do_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameters",
+            "inferred_parameters",
+        },
+        syntax_reader=java_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
