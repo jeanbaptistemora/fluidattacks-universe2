@@ -67,12 +67,12 @@ describe("Update access token modal", (): void => {
     );
 
     expect(screen.getByText("updateAccessToken.title")).toBeInTheDocument();
-    expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+    expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
     expect(
       screen.getByText("updateAccessToken.expirationTime")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("updateAccessToken.close"));
+    userEvent.click(screen.getByText("components.modal.cancel"));
 
     expect(handleOnClose).toHaveBeenCalledTimes(1);
   });
@@ -112,7 +112,7 @@ describe("Update access token modal", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
     expect(
       screen.queryAllByText("updateAccessToken.expirationTime")
     ).toHaveLength(0);
@@ -194,7 +194,7 @@ describe("Update access token modal", (): void => {
     );
 
     userEvent.type(screen.getByTestId("expiration-time-input"), expirationTime);
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(

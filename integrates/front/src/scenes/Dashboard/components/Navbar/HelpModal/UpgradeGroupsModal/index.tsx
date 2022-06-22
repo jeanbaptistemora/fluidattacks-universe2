@@ -9,9 +9,8 @@ import { array, object } from "yup";
 
 import { REQUEST_GROUPS_UPGRADE_MUTATION } from "./queries";
 
-import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
@@ -99,16 +98,11 @@ const UpgradeGroupsModal: React.FC<IUpgradeGroupsModalProps> = ({
               <p>{t("upgrade.unauthorized")}</p>
             )}
           </FormGroup>
-          <ModalFooter>
-            <Button onClick={onClose} variant={"secondary"}>
-              {t("upgrade.close")}
-            </Button>
-            {canUpgrade ? (
-              <Button type={"submit"} variant={"primary"}>
-                {t("upgrade.upgrade")}
-              </Button>
-            ) : undefined}
-          </ModalFooter>
+          <ModalConfirm
+            disabled={canUpgrade}
+            onCancel={onClose}
+            txtConfirm={t("upgrade.upgrade")}
+          />
         </Form>
       </Formik>
     </Modal>

@@ -8,7 +8,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
@@ -174,14 +174,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               </ButtonToolbarLeft>
             </Col100>
           </Row>
-          <ModalFooter>
-            <Button onClick={onClose} variant={"secondary"}>
-              {t("updateAccessToken.close")}
-            </Button>
-            <Button disabled={hasAPIToken} type={"submit"} variant={"primary"}>
-              {t("confirmmodal.proceed")}
-            </Button>
-          </ModalFooter>
+          <ModalConfirm disabled={hasAPIToken} onCancel={onClose} />
         </Form>
       </Formik>
     </Modal>

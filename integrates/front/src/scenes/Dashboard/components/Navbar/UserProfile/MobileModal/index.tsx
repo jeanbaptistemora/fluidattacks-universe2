@@ -26,7 +26,7 @@ import type {
 import { VerificationCodeField } from "./VerificationCodeField";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm, ModalFooter } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/queries";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -292,14 +292,10 @@ const MobileModal: React.FC<IMobileModalProps> = (
             <Col100>
               <VerificationCodeField name={"newVerificationCode"} />
             </Col100>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("profile.mobileModal.close")}
-              </Button>
-              <Button type={"submit"} variant={"primary"}>
-                {t("profile.mobileModal.verify")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              onCancel={onClose}
+              txtConfirm={t("profile.mobileModal.verify")}
+            />
           </Form>
         </Formik>
       ) : undefined}
@@ -412,14 +408,10 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 <VerificationCodeField name={"newVerificationCode"} />
               </Col100>
             </Row>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("profile.mobileModal.close")}
-              </Button>
-              <Button type={"submit"} variant={"primary"}>
-                {t("profile.mobileModal.verify")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              onCancel={onClose}
+              txtConfirm={t("profile.mobileModal.verify")}
+            />
           </Form>
         </Formik>
       ) : undefined}
