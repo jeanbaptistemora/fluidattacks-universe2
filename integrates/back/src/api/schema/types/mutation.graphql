@@ -558,6 +558,14 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Removes credentials from an Organization"
+  removeCredentials(
+    "If of the credentials"
+    credentialsId: ID!
+    "Id of the organization"
+    organizationId: ID!
+  ): SimplePayload!
+
   "Remove root environment url"
   removeEnvironmentUrl(
     "Name of the group the root is associated with"

@@ -48,6 +48,7 @@ from api.mutations import (
     refresh_toe_lines,
     reject_draft,
     reject_vulnerabilities_zero_risk,
+    remove_credentials,
     remove_environment_url,
     remove_environment_url_secret,
     remove_event_evidence,
@@ -192,6 +193,7 @@ MUTATION.set_field(
     "rejectVulnerabilitiesZeroRisk",
     reject_vulnerabilities_zero_risk.mutate,
 )
+MUTATION.set_field("removeCredentials", remove_credentials.mutate)
 MUTATION.set_field("removeEventEvidence", remove_event_evidence.mutate)
 MUTATION.set_field("removeEvidence", remove_finding_evidence.mutate)
 MUTATION.set_field("removeFinding", remove_finding.mutate)
