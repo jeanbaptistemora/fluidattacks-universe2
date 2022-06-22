@@ -1,6 +1,12 @@
+# pylint: disable=import-error
 from . import (
     get_result_add,
     get_result_remove,
+    mutation_add,
+    mutation_remove,
+)
+from back.test.functional.src.add_toe_input import (
+    get_result,
 )
 from contextlib import (
     suppress,
@@ -9,16 +15,38 @@ from custom_exceptions import (
     InvalidParameter,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model.roots.types import (
     GitRoot,
 )
+from db_model.toe_inputs.types import (
+    RootToeInputsRequest,
+    ToeInput,
+)
+import hashlib
 import pytest
 from typing import (
     Any,
     Dict,
 )
+
+
+async def _get_root_toe_inputs(
+    be_present: bool,
+    group_name: str,
+    root_id: str,
+) -> tuple[ToeInput, ...]:
+    loaders: Dataloaders = get_new_context()
+
+    return await loaders.root_toe_inputs.load_nodes(
+        RootToeInputsRequest(
+            be_present=be_present,
+            group_name=group_name,
+            root_id=root_id,
+        )
+    )
 
 
 @pytest.mark.asyncio
@@ -105,3 +133,82 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     loaders.root.clear_all()
     changed_root: GitRoot = await loaders.root.load((group_name, root_id))
     assert changed_root.state.environment_urls == [env_urls[0]]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_git_environments")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_add_git_environment_url(populate: bool, email: str) -> None:
+    assert populate
+    group_name: str = "group1"
+    root_id: str = "88637616-41d4-4242-854a-db8ff7fe1ab6"
+    env_urls = "https://nice-env-test.com"
+
+    loaders = get_new_context()
+    assert len(await loaders.git_environment_urls.load((root_id))) == 2
+
+    result: Dict[str, Any] = await mutation_add(
+        user=email,
+        group_name=group_name,
+        url=env_urls,
+        url_type="URL",
+        root_id=root_id,
+    )
+    assert "errors" not in result
+    assert result["data"]["addGitEnvironmentUrl"]["success"]
+
+    loaders.git_environment_urls.clear_all()
+    assert len(await loaders.git_environment_urls.load((root_id))) == 3
+    assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 0
+
+    result_toe: Dict[str, Any] = await get_result(
+        component=env_urls,
+        entry_point="idBtn",
+        group_name=group_name,
+        root_id=root_id,
+        user="admin@fluidattacks.com",
+    )
+    assert "errors" not in result_toe
+    assert result_toe["data"]["addToeInput"]["success"]
+
+    loaders.root_toe_inputs.clear_all()
+    assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 0
+    assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_git_environments")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_remove_git_environment_url(populate: bool, email: str) -> None:
+    assert populate
+    group_name: str = "group1"
+    root_id: str = "88637616-41d4-4242-854a-db8ff7fe1ab6"
+    env_urls = "https://nice-env-test.com"
+
+    loaders = get_new_context()
+    assert len(await loaders.git_environment_urls.load((root_id))) == 3
+
+    result: Dict[str, Any] = await mutation_remove(
+        group_name=group_name,
+        root_id=root_id,
+        url_id=hashlib.sha1(env_urls.encode()).hexdigest(),
+        user=email,
+    )
+    assert "errors" not in result
+    assert result["data"]["removeEnvironmentUrl"]["success"]
+
+    loaders.git_environment_urls.clear_all()
+    loaders.root_toe_inputs.clear_all()
+    assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 0
+    assert len(await loaders.git_environment_urls.load((root_id))) == 2
+    assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 1
