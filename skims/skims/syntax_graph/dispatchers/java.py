@@ -8,6 +8,7 @@ from syntax_graph.syntax_readers.common import (
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
     execution_block as common_execution_block,
+    expression_statement as common_expression_statement,
     identifier as common_identifier,
     interpolation as common_interpolation,
     method_declaration as common_method_declaration,
@@ -31,21 +32,9 @@ from syntax_graph.types import (
 JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
-            "program",
-        },
-        syntax_reader=java_program.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "boolean_literal",
         },
         syntax_reader=common_boolean_literal.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "block",
-        },
-        syntax_reader=common_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -97,6 +86,18 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "block",
+        },
+        syntax_reader=common_execution_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "expression_statement",
+        },
+        syntax_reader=common_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "formal_parameters",
             "inferred_parameters",
         },
@@ -131,6 +132,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "integer_literal",
         },
         syntax_reader=common_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "program",
+        },
+        syntax_reader=java_program.reader,
     ),
     Dispatcher(
         applicable_types={
