@@ -47,17 +47,14 @@
     _utils_logger."${python_version}" = import ./utils-logger {
       inherit nixpkgs observesIndex projectPath python_version;
     };
-    _legacy_postgres_client."${python_version}" = import ./legacy/postgres-client.nix {
-      inherit nixpkgs projectPath python_version;
-      utils-logger = _utils_logger;
-    };
-    _legacy_singer_io."${python_version}" = import ./legacy/singer-io.nix {
-      inherit nixpkgs projectPath python_version system;
-    };
     _fa_purity = import ./fa-purity {
       inherit nixpkgs system;
     };
     _fa_singer_io = import ./fa-singer-io {
+      inherit nixpkgs system;
+      purity = _fa_purity;
+    };
+    _redshift-client = import ./fa-singer-io {
       inherit nixpkgs system;
       purity = _fa_purity;
     };
@@ -67,9 +64,8 @@
       // {
         fa-purity = _fa_purity."${python_version}".pkg;
         fa-singer-io = _fa_singer_io."${python_version}".pkg;
-        legacy-postgres-client = _legacy_postgres_client."${python_version}".pkg;
-        legacy-singer-io = _legacy_singer_io."${python_version}".pkg;
         utils-logger = _utils_logger."${python_version}".pkg;
+        redshift-client = _redshift-client."${python_version}".pkg;
       };
   typing_ext_override = python_pkgs: pkg_override ["typing-extensions" "typing_extensions"] python_pkgs.typing-extensions;
   pytz_override = python_pkgs: pkg_override ["pytz"] python_pkgs.pytz;
