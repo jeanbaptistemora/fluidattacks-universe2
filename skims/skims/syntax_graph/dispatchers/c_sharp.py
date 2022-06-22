@@ -11,7 +11,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     constructor_declaration as c_sharp_constructor_declaration,
     element_access_expression as c_sharp_element_access_expression,
     element_binding_expression as c_sharp_element_binding_expression,
-    expression_statement as c_sharp_expression_statement,
     field_declaration as c_sharp_field_declaration,
     for_each_statement as c_sharp_for_each_statement,
     for_statemente as c_sharp_for_statement,
@@ -51,6 +50,7 @@ from syntax_graph.syntax_readers.common import (
     declaration_block as common_declaration_block,
     do_statement as common_do_statement,
     execution_block as common_execution_block,
+    expression_statement as common_expression_statement,
     identifier as common_identifier,
     interpolation as common_interpolation,
     method_declaration as common_method_declaration,
@@ -196,7 +196,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "expression_statement",
         },
-        syntax_reader=c_sharp_expression_statement.reader,
+        syntax_reader=common_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
