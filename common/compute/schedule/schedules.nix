@@ -929,6 +929,30 @@
       "management:type" = "product";
     };
   };
+  sorts_association_execute = rec {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/sorts/association-execute"
+      (toString parallel)
+    ];
+
+    schedule_expression = "cron(0 23 ? * 7 *)";
+    size = "nano";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 15;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "sorts_association_execute";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
+    };
+  };
   sorts_execute = rec {
     enabled = true;
     command = [
