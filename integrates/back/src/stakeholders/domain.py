@@ -16,7 +16,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Phone,
-    StakeholderPhone,
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from datetime import (
@@ -24,6 +23,9 @@ from datetime import (
 )
 from db_model.groups.types import (
     Group,
+)
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from group_access import (
     domain as group_access_domain,

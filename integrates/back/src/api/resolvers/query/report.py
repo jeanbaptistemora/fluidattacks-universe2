@@ -17,14 +17,14 @@ from custom_exceptions import (
     RequestedReportError,
     RequiredNewPhoneNumber,
 )
-from custom_types import (
-    StakeholderPhone,
-)
 from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.types import (
     Group,
+)
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,

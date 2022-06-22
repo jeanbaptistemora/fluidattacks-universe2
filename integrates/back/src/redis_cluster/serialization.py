@@ -1,6 +1,3 @@
-from custom_types import (
-    StakeholderPhone,
-)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -22,6 +19,9 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
     FindingVerification,
     FindingVerificationSummary,
+)
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from db_model.toe_inputs.types import (
     ToeInput,

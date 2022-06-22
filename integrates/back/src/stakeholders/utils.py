@@ -1,5 +1,7 @@
 from custom_types import (
     Phone,
+)
+from db_model.stakeholders.types import (
     StakeholderPhone,
 )
 from typing import (
