@@ -939,6 +939,35 @@
       azon.aws.accesskey = AKIA0000000000000000
       sonar.password     = 123
       ```
+      An example of an insecure Dockerfile configuration
+      ```yaml
+      version: "3.9"  # optional since v1.27.0
+      services:
+        web:
+          build: .
+          ports:
+            - "5000:5000"
+          volumes:
+            - .:/code
+            - logvolume01:/var/log
+          links:
+            - redis
+          environment:
+          - DEBUG=${VAR}
+          - API_KEY='123'
+          - API_KEY
+          - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+        redis:
+          image: redis
+          environment:
+          - API_NAME=name1
+        db:
+          image: "postgres:${POSTGRES_VERSION}"
+          environment:
+          - API_PASSWORD=pass
+      volumes:
+        logvolume01: {}
+      ```
     compliant: |
       Sensitive information should be handled by some form of secrets encryption service
       ```yaml
@@ -1134,7 +1163,7 @@
         }
       }
       ```
-      Example using software with known vulnerabilities
+      Examples using software with known vulnerabilities
       ```c {3,7,15}
       using System;
       class ExampleClass{
@@ -1143,6 +1172,16 @@
           XmlSchemaCollection xsc = new XmlSchemaCollection();
           xsc.Add("urn: bookstore - schema", "books.xsd");
         }
+      }
+      ```
+      ```json
+      dependencies {
+        compile "io.springfox:springfox-swagger-ui:2.6.1"
+        compile("io.springfox:springfox-swagger-ui")
+        compile(group: 'javax.mail', name: 'mail')
+        compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
+        implementation group: 'org.json', name: 'json', version: '20160810'
+        implementation(group: 'javax.mail', name: 'mail', version: '1.4')
       }
       ```
     compliant: |
@@ -1474,12 +1513,25 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
-      The virtual machine does not have any strong auth mechanism defined
+      Examples with virtual machines without strong auth mechanism defined
       ```terraform
       resource "azurerm_linux_virtual_machine" "vulnerable" {
         name           = "example-machine"
         size           = "Standard_F2"
         admin_username = "adminuser"
+      }
+      ```
+      ```terraform
+      resource "azurerm_virtual_machine" "vulnerable" {
+        name                  = "${var.prefix}-vm"
+        location              = azurerm_resource_group.main.location
+        resource_group_name   = azurerm_resource_group.main.name
+        network_interface_ids = [azurerm_network_interface.main.id]
+        vm_size               = "Standard_DS1_v2"
+
+        os_profile_linux_config {
+          disable_password_authentication = false
+        }
       }
       ```
     compliant: |
@@ -1493,6 +1545,20 @@
         admin_ssh_key {
           username   = "adminuser"
           public_key = file("~/.ssh/id_rsa.pub")
+        }
+      }
+      ```
+      ```terraform
+      resource "azurerm_virtual_machine" "not_vulnerable" {
+        name                  = "${var.prefix}-vm"
+        location              = azurerm_resource_group.main.location
+        resource_group_name   = azurerm_resource_group.main.name
+        network_interface_ids = [azurerm_network_interface.main.id]
+        vm_size               = "Standard_DS1_v2"
+
+        os_profile_linux_config {
+          disable_password_authentication = false
+          ssh_keys                        = ["${var.ssh_keys}"]
         }
       }
       ```
@@ -1545,7 +1611,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      Example with an insecure TLS protocol configuration
+      Examples with insecure TLS protocol configuration
       ```terraform
       resource "azurerm_storage_account" "insecure_example" {
         name                     = "storageaccountname"
@@ -1559,6 +1625,27 @@
           environment = "staging"
         }
       }
+      ```
+      ```yaml
+      Resources:
+        distribution1:
+          Type: AWS::CloudFront::Distribution
+          Properties:
+            DistributionConfig:
+              Enabled: 'true'
+              DefaultCacheBehavior:
+                TargetOriginId: def1
+                ForwardedValues:
+                  QueryString: 'false'
+                  Cookies:
+                    Forward: all
+              Origins:
+              - CustomOriginConfig:
+                  OriginSSLProtocols:
+                  - SSLv3
+                  - TLSv1
+                  - TLSv1.1
+                  - TLSv1.2
       ```
       Example using method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp
       ```c {3,7,15}
@@ -2267,7 +2354,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      There is a resource that defines a very large range number of ports available
+      Some example of resources configured  with large range number of ports available
       ```terraform
       resource "aws_security_group_rule" "vulnerable" {
         security_group_id = "sg-123456"
@@ -2277,6 +2364,65 @@
         protocol          = "-1"
         cidr_blocks       = "0.0.0.0/0"
         prefix_list_ids   = ["pl-12c4e678"]
+      }
+      ```
+      ```yaml
+      Resources:
+        InstanceSecurityGroup:
+          Type: AWS::EC2::SecurityGroup
+          Properties:
+              GroupDescription: Allow http to client host
+              VpcId:
+                Ref: myVPC
+              SecurityGroupIngress:
+              - IpProtocol: tcp
+                FromPort: 0
+                ToPort: 65535
+                CidrIp: 0.0.0.0/0
+              SecurityGroupEgress:
+              - IpProtocol: tcp
+                FromPort: 0
+                ToPort: 65535
+                CidrIp: 0.0.0.1/0
+        OutboundRule:
+          Type: AWS::EC2::SecurityGroupEgress
+          Properties:
+            IpProtocol: tcp
+            FromPort: 0
+            ToPort: 65535
+            CidrIp: 0.0.0.0/0
+            DestinationSecurityGroupId:
+              Fn::GetAtt:
+              - TargetSG
+              - GroupId
+            GroupId:
+              Fn::GetAtt:
+              - SourceSG
+              - GroupId
+        InboundRule:
+          Type: AWS::EC2::SecurityGroupIngress
+          Properties:
+            IpProtocol: tcp
+            FromPort: 0
+            ToPort: 56
+            SourceSecurityGroupId:
+              Fn::GetAtt:
+              - SourceSG
+              - GroupId
+            GroupId:
+              Fn::GetAtt:
+              - TargetSG
+              - GroupId
+      ```
+      Example with no profile name defined for the EC2 service
+      ```terraform
+      resource "aws_instance" "web" {
+        ami           = data.aws_ami.ubuntu.id
+        instance_type = "t3.micro"
+
+        tags = {
+          Name = "HelloWorld"
+        }
       }
       ```
     compliant: |
@@ -2290,6 +2436,33 @@
         protocol          = "tcp"
         cidr_blocks       = "127.0.0.1/32"
         prefix_list_ids   = ["pl-12c4e678"]
+      }
+      ```
+      ```terraform
+      resource "aws_security_group" "not_vulnerable" {
+        name        = "allow_tls"
+        description = "Allow TLS inbound traffic"
+        vpc_id      = "someid"
+
+        ingress {
+          from_port   = 0
+          to_port     = 8000
+          protocol    = "tcp"
+          cidr_blocks = "127.0.0.1/32"
+        }
+
+        egress {
+          from_port       = 8080
+          to_port         = 8080
+          protocol        = "udp"
+          cidr_blocks     = ["172.16.0.0/12"]
+          prefix_list_ids = ["pl-12c4e678"]
+        }
+
+        tags = {
+          method = "aws.terraform.ec2.allows_all_outbound_traffic"
+          Name   = "aws.terraform.allows_all_outbound_traffic"
+        }
       }
       ```
   remediation_time: "120"
@@ -2837,6 +3010,52 @@
                       'aws:Referer':
                         - 'http://www.example.com/*'
                         - 'http://example.net/*'
+      ```
+      Another vulnerable example: defining a user without a role based security configuration
+      ```yaml
+      Resources:
+        myuser:
+          Type: AWS::IAM::User
+          Properties:
+            Path: "/"
+            LoginProfile:
+              Password: myP@ssW0rd
+            Policies:
+            - PolicyName: giveaccesstoqueueonly
+              PolicyDocument:
+                Version: '2012-10-17'
+                Statement:
+                - Effect: Allow
+                  Action:
+                  - sqs:*
+                  Resource:
+                  - !GetAtt myqueue.Arn
+                - Effect: Deny
+                  Action:
+                  - sqs:*
+                  NotResource:
+                  - !GetAtt myqueue.Arn
+      ```
+      An IAM configuration with an open pass role
+      ```yaml
+      Resources:
+        AWS_IAM_Role_1:
+          Type: AWS::IAM::Role
+          Properties:
+            AssumeRolePolicyDocument:
+              Statement:
+                - Effect: Allow
+                  Action: iam:PassRole
+                  Resource: '*'
+                  Condition:
+                    StringEquals:
+                      iam:PassedToService: cloudwatch.amazonaws.com
+                - Effect: Allow
+                  Action: iam:PassRole
+                  Resource: arn:aws:iam::*:role/EC2-roles-for-XYZ-*
+                - Effect: Allow
+                  Action: iam:Pass*
+                  Resource: '*'
       ```
     compliant: |
       Every resource should have clearly defined authorization restrictions
@@ -4675,7 +4894,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      Insecure encryption library
+      Examples with an insecure encryption library
       ```javascript
       const crypto = require("crypto");
 
@@ -4696,6 +4915,27 @@
             TripleDES myAes = TripleDES.Create();
             var hashProvider3 = new RC2CryptoServiceProvider();
           }
+        }
+      }
+      ```
+      ```java
+      import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+      public class Main {
+        public static void main(String[] args) {
+          Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString();
+          Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
+          Cipher c = Cipher.getInstance("AES");
+          Cipher c = Cipher.getInstance("DES");
+          Cipher c = Cipher.getInstance("DESede");
+          Cipher c = Cipher.getInstance("RSA");
+          Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+          Cipher c = Cipher.getInstance("AES/CBC/NoPadding");
+          Cipher c = Cipher.getInstance("AES/ECB/NoPadding");
+          Cipher c = Cipher.getInstance("AES/ECB/PKCS5Padding");
+          Cipher c = Cipher.getInstance("DES/CBC/NoPadding");
+          Cipher c = Cipher.getInstance("DES/CBC/PKCS5Padding");
+          Cipher c = Cipher.getInstance("DES/ECB/NoPadding");
+          Cipher c = Cipher.getInstance("DES/ECB/PKCS5Padding");
         }
       }
       ```
@@ -4941,6 +5181,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
+      The application manifest does not allow backup
       ```html
       <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:sharedUserId="android.uid.system" android:versionCode="4" android:versionName="1.0" package="com.android.zerosms">
         <uses-permission android:name="android.permission.SEND_SMS"/>
@@ -5754,11 +5995,38 @@
     non_compliant: |
       There are forms in the application that allow for auto-complete functionalities
       ```html
-      <form class="container" autocomplete="on">
-        <input type="text" placeholder="Enter Name" name="uname" required>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        <button type="submit">Login</button>
-      </form>
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cache type vulnerabilities</title>
+          <meta charset="UTF-8" />
+        </head>
+        <body>
+          <form action="/help/readerlogin-auth" method="POST">
+            <input type="hidden" name="r" value="/help/" />
+            <div class="form-group">
+              <label class="control-label" for="password">Username:</label>
+              <input type="text" id="username" name="username" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="password">Password:</label>
+              <input type="password" id="password" name="password" class="form-control" />
+            </div>
+            <div class="col-lg-4 pw-reset-link">
+                <a href="#" data-toggle="modal" id="pw-reset-link" data-target="#hg-password-reset">Reset Password</a>
+              </div>
+              <div class="text-right">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </body>
+
+        <!-- has_not_subresource_integrity -->
+        <script src="https://example.com/example-framework.js">
+        </script>
+        <link href="/media/examples/link-element-example.css" rel="stylesheet">
+        </link>
+      </html>
       ```
     compliant: |
       The http headers of the application are set to prevent cache
@@ -5769,6 +6037,33 @@
       Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
       Accept-Language: en-us,en;q=0.5
       Cache-control: no-cache
+      ```
+      Example without cahce type vulnerabilities
+      ```html
+      <html>
+        <head>
+          <title>Webpage without cache type vulnerabilities</title>
+          <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+          <META HTTP-EQUIV="Expires" CONTENT="-1">
+          <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+        </head>
+        <body>
+            <form autocomplete="off" onsubmit="return false;">
+              <label>Email</label>
+              <input autofocus="autofocus" class="form-control" id="username" type="email" autocomplete="off"/>
+              <label>Password</label><input class="form-control" id="password" type="password" autocomplete="off"/>
+              <button class="btn btn-primary btn-block" id="btn-login">
+                &nbsp; Sign In
+              </button>
+            </form>
+        </body>
+        <script src="https://example.com/example-framework.js"
+            integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+        </script>
+        <link href="/media/examples/link-element-example.css" rel="stylesheet"
+            integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC">
+        </link>
+      </html>
       ```
   remediation_time: "15"
   score:
@@ -6209,6 +6504,26 @@
         }
       }
       ```
+      Resource uses unsafe http protocol
+      ```yaml
+      Resources:
+        listener1:
+        Type: "AWS::ElasticLoadBalancingV2::Listener"
+        Properties:
+          DefaultActions:
+            - Type: "redirect"
+              RedirectConfig:
+                Protocol: "HTTPS"
+                Port: 443
+                Host: "#{host}"
+                Path: "/#{path}"
+                Query: "#{query}"
+                StatusCode: "HTTP_301"
+          LoadBalancerArn: myLoadBalancer
+          Port: 80
+          Protocol: "HTTP"
+          SslPolicy: ELBSecurityPolicy-2016-08
+      ```
     compliant: |
       The port property and security policy are set to secure values
       ```terraform
@@ -6224,6 +6539,25 @@
           target_group_arn = aws_lb_target_group.front_end.arn
         }
       }
+      ```
+      ```yaml
+      Resources:
+        listener1:
+        Type: "AWS::ElasticLoadBalancingV2::Listener"
+        Properties:
+          DefaultActions:
+            - Type: "redirect"
+              RedirectConfig:
+                Protocol: "HTTPS"
+                Port: 443
+                Host: "#{host}"
+                Path: "/#{path}"
+                Query: "#{query}"
+                StatusCode: "HTTP_301"
+          LoadBalancerArn: myLoadBalancer
+          Port: 80
+          Protocol: "HTTPS"
+          SslPolicy: ELBSecurityPolicy-2016-08
       ```
   remediation_time: "60"
   score:
@@ -6421,6 +6755,23 @@
         engine_version      = aws_rds_cluster.default.engine_version
       }
       ```
+      Insecure encryption settings
+      ```yaml
+      Resources:
+        RDSCluster:
+          Properties:
+            DBClusterParameterGroupName:
+              Ref: RDSDBClusterParameterGroup
+            DBSubnetGroupName:
+              Ref: DBSubnetGroup
+            Engine: aurora
+            MasterUserPassword:
+              Ref: password
+            MasterUsername:
+              Ref: username
+            StorageEncrypted: False
+          Type: "AWS::RDS::DBCluster"
+      ```
     compliant: |
       All sensitive resources are safely configured with restricted access
       ```terraform
@@ -6433,6 +6784,23 @@
         engine              = aws_rds_cluster.default.engine
         engine_version      = aws_rds_cluster.default.engine_version
       }
+      ```
+      The resource is securely encrypted
+      ```yaml
+      Resources:
+        RDSCluster1:
+          Properties:
+            DBClusterParameterGroupName:
+              Ref: RDSDBClusterParameterGroup
+            DBSubnetGroupName:
+              Ref: DBSubnetGroup
+            Engine: aurora
+            MasterUserPassword:
+              Ref: password
+            MasterUsername:
+              Ref: username
+            StorageEncrypted: True
+          Type: "AWS::RDS::DBCluster"
       ```
   remediation_time: "15"
   score:
@@ -8649,7 +9017,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      There is an unencrypted resource that stores sensitive data
+      There are unencrypted resources that store sensitive data
       ```yaml
       Resources:
         UnencryptedS3Bucket:
@@ -8657,9 +9025,28 @@
           DeletionPolicy: Retain
           Properties:
             BucketName: SKIMS-EXAMPLE-BUCKET
+        BucketPolicy1:
+          Type: AWS::S3::BucketPolicy
+          Properties:
+            Bucket: DOC-EXAMPLE-BUCKET
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Action:
+                    - 's3:GetObject'
+                  Effect: Allow
+                  Resource:
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - DOC-EXAMPLE-BUCKET
+                      - /*
+                  Principal: '*'
+                  Condition:
+                    "Null":
+                      's3:x-amz-server-side-encryption': False
       ```
     compliant: |
-      Sensitive data is stored in a resource with properly defined encryption
+      Sensitive data is stored in resources with properly defined encryption
       ```yaml
       Resources:
         EncryptedS3Bucket:
@@ -8672,6 +9059,19 @@
                     SSEAlgorithm: aws:kms
                     KMSMasterKeyID: KMS-KEY-ARN
           DeletionPolicy: Delete
+      ```
+      ```terraform
+      resource "aws_s3_bucket" "encrypted_bucket_1" {
+        bucket = "my_encrypted_bucket_1"
+        server_side_encryption_configuration {
+          rule {
+            apply_server_side_encryption_by_default {
+              kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
+              sse_algorithm     = "aws:kms"
+            }
+          }
+        }
+      }
       ```
   remediation_time: "15"
   score:
@@ -32282,7 +32682,7 @@
       }
       ```
     compliant: |
-      The bluetooth connections are validated before being authorized
+      The bluetooth connections are validated before being authorized in these case
       ```java
       private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
         bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(NAME, MY_UUID)
@@ -33272,7 +33672,7 @@
   category: Manipulate Data
   examples:
     non_compliant: |
-      The source code has .jar files that were not signed before runtime
+      The source code has .jar files that were not signed before runtime, please check to verify before compiling
     compliant: |
       Sign all the JAR files of the application with a certified key tool
       ```java
@@ -33483,7 +33883,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      The firewall configuration allows insecure port connections
+      The firewall configuration allows insecure port connections through its configuration files
       ```java
       gateway: "My gateway name"
       firewall_service:
@@ -33593,7 +33993,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      Example importing a dependency with known vulnerabilities
+      Example importing a dependency with known vulnerabilities such as xmldom (See )
       ```json
       {
         "name": "test",
@@ -33830,7 +34230,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      The resource does not enable automatic key rotation
+      The resource does not enable automatic key rotation within allowable limits
       ```yaml
       Resources:
         key1:
