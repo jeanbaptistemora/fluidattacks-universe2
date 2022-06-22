@@ -13,8 +13,7 @@ import {
   DashboardHeader,
 } from "./styles";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
 import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
@@ -300,18 +299,11 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 open={idleWarning}
                 title={translate.t("validations.inactiveSessionModal")}
               >
-                <div>
-                  <p>{translate.t("validations.inactiveSession")}</p>
-                </div>
-                <ModalFooter>
-                  <Button
-                    id={"inactivity-modal-dismiss"}
-                    onClick={handleClick}
-                    variant={"secondary"}
-                  >
-                    {translate.t("validations.inactiveSessionDismiss")}
-                  </Button>
-                </ModalFooter>
+                <p>{translate.t("validations.inactiveSession")}</p>
+                <ModalConfirm
+                  onConfirm={handleClick}
+                  txtConfirm={translate.t("validations.inactiveSessionDismiss")}
+                />
               </Modal>
             </React.Fragment>
           )}
