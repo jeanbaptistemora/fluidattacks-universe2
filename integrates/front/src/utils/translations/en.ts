@@ -3022,9 +3022,7 @@ export const enTranslations: ResourceKey = {
       success: ", an email will be sent to confirm the registration.",
       successAdmin: "Stakeholder information updated.",
       successDelete: " was removed from this group.",
-      textbox:
-        "Enter the email of the person you wish to add, it must be " +
-        "an Office 365 or Google email",
+      textbox: "Email address (Azure, Google or Bitbucket)",
       title: "Add stakeholder to this group",
       titleSuccess: "Congratulations",
     },
@@ -3349,9 +3347,7 @@ export const enTranslations: ResourceKey = {
   },
   userModal: {
     emailPlaceholder: "someone@domain.com",
-    emailText:
-      "Enter the email of the person you wish to add, it must be " +
-      "an Office 365 or Google email",
+    emailText: "Email address (Azure, Google or Bitbucket)",
     organization: "Organization",
     responsibility: "Responsibility",
     responsibilityPlaceholder: "Product Owner, Group Manager, Tester, ...",
