@@ -190,6 +190,11 @@ async def validate_git_root_component(
             component not in [x.url for x in env_urls]
             and not is_valid_url(component)
             and not any(component.startswith(x.url) for x in env_urls)
+            and not any(
+                x.url in component
+                for x in env_urls
+                if x.cloud_name and x.cloud_name.value == "AWS"
+            )
         ):
             raise InvalidUrl()
 
@@ -199,8 +204,14 @@ async def validate_git_root_component(
                 if environment_url.url.endswith("/")
                 else f"{environment_url.url}/"
             )
-            if component == environment_url.url or component.startswith(
-                formatted_environment_url
+            if (
+                component == environment_url.url
+                or component.startswith(formatted_environment_url)
+                or (
+                    environment_url.cloud_name
+                    and environment_url.cloud_name.value == "AWS"
+                    and environment_url.url in component
+                )
             ):
 
                 return
