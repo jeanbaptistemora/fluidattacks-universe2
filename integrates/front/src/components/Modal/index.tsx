@@ -12,6 +12,7 @@ import { Container } from "components/Container";
 
 interface IModalProps {
   children: React.ReactNode;
+  id?: string;
   minWidth?: number;
   onClose?: () => void;
   open: boolean;
@@ -20,6 +21,7 @@ interface IModalProps {
 
 const Modal: React.FC<IModalProps> = ({
   children,
+  id,
   minWidth = 300,
   title,
   onClose,
@@ -40,7 +42,7 @@ const Modal: React.FC<IModalProps> = ({
 
   return open
     ? createPortal(
-        <ContainerModal>
+        <ContainerModal id={id}>
           <Dialog>
             <Header>
               <Title>{title}</Title>

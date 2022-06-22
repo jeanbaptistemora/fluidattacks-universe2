@@ -5,32 +5,38 @@ import { Button } from "components/Button";
 
 interface IModalConfirmProps {
   disabled?: boolean;
+  id?: string;
   onCancel?: () => void;
   onConfirm?: "submit" | (() => void);
+  txtCancel?: string;
+  txtConfirm?: string;
 }
 
 const ModalConfirm: React.FC<IModalConfirmProps> = ({
   disabled,
+  id = "modal-confirm",
   onCancel,
-  onConfirm,
-}: Readonly<IModalConfirmProps>): JSX.Element | null => {
+  onConfirm = "submit",
+  txtCancel,
+  txtConfirm,
+}: Readonly<IModalConfirmProps>): JSX.Element => {
   const { t } = useTranslation();
   const isSubmit = onConfirm === "submit";
 
-  return onConfirm === undefined ? null : (
+  return (
     <div className={"mt3"}>
       <Button
         disabled={disabled}
-        id={"modal-confirm"}
+        id={id}
         onClick={isSubmit ? undefined : onConfirm}
         type={isSubmit ? "submit" : "button"}
         variant={"primary"}
       >
-        {t("components.modal.confirm")}
+        {txtConfirm ?? t("components.modal.confirm")}
       </Button>
       {onCancel ? (
-        <Button id={"modal-cancel"} onClick={onCancel} variant={"secondary"}>
-          {t("components.modal.cancel")}
+        <Button id={`${id}-cancel`} onClick={onCancel} variant={"secondary"}>
+          {txtCancel ?? t("components.modal.cancel")}
         </Button>
       ) : undefined}
     </div>
