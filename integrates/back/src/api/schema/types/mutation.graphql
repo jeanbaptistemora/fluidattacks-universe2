@@ -558,6 +558,16 @@ type Mutation {
     vulnerabilities: [String]!
   ): SimplePayload!
 
+  "Remove root environment url"
+  removeEnvironmentUrl(
+    "Name of the group the root is associated with"
+    groupName: String!
+    "Id of the root"
+    rootId: ID!
+    "Id of the url to remove"
+    urlId: String!
+  ): SimplePayload!
+
   "Remove a git environment secret"
   removeEnvironmentUrlSecret(
     "Group name"

@@ -1011,6 +1011,12 @@ class RootNotFound(CustomBaseException):
         super(RootNotFound, self).__init__(msg)
 
 
+class RootEnvironmentUrlNotFound(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Access denied or root environment url not found"
+        super(RootEnvironmentUrlNotFound, self).__init__(msg)
+
+
 class SameValues(CustomBaseException):
     """Exception to control save values updating treatment"""
 

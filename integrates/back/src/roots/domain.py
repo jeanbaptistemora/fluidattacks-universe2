@@ -22,6 +22,7 @@ from custom_exceptions import (
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
+    RootEnvironmentUrlNotFound,
     RootNotFound,
 )
 from datetime import (
@@ -1612,6 +1613,24 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
         other=other,
         reason=reason,
     )
+
+
+async def remove_environment_url_id(
+    *, loaders: Any, root_id: str, url_id: str
+) -> str:
+    urls: tuple[
+        GitEnvironmentUrl, ...
+    ] = await loaders.git_environment_urls.load((root_id))
+    url: Optional[str] = next(
+        (env_url.url for env_url in urls if env_url.id == url_id),
+        None,
+    )
+    if url is None:
+        raise RootEnvironmentUrlNotFound()
+
+    await roots_model.remove_environment_url(root_id, url_id=url_id)
+
+    return url
 
 
 async def remove_secret(root_id: str, secret_key: str) -> None:

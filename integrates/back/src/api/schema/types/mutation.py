@@ -48,6 +48,7 @@ from api.mutations import (
     refresh_toe_lines,
     reject_draft,
     reject_vulnerabilities_zero_risk,
+    remove_environment_url,
     remove_environment_url_secret,
     remove_event_evidence,
     remove_files,
@@ -198,6 +199,7 @@ MUTATION.set_field("removeSecret", remove_secret.mutate)
 MUTATION.set_field(
     "removeEnvironmentUrlSecret", remove_environment_url_secret.mutate
 )
+MUTATION.set_field("removeEnvironmentUrl", remove_environment_url.mutate)
 MUTATION.set_field("removeStakeholder", remove_stakeholder.mutate)
 MUTATION.set_field("removeStakeholderAccess", remove_stakeholder_access.mutate)
 MUTATION.set_field(
