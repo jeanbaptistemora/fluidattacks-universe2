@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.common import (
     method_declaration as common_method_declaration,
     null_literal as common_null_literal,
     number_literal as common_number_literal,
+    parameter as common_parameter,
     string_literal as common_string_literal,
     while_statement as common_while_statement,
 )
@@ -135,6 +136,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "real_literal",
         },
         syntax_reader=common_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameter",
+        },
+        syntax_reader=common_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
