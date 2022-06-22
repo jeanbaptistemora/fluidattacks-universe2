@@ -49,7 +49,7 @@ const addGivenHeaders = (
       }),
       hidden: _.isUndefined(key.visible) ? key.visible : !key.visible,
       onSort: handleSort,
-      sort: true,
+      sort: key.sort === undefined ? true : key.sort,
       sortFunc: key.sortFunc,
       style: (): CSSProperties => ({
         whiteSpace: defineWhitespace(key.wrapped, "pre-wrap"),

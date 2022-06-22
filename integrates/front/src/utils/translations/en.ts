@@ -890,6 +890,11 @@ export const enTranslations: ResourceKey = {
         manageEnvs: "Manage environments",
         manageEnvsTooltip:
           "Add, edit or remove environment URLs for the selected git root",
+        removeEnvironment: {
+          success: "Environment Url was removed successfully",
+          successTitle: "Removed environment",
+          title: "Remove Environment Url",
+        },
         repo: {
           branch: "Branch",
           cloning: {

@@ -508,6 +508,22 @@ const GET_GROUP_ORGANIZATION: DocumentNode = gql`
   }
 `;
 
+const REMOVE_ENVIRONMENT_URL: DocumentNode = gql`
+  mutation RemoveEnvironmentUrl(
+    $urlId: String!
+    $rootId: ID!
+    $groupName: String!
+  ) {
+    removeEnvironmentUrl(
+      urlId: $urlId
+      rootId: $rootId
+      groupName: $groupName
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   ACTIVATE_ROOT,
   ADD_ENVIRONMENT_SECRET,
@@ -533,6 +549,7 @@ export {
   UPDATE_IP_ROOT,
   UPDATE_URL_ROOT,
   VALIDATE_GIT_ACCESS,
+  REMOVE_ENVIRONMENT_URL,
   REMOVE_ENVIRONMENT_URL_SECRET,
   GET_GROUP_CREDENTIALS,
   GET_ROOT_ENVIRONMENT_URLS,

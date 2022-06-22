@@ -1,23 +1,37 @@
 import type { ApolloError } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddEnvironment } from "./addEnvironment";
 
-import { GET_ROOT_ENVIRONMENT_URLS } from "../../queries";
-import type { IFormValues, IGitRootAttr } from "../../types";
+import {
+  GET_ROOT_ENVIRONMENT_URLS,
+  REMOVE_ENVIRONMENT_URL,
+} from "../../queries";
+import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalFooter } from "components/Modal";
 import { Table } from "components/Table";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 interface IEnvironmentsProps {
   rootInitialValues: IFormValues;
   groupName: string;
   onClose: () => void;
+}
+
+interface IEnvironmentUrlItem extends IEnvironmentUrl {
+  element: JSX.Element;
 }
 
 const Environments: React.FC<IEnvironmentsProps> = ({
@@ -26,6 +40,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   onClose,
 }: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isAddEnvModalOpen, setIsAddEnvModalOpen] = useState(false);
   const initialValues = { ...rootInitialValues, other: "", reason: "" };
@@ -40,6 +55,21 @@ const Environments: React.FC<IEnvironmentsProps> = ({
       variables: { groupName, rootId: initialValues.id },
     }
   );
+  const [removeEnvironmentUrl] = useMutation(REMOVE_ENVIRONMENT_URL, {
+    onCompleted: async (): Promise<void> => {
+      await refetch();
+      msgSuccess(
+        t("group.scope.git.removeEnvironment.success"),
+        t("group.scope.git.removeEnvironment.successTitle")
+      );
+    },
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.error("Couldn't remove enviroment url", error);
+      });
+    },
+  });
 
   function openAddModal(): void {
     setIsAddEnvModalOpen(true);
@@ -48,14 +78,54 @@ const Environments: React.FC<IEnvironmentsProps> = ({
     setIsAddEnvModalOpen(false);
   }
 
+  const handleRemoveClick = useCallback(
+    (urlId: string): void => {
+      void removeEnvironmentUrl({
+        variables: { groupName, rootId: initialValues.id, urlId },
+      });
+    },
+    [groupName, initialValues.id, removeEnvironmentUrl]
+  );
+
+  const gitEnvironmentUrls = useMemo((): IEnvironmentUrlItem[] => {
+    if (_.isUndefined(data) || _.isNull(data)) {
+      return [];
+    }
+
+    return data.root.gitEnvironmentUrls.map(
+      (gitEnvironment: IEnvironmentUrl): IEnvironmentUrlItem => {
+        return {
+          ...gitEnvironment,
+          element: (
+            <ConfirmDialog title={t("group.scope.git.removeEnvironment.title")}>
+              {(confirm): JSX.Element => {
+                function onConfirmDelete(): void {
+                  confirm((): void => {
+                    handleRemoveClick(gitEnvironment.id);
+                  });
+                }
+
+                return (
+                  <Button
+                    id={"git-root-remove-environment-url"}
+                    onClick={onConfirmDelete}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </Button>
+                );
+              }}
+            </ConfirmDialog>
+          ),
+        };
+      }
+    );
+  }, [data, handleRemoveClick, t]);
+
   return (
     <React.Fragment>
       <Table
-        dataset={
-          _.isUndefined(data) || _.isNull(data)
-            ? []
-            : data.root.gitEnvironmentUrls
-        }
+        dataset={gitEnvironmentUrls}
         exportCsv={false}
         headers={[
           {
@@ -65,6 +135,15 @@ const Environments: React.FC<IEnvironmentsProps> = ({
           {
             dataField: "urlType",
             header: t("group.scope.git.envUrlType"),
+          },
+          {
+            dataField: "element",
+            header: "",
+            sort: false,
+            visible: permissions.can(
+              "api_mutations_remove_environment_url_mutate"
+            ),
+            width: "80px",
           },
         ]}
         id={"tblGitRootSecrets"}
