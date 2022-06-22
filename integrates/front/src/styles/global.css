@@ -241,20 +241,9 @@ label {
   width: 260px;
 }
 
-:global .table-btn {
-  margin-left: -7px;
-  margin-bottom: -10px;
-}
-
 :global .upload-file {
   margin-right: 40px;
   margin-left: 40px;
-}
-
-@media (max-width: 479px) {
-  :global .table-btn {
-    margin-bottom: 10px;
-  }
 }
 
 @media (max-width: 479px) {

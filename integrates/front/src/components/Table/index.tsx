@@ -3,7 +3,6 @@ import React, { useCallback } from "react";
 import type { SearchMatchProps } from "react-bootstrap-table2-toolkit";
 import ToolkitProvider from "react-bootstrap-table2-toolkit";
 
-import style from "components/Table/index.css";
 import { TableWrapper } from "components/Table/table";
 import type { ITableProps } from "components/Table/types";
 import { addUniqueKeys, customizeColumns } from "components/Table/utils";
@@ -62,7 +61,7 @@ export const Table: React.FC<ITableProps> = (
   );
 
   return (
-    <div className={style.wFull} id={id}>
+    <div className={"w-100"} id={id}>
       {(!_.isEmpty(dataset) || !_.isEmpty(nonOmittedHeaders)) && (
         <ToolkitProvider
           columnToggle={columnToggle}

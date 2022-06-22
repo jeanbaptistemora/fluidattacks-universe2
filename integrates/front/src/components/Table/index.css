@@ -1,7 +1,3 @@
-:local .wFull {
-  width: 100%;
-}
-
 :local .searchBar {
   composes: form-control from "../../utils/forms/index.css";
   height: 30px;

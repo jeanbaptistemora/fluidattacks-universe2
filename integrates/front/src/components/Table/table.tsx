@@ -133,9 +133,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           !_.isUndefined(customSearchDefault) ||
           extraButtons !== undefined ||
           extraButtonsRight !== undefined ? (
-            <div
-              className={`flex flex-wrap justify-between pa0 table-btn w-100`}
-            >
+            <div className={`flex flex-wrap justify-between pa0 w-100`}>
               <div>
                 {exportCsv && (
                   <ButtonGroup>
