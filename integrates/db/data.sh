@@ -38,11 +38,11 @@ function main {
     organization_metadata
     portfolio_metadata
     root_services_toe_lines
+    stakeholder_metadata
     toe_input_metadata
     toe_lines_metadata
     url_root_historic_state
     url_root_metadata
-    user_metadata
     vulnerability_historic_state
     vulnerability_historic_treatment
     vulnerability_historic_verification
