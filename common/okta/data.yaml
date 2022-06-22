@@ -1992,7 +1992,6 @@ OKTA_DATA_RAW_GROUPS:
         - ENC[AES256_GCM,data:Y43L9WBWHw==,iv:t8GQg8a1uadsSwKrFn6vPJMQ97c5adbsInQ03/b0hyg=,tag:omqC+e7RR7NRmedB5wjTQA==,type:str]
         - ENC[AES256_GCM,data:qaUHBJpM,iv:WP0zjUJMIakH+ouN82xK5Jn0SeG1xtw4CHDLaxjsuNY=,tag:lx0xZMwsQjmDSPrjlcHu0A==,type:str]
         - ENC[AES256_GCM,data:VWMGD7mSxHkN,iv:bT2L0ceH/sM8JQdNc92lfIjaeKdW/P/JudRHDq5x3H8=,tag:NBw/gMxUkRh0QvLfoGz+hw==,type:str]
-        - ENC[AES256_GCM,data:hpKoxSZDt4s=,iv:S7O+4cSNGQ2nEVVEn8knKxQr+9tuJWNcIqKRuLgHl9s=,tag:8/L2nDphzKpmsJpB6bwD9g==,type:str]
         - ENC[AES256_GCM,data:crZnID4/,iv:oRNHbECg4Qlaa7iu38B7GoDqR0px90Z8Hji3nencXAU=,tag:E74Dzq9QoJGM8Paothuzfg==,type:str]
         - ENC[AES256_GCM,data:oJy5Gz0=,iv:RN0weBA10jcOyKexsyhvc59wKTVmeUrtPkuipm4p5/M=,tag:v/Fkvw6JObi+9KYbWMAkcg==,type:str]
         - ENC[AES256_GCM,data:fwHzednNHFaF,iv:QQxlkz57Cc4r0Tr16hn2IyGlWGjwweokPaqBeyYXJpg=,tag:NMdXq/p357eH5Acgq0jUsQ==,type:str]
@@ -2037,7 +2036,6 @@ OKTA_DATA_RAW_GROUPS:
         - ENC[AES256_GCM,data:8Fb+cRQLKyg=,iv:FnR1Kqyx62rgodsgC1mzVCxQ2JGKk4tjZ8mScKMSzCw=,tag:Mb7SErj3imLPGVPxbPqmuw==,type:str]
         - ENC[AES256_GCM,data:QLOuEMHcZkUB,iv:ZVetFohHzGBw+Vin/rtvm7+k9McBj4PP4j3hiSUxV+w=,tag:p4cN2/rC/2bxr90UIs1kZQ==,type:str]
         - ENC[AES256_GCM,data:5tvl4NH3lQY=,iv:pN9iMRXq3ensAWtJQiu0RUu3b80ZZIoxrt2tvzHFup4=,tag:qsnVN0A7Tq5ZMSziOEvIkw==,type:str]
-        - ENC[AES256_GCM,data:hpKoxSZDt4s=,iv:S7O+4cSNGQ2nEVVEn8knKxQr+9tuJWNcIqKRuLgHl9s=,tag:8/L2nDphzKpmsJpB6bwD9g==,type:str]
         - ENC[AES256_GCM,data:T0y+29cg4g==,iv:GwwJ9Jyt2WlltEnVocZxvfiBbCzNPAC1WfwH9vncyCs=,tag:6VHHBoKOVF1ggFnx0YBQJw==,type:str]
         - ENC[AES256_GCM,data:fwHzednNHFaF,iv:QQxlkz57Cc4r0Tr16hn2IyGlWGjwweokPaqBeyYXJpg=,tag:NMdXq/p357eH5Acgq0jUsQ==,type:str]
         - ENC[AES256_GCM,data:qmsu+RE2d2k=,iv:xqBt49nxzRmpMmswPL+anp+cnfpP/XBfUQ2Be/CChUI=,tag:Uf1Db4/gSSytN7OVgjBvsQ==,type:str]
@@ -2547,13 +2545,6 @@ OKTA_DATA_RAW_USERS:
       first_name: ENC[AES256_GCM,data:5xR9SoY=,iv:fptaBUrq06OpevsqQCaKY2Xu3P8D51dHxYFqg+ThcuM=,tag:1pgSwivdukYabvK5Jb9nEg==,type:str]
       last_name: ENC[AES256_GCM,data:V6kIX7l6eg==,iv:opqlnIYVWa6wY11cxdq9B6A8m/htJsWlqp/FkRhHJMU=,tag:DQOhcGiyyhmcCyJpGzfJqg==,type:str]
       email: ENC[AES256_GCM,data:NdIX/8LRkLc3oIwn1fZBJ6wwcdRZf/CM9g==,iv:xJBBQtJUWFnnWc4yVfui5Wc/KdtF5DGhBsEjjjXzwA0=,tag:mV+YJow42JZ2gQDq6DDkpg==,type:str]
-      status: ENC[AES256_GCM,data:gN3nFbgS,iv:mJp97yWreMCCGYMJ6GvfxlLhqSGfCcAnRJxCIO80pH8=,tag:MPFcjRIdWy12UR0vSuG7LQ==,type:str]
-      admin_roles: []
-      apps: []
-    - id: ENC[AES256_GCM,data:ypTs1sgPDhE=,iv:aqgonPYyFphQp4659YkJprphj2DVNjLDTPjHlRWEVu8=,tag:2HAhQBaqtQrhYrHazQmUVw==,type:str]
-      first_name: ENC[AES256_GCM,data:NE8mOAOj,iv:bwurUAQizkP8w3mISZIndigrKHroQehQQtz3AtTF9bo=,tag:8diKaIJZFr0NSeuLsyqNcw==,type:str]
-      last_name: ENC[AES256_GCM,data:39LEbJUnWQ==,iv:TV16BlI/oGLoMzHT3bX5odSDEyINRdWvuT8Vbs2FI1M=,tag:75gkM0Pj39U8GiXoQBaUgQ==,type:str]
-      email: ENC[AES256_GCM,data:S2wlvxM43MHa5/H5TmVl4EVAuwxAOpeMyQ==,iv:kSMppbHYgn1ditgmEA0zSfy/pVMGe8peoiC+4z8/nag=,tag:fGIQZILJliNhMlnto+I2pg==,type:str]
       status: ENC[AES256_GCM,data:gN3nFbgS,iv:mJp97yWreMCCGYMJ6GvfxlLhqSGfCcAnRJxCIO80pH8=,tag:MPFcjRIdWy12UR0vSuG7LQ==,type:str]
       admin_roles: []
       apps: []
@@ -3320,8 +3311,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-06-22T16:23:38Z"
-    mac: ENC[AES256_GCM,data:b7sU3QGSWMGlcGKZ2A938y905xhEZ89TbXt6pVfRvxPo2i40TAlWKlLALd0A8NQX7+Q5y4koUn3Odi4YNtPQzCvlh4Fen83Zv5oWQDQaLpVoKe8ey+qWrZq2yVULmFsCqs7WVyrlW4rrfTYSwXh31m429lmwhAW4ap9BB8HDwgs=,iv:X6G4LqKKF+qael50FOPtQz4JAGJu2YsspVHFr0RE8qA=,tag:8oSQcdtiAGvjoe3zWQr6IA==,type:str]
+    lastmodified: "2022-06-22T17:56:13Z"
+    mac: ENC[AES256_GCM,data:jxeSBjNmIm6F2v6dYM9ZedIxTFlESF17ZgUgKne9EsNDhE/bFz4qhKj98hipe9YqZAloM4VTPjytIJc00wKf9DT4viU+clsdAVcULpspUaRxg5d+MTQU0oG3cyTDJynjAAdRNsYxa/ouT0u2G5jm1A2bhlHjTcpRqLBRszWpUco=,iv:TSq9HZk6yhx3qcnE5FNeI6KUF4X22efeKGZq43XDw/k=,tag:Xf2EONrHnx+QH4/HzT6Rxg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
