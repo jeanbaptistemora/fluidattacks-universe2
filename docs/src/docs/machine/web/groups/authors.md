@@ -48,7 +48,7 @@ in that group.
 You can download the list of
 authors as a CSV (comma-separated
 values) file by clicking on
-the Export button.
+the **Export** button.
 
 ## Filter list​ of authors
 
@@ -76,8 +76,8 @@ surface management platform.
 If you are a user manager,
 you can send registration
 invitations to contributors
-who do not have an ASM account yet,
-clicking on the **Invite** button.
+who do not have an ASM account yet
+by clicking the **Invite** button.
 
 ![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1648072503/docs/web/groups/authors/authors_tab.png)
 
@@ -87,7 +87,7 @@ Confirm access and Reject access.
 During the time it takes the
 author to respond to the
 registration invitation,
-you will see the Registered
+you will see the Registration status
 column showing a Pending status
 for the author in question.
 
