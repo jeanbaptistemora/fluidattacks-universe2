@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.java import (
     class_body as java_class_body,
     parameter_list as java_parameter_list,
     program as java_program,
+    variable_declaration as java_variable_declaration,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -150,6 +151,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "verbatim_string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "local_variable_declaration",
+        },
+        syntax_reader=java_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
