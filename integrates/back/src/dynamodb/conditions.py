@@ -14,7 +14,8 @@ def get_filter_expression(filters: dict[str, Any]) -> Optional[ConditionBase]:
 
     for filter_attribute, filter_value in filters.items():
         if filter_value is not None:
-            condition = Attr(filter_attribute).contains(filter_value)
+            attribute = filter_attribute.replace("_", ".")
+            condition = Attr(attribute).contains(filter_value)
 
             if filter_expression is None:
                 filter_expression = condition

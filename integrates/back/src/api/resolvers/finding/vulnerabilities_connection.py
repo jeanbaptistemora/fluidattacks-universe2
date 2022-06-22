@@ -24,19 +24,22 @@ from typing import (
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
+    after: Optional[str] = None,
+    first: Optional[int] = None,
+    state: Optional[str] = None,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
-    after: Optional[str] = kwargs.get("after")
-    first: Optional[int] = kwargs.get("first")
-    state: Optional[str] = kwargs.get("state")
-    where: Optional[str] = kwargs.get("where")
     loaders: Dataloaders = info.context.loaders
 
     return await loaders.finding_vulnerabilities_nzr_c.load(
         FindingVulnerabilitiesZrRequest(
             finding_id=parent.id,
             after=after,
-            filters=VulnerabilityFilters(where=where),
+            filters=VulnerabilityFilters(
+                treatment_status=kwargs.get("treatment"),
+                verification_status=kwargs.get("reattack"),
+                where=kwargs.get("where"),
+            ),
             first=first,
             paginate=True,
             state_status=VulnerabilityStateStatus[state] if state else None,

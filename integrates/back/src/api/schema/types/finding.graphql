@@ -93,8 +93,12 @@ type Finding {
     after: String
     "The maximum amount of vulnerabilities to return"
     first: Int
+    "Filter by the reattack status of the vulnerability"
+    reattack: String
     "Filter vulnerabilities by their current state"
     state: VulnerabilityState
+    "Filter by the treatment given to the vulnerability"
+    treatment: VulnerabilityTreatment
     "Filter by the location where the vulnerability was found"
     where: String
   ): VulnerabilitiesConnection!

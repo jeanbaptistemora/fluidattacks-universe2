@@ -147,6 +147,8 @@ class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
 
 
 class VulnerabilityFilters(NamedTuple):
+    treatment_status: Optional[str] = None
+    verification_status: Optional[str] = None
     where: Optional[str] = None
 
 
