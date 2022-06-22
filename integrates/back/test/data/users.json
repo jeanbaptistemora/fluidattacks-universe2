@@ -29,6 +29,9 @@
         "Item": {
           "access_token": {
             "M": {
+              "iat": {
+                "N": "1634677195"
+              },
               "jti": {
                 "S": "c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd070808418d640e77d"
               },
@@ -106,9 +109,15 @@
           },
           "phone": {
             "M": {
-              "national_number": { "S": "1234567894" },
-              "country_code": { "S": "CO" },
-              "calling_country_code": { "S": "57" }
+              "national_number": {
+                "S": "1234567894"
+              },
+              "country_code": {
+                "S": "CO"
+              },
+              "calling_country_code": {
+                "S": "57"
+              }
             }
           }
         }
@@ -179,9 +188,15 @@
           },
           "phone": {
             "M": {
-              "national_number": { "S": "1234567891" },
-              "country_code": { "S": "CO" },
-              "calling_country_code": { "S": "57" }
+              "national_number": {
+                "S": "1234567891"
+              },
+              "country_code": {
+                "S": "CO"
+              },
+              "calling_country_code": {
+                "S": "57"
+              }
             }
           }
         }
@@ -252,9 +267,15 @@
           },
           "phone": {
             "M": {
-              "national_number": { "S": "1234567895" },
-              "country_code": { "S": "CO" },
-              "calling_country_code": { "S": "57" }
+              "national_number": {
+                "S": "1234567895"
+              },
+              "country_code": {
+                "S": "CO"
+              },
+              "calling_country_code": {
+                "S": "57"
+              }
             }
           }
         }
@@ -325,9 +346,15 @@
           },
           "phone": {
             "M": {
-              "national_number": { "S": "1234567893" },
-              "country_code": { "S": "CO" },
-              "calling_country_code": { "S": "57" }
+              "national_number": {
+                "S": "1234567893"
+              },
+              "country_code": {
+                "S": "CO"
+              },
+              "calling_country_code": {
+                "S": "57"
+              }
             }
           }
         }
@@ -365,9 +392,15 @@
           },
           "phone": {
             "M": {
-              "national_number": { "S": "1234567892" },
-              "country_code": { "S": "CO" },
-              "calling_country_code": { "S": "57" }
+              "national_number": {
+                "S": "1234567892"
+              },
+              "country_code": {
+                "S": "CO"
+              },
+              "calling_country_code": {
+                "S": "57"
+              }
             }
           }
         }
@@ -684,7 +717,9 @@
           },
           "access_token": {
             "M": {
-              "iat": { "N": "1634766591" },
+              "iat": {
+                "N": "1634766591"
+              },
               "jti": {
                 "S": "0f98c8d494be2c9eddd973e4a861483988a1d90bb268be48dfc442d0b4cada72"
               },

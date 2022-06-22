@@ -64,7 +64,7 @@ def format_stakeholder(
         )
         if item_legacy.get("last_login")
         else None,
-        last_name=item_legacy.get("first_name", ""),
+        last_name=item_legacy.get("last_name", ""),
         legal_remember=item_legacy.get("legal_remember", False),
         notifications_preferences=NotificationsPreferences(email=preferences),
         phone=format_phone(item_legacy["phone"])
