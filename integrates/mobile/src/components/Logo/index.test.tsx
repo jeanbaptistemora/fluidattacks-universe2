@@ -13,10 +13,11 @@ describe("Logo", (): void => {
   it("should render", (): void => {
     expect.hasAssertions();
 
-    const component = <Logo fill={"#FFFFFF"} height={125} width={300} />;
+    const component = render(
+      <Logo fill={"#FFFFFF"} height={125} width={300} />
+    );
 
-    const { getByTestId } = render(component);
-
-    expect(getByTestId("logo")).toBeDefined();
+    expect(component).toBeDefined();
+    expect(component.debug.shallow).toHaveLength(1);
   });
 });

@@ -12,7 +12,7 @@ const Logo: React.FC<SvgProps> = (props: SvgProps): JSX.Element => {
     <React.StrictMode>
       {/* Needed to override default styles */}
       {/* eslint-disable-next-line react/forbid-component-props */}
-      <View style={styles.container} testID={"logo"}>
+      <View style={styles.container}>
         {/* Needed in order to pass down props to SvgCss. */}
         {/* eslint-disable-next-line react/jsx-props-no-spreading*/}
         <SvgCss xml={LogoSVG} {...props} />
