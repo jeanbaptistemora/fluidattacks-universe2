@@ -5,14 +5,14 @@
   projectPath,
   ...
 }: let
-  root = projectPath inputs.observesIndex.target.redshift.root;
+  root = projectPath inputs.observesIndex.target.redshift_2.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  check = pkg.check.arch;
+  check = pkg.check.tests;
 in
   makeScript {
     searchPaths = {
       bin = [check];
     };
-    name = "observes-singer-target-redshift-check-arch";
+    name = "observes-singer-target-redshift-check-tests";
     entrypoint = "";
   }

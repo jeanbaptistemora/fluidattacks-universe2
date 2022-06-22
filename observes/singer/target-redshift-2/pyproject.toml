@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "target_redshift"
-version = "1.0.0"
+version = "0.1.0"
 description = "Singer target redshift"
 authors = ["Product Team <development@fluidattacks.com>"]
 
@@ -11,10 +11,7 @@ click = "^7.1.2"
 fa-purity = "^1.18.1"
 fa-singer-io = "^1.1.0"
 jsonschema = "^3.2.0"
-postgres-client = "^1.0.0"
 psycopg2 = "^2.8.4"
-returns = ">=0.16.0 <1.0.0"
-singer-io = "^1.0.0"
 mypy-boto3-s3 = "^1.23.0"
 types-boto3 = "^1.0.2"
 types-click = "^7.1.8"
