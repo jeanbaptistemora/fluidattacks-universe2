@@ -12,6 +12,9 @@ from .organization_stakeholders import (
 from .stakeholder import (
     StakeholderTypedLoader,
 )
+from .stakeholder_level_role import (
+    StakeholderLevelRoleLoader,
+)
 from collections import (
     defaultdict,
 )
@@ -149,6 +152,7 @@ class Dataloaders(NamedTuple):
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderTypedLoader
+    stakeholder_level_role: StakeholderLevelRoleLoader
     user_credentials_new: UserCredentialsNewLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -246,6 +250,7 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=StakeholderTypedLoader(),
+        stakeholder_level_role=StakeholderLevelRoleLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials_new=UserCredentialsNewLoader(),
