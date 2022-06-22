@@ -33,6 +33,7 @@ from utils.string import (
 from vulnerabilities import (
     build_lines_vuln,
     build_metadata,
+    get_path_from_root,
 )
 from zone import (
     t,
@@ -49,21 +50,22 @@ def get_vulnerability_from_n_id(
     metadata: Optional[Dict[str, Any]] = None,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
-    what_data = meta_attrs_label_path = graph_shard.path
+    what_data = graph_shard.path
 
     n_attrs: graph_model.NAttrs = graph_shard.graph.nodes[n_id]
     n_attrs_label_column = n_attrs["label_c"]
     n_attrs_label_line = n_attrs["label_l"]
 
     with open(
-        file=os.path.join(CTX.config.working_dir, meta_attrs_label_path),
+        file=os.path.join(CTX.config.working_dir, what_data),
         encoding="latin-1",
     ) as handle:
         content: str = handle.read()
 
+    normalized_path = get_path_from_root(what_data)
     if metadata:
         what_data = (
-            f"{meta_attrs_label_path} ({meta_what})"
+            f"{normalized_path} ({meta_what})"
             if (meta_what := metadata.get("what"))
             else what_data
         )
@@ -81,7 +83,7 @@ def get_vulnerability_from_n_id(
             method=method,
             description=(
                 f"{t(key=desc_key, **desc_params)} {t(key='words.in')} "
-                f"{CTX.config.namespace}/{meta_attrs_label_path}"
+                f"{CTX.config.namespace}/{normalized_path}"
             ),
             snippet=make_snippet(
                 content=content,

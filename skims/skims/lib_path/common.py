@@ -69,6 +69,7 @@ from utils.string import (
 from vulnerabilities import (
     build_lines_vuln,
     build_metadata,
+    get_path_from_root,
 )
 from zone import (
     t,
@@ -168,15 +169,16 @@ def get_vulnerabilities_blocking(
     method: core_model.MethodsEnum,
     wrap: bool = False,
 ) -> core_model.Vulnerabilities:
+    normalized_path = get_path_from_root(path)
     results: core_model.Vulnerabilities = tuple(
         build_lines_vuln(
             method=method,
-            what=path,
+            what=normalized_path,
             where=str(match.start_line),
             metadata=build_metadata(
                 method=method,
                 description=f"{t(key=description_key)} {t(key='words.in')} "
-                f"{CTX.config.namespace}/{path}",
+                f"{CTX.config.namespace}/{normalized_path}",
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(
@@ -200,15 +202,16 @@ def get_vulnerabilities_from_iterator_blocking(
     path: str,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
+    normalized_path = get_path_from_root(path)
     results: core_model.Vulnerabilities = tuple(
         build_lines_vuln(
             method=method,
-            what=path,
+            what=normalized_path,
             where=str(line_no),
             metadata=build_metadata(
                 method=method,
                 description=f"{t(key=description_key)} {t(key='words.in')} "
-                f"{CTX.config.namespace}/{path}",
+                f"{CTX.config.namespace}/{normalized_path}",
                 snippet=make_snippet(
                     content=content,
                     viewport=SnippetViewport(column=column_no, line=line_no),
@@ -264,12 +267,13 @@ def translate_dependencies_to_vulnerabilities(
     platform: core_model.Platform,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
+    normalized_path = get_path_from_root(path)
     results: core_model.Vulnerabilities = tuple(
         build_lines_vuln(
             method=method,
             what=" ".join(
                 (
-                    path,
+                    normalized_path,
                     f'({product["item"]} v{version["item"]})',
                     f"[{', '.join(cve)}]",
                 )
@@ -284,7 +288,8 @@ def translate_dependencies_to_vulnerabilities(
                         version=version["item"],
                         cve=cve,
                     )
-                    + f" {t(key='words.in')} {CTX.config.namespace}/{path}"
+                    + f" {t(key='words.in')}"
+                    + f" {CTX.config.namespace}/{normalized_path}"
                 ),
                 snippet=make_snippet(
                     content=content,
