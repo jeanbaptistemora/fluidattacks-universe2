@@ -267,6 +267,13 @@ in {
         python = "3.8";
         src = inputs.observesIndex.tap.timedoctor.src;
       };
+      observesTargetRedshift = {
+        searchPaths.source = [
+          outputs."${inputs.observesIndex.target.redshift.env.runtime}"
+        ];
+        python = "3.8";
+        src = inputs.observesIndex.target.redshift.src;
+      };
       observesServiceTimedoctorTokens = {
         searchPaths.source = [
           outputs."/observes/service/timedoctor-tokens/env/runtime"
