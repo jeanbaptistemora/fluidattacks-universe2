@@ -81,6 +81,7 @@ from groups.domain import (
     get_vulnerabilities_with_pending_attacks,
     is_valid,
     remove_pending_deletion_date,
+    send_mail_devsecops_agent,
     set_pending_deletion_date,
     update_group,
     validate_group_services_config,
@@ -900,6 +901,73 @@ async def test_set_pending_deletion_date() -> None:
     )
     assert group_updated.state.pending_deletion_date == test_date
     assert group_updated.state.modified_by == user_email
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "responsible",
+        "had_token",
+    ],
+    [
+        [
+            "unittesting",
+            "integratesmanager@gmail.com",
+            True,
+        ],
+        [
+            "unittesting",
+            "integratesmanager@gmail.com",
+            False,
+        ],
+    ],
+)
+async def test_send_mail_devsecops_agent(
+    group_name: str,
+    responsible: str,
+    had_token: bool,
+) -> None:
+    await send_mail_devsecops_agent(
+        loaders=get_new_context(),
+        group_name=group_name,
+        responsible=responsible,
+        had_token=had_token,
+    )
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "responsible",
+        "had_token",
+    ],
+    [
+        [
+            "not-exist",
+            "integratesmanager@gmail.com",
+            True,
+        ],
+        [
+            "not-exist",
+            "integratesmanager@gmail.com",
+            False,
+        ],
+    ],
+)
+async def test_send_mail_devsecops_agent_fail(
+    group_name: str,
+    responsible: str,
+    had_token: bool,
+) -> None:
+    with pytest.raises(GroupNotFound):
+        await send_mail_devsecops_agent(
+            loaders=get_new_context(),
+            group_name=group_name,
+            responsible=responsible,
+            had_token=had_token,
+        )
 
 
 @pytest.mark.changes_db
