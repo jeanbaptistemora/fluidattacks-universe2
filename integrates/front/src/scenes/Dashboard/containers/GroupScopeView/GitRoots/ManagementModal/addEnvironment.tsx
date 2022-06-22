@@ -27,6 +27,7 @@ interface IAddEnvironmentProps {
   rootId: string;
   closeFunction: () => void;
   onSubmit: () => void;
+  onUpdate: () => void;
 }
 
 interface IFormProps {
@@ -48,6 +49,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
   rootId,
   closeFunction,
   onSubmit,
+  onUpdate,
 }: IAddEnvironmentProps): JSX.Element => {
   const { t } = useTranslation();
   const formInitialValues: IFormProps = {
@@ -97,6 +99,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
         t("group.scope.git.addEnvironment.successTittle")
       );
       onSubmit();
+      onUpdate();
       closeFunction();
     },
     onError: ({ graphQLErrors }): void => {

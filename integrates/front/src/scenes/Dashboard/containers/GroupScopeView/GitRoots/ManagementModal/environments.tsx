@@ -28,6 +28,7 @@ interface IEnvironmentsProps {
   rootInitialValues: IFormValues;
   groupName: string;
   onClose: () => void;
+  onUpdate: () => void;
 }
 
 interface IEnvironmentUrlItem extends IEnvironmentUrl {
@@ -38,6 +39,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   rootInitialValues,
   groupName,
   onClose,
+  onUpdate,
 }: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -58,6 +60,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   const [removeEnvironmentUrl] = useMutation(REMOVE_ENVIRONMENT_URL, {
     onCompleted: async (): Promise<void> => {
       await refetch();
+      onUpdate();
       msgSuccess(
         t("group.scope.git.removeEnvironment.success"),
         t("group.scope.git.removeEnvironment.successTitle")
@@ -160,6 +163,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
           closeFunction={closeAddModal}
           groupName={groupName}
           onSubmit={refetch}
+          onUpdate={onUpdate}
           rootId={initialValues.id}
         />
       </Modal>

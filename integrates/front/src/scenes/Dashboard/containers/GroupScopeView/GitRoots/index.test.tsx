@@ -146,6 +146,7 @@ describe("GitRoots", (): void => {
               nicknames={["product"]}
               onClose={handleClose}
               onSubmitRepo={handleSubmit}
+              onUpdate={jest.fn()}
               runTour={false}
             />
           </MockedProvider>
@@ -268,6 +269,7 @@ describe("GitRoots", (): void => {
             nicknames={[]}
             onClose={handleClose}
             onSubmitRepo={handleSubmit}
+            onUpdate={jest.fn()}
             runTour={false}
           />
         </MockedProvider>

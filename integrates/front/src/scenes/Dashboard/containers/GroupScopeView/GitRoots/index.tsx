@@ -820,6 +820,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           nicknames={nicknames}
           onClose={closeModal}
           onSubmitRepo={handleGitSubmit}
+          onUpdate={onUpdate}
           runTour={isManagingRoot.mode === "EDIT" ? false : enableTour}
         />
       )}
