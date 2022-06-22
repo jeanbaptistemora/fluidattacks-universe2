@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from contextlib import (
     suppress,
 )
@@ -237,49 +240,39 @@ async def generate_configs(
     checks: Tuple[str, ...],
     language: LocalesEnum = LocalesEnum.EN,
     working_dir: str = ".",
-    is_first: bool = True,
 ) -> List[SkimsConfig]:
     additional_paths: List[str] = []
     all_configs: List[SkimsConfig] = []
     for current_dir, dirs, files in os.walk(working_dir):
-        if current_dir.endswith(working_dir) or any(
-            additional_path in current_dir
-            for additional_path in additional_paths
-        ):
-            continue
-
         if is_additional_path(dirs, files):
-            additional_paths = [
-                *additional_paths,
-                current_dir.replace(f"{working_dir}/", ""),
-            ]
-            all_configs = [
-                *all_configs,
-                *(
-                    await generate_configs(
-                        group_name=group_name,
-                        namespace=namespace,
-                        checks=checks,
-                        language=language,
-                        working_dir=current_dir,
-                        is_first=False,
-                    )
-                ),
-            ]
+            additional_paths.append(current_dir.replace(f"{working_dir}/", ""))
 
-    all_configs = [
-        await generate_config(
-            group_name=group_name,
-            namespace=namespace,
-            checks=checks,
-            language=language,
-            working_dir=working_dir,
-            is_main=is_first,
-            exclude=tuple(additional_paths),
-        ),
-        *all_configs,
-    ]
-
+    all_configs = await collect(
+        (
+            generate_config(
+                group_name=group_name,
+                namespace=namespace,
+                checks=checks,
+                language=language,
+                working_dir=working_dir,
+                is_main=True,
+                exclude=tuple(additional_paths),
+            ),
+            *(
+                generate_config(
+                    group_name=group_name,
+                    namespace=namespace,
+                    checks=checks,
+                    language=language,
+                    working_dir=working_dir,
+                    is_main=False,
+                    include=(path,),
+                    exclude=tuple(set(additional_paths) - {path}),
+                )
+                for path in additional_paths
+            ),
+        )
+    )
     return all_configs
 
 
@@ -289,17 +282,17 @@ async def generate_config(
     namespace: str,
     checks: Tuple[str, ...],
     language: LocalesEnum = LocalesEnum.EN,
+    include: Tuple[str, ...] = (),
     exclude: Tuple[str, ...] = (),
     working_dir: str = ".",
     is_main: bool = True,
 ) -> SkimsConfig:
-    create_session(os.environ["INTEGRATES_API_TOKEN"])
-
     scopes: Set[str] = set()
     urls: List[str] = []
     ssl_targets: List[Tuple[str, str]] = []
     dast_config: Optional[SkimsDastConfig] = None
     if is_main:
+        create_session(os.environ["INTEGRATES_API_TOKEN"])
         roots = await get_group_roots(group=group_name)
         scopes = {
             environment_url
@@ -315,13 +308,15 @@ async def generate_config(
             and environment_url["urlType"] == "CLOUD"  # type: ignore
             for secret in environment_url["secrets"]
         }
-        if (key_id := secrets.get("AWS_ACCESS_KEY_ID")) and (
-            secret := secrets.get("AWS_SECRET_ACCESS_KEY")
+        if (
+            "AWS_ACCESS_KEY_ID" in secrets
+            and "AWS_SECRET_ACCESS_KEY" in secrets
         ):
             dast_config = SkimsDastConfig(
                 aws_credentials=[
                     AwsCredentials(
-                        access_key_id=key_id, secret_access_key=secret
+                        access_key_id=secrets["AWS_ACCESS_KEY_ID"],
+                        secret_access_key=secrets["AWS_SECRET_ACCESS_KEY"],
                     )
                 ]
             )
@@ -351,7 +346,7 @@ async def generate_config(
         namespace=namespace,
         output=os.path.abspath("result.csv"),
         path=SkimsPathConfig(
-            include=(".",),
+            include=include if include else (".",),
             exclude=tuple(sorted(("glob(**/.git)", *exclude))),
             lib_path=True,
             lib_root=True,
