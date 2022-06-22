@@ -39,6 +39,18 @@ from typing import (
 )
 
 
+async def send_mail_free_trial_start(
+    email_to: List[str], context: dict[str, Any]
+) -> None:
+    await send_mails_async(
+        email_to=email_to,
+        context=context,
+        tags=[],
+        subject="Congratulations! You started your 21-days free-trial",
+        template_name="free_trial",
+    )
+
+
 async def send_mail_access_granted(
     email_to: List[str], context: dict[str, Any]
 ) -> None:

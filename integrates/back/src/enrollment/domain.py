@@ -1,7 +1,11 @@
+from aioextensions import (
+    schedule,
+)
 from custom_exceptions import (
     EnrollmentNotFound,
     EnrollmentUserExists,
     InvalidParameter,
+    UnableToSendMail,
 )
 from db_model import (
     enrollment as enrollment_model,
@@ -10,8 +14,17 @@ from db_model.enrollment.types import (
     Enrollment,
     Trial,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 import logging
 import logging.config
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
+from mailer.groups import (
+    send_mail_free_trial_start,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -27,6 +40,12 @@ from typing import (
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
+
+mail_free_trial_start = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(send_mail_free_trial_start)
 
 
 async def exists(
@@ -65,3 +84,10 @@ async def add_enrollment(
             ),
         )
     )
+
+    mail_to = [user_email]
+    email_context: dict[str, Any] = {
+        "email": user_email,
+        "empty_notification_notice": True,
+    }
+    schedule(mail_free_trial_start(mail_to, email_context))
