@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias target-redshift="observes-target-redshift"
+
 function start_etl {
   local schema="${1}"
   local project="${2}"

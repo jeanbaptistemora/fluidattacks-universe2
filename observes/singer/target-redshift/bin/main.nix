@@ -1,19 +1,18 @@
 {
-  fetchNixpkgs,
   inputs,
-  makeTemplate,
-  projectPath,
+  makeScript,
+  outputs,
   ...
-}: let
-  root = projectPath inputs.observesIndex.target.redshift.root;
-  pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
-  env = pkg.env.bin;
-in
-  makeTemplate {
-    name = "observes-target-redshift";
-    searchPaths = {
-      bin = [
-        env
-      ];
-    };
-  }
+}:
+makeScript {
+  entrypoint = ''
+    import_and_run target_redshift.cli main "$@"
+  '';
+  searchPaths = {
+    source = [
+      outputs."/observes/common/import-and-run"
+      outputs."${inputs.observesIndex.target.redshift.env.runtime}"
+    ];
+  };
+  name = "observes-target-redshift";
+}

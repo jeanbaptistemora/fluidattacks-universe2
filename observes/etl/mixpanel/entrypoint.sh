@@ -2,6 +2,7 @@
 
 alias tap-mixpanel="observes-singer-tap-mixpanel-bin"
 alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
 
 function job_mixpanel_integrates {
   local conf="${1}"

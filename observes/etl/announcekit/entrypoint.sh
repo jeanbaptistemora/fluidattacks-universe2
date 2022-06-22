@@ -2,6 +2,7 @@
 
 alias tap-announcekit="observes-singer-tap-announcekit-bin"
 alias tap-json="observes-singer-tap-json-bin"
+alias target-redshift="observes-target-redshift"
 
 function start_etl {
   local db_creds
@@ -18,15 +19,18 @@ function start_etl {
     && echo '[INFO] Generating secret files' \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Running tap' \
-    && tap-announcekit stream 'PROJECTS' \
+    && tap-announcekit stream 'ALL' \
       --project "${announcekit_fluid_proj}" \
       > .singer \
     && echo '[INFO] Running target' \
     && target-redshift \
       --auth "${db_creds}" \
       --drop-schema \
-      --schema-name 'announcekit_test' \
-      < .singer
+      --schema-name 'announcekit' \
+      < .singer \
+    && job-last-success single-job \
+      --auth "${db_creds}" \
+      --job 'announcekit'
 }
 
 start_etl
