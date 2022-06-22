@@ -70,7 +70,7 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
-        event_loader = info.context.loaders.event_typed
+        event_loader = info.context.loaders.event
         event: Event = await event_loader.load(event_id)
         if group_name != event.group_name:
             raise EventNotFound()

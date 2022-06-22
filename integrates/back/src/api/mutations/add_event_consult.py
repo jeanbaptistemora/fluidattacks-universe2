@@ -97,7 +97,7 @@ async def mutate(
     if success:
         redis_del_by_deps_soon("add_event_consult", event_id=event_id)
         if content.strip() not in {"#external", "#internal"}:
-            event_loader = info.context.loaders.event_typed
+            event_loader = info.context.loaders.event
             event: Event = await event_loader.load(event_id)
             group_name = event.group_name
             schedule(

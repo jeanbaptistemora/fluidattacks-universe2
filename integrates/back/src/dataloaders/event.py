@@ -44,7 +44,7 @@ class EventsHistoricStateTypedLoader(DataLoader):
         )
 
 
-class EventTypedLoader(DataLoader):
+class EventLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, event_ids: Iterable[str]

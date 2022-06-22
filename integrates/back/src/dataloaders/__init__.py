@@ -1,6 +1,6 @@
 from .event import (
+    EventLoader,
     EventsHistoricStateTypedLoader,
-    EventTypedLoader,
     GroupEventsTypedLoader,
 )
 from .group_stakeholders import (
@@ -102,7 +102,7 @@ class Dataloaders(NamedTuple):
     enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
     event_historic_state: EventsHistoricStateTypedLoader
-    event_typed: EventTypedLoader
+    event: EventLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
@@ -202,7 +202,7 @@ def get_new_context() -> Dataloaders:
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event_historic_state=EventsHistoricStateTypedLoader(),
-        event_typed=EventTypedLoader(),
+        event=EventLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),

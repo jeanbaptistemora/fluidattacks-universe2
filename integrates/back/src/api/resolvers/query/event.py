@@ -30,7 +30,7 @@ async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Event:
     event_id: str = kwargs["identifier"]
-    event_loader: DataLoader = info.context.loaders.event_typed
+    event_loader: DataLoader = info.context.loaders.event
     event: Event = await event_loader.load(event_id)
 
     return event

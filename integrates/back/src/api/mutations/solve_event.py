@@ -67,8 +67,8 @@ async def mutate(
     )
 
     loaders: Dataloaders = info.context.loaders
-    loaders.event_typed.clear(event_id)
-    event: Event = await loaders.event_typed.load(event_id)
+    loaders.event.clear(event_id)
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
     redis_del_by_deps_soon("solve_event", group_name=group_name)
     logs_utils.cloudwatch_log(

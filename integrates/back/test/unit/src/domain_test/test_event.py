@@ -33,7 +33,6 @@ from db_model.events.types import (
     Event,
 )
 from events import (
-    dal as events_dal,
     domain as events_domain,
 )
 from newutils import (
@@ -56,11 +55,11 @@ pytestmark = [
 async def test_get_event() -> None:
     loaders: Dataloaders = get_new_context()
     event_id = "418900971"
-    test_data: Event = await loaders.event_typed.load(event_id)
+    test_data: Event = await loaders.event.load(event_id)
     expected_output = "unittesting"
     assert test_data.group_name == expected_output
     with pytest.raises(EventNotFound):
-        await loaders.event_typed.load("000001111")
+        await loaders.event.load("000001111")
 
 
 @pytest.mark.changes_db
@@ -128,7 +127,7 @@ async def test_solve_event() -> None:
         other="Other info",
     )
     loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event_typed.load("538745942")
+    event: Event = await loaders.event.load("538745942")
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.other == "Other info"
     assert event.state.reason == EventSolutionReason.PERMISSION_GRANTED
@@ -210,8 +209,8 @@ async def test_update_evidence() -> None:
             datetime_utils.get_now(),
         )
 
-    loaders.event_typed.clear(event_id)
-    event_updated: Event = await loaders.event_typed.load(event_id)
+    loaders.event.clear(event_id)
+    event_updated: Event = await loaders.event.load(event_id)
     assert (
         event_updated.evidences.file.file_name
         == "oneshottest-418900978-evidence_file.csv"
@@ -321,7 +320,7 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
 
     assert success
     assert len(await comments_domain.get("event", event_id)) >= 1
-    assert len(await events_dal.search_evidence(evidence_prefix)) >= 1
+    assert len(await events_domain.search_evidence(evidence_prefix)) >= 1
 
     loaders = get_new_context()
     test_data = await events_domain.mask(loaders, event_id)
@@ -330,7 +329,7 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     assert isinstance(test_data, bool)
     assert test_data == expected_output
     assert len(await comments_domain.get("event", event_id)) == 0
-    assert len(await events_dal.search_evidence(evidence_prefix)) == 0
+    assert len(await events_domain.search_evidence(evidence_prefix)) == 0
     new_loaders = get_new_context()
-    event: Event = await new_loaders.event_typed.load(event_id)
+    event: Event = await new_loaders.event.load(event_id)
     assert event.description == "Masked"

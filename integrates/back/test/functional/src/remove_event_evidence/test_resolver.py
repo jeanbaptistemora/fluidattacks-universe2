@@ -31,7 +31,7 @@ async def test_remove_event_evidence(
     assert result["data"]["removeEventEvidence"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     assert event.evidences.image is None
     assert event.evidences.file
 

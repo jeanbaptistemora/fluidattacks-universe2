@@ -4,9 +4,6 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
-from context import (
-    FI_AWS_S3_BUCKET,
-)
 from custom_exceptions import (
     EventNotFound,
     UnavailabilityError,
@@ -28,9 +25,6 @@ import logging.config
 from newutils import (
     datetime as datetime_utils,
     events as events_utils,
-)
-from s3 import (
-    operations as s3_ops,
 )
 from settings import (
     LOGGING,
@@ -95,22 +89,6 @@ async def list_group_events(group_name: str) -> list[str]:
     }
     events = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     return [event["event_id"] for event in events]
-
-
-async def save_evidence(file_object: object, file_name: str) -> None:
-    await s3_ops.upload_memory_file(
-        FI_AWS_S3_BUCKET,
-        file_object,
-        file_name,
-    )
-
-
-async def search_evidence(file_name: str) -> list[str]:
-    return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
-
-
-async def remove_evidence(file_name: str) -> None:
-    await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
 
 
 async def update(event_id: str, data: dict[str, Any]) -> bool:

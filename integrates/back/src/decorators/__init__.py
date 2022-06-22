@@ -93,7 +93,7 @@ TFun = TypeVar("TFun", bound=Callable[..., Any])
 
 
 async def _resolve_from_event_id(context: Any, identifier: str) -> str:
-    event_loader = context.loaders.event_typed
+    event_loader = context.loaders.event
     data: Event = await event_loader.load(identifier)
     group_name = data.group_name
     return group_name

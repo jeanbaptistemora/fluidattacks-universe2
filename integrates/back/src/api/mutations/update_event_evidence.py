@@ -54,6 +54,6 @@ async def mutate(
         file,
         get_now(),
     )
-    loaders.event_typed.clear(event_id)
+    loaders.event.clear(event_id)
 
     return SimplePayload(success=True)

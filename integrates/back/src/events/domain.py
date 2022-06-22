@@ -120,6 +120,22 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def save_evidence(file_object: object, file_name: str) -> None:
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_BUCKET,
+        file_object,
+        file_name,
+    )
+
+
+async def search_evidence(file_name: str) -> list[str]:
+    return await s3_ops.list_files(FI_AWS_S3_BUCKET, file_name)
+
+
+async def remove_file_evidence(file_name: str) -> None:
+    await s3_ops.remove_file(FI_AWS_S3_BUCKET, file_name)
+
+
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
@@ -129,7 +145,7 @@ async def add_comment(
 ) -> tuple[Union[str, None], bool]:
     parent_comment = str(parent_comment)
     content = str(comment_data["content"])
-    event_loader = info.context.loaders.event_typed
+    event_loader = info.context.loaders.event
     event: Event = await event_loader.load(event_id)
     group_name = event.group_name
 
@@ -270,7 +286,7 @@ async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
 async def get_evidence_link(
     loaders: Any, event_id: str, file_name: str
 ) -> str:
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
     file_url = f"{group_name}/{event_id}/{file_name}"
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
@@ -278,13 +294,13 @@ async def get_evidence_link(
 
 async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     """Verify if the user has access to a event submission."""
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     group = event.group_name
     return bool(await authz.has_access_to_group(email, group))
 
 
 async def mask(loaders: Any, event_id: str) -> bool:
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
     list_comments = await comments_domain.get("event", event_id)
@@ -304,9 +320,9 @@ async def mask(loaders: Any, event_id: str) -> bool:
         )
     ]
     evidence_prefix = f"{group_name}/{event_id}"
-    list_evidences = await events_dal.search_evidence(evidence_prefix)
+    list_evidences = await search_evidence(evidence_prefix)
     mask_events_coroutines_none.extend(
-        [events_dal.remove_evidence(file_name) for file_name in list_evidences]
+        [remove_file_evidence(file_name) for file_name in list_evidences]
     )
 
     await collect(mask_events_coroutines_none)
@@ -316,7 +332,7 @@ async def mask(loaders: Any, event_id: str) -> bool:
 async def remove_evidence(
     loaders: Any, evidence_type: EventEvidenceType, event_id: str
 ) -> None:
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
     if evidence_type == EventEvidenceType.IMAGE and event.evidences.image:
@@ -346,7 +362,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
     the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
     and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
     loaders = info.context.loaders
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
     other_reason: str = other if other else ""
 
@@ -449,7 +465,7 @@ async def update_evidence(
     update_date: datetime,
 ) -> None:
     validations.validate_sanitized_csv_input(event_id)
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
 
@@ -473,7 +489,7 @@ async def update_evidence(
     validations.validate_sanitized_csv_input(full_name)
     validations.validate_sanitized_csv_input(file.filename, file.content_type)
 
-    await events_dal.save_evidence(file, full_name)
+    await save_evidence(file, full_name)
     await events_dal.update_evidence(
         event_id=event_id,
         group_name=group_name,

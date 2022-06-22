@@ -32,7 +32,7 @@ from typing import (
 async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event_typed.load(event_id)
+    event: Event = await loaders.event.load(event_id)
     assert event.state.status == EventStateStatus.CREATED
 
     result: dict[str, Any] = await get_result(user=email, event=event_id)
@@ -40,7 +40,7 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
     assert "success" in result["data"]["solveEvent"]
 
     loaders = get_new_context()
-    event = await loaders.event_typed.load(event_id)
+    event = await loaders.event.load(event_id)
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
 
