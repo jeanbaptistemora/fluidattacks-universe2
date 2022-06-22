@@ -26,7 +26,9 @@ from db_model.roots.enums import (
     RootStatus,
 )
 from db_model.roots.types import (
+    GitEnvironmentCloud,
     GitEnvironmentUrl,
+    GitEnvironmentUrlType,
     GitRootCloning,
     MachineFindingResult,
     Root,
@@ -481,7 +483,10 @@ async def get_git_environment_urls(
             created_at=datetime.fromisoformat(item["created_at"])
             if "created_at" in item
             else None,
-            url_type=item["type"],
+            url_type=GitEnvironmentUrlType[item["type"]],
+            cloud_name=GitEnvironmentCloud[item["cloud_name"]]
+            if "cloud_name" in item
+            else None,
         )
         for item in response.items
     )
@@ -522,6 +527,10 @@ async def get_git_environment_url_by_id(
         id=item["sk"].split("URL#")[-1],
         created_at=datetime.fromisoformat(item["created_at"])
         if "created_at" in item
+        else None,
+        url_type=GitEnvironmentUrlType[item["type"]],
+        cloud_name=GitEnvironmentCloud[item["cloud_name"]]
+        if "cloud_name" in item
         else None,
     )
 

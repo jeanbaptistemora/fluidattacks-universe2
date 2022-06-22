@@ -1549,7 +1549,7 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
         created_at=datetime.now(),
         url=url,
         url_type=_url_type,
-        cloud_type=_cloud_type,
+        cloud_name=_cloud_type,
     )
     result_environment = await roots_model.add_git_environment_url(
         root_id, url=environment

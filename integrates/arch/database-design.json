@@ -83,6 +83,10 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "cloud_name",
+          "AttributeType": "S"
+        },
+        {
           "AttributeName": "tags",
           "AttributeType": "L"
         },
@@ -7619,6 +7623,7 @@
           ],
           "NonKeyAttributes": [
             "type",
+            "cloud_name",
             "url",
             "created_at"
           ]

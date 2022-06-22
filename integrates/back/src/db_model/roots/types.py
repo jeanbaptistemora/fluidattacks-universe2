@@ -64,7 +64,7 @@ class GitEnvironmentUrl(NamedTuple):
     created_at: Optional[datetime] = None
     group_name: Optional[str] = None
     url_type: GitEnvironmentUrlType = GitEnvironmentUrlType.URL
-    cloud_type: Optional[GitEnvironmentCloud] = None
+    cloud_name: Optional[GitEnvironmentCloud] = None
 
 
 class GitRootState(NamedTuple):

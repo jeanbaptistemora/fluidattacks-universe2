@@ -180,6 +180,7 @@ async def add_git_environment_url(
         if url.created_at is not None
         else None,
         "type": url.url_type.value,
+        "cloud_name": url.cloud_name.value if url.cloud_name else None,
     }
     with suppress(botocore.exceptions.ClientError):
         await operations.batch_put_item(items=(url_item,), table=TABLE)
