@@ -18,10 +18,12 @@ import { Container, DashboardContent, FormContent } from "./styles";
 
 import { Col, Row } from "components/Layout";
 import {
+  handleEnrollmentCreateError,
   handleGroupCreateError,
   handleRootCreateError,
 } from "scenes/Autoenrollment/helpers";
 import {
+  ADD_ENROLLMENT,
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,
@@ -167,6 +169,12 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
     },
   });
 
+  const [addEnrollment] = useMutation(ADD_ENROLLMENT, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      handleEnrollmentCreateError(graphQLErrors, setOrgMessages);
+    },
+  });
+
   const timeoutPromise = useCallback(
     async (
       fn: Promise<FetchResult<IAddOrganizationResult>>,
@@ -296,6 +304,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
               organization: values.organizationName.toLowerCase(),
               url: url.trim(),
             });
+            await addEnrollment();
             setAsmLocation(
               `/orgs/${values.organizationName.toLowerCase()}/groups/${values.groupName.toLowerCase()}/scope`
             );
@@ -350,6 +359,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
       setIsSubmitting(false);
     },
     [
+      addEnrollment,
       addGitRoot,
       addGroup,
       addOrganization,

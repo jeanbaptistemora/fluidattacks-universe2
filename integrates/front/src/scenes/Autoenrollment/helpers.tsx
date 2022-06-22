@@ -86,6 +86,30 @@ const handleRootCreateError = (
   });
 };
 
+const handleEnrollmentCreateError = (
+  graphQLErrors: readonly GraphQLError[],
+  setMessages: IAlertMessages
+): void => {
+  graphQLErrors.forEach((error: GraphQLError): void => {
+    if (error.message === "Enrollment user already exists") {
+      setMessages({
+        message: translate.t(
+          "autoenrollment.addOrganization.messages.error.enrollmentUser"
+        ),
+        type: "error",
+      });
+    } else {
+      setMessages({
+        message: translate.t(
+          "autoenrollment.addOrganization.messages.error.enrollment"
+        ),
+        type: "error",
+      });
+      Logger.error("Couldn't add enrollment user data", error);
+    }
+  });
+};
+
 const handleValidationError = (
   graphQLErrors: readonly GraphQLError[],
   setMessages: IAlertMessages
@@ -265,6 +289,7 @@ const rootSchema = (
   );
 
 export {
+  handleEnrollmentCreateError,
   handleGroupCreateError,
   handleRootCreateError,
   handleValidationError,

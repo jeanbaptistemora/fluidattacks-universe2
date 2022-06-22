@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+const ADD_ENROLLMENT = gql`
+  mutation AddEnrollmentMutation {
+    addEnrollment {
+      success
+    }
+  }
+`;
+
 const ADD_GIT_ROOT = gql`
   mutation AddGitRoot(
     $branch: String!
@@ -83,6 +91,7 @@ const VALIDATE_GIT_ACCESS = gql`
 `;
 
 export {
+  ADD_ENROLLMENT,
   ADD_GIT_ROOT,
   ADD_GROUP_MUTATION,
   ADD_ORGANIZATION,

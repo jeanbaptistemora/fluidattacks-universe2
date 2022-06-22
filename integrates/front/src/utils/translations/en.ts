@@ -249,6 +249,8 @@ export const enTranslations: ResourceKey = {
       },
       messages: {
         error: {
+          enrollment: "Invalid enrollment data or user already exists",
+          enrollmentUser: "Enrollment user already exists",
           group: "Invalid or used Group Name, please change your input",
           organization:
             "Invalid or used Organization Name, please change your input",
