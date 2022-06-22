@@ -3,7 +3,7 @@ from db_model.credentials.types import (
     HttpsPatSecret,
 )
 from decorators import (
-    enforce_organization_level_auth_async,
+    enforce_owner,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -13,7 +13,7 @@ from typing import (
 )
 
 
-@enforce_organization_level_auth_async
+@enforce_owner
 def resolve(parent: Credential, _info: GraphQLResolveInfo) -> Optional[str]:
     return (
         parent.state.secret.token
