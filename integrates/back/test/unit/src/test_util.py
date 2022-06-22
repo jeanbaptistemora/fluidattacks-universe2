@@ -42,14 +42,14 @@ from settings import (
     SESSION_COOKIE_AGE,
     TIME_ZONE,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 import time
 from typing import (
     Dict,
     List,
     Union,
-)
-from users import (
-    domain as users_domain,
 )
 
 pytestmark = [
@@ -342,7 +342,7 @@ async def test_create_user() -> None:
     async def get_user_attrs(
         email: str, attrs: List[str]
     ) -> Dict[str, Union[str, datetime]]:
-        user_attrs = await users_domain.get_attributes(email, attrs)
+        user_attrs = await stakeholders_domain.get_attributes(email, attrs)
         if "last_login" in user_attrs:
             user_attrs["last_login"] = timezone.localize(
                 datetime.strptime(

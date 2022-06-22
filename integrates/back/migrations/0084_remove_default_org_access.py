@@ -30,11 +30,11 @@ from itertools import (
 from organizations import (
     domain as orgs_domain,
 )
+from stakeholders import (
+    dal as stakeholders_dal,
+)
 from typing import (
     List,
-)
-from users import (
-    dal as users_dal,
 )
 
 USERS_TABLE_NAME = "FI_users"
@@ -74,7 +74,9 @@ async def remove_default_org_access(
 
 
 async def main() -> None:
-    users = await users_dal.get_all(Attr("registered").eq(True), "email")
+    users = await stakeholders_dal.get_all(
+        Attr("registered").eq(True), "email"
+    )
     default_org = await orgs_domain.get_by_name(FI_DEFAULT_ORG.lower())
 
     success = all(

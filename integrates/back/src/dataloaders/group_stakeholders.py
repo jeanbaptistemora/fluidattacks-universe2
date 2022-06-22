@@ -4,15 +4,15 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     cast,
     Dict,
     List,
     Tuple,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -27,7 +27,7 @@ class GroupStakeholdersLoader(DataLoader):
             Tuple[List[Dict[str, Any]], ...],
             await collect(
                 tuple(
-                    users_domain.get_group_stakeholders(group_name)
+                    stakeholders_domain.get_group_stakeholders(group_name)
                     for group_name in group_names
                 )
             ),

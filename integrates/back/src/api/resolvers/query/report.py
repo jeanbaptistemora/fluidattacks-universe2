@@ -44,16 +44,16 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
+from stakeholders.utils import (
+    get_international_format_phone_number,
+)
 from typing import (
     Any,
     Dict,
     Optional,
-)
-from users import (
-    domain as users_domain,
-)
-from users.utils import (
-    get_international_format_phone_number,
 )
 from verify import (
     operations as verify_operations,
@@ -104,7 +104,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
     ):
         raise ReportAlreadyRequested()
 
-    user = await users_domain.get_by_email(user_email)
+    user = await stakeholders_domain.get_by_email(user_email)
     user_phone: Optional[StakeholderPhone] = user["phone"]
     if not user_phone:
         raise RequiredNewPhoneNumber()

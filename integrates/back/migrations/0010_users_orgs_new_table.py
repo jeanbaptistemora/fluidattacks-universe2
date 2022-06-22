@@ -20,8 +20,8 @@ from organizations import (
     dal as orgs_dal,
 )
 import os
-from users import (
-    dal as users_dal,
+from stakeholders import (
+    dal as stakeholders_dal,
 )
 import uuid
 
@@ -41,7 +41,7 @@ def main() -> None:
     Assign organization to every user
     """
     log("Starting migration 0009")
-    all_users = users_dal.get_all(
+    all_users = stakeholders_dal.get_all(
         filter_exp=(
             "attribute_exists(company) and "
             "attribute_not_exists(organization)"
@@ -70,7 +70,7 @@ def main() -> None:
         else:
             if not org:
                 org = async_to_sync(orgs_dal.create_legacy)(org_name)
-            success: bool = users_dal.update(
+            success: bool = stakeholders_dal.update(
                 data={"organization": org["id"]}, email=user_email
             )
             if success:

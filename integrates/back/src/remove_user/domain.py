@@ -64,15 +64,15 @@ from remove_user.dal import (
 from sessions.dal import (
     remove_session_key,
 )
+from stakeholders.domain import (
+    remove,
+)
 from subscriptions.domain import (
     get_user_subscriptions,
     unsubscribe_user_to_entity_report,
 )
 from typing import (
     Any,
-)
-from users.domain import (
-    remove,
 )
 
 mail_confirm_deletion = retry_on_exceptions(

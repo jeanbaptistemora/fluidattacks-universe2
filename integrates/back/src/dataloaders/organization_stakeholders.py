@@ -8,15 +8,15 @@ import authz
 from organizations import (
     domain as orgs_domain,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     cast,
     Dict,
     List,
     Tuple,
-)
-from users import (
-    domain as stakeholders_domain,
 )
 
 

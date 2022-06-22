@@ -23,13 +23,13 @@ from dynamodb.operations_legacy import (
     RESOURCE_OPTIONS,
 )
 import os
+from stakeholders.dal import (
+    update as update_user,
+)
 from typing import (
     Dict,
     List,
     Union,
-)
-from users.dal import (
-    update as update_user,
 )
 
 INTEGRATES_TABLE = "integrates"

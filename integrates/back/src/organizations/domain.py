@@ -87,14 +87,14 @@ from organizations.types import (
     CredentialAttributesToAdd,
 )
 import re
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 import sys
 from typing import (
     Any,
     AsyncIterator,
     Union,
-)
-from users import (
-    domain as users_domain,
 )
 import uuid
 
@@ -453,7 +453,7 @@ async def remove_user(
 
     has_orgs = bool(await get_user_organizations(email))
     if not has_orgs:
-        user_removed = user_removed and await users_domain.remove(email)
+        user_removed = user_removed and await stakeholders_domain.remove(email)
     user_credentials: tuple[
         Credential, ...
     ] = await loaders.user_credentials_new.load(email)

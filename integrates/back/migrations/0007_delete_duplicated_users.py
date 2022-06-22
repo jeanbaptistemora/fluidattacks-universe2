@@ -14,12 +14,12 @@ from django.contrib.auth.models import (
     User,
 )
 import os
-from typing import (
-    List,
-)
-from users.dal import (
+from stakeholders.dal import (
     get_all as get_all_dynamo_users,
     remove as remove_dynamo_user,
+)
+from typing import (
+    List,
 )
 
 PROVIDER = "azuread-tenant-oauth2"

@@ -19,14 +19,14 @@ from custom_types import (
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
+from stakeholders.domain import (
+    is_fluid_staff,
+)
 import time
 from typing import (
     cast,
     Dict,
     List,
-)
-from users.domain import (
-    is_fluid_staff,
 )
 
 # Constants

@@ -13,23 +13,25 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
-import time
-from users import (
-    dal as users_dal,
-    domain as users_domain,
+from stakeholders import (
+    dal as stakeholders_dal,
+    domain as stakeholders_domain,
 )
+import time
 
 PROD: bool = True
 
 
 async def main() -> None:
-    users = await users_dal.get_all(Attr("legal_remember").eq(True))
+    users = await stakeholders_dal.get_all(Attr("legal_remember").eq(True))
 
     for user in users:
         print(f"Legal terms acceptance of {user['email']} will be reset")
 
         if PROD:
-            await users_domain.update_legal_remember(user["email"], False)
+            await stakeholders_domain.update_legal_remember(
+                user["email"], False
+            )
             print(f"Legal terms acceptance of {user['email']} has been reset")
 
 

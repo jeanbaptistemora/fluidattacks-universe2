@@ -55,8 +55,8 @@ from schedulers import (
     update_indicators,
     update_portfolios,
 )
-from users import (
-    dal as users_dal,
+from stakeholders import (
+    dal as stakeholders_dal,
 )
 
 pytestmark = [
@@ -439,10 +439,12 @@ async def test_remove_imamura_stakeholders() -> None:
         "deleteimamura@fluidattacks.com",  # NOSONAR
         "nodeleteimamura@fluidattacks.com",  # NOSONAR
     ]
-    remove_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
+    remove_stakeholder = await stakeholders_dal.get(
+        "deleteimamura@fluidattacks.com"
+    )
     remove_stakeholder_exists = bool(remove_stakeholder)
     assert remove_stakeholder_exists
-    noremove_stakeholder = await users_dal.get(
+    noremove_stakeholder = await stakeholders_dal.get(
         "nodeleteimamura@fluidattacks.com"
     )
     noremove_stakeholder_exists = bool(noremove_stakeholder)
@@ -457,10 +459,12 @@ async def test_remove_imamura_stakeholders() -> None:
         stakeholder["email"] for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == ["nodeleteimamura@fluidattacks.com"]
-    remove_stakeholder = await users_dal.get("deleteimamura@fluidattacks.com")
+    remove_stakeholder = await stakeholders_dal.get(
+        "deleteimamura@fluidattacks.com"
+    )
     remove_stakeholder_exists = bool(remove_stakeholder)
     assert not remove_stakeholder_exists
-    noremove_stakeholder = await users_dal.get(
+    noremove_stakeholder = await stakeholders_dal.get(
         "nodeleteimamura@fluidattacks.com"
     )
     noremove_stakeholder_exists = bool(noremove_stakeholder)

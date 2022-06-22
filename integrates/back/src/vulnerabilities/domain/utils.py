@@ -22,14 +22,14 @@ import html
 from newutils import (
     datetime as datetime_utils,
 )
+from stakeholders.domain import (
+    is_registered,
+)
 from typing import (
     Any,
     Dict,
     List,
     Set,
-)
-from users.domain import (
-    is_registered,
 )
 from uuid import (
     uuid4 as uuid,

@@ -1,5 +1,5 @@
 import pytest
-from users.dal import (
+from stakeholders.dal import (
     add,
     get,
     remove,

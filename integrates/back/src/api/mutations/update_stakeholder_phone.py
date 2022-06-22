@@ -20,12 +20,12 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -44,7 +44,7 @@ async def mutate(
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
-        await users_domain.update_mobile(
+        await stakeholders_domain.update_mobile(
             user_email,
             Phone(
                 national_number=phone["national_number"],

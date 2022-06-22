@@ -25,11 +25,11 @@ from group_access import (
 from pprint import (
     pprint,
 )
+from stakeholders import (
+    dal as stakeholders_dal,
+)
 from typing import (
     cast,
-)
-from users import (
-    dal as users_dal,
 )
 
 TABLE_ACCESS_NAME = "FI_project_access"
@@ -43,7 +43,7 @@ async def add_phone_number_to_group_invitation(
     group_name = project_access["project_name"]
     invitation = project_access["invitation"]
     new_invitation = invitation.copy()
-    stakeholder = await users_dal.get(user_email)
+    stakeholder = await stakeholders_dal.get(user_email)
     phone_number = stakeholder.get("phone", "")
     new_invitation["phone_number"] = phone_number
 

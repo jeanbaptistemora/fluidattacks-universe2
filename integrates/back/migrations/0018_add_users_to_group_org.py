@@ -29,12 +29,12 @@ from organizations import (
     domain as orgs_domain,
 )
 import os
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Dict,
     List,
-)
-from users import (
-    domain as users_domain,
 )
 
 STAGE: str = os.environ["STAGE"]
@@ -60,7 +60,7 @@ async def main() -> None:
                 group_access_doamin.get_group_users(group)
             )
             user_orgs = await collect(
-                users_domain.get_attributes(user, ["organization"])
+                stakeholders_domain.get_attributes(user, ["organization"])
                 for user in group_users
             )
             user_orgs = [user["organization"] for user in user_orgs]

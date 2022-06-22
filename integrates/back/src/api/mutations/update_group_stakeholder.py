@@ -41,12 +41,12 @@ from newutils.utils import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
-)
-from users import (
-    domain as users_domain,
 )
 
 # Constants
@@ -69,14 +69,14 @@ async def _update_stakeholder(
     if group_access:
         invitation = group_access.get("invitation")
         if invitation and not invitation["is_used"]:
-            success = await users_domain.update_invited_stakeholder(
+            success = await stakeholders_domain.update_invited_stakeholder(
                 updated_data, invitation, group
             )
         else:
             if await authz.grant_group_level_role(
                 modified_email, group.name, modified_role
             ):
-                success = await users_domain.update_information(
+                success = await stakeholders_domain.update_information(
                     info.context, updated_data, group.name
                 )
             else:

@@ -33,8 +33,8 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from users import (
-    domain as users_domain,
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 
 
@@ -51,7 +51,7 @@ async def mutate(
     group: Group = await loaders.group.load(group_name)
 
     user_email = forces_domain.format_forces_user_email(group_name)
-    if not await users_domain.ensure_exists(user_email):
+    if not await stakeholders_domain.ensure_exists(user_email):
         logs_utils.cloudwatch_log(
             info.context,
             (

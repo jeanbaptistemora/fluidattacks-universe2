@@ -14,11 +14,11 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -30,7 +30,9 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
 
-    success = await users_domain.remove_access_token(user_info["user_email"])
+    success = await stakeholders_domain.remove_access_token(
+        user_info["user_email"]
+    )
     if success:
         logs_utils.cloudwatch_log(
             info.context, f'{user_info["user_email"]} invalidate access token'

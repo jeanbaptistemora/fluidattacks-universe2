@@ -47,6 +47,9 @@ import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from time import (
     time,
 )
@@ -56,9 +59,6 @@ from typing import (
     Dict,
     List,
     Union,
-)
-from users import (
-    domain as users_domain,
 )
 from vulnerabilities import (
     dal as vulns_dal,
@@ -92,7 +92,7 @@ async def should_verify_closed_vulnerabilities(group: str) -> None:
             if STAGE == "apply":
                 name_attrs = cast(
                     Dict[str, str],
-                    await users_domain.get_attributes(
+                    await stakeholders_domain.get_attributes(
                         email, ["first_name", "last_name"]
                     ),
                 )

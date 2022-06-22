@@ -21,12 +21,12 @@ from newutils import (
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -41,7 +41,7 @@ async def resolve(
 ) -> list[Dict[str, Any]]:
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
-    exclude_fluid_staff = not users_domain.is_fluid_staff(user_email)
+    exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
     response: list[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
@@ -52,7 +52,7 @@ async def resolve(
         response = [
             user
             for user in response
-            if not users_domain.is_fluid_staff(str(user["email"]))
+            if not stakeholders_domain.is_fluid_staff(str(user["email"]))
         ]
     return response
 

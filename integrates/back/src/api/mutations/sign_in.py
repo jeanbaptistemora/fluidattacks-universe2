@@ -39,6 +39,9 @@ from settings.auth import (
     GOOGLE_ARGS,
     OAUTH,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from subscriptions import (
     domain as subscriptions_domain,
 )
@@ -47,9 +50,6 @@ from typing import (
     cast,
     Dict,
     Optional,
-)
-from users import (
-    domain as users_domain,
 )
 
 # Constants
@@ -225,13 +225,13 @@ async def log_user_in(user: Dict[str, str]) -> None:
         "date_joined": today,
     }
 
-    db_user = await users_domain.get(email)
+    db_user = await stakeholders_domain.get(email)
     if db_user and db_user.get("first_name", ""):
         if not bool(db_user.get("registered", False)):
-            await users_domain.register(email)
+            await stakeholders_domain.register(email)
 
-        await users_domain.update_last_login(email)
+        await stakeholders_domain.update_last_login(email)
     else:
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_user(email)
-        await users_domain.update_attributes(email, data_dict)
+        await stakeholders_domain.update_attributes(email, data_dict)

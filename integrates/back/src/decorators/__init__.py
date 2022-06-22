@@ -58,6 +58,9 @@ from settings import (
     DEBUG,
     LOGGING,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 import time
 from typing import (
     Any,
@@ -68,9 +71,6 @@ from typing import (
     Tuple,
     Type,
     TypeVar,
-)
-from users import (
-    domain as users_domain,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -712,5 +712,7 @@ def validate_connection(func: TVar) -> TVar:
 
 
 async def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
-    if not await users_domain.has_valid_access_token(email, context, jti):
+    if not await stakeholders_domain.has_valid_access_token(
+        email, context, jti
+    ):
         raise InvalidAuthorization()

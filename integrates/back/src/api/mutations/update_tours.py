@@ -10,12 +10,12 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -27,6 +27,6 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    success = await users_domain.update_tours(user_email, tours)
+    success = await stakeholders_domain.update_tours(user_email, tours)
 
     return SimplePayloadType(success=success)

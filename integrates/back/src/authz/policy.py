@@ -109,7 +109,8 @@ async def _delete_subject_policy(subject: str, object_: str) -> bool:
         response = await dynamodb_ops.delete_item(AUTHZ_TABLE, delete_attrs)
         return response
     LOGGER.error(
-        "Error in users_dal.delete_subject_policy", extra={"extra": locals()}
+        "Error in stakeholders_dal.delete_subject_policy",
+        extra={"extra": locals()},
     )
     return False
 
@@ -381,7 +382,8 @@ async def put_subject_policy(policy: SubjectPolicy) -> bool:
         response = await dynamodb_ops.put_item(AUTHZ_TABLE, item)
         return response
     LOGGER.error(
-        "Error in users_dal.put_subject_policy", extra={"extra": locals()}
+        "Error in stakeholders_dal.put_subject_policy",
+        extra={"extra": locals()},
     )
     return False
 

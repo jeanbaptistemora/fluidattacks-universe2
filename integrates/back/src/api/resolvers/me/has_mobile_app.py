@@ -1,13 +1,13 @@
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
     List,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -16,7 +16,7 @@ async def resolve(
 ) -> bool:
     has_mobile_app: bool = False
     user_email = str(parent["user_email"])
-    user_attrs: dict = await users_domain.get_attributes(
+    user_attrs: dict = await stakeholders_domain.get_attributes(
         user_email, ["push_tokens"]
     )
     tokens: List[str] = user_attrs.get("push_tokens", [])

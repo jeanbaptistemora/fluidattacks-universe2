@@ -37,13 +37,13 @@ from settings import (
 from simplejson.errors import (  # type: ignore
     JSONDecodeError,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     List,
     Optional,
-)
-from users import (
-    domain as users_domain,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -71,7 +71,7 @@ async def get_recipient_first_name(
     is_access_granted: bool = False,
 ) -> Optional[str]:
     first_name = email.split("@")[0]
-    user_attr = await users_domain.get(email)
+    user_attr = await stakeholders_domain.get(email)
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
         *[

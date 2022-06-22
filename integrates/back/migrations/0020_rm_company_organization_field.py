@@ -24,8 +24,8 @@ from more_itertools import (
     chunked,
 )
 import os
-from users import (
-    dal as users_dal,
+from stakeholders import (
+    dal as stakeholders_dal,
 )
 
 STAGE: str = os.environ["STAGE"]
@@ -39,7 +39,7 @@ async def main() -> None:
     user_filter: Attr = (
         Attr("organization").exists() | Attr("company").exists()
     )
-    users = await in_thread(users_dal.get_all, user_filter, "email")
+    users = await in_thread(stakeholders_dal.get_all, user_filter, "email")
 
     if STAGE == "test":
         print("-----\n")
@@ -62,7 +62,7 @@ async def main() -> None:
         for user_chunk in chunked(users, 40):
             await collect(
                 in_thread(
-                    users_dal.update,
+                    stakeholders_dal.update,
                     user["email"],
                     {"company": None, "organization": None},
                 )

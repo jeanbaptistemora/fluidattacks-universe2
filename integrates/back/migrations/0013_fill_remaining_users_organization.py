@@ -37,13 +37,13 @@ from organizations.domain import (
     get_id_by_name as get_organization_id_by_name,
 )
 import os
+from stakeholders.dal import (
+    update as update_user,
+)
 from typing import (
     Dict,
     List,
     Union,
-)
-from users.dal import (
-    update as update_user,
 )
 
 AUTOENROLLED_ORGANIZATION: str = "integrates community"

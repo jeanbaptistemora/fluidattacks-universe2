@@ -20,13 +20,13 @@ from group_access import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Dict,
     List,
-)
-from users import (
-    domain as stakeholders_domain,
 )
 
 

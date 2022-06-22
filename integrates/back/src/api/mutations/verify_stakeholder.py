@@ -20,11 +20,11 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -49,7 +49,7 @@ async def mutate(
                 national_number=new_phone_dict["national_number"],
             )
 
-        await users_domain.verify(
+        await stakeholders_domain.verify(
             user_email,
             new_phone,
             kwargs.get("verification_code"),

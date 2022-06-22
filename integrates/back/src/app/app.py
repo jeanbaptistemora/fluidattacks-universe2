@@ -94,6 +94,9 @@ from settings import (
     LOGGING,
     TEMPLATES_DIR,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from starlette.applications import (
     Starlette,
 )
@@ -122,9 +125,6 @@ from typing import (
     Dict,
     Tuple,
 )
-from users import (
-    domain as users_domain,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -138,7 +138,7 @@ async def app(request: Request) -> HTMLResponse:
     try:
         if email:
             if FI_ENVIRONMENT == "production":
-                await users_domain.check_session_web_validity(request)
+                await stakeholders_domain.check_session_web_validity(request)
             response = templates.main_app(request)
             jwt_token = await utils.create_session_token(request.session)
             utils.set_token_in_response(response, jwt_token)

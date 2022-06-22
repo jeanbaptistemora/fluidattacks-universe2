@@ -153,13 +153,13 @@ import secrets
 from settings import (
     LOGGING,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     Awaitable,
     Optional,
-)
-from users import (
-    domain as users_domain,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -477,10 +477,10 @@ async def complete_register_for_group_invitation(
             orgs_domain.add_user(loaders, organization_id, user_email, "user")
         )
 
-    if not await users_domain.is_registered(user_email):
+    if not await stakeholders_domain.is_registered(user_email):
         coroutines.extend(
             [
-                users_domain.register(user_email),
+                stakeholders_domain.register(user_email),
                 authz.grant_user_level_role(user_email, "user"),
             ]
         )
@@ -524,7 +524,7 @@ async def complete_register_for_organization_invitation(
     )
 
     user_created = False
-    user_exists = bool(await users_domain.get_data(user_email, "email"))
+    user_exists = bool(await stakeholders_domain.get_data(user_email, "email"))
     if not user_exists:
         user_created = await add_without_group(
             user_email,
@@ -630,7 +630,7 @@ async def add_group(  # pylint: disable=too-many-locals
         # Customers are granted the user manager role
         role: str = (
             "customer_manager"
-            if users_domain.is_fluid_staff(user_email)
+            if stakeholders_domain.is_fluid_staff(user_email)
             else "user_manager"
         )
         success = all(
@@ -674,7 +674,7 @@ async def add_without_group(
             await collect(
                 [
                     authz.grant_user_level_role(email, role),
-                    users_domain.add(email, new_user_data),
+                    stakeholders_domain.add(email, new_user_data),
                 ]
             )
         )
@@ -1552,7 +1552,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
-        success = await users_domain.remove(email)
+        success = await stakeholders_domain.remove(email)
     return success
 
 
@@ -1658,7 +1658,9 @@ async def update_forces_access_token(
     group: Group = await loaders.group.load(group_name)
     had_token: bool = bool(group.agent_token)
 
-    result = await users_domain.update_access_token(email, expiration_time)
+    result = await stakeholders_domain.update_access_token(
+        email, expiration_time
+    )
 
     if result.success:
         await send_mail_devsecops_agent(

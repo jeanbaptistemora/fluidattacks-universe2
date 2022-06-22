@@ -2,14 +2,14 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import json
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
     cast,
     Dict,
     Optional,
-)
-from users import (
-    domain as users_domain,
 )
 
 
@@ -19,7 +19,7 @@ async def resolve(
     user_email = str(parent["user_email"])
     access_token: Optional[Dict[str, str]] = cast(
         Optional[Dict[str, str]],
-        await users_domain.get_data(user_email, "access_token"),
+        await stakeholders_domain.get_data(user_email, "access_token"),
     )
     return json.dumps(
         {

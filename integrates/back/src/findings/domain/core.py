@@ -99,6 +99,9 @@ from redshift import (
 from settings import (
     LOGGING,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from time import (
     time,
 )
@@ -110,9 +113,6 @@ from typing import (
     Set,
     Tuple,
     Union,
-)
-from users import (
-    domain as users_domain,
 )
 from vulnerabilities import (
     domain as vulns_domain,
@@ -186,7 +186,7 @@ async def add_comment(
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
 
-    user_data = await users_domain.get_by_email(user_email)
+    user_data = await stakeholders_domain.get_by_email(user_email)
     user_data["user_email"] = user_data.pop("email")
     success = await comments_domain.add(finding_id, comment_data, user_data)
     return success[1]

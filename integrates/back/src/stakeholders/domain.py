@@ -51,6 +51,15 @@ from redis_cluster.operations import (
 from sessions import (
     dal as sessions_dal,
 )
+from stakeholders import (
+    dal as stakeholders_dal,
+)
+from stakeholders.utils import (
+    get_international_format_phone_number,
+)
+from stakeholders.validations import (
+    validate_phone,
+)
 from starlette.requests import (
     Request,
 )
@@ -59,15 +68,6 @@ from typing import (
     Awaitable,
     cast,
     Optional,
-)
-from users import (
-    dal as users_dal,
-)
-from users.utils import (
-    get_international_format_phone_number,
-)
-from users.validations import (
-    validate_phone,
 )
 from verify import (
     operations as verify_operations,
@@ -79,7 +79,9 @@ from verify.enums import (
 
 async def acknowledge_concurrent_session(email: str) -> bool:
     """Acknowledge termination of concurrent session"""
-    return await users_dal.update(email, {"is_concurrent_session": False})
+    return await stakeholders_dal.update(
+        email, {"is_concurrent_session": False}
+    )
 
 
 async def add_push_token(user_email: str, push_token: str) -> bool:
@@ -89,7 +91,7 @@ async def add_push_token(user_email: str, push_token: str) -> bool:
     user_attrs: dict = await get_attributes(user_email, ["push_tokens"])
     tokens: list[str] = user_attrs.get("push_tokens", [])
     if push_token not in tokens:
-        return await users_dal.update(
+        return await stakeholders_dal.update(
             user_email, {"push_tokens": tokens + [push_token]}
         )
     return True
@@ -104,7 +106,7 @@ async def check_session_web_validity(request: Request) -> None:
     # raise the concurrent session modal flag
     if request.session.get("is_concurrent"):
         request.session.pop("is_concurrent")
-        await users_dal.update(email, {"is_concurrent_session": True})
+        await stakeholders_dal.update(email, {"is_concurrent_session": True})
     try:
         # Check if the user has an active session but it's different
         # than the one in the cookie
@@ -122,7 +124,7 @@ async def check_session_web_validity(request: Request) -> None:
 
 
 async def add(email: str, data: dict[str, Any]) -> bool:
-    return await users_dal.add(email, data)
+    return await stakeholders_dal.add(email, data)
 
 
 async def remove(email: str) -> bool:
@@ -130,7 +132,7 @@ async def remove(email: str) -> bool:
         await collect(
             [
                 authz.revoke_user_level_role(email),
-                users_dal.remove(email),
+                stakeholders_dal.remove(email),
             ]
         )
     )
@@ -168,7 +170,7 @@ async def update_information(
 
 
 async def ensure_exists(email: str) -> bool:
-    return bool(await users_dal.get(email))
+    return bool(await stakeholders_dal.get(email))
 
 
 def get_invitation_state(
@@ -205,12 +207,12 @@ async def format_stakeholder(email: str, group_name: str) -> dict[str, Any]:
 
 
 async def get(email: str) -> dict[str, Any]:
-    return await users_dal.get(email)
+    return await stakeholders_dal.get(email)
 
 
 async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
     """Get attributes of a user."""
-    return await users_dal.get_attributes(email, data)
+    return await stakeholders_dal.get_attributes(email, data)
 
 
 async def get_by_email(email: str) -> dict[str, Any]:
@@ -229,7 +231,7 @@ async def get_by_email(email: str) -> dict[str, Any]:
             "new_root": False,
         },
     }
-    user: dict[str, Any] = await users_dal.get(email)
+    user: dict[str, Any] = await stakeholders_dal.get(email)
     if user:
         stakeholder_data.update(
             {
@@ -319,12 +321,12 @@ async def is_registered(email: str) -> bool:
 
 
 async def register(email: str) -> bool:
-    return await users_dal.update(email, {"registered": True})
+    return await stakeholders_dal.update(email, {"registered": True})
 
 
 async def remove_access_token(email: str) -> bool:
     """Remove access token attribute"""
-    return await users_dal.update(email, {"access_token": None})
+    return await stakeholders_dal.update(email, {"access_token": None})
 
 
 async def remove_push_token(user_email: str, push_token: str) -> bool:
@@ -335,7 +337,7 @@ async def remove_push_token(user_email: str, push_token: str) -> bool:
             user_attrs.get("push_tokens", []),
         )
     )
-    return await users_dal.update(user_email, {"push_tokens": tokens})
+    return await stakeholders_dal.update(user_email, {"push_tokens": tokens})
 
 
 async def update_access_token(
@@ -364,7 +366,9 @@ async def update_access_token(
             "jti": token_data["jti_hashed"],
             "salt": token_data["salt"],
         }
-        success = await users_dal.update(email, {"access_token": access_token})
+        success = await stakeholders_dal.update(
+            email, {"access_token": access_token}
+        )
     else:
         raise InvalidExpirationTime()
 
@@ -375,11 +379,11 @@ async def update_access_token(
 
 async def update_legal_remember(email: str, remember: bool) -> bool:
     """Remember legal notice acceptance"""
-    return await users_dal.update(email, {"legal_remember": remember})
+    return await stakeholders_dal.update(email, {"legal_remember": remember})
 
 
 async def update_last_login(email: str) -> bool:
-    return await users_dal.update(
+    return await stakeholders_dal.update(
         str(email), {"last_login": datetime_utils.get_now_as_str()}
     )
 
@@ -416,7 +420,7 @@ async def update_invited_stakeholder(
 
 
 async def update_attributes(email: str, data_dict: dict[str, Any]) -> bool:
-    return await users_dal.update(email, data_dict)
+    return await stakeholders_dal.update(email, data_dict)
 
 
 async def update_mobile(
@@ -439,12 +443,14 @@ async def update_mobile(
         country_code=country_code,
         national_number=new_phone.national_number,
     )
-    await users_dal.update(email, {"phone": stakeholder_phone._asdict()})
+    await stakeholders_dal.update(
+        email, {"phone": stakeholder_phone._asdict()}
+    )
 
 
 async def update_tours(email: str, tours: dict[str, bool]) -> bool:
     """New user workflow acknowledgment"""
-    return await users_dal.update(email, {"tours": tours})
+    return await stakeholders_dal.update(email, {"tours": tours})
 
 
 async def verify(

@@ -78,6 +78,9 @@ from organizations import (
 from organizations_finding_policies import (
     dal as dal_policies,
 )
+from stakeholders import (
+    dal as dal_stakeholders,
+)
 from typing import (
     Any,
     Awaitable,
@@ -85,15 +88,12 @@ from typing import (
     List,
     Tuple,
 )
-from users import (
-    dal as dal_users,
-)
 
 
 async def populate_users(data: List[Any]) -> bool:
     await collect(
         [
-            dal_users.add(
+            dal_stakeholders.add(
                 user["email"],
                 user,
             )

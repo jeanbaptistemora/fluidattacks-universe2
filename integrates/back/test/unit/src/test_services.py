@@ -11,7 +11,7 @@ from findings.domain import (
     has_access_to_finding,
 )
 import pytest
-from users.domain import (
+from stakeholders.domain import (
     has_valid_access_token,
 )
 
