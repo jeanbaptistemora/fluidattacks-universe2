@@ -12,6 +12,9 @@ from custom_exceptions import (
     InvalidAuthorization,
     UnableToSendMail,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -57,9 +60,6 @@ from organizations.domain import (
 )
 from redis_cluster.operations import (
     redis_del_by_deps,
-)
-from remove_stakeholder.dal import (
-    remove_stakeholder,
 )
 from sessions.dal import (
     remove_session_key,
@@ -108,7 +108,7 @@ async def remove_stakeholder_all_organizations(
     await collect(
         (
             remove(email),
-            remove_stakeholder(stakeholder_email=email),
+            stakeholders_model.remove(stakeholder_email=email),
         )
     )
 
