@@ -1,10 +1,3 @@
-from .types import (
-    NotificationsPreferences,
-    Stakeholder,
-)
-from .utils import (
-    format_stakeholder,
-)
 from aiodataloader import (
     DataLoader,
 )
@@ -14,9 +7,16 @@ from aioextensions import (
 from db_model import (
     TABLE,
 )
+from db_model.stakeholders.types import (
+    NotificationsPreferences,
+    Stakeholder,
+)
 from dynamodb import (
     keys,
     operations,
+)
+from newutils import (
+    stakeholders as stakeholders_utils,
 )
 
 
@@ -33,7 +33,7 @@ async def _get_stakeholder(*, email: str) -> Stakeholder:
     )
 
     if item:
-        return format_stakeholder(item)
+        return stakeholders_utils.format_stakeholder(item)
 
     return Stakeholder(
         email="",
@@ -41,7 +41,7 @@ async def _get_stakeholder(*, email: str) -> Stakeholder:
     )
 
 
-class StakeholderLoader(DataLoader):
+class StakeholderTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, emails: tuple[str, ...]
