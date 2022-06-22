@@ -72,7 +72,7 @@ const ResourcesPage: React.FC<IProps> = ({
         "resources.elementsText.rules.rulesDescription"
       )}`}
       direction={"https://docs.fluidattacks.com/criteria/"}
-      image={"/resources/resource-rules_roxdew"}
+      image={"/resources/resource-rules"}
       imageSide={"center"}
       textSide={"center"}
       title={`${translate.t("resources.elementsText.rules.rulesTitle")}`}
