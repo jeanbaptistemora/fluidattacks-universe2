@@ -146,9 +146,14 @@ class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_treatment_changes: Optional[int] = None
 
 
+class VulnerabilityFilters(NamedTuple):
+    where: Optional[str] = None
+
+
 class FindingVulnerabilitiesZrRequest(NamedTuple):
     finding_id: str
     after: Optional[str] = None
+    filters: VulnerabilityFilters = VulnerabilityFilters()
     first: Optional[int] = None
     paginate: bool = False
     state_status: Optional[VulnerabilityStateStatus] = None

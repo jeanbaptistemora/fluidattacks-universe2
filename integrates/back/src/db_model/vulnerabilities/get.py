@@ -46,6 +46,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
 from dynamodb import (
+    conditions,
     keys,
     operations,
 )
@@ -226,6 +227,9 @@ async def _get_finding_vulnerabilities_zr(
             & Key(key_structure.sort_key).begins_with(sort_key)
         ),
         facets=(TABLE.facets["vulnerability_metadata"],),
+        filter_expression=conditions.get_filter_expression(
+            request.filters._asdict()
+        ),
         index=gsi_5_index,
         limit=request.first,
         paginate=request.paginate,

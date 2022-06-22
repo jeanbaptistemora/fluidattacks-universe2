@@ -95,6 +95,8 @@ type Finding {
     first: Int
     "Filter vulnerabilities by their current state"
     state: VulnerabilityState
+    "Filter by the location where the vulnerability was found"
+    where: String
   ): VulnerabilitiesConnection!
   "Vulnerabilities that have been requested for a reattack"
   vulnerabilitiesToReattack: [Vulnerability!]
