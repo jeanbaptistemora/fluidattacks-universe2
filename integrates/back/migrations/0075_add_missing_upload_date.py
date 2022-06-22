@@ -24,9 +24,6 @@ from dataloaders.event import (
 from events import (
     dal as events_dal,
 )
-from events.domain import (
-    list_group_events,
-)
 from groups.domain import (
     get_alive_groups,
 )
@@ -72,7 +69,7 @@ async def add_missing_upload_date(event: Event) -> None:
 
 
 async def get_groups_events(group_name: str) -> None:
-    event_ids = await list_group_events(group_name)
+    event_ids = await events_dal.list_group_events(group_name)
     events = await EventLoader().load_many(event_ids)
 
     await collect(map(add_missing_upload_date, events), workers=10)

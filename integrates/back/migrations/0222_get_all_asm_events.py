@@ -21,8 +21,8 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
-from events import (
-    domain as events_domain,
+from events.dal import (
+    list_group_events,
 )
 from itertools import (
     chain,
@@ -45,7 +45,7 @@ async def process_group(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    event_ids = await events_domain.list_group_events(group.name)
+    event_ids = await list_group_events(group.name)
     group_events: list[dict[str, Any]] = await loaders.event.load_many(
         event_ids
     )

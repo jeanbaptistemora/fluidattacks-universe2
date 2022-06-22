@@ -86,9 +86,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 import pytz  # type: ignore
 import random
 from s3 import (
@@ -132,9 +129,9 @@ async def add_comment(
 ) -> tuple[Union[str, None], bool]:
     parent_comment = str(parent_comment)
     content = str(comment_data["content"])
-    event_loader = info.context.loaders.event
-    event = await event_loader.load(event_id)
-    group_name = get_key_or_fallback(event)
+    event_loader = info.context.loaders.event_typed
+    event: Event = await event_loader.load(event_id)
+    group_name = event.group_name
 
     validations.validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
@@ -261,10 +258,7 @@ async def get_events(event_ids: list[str]) -> list[dict[str, Any]]:
 
 
 async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
-    events_list = await list_group_events(group_name)
-    events: tuple[Event, ...] = await loaders.event_typed.load_many(
-        events_list
-    )
+    events: tuple[Event, ...] = await loaders.group_events.load(group_name)
     unsolved: list[Event] = [
         event
         for event in events
@@ -287,10 +281,6 @@ async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     event: Event = await loaders.event_typed.load(event_id)
     group = event.group_name
     return bool(await authz.has_access_to_group(email, group))
-
-
-async def list_group_events(group_name: str) -> list[str]:
-    return await events_dal.list_group_events(group_name)
 
 
 async def mask(loaders: Any, event_id: str) -> bool:

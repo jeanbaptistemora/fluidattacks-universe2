@@ -19,6 +19,9 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -43,9 +46,6 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
-)
-from events.domain import (
-    list_group_events,
 )
 from findings.domain import (
     get_last_closed_vulnerability_info,
@@ -433,7 +433,11 @@ async def test_list_events() -> None:
         "540462638",
         "418900971",
     ]
-    assert expected_output == await list_group_events(group_name)
+    loaders: Dataloaders = get_new_context()
+    events_group: tuple[Event, ...] = await loaders.group_events.load(
+        group_name
+    )
+    assert expected_output == [event.id for event in events_group]
 
 
 async def test_get_managers() -> None:
@@ -797,7 +801,7 @@ async def test_get_total_comments_date() -> None:
     )
     findings_ids = list(map(lambda finding: finding.id, findings))
     total_comments = await get_total_comments_date(
-        findings_ids, group_name, last_day
+        loaders, findings_ids, group_name, last_day
     )
     assert total_comments == 5
 

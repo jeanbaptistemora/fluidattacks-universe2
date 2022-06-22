@@ -14,8 +14,8 @@ from custom_exceptions import (
 from datetime import (
     datetime,
 )
-from events import (
-    domain as events_domain,
+from db_model.events.types import (
+    Event,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -151,6 +151,7 @@ async def mask_comments(group_name: str) -> bool:
 
 
 async def get_total_comments_date(
+    loaders: Any,
     findings_ids: List[str],
     group_name: str,
     min_date: datetime,
@@ -159,8 +160,10 @@ async def get_total_comments_date(
     group_comments_len = len(
         filter_comments_date(await get_comments(group_name), min_date)
     )
-
-    events_ids = await events_domain.list_group_events(group_name)
+    events_group: tuple[Event, ...] = await loaders.group_events.load(
+        group_name
+    )
+    events_ids = [event.id for event in events_group]
     events_comments_len = len(
         filter_comments_date(
             await get_comments_for_ids("event", events_ids), min_date

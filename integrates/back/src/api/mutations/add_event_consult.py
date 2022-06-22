@@ -7,6 +7,9 @@ from ariadne.utils import (
 from custom_types import (
     AddConsultPayload,
 )
+from db_model.events.types import (
+    Event,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -26,9 +29,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
     validations,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -97,9 +97,9 @@ async def mutate(
     if success:
         redis_del_by_deps_soon("add_event_consult", event_id=event_id)
         if content.strip() not in {"#external", "#internal"}:
-            event_loader = info.context.loaders.event
-            event = await event_loader.load(event_id)
-            group_name = get_key_or_fallback(event)
+            event_loader = info.context.loaders.event_typed
+            event: Event = await event_loader.load(event_id)
+            group_name = event.group_name
             schedule(
                 send_event_consult_mail(
                     info=info,

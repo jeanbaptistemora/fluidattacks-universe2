@@ -11,6 +11,12 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
+from db_model.events.enums import (
+    EventStateStatus,
+)
+from db_model.events.types import (
+    Event,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -64,11 +70,11 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
-        event_loader = info.context.loaders.event
-        event = await event_loader.load(event_id)
-        if "group_name" not in event or group_name != event["group_name"]:
+        event_loader = info.context.loaders.event_typed
+        event: Event = await event_loader.load(event_id)
+        if group_name != event.group_name:
             raise EventNotFound()
-        if event["event_status"].upper() == "SOLVED":
+        if event.state.status == EventStateStatus.SOLVED:
             raise EventAlreadyClosed()
 
         await events_domain.request_vulnerabilities_hold(

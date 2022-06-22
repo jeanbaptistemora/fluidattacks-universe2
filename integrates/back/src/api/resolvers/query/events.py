@@ -1,6 +1,3 @@
-from aiodataloader import (
-    DataLoader,
-)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -12,9 +9,6 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
     require_login,
-)
-from events import (
-    domain as events_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -38,8 +32,8 @@ async def resolve(
 ) -> List[Event]:
     # Compatibility with old API
     group_name: str = get_key_or_fallback(kwargs).lower()
-    event_ids = await events_domain.list_group_events(group_name.lower())
-    event_loader: DataLoader = info.context.loaders.event_typed
-    events = await event_loader.load_many(event_ids)
+    event_groups = await info.context.loaders.group_events.load(
+        group_name.lower()
+    )
 
-    return events
+    return event_groups

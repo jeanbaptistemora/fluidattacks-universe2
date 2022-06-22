@@ -12,9 +12,6 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
 )
-from events import (
-    domain as events_domain,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -31,7 +28,6 @@ async def resolve(
 ) -> tuple[Event, ...]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    event_ids = await events_domain.list_group_events(group_name)
-    events: tuple[Event, ...] = await loaders.event_typed.load_many(event_ids)
+    events_group = await loaders.group_events.load(group_name)
 
-    return events
+    return events_group

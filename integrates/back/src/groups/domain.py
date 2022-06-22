@@ -46,6 +46,9 @@ from db_model import (
 from db_model.enums import (
     Notification,
 )
+from db_model.events.types import (
+    Event,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -1480,10 +1483,12 @@ async def remove_resources(
             workers=4,
         )
     )
-    events = await events_domain.list_group_events(group_name)
+    events_group: tuple[Event, ...] = await loaders.group_events.load(
+        group_name
+    )
     are_events_masked = all(
         await collect(
-            events_domain.mask(loaders, event_id) for event_id in events
+            events_domain.mask(loaders, event.id) for event in events_group
         )
     )
     are_comments_masked = await mask_comments(group_name)
@@ -1965,7 +1970,7 @@ async def get_group_digest_stats(
         group_vulns, last_day
     )
     content["main"]["comments"] = await get_total_comments_date(
-        findings_ids, group_name, last_day
+        loaders, findings_ids, group_name, last_day
     )
     unsolved = await events_domain.get_unsolved_events(loaders, group_name)
     new_events = await events_utils.filter_events_date(unsolved, last_day)

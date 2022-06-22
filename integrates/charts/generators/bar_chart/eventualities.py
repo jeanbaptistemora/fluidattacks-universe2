@@ -21,11 +21,14 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.events.enums import (
+    EventStateStatus,
+)
+from db_model.events.types import (
+    Event,
+)
 from decimal import (
     Decimal,
-)
-from events.domain import (
-    list_group_events,
 )
 from operator import (
     attrgetter,
@@ -42,10 +45,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    event_ids = await list_group_events(group)
-    group_events: Tuple[Dict[str, Any], ...] = await loaders.event.load_many(
-        event_ids
-    )
+    events_group: Tuple[Event, ...] = await loaders.group_events.load(group)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
@@ -53,8 +53,8 @@ async def get_data_one_group(
             len(
                 [
                     event
-                    for event in group_events
-                    if event["event_status"].upper() == "CREATED"
+                    for event in events_group
+                    if event.state.status == EventStateStatus.CREATED
                 ]
             )
         ),
