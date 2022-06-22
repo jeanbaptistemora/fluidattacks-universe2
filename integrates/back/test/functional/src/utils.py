@@ -28,7 +28,7 @@ from groups import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
-from remove_user.domain import (
+from remove_stakeholder.domain import (
     complete_deletion,
     get_confirm_deletion,
     get_email_from_url_token,

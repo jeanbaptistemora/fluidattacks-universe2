@@ -16,7 +16,7 @@ from newutils.token import (
     new_encoded_jwt,
 )
 import pytest
-from remove_user.domain import (
+from remove_stakeholder.domain import (
     complete_deletion,
     get_confirm_deletion,
 )

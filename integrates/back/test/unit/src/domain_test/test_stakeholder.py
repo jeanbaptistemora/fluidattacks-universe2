@@ -1,5 +1,5 @@
 from api.mutations.sign_in import (
-    autoenroll_user,
+    autoenroll_stakeholder,
 )
 from custom_exceptions import (
     InvalidPushToken,
@@ -11,8 +11,8 @@ from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import pytest
-from remove_user.domain import (
-    remove_user_all_organizations,
+from remove_stakeholder.domain import (
+    remove_stakeholder_all_organizations,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -65,10 +65,10 @@ async def test_remove_push_token() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_user() -> None:
+async def test_remove_stakeholder() -> None:
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"
-    await autoenroll_user(email)
+    await autoenroll_stakeholder(email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
     assert await stakeholders_domain.get_data(email, "email") == email
@@ -87,7 +87,7 @@ async def test_remove_user() -> None:
         >= 1
     )
 
-    await remove_user_all_organizations(
+    await remove_stakeholder_all_organizations(
         loaders=get_new_context(), email=email, modified_by=modified_by
     )
 

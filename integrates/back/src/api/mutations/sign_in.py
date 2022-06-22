@@ -56,7 +56,7 @@ from typing import (
 LOGGER = logging.getLogger(__name__)
 
 
-async def autoenroll_user(email: str) -> None:
+async def autoenroll_stakeholder(email: str) -> None:
     await stakeholders_model.update_metadata(
         stakeholder_email=email,
         notifications_preferences={
@@ -233,5 +233,5 @@ async def log_user_in(user: Dict[str, str]) -> None:
         await stakeholders_domain.update_last_login(email)
     else:
         await analytics.mixpanel_track(email, "Register")
-        await autoenroll_user(email)
+        await autoenroll_stakeholder(email)
         await stakeholders_domain.update_attributes(email, data_dict)

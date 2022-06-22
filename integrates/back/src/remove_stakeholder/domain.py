@@ -58,7 +58,7 @@ from organizations.domain import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from remove_user.dal import (
+from remove_stakeholder.dal import (
     remove_stakeholder,
 )
 from sessions.dal import (
@@ -82,7 +82,7 @@ mail_confirm_deletion = retry_on_exceptions(
 )(send_mail_confirm_deletion)
 
 
-async def remove_user_all_organizations(
+async def remove_stakeholder_all_organizations(
     *, loaders: Any, email: str, modified_by: str
 ) -> None:
     organizations_ids = await get_user_organizations(email)
@@ -140,7 +140,7 @@ async def remove_user_all_organizations(
 async def complete_deletion(*, loaders: Any, user_email: str) -> None:
     await collect(
         (
-            remove_user_all_organizations(
+            remove_stakeholder_all_organizations(
                 loaders=loaders,
                 email=user_email,
                 modified_by=user_email,

@@ -14,8 +14,7 @@ pytestmark = pytest.mark.asyncio
 
 
 @pytest.mark.asyncio
-async def test_get_user() -> None:
-    """Check for user."""
+async def test_get_stakeholder() -> None:
     expected_output = {
         "email": "continuoushacking@gmail.com",
         "role": "user_manager",
@@ -71,7 +70,6 @@ async def test_get_user() -> None:
 
 
 async def test_user_list_groups() -> None:
-    """Check for user."""
     query = """
         query {
             listUserGroups(userEmail: "continuoushacking@gmail.com") {

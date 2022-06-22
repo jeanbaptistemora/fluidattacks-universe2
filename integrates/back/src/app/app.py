@@ -82,8 +82,8 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
     redis_del_entity_attr,
 )
-from remove_user import (
-    domain as remove_user_domain,
+from remove_stakeholder import (
+    domain as remove_stakeholder_domain,
 )
 from sessions import (
     dal as sessions_dal,
@@ -190,12 +190,12 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
     if url_token:
         try:
             user_email: str = (
-                await remove_user_domain.get_email_from_url_token(
+                await remove_stakeholder_domain.get_email_from_url_token(
                     url_token=url_token
                 )
             )
             if user_email:
-                await remove_user_domain.complete_deletion(
+                await remove_stakeholder_domain.complete_deletion(
                     loaders=get_new_context(), user_email=user_email
                 )
                 response = await templates.confirm_deletion(request=request)

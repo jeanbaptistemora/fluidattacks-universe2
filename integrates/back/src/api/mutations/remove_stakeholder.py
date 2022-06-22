@@ -13,7 +13,7 @@ from group_access.domain import (
 from newutils import (
     token as token_utils,
 )
-from remove_user.domain import (
+from remove_stakeholder.domain import (
     confirm_deletion_mail,
     get_confirm_deletion,
 )
