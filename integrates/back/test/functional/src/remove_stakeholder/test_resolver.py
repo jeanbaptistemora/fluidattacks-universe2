@@ -7,12 +7,14 @@ from . import (
 from back.test.functional.src.utils import (
     confirm_deletion,
 )
+from custom_exceptions import (
+    StakeholderNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model.stakeholders.types import (
-    NotificationsPreferences,
     Stakeholder,
 )
 import pytest
@@ -116,15 +118,5 @@ async def test_remove_stakeholder(
     )
 
     new_loaders: Dataloaders = get_new_context()
-    new_stakeholder: Stakeholder = await new_loaders.stakeholder.load(email)
-    assert new_stakeholder.email == ""
-    assert (
-        "ACCESS_GRANTED" not in new_stakeholder.notifications_preferences.email
-    )
-    assert (
-        "DAILY_DIGEST" not in new_stakeholder.notifications_preferences.email
-    )
-    assert (
-        new_stakeholder.notifications_preferences
-        == NotificationsPreferences(email=[])
-    )
+    with pytest.raises(StakeholderNotFound):
+        await new_loaders.stakeholder.load(email)

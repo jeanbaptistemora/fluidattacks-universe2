@@ -8,15 +8,22 @@ from db_model.stakeholders.types import (
 from dynamodb.types import (
     Item,
 )
+from typing import (
+    Optional,
+)
 
 
-def format_stakeholder(item: Item) -> Stakeholder:
-    preferences: list[str] = [
-        item
-        for item in item["notifications_preferences"]["email"]
-        if item in Notification.__members__
-    ]
+def format_stakeholder(
+    item_legacy: Item, item_vms: Optional[Item]
+) -> Stakeholder:
+    preferences: list[str] = []
+    if item_vms and item_vms.get("notifications_preferences"):
+        preferences = [
+            item
+            for item in item_vms["notifications_preferences"]["email"]
+            if item in Notification.__members__
+        ]
     return Stakeholder(
-        email=item["pk"].split("#")[1],
+        email=item_legacy["email"],
         notifications_preferences=NotificationsPreferences(email=preferences),
     )
