@@ -80,6 +80,9 @@ LOGGER = logging.getLogger(__name__)
 UNAUTHORIZED_ROLE_MSG = (
     "Security: Unauthorized role attempted to perform operation"
 )
+UNAUTHORIZED_OWNER_MSG = (
+    "Security: Unauthorized owner attempted to perform operation"
+)
 UNAVAILABLE_FINDING_MSG = (
     "Security: The user attempted to operate on an unavailable finding"
 )
@@ -324,6 +327,40 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError("Access denied")
         return await _func(*args, **kwargs)
+
+    return cast(TVar, verify_and_call)
+
+
+def enforce_owner(func: TVar) -> TVar:
+    """Enforce authorization using the owner attribute."""
+    _func = cast(Callable[..., Any], func)
+
+    @functools.wraps(_func)
+    async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
+        if hasattr(args[0], "context"):
+            context = args[0].context
+        elif hasattr(args[1], "context"):
+            context = args[1].context
+        else:
+            GraphQLError("Could not get context from request.")
+
+        loaders = context.loaders
+        owner = str((getattr(args[0], "owner", None) if args else None))
+
+        user_data = await token_utils.get_jwt_content(context)
+        subject = user_data["user_email"]
+        if owner != subject:
+            stakeholder_level_role: str = (
+                await loaders.stakeholder_level_role.load(subject)
+            )
+            if stakeholder_level_role != "admin":
+                logs_utils.cloudwatch_log(context, UNAUTHORIZED_OWNER_MSG)
+                raise GraphQLError("Access denied")
+
+        if asyncio.iscoroutinefunction(_func):
+            return await _func(*args, **kwargs)
+
+        return _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)
 
