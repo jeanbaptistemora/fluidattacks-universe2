@@ -147,8 +147,8 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "character_literal",
+            "decimal_integer_literal",
             "string_literal",
-            "verbatim_string_literal",
         },
         syntax_reader=common_string_literal.reader,
     ),

@@ -16,6 +16,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if node_type not in {
         "character_literal",
+        "decimal_integer_literal",
         "interpreted_string_literal",
         "line_string_literal",
         "raw_string_literal",
