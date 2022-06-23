@@ -1142,7 +1142,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      Example importing a dependency with known vulnerabilities
+      Example importing dependencies with known vulnerabilities
       ```json
       {
         "name": "test",
@@ -1163,6 +1163,16 @@
         }
       }
       ```
+      ```json
+      dependencies {
+        compile "io.springfox:springfox-swagger-ui:2.6.1"
+        compile("io.springfox:springfox-swagger-ui")
+        compile(group: 'javax.mail', name: 'mail')
+        compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
+        implementation group: 'org.json', name: 'json', version: '20160810'
+        implementation(group: 'javax.mail', name: 'mail', version: '1.4')
+      }
+      ```
       Examples using software with known vulnerabilities
       ```c {3,7,15}
       using System;
@@ -1174,14 +1184,23 @@
         }
       }
       ```
-      ```json
-      dependencies {
-        compile "io.springfox:springfox-swagger-ui:2.6.1"
-        compile("io.springfox:springfox-swagger-ui")
-        compile(group: 'javax.mail', name: 'mail')
-        compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'
-        implementation group: 'org.json', name: 'json', version: '20160810'
-        implementation(group: 'javax.mail', name: 'mail', version: '1.4')
+      ```c {3,7,15}
+      using System;
+      using System;
+      using System.Xml;
+      using System.Xml.XPath;
+      using System.Xml.Xsl;
+
+      namespace TestForXslTransform{
+        class Program{
+          static void Main(string[] args){
+            XslTransform xslt = new XslTransform();
+            xslt.Load("https://server/favorite.xsl");
+            XPathDocument mydata = new XPathDocument("inputdata.xml");
+            XmlWriter writer = new XmlTextWriter(Console.Out);
+            xslt.Transform(mydata, null, writer, null);
+          }
+        }
       }
       ```
     compliant: |
@@ -1661,8 +1680,39 @@
         }
       }
       ```
+      Example with service point manager disabled
+      ```c {3,7,15}
+      using System;
+      public class ExampleClass{
+        public void ExampleMethod(){
+          AppContext.SetSwitch("Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols", true);
+        }
+      }
+      ```
+      Example using http client without revocation list
+      ```c {3,7,15}
+      using System.Net.Http;
+      class ExampleClass{
+        void ExampleMethod(){
+          WinHttpHandler winHttpHandler = new WinHttpHandler();
+          winHttpHandler.CheckCertificateRevocationList = false;
+          HttpClient httpClient = new HttpClient(winHttpHandler);
+        }
+      }
+      ```
+      Example using weak security protocols
+      ```c {3,7,15}
+      using System;
+      namespace Example{
+        public class InvokeService{
+          public InvokeService(){
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+          }
+        }
+      }
+      ```
     compliant: |
-      Implementing a secure TLS protocol version in the resource
+      Implementing a secure TLS protocol version in the resources
       ```terraform
       resource "azurerm_storage_account" "secure_example" {
         name                     = "storageaccountname"
@@ -1780,6 +1830,7 @@
   category: Collect Information
   examples:
     non_compliant: |
+      Example using an insecurely generated decode for the application
       ```c {3,7,15}
       using System;
       class jwtbuild {
@@ -1791,13 +1842,13 @@
       }
       ```
     compliant: |
+      The decoder is securely configured with verification enabled
       ```c {3,7,15}
       using System;
       class jwtbuild {
         public static void Main() {
           IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder, algorithm);
           var secure_decode = decoder.Decode(token, secret, verify: true);
-
           //Code that uses the secure decode to send information
         }
       }
@@ -1994,7 +2045,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      The application saves plain text sensitive data
+      The application saves sensitive data as plain text
       ```c {3,7,15}
       using Microsoft.AspNetCore.Mvc;
       using Microsoft.EntityFrameworkCore;
@@ -2280,7 +2331,7 @@
       The server is wrongly configured to accept requests redirecting to other host
       ```http
       router.post("/", function (req, res, next) {
-        //Code to handle the response not shown
+        ...code to handle the response not shown
         //UNSAFE: Redirecting users to third party website
         res.redirect("www.vulnerablehost.com")
       });
@@ -2288,7 +2339,7 @@
       module.exports = router;
       ```
     compliant:  |
-      The server should validate redirections and prevent third party redirections
+      The server should validate and prevent third party redirections. For example, by setting the correct http headers
       ```http
       GET http://localhost/
       Validate HOST from ALLOWED_HOSTS
@@ -3404,6 +3455,22 @@
             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
             optionsBuilder2.UseSqlServer("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=");
           }
+        }
+      }
+      ```
+      Example with insecure password configuration requirements
+      ```c {3,7,15}
+      public class Startup {
+        public void start(IServiceCollection services) {
+          services.Configure<IdentityOptions>( options => {
+            options.Password.RequireDigit = true;
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 8;
+            options.Password.RequireNonAlphanumeric = true;
+            options.Password.RequireUppercase = true;
+            options.Password.RequireLowercase = true;
+            options.Password.RequiredUniqueChars = 5;
+          });
         }
       }
       ```
@@ -4918,6 +4985,18 @@
         }
       }
       ```
+      Example using an obsolete key derivation
+      ```c {3,7,15}
+      using System;
+      class TestClass{
+        public void TestMethod(Rfc2898DeriveBytes rfc2898DeriveBytes, string algname, string alghashname, int keySize, byte[] rgbIV){
+          System.Security.Cryptography.rfc2898DeriveBytes.CryptDeriveKey(algname, alghashname, keySize, rgbIV);
+          byte[] pwd = Encoding.Unicode.GetBytes(Console.ReadLine());
+          byte[] salt = CreateRandomSalt(7);
+          PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt);
+        }
+      }
+      ```
       ```java
       import org.springframework.security.crypto.password.NoOpPasswordEncoder;
       public class Main {
@@ -5993,7 +6072,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      There are forms in the application that allow for auto-complete functionalities
+      There are forms in the application that allow for auto-complete functionalities, also the application does not use meta tags to disable browsers cache
       ```html
       <!DOCTYPE html>
       <html>
@@ -6020,8 +6099,6 @@
             </div>
           </form>
         </body>
-
-        <!-- has_not_subresource_integrity -->
         <script src="https://example.com/example-framework.js">
         </script>
         <link href="/media/examples/link-element-example.css" rel="stylesheet">
@@ -6038,7 +6115,7 @@
       Accept-Language: en-us,en;q=0.5
       Cache-control: no-cache
       ```
-      Example without cahce type vulnerabilities
+      Example without cache type vulnerabilities
       ```html
       <html>
         <head>
@@ -8786,6 +8863,17 @@
           Tpe t = Type.GetType(typeName);
           XmlSerializer serializer = new XmlSerializer(t);
           XmlSerializer serializer = new XmlSerializer(Type.GetType(typeName));
+        }
+      }
+      ```
+      Example that does not specify type name in the serializer
+      ```c {3,7,15}
+      using Newtonsoft.Json;
+
+      public class ExampleClass{
+        public void ExampleClass(){
+          var Settings = new JsonSerializerSettings();
+          Settings.TypeNameHandling = TypeNameHandling.All;
         }
       }
       ```
@@ -12056,7 +12144,7 @@
   category: Protocol Manipulation
   examples:
     non_compliant: |
-      The application does not define allowed origins
+      Examples where the application does not define allowed origins
       ```c {3,7,15}
       using System.Net;
       using System;
@@ -12068,6 +12156,30 @@
             policy.Methods.Add(""*"");
             policy.Origins.Add(""*"");
             policy.SupportsCredentials = true;
+          }
+        }
+      }
+      ```
+      ```c {3,7,15}
+      using System.Net;
+      using System;
+      namespace testmod{
+        public class Controllers{
+          public void Configure(IApplicationBuilder app){
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();
+            var policyBuilder = new CorsPolicyBuilder();
+            var policy = policyBuilder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .Build();
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseCors(cors => cors
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
           }
         }
       }
@@ -13902,8 +14014,41 @@
         soft_delete_enabled        = true
         purge_protection_enabled   = true
         network_acls {
-          default_action = "Deny"
+          default_action = "Allow"
           bypass         = "None"
+        }
+      }
+      ```
+      A resource has a deafult network access configured
+      ```terraform
+      resource "azurerm_storage_account_network_rules" "vulnerable" {
+        resource_group_name  = azurerm_resource_group.test.name
+        storage_account_name = azurerm_storage_account.test.name
+
+        default_action = "Allow"
+      }
+
+      resource "azurerm_storage_account" "vulnerable" {
+        name                = var.watcher
+        resource_group_name = azurerm_resource_group.test.name
+        location            = azurerm_resource_group.test.location
+
+        network_rules {
+          default_action = "Allow"
+        }
+
+        account_tier              = "Standard"
+        account_kind              = "StorageV2"
+        account_replication_type  = "LRS"
+        enable_https_traffic_only = true
+        min_tls_version           = "TLS1_2"
+
+        queue_properties {
+          logging {
+            delete = true
+            read   = true
+            write  = true
+          }
         }
       }
       ```
@@ -13921,6 +14066,40 @@
         network_acls {
           default_action = "Deny"
           bypass         = "AzureServices"
+        }
+      }
+      ```
+      All resources use a secure network access configuration
+      ```terraform
+      resource "azurerm_storage_account_network_rules" "not_vulnerable" {
+        resource_group_name  = azurerm_resource_group.test.name
+        storage_account_name = azurerm_storage_account.test.name
+
+        default_action = "Deny"
+      }
+
+
+      resource "azurerm_storage_account" "not_vulnerable" {
+        name                = var.watcher
+        resource_group_name = azurerm_resource_group.test.name
+        location            = azurerm_resource_group.test.location
+
+        network_rules {
+          default_action = "Deny"
+        }
+
+        account_tier              = "Standard"
+        account_kind              = "StorageV2"
+        account_replication_type  = "LRS"
+        enable_https_traffic_only = true
+        min_tls_version           = "TLS1_2"
+
+        queue_properties {
+          logging {
+            delete = true
+            read   = true
+            write  = true
+          }
         }
       }
       ```
@@ -17930,6 +18109,21 @@
                   KMSMasterKeyID: KMS-KEY-ARN
           DeletionPolicy: Delete
       ```
+      Terraform example
+      ```terraform
+      resource "aws_s3_bucket" "example" {
+        bucket = "s3-website-test.hashicorp.com"
+        acl    = "public-read-write"
+
+        cors_rule {
+          allowed_headers = ["*"]
+          allowed_methods = ["PUT", "POST"]
+          allowed_origins = ["https://s3-website-test.hashicorp.com"]
+          expose_headers  = ["ETag"]
+          max_age_seconds = 3000
+        }
+      }
+      ```
     compliant: |
       All AWS buckets have restricted permissions only accesible to authorized users
       ```yaml
@@ -17945,6 +18139,18 @@
                   SSEAlgorithm: aws:kms
                   KMSMasterKeyID: KMS-KEY-ARN
           DeletionPolicy: Delete
+      ```
+      Terraform example
+      ```terraform
+      resource "aws_s3_bucket" "test" {
+        bucket = "my-tf-test-bucket"
+        acl    = "log-delivery-write"
+
+        logging {
+          target_bucket = aws_s3_bucket.log_bucket.id
+          target_prefix = "log/"
+        }
+      }
       ```
   remediation_time: "15"
   score:
@@ -18578,6 +18784,17 @@
             Regex reg = new Regex(pat, RegexOptions.IgnoreCase);
             bool match2 = reg.IsMatch(input, expreg);
           }
+        }
+      }
+      ```
+      Example where the application uses unverified input to search in regex
+      ```c {3,7,15}
+      using System;
+      using System.Text.RegularExpressions;
+      public partial class WebForm : System.Web.UI.Page{
+        protected void Page_Load(object sender, EventArgs e){
+          string findTerm = Request.Form["findTerm"];
+          Match m = Regex.Match(SearchableText, "^term=" + findTerm);
         }
       }
       ```
@@ -21680,6 +21897,22 @@
         skip_final_snapshot     = true
       }
       ```
+      A resource that does not have its storage encrypted
+      ```yaml
+      RDSCluster2:
+        Properties:
+          DBClusterParameterGroupName:
+            Ref: RDSDBClusterParameterGroup
+          DBSubnetGroupName:
+            Ref: DBSubnetGroup
+          Engine: aurora
+          MasterUserPassword:
+            Ref: password
+          MasterUsername:
+            Ref: username
+          StorageEncrypted: False
+        Type: "AWS::RDS::DBCluster"
+      ```
     compliant: |
       All sensitive resources are correctly configured without storing their credentials in the source code
       ```terraform
@@ -21697,6 +21930,26 @@
         parameter_group_name    = "default.mysql5.7"
         skip_final_snapshot     = true
       }
+      ```
+      All resource should have storage encryption enabled
+      ```yaml
+      RDSDBInstance1:
+        Properties:
+          AvailabilityZone:
+            Fn::GetAtt:
+              - Subnet1
+              - AvailabilityZone
+          DBClusterIdentifier:
+            Ref: RDSCluster
+          DBInstanceClass: db.r3.xlarge
+          DBParameterGroupName:
+            Ref: RDSDBParameterGroup
+          DBSubnetGroupName:
+            Ref: DBSubnetGroup
+          Engine: aurora
+          PubliclyAccessible: "true"
+          StorageEncrypted: True
+        Type: "AWS::RDS::DBInstance"
       ```
   remediation_time: "30"
   score:
@@ -21772,6 +22025,16 @@
         enable_deletion_protection = false
       }
       ```
+      ```yaml
+      Resources:
+        NewVolume1:
+          Type: AWS::EC2::Volume
+          Properties:
+            Size: 100
+            Encrypted: false
+            AvailabilityZone: us-east-1
+          DeletionPolicy: Snapshot
+      ```
     compliant: |
       Sensitive resources should have access credentials stored as encrypted values
       ```terraform
@@ -21787,6 +22050,16 @@
         security_groups    = [aws_security_group.lb_sg.id]
         enable_deletion_protection = true
       }
+      ```
+      ```yaml
+      Resources:
+        NewVolume1:
+          Type: AWS::EC2::Volume
+          Properties:
+            Size: 100
+            Encrypted: true
+            AvailabilityZone: us-east-1
+          DeletionPolicy: Snapshot
       ```
   remediation_time: "120"
   score:
@@ -22000,6 +22273,35 @@
             Encrypted: false
             AvailabilityZone: us-east-1
           DeletionPolicy: Snapshot
+      ```
+      ```terraform
+      resource "aws_instance" "project-iac" {
+        ami                         = lookup(var.awsprops, "ami")
+        instance_type               = lookup(var.awsprops, "itype")
+        subnet_id                   = lookup(var.awsprops, "subnet")
+        associate_public_ip_address = lookup(var.awsprops, "publicip")
+        key_name                    = lookup(var.awsprops, "keyname")
+
+
+        vpc_security_group_ids = [
+          aws_security_group.project-iac-sg.id
+        ]
+
+        root_block_device {
+          encrypted             = false
+          delete_on_termination = true
+          iops                  = 150
+          volume_size           = 50
+          volume_type           = "gp2"
+        }
+
+        ebs_block_device {
+          delete_on_termination = true
+          iops                  = 150
+          volume_size           = 50
+          volume_type           = "gp2"
+        }
+      }
       ```
     compliant: |
       All storing resources are securely configured through the use of encryption
@@ -22482,6 +22784,23 @@
         skip_final_snapshot     = true
       }
       ```
+      ```terraform
+      Resources:
+        RDSCluster1:
+          Properties:
+            BackupRetentionPeriod: 0
+            DBClusterParameterGroupName:
+              Ref: RDSDBClusterParameterGroup
+            DBSubnetGroupName:
+              Ref: DBSubnetGroup
+            Engine: aurora
+            MasterUserPassword:
+              Ref: password
+            MasterUsername:
+              Ref: username
+            StorageEncrypted: True
+          Type: "AWS::RDS::DBCluster"
+      ```
     compliant: |
       All resources have a secure protection mechanism against deletion
       ```terraform
@@ -22498,6 +22817,23 @@
         parameter_group_name    = "default.mysql5.7"
         skip_final_snapshot     = true
       }
+      ```
+      ```terraform
+      Resources:
+        RDSCluster1:
+          Properties:
+            BackupRetentionPeriod: 2
+            DBClusterParameterGroupName:
+              Ref: RDSDBClusterParameterGroup
+            DBSubnetGroupName:
+              Ref: DBSubnetGroup
+            Engine: aurora
+            MasterUserPassword:
+              Ref: password
+            MasterUsername:
+              Ref: username
+            StorageEncrypted: True
+          Type: "AWS::RDS::DBCluster"
       ```
   remediation_time: "30"
   score:
@@ -22563,6 +22899,18 @@
               InstanceType: t2.micro
               KeyName: MyKeyPair
               DisableApiTermination: False
+      ```
+      ```terraform
+      resource "aws_launch_template" "foo" {
+        name = "foo"
+        ...
+        cpu_options {
+          core_count       = 4
+          threads_per_core = 2
+        }
+
+        disable_api_termination = false
+      }
       ```
     compliant: |
       The resource has correctly configured protection against deletion
@@ -22746,6 +23094,19 @@
         //Other service configuration settings not shown
       }
       ```
+      ```yaml
+      Resources:
+        table1:
+          Type: AWS::DynamoDB::Table
+          Properties:
+            KeySchema:
+            - AttributeName: attr1
+              KeyType: String
+            - AttributeName: attr2
+              KeyType: String
+            PointInTimeRecoverySpecification:
+              PointInTimeRecoveryEnabled: False
+      ```
     compliant: |
       The resource has correctly configured protection against deletion
       ```terraform
@@ -22767,6 +23128,19 @@
         }
         //Other service configuration settings not shown
       }
+      ```
+      ```yaml
+      Resources:
+        table1:
+          Type: AWS::DynamoDB::Table
+          Properties:
+            KeySchema:
+            - AttributeName: attr1
+              KeyType: String
+            - AttributeName: attr2
+              KeyType: String
+            PointInTimeRecoverySpecification:
+              PointInTimeRecoveryEnabled: True
       ```
   remediation_time: "30"
   score:
@@ -23330,7 +23704,7 @@
   category: Collect Information
   examples:
     non_compliant: |
-      The container is insecurely configured to allow access as root
+      The container is insecurely configured. There is no command to create a group or user
       ```docker
       FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
       ARG DEBIAN_FRONTEND=noninteractive
@@ -23340,7 +23714,7 @@
         apt clean
       ```
     compliant: |
-      The containers have specific user configurations to restrict access
+      The containers have specific user configurations to restrict access and ensuring running as non-root
       ```docker
       FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
       ARG DEBIAN_FRONTEND=noninteractive
@@ -23432,6 +23806,31 @@
             ports:
               - containerPort: 88
       ```
+      ```yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: rss-site
+        labels:
+          app: web
+      spec:
+        containers:
+          - name: front-end
+            image: nginx
+            ports:
+              - containerPort: 80
+            securityContext:
+              allowPrivilegeEscalation: true
+              capabilities:
+                drop:
+                  - all
+                add:
+                  - NET_BIND_SERVICE
+          - name: rss-reader
+            image: nickchase/rss-php-nginxv1
+            ports:
+              - containerPort: 88
+      ```
     compliant: |
       The resource has enabled safe security policies by restricting privileges to authorized users
       ```yaml
@@ -23453,6 +23852,31 @@
                   add:
                     - SYS_ADMIN
                     - NET_ADMIN
+          - name: rss-reader
+            image: nickchase/rss-php-nginxv1
+            ports:
+              - containerPort: 88
+      ```
+      ```yaml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: rss-site
+        labels:
+          app: web
+      spec:
+        containers:
+          - name: front-end
+            image: nginx
+            ports:
+              - containerPort: 80
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - all
+                add:
+                  - NET_BIND_SERVICE
           - name: rss-reader
             image: nickchase/rss-php-nginxv1
             ports:
@@ -24642,6 +25066,31 @@
                   Condition:
                     Bool:
                       'aws:SecureTransport': False
+      ```
+      The AWS resource does not check if the request was performed using SSL
+      ```terraform
+      resource "aws_s3_bucket_policy" "b" {
+        bucket = aws_s3_bucket.b.id
+        policy = <<POLICY
+        {
+          "Version": "2012-10-17",
+          "Id": "MYBUCKETPOLICY",
+          "Statement": [
+            {
+              "Sid": "IPAllow",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:*",
+              "Resource": "arn:aws:s3:::my_tf_test_bucket/*",
+              "Condition": {
+                "IpAddress": {"aws:SourceIp": "8.8.8.8/32"},
+                "Bool": {"aws:SecureTransport": "False"}
+              }
+            }
+          ]
+        }
+        POLICY
+      }
       ```
     compliant: |
       The AWS resource enables secure transport configuration
@@ -26261,22 +26710,57 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      The authentication mechanism of the azure resource can be bypassed due to wrong configurations
+      The authentication mechanism of the azure resource can be bypassed due to a wrong configuration
       ```terraform
       resource "azurerm_app_service" "vulnerable" {
-        name                = var.functionapp_name
-        location            = var.rg_location
-        resource_group_name = var.resource_group_name
-        app_service_plan_id = var.asp_id
+        name                = "example-app-service"
+        location            = azurerm_resource_group.example.location
+        resource_group_name = azurerm_resource_group.example.name
+        app_service_plan_id = azurerm_app_service_plan.example.id
         https_only          = true
-        tags                = var.modtags
-        auth_settings {
-          enabled = false
+        client_cert_enabled = false
+        logs {
+          failed_request_tracing_enabled  = true
+          detailed_error_messages_enabled = true
         }
+        auth_settings {
+          enabled = true
+        }
+      }
+      ```
+      The resource does not have authentication settings enabled
+      ```terraform
+      resource "azurerm_function_app" "vulnerable" {
+        name                       = "test-azure-functions"
+        location                   = azurerm_resource_group.example.location
+        resource_group_name        = azurerm_resource_group.example.name
+        app_service_plan_id        = azurerm_app_service_plan.example.id
+        storage_account_name       = azurerm_storage_account.example.name
+        storage_account_access_key = azurerm_storage_account.example.primary_access_key
+        https_only                 = true
+        os_type                    = "linux"
+        version                    = "~3"
       }
       ```
     compliant: |
       The azure resources have secure authentication mechanisms configured
+      ```terraform
+      resource "azurerm_app_service" "not_vulnerable" {
+        name                = "example-app-service"
+        location            = azurerm_resource_group.example.location
+        resource_group_name = azurerm_resource_group.example.name
+        app_service_plan_id = azurerm_app_service_plan.example.id
+        https_only          = true
+        client_cert_enabled = true
+        logs {
+          failed_request_tracing_enabled  = true
+          detailed_error_messages_enabled = true
+        }
+        auth_settings {
+          enabled = true
+        }
+      }
+      ```
       ```terraform
       resource "azurerm_function_app" "not_vulnerable" {
         name                       = "test-azure-functions"
@@ -28313,6 +28797,52 @@
         }
       }
       ```
+      ```terraform
+      resource "aws_kms_key" "a" {
+        description             = "KMS key 1"
+        deletion_window_in_days = 10
+
+        policy = <<-EOF
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Principal": {
+                "AWS": "*"
+              },
+              "Effect": "Allow"
+            }
+          ]
+        }
+        EOF
+      }
+      ```
+      ```yaml
+      Resources:
+        key1:
+          Type: 'AWS::KMS::Key'
+          Properties:
+            Description: An example multi-Region primary key
+            MultiRegion: true
+            EnableKeyRotation: true
+            PendingWindowInDays: 10
+            KeyPolicy:
+              Version: 2012-10-17
+              Id: key-default-1
+              Statement:
+                - Sid: Enable IAM User Permissions
+                  Effect: Allow
+                  Principal:
+                    AWS: 'arn:aws:iam::111122223333:root'
+                  Action: 'kms:*'
+                  Resource: '*'
+                - Sid: Enable IAM User Permissions
+                  Effect: Allow
+                  Principal:
+                    AWS: '*'
+                  Action: 'kms:*'
+                  Resource: '*'
+      ```
     compliant: |
       Access to resources is securely configured for each security policy
       ```terraform
@@ -28906,6 +29436,37 @@
               SecurityGroupIds:
                 - sg-083cd3bfb8example
       ```
+      An EC2 instance has the associate_public_ip_address missconfigured
+      ```yaml
+      resource "aws_launch_template" "foo" {
+        name = "foo"
+        iam_instance_profile {
+          name = "test"
+        }
+        network_interfaces {
+          associate_public_ip_address = true
+        }
+      }
+      ```
+      An EC2 instance has the InstanceInitiatedShutdownBehavior missconfigured
+      ```yaml
+      MyLaunchTemplate:
+        Type: AWS::EC2::LaunchTemplate
+        Properties:
+          LaunchTemplateName: MyLaunchTemplate
+          LaunchTemplateData:
+            IamInstanceProfile:
+              Arn:
+                - MyIamInstanceProfile
+                - Arn
+            DisableApiTermination: true
+            ImageId: ami-04d5cc9b88example
+            InstanceInitiatedShutdownBehavior: stop
+            InstanceType: t2.micro
+            KeyName: MyKeyPair
+            SecurityGroupIds:
+              - sg-083cd3bfb8example
+      ```
     compliant: |
       All EC2 instances are securely configured
       ```yaml
@@ -28926,6 +29487,24 @@
               KeyName: MyKeyPair
               SecurityGroupIds:
                 - sg-083cd3bfb8example
+      ```
+      ```yaml
+      MyLaunchTemplate:
+        Type: AWS::EC2::LaunchTemplate
+        Properties:
+          LaunchTemplateName: MyLaunchTemplate
+          LaunchTemplateData:
+            IamInstanceProfile:
+              Arn:
+                - MyIamInstanceProfile
+                - Arn
+            DisableApiTermination: true
+            ImageId: ami-04d5cc9b88example
+            InstanceInitiatedShutdownBehavior: terminate
+            InstanceType: t2.micro
+            KeyName: MyKeyPair
+            SecurityGroupIds:
+              - sg-083cd3bfb8example
       ```
   remediation_time: "45"
   score:
@@ -32189,6 +32768,18 @@
         }
       }
       ```
+      The resource has unsafe protocol enabled
+      ```yaml
+      ELBv2targetGroup2:
+        Type: AWS::ElasticLoadBalancingV2::TargetGroup
+        Properties:
+          HealthCheckEnabled: false
+          Name: MyTargets
+          Protocol: HTTP
+          TargetType: lambda
+          Targets:
+          - Id: [ MyLambdaFunction, Arn ]
+      ```
     compliant: |
       The resource has https channel over tls securely configured
       ```terraform
@@ -34097,6 +34688,15 @@
             S3BucketName: bk2
             EnableLogFileValidation: false
       ```
+      ```terraform
+      resource "aws_cloudtrail" "foobar" {
+        enable_log_file_validation    = false
+        name                          = "tf-trail-foobar"
+        s3_bucket_name                = aws_s3_bucket.foo.id
+        s3_key_prefix                 = "prefix"
+        include_global_service_events = false
+      }
+      ```
     compliant: |
       The resource correctly enables log file validation
       ```yaml
@@ -34107,6 +34707,15 @@
             IsLogging: true
             S3BucketName: bk1
             EnableLogFileValidation: true
+      ```
+      ```terraform
+      resource "aws_cloudtrail" "foobar" {
+        enable_log_file_validation    = true
+        name                          = "tf-trail-foobar"
+        s3_bucket_name                = aws_s3_bucket.foo.id
+        s3_key_prefix                 = "prefix"
+        include_global_service_events = false
+      }
       ```
   remediation_time: "15"
   score:
@@ -34251,6 +34860,14 @@
                   Action: 'kms:*'
                   Resource: '*'
       ```
+      ```terraform
+      resource "aws_kms_key" "a" {
+        customer_master_key_spec = "SYMMETRIC_DEFAULT"
+        description              = "KMS key 1"
+        deletion_window_in_days  = 10
+        enable_key_rotation      = false
+      }
+      ```
     compliant: |
       The resource has automatic key rotation enabled
       ```yaml
@@ -34272,6 +34889,14 @@
                     AWS: 'arn:aws:iam::111122223333:root'
                   Action: 'kms:*'
                   Resource: '*'
+      ```
+      ```terraform
+      resource "aws_kms_key" "a" {
+        customer_master_key_spec = "SYMMETRIC_DEFAULT"
+        description              = "KMS key 1"
+        deletion_window_in_days  = 10
+        enable_key_rotation      = true
+      }
       ```
   remediation_time: "60"
   es:
@@ -34589,6 +35214,35 @@
               LoadBalancerPort: '443'
               Protocol: HTTPS
       ```
+      The resource has monitoring disabled
+      ```terraform
+      resource "aws_instance" "foo" {
+        monitoring                  = false
+        instance_type               = "t2.micro"
+        disable_api_termination     = true
+        associate_public_ip_address = false
+        security_groups             = ["test"]
+        iam_instance_profile        = "ami-005e54dee72cc1d00"
+
+        network_interface {
+          network_interface_id = aws_network_interface.foo.id
+          device_index         = 0
+        }
+        credit_specification {
+          cpu_credits = "unlimited"
+        }
+      }
+      ```
+      The resource does not have multiregion property enabled
+      ```terraform
+      resource "aws_cloudtrail" "foobar" {
+        name                          = "tf-trail-foobar"
+        s3_bucket_name                = aws_s3_bucket.foo.id
+        s3_key_prefix                 = "prefix"
+        include_global_service_events = false
+        is_multi_region_trail         = false
+      }
+      ```
     compliant: |
       The resource has the logging property correctly configured
       ```yaml
@@ -34604,6 +35258,35 @@
               InstanceProtocol: HTTP
               LoadBalancerPort: '443'
               Protocol: HTTPS
+      ```
+      The resource has monitoring enabled
+      ```terraform
+      resource "aws_instance" "foo" {
+        monitoring                  = true
+        instance_type               = "t2.micro"
+        disable_api_termination     = true
+        associate_public_ip_address = false
+        security_groups             = ["test"]
+        iam_instance_profile        = "ami-005e54dee72cc1d00"
+
+        network_interface {
+          network_interface_id = aws_network_interface.foo.id
+          device_index         = 0
+        }
+        credit_specification {
+          cpu_credits = "unlimited"
+        }
+      }
+      ```
+      The resource has multiregion property enabled
+      ```terraform
+      resource "aws_cloudtrail" "foobar" {
+        name                          = "tf-trail-foobar"
+        s3_bucket_name                = aws_s3_bucket.foo.id
+        s3_key_prefix                 = "prefix"
+        include_global_service_events = false
+        is_multi_region_trail         = true
+      }
       ```
   remediation_time: "60"
   es:
@@ -34752,6 +35435,22 @@
         }
       }
       ```
+      The resource does not have a failed request tracing mechanism
+      ```terraform
+      resource "azurerm_app_service" "vulnerable" {
+        name                = "example-app-service"
+        location            = azurerm_resource_group.example.location
+        resource_group_name = azurerm_resource_group.example.name
+        app_service_plan_id = azurerm_app_service_plan.example.id
+        https_only          = true
+        logs {
+          failed_request_tracing_enabled = false
+        }
+        auth_settings {
+          enabled = true
+        }
+      }
+      ```
     compliant: |
       The resource correctly enables logging for sensitive requests
       ```terraform
@@ -34770,6 +35469,23 @@
             version               = "1.0"
             retention_policy_days = 10
           }
+        }
+      }
+      ```
+      The resource has the logs properties correctly configured
+      ```terraform
+      resource "azurerm_app_service" "not_vulnerable" {
+        name                = "example-app-service"
+        location            = azurerm_resource_group.example.location
+        resource_group_name = azurerm_resource_group.example.name
+        app_service_plan_id = azurerm_app_service_plan.example.id
+        https_only          = true
+        logs {
+          failed_request_tracing_enabled  = true
+          detailed_error_messages_enabled = true
+        }
+        auth_settings {
+          enabled = true
         }
       }
       ```
@@ -35121,6 +35837,13 @@
               Status: ENABLED
             Encrypted: false
       ```
+      Terraform example
+      ```terraform
+      resource "aws_efs_file_system" "enabled" {
+        creation_token = "example"
+        encrypted      = false
+      }
+      ```
     compliant: |
       The resource has encryption correctly configured with a KMS Key
       ```yaml
@@ -35211,6 +35934,15 @@
                   VolumeSize: 100
                   DeleteOnTermination: "false"
                   Encrypted : false
+      ```
+      Terraform example
+      ```terraform
+      resource "aws_launch_configuration" "example" {
+        instance_type = "t2.micro"
+        root_block_device {
+          encrypted = false
+        }
+      }
       ```
     compliant: |
       The resource has encryption mechanism enabled
@@ -35306,6 +36038,14 @@
             Variables:
               Stack: Prod
       ```
+      Terraform example
+      ```terraform
+      resource "aws_api_gateway_stage" "example" {
+        deployment_id = aws_api_gateway_deployment.example.id
+        rest_api_id   = aws_api_gateway_rest_api.example.id
+        stage_name    = "example"
+      }
+      ```
     compliant: |
       The resource has the logging feature correctly enabled
       ```yaml
@@ -35387,6 +36127,20 @@
           kms_key_arn = aws_kms_key.dynamo.arn
         }
       }
+      ```
+      A Dynamodb table is unencrypted
+      ```yaml
+      DDBTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+          Encrypted : false
+          SSESpecification:
+            KMSMasterKeyId: keyid
+            SSEEnabled: false
+            SSEType: KMS
       ```
     compliant: |
       The resource has server side encryption enabled
@@ -35558,6 +36312,15 @@
               GenerateStringKey: "password"
               PasswordLength: 30
               ExcludeCharacters: '"@/\'
+      ```
+      The resource uses insecure encryption methods with default keys
+      ```terraform
+      resource "aws_dynamodb_table" "basic-dynamodb-table" {
+        server_side_encryption {
+          enabled     = true
+          kms_key_arn = default
+        }
+      }
       ```
     compliant: |
       The resource has safe configuration of KMS Key for encryption
