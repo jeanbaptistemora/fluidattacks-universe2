@@ -19,6 +19,7 @@ from syntax_graph.syntax_readers.common import (
     while_statement as common_while_statement,
 )
 from syntax_graph.syntax_readers.java import (
+    argument_list as java_argument_list,
     class_body as java_class_body,
     method_invocation as java_method_invocation,
     parameter_list as java_parameter_list,
@@ -31,6 +32,12 @@ from syntax_graph.types import (
 )
 
 JAVA_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "argument_list",
+        },
+        syntax_reader=java_argument_list.reader,
+    ),
     Dispatcher(
         applicable_types={
             "boolean_literal",
