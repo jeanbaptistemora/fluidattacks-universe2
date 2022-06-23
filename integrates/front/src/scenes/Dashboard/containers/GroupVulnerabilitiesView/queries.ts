@@ -19,10 +19,11 @@ const GET_FINDING_VULNERABILITIES: DocumentNode = gql`
     $after: String
     $findingId: String!
     $first: Int
+    $where: String
   ) {
     finding(identifier: $findingId) {
       id
-      vulnerabilitiesConnection(after: $after, first: $first) {
+      vulnerabilitiesConnection(after: $after, first: $first, where: $where) {
         edges {
           node {
             currentState

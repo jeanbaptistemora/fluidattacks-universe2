@@ -13,9 +13,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({
 }: Readonly<ISearchBarProps>): JSX.Element => {
   const handleSubmit = useCallback(
     ({ search }: IFormValues): void => {
-      if (search) {
-        onSubmit(search);
-      }
+      onSubmit(search);
     },
     [onSubmit]
   );

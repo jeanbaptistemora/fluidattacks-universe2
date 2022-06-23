@@ -16,23 +16,28 @@ import type {
  * Using a bare apollo client instance as useQuery isn't flexible enough
  * to dynamically perform multiple queries
  */
-const useGroupVulnerabilities = (groupName: string): IVulnerability[] => {
+const useGroupVulnerabilities = (
+  groupName: string,
+  search: string
+): IVulnerability[] => {
   const { data: findingsData } = useQuery<IGroupFindings>(GET_GROUP_FINDINGS, {
     variables: { groupName },
   });
   const [vulnerabilities, setVulnerabilities] = useState<IVulnerability[]>([]);
   const client = useApolloClient();
 
-  useEffect((): (() => void) => {
+  useEffect((): VoidFunction => {
+    setTimeout((): void => {
+      setVulnerabilities([]);
+    });
     const findings =
       findingsData === undefined ? [] : findingsData.group.findings;
 
     const subscriptions = findings.map(
       (finding): ZenObservable.Subscription => {
         const observableQuery = client.watchQuery<IFindingVulnerabilities>({
-          fetchPolicy: "cache-first",
           query: GET_FINDING_VULNERABILITIES,
-          variables: { findingId: finding.id },
+          variables: { findingId: finding.id, where: search },
         });
 
         const onNext = ({
@@ -64,7 +69,7 @@ const useGroupVulnerabilities = (groupName: string): IVulnerability[] => {
         subscription.unsubscribe();
       });
     };
-  }, [client, findingsData]);
+  }, [client, findingsData, search]);
 
   return vulnerabilities;
 };

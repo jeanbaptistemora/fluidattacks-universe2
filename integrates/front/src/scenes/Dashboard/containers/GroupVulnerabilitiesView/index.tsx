@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Redirect,
   Route,
@@ -16,6 +16,7 @@ import {
   formatVulnerability,
 } from "./utils";
 
+import { SearchBar } from "components/SearchBar";
 import { Table } from "components/Table";
 import { linkFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
@@ -71,7 +72,8 @@ const views = [
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { path, url } = useRouteMatch();
-  const vulnerabilities = useGroupVulnerabilities(groupName);
+  const [search, setSearch] = useState("");
+  const vulnerabilities = useGroupVulnerabilities(groupName, search);
 
   return (
     <div>
@@ -89,6 +91,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           );
         })}
       </Tabs>
+      <SearchBar onSubmit={setSearch} />
       <TabContent>
         <Switch>
           {views.map(({ title, filter }): JSX.Element => {
