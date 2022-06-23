@@ -107,7 +107,7 @@ describe("Portfolio", (): void => {
       screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-new-tag");
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -220,7 +220,7 @@ describe("Portfolio", (): void => {
       screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-new-tag");
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(2);
@@ -289,7 +289,7 @@ describe("Portfolio", (): void => {
       screen.getByText("searchFindings.tabResources.addRepository")
     );
     userEvent.type(screen.getByRole("textbox"), "test-tag1");
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

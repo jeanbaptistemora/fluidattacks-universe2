@@ -239,7 +239,7 @@ describe("Organization users view", (): void => {
 
     userEvent.click(screen.getByText("organization.tabs.users.addButton.text"));
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
     });
     userEvent.type(
       screen.getByRole("textbox", { name: "email" }),
@@ -249,10 +249,10 @@ describe("Organization users view", (): void => {
       "USER",
     ]);
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "testuser2@gmail.comsearchFindings.tabUsers.success",
@@ -381,7 +381,7 @@ describe("Organization users view", (): void => {
       "USER_MANAGER",
     ]);
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "testuser1@gmail.com organization.tabs.users.editButton.success",
@@ -697,7 +697,7 @@ describe("Organization users view", (): void => {
       userEvent.selectOptions(screen.getByRole("combobox", { name: "role" }), [
         "USER_MANAGER",
       ]);
-      userEvent.click(screen.getByText("confirmmodal.proceed"));
+      userEvent.click(screen.getByText("components.modal.confirm"));
     };
     await editStakeholder();
     await waitFor((): void => {

@@ -336,7 +336,7 @@ def test_group_scope_portfolio(
     tags.send_keys(tag_name)
     proceed = utils.wait_for_id(
         driver,
-        "portfolio-add-proceed",
+        "portfolio-add-confirm",
         timeout,
     )
 

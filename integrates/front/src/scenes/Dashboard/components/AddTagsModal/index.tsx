@@ -2,8 +2,7 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikArrayField, FormikText } from "utils/forms/fields";
 import { composeValidators, required, validTag } from "utils/validations";
@@ -62,23 +61,11 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
               >
                 {renderTagsFields}
               </FormikArrayField>
-              <ModalFooter>
-                <Button
-                  id={"portfolio-add-cancel"}
-                  onClick={onClose}
-                  variant={"secondary"}
-                >
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty}
-                  id={"portfolio-add-proceed"}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm
+                disabled={!dirty}
+                id={"portfolio-add-confirm"}
+                onCancel={onClose}
+              />
             </Form>
           )}
         </Formik>

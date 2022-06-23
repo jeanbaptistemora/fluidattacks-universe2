@@ -385,9 +385,9 @@ describe("Group stakeholders view", (): void => {
       "HACKER",
     ]);
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -575,9 +575,9 @@ describe("Group stakeholders view", (): void => {
       "HACKER",
     ]);
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -665,9 +665,9 @@ describe("Group stakeholders view", (): void => {
       "HACKER",
     ]);
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     const TEST_TIMES_CALLED = 7;
     await waitFor((): void => {
@@ -829,9 +829,9 @@ describe("Group stakeholders view", (): void => {
       "HACKER",
     ]);
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
     const TEST_TIMES_CALLED = 5;
 
     await waitFor((): void => {
