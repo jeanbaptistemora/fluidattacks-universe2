@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 Retrieve all events in active groups.
 
