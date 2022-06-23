@@ -5,9 +5,11 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
   mutation UpdateGroupInfo(
     $businessId: String
     $businessName: String
+    $comments: String!
     $description: String!
     $groupName: String!
     $language: Language!
+    $managed: Boolean!
     $sprintDuration: Int
     $sprintStartDate: DateTime
   ) {
@@ -19,6 +21,13 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
       language: $language
       sprintDuration: $sprintDuration
       sprintStartDate: $sprintStartDate
+    ) {
+      success
+    }
+    updateGroupManaged(
+      comments: $comments
+      groupName: $groupName
+      managed: $managed
     ) {
       success
     }

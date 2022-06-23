@@ -118,9 +118,11 @@ const GroupInformation: React.FC = (): JSX.Element => {
         variables: {
           businessId: values.businessId,
           businessName: values.businessName,
+          comments: "",
           description: values.description,
           groupName,
           language: values.language,
+          managed: values.managed,
           sprintDuration: Number(values.sprintDuration),
           sprintStartDate: moment(
             values.sprintStartDate as string
