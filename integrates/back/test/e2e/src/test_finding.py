@@ -323,7 +323,7 @@ def test_finding_reattack(
     )
     cancel_reattack = utils.wait_for_id(
         driver,
-        "cancel-remediation",
+        "remediation-confirm-cancel",
         timeout,
     )
     assert "Which was the applied solution?" in driver.page_source

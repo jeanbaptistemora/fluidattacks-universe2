@@ -1,11 +1,9 @@
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
-import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import {
   ControlLabel,
   FormGroup,
@@ -46,8 +44,6 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
   onClose,
   onSubmit,
 }: IAddRemediationProps): JSX.Element => {
-  const { t } = useTranslation();
-
   const justificationValidations: ConfigurableValidator[] = [
     required,
     validTextField,
@@ -88,23 +84,11 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
                   />
                 </FormGroup>
                 {additionalInfo}
-                <ModalFooter>
-                  <Button
-                    id={"cancel-remediation"}
-                    onClick={onClose}
-                    variant={"secondary"}
-                  >
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!dirty || isLoading}
-                    id={"proceed-remediation"}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
+                <ModalConfirm
+                  disabled={!dirty || isLoading}
+                  id={"remediation-confirm"}
+                  onCancel={onClose}
+                />
               </React.Fragment>
             </Form>
           )}
