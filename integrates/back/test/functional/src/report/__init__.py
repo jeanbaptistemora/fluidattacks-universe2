@@ -85,6 +85,7 @@ async def get_result_states(
     report_type: str,
     treatments: list[str],
     states: list[str],
+    verifications: list[str],
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(
@@ -93,6 +94,7 @@ async def get_result_states(
             $lang: ReportLang
             $treatments: [VulnerabilityTreatment!]
             $states: [VulnerabilityState!]
+            $verifications: [VulnerabilityVerification!]
         ) {
             report(
                 reportType: $reportType
@@ -101,6 +103,7 @@ async def get_result_states(
                 treatments: $treatments
                 verificationCode: "123"
                 states: $states
+                verifications: $verifications
             ) {
                 success
             }
@@ -113,6 +116,7 @@ async def get_result_states(
             "groupName": group_name,
             "treatments": treatments,
             "states": states,
+            "verifications": verifications,
         },
     }
 

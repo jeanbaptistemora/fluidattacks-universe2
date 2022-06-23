@@ -4,13 +4,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "6cb3ed3caf472607a5833341f7cc9d7e389e643a3144e42f164e3806fc6f9c88"
+            "S": "db5e19bd6499473b50f8b049ca9343b46b8b4b6a85ab6b395392544287fd1f4f"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\"], \"states\": [\"OPEN\"]}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -31,13 +31,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "52e384ec3e08462629c76b0b98796afe99c35c4d8e50da67c2c768e43c0b2c8d"
+            "S": "30827b707aa41dbb5f54d697886f4f482dce745215b7b2dd67528b60ab3d033d"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"]}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [\"ON_HOLD\", \"REQUESTED\", \"VERIFIED\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -58,13 +58,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "0e652b762805bb8c58f9a26fa651bf98262407fd8f645f271a617b82914beeda"
+            "S": "2d16ba49de9d62901392fe110a42c372c065af5044c19970eb554ab648994ebe"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"]}"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [\"ON_HOLD\", \"REQUESTED\", \"VERIFIED\"]}"
           },
           "entity": {
             "S": "unittesting"
@@ -85,13 +85,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "9331d3902b7d4e6bd3863517e9c367f29d77c11aa9499931f957a650524383ce"
+            "S": "7553c7c29d7715899924d8d4da36161f3c8c6e3c366d5a90a3f3c27cb3212d09"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"]}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [\"ON_HOLD\", \"REQUESTED\", \"VERIFIED\"]}"
           },
           "entity": {
             "S": "unittesting"

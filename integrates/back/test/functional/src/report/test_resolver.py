@@ -120,29 +120,46 @@ async def test_get_report_treatments(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report")
 @pytest.mark.parametrize(
-    ["email", "treatments", "states"],
+    ["email", "treatments", "states", "verifications"],
     [
-        ["admin@gmail.com", ["ACCEPTED", "IN_PROGRESS", "NEW"], ["OPEN"]],
+        [
+            "admin@gmail.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+            ["REQUESTED"],
+        ],
         [
             "user_manager@gmail.com",
             ["ACCEPTED", "IN_PROGRESS", "NEW"],
             ["OPEN"],
+            ["REQUESTED"],
         ],
         [
             "vulnerability_manager@gmail.com",
             ["ACCEPTED", "IN_PROGRESS", "NEW"],
             ["OPEN"],
+            ["REQUESTED"],
         ],
-        ["hacker@gmail.com", ["ACCEPTED", "IN_PROGRESS", "NEW"], ["OPEN"]],
+        [
+            "hacker@gmail.com",
+            ["ACCEPTED", "IN_PROGRESS", "NEW"],
+            ["OPEN"],
+            ["REQUESTED"],
+        ],
         [
             "customer_manager@fluidattacks.com",
             ["ACCEPTED", "IN_PROGRESS", "NEW"],
             ["OPEN"],
+            ["REQUESTED"],
         ],
     ],
 )
 async def test_get_report_states(
-    populate: bool, email: str, treatments: list[str], states: list[str]
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
 ) -> None:
     assert populate
     group: str = "group1"
@@ -152,6 +169,7 @@ async def test_get_report_states(
         report_type="XLS",
         treatments=treatments,
         states=states,
+        verifications=verifications,
     )
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
@@ -305,22 +323,31 @@ async def test_get_report_treatments_second_time_fail(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report")
 @pytest.mark.parametrize(
-    ["email", "treatments", "states", "should_fail"],
+    ["email", "treatments", "states", "verifications", "should_fail"],
     [
         [
             "admin@gmail.com",
             ["ACCEPTED", "IN_PROGRESS", "NEW"],
             ["OPEN"],
+            ["REQUESTED"],
             True,
         ],
-        ["admin@gmail.com", ["ACCEPTED", "NEW"], ["OPEN"], False],
+        [
+            "admin@gmail.com",
+            ["ACCEPTED", "NEW"],
+            ["OPEN"],
+            ["REQUESTED"],
+            False,
+        ],
     ],
 )
+# pylint: disable=too-many-arguments
 async def test_get_report_states_second_time_fail(
     populate: bool,
     email: str,
     treatments: list[str],
     states: list[str],
+    verifications: list[str],
     should_fail: bool,
 ) -> None:
     assert populate
@@ -331,6 +358,7 @@ async def test_get_report_states_second_time_fail(
         report_type="XLS",
         treatments=treatments,
         states=states,
+        verifications=verifications,
     )
     if should_fail:
         assert "errors" in result_xls
@@ -347,6 +375,7 @@ async def test_get_report_states_second_time_fail(
         report_type="DATA",
         treatments=treatments,
         states=states,
+        verifications=verifications,
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
@@ -355,13 +384,22 @@ async def test_get_report_states_second_time_fail(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report")
 @pytest.mark.parametrize(
-    ["email", "treatments", "states"],
+    ["email", "treatments", "states", "verifications"],
     [
-        ["admin@gmail.com", ["ACCEPTED_UNDEFINED", "NEW"], ["NONVALID"]],
+        [
+            "admin@gmail.com",
+            ["ACCEPTED_UNDEFINED", "NEW"],
+            ["NONVALID"],
+            ["ON_HOLD"],
+        ],
     ],
 )
 async def test_get_report_invalid_state(
-    populate: bool, email: str, treatments: list[str], states: list[str]
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
 ) -> None:
     assert populate
     group: str = "group1"
@@ -371,9 +409,47 @@ async def test_get_report_invalid_state(
         report_type="DATA",
         treatments=treatments,
         states=states,
+        verifications=verifications,
     )
     assert "errors" in result_data
     assert (
         "Variable '$states' got invalid value"
+        in result_data["errors"][0]["message"]
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states", "verifications"],
+    [
+        [
+            "admin@gmail.com",
+            ["ACCEPTED_UNDEFINED", "NEW"],
+            ["OPEN"],
+            ["MASKED"],
+        ],
+    ],
+)
+async def test_get_report_invalid_verification(
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_data: dict[str, Any] = await get_result_states(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+        states=states,
+        verifications=verifications,
+    )
+    assert "errors" in result_data
+    assert (
+        "Variable '$verifications' got invalid value"
         in result_data["errors"][0]["message"]
     )

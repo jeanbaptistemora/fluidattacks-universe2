@@ -37,8 +37,9 @@ async def test_get_action() -> None:
         additional_info=json.dumps(
             {
                 "report_type": "XLS",
-                "treatments": list(sorted(["ACCEPTED"])),
+                "treatments": list(sorted(["ACCEPTED", "NEW"])),
                 "states": ["OPEN"],
+                "verifications": ["REQUESTED"],
             }
         ),
         entity="unittesting",
