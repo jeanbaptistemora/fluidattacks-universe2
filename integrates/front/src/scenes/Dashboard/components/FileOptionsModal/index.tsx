@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import {
   ButtonToolbarCenter,
   Col100,
@@ -79,11 +79,7 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
                     </Col33>
                   </ButtonToolbarCenter>
                 </Row>
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                </ModalFooter>
+                <ModalConfirm onCancel={onClose} />
               </React.Fragment>
             );
           }}

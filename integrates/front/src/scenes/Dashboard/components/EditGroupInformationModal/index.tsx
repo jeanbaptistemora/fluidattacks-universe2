@@ -3,8 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IEditGroupInformation } from "scenes/Dashboard/components/EditGroupInformationModal/types";
 import { Col100, ControlLabel, FormGroup, Row } from "styles/styledComponents";
@@ -223,18 +222,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = ({
                   </FormGroup>
                 </Col100>
               </Row>
-              <ModalFooter>
-                <Button
-                  id={"edit-group-inf-cancel"}
-                  onClick={onClose}
-                  variant={"secondary"}
-                >
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button disabled={!dirty} type={"submit"} variant={"primary"}>
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm disabled={!dirty} onCancel={onClose} />
             </Form>
           )}
         </Formik>
