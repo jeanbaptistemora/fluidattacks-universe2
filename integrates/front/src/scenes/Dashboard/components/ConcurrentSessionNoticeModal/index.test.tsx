@@ -17,7 +17,7 @@ describe("Concurrent session notice modal", (): void => {
     expect(
       screen.queryByText("registration.concurrentSessionTitle")
     ).toBeInTheDocument();
-    expect(screen.queryByText("registration.continueBtn")).toBeInTheDocument();
+    expect(screen.queryByText("registration.continue")).toBeInTheDocument();
     expect(screen.queryByRole("button")).toBeInTheDocument();
   });
 });

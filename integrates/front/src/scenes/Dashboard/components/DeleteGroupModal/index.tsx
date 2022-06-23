@@ -2,8 +2,7 @@ import { Field, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { Alert, ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
@@ -115,19 +114,11 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = ({
                   </FormGroup>
                 </TooltipWrapper>
               </FormGroup>
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty || !isValid}
-                  onClick={submitForm}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm
+                disabled={!dirty || !isValid}
+                onCancel={onClose}
+                onConfirm={submitForm}
+              />
             </React.Fragment>
           )}
         </Formik>

@@ -1,8 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 
 interface IConcurrentSessionNoticeProps {
   open: boolean;
@@ -18,11 +17,10 @@ export const ConcurrentSessionNotice: React.FC<IConcurrentSessionNoticeProps> =
       <Modal open={open} title={t("registration.concurrentSessionTitle")}>
         <React.Fragment>
           <p>{t("registration.concurrentSessionMessage")}</p>
-          <ModalFooter>
-            <Button onClick={onClick} variant={"primary"}>
-              {t("registration.continueBtn")}
-            </Button>
-          </ModalFooter>
+          <ModalConfirm
+            onConfirm={onClick}
+            txtConfirm={t("registration.continue")}
+          />
         </React.Fragment>
       </Modal>
     );
