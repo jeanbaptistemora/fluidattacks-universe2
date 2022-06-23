@@ -80,6 +80,7 @@ async def send_event_report() -> None:
                 event_id=event.id,
                 event_type=event_type,
                 description=description,
+                root_id=event.root_id,
                 report_date=report_date,
             )
     else:

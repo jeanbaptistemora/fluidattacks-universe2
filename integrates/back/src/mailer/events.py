@@ -15,6 +15,9 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.roots.types import (
+    GitRoot,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -87,6 +90,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_id: str,
     event_type: str,
     description: str,
+    root_id: Optional[str],
     reason: Optional[str] = None,
     other: Optional[str] = None,
     is_closed: bool = False,
@@ -102,6 +106,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     )
     event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
+
     group_stakeholders: Tuple[
         Dict[str, Any], ...
     ] = await loaders.group_stakeholders.load(group_name)
@@ -115,12 +120,19 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         if Notification.EVENT_REPORT
         in stakeholder.notifications_preferences.email
     ]
+
     event_type_format = {
         "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
         "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
         "OTHER": "Other",
         "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
+        "DATA_UPDATE_REQUIRED": "Request user modification/workflow update",
     }
+
+    root = await loaders.root.load((group_name, root_id)) if root_id else None
+    root_url: Optional[str] = (
+        root.state.url if root and isinstance(root, GitRoot) else None
+    )
 
     email_context: dict[str, Any] = {
         "group": group_name.capitalize(),
@@ -133,6 +145,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         ),
         "reason": reason_format,
         "report_date": str(report_date),
+        "root_url": root_url,
         "state": state,
     }
     await send_mails_async(

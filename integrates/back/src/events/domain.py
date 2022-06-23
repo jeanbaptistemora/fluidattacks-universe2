@@ -247,6 +247,7 @@ async def add_event(
             event_id=event.id,
             event_type=event.type,
             description=event.description,
+            root_id=event.root_id,
             report_date=report_date,
         )
     )
@@ -426,6 +427,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
             event_id=event_id,
             event_type=event.type.value,
             description=event.description,
+            root_id=event.root_id,
             reason=reason.value,
             other=other,
             is_closed=True,
