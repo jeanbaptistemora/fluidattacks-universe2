@@ -42,6 +42,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Update Description component", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   const vulns: IVulnDataTypeAttr[] = [
     {
       assigned: "",
@@ -334,7 +336,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
@@ -345,10 +347,10 @@ describe("Update Description component", (): void => {
       "This is a commenting test of a request zero risk in vulns"
     );
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -422,7 +424,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
@@ -433,10 +435,10 @@ describe("Update Description component", (): void => {
       "This is a commenting test of a request zero risk in vulns"
     );
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenNthCalledWith(
@@ -595,10 +597,10 @@ describe("Update Description component", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -696,10 +698,10 @@ describe("Update Description component", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(

@@ -36,8 +36,7 @@ import { TreatmentField } from "./TreatmentField";
 
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateTreatmentVulnerabilityForm,
@@ -520,26 +519,20 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         isAcceptedUndefinedSelected,
         isInProgressSelected
       )}
-      <ModalFooter>
-        <Button onClick={handleCloseModal} variant={"secondary"}>
-          {t("group.findings.report.modalClose")}
-        </Button>
-        {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
-          <Button
-            disabled={
-              requestingZeroRisk ||
-              updatingVuln ||
-              deletingTag ||
-              isRunning ||
-              (isEditPristine && isTreatmentPristine)
-            }
-            onClick={submitForm}
-            variant={"primary"}
-          >
-            {t("confirmmodal.proceed")}
-          </Button>
-        ) : undefined}
-      </ModalFooter>
+      {canRequestZeroRiskVuln || canUpdateVulnsTreatment ? (
+        <ModalConfirm
+          disabled={
+            requestingZeroRisk ||
+            updatingVuln ||
+            deletingTag ||
+            isRunning ||
+            (isEditPristine && isTreatmentPristine)
+          }
+          onCancel={handleCloseModal}
+          onConfirm={submitForm}
+          txtCancel={t("group.findings.report.modalClose")}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };

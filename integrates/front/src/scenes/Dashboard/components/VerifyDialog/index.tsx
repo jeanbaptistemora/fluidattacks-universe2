@@ -15,8 +15,7 @@ import type {
   IVerifyStakeholderResultAttr,
 } from "./types";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { BaseStep, Tour } from "components/Tour";
 import { Col100, ControlLabel, Row } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
@@ -147,15 +146,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
               </Col100>
             </Row>
             <br />
-            <ModalFooter>
-              <Button
-                id={"verifymodal-proceed"}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("verifyDialog.verify")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm txtConfirm={t("verifyDialog.verify")} />
           </Form>
         </Formik>
       </Modal>
