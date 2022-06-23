@@ -1,8 +1,12 @@
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+    StakeholderTours,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -11,9 +15,9 @@ from typing import (
 
 
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: None
-) -> Dict[str, bool]:
+    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+) -> StakeholderTours:
     user_email = str(parent["user_email"])
-    data: dict = await stakeholders_domain.get_by_email(user_email)
-
-    return data["tours"]
+    loaders: Dataloaders = info.context.loaders
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    return stakeholder.tours

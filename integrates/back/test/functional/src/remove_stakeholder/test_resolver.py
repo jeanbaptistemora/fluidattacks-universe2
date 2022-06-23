@@ -98,7 +98,10 @@ async def test_remove_stakeholder(
     )
     assert "errors" in result_me_query
     assert "errors" in result_stakeholder_query
-    assert result_me_query["errors"][0]["message"] == "Access denied"
+    assert (
+        result_me_query["errors"][0]["message"]
+        == "Access denied or stakeholder not found"
+    )
     assert (
         result_stakeholder_query["errors"][0]["message"]
         == "Access denied or stakeholder not found"
