@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,import-error
 """
 This migration aims to add upload_date to evidence files when missing,
 taking it from LastModified
