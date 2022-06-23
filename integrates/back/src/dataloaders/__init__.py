@@ -1,8 +1,3 @@
-from .event import (
-    EventLoader,
-    EventsHistoricStateTypedLoader,
-    GroupEventsTypedLoader,
-)
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
@@ -27,6 +22,11 @@ from db_model.credentials.get import (
 )
 from db_model.enrollment.get import (
     EnrollmentLoader,
+)
+from db_model.events.get import (
+    EventLoader,
+    EventsHistoricStateLoader,
+    GroupEventsLoader,
 )
 from db_model.findings.get import (
     FindingHistoricStateLoader,
@@ -101,7 +101,7 @@ class Dataloaders(NamedTuple):
     credential_new: CredentialNewLoader
     enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
-    event_historic_state: EventsHistoricStateTypedLoader
+    event_historic_state: EventsHistoricStateLoader
     event: EventLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
@@ -125,7 +125,7 @@ class Dataloaders(NamedTuple):
     group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
-    group_events: GroupEventsTypedLoader
+    group_events: GroupEventsLoader
     group_findings: GroupFindingsLoader
     group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
@@ -201,7 +201,7 @@ def get_new_context() -> Dataloaders:
         credential_new=CredentialNewLoader(),
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
-        event_historic_state=EventsHistoricStateTypedLoader(),
+        event_historic_state=EventsHistoricStateLoader(),
         event=EventLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
@@ -225,7 +225,7 @@ def get_new_context() -> Dataloaders:
         group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
-        group_events=GroupEventsTypedLoader(),
+        group_events=GroupEventsLoader(),
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),

@@ -12,7 +12,6 @@ from context import (
 )
 from custom_exceptions import (
     EventAlreadyClosed,
-    EventNotFound,
     InvalidCommentParent,
     InvalidDate,
     InvalidFileSize,
@@ -29,6 +28,7 @@ from datetime import (
     datetime,
 )
 from db_model import (
+    events as events_model,
     findings as findings_model,
 )
 from db_model.events.enums import (
@@ -65,9 +65,6 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
-from events import (
-    dal as events_dal,
-)
 from findings import (
     domain as findings_domain,
 )
@@ -80,7 +77,6 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    events as events_utils,
     files as files_utils,
     token as token_utils,
     validations,
@@ -106,7 +102,6 @@ from time import (
 )
 from typing import (
     Any,
-    cast,
     Optional,
     Union,
 )
@@ -222,8 +217,8 @@ async def add_event(
         ),
         type=EventType[kwargs["event_type"]],
     )
-    await events_dal.add_typed(event=event)
-    await events_dal.update_state(
+    await events_model.add(event=event)
+    await events_model.update_state(
         event_id=event.id,
         group_name=group_name,
         state=EventState(
@@ -257,20 +252,6 @@ async def add_event(
     )
 
     return AddEventPayload(event.id, True)
-
-
-async def get_event(event_id: str) -> dict[str, Any]:
-    event = await events_dal.get_event(event_id)
-    if not event:
-        raise EventNotFound()
-    return events_utils.format_data(event)
-
-
-async def get_events(event_ids: list[str]) -> list[dict[str, Any]]:
-    return cast(
-        list[dict[str, Any]],
-        await collect(get_event(event_id) for event_id in event_ids),
-    )
 
 
 async def get_unsolved_events(loaders: Any, group_name: str) -> list[Event]:
@@ -310,7 +291,7 @@ async def mask(loaders: Any, event_id: str) -> bool:
     ]
 
     mask_events_coroutines_none = [
-        events_dal.update_metadata(
+        events_model.update_metadata(
             event_id=event_id,
             group_name=group_name,
             metadata=EventMetadataToUpdate(
@@ -342,7 +323,7 @@ async def remove_evidence(
     elif event.evidences.file:
         full_name = f"{group_name}/{event_id}/{event.evidences.file.file_name}"
     await s3_ops.remove_file(FI_AWS_S3_BUCKET, full_name)
-    await events_dal.update_evidence(
+    await events_model.update_evidence(
         event_id=event_id,
         group_name=group_name,
         evidence_info=None,
@@ -415,7 +396,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
                 is_closing_event=True,
             )
 
-    await events_dal.update_state(
+    await events_model.update_state(
         event_id=event_id,
         group_name=group_name,
         state=EventState(
@@ -426,7 +407,7 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
             status=EventStateStatus.CLOSED,
         ),
     )
-    await events_dal.update_state(
+    await events_model.update_state(
         event_id=event_id,
         group_name=group_name,
         state=EventState(
@@ -490,7 +471,7 @@ async def update_evidence(
     validations.validate_sanitized_csv_input(file.filename, file.content_type)
 
     await save_evidence(file, full_name)
-    await events_dal.update_evidence(
+    await events_model.update_evidence(
         event_id=event_id,
         group_name=group_name,
         evidence_info=EventEvidence(

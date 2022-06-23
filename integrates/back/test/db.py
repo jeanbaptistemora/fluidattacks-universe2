@@ -15,6 +15,7 @@ from dataloaders import (
 )
 from db_model import (
     credentials as creds_model,
+    events as events_model,
     findings as findings_model,
     groups as groups_model,
     organizations as orgs_model,
@@ -53,9 +54,6 @@ from db_model.toe_lines.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
-)
-from events import (
-    dal as dal_event,
 )
 from forces import (
     dal as dal_forces,
@@ -371,14 +369,14 @@ async def _populate_event_historic_state(data: Dict[str, Any]) -> None:
     event: Event = data["event"]
     historic = data.get("historic_state", [])
     for state in historic:
-        await dal_event.update_state(
+        await events_model.update_state(
             event_id=event.id, group_name=event.group_name, state=state
         )
 
 
 async def populate_events(data: List[Any]) -> bool:
     await collect(
-        dal_event.add_typed(
+        events_model.add(
             event=item["event"],
         )
         for item in data
