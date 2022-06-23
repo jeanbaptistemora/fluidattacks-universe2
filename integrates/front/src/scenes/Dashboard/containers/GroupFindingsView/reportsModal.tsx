@@ -174,8 +174,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                         <Button
                           id={"customize-report"}
                           onClick={openFilterReportModal}
-                          // eslint-disable-next-line react/forbid-component-props
-                          style={{ borderLeft: "0", marginLeft: "0" }}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faSlidersH} />
