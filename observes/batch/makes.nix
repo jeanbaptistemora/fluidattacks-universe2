@@ -86,6 +86,7 @@ in {
     observesCodeEtlMirror =
       sharedConfiguration
       // {
+        queue = "clone";
         attemptDurationSeconds = 7200;
         command = ["m" "f" "/observes/etl/code/mirror"];
       };
