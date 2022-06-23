@@ -64,12 +64,13 @@ closure:
   pytz: "2020.1"
   pyyaml: "6.0"
   requests: 2.25.1
+  requirements-parser: 0.5.0
   rsa: "4.8"
   ruamel.yaml: 0.17.4
   ruamel.yaml.clib: 0.2.2
   s3transfer: 0.5.2
   semver: 2.13.0
-  setuptools-scm: 6.4.2
+  setuptools-scm: 7.0.2
   simplegeneric: 0.8.1
   six: 1.16.0
   smmap: 5.0.0
@@ -78,6 +79,7 @@ closure:
   tomli: 2.0.1
   traitlets: 5.3.0
   tree-sitter: 0.19.0
+  types-setuptools: 57.4.17
   typing-extensions: 4.2.0
   unidiff: 0.6.0
   urllib3: 1.26.9
@@ -592,6 +594,12 @@ links:
   - name: requests-2.25.1.tar.gz
     sha256: 015qflyqsgsz09gnar69s6ga74ivq5kch69s4qxz3904m7a3v5r7
     url: https://files.pythonhosted.org/packages/6b/47/c14abc08432ab22dc18b9892252efaf005ab44066de871e72a38d6af464b/requests-2.25.1.tar.gz
+  - name: requirements_parser-0.5.0-py3-none-any.whl
+    sha256: 1ndw29xy3164fjnbwz2ziw8f876mz6hdhl5ikwxffj909z8drz77
+    url: https://files.pythonhosted.org/packages/f8/89/612e3b326d87780dc1daf39af7696634f969838213cddae4f553f75d04ae/requirements_parser-0.5.0-py3-none-any.whl
+  - name: requirements-parser-0.5.0.tar.gz
+    sha256: 0sa0j0dcmlp56zv8g1v8j7gklvira905wnc81wznvq13msiz6dik
+    url: https://files.pythonhosted.org/packages/c2/f9/76106e710015f0f8da37bff8db378ced99ae2553cc4b1cffb0aef87dc4ac/requirements-parser-0.5.0.tar.gz
   - name: rsa-4.8-py3-none-any.whl
     sha256: 1fshd62fvf7f8cia5hrwcpypi565csjqnhlcf1lywyg8qh0d7icm
     url: https://files.pythonhosted.org/packages/30/ab/8fd9e88e6fa5ec41afca995938bbefb72195278e0cfc5bd76a4f29b23fb2/rsa-4.8-py3-none-any.whl
@@ -628,12 +636,12 @@ links:
   - name: semver-2.13.0.tar.gz
     sha256: 0gsyyzvhz60c03wvsk16z1564bxflp1j1227mizgbhz15rrf43zs
     url: https://files.pythonhosted.org/packages/31/a9/b61190916030ee9af83de342e101f192bbb436c59be20a4cb0cdb7256ece/semver-2.13.0.tar.gz
-  - name: setuptools_scm-6.4.2-py3-none-any.whl
-    sha256: 1m7nvndi74vsxzlwwl1lg1kp1plbzghzj6mirkkrv14ka0ji7smc
-    url: https://files.pythonhosted.org/packages/e3/e5/c28b544051340e63e0d507eb893c9513d3a300e5e9183e2990518acbfe36/setuptools_scm-6.4.2-py3-none-any.whl
-  - name: setuptools_scm-6.4.2.tar.gz
-    sha256: 0c4yb852izvf5z0z8m8f799pr86g4j06y9njsnj135zdqrjsqcv8
-    url: https://files.pythonhosted.org/packages/4a/18/477d3d9eb2f88230ff2a41de9d8ffa3554b706352787d289f57f76bfba0b/setuptools_scm-6.4.2.tar.gz
+  - name: setuptools_scm-7.0.2-py3-none-any.whl
+    sha256: 1vssjh45awzkjdf58gh6sp3xy011bc54hrwn6ix5qy3s0achq4pc
+    url: https://files.pythonhosted.org/packages/1a/dd/b83708410d912a56e6aa1f78ac1135465eb6a5cfe494628ae24e7dc5922f/setuptools_scm-7.0.2-py3-none-any.whl
+  - name: setuptools_scm-7.0.2.tar.gz
+    sha256: 00iwwl1pkfcc1xwv5j3c7zmn5p38qawr6bagw745wgplhalbmbsk
+    url: https://files.pythonhosted.org/packages/43/70/aff5e3c2463b08997e21f5f961d6ebfd32ce56d6026394664d6a10090cbb/setuptools_scm-7.0.2.tar.gz
   - name: simplegeneric-0.8.1.zip
     sha256: 0wwi1c6md4vkbcsfsf8dklf3vr4mcdj4mpxkanwgb6jb1432x5yw
     url: https://files.pythonhosted.org/packages/3d/57/4d9c9e3ae9a255cd4e1106bb57e24056d3d0709fc01b2e3e345898e49d5b/simplegeneric-0.8.1.zip
@@ -676,6 +684,12 @@ links:
   - name: tree_sitter-0.19.0.tar.gz
     sha256: 169lsdnrwx0sbg009wc1ifz3lbrz82y28cdrz1sxszwmkzrzq6l6
     url: https://files.pythonhosted.org/packages/ac/46/da153b968bf088a8c1656e8e17cf2b8ac5ca5ca16bfe6bf2381fe1db2ca0/tree_sitter-0.19.0.tar.gz
+  - name: types_setuptools-57.4.17-py3-none-any.whl
+    sha256: 09psixwlxzl9x4w44i5z3nzjlirlskibs0viq55f44sispqdlz4w
+    url: https://files.pythonhosted.org/packages/58/68/dda470233bc56db72b51fb20de9ead5faa138595debbc861256ec20740b6/types_setuptools-57.4.17-py3-none-any.whl
+  - name: types-setuptools-57.4.17.tar.gz
+    sha256: 05kv1d7bm3kk7491x0bmm19027x60xf1x95askm1r2l0yv56ymcx
+    url: https://files.pythonhosted.org/packages/ba/97/1e6f2106412d038b2ca4b18bd652a15a50096c6829345d9d0076ad9555a5/types-setuptools-57.4.17.tar.gz
   - name: typing_extensions-4.2.0-py3-none-any.whl
     sha256: 020pgkh5ay36plypaksgcgmyfx58a9cc0mbxyqchs5wpw975jmv6
     url: https://files.pythonhosted.org/packages/75/e1/932e06004039dd670c9d5e1df0cd606bf46e29a28e65d5bb28e894ea29c9/typing_extensions-4.2.0-py3-none-any.whl
