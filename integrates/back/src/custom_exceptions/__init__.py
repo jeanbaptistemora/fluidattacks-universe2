@@ -1510,3 +1510,9 @@ class StakeholderIsNotCredentialsOwner(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Stakeholder is not the credentials owner"
         super(StakeholderIsNotCredentialsOwner, self).__init__(msg)
+
+
+class InvalidBase64Field(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The field must be in base64"
+        super(InvalidBase64Field, self).__init__(msg)

@@ -1,8 +1,11 @@
+import base64
+import binascii
 import bleach  # type: ignore
 from custom_exceptions import (
     DuplicateDraftFound,
     ErrorFileNameAlreadyExists,
     IncompleteSeverity,
+    InvalidBase64Field,
     InvalidChar,
     InvalidCommitHash,
     InvalidCvssVersion,
@@ -349,3 +352,10 @@ def validate_int_range(
     if not lower_bound < value < upper_bound:
         raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
     return True
+
+
+def validate_base64(value: str) -> None:
+    try:
+        base64.b64decode(value, validate=True)
+    except binascii.Error as exp:
+        raise InvalidBase64Field() from exp
