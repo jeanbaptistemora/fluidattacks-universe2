@@ -1076,7 +1076,7 @@ const redirectMap = new Map([
   ["/solutions/security-testing/partners/choucair/", homeURL],
   ["/solutions/security-testing/about-us/people/dcardona/", homeURL],
   ["/partners/gamma-ingenieros/", homeURL],
-  ["/blog/what-is-devsecops/", "https://fluidattacks.com/blog/devsecops-concept/"]
+  ["/blog/what-is-devsecops", "https://fluidattacks.com/blog/devsecops-concept/"]
 ]);
 
 addEventListener('fetch', event => {
