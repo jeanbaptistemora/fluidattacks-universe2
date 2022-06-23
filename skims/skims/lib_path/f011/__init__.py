@@ -16,6 +16,9 @@ from lib_path.f011.nuget import (
     nuget_csproj,
     nuget_pkgs_config,
 )
+from lib_path.f011.pip import (
+    pip_requirements_txt,
+)
 from model.core_model import (
     Vulnerabilities,
 )
@@ -68,6 +71,11 @@ def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
     )
 
 
+@SHIELD_BLOCKING
+def run_pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
+    return pip_requirements_txt(content=content, path=path)
+
+
 def _is_pom_xml(content: str) -> bool:
     root = bs4.BeautifulSoup(content, features="html.parser")
     if root.project:
@@ -81,7 +89,7 @@ def _is_pom_xml(content: str) -> bool:
 
 
 @SHIELD_BLOCKING
-def analyze(
+def analyze(  # noqa: MC0001
     content_generator: Callable[[], str],
     file_name: str,
     file_extension: str,
@@ -114,5 +122,8 @@ def analyze(
 
     if (file_name, file_extension) == ("package-lock", "json"):
         return (run_npm_package_lock_json(content_generator(), path),)
+
+    if (file_name, file_extension) == ("requirements", "txt"):
+        return (run_pip_requirements_txt(content_generator(), path),)
 
     return ()
