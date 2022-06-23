@@ -593,6 +593,16 @@ enum VulnerabilityState {
   OPEN
 }
 
+"Vulnerability verification"
+enum VulnerabilityVerification {
+  "On hold"
+  ON_HOLD
+  "Requested"
+  REQUESTED
+  "Verified"
+  VERIFIED
+}
+
 "Vulnerability exploit state"
 enum VulnerabilityExploitState {
   "Accepted"
