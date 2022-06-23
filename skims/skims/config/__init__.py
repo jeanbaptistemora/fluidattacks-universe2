@@ -41,6 +41,18 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                     },
                 ),
                 "checks": confuse.Sequence(confuse.String()),
+                "dast": confuse.Template(
+                    {
+                        "aws_credentials": confuse.Sequence(
+                            confuse.Template(
+                                {
+                                    "access_key_id": confuse.String(),
+                                    "secret_access_key": confuse.String(),
+                                }
+                            )
+                        )
+                    }
+                ),
                 "http": confuse.Template(
                     {
                         "include": confuse.Sequence(confuse.String()),
@@ -77,6 +89,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
         config_http = config.pop("http", {})
         config_path = config.pop("path", {})
         config_ssl = config.pop("ssl", {})
+        config_dast = config.pop("dast", {})
 
         if output := config.pop("output", None):
             output = os.path.abspath(output)
@@ -87,7 +100,15 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 include=config_apk.pop("include", ()),
             ),
             checks=load_checks(config),
-            dast=None,
+            dast=core_model.SkimsDastConfig(
+                aws_credentials=[
+                    core_model.AwsCredentials(
+                        access_key_id=cred["access_key_id"],
+                        secret_access_key=cred["secret_access_key"],
+                    )
+                    for cred in config_dast.get("aws_credentials", [])
+                ]
+            ),
             group=group,
             http=core_model.SkimsHttpConfig(
                 include=config_http.pop("include", ()),
