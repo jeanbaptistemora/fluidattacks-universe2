@@ -18,9 +18,8 @@ import {
   handleUpdateError,
 } from "./helpers";
 
-import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
@@ -203,7 +202,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 ...BaseStep,
                 content: t("tours.addGroup.proceedButton"),
                 spotlightClicks: true,
-                target: "#add-group-proceed",
+                target: "#add-group-confirm",
               },
             ];
 
@@ -482,23 +481,11 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     `${" *"} ${t(
                       "organization.tabs.groups.newGroup.extraChargesMayApply"
                     )}`}
-                  <ModalFooter>
-                    <Button
-                      id={"add-group-cancel"}
-                      onClick={onClose}
-                      variant={"secondary"}
-                    >
-                      {t("confirmmodal.cancel")}
-                    </Button>
-                    <Button
-                      disabled={!dirty || submitting}
-                      id={"add-group-proceed"}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {t("confirmmodal.proceed")}
-                    </Button>
-                  </ModalFooter>
+                  <ModalConfirm
+                    disabled={!dirty || submitting}
+                    id={"add-group-confirm"}
+                    onCancel={onClose}
+                  />
                 </Form>
                 <Tour onFinish={finishTour} run={runTour} steps={steps} />
               </React.Fragment>

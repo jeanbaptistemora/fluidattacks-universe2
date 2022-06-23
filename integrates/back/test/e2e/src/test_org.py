@@ -142,7 +142,7 @@ def test_org_groups(
     description.send_keys(group_description)
     proceed = utils.wait_for_id(
         driver,
-        "add-group-proceed",
+        "add-group-confirm",
         timeout,
     )
     proceed.click()

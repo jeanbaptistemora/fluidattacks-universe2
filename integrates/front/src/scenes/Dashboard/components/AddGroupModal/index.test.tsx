@@ -30,10 +30,10 @@ describe("AddGroupModal component", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.cancel")).toBeInTheDocument();
+      expect(screen.queryByText("components.modal.cancel")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.cancel"));
+    userEvent.click(screen.getByText("components.modal.cancel"));
 
     expect(handleOnClose.mock.calls).toHaveLength(1);
   });
@@ -71,6 +71,6 @@ describe("AddGroupModal component", (): void => {
     expect(screen.queryAllByRole("checkbox", { checked: true })).toHaveLength(
       1
     );
-    expect(screen.getByText("confirmmodal.proceed")).toBeInTheDocument();
+    expect(screen.getByText("components.modal.confirm")).toBeInTheDocument();
   });
 });

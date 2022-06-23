@@ -335,7 +335,7 @@ describe("Organization groups view", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
 
     userEvent.type(screen.getByRole("textbox", { name: "name" }), "AKAME");
     userEvent.type(
@@ -347,10 +347,10 @@ describe("Organization groups view", (): void => {
     ]);
 
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor(
       (): void => {
