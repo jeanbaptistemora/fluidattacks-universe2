@@ -19,8 +19,12 @@ const Preloader: React.FC<IPreloaderProps> = ({
   // eslint-disable-next-line react/forbid-component-props
   <View style={styles.container}>
     {visible ? (
-      // eslint-disable-next-line react/forbid-component-props
-      <Image source={loadingGif} style={styles.loadingGif} />
+      <Image
+        source={loadingGif}
+        // eslint-disable-next-line react/forbid-component-props
+        style={styles.loadingGif}
+        testID={"preloader"}
+      />
     ) : undefined}
   </View>
 );
