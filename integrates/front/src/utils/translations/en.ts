@@ -1766,7 +1766,8 @@ export const enTranslations: ResourceKey = {
     credentialsModal: {
       add: "Add",
       alerts: {
-        additionSuccess: "Credentials has been added.",
+        addSuccess: "Credentials has been added.",
+        removeSuccess: "Credentials has been removed.",
       },
       cancel: "Cancel",
       form: {

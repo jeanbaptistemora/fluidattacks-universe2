@@ -13,6 +13,7 @@ import {
   ADD_CREDENTIALS,
   GET_STAKEHOLDER_CREDENTIALS,
   GET_STAKEHOLDER_ORGANIZATIONS,
+  REMOVE_CREDENTIALS,
 } from "./queries";
 import type {
   IAddCredentialsResultAttr,
@@ -20,6 +21,7 @@ import type {
   ICredentialData,
   ICredentialModalProps,
   IOrganizationAttr,
+  IRemoveCredentialsResultAttr,
 } from "./types";
 
 import { Modal } from "components/Modal";
@@ -46,7 +48,7 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
       onCompleted: (data: IAddCredentialsResultAttr): void => {
         if (data.addCredentials.success) {
           msgSuccess(
-            t("profile.credentialsModal.alerts.additionSuccess"),
+            t("profile.credentialsModal.alerts.addSuccess"),
             t("groupAlerts.titleSuccess")
           );
         }
@@ -57,6 +59,29 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
             case "Exception - A credential exists with the same name":
               msgError(t("validations.invalidCredentialName"));
               break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred adding credential", error);
+          }
+        });
+      },
+      refetchQueries: [{ query: GET_STAKEHOLDER_CREDENTIALS }],
+    }
+  );
+  const [handleRemoveCredentials] = useMutation<IRemoveCredentialsResultAttr>(
+    REMOVE_CREDENTIALS,
+    {
+      onCompleted: (data: IRemoveCredentialsResultAttr): void => {
+        if (data.removeCredentials.success) {
+          msgSuccess(
+            t("profile.credentialsModal.alerts.removeSuccess"),
+            t("groupAlerts.titleSuccess")
+          );
+        }
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
             default:
               msgError(t("groupAlerts.errorTextsad"));
               Logger.warning("An error occurred adding credential", error);
@@ -92,6 +117,7 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
   const credentials: ICredentialData[] = credentialsAttrs.map(
     (credentialAttr: ICredentialAttr): ICredentialData => ({
       ...credentialAttr,
+      organizationId: credentialAttr.organization.id,
       organizationName: credentialAttr.organization.name,
     })
   );
@@ -143,11 +169,17 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
     setIsAdding(false);
     setIsEditing(false);
   }
-  function handleOnDelete(
-    credential: Record<string, string> | undefined
+  function handleOnRemove(
+    credentialsToRemove: Record<string, string> | undefined
   ): void {
-    // eslint-disable-next-line no-console
-    console.log({ credential });
+    if (!_.isUndefined(credentialsToRemove)) {
+      void handleRemoveCredentials({
+        variables: {
+          credentialsId: credentialsToRemove.id,
+          organizationId: credentialsToRemove.organizationId,
+        },
+      });
+    }
   }
 
   // Table config
@@ -169,7 +201,7 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
     },
     {
       dataField: "id",
-      deleteFunction: handleOnDelete,
+      deleteFunction: handleOnRemove,
       formatter: editAndDeleteActionFormatter,
       header: t("profile.credentialsModal.table.columns.action"),
       width: "60px",
