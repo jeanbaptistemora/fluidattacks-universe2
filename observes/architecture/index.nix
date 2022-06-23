@@ -99,7 +99,7 @@ in {
     redshift_2 =
       new_std "${singerPath}/target-redshift-2"
       // {
-        src = "${singerPath}/target_redshift";
+        src = "${singerPath}/target-redshift-2/target_redshift";
       };
   };
 }

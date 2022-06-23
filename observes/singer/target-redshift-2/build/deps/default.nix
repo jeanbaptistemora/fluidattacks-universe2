@@ -54,8 +54,8 @@
       inherit nixpkgs system;
       purity = _fa_purity;
     };
-    _redshift-client = import ./fa-singer-io {
-      inherit nixpkgs system;
+    _redshift-client = import ./redshift-client {
+      inherit nixpkgs;
       purity = _fa_purity;
     };
   in

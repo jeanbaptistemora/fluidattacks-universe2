@@ -16,6 +16,8 @@ mypy-boto3-s3 = "^1.23.0"
 types-boto3 = "^1.0.2"
 types-click = "^7.1.8"
 types-psycopg2 = "^2.9.9"
+redshift-client = "^0.8.0"
+utils-logger = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

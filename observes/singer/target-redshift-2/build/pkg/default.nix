@@ -16,6 +16,7 @@
     types-boto3
     types-click
     types-psycopg2
+    utils-logger
   ];
   build_deps = with python_pkgs; [poetry-core];
   test_deps = with python_pkgs; [
