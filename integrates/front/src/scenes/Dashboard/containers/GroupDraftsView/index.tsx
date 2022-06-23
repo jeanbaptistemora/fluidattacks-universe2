@@ -13,7 +13,7 @@ import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
@@ -345,18 +345,10 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                   </HintFieldText>
                 </React.Fragment>
               ) : undefined}
-              <ModalFooter>
-                <Button onClick={closeNewDraftModal} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty || !isValid || submitting}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm
+                disabled={!dirty || !isValid || submitting}
+                onCancel={closeNewDraftModal}
+              />
             </Form>
           )}
         </Formik>
