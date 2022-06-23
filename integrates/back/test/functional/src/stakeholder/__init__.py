@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,25 +15,26 @@ async def get_result(
     user: str,
     stakeholder: str,
     group: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = f"""
         query {{
             stakeholder(entity: GROUP,
                     groupName: "{group}",
                     userEmail: "{stakeholder}") {{
                 email
-                role
-                responsibility
                 firstLogin
-                lastLogin
                 groups {{
                     name
                 }}
+                invitationState
+                lastLogin
+                responsibility
+                role
                 __typename
             }}
         }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

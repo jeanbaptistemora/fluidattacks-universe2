@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -23,17 +22,18 @@ from typing import (
 async def test_get_stakeholder(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
         group=group_name,
     )
     assert "errors" not in result
     assert result["data"]["stakeholder"]["email"] == email
-    assert result["data"]["stakeholder"]["role"] == email.split("@")[0]
-    assert result["data"]["stakeholder"]["responsibility"] == ""
     assert result["data"]["stakeholder"]["firstLogin"] == ""
+    assert result["data"]["stakeholder"]["invitationState"] is None
     assert result["data"]["stakeholder"]["lastLogin"] == ""
+    assert result["data"]["stakeholder"]["responsibility"] == ""
+    assert result["data"]["stakeholder"]["role"] == email.split("@")[0]
 
 
 @pytest.mark.asyncio
@@ -50,7 +50,7 @@ async def test_get_stakeholder(populate: bool, email: str) -> None:
 async def test_get_stakeholder_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=email,
         group=group_name,

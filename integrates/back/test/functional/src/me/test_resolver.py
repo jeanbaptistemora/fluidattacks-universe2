@@ -136,6 +136,7 @@ async def test_get_me(
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert not result["data"]["me"]["hasMobileApp"]
     assert not result["data"]["me"]["isConcurrentSession"]
+    assert len(result["data"]["me"]["notificationsPreferences"]["email"]) == 19
     assert result["data"]["me"]["organizations"][0]["name"] == org_name
     assert (
         len(result["data"]["me"]["organizations"][0]["groups"])
@@ -147,6 +148,12 @@ async def test_get_me(
     assert result["data"]["me"]["role"] == role
     assert result["data"]["me"]["subscriptionsToEntityReport"] == []
     assert result["data"]["me"]["tags"] == []
+    assert result["data"]["me"]["tours"] == {
+        "newGroup": False,
+        "newRoot": False,
+    }
+    assert result["data"]["me"]["userEmail"] == email
+    assert result["data"]["me"]["userName"] == "unit test"
     assert result["data"]["me"]["__typename"] == "Me"
 
 

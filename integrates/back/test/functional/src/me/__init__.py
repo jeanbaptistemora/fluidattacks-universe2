@@ -21,6 +21,9 @@ async def get_result(
             callerOrigin
             hasMobileApp
             isConcurrentSession
+            notificationsPreferences{{
+                email
+            }}
             organizations {{
                 name
                 groups {{
@@ -49,6 +52,15 @@ async def get_result(
                 groups {{
                     name
                 }}
+            }}
+            tours{{
+                newGroup
+                newRoot
+            }}
+            userEmail
+            userName
+            vulnerabilitiesAssigned{{
+                id
             }}
             __typename
         }}
