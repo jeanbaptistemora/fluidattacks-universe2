@@ -12,6 +12,7 @@ from custom_exceptions import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from decorators import (
     retry_on_exceptions,
@@ -59,6 +60,7 @@ async def get_report(
     report_type: str,
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
+    verifications: set[VulnerabilityVerificationStatus],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -68,6 +70,7 @@ async def get_report(
             user_email=item.subject,
             treatments=treatments,
             states=states,
+            verifications=verifications,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -136,13 +139,17 @@ async def report(*, item: BatchProcessing) -> None:
         for treatment in additional_info["treatments"]
     }
     states = {
-        VulnerabilityStateStatus[state]
-        for state in additional_info.get(
-            "states",
+        VulnerabilityStateStatus[state] for state in additional_info["states"]
+    }
+    verifications = {
+        VulnerabilityVerificationStatus[verification]
+        for verification in additional_info.get(
+            "verifications",
             set(
                 [
-                    VulnerabilityStateStatus["CLOSED"],
-                    VulnerabilityStateStatus["OPEN"],
+                    VulnerabilityVerificationStatus["ON_HOLD"],
+                    VulnerabilityVerificationStatus["REQUESTED"],
+                    VulnerabilityVerificationStatus["VERIFIED"],
                 ]
             ),
         )
@@ -152,6 +159,7 @@ async def report(*, item: BatchProcessing) -> None:
         report_type=report_type,
         treatments=treatments,
         states=states,
+        verifications=verifications,
     )
     if report_url:
         await send_report(

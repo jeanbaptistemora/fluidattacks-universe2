@@ -13,6 +13,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from magic import (
     Magic,
@@ -107,7 +108,7 @@ async def _append_xls_report(
     group_name: str,
 ) -> None:
     report_filename = await technical_report.generate_xls_file(
-        loaders,
+        loaders=loaders,
         findings_ord=findings_ord,
         group_name=group_name,
         treatments=set(VulnerabilityTreatmentStatus),
@@ -115,6 +116,13 @@ async def _append_xls_report(
             [
                 VulnerabilityStateStatus["CLOSED"],
                 VulnerabilityStateStatus["OPEN"],
+            ]
+        ),
+        verifications=set(
+            [
+                VulnerabilityVerificationStatus["ON_HOLD"],
+                VulnerabilityVerificationStatus["REQUESTED"],
+                VulnerabilityVerificationStatus["VERIFIED"],
             ]
         ),
     )

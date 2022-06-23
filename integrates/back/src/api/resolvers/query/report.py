@@ -29,6 +29,7 @@ from db_model.stakeholders.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from decorators import (
     enforce_group_level_auth_async,
@@ -65,6 +66,7 @@ def _filter_unique_report(
     new_type: str,
     new_treatments: set[VulnerabilityTreatmentStatus],
     new_states: set[VulnerabilityStateStatus],
+    new_verifications: set[VulnerabilityVerificationStatus],
 ) -> bool:
     additional_info: dict[str, Any] = json.loads(old_additional_info)
     if new_type == "XLS":
@@ -74,6 +76,8 @@ def _filter_unique_report(
             == list(sorted(additional_info.get("treatments", [])))
             and list(sorted(new_states))
             == list(sorted(additional_info.get("states", [])))
+            and list(sorted(new_verifications))
+            == list(sorted(additional_info.get("verifications", [])))
         )
 
     return new_type == additional_info.get("report_type")
@@ -87,6 +91,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
     group_name: str,
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
+    verifications: set[VulnerabilityVerificationStatus],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -97,7 +102,11 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
         filter(
             lambda x: x.subject.lower() == user_email.lower()
             and _filter_unique_report(
-                x.additional_info, report_type, treatments, states
+                x.additional_info,
+                report_type,
+                treatments,
+                states,
+                verifications,
             ),
             existing_actions,
         )
@@ -119,6 +128,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
             "report_type": report_type,
             "treatments": list(sorted(treatments)),
             "states": list(sorted(states)),
+            "verifications": list(sorted(verifications)),
         }
     )
 
@@ -194,6 +204,20 @@ async def resolve(
         if kwargs.get("treatments")
         else set(VulnerabilityTreatmentStatus)
     )
+    verifications: set[VulnerabilityVerificationStatus] = (
+        {
+            VulnerabilityVerificationStatus[verification]
+            for verification in kwargs["verifications"]
+        }
+        if kwargs.get("verifications")
+        else set(
+            [
+                VulnerabilityVerificationStatus["ON_HOLD"],
+                VulnerabilityVerificationStatus["REQUESTED"],
+                VulnerabilityVerificationStatus["VERIFIED"],
+            ]
+        )
+    )
 
     return {
         "success": await _get_url_group_report(
@@ -203,6 +227,7 @@ async def resolve(
             group_name=group_name,
             treatments=treatments,
             states=states,
+            verifications=verifications,
             verification_code=verification_code,
         )
     }

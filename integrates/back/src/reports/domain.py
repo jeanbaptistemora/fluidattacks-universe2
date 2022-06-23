@@ -16,6 +16,7 @@ from db_model.groups.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from findings import (
     domain as findings_domain,
@@ -33,6 +34,7 @@ async def get_group_report_url(
     user_email: str,
     treatments: set[VulnerabilityTreatmentStatus],
     states: set[VulnerabilityStateStatus],
+    verifications: set[VulnerabilityVerificationStatus],
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -52,11 +54,12 @@ async def get_group_report_url(
 
     if report_type == "XLS":
         return await technical_report.generate_xls_file(
-            loaders,
+            loaders=loaders,
             findings_ord=findings_ord,
             group_name=group_name,
             treatments=treatments,
             states=states,
+            verifications=verifications,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(

@@ -102,6 +102,7 @@ class ITReport:
         group_name: str,
         states: set[VulnerabilityStateStatus],
         treatments: set[VulnerabilityTreatmentStatus],
+        verifications: set[VulnerabilityVerificationStatus],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -110,6 +111,19 @@ class ITReport:
         self.group_name = group_name
         self.treatments = treatments
         self.states = states
+        self.verifications = verifications
+        self.are_all_treatments = len(sorted(treatments)) == len(
+            sorted(set(VulnerabilityTreatmentStatus))
+        )
+        self.are_all_verifications = len(sorted(verifications)) >= len(
+            sorted(
+                [
+                    VulnerabilityVerificationStatus["ON_HOLD"],
+                    VulnerabilityVerificationStatus["REQUESTED"],
+                    VulnerabilityVerificationStatus["VERIFIED"],
+                ]
+            )
+        )
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -158,10 +172,23 @@ class ITReport:
             vulnerability
             for vulnerability in findings_vulnerabilities
             if (
-                vulnerability.treatment
-                and vulnerability.treatment.status in self.treatments
+                (
+                    vulnerability.treatment
+                    and vulnerability.treatment.status in self.treatments
+                )
+                or (not vulnerability.treatment and self.are_all_treatments)
             )
             and vulnerability.state.status in self.states
+            and (
+                (
+                    vulnerability.verification
+                    and vulnerability.verification.status in self.verifications
+                )
+                or (
+                    not vulnerability.verification
+                    and self.are_all_verifications
+                )
+            )
         )
 
         vulnerabilities_historics: tuple[

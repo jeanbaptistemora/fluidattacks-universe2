@@ -105,6 +105,8 @@ type Query {
     states: [VulnerabilityState!]
     "Treatments to include"
     treatments: [VulnerabilityTreatment!]
+    "Verification states to include"
+    verifications: [VulnerabilityVerification!]
     "OTP code to verify the stakeholder"
     verificationCode: String!
   ): Report

@@ -14,6 +14,7 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
+    VulnerabilityVerificationStatus,
 )
 from findings import (
     storage as findings_storage,
@@ -163,11 +164,13 @@ async def generate_pdf_file(
 
 
 async def generate_xls_file(
+    *,
     loaders: Dataloaders,
     findings_ord: Tuple[Finding, ...],
     group_name: str,
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
+    verifications: set[VulnerabilityVerificationStatus],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -175,6 +178,7 @@ async def generate_xls_file(
         treatments=treatments,
         states=states,
         loaders=loaders,
+        verifications=verifications,
     )
     await it_report.create()
     filepath = it_report.result_filename
