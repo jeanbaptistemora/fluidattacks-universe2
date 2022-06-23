@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 22, 2022, 03:03 PM",
+    "DateLastModified": "Jun 23, 2022, 04:28 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -31,7 +31,7 @@
           "AttributeType": "SS"
         },
         {
-          "AttributeName": "registered_date",
+          "AttributeName": "registration_date",
           "AttributeType": "S"
         },
         {
@@ -849,6 +849,30 @@
         {
           "AttributeName": "trial",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "first_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "last_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "is_concurrent_session",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "phone",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "is_registered",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "tours",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -884,14 +908,11 @@
                   "ExponentPushToken[123]"
                 ]
               },
-              "registered_date": {
+              "registration_date": {
                 "S": "2020-06-10 08:00:26"
               },
               "last_login_date": {
                 "S": "2021-02-12 17:36:42"
-              },
-              "name": {
-                "S": "Test user"
               },
               "legal_remember": {
                 "BOOL": false
@@ -1664,13 +1685,20 @@
           ],
           "NonKeyAttributes": [
             "access_token",
-            "push_tokens",
-            "registered_date",
-            "last_login_date",
-            "name",
-            "legal_remember",
             "email",
-            "notifications_preferences"
+            "first_name",
+            "is_concurrent_session",
+            "is_registered",
+            "notifications_preferences",
+            "last_login_date",
+            "last_name",
+            "legal_remember",
+            "phone",
+            "pk_2",
+            "push_tokens",
+            "registration_date",
+            "sk_2",
+            "tours"
           ]
         },
         {
