@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.common import (
 )
 from syntax_graph.syntax_readers.java import (
     class_body as java_class_body,
+    method_invocation as java_method_invocation,
     parameter_list as java_parameter_list,
     program as java_program,
     variable_declaration as java_variable_declaration,
@@ -120,6 +121,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "method_declaration",
         },
         syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "method_invocation",
+        },
+        syntax_reader=java_method_invocation.reader,
     ),
     Dispatcher(
         applicable_types={
