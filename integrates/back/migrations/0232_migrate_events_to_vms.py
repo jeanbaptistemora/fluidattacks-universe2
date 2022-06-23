@@ -10,6 +10,10 @@ from aioextensions import (
     collect,
     run,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -30,6 +34,9 @@ from dynamodb import (
 )
 from dynamodb.types import (
     Item,
+)
+from groups import (
+    domain as groups_domain,
 )
 import logging
 import logging.config
@@ -94,7 +101,10 @@ async def update_historic_state(
     await operations.batch_put_item(items=new_items, table=TABLE)
 
 
-async def process_event(item: Item) -> None:
+async def process_event(loaders: Dataloaders, item: Item) -> None:
+    if not await groups_domain.exists(loaders, item["project_name"]):
+        return
+
     event: Event = events_utils.format_event(item)
     historic_state = adjust_historic_dates(
         events_utils.format_historic_state(item)
@@ -104,6 +114,7 @@ async def process_event(item: Item) -> None:
 
 
 async def main() -> None:
+    loaders: Dataloaders = get_new_context()
     events_scanned: list[Item] = await ops_legacy.scan(
         table=EVENTS_TABLE, scan_attrs={}
     )
@@ -111,7 +122,10 @@ async def main() -> None:
         "All events", extra={"extra": {"scanned": len(events_scanned)}}
     )
 
-    await collect(process_event(item) for item in events_scanned)
+    await collect(
+        tuple(process_event(loaders, item) for item in events_scanned),
+        workers=8,
+    )
 
 
 if __name__ == "__main__":

@@ -73,6 +73,10 @@ def format_event(item: Item) -> Event:
             modified_by=item["state"]["modified_by"],
             modified_date=item["state"]["modified_date"],
             status=EventStateStatus[item["state"]["status"]],
+            other=item["state"].get("other"),
+            reason=EventSolutionReason[item["state"]["reason"]]
+            if item["state"].get("reason")
+            else None,
         ),
         type=EventType[item["type"]],
     )

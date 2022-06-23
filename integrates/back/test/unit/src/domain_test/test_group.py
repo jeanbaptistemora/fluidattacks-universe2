@@ -426,18 +426,18 @@ async def test_add_comment() -> None:
 async def test_list_events() -> None:
     group_name = "unittesting"
     expected_output = [
-        "540462628",
-        "538745942",
+        "418900971",
         "463578352",
         "484763304",
+        "538745942",
+        "540462628",
         "540462638",
-        "418900971",
     ]
     loaders: Dataloaders = get_new_context()
     events_group: tuple[Event, ...] = await loaders.group_events.load(
         group_name
     )
-    assert expected_output == [event.id for event in events_group]
+    assert expected_output == sorted([event.id for event in events_group])
 
 
 async def test_get_managers() -> None:

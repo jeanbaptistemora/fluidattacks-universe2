@@ -58,7 +58,7 @@ async def add_missing_upload_date(event: Event) -> None:
                 unaware_datetime = date_list[file_index]
                 upload_date = datetime_utils.get_as_str(unaware_datetime)
                 coroutines.append(
-                    events_dal.update(
+                    events_dal.update_legacy(
                         event_id, {f"{evidence}_date": upload_date}
                     )
                 )
