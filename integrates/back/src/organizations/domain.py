@@ -83,6 +83,7 @@ from newutils.validations import (
 )
 from organizations import (
     dal as orgs_dal,
+    utils as orgs_utils,
     validations as orgs_validations,
 )
 from organizations.types import (
@@ -113,7 +114,9 @@ async def add_credentials(
     modified_by: str,
 ) -> None:
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
-        SshSecret(key=attributes.key or "")
+        SshSecret(
+            key=orgs_utils.format_credentials_ssh_key(attributes.key or "")
+        )
         if attributes.type is CredentialType.SSH
         else HttpsPatSecret(token=attributes.token)
         if attributes.token is not None
@@ -500,25 +503,31 @@ async def update_credentials(
     organization_id: str,
     modified_by: str,
 ) -> None:
-    if attributes.password is not None and attributes.user is None:
-        raise InvalidParameter("user")
-
-    if attributes.user is not None and attributes.password is None:
-        raise InvalidParameter("password")
-
     current_credentials: Credential = await loaders.credential_new.load(
         CredentialRequest(
             id=credentials_id,
             organization_id=organization_id,
         )
     )
+    credentials_type = attributes.type or current_credentials.state.type
     credentials_name = attributes.name or current_credentials.state.name
+    if (
+        credentials_type is CredentialType.HTTPS
+        and attributes.password is not None
+        and attributes.user is None
+    ):
+        raise InvalidParameter("user")
+    if (
+        credentials_type is CredentialType.HTTPS
+        and attributes.user is not None
+        and attributes.password is None
+    ):
+        raise InvalidParameter("password")
     if current_credentials.state.name != credentials_name:
         await orgs_validations.validate_credentials_name_in_organization(
             loaders, organization_id, credentials_name
         )
 
-    credentials_type = attributes.type or current_credentials.state.type
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
     if (
         credentials_type is CredentialType.HTTPS
@@ -534,7 +543,9 @@ async def update_credentials(
             user=attributes.user, password=attributes.password
         )
     elif credentials_type is CredentialType.SSH and attributes.key is not None:
-        secret = SshSecret(key=attributes.key)
+        secret = SshSecret(
+            key=orgs_utils.format_credentials_ssh_key(attributes.key)
+        )
     else:
         secret = current_credentials.state.secret
 

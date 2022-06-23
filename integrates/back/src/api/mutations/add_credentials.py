@@ -1,6 +1,9 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    InvalidParameter,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -47,6 +50,10 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
+    if "name" not in credentials:
+        raise InvalidParameter("name")
+    if "type" not in credentials:
+        raise InvalidParameter("type")
     await orgs_domain.add_credentials(
         loaders,
         CredentialAttributesToAdd(

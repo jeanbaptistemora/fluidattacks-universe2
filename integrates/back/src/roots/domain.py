@@ -9,8 +9,6 @@ from asyncio.tasks import (
     sleep,
 )
 import authz
-import base64
-import binascii
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
@@ -101,6 +99,7 @@ from operator import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
     validations as orgs_validations,
 )
 import pytz  # type: ignore
@@ -497,21 +496,6 @@ def _format_root_nickname(nickname: str, url: str) -> str:
     return nick
 
 
-def _format_credential_key(key_type: CredentialType, key: str) -> str:
-    encoded_key = key
-    if key_type.value == "SSH":
-        try:
-            raw_key: str = base64.b64decode(key).decode()
-        except binascii.Error as exc:
-            raise InvalidParameter() from exc
-
-        if not raw_key.endswith("\n"):
-            raw_key += "\n"
-        encoded_key = base64.b64encode(raw_key.encode()).decode()
-
-    return encoded_key
-
-
 def _format_root_credential_new(
     credentials: Dict[str, str], organization_id: str, user_email: str
 ) -> Credential:
@@ -523,7 +507,7 @@ def _format_root_credential_new(
 
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
         SshSecret(
-            key=_format_credential_key(credential_type, credentials["key"])
+            key=orgs_utils.format_credentials_ssh_key(credentials["key"])
         )
         if credential_type is CredentialType.SSH
         else HttpsPatSecret(token=credentials["token"])
@@ -1678,7 +1662,9 @@ async def validate_git_access(**kwargs: Any) -> None:
     url: str = format_git_repo_url(kwargs["url"])
     cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
     if key := kwargs["credentials"].get("key"):
-        kwargs["credentials"]["key"] = _format_credential_key(cred_type, key)
+        kwargs["credentials"]["key"] = orgs_utils.format_credentials_ssh_key(
+            key
+        )
     await validations.validate_git_credentials(
         url, cred_type, kwargs["credentials"]
     )

@@ -1512,7 +1512,7 @@ class StakeholderIsNotCredentialsOwner(CustomBaseException):
         super(StakeholderIsNotCredentialsOwner, self).__init__(msg)
 
 
-class InvalidBase64Field(CustomBaseException):
+class InvalidBase64SshKey(CustomBaseException):
     def __init__(self) -> None:
-        msg = "Exception - The field must be in base64"
-        super(InvalidBase64Field, self).__init__(msg)
+        msg = "Exception - The ssh key must be in base64"
+        super(InvalidBase64SshKey, self).__init__(msg)

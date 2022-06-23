@@ -27,6 +27,9 @@ from newutils import (
     token as token_utils,
     utils,
 )
+from organizations import (
+    utils as orgs_utils,
+)
 import os
 import pytest
 import pytz  # type: ignore
@@ -361,3 +364,15 @@ async def test_create_user() -> None:
     await log_user_in({"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
     assert user_info["last_login"] > now  # type: ignore
+
+
+def test_format_credential_key() -> None:
+    key_1 = "VGVzdCBTU0g="
+    expected_key_1 = "VGVzdCBTU0gK"
+    assert (
+        orgs_utils.format_credentials_ssh_key(ssh_key=key_1) == expected_key_1
+    )
+    assert (
+        orgs_utils.format_credentials_ssh_key(ssh_key=expected_key_1)
+        == expected_key_1
+    )

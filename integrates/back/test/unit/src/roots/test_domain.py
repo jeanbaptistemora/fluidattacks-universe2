@@ -1,9 +1,6 @@
 from dataloaders import (
     get_new_context,
 )
-from db_model.enums import (
-    CredentialType,
-)
 import pytest
 from roots import (
     domain as roots_domain,
@@ -31,23 +28,6 @@ async def test_get_last_cloning_successful() -> None:
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     item = await roots_domain.get_last_cloning_successful(loaders, root_id)
     assert item.status == "OK"
-
-
-def test_format_credential_key() -> None:
-    key_1 = "VGVzdCBTU0g="
-    expected_key_1 = "VGVzdCBTU0gK"
-    assert (
-        roots_domain._format_credential_key(
-            key_type=CredentialType.SSH, key=key_1
-        )
-        == expected_key_1
-    )
-    assert (
-        roots_domain._format_credential_key(
-            key_type=CredentialType.SSH, key=expected_key_1
-        )
-        == expected_key_1
-    )
 
 
 @pytest.mark.parametrize(
