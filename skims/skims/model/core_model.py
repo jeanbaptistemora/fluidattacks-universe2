@@ -22,6 +22,7 @@ from typing import (
 
 
 class Platform(Enum):
+    PIP: str = "PIP"
     NPM: str = "NPM"
     MAVEN: str = "MAVEN"
     NUGET: str = "NUGET"
@@ -1434,6 +1435,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F011,
         developer=DeveloperEnum.JUAN_RESTREPO,
+        technique=TechniqueEnum.SCA,
+    )
+    PIP_REQUIREMENTS_TXT = MethodInfo(
+        file_name="pip",
+        name="pip_requirements_txt",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.SCA,
     )
     CS_XSL_TRANSFORM_OBJECT = MethodInfo(
