@@ -6367,3 +6367,15 @@
       title: Operational controls - Logical access
       link: https://owasp.org/www-project-top-10-privacy-risks/
   metadata: {}
+"owaspscp":
+  title: OWASP SCP
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "1":
+      title: Input validation
+      link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
+  metadata: {}
