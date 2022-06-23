@@ -31,6 +31,7 @@ class Stakeholder(NamedTuple):
     last_name: str
     access_token: Optional[StakeholderAccessToken] = None
     is_concurrent_session: bool = False
+    is_registered: bool = False
     last_login_date: Optional[str] = None
     legal_remember: bool = False
     notifications_preferences: NotificationsPreferences = (
