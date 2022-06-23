@@ -68,18 +68,18 @@ const GroupInformation: React.FC = (): JSX.Element => {
       attribute: string;
       value: boolean | string;
     }[]
-  ): Record<string, string> => {
+  ): Record<string, boolean | string> => {
     return attributes.reduce(
       (
-        acc: Record<string, string>,
+        acc: Record<string, boolean | string>,
         cur: {
           attribute: string;
           value: boolean | string;
         }
-      ): Record<string, string> => ({
+      ): Record<string, boolean | string> => ({
         ...acc,
         [attributeMapper(cur.attribute)]:
-          typeof cur.value === "boolean" ? String(cur.value) : cur.value,
+          cur.attribute === "Managed" ? cur.value === "Manually" : cur.value,
       }),
       {}
     );
@@ -113,7 +113,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
   });
 
   const handleFormSubmit = useCallback(
-    async (values: Record<string, string>): Promise<void> => {
+    async (values: Record<string, boolean | string>): Promise<void> => {
       await editGroupInfo({
         variables: {
           businessId: values.businessId,
@@ -122,7 +122,9 @@ const GroupInformation: React.FC = (): JSX.Element => {
           groupName,
           language: values.language,
           sprintDuration: Number(values.sprintDuration),
-          sprintStartDate: moment(values.sprintStartDate).toISOString(),
+          sprintStartDate: moment(
+            values.sprintStartDate as string
+          ).toISOString(),
         },
       });
       setIsGroupSettingsModalOpen(false);
@@ -135,7 +137,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
   }
   const attributesDataset: {
     attribute: string;
-    value: boolean | string;
+    value: string;
   }[] = [
     {
       attribute: "Language",
@@ -155,7 +157,9 @@ const GroupInformation: React.FC = (): JSX.Element => {
     },
     {
       attribute: "Managed",
-      value: data.group.managed,
+      value: data.group.managed
+        ? t("organization.tabs.groups.newGroup.managed.manually")
+        : t("organization.tabs.groups.newGroup.managed.notManually"),
     },
     {
       attribute: "Sprint Length",

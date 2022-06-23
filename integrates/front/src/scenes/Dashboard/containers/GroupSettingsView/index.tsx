@@ -28,6 +28,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
             <Services groupName={groupName} />
           </React.Fragment>
         </Can>
+        <hr />
         <GroupInformation />
         <Can do={"api_resolvers_group_forces_token_resolve"}>
           <Have I={"has_forces"}>

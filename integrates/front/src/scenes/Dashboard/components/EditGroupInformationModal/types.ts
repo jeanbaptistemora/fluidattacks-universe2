@@ -1,6 +1,6 @@
 export interface IEditGroupInformation {
-  initialValues: Record<string, string>;
+  initialValues: Record<string, boolean | string>;
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (values: Record<string, string>) => void;
+  onSubmit: (values: Record<string, boolean | string>) => void;
 }

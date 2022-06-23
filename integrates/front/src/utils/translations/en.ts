@@ -1581,6 +1581,12 @@ export const enTranslations: ResourceKey = {
             tooltip:
               "Vulnerability detection tool that scans and reports security issues in your source code",
           },
+          managed: {
+            manually: "Manually",
+            notManually: "Not manually",
+            text: "Managed",
+            tooltip: "Enable manually managed group",
+          },
           name: "Group name",
           new: {
             group: "New group",
