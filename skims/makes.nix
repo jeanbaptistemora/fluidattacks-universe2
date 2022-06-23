@@ -24,6 +24,13 @@
         python = "3.8";
         src = "/skims/skims";
       };
+      skimsSca = {
+        searchPaths.source = [
+          outputs."/skims/config/runtime"
+        ];
+        python = "3.8";
+        src = "/skims/sca/update";
+      };
     };
     imports = {
       skims = {

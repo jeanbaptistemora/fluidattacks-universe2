@@ -2,18 +2,23 @@
   inputs,
   makeScript,
   outputs,
+  projectPath,
   ...
 }:
 makeScript {
   name = "skims-sca-update";
   searchPaths = {
+    pythonMypy = [
+      (projectPath "/skims/sca/update")
+    ];
     bin = [
       inputs.nixpkgs.python38
       outputs."/skims"
     ];
+    pythonPackage = [
+      (projectPath "/skims/sca/update")
+    ];
     source = [
-      outputs."/common/utils/aws"
-      outputs."/common/utils/env"
       outputs."/skims/config/runtime"
     ];
   };
