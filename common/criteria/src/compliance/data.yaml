@@ -6371,7 +6371,18 @@
   title: OWASP SCP
   en:
     summary: >
-      __empty__
+      OWASP Secure Coding Practices
+      Reference Guide (OWASP SCP)
+      defines a set of general controls
+      that cover software security
+      coding practices that can be
+      integrated into the software
+      development lifecycle.
+      Its implementation will mitigate
+      most common software vulnerabilities.
+      The version used in this
+      section is OWASP SCP v2.0,
+      November 2010.
   es:
     summary: __empty__
   definitions:
