@@ -50,6 +50,7 @@ from typing import (
     Dict,
     Iterator,
     List,
+    Optional,
     Set,
     Tuple,
     TypeVar,
@@ -306,18 +307,18 @@ def translate_dependencies_to_vulnerabilities(
     return results
 
 
-def get_subdependencies(current_subdep: str, data: lockfile) -> Tuple:
-    for yarn in data:
-        if yarn.find(current_subdep) != -1:
-            yarn_dict: Any = data.get(yarn)
-            if "dependencies" in yarn_dict.keys():
-                return (
-                    build_subdep_name(yarn_dict.get("dependencies")),
-                    yarn_dict.get("version"),
-                    yarn,
-                )
-            return [], yarn_dict.get("version"), yarn
-    return [], None, None
+def get_subdependencies(package: str, yarn_dict: lockfile) -> Tuple:
+    subdependencies: List[str] = []
+    version: Optional[str] = None
+    for pkg_key, pkg_info in yarn_dict.items():
+        # There may be keys in the yarn.lock file like this:
+        # pkg@v1, pkg@v2, pkg@v3
+        pkg_list = pkg_key.split(", ")
+        if package in pkg_list:
+            version = pkg_info.get("version")
+            if "dependencies" in pkg_info:
+                subdependencies = build_subdep_name(pkg_info["dependencies"])
+    return subdependencies, version
 
 
 def add_lines_enumeration(
@@ -361,12 +362,15 @@ def run_over_subdeps(
 ) -> Dict[str, str]:
     while subdeps:
         current_subdep = subdeps[0]
-        new_values, version, name = get_subdependencies(
-            current_subdep, yarn_dict
-        )
-        tree[name] = version
+        new_subdeps, version = get_subdependencies(current_subdep, yarn_dict)
+        if version:
+            tree[current_subdep] = version
         subdeps.remove(current_subdep)
-        subdeps = subdeps + new_values
+        subdeps = [
+            subdep
+            for subdep in subdeps + new_subdeps
+            if subdep not in tree  # Avoid infite loop with cyclic dependencies
+        ]
     return tree
 
 
@@ -386,17 +390,22 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
         step=1,
     )
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
-    package_parser = json_parser.parse(get_file_content_block(path_json))
+    package_json_parser = json_parser.parse(get_file_content_block(path_json))
     tree: Dict[str, str] = {}
-    if dependencies_type.value in package_parser:
-        package_dict = package_parser[dependencies_type.value]
-        for json_key, json_value in package_dict.items():
-            for yarn_key, yarn_value in yarn_dict.items():
-                dep = json_key + "@" + json_value
-                if dep.find(yarn_key) != -1:
-                    tree[dep] = yarn_value["version"]
-                    if "dependencies" in yarn_value:
-                        subdeps = build_subdep_name(yarn_value["dependencies"])
+    if dependencies_type.value in package_json_parser:
+        package_json_dict = package_json_parser[dependencies_type.value]
+        for json_pkg_name, json_pkg_version in package_json_dict.items():
+            for yarn_pkg_key, yarn_pkg_info in yarn_dict.items():
+                # There may be keys in the yarn.lock file like this:
+                # pkg@v1, pkg@v2, pkg@v3
+                yarn_pkg_list = yarn_pkg_key.split(", ")
+                json_pkg = json_pkg_name + "@" + json_pkg_version
+                if json_pkg in yarn_pkg_list:
+                    tree[json_pkg] = yarn_pkg_info["version"]
+                    if "dependencies" in yarn_pkg_info:
+                        subdeps = build_subdep_name(
+                            yarn_pkg_info["dependencies"]
+                        )
                         tree = run_over_subdeps(subdeps, tree, yarn_dict)
         enumerated_tree = add_lines_enumeration(windower, tree)
     return enumerated_tree
