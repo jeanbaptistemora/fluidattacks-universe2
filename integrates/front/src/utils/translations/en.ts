@@ -1358,10 +1358,7 @@ export const enTranslations: ResourceKey = {
     deploymentDate: "Deploy date:",
   },
   legalNotice: {
-    acceptBtn: {
-      text: "Accept and continue",
-      tooltip: "Click if you understand and accept the terms above",
-    },
+    accept: "Accept and continue",
     description: {
       legal:
         "ASM, Copyright (c) {{currentYear}} Fluid Attacks. This platform contains " +

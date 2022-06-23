@@ -2,9 +2,8 @@ import { Field, Form, Formik } from "formik";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { FormikCheckbox } from "utils/forms/fields";
 
 interface ICompulsoryNoticeProps {
@@ -47,15 +46,7 @@ export const CompulsoryNotice: React.FC<ICompulsoryNoticeProps> = ({
             name={"remember"}
             title={t("legalNotice.rememberCbo.tooltip")}
           />
-          <ModalFooter>
-            <Button
-              title={t("legalNotice.acceptBtn.tooltip")}
-              type={"submit"}
-              variant={"primary"}
-            >
-              {t("legalNotice.acceptBtn.text")}
-            </Button>
-          </ModalFooter>
+          <ModalConfirm txtConfirm={t("legalNotice.accept")} />
         </Form>
       </Formik>
     </Modal>

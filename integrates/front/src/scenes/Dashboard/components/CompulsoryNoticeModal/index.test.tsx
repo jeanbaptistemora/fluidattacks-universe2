@@ -32,11 +32,9 @@ describe("Compulsory notice modal", (): void => {
     const handleAccept: jest.Mock = jest.fn();
     render(<CompulsoryNotice onAccept={handleAccept} open={true} />);
 
-    expect(
-      screen.queryByText("legalNotice.acceptBtn.text")
-    ).toBeInTheDocument();
+    expect(screen.queryByText("legalNotice.accept")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("legalNotice.acceptBtn.text"));
+    userEvent.click(screen.getByText("legalNotice.accept"));
     await waitFor((): void => {
       expect(handleAccept).toHaveBeenCalledTimes(1);
     });

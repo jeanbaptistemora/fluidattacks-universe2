@@ -4,7 +4,7 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import {
   useGetAPIToken,
   useUpdateAPIToken,
@@ -99,20 +99,15 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
               </Button>
             </Col100>
           </Row>
-          <ModalFooter>
-            <Button onClick={onClose} variant={"secondary"}>
-              {t("updateForcesToken.close")}
-            </Button>
-            <Button
-              disabled={!getTokenCalled || getTokenLoading}
-              type={"submit"}
-              variant={"primary"}
-            >
-              {_.isEmpty(currentToken)
-                ? t("updateForcesToken.generate")
-                : t("updateForcesToken.reset")}
-            </Button>
-          </ModalFooter>
+          <ModalConfirm
+            disabled={!getTokenCalled || getTokenLoading}
+            onCancel={onClose}
+            txtConfirm={t(
+              `updateForcesToken.${
+                _.isEmpty(currentToken) ? "generate" : "reset"
+              }`
+            )}
+          />
         </Form>
       </Formik>
     </Modal>

@@ -17,7 +17,7 @@ describe("Update access token modal", (): void => {
   const generateButtonText: string = "updateForcesToken.generate";
   const resetButtonText: string = "updateForcesToken.reset";
   const copyButtonText: string = "updateForcesToken.copy.copy";
-  const closeButtonText: string = "updateForcesToken.close";
+  const closeButtonText: string = "components.modal.cancel";
 
   it("should return a function", (): void => {
     expect.hasAssertions();
