@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 function associate {
-  export INTEGRATES_API_TOKEN
   local group="${1}"
   local success
 
@@ -27,6 +26,8 @@ function main {
   local groups_file
 
   aws_login_prod 'sorts' \
+    && ensure_gitlab_env_vars \
+      INTEGRATES_API_TOKEN \
     && sops_export_vars 'sorts/secrets.yaml' \
       'MIXPANEL_API_TOKEN_SORTS' \
       'REDSHIFT_DATABASE' \
