@@ -18,6 +18,7 @@ from custom_exceptions import (
     InvalidAuthorization,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    InvalidParameter,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
@@ -31,6 +32,7 @@ from db_model import (
 from db_model.credentials.types import (
     Credential,
     CredentialNewState,
+    CredentialRequest,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -85,6 +87,7 @@ from organizations import (
 )
 from organizations.types import (
     CredentialAttributesToAdd,
+    CredentialAttributesToUpdate,
 )
 import re
 from stakeholders import (
@@ -132,7 +135,7 @@ async def add_credentials(
         ),
     )
     await orgs_validations.validate_credentials_name_in_organization(
-        loaders, credential
+        loaders, credential.organization_id, credential.state.name
     )
     await credentials_model.add_new(credential=credential)
 
@@ -488,6 +491,66 @@ async def reject_register_for_organization_invitation(
         loaders, organization_id, user_email, user_email
     )
     return success
+
+
+async def update_credentials(
+    loaders: Any,
+    attributes: CredentialAttributesToUpdate,
+    credentials_id: str,
+    organization_id: str,
+    modified_by: str,
+) -> None:
+    if attributes.password is not None and attributes.user is None:
+        raise InvalidParameter("user")
+
+    if attributes.user is not None and attributes.password is None:
+        raise InvalidParameter("password")
+
+    current_credentials: Credential = await loaders.credential_new.load(
+        CredentialRequest(
+            id=credentials_id,
+            organization_id=organization_id,
+        )
+    )
+    credentials_name = attributes.name or current_credentials.state.name
+    if current_credentials.state.name != credentials_name:
+        await orgs_validations.validate_credentials_name_in_organization(
+            loaders, organization_id, credentials_name
+        )
+
+    credentials_type = attributes.type or current_credentials.state.type
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
+    if (
+        credentials_type is CredentialType.HTTPS
+        and attributes.token is not None
+    ):
+        secret = HttpsPatSecret(token=attributes.token)
+    elif (
+        credentials_type is CredentialType.HTTPS
+        and attributes.user is not None
+        and attributes.password is not None
+    ):
+        secret = HttpsSecret(
+            user=attributes.user, password=attributes.password
+        )
+    elif credentials_type is CredentialType.SSH and attributes.key is not None:
+        secret = SshSecret(key=attributes.key)
+    else:
+        secret = current_credentials.state.secret
+
+    new_state = CredentialNewState(
+        modified_by=modified_by,
+        modified_date=datetime_utils.get_iso_date(),
+        name=credentials_name,
+        secret=secret,
+        type=credentials_type,
+    )
+    await credentials_model.update_credential_state_new(
+        current_value=current_credentials.state,
+        credential_id=credentials_id,
+        organization_id=organization_id,
+        state=new_state,
+    )
 
 
 async def update_user(

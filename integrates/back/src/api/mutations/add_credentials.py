@@ -63,7 +63,8 @@ async def mutate(
 
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Added credentials to {organization_id} successfully",
+        "Security: Added credentials to organization"
+        f" {organization_id} successfully",
     )
 
     return SimplePayload(success=True)

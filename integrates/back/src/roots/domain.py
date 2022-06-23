@@ -288,7 +288,8 @@ async def add_git_root(  # pylint: disable=too-many-locals
             )
             await orgs_validations.validate_credentials_name_in_organization(
                 loaders,
-                organization_credential,
+                organization_credential.organization_id,
+                organization_credential.state.name,
             )
             await creds_model.add_new(credential=organization_credential)
 
@@ -657,7 +658,8 @@ async def _update_git_root_credentials(  # noqa: MC0001
     if credential_to_add and credential_id is None:
         await orgs_validations.validate_credentials_name_in_organization(
             loaders,
-            credential_to_add,
+            credential_to_add.organization_id,
+            credential_to_add.state.name,
         )
         await creds_model.add_new(credential=credential_to_add)
         return credential_to_add.id

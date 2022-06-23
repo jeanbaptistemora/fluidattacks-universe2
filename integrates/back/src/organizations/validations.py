@@ -13,17 +13,16 @@ from typing import (
 
 async def validate_credentials_name_in_organization(
     loaders: Any,
-    new_credential: Credential,
+    organization_id: str,
+    credentials_name: str,
 ) -> None:
     org_credentials: tuple[
         Credential, ...
-    ] = await loaders.organization_credentials_new.load(
-        new_credential.organization_id
-    )
-    credential_names = {
-        credential.state.name for credential in org_credentials
+    ] = await loaders.organization_credentials_new.load(organization_id)
+    credentials_names = {
+        credentials.state.name for credentials in org_credentials
     }
-    if new_credential.state.name in credential_names:
+    if credentials_name in credentials_names:
         raise CredentialAlreadyExists()
 
 

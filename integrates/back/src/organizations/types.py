@@ -14,3 +14,12 @@ class CredentialAttributesToAdd(NamedTuple):
     type: CredentialType
     user: Optional[str]
     password: Optional[str]
+
+
+class CredentialAttributesToUpdate(NamedTuple):
+    name: Optional[str]
+    key: Optional[str]
+    token: Optional[str]
+    type: Optional[CredentialType]
+    user: Optional[str]
+    password: Optional[str]
