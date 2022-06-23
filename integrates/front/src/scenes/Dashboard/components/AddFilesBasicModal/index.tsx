@@ -5,8 +5,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object } from "yup";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import type { IAddFilesBasicModalProps } from "scenes/Dashboard/components/AddFilesBasicModal/types";
 import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput } from "utils/forms/fields";
@@ -82,23 +81,10 @@ const AddFilesBasicModal: React.FC<IAddFilesBasicModalProps> = ({
                   {t("searchFindings.tabResources.uploadingProgress")}
                 </div>
               ) : undefined}
-              <ModalFooter>
-                <Button
-                  id={"file-add-cancel"}
-                  onClick={onClose}
-                  variant={"secondary"}
-                >
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty || isUploading}
-                  id={"file-add-proceed"}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm
+                disabled={!dirty || isUploading}
+                onCancel={onClose}
+              />
             </Form>
           )}
         </Formik>
