@@ -2,8 +2,8 @@
 """
 Migrate events metadata to "integrates_vms" table.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-23 at 01:08:00 UTC
+Finalization Time: 2022-06-23 at 01:15:55 UTC
 """
 
 from aioextensions import (
@@ -124,7 +124,7 @@ async def main() -> None:
 
     await collect(
         tuple(process_event(loaders, item) for item in events_scanned),
-        workers=8,
+        workers=4,
     )
 
 
