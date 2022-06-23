@@ -6,8 +6,7 @@ import { array, object, string } from "yup";
 import type { IUpdateAffectedModalProps, IUpdateAffectedValues } from "./types";
 
 import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
 import { FormikDropdown } from "utils/forms/fields";
 
@@ -81,18 +80,10 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
                 <AffectedReattackAccordion findings={findings} />
               </FormGroup>
             </Row>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!dirty || isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              disabled={!dirty || isSubmitting}
+              onCancel={onClose}
+            />
           </Form>
         )}
       </Formik>

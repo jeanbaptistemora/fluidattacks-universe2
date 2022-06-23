@@ -16,8 +16,7 @@ import type {
   IFinding,
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import globalStyle from "styles/global.css";
 import {
   Col100,
@@ -385,18 +384,10 @@ const AddModal: React.FC<IAddModalProps> = ({
                   ) : undefined}
                 </FormGroup>
               ) : undefined}
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty || isSubmitting}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm
+                disabled={!dirty || isSubmitting}
+                onCancel={onClose}
+              />
             </Form>
           );
         }}
