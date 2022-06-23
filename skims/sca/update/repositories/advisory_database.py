@@ -9,14 +9,12 @@ from typing import (
     Dict,
     List,
 )
-from update import (
-    Advisories,
-)
 from utils.logs import (
     log_blocking,
 )
 
 URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
+Advisories = Dict[str, Dict[str, str]]
 
 
 def get_vulnerabilities_ranges(
@@ -26,14 +24,14 @@ def get_vulnerabilities_ranges(
     advisories: Advisories,
 ) -> None:
     for pkg_obj in affected:
-        package: Dict[str, Any] = pkg_obj.get("package")
+        package: Dict[str, Any] = pkg_obj.get("package") or {}
         ecosystem: str = str(package.get("ecosystem"))
         if ecosystem.lower() != platform:
             continue
         pkg_name: str = str(package.get("name")).lower()
         ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []
-        for range in ranges:
-            events: List[Dict[str, str]] = list(range.get("events"))
+        for range_ver in ranges:
+            events: List[Dict[str, str]] = range_ver.get("events") or []
             str_range: str
             introduced = f">={events[0].get('introduced')}"
             fixed = f" <{events[1].get('fixed')}" if len(events) > 1 else ""
@@ -60,11 +58,11 @@ def get_advisory_database(advisories: Advisories, platform: str) -> dict:
         )
         log_blocking("info", "Processing vulnerabilities")
         for filename in filenames:
-            with open(filename, "r") as stream:
+            with open(filename, "r", encoding="utf-8") as stream:
                 try:
                     from_json: dict = json.load(stream)
                     vuln_id = str(from_json.get("id"))
-                    affected = list(from_json.get("affected"))
+                    affected = from_json.get("affected") or []
                     get_vulnerabilities_ranges(
                         affected, vuln_id, platform, advisories
                     )

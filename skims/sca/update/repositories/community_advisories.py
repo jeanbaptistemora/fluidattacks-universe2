@@ -5,26 +5,26 @@ import glob
 import re
 import tempfile
 from typing import (
+    Dict,
     Pattern,
-)
-from update import (
-    Advisories,
 )
 from utils.logs import (
     log_blocking,
 )
-import yaml
+import yaml  # type: ignore
 
 RE_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
 URL_ADVISORIES_COMMUNITY: str = (
     "https://gitlab.com/gitlab-org/advisories-community.git"
 )
 
+Advisories = Dict[str, Dict[str, str]]
 
-def format_range(range: str) -> str:
-    prefix = range[0]
-    suffix = range[-1]
-    values = range[1:-1].split(",")
+
+def format_range(unformatted_range: str) -> str:
+    prefix = unformatted_range[0]
+    suffix = unformatted_range[-1]
+    values = unformatted_range[1:-1].split(",")
     if len(values) < 2:
         return values[0]
     min_r, max_r = values
@@ -41,17 +41,17 @@ def format_range(range: str) -> str:
     return f"{min_operator}{min_r} {max_operator}{max_r}"
 
 
-def fix_npm_range(range: str) -> str:
-    return range.replace("||", " || ")
+def fix_npm_range(unformatted_range: str) -> str:
+    return unformatted_range.replace("||", " || ")
 
 
-def format_ranges(platform: str, range: str) -> str:
+def format_ranges(platform: str, range_str: str) -> str:
     if platform in ("maven", "nuget"):
-        ranges = re.findall(RE_RANGES, range)
+        ranges = re.findall(RE_RANGES, range_str)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
-    else:  # npm
-        return fix_npm_range(range)
+
+    return fix_npm_range(range_str)  # npm
 
 
 def get_community_advisories(advisories: Advisories, platform: str) -> dict:
@@ -63,12 +63,12 @@ def get_community_advisories(advisories: Advisories, platform: str) -> dict:
         )
         log_blocking("info", "Processing vulnerabilities")
         for filename in filenames:
-            with open(filename, "r") as stream:
+            with open(filename, "r", encoding="utf-8") as stream:
                 try:
                     parsed_yaml: dict = yaml.safe_load(stream)
-                    if (
+                    if not (
                         cve_key := parsed_yaml.get("identifier")
-                    ) and cve_key.startswith("GMS"):
+                    ) or cve_key.startswith("GMS"):
                         continue
                     package_slug = str(parsed_yaml.get("package_slug"))
                     package_key = package_slug.replace(

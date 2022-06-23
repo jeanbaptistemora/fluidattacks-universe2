@@ -7,7 +7,6 @@ from repositories.community_advisories import (
 )
 import sys
 from typing import (
-    Any,
     Dict,
 )
 from utils.logs import (
@@ -31,7 +30,7 @@ def main(platform: str = None) -> None:
         fun(advisories, platform)
 
     log_blocking("info", f"Creating file: {platform}.json")
-    with open(f"static/sca/{platform}.json", "w") as outfile:
+    with open(f"static/sca/{platform}_g.json", "w") as outfile:
         json.dump(advisories, outfile, indent=2, sort_keys=True)
 
 
