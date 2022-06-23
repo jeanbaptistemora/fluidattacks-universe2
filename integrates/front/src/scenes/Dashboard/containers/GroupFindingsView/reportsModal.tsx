@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
@@ -204,11 +204,6 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             }}
           </VerifyDialog>
         </Col100>
-        <ModalFooter>
-          <Button onClick={onClose} variant={"secondary"}>
-            {t("group.findings.report.modalClose")}
-          </Button>
-        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

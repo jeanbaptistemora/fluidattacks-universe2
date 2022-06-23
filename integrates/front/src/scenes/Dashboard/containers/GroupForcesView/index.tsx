@@ -7,8 +7,7 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
@@ -471,11 +470,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
           strictness={currentRow.strictness}
           vulnerabilities={currentRow.vulnerabilities}
         />
-        <ModalFooter>
-          <Button onClick={closeSeeExecutionDetailsModal} variant={"secondary"}>
-            {t("group.forces.executionDetailsModal.close")}
-          </Button>
-        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

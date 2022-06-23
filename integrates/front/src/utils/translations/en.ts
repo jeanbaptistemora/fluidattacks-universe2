@@ -686,7 +686,6 @@ export const enTranslations: ResourceKey = {
       },
       date: "Date",
       executionDetailsModal: {
-        close: "Close",
         title: "Execution Details",
       },
       filtersTooltips: {

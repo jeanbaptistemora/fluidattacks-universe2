@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal } from "components/Modal";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
@@ -172,11 +172,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
             </VerifyDialog>
           </Col100>
         </div>
-        <ModalFooter>
-          <Button onClick={onClose} variant={"secondary"}>
-            {t("group.findings.report.modalClose")}
-          </Button>
-        </ModalFooter>
       </Modal>
     </React.StrictMode>
   );

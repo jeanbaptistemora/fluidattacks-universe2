@@ -23,7 +23,7 @@ import type {
 } from "./types";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { ButtonToolbarCenter } from "styles/styledComponents";
@@ -289,14 +289,6 @@ const MachineView: React.FC = (): JSX.Element => {
               stoppedAt={currentRow.stoppedAt}
               vulnerabilities={currentRow.vulnerabilities}
             />
-            <ModalFooter>
-              <Button
-                onClick={closeSeeExecutionDetailsModal}
-                variant={"secondary"}
-              >
-                {translate.t("group.forces.executionDetailsModal.close")}
-              </Button>
-            </ModalFooter>
           </Modal>
         </React.StrictMode>
       )}
