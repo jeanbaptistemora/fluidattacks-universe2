@@ -22,6 +22,7 @@ interface IGroupData {
     hasForces: boolean;
     hasMachine: boolean;
     language: string;
+    managed: boolean;
     organization: {
       name: string;
     };

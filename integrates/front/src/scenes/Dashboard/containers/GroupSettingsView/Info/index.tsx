@@ -56,6 +56,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
       return "sprintDuration";
     } else if (attribute === "Sprint Start Date") {
       return "sprintStartDate";
+    } else if (attribute === "Managed") {
+      return "managed";
     }
 
     return attribute.toLocaleLowerCase();
@@ -64,7 +66,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
   const formatDataSet = (
     attributes: {
       attribute: string;
-      value: string;
+      value: boolean | string;
     }[]
   ): Record<string, string> => {
     return attributes.reduce(
@@ -72,11 +74,12 @@ const GroupInformation: React.FC = (): JSX.Element => {
         acc: Record<string, string>,
         cur: {
           attribute: string;
-          value: string;
+          value: boolean | string;
         }
       ): Record<string, string> => ({
         ...acc,
-        [attributeMapper(cur.attribute)]: cur.value,
+        [attributeMapper(cur.attribute)]:
+          typeof cur.value === "boolean" ? String(cur.value) : cur.value,
       }),
       {}
     );
@@ -132,7 +135,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
   }
   const attributesDataset: {
     attribute: string;
-    value: string;
+    value: boolean | string;
   }[] = [
     {
       attribute: "Language",
@@ -149,6 +152,10 @@ const GroupInformation: React.FC = (): JSX.Element => {
     {
       attribute: "Business Name",
       value: data.group.businessName,
+    },
+    {
+      attribute: "Managed",
+      value: data.group.managed,
     },
     {
       attribute: "Sprint Length",

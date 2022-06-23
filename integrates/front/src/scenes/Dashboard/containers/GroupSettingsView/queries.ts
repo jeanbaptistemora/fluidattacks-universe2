@@ -19,6 +19,7 @@ const GET_GROUP_DATA: DocumentNode = gql`
       hasSquad
       hasMachine
       language
+      managed
       name
       service
       sprintDuration

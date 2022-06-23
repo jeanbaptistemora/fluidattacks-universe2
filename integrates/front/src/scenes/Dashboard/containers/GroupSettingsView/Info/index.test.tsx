@@ -58,7 +58,7 @@ describe("Info", (): void => {
       expect(screen.getByRole("table")).toBeInTheDocument();
     });
     const thirdRow: number = 3;
-    const fifthRow: number = 5;
+    const sixthRow: number = 6;
 
     expect(
       screen.queryByText("table.noDataIndication")
@@ -73,7 +73,7 @@ describe("Info", (): void => {
     expect(screen.getAllByRole("row")[4].textContent).toBe(
       "Business NameTesting Company & Mocks"
     );
-    expect(screen.getAllByRole("row")[fifthRow].textContent).toBe(
+    expect(screen.getAllByRole("row")[sixthRow].textContent).toBe(
       "Sprint Length2"
     );
   });
