@@ -47,6 +47,9 @@ with open(f"{STATIC}/sca/maven.json", encoding="utf-8") as _FILE:
 with open(f"{STATIC}/sca/nuget.json", encoding="utf-8") as _FILE:
     DATABASE_NUGET: Database = _validate(json.load(_FILE))
 
+with open(f"{STATIC}/sca/pip.json", encoding="utf-8") as _FILE:
+    DATABASE_PIP: Database = _validate(json.load(_FILE))
+
 
 def semver_match(left: str, right: str) -> bool:
     code, out, _ = read_blocking(TOOLS_SEMVER_MATCH, left, right)
