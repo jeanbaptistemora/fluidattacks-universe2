@@ -39,6 +39,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     using_directive as c_sharp_using_directive,
     using_statement as c_sharp_using_statement,
     variable_declaration as c_sharp_variable_declaration,
+    while_statement as c_sharp_while_statement,
 )
 from syntax_graph.syntax_readers.common import (
     boolean_literal as common_boolean_literal,
@@ -58,7 +59,6 @@ from syntax_graph.syntax_readers.common import (
     number_literal as common_number_literal,
     parameter as common_parameter,
     string_literal as common_string_literal,
-    while_statement as common_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -420,6 +420,6 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "while_statement",
         },
-        syntax_reader=common_while_statement.reader,
+        syntax_reader=c_sharp_while_statement.reader,
     ),
 )

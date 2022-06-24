@@ -16,7 +16,6 @@ from syntax_graph.syntax_readers.common import (
     number_literal as common_number_literal,
     parameter as common_parameter,
     string_literal as common_string_literal,
-    while_statement as common_while_statement,
 )
 from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
@@ -178,11 +177,5 @@ JAVA_DISPATCHERS: Dispatchers = (
             "local_variable_declaration",
         },
         syntax_reader=java_variable_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "while_statement",
-        },
-        syntax_reader=common_while_statement.reader,
     ),
 )
