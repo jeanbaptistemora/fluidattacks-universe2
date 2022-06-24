@@ -25,6 +25,7 @@ locals {
               "eks:*",
               "elasticache:*",
               "elasticloadbalancing:*",
+              "es:*",
               "events:*",
               "iam:*",
               "kms:*",
