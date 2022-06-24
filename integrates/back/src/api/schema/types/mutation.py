@@ -81,6 +81,7 @@ from api.mutations import (
     sync_git_root,
     unsubscribe_from_group,
     update_access_token,
+    update_credentials,
     update_event_evidence,
     update_evidence,
     update_evidence_description,
@@ -244,6 +245,7 @@ MUTATION.set_field(
 MUTATION.set_field("syncGitRoot", sync_git_root.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
+MUTATION.set_field("updateCredentials", update_credentials.mutate)
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
 MUTATION.set_field("updateEvidence", update_evidence.mutate)

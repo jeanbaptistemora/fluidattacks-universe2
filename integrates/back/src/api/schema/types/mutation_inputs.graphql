@@ -43,13 +43,13 @@ input CredentialsInput {
   "SSH key"
   key: String
   "Name of the credential"
-  name: String!
+  name: String
   "Https password"
   password: String
   "Https token"
   token: String
   "Type of authentication"
-  type: CredentialType!
+  type: CredentialType
   "Https user"
   user: String
 }

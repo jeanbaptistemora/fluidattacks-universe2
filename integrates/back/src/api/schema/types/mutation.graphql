@@ -857,6 +857,16 @@ type Mutation {
     expirationTime: Int!
   ): UpdateAccessTokenPayload!
 
+  "Update credentials of the organization"
+  updateCredentials(
+    "If of the credentials"
+    credentialsId: ID!
+    "Id of the organization"
+    organizationId: ID!
+    "Credentials information"
+    credentials: CredentialsInput!
+  ): SimplePayload!
+
   "Updates a Finding's description"
   updateDescription(
     "Malicious actions that can be performed by exploiting the vulnerability"

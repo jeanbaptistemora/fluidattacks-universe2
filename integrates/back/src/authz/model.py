@@ -968,6 +968,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
+            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_policies_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_stakeholders_resolve",
@@ -984,6 +985,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_remove_credentials_mutate",
             "api_mutations_submit_organization_finding_policy_mutate",
             "api_resolvers_organization_analytics_resolve",
+            "api_mutations_update_credentials_mutate",
         },
         tags=set(),
     ),
@@ -1000,6 +1002,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "mutate",
             "api_mutations_handle_organization_finding_policy_acceptance_"
             "mutate",
+            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_credentials_mutate",
@@ -1026,6 +1029,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "mutate",
             "api_mutations_handle_organization_finding_policy_acceptance_"
             "mutate",
+            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_credentials_mutate",
