@@ -15,7 +15,7 @@ from typing import (
 
 def pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
     def resolve_dependencies() -> Iterator[DependencyType]:
-        for line_number, line in enumerate(content.split("\n"), 1):
+        for line_number, line in enumerate(content.splitlines(), 1):
             if line:
                 for parse_dependency in requirements.parse(line):
                     yield (
