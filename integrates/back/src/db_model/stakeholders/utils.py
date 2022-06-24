@@ -11,6 +11,7 @@ from .types import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json  # type: ignore
 
 
 def format_access_token(item: Item) -> StakeholderAccessToken:
@@ -63,3 +64,11 @@ def format_stakeholder(item: Item) -> Stakeholder:
         if item.get("tours")
         else StakeholderTours(),
     )
+
+
+def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
+    item: Item = json.loads(json.dumps(stakeholder))
+    item.pop("responsability", None)
+    item.pop("role", None)
+
+    return item

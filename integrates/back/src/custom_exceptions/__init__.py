@@ -134,6 +134,10 @@ class SnapshotNotFound(_SingleMessageException):
     msg: str = "Snapshot not found in analytics bucket"
 
 
+class StakeholderAlreadyCreated(_SingleMessageException):
+    msg: str = "This stakeholder has already been created"
+
+
 class UnableToProcessSubscription(_SingleMessageException):
     msg: str = "Unable to process subscription to entity report"
 

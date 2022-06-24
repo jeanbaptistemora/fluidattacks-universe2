@@ -1,3 +1,6 @@
+from .add import (
+    add,
+)
 from .remove import (
     remove,
 )
@@ -6,6 +9,7 @@ from .update import (
 )
 
 __all__ = [
+    "add",
     "update_metadata",
     "remove",
 ]
