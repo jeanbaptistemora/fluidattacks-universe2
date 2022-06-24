@@ -3,8 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 
@@ -108,20 +107,10 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 )}
               </Field>
             </div>
-            <div className={"pt2"}>
-              <ModalFooter>
-                <Button onClick={onClose} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={!dirty || isSubmitting}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
-            </div>
+            <ModalConfirm
+              disabled={!dirty || isSubmitting}
+              onCancel={onClose}
+            />
           </Form>
         )}
       </Formik>

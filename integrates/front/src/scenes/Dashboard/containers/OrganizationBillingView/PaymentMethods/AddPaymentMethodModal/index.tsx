@@ -3,8 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
@@ -103,18 +102,10 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
                 type={"checkbox"}
               />
             </div>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!dirty || isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              disabled={!dirty || isSubmitting}
+              onCancel={onClose}
+            />
           </Form>
         )}
       </Formik>

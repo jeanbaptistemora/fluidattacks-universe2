@@ -21,6 +21,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Organization billing groups view", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof OrganizationGroups).toBe("function");
@@ -116,17 +118,17 @@ describe("Organization billing groups view", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.selectOptions(screen.getByRole("combobox", { name: "managed" }), [
       "organization.tabs.billing.groups.managed.no",
     ]);
 
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
