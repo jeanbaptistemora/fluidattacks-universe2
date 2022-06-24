@@ -41,6 +41,9 @@ jest.mock(
 );
 
 describe("FindingContent", (): void => {
+  const btnCancel = "components.modal.cancel";
+  const btnConfirm = "components.modal.confirm";
+
   const findingMock: Readonly<MockedResponse> = {
     request: {
       query: GET_FINDING_HEADER,
@@ -345,7 +348,7 @@ describe("FindingContent", (): void => {
       ).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.cancel"));
+    userEvent.click(screen.getByText(btnCancel));
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.delete.title")
@@ -799,7 +802,7 @@ describe("FindingContent", (): void => {
       ["DUPLICATED"]
     );
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
@@ -867,7 +870,7 @@ describe("FindingContent", (): void => {
       ["DUPLICATED"]
     );
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(1);

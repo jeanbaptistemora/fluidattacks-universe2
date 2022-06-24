@@ -28,7 +28,7 @@ import {
 import { REMOVE_FINDING_MUTATION } from "../FindingContent/queries";
 import { formatPercentage } from "../GroupToeLinesView/utils";
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import { useRowExpand } from "components/Table/hooks/useRowExpand";
@@ -830,14 +830,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 </option>
               </Field>
             </FormGroup>
-            <ModalFooter>
-              <Button onClick={closeDeleteModal} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button disabled={isRunning} type={"submit"} variant={"primary"}>
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm disabled={isRunning} onCancel={closeDeleteModal} />
           </Form>
         </Formik>
       </Modal>

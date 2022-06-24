@@ -24,8 +24,7 @@ import {
 } from "./helpers";
 import { ButtonCol, Title, TitleContainer } from "./styles";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
@@ -411,14 +410,7 @@ const FindingContent: React.FC = (): JSX.Element => {
                 </option>
               </Field>
             </FormGroup>
-            <ModalFooter>
-              <Button onClick={closeDeleteModal} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button type={"submit"} variant={"primary"}>
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm onCancel={closeDeleteModal} />
           </Form>
         </Formik>
       </Modal>
