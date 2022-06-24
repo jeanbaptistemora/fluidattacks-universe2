@@ -3,8 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import type { IURLRootAttr } from "scenes/Dashboard/containers/GroupToeInputsView/HandleAdditionModal/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
@@ -68,18 +67,10 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               </ControlLabel>
               <Field component={FormikText} name={"nickname"} type={"text"} />
             </div>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("confirmmodal.cancel")}
-              </Button>
-              <Button
-                disabled={!dirty || isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("confirmmodal.proceed")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              disabled={!dirty || isSubmitting}
+              onCancel={onClose}
+            />
           </Form>
         )}
       </Formik>
