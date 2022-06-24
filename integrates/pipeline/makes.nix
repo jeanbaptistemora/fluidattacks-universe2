@@ -88,6 +88,7 @@
     ["toe_lines"]
     ["unsubscribe_from_group"]
     ["update_access_token"]
+    ["update_credentials"]
     ["update_event_evidence"]
     ["update_evidence_description"]
     ["update_evidence"]

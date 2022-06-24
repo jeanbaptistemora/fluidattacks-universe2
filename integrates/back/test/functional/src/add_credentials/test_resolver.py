@@ -8,6 +8,9 @@ from dataloaders import (
 from db_model.credentials.types import (
     Credential,
 )
+from db_model.enums import (
+    CredentialType,
+)
 import pytest
 from typing import (
     Any,
@@ -38,7 +41,7 @@ from typing import (
             dict(
                 name="cred3",
                 type="SSH",
-                key="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJRW9K",
+                key="LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KTUlJCg==",
             ),
         ],
     ],
@@ -69,6 +72,21 @@ async def test_add_credentials(
         None,
     )
     assert new_credentials is not None
+    assert new_credentials.owner == email
+    assert new_credentials.state.name == credentials["name"]
+    assert new_credentials.state.type == CredentialType[credentials["type"]]
+    assert getattr(
+        new_credentials.state.secret, "token", None
+    ) == credentials.get("token")
+    assert getattr(
+        new_credentials.state.secret, "key", None
+    ) == credentials.get("key")
+    assert getattr(
+        new_credentials.state.secret, "user", None
+    ) == credentials.get("user")
+    assert getattr(
+        new_credentials.state.secret, "password", None
+    ) == credentials.get("password")
 
 
 @pytest.mark.asyncio
