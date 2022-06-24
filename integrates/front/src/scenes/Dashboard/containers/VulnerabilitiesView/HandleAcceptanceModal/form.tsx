@@ -1,6 +1,5 @@
 import { Form, useFormikContext } from "formik";
 import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 
 import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import { onTreatmentChangeHelper } from "./helpers";
@@ -8,8 +7,7 @@ import { JustificationField } from "./JustificationField";
 import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskTable } from "./ZeroRiskTable";
 
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import type {
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,
@@ -30,7 +28,6 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
     setAcceptanceVulns,
     vulns,
   }: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
-    const { t } = useTranslation();
     const { values, submitForm } = useFormikContext<IFormValues>();
 
     const isAcceptedUndefinedSelected: boolean =
@@ -87,23 +84,16 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
             />
           </Col100>
         </Row>
-        <ModalFooter>
-          <Button onClick={handleCloseModal} variant={"secondary"}>
-            {t("group.findings.report.modalClose")}
-          </Button>
-          <Button
-            disabled={
-              !(hasAcceptedVulns || hasRejectedVulns) ||
-              handlingAcceptance ||
-              confirmingZeroRisk ||
-              rejectingZeroRisk
-            }
-            onClick={submitForm}
-            variant={"primary"}
-          >
-            {t("confirmmodal.proceed")}
-          </Button>
-        </ModalFooter>
+        <ModalConfirm
+          disabled={
+            !(hasAcceptedVulns || hasRejectedVulns) ||
+            handlingAcceptance ||
+            confirmingZeroRisk ||
+            rejectingZeroRisk
+          }
+          onCancel={handleCloseModal}
+          onConfirm={submitForm}
+        />
       </Form>
     );
   };

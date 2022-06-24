@@ -3,8 +3,7 @@ import React, { useState } from "react";
 
 import type { IQueue } from "./types";
 
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import { FormGroup } from "styles/styledComponents";
 import { FormikCheckbox } from "utils/forms/fields";
 import style from "utils/forms/index.css";
@@ -97,23 +96,7 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
                   );
                 })}
               </ul>
-              <ModalFooter>
-                <Button
-                  id={"cancel-job"}
-                  onClick={handleClose}
-                  variant={"secondary"}
-                >
-                  {translate.t("confirmmodal.cancel")}
-                </Button>
-                <Button
-                  disabled={isJobSubmitted}
-                  id={"submit-job"}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {translate.t("confirmmodal.proceed")}
-                </Button>
-              </ModalFooter>
+              <ModalConfirm disabled={isJobSubmitted} onCancel={handleClose} />
             </FormGroup>
           </div>
         </Form>

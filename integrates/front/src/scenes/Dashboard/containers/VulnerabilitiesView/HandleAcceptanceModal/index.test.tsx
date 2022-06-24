@@ -29,6 +29,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("handle vulns acceptance modal", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should handle vulns acceptance", async (): Promise<void> => {
     expect.hasAssertions();
 
@@ -130,9 +132,9 @@ describe("handle vulns acceptance modal", (): void => {
     userEvent.click(screen.getByRole("checkbox"));
 
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -225,9 +227,9 @@ describe("handle vulns acceptance modal", (): void => {
       "This is a justification test error"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     const expectedErrorMsgs: number = 3;
     await waitFor((): void => {
@@ -371,9 +373,9 @@ describe("handle vulns acceptance modal", (): void => {
       "This is a test of confirming zero risk vulns"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.queryByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
@@ -537,10 +539,10 @@ describe("handle vulns acceptance modal", (): void => {
       "This is a test of confirming zero risk vulns"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "Zero risk vulnerability is not requested"
@@ -696,10 +698,10 @@ describe("handle vulns acceptance modal", (): void => {
       "This is a test of rejecting zero risk vulns"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);
     });
@@ -861,10 +863,10 @@ describe("handle vulns acceptance modal", (): void => {
       "This is a test of rejecting zero risk vulns"
     );
     await waitFor((): void => {
-      expect(screen.queryByText("confirmmodal.proceed")).toBeInTheDocument();
+      expect(screen.queryByText(btnConfirm)).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "Zero risk vulnerability is not requested"
