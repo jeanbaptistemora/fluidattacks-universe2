@@ -31,3 +31,9 @@ customers can [easily manage](/criteria/requirements/034)
 who does
 and who does not have access
 to their projects.
+
+## Requirements
+
+- [034. Manage user accounts](/criteria/requirements/034)
+- [228. Authenticate using standard protocols](/criteria/requirements/228)
+- [319. Make authentication options equally secure](/criteria/requirements/319)

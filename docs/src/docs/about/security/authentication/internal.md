@@ -86,3 +86,13 @@ The signatures can be found
 in the repository commit histories
 linked in the
 [Open Source section](../transparency/open-source).
+
+## Requirements
+
+- [096. Set user's required privileges](/criteria/requirements/096)
+- [129. Validate previous passwords](/criteria/requirements/129)
+- [130. Limit password lifespan](/criteria/requirements/130)
+- [132. Passphrases with at least 4 words](/criteria/requirements/132)
+- [153. Out of band transactions](/criteria/requirements/153)
+- [231. Implement a biometric verification component](/criteria/requirements/231)
+- [328. Request MFA for critical systems](/criteria/requirements/328)
