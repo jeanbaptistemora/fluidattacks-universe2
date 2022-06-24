@@ -84,7 +84,7 @@ def get_community_advisories(advisories: Advisories, platform: str) -> dict:
                     if cve_key not in advisories[package_key]:
                         formatted_ranges = format_ranges(
                             platform, str(parsed_yaml.get("affected_range"))
-                        )
+                        ).lower()
                         advisories[package_key].update(
                             {cve_key: formatted_ranges}
                         )

@@ -35,7 +35,7 @@ def get_vulnerabilities_ranges(
             str_range: str
             introduced = f">={events[0].get('introduced')}"
             fixed = f" <{events[1].get('fixed')}" if len(events) > 1 else ""
-            str_range = f"{introduced}{fixed}"
+            str_range = f"{introduced}{fixed}".lower()
             if pkg_name not in advisories:
                 advisories.update({pkg_name: {}})
             if ghsa_vuln := advisories[pkg_name].get(vuln_id):
