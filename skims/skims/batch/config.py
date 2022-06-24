@@ -244,6 +244,8 @@ async def generate_configs(
     additional_paths: List[str] = []
     all_configs: List[SkimsConfig] = []
     for current_dir, dirs, files in os.walk(working_dir):
+        if current_dir == working_dir:
+            continue
         if is_additional_path(dirs, files):
             additional_paths.append(current_dir.replace(f"{working_dir}/", ""))
 
@@ -267,7 +269,14 @@ async def generate_configs(
                     working_dir=working_dir,
                     is_main=False,
                     include=(path,),
-                    exclude=tuple(set(additional_paths) - {path}),
+                    exclude=tuple(
+                        {
+                            _path
+                            for _path in additional_paths
+                            if _path != path
+                            and not path.startswith(f"{_path}/")
+                        }
+                    ),
                 )
                 for path in additional_paths
             ),
