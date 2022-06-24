@@ -9,30 +9,6 @@ describe("Modal", (): void => {
     expect(typeof Modal).toBe("function");
   });
 
-  it("should render modal title", (): void => {
-    expect.hasAssertions();
-
-    render(
-      <Modal open={true} title={"Unit test title"}>
-        <p>{"Unit modal content"}</p>
-      </Modal>
-    );
-
-    expect(screen.queryByText("Unit test title")).toBeInTheDocument();
-  });
-
-  it("should render modal body", (): void => {
-    expect.hasAssertions();
-
-    render(
-      <Modal open={true} title={"Unit test title"}>
-        <p>{"Unit modal content"}</p>
-      </Modal>
-    );
-
-    expect(screen.queryByText("Unit modal content")).toBeInTheDocument();
-  });
-
   it("should render a modal", (): void => {
     expect.hasAssertions();
 
