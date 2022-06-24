@@ -143,16 +143,7 @@ async def report(*, item: BatchProcessing) -> None:
     }
     verifications = {
         VulnerabilityVerificationStatus[verification]
-        for verification in additional_info.get(
-            "verifications",
-            set(
-                [
-                    VulnerabilityVerificationStatus["ON_HOLD"],
-                    VulnerabilityVerificationStatus["REQUESTED"],
-                    VulnerabilityVerificationStatus["VERIFIED"],
-                ]
-            ),
-        )
+        for verification in additional_info.get("verifications", {})
     }
     report_url = await get_report(
         item=item,

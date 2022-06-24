@@ -210,13 +210,7 @@ async def resolve(
             for verification in kwargs["verifications"]
         }
         if kwargs.get("verifications")
-        else set(
-            [
-                VulnerabilityVerificationStatus["ON_HOLD"],
-                VulnerabilityVerificationStatus["REQUESTED"],
-                VulnerabilityVerificationStatus["VERIFIED"],
-            ]
-        )
+        else set()
     )
 
     return {

@@ -115,15 +115,7 @@ class ITReport:
         self.are_all_treatments = len(sorted(treatments)) == len(
             sorted(set(VulnerabilityTreatmentStatus))
         )
-        self.are_all_verifications = len(sorted(verifications)) >= len(
-            sorted(
-                [
-                    VulnerabilityVerificationStatus["ON_HOLD"],
-                    VulnerabilityVerificationStatus["REQUESTED"],
-                    VulnerabilityVerificationStatus["VERIFIED"],
-                ]
-            )
-        )
+        self.are_all_verifications = len(verifications) == 0
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -184,10 +176,7 @@ class ITReport:
                     vulnerability.verification
                     and vulnerability.verification.status in self.verifications
                 )
-                or (
-                    not vulnerability.verification
-                    and self.are_all_verifications
-                )
+                or self.are_all_verifications
             )
         )
 

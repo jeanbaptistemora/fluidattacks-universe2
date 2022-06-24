@@ -13,7 +13,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
-    VulnerabilityVerificationStatus,
 )
 from magic import (
     Magic,
@@ -118,13 +117,7 @@ async def _append_xls_report(
                 VulnerabilityStateStatus["OPEN"],
             ]
         ),
-        verifications=set(
-            [
-                VulnerabilityVerificationStatus["ON_HOLD"],
-                VulnerabilityVerificationStatus["REQUESTED"],
-                VulnerabilityVerificationStatus["VERIFIED"],
-            ]
-        ),
+        verifications=set(),
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:
