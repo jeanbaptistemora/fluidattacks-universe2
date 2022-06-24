@@ -36,6 +36,8 @@ input MachineFindingResultInput {
 input NotificationPreferences {
   "Email channel to notifications preferences"
   email: [NotificationsName!]!
+  "Sms channel to notifications preferences"
+  sms: [NotificationsName]
 }
 
 "Credentials definition"
