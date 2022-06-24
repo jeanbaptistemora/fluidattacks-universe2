@@ -884,271 +884,1644 @@
           },
           "TableData": [
             {
-              "pk": {
-                "S": "USER#test@fluidattacks.com"
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "User"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#test@fluidattacks.com"
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesuser@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": ""
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
               },
               "access_token": {
                 "M": {
                   "iat": {
-                    "N": "123"
+                    "N": "1634766591"
                   },
                   "jti": {
-                    "S": "123"
+                    "S": "0f98c8d494be2c9eddd973e4a861483988a1d90bb268be48dfc442d0b4cada72"
                   },
                   "salt": {
-                    "S": "123"
+                    "S": "98c39cc37035807e0c3c8ad1975a92b251fb825c618d10e6f22ac3941bdce038"
                   }
                 }
               },
-              "push_tokens": {
-                "SS": [
-                  "ExponentPushToken[123]"
-                ]
+              "legal_remember": {
+                "BOOL": true
               },
-              "registration_date": {
-                "S": "2020-06-10 08:00:26"
+              "sk": {
+                "S": "USER#forces.unittesting@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#forces.unittesting@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": ""
+              },
+              "email": {
+                "S": "forces.unittesting@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#forces.unittesting@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Customer"
               },
               "last_login_date": {
-                "S": "2021-02-12 17:36:42"
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesuser2@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesuser2@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesuser2@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "delete"
+              },
+              "last_login_date": {
+                "S": "2020-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#deleteimamura@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#deleteimamura@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "imamura"
+              },
+              "email": {
+                "S": "deleteimamura@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#deleteimamura@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Manager"
+              },
+              "last_login_date": {
+                "S": "2019-12-29T16:50:17+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "phone": {
+                "M": {
+                  "national_number": {
+                    "S": "1234567891"
+                  },
+                  "country_code": {
+                    "S": "CO"
+                  },
+                  "calling_country_code": {
+                    "S": "57"
+                  }
+                }
+              },
+              "sk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Reattacker"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesreattacker@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesreattacker@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesreattacker@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesreattacker@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": false
+              },
+              "last_name": {
+                "S": "Manager"
+              },
+              "last_login_date": {
+                "S": "2022-03-13T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2022-02-16T04:54:55+00:00"
+              },
+              "sk": {
+                "S": "USER#vulnmanager@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#vulnmanager@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Vooln"
+              },
+              "email": {
+                "S": "vulnmanager@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#vulnmanager@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Manager"
+              },
+              "last_login_date": {
+                "S": "2019-12-29T16:50:17+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "phone": {
+                "M": {
+                  "national_number": {
+                    "S": "1234567894"
+                  },
+                  "country_code": {
+                    "S": "CO"
+                  },
+                  "calling_country_code": {
+                    "S": "57"
+                  }
+                }
+              },
+              "sk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesmanager@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Hacker2"
+              },
+              "last_login_date": {
+                "S": "2017-11-20T20:22:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2012-12-22T04:59:59+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesanalyst2@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesanalyst2@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates2"
+              },
+              "email": {
+                "S": "integratesanalyst2@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesanalyst2@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Reviewer"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesreviewer@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesreviewer@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesreviewer@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesreviewer@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Hacking"
+              },
+              "last_login_date": {
+                "S": "2020-03-23T15:45:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "phone": {
+                "M": {
+                  "national_number": {
+                    "S": "1234567893"
+                  },
+                  "country_code": {
+                    "S": "CO"
+                  },
+                  "calling_country_code": {
+                    "S": "57"
+                  }
+                }
+              },
+              "sk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Continuous"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#continuoushacking@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Service Forces"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesserviceforces@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesserviceforces@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesserviceforces@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesserviceforces@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": false
+              },
+              "last_name": {
+                "S": ""
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2017-12-29T04:54:55+00:00"
+              },
+              "sk": {
+                "S": "USER#unittest3"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#unittest3"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": ""
+              },
+              "email": {
+                "S": "unittest3"
+              },
+              "sk_2": {
+                "S": "USER#unittest3"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Owner"
+              },
+              "last_login_date": {
+                "S": "2021-08-30T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2021-08-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#customer_manager@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#customer_manager@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "System"
+              },
+              "email": {
+                "S": "customer_manager@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#customer_manager@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Manager"
+              },
+              "last_login_date": {
+                "S": "2019-12-29T16:50:17+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#jmesa@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#jmesa@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "jmesa@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#jmesa@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Resourcer"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesresourcer@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Manager"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#unittest2@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#unittest2@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": [
+                      {
+                        "S": "ACCESS_GRANTED"
+                      },
+                      {
+                        "S": "AGENT_TOKEN"
+                      },
+                      {
+                        "S": "CHARTS_REPORT"
+                      },
+                      {
+                        "S": "DAILY_DIGEST"
+                      },
+                      {
+                        "S": "EVENT_REPORT"
+                      },
+                      {
+                        "S": "FILE_UPDATE"
+                      },
+                      {
+                        "S": "GROUP_INFORMATION"
+                      },
+                      {
+                        "S": "GROUP_REPORT"
+                      },
+                      {
+                        "S": "NEW_COMMENT"
+                      },
+                      {
+                        "S": "NEW_DRAFT"
+                      },
+                      {
+                        "S": "PORTFOLIO_UPDATE"
+                      },
+                      {
+                        "S": "REMEDIATE_FINDING"
+                      },
+                      {
+                        "S": "REMINDER_NOTIFICATION"
+                      },
+                      {
+                        "S": "ROOT_UPDATE"
+                      },
+                      {
+                        "S": "SERVICE_UPDATE"
+                      },
+                      {
+                        "S": "UNSUBSCRIPTION_ALERT"
+                      },
+                      {
+                        "S": "UPDATED_TREATMENT"
+                      },
+                      {
+                        "S": "VULNERABILITY_ASSIGNED"
+                      },
+                      {
+                        "S": "VULNERABILITY_REPORT"
+                      }
+                    ]
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Group"
+              },
+              "email": {
+                "S": "unittest2@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#unittest2@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Internal Manager"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesuser2@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesuser2@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesuser2@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesuser2@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Hacker"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
               },
               "legal_remember": {
                 "BOOL": false
               },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "phone": {
+                "M": {
+                  "national_number": {
+                    "S": "1234567895"
+                  },
+                  "country_code": {
+                    "S": "CO"
+                  },
+                  "calling_country_code": {
+                    "S": "57"
+                  }
+                }
+              },
+              "sk": {
+                "S": "USER#integrateshacker@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integrateshacker@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
               "email": {
-                "S": "test@fluidattacks.com"
+                "S": "integrateshacker@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integrateshacker@fluidattacks.com"
               }
             },
             {
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
+              "is_concurrent_session": {
+                "BOOL": false
               },
-              "sk": {
-                "S": "USER#integratesuser@gmail.com"
+              "is_registered": {
+                "BOOL": true
               },
-              "notifications_preferences": {
+              "last_name": {
+                "S": "Hacking"
+              },
+              "last_login_date": {
+                "S": "2020-03-23T15:45:37+00:00"
+              },
+              "tours": {
                 "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
                   }
                 }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
               },
-              "sk": {
-                "S": "USER#integratesmanager@gmail.com"
+              "legal_remember": {
+                "BOOL": true
               },
-              "notifications_preferences": {
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "phone": {
                 "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                  "national_number": {
+                    "S": "1234567892"
+                  },
+                  "country_code": {
+                    "S": "CO"
+                  },
+                  "calling_country_code": {
+                    "S": "57"
                   }
                 }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "sk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#continuoushack2@gmail.com"
               },
               "sk": {
                 "S": "USER#continuoushack2@gmail.com"
               },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
               "notifications_preferences": {
                 "M": {
+                  "sms": {
+                    "L": []
+                  },
                   "email": {
                     "L": [
                       {
@@ -1211,475 +2584,261 @@
                     ]
                   }
                 }
+              },
+              "first_name": {
+                "S": "Continuous2"
+              },
+              "email": {
+                "S": "continuoushack2@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#continuoushack2@gmail.com"
               }
             },
             {
-              "pk": {
-                "S": "USER#admin@gmail.com"
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": false
+              },
+              "last_name": {
+                "S": ""
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-11-28T23:24:10+00:00"
               },
               "sk": {
-                "S": "USER#admin@gmail.com"
+                "S": "USER#unittest2"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#unittest2"
               },
               "notifications_preferences": {
                 "M": {
+                  "sms": {
+                    "L": []
+                  },
                   "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                    "L": []
                   }
                 }
+              },
+              "first_name": {
+                "S": ""
+              },
+              "email": {
+                "S": "unittest2"
+              },
+              "sk_2": {
+                "S": "USER#unittest2"
               }
             },
             {
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": ""
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
+                "S": "USER#unittest"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#unittest"
               },
               "notifications_preferences": {
                 "M": {
+                  "sms": {
+                    "L": []
+                  },
                   "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                    "L": []
                   }
                 }
+              },
+              "first_name": {
+                "S": ""
+              },
+              "email": {
+                "S": "unittest"
+              },
+              "sk_2": {
+                "S": "USER#unittest"
               }
             },
             {
-              "pk": {
-                "S": "USER#unittest2@fluidattacks.com"
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "no delete"
+              },
+              "last_login_date": {
+                "S": "2020-11-02T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#unittest2@fluidattacks.com"
+                "S": "USER#nodeleteimamura@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#nodeleteimamura@fluidattacks.com"
               },
               "notifications_preferences": {
                 "M": {
+                  "sms": {
+                    "L": []
+                  },
                   "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                    "L": []
                   }
                 }
+              },
+              "first_name": {
+                "S": "imamura"
+              },
+              "email": {
+                "S": "nodeleteimamura@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#nodeleteimamura@fluidattacks.com"
               }
             },
             {
-              "pk": {
-                "S": "USER#customer_manager@fluidattacks.com"
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "de Orellana"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "access_token": {
+                "M": {
+                  "iat": {
+                    "N": "1634677195"
+                  },
+                  "jti": {
+                    "S": "c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd070808418d640e77d"
+                  },
+                  "salt": {
+                    "S": "27c7f388ccdd7cc432871c84b63e78cd716739c40055253ce7ad1666a8532db6"
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2019-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#customer_manager@fluidattacks.com"
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "push_tokens": {
+                "L": [
+                  {
+                    "S": "ExponentPushToken[dummy]"
+                  }
+                ]
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#unittest@fluidattacks.com"
               },
               "notifications_preferences": {
                 "M": {
+                  "sms": {
+                    "L": []
+                  },
                   "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
+                    "L": []
                   }
                 }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#integratesresourcer@fluidattacks.com"
               },
-              "sk": {
-                "S": "USER#integratesresourcer@fluidattacks.com"
+              "first_name": {
+                "S": "Miguel"
               },
-              "notifications_preferences": {
-                "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#integratesuser2@gmail.com"
+              "email": {
+                "S": "unittest@fluidattacks.com"
               },
-              "sk": {
-                "S": "USER#integratesuser2@gmail.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "pk": {
-                "S": "USER#customer.success.mail@integrates.test"
-              },
-              "sk": {
-                "S": "USER#customer.success.mail@integrates.test"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "email": {
-                    "L": [
-                      {
-                        "S": "ACCESS_GRANTED"
-                      },
-                      {
-                        "S": "AGENT_TOKEN"
-                      },
-                      {
-                        "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
-                        "S": "EVENT_REPORT"
-                      },
-                      {
-                        "S": "FILE_UPDATE"
-                      },
-                      {
-                        "S": "GROUP_INFORMATION"
-                      },
-                      {
-                        "S": "GROUP_REPORT"
-                      },
-                      {
-                        "S": "NEW_COMMENT"
-                      },
-                      {
-                        "S": "NEW_DRAFT"
-                      },
-                      {
-                        "S": "PORTFOLIO_UPDATE"
-                      },
-                      {
-                        "S": "REMEDIATE_FINDING"
-                      },
-                      {
-                        "S": "REMINDER_NOTIFICATION"
-                      },
-                      {
-                        "S": "ROOT_UPDATE"
-                      },
-                      {
-                        "S": "SERVICE_UPDATE"
-                      },
-                      {
-                        "S": "UNSUBSCRIPTION_ALERT"
-                      },
-                      {
-                        "S": "UPDATED_TREATMENT"
-                      },
-                      {
-                        "S": "VULNERABILITY_ASSIGNED"
-                      },
-                      {
-                        "S": "VULNERABILITY_REPORT"
-                      }
-                    ]
-                  }
-                }
+              "sk_2": {
+                "S": "USER#unittest@fluidattacks.com"
               }
             }
           ],
