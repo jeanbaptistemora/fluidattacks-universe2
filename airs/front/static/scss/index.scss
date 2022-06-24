@@ -862,6 +862,18 @@ $gray-36: rgba(36, 37, 45, 1);
   font-weight: 600;
   text-align: left;
 
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #b0b0bf;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #5c5c70;
+  }
+
   b,
   strong {
     font-weight: 600;
@@ -1075,12 +1087,106 @@ $gray-36: rgba(36, 37, 45, 1);
   }
 }
 
+.comparative-table + table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-style: none;
+  border-width: 1px;
+  box-shadow: 0 4px 20px 4px rgb(0 0 0 / 7%);
+  display: block;
+  font-size: 1.125rem;
+  margin: auto;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 15px;
+  text-align: left;
+  width: max-content;
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    vertical-align: top;
+  }
+
+  tbody tr {
+    background-color: $white !important;
+    position: relative;
+  }
+
+  tbody tr::after {
+    border-bottom: solid 1px #c3c3c5;
+    bottom: 0;
+    content: '';
+    height: 1px;
+    left: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+    position: absolute;
+    right: 0;
+  }
+
+  tbody tr:nth-child(1) {
+    background-color: $fluid-black !important;
+    color: $white;
+
+    a {
+      color: $white !important;
+    }
+  }
+
+  tbody tr:nth-child(1)::after {
+    border-bottom: solid 1px $fluid-black;
+  }
+
+  tbody td {
+    padding: 2rem;
+    width: calc(100% / 3);
+
+    p {
+      color: $black-gray;
+      margin-block-end: 0;
+      margin-block-start: 0;
+    }
+
+    a > sup {
+      color: $black-gray;
+    }
+
+    img {
+      height: 16px;
+      margin-right: 10px;
+      width: 16px;
+    }
+
+    h4 {
+      color: $black-gray;
+    }
+
+    ul {
+      margin-block-end: 0;
+      margin-block-start: 0;
+    }
+
+    li {
+      color: $black-gray;
+      margin-bottom: 0;
+    }
+  }
+
+  tbody td > div {
+    display: flex;
+  }
+}
+
 .internal-advisory {
   font-size: 1.125rem;
   font-weight: 300 !important;
 
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 3px;
   }
 
   ::-webkit-scrollbar-track {
