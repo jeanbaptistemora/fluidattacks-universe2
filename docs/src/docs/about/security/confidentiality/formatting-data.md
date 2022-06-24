@@ -14,3 +14,7 @@ by applying the
 [Windows CSP](https://docs.microsoft.com/en-us/windows/client-management/mdm/configuration-service-provider-reference)
 format settings
 on all machines joined to the domain.
+
+## Requirements
+
+- [360. Remove unnecessary sensitive information](/criteria/requirements/360)

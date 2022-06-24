@@ -62,3 +62,12 @@ have industry-standard
 - All our Linux laptops have their hard drives encrypted
   from the bootloader
   using LUKS.
+
+## Requirements
+
+- [127. Store hashed passwords](/criteria/requirements/127)
+- [150. Set minimum size for hash functions](/criteria/requirements/150)
+- [176. Restrict system objects](/criteria/requirements/176)
+- [185. Encrypt sensitive information](/criteria/requirements/185)
+- [224. Use secure cryptographic mechanisms](/criteria/requirements/224)
+- [356. Verify sub-domain names](/criteria/requirements/356)

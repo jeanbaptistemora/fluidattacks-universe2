@@ -46,3 +46,10 @@ All our applications and services have industry-standard
   always include a digital certificate,
   validated with ACME protocol,
   and [not self-signed](/criteria/requirements/092).
+
+## Requirements
+
+- [092. Use externally signed certificates](/criteria/requirements/092)
+- [147. Use pre-existent mechanisms](/criteria/requirements/147)
+- [181. Transmit data using secure protocols](/criteria/requirements/181)
+- [336. Disable insecure TLS versions](/criteria/requirements/336)
