@@ -6,6 +6,7 @@ from typing import (
 
 class NotificationsPreferences(NamedTuple):
     email: list[str] = []
+    sms: list[str] = []
 
 
 class StakeholderAccessToken(NamedTuple):

@@ -42,16 +42,32 @@ def format_tours(item: Item) -> StakeholderTours:
     )
 
 
-def format_stakeholder(
-    item_legacy: Item, item_vms: Optional[Item]
-) -> Stakeholder:
-    preferences: list[str] = []
+def format_notifications_preferences(
+    item_vms: Optional[Item],
+) -> NotificationsPreferences:
+    email_preferences: list[str] = []
+    sms_preferences: list[str] = []
     if item_vms and item_vms.get("notifications_preferences"):
-        preferences = [
+        email_preferences = [
             item
             for item in item_vms["notifications_preferences"]["email"]
             if item in Notification.__members__
         ]
+        if "sms" in item_vms["notifications_preferences"]:
+            sms_preferences = [
+                item
+                for item in item_vms["notifications_preferences"]["sms"]
+                if item in Notification.__members__
+            ]
+    return NotificationsPreferences(
+        email=email_preferences,
+        sms=sms_preferences,
+    )
+
+
+def format_stakeholder(
+    item_legacy: Item, item_vms: Optional[Item]
+) -> Stakeholder:
     return Stakeholder(
         access_token=format_access_token(item_legacy["access_token"])
         if item_legacy.get("access_token")
@@ -67,7 +83,7 @@ def format_stakeholder(
         else None,
         last_name=item_legacy.get("last_name", ""),
         legal_remember=item_legacy.get("legal_remember", False),
-        notifications_preferences=NotificationsPreferences(email=preferences),
+        notifications_preferences=format_notifications_preferences(item_vms),
         phone=format_phone(item_legacy["phone"])
         if item_legacy.get("phone")
         else None,
