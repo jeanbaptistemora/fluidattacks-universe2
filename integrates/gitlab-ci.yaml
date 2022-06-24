@@ -1420,6 +1420,33 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__remove_credentials:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.07
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'remove_credentials'
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__remove_event_evidence:
   artifacts:
     expire_in: 1 day
@@ -3253,6 +3280,7 @@
     - /integrates/back/test/functional__refresh_toe_lines
     - /integrates/back/test/functional__reject_draft
     - /integrates/back/test/functional__reject_vulnerabilities_zero_risk
+    - /integrates/back/test/functional__remove_credentials
     - /integrates/back/test/functional__remove_event_evidence
     - /integrates/back/test/functional__remove_evidence
     - /integrates/back/test/functional__remove_files
@@ -3287,7 +3315,6 @@
     - /integrates/back/test/functional__update_evidence
     - /integrates/back/test/functional__update_finding_description
     - /integrates/back/test/functional__update_forces_access_token
-    - /integrates/back/test/functional__update_git_environments
   rules:
     - if: $CI_COMMIT_BRANCH == "master"
       when: never
@@ -3315,6 +3342,7 @@
   image: ghcr.io/fluidattacks/makes:22.07
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_git_environments
     - /integrates/back/test/functional__update_git_root
     - /integrates/back/test/functional__update_group
     - /integrates/back/test/functional__update_group_access_info
