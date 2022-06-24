@@ -16,6 +16,7 @@
     ["accept_legal"]
     ["acknowledge_concurrent_session"]
     ["activate_root"]
+    ["add_credentials"]
     ["add_draft"]
     ["add_event"]
     ["add_event_consult"]
