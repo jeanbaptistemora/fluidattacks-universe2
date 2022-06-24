@@ -26,6 +26,10 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.stakeholders.types import (
+    NotificationsPreferences,
+    StakeholderMetadataToUpdate,
+)
 from freezegun import (  # type: ignore
     freeze_time,
 )
@@ -55,17 +59,19 @@ async def _get_result(
     """Get result."""
     await stakeholders_model.update_metadata(
         stakeholder_email=user,
-        notifications_preferences={
-            "email": [
-                "CHARTS_REPORT",
-                "DAILY_DIGEST",
-                "NEW_COMMENT",
-                "NEW_DRAFT",
-                "REMEDIATE_FINDING",
-                "UPDATED_TREATMENT",
-                "VULNERABILITY_ASSIGNED",
-            ]
-        },
+        metadata=StakeholderMetadataToUpdate(
+            NotificationsPreferences(
+                email=[
+                    "CHARTS_REPORT",
+                    "DAILY_DIGEST",
+                    "NEW_COMMENT",
+                    "NEW_DRAFT",
+                    "REMEDIATE_FINDING",
+                    "UPDATED_TREATMENT",
+                    "VULNERABILITY_ASSIGNED",
+                ]
+            )
+        ),
     )
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request, loaders or get_new_context())

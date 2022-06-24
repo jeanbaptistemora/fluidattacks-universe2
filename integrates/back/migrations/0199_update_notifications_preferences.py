@@ -43,6 +43,10 @@ from aioextensions import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
+from db_model.stakeholders.types import (
+    NotificationsPreferences,
+    StakeholderMetadataToUpdate,
+)
 from dynamodb import (
     operations_legacy,
 )
@@ -56,29 +60,31 @@ async def main() -> None:
     for user in users:
         await stakeholders_model.update_metadata(
             stakeholder_email=user["email"],
-            notifications_preferences={
-                "email": [
-                    "ACCESS_GRANTED",
-                    "AGENT_TOKEN",
-                    "CHARTS_REPORT",
-                    "DAILY_DIGEST",
-                    "EVENT_REPORT",
-                    "FILE_UPDATE",
-                    "GROUP_INFORMATION",
-                    "GROUP_REPORT",
-                    "NEW_COMMENT",
-                    "NEW_DRAFT",
-                    "PORTFOLIO_UPDATE",
-                    "REMEDIATE_FINDING",
-                    "REMINDER_NOTIFICATION",
-                    "ROOT_UPDATE",
-                    "SERVICE_UPDATE",
-                    "UNSUBSCRIPTION_ALERT",
-                    "UPDATED_TREATMENT",
-                    "VULNERABILITY_ASSIGNED",
-                    "VULNERABILITY_REPORT",
-                ]
-            },
+            metadata=StakeholderMetadataToUpdate(
+                NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "DAILY_DIGEST",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ]
+                )
+            ),
         )
 
 

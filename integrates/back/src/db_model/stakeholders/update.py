@@ -1,3 +1,9 @@
+from .types import (
+    StakeholderMetadataToUpdate,
+)
+from .utils import (
+    format_metadata_item,
+)
 from db_model import (
     TABLE,
 )
@@ -5,21 +11,21 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Any,
-)
 
 
 async def update_metadata(
-    *, stakeholder_email: str, notifications_preferences: dict[str, Any]
+    *,
+    metadata: StakeholderMetadataToUpdate,
+    stakeholder_email: str,
 ) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_metadata"],
         values={"email": stakeholder_email},
     )
-
-    await operations.update_item(
-        item={"notifications_preferences": notifications_preferences},
-        key=primary_key,
-        table=TABLE,
-    )
+    item = format_metadata_item(metadata)
+    if item:
+        await operations.update_item(
+            item=item,
+            key=primary_key,
+            table=TABLE,
+        )

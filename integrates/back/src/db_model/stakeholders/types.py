@@ -44,3 +44,7 @@ class Stakeholder(NamedTuple):
     tours: StakeholderTours = StakeholderTours()
     responsability: Optional[str] = None
     role: Optional[str] = None
+
+
+class StakeholderMetadataToUpdate(NamedTuple):
+    notifications_preferences: Optional[NotificationsPreferences] = None

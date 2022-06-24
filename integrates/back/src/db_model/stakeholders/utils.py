@@ -5,6 +5,7 @@ from .types import (
     NotificationsPreferences,
     Stakeholder,
     StakeholderAccessToken,
+    StakeholderMetadataToUpdate,
     StakeholderPhone,
     StakeholderTours,
 )
@@ -23,6 +24,21 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
         jti=item["jti"],
         salt=item["salt"],
     )
+
+
+def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
+    item = {
+        "notifications_preferences": json.loads(
+            json.dumps(metadata.notifications_preferences)
+        )
+        if metadata.notifications_preferences
+        else None,
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_notifications_preferences(

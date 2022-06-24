@@ -7,6 +7,12 @@ from custom_types import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
+)
+from db_model.stakeholders.utils import (
+    format_notifications_preferences,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -30,6 +36,10 @@ async def mutate(
 
     await stakeholders_model.update_metadata(
         stakeholder_email=user_email,
-        notifications_preferences=notifications_preferences,
+        metadata=StakeholderMetadataToUpdate(
+            notifications_preferences=format_notifications_preferences(
+                notifications_preferences
+            )
+        ),
     )
     return SimplePayload(success=True)
