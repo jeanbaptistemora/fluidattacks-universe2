@@ -21,3 +21,7 @@ every minute for all applications.
 This information is real-time
 and available on our
 [Status Page](https://status.fluidattacks.com/).
+
+## Requirements
+
+- [075. Record exceptional events in logs](/criteria/requirements/075)

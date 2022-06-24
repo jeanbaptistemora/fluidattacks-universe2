@@ -17,3 +17,7 @@ These emails contain information about
 For a breach that exposes the private data of many users,
 we take care to inform the public
 via email.
+
+## Requirements
+
+- [313. Inform inability to identify users](/criteria/requirements/313)

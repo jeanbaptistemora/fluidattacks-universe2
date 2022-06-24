@@ -13,3 +13,7 @@ The person in this position works together
 with our engineering team
 to ensure we follow state-of-the-art best practices
 regarding information security.
+
+## Requirements
+
+- [331. Guarantee legal compliance](/criteria/requirements/331)
