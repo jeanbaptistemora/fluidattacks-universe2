@@ -195,7 +195,9 @@ locals {
             Effect = "Allow"
             Action = [
               "es:AddTags",
-              "es:CreateDomain"
+              "es:CreateDomain",
+              "es:DeleteDomain",
+              "es:UpdateDomainConfig"
             ]
             Resource = ["*"]
           },
