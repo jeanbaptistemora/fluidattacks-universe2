@@ -81,7 +81,7 @@ describe("handle toe input edition modal", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    userEvent.click(screen.getByText("group.toe.inputs.editModal.procced"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);

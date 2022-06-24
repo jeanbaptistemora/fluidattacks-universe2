@@ -1,7 +1,6 @@
 import { Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 
 import { ComponentField } from "./ComponentField";
 import { EntryPointField } from "./EntryPointField";
@@ -17,16 +16,13 @@ import {
   isURLRoot,
 } from "./utils";
 
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import { Col100, Col50, Row } from "styles/styledComponents";
 
 const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
   props: IHandleAdditionModalFormProps
 ): JSX.Element => {
   const { handleCloseModal, host, roots, setHost } = props;
-
-  const { t } = useTranslation();
 
   const {
     values: { environmentUrl, rootId },
@@ -76,14 +72,7 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
           <EntryPointField />
         </Col100>
       </Row>
-      <ModalFooter>
-        <Button onClick={handleCloseModal} variant={"secondary"}>
-          {t("group.toe.inputs.addModal.close")}
-        </Button>
-        <Button onClick={submitForm} variant={"primary"}>
-          {t("group.toe.inputs.addModal.procced")}
-        </Button>
-      </ModalFooter>
+      <ModalConfirm onCancel={handleCloseModal} onConfirm={submitForm} />
     </Form>
   );
 };

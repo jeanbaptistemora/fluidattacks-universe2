@@ -98,7 +98,7 @@ describe("handle toe lines edition modal", (): void => {
       "This is a test of updating toe lines"
     );
 
-    userEvent.click(screen.getByText("group.toe.lines.editModal.procced"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleRefetchData).toHaveBeenCalledTimes(1);

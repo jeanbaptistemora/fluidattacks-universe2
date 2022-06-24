@@ -105,7 +105,7 @@ describe("handle toe lines addition modal", (): void => {
       "2fab76140221397cabbc0eae536b41ff38e7540a"
     );
 
-    userEvent.click(screen.getByText("group.toe.lines.addModal.procced"));
+    userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
       expect(handleCloseModal).toHaveBeenCalledTimes(1);
