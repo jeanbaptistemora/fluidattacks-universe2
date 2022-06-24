@@ -63,7 +63,7 @@ it from Locations.
   comply with the conditions set forth
   in the service-level agreements.
 
-   ![Reattack Requested](hhttps://res.cloudinary.com/fluid-attacks/image/upload/v1656080842/docs/squad/reattack/reattack_requested.png)
+   ![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1656080842/docs/squad/reattack/reattack_requested.png)
 
 1. In the **Consulting** tab,
   you will see a new comment related
