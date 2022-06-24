@@ -1701,6 +1701,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.DIEGO_RESTREPO,
         technique=TechniqueEnum.DAST,
     )
+    AWS_UNRESTRICTED_CIDRS = MethodInfo(
+        file_name="aws",
+        name="unrestricted_cidrs",
+        module="dast",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.DIEGO_RESTREPO,
+        technique=TechniqueEnum.DAST,
+    )
     CFN_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="cloudformation",
         name="cfn_ec2_has_security_groups_ip_ranges_in_rfc1918",

@@ -93,6 +93,80 @@ async def allows_anyone_to_admin_ports(
     )
 
 
+async def unrestricted_cidrs(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    locations: List[Location] = []
+    if security_groups:
+        for index_group, group in enumerate(security_groups):
+            locations = [
+                *locations,
+                *[
+                    Location(
+                        access_pattern=(
+                            f"/SecurityGroups/{index_group}/IpPermissions"
+                            f"/{index_ip}/IpRanges/{index_range}/CidrIp"
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        value=ip_range.get("CidrIp")
+                        or ip_range.get("CidrIpv6"),
+                        description="Must not have 0.0.0.0/0 CIDRs",
+                    )
+                    for index_ip, ip_permission in enumerate(
+                        group["IpPermissions"]
+                    )
+                    for index_range, ip_range in enumerate(
+                        ip_permission["IpRanges"]
+                    )
+                    if (
+                        ip_range.get("CidrIp") == "0.0.0.0/0"
+                        or ip_range.get("CidrIpv6") == "::/0"
+                    )
+                ],
+            ]
+            locations = [
+                *locations,
+                *[
+                    Location(
+                        access_pattern=(
+                            f"/SecurityGroups/{index_group}/IpPermissionsEgre"
+                            f"ss/{index_ip}/IpRanges/{index_range}/CidrIp"
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        value=ip_range.get("CidrIp")
+                        or ip_range.get("CidrIpv6"),
+                        description="Must not have 0.0.0.0/0 CIDRs",
+                    )
+                    for index_ip, ip_permission in enumerate(
+                        group["IpPermissionsEgress"]
+                    )
+                    for index_range, ip_range in enumerate(
+                        ip_permission["IpRanges"]
+                    )
+                    if (
+                        ip_range.get("CidrIp") == "0.0.0.0/0"
+                        or ip_range.get("CidrIpv6") == "::/0"
+                    )
+                ],
+            ]
+    return build_vulnerabilities(
+        locations=locations,
+        method=core_model.MethodsEnum.AWS_UNRESTRICTED_CIDRS,
+        aws_response=response,
+    )
+
+
 CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]]
-] = (allows_anyone_to_admin_ports,)
+    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+    ...,
+] = (allows_anyone_to_admin_ports, unrestricted_cidrs)
