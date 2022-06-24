@@ -38,7 +38,7 @@ async def _get_stakeholder(*, email: str) -> Stakeholder:
     return format_stakeholder(item)
 
 
-class StakeholderTypedLoader(DataLoader):
+class StakeholderLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, emails: tuple[str, ...]
