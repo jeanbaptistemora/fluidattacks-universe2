@@ -56,6 +56,7 @@ export const Licenses: React.FC<ILicenses> = ({
   return (
     <React.StrictMode>
       <Modal
+        accessibilityLabel={"licenses-info"}
         animationType={"slide"}
         onDismiss={changeModalVisibility}
         onRequestClose={changeModalVisibility}
