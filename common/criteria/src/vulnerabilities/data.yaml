@@ -569,8 +569,59 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application uses a resource with unrestricted access or not correctly configured restrictions
+      ```yaml
+      Resources:
+        BucketPolicy1:
+          Type: AWS::S3::BucketPolicy
+          Properties:
+            Bucket: DOC-EXAMPLE-BUCKET
+            PolicyDocument:
+              Version: 2012-10-17
+              Statement:
+                - Action:
+                    - 's3:GetObject'
+                  Effect: Allow
+                  Resource:
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - DOC-EXAMPLE-BUCKET
+                      - /*
+                  Principal: '*'
+                  Condition:
+                    StringLike:
+                      'aws:Referer':
+                        - 'http://www.example.com/*'
+                        - 'http://example.net/*'
+      ```
+      An IAM configuration with a PassRole that uses a wild card access
+      ```yaml
+      Resources:
+        AWS_IAM_Role_1:
+          Type: AWS::IAM::Role
+          Properties:
+            AssumeRolePolicyDocument:
+              Statement:
+                - Effect: Allow
+                  Action: iam:PassRole
+                  Resource: '*'
+                  Condition:
+                    StringEquals:
+                      iam:PassedToService: myhost.com
+      ```
+    compliant: |
+      Every user role should have clearly defined authorization restrictions to resources
+      ```json
+      {
+        "Effect": "Allow",
+        "Action": "iam:PassRole",
+        "Resource": [
+          "arn:aws:::123456789012:role/user"
+          "arn:aws:::123456789012:role/admin"
+        ]
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -2873,8 +2924,51 @@
     threat: Atacante autorizado desde Internet.
   category: Manipulate System
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is no server side validation of file size before uploading it to the server
+      ```javascript
+      var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, "uploads")
+        },
+        filename: function (req, file, cb) {
+          cb(null, file.fieldname + "-" + Date.now()+".jpg")
+        }
+      })
+
+      var upload = multer({
+        storage: storage,
+        fileFilter: function (req, file, cb){
+          var filetypes = /jpeg|jpg|png/;
+          var mimetype = filetypes.test(file.mimetype);
+          var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+      }).single("mypic");
+      ```
+    compliant: |
+      The file size is set to a strict limit based on business needs
+      ```javascript
+      var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+          cb(null, "uploads")
+        },
+        filename: function (req, file, cb) {
+          cb(null, file.fieldname + "-" + Date.now()+".jpg")
+        }
+      })
+
+      // Define the maximum size for uploading
+      // picture i.e. 1 MB. it is optional
+      const maxSize = 1 * 1000 * 1000;
+
+      var upload = multer({
+        storage: storage,
+        limits: { fileSize: maxSize },
+        fileFilter: function (req, file, cb){
+          var filetypes = /jpeg|jpg|png/;
+          var mimetype = filetypes.test(file.mimetype);
+          var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+      }).single("mypic");
+      ```
   remediation_time: "30"
   score:
     base:
@@ -3294,8 +3388,26 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not validate the user is authorized to reset the password
+      ```java
+      public void changePassword(userId, newPassword){
+        if(isValidUser(userId)) {
+          Account account = application.resetPassword(newPassword);
+        }
+      }
+      ```
+    compliant: |
+      The application includes methods to validate the account owner is requesting the password change
+      ```java
+      public void changePassword(userCredentials, newPassword){
+        Password password = userCredentials.password;
+        if(isValid(userCredentials.user, password)) {
+          Account account = application.resetPassword(newPassword);
+          //Code to redirect user and change password not shown
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -4056,7 +4168,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      Incorrectly configure cookie settings
+      Incorrectly configured cookie settings
       ```c {3,7,15}
       using System.Net;
       using System;
@@ -5665,22 +5777,37 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      The application allows connections to unverified host
-      ```python
-      def doConnection(host, port, intention):
-        sock = tcp_connect(host, port, intention)
-        ssl_sock.do_handshake()
-        return ssl_sock
+      The application allows connections to arbitrary insecure hosts
+      ```html
+      <network-security-config>
+        <domain-config cleartextTrafficPermitted="false">
+          <domain includeSubdomains="true">example.com</domain>
+          <domain includeSubdomains="true">cdn.example2.com</domain>
+        </domain-config>
+        <base-config cleartextTrafficPermitted="true" />
+      </network-security-config>
       ```
     compliant: |
-      The application should validate all connections against a white list of allowable hosts
-      ```python
-      def doConnection(host, port, intention):
-        isValidHost = validateHost(host, port)
-        if isValidhost:
-          sock = tcp_connect(host, port, intention)
-          ssl_sock.do_handshake()
-          return ssl_sock
+      Only if the application must allow connections to insecure hosts for legacy reasons, these should be specified in the subdomains
+      ```html
+      <network-security-config>
+        <domain-config cleartextTrafficPermitted="true">
+          <domain includeSubdomains="true">insecure.example.com</domain>
+          <domain includeSubdomains="true">insecure.cdn.example.com</domain>
+        </domain-config>
+      </network-security-config>
+      ```
+      Adittionally, the app should perform host validation using methods like getDefaultHostnameVerifier() or similar
+      ```html
+      SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+      SSLSocket socket = (SSLSocket) ssf.createSocket("my.host.name", 443);
+      socket.startHandshake();
+      SSLSession session = socket.getSession();
+
+      StrictHostnameVerifier verifier = new StrictHostnameVerifier();
+      if (!verifier.verify(session.getPeerHost(), session)) {
+          // Throw some exception
+      }
       ```
   remediation_time: "15"
   score:
@@ -5830,8 +5957,31 @@
       Atacante autenticado desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      After a successful login, the application does not delete existing user sessions
+      ```javascript
+      app.get('/login',(req,res) => {
+        const userCredentials = req.body.userCredentials;
+        const sessionToken = req.body.token;
+        if(isValidLogin(userCredentials)){
+          //Code to handle login without deleting existing session
+          res.redirect('/profile');
+        }
+      });
+      ```
+    compliant: |
+      The server deletes all existing sessions after a successful login from the user and notifies the user about the new login attempt
+      ```javascript
+      app.get('/login',(req,res) => {
+        const userCredentials = req.body.userCredentials;
+        const sessionToken = req.body.token;
+        if(isValidLogin(userCredentials) && sessionToken !== getUserToken(userCredentials.userId)){
+          req.session.destroy();
+          sendUserNotice(userCredentials.userId);
+          res.redirect('/profile');
+        }
+      });
+      ```
   remediation_time: "30"
   score:
     base:
@@ -5911,7 +6061,7 @@
         }
       }
       ```
-
+      The application does not perform server side validation of values
       ```c {3,7,15}
       public void bad() throws Throwable {
         String data;
@@ -6425,8 +6575,36 @@
       con acceso a una sesión desatendida.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not define a secure limit of inactivity before expiring user session
+      ```javascript
+      app.use(
+        session({
+          secret: "secretkey",
+          resave: true,
+          saveUninitialized: false,
+          cookie: {
+            //Insecure expiration timeout for sessions
+            expires: 100*365*24*60*60*1000
+          }
+        })
+      );
+      ```
+    compliant: |
+      The application sets a timeout limit for session id
+      ```javascript
+      app.use(
+        session({
+          secret: "secretkey",
+          resave: true,
+          saveUninitialized: false,
+          cookie: {
+            // Session expires after 5 min of inactivity.
+            expires: 300000
+          }
+        })
+      );
+      ```
   remediation_time: "60"
   score:
     base:
@@ -6767,8 +6945,44 @@
       Atacante autenticado desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is duplicate code with the same functionality in a production stage
+      ```javascript
+      app.post("/register", function (req, res) {
+        var username = req.body.username
+        var password = req.body.password
+        User.register(new User({ username: username }),
+            password, function (err, user) {
+          if (err) {
+            return res.render("register");
+          }
+        });
+      });
+      app.post("/register", function (req, res) {
+        var username = req.body.username
+        var password = req.body.password
+        User.register(new User({ username: username }),
+            password, function (err, user) {
+          if (err) {
+            return res.render("register");
+          }
+        });
+      });
+      ```
+    compliant: |
+      There is no commented out code in the production environment
+      ```javascript
+      app.post("/register", function (req, res) {
+        var username = req.body.username
+        var password = req.body.password
+        User.register(new User({ username: username }),
+            password, function (err, user) {
+          if (err) {
+            return res.render("register");
+          }
+        });
+      });
+      ```
   remediation_time: "15"
   score:
     base:
@@ -8088,8 +8302,33 @@
       Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application has a functionality to block user accounts based on number of login tries
+      ```javascript
+      app.use((req, res, next) => {
+        const userId = req.params.userId;
+        const password = req.params.password;
+        if(isValidUser(userId, password)){
+          //Code to handle login
+        } else if(getUserLoginAttempts(userId)>5){
+          blockUser(userId);
+        }
+      })
+      ```
+    compliant: |
+      The application performs automatic password change instead of blocking user accounts
+      ```javascript
+      app.use((req, res, next) => {
+        const userId = req.params.userId;
+        const password = req.params.password;
+        if(isValidUser(userId, password)){
+          //Code to handle login
+        } else if(getUserLoginAttempts(userId)>5){
+          sendPasswordChange(userId);
+          res.redirect("/login");
+        }
+      })
+      ```
   remediation_time: "30"
   score:
     base:
@@ -8141,8 +8380,33 @@
       Internet en la aplicación.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not have proper functionality to unsubscribe from email notifications
+      ```javascript
+      app.post('/unsubscribe', async (req, res) => {
+        res.redirect("/suscription");
+      });
+      ```
+    compliant: |
+      The application allows for users to unsubscribe from email lists, following privacy regulations
+      ```javascript
+      app.get('/delete', async (req, res) => {
+        try {
+          const contact = await getContactByEmail(req.query.email);
+          if(contact == null) throw `Contact not found.`;
+          if (contact.custom_fields.conf_num ==  req.query.conf_num) {
+            const listID = await getListID('Newsletter Subscribers');
+            await deleteContactFromList(listID, contact);
+            res.render('message', { message: 'mymessage' });
+          }
+        else throw 'Confirmation number does not match or contact is not subscribed'
+        }
+        catch(error) {
+          console.error(error)
+          res.render('message', { message: 'mymessage' })
+        }
+      });
+      ```
   remediation_time: "300"
   score:
     base:
@@ -14780,8 +15044,30 @@
       Atacante anónimo desde Internet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application has an insecure algorithm for the certificate signature
+      ```kotlin
+      android {
+        signingConfigs {
+          getByName("config") {
+            keyAlgorithm = keystoreProperties["SHA1"]
+            ...
+          }
+        }
+      }
+      ```
+    compliant: |
+      The application has a secure algorithm for the certificate signature
+      ```kotlin
+      android {
+        signingConfigs {
+          getByName("config") {
+            keyAlgorithm = keystoreProperties["SHA2"]
+            ...
+          }
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -21278,8 +21564,7 @@
       using System;
       namespace API {
         public class Program{
-          public static void Main()
-          {
+          public static void Main(){
             BuildWebHost();
           }
           public static IWebHost BuildWebHost() =>
@@ -26311,8 +26596,33 @@
       con acceso a la sesión de un usuario.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      After a password change, the application does not delete existing user sessions
+      ```javascript
+      app.get('/passwordChange',(req,res) => {
+        const userCredentials = req.body.userCredentials;
+        const sessionToken = req.body.token;
+        if(isValidPassword(userCredentials)){
+          //Code to handle password change without deleting existing session
+          changeUserPassword(userCredentials);
+          res.redirect('/userProfile');
+        }
+      });
+      ```
+    compliant: |
+      The server deletes all existing sessions after a password change
+      ```javascript
+      app.get('/login',(req,res) => {
+        const userCredentials = req.body.userCredentials;
+        const sessionToken = req.body.token;
+        if(isValidLogin(userCredentials)){
+          req.session.destroy();
+          sendUserNotice(userCredentials.userId);
+          changeUserPassword(userCredentials);
+          res.redirect('/profile');
+        }
+      });
+      ```
   remediation_time: "60"
   score:
     base:
@@ -28498,8 +28808,31 @@
       Atacante anónimo desde Internet con un Token de sesión.
   category: Deceptive Interactions
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not define a secure limit for expiration of tokens
+      ```javascript
+      app.use(
+        sessionToken({
+          secret: "secretkey",
+          token: {
+            //Insecure expiration time limit
+            expires: 5*24*60*60*1000
+          }
+        })
+      );
+      ```
+    compliant: |
+      The application sets a secure expiration time for session tokens
+      ```javascript
+      app.use(
+        sessionToken({
+          secret: "secretkey",
+          token: {
+            expires: 360000
+          }
+        })
+      );
+      ```
   remediation_time: "60"
   score:
     base:
@@ -29865,7 +30198,7 @@
   category: Subvert Access
   examples:
     non_compliant: |
-      the same header is included in the payments after processing which could be exploited by an attacker
+      The same header is included in the payments after processing which could be exploited by an attacker
       ```javascript
       app.post('/user/payment', (req, res) => {
         const { username, password, paymentInfo } = req.body;
@@ -34584,7 +34917,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      Example importing a dependency with known vulnerabilities such as xmldom (See )
+      Example importing a dependency with known vulnerabilities such as xmldom
       ```json
       {
         "name": "test",
@@ -36213,7 +36546,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      there is configuration to upload the package without the organization id
+      There is configuration to upload the package without the organization id
       ```java
       <distributionManagement>
         <repository>
@@ -36553,7 +36886,7 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      the application has the EnableHeaderchecking disabled
+      The application has the EnableHeaderchecking disabled
       ```c {3,7,15}
       using System;
       using System.Web.Configuration;
