@@ -1513,6 +1513,23 @@ async def add_git_environment_secret(
     return await roots_model.add_git_environment_secret(url_id, secret)
 
 
+async def _add_secrets_aws(environment_id: str) -> None:
+    await add_git_environment_secret(
+        environment_id,
+        key="AWS_ACCESS_KEY_ID",
+        value="",
+        description="AWS access keys to make programmatic calls to AWS",
+    )
+    await add_git_environment_secret(
+        environment_id,
+        key="AWS_SECRET_ACCESS_KEY",
+        value="",
+        description=(
+            "AWS secret access keys to make programmatic calls to AWS"
+        ),
+    )
+
+
 async def add_git_environment_url(  # pylint: disable=too-many-arguments
     loaders: Any,
     group_name: str,
@@ -1544,20 +1561,7 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
         return result_environment
 
     if cloud_type and cloud_type == GitEnvironmentCloud.AWS:
-        await add_git_environment_secret(
-            environment.id,
-            key="AWS_ACCESS_KEY_ID",
-            value="",
-            description="AWS access keys to make programmatic calls to AWS",
-        )
-        await add_git_environment_secret(
-            environment.id,
-            key="AWS_SECRET_ACCESS_KEY",
-            value="",
-            description=(
-                "AWS secret access keys to make programmatic calls to AWS"
-            ),
-        )
+        await _add_secrets_aws(environment.id)
     return result_environment
 
 

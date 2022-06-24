@@ -178,6 +178,16 @@ def validate_credential_name(
         raise CredentialAlreadyExists()
 
 
+def _validate_aws_component(
+    component: str, env_urls: list[GitEnvironmentUrl]
+) -> bool:
+    return any(
+        x.url in component
+        for x in env_urls
+        if x.cloud_name and x.cloud_name.value == "AWS"
+    )
+
+
 async def validate_git_root_component(
     loaders: Any, root: Root, component: str
 ) -> None:
@@ -190,11 +200,7 @@ async def validate_git_root_component(
             component not in [x.url for x in env_urls]
             and not is_valid_url(component)
             and not any(component.startswith(x.url) for x in env_urls)
-            and not any(
-                x.url in component
-                for x in env_urls
-                if x.cloud_name and x.cloud_name.value == "AWS"
-            )
+            and not _validate_aws_component(component, env_urls)
         ):
             raise InvalidUrl()
 
