@@ -20,6 +20,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Unsubscribe from group", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Unsubscribe).toBe("function");
@@ -60,16 +62,16 @@ describe("Unsubscribe from group", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.type(
       screen.getByRole("textbox", { name: "confirmation" }),
       "test"
     );
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "searchFindings.servicesTable.unsubscribe.success",

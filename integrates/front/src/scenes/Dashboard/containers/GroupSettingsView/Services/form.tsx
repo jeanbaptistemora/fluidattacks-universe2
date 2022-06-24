@@ -3,7 +3,7 @@ import _ from "lodash";
 import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import {
@@ -278,19 +278,11 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             "organization.tabs.groups.newGroup.extraChargesMayApply"
           )}
         </Alert>
-        <ModalFooter>
-          <Button onClick={handleClose} variant={"secondary"}>
-            {translate.t("confirmmodal.cancel")}
-          </Button>
-          <Button
-            disabled={!isValid}
-            onClick={submitForm}
-            type={"submit"}
-            variant={"primary"}
-          >
-            {translate.t("confirmmodal.proceed")}
-          </Button>
-        </ModalFooter>
+        <ModalConfirm
+          disabled={!isValid}
+          onCancel={handleClose}
+          onConfirm={submitForm}
+        />
       </Modal>
     </Form>
   );

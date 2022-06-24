@@ -26,6 +26,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Services", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   const mockResponses: readonly MockedResponse[] = [
     {
       request: {
@@ -356,17 +358,13 @@ describe("Services", (): void => {
       )
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).toBeInTheDocument();
+      expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
     userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -389,18 +387,14 @@ describe("Services", (): void => {
       )
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).toBeInTheDocument();
+      expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
     userEvent.clear(screen.getByPlaceholderText("unittesting"));
     userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -423,18 +417,14 @@ describe("Services", (): void => {
       )
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).toBeInTheDocument();
+      expect(screen.getByText(btnConfirm)).toBeInTheDocument();
     });
     userEvent.clear(screen.getByPlaceholderText("unittesting"));
     userEvent.type(screen.getByPlaceholderText("unittesting"), "unittesting");
     await waitFor((): void => {
-      expect(
-        screen.getByText(translate.t("confirmmodal.proceed"))
-      ).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText(translate.t("confirmmodal.proceed")));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
