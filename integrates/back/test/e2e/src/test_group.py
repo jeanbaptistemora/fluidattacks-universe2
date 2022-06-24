@@ -225,7 +225,7 @@ def test_group_scope_repositories(
             checkbox.click()
     proceed = utils.wait_for_id(
         driver,
-        "git-root-add-proceed",
+        "git-root-add-confirm",
         timeout,
     )
     proceed.click()
@@ -271,7 +271,7 @@ def test_group_scope_environments(
 
     add_environment_url_button = utils.wait_for_id(
         driver,
-        "add-environment-url-button",
+        "add-env-url-confirm",
         timeout,
     )
 

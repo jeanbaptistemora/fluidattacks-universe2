@@ -1779,7 +1779,6 @@ export const enTranslations: ResourceKey = {
         editSuccess: "Credentials has been edited.",
         removeSuccess: "Credentials has been removed.",
       },
-      cancel: "Cancel",
       form: {
         add: "Add",
         edit: "Edit",

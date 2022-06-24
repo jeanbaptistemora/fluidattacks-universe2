@@ -18,7 +18,7 @@ import {
 import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -167,14 +167,12 @@ const Environments: React.FC<IEnvironmentsProps> = ({
           rootId={initialValues.id}
         />
       </Modal>
-      <ModalFooter>
-        <Button onClick={onClose} variant={"secondary"}>
-          {t("confirmmodal.cancel")}
-        </Button>
-        <Button id={"add-env-url"} onClick={openAddModal} variant={"primary"}>
-          {t("group.scope.git.addEnvUrl")}
-        </Button>
-      </ModalFooter>
+      <ModalConfirm
+        id={"add-env-url"}
+        onCancel={onClose}
+        onConfirm={openAddModal}
+        txtConfirm={t("group.scope.git.addEnvUrl")}
+      />
     </React.Fragment>
   );
 };

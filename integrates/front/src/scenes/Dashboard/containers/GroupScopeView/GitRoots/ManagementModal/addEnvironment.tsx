@@ -10,8 +10,7 @@ import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
 import { ADD_ENVIRONMENT_URL } from "../../queries";
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import { GET_FILES } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import type {
   IGetFilesQuery,
@@ -194,21 +193,11 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
                 <Field component={FormikText} name={"url"} type={"text"} />
               )}
             </div>
-            <div className={"mt3"}>
-              <ModalFooter>
-                <Button
-                  disabled={!dirty || isSubmitting || !isValid}
-                  id={"add-environment-url-button"}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  {t("confirmmodal.proceed")}
-                </Button>
-                <Button onClick={closeFunction} variant={"secondary"}>
-                  {t("confirmmodal.cancel")}
-                </Button>
-              </ModalFooter>
-            </div>
+            <ModalConfirm
+              disabled={!dirty || isSubmitting || !isValid}
+              id={"add-env-url-confirm"}
+              onCancel={closeFunction}
+            />
           </Form>
         );
       }}

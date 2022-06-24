@@ -16,8 +16,7 @@ import type {
 } from "./types";
 import { UserField } from "./UserField";
 
-import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal/Footer";
+import { ModalConfirm } from "components/Modal";
 import { Switch } from "components/Switch";
 import { Col100, Col50, Row } from "styles/styledComponents";
 
@@ -137,16 +136,12 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
               </Row>
             ) : undefined}
             <br />
-            <ModalFooter>
-              <Button onClick={onCancel} variant={"secondary"}>
-                {t("profile.credentialsModal.cancel")}
-              </Button>
-              <Button type={"submit"} variant={"primary"}>
-                {isAdding
-                  ? t("profile.credentialsModal.form.add")
-                  : t("profile.credentialsModal.form.edit")}
-              </Button>
-            </ModalFooter>
+            <ModalConfirm
+              onCancel={onCancel}
+              txtConfirm={t(
+                `profile.credentialsModal.form.${isAdding ? "add" : "edit"}`
+              )}
+            />
           </Form>
         );
       }}

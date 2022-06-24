@@ -26,7 +26,7 @@ import { GitIgnoreAlert, gitModalSchema } from "../helpers";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { ModalFooter } from "components/Modal";
+import { ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour";
 import {
@@ -700,19 +700,11 @@ const Repository: React.FC<IRepositoryProps> = ({
                     {modalMessages.message}
                   </Alert>
                 )}
-                <ModalFooter>
-                  <Button onClick={onClose} variant={"secondary"}>
-                    {t("confirmmodal.cancel")}
-                  </Button>
-                  <Button
-                    disabled={!isGitAccessible || !dirty || isSubmitting}
-                    id={"git-root-add-proceed"}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("confirmmodal.proceed")}
-                  </Button>
-                </ModalFooter>
+                <ModalConfirm
+                  disabled={!isGitAccessible || !dirty || isSubmitting}
+                  id={"git-root-add-confirm"}
+                  onCancel={onClose}
+                />
               </Form>
               {runTour ? (
                 <Tour
@@ -842,7 +834,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                         !isGitAccessible || !dirty
                           ? t("tours.addGitRoot.proceedButton.invalidForm")
                           : t("tours.addGitRoot.proceedButton.validForm"),
-                      target: "#git-root-add-proceed",
+                      target: "#git-root-add-confirm",
                     },
                   ]}
                 />

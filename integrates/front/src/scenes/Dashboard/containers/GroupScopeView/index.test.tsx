@@ -20,6 +20,8 @@ import { authContext } from "utils/auth";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 describe("GroupScopeView", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupScopeView).toBe("function");
@@ -254,7 +256,7 @@ describe("GroupScopeView", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.type(
       screen.getByRole("textbox", { name: "url" }),
@@ -281,7 +283,7 @@ describe("GroupScopeView", (): void => {
         numberOfRejectionCheckbox - 1
       );
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
@@ -461,7 +463,7 @@ describe("GroupScopeView", (): void => {
       expect(screen.getByText("group.scope.common.edit")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.clear(screen.getByRole("textbox", { name: "environment" }));
     userEvent.type(
@@ -486,9 +488,9 @@ describe("GroupScopeView", (): void => {
       "node_modules/*"
     );
     await waitFor((): void => {
-      expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
         [
