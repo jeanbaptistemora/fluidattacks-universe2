@@ -47,13 +47,17 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $groupName: String!
     $lang: ReportLang
     $treatments: [VulnerabilityTreatment!]
+    $states: [VulnerabilityState!]
+    $verifications: [VulnerabilityVerification!]
     $verificationCode: String!
   ) {
     report(
       reportType: $reportType
       groupName: $groupName
       lang: $lang
+      states: $states
       treatments: $treatments
+      verifications: $verifications
       verificationCode: $verificationCode
     ) {
       success

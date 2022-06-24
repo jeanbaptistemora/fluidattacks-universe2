@@ -661,6 +661,14 @@ export const enTranslations: ResourceKey = {
         pdfTooltip:
           "Receive a pdf file with an executive report that gives you summarized information " +
           "about all the findings of this group",
+        reattack: {
+          // eslint-disable-next-line camelcase
+          on_hold: "On hold",
+          requested: "Requested",
+          title: "Reattack",
+          verified: "Verified",
+        },
+        state: "Status",
         treatment: "Treatment",
         xls: "  Technical",
         xlsTooltip:
