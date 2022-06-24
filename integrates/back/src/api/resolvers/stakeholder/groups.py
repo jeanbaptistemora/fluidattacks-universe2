@@ -7,6 +7,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -18,17 +21,22 @@ from newutils import (
 )
 from typing import (
     Any,
-    Dict,
     List,
     Tuple,
+    Union,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: Union[dict[str, Any], Stakeholder],
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
-    email = str(parent["email"])
+    if isinstance(parent, dict):
+        email = str(parent["email"])
+    else:
+        email = parent.email
     active, inactive = await collect(
         [
             groups_domain.get_groups_by_user(loaders, email),
