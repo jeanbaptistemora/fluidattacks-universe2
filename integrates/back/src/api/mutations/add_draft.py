@@ -74,10 +74,7 @@ async def mutate(
 
         validations.validate_fields(
             [
-                kwargs.get(
-                    "attack_vector_description",
-                    kwargs.get("attack_vector_desc", ""),
-                ),
+                kwargs.get("attack_vector_description", ""),
                 kwargs.get("description", ""),
                 kwargs.get("recommendation", ""),
                 kwargs.get("requirements", ""),
