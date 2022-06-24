@@ -7,8 +7,17 @@ slug: /squad/reattacks
 When you have applied a solution for an existing vulnerability,
 you can request a reattack
 for us to validate its effectiveness.
-In order to do this,
-follow these steps:
+You can do this from the
+[Locations](/machine/web/vulnerabilities/management/vulnerability-description#locations-table)
+and
+[To-DoList](/machine/web/vulnerabilities/management/to-do-list)
+sections of the ASM.
+The steps required are
+fundamentally
+the same in both sections.
+Here,
+we show you how to do
+it from Locations.
 
 1. Log into your ASM account
   and click on one of your
@@ -17,46 +26,31 @@ follow these steps:
   you will see a list of all
   the types of vulnerabilities it has.
 
-   ![Group Vulnerabilities Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/vuln_tab_reattacks_dwmdrz.webp)
+   ![Group Vulnerabilities Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1656079389/docs/squad/reattack/vuln_tab_reattack.png)
 
 1. Now look for the type of vulnerability
   that contains the individual vulnerability
   or vulnerabilities
   for which you want to request a reattack
-  and click on it.
+  are grouped and click on it.
   By doing this,
   you will land on the **Locations** tab
   of the type of vulnerability you chose.
-  You will see the **Reattack** button
-  on the right-hand side of the screen,
-  but only if the chosen vulnerability is open;
-  in case it is closed,
-  the button will not appear.
+  You can select only open vulnerabilities,
+  and only those whose reattack status
+  is neither Requested nor On_hold
+  are eligible for reattacks.
+  When you have made your selection,
+  click on the **Reattack** button
+  on the right-hand side of the screen.
 
-   ![Enabled Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/reattack_button_enabled_h4orlp.webp)
-
-1. Click on the button.
-  It will deactivate until you
-  select the vulnerabilities you
-  want to reattack.
-
-   ![Disabled Reattack Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211885/docs/web/vulnerabilities/management/reattack_button_disabled_erqpi4.webp)
-
-1. After selecting one or more vulnerabilities,
-  you can click on the **Reattack** button again
-  or click on **Cancel** to dismiss the process.
-
-   ![Reattack vulnerabilities selected](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211886/docs/web/vulnerabilities/management/reattack_vulnselect_ngzkga.webp)
+   ![Enabled Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1656080335/docs/squad/reattack/button_enabled.png)
 
 1. The following form will appear
   where you will have to explain
   the applied solution.
 
-   ![Reattack Request Form](https://res.cloudinary.com/fluid-attacks/image/upload/v1622211883/docs/web/vulnerabilities/management/reattack_form_eigvze.webp)
-
-1. You may then click on **Proceed**
-  to finish the request
-  or **Cancel** to dismiss it.
+   ![Reattack Request Form](https://res.cloudinary.com/fluid-attacks/image/upload/v1656080536/docs/squad/reattack/justification_solution.png)
 
 1. After requesting the reattack,
   you will see the word **Requested**
@@ -69,7 +63,7 @@ follow these steps:
   comply with the conditions set forth
   in the service-level agreements.
 
-   ![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974014/docs/squad/reattack/requested_tab.png)
+   ![Reattack Requested](hhttps://res.cloudinary.com/fluid-attacks/image/upload/v1656080842/docs/squad/reattack/reattack_requested.png)
 
 1. In the **Consulting** tab,
   you will see a new comment related
