@@ -42,9 +42,6 @@ import json
 from newutils import (
     token as token_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -155,13 +152,13 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
 async def resolve(
     _parent: None,
     info: GraphQLResolveInfo,
+    group_name: str,
     verification_code: str,
     **kwargs: Any,
 ) -> Dict[str, Any]:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    group_name: str = get_key_or_fallback(kwargs)
     report_type: str = kwargs["report_type"]
     if report_type == "CERT":
         group: Group = await loaders.group.load(group_name)

@@ -1307,14 +1307,6 @@ type Mutation {
 
   "Updates data related to the treatment of a Vulnerability"
   updateVulnerabilityTreatment(
-    "Deprecated. Use `externalBugTrackingSystem` instead."
-    externalBts: String
-      @deprecated(
-        reason: """
-        This field will
-        be removed after 2022/02/23. Use `externalBugTrackingSystem` instead.
-        """
-      )
     "External Bug Tracking System URL"
     externalBugTrackingSystem: String
     "Identifier of the Finding that contains the vulnerability to update"

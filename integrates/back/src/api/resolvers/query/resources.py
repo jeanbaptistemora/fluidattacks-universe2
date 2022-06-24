@@ -20,11 +20,8 @@ from graphql.type.definition import (
 from newutils.datetime import (
     convert_from_iso_str,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-    get_present_key,
-)
 from typing import (
+    Any,
     Optional,
     Union,
 )
@@ -54,14 +51,13 @@ def _format_group_files(group_files: list[GroupFile]) -> list[Resource]:
     require_asm,
 )
 async def resolve(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: str
+    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> Resources:
-    group_name: str = str(get_key_or_fallback(kwargs)).lower()
-    group_name_key = get_present_key(kwargs)
+    group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
-    group: Group = await loaders.group.load(group_name)
+    group: Group = await loaders.group.load(group_name.lower())
 
     return {
         "files": _format_group_files(group.files) if group.files else None,
-        f"{group_name_key}": group_name,
+        "group_name": group_name,
     }

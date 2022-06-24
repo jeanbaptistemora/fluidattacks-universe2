@@ -92,13 +92,6 @@ type Query {
     groupName: String
     "Type of the report/export"
     reportType: ReportType!
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-      @deprecated(
-        reason: """
-        This field will be removed after 2022/02/17. Use `groupName` instead.
-        """
-      )
     "Language of the requested report"
     lang: ReportLang
     "States to include"
@@ -113,13 +106,6 @@ type Query {
 
   "Get resource metadata from group"
   resources(
-    "Deprecated. Use `groupName` instead"
-    projectName: String
-      @deprecated(
-        reason: """
-        This field will be removed after 2022/02/18. Use `groupName` instead.
-        """
-      )
     "Name of the Group containing the files to be queried"
     groupName: String
   ): Resource

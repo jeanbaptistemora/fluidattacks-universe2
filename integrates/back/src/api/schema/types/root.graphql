@@ -60,14 +60,6 @@ type GitRoot implements IRoot {
   lastMachineExecutions: LastMachineExecutions!
   "Last time the root status was modified"
   lastStateStatusUpdate: DateTime!
-  "Last time the root status was modified"
-  lastStatusUpdate: DateTime!
-    @deprecated(
-      reason: """
-      This field will be removed
-      after 2022/02/03. Use `lastStateStatusUpdate`.
-      """
-    )
   "Nickname for the repository"
   nickname: String!
   "Secrets for the environment"
