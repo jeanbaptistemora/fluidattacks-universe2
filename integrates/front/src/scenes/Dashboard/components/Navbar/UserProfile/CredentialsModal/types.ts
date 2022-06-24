@@ -42,6 +42,12 @@ interface IRemoveCredentialsResultAttr {
   };
 }
 
+interface IUpdateCredentialsResultAttr {
+  updateCredentials: {
+    success: boolean;
+  };
+}
+
 export type {
   IAddCredentialsResultAttr,
   ICredentialAttr,
@@ -49,4 +55,5 @@ export type {
   ICredentialModalProps,
   IOrganizationAttr,
   IRemoveCredentialsResultAttr,
+  IUpdateCredentialsResultAttr,
 };

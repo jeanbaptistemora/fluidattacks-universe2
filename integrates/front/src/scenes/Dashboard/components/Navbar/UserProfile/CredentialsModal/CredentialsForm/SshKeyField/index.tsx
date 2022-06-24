@@ -6,7 +6,7 @@ import type { ISshKeyFieldProps } from "./types";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
-import { composeValidators, required } from "utils/validations";
+import { composeValidators, hasSshFormat, required } from "utils/validations";
 
 const SshKeyField: React.FC<ISshKeyFieldProps> = (
   props: ISshKeyFieldProps
@@ -25,7 +25,7 @@ const SshKeyField: React.FC<ISshKeyFieldProps> = (
         name={"sshKey"}
         placeholder={t("profile.credentialsModal.form.sshKey.placeholder")}
         type={"text"}
-        validate={composeValidators([required])}
+        validate={composeValidators([hasSshFormat, required])}
       />
     </FormGroup>
   );

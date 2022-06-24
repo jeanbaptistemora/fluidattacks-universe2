@@ -1766,13 +1766,15 @@ export const enTranslations: ResourceKey = {
   },
   profile: {
     credentialsModal: {
-      add: "Add",
       alerts: {
         addSuccess: "Credentials has been added.",
+        editSuccess: "Credentials has been edited.",
         removeSuccess: "Credentials has been removed.",
       },
       cancel: "Cancel",
       form: {
+        add: "Add",
+        edit: "Edit",
         https: "HTTPS",
         httpsType: {
           accessToken: "Access Token",
@@ -1782,6 +1784,7 @@ export const enTranslations: ResourceKey = {
           label: "Name",
           placeholder: "",
         },
+        newSecrets: "New secrets",
         organization: "Organization",
         password: "Repository password",
         ssh: "SSH",

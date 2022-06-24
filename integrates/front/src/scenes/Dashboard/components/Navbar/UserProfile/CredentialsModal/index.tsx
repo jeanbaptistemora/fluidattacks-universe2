@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+
 import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { FormikHelpers } from "formik";
@@ -7,32 +9,34 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ActionButtons } from "./ActionButtons";
-import { CredentialForm } from "./CredentialForm";
-import type { IFormValues } from "./CredentialForm/types";
+import { CredentialsForm } from "./CredentialsForm";
+import type { IFormValues } from "./CredentialsForm/types";
 import {
   ADD_CREDENTIALS,
   GET_STAKEHOLDER_CREDENTIALS,
   GET_STAKEHOLDER_ORGANIZATIONS,
   REMOVE_CREDENTIALS,
+  UPDATE_CREDENTIALS,
 } from "./queries";
 import type {
   IAddCredentialsResultAttr,
   ICredentialAttr,
   ICredentialData,
-  ICredentialModalProps,
+  ICredentialModalProps as ICredentialsModalProps,
   IOrganizationAttr,
   IRemoveCredentialsResultAttr,
+  IUpdateCredentialsResultAttr,
 } from "./types";
 
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
-import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialModal/formatters/editAndDeleteActionFormatter";
+import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialsModal/formatters/editAndDeleteActionFormatter";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-const CredentialModal: React.FC<ICredentialModalProps> = (
-  props: ICredentialModalProps
+const CredentialsModal: React.FC<ICredentialsModalProps> = (
+  props: ICredentialsModalProps
 ): JSX.Element => {
   const { isOpen, onClose } = props;
   const { t } = useTranslation();
@@ -40,6 +44,13 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
   // States
   const [isAdding, setIsAdding] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [credentialsToEditId, setCredentialsToEditId] = useState<
+    string | undefined
+  >(undefined);
+  const [formInitialValues, setFormInitialValues] = useState<
+    IFormValues | undefined
+  >(undefined);
+  const [newSecrets, setNewSecrets] = useState(false);
 
   // GraphQl mutations
   const [handleAddCredentials] = useMutation<IAddCredentialsResultAttr>(
@@ -84,7 +95,33 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
           switch (error.message) {
             default:
               msgError(t("groupAlerts.errorTextsad"));
-              Logger.warning("An error occurred adding credential", error);
+              Logger.warning("An error occurred adding credentials", error);
+          }
+        });
+      },
+      refetchQueries: [{ query: GET_STAKEHOLDER_CREDENTIALS }],
+    }
+  );
+  const [handleUpdateCredentials] = useMutation<IUpdateCredentialsResultAttr>(
+    UPDATE_CREDENTIALS,
+    {
+      onCompleted: (data: IUpdateCredentialsResultAttr): void => {
+        if (data.updateCredentials.success) {
+          msgSuccess(
+            t("profile.credentialsModal.alerts.editSuccess"),
+            t("groupAlerts.titleSuccess")
+          );
+        }
+      },
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - A credential exists with the same name":
+              msgError(t("validations.invalidCredentialName"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred editing credentials", error);
           }
         });
       },
@@ -139,7 +176,12 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
             user: values.user,
           }
         : { token: values.accessToken, type: "HTTPS" }
-      : { key: values.sshKey, type: "SSH" };
+      : {
+          key: Buffer.from(
+            _.isUndefined(values.sshKey) ? "" : values.sshKey
+          ).toString("base64"),
+          type: "SSH",
+        };
 
     if (isAdding) {
       const addingResult = await handleAddCredentials({
@@ -160,7 +202,30 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
       }
     }
 
-    setIsEditing(false);
+    if (isEditing) {
+      const editingResult = await handleUpdateCredentials({
+        variables: {
+          credentials: newSecrets
+            ? {
+                name: values.name,
+                ...secrets,
+              }
+            : {
+                name: values.name,
+              },
+          credentialsId: credentialsToEditId,
+          organizationId: values.organization,
+        },
+      });
+      if (
+        !_.isNil(editingResult.data) &&
+        editingResult.data.updateCredentials.success
+      ) {
+        resetForm();
+        setIsEditing(false);
+        setNewSecrets(false);
+      }
+    }
   }
   function handleOnAdd(): void {
     setIsAdding(true);
@@ -179,6 +244,25 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
           organizationId: credentialsToRemove.organizationId,
         },
       });
+    }
+  }
+  function handleOnEdit(
+    credentialsToEdit: Record<string, string> | undefined
+  ): void {
+    if (!_.isUndefined(credentialsToEdit)) {
+      setFormInitialValues({
+        accessToken: undefined,
+        isHttpsPasswordType: true,
+        isHttpsType: credentialsToEdit.type === "HTTPS",
+        name: credentialsToEdit.name,
+        organization: credentialsToEdit.organizationId,
+        password: undefined,
+        sshKey: undefined,
+        user: undefined,
+      });
+      setCredentialsToEditId(credentialsToEdit.id);
+      setIsEditing(true);
+      setIsAdding(false);
     }
   }
 
@@ -202,6 +286,7 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
     {
       dataField: "id",
       deleteFunction: handleOnRemove,
+      editFunction: handleOnEdit,
       formatter: editAndDeleteActionFormatter,
       header: t("profile.credentialsModal.table.columns.action"),
       width: "60px",
@@ -215,26 +300,31 @@ const CredentialModal: React.FC<ICredentialModalProps> = (
       open={isOpen}
       title={t("profile.credentialsModal.title")}
     >
-      <CredentialForm
+      <CredentialsForm
+        initialValues={isAdding ? undefined : formInitialValues}
         isAdding={isAdding}
         isEditing={isEditing}
+        newSecrets={newSecrets}
         onCancel={handleOnCancel}
         onSubmit={handleSubmit}
         organizations={organizations}
+        setNewSecrets={setNewSecrets}
       />
-      <Table
-        dataset={credentials}
-        exportCsv={false}
-        extraButtonsRight={
-          <ActionButtons isAdding={isAdding} onAdd={handleOnAdd} />
-        }
-        headers={tableHeaders}
-        id={"tblCredentials"}
-        pageSize={10}
-        search={false}
-      />
+      {isAdding || isEditing ? undefined : (
+        <Table
+          dataset={credentials}
+          exportCsv={false}
+          extraButtonsRight={
+            <ActionButtons isAdding={isAdding} onAdd={handleOnAdd} />
+          }
+          headers={tableHeaders}
+          id={"tblCredentials"}
+          pageSize={10}
+          search={false}
+        />
+      )}
     </Modal>
   );
 };
 
-export { CredentialModal };
+export { CredentialsModal };

@@ -14,14 +14,17 @@ interface IFormValues {
 }
 
 interface ICredentialFormProps {
+  initialValues?: IFormValues;
   isAdding: boolean;
   isEditing: boolean;
+  newSecrets: boolean;
   organizations: IOrganizationAttr[];
   onCancel: () => void;
   onSubmit: (
     values: IFormValues,
     formikHelpers: FormikHelpers<IFormValues>
   ) => void;
+  setNewSecrets: (newSecrets: boolean) => void;
 }
 
 export type { IFormValues, ICredentialFormProps };

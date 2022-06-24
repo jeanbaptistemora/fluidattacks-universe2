@@ -59,9 +59,25 @@ const REMOVE_CREDENTIALS: DocumentNode = gql`
   }
 `;
 
+const UPDATE_CREDENTIALS: DocumentNode = gql`
+  mutation UpdateCredentialsMutation(
+    $credentialsId: ID!
+    $organizationId: ID!
+    $credentials: CredentialsInput!
+  ) {
+    updateCredentials(
+      credentialsId: $credentialsId
+      organizationId: $organizationId
+      credentials: $credentials
+    ) {
+      success
+    }
+  }
+`;
 export {
   ADD_CREDENTIALS,
   GET_STAKEHOLDER_CREDENTIALS,
   GET_STAKEHOLDER_ORGANIZATIONS,
   REMOVE_CREDENTIALS,
+  UPDATE_CREDENTIALS,
 };
