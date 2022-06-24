@@ -190,6 +190,15 @@ locals {
             ]
             Resource = ["*"]
           },
+          {
+            Sid    = "opensearchWrite"
+            Effect = "Allow"
+            Action = [
+              "es:AddTags",
+              "es:CreateDomain"
+            ]
+            Resource = ["*"]
+          },
         ]
       }
       cloudflare = {
