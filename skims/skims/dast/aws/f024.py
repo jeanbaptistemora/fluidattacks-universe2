@@ -25,7 +25,9 @@ from typing import (
 )
 
 
-def _port_in_open_seggroup(port: int, group: Dict[str, Any]) -> List[str]:
+def _port_in_open_seggroup(
+    port: int, group: Dict[str, Any], group_index: int
+) -> List[str]:
     vuln: List[str] = []
     for index, perm in enumerate(group["IpPermissions"]):
         with suppress(KeyError):
@@ -33,7 +35,13 @@ def _port_in_open_seggroup(port: int, group: Dict[str, Any]) -> List[str]:
                 (any(x["CidrIp"] == "0.0.0.0/0" for x in perm["IpRanges"]))
                 or any(x["CidrIp"] == "::/0" for x in perm["Ipv6Ranges"])
             ):
-                vuln = [*vuln, f"IpPermissions/{index}/ToPort"]
+                vuln = [
+                    *vuln,
+                    (
+                        f"/SecurityGroups/{group_index}/"
+                        f"IpPermissions/{index}/ToPort"
+                    ),
+                ]
     return vuln
 
 
@@ -58,29 +66,30 @@ async def allows_anyone_to_admin_ports(
         445,  # CIFS
     }
 
-    security_groups: List[Dict[str, Any]] = (
-        await run_boto3_fun(
-            credentials, service="ec2", function="describe_security_groups"
-        )
-    ).get("SecurityGroups", [])
-
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
     locations = [
         Location(
             arn=(
                 f"arn:aws:ec2::{group['OwnerId']}:"
-                f"security-group/{group['GroupID']}"
+                f"security-group/{group['GroupId']}"
             ),
             description=f"Must deny connections to port {port}",
             access_pattern=path,
             value=port,
         )
-        for group in security_groups
+        for group_index, group in enumerate(security_groups)
         for port in admin_ports
-        for path in _port_in_open_seggroup(port, group)
+        for path in _port_in_open_seggroup(
+            port, group, group_index=group_index
+        )
     ]
     return build_vulnerabilities(
         locations=locations,
         method=core_model.MethodsEnum.AWS_ANYONE_ADMIN_PORTS,
+        aws_response=response,
     )
 
 

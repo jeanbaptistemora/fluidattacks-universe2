@@ -14,6 +14,7 @@ future: "0.18.2"
 GitPython: "3.1.15"
 jmespath: "0.10.0"
 json-parser: "1.2.0"
+json-source-map: "1.0.3"
 lark-parser: "0.7.8" # pending to upgrade
 lxml: "4.7.1"
 metaloaders: "20.9.2566091"

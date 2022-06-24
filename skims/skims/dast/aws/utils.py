@@ -2,6 +2,10 @@ import aioboto3
 from dast.aws.types import (
     Location,
 )
+import json
+from json_source_map import (
+    calculate,
+)
 from model import (
     core_model,
 )
@@ -15,6 +19,10 @@ from typing import (
     List,
     Optional,
 )
+from utils.string import (
+    make_snippet,
+    SnippetViewport,
+)
 from vulnerabilities import (
     build_inputs_vuln,
     build_metadata,
@@ -24,7 +32,11 @@ from vulnerabilities import (
 def build_vulnerabilities(
     locations: List[Location],
     method: MethodsEnum,
+    aws_response: Dict[str, Any],
 ) -> core_model.Vulnerabilities:
+    str_content = json.dumps(aws_response, indent=4)
+    json_paths = calculate(str_content)
+
     return tuple(
         build_inputs_vuln(
             method=method,
@@ -34,7 +46,17 @@ def build_vulnerabilities(
             metadata=build_metadata(
                 method=method,
                 description=location.description,
-                snippet="",
+                snippet=make_snippet(
+                    content=str_content,
+                    viewport=SnippetViewport(
+                        column=json_paths[
+                            location.access_pattern
+                        ].key_start.column,
+                        line=json_paths[location.access_pattern].key_start.line
+                        + 1,
+                        wrap=True,
+                    ),
+                ),
             ),
         )
         for location in locations
