@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 
-import type { ApolloError } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { FormikHelpers } from "formik";
 import type { GraphQLError } from "graphql";
@@ -27,11 +27,13 @@ import type {
   IRemoveCredentialsResultAttr,
   IUpdateCredentialsResultAttr,
 } from "./types";
+import { getCredentialsIndex, onSelectSeveralCredentialsHelper } from "./utils";
 
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
+import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialsModal/formatters/editAndDeleteActionFormatter";
+import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -42,8 +44,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   const { t } = useTranslation();
 
   // States
-  const [isAdding, setIsAdding] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingSecrets, setIsEditingSecrets] = useState(false);
   const [credentialsToEditId, setCredentialsToEditId] = useState<
     string | undefined
   >(undefined);
@@ -51,6 +54,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
     IFormValues | undefined
   >(undefined);
   const [newSecrets, setNewSecrets] = useState(false);
+  const [selectedCredentialsDatas, setSelectedCredentialsDatas] = useState<
+    ICredentialData[]
+  >([]);
 
   // GraphQl mutations
   const [handleAddCredentials] = useMutation<IAddCredentialsResultAttr>(
@@ -105,14 +111,6 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   const [handleUpdateCredentials] = useMutation<IUpdateCredentialsResultAttr>(
     UPDATE_CREDENTIALS,
     {
-      onCompleted: (data: IUpdateCredentialsResultAttr): void => {
-        if (data.updateCredentials.success) {
-          msgSuccess(
-            t("profile.credentialsModal.alerts.editSuccess"),
-            t("groupAlerts.titleSuccess")
-          );
-        }
-      },
       onError: (errors: ApolloError): void => {
         errors.graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
@@ -125,14 +123,22 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
-      refetchQueries: [{ query: GET_STAKEHOLDER_CREDENTIALS }],
     }
   );
 
   // GraphQl queries
-  const { data } = useQuery<{
+  const { data, refetch: refetchStakeholderCredentials } = useQuery<{
     me: { credentials: ICredentialAttr[] };
   }>(GET_STAKEHOLDER_CREDENTIALS, {
+    onCompleted: ({
+      me: { credentials },
+    }: {
+      me: { credentials: ICredentialAttr[] };
+    }): void => {
+      if (credentials.length === 0) {
+        setIsAdding(true);
+      }
+    },
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.error("Couldn't load stakeholder credentials", error);
@@ -162,6 +168,24 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   const organizations = _.isUndefined(organizationsData)
     ? []
     : organizationsData.me.organizations;
+
+  // Handle responses
+  const handleOnEditCompleted = (
+    result: FetchResult<IUpdateCredentialsResultAttr>,
+    resetForm: () => void
+  ): void => {
+    if (!_.isNil(result.data) && result.data.updateCredentials.success) {
+      msgSuccess(
+        t("profile.credentialsModal.alerts.editSuccess"),
+        t("groupAlerts.titleSuccess")
+      );
+      setSelectedCredentialsDatas([]);
+      void refetchStakeholderCredentials();
+      resetForm();
+      setIsEditing(false);
+      setIsEditingSecrets(false);
+    }
+  };
 
   // Handle actions
   async function handleSubmit(
@@ -217,13 +241,35 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           organizationId: values.organization,
         },
       });
-      if (
-        !_.isNil(editingResult.data) &&
-        editingResult.data.updateCredentials.success
-      ) {
-        resetForm();
-        setIsEditing(false);
-        setNewSecrets(false);
+      const errors = getErrors<IUpdateCredentialsResultAttr>([editingResult]);
+
+      if (_.isEmpty(errors)) {
+        handleOnEditCompleted(editingResult, resetForm);
+      } else {
+        void refetchStakeholderCredentials();
+      }
+    }
+    if (isEditingSecrets) {
+      const results = await Promise.all(
+        selectedCredentialsDatas.map(
+          async (
+            selectedCredentialsData: ICredentialData
+          ): Promise<FetchResult<IUpdateCredentialsResultAttr>> =>
+            handleUpdateCredentials({
+              variables: {
+                credentials: secrets,
+                credentialsId: selectedCredentialsData.id,
+                organizationId: selectedCredentialsData.organizationId,
+              },
+            })
+        )
+      );
+      const errors = getErrors<IUpdateCredentialsResultAttr>(results);
+
+      if (!_.isEmpty(results) && _.isEmpty(errors)) {
+        handleOnEditCompleted(results[0], resetForm);
+      } else {
+        void refetchStakeholderCredentials();
       }
     }
   }
@@ -233,6 +279,10 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   function handleOnCancel(): void {
     setIsAdding(false);
     setIsEditing(false);
+    setIsEditingSecrets(false);
+  }
+  function handleOnEditSecrets(): void {
+    setIsEditingSecrets(true);
   }
   function handleOnRemove(
     credentialsToRemove: Record<string, string> | undefined
@@ -289,9 +339,39 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
       editFunction: handleOnEdit,
       formatter: editAndDeleteActionFormatter,
       header: t("profile.credentialsModal.table.columns.action"),
+      omit: isEditingSecrets,
       width: "60px",
     },
   ];
+  function onSelectSeveralCredentials(
+    isSelect: boolean,
+    credentialDatasSelected: ICredentialData[]
+  ): string[] {
+    return onSelectSeveralCredentialsHelper(
+      isSelect,
+      credentialDatasSelected,
+      selectedCredentialsDatas,
+      setSelectedCredentialsDatas
+    );
+  }
+  function onSelectOneCredentials(
+    credentialsData: ICredentialData,
+    isSelect: boolean
+  ): boolean {
+    onSelectSeveralCredentials(isSelect, [credentialsData]);
+
+    return true;
+  }
+
+  const selectionMode: ISelectRowProps = {
+    clickToSelect: false,
+    hideSelectColumn: !isEditingSecrets,
+    mode: "checkbox",
+    nonSelectable: undefined,
+    onSelect: onSelectOneCredentials,
+    onSelectAll: onSelectSeveralCredentials,
+    selected: getCredentialsIndex(selectedCredentialsDatas, credentials),
+  };
 
   return (
     <Modal
@@ -301,9 +381,11 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
       title={t("profile.credentialsModal.title")}
     >
       <CredentialsForm
+        areSelectedCredentials={selectedCredentialsDatas.length > 0}
         initialValues={isAdding ? undefined : formInitialValues}
         isAdding={isAdding}
         isEditing={isEditing}
+        isEditingSecrets={isEditingSecrets}
         newSecrets={newSecrets}
         onCancel={handleOnCancel}
         onSubmit={handleSubmit}
@@ -315,12 +397,18 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           dataset={credentials}
           exportCsv={false}
           extraButtonsRight={
-            <ActionButtons isAdding={isAdding} onAdd={handleOnAdd} />
+            <ActionButtons
+              isAdding={isAdding}
+              isEditingSecrets={isEditingSecrets}
+              onAdd={handleOnAdd}
+              onEditSecrets={handleOnEditSecrets}
+            />
           }
           headers={tableHeaders}
           id={"tblCredentials"}
           pageSize={10}
           search={false}
+          selectionMode={selectionMode}
         />
       )}
     </Modal>

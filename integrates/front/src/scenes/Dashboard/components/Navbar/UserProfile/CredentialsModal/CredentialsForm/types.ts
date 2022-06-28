@@ -14,9 +14,11 @@ interface IFormValues {
 }
 
 interface ICredentialFormProps {
+  areSelectedCredentials: boolean;
   initialValues?: IFormValues;
   isAdding: boolean;
   isEditing: boolean;
+  isEditingSecrets: boolean;
   newSecrets: boolean;
   organizations: IOrganizationAttr[];
   onCancel: () => void;

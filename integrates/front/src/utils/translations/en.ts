@@ -1763,6 +1763,16 @@ export const enTranslations: ResourceKey = {
   },
   profile: {
     credentialsModal: {
+      actionButtons: {
+        addButton: {
+          text: "Add",
+          tooltip: "Add organization credentials",
+        },
+        editSecretsButton: {
+          text: "Edit secrets",
+          tooltip: "Edit multiple credentials secrets",
+        },
+      },
       alerts: {
         addSuccess: "Credentials has been added.",
         editSuccess: "Credentials has been edited.",

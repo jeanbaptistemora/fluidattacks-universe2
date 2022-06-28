@@ -19,13 +19,15 @@ const AddButton: React.FC<IAddButtonProps> = ({
       {isHided ? undefined : (
         <TooltipWrapper
           displayClass={"dib"}
-          id={"group.toe.inputs.actionButtons.addButton.tooltip.id"}
-          message={t("group.toe.inputs.actionButtons.addButton.tooltip")}
+          id={"profile.credentialsModal.actionButtons.addButton.tooltip.id"}
+          message={t(
+            "profile.credentialsModal.actionButtons.addButton.tooltip"
+          )}
         >
-          <Button id={"addToeInput"} onClick={onAdd} variant={"primary"}>
+          <Button id={"addCredentials"} onClick={onAdd} variant={"primary"}>
             <FontAwesomeIcon icon={faPlus} />
             &nbsp;
-            {t("group.toe.inputs.actionButtons.addButton.text")}
+            {t("profile.credentialsModal.actionButtons.addButton.text")}
           </Button>
         </TooltipWrapper>
       )}

@@ -24,9 +24,11 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
   props: ICredentialsFormProps
 ): JSX.Element => {
   const {
+    areSelectedCredentials,
     initialValues,
     isAdding,
     isEditing,
+    isEditingSecrets,
     newSecrets,
     organizations,
     onCancel,
@@ -51,7 +53,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
     user: undefined,
   };
 
-  if (!(isAdding || isEditing)) {
+  if (!(isAdding || isEditing || isEditingSecrets)) {
     return <div />;
   }
 
@@ -67,17 +69,19 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
       {({ values }): JSX.Element => {
         return (
           <Form id={"credentials"}>
-            <Row>
-              <Col50>
-                <NameField />
-              </Col50>
-              <Col50>
-                <OrganizationField
-                  disabled={isEditing}
-                  organizations={organizations}
-                />
-              </Col50>
-            </Row>
+            {isEditingSecrets ? undefined : (
+              <Row>
+                <Col50>
+                  <NameField />
+                </Col50>
+                <Col50>
+                  <OrganizationField
+                    disabled={isEditing}
+                    organizations={organizations}
+                  />
+                </Col50>
+              </Row>
+            )}
             {newSecrets || !isEditing ? (
               <React.Fragment>
                 <Row>
@@ -137,6 +141,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
             ) : undefined}
             <br />
             <ModalConfirm
+              disabled={isEditingSecrets && !areSelectedCredentials}
               onCancel={onCancel}
               txtConfirm={t(
                 `profile.credentialsModal.form.${isAdding ? "add" : "edit"}`
