@@ -2686,8 +2686,40 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application sets different response messages that differ based on the user status
+      ```javascript
+      const logIn = (req, res) => {
+        const user = req.body.user;
+        const password = req.body.password;
+        if (isValidUser(user)) {
+          if(isValidCredentials(user, password)){
+            //Code to handle log in
+            res.redirect("/profile")
+          }else{
+            //The different message for existing and non existing users allows enumeration
+            res.message("Invalid password")
+          }
+        }else{
+          res.message("User does not exist");
+        }
+      }
+      ```
+    compliant: |
+      The application sends the same response regardless of the credentials used
+      ```javascript
+      const logIn = (req, res) => {
+        const user = req.body.user;
+        const password = req.body.password;
+        if (isValidUser(user) && isValidCredentials(user, password) ) {
+            //Code to handle log in
+            res.redirect("/profile")
+        }else{
+          //Use the same server response in case of invalid login to avoid enumeration
+          res.message("Invalid credentials");
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -5294,8 +5326,33 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The administrative consoles do not have any access restrictions
+      ```yaml
+      name: yournetwork
+      dns_domain: 192.0.2.0
+      subnets:
+        subnet_admin:
+          ip_subnet: 192.0.2.0
+          allocation_pools:
+            - start: 0.0.0.0
+              end: 255.255.255.255
+          gateway_ip: 192.0.2.0
+      ```
+    compliant: |
+      Administrative consoles have specific access and entry restrictions
+      ```yaml
+      name: yournetwork
+      dns_domain: 208.67.222.222
+      subnets:
+        subnet_admin:
+          ip_subnet: 192.0.2.0/24
+          allocation_pools:
+            - start: 192.0.2.50
+              end: 192.0.2.99
+          gateway_ip: 192.0.2.1
+          vlan: 101
+      ```
   remediation_time: "120"
   score:
     base:
@@ -5725,8 +5782,37 @@
       con acceso a los logs.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are passwords and user ids stored in the log files
+      ```yaml
+      03/22 08:51:01 INFO   :.main: *************** Profile change***************
+      03/22 08:51:01 INFO   :...locate_configFile: Changed user to "myuser"
+      03/22 08:51:01 INFO   :.main: Changed password to "mypassword"
+      03/22 08:51:01 INFO   :..settcpimage: Get TCP images rc - EDC8112I
+      03/22 08:51:01 INFO   :..settcpimage: Associate with TCP/IP image name = TCPCS
+      03/22 08:51:02 INFO   :..reg_process: registering process with the system
+      03/22 08:51:02 INFO   :..reg_process: attempt OS/390 registration
+      03/22 08:51:02 INFO   :..reg_process: return from registration rc=0
+      ```
+    compliant: |
+      Log files do not contain any sensitive information
+      ```yaml
+      03/22 08:51:01 INFO   :.main: *************** RSVP Agent started ***************
+      02
+      03/22 08:51:01 INFO   :...locate_configFile: Specified configuration file: /u/user10/rsvpd1.conf
+      03/22 08:51:01 INFO   :.main: Using log level 511
+      03/22 08:51:01 INFO   :..settcpimage: Get TCP images rc - EDC8112I Operation not supported on socket.
+      03
+      03/22 08:51:01 INFO   :..settcpimage: Associate with TCP/IP image name = TCPCS
+      03/22 08:51:02 INFO   :..reg_process: registering process with the system
+      03/22 08:51:02 INFO   :..reg_process: attempt OS/390 registration
+      03/22 08:51:02 INFO   :..reg_process: return from registration rc=0
+      04
+      03/22 08:51:06 TRACE  :...read_physical_netif: Home list entries returned = 7
+      03/22 08:51:06 INFO   :...read_physical_netif: index #0, interface VLINK1 has address 129.1.1.1, ifidx 0
+      03/22 08:51:06 INFO   :....mailslot_create: creating mailslot for timer
+      03/22 08:51:06 INFO   :...mailbox_register: mailbox allocated for timer
+      ```
   remediation_time: "30"
   score:
     base:
@@ -6667,8 +6753,95 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is an insecure configuration of the captcha functionality
+      ```php
+      <?php
+      if( isset( $_POST[ 'Change' ] ) && ( $_POST[ 'step' ] == '1' ) ) {
+        // Hide the CAPTCHA form
+        $hide_form = true;
+        // Get input
+        $pass_new  = $_POST[ 'password_new' ];
+        $pass_conf = $_POST[ 'password_conf' ];
+        // Check CAPTCHA from 3rd party
+        $resp = recaptcha_check_answer(
+          $_DVWA[ 'recaptcha_private_key'],
+          $_POST['g-recaptcha-response']
+        );
+        // Did the CAPTCHA fail?
+        if( !$resp ) {
+          $html     .= "<pre><br />The CAPTCHA was incorrect. Please try again.</pre>";
+          $hide_form = false;
+          return;
+        }
+        else {
+          //The step value can be modified on the client side and the captcha can be bypassed
+          if( isset( $_POST[ 'Change' ] ) && ( $_POST[ 'step' ] == '2' ) ) {
+          // Hide the CAPTCHA form
+          $hide_form = true;// Get input
+          $pass_new  = $_POST[ 'password_new' ];
+          $pass_conf = $_POST[ 'password_conf' ];
+          // Code to check if both password match
+        }
+      }
+      ?>
+      ```
+    compliant: |
+      The 3rd party captcha service is securely configured on the server side
+      ```php
+      <?php
+      if( isset( $_POST[ 'Change' ] ) ) {
+        // Check Anti-CSRF token
+        checkToken( $_REQUEST[ 'user_token' ], $_SESSION[ 'session_token' ], 'index.php' );
+        // Hide the CAPTCHA form
+        $hide_form = true;
+        // Get input
+        $pass_new  = $_POST[ 'password_new' ];
+        $pass_new  = stripslashes( $pass_new );
+        $pass_new  = md5( $pass_new );
+        $pass_conf = $_POST[ 'password_conf' ];
+        $pass_conf = stripslashes( $pass_conf );
+        $pass_conf = md5( $pass_conf );
+        $pass_curr = $_POST[ 'password_current' ];
+        $pass_curr = stripslashes( $pass_curr );
+        $pass_curr = md5( $pass_curr );
+        // Check CAPTCHA from 3rd party
+        $resp = recaptcha_check_answer(
+          $_DVWA[ 'recaptcha_private_key' ],
+          $_POST['g-recaptcha-response']
+        );
+        // Did the CAPTCHA fail?
+        if( !$resp ) {
+          // What happens when the CAPTCHA was entered incorrectly
+          $html .= "<pre><br />The CAPTCHA was incorrect. Please try again.</pre>";
+          $hide_form = false;
+        }
+        else {
+          // Check that the current password is correct
+          $data = $db->prepare( 'SELECT password FROM users WHERE user = (:user) AND password = (:password) LIMIT 1;' );
+          $data->bindParam( ':user', dvwaCurrentUser(), PDO::PARAM_STR );
+          $data->bindParam( ':password', $pass_curr, PDO::PARAM_STR );
+          $data->execute();
+          // Check passwords and update database
+          if( ( $pass_new == $pass_conf) && ( $data->rowCount() == 1 ) ) {
+            // Update the database
+            $data = $db->prepare( 'UPDATE users SET password = (:password) WHERE user = (:user);' );
+            $data->bindParam( ':password', $pass_new, PDO::PARAM_STR );
+            $data->bindParam( ':user', dvwaCurrentUser(), PDO::PARAM_STR );
+            $data->execute();// Feedback for the end user - success!
+            $html .= "<pre>Password Changed.</pre>";
+          }
+          else {
+            // Feedback for the end user - failed!
+            $html .= "<pre>There was a mistake</pre>";
+            $hide_form = false;
+          }
+        }
+      }
+      // Generate Anti-CSRF token
+      generateSessionToken();
+      ?>
+      ```
   remediation_time: "30"
   score:
     base:
@@ -9704,8 +9877,55 @@
     threat: Atacante anónimo desde Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There is no verification for duplicate emails
+      ```javascript
+      const registerUser = async (req, res, next) => {
+        const { username, password, email } = req.body
+        try {
+          //The method does not check if the email is duplicated before creating a new user
+          await User.validate({
+            username,
+            password,
+          }).then(user =>
+            res.status(200).json({
+              message: "User successfully created",
+            })
+          )
+          return user, password, email
+        } catch (err) {
+          res.status(401).json({
+            message: "Something went wrong: User not created",
+            error: error.mesage,
+          })
+        }
+      }
+      ```
+    compliant: |
+      Passwords should always be stored in encrypted values and never returned as plain text in a response
+      ```javascript
+      const registerUser = async (req, res, next) => {
+        const { username, password, email } = req.body
+        try {
+          //The validation method also checks if the email already exists
+          await User.validate({
+            username,
+            password,
+            email,
+          }).then(user =>
+            res.status(200).json({
+              message: "User successfully created",
+            })
+          )
+          return user, password, email
+        } catch (err) {
+          res.status(401).json({
+            message: "Something went wrong: User not created",
+            error: error.mesage,
+          })
+        }
+      }
+      ```
   remediation_time: "60"
   score:
     base:
@@ -10640,8 +10860,45 @@
     threat: Atacante externo autentificado.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The app does not correctly define the type of some variables
+      ```java
+      public static void main(String[] args) {
+        input = new Scanner(System.in);
+        //username and password could be assigned to unsafe values
+        username = input.next();
+        password = input.next();
+
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            users check = new users(username, password);
+            signIn(user, check);
+          }
+        } catch (InterruptedException e) {
+          //Code to catch the exception
+        }
+      }
+      ```
+    compliant: |
+      The app defines the type of all variables declared in the code
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username = input.next();
+        String password = input.next();
+
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            users check = new users(username, password);
+            signIn(user, check);
+          }
+        } catch (InterruptedException e) {
+          //Code to catch the exception
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -11087,8 +11344,19 @@
       desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Metadata of a file stores sensitive information, like location or credentials
+      ```json
+      {
+        "Name" : "OrganizationName",
+        "User" : "AdminUser",
+        "Permissions" : "*",
+        "Path" : "/admin/sensitiveFiles/file",
+        "Location" : "mylocation",
+      }
+      ```
+    compliant: |
+      Files should have their metadata cleared before being made public
   remediation_time: "15"
   score:
     base:
@@ -11549,8 +11817,44 @@
       Atacante anónimo en el sistema.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      If the input comes in an unexpected order, the application can not fulfill the requirements
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username = input.next();
+        String password = input.next();
+
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            users check = new users(username, password);
+            signIn(user, check);
+          }
+        } catch (InterruptedException e) {
+          //Code that could be executed even when the data is right, if for some reason, the client side sends it in a wrong order
+        }
+      }
+      ```
+    compliant: |
+      The application uses inputs under a proper method to avoid issues
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new UserInput(*args);
+        String username = input.userId;
+        String password = input.password;
+
+        try {
+          if(username.equals(username) && password.equals(password)){
+            ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+            users check = new users(username, password);
+            signIn(user, check);
+          }
+        } catch (InterruptedException e) {
+          //Code to catch exception when log in is not successful
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -11707,8 +12011,40 @@
       acceso a la aplicación.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are no network isolation methods configured, so an attack in one of the networks could potentially affect all others
+      ```yaml
+      name: yournetwork
+      dns_domain: 192.0.2.0/24
+      subnets:
+        subnet_name_a:
+          ip_subnet: 192.0.2.0/24
+          allocation_pools:
+            - start: 0.0.0.0
+              end: 255.255.255.255
+          gateway_ip: 192.0.2.1
+      ```
+    compliant: |
+      The networks are correctly separated using VLAN permissions
+      ```yaml
+      name: yournetwork
+      dns_domain: 208.67.222.222
+      subnets:
+        subnet_name_a:
+          ip_subnet: 192.0.2.0/24
+          allocation_pools:
+            - start: 192.0.2.50
+              end: 192.0.2.99
+          gateway_ip: 192.0.2.1
+          vlan: 102
+        subnet_name_b:
+          ip_subnet: 198.51.100.0/24
+          allocation_pools:
+            - start: 198.51.100.50
+              end: 198.51.100.99
+          gateway_ip: 198.51.100.1
+          vlan: 101
+      ```
   remediation_time: "120"
   score:
     base:
@@ -13259,8 +13595,45 @@
       con permisos de edición en el código.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are functionalities in the code high a cyclomatic complexity higher than recommended values
+      ```python
+      def thisFunction(**args):
+        inputs...
+        try...
+          if...
+            if...
+              for i in...
+                if...
+                  while...
+                    if...
+                    else if...
+                else if...
+                  for...
+                    if...
+                    else...
+                while...
+              if...
+                somefunction();
+              else if...
+                newfunction();
+          else if...
+        catch
+          if...
+      ```
+    compliant: |
+      The application correctly implements coding principles to avoid high cyclomatic complexity within each function or class
+      ```java
+      public static void main(String[] args) {
+        try {
+          if(username.equals(username) && password.equals(password)){
+            //Code to handle login
+          }
+        } catch (InterruptedException e) {
+          //Code to catch exception when log in is not successful
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -15689,9 +16062,71 @@
   category: Abuse Functionality
   examples:
     non_compliant: |
-      Some anti virus tools in the network are not up to date
+      Some anti virus tools in the network are not up to date or poorly configured
+      ```yaml
+      hosts: localhost
+        vars:
+        host: "192.168.122.40"
+        username: "admin"
+        password: "mypassword"
+        vdom: "root"
+        tasks:
+        - name: Configure AntiVirus profiles.
+          app_antivirus_profile:
+            host:  "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            vdom:  "{{ vdom }}"
+            antivirus_profile:
+              state: "present"
+              analytics-max-upload: "5"
+              av-virus-log: "disable"
+              extended-log: "enable"
+              ftgd-analytics: "disable"
+              http:
+                  emulator: "enable"
+                  options: "scan"
+                  outbreak-prevention: "disabled"
+              inspection-mode: "proxy"
+      ```
     compliant: |
-      Every disk in the network has monitoring systems to detect malicious tools
+      Every resource in the network has monitoring systems and antivirus correctly setup.
+      ```yaml
+      hosts: localhost
+        vars:
+        host: "192.168.122.40"
+        username: "admin"
+        password: ""
+        vdom: "root"
+        tasks:
+        - name: Configure AntiVirus profiles.
+          app_antivirus_profile:
+            host:  "{{ host }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+            vdom:  "{{ vdom }}"
+            antivirus_profile:
+              state: "present"
+              analytics-bl-filetype: "3 (source dlp.filepattern.id)"
+              analytics-db: "disable"
+              analytics-max-upload: "5"
+              analytics-wl-filetype: "6 (source dlp.filepattern.id)"
+              av-block-log: "enable"
+              av-virus-log: "enable"
+              content-disarm:...
+              extended-log: "enable"
+              ftgd-analytics: "disable"
+              ftp:...
+              http:
+                  archive-block: "encrypted"
+                  archive-log: "encrypted"
+                  emulator: "enable"
+                  options: "scan"
+                  outbreak-prevention: "enabled"
+              inspection-mode: "proxy"
+              smb:...
+              smtp:...
+      ```
   remediation_time: "60"
   score:
     base:
@@ -21013,8 +21448,26 @@
   examples:
     non_compliant: |
       There is information in the code that displays the ng-version of the system
+      ```html
+      <app-root _nghost-iie-c28="" ng-version="11.0.4"><router-outlet _ngcontent-iie-c28="">
+      ```
     compliant: |
       No functionalities that show technical information about the system
+      ```javascript
+      @Component({
+          selector: '[data-app]',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+      })
+      export class AppComponent {
+          constructor(private _elementRef: ElementRef) {
+          }
+
+          ngOnInit(): void {
+              this._elementRef.nativeElement.removeAttribute("ng-version");
+          }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -21076,8 +21529,14 @@
       Atacante interno con acceso al código fuente.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      After decompiling an unreferenced binary file in the source code, sensitive information was found
+      ```java
+      Public const MYPASSWORD ="sensitivePassword";
+      result =  shell("myroute.exe" & MYPASSWORD , vbHide);
+      ```
+    compliant: |
+      All binary files have corresponding source code and there is no sensitive information stored as plain text
   remediation_time: "30"
   score:
     base:
@@ -27139,8 +27598,34 @@
       Actor malicioso desde intranet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not verify if the user already has a session opened before signing in
+      ```javascript
+      const accessProfile = (req, res) => {
+        if(isValidCredentials(req.body.user, req.body.password)){
+          //Make request without validating if user is logging in from another location
+          goToProfileInfo(user.username, user.token);
+        }
+      }
+      ```
+    compliant: |
+      The application verifies the user token before accessing sensitive information
+      ```javascript
+      const accessProfile = (req, res) => {
+        const user = req.body.userId;
+        if user.token === req.body.token {
+          ...code to handle login
+          res.redirect("/profile")
+        }else if(isValidCredentials(user, req.body.password)){
+          //Expire current session if the user is logging from another location
+          deleteToken(user);
+          ...code to handle login
+          res.redirect("/profile")
+        }else{
+          ...code to handle wrong credentials or non existing user
+        }
+      }
+      ```
   remediation_time: "30"
   score:
     base:
@@ -29609,8 +30094,23 @@
       Atacante anónimo desde Internet.
   category: Collect Information
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The http responses include sensitive information like users id, or provide different status codes when the user does not exist
+      ```http
+      Connection: keep-alive
+      Content-Type: text/html; charset=UTF-8
+      Date: Thu, 17 Oct 2019 23:12:26 GMT
+      Location: myexamplepage/userID/
+      Server: nginx/1.10.3 (Ubuntu)
+      ```
+    compliant: |
+      The application uses correct controls to avoid user enumeration
+      ```yaml
+      //.htaccess cofiguration to stop WordPress username enumeration vulnerability
+      RewriteCond %{REQUEST_URI}  ^/$
+      RewriteCond %{QUERY_STRING} ^/?author=([0-9]*)
+      RewriteRule ^(.*)$ myexampleplage.com? [L,R=301]
+      ```
   remediation_time: "30"
   score:
     base:
@@ -31131,8 +31631,30 @@
       Atacante anónimo desde una red adyacente.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      The application does not define a secure limit for expiration of certificates
+      ```json
+      resource {
+        certificate-id {
+          ca-profile: "ca-profile-name";
+          challenge-password: "password";
+          re-generate-keypair: mykey;
+          validity-period: 3000;
+        }
+      }
+      ```
+    compliant: |
+      The application sets a secure expiration time for digital certificates
+      ```json
+      resource {
+        certificate-id {
+          ca-profile: "ca-profile-name";
+          challenge-password: {secretpassword};
+          re-generate-keypair: mykey;
+          validity-period: 365;
+        }
+      }
+      ```
   remediation_time: "15"
   score:
     base:
@@ -31271,8 +31793,33 @@
       Atacante sin autorización desde intranet.
   category: Subvert Access
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      Application does not correctly check if certificate is invalid or has expired and allows insecure connections
+      ```java
+      public void checkServerTrusted(X509Certificate[] certificates, String authType)
+        throws CertificateException {
+        if ((certificates != null) && (certificates.length == 1)) {
+          certificates[0].checkValidity();
+        } else {
+          standardTrustManager.checkServerTrusted(certificates, authType);
+        }
+      }
+      ```
+    compliant: |
+      The application prevents invalid certificates to establish connections
+      ```java
+      public void checkServerTrusted(X509Certificate[] certificates, String authType)
+        throws CertificateException {
+        if ((certificates != null) && (certificates.length == 1)) {
+          certificates[0].checkValidity();
+          certificates[0].checkExpiration();
+          //Code to establish connection if certificate is valid
+        } else {
+          //Code to throw error and log technical details of the event
+          throw new Exception()
+        }
+      }
+      ```
   remediation_time: "45"
   score:
     base:
@@ -32688,10 +33235,28 @@
   examples:
     non_compliant: |
       A file found in the git history has sensitive information like API Keys
+      ```yaml
+      commit ~HASH (HEAD -> master, origin/master, origin/HEAD)
+      Author: user
+      Date:   Tue Jun 28 12:57:38 2022 -0500
+        commit message
+
+      diff --git mypath
+      index 6894a51802..99d0f0a22f 100644
+      --- a/integrates/front/src/components/Button/index.tsx
+      +++ b/integrates/front/src/components/Button/index.tsx
+      @@ -6,41 +6,41 @@ public void (*args) {
+        interface IVariant {
+        -  userAdmin: "Myuser";
+        -  password: "exposedPassword";
+        +  password: {mykeysecret};
+        }
+      }
+      ```
     compliant: |
       If there is sensitive information in the git history, the repo could be cleared with
         $ rm -rf .git
-      And resetting the git history without the sensitive commit information
+      Resetting the git history without the sensitive commit information
   remediation_time: "120"
   es:
     title: Sensitive information in source code - Git history
@@ -34750,8 +35315,40 @@
       Authenticated attacker from the Internet.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are unused properties in the code
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username = input.next();
+        String password = input.next();
+        //Defined property that is never used
+        String passwordVerification;
+
+        try {
+          //Code to handle user login
+        } catch (InterruptedException e) {
+          //Code to catch exception
+        }
+      }
+      ```
+    compliant: |
+      The application does not have any unused properties in the source code
+      ```java
+      public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String username = input.next();
+        String password = input.next();
+
+        try {
+          if(isValidUser(username, password)){
+            //Code to handle user login
+          }
+        } catch (InterruptedException e) {
+          //Code to catch exception
+        }
+      }
+      ```
   remediation_time: "15"
   es:
     title: Inappropriate coding practices - Unused properties
@@ -35473,8 +36070,22 @@
       who succeeded to compromise a resource.
   category: Abuse Functionality
   examples:
-    non_compliant: __empty__
-    compliant: __empty__
+    non_compliant: |
+      There are sensitive resources in the application that do not have notification mechanisms in case of changes
+    compliant: |
+      Sensitive resources have notification mechanisms in place to report changes
+      ```terraform
+      resource "aws_iam_notification" "iam_notification" {
+        lambda_function {
+          lambda_function_arn = aws_lambda_function.func.arn
+          events              = ["iam:Edited*"]
+          filter_prefix       = "AWSLogs/"
+          filter_suffix       = ".log"
+        }
+
+        depends_on = [resource.name]
+      }
+      ```
   remediation_time: "90"
   es:
     title: Security controls absence - Monitoring
