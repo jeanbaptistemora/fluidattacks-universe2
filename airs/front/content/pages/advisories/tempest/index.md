@@ -208,6 +208,7 @@ Team of `Fluid Attacks`.
 ## References
 
 **Vendor page:** <https://github.com/oxen-io/session-android>
+
 **MR page:** <https://github.com/oxen-io/session-android/pull/897>
 
 ## Timeline
