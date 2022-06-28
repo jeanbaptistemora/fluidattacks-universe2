@@ -20,23 +20,18 @@ from newutils import (
     groups as groups_utils,
 )
 from typing import (
-    Any,
     List,
     Tuple,
-    Union,
 )
 
 
 async def resolve(
-    parent: Union[dict[str, Any], Stakeholder],
+    parent: Stakeholder,
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
-    if isinstance(parent, dict):
-        email = str(parent["email"])
-    else:
-        email = parent.email
+    email = parent.email
     active, inactive = await collect(
         [
             groups_domain.get_groups_by_user(loaders, email),

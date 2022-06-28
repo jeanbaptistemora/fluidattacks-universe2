@@ -1,3 +1,6 @@
+from api.mutations import (
+    GrantStakeholderAccessPayload,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -5,14 +8,14 @@ import authz
 from custom_exceptions import (
     StakeholderHasOrganizationAccess,
 )
-from custom_types import (
-    GrantStakeholderAccessPayload,
-)
 from dataloaders import (
     Dataloaders,
 )
 from db_model.organizations.types import (
     Organization,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from decorators import (
     enforce_organization_level_auth_async,
@@ -124,7 +127,11 @@ async def mutate(
             f"grant stakeholder {user_email} {user_role} access to "
             f"organization {organization_name}",
         )
-
     return GrantStakeholderAccessPayload(
-        success=success, granted_stakeholder={"email": user_email}
+        success=success,
+        granted_stakeholder=Stakeholder(
+            first_name="",
+            last_name="",
+            email=user_email,
+        ),
     )

@@ -1,3 +1,6 @@
+from api.mutations import (
+    GrantStakeholderAccessPayload,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -5,11 +8,11 @@ import authz
 from custom_exceptions import (
     StakeholderHasGroupAccess,
 )
-from custom_types import (
-    GrantStakeholderAccessPayload,
-)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from decorators import (
     concurrent_decorators,
@@ -134,5 +137,9 @@ async def mutate(
 
     return GrantStakeholderAccessPayload(
         success=success,
-        granted_stakeholder=dict(group_name=group_name, email=new_user_email),
+        granted_stakeholder=Stakeholder(
+            first_name="",
+            last_name="",
+            email=new_user_email,
+        ),
     )

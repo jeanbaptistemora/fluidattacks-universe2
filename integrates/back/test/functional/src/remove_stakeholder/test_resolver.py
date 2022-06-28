@@ -79,7 +79,8 @@ async def test_remove_stakeholder(
         == 1
     )
     assert (
-        result_stakeholder_query["data"]["stakeholder"]["responsibility"] == ""
+        result_stakeholder_query["data"]["stakeholder"]["responsibility"]
+        is None
     )
 
     result: Dict[str, Any] = await get_result_mutation(

@@ -6,6 +6,12 @@ from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from decorators import (
     enforce_group_level_auth_async,
     enforce_organization_level_auth_async,
@@ -20,47 +26,47 @@ from group_access import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 from typing import (
-    Any,
-    Dict,
     List,
 )
 
 
 @enforce_organization_level_auth_async
 async def _resolve_for_organization(
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     email: str,
     organization_id: str,
-) -> Dict[str, Any]:
-    stakeholder: Dict[str, Any] = await stakeholders_domain.get_by_email(email)
+) -> Stakeholder:
+    loaders: Dataloaders = info.context.loaders
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     org_role: str = await authz.get_organization_level_role(
         email, organization_id
     )
     if org_role:
-        return {**stakeholder, "responsibility": "", "role": org_role}
+        stakeholder = stakeholder._replace(
+            role=org_role,
+        )
+        return stakeholder
     raise StakeholderNotFound()
 
 
 @enforce_group_level_auth_async
 async def _resolve_for_group(
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     email: str,
     group_name: str,
-) -> Dict[str, Any]:
-    stakeholder: Dict[str, Any] = await stakeholders_domain.get_by_email(email)
+) -> Stakeholder:
+    loaders: Dataloaders = info.context.loaders
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     group_role: str = await authz.get_group_level_role(email, group_name)
 
     if group_role:
         access = await group_access_domain.get_user_access(email, group_name)
-        return {
-            **stakeholder,
-            "responsibility": str(access.get("responsibility", "")),
-            "role": group_role,
-        }
+        stakeholder = stakeholder._replace(
+            responsibility=access.get("responsibility", None),
+            role=group_role,
+        )
+        return stakeholder
     raise StakeholderNotFound()
 
 
@@ -68,7 +74,7 @@ async def _resolve_for_group(
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Dict[str, Any]:
+) -> Stakeholder:
     group_entities: List[str] = ["GROUP", "PROJECT"]
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]

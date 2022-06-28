@@ -16,6 +16,7 @@ from newutils import (
 )
 from typing import (
     Optional,
+    Union,
 )
 
 
@@ -27,11 +28,17 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
     )
 
 
-def format_phone(item: Item) -> StakeholderPhone:
+def format_phone(item: Union[Item, tuple]) -> StakeholderPhone:
+    if isinstance(item, dict):
+        return StakeholderPhone(
+            calling_country_code=item["calling_country_code"],
+            country_code=item["country_code"],
+            national_number=item["national_number"],
+        )
     return StakeholderPhone(
-        calling_country_code=item["calling_country_code"],
-        country_code=item["country_code"],
-        national_number=item["national_number"],
+        calling_country_code=item[0],
+        country_code=item[1],
+        national_number=item[2],
     )
 
 
@@ -74,6 +81,11 @@ def format_stakeholder(
         else None,
         email=item_legacy["email"],
         first_name=item_legacy.get("first_name", ""),
+        first_login=datetime_utils.convert_to_iso_str(
+            item_legacy["first_login"]
+        )
+        if item_legacy.get("first_login")
+        else None,
         is_concurrent_session=item_legacy.get("is_concurrent_session", False),
         is_registered=item_legacy.get("registered", False),
         last_login_date=datetime_utils.convert_to_iso_str(
@@ -96,4 +108,7 @@ def format_stakeholder(
         tours=format_tours(item_legacy["tours"])
         if item_legacy.get("tours")
         else StakeholderTours(),
+        role=item_legacy.get("role", None),
+        responsibility=item_legacy.get("responsibility", None),
+        invitation_state=item_legacy.get("invitation_state", None),
     )

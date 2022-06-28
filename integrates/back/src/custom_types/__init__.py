@@ -148,13 +148,7 @@ ExecuteMachinePayload = NamedTuple(
         ("pipeline_url", str),
     ],
 )
-GrantStakeholderAccessPayload = NamedTuple(
-    "GrantStakeholderAccessPayload",
-    [
-        ("success", bool),
-        ("granted_stakeholder", Dict[str, Any]),
-    ],
-)
+
 RemoveStakeholderAccessPayload = NamedTuple(
     "RemoveStakeholderAccessPayload",
     [

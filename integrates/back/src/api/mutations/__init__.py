@@ -1,6 +1,9 @@
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from typing import (
     NamedTuple,
 )
@@ -8,4 +11,12 @@ from typing import (
 AddOrganizationPayload = NamedTuple(
     "AddOrganizationPayload",
     [("success", bool), ("organization", Organization)],
+)
+
+GrantStakeholderAccessPayload = NamedTuple(
+    "GrantStakeholderAccessPayload",
+    [
+        ("success", bool),
+        ("granted_stakeholder", Stakeholder),
+    ],
 )

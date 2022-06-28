@@ -4,6 +4,9 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -17,6 +20,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     token as token_utils,
+)
+from newutils.stakeholders import (
+    format_stakeholder,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -38,7 +44,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: None,
-) -> list[Dict[str, Any]]:
+) -> list[Stakeholder]:
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
@@ -48,13 +54,17 @@ async def resolve(
         attr="stakeholders",
         name=parent.name,
     )
+    stakeholders: list[Stakeholder] = [
+        format_stakeholder(item_legacy=stakeholder, item_vms=None)
+        for stakeholder in response
+    ]
     if exclude_fluid_staff:
-        response = [
-            user
-            for user in response
-            if not stakeholders_domain.is_fluid_staff(str(user["email"]))
+        stakeholders = [
+            stakeholder
+            for stakeholder in stakeholders
+            if not stakeholders_domain.is_fluid_staff(stakeholder.email)
         ]
-    return response
+    return stakeholders
 
 
 async def resolve_no_cache(

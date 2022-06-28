@@ -30,6 +30,8 @@ class Stakeholder(NamedTuple):
     email: str
     first_name: str
     last_name: str
+    first_login: Optional[str] = None
+    invitation_state: Optional[str] = None
     access_token: Optional[StakeholderAccessToken] = None
     is_concurrent_session: bool = False
     is_registered: bool = False
@@ -42,7 +44,7 @@ class Stakeholder(NamedTuple):
     push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
     tours: StakeholderTours = StakeholderTours()
-    responsability: Optional[str] = None
+    responsibility: Optional[str] = None
     role: Optional[str] = None
 
 
