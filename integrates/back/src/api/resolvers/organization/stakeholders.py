@@ -1,6 +1,9 @@
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -9,6 +12,9 @@ from functools import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from newutils.stakeholders import (
+    format_stakeholder,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -25,14 +31,18 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: None,
-) -> List[Dict[str, Any]]:
+) -> List[Stakeholder]:
     response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
         id=parent.id,
     )
-    return response
+    stakeholders: list[Stakeholder] = [
+        format_stakeholder(item_legacy=stakeholder, item_vms=None)
+        for stakeholder in response
+    ]
+    return stakeholders
 
 
 async def resolve_no_cache(
