@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.java import (
     program as java_program,
     update_expression as java_update_expression,
     variable_declaration as java_variable_declaration,
+    while_statement as java_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -191,5 +192,11 @@ JAVA_DISPATCHERS: Dispatchers = (
             "local_variable_declaration",
         },
         syntax_reader=java_variable_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=java_while_statement.reader,
     ),
 )
