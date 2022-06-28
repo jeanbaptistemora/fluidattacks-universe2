@@ -197,6 +197,7 @@ locals {
               "es:AddTags",
               "es:CreateDomain",
               "es:DeleteDomain",
+              "es:DescribeDomain",
               "es:UpdateDomainConfig"
             ]
             Resource = ["*"]
