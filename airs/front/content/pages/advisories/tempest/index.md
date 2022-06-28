@@ -53,7 +53,7 @@ called, without worrying about the CryptoObject. The
 application logic responsible for unlocking the application
 is usually included in this callback method. This approach
 is trivially exploited by connecting to the application
-process and calling the AuthenticationSucceded method
+process and calling the **AuthenticationSucceded** method
 directly, as a result, the application can be unlocked
 without providing valid biometric data. (In short,
 fingerprint validation depends on an event and not on
@@ -65,17 +65,12 @@ crucial for the application to function properly.
 Therefore, we could skip the authentication step
 altogether and proceed to use the application.
 
-To solve this there is no single answer, however a good
-approach is to use a fingerprint protected key store key
-that will be used to decrypt a symmetric key. This symmetric
-key must be used to decrypt the application storage.
-
 ## Proof of Concept
 
 Attached below is a proof-of-concept video showing the
-exploitation of the vulnerability.
+exploitation of the vulnerability:
 
-https://vimeo.com/724828094
+![POC-Bypass-Fingerprint-Session](./poc.mp4)
 
 ### Steps to reproduce
 
@@ -126,7 +121,9 @@ const exploit = () => {
 Java.perform(() => exploit());
 ```
 
-## Bypass of the patch implemented at Session 1.13.4
+## Mitigation
+
+### Bypass of the patch implemented at Session 1.13.4
 
 After reporting the security flaw, the Session team implemented a [patch](https://github.com/oxen-io/session-android/commit/db92034a8a85ac33d42235e87f6fce9bc9738475).
 However, I managed to bypass the patch using the following exploit:
@@ -187,13 +184,13 @@ decrypt the application data.
 
 This is why in the description of this finding, we have cited the following:
 
-> *some developers use CryptoObject but do not encrypt/decrypt data that
-is crucial for the application to function properly. Therefore, we could
-skip the authentication step altogether and proceed to use the application.*
+> some developers use CryptoObject but do not encrypt/decrypt data that
+> is crucial for the application to function properly. Therefore, we
+> could skip the authentication step altogether and proceed to use
+> the application.
 
-## Mitigation
-
-There is currently no patch available for this vulnerability.
+Currently, in version 1.13.6 the Session team has not implemented a
+second patch to prevent the second exploit.
 
 ## System Information
 
@@ -211,6 +208,7 @@ Team of `Fluid Attacks`.
 ## References
 
 **Vendor page:** <https://github.com/oxen-io/session-android>
+**MR page:** <https://github.com/oxen-io/session-android/pull/897>
 
 ## Timeline
 
