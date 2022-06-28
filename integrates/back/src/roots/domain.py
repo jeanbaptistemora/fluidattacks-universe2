@@ -952,6 +952,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
                 commit=commit,
                 commit_date=commit_date,
             ),
+            repo_nickname=root.state.nickname,
             group_name=group_name,
             root_id=root_id,
         )
@@ -968,6 +969,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
                 commit=commit,
                 commit_date=commit_date,
             ),
+            repo_nickname=root.state.nickname,
             group_name=group_name,
             root_id=root_id,
         )

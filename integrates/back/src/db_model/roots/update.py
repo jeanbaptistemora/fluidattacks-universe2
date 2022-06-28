@@ -1,7 +1,13 @@
+from aioextensions import (
+    in_thread,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
 import botocore
+from context import (
+    FI_ENVIRONMENT,
+)
 from contextlib import (
     suppress,
 )
@@ -10,6 +16,14 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.enums import (
+    GitCloningStatus,
+)
+from db_model.last_sync import (
+    LastUpdateClient,
+    operations as last_sync_ops,
+    RepoId,
 )
 from db_model.roots.types import (
     GitRootCloning,
@@ -94,10 +108,21 @@ async def update_root_state(
     )
 
 
+async def _update_indicator(repo: RepoId) -> None:
+    def _inner() -> None:
+        if FI_ENVIRONMENT == "production":
+            with last_sync_ops.db_cursor() as cursor:
+                client = LastUpdateClient(cursor)
+                client.upsert_indicator(repo)
+
+    return await in_thread(_inner)
+
+
 async def update_git_root_cloning(
     *,
     cloning: GitRootCloning,
     current_value: GitRootCloning,
+    repo_nickname: str,
     group_name: str,
     root_id: str,
 ) -> None:
@@ -118,7 +143,8 @@ async def update_git_root_cloning(
         key=root_key,
         table=TABLE,
     )
-
+    if cloning.status is GitCloningStatus.OK:
+        await _update_indicator(RepoId(group_name, repo_nickname))
     historic_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_cloning"],
         values={"uuid": root_id, "iso8601utc": cloning.modified_date},
