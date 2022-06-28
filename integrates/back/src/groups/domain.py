@@ -57,6 +57,7 @@ from db_model.groups.constants import (
 )
 from db_model.groups.enums import (
     GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateStatus,
     GroupStateUpdationJustification,
@@ -608,7 +609,7 @@ async def add_group(  # pylint: disable=too-many-locals
             state=GroupState(
                 has_machine=has_machine,
                 has_squad=has_squad,
-                managed=True,
+                managed=GroupManaged("NOT_MANUALLY"),
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 service=service,
@@ -776,7 +777,7 @@ async def update_group_managed(
     loaders: Any,
     comments: str,
     group_name: str,
-    managed: bool,
+    managed: GroupManaged,
     user_email: str,
 ) -> None:
     validate_fields([comments])
@@ -802,7 +803,7 @@ async def update_group_managed(
             ),
         )
 
-        if managed:
+        if managed == "MANUALLY":
             organization: Organization = await loaders.organization.load(
                 group.organization_id
             )

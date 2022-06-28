@@ -62,7 +62,7 @@ type Group {
   "Identifier of the last closed finding"
   lastClosedVulnerabilityFinding: Finding
   "If the group is managed manually"
-  managed: Boolean
+  managed: ManagedType
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float
   "Current open vulnerability with the highest severity"

@@ -13,6 +13,9 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from db_model.groups.types import (
     Group,
     GroupState,
@@ -269,13 +272,14 @@ async def new_group(
 async def managed_manually(
     *,
     group_name: str,
-    managed: bool,
+    managed: GroupManaged,
     organization_name: str,
     requester_email: str,
 ) -> bool:
-    translations: Dict[bool, str] = {
-        True: "Manually",
-        False: "Not Manually",
+    translations: Dict[str, str] = {
+        "MANUALLY": "Manually",
+        "NOT_MANUALLY": "Not Manually",
+        "UNDER_REVIEW": "Under Review",
     }
 
     return cast(

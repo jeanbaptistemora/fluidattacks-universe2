@@ -1,5 +1,6 @@
 from .enums import (
     GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateRemovalJustification,
     GroupStateStatus,
@@ -26,7 +27,7 @@ RegisterByTime = list[list[dict[str, Union[str, Decimal]]]]
 class GroupState(NamedTuple):
     has_machine: bool
     has_squad: bool
-    managed: bool
+    managed: GroupManaged
     modified_by: str
     modified_date: str
     status: GroupStateStatus

@@ -170,6 +170,14 @@ ENUMS: Tuple[EnumType, ...] = (
     ),
     EnumType("Language", {"EN": "EN", "ES": "ES"}),
     EnumType(
+        "ManagedType",
+        {
+            "MANUALLY": "MANUALLY",
+            "NOT_MANUALLY": "NOT_MANUALLY",
+            "UNDER_REVIEW": "UNDER_REVIEW",
+        },
+    ),
+    EnumType(
         "OrganizationFindingPolicy",
         {"APPROVED": "APPROVED", "REJECTED": "REJECTED"},
     ),

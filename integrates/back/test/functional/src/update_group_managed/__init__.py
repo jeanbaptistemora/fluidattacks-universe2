@@ -14,14 +14,14 @@ async def put_mutation(
     *,
     user: str,
     group: str,
-    managed: bool,
+    managed: str,
     comments: str,
 ) -> dict[str, Any]:
     query: str = """
         mutation UpdateGroupManaged (
             $comments: String!
             $groupName: String!
-            $managed: Boolean!
+            $managed: ManagedType!
         ) {
             updateGroupManaged(
                 comments: $comments

@@ -335,6 +335,16 @@ enum Language {
   ES
 }
 
+"Group managed state"
+enum ManagedType {
+  "Manually"
+  MANUALLY
+  "Not manually"
+  NOT_MANUALLY
+  "Under review"
+  UNDER_REVIEW
+}
+
 "Approval status of an organization finding policy"
 enum OrganizationFindingPolicy {
   "Policy was approved and enacted"

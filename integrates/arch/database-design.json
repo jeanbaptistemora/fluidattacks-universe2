@@ -728,7 +728,7 @@
         },
         {
           "AttributeName": "managed",
-          "AttributeType": "BOOL"
+          "AttributeType": "S"
         },
         {
           "AttributeName": "sorts_suggestions",
@@ -4558,7 +4558,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "BOOL": false
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "BLACK"
@@ -4712,7 +4712,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -4775,7 +4775,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -4838,7 +4838,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -4937,7 +4937,7 @@
                     "S": "SQUAD"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5007,7 +5007,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5077,7 +5077,7 @@
                     "S": "SQUAD"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5147,7 +5147,7 @@
                     "S": "FREE"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5217,7 +5217,7 @@
                     "S": "FREE"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5287,7 +5287,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5350,7 +5350,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5420,7 +5420,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5486,7 +5486,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5556,7 +5556,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "BOOL": true
+                    "S": "NOT_MANUALLY"
                   },
                   "service": {
                     "S": "WHITE"
@@ -5621,7 +5621,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "BOOL": false
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "BLACK"
@@ -5656,7 +5656,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5691,7 +5691,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5726,7 +5726,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5761,7 +5761,7 @@
                 "S": "SQUAD"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5796,7 +5796,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5831,7 +5831,7 @@
                 "S": "SQUAD"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5866,7 +5866,7 @@
                 "S": "FREE"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5901,7 +5901,7 @@
                 "S": "FREE"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5936,7 +5936,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -5971,7 +5971,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -6006,7 +6006,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -6044,7 +6044,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"
@@ -6079,7 +6079,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "BOOL": true
+                "S": "NOT_MANUALLY"
               },
               "service": {
                 "S": "WHITE"

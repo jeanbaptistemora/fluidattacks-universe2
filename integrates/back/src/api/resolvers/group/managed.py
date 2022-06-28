@@ -1,3 +1,6 @@
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -9,5 +12,5 @@ from graphql.type.definition import (
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-) -> bool:
+) -> GroupManaged:
     return parent.state.managed

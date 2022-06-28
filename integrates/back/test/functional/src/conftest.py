@@ -6,6 +6,7 @@ from asyncio import (
 )
 from db_model.groups.enums import (
     GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateStatus,
     GroupSubscriptionType,
@@ -571,7 +572,7 @@ def generic_data(  # pylint: disable=too-many-locals
                         state=GroupState(
                             has_machine=False,
                             has_squad=True,
-                            managed=True,
+                            managed=GroupManaged["MANUALLY"],
                             modified_by="unknown",
                             modified_date="2020-05-20T22:00:00+00:00",
                             service=GroupService.WHITE,
@@ -591,7 +592,7 @@ def generic_data(  # pylint: disable=too-many-locals
                         state=GroupState(
                             has_machine=False,
                             has_squad=True,
-                            managed=True,
+                            managed=GroupManaged["MANUALLY"],
                             modified_by="unknown",
                             modified_date="2020-05-20T22:00:00+00:00",
                             service=GroupService.BLACK,
@@ -611,7 +612,7 @@ def generic_data(  # pylint: disable=too-many-locals
                         state=GroupState(
                             has_machine=False,
                             has_squad=False,
-                            managed=True,
+                            managed=GroupManaged["MANUALLY"],
                             modified_by="unknown",
                             modified_date="2020-05-20T22:00:00+00:00",
                             service=GroupService.BLACK,

@@ -4,6 +4,7 @@ from back.test import (
 )
 from db_model.groups.enums import (
     GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateStatus,
     GroupSubscriptionType,
@@ -60,7 +61,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
-                        managed=True,
+                        managed=GroupManaged["MANUALLY"],
                         modified_by="unknown",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.BLACK,
@@ -80,7 +81,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GroupState(
                         has_machine=False,
                         has_squad=False,
-                        managed=True,
+                        managed=GroupManaged["MANUALLY"],
                         modified_by="unknown",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.BLACK,

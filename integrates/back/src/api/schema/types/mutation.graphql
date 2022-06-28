@@ -1024,7 +1024,7 @@ type Mutation {
     "Observation about the group update"
     comments: String!
     "Whether to keep payment method managed manually within the group"
-    managed: Boolean!
+    managed: ManagedType!
     "Name of the group to be updated"
     groupName: String!
   ): SimplePayload!

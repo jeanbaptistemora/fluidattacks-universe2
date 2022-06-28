@@ -1,5 +1,6 @@
 from .enums import (
     GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateRemovalJustification,
     GroupStateStatus,
@@ -234,11 +235,16 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
 
 
 def format_state(state: Item) -> GroupState:
+    managed = GroupManaged("NOT_MANUALLY")
+    if not isinstance(state["managed"], bool):
+        managed = GroupManaged(state["managed"])
+    elif state["managed"]:
+        managed = GroupManaged("MANUALLY")
     return GroupState(
         comments=state.get("comments"),
         has_machine=state["has_machine"],
         has_squad=state["has_squad"],
-        managed=state.get("managed", True),
+        managed=managed,
         justification=format_state_justification(state.get("justification")),
         modified_by=state["modified_by"],
         modified_date=state["modified_date"],

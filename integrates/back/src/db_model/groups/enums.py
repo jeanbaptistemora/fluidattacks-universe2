@@ -8,6 +8,12 @@ class GroupLanguage(str, Enum):
     ES: str = "ES"
 
 
+class GroupManaged(str, Enum):
+    MANUALLY: str = "MANUALLY"
+    NOT_MANUALLY: str = "NOT_MANUALLY"
+    UNDER_REVIEW: str = "UNDER_REVIEW"
+
+
 class GroupService(str, Enum):
     BLACK: str = "BLACK"
     WHITE: str = "WHITE"

@@ -8,6 +8,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -42,7 +45,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     comments: str,
     group_name: str,
-    managed: bool,
+    managed: GroupManaged,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
