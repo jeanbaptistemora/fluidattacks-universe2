@@ -13,9 +13,8 @@ import {
   MOVE_ROOT,
 } from "./queries";
 
-import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import {
   Alert,
   Col100,
@@ -343,18 +342,10 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                         ) : undefined}
                       </Col100>
                     </Row>
-                    <ModalFooter>
-                      <Button onClick={onClose} variant={"secondary"}>
-                        {t("components.modal.cancel")}
-                      </Button>
-                      <Button
-                        disabled={!dirty || isSubmitting}
-                        type={"submit"}
-                        variant={"primary"}
-                      >
-                        {t("components.modal.confirm")}
-                      </Button>
-                    </ModalFooter>
+                    <ModalConfirm
+                      disabled={!dirty || isSubmitting}
+                      onCancel={onClose}
+                    />
                   </Form>
                 )}
               </Formik>
