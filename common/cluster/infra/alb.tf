@@ -30,13 +30,6 @@ resource "kubernetes_service_account" "alb" {
     name      = "alb"
     namespace = "kube-system"
 
-    labels = {
-      "app.kubernetes.io/name"       = "alb"
-      "app.kubernetes.io/managed-by" = "terraform"
-      "k8s-addon"                    = "k8s-alb.addons.k8s.io"
-      "k8s-app"                      = "k8s-alb"
-    }
-
     annotations = {
       "eks.amazonaws.com/role-arn" = module.alb_oidc_role.iam_role_arn
     }

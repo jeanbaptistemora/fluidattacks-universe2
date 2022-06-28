@@ -18,10 +18,6 @@ terraform {
       source  = "hashicorp/http"
       version = "~> 2.2.0"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "~> 1.14.0"
-    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.11.0"
@@ -43,7 +39,6 @@ terraform {
 }
 
 provider "aws" {}
-
 provider "helm" {
   kubernetes {
     host                   = module.cluster.cluster_endpoint
@@ -54,18 +49,6 @@ provider "helm" {
       command     = "aws"
       args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
     }
-  }
-}
-provider "kubectl" {
-  apply_retry_count      = 3
-  host                   = module.cluster.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
-  load_config_file       = false
-
-  exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
   }
 }
 provider "kubernetes" {

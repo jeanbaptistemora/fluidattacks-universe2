@@ -6,178 +6,96 @@ resource "helm_release" "metrics_server" {
   chart      = "metrics-server"
   version    = "3.8.2"
   namespace  = "kube-system"
-
-  set {
-    name  = "replicas"
-    value = 3
-  }
 }
 
-# Karpenter
+# Cluster autoscaler
 
-module "karpenter_irsa" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.1.0"
+resource "aws_iam_policy" "autoscaler" {
+  name_prefix = "common-cluster-autoscaler"
 
-  role_name                          = "karpenter-controller-${local.cluster_name}"
-  attach_karpenter_controller_policy = true
-
-  karpenter_controller_cluster_id = module.cluster.cluster_id
-  karpenter_controller_ssm_parameter_arns = [
-    "arn:aws:ssm:*:*:parameter/aws/service/*"
-  ]
-  karpenter_controller_node_iam_role_arns = [
-    module.cluster.eks_managed_node_groups["karpenter"].iam_role_arn,
-  ]
-
-  oidc_providers = {
-    main = {
-      provider_arn               = module.cluster.oidc_provider_arn
-      namespace_service_accounts = ["karpenter:karpenter"]
-    }
-  }
-}
-
-resource "aws_iam_instance_profile" "karpenter" {
-  name = "KarpenterNodeInstanceProfile-${local.cluster_name}"
-  role = module.cluster.eks_managed_node_groups["karpenter"].iam_role_name
-}
-
-resource "helm_release" "karpenter" {
-  namespace        = "karpenter"
-  create_namespace = true
-
-  name       = "karpenter"
-  repository = "https://charts.karpenter.sh"
-  chart      = "karpenter"
-  version    = "0.11.1"
-
-  set {
-    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.karpenter_irsa.iam_role_arn
-  }
-
-  set {
-    name  = "clusterName"
-    value = module.cluster.cluster_id
-  }
-
-  set {
-    name  = "clusterEndpoint"
-    value = module.cluster.cluster_endpoint
-  }
-
-  set {
-    name  = "aws.defaultInstanceProfile"
-    value = aws_iam_instance_profile.karpenter.name
-  }
-
-  set {
-    name  = "replicas"
-    value = "3"
-  }
-}
-
-resource "kubectl_manifest" "karpenter_development" {
-  yaml_body = yamlencode(
+  policy = jsonencode(
     {
-      apiVersion = "karpenter.sh/v1alpha5"
-      kind       = "Provisioner"
-      metadata = {
-        name      = "development"
-        namespace = "karpenter"
-      }
-      spec = {
-        labels = {
-          worker_group = "development"
-        }
-        requirements = [
-          {
-            key      = "karpenter.sh/capacity-type"
-            operator = "In"
-            values   = ["spot"]
-          },
-          {
-            key      = "node.kubernetes.io/instance-type"
-            operator = "In"
-            values = [
-              "m5.xlarge",
-              "m5a.xlarge",
-              "m5d.xlarge",
-              "m5ad.xlarge",
-            ]
-          },
-        ]
-        provider = {
-          subnetSelector = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-          securityGroupSelector = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-          tags = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-        }
-        ttlSecondsAfterEmpty   = 1200
-        ttlSecondsUntilExpired = 86400
-      }
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Effect = "Allow"
+          Action = [
+            "autoscaling:DescribeAutoScalingGroups",
+            "autoscaling:DescribeAutoScalingInstances",
+            "autoscaling:DescribeLaunchConfigurations",
+            "autoscaling:DescribeTags",
+            "ec2:DescribeInstanceTypes",
+            "ec2:DescribeLaunchTemplateVersions",
+            "autoscaling:SetDesiredCapacity",
+            "autoscaling:TerminateInstanceInAutoScalingGroup",
+            "ec2:DescribeInstanceTypes",
+            "eks:DescribeNodegroup",
+          ]
+          Resource = ["*"]
+        },
+      ]
     }
   )
+}
 
-  depends_on = [
-    helm_release.karpenter
+module "autoscaler_oidc_role" {
+  source       = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version      = "5.2.0"
+  create_role  = true
+  role_name    = "common-cluster-autoscaler"
+  provider_url = replace(module.cluster.cluster_oidc_issuer_url, "https://", "")
+
+  role_policy_arns = [
+    aws_iam_policy.autoscaler.arn,
+  ]
+
+  oidc_fully_qualified_subjects = [
+    "system:serviceaccount:kube-system:autoscaler",
   ]
 }
 
-resource "kubectl_manifest" "karpenter_production" {
-  yaml_body = yamlencode(
-    {
-      apiVersion = "karpenter.sh/v1alpha5"
-      kind       = "Provisioner"
-      metadata = {
-        name      = "production"
-        namespace = "karpenter"
-      }
-      spec = {
-        labels = {
-          worker_group = "production"
-        }
-        requirements = [
-          {
-            key      = "karpenter.sh/capacity-type"
-            operator = "In"
-            values   = ["spot"]
-          },
-          {
-            key      = "node.kubernetes.io/instance-type"
-            operator = "In"
-            values = [
-              "m5.large",
-              "m5a.large",
-              "m5d.large",
-              "m5ad.large",
-            ]
-          },
-        ]
-        provider = {
-          subnetSelector = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-          securityGroupSelector = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-          tags = {
-            "karpenter.sh/discovery" = local.cluster_name
-          }
-        }
-        ttlSecondsAfterEmpty   = 1200
-        ttlSecondsUntilExpired = 86400
-      }
-    }
-  )
+resource "kubernetes_service_account" "autoscaler" {
+  automount_service_account_token = true
 
-  depends_on = [
-    helm_release.karpenter
-  ]
+  metadata {
+    name      = "autoscaler"
+    namespace = "kube-system"
+
+    annotations = {
+      "eks.amazonaws.com/role-arn" = module.autoscaler_oidc_role.iam_role_arn
+    }
+  }
+}
+
+resource "helm_release" "autoscaler" {
+  name       = "autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart      = "cluster-autoscaler"
+  version    = "9.19.2"
+  namespace  = "kube-system"
+
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = local.cluster_name
+  }
+
+  set {
+    name  = "rbac.serviceAccount.create"
+    value = false
+  }
+
+  set {
+    name  = "rbac.serviceAccount.name"
+    value = kubernetes_service_account.autoscaler.metadata[0].name
+  }
+
+  set {
+    name  = "rbac.serviceAccount.annotations.\"eks.amazonaws.com/role-arn\""
+    value = module.autoscaler_oidc_role.iam_role_arn
+  }
+
+  set {
+    name  = "extraArgs.scale-down-unneeded-time"
+    value = "20m"
+  }
 }

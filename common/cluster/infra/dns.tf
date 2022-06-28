@@ -1,3 +1,6 @@
+variable "cloudflareEmail" {}
+variable "cloudflareApiKey" {}
+
 resource "helm_release" "dns" {
   name       = "dns"
   repository = "https://charts.bitnami.com/bitnami"
