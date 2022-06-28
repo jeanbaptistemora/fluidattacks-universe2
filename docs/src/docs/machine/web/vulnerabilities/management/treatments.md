@@ -25,7 +25,7 @@ assign a treatment by clicking the
 check box to its left and click
 on **Edit**.
 
-![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_vulner_assign_trtmnt.jpg)
+![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_vulner_assign.png)
 
 The **Edit** button helps you manage
 the vulnerability treatments and
@@ -45,7 +45,7 @@ assigned to you in the
 [To-Do List](/machine/web/vulnerabilities/management/to-do-list)
 section.
 
-![Edit Vulnerability](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_edit_vulnerabilities.png)
+![Edit Vulnerability](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431421/docs/web/vulnerabilities/management/treatments_edit_vulnerabilities.png)
 
 The treatments available to
 you for handling vulnerabilities
@@ -156,7 +156,7 @@ but the only roles that can
 approve it are either the **user manager**
 or the **vulnerability manager**.
 
-![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_confirmation.png)
+![Confirmation](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431421/docs/web/vulnerabilities/management/treatments_confirmation.png)
 
 Both the user manager or the
 vulnerability manager can
@@ -169,7 +169,7 @@ vulnerability and click on the
 **Treatment Acceptance** button,
 which is only available to them.
 
-![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_tr_acceptance.jpg)
+![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_tr_acceptance.png)
 
 A pop-up **Observations**
 window will appear,
@@ -179,7 +179,7 @@ observation concerning the requested
 treatment and decide whether
 they approve or reject it.
 
-![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1646420467/docs/web/vulnerabilities/management/treatments_pop_up_observations.png)
+![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1656431422/docs/web/vulnerabilities/management/treatments_pop_up_observations.png)
 
 If the treatment is approved,
 the vulnerability status will
