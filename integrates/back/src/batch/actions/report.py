@@ -149,13 +149,13 @@ async def report(*, item: BatchProcessing) -> None:
     }
     verifications = {
         VulnerabilityVerificationStatus[verification]
-        for verification in additional_info.get("verifications", {})
+        for verification in additional_info["verifications"]
     }
     closing_date: Optional[datetime] = (
         datetime.fromisoformat(
-            str(additional_info.get("closing_date"))
+            str(additional_info["closing_date"])
         ).astimezone(tz=timezone.utc)
-        if additional_info.get("closing_date")
+        if additional_info["closing_date"]
         else None
     )
     report_url = await get_report(
