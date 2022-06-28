@@ -5,12 +5,12 @@ import type { PropsWithChildren } from "react";
 import React, { useCallback, useState } from "react";
 
 import type { IModalProps } from ".";
-import { Modal, ModalConfirm, ModalFooter } from ".";
+import { Modal, ModalConfirm } from ".";
 import { Button } from "components/Button";
 
 const config: Meta = {
   component: Modal,
-  subcomponents: { ModalFooter },
+  subcomponents: { ModalConfirm },
   title: "components/Modal",
 };
 

@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { ModalConfirm } from "./Confirm";
-import { ModalFooter } from "./Footer";
 import { Container as ContainerModal, Dialog, Header, Title } from "./styles";
 
 import { ButtonOpacity } from "components/Button";
@@ -63,4 +62,4 @@ const Modal: React.FC<IModalProps> = ({
 };
 
 export type { IModalProps };
-export { Modal, ModalConfirm, ModalFooter };
+export { Modal, ModalConfirm };
