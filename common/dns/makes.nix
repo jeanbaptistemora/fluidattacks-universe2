@@ -5,7 +5,7 @@
       commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonDnsProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/common/dns/infra";
@@ -18,22 +18,12 @@
       commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonDnsDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/common/dns/infra";
         version = "1.0";
       };
-    };
-  };
-  secretsForEnvFromSops = {
-    commonDnsDev = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/dev.yaml";
-    };
-    commonDnsProd = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
@@ -47,7 +37,7 @@
       commonDns = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonDnsDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
         src = "/common/dns/infra";

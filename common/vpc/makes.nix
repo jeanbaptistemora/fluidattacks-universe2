@@ -15,7 +15,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonVpcProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/common/vpc/infra";
@@ -29,22 +29,12 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/common/vpc/infra";
         version = "1.0";
       };
-    };
-  };
-  secretsForEnvFromSops = {
-    commonVpcDev = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/dev.yaml";
-    };
-    commonVpcProd = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForTerraformFromEnv = {
@@ -59,7 +49,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpcDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
         src = "/common/vpc/infra";

@@ -18,6 +18,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodCommon"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForEnvFromSops/commonClusterProd"
           outputs."/secretsForKubernetesConfigFromAws/commonCluster"
           outputs."/secretsForTerraformFromEnv/commonCluster"
@@ -33,6 +34,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonClusterDev"
           outputs."/secretsForTerraformFromEnv/commonCluster"
         ];
@@ -43,21 +45,11 @@ in {
   };
   secretsForEnvFromSops = {
     commonClusterDev = {
-      vars = [
-        "CLOUDFLARE_ACCOUNT_ID"
-        "CLOUDFLARE_API_KEY"
-        "CLOUDFLARE_EMAIL"
-        "NEW_RELIC_LICENSE_KEY"
-      ];
+      vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/dev.yaml";
     };
     commonClusterProd = {
-      vars = [
-        "CLOUDFLARE_ACCOUNT_ID"
-        "CLOUDFLARE_API_KEY"
-        "CLOUDFLARE_EMAIL"
-        "NEW_RELIC_LICENSE_KEY"
-      ];
+      vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/prod.yaml";
     };
   };
@@ -81,6 +73,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonClusterDev"
           outputs."/secretsForKubernetesConfigFromAws/commonCluster"
           outputs."/secretsForTerraformFromEnv/commonCluster"

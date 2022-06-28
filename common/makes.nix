@@ -27,4 +27,22 @@
       sessionToken = "AWS_SESSION_TOKEN";
     };
   };
+  secretsForEnvFromSops = {
+    commonCloudflareDev = {
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_KEY"
+        "CLOUDFLARE_EMAIL"
+      ];
+      manifest = "/common/secrets/dev.yaml";
+    };
+    commonCloudflareProd = {
+      vars = [
+        "CLOUDFLARE_ACCOUNT_ID"
+        "CLOUDFLARE_API_KEY"
+        "CLOUDFLARE_EMAIL"
+      ];
+      manifest = "/common/secrets/prod.yaml";
+    };
+  };
 }

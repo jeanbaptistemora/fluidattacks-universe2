@@ -1,14 +1,4 @@
 {outputs, ...}: {
-  secretsForEnvFromSops = {
-    commonUsersDev = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/dev.yaml";
-    };
-    commonUsersProd = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/prod.yaml";
-    };
-  };
   secretsForTerraformFromEnv = {
     commonUsers = {
       gitlab_token = "PRODUCT_API_TOKEN";
@@ -21,7 +11,7 @@
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";
@@ -34,6 +24,8 @@
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
+          outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";
         version = "1.0";
@@ -45,7 +37,7 @@
       commonUsersKeys1 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
@@ -68,7 +60,7 @@
       commonUsersKeys2 = {
         setup = [
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonUsersProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         resources = [
@@ -95,7 +87,7 @@
       commonUsers = {
         setup = [
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonUsersDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
         src = "/common/users/infra";

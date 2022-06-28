@@ -15,7 +15,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/prodCommon"
-          outputs."/secretsForEnvFromSops/commonVpnProd"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
@@ -30,7 +30,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"
         ];
@@ -40,14 +40,6 @@ in {
     };
   };
   secretsForEnvFromSops = {
-    commonVpnDev = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/dev.yaml";
-    };
-    commonVpnProd = {
-      vars = ["CLOUDFLARE_ACCOUNT_ID" "CLOUDFLARE_API_KEY" "CLOUDFLARE_EMAIL"];
-      manifest = "/common/secrets/prod.yaml";
-    };
     commonVpnData = {
       vars = ["VPN_DATA_RAW"];
       manifest = "/common/vpn/data.yaml";
@@ -66,7 +58,7 @@ in {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromEnv/dev"
-          outputs."/secretsForEnvFromSops/commonVpnDev"
+          outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"
         ];

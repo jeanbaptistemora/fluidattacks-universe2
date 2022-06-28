@@ -16,7 +16,7 @@ module "cluster" {
   }
   eks_managed_node_groups = {
     development = {
-      max_size = 10
+      max_size = 100
 
       instance_types = [
         "m5.xlarge",
@@ -30,7 +30,7 @@ module "cluster" {
       }
     }
     production = {
-      max_size = 10
+      max_size = 100
 
       instance_types = [
         "m5.large",
