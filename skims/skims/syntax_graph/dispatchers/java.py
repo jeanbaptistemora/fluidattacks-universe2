@@ -15,6 +15,7 @@ from syntax_graph.syntax_readers.common import (
     null_literal as common_null_literal,
     number_literal as common_number_literal,
     parameter as common_parameter,
+    parenthesized_expression as common_parenthesized_expression,
     string_literal as common_string_literal,
 )
 from syntax_graph.syntax_readers.java import (
@@ -163,6 +164,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "formal_parameter",
         },
         syntax_reader=common_parameter.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parenthesized_expression",
+        },
+        syntax_reader=common_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={
