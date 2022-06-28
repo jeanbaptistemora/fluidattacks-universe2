@@ -1,5 +1,6 @@
 from . import (
     get_result,
+    get_result_closing_date,
     get_result_states,
     get_result_treatments,
 )
@@ -170,6 +171,58 @@ async def test_get_report_states(
         treatments=treatments,
         states=states,
         verifications=verifications,
+    )
+    assert "success" in result_xls["data"]["report"]
+    assert result_xls["data"]["report"]["success"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states", "verifications", "closing_date"],
+    [
+        [
+            "admin@gmail.com",
+            [],
+            ["CLOSED"],
+            ["VERIFIED"],
+            "2020-06-01T05:00:00+00:00",
+        ],
+        [
+            "user_manager@gmail.com",
+            [],
+            ["CLOSED"],
+            ["VERIFIED"],
+            "2020-06-01T05:00:00+00:00",
+        ],
+        [
+            "vulnerability_manager@gmail.com",
+            [],
+            ["CLOSED"],
+            ["VERIFIED"],
+            "2020-06-01T05:00:00+00:00",
+        ],
+    ],
+)
+# pylint: disable=too-many-arguments
+async def test_get_report_closing_date(
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
+    closing_date: str,
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: dict[str, Any] = await get_result_closing_date(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+        states=states,
+        verifications=verifications,
+        closing_date=closing_date,
     )
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
@@ -376,6 +429,79 @@ async def test_get_report_states_second_time_fail(
         treatments=treatments,
         states=states,
         verifications=verifications,
+    )
+    assert "errors" in result_data
+    assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "treatments",
+        "states",
+        "verifications",
+        "closing_date",
+        "should_fail",
+    ],
+    [
+        [
+            "admin@gmail.com",
+            [],
+            ["CLOSED"],
+            ["VERIFIED"],
+            "2020-06-01T05:00:00+00:00",
+            True,
+        ],
+        [
+            "admin@gmail.com",
+            [],
+            ["CLOSED"],
+            ["VERIFIED"],
+            "2021-06-01T05:00:00+00:00",
+            False,
+        ],
+    ],
+)
+# pylint: disable=too-many-arguments
+async def test_get_report_closing_date_second_time_fail(
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
+    closing_date: str,
+    should_fail: bool,
+) -> None:
+    assert populate
+    group: str = "group1"
+    result_xls: dict[str, Any] = await get_result_closing_date(
+        user=email,
+        group_name=group,
+        report_type="XLS",
+        treatments=treatments,
+        states=states,
+        verifications=verifications,
+        closing_date=closing_date,
+    )
+    if should_fail:
+        assert "errors" in result_xls
+        assert result_xls["errors"][0]["message"] == str(
+            ReportAlreadyRequested()
+        )
+    else:
+        assert "success" in result_xls["data"]["report"]
+        assert result_xls["data"]["report"]["success"]
+
+    result_data: dict[str, Any] = await get_result_closing_date(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+        states=states,
+        verifications=verifications,
+        closing_date=closing_date,
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())

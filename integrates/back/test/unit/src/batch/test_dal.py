@@ -28,7 +28,7 @@ pytestmark = [
 async def test_get_actions() -> None:
     all_actions = await batch_dal.get_actions()
     assert isinstance(all_actions, list)
-    assert len(all_actions) == 4
+    assert len(all_actions) == 5
 
 
 async def test_get_action() -> None:
@@ -40,6 +40,7 @@ async def test_get_action() -> None:
                 "treatments": list(sorted(["ACCEPTED", "NEW"])),
                 "states": ["OPEN"],
                 "verifications": ["REQUESTED"],
+                "closing_date": None,
             }
         ),
         entity="unittesting",

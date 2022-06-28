@@ -125,3 +125,56 @@ async def get_result_states(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_result_closing_date(
+    *,
+    user: str,
+    group_name: str,
+    report_type: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
+    closing_date: str,
+) -> dict[str, Any]:
+    query: str = """
+        query RequestGroupReport(
+            $reportType: ReportType!
+            $groupName: String!
+            $lang: ReportLang
+            $treatments: [VulnerabilityTreatment!]
+            $states: [VulnerabilityState!]
+            $verifications: [VulnerabilityVerification!]
+            $closingDate: DateTime
+        ) {
+            report(
+                reportType: $reportType
+                groupName: $groupName
+                lang: $lang
+                treatments: $treatments
+                verificationCode: "123"
+                states: $states
+                closingDate: $closingDate
+                verifications: $verifications
+            ) {
+                success
+            }
+        }
+    """
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "reportType": report_type,
+            "groupName": group_name,
+            "treatments": treatments,
+            "states": states,
+            "verifications": verifications,
+            "closingDate": closing_date,
+        },
+    }
+
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
