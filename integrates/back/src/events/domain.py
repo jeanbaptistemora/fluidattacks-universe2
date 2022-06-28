@@ -59,6 +59,9 @@ from db_model.groups.types import (
 from db_model.roots.types import (
     Root,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -90,9 +93,6 @@ from s3 import (
 from settings import (
     LOGGING,
     TIME_ZONE,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -140,8 +140,8 @@ async def add_comment(
 ) -> tuple[Union[str, None], bool]:
     parent_comment = str(parent_comment)
     content = str(comment_data["content"])
-    event_loader = info.context.loaders.event
-    event: Event = await event_loader.load(event_id)
+    loaders = info.context.loaders
+    event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
     validations.validate_field_length(content, 20000)
@@ -155,9 +155,9 @@ async def add_comment(
         ]
         if parent_comment not in event_comments:
             raise InvalidCommentParent()
-    user_data = await stakeholders_domain.get(user_email)
-    user_data["user_email"] = user_data.pop("email")
-    success = await comments_domain.add(event_id, comment_data, user_data)
+
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    success = await comments_domain.add(event_id, comment_data, stakeholder)
     return success
 
 
@@ -569,7 +569,8 @@ async def request_vulnerabilities_hold(
         "parent": "0",
         "comment_id": comment_id,
     }
-    await comments_domain.add(finding_id, comment_data, user_info)
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    await comments_domain.add(finding_id, comment_data, stakeholder)
     if not success:
         LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()

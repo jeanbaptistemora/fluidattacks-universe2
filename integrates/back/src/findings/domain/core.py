@@ -53,6 +53,9 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     GitRoot,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -98,9 +101,6 @@ from redshift import (
 )
 from settings import (
     LOGGING,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from time import (
     time,
@@ -160,6 +160,7 @@ async def add_comment(
     finding_id: str,
     group_name: str,
 ) -> bool:
+    loaders = info.context.loaders
     param_type = comment_data.get("comment_type")
     parent_comment = str(comment_data["parent"])
     content = str(comment_data["content"])
@@ -186,9 +187,8 @@ async def add_comment(
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
 
-    user_data = await stakeholders_domain.get_by_email(user_email)
-    user_data["user_email"] = user_data.pop("email")
-    success = await comments_domain.add(finding_id, comment_data, user_data)
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    success = await comments_domain.add(finding_id, comment_data, stakeholder)
     return success[1]
 
 
@@ -651,7 +651,12 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         "parent": "0",
         "comment_id": comment_id,
     }
-    await comments_domain.add(finding_id, comment_data, user_info)
+    stakeholder = Stakeholder(
+        first_name=user_info["first_name"],
+        last_name=user_info["last_name"],
+        email=user_email,
+    )
+    await comments_domain.add(finding_id, comment_data, stakeholder)
     success = all(
         await collect(map(vulns_domain.request_verification, vulnerabilities))
     )
@@ -875,8 +880,12 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         "comment_id": comment_id,
     }
     if is_reattack_open is None:
-        await comments_domain.add(finding_id, comment_data, user_info)
-
+        stakeholder = Stakeholder(
+            first_name=user_info["first_name"],
+            last_name=user_info["last_name"],
+            email=user_email,
+        )
+        await comments_domain.add(finding_id, comment_data, stakeholder)
     # Modify the verification state to mark all passed vulns as verified
     success = all(
         await collect(map(vulns_domain.verify_vulnerability, vulnerabilities))
@@ -914,10 +923,8 @@ async def get_oldest_no_treatment(
     )
     open_vulns = vulns_utils.filter_open_vulns(vulns)
     no_treatment_vulns = vulns_utils.filter_no_treatment_vulns(open_vulns)
-
     if not no_treatment_vulns:
         return None
-
     treatment_dates: List[datetime] = [
         datetime.fromisoformat(vuln.treatment.modified_date)
         for vuln in no_treatment_vulns

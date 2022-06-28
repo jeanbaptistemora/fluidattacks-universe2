@@ -26,6 +26,9 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.vulnerabilities import (
     enums as vulns_enums,
 )
@@ -161,8 +164,14 @@ async def confirm_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
+
+    stakeholder = Stakeholder(
+        first_name=user_info["first_name"],
+        last_name=user_info["last_name"],
+        email=user_email,
+    )
     add_comment = await comments_domain.add(
-        finding_id, comment_data, user_info
+        finding_id, comment_data, stakeholder
     )
     await collect(
         vulns_model.update_historic_entry(
@@ -536,8 +545,13 @@ async def reject_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
+    stakeholder = Stakeholder(
+        first_name=user_info["first_name"],
+        last_name=user_info["last_name"],
+        email=user_email,
+    )
     add_comment = await comments_domain.add(
-        finding_id, comment_data, user_info
+        finding_id, comment_data, stakeholder
     )
     await collect(
         vulns_model.update_historic_entry(
@@ -619,8 +633,13 @@ async def request_vulnerabilities_zero_risk(
         "parent": "0",
         "comment_id": comment_id,
     }
+    stakeholder = Stakeholder(
+        first_name=user_info["first_name"],
+        last_name=user_info["last_name"],
+        email=user_email,
+    )
     add_comment = await comments_domain.add(
-        finding_id, comment_data, user_info
+        finding_id, comment_data, stakeholder
     )
     await collect(
         vulns_model.update_historic_entry(

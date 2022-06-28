@@ -11,6 +11,9 @@ from datetime import (
 from db_model.findings.types import (
     FindingVerification,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -102,7 +105,7 @@ def _is_scope_comment(comment: Dict[str, Any]) -> bool:
 async def add(
     finding_id: str,
     comment_data: Dict[str, Any],
-    user_info: Union[Dict[str, Any], Dict[str, str]],
+    user_info: Stakeholder,
 ) -> Tuple[Union[str, None], bool]:
     today = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_id = str(comment_data["comment_id"])
@@ -110,10 +113,8 @@ async def add(
         "comment_type": comment_data["comment_type"],
         "content": str(comment_data.get("content")),
         "created": today,
-        "email": user_info["user_email"],
-        "fullname": str.join(
-            " ", [str(user_info["first_name"]), str(user_info["last_name"])]
-        ),
+        "email": user_info.email,
+        "fullname": str.join(" ", [user_info.first_name, user_info.last_name]),
         "modified": today,
         "parent": comment_data.get("parent", "0"),
     }
