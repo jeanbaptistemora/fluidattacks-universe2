@@ -97,9 +97,9 @@ module "cluster" {
     }
   }
 
-  aws_auth_roles    = var.map_roles
-  aws_auth_users    = var.map_users
-  aws_auth_accounts = var.map_accounts
+  aws_auth_roles    = local.cluster_roles
+  aws_auth_users    = local.cluster_users
+  aws_auth_accounts = local.cluster_accounts
 
   tags = {
     "Name"                   = "common-kubernetes"
