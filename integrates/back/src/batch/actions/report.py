@@ -9,6 +9,10 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
     UnavailabilityError,
 )
+from datetime import (
+    datetime,
+    timezone,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -61,6 +65,7 @@ async def get_report(
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -71,6 +76,7 @@ async def get_report(
             treatments=treatments,
             states=states,
             verifications=verifications,
+            closing_date=closing_date,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -145,12 +151,20 @@ async def report(*, item: BatchProcessing) -> None:
         VulnerabilityVerificationStatus[verification]
         for verification in additional_info.get("verifications", {})
     }
+    closing_date: Optional[datetime] = (
+        datetime.fromisoformat(
+            str(additional_info.get("closing_date"))
+        ).astimezone(tz=timezone.utc)
+        if additional_info.get("closing_date")
+        else None
+    )
     report_url = await get_report(
         item=item,
         report_type=report_type,
         treatments=treatments,
         states=states,
         verifications=verifications,
+        closing_date=closing_date,
     )
     if report_url:
         await send_report(

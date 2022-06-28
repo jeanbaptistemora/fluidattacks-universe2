@@ -88,6 +88,8 @@ type Query {
 
   "Report entity"
   report(
+    "Closing date to include in the format `yyyy-MM-ddThh:mm:ssZ`"
+    closingDate: DateTime
     "Name of the group to which the report belongs"
     groupName: String
     "Type of the report/export"

@@ -118,6 +118,7 @@ async def _append_xls_report(
             ]
         ),
         verifications=set(),
+        closing_date=None,
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:

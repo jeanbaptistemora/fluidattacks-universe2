@@ -8,6 +8,9 @@ from botocore.exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -42,6 +45,7 @@ from tempfile import (
 from typing import (
     Dict,
     List,
+    Optional,
     Set,
     Tuple,
 )
@@ -171,6 +175,7 @@ async def generate_xls_file(
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -179,6 +184,7 @@ async def generate_xls_file(
         states=states,
         loaders=loaders,
         verifications=verifications,
+        closing_date=closing_date,
     )
     await it_report.create()
     filepath = it_report.result_filename

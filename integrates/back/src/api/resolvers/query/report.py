@@ -20,6 +20,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -59,11 +62,13 @@ from verify import (
 
 
 def _filter_unique_report(
+    *,
     old_additional_info: str,
     new_type: str,
     new_treatments: set[VulnerabilityTreatmentStatus],
     new_states: set[VulnerabilityStateStatus],
     new_verifications: set[VulnerabilityVerificationStatus],
+    new_closing_date: Optional[datetime],
 ) -> bool:
     additional_info: dict[str, Any] = json.loads(old_additional_info)
     if new_type == "XLS":
@@ -75,6 +80,8 @@ def _filter_unique_report(
             == list(sorted(additional_info.get("states", [])))
             and list(sorted(new_verifications))
             == list(sorted(additional_info.get("verifications", [])))
+            and (new_closing_date.isoformat() if new_closing_date else None)
+            == additional_info.get("closing_date", None)
         )
 
     return new_type == additional_info.get("report_type")
@@ -89,6 +96,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -99,11 +107,12 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
         filter(
             lambda x: x.subject.lower() == user_email.lower()
             and _filter_unique_report(
-                x.additional_info,
-                report_type,
-                treatments,
-                states,
-                verifications,
+                old_additional_info=x.additional_info,
+                new_type=report_type,
+                new_treatments=treatments,
+                new_states=states,
+                new_verifications=verifications,
+                new_closing_date=closing_date,
             ),
             existing_actions,
         )
@@ -126,6 +135,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
             "treatments": list(sorted(treatments)),
             "states": list(sorted(states)),
             "verifications": list(sorted(verifications)),
+            "closing_date": closing_date.isoformat() if closing_date else None,
         }
     )
 
@@ -209,6 +219,20 @@ async def resolve(
         if kwargs.get("verifications")
         else set()
     )
+    closing_date: Optional[datetime] = kwargs.get("closing_date", None)
+    if closing_date:
+        states = set(
+            [
+                VulnerabilityStateStatus["CLOSED"],
+            ]
+        )
+        treatments = set(VulnerabilityTreatmentStatus)
+        if verifications != set(
+            [
+                VulnerabilityVerificationStatus["VERIFIED"],
+            ]
+        ):
+            verifications = set()
 
     return {
         "success": await _get_url_group_report(
@@ -219,6 +243,7 @@ async def resolve(
             treatments=treatments,
             states=states,
             verifications=verifications,
+            closing_date=closing_date,
             verification_code=verification_code,
         )
     }

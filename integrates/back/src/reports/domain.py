@@ -7,6 +7,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -35,6 +38,7 @@ async def get_group_report_url(
     treatments: set[VulnerabilityTreatmentStatus],
     states: set[VulnerabilityStateStatus],
     verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -60,6 +64,7 @@ async def get_group_report_url(
             treatments=treatments,
             states=states,
             verifications=verifications,
+            closing_date=closing_date,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(

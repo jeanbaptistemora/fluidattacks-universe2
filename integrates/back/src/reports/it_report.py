@@ -9,6 +9,7 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus,
@@ -103,6 +104,7 @@ class ITReport:
         states: set[VulnerabilityStateStatus],
         treatments: set[VulnerabilityTreatmentStatus],
         verifications: set[VulnerabilityVerificationStatus],
+        closing_date: Optional[datetime],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -112,10 +114,25 @@ class ITReport:
         self.treatments = treatments
         self.states = states
         self.verifications = verifications
-        self.are_all_treatments = len(sorted(treatments)) == len(
+        self.closing_date = closing_date
+        if self.closing_date:
+            self.states = set(
+                [
+                    VulnerabilityStateStatus["CLOSED"],
+                ]
+            )
+            self.treatments = set(VulnerabilityTreatmentStatus)
+            if self.verifications != set(
+                [
+                    VulnerabilityVerificationStatus["VERIFIED"],
+                ]
+            ):
+                self.verifications = set()
+
+        self.are_all_treatments = len(sorted(self.treatments)) == len(
             sorted(set(VulnerabilityTreatmentStatus))
         )
-        self.are_all_verifications = len(verifications) == 0
+        self.are_all_verifications = len(self.verifications) == 0
 
         self.workbook = Workbook()
         self.current_sheet = self.workbook.new_sheet("Data")
@@ -179,6 +196,15 @@ class ITReport:
                 or self.are_all_verifications
             )
         )
+        if self.closing_date:
+            vulnerabilities_filtered = tuple(
+                vulnerability
+                for vulnerability in vulnerabilities_filtered
+                if datetime.fromisoformat(
+                    vulnerability.state.modified_date
+                ).astimezone(tz=timezone.utc)
+                <= self.closing_date
+            )
 
         vulnerabilities_historics: tuple[
             tuple[
