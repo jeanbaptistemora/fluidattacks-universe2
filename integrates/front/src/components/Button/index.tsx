@@ -6,41 +6,41 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 interface IVariant {
-  backgroundColor: string;
+  bgColor: string;
+  bgColorHover: string;
   borderColor: string;
   color: string;
-  hoverBackgroundColor: string;
-  hoverColor: string;
+  colorHover: string;
 }
 
 const variants: Record<IButtonProps["variant"], IVariant> = {
   basic: {
-    backgroundColor: "transparent",
-    borderColor: "transparent",
+    bgColor: "#dddde300",
+    bgColorHover: "#dddde3",
+    borderColor: "#dddde300",
     color: "#5c5c70",
-    hoverBackgroundColor: "transparent",
-    hoverColor: "black",
+    colorHover: "#121216",
   },
   gray: {
-    backgroundColor: "#e9e9ed",
+    bgColor: "#e9e9ed",
+    bgColorHover: "#c7c7d1",
     borderColor: "#e9e9ed",
     color: "#5c5c70",
-    hoverBackgroundColor: "#e9e9ed",
-    hoverColor: "#5c5c70",
+    colorHover: "#121216",
   },
   primary: {
-    backgroundColor: "#ff3435",
+    bgColor: "#ff3435",
+    bgColorHover: "#b80000",
     borderColor: "#ff3435",
     color: "#fff",
-    hoverBackgroundColor: "#b80000",
-    hoverColor: "white",
+    colorHover: "white",
   },
   secondary: {
-    backgroundColor: "transparent",
+    bgColor: "transparent",
+    bgColorHover: "#ff3435",
     borderColor: "#ff3435",
     color: "#ff3435",
-    hoverBackgroundColor: "#ff3435",
-    hoverColor: "white",
+    colorHover: "white",
   },
 };
 
@@ -49,29 +49,33 @@ const Button = styled.button.attrs<IButtonProps>(
     type: props.type ?? "button",
   })
 )<IButtonProps>`
-  background-color: ${(props): string =>
-    variants[props.variant].backgroundColor};
-  border: 2px solid ${(props): string => variants[props.variant].borderColor};
-  border-radius: 4px;
-  color: ${(props): string => variants[props.variant].color};
-  font-weight: 400;
-  margin: ${({ margin = "0 12px 0 0" }): string => margin};
-  padding: 10px 16px;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  ${({ margin = "0 12px 0 0", variant }): string => {
+    const { bgColor, bgColorHover, borderColor, color, colorHover } =
+      variants[variant];
 
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  :hover:not([disabled]) {
-    background-color: ${(props): string =>
-      variants[props.variant].hoverBackgroundColor};
-    border-color: ${(props): string =>
-      variants[props.variant].hoverBackgroundColor};
-    color: ${(props): string => variants[props.variant].hoverColor};
-    cursor: pointer;
-  }
+    return `
+    background-color: ${bgColor};
+    border: 2px solid ${borderColor};
+    border-radius: 4px;
+    color: ${color};
+    font-weight: 400;
+    margin: ${margin};
+    padding: 10px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    :disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    :hover:not([disabled]) {
+      background-color: ${bgColorHover};
+      border-color: ${bgColorHover};
+      color: ${colorHover};
+      cursor: pointer;
+    }
+    `;
+  }}
 `;
 
 const ButtonOpacity = styled.button.attrs({
