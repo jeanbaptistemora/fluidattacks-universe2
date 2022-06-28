@@ -25,8 +25,7 @@ import type {
 } from "./types";
 import { VerificationCodeField } from "./VerificationCodeField";
 
-import { Button } from "components/Button";
-import { Modal, ModalConfirm, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/queries";
 import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -260,16 +259,12 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 <PhoneField autoFocus={true} />
               </Col100>
             </Row>
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("profile.mobileModal.close")}
-              </Button>
-              <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
-                <Button type={"submit"} variant={"primary"}>
-                  {t("profile.mobileModal.add")}
-                </Button>
-              </Can>
-            </ModalFooter>
+            <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+              <ModalConfirm
+                onCancel={onClose}
+                txtConfirm={t("profile.mobileModal.add")}
+              />
+            </Can>
           </Form>
         </Formik>
       ) : undefined}
@@ -341,22 +336,17 @@ const MobileModal: React.FC<IMobileModalProps> = (
                 </Row>
               </React.Fragment>
             ) : undefined}
-            <ModalFooter>
-              <Button onClick={onClose} variant={"secondary"}>
-                {t("profile.mobileModal.close")}
-              </Button>
-              <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
-                {isOpenEdit && isCodeInCurrentMobile ? (
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("profile.mobileModal.edit")}
-                  </Button>
-                ) : (
-                  <Button onClick={handleOpenEdit} variant={"primary"}>
-                    {t("profile.mobileModal.edit")}
-                  </Button>
-                )}
-              </Can>
-            </ModalFooter>
+            <Can do={"api_mutations_update_stakeholder_phone_mutate"}>
+              <ModalConfirm
+                onCancel={onClose}
+                onConfirm={
+                  isOpenEdit && isCodeInCurrentMobile
+                    ? "submit"
+                    : handleOpenEdit
+                }
+                txtConfirm={t("profile.mobileModal.edit")}
+              />
+            </Can>
           </Form>
         </Formik>
       ) : undefined}

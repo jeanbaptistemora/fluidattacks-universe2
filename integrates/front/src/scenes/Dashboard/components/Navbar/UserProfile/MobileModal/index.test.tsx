@@ -26,6 +26,8 @@ jest.mock("../../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Mobile modal", (): void => {
+  const btnCancel = "components.modal.cancel";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof MobileModal).toBe("function");
@@ -66,18 +68,20 @@ describe("Mobile modal", (): void => {
       expect(screen.getByDisplayValue("+1 (123) 454-5")).toBeInTheDocument();
     });
 
-    userEvent.click(
-      screen.getByRole("button", { name: "profile.mobileModal.close" })
-    );
+    expect(
+      screen.queryByRole("button", { name: btnCancel })
+    ).not.toBeInTheDocument();
 
-    expect(handleOnClose).toHaveBeenCalledTimes(1);
+    expect(handleOnClose).toHaveBeenCalledTimes(0);
   });
 
   it("should display the stakeholder's mobile without edit permission", async (): Promise<void> => {
     expect.hasAssertions();
 
     const handleOnClose: jest.Mock = jest.fn();
-
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_stakeholder_phone_mutate" },
+    ]);
     const mockQuery: MockedResponse[] = [
       {
         request: {
@@ -101,16 +105,15 @@ describe("Mobile modal", (): void => {
 
     render(
       <MockedProvider addTypename={false} mocks={mockQuery}>
-        <MobileModal onClose={handleOnClose} />
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <MobileModal onClose={handleOnClose} />
+        </authzPermissionsContext.Provider>
       </MockedProvider>
     );
     await waitFor((): void => {
       expect(screen.getByDisplayValue("+1 (123) 454-5")).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByRole("button", { name: "profile.mobileModal.close" })
-    ).toBeInTheDocument();
     expect(handleOnClose).toHaveBeenCalledTimes(0);
   });
 
@@ -224,9 +227,7 @@ describe("Mobile modal", (): void => {
       );
     });
 
-    expect(
-      screen.getByRole("button", { name: "profile.mobileModal.close" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: btnCancel })).toBeInTheDocument();
     expect(handleOnClose).toHaveBeenCalledTimes(0);
 
     jest.clearAllMocks();
@@ -369,9 +370,7 @@ describe("Mobile modal", (): void => {
       );
     });
 
-    expect(
-      screen.getByRole("button", { name: "profile.mobileModal.close" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: btnCancel })).toBeInTheDocument();
     expect(handleOnClose).toHaveBeenCalledTimes(0);
 
     jest.clearAllMocks();

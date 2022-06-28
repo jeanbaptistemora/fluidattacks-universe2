@@ -24,7 +24,7 @@ const ModalConfirm: React.FC<IModalConfirmProps> = ({
   const isSubmit = onConfirm === "submit";
 
   return (
-    <div className={"mt3"}>
+    <div className={"mt3 comp-modal-confirm"}>
       <Button
         disabled={disabled}
         id={id}
