@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.common import (
+    binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
@@ -39,6 +40,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=java_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "binary_expression",
+        },
+        syntax_reader=common_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
