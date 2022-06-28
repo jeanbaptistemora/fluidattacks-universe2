@@ -91,7 +91,7 @@ VPN_DATA_RAW:
       dns: []
       routes:
         - ENC[AES256_GCM,data:a8Zysma853qem9vcSPv9ijw=,iv:IY1IcvHGSlwkAX1FjL9h7tYD4JVXxKdASCvpN0lbvNc=,tag:9+XGIvP7GdFQ+U6q0wXaLw==,type:str]
-    - id: ENC[AES256_GCM,data:toIvoiiohARP/wo=,iv:cZYGOgmy0EBx4QqxQteeXGm1LghF6DQQe3EG0LLJGQk=,tag:NNRC065d2Snl+TWKJmY9Fw==,type:str]
+    - id: ENC[AES256_GCM,data:FgeqPjoABqpP2g==,iv:YTCeMo1ZV/Of5IZpYJDJIjtIT0p2+8S2Wy8HMZ7MPSo=,tag:EjIGLmFy5IfzAYM5p3o6Gw==,type:str]
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:rI8z1f5dsBXWzfl0,iv:lfE0EdyZFKlmEttrsFiOqcqxFO3Xumzo6Lv2yuJAjnc=,tag:4qhC2Iv3WgNw0yoP0zub3Q==,type:str]
       dns:
@@ -145,8 +145,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-06-28T21:13:45Z"
-    mac: ENC[AES256_GCM,data:5A5Bnr4mT+qhkUeuJ9Buw0XqsTMTJKb6Yv6YHqQwuLPUXmGCXGmjnM+QLPmq+5nlvGvh69GE6jVqW8E5jTPQyl7a0KXBHThnfw6AuHmWBso83SbCScXRlNl9IT5WziJL0TPTBzA81YoKAv6/vA82Sl70wZPgKzLXKCPuZQVQXP4=,iv:MFPEUeRCtZYMBA6LTDoohfBPkv0LhV9O83VnFY6aNAE=,tag:ld55OZQB/B4S00UTcPeNcg==,type:str]
+    lastmodified: "2022-06-28T21:24:18Z"
+    mac: ENC[AES256_GCM,data:Pkk7R/CvO55+0z6h/Edjp7Y8+G5KSepHWzNd7W+HraUys+aHuDbUO3OLd87CAJEjaby2mroPtGEWaB5Pp0DzYxYNzbyTNxYCGiirm8WzrK9guBkchwVx3qCI73O9FbgnWnqu9eb/GA6mEZnIoBCGRygmlzIvJviu2f3kt1y0nTM=,iv:7cInE6yaDE9xfRCol5MJF5czcuvdcVNk0xAqh2VNhEI=,tag:sXxc2jvJXc9xexrwQVps2A==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
