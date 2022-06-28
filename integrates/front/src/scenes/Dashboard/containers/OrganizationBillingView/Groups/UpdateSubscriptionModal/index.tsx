@@ -10,7 +10,7 @@ import { FormikDropdown, FormikText } from "utils/forms/fields";
 interface IUpdateSubscriptionProps {
   current: string;
   groupName: string;
-  managed: boolean;
+  managed: string;
   onClose: () => void;
   onSubmit: (values: {
     managed: string;
@@ -45,7 +45,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
       <Formik
         initialValues={{
           groupName,
-          managed: String(managed),
+          managed,
           subscription: initialValue,
         }}
         name={"updateSubscription"}
@@ -71,10 +71,10 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 {t("organization.tabs.billing.groups.managed.title")}
               </ControlLabel>
               <Field component={FormikDropdown} name={"managed"}>
-                <option value={"true"}>
+                <option value={"MANUALLY"}>
                   {t("organization.tabs.billing.groups.managed.yes")}
                 </option>
-                <option value={"false"}>
+                <option value={"NOT_MANUALLY"}>
                   {t("organization.tabs.billing.groups.managed.no")}
                 </option>
               </Field>

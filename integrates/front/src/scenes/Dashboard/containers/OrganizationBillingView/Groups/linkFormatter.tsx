@@ -21,7 +21,7 @@ export const linkFormatter = (
   const valueDefined: boolean | string = value ?? "";
   const formatedValueDefined: string =
     typeof valueDefined === "string"
-      ? valueDefined
+      ? valueDefined.replace("_", " ")
       : valueDefined
       ? translate.t("organization.tabs.billing.groups.managed.yes")
       : translate.t("organization.tabs.billing.groups.managed.no");

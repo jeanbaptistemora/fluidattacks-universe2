@@ -62,7 +62,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     hasMachine: false,
     hasSquad: false,
     machine: "",
-    managed: false,
+    managed: "NOT_MANUALLY",
     name: "",
     permissions: [],
     service: "",
@@ -413,10 +413,9 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       subscription: string;
     }): Promise<void> => {
       const groupName = currentRow.name.toLowerCase();
-      const updatedManaged: boolean = managed === "true";
       const isSubscriptionChanged: boolean =
         subscription !== currentRow.tier.toLocaleUpperCase();
-      const isManagedChanged: boolean = updatedManaged !== currentRow.managed;
+      const isManagedChanged: boolean = managed !== currentRow.managed;
 
       try {
         const resultMutation = await updateGroup({
@@ -425,7 +424,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
             groupName,
             isManagedChanged,
             isSubscriptionChanged,
-            managed: updatedManaged,
+            managed,
             subscription,
           },
         });

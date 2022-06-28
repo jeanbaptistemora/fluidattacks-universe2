@@ -105,7 +105,7 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
     $groupName: String!
     $isManagedChanged: Boolean!
     $isSubscriptionChanged: Boolean!
-    $managed: Boolean!
+    $managed: ManagedType!
     $subscription: BillingSubscriptionType!
   ) {
     updateGroupManaged(

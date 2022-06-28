@@ -39,7 +39,7 @@ describe("Organization billing groups view", (): void => {
           groupName: "unittesting",
           isManagedChanged: true,
           isSubscriptionChanged: false,
-          managed: false,
+          managed: "NOT_MANUALLY",
           subscription: "SQUAD",
         },
       },
@@ -76,7 +76,7 @@ describe("Organization billing groups view", (): void => {
                     hasMachine: true,
                     hasSquad: true,
                     machine: "",
-                    managed: true,
+                    managed: "MANUALLY",
                     name: "unittesting",
                     permissions: [
                       "api_mutations_update_subscription_mutate",
