@@ -77,3 +77,107 @@ resource "helm_release" "karpenter" {
     value = "3"
   }
 }
+
+resource "kubectl_manifest" "karpenter_development" {
+  yaml_body = yamlencode(
+    {
+      apiVersion = "karpenter.sh/v1alpha5"
+      kind       = "Provisioner"
+      metadata = {
+        name      = "development"
+        namespace = "karpenter"
+      }
+      spec = {
+        labels = {
+          worker_group = "development"
+        }
+        requirements = [
+          {
+            key      = "karpenter.sh/capacity-type"
+            operator = "In"
+            values   = ["spot"]
+          },
+          {
+            key      = "node.kubernetes.io/instance-type"
+            operator = "In"
+            values = [
+              "m5.xlarge",
+              "m5a.xlarge",
+              "m5d.xlarge",
+              "m5ad.xlarge",
+            ]
+          },
+        ]
+        provider = {
+          subnetSelector = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+          securityGroupSelector = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+          tags = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+        }
+        ttlSecondsAfterEmpty   = 1200
+        ttlSecondsUntilExpired = 86400
+      }
+    }
+  )
+
+  depends_on = [
+    helm_release.karpenter
+  ]
+}
+
+resource "kubectl_manifest" "karpenter_production" {
+  yaml_body = yamlencode(
+    {
+      apiVersion = "karpenter.sh/v1alpha5"
+      kind       = "Provisioner"
+      metadata = {
+        name      = "production"
+        namespace = "karpenter"
+      }
+      spec = {
+        labels = {
+          worker_group = "production"
+        }
+        requirements = [
+          {
+            key      = "karpenter.sh/capacity-type"
+            operator = "In"
+            values   = ["spot"]
+          },
+          {
+            key      = "node.kubernetes.io/instance-type"
+            operator = "In"
+            values = [
+              "m5.large",
+              "m5a.large",
+              "m5d.large",
+              "m5ad.large",
+            ]
+          },
+        ]
+        provider = {
+          subnetSelector = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+          securityGroupSelector = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+          tags = {
+            "karpenter.sh/discovery" = local.cluster_name
+          }
+        }
+        ttlSecondsAfterEmpty   = 1200
+        ttlSecondsUntilExpired = 86400
+      }
+    }
+  )
+
+  depends_on = [
+    helm_release.karpenter
+  ]
+}

@@ -26,34 +26,6 @@ module "cluster" {
         "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
       ]
     }
-    development = {
-      max_size = 10
-
-      instance_types = [
-        "m5.xlarge",
-        "m5a.xlarge",
-        "m5d.xlarge",
-        "m5ad.xlarge",
-      ]
-
-      labels = {
-        worker_group = "development"
-      }
-    }
-    production = {
-      max_size = 10
-
-      instance_types = [
-        "m5.large",
-        "m5a.large",
-        "m5d.large",
-        "m5ad.large",
-      ]
-
-      labels = {
-        worker_group = "production"
-      }
-    }
   }
 
   vpc_id = data.aws_vpc.main.id
