@@ -6269,7 +6269,7 @@
       The version used in this section
       is OWASP Top 10 Privacy
       Risks version 2.0,
-      2014.
+      2021.
   es:
     summary: __empty__
   definitions:
@@ -6308,19 +6308,19 @@
       link: https://owasp.org/www-project-top-10-privacy-risks/
     "P14":
       title: Insecure data transfer
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
     "P15":
       title: Transfer or processing through third party
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
     "P16":
       title: Misleading content
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
     "P17":
       title: Collection without consent
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
     "P20":
       title: Form field design issues
-      link: https://owasp.org/www-project-top-10-privacy-risks/
+      link: https://owasp.org/www-project-top-10-privacy-risks/#div-participate
   metadata: {}
 "mvsp":
   title: MVSP
