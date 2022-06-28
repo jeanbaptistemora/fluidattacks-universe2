@@ -28,7 +28,7 @@
         },
         {
           "AttributeName": "push_tokens",
-          "AttributeType": "SS"
+          "AttributeType": "L"
         },
         {
           "AttributeName": "registration_date",
