@@ -320,7 +320,7 @@
 
   # Standard definitions with requirements
   standardDefinitionsWithRequirements = standardId: let
-    definitions = builtins.attrNames compliance.${standardId}.definitions;
+    definitions = lib.lists.naturalSort (builtins.attrNames compliance.${standardId}.definitions);
   in
     ''
       | Definition | Requirements |
