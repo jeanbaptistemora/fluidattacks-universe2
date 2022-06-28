@@ -37907,7 +37907,7 @@
       details: __empty__
 "419":
   en:
-    title: Tracebility Loss - Kubernetes
+    title: Traceability Loss - Kubernetes
     description: >
       The kubernetes configuration does not set a logging
       property, which prevents log files from being created.
@@ -37962,7 +37962,7 @@
       ```
   remediation_time: "60"
   es:
-    title: Tracebility Loss - Kubernetes
+    title: Traceability Loss - Kubernetes
     description: >
       La configuración de kubernetes no establece una propiedad de
       registro, lo que evita que se creen archivos de registro. Estos
