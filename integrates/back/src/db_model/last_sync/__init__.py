@@ -11,10 +11,15 @@ from dataclasses import (
     dataclass,
 )
 import logging
+import logging.config
 from psycopg2.extensions import (
     cursor as cursor_cls,
 )
+from settings import (
+    LOGGING,
+)
 
+logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
