@@ -54,10 +54,11 @@ const NotificationsView: React.FC = (): JSX.Element => {
   });
 
   const handleSubmit = useCallback(
-    (notificationsPreferences: string[]): void => {
+    (email: string[], sms: string[]): void => {
       void updateSubscription({
         variables: {
-          notificationsPreferences,
+          email,
+          sms,
         },
       });
     },
@@ -69,17 +70,33 @@ const NotificationsView: React.FC = (): JSX.Element => {
       ? []
       : dataEnum.Notifications.enumValues.map(
           (subscription: ISubscriptionName): ISubscriptionName => {
-            const listSubscription = dataEnum.me.notificationsPreferences.email;
-            const isSubscribe = listSubscription.includes(subscription.name);
+            const listSubscription = dataEnum.me.notificationsPreferences;
 
-            function onChange(): void {
-              const newListSubs = isSubscribe
-                ? listSubscription.filter(
-                    (sub: string): boolean => !sub.includes(subscription.name)
-                  )
-                : [subscription.name, ...listSubscription];
-              handleSubmit(newListSubs);
-            }
+            const isSubscribe = (sub: string[] | string): boolean =>
+              sub.includes(subscription.name);
+
+            const newListSubs = (listSub: string[]): string[] =>
+              isSubscribe(listSub)
+                ? listSub.filter((sub: string): boolean => !isSubscribe(sub))
+                : [subscription.name, ...listSub];
+
+            const onChangeMail = (listSub: string[]): (() => void) => {
+              const newListMail = (): void => {
+                const newListEmailSubs = newListSubs(listSub);
+                handleSubmit(newListEmailSubs, listSubscription.sms);
+              };
+
+              return newListMail;
+            };
+
+            const onChangeSms = (listSub: string[]): (() => void) => {
+              const newListSms = (): void => {
+                const newListSmsSubs = newListSubs(listSub);
+                handleSubmit(listSubscription.email, newListSmsSubs);
+              };
+
+              return newListSms;
+            };
 
             return {
               name: translate.t(
@@ -87,9 +104,16 @@ const NotificationsView: React.FC = (): JSX.Element => {
               ),
               subscribeEmail: (
                 <Switch
-                  checked={isSubscribe}
+                  checked={isSubscribe(listSubscription.email)}
                   label={{ off: "", on: "" }}
-                  onChange={onChange}
+                  onChange={onChangeMail(listSubscription.email)}
+                />
+              ),
+              subscribeSms: (
+                <Switch
+                  checked={isSubscribe(listSubscription.sms)}
+                  label={{ off: "", on: "" }}
+                  onChange={onChangeSms(listSubscription.sms)}
                 />
               ),
               tooltip: translate.t(
@@ -133,12 +157,19 @@ const NotificationsView: React.FC = (): JSX.Element => {
                         <Col large={"70"} medium={"70"} small={"70"}>
                           <CardHeader>{item.name}</CardHeader>
                         </Col>
-                        <Col large={"30"} medium={"30"} small={"30"}>
-                          <div className={"fr"}>
+                        <Col large={"30"} medium={"25"} small={"30"}>
+                          <div className={"fr mt1"}>
                             {translate.t(
                               "searchFindings.notificationTable.email"
                             )}
                             {item.subscribeEmail}
+                          </div>
+                          <br />
+                          <div className={"fr mt1"}>
+                            {translate.t(
+                              "searchFindings.notificationTable.sms"
+                            )}
+                            {item.subscribeSms}
                           </div>
                         </Col>
                       </Row>

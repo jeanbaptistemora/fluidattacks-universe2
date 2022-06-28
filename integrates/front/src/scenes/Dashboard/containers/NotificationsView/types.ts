@@ -1,6 +1,12 @@
+interface INotificationsPreferences {
+  email: string[];
+  sms: string[];
+}
+
 interface ISubscriptionName {
   name: string;
   subscribeEmail: JSX.Element;
+  subscribeSms: JSX.Element;
   tooltip: string;
 }
 
@@ -9,9 +15,7 @@ interface ISubscriptionsNames {
     enumValues: ISubscriptionName[];
   };
   me: {
-    notificationsPreferences: {
-      email: string[];
-    };
+    notificationsPreferences: INotificationsPreferences;
     userEmail: string;
   };
 }
