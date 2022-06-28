@@ -26,7 +26,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     namespace_declaration as c_sharp_namespace_declaration,
     object_creation_expression as c_sharp_object_creation_expression,
     parameter_list as c_sharp_parameter_list,
-    parenthesized_expression as c_sharp_parenthesized_expression,
     postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
     property_declaration as c_sharp_property_declaration,
@@ -58,6 +57,7 @@ from syntax_graph.syntax_readers.common import (
     null_literal as common_null_literal,
     number_literal as common_number_literal,
     parameter as common_parameter,
+    parenthesized_expression as common_parenthesized_expression,
     string_literal as common_string_literal,
 )
 from syntax_graph.types import (
@@ -328,7 +328,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "parenthesized_expression",
         },
-        syntax_reader=c_sharp_parenthesized_expression.reader,
+        syntax_reader=common_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={
