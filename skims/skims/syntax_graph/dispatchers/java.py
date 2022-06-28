@@ -24,6 +24,7 @@ from syntax_graph.syntax_readers.java import (
     method_invocation as java_method_invocation,
     parameter_list as java_parameter_list,
     program as java_program,
+    update_expression as java_update_expression,
     variable_declaration as java_variable_declaration,
 )
 from syntax_graph.types import (
@@ -178,6 +179,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "update_expression",
+        },
+        syntax_reader=java_update_expression.reader,
     ),
     Dispatcher(
         applicable_types={
