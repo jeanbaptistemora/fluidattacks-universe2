@@ -663,7 +663,7 @@ describe("GroupScopeView", (): void => {
         screen.queryByText("group.scope.common.confirm")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(true);
     });
@@ -836,27 +836,27 @@ describe("GroupScopeView", (): void => {
         ).toBeInTheDocument();
       });
 
-      expect(screen.getByText("confirmmodal.proceed")).toBeDisabled();
+      expect(screen.getByText(btnConfirm)).toBeDisabled();
 
       userEvent.selectOptions(
         screen.getByRole("combobox", { name: "reason" }),
         [reason]
       );
       await waitFor((): void => {
-        expect(screen.getByText("confirmmodal.proceed")).not.toBeDisabled();
+        expect(screen.getByText(btnConfirm)).not.toBeDisabled();
       });
 
       expect(
         screen.queryByText("group.scope.common.confirm")
       ).not.toBeInTheDocument();
 
-      userEvent.click(screen.getByText("confirmmodal.proceed"));
+      userEvent.click(screen.getByText(btnConfirm));
       await waitFor((): void => {
         expect(
           screen.queryByText("group.scope.common.confirm")
         ).toBeInTheDocument();
       });
-      userEvent.click(screen.getAllByText("confirmmodal.proceed")[1]);
+      userEvent.click(screen.getAllByText(btnConfirm)[1]);
       await waitFor((): void => {
         expect(screen.getByRole<HTMLInputElement>("checkbox").checked).toBe(
           false

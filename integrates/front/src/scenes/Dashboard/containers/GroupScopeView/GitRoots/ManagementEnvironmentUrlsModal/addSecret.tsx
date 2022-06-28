@@ -196,7 +196,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     type={"submit"}
                     variant={"primary"}
                   >
-                    {t("confirmmodal.proceed")}
+                    {t("components.modal.confirm")}
                   </Button>
                   {isUpdate ? (
                     <Can
@@ -232,7 +232,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     onClick={closeModal}
                     variant={"secondary"}
                   >
-                    {t("confirmmodal.cancel")}
+                    {t("components.modal.cancel")}
                   </Button>
                 </div>
               </div>

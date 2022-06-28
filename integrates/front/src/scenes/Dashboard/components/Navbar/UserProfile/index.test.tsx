@@ -44,6 +44,8 @@ jest.mock("react-router-dom", (): Record<string, unknown> => {
 });
 
 describe("User Profile", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof UserProfile).toBe("function");
@@ -88,7 +90,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
@@ -140,7 +142,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(mockHistoryPush).toHaveBeenCalledWith("/home");
@@ -186,7 +188,7 @@ describe("User Profile", (): void => {
       screen.queryByText("navbar.deleteAccount.modal.warning")
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith("groupAlerts.errorTextsad");
     });

@@ -7,6 +7,8 @@ import { Button } from "components/Button";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 
 describe("Evidence image", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof EvidenceImage).toBe("function");
@@ -104,7 +106,7 @@ describe("Evidence image", (): void => {
             onClick={handleClick}
           />
           <Button type={"submit"} variant={"primary"}>
-            {"confirmmodal.proceed"}
+            {btnConfirm}
           </Button>
         </Form>
       </Formik>
@@ -119,7 +121,7 @@ describe("Evidence image", (): void => {
       screen.getByRole("textbox", { name: "evidence1.description" }),
       "New description"
     );
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleUpdate).toHaveBeenCalledTimes(1);
     });

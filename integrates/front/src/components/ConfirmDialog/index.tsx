@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 
-import { Button } from "components/Button";
-import { Modal, ModalFooter } from "components/Modal";
+import { Modal, ModalConfirm } from "components/Modal";
 
 interface IConfirmFn {
   (confirmCallback: () => void, cancelCallback?: () => void): void;
@@ -19,7 +17,6 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
   title,
   message,
 }: Readonly<IConfirmDialogProps>): JSX.Element => {
-  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [confirmCallback, setConfirmCallback] = useState(
     (): (() => void) => (): void => undefined
@@ -53,22 +50,7 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
     <React.Fragment>
       <Modal onClose={handleClose} open={isOpen} title={title}>
         {message}
-        <ModalFooter>
-          <Button
-            id={"confirmmodal-cancel"}
-            onClick={handleClose}
-            variant={"secondary"}
-          >
-            {t("confirmmodal.cancel")}
-          </Button>
-          <Button
-            id={"confirmmodal-proceed"}
-            onClick={handleProceed}
-            variant={"primary"}
-          >
-            {t("confirmmodal.proceed")}
-          </Button>
-        </ModalFooter>
+        <ModalConfirm onCancel={handleClose} onConfirm={handleProceed} />
       </Modal>
       {children(confirm)}
     </React.Fragment>

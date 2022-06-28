@@ -37,6 +37,8 @@ jest.mock("../../../../../utils/notifications", (): Dictionary => {
 });
 
 describe("Files", (): void => {
+  const btnConfirm = "components.modal.confirm";
+
   const NUMBER_OF_ROWS: number = 3;
   const mockProps: IFilesProps = {
     groupName: "TEST",
@@ -190,7 +192,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -202,9 +204,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(4);
     });
@@ -310,7 +312,7 @@ describe("Files", (): void => {
         screen.queryByText("searchFindings.tabResources.files.confirm.title")
       ).toBeInTheDocument();
     });
-    userEvent.click(screen.getByText("confirmmodal.proceed"));
+    userEvent.click(screen.getAllByText(btnConfirm)[1]);
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
     });
@@ -459,7 +461,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -471,9 +473,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    userEvent.click(screen.getByText(btnConfirm));
     const TEST_CALLING_TIMES = 3;
 
     await waitFor((): void => {
@@ -513,7 +515,7 @@ describe("Files", (): void => {
       expect(screen.queryByTestId("file")).toBeInTheDocument();
     });
 
-    expect(screen.getByText("components.modal.confirm")).toBeDisabled();
+    expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     await waitFor((): void => {
       fireEvent.change(screen.getByTestId("file"), {
@@ -525,9 +527,9 @@ describe("Files", (): void => {
       "Test description"
     );
     await waitFor((): void => {
-      expect(screen.getByText("components.modal.confirm")).not.toBeDisabled();
+      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
     });
-    userEvent.click(screen.getByText("components.modal.confirm"));
+    userEvent.click(screen.getByText(btnConfirm));
 
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(

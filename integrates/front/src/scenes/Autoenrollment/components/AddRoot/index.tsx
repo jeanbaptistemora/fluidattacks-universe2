@@ -491,7 +491,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
               <Row justify={"center"}>
                 <Col>
                   <Button onClick={cancelClick} variant={"basic"}>
-                    {t("confirmmodal.cancel")}
+                    {t("components.modal.cancel")}
                   </Button>
                   <Modal onClose={noClick} open={showCancelModal} title={""}>
                     <p>{t("autoenrollment.cancelModal.body")}</p>

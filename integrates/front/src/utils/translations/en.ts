@@ -377,13 +377,6 @@ export const enTranslations: ResourceKey = {
     errorText: "An error occurred with your configuration",
     title: "Configuration",
   },
-  confirmmodal: {
-    cancel: "Cancel",
-    message: "Are you sure?",
-    proceed: "Proceed",
-    titleCvssv2: "Update CVSSv2",
-    titleGeneric: "Confirm action",
-  },
   deleteVulns: {
     closedVuln: "A closed vulnerability cannot be removed",
     notSuccess: "Vulnerability could not be eliminated",
@@ -1180,7 +1173,6 @@ export const enTranslations: ResourceKey = {
             modifiedDate: "Modified date",
             root: "Root",
           },
-          procced: "Proceed",
           title: "Add lines",
         },
         alerts: {
@@ -1215,7 +1207,6 @@ export const enTranslations: ResourceKey = {
             attackedLinesComment: "LOC is set by default",
             comments: "What comments do you have?",
           },
-          procced: "Proceed",
           title: "Edit attacked lines",
         },
         filename: "Filename",

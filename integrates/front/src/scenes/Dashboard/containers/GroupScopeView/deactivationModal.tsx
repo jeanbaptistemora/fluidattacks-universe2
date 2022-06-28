@@ -345,14 +345,14 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                     </Row>
                     <ModalFooter>
                       <Button onClick={onClose} variant={"secondary"}>
-                        {t("confirmmodal.cancel")}
+                        {t("components.modal.cancel")}
                       </Button>
                       <Button
                         disabled={!dirty || isSubmitting}
                         type={"submit"}
                         variant={"primary"}
                       >
-                        {t("confirmmodal.proceed")}
+                        {t("components.modal.confirm")}
                       </Button>
                     </ModalFooter>
                   </Form>

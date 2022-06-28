@@ -184,7 +184,7 @@ const Secrets: React.FC<ISecretsProps> = ({
           onClick={onCloseModal}
           variant={"secondary"}
         >
-          {t("confirmmodal.cancel")}
+          {t("components.modal.cancel")}
         </Button>
       )}
     </React.StrictMode>

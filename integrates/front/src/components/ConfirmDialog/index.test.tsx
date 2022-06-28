@@ -6,6 +6,8 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 
 describe("ConfirmDialog", (): void => {
+  const btnCancel = "components.modal.cancel";
+
   it("should return a fuction", (): void => {
     expect.hasAssertions();
     expect(typeof ConfirmDialog).toBe("function");
@@ -40,9 +42,9 @@ describe("ConfirmDialog", (): void => {
       expect(screen.queryByText("Title test")).toBeInTheDocument();
     });
 
-    expect(screen.queryByText("confirmmodal.cancel")).toBeInTheDocument();
+    expect(screen.queryByText(btnCancel)).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("confirmmodal.cancel"));
+    userEvent.click(screen.getByText(btnCancel));
     await waitFor((): void => {
       expect(cancelCallback).toHaveBeenCalledTimes(1);
     });
