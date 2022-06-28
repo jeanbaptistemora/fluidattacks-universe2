@@ -1,6 +1,3 @@
-from contextlib import (
-    suppress,
-)
 from dast.aws.types import (
     Location,
 )
@@ -23,26 +20,6 @@ from typing import (
     List,
     Tuple,
 )
-
-
-def _port_in_open_seggroup(
-    port: int, group: Dict[str, Any], group_index: int
-) -> List[str]:
-    vuln: List[str] = []
-    for index, perm in enumerate(group["IpPermissions"]):
-        with suppress(KeyError):
-            if perm["FromPort"] <= port <= perm["ToPort"] and (
-                (any(x["CidrIp"] == "0.0.0.0/0" for x in perm["IpRanges"]))
-                or any(x["CidrIp"] == "::/0" for x in perm["Ipv6Ranges"])
-            ):
-                vuln = [
-                    *vuln,
-                    (
-                        f"/SecurityGroups/{group_index}/"
-                        f"IpPermissions/{index}/ToPort"
-                    ),
-                ]
-    return vuln
 
 
 async def allows_anyone_to_admin_ports(
@@ -69,28 +46,79 @@ async def allows_anyone_to_admin_ports(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
+    vulns: Tuple[Vulnerability, ...] = ()
     security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
-    locations = [
-        Location(
-            arn=(
-                f"arn:aws:ec2::{group['OwnerId']}:"
-                f"security-group/{group['GroupId']}"
+    for group in security_groups:
+        locations: List[Location] = []
+        for port in admin_ports:
+            for index, perm in enumerate(group["IpPermissions"]):
+                if "FromPort" not in perm and "ToPort" not in perm:
+                    continue
+                if not perm["FromPort"] <= port <= perm["ToPort"]:
+                    continue
+                for index_ip_range, ip_range in enumerate(perm["IpRanges"]):
+                    if ip_range["CidrIp"] == "0.0.0.0/0":
+                        locations = [
+                            *locations,
+                            Location(
+                                arn=(
+                                    f"arn:aws:ec2::{group['OwnerId']}:"
+                                    f"security-group/{group['GroupId']}"
+                                ),
+                                description=(
+                                    f"Must deny connections to port {port}"
+                                ),
+                                access_patterns=(
+                                    f"/IpPermissions/{index}/FromPort",
+                                    f"/IpPermissions/{index}/ToPort",
+                                    (
+                                        f"/IpPermissions/{index}/IpRanges"
+                                        f"/{index_ip_range}/CidrIp"
+                                    ),
+                                ),
+                                values=(
+                                    perm["FromPort"],
+                                    perm["ToPort"],
+                                    ip_range["CidrIp"],
+                                ),
+                            ),
+                        ]
+                for index_ip_range, ip_range in enumerate(perm["Ipv6Ranges"]):
+                    if ip_range["CidrIpv6"] == "::/0":
+                        locations = [
+                            *locations,
+                            Location(
+                                arn=(
+                                    f"arn:aws:ec2::{group['OwnerId']}:"
+                                    f"security-group/{group['GroupId']}"
+                                ),
+                                description=(
+                                    f"Must deny connections to port {port}"
+                                ),
+                                access_patterns=(
+                                    f"/IpPermissions/{index}/FromPort",
+                                    f"/IpPermissions/{index}/ToPort",
+                                    (
+                                        f"/IpPermissions/{index}/Ipv6Ranges"
+                                        f"/{index_ip_range}/CidrIpv6"
+                                    ),
+                                ),
+                                values=(
+                                    perm["FromPort"],
+                                    perm["ToPort"],
+                                    ip_range["CidrIpv6"],
+                                ),
+                            ),
+                        ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=core_model.MethodsEnum.AWS_ANYONE_ADMIN_PORTS,
+                aws_response=group,
             ),
-            description=f"Must deny connections to port {port}",
-            access_pattern=path,
-            value=port,
         )
-        for group_index, group in enumerate(security_groups)
-        for port in admin_ports
-        for path in _port_in_open_seggroup(
-            port, group, group_index=group_index
-        )
-    ]
-    return build_vulnerabilities(
-        locations=locations,
-        method=core_model.MethodsEnum.AWS_ANYONE_ADMIN_PORTS,
-        aws_response=response,
-    )
+    return vulns
 
 
 async def unrestricted_cidrs(
@@ -100,51 +128,24 @@ async def unrestricted_cidrs(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
-    locations: List[Location] = []
+    vulns: core_model.Vulnerabilities = ()
+
     if security_groups:
-        for index_group, group in enumerate(security_groups):
+        for group in security_groups:
             locations = [
-                *locations,
                 *[
                     Location(
-                        access_pattern=(
-                            f"/SecurityGroups/{index_group}/IpPermissions"
-                            f"/{index_ip}/IpRanges/{index_range}/CidrIp"
+                        access_patterns=(
+                            (
+                                f"/IpPermissionsEgress/{index_ip}/"
+                                f"IpRanges/{index_range}/CidrIp"
+                            ),
                         ),
                         arn=(
                             f"arn:aws:ec2::{group['OwnerId']}:"
                             f"security-group/{group['GroupId']}"
                         ),
-                        value=ip_range.get("CidrIp")
-                        or ip_range.get("CidrIpv6"),
-                        description="Must not have 0.0.0.0/0 CIDRs",
-                    )
-                    for index_ip, ip_permission in enumerate(
-                        group["IpPermissions"]
-                    )
-                    for index_range, ip_range in enumerate(
-                        ip_permission["IpRanges"]
-                    )
-                    if (
-                        ip_range.get("CidrIp") == "0.0.0.0/0"
-                        or ip_range.get("CidrIpv6") == "::/0"
-                    )
-                ],
-            ]
-            locations = [
-                *locations,
-                *[
-                    Location(
-                        access_pattern=(
-                            f"/SecurityGroups/{index_group}/IpPermissionsEgre"
-                            f"ss/{index_ip}/IpRanges/{index_range}/CidrIp"
-                        ),
-                        arn=(
-                            f"arn:aws:ec2::{group['OwnerId']}:"
-                            f"security-group/{group['GroupId']}"
-                        ),
-                        value=ip_range.get("CidrIp")
-                        or ip_range.get("CidrIpv6"),
+                        values=(ip_range["CidrIp"],),
                         description="Must not have 0.0.0.0/0 CIDRs",
                     )
                     for index_ip, ip_permission in enumerate(
@@ -153,20 +154,49 @@ async def unrestricted_cidrs(
                     for index_range, ip_range in enumerate(
                         ip_permission["IpRanges"]
                     )
-                    if (
-                        ip_range.get("CidrIp") == "0.0.0.0/0"
-                        or ip_range.get("CidrIpv6") == "::/0"
+                    if (ip_range.get("CidrIp") == "0.0.0.0/0")
+                ],
+                *[
+                    Location(
+                        access_patterns=(
+                            (
+                                f"/IpPermissionsEgress/{index_ip}/"
+                                f"IpRanges/{index_range}/CidrIp"
+                            ),
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        values=(ip_range["CidrIpv6"],),
+                        description="Must not have ::/0 CIDRs",
                     )
+                    for index_ip, ip_permission in enumerate(
+                        group["IpPermissionsEgress"]
+                    )
+                    for index_range, ip_range in enumerate(
+                        ip_permission["Ipv6Ranges"]
+                    )
+                    if (ip_range.get("CidrIpv6") == "::/0")
                 ],
             ]
-    return build_vulnerabilities(
-        locations=locations,
-        method=core_model.MethodsEnum.AWS_UNRESTRICTED_CIDRS,
-        aws_response=response,
-    )
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_UNRESTRICTED_IP_PROTOCOlS
+                    ),
+                    aws_response=group,
+                ),
+            )
+    return vulns
 
 
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (allows_anyone_to_admin_ports, unrestricted_cidrs)
+] = (
+    allows_anyone_to_admin_ports,
+    unrestricted_cidrs,
+)

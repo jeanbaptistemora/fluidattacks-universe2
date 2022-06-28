@@ -29,6 +29,17 @@ from vulnerabilities import (
 )
 
 
+def _build_where(location: Location) -> str:
+    if len(location.access_patterns) == 1:
+        return f"{location.access_patterns[0]} = {location.values[0]}"
+    return "; ".join(
+        [
+            f'{path.split("/")[-1]} = {location.values[index_path]}'
+            for index_path, path in enumerate(location.access_patterns)
+        ]
+    )
+
+
 def build_vulnerabilities(
     locations: List[Location],
     method: MethodsEnum,
@@ -41,7 +52,7 @@ def build_vulnerabilities(
         build_inputs_vuln(
             method=method,
             what=location.arn,
-            where=location.access_pattern,
+            where=_build_where(location),
             stream="skims",
             metadata=build_metadata(
                 method=method,
@@ -50,9 +61,11 @@ def build_vulnerabilities(
                     content=str_content,
                     viewport=SnippetViewport(
                         column=json_paths[
-                            location.access_pattern
+                            location.access_patterns[-1]
                         ].key_start.column,
-                        line=json_paths[location.access_pattern].key_start.line
+                        line=json_paths[
+                            location.access_patterns[-1]
+                        ].key_start.line
                         + 1,
                         wrap=True,
                     ),

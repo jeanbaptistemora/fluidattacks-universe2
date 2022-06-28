@@ -1,11 +1,12 @@
 from typing import (
     Any,
     NamedTuple,
+    Tuple,
 )
 
 
 class Location(NamedTuple):
     arn: str
-    access_pattern: str
+    access_patterns: Tuple[str, ...]
     description: str
-    value: Any
+    values: Tuple[Any, ...]
