@@ -22,6 +22,7 @@ from syntax_graph.syntax_readers.common import (
 from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
     class_body as java_class_body,
+    field_declaration as java_field_declaration,
     method_invocation as java_method_invocation,
     parameter_list as java_parameter_list,
     program as java_program,
@@ -115,10 +116,9 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "formal_parameters",
-            "inferred_parameters",
+            "field_declaration",
         },
-        syntax_reader=java_parameter_list.reader,
+        syntax_reader=java_field_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -153,6 +153,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "integer_literal",
+            "real_literal",
         },
         syntax_reader=common_number_literal.reader,
     ),
@@ -164,15 +165,16 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "real_literal",
-        },
-        syntax_reader=common_number_literal.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "formal_parameter",
         },
         syntax_reader=common_parameter.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameters",
+            "inferred_parameters",
+        },
+        syntax_reader=java_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
