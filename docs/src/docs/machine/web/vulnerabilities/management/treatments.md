@@ -16,7 +16,9 @@ how to address or remediate it.
 
 In order to define a treatment, you
 will need to go to either the **Locations**
-tab or the **To-Do List** section.
+tab or the
+[To-Do List](/machine/web/vulnerabilities/management/to-do-list)
+section.
 Then, you will need to select the
 vulnerability to which you want to
 assign a treatment by clicking the
