@@ -193,15 +193,10 @@ locals {
           {
             Sid    = "opensearchWrite"
             Effect = "Allow"
-            Action = [
-              "es:AddTags",
-              "es:CreateDomain",
-              "es:DeleteDomain",
-              "es:DescribeDomain",
-              "es:DescribeDomainConfig",
-              "es:UpdateDomainConfig"
+            Action = ["*"]
+            Resource = [
+              "arn:aws:es:${var.region}:${data.aws_caller_identity.current.account_id}:domain/integrates*"
             ]
-            Resource = ["*"]
           },
         ]
       }
