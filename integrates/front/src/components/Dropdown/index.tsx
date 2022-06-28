@@ -9,6 +9,7 @@ import { Container } from "components/Container";
 interface IDropdownProps extends Partial<IDropdownContainerProps> {
   button: React.ReactNode;
   children: React.ReactNode;
+  id?: string;
   maxHeight?: IContainerProps["maxHeight"];
   minWidth?: IContainerProps["minWidth"];
   padding?: IContainerProps["padding"];
@@ -19,11 +20,12 @@ const Dropdown: React.FC<IDropdownProps> = ({
   bgColor = "#f4f4f6",
   button,
   children,
+  id,
   maxHeight,
   minWidth = "240px",
   padding = "8px",
 }: Readonly<IDropdownProps>): JSX.Element => (
-  <Wrapper>
+  <Wrapper id={id}>
     {button}
     <DropdownContainer align={align} bgColor={bgColor}>
       <Container maxHeight={maxHeight} minWidth={minWidth} padding={padding}>

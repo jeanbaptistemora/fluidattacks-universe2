@@ -21,7 +21,8 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
-import { DropdownButton, MenuItem } from "components/DropdownButton";
+import { Dropdown } from "components/Dropdown";
+import { MenuItem } from "components/DropdownButton";
 import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
@@ -157,22 +158,24 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                           </Button>
                         </ExternalLink>
                       </div>
-                      <DropdownButton
-                        content={
-                          <div className={"tc"}>
-                            {loadingSubscribe ? (
-                              <FontAwesomeIcon icon={faHourglassHalf} />
-                            ) : (
-                              <FontAwesomeIcon icon={faChartBar} />
-                            )}
-                            {`   ${translateFrequency(
+                      <Dropdown
+                        button={
+                          <Button variant={"primary"}>
+                            <FontAwesomeIcon
+                              icon={
+                                loadingSubscribe ? faHourglassHalf : faChartBar
+                              }
+                            />
+                            &nbsp;
+                            {translateFrequency(
                               subscriptionFrequency,
                               "statement"
-                            )}`}
-                          </div>
+                            )}
+                          </Button>
                         }
                         id={"subscribe-dropdown"}
-                        items={frequencies.map(
+                      >
+                        {frequencies.map(
                           (freq: string): JSX.Element => (
                             <TooltipWrapper
                               id={freq}
@@ -193,8 +196,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                             </TooltipWrapper>
                           )
                         )}
-                        scrollInto={false}
-                      />
+                      </Dropdown>
                     </ButtonToolbarCenter>
                   </div>
                 </div>
