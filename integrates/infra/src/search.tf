@@ -6,6 +6,11 @@ resource "aws_opensearch_domain" "integrates" {
     instance_type = "t3.small.search"
   }
 
+  ebs_options {
+    ebs_enabled = true
+    volume_size = 10
+  }
+
   encrypt_at_rest {
     enabled = true
   }
@@ -18,8 +23,8 @@ resource "aws_opensearch_domain" "integrates" {
   }
 }
 
-resource "aws_iam_role" "opensearch_dynamodb_lambda_role" {
-  name = "opensearch_dynamodb_lambda_role"
+resource "aws_iam_role" "integrates_opensearch_lambda_role" {
+  name = "integrates_opensearch_lambda_role"
 
   assume_role_policy = <<-EOF
     {
