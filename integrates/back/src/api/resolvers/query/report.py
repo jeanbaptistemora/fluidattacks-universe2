@@ -13,6 +13,7 @@ from batch.types import (
     BatchProcessing,
 )
 from custom_exceptions import (
+    InvalidDate,
     ReportAlreadyRequested,
     RequestedReportError,
     RequiredNewPhoneNumber,
@@ -44,6 +45,13 @@ from graphql.type.definition import (
 import json
 from newutils import (
     token as token_utils,
+)
+from newutils.datetime import (
+    get_now,
+)
+import pytz  # type: ignore
+from settings import (
+    TIME_ZONE,
 )
 from stakeholders import (
     domain as stakeholders_domain,
@@ -157,6 +165,13 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
     return success
 
 
+def _validate_closing_date(*, closing_date: datetime) -> None:
+    tzn = pytz.timezone(TIME_ZONE)
+    today = get_now()
+    if closing_date.astimezone(tzn) > today:
+        raise InvalidDate()
+
+
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(
@@ -220,7 +235,8 @@ async def resolve(
         else set()
     )
     closing_date: Optional[datetime] = kwargs.get("closing_date", None)
-    if closing_date:
+    if closing_date is not None:
+        _validate_closing_date(closing_date=closing_date)
         states = set(
             [
                 VulnerabilityStateStatus["CLOSED"],
