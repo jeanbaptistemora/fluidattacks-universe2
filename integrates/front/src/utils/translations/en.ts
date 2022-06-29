@@ -1392,6 +1392,7 @@ export const enTranslations: ResourceKey = {
       text: "Configuration",
       tooltip: "Some additional configurations here",
     },
+    credentials: "Credentials",
     deleteAccount: {
       modal: {
         text:

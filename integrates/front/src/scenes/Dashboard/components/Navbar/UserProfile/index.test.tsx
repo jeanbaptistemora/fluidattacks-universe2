@@ -78,7 +78,7 @@ describe("User Profile", (): void => {
     );
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
-    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(6);
+    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(7);
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")
@@ -176,7 +176,7 @@ describe("User Profile", (): void => {
     );
 
     expect(screen.getAllByRole("button")).toHaveLength(1);
-    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(6);
+    expect(screen.getAllByRole("button", { hidden: true })).toHaveLength(7);
 
     expect(
       screen.queryByText("navbar.deleteAccount.modal.warning")

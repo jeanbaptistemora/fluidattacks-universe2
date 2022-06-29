@@ -32,6 +32,7 @@ import { getCredentialsIndex, onSelectSeveralCredentialsHelper } from "./utils";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils/filters";
 import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialsModal/formatters/editAndDeleteActionFormatter";
 import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
@@ -57,6 +58,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   const [selectedCredentialsDatas, setSelectedCredentialsDatas] = useState<
     ICredentialData[]
   >([]);
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   // GraphQl mutations
   const [handleAddCredentials] = useMutation<IAddCredentialsResultAttr>(
@@ -315,6 +317,17 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
       setIsAdding(false);
     }
   }
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+
+  // Filter data
+  const filteredCredentials: ICredentialData[] = filterSearchText(
+    credentials,
+    searchTextFilter
+  );
 
   // Table config
   const tableHeaders: IHeaderConfig[] = [
@@ -370,7 +383,10 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
     nonSelectable: undefined,
     onSelect: onSelectOneCredentials,
     onSelectAll: onSelectSeveralCredentials,
-    selected: getCredentialsIndex(selectedCredentialsDatas, credentials),
+    selected: getCredentialsIndex(
+      selectedCredentialsDatas,
+      filteredCredentials
+    ),
   };
 
   return (
@@ -394,7 +410,13 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
       />
       {isAdding || isEditing ? undefined : (
         <Table
-          dataset={credentials}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: isEditingSecrets ? "right" : "left",
+          }}
+          dataset={filteredCredentials}
           exportCsv={false}
           extraButtonsRight={
             <ActionButtons
