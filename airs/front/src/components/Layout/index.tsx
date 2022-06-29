@@ -1,3 +1,4 @@
+import { MatomoProvider, createInstance } from "@datapunt/matomo-tracker-react";
 import hljs from "highlight.js";
 import React, { useEffect } from "react";
 
@@ -16,13 +17,20 @@ const Layout: React.FC<IChildrenProps> = ({
     });
   });
 
+  const matomoInstance = createInstance({
+    siteId: 1,
+    urlBase: "https://fluidattacks.matomo.cloud",
+  });
+
   return (
     <React.StrictMode>
-      <div className={"bg-lightgray lh-copy ma0"}>
-        <main>{children}</main>
+      <MatomoProvider value={matomoInstance}>
+        <div className={"bg-lightgray lh-copy ma0"}>
+          <main>{children}</main>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </MatomoProvider>
     </React.StrictMode>
   );
 };
