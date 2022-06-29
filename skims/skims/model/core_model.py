@@ -651,9 +651,9 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.control,
         requirements=[72],
     )
-    F237: FindingMetadata = FindingMetadata.new(
+    F234: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
-        code="F237",
+        code="F234",
         cwe=209,
         execution_queue=ExecutionQueue.leak,
         requirements=[77, 176],
@@ -2865,7 +2865,7 @@ class MethodsEnum(Enum):
         file_name="java",
         name="java_info_leak_stacktrace",
         module="lib_root",
-        finding=FindingEnum.F237,
+        finding=FindingEnum.F234,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )

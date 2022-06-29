@@ -535,12 +535,12 @@
       "title": "211. Asymmetric denial of service - ReDoS"
     }
   },
-  "F237": {
+  "F234": {
     "EN": {
-      "title": "237. Technical information leak - Print Functions"
+      "title": "234. Technical information leak - Stacktrace"
     },
     "ES": {
-      "title": "237. Technical information leak - Print Functions"
+      "title": "234. Technical information leak - Stacktrace"
     }
   },
   "F239": {

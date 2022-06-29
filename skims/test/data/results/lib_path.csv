@@ -10323,7 +10323,7 @@ F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,67,200,skim
    77 |         //console.log(a+b)
       ^ Col 0
 ",javascript.js_uses_console_log
-F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
+F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
    8 |   public static void main(String[ ] args) {
@@ -10347,7 +10347,7 @@ F237,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,237. T
   26 |       int a = 1 / 0;
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F237,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,237. Technical information leak - Print Functions,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/Test.java,"
+F234,lines,namespace/skims/test/data/lib_root/f237/Test.java,7,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f237/Test.java,"
    1 | public class Test{
    2 |     public static void main(String[] args){
    3 |         try {
