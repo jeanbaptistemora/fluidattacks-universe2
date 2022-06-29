@@ -59,7 +59,7 @@ export const editAndDeleteActionFormatter: (
 
   return (
     <Row>
-      <ActionButton onClick={handleEdit}>
+      <ActionButton aria-label={"pen-button"} onClick={handleEdit}>
         <FontAwesomeIcon icon={faPen} />
       </ActionButton>
       <ConfirmDialog
@@ -80,7 +80,7 @@ export const editAndDeleteActionFormatter: (
           }
 
           return (
-            <ActionButton onClick={handleClick}>
+            <ActionButton aria-label={"trash-button"} onClick={handleClick}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </ActionButton>
           );
