@@ -31,7 +31,7 @@ resource "aws_route53_record" "main" {
   }
 
   zone_id = aws_route53_zone.main.zone_id
-  name    = "${each.key}.${var.domain}"
+  name    = each.key == "self" ? "${var.domain}" : "${each.key}.${var.domain}"
   type    = "A"
   ttl     = "300"
   records = [each.value.ip]
