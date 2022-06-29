@@ -439,4 +439,153 @@ describe("credentials modal", (): void => {
 
     jest.clearAllMocks();
   });
+
+  it("should update secrets in bulk", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnClose: jest.Mock = jest.fn();
+
+    const mockQuery: MockedResponse[] = [
+      {
+        request: {
+          query: GET_STAKEHOLDER_CREDENTIALS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              credentials: [
+                {
+                  __typename: "Credentials",
+                  id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  name: "Credentials test",
+                  organization: {
+                    __typename: "Organization",
+                    id: "c966d57a-adde-43c3-bd47-1770002aa122",
+                    name: "Organization name",
+                  },
+                  type: "HTTPS",
+                },
+                {
+                  __typename: "Credentials",
+                  id: "60f41b5e-7f48-443b-a6b1-7d004de4ac63",
+                  name: "Credentials test 2",
+                  organization: {
+                    __typename: "Organization",
+                    id: "c81b5dda-10ba-4350-ab60-d38c7f32bad8",
+                    name: "Organization name 2",
+                  },
+                  type: "HTTPS",
+                },
+              ],
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_STAKEHOLDER_ORGANIZATIONS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              organizations: [
+                {
+                  __typename: "Organization",
+                  id: "c966d57a-adde-43c3-bd47-1770002aa122",
+                  name: "Organization name",
+                },
+              ],
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+    ];
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_CREDENTIALS,
+          variables: {
+            credentials: {
+              password: "Password bulk",
+              type: "HTTPS",
+              user: "User bulk",
+            },
+            credentialsId: "60f41b5e-7f48-443b-a6b1-7d004de4ac63",
+            organizationId: "c81b5dda-10ba-4350-ab60-d38c7f32bad8",
+          },
+        },
+        result: { data: { updateCredentials: { success: true } } },
+      },
+      {
+        request: {
+          query: UPDATE_CREDENTIALS,
+          variables: {
+            credentials: {
+              password: "Password bulk",
+              type: "HTTPS",
+              user: "User bulk",
+            },
+            credentialsId: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+            organizationId: "c966d57a-adde-43c3-bd47-1770002aa122",
+          },
+        },
+        result: { data: { updateCredentials: { success: true } } },
+      },
+    ];
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "front_can_edit_credentials_secrets_in_bulk" },
+    ]);
+
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={mockQuery.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <CredentialsModal onClose={handleOnClose} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("Credentials test")).toBeInTheDocument();
+      expect(screen.getByText("Organization name")).toBeInTheDocument();
+    });
+
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "profile.credentialsModal.actionButtons.editSecretsButton.text",
+      })
+    );
+    userEvent.click(screen.getByText("profile.credentialsModal.form.https"));
+    userEvent.type(screen.getByRole("textbox", { name: "user" }), "User bulk");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "password" }),
+      "Password bulk"
+    );
+    userEvent.click(screen.getAllByRole("checkbox")[0]);
+
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "profile.credentialsModal.form.edit",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "profile.credentialsModal.alerts.editSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+
+    expect(handleOnClose).toHaveBeenCalledTimes(0);
+
+    jest.clearAllMocks();
+  });
 });
