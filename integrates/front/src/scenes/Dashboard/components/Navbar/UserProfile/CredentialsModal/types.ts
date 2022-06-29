@@ -27,7 +27,6 @@ interface ICredentialData {
 }
 
 interface ICredentialModalProps {
-  isOpen: boolean;
   onClose: () => void;
 }
 

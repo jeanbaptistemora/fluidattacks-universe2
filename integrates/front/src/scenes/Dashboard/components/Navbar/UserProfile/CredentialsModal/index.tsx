@@ -40,7 +40,7 @@ import { msgError, msgSuccess } from "utils/notifications";
 const CredentialsModal: React.FC<ICredentialsModalProps> = (
   props: ICredentialsModalProps
 ): JSX.Element => {
-  const { isOpen, onClose } = props;
+  const { onClose } = props;
   const { t } = useTranslation();
 
   // States
@@ -377,7 +377,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
     <Modal
       minWidth={850}
       onClose={onClose}
-      open={isOpen}
+      open={true}
       title={t("profile.credentialsModal.title")}
     >
       <CredentialsForm
