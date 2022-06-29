@@ -28,6 +28,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.stakeholders.types import (
+    Stakeholder,
     StakeholderPhone,
 )
 from db_model.vulnerabilities.enums import (
@@ -52,9 +53,6 @@ from newutils.datetime import (
 import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from stakeholders.utils import (
     get_international_format_phone_number,
@@ -97,7 +95,7 @@ def _filter_unique_report(
 
 @enforce_group_level_auth_async
 async def _get_url_group_report(  # pylint: disable = too-many-arguments
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
     group_name: str,
@@ -126,9 +124,9 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
         )
     ):
         raise ReportAlreadyRequested()
-
-    user = await stakeholders_domain.get_by_email(user_email)
-    user_phone: Optional[StakeholderPhone] = user["phone"]
+    loaders: Dataloaders = info.context.loaders
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    user_phone: Optional[StakeholderPhone] = stakeholder.phone
     if not user_phone:
         raise RequiredNewPhoneNumber()
 

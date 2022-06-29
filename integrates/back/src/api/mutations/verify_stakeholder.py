@@ -50,6 +50,7 @@ async def mutate(
             )
 
         await stakeholders_domain.verify(
+            info.context.loaders,
             user_email,
             new_phone,
             kwargs.get("verification_code"),

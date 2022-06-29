@@ -25,6 +25,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.stakeholders.types import (
+    Stakeholder,
     StakeholderPhone,
 )
 from group_access import (
@@ -456,13 +457,14 @@ async def update_tours(email: str, tours: dict[str, bool]) -> bool:
 
 
 async def verify(
+    loaders: Any,
     email: str,
     new_phone: Optional[Phone],
     verification_code: Optional[str],
 ) -> None:
     """Start a verification process using OTP"""
-    user = await get_by_email(email)
-    user_phone = cast(Optional[StakeholderPhone], user["phone"])
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    user_phone: Optional[StakeholderPhone] = stakeholder.phone
     phone_to_verify = user_phone if new_phone is None else new_phone
     if new_phone:
         validate_phone(new_phone)

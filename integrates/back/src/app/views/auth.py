@@ -12,6 +12,9 @@ from authlib.integrations.base_client.errors import (
 from authlib.integrations.starlette_client import (
     OAuthError,
 )
+from dataloaders import (
+    get_new_context,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -131,4 +134,4 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session["session_key"] = session_key
 
     await sessions_dal.create_session_web(request)
-    await log_user_in(user)
+    await log_user_in(get_new_context(), user)

@@ -12,6 +12,9 @@ from collections import (
 from custom_exceptions import (
     ExpiredToken,
 )
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -361,7 +364,7 @@ async def test_create_user() -> None:
     assert user_info["last_login"] < now  # type: ignore
 
     time.sleep(1)
-    await log_user_in({"email": email})
+    await log_user_in(loaders=get_new_context(), user={"email": email})
     user_info = await get_user_attrs(email, ["last_login"])
     assert user_info["last_login"] > now  # type: ignore
 

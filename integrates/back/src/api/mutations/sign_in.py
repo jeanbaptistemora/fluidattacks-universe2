@@ -8,11 +8,15 @@ from authlib.integrations.starlette_client import (
 from custom_types import (
     SignInPayload as SignInPayloadType,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.stakeholders.types import (
     NotificationsPreferences,
+    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from decorators import (
@@ -190,14 +194,14 @@ async def get_provider_user_info(
 
 @convert_kwargs_to_snake_case
 async def mutate(
-    _: Any, _info: GraphQLResolveInfo, auth_token: str, provider: str
+    _: Any, info: GraphQLResolveInfo, auth_token: str, provider: str
 ) -> SignInPayloadType:
     session_jwt = ""
     success = False
-
+    loaders: Dataloaders = info.context.loaders
     user = await get_provider_user_info(provider, auth_token)
     if user:
-        await log_user_in(user)
+        await log_user_in(loaders=loaders, user=user)
         email = user["email"].lower()
         session_jwt = token_helper.new_encoded_jwt(
             {
@@ -218,7 +222,8 @@ async def mutate(
     return SignInPayloadType(session_jwt=session_jwt, success=success)
 
 
-async def log_user_in(user: Dict[str, str]) -> None:
+async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
+
     first_name = user.get("given_name", "")[:29]
     last_name = user.get("family_name", "")[:29]
     email = user["email"].lower()
@@ -231,9 +236,9 @@ async def log_user_in(user: Dict[str, str]) -> None:
         "date_joined": today,
     }
 
-    db_user = await stakeholders_domain.get(email)
-    if db_user and db_user.get("first_name", ""):
-        if not bool(db_user.get("registered", False)):
+    db_user: Stakeholder = await loaders.stakeholder.load(email)
+    if db_user and db_user.first_name:
+        if not db_user.is_registered:
             await stakeholders_domain.register(email)
 
         await stakeholders_domain.update_last_login(email)
