@@ -6429,3 +6429,15 @@
       title: General coding practices
       link: https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf
   metadata: {}
+"bsafss":
+  title: BSAFSS
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "SC_3-2":
+      title: Secure Coding - Secure software against unsafe functions
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+  metadata: {}
