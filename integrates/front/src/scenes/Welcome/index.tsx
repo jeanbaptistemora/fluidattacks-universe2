@@ -76,7 +76,8 @@ const Welcome: React.FC = (): JSX.Element => {
             (group): boolean =>
               group.roots.length > 0 ||
               group.service === "BLACK" ||
-              group.subscription === "oneshot"
+              group.subscription === "oneshot" ||
+              group.subscription === "continuous"
           ).length === 0
         ) {
           return (
