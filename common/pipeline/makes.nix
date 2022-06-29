@@ -71,6 +71,14 @@ in {
           };
         }
         {
+          output = "/deployTerraform/commonCi";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/commonCluster";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/commonCompute";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -116,6 +124,10 @@ in {
         }
         {
           output = "/lintTerraform/commonCi";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/commonCluster";
           gitlabExtra = gitlabLint;
         }
         {
@@ -196,6 +208,10 @@ in {
         }
         {
           output = "/testTerraform/commonCi";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/commonCluster";
           gitlabExtra = gitlabTestInfra;
         }
         {

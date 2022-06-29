@@ -20,7 +20,6 @@ in {
           outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForEnvFromSops/commonClusterProd"
-          outputs."/secretsForKubernetesConfigFromAws/commonCluster"
           outputs."/secretsForTerraformFromEnv/commonCluster"
         ];
         src = "/common/cluster/infra";
@@ -53,12 +52,6 @@ in {
       manifest = "/common/secrets/prod.yaml";
     };
   };
-  secretsForKubernetesConfigFromAws = {
-    commonCluster = {
-      cluster = "makes-k8s";
-      region = "us-east-1";
-    };
-  };
   secretsForTerraformFromEnv = {
     commonCluster = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
@@ -75,7 +68,6 @@ in {
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonClusterDev"
-          outputs."/secretsForKubernetesConfigFromAws/commonCluster"
           outputs."/secretsForTerraformFromEnv/commonCluster"
         ];
         src = "/common/cluster/infra";
