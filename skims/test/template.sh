@@ -7,7 +7,7 @@ function main {
   sops_export_vars __argSecretsFile__ "INTEGRATES_API_TOKEN" \
     && if test '__argIsFunctionalTest__' = "1" && test -n "${CI:-}"; then
       aws_login_dev \
-        && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+        && aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
           -n "development" \
