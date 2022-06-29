@@ -2,7 +2,7 @@
   -------
   We need it to override default styles from react-bootstrap.
 */
-import type { FieldInputProps, FieldProps } from "formik";
+import type { FieldInputProps, FieldProps, FormikHandlers } from "formik";
 import { ErrorMessage } from "formik";
 import React from "react";
 
@@ -11,6 +11,7 @@ import style from "utils/forms/index.css";
 
 interface IDateProps extends FieldProps {
   className?: string;
+  customChange: FormikHandlers["handleChange"] | undefined;
   disabled?: boolean;
   dataTestId?: string;
   id?: string;
@@ -22,9 +23,17 @@ export const FormikDate: React.FC<IDateProps> = (
   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   props: Readonly<IDateProps>
 ): JSX.Element => {
-  const { dataTestId, disabled, id, field } = props;
+  const { customChange, dataTestId, disabled, id, field } = props;
   const { name, onBlur, onChange } = field;
   const { value }: { value: string | undefined } = field;
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
+    onChange(event);
+
+    if (customChange !== undefined) {
+      customChange(event);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -35,7 +44,7 @@ export const FormikDate: React.FC<IDateProps> = (
         id={id}
         name={name}
         onBlur={onBlur}
-        onChange={onChange}
+        onChange={handleChange}
         type={"date"}
         value={value === undefined ? "" : value.split(" ")[0]}
       />
