@@ -64,11 +64,6 @@ VPN_DATA_RAW:
         - ENC[AES256_GCM,data:R8XdDXzO5/iK4UX2yVeagQ==,iv:erkFI9ZfJ6Ylau1NheC5LazGLQ+TsYVeLKdjrmN4tuY=,tag:wv/3RcV9COGXLYvCxQmSyQ==,type:str]
         - ENC[AES256_GCM,data:0SIwkKSADkdCH67o8FGUqw==,iv:CKkH4PpkWbHYt9q/y8DyMz8HccIv4D0jq/Z92zRahpg=,tag:ZMkGXfu7egoSKTKxflmbMA==,type:str]
         - ENC[AES256_GCM,data:EocRwcE8ZNqyUDtnidgv,iv:rHGWLrEDpBMnQ1uymJ9Pg4K62ploiPqHrKhnv+IOiis=,tag:2ALm5+H6M7U4os2yWDsdjw==,type:str]
-    - id: ENC[AES256_GCM,data:t92pVs9V,iv:x1R/jxz3M0KRRrDqpqEbh0xcxxVB0SLD0QdKjDve8yk=,tag:zPcFZi57ayDbe11RtoQx9A==,type:str]
-      aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
-      client_endpoint: ENC[AES256_GCM,data:rABL7ZXremntfurUV1gT,iv:AxzbUI8yov5fbwS2cZqmAhqxrxC1NEKuoMAx10I6B/E=,tag:bkl6f9GQsLyEPU3yRgeCUQ==,type:str]
-      dns: []
-      routes: []
     - id: ENC[AES256_GCM,data:bcdaEAgppgU=,iv:igSMYyLbganb/xuaawokDkNWU1ePcPaPgLCjwVIQvXw=,tag:U1Kvet9UExOR7DczOu6CnQ==,type:str]
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:UtuYv5S4M9lx5PKFKw==,iv:eknaIidbLNoqisLHpihglZuumK/qyQ+F/lTkRjcs3EI=,tag:2xMYR/bjptzzcuuYFhOAdQ==,type:str]
@@ -145,8 +140,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-06-28T22:21:18Z"
-    mac: ENC[AES256_GCM,data:61Ku84JTZx8erTXfC2G7dXQzEKzGBRcyzmnnR9NlcwXhTpQbuIzKXppkFBbnZkCPy9zwSMIDfnyYbgZ7OzagVmuw1Bh6Fg4qU3RyYrEGyjqSDmlvEJ6t56O3JEg9tgIjV5cpjO/AOUUfMz6RyXjcRSEfLB8c9VkPYt4f1iyn0qQ=,iv:a3Y7+D9EJ24o5BtkslqO+8a8crQhyq7U66Mc+sfg0uM=,tag:1KWZR2E08p7ut8yi8M7sUw==,type:str]
+    lastmodified: "2022-06-29T14:26:35Z"
+    mac: ENC[AES256_GCM,data:RpvaMraUez/fUiE+jbSFD16o/ep3azdQqfDA99qoKd7jdcsj6wYXrHjq89W1wN6gduzCOEyiw/csdHzEGyEToVJV8J5RvR47E8zHNsPYqAL24/BJWtQGR+5xOtS9eWZz1l/yhvhUfaOMgSFsZMp5PCGwO3pEbYWey0AupV0GlLs=,iv:FBVSmjmkICDsgIWCDpa7seArLy+lSsvjqrY6r6zFe8Q=,tag:NVIxa+FeoGXGa86E2RO8cw==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
