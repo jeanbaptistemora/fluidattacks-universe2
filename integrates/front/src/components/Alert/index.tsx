@@ -9,12 +9,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 
-import { Box } from "./Box";
-import type { IBoxProps } from "./Box";
+import type { IAlertBoxProps } from "./Box";
+import { AlertBox } from "./Box";
 
-import { Col, Row } from "components/Layout";
-
-interface IAlertProps extends IBoxProps {
+interface IAlertProps extends IAlertBoxProps {
   children: React.ReactNode;
   icon?: boolean;
   timer?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -60,22 +58,14 @@ const Alert: React.FC<IAlertProps> = ({
   }
 
   return (
-    <Box variant={variant}>
-      <Row align={"center"}>
-        {icon ? (
-          <React.Fragment>
-            <Col large={"10"} medium={"10"} small={"10"}>
-              <FontAwesomeIcon icon={icons[variant].icon} />
-            </Col>
-            <Col large={"90"} medium={"90"} small={"90"}>
-              {children}
-            </Col>
-          </React.Fragment>
-        ) : (
-          <Col>{children}</Col>
-        )}
-      </Row>
-    </Box>
+    <AlertBox variant={variant}>
+      {icon ? (
+        <span className={"mr2"}>
+          <FontAwesomeIcon icon={icons[variant].icon} />
+        </span>
+      ) : undefined}
+      {children}
+    </AlertBox>
   );
 };
 

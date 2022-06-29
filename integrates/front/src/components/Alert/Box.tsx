@@ -1,43 +1,43 @@
 import styled from "styled-components";
 
-interface IBoxProps {
+interface IAlertBoxProps {
   variant: "error" | "info" | "success" | "warning";
 }
 
 interface IVariant {
-  backgroundColor: string;
+  bgColor: string;
   color: string;
 }
 
-const variants: Record<IBoxProps["variant"], IVariant> = {
+const variants: Record<IAlertBoxProps["variant"], IVariant> = {
   error: {
-    backgroundColor: "#f2dede",
+    bgColor: "#f2dede",
     color: "#a94442",
   },
   info: {
-    backgroundColor: "#e5f6fd",
+    bgColor: "#e5f6fd",
     color: "#014361",
   },
   success: {
-    backgroundColor: "#c2ffd4",
+    bgColor: "#c2ffd4",
     color: "#009245",
   },
   warning: {
-    backgroundColor: "#fff4e5",
+    bgColor: "#fff4e5",
     color: "#663c00",
   },
 };
 
-const Box = styled.div<IBoxProps>`
-  background-color: ${(props): string =>
-    variants[props.variant].backgroundColor};
+const AlertBox = styled.div<IAlertBoxProps>`
+  background-color: ${({ variant }): string => variants[variant].bgColor};
   border-radius: 4px;
-  color: ${(props): string => variants[props.variant].color};
-  padding: 10px 20px 20px 20px;
+  color: ${({ variant }): string => variants[variant].color};
+  padding: 10px 16px;
   font-family: Roboto;
   font-size: 16px;
-  margin: 10px 20px 10px 20px;
+  margin: 10px;
+  transition: all 0.3s ease;
 `;
 
-export type { IBoxProps };
-export { Box };
+export type { IAlertBoxProps };
+export { AlertBox };
