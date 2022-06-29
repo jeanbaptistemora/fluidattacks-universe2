@@ -13,11 +13,15 @@ from custom_exceptions import (
     ExpiredToken,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
     timedelta,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from jwcrypto.jwe import (
     InvalidJWEData,
@@ -48,15 +52,7 @@ from settings import (
     SESSION_COOKIE_AGE,
     TIME_ZONE,
 )
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 import time
-from typing import (
-    Dict,
-    List,
-    Union,
-)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -344,29 +340,25 @@ def test_is_valid_format() -> None:
 @pytest.mark.changes_db
 async def test_create_user() -> None:
     timezone = pytz.timezone(TIME_ZONE)
-
-    async def get_user_attrs(
-        email: str, attrs: List[str]
-    ) -> Dict[str, Union[str, datetime]]:
-        user_attrs = await stakeholders_domain.get_attributes(email, attrs)
-        if "last_login" in user_attrs:
-            user_attrs["last_login"] = timezone.localize(
-                datetime.strptime(
-                    user_attrs["last_login"], "%Y-%m-%d %H:%M:%S"
-                )
-            )
-        return user_attrs
+    loaders: Dataloaders = get_new_context()
 
     now: datetime = datetime.now(tz=timezone)
     email: str = "integratesuser2@fluidattacks.com"
-    user_info = await get_user_attrs(email, ["registered", "last_login"])
-    assert user_info["registered"]
-    assert user_info["last_login"] < now  # type: ignore
+    user_info: Stakeholder = await loaders.stakeholder.load(email)
+    assert user_info.is_registered
+    assert (
+        datetime_utils.get_datetime_from_iso_str(user_info.last_login_date)
+        < now
+    )
 
     time.sleep(1)
-    await log_user_in(loaders=get_new_context(), user={"email": email})
-    user_info = await get_user_attrs(email, ["last_login"])
-    assert user_info["last_login"] > now  # type: ignore
+    await log_user_in(loaders=loaders, user={"email": email})
+    new_loader: Dataloaders = get_new_context()
+    new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
+    user_last_login_date = datetime_utils.get_datetime_from_iso_str(
+        new_user_info.last_login_date
+    )
+    assert user_last_login_date > now
 
 
 def test_format_credential_key() -> None:

@@ -24,6 +24,8 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    success = await stakeholders_domain.add_push_token(user_email, token)
+    success = await stakeholders_domain.add_push_token(
+        info.context.loaders, user_email, token
+    )
 
     return SimplePayloadType(success=success)

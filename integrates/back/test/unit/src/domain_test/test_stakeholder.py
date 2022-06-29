@@ -5,7 +5,11 @@ from custom_exceptions import (
     InvalidPushToken,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -29,39 +33,35 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_add_push_token() -> None:
+    loaders: Dataloaders = get_new_context()
     user_email = "test@mail.com"
     with pytest.raises(InvalidPushToken):
         assert await stakeholders_domain.add_push_token(
-            user_email, "not-a-push-token"
+            loaders, user_email, "not-a-push-token"
         )
 
     valid_token = "ExponentPushToken[something123]"
-    assert await stakeholders_domain.add_push_token(user_email, valid_token)
-
-    user_attrs = await stakeholders_domain.get_attributes(
-        user_email, ["push_tokens"]
+    assert await stakeholders_domain.add_push_token(
+        loaders, user_email, valid_token
     )
-    assert "push_tokens" in user_attrs
-    assert valid_token in user_attrs["push_tokens"]
+
+    user_attrs: Stakeholder = await loaders.stakeholder.load(user_email)
+    assert valid_token in user_attrs.push_tokens
 
 
 @pytest.mark.changes_db
 async def test_remove_push_token() -> None:
+    loaders: Dataloaders = get_new_context()
     user_email = "unittest@fluidattacks.com"
     token = "ExponentPushToken[dummy]"
 
-    attrs_before = await stakeholders_domain.get_attributes(
-        user_email, ["push_tokens"]
-    )
-    assert "push_tokens" in attrs_before
-    assert token in attrs_before["push_tokens"]
+    attrs_before: Stakeholder = await loaders.stakeholder.load(user_email)
+    assert token in attrs_before.push_tokens
 
     assert await stakeholders_domain.remove_push_token(user_email, token)
-
-    attrs_after = await stakeholders_domain.get_attributes(
-        user_email, ["push_tokens"]
-    )
-    assert token not in attrs_after["push_tokens"]
+    new_loaders: Dataloaders = get_new_context()
+    attrs_after: Stakeholder = await new_loaders.stakeholder.load(user_email)
+    assert token not in attrs_after.push_tokens
 
 
 @pytest.mark.changes_db

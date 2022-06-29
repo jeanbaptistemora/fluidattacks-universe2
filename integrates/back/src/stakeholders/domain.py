@@ -13,6 +13,7 @@ from custom_exceptions import (
     RequiredVerificationCode,
     SamePhoneNumber,
     SecureAccessException,
+    StakeholderNotFound,
 )
 from custom_types import (
     Phone,
@@ -87,12 +88,21 @@ async def acknowledge_concurrent_session(email: str) -> bool:
     )
 
 
-async def add_push_token(user_email: str, push_token: str) -> bool:
+async def add_push_token(
+    loaders: Any, user_email: str, push_token: str
+) -> bool:
     if not re.match(r"^ExponentPushToken\[[a-zA-Z\d_-]+\]$", push_token):
         raise InvalidPushToken()
-
-    user_attrs: dict = await get_attributes(user_email, ["push_tokens"])
-    tokens: list[str] = user_attrs.get("push_tokens", [])
+    try:
+        stakeholder: Optional[Stakeholder] = await loaders.stakeholder.load(
+            user_email
+        )
+    except StakeholderNotFound:
+        stakeholder = None
+    if stakeholder and stakeholder.push_tokens:
+        tokens: list[str] = stakeholder.push_tokens
+    else:
+        tokens = []
     if push_token not in tokens:
         return await stakeholders_dal.update(
             user_email, {"push_tokens": tokens + [push_token]}
