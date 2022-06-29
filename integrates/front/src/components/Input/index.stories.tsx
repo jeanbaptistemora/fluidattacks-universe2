@@ -1,4 +1,6 @@
 /* eslint-disable fp/no-mutation, import/no-default-export, react/jsx-props-no-spreading, react/no-multi-comp */
+import { faMagnifyingGlass, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Meta, Story } from "@storybook/react";
 import { Form, Formik } from "formik";
 import React from "react";
@@ -7,6 +9,7 @@ import { object, string } from "yup";
 import type { IInputProps } from "./CustomInput";
 
 import { Input } from ".";
+import { Button } from "components/Button";
 import { Logger } from "utils/logger";
 
 const config: Meta = {
@@ -50,5 +53,22 @@ Default.args = {
   variant: "solid",
 };
 
-export { Default };
+const Search = Template.bind({});
+Search.args = {
+  childLeft: (
+    <Button margin={"0"} padding={"4px 8px"} variant={"basic"}>
+      <FontAwesomeIcon icon={faMagnifyingGlass} />
+    </Button>
+  ),
+  childRight: (
+    <Button margin={"0"} padding={"4px 8px"} variant={"basic"}>
+      <FontAwesomeIcon icon={faXmark} />
+    </Button>
+  ),
+  placeholder: "Example placeholder",
+  type: "text",
+  variant: "solid",
+};
+
+export { Default, Search };
 export default config;
