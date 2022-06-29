@@ -1,3 +1,6 @@
+from .._utils import (
+    opt_transform,
+)
 from ._integer import (
     int_handler,
 )
@@ -6,9 +9,6 @@ from ._number import (
 )
 from ._string import (
     string_format_handler,
-)
-from ._utils import (
-    opt_transform,
 )
 from dataclasses import (
     dataclass,
@@ -24,6 +24,9 @@ from fa_purity import (
 )
 from fa_purity.union import (
     UnionFactory,
+)
+from redshift_client.column import (
+    Column,
 )
 from redshift_client.data_type.core import (
     DataType,
@@ -78,20 +81,30 @@ def _to_list(item: str | FrozenList[str]) -> FrozenList[str]:
     return (item,) if isinstance(item, str) else item
 
 
-def _to_data_type(raw: _RawType, encoded: JsonObj) -> ResultE[DataType]:
+def _to_column(raw: _RawType, encoded: JsonObj) -> ResultE[Column]:
     if raw.raw_type is _JschemaType.integer:
-        return int_handler(encoded)
+        return int_handler(encoded).map(
+            lambda d: Column(d, raw.nullable, None)
+        )
     if raw.raw_type is _JschemaType.number:
-        return num_handler(encoded)
+        return num_handler(encoded).map(
+            lambda d: Column(d, raw.nullable, None)
+        )
     if raw.raw_type is _JschemaType.string:
-        return string_format_handler(encoded)
+        return string_format_handler(encoded).map(
+            lambda d: Column(d, raw.nullable, None)
+        )
     if raw.raw_type is _JschemaType.boolean:
-        return Result.success(StaticTypes.BOOLEAN, Exception).map(DataType)
+        return (
+            Result.success(StaticTypes.BOOLEAN, Exception)
+            .map(DataType)
+            .map(lambda d: Column(d, raw.nullable, None))
+        )
     err = NotImplementedError(f"Unsupported json schema type `{raw.raw_type}`")
     return Result.failure(err)
 
 
-def jschema_type_handler(encoded: JsonObj) -> ResultE[DataType]:
+def jschema_type_handler(encoded: JsonObj) -> ResultE[Column]:
     _union: UnionFactory[str, FrozenList[str]] = UnionFactory()
     _types = (
         opt_transform(
@@ -109,5 +122,5 @@ def jschema_type_handler(encoded: JsonObj) -> ResultE[DataType]:
     return (
         _types.map(_to_list)
         .bind(_simplify_type_list)
-        .bind(lambda r: _to_data_type(r, encoded))
+        .bind(lambda r: _to_column(r, encoded))
     )
