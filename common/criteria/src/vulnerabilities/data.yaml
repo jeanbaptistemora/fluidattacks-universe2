@@ -37994,3 +37994,89 @@
   metadata:
     en:
       details: __empty__
+"420":
+  en:
+    title: Password reset poisoning
+    description: >
+      The application generates password reset links improperly, 
+      allowing an attacker to manipulate the request by changing 
+      the domain to one under his control.
+    impact: >
+      Compromising user accounts.
+    recommendation: >
+      Ensure that password change URLs are not disposed in client-side 
+      requests.
+    threat: >
+      Attacker without authentication from the Internet.
+  category: Abuse Functionality
+  examples:
+    non_compliant: |
+      
+      ```yaml
+      def send_email_password_reset(request: HTTP) -> bool:
+          domain_app = request.body.redirect_url
+          user = request.session.user
+
+          if(user):
+             token = DB.find_by_id(user.id)
+             url = f"{domain_app}/reset-password?token={token}"
+             Mailer.send_email(
+                 from_email="support@vulnerable-app.com",
+                 to_email=user.email,
+                 message=f"To reset your account password, please click on the following link: {url}"
+             )
+             return True
+
+          return False
+      ```
+    compliant: |
+      
+      ```yaml
+      def send_email_password_reset(request: HTTP) -> bool:
+          domain_app = env.production.domain_app
+          user = DB.find_user(request.session.user)
+
+          if(user):
+              token = generate_token(user.id)
+              url = f"{domain_app}/reset-password?token={token}"
+              Mailer.send_email(
+                  from_email="support@vulnerable-app.com",
+                  to_email=user.email,
+                  message=f"To reset your account password, please click on the following link: {url}"
+              )
+              return True
+
+          return False
+      ```
+  remediation_time: "1440"
+  es:
+    title: Password reset poisoning
+    description: >
+      La aplicación genera links de restablecimiento de contraseña de forma 
+      inadecuada, permitiendo a un atacante manipular la petición cambiando
+      el dominio a uno sobre su control.
+    impact: >
+      Comprometer cuentas de usuarios.
+    recommendation: >
+      Asegurar que las URL de cambio de password no sean dispuestas en las 
+      solicitudes del lado del cliente.
+    threat: >
+      Atacante sin autenticación desde internet.
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "C"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "L"
+    temporal:
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "R"
+  requirements: ["266","238"]
+  metadata:
+    en:
+      details: __empty__
