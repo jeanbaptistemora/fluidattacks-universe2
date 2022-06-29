@@ -98,10 +98,14 @@ def _string_handler(encoded: JsonObj) -> ResultE[DataType]:
     ).map(DataType)
 
 
-def _string_format_handler(encoded: JsonObj) -> ResultE[DataType]:
+def string_format_handler(encoded: JsonObj) -> ResultE[DataType]:
     _format = _opt_transform(
-        encoded, "format", lambda u: u.to_primitive(str).unwrap()
+        encoded,
+        "format",
+        lambda u: u.to_primitive(str).alt(
+            lambda e: Exception(f"Error at format. {e}")
+        ),
     )
-    return _format.map(lambda f: _format_handler(f, encoded)).or_else_call(
-        lambda: _string_handler(encoded)
-    )
+    return _format.map(
+        lambda r: r.bind(lambda f: _format_handler(f, encoded))
+    ).or_else_call(lambda: _string_handler(encoded))
