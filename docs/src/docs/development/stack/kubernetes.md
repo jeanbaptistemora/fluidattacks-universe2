@@ -243,7 +243,7 @@ you must:
     using [this guide](/development/stack/aws#get-development-keys).
 1. Install kubectl with `nix-env -i kubectl`.
 1. Select cluster by running
-    `aws eks update-kubeconfig --name makes-k8s --region us-east-1`.
+    `aws eks update-kubeconfig --name common --region us-east-1`.
 1. Run `kubectl get node`.
 
 Your input should be similar to this:
