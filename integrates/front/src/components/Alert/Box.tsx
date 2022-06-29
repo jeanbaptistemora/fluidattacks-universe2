@@ -28,12 +28,14 @@ const variants: Record<IAlertBoxProps["variant"], IVariant> = {
   },
 };
 
-const AlertBox = styled.div<IAlertBoxProps>`
+const AlertBox = styled.div.attrs({
+  className: "comp-alert",
+})<IAlertBoxProps>`
   background-color: ${({ variant }): string => variants[variant].bgColor};
   border-radius: 4px;
   color: ${({ variant }): string => variants[variant].color};
   padding: 10px 16px;
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
   margin: 10px;
   transition: all 0.3s ease;

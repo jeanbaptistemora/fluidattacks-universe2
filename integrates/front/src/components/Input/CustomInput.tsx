@@ -1,13 +1,14 @@
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldProps } from "formik";
 import React, { useCallback } from "react";
 
-import type { IAlertProps, IStyledInputProps } from "./styles";
-import { Alert, Container, StyledInput } from "./styles";
+import type { IStyledInputProps } from "./styles";
+import { InputBox, InputWrapper, StyledInput } from "./styles";
+
+import { Alert } from "components/Alert";
 
 interface IInputProps extends Partial<IStyledInputProps> {
-  alertType?: IAlertProps["variant"];
+  childLeft?: React.ReactNode;
+  childRight?: React.ReactNode;
   disabled?: boolean;
   name: string;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -20,15 +21,16 @@ interface IInputProps extends Partial<IStyledInputProps> {
 const CustomInput: React.FC<
   FieldProps<string, Record<string, string>> & IInputProps
 > = ({
-  alertType = "low",
-  disabled = false,
+  childLeft,
+  childRight,
+  disabled,
   field,
   form,
   onBlur,
   onFocus,
   onKeyDown,
   placeholder,
-  type = "text",
+  type,
   variant = "solid",
 }: Readonly<
   FieldProps<string, Record<string, string>> & IInputProps
@@ -45,27 +47,28 @@ const CustomInput: React.FC<
   );
 
   return (
-    <Container>
-      <StyledInput
-        aria-label={name}
-        autoComplete={"off"}
-        disabled={disabled}
-        name={name}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        onKeyDown={onKeyDown}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        variant={variant}
-      />
-      <Alert show={alert.length > 0} variant={alertType}>
-        <FontAwesomeIcon icon={faCircleXmark} />
-        &nbsp;
+    <InputBox showAlert={alert.length > 0}>
+      <InputWrapper variant={variant}>
+        {childLeft}
+        <StyledInput
+          aria-label={name}
+          autoComplete={"off"}
+          disabled={disabled}
+          name={name}
+          onBlur={handleBlur}
+          onChange={onChange}
+          onFocus={onFocus}
+          onKeyDown={onKeyDown}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+        />
+        {childRight}
+      </InputWrapper>
+      <Alert icon={true} variant={"error"}>
         {alert}
       </Alert>
-    </Container>
+    </InputBox>
   );
 };
 

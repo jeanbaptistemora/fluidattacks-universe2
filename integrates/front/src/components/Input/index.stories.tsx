@@ -44,7 +44,6 @@ const Template: Story<IInputProps> = (props): JSX.Element => (
 
 const Default = Template.bind({});
 Default.args = {
-  alertType: "low",
   disabled: false,
   placeholder: "Example placeholder",
   type: "text",

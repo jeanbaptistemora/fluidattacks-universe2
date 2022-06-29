@@ -6,18 +6,20 @@ import type { IInputProps } from "./CustomInput";
 import { CustomInput } from "./CustomInput";
 
 const Input: FC<IInputProps> = ({
-  alertType,
+  childLeft,
+  childRight,
+  disabled = false,
+  name,
   onBlur,
   onFocus,
   onKeyDown,
-  disabled,
-  name,
   placeholder,
-  type,
-  variant,
+  type = "text",
+  variant = "solid",
 }: Readonly<IInputProps>): JSX.Element => (
   <Field
-    alertType={alertType}
+    childLeft={childLeft}
+    childRight={childRight}
     component={CustomInput}
     disabled={disabled}
     name={name}

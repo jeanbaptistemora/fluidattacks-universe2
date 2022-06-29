@@ -1,13 +1,7 @@
 import styled from "styled-components";
 
-interface IAlertProps {
-  show: boolean;
-  variant: "high" | "low";
-}
-
-interface IAlertVariant {
-  bgColor: string;
-  paddingX: number;
+interface IInputContainerProps {
+  showAlert: boolean;
 }
 
 interface IStyledInputProps {
@@ -18,17 +12,6 @@ interface IVariant {
   bgColor: string;
 }
 
-const alertVariants: Record<IAlertProps["variant"], IAlertVariant> = {
-  high: {
-    bgColor: "#fdd8da",
-    paddingX: 8,
-  },
-  low: {
-    bgColor: "transparent",
-    paddingX: 0,
-  },
-};
-
 const variants: Record<IStyledInputProps["variant"], IVariant> = {
   outline: {
     bgColor: "transparent",
@@ -38,16 +21,13 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
   },
 };
 
-const StyledInput = styled.input<IStyledInputProps>`
-  background-color: ${({ variant }): string => variants[variant].bgColor};
-  border-radius: 4px;
-  border: 1px solid #b0b0bf;
-  box-sizing: border-box;
+const StyledInput = styled.input`
+  background: none;
+  border: none;
   color: #121216;
   font-weight: 400;
   outline: none;
-  padding: 10px 16px;
-  transition: all 0.3s ease;
+  padding: 6px 12px;
   width: 100%;
 
   :disabled {
@@ -59,26 +39,32 @@ const StyledInput = styled.input<IStyledInputProps>`
   }
 `;
 
-const Alert = styled.p<IAlertProps>`
-  background-color: ${({ variant }): string => alertVariants[variant].bgColor};
+const InputBox = styled.div.attrs({
+  className: "comp-input",
+})<IInputContainerProps>`
+  font-family: Roboto, sans-serif;
+  max-width: 400px;
+  width: 100%;
+
+  > .comp-alert {
+  ${({ showAlert }): string => `
+    font-size: ${showAlert ? "14px" : "0"};
+    ${showAlert ? "" : "line-height: 0;"}
+    margin: ${showAlert ? " 6px 0 0 0" : "0"};
+    padding: ${showAlert ? "6px 8px" : "0"};
+  `}
+`;
+
+const InputWrapper = styled.div<IStyledInputProps>`
+  align-items: center;
+  background-color: ${({ variant }): string => variants[variant].bgColor};
+  border: 1px solid #b0b0bf;
   border-radius: 4px;
-  color: #f2182a;
-  font-size: 12px;
-  font-weight: 500;
-  height: ${({ show }): number => (show ? 25 : 0)}px;
-  line-height: ${({ show }): number => (show ? 25 : 0)}px;
-  margin-bottom: 0;
-  margin-top: 6px;
-  overflow: hidden;
-  padding: 0 ${({ variant }): number => alertVariants[variant].paddingX}px;
+  color: #b0b0bf;
+  display: flex;
+  padding: 4px;
   transition: all 0.3s ease;
 `;
 
-const Container = styled.div`
-  font-family: "Roboto", sans-serif;
-  max-width: 350px;
-  width: 100%;
-`;
-
-export type { IAlertProps, IStyledInputProps };
-export { Alert, Container, StyledInput };
+export type { IInputContainerProps, IStyledInputProps };
+export { InputBox, InputWrapper, StyledInput };
