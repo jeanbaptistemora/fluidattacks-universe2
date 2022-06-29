@@ -20,6 +20,9 @@ from typing import (
     List,
     Tuple,
 )
+from zone import (
+    t,
+)
 
 
 async def allows_anyone_to_admin_ports(
@@ -193,10 +196,89 @@ async def unrestricted_cidrs(
     return vulns
 
 
+async def unrestricted_ip_protocols(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    vulns: core_model.Vulnerabilities = ()
+    if security_groups:
+        for group in security_groups:
+            locations = [
+                *[
+                    Location(
+                        access_patterns=(
+                            f"/IpPermissions/{index_ip}/FromPort",
+                            f"/IpPermissions/{index_ip}/ToPort",
+                            f"/IpPermissions/{index_ip}/IpProtocol",
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        values=(
+                            ip_permission.get("FromPort"),
+                            ip_permission.get("ToPort"),
+                            ip_permission.get("IpProtocol"),
+                        ),
+                        description=t(
+                            "src.lib_path.f024_aws.unrestricted_protocols"
+                        ),
+                    )
+                    for index_ip, ip_permission in enumerate(
+                        group["IpPermissions"]
+                    )
+                    if ip_permission["IpProtocol"] in ("-1", -1)
+                ],
+            ]
+            locations = [
+                *locations,
+                *[
+                    Location(
+                        access_patterns=(
+                            f"/IpPermissions/{index_ip}/FromPort",
+                            f"/IpPermissions/{index_ip}/ToPort",
+                            f"/IpPermissionsEgress/{index_ip}/IpProtocol",
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        values=(
+                            ip_permission.get("FromPort"),
+                            ip_permission.get("ToPort"),
+                            ip_permission.get("IpProtocol"),
+                        ),
+                        description=t(
+                            "src.lib_path.f024_aws.unrestricted_protocols"
+                        ),
+                    )
+                    for index_ip, ip_permission in enumerate(
+                        group["IpPermissionsEgress"]
+                    )
+                    if (ip_permission["IpProtocol"] in ("-1", -1))
+                ],
+            ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_UNRESTRICTED_IP_PROTOCOlS
+                    ),
+                    aws_response=group,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     allows_anyone_to_admin_ports,
     unrestricted_cidrs,
+    unrestricted_ip_protocols,
 )
