@@ -53,7 +53,7 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = ({
           name={"editGroupInformation"}
           onSubmit={onSubmit}
         >
-          {({ dirty, setFieldValue }): JSX.Element => {
+          {({ dirty, isSubmitting, setFieldValue }): JSX.Element => {
             function managedOnChange(managed: boolean): void {
               setFieldValue("managed", managed);
             }
@@ -265,7 +265,10 @@ const EditGroupInformationModal: React.FC<IEditGroupInformation> = ({
                     </FormGroup>
                   </Col100>
                 </Row>
-                <ModalConfirm disabled={!dirty} onCancel={onClose} />
+                <ModalConfirm
+                  disabled={!dirty || isSubmitting}
+                  onCancel={onClose}
+                />
               </Form>
             );
           }}
