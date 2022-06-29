@@ -80,12 +80,6 @@ VPN_DATA_RAW:
         - ENC[AES256_GCM,data:2Owvw2VfMVuY8Ez8izJVvY4=,iv:fNLyzWkYmiZsVAliglh5q1IKk3yheoogH6FZh/5UWoA=,tag:ALZWrp8SxRBI0/a58mCkCQ==,type:str]
         - ENC[AES256_GCM,data:/K+ltG5NCfnNBi9m2qYGyHs=,iv:+0yHsZBQolHwjcyFH3Dn3V/45C4bTOAKhJt3oC8xLNk=,tag:hWKSJfcweW/Ks1vMUTfnCg==,type:str]
         - ENC[AES256_GCM,data:nZNMOKM6huwgpVhsGvllLuE=,iv:8b7iGt0+sHHm8am0/kqYkPI5GDtQ2fBd8cOFcmAv0vg=,tag:rWbsZaSI6r8bHTE3koeJgg==,type:str]
-    - id: ENC[AES256_GCM,data:2aIR,iv:dJUs9AxOnuF1NWJCX4C4dqlFAemDY3vHFt8oHMlIlDM=,tag:FM9LNvmeY8JVzdj2eCuVIQ==,type:str]
-      aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
-      client_endpoint: ENC[AES256_GCM,data:cF5Kaol2tVJywL0zKw==,iv:orXGHHYgb73EgWa9HTfdL4yFM7jCSvTygITnxR4RnTQ=,tag:m64TKlayaOTmdBSaD1/QlA==,type:str]
-      dns: []
-      routes:
-        - ENC[AES256_GCM,data:a8Zysma853qem9vcSPv9ijw=,iv:IY1IcvHGSlwkAX1FjL9h7tYD4JVXxKdASCvpN0lbvNc=,tag:9+XGIvP7GdFQ+U6q0wXaLw==,type:str]
     - id: ENC[AES256_GCM,data:FgeqPjoABqpP2g==,iv:YTCeMo1ZV/Of5IZpYJDJIjtIT0p2+8S2Wy8HMZ7MPSo=,tag:EjIGLmFy5IfzAYM5p3o6Gw==,type:str]
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:rI8z1f5dsBXWzfl0,iv:lfE0EdyZFKlmEttrsFiOqcqxFO3Xumzo6Lv2yuJAjnc=,tag:4qhC2Iv3WgNw0yoP0zub3Q==,type:str]
@@ -125,11 +119,6 @@ VPN_DATA_RAW:
               name: ENC[AES256_GCM,data:u0IdmQyg7gj2mw==,iv:etwKO7MzzHHPx4M6S7LHX+y8zg9seR4E+aJ64hfPBQY=,tag:R8KsBVLzT2wjdThBH6B3Uw==,type:str]
       routes:
         - ENC[AES256_GCM,data:VBAlGY9sEQ7QL4DUugY=,iv:0IshRA9n1TOlgwOKYoEHAm0jcMCScoyfhNo06EETnvA=,tag:12Je7np4ndD6k1BZIDIOrA==,type:str]
-    - id: ENC[AES256_GCM,data:1+VtnQ==,iv:X8Uya9e0uIRbFUw2SX9jper+ChevY6McAEmykdkaprE=,tag:ddwsK2O7gcaWwcvrtsTGDA==,type:str]
-      aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
-      client_endpoint: ENC[AES256_GCM,data:fzDR9F7mAHy/zdrjgA==,iv:EDu39wE2paV1IeCFFy/KelEJUfHYTDX6uzRMN68/6ok=,tag:QwVINhjzPGcvDVBysZCBPA==,type:str]
-      dns: []
-      routes: []
 sops:
     kms:
         - arn: arn:aws:kms:us-east-1:205810638802:alias/common_vpn
@@ -140,8 +129,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-06-29T14:26:35Z"
-    mac: ENC[AES256_GCM,data:RpvaMraUez/fUiE+jbSFD16o/ep3azdQqfDA99qoKd7jdcsj6wYXrHjq89W1wN6gduzCOEyiw/csdHzEGyEToVJV8J5RvR47E8zHNsPYqAL24/BJWtQGR+5xOtS9eWZz1l/yhvhUfaOMgSFsZMp5PCGwO3pEbYWey0AupV0GlLs=,iv:FBVSmjmkICDsgIWCDpa7seArLy+lSsvjqrY6r6zFe8Q=,tag:NVIxa+FeoGXGa86E2RO8cw==,type:str]
+    lastmodified: "2022-06-29T16:01:04Z"
+    mac: ENC[AES256_GCM,data:c4+D9epCZHVoJaqrQ/PmNUt7IWNMOLu1oXppC/Pgb9V/jth4tJIlAvjZ5kAist4jQ6lpje2EN+0IZSH+4c1InyEb2fAi1U2yWt4e79OkJIeN4gbA2ftTPUUA2v2erIfMVwaeoTWhFixq5K6SHXZAGozGrHaXMbdT6/+32xDXEVM=,iv:FiLwb5azyGFeVok2pZdkVxbo5FrXSnbo4zdDnA/P3Tw=,tag:JQ6SUMpQov/FivL9wGq7gg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
