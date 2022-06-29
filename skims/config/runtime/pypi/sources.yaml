@@ -22,14 +22,16 @@ closure:
   confuse: 1.4.0
   cycler: 0.11.0
   decorator: 4.4.2
+  distlib: 0.3.4
   ecdsa: 0.14.1
   exceptiongroup: 1.0.0rc8
+  filelock: 3.7.1
   fonttools: 4.33.3
   frozendict: 2.0.2
   future: 0.18.2
   gitdb: 4.0.9
   gitpython: 3.1.15
-  hypothesis: 6.47.4
+  hypothesis: 6.48.1
   idna: "2.10"
   ipython: 5.9.0
   jmespath: 0.10.0
@@ -52,6 +54,7 @@ closure:
   pexpect: 4.8.0
   pickleshare: 0.7.5
   pillow: 9.0.0
+  platformdirs: 2.5.2
   ply: "3.11"
   prompt-toolkit: 1.0.18
   psutil: 5.9.0
@@ -73,7 +76,7 @@ closure:
   ruamel.yaml.clib: 0.2.2
   s3transfer: 0.5.2
   semver: 2.13.0
-  setuptools-scm: 7.0.2
+  setuptools-scm: 7.0.3
   simplegeneric: 0.8.1
   six: 1.16.0
   smmap: 5.0.0
@@ -83,12 +86,13 @@ closure:
   tomli: 2.0.1
   traitlets: 5.3.0
   tree-sitter: 0.19.0
-  types-setuptools: 57.4.17
+  types-setuptools: 57.4.18
   typing-extensions: 4.2.0
   unidiff: 0.6.0
   urllib3: 1.26.9
   uvloop: 0.15.2
   viewstate: 0.4.3
+  virtualenv: 20.15.0
   watchtower: 2.0.1
   wcwidth: 0.2.5
   wrapt: 1.14.1
@@ -241,6 +245,12 @@ links:
   - name: decorator-4.4.2.tar.gz
     sha256: 1rxzhk5zwiggk45hl53zydvy70lk654kg0nc1p54090p402jz9p3
     url: https://files.pythonhosted.org/packages/da/93/84fa12f2dc341f8cf5f022ee09e109961055749df2d0c75c5f98746cfe6c/decorator-4.4.2.tar.gz
+  - name: distlib-0.3.4-py2.py3-none-any.whl
+    sha256: 0jzki50gscgp2c3daplvp7k8xsnljj5qpl1kcggk9rsiiw5gwr35
+    url: https://files.pythonhosted.org/packages/ac/a3/8ee4f54d5f12e16eeeda6b7df3dfdbda24e6cc572c86ff959a4ce110391b/distlib-0.3.4-py2.py3-none-any.whl
+  - name: distlib-0.3.4.zip
+    sha256: 0yc58pir3kdp60zpl0ljml4zr3vjb05rmywvaafdqdh330c8idg4
+    url: https://files.pythonhosted.org/packages/85/01/88529c93e41607f1a78c1e4b346b24c74ee43d2f41cfe33ecd2e20e0c7e3/distlib-0.3.4.zip
   - name: ecdsa-0.14.1-py2.py3-none-any.whl
     sha256: 1zjdjgkjlcf15rnswyyjs1zlx4dgc4sy8q1jmsmkjxn6jbzaa271
     url: https://files.pythonhosted.org/packages/a2/25/3bb32da623b39a27a07d194cd58e4540224421d924661de2e694304ae4fa/ecdsa-0.14.1-py2.py3-none-any.whl
@@ -253,6 +263,12 @@ links:
   - name: exceptiongroup-1.0.0rc8.tar.gz
     sha256: 06ni3crbcq6cz5m07gjq0d73iyjbi9g3xr6gcn03rlxq0r7w5439
     url: https://files.pythonhosted.org/packages/94/e0/2f58a7e00e28cd57f8239bd8d16963c2810142af58028cf5b0681ed9fdfd/exceptiongroup-1.0.0rc8.tar.gz
+  - name: filelock-3.7.1-py3-none-any.whl
+    sha256: 0114zazcm15f5168qia6h8rnvs3mvi65dz2n7cbdlg41b2vggpip
+    url: https://files.pythonhosted.org/packages/a6/d5/17f02b379525d1ff9678bfa58eb9548f561c8826deb0b85797aa0eed582d/filelock-3.7.1-py3-none-any.whl
+  - name: filelock-3.7.1.tar.gz
+    sha256: 016gkwllb924cydb1h0mbzf0chblgdrrdv4s9jsvm7ddcr8xh3rs
+    url: https://files.pythonhosted.org/packages/f3/c7/5c1aef87f1197d2134a096c0264890969213c9cbfb8a4102087e8d758b5c/filelock-3.7.1.tar.gz
   - name: fonttools-4.33.3-py3-none-any.whl
     sha256: 0anc0rd0aryf97dhlfa4vrlvh7cl056qksfrl4wsk3v7m1wwaagq
     url: https://files.pythonhosted.org/packages/2f/85/2f6e42fb4b537b9998835410578fb1973175b81691e9a82ab6668cf64b0b/fonttools-4.33.3-py3-none-any.whl
@@ -277,12 +293,12 @@ links:
   - name: GitPython-3.1.15.tar.gz
     sha256: 0vmv93pcvjr0caq1al1qw97krkzqmrrrna5gn3sa7k558w7ibbq5
     url: https://files.pythonhosted.org/packages/4a/8a/1519359949ce416eb059966c483fe340547a6fb5efb9f1dbcc0b33483146/GitPython-3.1.15.tar.gz
-  - name: hypothesis-6.47.4-py3-none-any.whl
-    sha256: 0drwid54l80vbl7y61vgkvbbs3qvhifgl2lqccbi5jg618kxna23
-    url: https://files.pythonhosted.org/packages/a8/a6/f72356da56de77b52465e0d0e0ecb2ddba47f58f13a9e20c183f1031e181/hypothesis-6.47.4-py3-none-any.whl
-  - name: hypothesis-6.47.4.tar.gz
-    sha256: 1q4h62wnfay5g5ln49vdcvr5svbzq2282bbx7bwrmn97hh7f560g
-    url: https://files.pythonhosted.org/packages/47/4f/e3d6d4edea2218ad7c1cdd5f0f9dc4cf091546f03d7b97743a737977e285/hypothesis-6.47.4.tar.gz
+  - name: hypothesis-6.48.1-py3-none-any.whl
+    sha256: 1bya9pfakmxx0yxrmq50ycakavy67b2z22wcmha9vqnka275wq0z
+    url: https://files.pythonhosted.org/packages/97/12/898a3152ee3987e0d6526d136ca6421e2c3dfe7a736dfef59ab83960eaf6/hypothesis-6.48.1-py3-none-any.whl
+  - name: hypothesis-6.48.1.tar.gz
+    sha256: 0s2adgvx01mm6kpv0c3pd2hpn2vcv4n2yx6x85c5al3yllr6qaav
+    url: https://files.pythonhosted.org/packages/43/5b/38c12c1e8c1c3e0644e215c44a773a3da4004786c9882230598fba6de096/hypothesis-6.48.1.tar.gz
   - name: idna-2.10-py2.py3-none-any.whl
     sha256: 1h280sli58v5dapmf79rnnqdrrk0xjn8vi3pxppknllv3r5q0zdr
     url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
@@ -520,6 +536,12 @@ links:
   - name: Pillow-9.0.0.tar.gz
     sha256: 0gjry0yqryd2678sm47jhdnbghzxn5wk8pgyaqwr4qi7x5ijjvpf
     url: https://files.pythonhosted.org/packages/b0/43/3e286c93b9fa20e233d53532cc419b5aad8a468d91065dbef4c846058834/Pillow-9.0.0.tar.gz
+  - name: platformdirs-2.5.2-py3-none-any.whl
+    sha256: 122pn8db8avjgr3pkl55gqyqcay04ghgfpjfmjxhdpnpla1qwz82
+    url: https://files.pythonhosted.org/packages/ed/22/967181c94c3a4063fe64e15331b4cb366bdd7dfbf46fcb8ad89650026fec/platformdirs-2.5.2-py3-none-any.whl
+  - name: platformdirs-2.5.2.tar.gz
+    sha256: 06ggzv3s7ci7dfzbg65b8kwkhq45mkq8s7diwip1wi6bgnqapj2q
+    url: https://files.pythonhosted.org/packages/ff/7b/3613df51e6afbf2306fc2465671c03390229b55e3ef3ab9dd3f846a53be6/platformdirs-2.5.2.tar.gz
   - name: ply-3.11.tar.gz
     sha256: 18qx113g9bi1ac4indd5phma82zcdq601lxncp3vjn43m2mc3iq0
     url: https://files.pythonhosted.org/packages/e5/69/882ee5c9d017149285cab114ebeab373308ef0f874fcdac9beb90e0ac4da/ply-3.11.tar.gz
@@ -658,12 +680,12 @@ links:
   - name: semver-2.13.0.tar.gz
     sha256: 0gsyyzvhz60c03wvsk16z1564bxflp1j1227mizgbhz15rrf43zs
     url: https://files.pythonhosted.org/packages/31/a9/b61190916030ee9af83de342e101f192bbb436c59be20a4cb0cdb7256ece/semver-2.13.0.tar.gz
-  - name: setuptools_scm-7.0.2-py3-none-any.whl
-    sha256: 1vssjh45awzkjdf58gh6sp3xy011bc54hrwn6ix5qy3s0achq4pc
-    url: https://files.pythonhosted.org/packages/1a/dd/b83708410d912a56e6aa1f78ac1135465eb6a5cfe494628ae24e7dc5922f/setuptools_scm-7.0.2-py3-none-any.whl
-  - name: setuptools_scm-7.0.2.tar.gz
-    sha256: 00iwwl1pkfcc1xwv5j3c7zmn5p38qawr6bagw745wgplhalbmbsk
-    url: https://files.pythonhosted.org/packages/43/70/aff5e3c2463b08997e21f5f961d6ebfd32ce56d6026394664d6a10090cbb/setuptools_scm-7.0.2.tar.gz
+  - name: setuptools_scm-7.0.3-py3-none-any.whl
+    sha256: 0fzpmnsgzr2nlx0rng0vssvjc5w8pdmb88qm9ss9w6a2n1bchd3r
+    url: https://files.pythonhosted.org/packages/cb/50/a88ad10c10caba0a375123db0dc9ff31c075655eb844135f57691925298f/setuptools_scm-7.0.3-py3-none-any.whl
+  - name: setuptools_scm-7.0.3.tar.gz
+    sha256: 0b9k4m9yq5791r8vq6qrda4p12lf1npmidjr8p6l1n5y6pibi2ng
+    url: https://files.pythonhosted.org/packages/bc/e6/ac8b0c5076321b9b3e4318c32a8911a260d019be6584556a0b83a47dab4b/setuptools_scm-7.0.3.tar.gz
   - name: simplegeneric-0.8.1.zip
     sha256: 0wwi1c6md4vkbcsfsf8dklf3vr4mcdj4mpxkanwgb6jb1432x5yw
     url: https://files.pythonhosted.org/packages/3d/57/4d9c9e3ae9a255cd4e1106bb57e24056d3d0709fc01b2e3e345898e49d5b/simplegeneric-0.8.1.zip
@@ -712,12 +734,12 @@ links:
   - name: tree_sitter-0.19.0.tar.gz
     sha256: 169lsdnrwx0sbg009wc1ifz3lbrz82y28cdrz1sxszwmkzrzq6l6
     url: https://files.pythonhosted.org/packages/ac/46/da153b968bf088a8c1656e8e17cf2b8ac5ca5ca16bfe6bf2381fe1db2ca0/tree_sitter-0.19.0.tar.gz
-  - name: types_setuptools-57.4.17-py3-none-any.whl
-    sha256: 09psixwlxzl9x4w44i5z3nzjlirlskibs0viq55f44sispqdlz4w
-    url: https://files.pythonhosted.org/packages/58/68/dda470233bc56db72b51fb20de9ead5faa138595debbc861256ec20740b6/types_setuptools-57.4.17-py3-none-any.whl
-  - name: types-setuptools-57.4.17.tar.gz
-    sha256: 05kv1d7bm3kk7491x0bmm19027x60xf1x95askm1r2l0yv56ymcx
-    url: https://files.pythonhosted.org/packages/ba/97/1e6f2106412d038b2ca4b18bd652a15a50096c6829345d9d0076ad9555a5/types-setuptools-57.4.17.tar.gz
+  - name: types_setuptools-57.4.18-py3-none-any.whl
+    sha256: 0snzqia4d6nly5qm3wg97k0pwbn0cyk8gzg292s63k8j9dvvhq4n
+    url: https://files.pythonhosted.org/packages/14/45/b8368a8c2d1dc4fa47eb4db980966e23edecbda16fab7a38186b076bbd4d/types_setuptools-57.4.18-py3-none-any.whl
+  - name: types-setuptools-57.4.18.tar.gz
+    sha256: 1kqbyh2zsk2cndc6lgi6jys2ap6b6lyy7sps6nys1zg77y13vq4f
+    url: https://files.pythonhosted.org/packages/13/5e/3d46cd143913bd51dde973cd23b1d412de9662b08a3b8c213f26b265e6f1/types-setuptools-57.4.18.tar.gz
   - name: typing_extensions-4.2.0-py3-none-any.whl
     sha256: 020pgkh5ay36plypaksgcgmyfx58a9cc0mbxyqchs5wpw975jmv6
     url: https://files.pythonhosted.org/packages/75/e1/932e06004039dd670c9d5e1df0cd606bf46e29a28e65d5bb28e894ea29c9/typing_extensions-4.2.0-py3-none-any.whl
@@ -754,6 +776,12 @@ links:
   - name: viewstate-0.4.3.tar.gz
     sha256: 1p5p5cp76m04klp7awyx8knqrd5sklgl9lvqirrbsdvkkig2fsl5
     url: https://files.pythonhosted.org/packages/db/94/9eff01728b53fcfde51f7c5b17866d61a1b85fe8b6478e21facab4b42f18/viewstate-0.4.3.tar.gz
+  - name: virtualenv-20.15.0-py2.py3-none-any.whl
+    sha256: 0dhky1jzipwq6lmpx3hs3yay5xn8xj730zl9k7q258xqwm6wwk40
+    url: https://files.pythonhosted.org/packages/0a/d7/8f8f84aa834d9afde02055b6d11e0a0f2f35435b2ccf1a1aca4cf9046105/virtualenv-20.15.0-py2.py3-none-any.whl
+  - name: virtualenv-20.15.0.tar.gz
+    sha256: 1k2g5d7bii86c8i6vb23ncbasa6442dlyhfpw9l867x8gkbv2i2c
+    url: https://files.pythonhosted.org/packages/b8/5c/c6acf0fb35c2e830114a81ae771599e0dd11b5905f2386782fa2793ec6c8/virtualenv-20.15.0.tar.gz
   - name: watchtower-2.0.1-py3-none-any.whl
     sha256: 1cwmdclalywwhd70my4bqx4v2sjkfyph89hljkfyf7kn9q453kl5
     url: https://files.pythonhosted.org/packages/94/cb/f721e1d9dcf9065235b1d6853b5a6c172eb87be7cbd20b356105338ce3d0/watchtower-2.0.1-py3-none-any.whl

@@ -231,6 +231,14 @@
       "title": "064. Traceability loss - Server's clock"
     }
   },
+  "F066": {
+    "EN": {
+      "title": "066. Technical information leak - Console functions"
+    },
+    "ES": {
+      "title": "066. Technical information leak - Console functions"
+    }
+  },
   "F070": {
     "EN": {
       "title": "070. Insecure service configuration - ELB"
