@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Remove deprecated group credentials
+
+Execution Time:    2022-06-29 at 21:50:42 UTC
+Finalization Time: 2022-06-29 at 22:23:03 UTC
 """
 from aioextensions import (
     collect,
