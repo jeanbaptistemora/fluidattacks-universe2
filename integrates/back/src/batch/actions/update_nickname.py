@@ -10,6 +10,9 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from custom_exceptions import (
+    FindingNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -55,7 +58,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def _update_indicators(finding_id: str, group_name: str) -> None:
+async def _update_indicators(*, finding_id: str, group_name: str) -> None:
     await redis_del_by_deps(
         "upload_file", finding_id=finding_id, group_name=group_name
     )
@@ -150,10 +153,21 @@ async def _process_finding(
             }
         },
     )
-    await _update_indicators(
-        finding_id=finding_id,
-        group_name=group_name,
-    )
+    try:
+        await _update_indicators(
+            finding_id=finding_id,
+            group_name=group_name,
+        )
+    except FindingNotFound as ex:
+        LOGGER.exception(
+            ex,
+            extra={
+                "extra": dict(
+                    finding_id=finding_id,
+                    group_name=group_name,
+                )
+            },
+        )
 
 
 async def update_nickname(*, item: BatchProcessing) -> None:
@@ -214,4 +228,4 @@ async def update_nickname(*, item: BatchProcessing) -> None:
         subject=item.subject,
         time=item.time,
     )
-    LOGGER.info("Task completed successfully.")
+    LOGGER.info("Update nickname task completed successfully.")
