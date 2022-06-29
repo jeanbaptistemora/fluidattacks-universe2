@@ -15,13 +15,11 @@
     </p>
     <div style="line-height: 30px;">
       {% for key, value in new_root_content.items() %}
-        <strong>
         {% if key in key_format %}
-          {{ key_format[key] }}
+          <strong>{{ key_format[key] }}</strong>:
         {% else %}
-          {{ key.replace('_', ' ').capitalize() }}
+          <strong>{{ key.replace('_', ' ').capitalize() }}</strong>:
         {% endif %}
-        </strong>:
         {% if key in ["url", "gitignore"]%}
           <div class="row">
           	<div class="column left">
