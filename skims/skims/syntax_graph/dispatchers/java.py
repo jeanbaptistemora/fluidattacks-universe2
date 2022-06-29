@@ -26,6 +26,7 @@ from syntax_graph.syntax_readers.java import (
     field_access as java_field_access,
     field_declaration as java_field_declaration,
     method_invocation as java_method_invocation,
+    package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
     program as java_program,
     update_expression as java_update_expression,
@@ -179,6 +180,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=java_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "package_declaration",
+        },
+        syntax_reader=java_package_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
