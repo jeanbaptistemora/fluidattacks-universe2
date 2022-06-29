@@ -6433,134 +6433,146 @@
   title: BSAFSS
   en:
     summary: >
-      __empty__
+      The BSA Framework for Secure Software
+      (BFAFSS) offers an outcome-focused,
+      standards-based risk management tool
+      to help stakeholders in the software
+      industry.
+      The framework also helps software
+      development organizations describe
+      the current state and target state
+      of software security in individual
+      software security products and services.
+      The version used in this
+      section is BSAFSS v1.1,
+      September 2020.
   es:
     summary: __empty__
   definitions:
     "SC_3-2":
       title: Secure Coding (secure software against unsafe functions)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SC_3-3":
       title: Secure Coding (secure software against unsafe functions)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SC_4-1":
       title: Secure Coding (software architecture and design)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_2-1":
       title: Measures to ensure visibility, traceability, and security of third-party components
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_3-1":
       title: Supply chain data is protected
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_3-2":
       title: Supply chain data is protected
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_4-1":
       title: Software measures to prevent counterfeiting and tampering
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_4-2":
       title: Software measures to prevent counterfeiting and tampering
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SM_6-1":
       title: Deployment procedures ensure that the usages of software are established
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "TC_1-2":
       title: Developed software using security tools
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "TC_1-6":
       title: Developed software using security tools
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "IA_1-1":
       title: Software development environment authenticates users and operators
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "IA_1-2":
       title: Software development environment authenticates users and operators
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "IA_2-1":
       title: Policies to control access to data and processes
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "IA_2-2":
       title: Policies to control access to data and processes
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SI_1-2":
       title: Avoid architectural weaknesses of authentication failure
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SI_1-3":
       title: Avoid architectural weaknesses of authentication failure
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SI_1-4":
       title: Avoid architectural weaknesses of authentication failure
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SI_1-5":
       title: Avoid architectural weaknesses of authentication failure
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "SI_2-1":
       title: Strong identity
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_1-1":
       title: Encryption strategy and mechanisms
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_2-3":
       title: Avoid weak encryption
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_2-4":
       title: Avoid weak encryption
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_2-5":
       title: Avoid weak encryption
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_3-1":
       title: Software protects and validates encryption keys
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_3-2":
       title: Software protects and validates encryption keys
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EN_3-3":
       title: Software protects and validates encryption keys
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "AA_1-1":
       title: Principle of least privilege
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "AA_1-2":
       title: Authorization and access controls
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "AA_1-3":
       title: Authorization and access controls
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "AA_2-1":
       title: Authorization and access (support controls)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "LO_1-2":
       title: Logging of all critical security incident and event information
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "LO_1-3":
       title: Logging of all critical security incident and event information
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "LO_2-2":
       title: Implement securely logging mechanisms
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "LO_2-3":
       title: Implement securely logging mechanisms
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "LO_2-4":
       title: Implement securely logging mechanisms
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "EE_1-3":
       title: Error and exception handling capabilities
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "VM_3-2":
       title: Vulnerability management
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "CF_1-4":
       title: Secure software installation and operation
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "VN_1-2":
       title: Vulnerability notification and patching
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "VN_3-1":
       title: Vulnerability notification and patching (updates are accompanied by advisory messages)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
     "VN_3-2":
       title: Vulnerability notification and patching (updates are accompanied by advisory messages)
-      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+      link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
   metadata: {}
