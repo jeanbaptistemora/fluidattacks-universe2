@@ -2,7 +2,7 @@
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
 
-import type { IItemProps, IListProps } from ".";
+import type { IListProps } from ".";
 import { List } from ".";
 import { Button } from "components/Button";
 
@@ -11,20 +11,17 @@ const config: Meta = {
   title: "components/List",
 };
 
-const Template: Story<IListProps> = (props): JSX.Element => <List {...props} />;
+const Template: Story<IListProps<number>> = (props): JSX.Element => (
+  <List {...props} />
+);
 
 const Default = Template.bind({});
 Default.args = {
   columns: 2,
-  height: "300px",
-  items: [...Array(15).keys()].map(
-    (id: number): IItemProps => ({
-      id,
-      text: `Element ${id}`,
-    })
-  ),
-  render: (el: IItemProps): JSX.Element => (
-    <Button variant={"basic"}>{el.text}</Button>
+  getKey: (el: number): number => el,
+  items: [...Array(15).keys()],
+  render: (el: number): JSX.Element => (
+    <Button variant={"basic"}>{`Element ${el}`}</Button>
   ),
 };
 

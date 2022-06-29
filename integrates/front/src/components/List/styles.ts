@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 interface IListBoxProps {
-  columns: number;
+  columns?: number;
 }
 
 interface IListItemProps {
-  justify: "center" | "end" | "start";
+  justify?: "center" | "end" | "start";
 }
 
 const ListBox = styled.div.attrs({
@@ -15,14 +15,14 @@ const ListBox = styled.div.attrs({
   flex-direction: row;
   flex-wrap: wrap;
   > * {
-    width: ${({ columns }): number => 100 / columns}%;
+    width: ${({ columns = 1 }): number => 100 / columns}%;
   }
 `;
 
 const ListItem = styled.div<IListItemProps>`
   align-items: center;
   display: flex;
-  justify-content: ${({ justify }): string => justify};
+  justify-content: ${({ justify = "center" }): string => justify};
 `;
 
 export type { IListBoxProps, IListItemProps };

@@ -1,32 +1,26 @@
+/* eslint @typescript-eslint/no-explicit-any:0 */
 import React from "react";
 
-import type { IListItemProps } from "./styles";
+import type { IListBoxProps, IListItemProps } from "./styles";
 import { ListBox, ListItem } from "./styles";
 
-import type { IContainerProps } from "components/Container";
-
-type TItem = TItem[] | boolean | number | string | undefined;
-
-interface IItemProps extends Record<string, IItemProps[] | TItem> {
-  id: React.Key;
-}
-
-interface IListProps<T = IItemProps> extends IContainerProps, IListItemProps {
-  columns: number;
+interface IListProps<T = any> extends IListBoxProps, IListItemProps {
+  getKey: (el: T) => React.Key;
   items: T[];
   render: (el: T) => JSX.Element;
 }
 
 const List: React.FC<IListProps> = ({
   columns = 1,
+  getKey,
   items,
   justify = "center",
   render,
 }: Readonly<IListProps>): JSX.Element => (
   <ListBox columns={Math.max(columns, 1)}>
     {items.map(
-      (el: IItemProps): JSX.Element => (
-        <ListItem justify={justify} key={el.id}>
+      (el: any): JSX.Element => (
+        <ListItem justify={justify} key={getKey(el)}>
           {render(el)}
         </ListItem>
       )
@@ -34,5 +28,5 @@ const List: React.FC<IListProps> = ({
   </ListBox>
 );
 
-export type { IItemProps, IListProps };
+export type { IListProps };
 export { List };
