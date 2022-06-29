@@ -24,10 +24,11 @@ const Dropdown: React.FC<IDropdownProps> = ({
   maxHeight,
   minWidth = "240px",
   padding = "8px",
+  zIndex = 100,
 }: Readonly<IDropdownProps>): JSX.Element => (
   <Wrapper id={id}>
     {button}
-    <DropdownContainer align={align} bgColor={bgColor}>
+    <DropdownContainer align={align} bgColor={bgColor} zIndex={zIndex}>
       <Container maxHeight={maxHeight} minWidth={minWidth} padding={padding}>
         {children}
       </Container>

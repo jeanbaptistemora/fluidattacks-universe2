@@ -3,6 +3,7 @@ import styled from "styled-components";
 interface IDropdownContainerProps {
   align: "center" | "left" | "right";
   bgColor: string;
+  zIndex?: number;
 }
 
 const sideMap: Record<IDropdownContainerProps["align"], string> = {
@@ -22,6 +23,7 @@ const DropdownContainer = styled.div<IDropdownContainerProps>`
   display: none;
   position: absolute;
   top: 100%;
+  z-index: ${({ zIndex = 100 }): number => zIndex};
 `;
 
 const Wrapper = styled.div.attrs({
