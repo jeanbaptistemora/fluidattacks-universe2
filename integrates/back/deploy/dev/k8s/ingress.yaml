@@ -20,7 +20,7 @@ spec:
     - host: ${CI_COMMIT_REF_NAME}.app.fluidattacks.com
       http:
         paths:
-          - path: /*
+          - path: /
             pathType: Prefix
             backend:
               service:

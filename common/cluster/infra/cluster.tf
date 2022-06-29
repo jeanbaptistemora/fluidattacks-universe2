@@ -54,9 +54,10 @@ module "cluster" {
   node_security_group_additional_rules    = local.cluster_security_groups.nodes
 
   # Auth
-  aws_auth_roles    = local.cluster_roles
-  aws_auth_users    = local.cluster_users
-  aws_auth_accounts = local.cluster_accounts
+  manage_aws_auth_configmap = true
+  aws_auth_roles            = local.cluster_roles
+  aws_auth_users            = local.cluster_users
+  aws_auth_accounts         = local.cluster_accounts
 
   tags = {
     "Name"                   = "common-kubernetes"

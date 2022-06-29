@@ -49,7 +49,7 @@ function main {
   export DB_JOB
 
   aws_login_dev \
-    && aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+    && aws_eks_update_kubeconfig 'common' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_DEV_AWS_ACCESS_KEY_ID="$(b64 "${DEV_AWS_ACCESS_KEY_ID}")" \

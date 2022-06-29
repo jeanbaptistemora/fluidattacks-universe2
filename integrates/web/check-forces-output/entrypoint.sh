@@ -25,7 +25,7 @@ function main {
 
   aws_login_dev \
     && if test -n "${CI:-}"; then
-      aws_eks_update_kubeconfig 'makes-k8s' 'us-east-1' \
+      aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
           -n "development" \

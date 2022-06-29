@@ -4,7 +4,7 @@ function main {
   local namespace='development'
 
   aws_login_dev \
-    && aws_eks_update_kubeconfig makes-k8s us-east-1 \
+    && aws_eks_update_kubeconfig common us-east-1 \
     && kubectl delete --all deployment -n "${namespace}" \
     && kubectl delete --all hpa -n "${namespace}" \
     && kubectl delete --all secret -n "${namespace}" \
