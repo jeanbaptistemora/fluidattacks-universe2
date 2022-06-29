@@ -10,6 +10,7 @@ import {
   GET_STAKEHOLDER_CREDENTIALS,
   GET_STAKEHOLDER_ORGANIZATIONS,
   REMOVE_CREDENTIALS,
+  UPDATE_CREDENTIALS,
 } from "./queries";
 
 import { CredentialsModal } from ".";
@@ -315,6 +316,121 @@ describe("credentials modal", (): void => {
       expect(msgSuccess).toHaveBeenCalledTimes(1);
       expect(msgSuccess).toHaveBeenLastCalledWith(
         "profile.credentialsModal.alerts.removeSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+
+    expect(handleOnClose).toHaveBeenCalledTimes(0);
+
+    jest.clearAllMocks();
+  });
+
+  it("should update credentials", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const handleOnClose: jest.Mock = jest.fn();
+
+    const mockQuery: MockedResponse[] = [
+      {
+        request: {
+          query: GET_STAKEHOLDER_CREDENTIALS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              credentials: [
+                {
+                  __typename: "Credentials",
+                  id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  name: "Credentials test",
+                  organization: {
+                    __typename: "Organization",
+                    id: "c966d57a-adde-43c3-bd47-1770002aa122",
+                    name: "Organization name",
+                  },
+                  type: "HTTPS",
+                },
+              ],
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_STAKEHOLDER_ORGANIZATIONS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              organizations: [
+                {
+                  __typename: "Organization",
+                  id: "c966d57a-adde-43c3-bd47-1770002aa122",
+                  name: "Organization name",
+                },
+              ],
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+    ];
+
+    const mocksMutation: readonly MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_CREDENTIALS,
+          variables: {
+            credentials: {
+              name: "Credentials test",
+              password: "Password test",
+              type: "HTTPS",
+              user: "User test",
+            },
+            credentialsId: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+            organizationId: "c966d57a-adde-43c3-bd47-1770002aa122",
+          },
+        },
+        result: { data: { updateCredentials: { success: true } } },
+      },
+    ];
+
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={mockQuery.concat(mocksMutation)}
+      >
+        <authzPermissionsContext.Provider value={new PureAbility([])}>
+          <CredentialsModal onClose={handleOnClose} />
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("Credentials test")).toBeInTheDocument();
+      expect(screen.getByText("Organization name")).toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getByRole("button", { name: "pen-button" }));
+    userEvent.click(screen.getByRole("checkbox", { name: "newSecrets" }));
+    userEvent.click(screen.getByText("profile.credentialsModal.form.https"));
+    userEvent.type(screen.getByRole("textbox", { name: "user" }), "User test");
+    userEvent.type(
+      screen.getByRole("textbox", { name: "password" }),
+      "Password test"
+    );
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "profile.credentialsModal.form.edit",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "profile.credentialsModal.alerts.editSuccess",
         "groupAlerts.titleSuccess"
       );
     });
