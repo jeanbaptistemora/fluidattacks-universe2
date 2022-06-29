@@ -9,7 +9,7 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
     $description: String!
     $groupName: String!
     $language: Language!
-    $managed: Boolean!
+    $managed: ManagedType!
     $sprintDuration: Int
     $sprintStartDate: DateTime
   ) {

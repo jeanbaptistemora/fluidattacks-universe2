@@ -122,7 +122,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           description: values.description,
           groupName,
           language: values.language,
-          managed: values.managed,
+          managed: values.managed === true ? "MANUALLY" : "NOT_MANUALLY",
           sprintDuration: Number(values.sprintDuration),
           sprintStartDate: moment(
             values.sprintStartDate as string
@@ -159,9 +159,10 @@ const GroupInformation: React.FC = (): JSX.Element => {
     },
     {
       attribute: "Managed",
-      value: data.group.managed
-        ? t("organization.tabs.groups.newGroup.managed.manually")
-        : t("organization.tabs.groups.newGroup.managed.notManually"),
+      value:
+        data.group.managed === "MANUALLY"
+          ? t("organization.tabs.groups.newGroup.managed.manually")
+          : t("organization.tabs.groups.newGroup.managed.notManually"),
     },
     {
       attribute: "Sprint Length",
