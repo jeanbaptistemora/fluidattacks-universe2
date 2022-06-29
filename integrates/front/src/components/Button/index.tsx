@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   margin?: string;
+  padding?: string;
   variant: "basic" | "gray" | "primary" | "secondary";
 }
 
@@ -49,7 +50,7 @@ const Button = styled.button.attrs<IButtonProps>(
     type: props.type ?? "button",
   })
 )<IButtonProps>`
-  ${({ margin = "0 12px 0 0", variant }): string => {
+  ${({ margin = "0 12px 0 0", padding = "10px 16px", variant }): string => {
     const { bgColor, bgColorHover, borderColor, color, colorHover } =
       variants[variant];
 
@@ -60,7 +61,7 @@ const Button = styled.button.attrs<IButtonProps>(
     color: ${color};
     font-weight: 400;
     margin: ${margin};
-    padding: 10px 16px;
+    padding: ${padding};
     text-decoration: none;
     transition: all 0.3s ease;
 
