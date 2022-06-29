@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-interface IContainerProps {
+interface IListBoxProps {
   columns: number;
 }
 
-const Container = styled.div<IContainerProps>`
+interface IListItemProps {
+  justify: "center" | "end" | "start";
+}
+
+const ListBox = styled.div.attrs({
+  className: "comp-list",
+})<IListBoxProps>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -13,11 +19,11 @@ const Container = styled.div<IContainerProps>`
   }
 `;
 
-const Item = styled.div`
+const ListItem = styled.div<IListItemProps>`
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: ${({ justify }): string => justify};
 `;
 
-export type { IContainerProps };
-export { Container, Item };
+export type { IListBoxProps, IListItemProps };
+export { ListBox, ListItem };

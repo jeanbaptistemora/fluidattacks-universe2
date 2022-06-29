@@ -4,6 +4,7 @@ import React from "react";
 
 import type { IItemProps, IListProps } from ".";
 import { List } from ".";
+import { Button } from "components/Button";
 
 const config: Meta = {
   component: List,
@@ -22,7 +23,9 @@ Default.args = {
       text: `Element ${id}`,
     })
   ),
-  render: (el: IItemProps): JSX.Element => <p className={"mv4"}>{el.text}</p>,
+  render: (el: IItemProps): JSX.Element => (
+    <Button variant={"basic"}>{el.text}</Button>
+  ),
 };
 
 export { Default };
