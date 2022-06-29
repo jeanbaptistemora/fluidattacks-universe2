@@ -233,6 +233,27 @@ def handle_graphic_request_parameters(
     ]:
         validations.validate_chart_field(param_value, param_name)
 
+    # valid generator type and name, from known static graphics templates
+    valid_generator_type: set[str] = {
+        "barChart",
+        "c3",
+        "heatMapChart",
+        "stackedBarChart",
+        "textBox",
+    }
+    valid_generator_name: set[str] = {"generic", "raw"}
+    if generator_type not in valid_generator_type:
+        raise ValueError("Invalid generator type")
+
+    if generator_name not in valid_generator_name:
+        raise ValueError("Invalid generator name")
+
+    if f"{generator_type}/{generator_name}" not in set(
+        [f"{g_type}/generic" for g_type in valid_generator_type]
+        + ["textBox/raw"]
+    ):
+        raise ValueError("Invalid generator type or generator name")
+
     return GraphicParameters(
         document_name=document_name,
         document_type=document_type,
