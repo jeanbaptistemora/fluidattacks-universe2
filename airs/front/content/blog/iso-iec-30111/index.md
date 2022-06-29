@@ -16,19 +16,27 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/8ZfTxdPvNos
 ---
 
-A few days ago, I brought readers some highlights [on the ISO/IEC
-29147:2018 standard](../iso-iec-29147/) that guides us in the
-vulnerability disclosure processes. (If you haven’t read that post, I
-recommend that you do so before continuing with this one.) These
-processes mainly involve receiving security issues reports as a vendor
-and releasing repair advisories to all stakeholders. They’re two points,
-beginning-ending, of a course of action between which it is necessary to
-address the vulnerabilities in your systems. As a vendor, you have to
-verify that what the reporter informed you of is a real security issue
-and, if so, you need to come up with a solution asap. This is the topic
-covered by [the ISO/IEC 30111:2019
-standard](https://www.iso.org/standard/69725.html). And I’ll talk about
-it in this post.
+A few days ago,
+I brought readers some highlights
+[on the ISO/IEC 29147:2018 standard](../iso-iec-29147/)
+that guides us in the vulnerability disclosure processes.
+(If you haven't read that post,
+I recommend that you do so before continuing with this one.)
+These processes mainly involve receiving security issues reports as a vendor
+and releasing repair advisories to all stakeholders.
+They're two points,
+beginning-ending,
+of a course of action
+between which it is necessary to [address the vulnerabilities](../../solutions/vulnerability-management/)
+in your systems.
+As a vendor,
+you have to verify that
+what the reporter informed you of is a real security issue
+and,
+if so,
+you need to come up with a solution asap.
+This is the topic covered by [the ISO/IEC 30111:2019 standard](https://www.iso.org/standard/69725.html).
+And I'll talk about it in this post.
 
 'Information technology -Security techniques- Vulnerability handling
 processes' is the name of this standard. Like [the
@@ -162,20 +170,28 @@ should check their software and make proper renewals based on the data
 gained during the study. All this is in order avoid similar security
 flaws in their products or services.
 
-To finish, it’s worth highlighting the **monitoring activity** for the
-vulnerability handling processes suggested by ISO. Every firm or vendor
-should always keep track of (and be ready to improve) the speed at which
-they respond with verifications and repairs. They should also supervise
-that their remediations are full and that the results are as expected at
-the end of each case. All of this, it’s hoped, should go hand in hand
-with a confidential treatment of vulnerability info and individuals' and
-organizations' sensitive data.
+To finish,
+it's worth highlighting the **monitoring activity**
+for the vulnerability handling processes
+suggested by ISO.
+Every firm or vendor should always keep track of
+(and be ready to improve)
+the speed at which they respond with verifications and repairs.
+They should also supervise that their remediations are full
+and that the results are as expected
+at the end of each case.
+All of this,
+it's hoped,
+should go hand in hand with a confidential treatment of vulnerability info
+and individuals' and organizations' sensitive data.
 
-Would you like to know how [`Fluid Attacks`](../../) can help you in
-your vulnerability handling processes? [Don’t hesitate to contact
-us\!](../../contact-us/)
+Would you like to know
+how `Fluid Attacks` can help you
+in your [vulnerability handling](../../solutions/vulnerability-management/)
+processes?
+Don't hesitate to [contact us\!](../../contact-us/)
 
-**P.S.** Several essential details are missing in this post. If you’re
+**P.S.** Several essential details are missing in this post. If you're
 really interested in vulnerability handling, we recommend that you read
 the entire [ISO/IEC 30111:2019](https://www.iso.org/standard/69725.html)
 doc.

@@ -30,11 +30,14 @@ various programs and applications. For this, we are providing a lot of
 private data that can easily be used by other subjects for multiple
 purposes.
 
-At `Fluid Attacks`, we are always attached to a security-oriented
-context. This time, in this post, we focus on the part of the mobile app
-security. Cybercriminals see mobile devices as desirable sources of
-information, especially sensitive information that we store on these
-devices.
+At `Fluid Attacks`,
+we are always attached to a security-oriented context.
+This time,
+in this post,
+we focus on the part of the [mobile app security](../../systems/mobile-apps/).
+Cybercriminals see mobile devices as desirable sources of information,
+especially sensitive information
+that we store on these devices.
 
 Such sensitive information can also be categorized as personally
 identifiable information or PII. This information may include the real
@@ -144,7 +147,8 @@ implementation.
 
 Is your company prepared for the implications
 that an application security breach may have?
-Always keep mobile application [security testing](../../solutions/security-testing/)
+Always keep [mobile application](../../systems/mobile-apps/)
+[security testing](../../solutions/security-testing/)
 as an option,
 so that the application in question is attacked,
 and vulnerabilities that give access to external people or systems to

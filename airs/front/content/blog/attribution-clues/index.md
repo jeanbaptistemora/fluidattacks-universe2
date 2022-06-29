@@ -238,5 +238,6 @@ it remains highly interesting.
 If the evidence doesn't point to the specific attackers,
 at least a comprehensive account is made of what needs to be remediated.
 
-Want to find your software's vulnerabilities before attackers do?
+Want to find [your software's vulnerabilities](../../solutions/vulnerability-management/)
+before attackers do?
 [Contact us](../../contact-us/)\!

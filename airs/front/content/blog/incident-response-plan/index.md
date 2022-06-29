@@ -165,7 +165,8 @@ of moving beyond a responsive mindset
 by adopting a preventive approach to cybersecurity.
 What we mean by this is simple:
 Stop waiting for a cyberattack to happen
-to finally identify and address the vulnerabilities in your system!
+to finally identify and [address the vulnerabilities](../../solutions/vulnerability-management/)
+in your system!
 
 A constant,
 thorough understanding of your system's security status

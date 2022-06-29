@@ -73,11 +73,14 @@ promptness of remediation of vulnerabilities will depend on the severity
 of those vulnerabilities. Vulnerabilities have to be rated and
 classified, or instead defined as more or less important.
 
-Thus, many can be guided by the methodology of focusing first on
-vulnerabilities classified as critical. This method can sometimes be an
-effective way of handling the situation. But as the authors of the
-webinar suggest, the act of understanding vulnerabilities and their
-different attributes and impact is fundamental.
+Thus,
+many can be guided by the methodology of focusing first
+on vulnerabilities classified as critical.
+This method can sometimes be an effective way of handling the situation.
+But as the authors of the webinar suggest,
+the act of [understanding vulnerabilities](../../solutions/vulnerability-management/)
+and their different attributes and impact
+is fundamental.
 
 The severity of software vulnerabilities is usually calculated with the
 Common Vulnerability Scoring System

@@ -81,10 +81,14 @@ remains stable in the face of unexpected use. Combinations of invalid
 inputs can be almost infinite, so testing them all before deploying the
 application may be unlikely.
 
-It is here that the use of **continuous hacking** appears as
-recommended, a process that goes beyond one-pass checks. While people
-use the software and hackers try to find the vulnerabilities,
-continuous hacking is conducted as a [security testing](../../solutions/security-testing/),
+It is here that
+the use of **continuous hacking**
+appears as recommended,
+a process that goes beyond one-pass checks.
+While people use the software
+and hackers try to find the vulnerabilities,
+[continuous hacking](../../services/continuous-hacking/)
+is conducted as a [security testing](../../solutions/security-testing/),
 and it is performed as the software evolves.
 
 Concerning the negative testing, we can then mention **continuous

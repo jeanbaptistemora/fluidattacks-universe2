@@ -347,7 +347,7 @@ for correctly implementing the DevSecOps culture in your organization.
 
 <div class="title">
 
-Image taken from [here](https://marvel-b1-cdn.bc0a.com/f00000000236551/dt-cdn.net/images/devsecops-image-2000-6557ba1b00.png).
+(Image taken from [here](https://marvel-b1-cdn.bc0a.com/f00000000236551/dt-cdn.net/images/devsecops-image-2000-6557ba1b00.png).)
 
 </div>
 
