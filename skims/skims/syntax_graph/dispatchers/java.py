@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.common import (
 )
 from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
+    assignment_expression as java_assignment_expression,
     class_body as java_class_body,
     field_declaration as java_field_declaration,
     method_invocation as java_method_invocation,
@@ -42,6 +43,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=java_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assignment_expression",
+        },
+        syntax_reader=java_assignment_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -70,6 +77,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "class_body",
+            "constructor_body",
         },
         syntax_reader=java_class_body.reader,
     ),
@@ -135,6 +143,7 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "constructor_declaration",
             "method_declaration",
         },
         syntax_reader=common_method_declaration.reader,
