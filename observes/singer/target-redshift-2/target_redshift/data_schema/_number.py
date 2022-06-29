@@ -60,7 +60,7 @@ def _size_map(size: _NumSizes, encoded: JsonObj) -> ResultE[DataType]:
         )
 
 
-def int_handler(encoded: JsonObj) -> ResultE[DataType]:
+def num_handler(encoded: JsonObj) -> ResultE[DataType]:
     _size: ResultE[_NumSizes] = opt_transform(
         encoded,
         "size",
