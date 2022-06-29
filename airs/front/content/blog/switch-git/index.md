@@ -222,7 +222,8 @@ we enable our clients to **go fast without crashing**.
 What's more,
 clients of our Squad Plan can achieve better precision
 (less false positives and false negatives)
-as our [highly certified](../../about-us/certifications/) ethical hackers
+as our [highly certified](../../about-us/certifications/)
+[ethical hackers](../../solutions/ethical-hacking/)
 use [manual techniques](../../categories/)
 to test the security of their software.
 Want to learn more?

@@ -588,7 +588,8 @@ and configure it to [break the build](../../solutions/devsecops/)
 if our SAST or DAST tools find a vulnerability in your code.
 Moreover,
 you can ask us about our [Squad Plan](../../plans/),
-which involves ethical hackers assessing the security of your technology.
+which involves [ethical hackers](../../solutions/ethical-hacking/)
+assessing the security of your technology.
 To learn more,
 [contact us](../../contact-us/)\!
 

@@ -17,9 +17,9 @@ about2: Passionate about technology and security
 source: https://unsplash.com/photos/SpVHcbuKi6E
 ---
 
-The main problem encountered by an organization when they need to
-perform an Ethical Hacking is to establish the boundaries of the
-hacking.
+The main problem encountered by an organization
+when they need to perform an [Ethical Hacking](../../solutions/ethical-hacking/)
+is to establish the boundaries of the hacking.
 
 Delimiting the scope of an Ethical Hacking by time is a common mistake
 since it is not possible to know when the hacking, that is measured

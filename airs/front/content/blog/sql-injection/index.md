@@ -101,10 +101,12 @@ input](https://owasp.org/www-community/attacks/SQL_Injection) to then
 place SQL commands in the control plane, which did not exist there
 before." That’s why the consequent procedure gives unexpected results.
 
-To enlighten you a bit more, you can watch the example [in this
-video](https://youtu.be/FHCTfA9cCXs?t=84). If you are interested in
-something more technical, [here is a post](../sqli-manual-bypass/) from
-one of our ethical hackers.
+To enlighten you a bit more,
+you can watch the example
+[in this video](https://youtu.be/FHCTfA9cCXs?t=84).
+If you are interested in something more technical,
+[here is a post](../sqli-manual-bypass/)
+from one of our [ethical hackers](../../solutions/ethical-hacking/).
 
 <div class="imgblock">
 

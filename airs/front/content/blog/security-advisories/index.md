@@ -177,7 +177,7 @@ and start looking for vulnerabilities.
 
 Our [One-Shot Hacking](../../services/one-shot-hacking/)
 and Continuous Hacking [Squad Plan](../../plans/) services
-employ highly certified ethical hackers
+employ highly certified [ethical hackers](../../solutions/ethical-hacking/)
 to find vulnerabilities in our clients' systems.
 In their assessment,
 our hackers may find zero-days in third-party software.
