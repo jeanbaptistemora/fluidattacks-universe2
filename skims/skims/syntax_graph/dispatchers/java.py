@@ -23,6 +23,7 @@ from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
     assignment_expression as java_assignment_expression,
     class_body as java_class_body,
+    field_access as java_field_access,
     field_declaration as java_field_declaration,
     method_invocation as java_method_invocation,
     parameter_list as java_parameter_list,
@@ -122,6 +123,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "expression_statement",
         },
         syntax_reader=common_expression_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "field_access",
+        },
+        syntax_reader=java_field_access.reader,
     ),
     Dispatcher(
         applicable_types={
