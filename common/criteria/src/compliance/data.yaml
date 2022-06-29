@@ -6503,4 +6503,64 @@
     "EN_2-3":
       title: Avoid weak encryption
       link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_2-4":
+      title: Avoid weak encryption
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_2-5":
+      title: Avoid weak encryption
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_3-1":
+      title: Software protects and validates encryption keys
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_3-2":
+      title: Software protects and validates encryption keys
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_3-3":
+      title: Software protects and validates encryption keys
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "AA_1-1":
+      title: Principle of least privilege
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "AA_1-2":
+      title: Authorization and access controls
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "AA_1-3":
+      title: Authorization and access controls
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "AA_2-1":
+      title: Authorization and access (support controls)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "LO_1-2":
+      title: Logging of all critical security incident and event information
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "LO_1-3":
+      title: Logging of all critical security incident and event information
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "LO_2-2":
+      title: Implement securely logging mechanisms
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "LO_2-3":
+      title: Implement securely logging mechanisms
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "LO_2-4":
+      title: Implement securely logging mechanisms
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EE_1-3":
+      title: Error and exception handling capabilities
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "VM_3-2":
+      title: Vulnerability management
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "CF_1-4":
+      title: Secure software installation and operation
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "VN_1-2":
+      title: Vulnerability notification and patching
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "VN_3-1":
+      title: Vulnerability notification and patching (updates are accompanied by advisory messages)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "VN_3-2":
+      title: Vulnerability notification and patching (updates are accompanied by advisory messages)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
   metadata: {}
