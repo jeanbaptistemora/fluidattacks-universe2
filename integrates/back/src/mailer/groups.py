@@ -163,6 +163,10 @@ async def send_mail_added_root(
         True: "Yes",
         False: "No",
     }
+    sla_translation: dict[bool, str] = {
+        True: "Applicable",
+        False: "Not applicable",
+    }
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
         email_to=email_to,
@@ -175,6 +179,7 @@ async def send_mail_added_root(
             "health_check": bool_translations[health_check],
             "root_url": root_url,
             "user_role": user_role.replace("_", " "),
+            "sla": sla_translation[health_check],
             "vpn_required": bool_translations[vpn_required],
             "date": str(datetime_utils.get_date_from_iso_str(modified_date)),
         },
