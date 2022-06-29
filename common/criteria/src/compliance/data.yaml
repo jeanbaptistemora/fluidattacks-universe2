@@ -6438,6 +6438,69 @@
     summary: __empty__
   definitions:
     "SC_3-2":
-      title: Secure Coding - Secure software against unsafe functions
+      title: Secure Coding (secure software against unsafe functions)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SC_3-3":
+      title: Secure Coding (secure software against unsafe functions)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SC_4-1":
+      title: Secure Coding (software architecture and design)
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_2-1":
+      title: Measures to ensure visibility, traceability, and security of third-party components
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_3-1":
+      title: Supply chain data is protected
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_3-2":
+      title: Supply chain data is protected
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_4-1":
+      title: Software measures to prevent counterfeiting and tampering
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_4-2":
+      title: Software measures to prevent counterfeiting and tampering
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SM_6-1":
+      title: Deployment procedures ensure that the usages of software are established
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "TC_1-2":
+      title: Developed software using security tools
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "TC_1-6":
+      title: Developed software using security tools
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "IA_1-1":
+      title: Software development environment authenticates users and operators
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "IA_1-2":
+      title: Software development environment authenticates users and operators
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "IA_2-1":
+      title: Policies to control access to data and processes
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "IA_2-2":
+      title: Policies to control access to data and processes
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SI_1-2":
+      title: Avoid architectural weaknesses of authentication failure
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SI_1-3":
+      title: Avoid architectural weaknesses of authentication failure
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SI_1-4":
+      title: Avoid architectural weaknesses of authentication failure
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SI_1-5":
+      title: Avoid architectural weaknesses of authentication failure
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "SI_2-1":
+      title: Strong identity
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_1-1":
+      title: Encryption strategy and mechanisms
+      link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
+    "EN_2-3":
+      title: Avoid weak encryption
       link: https://www.bsa.org/files/reports/bsa_software_security_framework_web_final.pdf
   metadata: {}
