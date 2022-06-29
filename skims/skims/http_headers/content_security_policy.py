@@ -1,7 +1,6 @@
-from contextlib import (
-    suppress,
+from http_headers.common import (
+    get_header_value_delimiter,
 )
-import csv
 from http_headers.types import (
     ContentSecurityPolicyHeader,
 )
@@ -36,14 +35,7 @@ def parse(line: str) -> Optional[ContentSecurityPolicyHeader]:
     if portions:
         value = portions.pop(0).lower()
 
-        delimiter = ","
-        with suppress(csv.Error):
-            sniffer = csv.Sniffer()
-            data = sniffer.sniff(value)
-            if data.delimiter in [",", ";"]:
-                delimiter = data.delimiter
-
-        values = value.split(delimiter)
+        values = value.split(get_header_value_delimiter(value))
         values = list(map(methodcaller("strip"), values))
         values = list(filter(None, values))
 

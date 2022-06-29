@@ -1,3 +1,7 @@
+from contextlib import (
+    suppress,
+)
+import csv
 from operator import (
     methodcaller,
 )
@@ -25,3 +29,13 @@ def parse_key_value(
         return None
 
     return name, value
+
+
+def get_header_value_delimiter(header_value: str) -> str:
+    delimiter = ","
+    with suppress(csv.Error):
+        sniffer = csv.Sniffer()
+        data = sniffer.sniff(header_value)
+        if data.delimiter in [",", ";"]:
+            delimiter = data.delimiter
+    return delimiter

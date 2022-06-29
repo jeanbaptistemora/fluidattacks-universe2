@@ -1,3 +1,6 @@
+from http_headers.common import (
+    get_header_value_delimiter,
+)
 from http_headers.types import (
     StrictTransportSecurityHeader,
 )
@@ -45,7 +48,7 @@ def parse(line: str) -> Optional[StrictTransportSecurityHeader]:
     max_age: Optional[int] = None
     preload: Optional[bool] = None
 
-    portions = value.split(";")
+    portions = value.split(get_header_value_delimiter(value))
     portions = list(map(methodcaller("strip"), portions))
     portions = list(map(methodcaller("lower"), portions))
 
