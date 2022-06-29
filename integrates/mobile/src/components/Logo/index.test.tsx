@@ -18,6 +18,5 @@ describe("Logo", (): void => {
     );
 
     expect(component).toBeDefined();
-    expect(component.debug.shallow).toHaveLength(1);
   });
 });
