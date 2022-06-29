@@ -640,6 +640,12 @@ export const enTranslations: ResourceKey = {
           " Finding remediation data of this group. Before requesting it," +
           " make sure to fill out the Information section of Scope." +
           " (Available with Machine or Squad only)",
+        closingDate: {
+          text: "Closing date",
+          tooltip:
+            "Filter vulnerabilities based on closing date." +
+            " Before the specified date",
+        },
         data: "  Export",
         dataTooltip:
           "Receive a zip file containing the exported data of all the findings " +

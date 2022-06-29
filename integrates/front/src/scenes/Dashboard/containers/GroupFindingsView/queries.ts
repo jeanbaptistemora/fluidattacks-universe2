@@ -49,6 +49,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
     $treatments: [VulnerabilityTreatment!]
     $states: [VulnerabilityState!]
     $verifications: [VulnerabilityVerification!]
+    $closingDate: DateTime
     $verificationCode: String!
   ) {
     report(
@@ -58,6 +59,7 @@ const REQUEST_GROUP_REPORT: DocumentNode = gql`
       states: $states
       treatments: $treatments
       verifications: $verifications
+      closingDate: $closingDate
       verificationCode: $verificationCode
     ) {
       success

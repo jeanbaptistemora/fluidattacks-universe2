@@ -2,13 +2,14 @@ import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFileExcel } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { array, object } from "yup";
@@ -16,17 +17,26 @@ import { array, object } from "yup";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import { ButtonToolbar, Col100, RequiredField } from "styles/styledComponents";
-import { FormikCheckbox } from "utils/forms/fields";
+import { ButtonToolbar, Col100 } from "styles/styledComponents";
+import { FormikCheckbox, FormikDate } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { composeValidators, isGreaterDate } from "utils/validations";
 
 interface IDeactivationModalProps {
   isOpen: boolean;
   onClose: () => void;
   closeReportsModal: () => void;
+}
+
+interface IFormValues {
+  closingDate: string;
+  states: string[];
+  treatments: string[];
+  verifications: string[];
 }
 
 const FilterReportModal: React.FC<IDeactivationModalProps> = ({
@@ -37,6 +47,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
 
+  const formRef = useRef<FormikProps<IFormValues>>(null);
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
   const [requestGroupReport] = useLazyQuery(REQUEST_GROUP_REPORT, {
@@ -71,8 +82,9 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
   const handleRequestGroupReport = useCallback(
     (
+      closingDate: string | undefined,
       states: string[],
-      treatments: string[],
+      treatments: string[] | undefined,
       verifications: string[],
       verificationCode: string
     ): void => {
@@ -81,6 +93,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
       requestGroupReport({
         variables: {
+          closingDate,
           groupName,
           reportType,
           states,
@@ -95,7 +108,11 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
 
   const validations = object().shape({
     states: array().min(1, t("validations.someRequired")),
-    treatments: array().min(1, t("validations.someRequired")),
+    treatments: array().when("closingDate", {
+      is: (closingDate: string): boolean => _.isEmpty(closingDate),
+      otherwise: array().notRequired(),
+      then: array().min(1, t("validations.someRequired")),
+    }),
   });
 
   return (
@@ -109,6 +126,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
           <VerifyDialog isOpen={isVerifyDialogOpen}>
             {(setVerifyCallbacks): JSX.Element => {
               function onRequestReport(values: {
+                closingDate: string;
                 states: string[];
                 treatments: string[];
                 verifications: string[];
@@ -116,8 +134,13 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                 setVerifyCallbacks(
                   (verificationCode: string): void => {
                     handleRequestGroupReport(
+                      _.isEmpty(values.closingDate)
+                        ? undefined
+                        : values.closingDate,
                       values.states,
-                      values.treatments,
+                      _.isEmpty(values.closingDate)
+                        ? values.treatments
+                        : undefined,
                       values.verifications,
                       verificationCode
                     );
@@ -132,106 +155,191 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
               return (
                 <Formik
                   initialValues={{
+                    closingDate: "",
                     states: [],
                     treatments: [],
                     verifications: [],
                   }}
+                  innerRef={formRef}
                   name={"reportTreatments"}
                   onSubmit={onRequestReport}
                   validationSchema={validations}
                 >
-                  <Form>
-                    <p className={"mb0"}>
-                      {t("group.findings.report.filterReportDescription")}
-                    </p>
-                    <Row align={"flex-start"} justify={"space-between"}>
-                      <Col large={"50"} medium={"50"} small={"50"}>
-                        <p>
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          <span className={"fw8"}>
-                            {t("group.findings.report.treatment")}
-                          </span>
-                        </p>
-                        {[
-                          "ACCEPTED",
-                          "ACCEPTED_UNDEFINED",
-                          "IN_PROGRESS",
-                          "NEW",
-                        ].map(
-                          (treatment): JSX.Element => (
-                            <Field
-                              component={FormikCheckbox}
-                              key={treatment}
-                              label={t(
-                                `searchFindings.tabDescription.treatment.${_.camelCase(
-                                  treatment
-                                )}`
-                              )}
-                              name={"treatments"}
-                              type={"checkbox"}
-                              value={treatment}
-                            />
+                  {({ values }): JSX.Element => {
+                    function onChangeDate(
+                      event: React.ChangeEvent<HTMLInputElement>
+                    ): void {
+                      if (event.target.value !== "") {
+                        formRef.current?.setFieldValue(
+                          "states",
+                          values.states.filter(
+                            (state: string): boolean => state !== "OPEN"
                           )
-                        )}
-                      </Col>
-                      <Col large={"30"} medium={"30"} small={"30"}>
-                        <p>
-                          <span className={"fw8"}>
-                            {t("group.findings.report.reattack.title")}
-                          </span>
+                        );
+                      }
+                    }
+
+                    return (
+                      <Form>
+                        <p className={"mb0"}>
+                          {t("group.findings.report.filterReportDescription")}
                         </p>
-                        {["REQUESTED", "ON_HOLD", "VERIFIED"].map(
-                          (verification): JSX.Element => (
-                            <Field
-                              component={FormikCheckbox}
-                              key={verification}
-                              label={t(
-                                `group.findings.report.reattack.${verification.toLowerCase()}`
+                        <Row align={"flex-start"} justify={"flex-start"}>
+                          <Col large={"90"} medium={"90"} small={"90"}>
+                            <Col large={"50"} medium={"50"} small={"50"}>
+                              <p className={"mb2"}>
+                                <span className={"fw8"}>
+                                  {t("group.findings.report.closingDate.text")}
+                                </span>
+                              </p>
+                              <TooltipWrapper
+                                id={"group.findings.report.closingDate.id"}
+                                message={t(
+                                  "group.findings.report.closingDate.tooltip"
+                                )}
+                                placement={"top"}
+                              >
+                                <Field
+                                  component={FormikDate}
+                                  customChange={onChangeDate}
+                                  name={"closingDate"}
+                                  validate={composeValidators([isGreaterDate])}
+                                />
+                              </TooltipWrapper>
+                            </Col>
+                          </Col>
+                          {_.isEmpty(values.closingDate) ? (
+                            <Col large={"50"} medium={"50"} small={"50"}>
+                              <p className={"mb2"}>
+                                <span className={"fw8"}>
+                                  {t("group.findings.report.treatment")}
+                                </span>
+                              </p>
+                              {[
+                                "ACCEPTED",
+                                "ACCEPTED_UNDEFINED",
+                                "IN_PROGRESS",
+                                "NEW",
+                              ].map(
+                                (treatment): JSX.Element => (
+                                  <Field
+                                    component={FormikCheckbox}
+                                    disabled={!_.isEmpty(values.closingDate)}
+                                    key={treatment}
+                                    label={t(
+                                      `searchFindings.tabDescription.treatment.${_.camelCase(
+                                        treatment
+                                      )}`
+                                    )}
+                                    name={"treatments"}
+                                    type={"checkbox"}
+                                    value={treatment}
+                                  />
+                                )
                               )}
-                              name={"verifications"}
-                              type={"checkbox"}
-                              value={verification}
-                            />
-                          )
-                        )}
-                      </Col>
-                      <Col large={"20"} medium={"20"} small={"20"}>
-                        <p>
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          <span className={"fw8"}>
-                            {t("group.findings.report.state")}
-                          </span>
-                        </p>
-                        {["CLOSED", "OPEN"].map(
-                          (state): JSX.Element => (
-                            <Field
-                              component={FormikCheckbox}
-                              key={state}
-                              label={t(
-                                `searchFindings.tabVuln.${state.toLowerCase()}`
-                              )}
-                              name={"states"}
-                              type={"checkbox"}
-                              value={state}
-                            />
-                          )
-                        )}
-                      </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                      <ButtonToolbar>
-                        <Button
-                          id={"report-excel"}
-                          type={"submit"}
-                          variant={"primary"}
-                        >
-                          <FontAwesomeIcon icon={faFileExcel} />
-                          &nbsp;{t("group.findings.report.generateXls")}
-                        </Button>
-                      </ButtonToolbar>
-                    </Row>
-                  </Form>
+                            </Col>
+                          ) : undefined}
+                          <Col large={"30"} medium={"30"} small={"30"}>
+                            <p className={"mb2"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.reattack.title")}
+                              </span>
+                            </p>
+                            {_.isEmpty(values.closingDate) ? (
+                              <React.Fragment>
+                                {["REQUESTED", "ON_HOLD", "VERIFIED"].map(
+                                  (verification): JSX.Element => (
+                                    <Field
+                                      component={FormikCheckbox}
+                                      key={verification}
+                                      label={t(
+                                        `group.findings.report.reattack.${verification.toLowerCase()}`
+                                      )}
+                                      name={"verifications"}
+                                      type={"checkbox"}
+                                      value={verification}
+                                    />
+                                  )
+                                )}
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                {["VERIFIED"].map(
+                                  (verification): JSX.Element => (
+                                    <Field
+                                      component={FormikCheckbox}
+                                      key={verification}
+                                      label={t(
+                                        `group.findings.report.reattack.${verification.toLowerCase()}`
+                                      )}
+                                      name={"verifications"}
+                                      type={"checkbox"}
+                                      value={verification}
+                                    />
+                                  )
+                                )}
+                              </React.Fragment>
+                            )}
+                          </Col>
+                          <Col large={"20"} medium={"20"} small={"20"}>
+                            <p className={"mb2"}>
+                              <span className={"fw8"}>
+                                {t("group.findings.report.state")}
+                              </span>
+                            </p>
+                            {_.isEmpty(values.closingDate) ? (
+                              <React.Fragment>
+                                {["CLOSED", "OPEN"].map(
+                                  (state): JSX.Element => (
+                                    <Field
+                                      component={FormikCheckbox}
+                                      key={state}
+                                      label={t(
+                                        `searchFindings.tabVuln.${state.toLowerCase()}`
+                                      )}
+                                      name={"states"}
+                                      type={"checkbox"}
+                                      value={state}
+                                    />
+                                  )
+                                )}
+                              </React.Fragment>
+                            ) : (
+                              <React.Fragment>
+                                {["CLOSED"].map(
+                                  (state): JSX.Element => (
+                                    <Field
+                                      component={FormikCheckbox}
+                                      key={state}
+                                      label={t(
+                                        `searchFindings.tabVuln.${state.toLowerCase()}`
+                                      )}
+                                      name={"states"}
+                                      type={"checkbox"}
+                                      value={state}
+                                    />
+                                  )
+                                )}
+                              </React.Fragment>
+                            )}
+                          </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                          <ButtonToolbar>
+                            <Button
+                              id={"report-excel"}
+                              type={"submit"}
+                              variant={"primary"}
+                            >
+                              <FontAwesomeIcon icon={faFileExcel} />
+                              &nbsp;{t("group.findings.report.generateXls")}
+                            </Button>
+                          </ButtonToolbar>
+                        </Row>
+                      </Form>
+                    );
+                  }}
                 </Formik>
               );
             }}
