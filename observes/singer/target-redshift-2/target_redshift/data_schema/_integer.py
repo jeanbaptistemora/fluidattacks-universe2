@@ -1,37 +1,18 @@
+from ._utils import (
+    opt_transform,
+)
 from enum import (
     Enum,
 )
 from fa_purity import (
     JsonObj,
-    Maybe,
     Result,
     ResultE,
 )
-from fa_purity.json.value.transform import (
-    Unfolder,
-)
-import logging
 from redshift_client.data_type.core import (
     DataType,
     StaticTypes,
 )
-from typing import (
-    Callable,
-    TypeVar,
-)
-
-LOG = logging.getLogger(__name__)
-
-
-_T = TypeVar("_T")
-
-
-def _opt_transform(
-    obj: JsonObj, key: str, transform: Callable[[Unfolder], _T]
-) -> Maybe[_T]:
-    return Maybe.from_optional(obj.get(key)).map(
-        lambda p: transform(Unfolder(p))
-    )
 
 
 class _IntSizes(Enum):
@@ -57,7 +38,7 @@ def _size_map(size: _IntSizes) -> DataType:
 
 
 def int_handler(encoded: JsonObj) -> ResultE[DataType]:
-    _size: ResultE[_IntSizes] = _opt_transform(
+    _size: ResultE[_IntSizes] = opt_transform(
         encoded,
         "size",
         lambda u: u.to_primitive(str)

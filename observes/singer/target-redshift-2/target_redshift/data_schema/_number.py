@@ -1,38 +1,19 @@
+from ._utils import (
+    opt_transform,
+)
 from enum import (
     Enum,
 )
 from fa_purity import (
     JsonObj,
-    Maybe,
     Result,
     ResultE,
 )
-from fa_purity.json.value.transform import (
-    Unfolder,
-)
-import logging
 from redshift_client.data_type.core import (
     DataType,
     DecimalType,
     StaticTypes,
 )
-from typing import (
-    Callable,
-    TypeVar,
-)
-
-LOG = logging.getLogger(__name__)
-
-
-_T = TypeVar("_T")
-
-
-def _opt_transform(
-    obj: JsonObj, key: str, transform: Callable[[Unfolder], _T]
-) -> Maybe[_T]:
-    return Maybe.from_optional(obj.get(key)).map(
-        lambda p: transform(Unfolder(p))
-    )
 
 
 class _NumSizes(Enum):
@@ -49,14 +30,14 @@ def _to_size(raw: str) -> ResultE[_NumSizes]:
 
 
 def _decimal_handler(encoded: JsonObj) -> ResultE[DataType]:
-    precision: ResultE[int] = _opt_transform(
+    precision: ResultE[int] = opt_transform(
         encoded,
         "precision",
         lambda u: u.to_primitive(int).alt(
             lambda e: Exception(f"Error at precision. {e}")
         ),
     ).value_or(Result.success(18))
-    scale: ResultE[int] = _opt_transform(
+    scale: ResultE[int] = opt_transform(
         encoded,
         "scale",
         lambda u: u.to_primitive(int).alt(
@@ -80,7 +61,7 @@ def _size_map(size: _NumSizes, encoded: JsonObj) -> ResultE[DataType]:
 
 
 def int_handler(encoded: JsonObj) -> ResultE[DataType]:
-    _size: ResultE[_NumSizes] = _opt_transform(
+    _size: ResultE[_NumSizes] = opt_transform(
         encoded,
         "size",
         lambda u: u.to_primitive(str)

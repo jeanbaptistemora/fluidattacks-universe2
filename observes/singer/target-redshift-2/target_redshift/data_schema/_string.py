@@ -1,39 +1,20 @@
+from ._utils import (
+    opt_transform,
+)
 from enum import (
     Enum,
 )
 from fa_purity import (
     JsonObj,
-    Maybe,
     Result,
     ResultE,
 )
-from fa_purity.json.value.transform import (
-    Unfolder,
-)
-import logging
 from redshift_client.data_type.core import (
     DataType,
     PrecisionType,
     PrecisionTypes,
     StaticTypes,
 )
-from typing import (
-    Callable,
-    TypeVar,
-)
-
-LOG = logging.getLogger(__name__)
-
-
-_T = TypeVar("_T")
-
-
-def _opt_transform(
-    obj: JsonObj, key: str, transform: Callable[[Unfolder], _T]
-) -> Maybe[_T]:
-    return Maybe.from_optional(obj.get(key)).map(
-        lambda p: transform(Unfolder(p))
-    )
 
 
 class _MetaType(Enum):
@@ -49,7 +30,7 @@ def _to_meta_type(raw: str) -> ResultE[_MetaType]:
 
 
 def _format_handler(format: str, encoded: JsonObj) -> ResultE[DataType]:
-    timezone: ResultE[bool] = _opt_transform(
+    timezone: ResultE[bool] = opt_transform(
         encoded,
         "timezone",
         lambda u: u.to_primitive(bool).alt(
@@ -73,14 +54,14 @@ def _format_handler(format: str, encoded: JsonObj) -> ResultE[DataType]:
 
 
 def _string_handler(encoded: JsonObj) -> ResultE[DataType]:
-    precision: ResultE[int] = _opt_transform(
+    precision: ResultE[int] = opt_transform(
         encoded,
         "precision",
         lambda u: u.to_primitive(int).alt(
             lambda e: Exception(f"Error at precision. {e}")
         ),
     ).value_or(Result.success(256))
-    meta_type: ResultE[_MetaType] = _opt_transform(
+    meta_type: ResultE[_MetaType] = opt_transform(
         encoded,
         "metatype",
         lambda u: u.to_primitive(str)
@@ -99,7 +80,7 @@ def _string_handler(encoded: JsonObj) -> ResultE[DataType]:
 
 
 def string_format_handler(encoded: JsonObj) -> ResultE[DataType]:
-    _format = _opt_transform(
+    _format = opt_transform(
         encoded,
         "format",
         lambda u: u.to_primitive(str).alt(
