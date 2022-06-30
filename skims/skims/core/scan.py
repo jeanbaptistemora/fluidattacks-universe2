@@ -86,17 +86,16 @@ async def execute_skims(
 
     if CTX.config.apk.include:
         analyze_apk(stores=stores)
-    if CTX.config.dast.http.include:
-        await analyze_http(stores=stores)
     if CTX.config.path.include:
         analyze_sast(stores=stores)
-    if CTX.config.dast.ssl.include:
-        await analyze_ssl(stores=stores)
 
     if CTX.config.dast:
+        if CTX.config.dast.ssl.include:
+            await analyze_ssl(stores=stores)
+        if CTX.config.dast.http.include:
+            await analyze_http(stores=stores)
         for aws_cred in CTX.config.dast.aws_credentials:
             await analyze_dast_aws(credentials=aws_cred, stores=stores)
-
     if CTX.config.output:
         notify_findings_as_csv(stores, CTX.config.output)
     else:

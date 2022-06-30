@@ -49,6 +49,11 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "type": "file_extension",
     },
     {
+        "name": ".sln",
+        "description": "visual studio c sharp set of projects",
+        "type": "file_extension",
+    },
+    {
         "name": ".vbproj",
         "description": "visual studio visual basic project",
         "type": "file_extension",
@@ -125,6 +130,11 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "description": (
             "terraform infra, main can not be present, this can be a module"
         ),
+        "type": "specific_file",
+    },
+    {
+        "name": "Podfile",
+        "description": ("swift project"),
         "type": "specific_file",
     },
 ]
@@ -317,27 +327,31 @@ async def generate_config(
             and environment_url["urlType"] == "CLOUD"  # type: ignore
             for secret in environment_url["secrets"]
         }
-        if (
-            "AWS_ACCESS_KEY_ID" in secrets
-            and "AWS_SECRET_ACCESS_KEY" in secrets
-        ):
-            dast_config = SkimsDastConfig(
-                aws_credentials=[
+
+        dast_config = SkimsDastConfig(
+            aws_credentials=(
+                [
                     AwsCredentials(
                         access_key_id=secrets["AWS_ACCESS_KEY_ID"],
                         secret_access_key=secrets["AWS_SECRET_ACCESS_KEY"],
                     )
-                ],
-                http=SkimsHttpConfig(
-                    include=tuple(urls),
-                ),
-                ssl=SkimsSslConfig(
-                    include=tuple(
-                        SkimsSslTarget(host=host, port=int(port))
-                        for host, port in ssl_targets
-                    )
-                ),
-            )
+                ]
+                if (
+                    "AWS_ACCESS_KEY_ID" in secrets
+                    and "AWS_SECRET_ACCESS_KEY" in secrets
+                )
+                else []
+            ),
+            http=SkimsHttpConfig(
+                include=tuple(urls),
+            ),
+            ssl=SkimsSslConfig(
+                include=tuple(
+                    SkimsSslTarget(host=host, port=int(port))
+                    for host, port in ssl_targets
+                )
+            ),
+        )
         urls = get_urls_from_scopes(scopes)
         ssl_targets = get_ssl_targets(urls)
 
