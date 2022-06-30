@@ -7,7 +7,7 @@ const Col100: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 w-100 relative",
+  className: "ph3 w-100 relative",
 })``;
 
 const Col25: StyledComponent<
@@ -16,7 +16,7 @@ const Col25: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 w-25 relative",
+  className: "ph3 w-25 relative",
 })``;
 
 const Col33: StyledComponent<
@@ -25,7 +25,7 @@ const Col33: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 w-33 relative",
+  className: "ph3 w-33 relative",
 })``;
 
 const Col50: StyledComponent<
@@ -34,7 +34,7 @@ const Col50: StyledComponent<
 > = styled.div.attrs<{
   className: string;
 }>({
-  className: "ph1-5 w-50 relative",
+  className: "ph3 w-50 relative",
 })``;
 
 export { Col100, Col25, Col33, Col50 };

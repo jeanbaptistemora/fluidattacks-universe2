@@ -51,24 +51,32 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
   return (
     <React.StrictMode>
       <div className={`center ${reportClassName}`.trim()}>
+        {reportMode ? undefined : (
+          <div className={"ph3 mb3"}>
+            <ChartsGenericViewExtras
+              bgChange={bgChange}
+              entity={entity}
+              reportMode={reportMode}
+              subject={subject}
+            />
+          </div>
+        )}
         {doesEntityMatch(["organization", "portfolio"]) ? (
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"cvssfBenchmarking"}
-                documentType={"stackedBarChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"stackedBarChart"}
-                infoLink={`${graphInfoLink}${entity}#exposure-remediation-rate-benchmark`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("analytics.stackedBarChart.cvssfBenchmarking.title")}
-              />
-            </Col100>
-          </RowCenter>
+          <Col100>
+            <Graphic
+              bsHeight={320}
+              className={"g1"}
+              documentName={"cvssfBenchmarking"}
+              documentType={"stackedBarChart"}
+              entity={entity}
+              generatorName={"generic"}
+              generatorType={"stackedBarChart"}
+              infoLink={`${graphInfoLink}${entity}#exposure-remediation-rate-benchmark`}
+              reportMode={reportMode}
+              subject={subject}
+              title={t("analytics.stackedBarChart.cvssfBenchmarking.title")}
+            />
+          </Col100>
         ) : undefined}
         {doesEntityMatch(["group", "organization", "portfolio"]) ? (
           <React.Fragment>
@@ -896,14 +904,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
           </div>
         </div>
       ) : undefined}
-      {reportMode ? undefined : (
-        <ChartsGenericViewExtras
-          bgChange={bgChange}
-          entity={entity}
-          reportMode={reportMode}
-          subject={subject}
-        />
-      )}
     </React.StrictMode>
   );
 };

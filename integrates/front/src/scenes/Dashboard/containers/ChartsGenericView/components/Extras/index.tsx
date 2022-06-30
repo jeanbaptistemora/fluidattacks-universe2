@@ -22,10 +22,8 @@ import {
 
 import { Button } from "components/Button";
 import { Dropdown } from "components/Dropdown";
-import { MenuItem } from "components/DropdownButton";
 import { ExternalLink } from "components/ExternalLink";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import styles from "scenes/Dashboard/containers/ChartsGenericView/index.css";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
@@ -36,13 +34,6 @@ import type {
   ISubscriptionToEntityReport,
   ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/containers/ChartsGenericView/types";
-import {
-  ButtonToolbarCenter,
-  Col100,
-  Panel,
-  PanelBody,
-  Row,
-} from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -138,74 +129,51 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
 
   return (
     <React.StrictMode>
-      <div>
-        <Row>
-          <Col100>
-            <Panel>
-              <PanelBody>
-                <div className={styles.toolbarWrapper}>
-                  <div className={styles.toolbarCentered}>
-                    <ButtonToolbarCenter>
-                      <div className={"mr2"}>
-                        <ExternalLink
-                          download={`charts-${entity}-${subject}.png`}
-                          href={downloadPngUrl.toString()}
-                        >
-                          <Button variant={"secondary"}>
-                            <FontAwesomeIcon icon={faDownload} />
-                            &nbsp;
-                            {t("analytics.sections.extras.download")}
-                          </Button>
-                        </ExternalLink>
-                      </div>
-                      <Dropdown
-                        button={
-                          <Button variant={"primary"}>
-                            <FontAwesomeIcon
-                              icon={
-                                loadingSubscribe ? faHourglassHalf : faChartBar
-                              }
-                            />
-                            &nbsp;
-                            {translateFrequency(
-                              subscriptionFrequency,
-                              "statement"
-                            )}
-                          </Button>
-                        }
-                        id={"subscribe-dropdown"}
-                      >
-                        {frequencies.map(
-                          (freq: string): JSX.Element => (
-                            <TooltipWrapper
-                              id={freq}
-                              key={freq}
-                              message={translateFrequencyArrivalTime(freq)}
-                              placement={"right"}
-                            >
-                              <MenuItem
-                                eventKey={freq}
-                                itemContent={
-                                  <span>
-                                    {translateFrequency(freq, "action")}
-                                  </span>
-                                }
-                                key={freq}
-                                onClick={subscribeDropdownOnSelect}
-                              />
-                            </TooltipWrapper>
-                          )
-                        )}
-                      </Dropdown>
-                    </ButtonToolbarCenter>
-                  </div>
-                </div>
-              </PanelBody>
-            </Panel>
-          </Col100>
-        </Row>
-        <div className={styles.separatorTitleFromCharts} />
-      </div>
+      <ExternalLink
+        download={`charts-${entity}-${subject}.png`}
+        href={downloadPngUrl.toString()}
+      >
+        <Button variant={"secondary"}>
+          <FontAwesomeIcon icon={faDownload} />
+          &nbsp;
+          {t("analytics.sections.extras.download")}
+        </Button>
+      </ExternalLink>
+      <Dropdown
+        button={
+          <Button variant={"primary"}>
+            <FontAwesomeIcon
+              icon={loadingSubscribe ? faHourglassHalf : faChartBar}
+            />
+            &nbsp;
+            {translateFrequency(subscriptionFrequency, "statement")}
+          </Button>
+        }
+        id={"subscribe-dropdown"}
+      >
+        {frequencies.map(
+          (freq: string): JSX.Element => (
+            <TooltipWrapper
+              id={freq}
+              key={freq}
+              message={translateFrequencyArrivalTime(freq)}
+              placement={"right"}
+            >
+              <div className={"flex flex-column"}>
+                <Button
+                  margin={"0"}
+                  onClick={function fn2(): void {
+                    subscribeDropdownOnSelect(freq);
+                  }}
+                  variant={"basic"}
+                >
+                  {translateFrequency(freq, "action")}
+                </Button>
+              </div>
+            </TooltipWrapper>
+          )
+        )}
+      </Dropdown>
     </React.StrictMode>
   );
 };
