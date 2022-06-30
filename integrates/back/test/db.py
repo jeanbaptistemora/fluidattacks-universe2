@@ -27,7 +27,6 @@ from db_model import (
 )
 from db_model.credentials.types import (
     Credential,
-    CredentialItem,
 )
 from db_model.events.types import (
     Event,
@@ -472,13 +471,6 @@ async def populate_toe_inputs(data: Tuple[ToeInput, ...]) -> bool:
 async def populate_toe_lines(data: Tuple[ToeLines, ...]) -> bool:
     await collect(
         [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
-    )
-    return True
-
-
-async def populate_credentials(data: Tuple[CredentialItem, ...]) -> bool:
-    await collect(
-        (creds_model.add(credential=credential)) for credential in data
     )
     return True
 

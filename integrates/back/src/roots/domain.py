@@ -32,7 +32,6 @@ from db_model import (
 )
 from db_model.credentials.types import (
     Credential,
-    CredentialItem,
     CredentialNewState,
     CredentialRequest,
     HttpsPatSecret,
@@ -166,51 +165,6 @@ def format_git_repo_url(raw_url: str) -> str:
         else raw_url
     )
     return unquote(url).rstrip(" /")
-
-
-def format_credential(
-    credential: CredentialItem, organization_id: str, owner: str
-) -> Credential:
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
-        SshSecret(key=credential.state.key or "")
-        if credential.metadata.type is CredentialType.SSH
-        else HttpsPatSecret(token=credential.state.token or "")
-        if credential.state.token
-        else HttpsSecret(
-            user=credential.state.user or "",
-            password=credential.state.password or "",
-        )
-    )
-
-    return Credential(
-        id=credential.id,
-        organization_id=organization_id,
-        owner=owner,
-        state=CredentialNewState(
-            modified_by=credential.state.modified_by,
-            modified_date=credential.state.modified_date,
-            name=credential.state.name,
-            secret=secret,
-            type=credential.metadata.type,
-        ),
-    )
-
-
-async def get_organization_credential_id(
-    loaders: Any, group: Group, current_credential: CredentialItem
-) -> Optional[str]:
-    org_credentials: tuple[
-        Credential, ...
-    ] = await loaders.organization_credentials_new.load(group.organization_id)
-    current_org_credential = next(
-        (
-            credential
-            for credential in org_credentials
-            if credential.state.name == current_credential.state.name
-        ),
-        None,
-    )
-    return current_org_credential.id if current_org_credential else None
 
 
 async def add_git_root(  # pylint: disable=too-many-locals
@@ -1526,9 +1480,7 @@ async def _add_secrets_aws(environment_id: str) -> None:
         environment_id,
         key="AWS_SECRET_ACCESS_KEY",
         value="",
-        description=(
-            "AWS secret access keys to make programmatic calls to AWS"
-        ),
+        description="AWS secret access keys to make programmatic calls to AWS",
     )
 
 

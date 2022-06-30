@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,not-callable
 """
 Remove root from credential if that root has a new credential
 

@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name,not-callable
 """
 Join the credentials with the same name in a group
 

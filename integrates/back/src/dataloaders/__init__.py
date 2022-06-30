@@ -14,9 +14,7 @@ from collections import (
     defaultdict,
 )
 from db_model.credentials.get import (
-    CredentialLoader,
     CredentialNewLoader,
-    GroupCredentialsLoader,
     OrganizationCredentialsNewLoader,
     UserCredentialsNewLoader,
 )
@@ -97,7 +95,6 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
-    credential: CredentialLoader
     credential_new: CredentialNewLoader
     enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
@@ -122,7 +119,6 @@ class Dataloaders(NamedTuple):
     )
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
-    group_credentials: GroupCredentialsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_events: GroupEventsLoader
@@ -197,7 +193,6 @@ def get_new_context() -> Dataloaders:
     )
 
     return Dataloaders(
-        credential=CredentialLoader(),
         credential_new=CredentialNewLoader(),
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
@@ -222,7 +217,6 @@ def get_new_context() -> Dataloaders:
         ),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
-        group_credentials=GroupCredentialsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=GroupEventsLoader(),

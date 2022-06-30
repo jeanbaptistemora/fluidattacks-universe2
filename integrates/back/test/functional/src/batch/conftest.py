@@ -7,10 +7,7 @@ from batch.enums import (
 )
 from db_model.credentials.types import (
     Credential,
-    CredentialItem,
-    CredentialMetadata,
     CredentialNewState,
-    CredentialState,
     HttpsPatSecret,
     SshSecret,
 )
@@ -115,68 +112,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=HttpsPatSecret(
                         token=os.environ["TEST_GITHUB_API_TOKEN"]
                     ),
-                ),
-            ),
-        ),
-        "credentials": (
-            CredentialItem(
-                group_name="group1",
-                id="3912827d-2b35-4e08-bd35-1bb24457951d",
-                metadata=CredentialMetadata(type=CredentialType.SSH),
-                state=CredentialState(
-                    key="VGVzdCBTU0gK",
-                    modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    name="SSH Key",
-                    roots=["88637616-41d4-4242-854a-db8ff7fe1ab6"],
-                ),
-            ),
-            CredentialItem(
-                group_name="group1",
-                id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
-                metadata=CredentialMetadata(type=CredentialType.SSH),
-                state=CredentialState(
-                    key="VGVzdCBTU0gK",
-                    modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    name="SSH Key",
-                    roots=["9059f0cb-3b55-404b-8fc5-627171f424ad"],
-                ),
-            ),
-            CredentialItem(
-                group_name="group1",
-                id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
-                metadata=CredentialMetadata(type=CredentialType.SSH),
-                state=CredentialState(
-                    key="VGVzdCBTU0gK",
-                    modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    name="SSH Key",
-                    roots=["2159f8cb-3b55-404b-8fc5-627171f424ax"],
-                ),
-            ),
-            CredentialItem(
-                group_name="group1",
-                id="5a6dacda-2d63-76c-6269-f6fd6dfe1000",
-                metadata=CredentialMetadata(type=CredentialType.SSH),
-                state=CredentialState(
-                    key=os.environ["TEST_GITHUB_SSH_PRIVATE_KEY"],
-                    modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    name="SSH Key",
-                    roots=["6160f0cb-4b66-515b-4fc6-738282f535af"],
-                ),
-            ),
-            CredentialItem(
-                group_name="group1",
-                id="6a7dacda-3d64-87c-7370-f7fd7dfe2111",
-                metadata=CredentialMetadata(type=CredentialType.HTTPS),
-                state=CredentialState(
-                    token=os.environ["TEST_GITHUB_API_TOKEN"],
-                    modified_by="admin@gmail.com",
-                    modified_date="2022-02-10T14:58:10+00:00",
-                    name="Git hub access token",
-                    roots=["7271f1cb-5b77-626b-5fc7-849393f646az"],
                 ),
             ),
         ),
