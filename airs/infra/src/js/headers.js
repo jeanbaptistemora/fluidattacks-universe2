@@ -1077,7 +1077,9 @@ const redirectMap = new Map([
   ["/solutions/security-testing/about-us/people/dcardona/", homeURL],
   ["/partners/gamma-ingenieros/", homeURL],
   ["/blog/what-is-devsecops", "https://fluidattacks.com/blog/devsecops-concept/"],
-  ["/web/blog/updating-belief", "https://fluidattacks.com/blog/updating-belief/"]
+  ["/blog/what-is-devsecops/", "https://fluidattacks.com/blog/devsecops-concept/"],
+  ["/web/blog/updating-belief", "https://fluidattacks.com/blog/updating-belief/"],
+  ["/web/blog/updating-belief/", "https://fluidattacks.com/blog/updating-belief/"]
 ]);
 
 addEventListener('fetch', event => {
