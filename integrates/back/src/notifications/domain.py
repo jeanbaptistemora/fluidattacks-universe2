@@ -217,6 +217,7 @@ async def send_mail_services(
     )
 
     await groups_mail.send_mail_updated_services(
+        loaders=loaders,
         group_name=group_name,
         responsible=requester_email,
         group_changes=group_changes,

@@ -379,6 +379,7 @@ async def send_mail_portfolio_report(
 
 async def send_mail_updated_services(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     group_changes: dict[str, Any],
@@ -386,12 +387,14 @@ async def send_mail_updated_services(
     email_to: List[str],
 ) -> None:
     user_role = await authz.get_group_level_role(responsible, group_name)
+    org_name = await get_organization_name(loaders, group_name)
     await send_mails_async(
         email_to=email_to,
         context={
             "group_name": group_name,
             "responsible": responsible,
             "group_changes": group_changes,
+            "org_name": org_name.lower(),
             "report_date": datetime_utils.get_date_from_iso_str(report_date),
             "user_role": user_role.replace("_", " "),
         },
