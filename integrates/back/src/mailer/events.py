@@ -94,6 +94,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     reason: Optional[str] = None,
     other: Optional[str] = None,
     is_closed: bool = False,
+    reminder_notification: bool = False,
     report_date: date,
 ) -> None:
     state: str = "closed" if is_closed else "reported"
@@ -144,6 +145,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
             f"{event_id}/description"
         ),
         "reason": reason_format,
+        "reminder_notification": reminder_notification,
         "report_date": str(report_date),
         "root_url": root_url,
         "state": state,

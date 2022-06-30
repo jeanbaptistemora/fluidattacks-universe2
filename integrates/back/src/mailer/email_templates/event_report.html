@@ -9,7 +9,12 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      An event has been <strong>{{ state }}</strong> in group <strong>{{ group }}</strong>:
+      {% if reminder_notification %}
+        Reminder, you have events
+      {% else %}
+        An event has been
+      {% endif %}
+      <strong>{{ state }}</strong> in group <strong>{{ group }}</strong>:
     </p>
     <p>
       <strong>Type</strong>: {{ event_type }}.<br/>

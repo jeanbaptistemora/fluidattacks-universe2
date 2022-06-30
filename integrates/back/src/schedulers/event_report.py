@@ -81,6 +81,7 @@ async def send_event_report() -> None:
                 event_type=event_type,
                 description=description,
                 root_id=event.root_id,
+                reminder_notification=True,
                 report_date=report_date,
             )
     else:
