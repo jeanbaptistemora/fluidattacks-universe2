@@ -16,7 +16,7 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.iproute
-      inputs.nixpkgs.nodejs-12_x
+      inputs.nixpkgs.nodejs-14_x
       inputs.nixpkgs.xdg_utils
     ];
     source = [

@@ -13,7 +13,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.git
-      inputs.nixpkgs.nodejs-12_x
+      inputs.nixpkgs.nodejs-14_x
       inputs.nixpkgs.ruby
     ];
     source = [

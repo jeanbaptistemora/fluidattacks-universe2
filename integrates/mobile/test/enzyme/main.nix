@@ -16,7 +16,7 @@ makeDerivation {
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash
-      inputs.nixpkgs.nodejs-12_x
+      inputs.nixpkgs.nodejs-14_x
     ];
     source = [outputs."/integrates/mobile/config/dev-runtime-env"];
   };

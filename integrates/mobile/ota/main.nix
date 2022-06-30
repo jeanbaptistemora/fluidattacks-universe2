@@ -18,7 +18,7 @@ makeScript {
     bin = [
       inputs.nixpkgs.findutils
       inputs.nixpkgs.gnused
-      inputs.nixpkgs.nodejs-12_x
+      inputs.nixpkgs.nodejs-14_x
       inputs.nixpkgs.openssl
       outputs."/common/utils/bugsnag/announce"
     ];

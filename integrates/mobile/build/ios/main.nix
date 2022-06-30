@@ -16,7 +16,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.curl
-      inputs.nixpkgs.nodejs-12_x
+      inputs.nixpkgs.nodejs-14_x
     ];
     source = [
       libGit
