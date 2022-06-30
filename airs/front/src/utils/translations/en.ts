@@ -34,6 +34,16 @@ const pageTexts: ResourceKey = {
     subscribeButton: "Subscribe",
     subscribeHeader: "Subscribe to our newsletter",
   },
+  blogListCategories: {
+    philosophy: {
+      description:
+        "Entries where we describe security best practices and approaches, " +
+        "tackling basic, as well as trending, cybersecurity concepts.",
+      metaDescription:
+        "Read Fluid Attacks's blog posts related to the Philosophy category.",
+      title: "philosophy",
+    },
+  },
   clients: {
     definition:
       "Since 2001, we have helped our clients manage their cybersecurity " +

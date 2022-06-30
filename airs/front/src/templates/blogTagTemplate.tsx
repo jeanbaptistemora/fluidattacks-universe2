@@ -52,8 +52,8 @@ const blogTagTemplate: React.FC<IQueryData> = ({
           />
           <BlogPageArticle>
             <FlexCenterItemsContainer>
-              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"4"}>
-                {tagName}
+              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
+                {tagName.charAt(0).toUpperCase() + tagName.slice(1)}
               </Title>
             </FlexCenterItemsContainer>
             <BlogTagList tagName={tagName} />
