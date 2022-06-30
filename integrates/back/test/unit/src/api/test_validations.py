@@ -1,4 +1,5 @@
 from api import (
+    hook_early_validations,
     Operation,
 )
 from api.schema import (
@@ -7,12 +8,19 @@ from api.schema import (
 from app.app import (
     get_validation_rules,
 )
+from ariadne.graphql import (
+    parse_query,
+)
 from graphql import (
     get_introspection_query,
+    GraphQLError,
     parse,
     validate,
 )
 import pytest
+from settings.api import (
+    API_MAX_DIRECTIVES,
+)
 from typing import (
     NamedTuple,
 )
@@ -42,7 +50,7 @@ def test_should_allow_introspection() -> None:
     assert not errors
 
 
-def test_should_trigger_depth_validation() -> None:
+def test_should_validate_depth() -> None:
     query = """
         query MaliciousQuery {
             __schema {
@@ -86,7 +94,7 @@ def test_should_trigger_depth_validation() -> None:
     assert errors[0].message == "Exception - Max query depth exceeded"
 
 
-def test_should_trigger_breadth_validation() -> None:
+def test_should_validate_breadth() -> None:
     query = """
         query MaliciousQuery {
             alias1: __schema {
@@ -124,7 +132,7 @@ def test_should_trigger_breadth_validation() -> None:
     assert errors[0].message == "Exception - Max query breadth exceeded"
 
 
-def test_should_variable_validation() -> None:
+def test_should_validate_variables() -> None:
     query = """
         mutation ExtraVariables (
             $test: String!,
@@ -163,3 +171,16 @@ def test_should_variable_validation() -> None:
     )
     assert errors
     assert errors[0].message == "Exception - Extra variables in operation"
+
+
+def test_should_validate_directives() -> None:
+    query = f"""
+        query MaliciousQuery {{
+            __typename
+            {"@aa " * (API_MAX_DIRECTIVES + 1)}
+        }}
+    """
+
+    hook_early_validations()
+    with pytest.raises(GraphQLError):
+        parse_query(query)
