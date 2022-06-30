@@ -83,7 +83,8 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         email_context,
         COMMENTS_TAG,
         (
-            f'New {"observation" if type_ == "observation" else "comment"}'
+            "[ASM] New "
+            f'{"observation" if type_ == "observation" else "comment"}'
             f" in [{finding_title}] for [{group_name}]"
         ),
         "new_comment",
@@ -128,7 +129,10 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         stakeholders_email,
         mail_context,
         GENERAL_TAG,
-        f"Type of vulnerability removed [{finding_name}] in [{group_name}]",
+        (
+            "[ASM] Type of vulnerability removed "
+            f"[{finding_name}] in [{group_name}]"
+        ),
         "delete_finding",
     )
 
@@ -168,7 +172,7 @@ async def send_mail_new_draft(
         stakeholders_email,
         email_context,
         GENERAL_TAG,
-        f"Draft submitted [{finding_title}] in [{group_name}]",
+        f"[ASM] Draft submitted [{finding_title}] in [{group_name}]",
         "new_draft",
     )
 
@@ -180,7 +184,7 @@ async def send_mail_new_remediated(
         email_to,
         context,
         GENERAL_TAG,
-        f'Types of vulnerabilities to verify ({context["total"]})',
+        f'[ASM] Types of vulnerabilities to verify ({context["total"]})',
         "new_remediated",
     )
 
@@ -214,7 +218,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         recipients,
         email_context,
         GENERAL_TAG,
-        f"Draft unsubmitted [{finding_name}] in [{group_name}]",
+        f"[ASM] Draft unsubmitted [{finding_name}] in [{group_name}]",
         "unsubmitted_draft",
     )
 
@@ -254,7 +258,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         stakeholders_email,
         mail_context,
         VERIFY_TAG,
-        f"New remediation for [{finding_name}] in [{group_name}]",
+        f"[ASM] New remediation for [{finding_name}] in [{group_name}]",
         "remediate_finding",
     )
 
@@ -302,6 +306,6 @@ async def send_mail_vulnerability_report(
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"[{finding_title}] {state} in [{group_name}].",
+        subject=f"[ASM] [{finding_title}] {state} in [{group_name}].",
         template_name="vulnerability_report",
     )

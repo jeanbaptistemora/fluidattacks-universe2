@@ -75,7 +75,7 @@ async def send_mail_updated_treatment(
         email_context,
         GENERAL_TAG,
         (
-            f"A vulnerability treatment has changed to "
+            f"[ASM] A vulnerability treatment has changed to "
             f'{email_context["treatment"]} in [{email_context["group"]}]'
         ),
         "updated_treatment",
@@ -121,7 +121,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         email_to,
         email_context,
         GENERAL_TAG,
-        f"A permanent treatment {approve_state} in [{group_name}]",
+        f"[ASM] A permanent treatment {approve_state} in [{group_name}]",
         "treatment_report",
     )
 
@@ -160,7 +160,7 @@ async def send_mail_temporal_treatment_report(
         users_email,
         email_context,
         GENERAL_TAG,
-        f"Temporal treatments are close to end in [{group_name}]",
+        f"[ASM] Temporal treatments are close to end in [{group_name}]",
         "temporal_treatment_report",
     )
 
@@ -192,7 +192,7 @@ async def send_mail_assigned_vulnerability(
         context=email_context,
         tags=GENERAL_TAG,
         subject=(
-            "Newly assigned vulnerability in "
+            "[ASM] Newly assigned vulnerability in "
             f"[{finding_title}] for [{group_name}]"
         ),
         template_name="vulnerability_assigned",

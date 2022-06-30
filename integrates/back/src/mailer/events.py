@@ -78,7 +78,7 @@ async def send_mail_comment(
         stakeholders_email,
         email_context,
         COMMENTS_TAG,
-        f"New comment in event #{event_id} for [{group_name}]",
+        f"[ASM] New comment in event #{event_id} for [{group_name}]",
         "new_comment",
     )
 
@@ -152,6 +152,6 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=(f"Event {state} #[{event_id}] for [{group_name}]"),
+        subject=(f"[ASM] Event {state} #[{event_id}] for [{group_name}]"),
         template_name="event_report",
     )
