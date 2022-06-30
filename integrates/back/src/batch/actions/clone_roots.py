@@ -98,7 +98,11 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
     dataloaders: Dataloaders = get_new_context()
     group_roots_loader = dataloaders.group_roots
-    group_roots = await group_roots_loader.load(group_name)
+    group_roots = tuple(
+        root
+        for root in await group_roots_loader.load(group_name)
+        if root.state.status == RootStatus.ACTIVE
+    )
     group: Group = await dataloaders.group.load(group_name)
 
     # In the off case there are multiple roots with the same nickname
@@ -288,7 +292,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         root
         for root in roots
         if root.state.status == RootStatus.ACTIVE
-        if isinstance(root, GitRoot)
+        and isinstance(root, GitRoot)
         and (root.state.use_vpn if queue_with_vpn else True)
     )
     for root in roots:
