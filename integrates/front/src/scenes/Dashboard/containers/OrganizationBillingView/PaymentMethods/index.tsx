@@ -11,7 +11,8 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AddPaymentModal } from "./AddPaymentMethodModal";
+import { AddCreditCardModal } from "./AddCreditCardModal";
+import { AddOtherMethodModal } from "./AddOtherMethodModal";
 import { Container } from "./styles";
 import { UpdatePaymentModal } from "./UpdatePaymentMethodModal";
 
@@ -81,10 +82,10 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
 
     // Add payment method
     const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState<
-      false | { mode: "ADD" }
+      "CREDIT_CARD" | "OTHER_METHOD" | false
     >(false);
     const openAddModal = useCallback((): void => {
-      setIsAddingPaymentMethod({ mode: "ADD" });
+      setIsAddingPaymentMethod("CREDIT_CARD");
     }, []);
     const closeAddModal = useCallback((): void => {
       setIsAddingPaymentMethod(false);
@@ -115,7 +116,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         });
       },
     });
-    const handleAddPaymentMethodSubmit = useCallback(
+    const handleAddCreditCardMethodSubmit = useCallback(
       async ({
         cardCvc,
         cardExpirationMonth,
@@ -142,6 +143,10 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
       [addPaymentMethod, organizationId]
     );
+
+    const handleAddOtherMethodSubmit = useCallback((): void => {
+      closeAddModal();
+    }, [closeAddModal]);
 
     // Remove payment method
     const canRemove: boolean = permissions.can(
@@ -349,10 +354,18 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             </Row>
           </div>
         </Row>
-        {isAddingPaymentMethod === false ? undefined : (
-          <AddPaymentModal
+        {isAddingPaymentMethod === "CREDIT_CARD" && (
+          <AddCreditCardModal
+            onChangeMethod={setIsAddingPaymentMethod}
             onClose={closeAddModal}
-            onSubmit={handleAddPaymentMethodSubmit}
+            onSubmit={handleAddCreditCardMethodSubmit}
+          />
+        )}
+        {isAddingPaymentMethod === "OTHER_METHOD" && (
+          <AddOtherMethodModal
+            onChangeMethod={setIsAddingPaymentMethod}
+            onClose={closeAddModal}
+            onSubmit={handleAddOtherMethodSubmit}
           />
         )}
         {isUpdatingPaymentMethod === false ? undefined : (

@@ -3,11 +3,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { boolean, object, string } from "yup";
 
+import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
-interface IAddPaymentModalProps {
+interface IAddCreditCardModalProps {
   onClose: () => void;
   onSubmit: (values: {
     cardCvc: string;
@@ -16,6 +17,9 @@ interface IAddPaymentModalProps {
     cardNumber: string;
     makeDefault: boolean;
   }) => Promise<void>;
+  onChangeMethod: React.Dispatch<
+    React.SetStateAction<"CREDIT_CARD" | "OTHER_METHOD" | false>
+  >;
 }
 
 const validations = object().shape({
@@ -26,17 +30,22 @@ const validations = object().shape({
   makeDefault: boolean(),
 });
 
-export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
+export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
   onClose,
   onSubmit,
-}: IAddPaymentModalProps): JSX.Element => {
+  onChangeMethod,
+}: IAddCreditCardModalProps): JSX.Element => {
   const { t } = useTranslation();
+
+  function goToOtherMethods(): void {
+    onChangeMethod("OTHER_METHOD");
+  }
 
   return (
     <Modal
       onClose={onClose}
       open={true}
-      title={t("organization.tabs.billing.paymentMethods.add.modal.add")}
+      title={t("organization.tabs.billing.paymentMethods.add.creditCard.add")}
     >
       <Formik
         initialValues={{
@@ -55,7 +64,9 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.add.modal.cvc")}
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.creditCard.cvc"
+                )}
               </ControlLabel>
               <Field component={FormikText} name={"cardCvc"} type={"text"} />
             </div>
@@ -63,7 +74,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t(
-                  "organization.tabs.billing.paymentMethods.add.modal.expirationMonth"
+                  "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth"
                 )}
               </ControlLabel>
               <Field
@@ -76,7 +87,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t(
-                  "organization.tabs.billing.paymentMethods.add.modal.expirationYear"
+                  "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear"
                 )}
               </ControlLabel>
               <Field
@@ -88,7 +99,9 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
             <div>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.paymentMethods.add.modal.number")}
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.creditCard.number"
+                )}
               </ControlLabel>
               <Field component={FormikText} name={"cardNumber"} type={"text"} />
             </div>
@@ -96,7 +109,7 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
               <Field
                 component={FormikCheckbox}
                 label={t(
-                  "organization.tabs.billing.paymentMethods.add.modal.default"
+                  "organization.tabs.billing.paymentMethods.add.creditCard.default"
                 )}
                 name={"makeDefault"}
                 type={"checkbox"}
@@ -106,6 +119,19 @@ export const AddPaymentModal: React.FC<IAddPaymentModalProps> = ({
               disabled={!dirty || isSubmitting}
               onCancel={onClose}
             />
+            <hr />
+            <div>
+              <Button
+                id={"other-payment-methods"}
+                onClick={goToOtherMethods}
+                type={"button"}
+                variant={"basic"}
+              >
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.creditCard.otherPaymentMethod"
+                )}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

@@ -1482,22 +1482,33 @@ export const enTranslations: ResourceKey = {
         paymentMethods: {
           add: {
             button: "Add",
+            creditCard: {
+              add: "Add credit card",
+              cvc: "Card CVC",
+              default: "Make card default payment method",
+              expirationMonth: "Card expiration month",
+              expirationYear: "Card expiration year",
+              number: "Card number",
+              otherPaymentMethod: "Other payment methods",
+            },
             errors: {
               alreadyExists:
                 "Provided payment method already exists. Please update or delete it first",
               couldNotBeCreated:
                 "Payment method could not be created. Please make sure all the details you provided are correct",
             },
-            modal: {
-              add: "Add payment method",
-              cvc: "Card CVC",
-              default: "Make card default payment method",
-              expirationMonth: "Card expiration month",
-              expirationYear: "Card expiration year",
-              number: "Card number",
+            otherMethods: {
+              add: "Add other payment method",
+              businessName: "Business name",
+              city: "City",
+              country: "Country",
+              creditCard: "Credit card",
+              email: "email",
+              rut: "rut",
+              taxId: "taxId",
             },
             success: {
-              body: "Payment method successfuly added",
+              body: "Payment method successfully added",
               title: "Success",
             },
           },
