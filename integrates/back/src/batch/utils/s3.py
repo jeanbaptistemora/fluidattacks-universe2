@@ -1,5 +1,8 @@
 import aioboto3
 import aiohttp
+from custom_exceptions import (
+    ErrorUploadingFileS3,
+)
 from db_model.roots.get import (
     get_upload_url_post,
 )
@@ -73,8 +76,8 @@ async def upload_cloned_repo_to_s3_tar(
                         await upload_response.text(),
                         extra=dict(extra=locals()),
                     )
-                else:
-                    success = True
+                    raise ErrorUploadingFileS3()
+                success = True
 
     os.remove(zip_output_path)
     return success

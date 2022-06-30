@@ -5,6 +5,7 @@ from batch.utils.s3 import (
     upload_cloned_repo_to_s3_tar,
 )
 from custom_exceptions import (
+    ErrorUploadingFileS3,
     InvalidParameter,
 )
 from datetime import (
@@ -15,6 +16,9 @@ from db_model.credentials.types import (
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from git.exc import (
     GitError,
@@ -34,6 +38,13 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+cloned_repo_to_s3_tar = retry_on_exceptions(
+    exceptions=(ErrorUploadingFileS3,),
+    max_attempts=4,
+    sleep_seconds=120,
+)(upload_cloned_repo_to_s3_tar)
 
 
 async def clone_root(
@@ -86,7 +97,7 @@ async def clone_root(
             shutil.rmtree(temp_dir, ignore_errors=True)
             return CloneResult(success=False, message=stderr)
 
-        success = await upload_cloned_repo_to_s3_tar(
+        success = await cloned_repo_to_s3_tar(
             repo_path=folder_to_clone_root,
             group_name=group_name,
             nickname=root_nickname,

@@ -1520,3 +1520,9 @@ class InvalidBase64SshKey(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The ssh key must be in base64"
         super(InvalidBase64SshKey, self).__init__(msg)
+
+
+class UnableToSendSms(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = "Exception - Unable to send sms message"
+        super(UnableToSendSms, self).__init__(msg)
