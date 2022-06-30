@@ -135,7 +135,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     )
 
     email_context: dict[str, Any] = {
-        "group": group_name.capitalize(),
+        "group": group_name.lower(),
         "event_type": event_type_format[event_type],
         "description": description.strip("."),
         "event_age": event_age,
