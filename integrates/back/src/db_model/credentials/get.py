@@ -17,8 +17,8 @@ from db_model.credentials.constants import (
     OWNER_INDEX_FACET,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
 )
 from db_model.credentials.utils import (
     format_credential,
@@ -32,12 +32,12 @@ from typing import (
 )
 
 
-async def _get_credentials_new(
-    *, requests: list[CredentialRequest]
-) -> tuple[Credential, ...]:
+async def _get_credentials(
+    *, requests: list[CredentialsRequest]
+) -> tuple[Credentials, ...]:
     primary_keys = tuple(
         keys.build_key(
-            facet=TABLE.facets["credentials_new_metadata"],
+            facet=TABLE.facets["credentials_metadata"],
             values={
                 "id": request.id,
                 "organization_id": request.organization_id,
@@ -60,19 +60,19 @@ async def _get_credentials_new(
     raise CredentialNotFound()
 
 
-class CredentialNewLoader(DataLoader):
+class CredentialsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, requests: list[CredentialRequest]
-    ) -> tuple[Credential, ...]:
-        return await _get_credentials_new(requests=requests)
+        self, requests: list[CredentialsRequest]
+    ) -> tuple[Credentials, ...]:
+        return await _get_credentials(requests=requests)
 
 
 async def _get_organization_credentials(
     *, organization_id: str
-) -> tuple[Credential, ...]:
+) -> tuple[Credentials, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["credentials_new_metadata"],
+        facet=TABLE.facets["credentials_metadata"],
         values={"organization_id": organization_id},
     )
 
@@ -85,7 +85,7 @@ async def _get_organization_credentials(
                 primary_key.partition_key
             )
         ),
-        facets=(TABLE.facets["credentials_new_metadata"],),
+        facets=(TABLE.facets["credentials_metadata"],),
         index=index,
         table=TABLE,
     )
@@ -93,18 +93,18 @@ async def _get_organization_credentials(
     return tuple(format_credential(item) for item in response.items)
 
 
-class OrganizationCredentialsNewLoader(DataLoader):
+class OrganizationCredentialsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, organization_ids: List[str]
-    ) -> tuple[tuple[Credential, ...], ...]:
+    ) -> tuple[tuple[Credentials, ...], ...]:
         return await collect(
             _get_organization_credentials(organization_id=organization_id)
             for organization_id in organization_ids
         )
 
 
-async def _get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
+async def _get_user_credentials(*, user_email: str) -> tuple[Credentials, ...]:
     primary_key = keys.build_key(
         facet=OWNER_INDEX_FACET,
         values={"owner": user_email},
@@ -124,11 +124,11 @@ async def _get_user_credentials(*, user_email: str) -> tuple[Credential, ...]:
     return tuple(format_credential(item) for item in response.items)
 
 
-class UserCredentialsNewLoader(DataLoader):
+class UserCredentialsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, user_emails: List[str]
-    ) -> tuple[tuple[Credential, ...], ...]:
+    ) -> tuple[tuple[Credentials, ...], ...]:
         return await collect(
             _get_user_credentials(user_email=user_email)
             for user_email in user_emails

@@ -5,7 +5,7 @@ from db_model import (
     TABLE,
 )
 from db_model.credentials.types import (
-    CredentialNewState,
+    CredentialsState,
 )
 from db_model.credentials.utils import (
     validate_secret,
@@ -17,17 +17,17 @@ from dynamodb import (
 import simplejson as json  # type: ignore
 
 
-async def update_credential_state_new(
+async def update_credential_state(
     *,
-    current_value: CredentialNewState,
+    current_value: CredentialsState,
     organization_id: str,
     credential_id: str,
-    state: CredentialNewState,
+    state: CredentialsState,
 ) -> None:
     validate_secret(state)
     key_structure = TABLE.primary_key
     credential_key = keys.build_key(
-        facet=TABLE.facets["credentials_new_metadata"],
+        facet=TABLE.facets["credentials_metadata"],
         values={
             "organization_id": organization_id,
             "id": credential_id,

@@ -2,8 +2,8 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
 )
 from db_model.groups.types import (
     Group,
@@ -24,7 +24,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Credential, ...]:
+) -> tuple[Credentials, ...]:
     loaders: Dataloaders = info.context.loaders
     group_roots: tuple[Root, ...] = await loaders.group_roots.load(parent.name)
     group_credential_ids = {
@@ -33,10 +33,10 @@ async def resolve(
         if isinstance(root, GitRoot) and root.state.credential_id
     }
     group_credentials = cast(
-        tuple[Credential, ...],
-        await loaders.credential_new.load_many(
+        tuple[Credentials, ...],
+        await loaders.credentials.load_many(
             tuple(
-                CredentialRequest(
+                CredentialsRequest(
                     id=credential_id,
                     organization_id=parent.organization_id,
                 )

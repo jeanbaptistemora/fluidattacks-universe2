@@ -1,5 +1,5 @@
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
     HttpsSecret,
 )
 from decorators import (
@@ -14,7 +14,7 @@ from typing import (
 
 
 @enforce_owner
-def resolve(parent: Credential, _info: GraphQLResolveInfo) -> Optional[str]:
+def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> Optional[str]:
     return (
         parent.state.secret.user
         if isinstance(parent.state.secret, HttpsSecret)

@@ -30,9 +30,9 @@ from db_model import (
     roots as roots_model,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
+    CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -125,11 +125,11 @@ async def add_credentials(
             password=attributes.password or "",
         )
     )
-    credential = Credential(
+    credential = Credentials(
         id=(str(uuid.uuid4())),
         organization_id=organization_id,
         owner=modified_by,
-        state=CredentialNewState(
+        state=CredentialsState(
             modified_by=modified_by,
             modified_date=datetime_utils.get_iso_date(),
             name=attributes.name,
@@ -140,7 +140,7 @@ async def add_credentials(
     await orgs_validations.validate_credentials_name_in_organization(
         loaders, credential.organization_id, credential.state.name
     )
-    await credentials_model.add_new(credential=credential)
+    await credentials_model.add(credential=credential)
 
 
 async def add_group_access(organization_id: str, group_name: str) -> bool:
@@ -429,7 +429,7 @@ async def remove_credentials(
         if isinstance(root, GitRoot)
         and root.state.credential_id == credentials_id
     )
-    await credentials_model.remove_new(
+    await credentials_model.remove(
         credential_id=credentials_id,
         organization_id=organization_id,
     )
@@ -463,8 +463,8 @@ async def remove_user(
     if not has_orgs:
         user_removed = user_removed and await stakeholders_domain.remove(email)
     user_credentials: tuple[
-        Credential, ...
-    ] = await loaders.user_credentials_new.load(email)
+        Credentials, ...
+    ] = await loaders.user_credentials.load(email)
     await collect(
         tuple(
             remove_credentials(
@@ -503,8 +503,8 @@ async def update_credentials(
     organization_id: str,
     modified_by: str,
 ) -> None:
-    current_credentials: Credential = await loaders.credential_new.load(
-        CredentialRequest(
+    current_credentials: Credentials = await loaders.credentials.load(
+        CredentialsRequest(
             id=credentials_id,
             organization_id=organization_id,
         )
@@ -549,14 +549,14 @@ async def update_credentials(
     else:
         secret = current_credentials.state.secret
 
-    new_state = CredentialNewState(
+    new_state = CredentialsState(
         modified_by=modified_by,
         modified_date=datetime_utils.get_iso_date(),
         name=credentials_name,
         secret=secret,
         type=credentials_type,
     )
-    await credentials_model.update_credential_state_new(
+    await credentials_model.update_credential_state(
         current_value=current_credentials.state,
         credential_id=credentials_id,
         organization_id=organization_id,

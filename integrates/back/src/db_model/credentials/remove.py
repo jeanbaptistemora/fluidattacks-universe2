@@ -7,9 +7,9 @@ from dynamodb import (
 )
 
 
-async def remove_new(*, credential_id: str, organization_id: str) -> None:
+async def remove(*, credential_id: str, organization_id: str) -> None:
     credential_key = keys.build_key(
-        facet=TABLE.facets["credentials_new_metadata"],
+        facet=TABLE.facets["credentials_metadata"],
         values={
             "organization_id": organization_id,
             "id": credential_id,

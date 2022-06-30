@@ -1,15 +1,15 @@
 from .add import (
-    add_new,
+    add,
 )
 from .remove import (
-    remove_new,
+    remove,
 )
 from .update import (
-    update_credential_state_new,
+    update_credential_state,
 )
 
 __all__ = [
-    "add_new",
-    "remove_new",
-    "update_credential_state_new",
+    "add",
+    "remove",
+    "update_credential_state",
 ]

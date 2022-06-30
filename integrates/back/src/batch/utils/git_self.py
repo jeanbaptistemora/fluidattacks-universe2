@@ -11,7 +11,7 @@ from datetime import (
     datetime,
 )
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -42,7 +42,7 @@ async def clone_root(
     root_nickname: str,
     branch: str,
     root_url: str,
-    cred: Credential,
+    cred: Credentials,
 ) -> CloneResult:
     with tempfile.TemporaryDirectory() as temp_dir:
         if isinstance(cred.state.secret, SshSecret):

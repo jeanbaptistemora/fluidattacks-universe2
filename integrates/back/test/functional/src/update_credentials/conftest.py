@@ -3,8 +3,8 @@ from back.test import (
     db,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
+    Credentials,
+    CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -35,12 +35,12 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data = {
-        "credentials_new": (
-            Credential(
+        "credentials": (
+            Credentials(
                 id="261bf518-f8f4-4f82-b996-3d034df44a27",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="user_manager@fluidattacks.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="Ssh key",
@@ -48,11 +48,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="9edc56a8-2743-437e-a6a9-4847b28e1fd5",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="user@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="Token",
@@ -60,11 +60,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     secret=HttpsPatSecret(token="token test"),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="42143c0c-a12c-4774-9d02-285b94e698e4",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="user@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="User and password",

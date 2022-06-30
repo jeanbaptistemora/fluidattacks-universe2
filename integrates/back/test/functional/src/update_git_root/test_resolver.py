@@ -58,8 +58,6 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     assert result["data"]["updateGitRoot"]["success"]
 
     loaders = get_new_context()
-    credentials = await loaders.organization_credentials_new.load(
-        organization_id
-    )
+    credentials = await loaders.organization_credentials.load(organization_id)
     credential_names = [credential.state.name for credential in credentials]
     assert cred_new_name in credential_names

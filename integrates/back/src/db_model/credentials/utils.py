@@ -2,8 +2,8 @@ from custom_exceptions import (
     InvalidCredentialSecret,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
+    Credentials,
+    CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -34,13 +34,13 @@ def format_secret(
     return SshSecret(key=item["key"])
 
 
-def format_credential(item: Item) -> Credential:
+def format_credential(item: Item) -> Credentials:
     credential_type = CredentialType(item["state"]["type"])
-    return Credential(
+    return Credentials(
         id=item["id"],
         organization_id=item["organization_id"],
         owner=item["owner"],
-        state=CredentialNewState(
+        state=CredentialsState(
             modified_by=item["state"]["modified_by"],
             modified_date=item["state"]["modified_date"],
             name=item["state"]["name"],
@@ -50,7 +50,7 @@ def format_credential(item: Item) -> Credential:
     )
 
 
-def validate_secret(state: CredentialNewState) -> None:
+def validate_secret(state: CredentialsState) -> None:
     if (
         state.type is CredentialType.SSH
         and not isinstance(state.secret, SshSecret)

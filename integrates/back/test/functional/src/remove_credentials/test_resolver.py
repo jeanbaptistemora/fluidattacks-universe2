@@ -6,7 +6,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
 )
 from db_model.organizations.types import (
     Organization,
@@ -42,8 +42,8 @@ async def test_remove_credentials(
     assert populate
     loaders: Dataloaders = get_new_context()
     org_credentials: tuple[
-        Credential, ...
-    ] = await loaders.organization_credentials_new.load(organization_id)
+        Credentials, ...
+    ] = await loaders.organization_credentials.load(organization_id)
     new_credentials = next(
         (
             credentials
@@ -62,7 +62,7 @@ async def test_remove_credentials(
     assert "success" in result["data"]["removeCredentials"]
     assert result["data"]["removeCredentials"]["success"]
     loaders = get_new_context()
-    org_credentials = await loaders.organization_credentials_new.load(
+    org_credentials = await loaders.organization_credentials.load(
         organization_id
     )
     new_credentials = next(

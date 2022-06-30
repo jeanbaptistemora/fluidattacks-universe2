@@ -3,8 +3,8 @@ from back.test import (
     db,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
+    Credentials,
+    CredentialsState,
     SshSecret,
 )
 from db_model.enums import (
@@ -49,12 +49,12 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "time": "1644596852",
             },
         ),
-        "credentials_new": (
-            Credential(
+        "credentials": (
+            Credentials(
                 id="261bf518-f8f4-4f82-b996-3d034df44a27",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="Good SSH Key",
@@ -62,11 +62,11 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     secret=SshSecret(key=os.environ["TEST_SSH_KEY"]),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="9edc56a8-2743-437e-a6a9-4847b28e1fd5",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-11 11:32:15+00:00",
                     name="Bad SSH Key",

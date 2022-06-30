@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name,not-callable
+# pylint: disable=invalid-name,unexpected-keyword-arg,missing-kwoa
 """
 Remove root from credential if that root has a new credential
 

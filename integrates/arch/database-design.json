@@ -9532,7 +9532,7 @@
           ]
         },
         {
-          "FacetName": "credentials_new_metadata",
+          "FacetName": "credentials_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "CRED#id",
             "SortKeyAlias": "ORG#organization_id"

@@ -14,9 +14,9 @@ from collections import (
     defaultdict,
 )
 from db_model.credentials.get import (
-    CredentialNewLoader,
-    OrganizationCredentialsNewLoader,
-    UserCredentialsNewLoader,
+    CredentialsLoader,
+    OrganizationCredentialsLoader,
+    UserCredentialsLoader,
 )
 from db_model.enrollment.get import (
     EnrollmentLoader,
@@ -95,7 +95,7 @@ from typing import (
 
 
 class Dataloaders(NamedTuple):
-    credential_new: CredentialNewLoader
+    credentials: CredentialsLoader
     enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
     event_historic_state: EventsHistoricStateLoader
@@ -130,7 +130,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
-    organization_credentials_new: OrganizationCredentialsNewLoader
+    organization_credentials: OrganizationCredentialsLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
@@ -149,7 +149,7 @@ class Dataloaders(NamedTuple):
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderTypedLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
-    user_credentials_new: UserCredentialsNewLoader
+    user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
@@ -193,7 +193,7 @@ def get_new_context() -> Dataloaders:
     )
 
     return Dataloaders(
-        credential_new=CredentialNewLoader(),
+        credentials=CredentialsLoader(),
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event_historic_state=EventsHistoricStateLoader(),
@@ -230,7 +230,7 @@ def get_new_context() -> Dataloaders:
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
-        organization_credentials_new=OrganizationCredentialsNewLoader(),
+        organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=OrganizationStakeholdersLoader(),
         organization=OrganizationLoader(),
@@ -247,7 +247,7 @@ def get_new_context() -> Dataloaders:
         stakeholder_level_role=StakeholderLevelRoleLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
-        user_credentials_new=UserCredentialsNewLoader(),
+        user_credentials=UserCredentialsLoader(),
         vulnerability=vulnerability,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
         vulnerability_historic_treatment=(

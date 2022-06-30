@@ -6,7 +6,7 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
 )
 from db_model.enums import (
     CredentialType,
@@ -61,8 +61,8 @@ async def test_add_credentials(
     assert result["data"]["addCredentials"]["success"]
     loaders: Dataloaders = get_new_context()
     org_credentials: tuple[
-        Credential, ...
-    ] = await loaders.organization_credentials_new.load(organization_id)
+        Credentials, ...
+    ] = await loaders.organization_credentials.load(organization_id)
     new_credentials = next(
         (
             credential

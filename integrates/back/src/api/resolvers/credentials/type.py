@@ -1,10 +1,10 @@
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-def resolve(parent: Credential, _info: GraphQLResolveInfo) -> str:
+def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str:
     return parent.state.type

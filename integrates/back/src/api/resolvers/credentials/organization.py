@@ -2,7 +2,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.credentials.types import (
-    Credential,
+    Credentials,
 )
 from db_model.organizations.types import (
     Organization,
@@ -17,7 +17,7 @@ from graphql.type.definition import (
 
 @require_organization_access
 async def resolve(
-    parent: Credential,
+    parent: Credentials,
     info: GraphQLResolveInfo,
 ) -> Organization:
     loaders: Dataloaders = info.context.loaders

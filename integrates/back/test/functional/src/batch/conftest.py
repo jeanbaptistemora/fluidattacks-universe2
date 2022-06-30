@@ -6,8 +6,8 @@ from batch.enums import (
     Action,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
+    Credentials,
+    CredentialsState,
     HttpsPatSecret,
     SshSecret,
 )
@@ -49,12 +49,12 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
-        "credentials_new": (
-            Credential(
+        "credentials": (
+            Credentials(
                 id="3912827d-2b35-4e08-bd35-1bb24457951d",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -62,11 +62,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=SshSecret(key="VGVzdCBTU0gK"),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -74,11 +74,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=SshSecret(key="VGVzdCBTU0gK"),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -86,11 +86,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     secret=SshSecret(key="VGVzdCBTU0gK"),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="5a6dacda-2d63-76c-6269-f6fd6dfe1000",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",
@@ -100,11 +100,11 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                 ),
             ),
-            Credential(
+            Credentials(
                 id="6a7dacda-3d64-87c-7370-f7fd7dfe2111",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
-                state=CredentialNewState(
+                state=CredentialsState(
                     modified_by="admin@gmail.com",
                     modified_date="2022-02-10T14:58:10+00:00",
                     name="SSH Key",

@@ -33,8 +33,8 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -124,9 +124,9 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             status=GitCloningStatus.CLONING,
             message="Cloning in progress...",
         )
-        root_cred: Optional[Credential] = (
-            await dataloaders.credential_new.load(
-                CredentialRequest(
+        root_cred: Optional[Credentials] = (
+            await dataloaders.credentials.load(
+                CredentialsRequest(
                     id=root.state.credential_id,
                     organization_id=group.organization_id,
                 )
@@ -201,7 +201,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
 
 
 async def _ls_remote_root(
-    root: GitRoot, cred: Credential, use_vpn: bool = False
+    root: GitRoot, cred: Credentials, use_vpn: bool = False
 ) -> Tuple[str, Optional[str]]:
     if use_vpn:
         return (root.id, None)
@@ -299,10 +299,10 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         raise InactiveRoot()
 
     root_credentials = cast(
-        tuple[Credential, ...],
-        await loaders.credential_new.load_many(
+        tuple[Credentials, ...],
+        await loaders.credentials.load_many(
             tuple(
-                CredentialRequest(
+                CredentialsRequest(
                     id=credential_id,
                     organization_id=group.organization_id,
                 )
@@ -314,10 +314,10 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             )
         ),
     )
-    root_credentials_dict: dict[str, Credential] = {
+    root_credentials_dict: dict[str, Credentials] = {
         credential.id: credential for credential in root_credentials
     }
-    credentials_for_roots: dict[str, Credential] = {
+    credentials_for_roots: dict[str, Credentials] = {
         root.id: root_credentials_dict[root.state.credential_id]
         for root in roots
         if root.state.credential_id is not None

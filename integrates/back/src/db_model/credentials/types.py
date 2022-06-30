@@ -20,7 +20,7 @@ class SshSecret(NamedTuple):
     key: str
 
 
-class CredentialNewState(NamedTuple):
+class CredentialsState(NamedTuple):
     modified_by: str
     modified_date: str
     name: str
@@ -28,13 +28,13 @@ class CredentialNewState(NamedTuple):
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
 
 
-class Credential(NamedTuple):
+class Credentials(NamedTuple):
     id: str
     organization_id: str
     owner: str
-    state: CredentialNewState
+    state: CredentialsState
 
 
-class CredentialRequest(NamedTuple):
+class CredentialsRequest(NamedTuple):
     id: str
     organization_id: str

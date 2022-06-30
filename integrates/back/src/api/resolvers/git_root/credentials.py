@@ -2,8 +2,8 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
 )
 from db_model.groups.types import (
     Group,
@@ -21,15 +21,15 @@ from typing import (
 
 async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
-) -> Optional[Credential]:
+) -> Optional[Credentials]:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(parent.group_name)
     if parent.state.credential_id:
-        request = CredentialRequest(
+        request = CredentialsRequest(
             id=parent.state.credential_id,
             organization_id=group.organization_id,
         )
-        credential: Credential = await loaders.credential_new.load(request)
+        credential: Credentials = await loaders.credentials.load(request)
         return credential
 
     return None

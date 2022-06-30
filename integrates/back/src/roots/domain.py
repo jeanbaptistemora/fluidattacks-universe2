@@ -31,9 +31,9 @@ from db_model import (
     roots as roots_model,
 )
 from db_model.credentials.types import (
-    Credential,
-    CredentialNewState,
-    CredentialRequest,
+    Credentials,
+    CredentialsRequest,
+    CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
@@ -218,7 +218,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     credentials: Optional[Dict[str, str]] = cast(
         Optional[Dict[str, str]], kwargs.get("credentials")
     )
-    organization_credential: Optional[Credential] = None
+    organization_credential: Optional[Credentials] = None
     root_id = str(uuid4())
 
     if credentials:
@@ -229,8 +229,8 @@ async def add_git_root(  # pylint: disable=too-many-locals
                 group.name,
                 user_email,
             )
-            organization_credential = await loaders.credential_new.load(
-                CredentialRequest(
+            organization_credential = await loaders.credentials.load(
+                CredentialsRequest(
                     id=credential_id,
                     organization_id=group.organization_id,
                 )
@@ -244,7 +244,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
                 organization_credential.organization_id,
                 organization_credential.state.name,
             )
-            await creds_model.add_new(credential=organization_credential)
+            await creds_model.add(credential=organization_credential)
 
     modified_date = datetime_utils.get_iso_date()
     root = GitRoot(
@@ -452,7 +452,7 @@ def _format_root_nickname(nickname: str, url: str) -> str:
 
 def _format_root_credential_new(
     credentials: Dict[str, str], organization_id: str, user_email: str
-) -> Credential:
+) -> Credentials:
     credential_name = credentials["name"]
     credential_type = CredentialType(credentials["type"])
 
@@ -472,11 +472,11 @@ def _format_root_credential_new(
         )
     )
 
-    return Credential(
+    return Credentials(
         id=str(uuid4()),
         organization_id=organization_id,
         owner=user_email,
-        state=CredentialNewState(
+        state=CredentialsState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
             name=credentials["name"],
@@ -584,7 +584,7 @@ async def _update_git_root_credentials(  # noqa: MC0001
     user_email: str,
 ) -> Optional[str]:
     credential_id = credentials.get("id") if credentials else None
-    credential_to_add: Optional[Credential] = None
+    credential_to_add: Optional[Credentials] = None
     if credentials and credential_id is None:
         credential_to_add = _format_root_credential_new(
             credentials, group.organization_id, user_email
@@ -599,7 +599,7 @@ async def _update_git_root_credentials(  # noqa: MC0001
             credential_to_add.organization_id,
             credential_to_add.state.name,
         )
-        await creds_model.add_new(credential=credential_to_add)
+        await creds_model.add(credential=credential_to_add)
         return credential_to_add.id
 
     if credential_id is not None:
