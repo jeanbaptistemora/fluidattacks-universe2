@@ -77,7 +77,7 @@ def main() -> None:
         if pltf in (ALL_PLATFORMS, *platforms) and (repo := clone_repo(url))
     ]
 
-    for platform in (pltf) if pltf != ALL_PLATFORMS else SUPPORTED_PLATFORMS:
+    for platform in [pltf] if pltf != ALL_PLATFORMS else SUPPORTED_PLATFORMS:
         advisories: Advisories = {}
         log_blocking("info", f"Processing vulnerabilities for {platform}")
         for get_ad, repo, platforms in tmp_repositories:
