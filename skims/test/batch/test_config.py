@@ -6,6 +6,7 @@ from model.core_model import (
     LocalesEnum,
     SkimsAPKConfig,
     SkimsConfig,
+    SkimsDastConfig,
     SkimsHttpConfig,
     SkimsPathConfig,
     SkimsSslConfig,
@@ -69,16 +70,24 @@ async def test_generate_config(test_group: str) -> None:
             include=("glob(**/*.apk)",),
         ),
         checks=({FindingEnum.F001, FindingEnum.F008}),
-        dast=None,
-        group=test_group,
-        http=SkimsHttpConfig(
-            include=(
-                "http://app.fluidattacks.com/",
-                "http://fluidattacks.com/",
-                "https://app.fluidattacks.com/",
-                "https://fluidattacks.com/",
+        dast=SkimsDastConfig(
+            aws_credentials=[],
+            http=SkimsHttpConfig(
+                include=(
+                    "http://app.fluidattacks.com/",
+                    "http://fluidattacks.com/",
+                    "https://app.fluidattacks.com/",
+                    "https://fluidattacks.com/",
+                ),
+            ),
+            ssl=SkimsSslConfig(
+                include=(
+                    SkimsSslTarget(host="app.fluidattacks.com", port=443),
+                    SkimsSslTarget(host="fluidattacks.com", port=443),
+                )
             ),
         ),
+        group=test_group,
         language=LocalesEnum.EN,
         namespace="static_namespace",
         output=os.path.abspath("result.csv"),
@@ -87,12 +96,6 @@ async def test_generate_config(test_group: str) -> None:
             exclude=("glob(**/.git)",),
             lib_path=True,
             lib_root=True,
-        ),
-        ssl=SkimsSslConfig(
-            include=(
-                SkimsSslTarget(host="app.fluidattacks.com", port=443),
-                SkimsSslTarget(host="fluidattacks.com", port=443),
-            )
         ),
         start_dir=os.getcwd(),
         working_dir=os.path.abspath("."),
@@ -105,5 +108,6 @@ async def test_generate_config(test_group: str) -> None:
         checks=("F001", "F008"),
     )
     assert expected.checks == result.checks
-    assert expected.http == result.http
-    assert expected.ssl == result.ssl
+    if expected.dast and result.dast:
+        assert expected.dast.http == result.dast.http
+        assert expected.dast.ssl == result.dast.ssl

@@ -50,12 +50,22 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                                     "secret_access_key": confuse.String(),
                                 }
                             )
-                        )
-                    }
-                ),
-                "http": confuse.Template(
-                    {
-                        "include": confuse.Sequence(confuse.String()),
+                        ),
+                        "http": confuse.Template(
+                            {
+                                "include": confuse.Sequence(confuse.String()),
+                            }
+                        ),
+                        "ssl": confuse.Template(
+                            {
+                                "include": confuse.Sequence(
+                                    {
+                                        "host": confuse.String(),
+                                        "port": confuse.Integer(),
+                                    }
+                                ),
+                            }
+                        ),
                     }
                 ),
                 "language": confuse.Choice(core_model.LocalesEnum),
@@ -69,16 +79,6 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                         "lib_root": confuse.OneOf([True, False]),
                     },
                 ),
-                "ssl": confuse.Template(
-                    {
-                        "include": confuse.Sequence(
-                            {
-                                "host": confuse.String(),
-                                "port": confuse.Integer(),
-                            }
-                        ),
-                    }
-                ),
                 "working_dir": confuse.String(),
             }
         ),
@@ -86,9 +86,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
 
     try:
         config_apk = config.pop("apk", {})
-        config_http = config.pop("http", {})
         config_path = config.pop("path", {})
-        config_ssl = config.pop("ssl", {})
         config_dast = config.pop("dast", {})
 
         if output := config.pop("output", None):
@@ -107,12 +105,23 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                         secret_access_key=cred["secret_access_key"],
                     )
                     for cred in config_dast.get("aws_credentials", [])
-                ]
+                ],
+                http=core_model.SkimsHttpConfig(
+                    include=config_dast.pop("http", {}).pop("include", ()),
+                ),
+                ssl=core_model.SkimsSslConfig(
+                    include=tuple(
+                        core_model.SkimsSslTarget(
+                            host=entry.pop("host"),
+                            port=entry.pop("port", 443),
+                        )
+                        for entry in config_dast.pop("ssl", {}).pop(
+                            "include", ()
+                        )
+                    )
+                ),
             ),
             group=group,
-            http=core_model.SkimsHttpConfig(
-                include=config_http.pop("include", ()),
-            ),
             language=core_model.LocalesEnum(config.pop("language", "EN")),
             namespace=config.pop("namespace"),
             output=output,
@@ -121,15 +130,6 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 include=config_path.pop("include", ()),
                 lib_path=config_path.pop("lib_path", True),
                 lib_root=config_path.pop("lib_root", True),
-            ),
-            ssl=core_model.SkimsSslConfig(
-                include=tuple(
-                    core_model.SkimsSslTarget(
-                        host=entry.pop("host"),
-                        port=entry.pop("port", 443),
-                    )
-                    for entry in config_ssl.pop("include", ())
-                )
             ),
             start_dir=os.getcwd(),
             working_dir=os.path.abspath(config.pop("working_dir", ".")),

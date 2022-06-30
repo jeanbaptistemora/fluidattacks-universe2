@@ -136,7 +136,7 @@ async def get_urls() -> Set[URLContext]:
 
     ntp_offset: Optional[float] = get_offset()
 
-    for url in set(CTX.config.http.include):
+    for url in set(CTX.config.dast.http.include):
         urls_pending.put(url)
 
     while not urls_pending.empty():

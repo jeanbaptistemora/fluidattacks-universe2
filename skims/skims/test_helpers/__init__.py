@@ -6,6 +6,7 @@ from model import (
 )
 from model.core_model import (
     LocalesEnum,
+    SkimsDastConfig,
 )
 import os
 from typing import (
@@ -25,11 +26,16 @@ def create_test_context(
             include=(),
         ),
         checks=set(core_model.FindingEnum),
-        dast=None,
-        group=None,
-        http=core_model.SkimsHttpConfig(
-            include=(),
+        dast=SkimsDastConfig(
+            aws_credentials=[],
+            http=core_model.SkimsHttpConfig(
+                include=(),
+            ),
+            ssl=core_model.SkimsSslConfig(
+                include=(),
+            ),
         ),
+        group=None,
         language=LocalesEnum.EN,
         namespace="test",
         output=None,
@@ -38,9 +44,6 @@ def create_test_context(
             exclude=exclude,
             lib_path=True,
             lib_root=True,
-        ),
-        ssl=core_model.SkimsSslConfig(
-            include=(),
         ),
         start_dir=os.getcwd(),
         working_dir=os.getcwd(),

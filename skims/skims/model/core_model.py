@@ -1076,6 +1076,8 @@ class SkimsSslConfig(NamedTuple):
 
 class SkimsDastConfig(NamedTuple):
     aws_credentials: List[Optional[AwsCredentials]]
+    http: SkimsHttpConfig
+    ssl: SkimsSslConfig
 
 
 class AwsCredentials(NamedTuple):
@@ -1084,15 +1086,13 @@ class AwsCredentials(NamedTuple):
 
 
 class SkimsConfig(NamedTuple):
+    path: SkimsPathConfig
     apk: SkimsAPKConfig
     checks: Set[FindingEnum]
     group: Optional[str]
-    http: SkimsHttpConfig
     language: LocalesEnum
     namespace: str
     output: Optional[str]
-    path: SkimsPathConfig
-    ssl: SkimsSslConfig
     start_dir: str
     working_dir: str
     dast: Optional[SkimsDastConfig]

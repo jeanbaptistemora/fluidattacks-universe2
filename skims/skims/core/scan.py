@@ -86,11 +86,11 @@ async def execute_skims(
 
     if CTX.config.apk.include:
         analyze_apk(stores=stores)
-    if CTX.config.http.include:
+    if CTX.config.dast.http.include:
         await analyze_http(stores=stores)
     if CTX.config.path.include:
         analyze_sast(stores=stores)
-    if CTX.config.ssl.include:
+    if CTX.config.dast.ssl.include:
         await analyze_ssl(stores=stores)
 
     if CTX.config.dast:

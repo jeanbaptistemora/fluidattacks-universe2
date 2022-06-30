@@ -6,7 +6,8 @@ output: skims/test/outputs/integrates2.csv
 path:
   include:
     - skims/test/data/lib_path/f117
-ssl:
-  include:
-    - host: localhost
-      port: 4446
+dast:
+  ssl:
+    include:
+      - host: localhost
+        port: 4446

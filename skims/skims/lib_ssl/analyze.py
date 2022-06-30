@@ -69,7 +69,7 @@ async def analyze_one(
 
 async def get_ssl_contexts() -> Set[SSLContext]:
     ssl_contexts: Set[SSLContext] = set()
-    for target in CTX.config.ssl.include:
+    for target in CTX.config.dast.ssl.include:
         responses: List[SSLServerResponse] = []
         for v_id in SSLVersionId:
             with suppress(Exception):

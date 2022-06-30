@@ -327,7 +327,16 @@ async def generate_config(
                         access_key_id=secrets["AWS_ACCESS_KEY_ID"],
                         secret_access_key=secrets["AWS_SECRET_ACCESS_KEY"],
                     )
-                ]
+                ],
+                http=SkimsHttpConfig(
+                    include=tuple(urls),
+                ),
+                ssl=SkimsSslConfig(
+                    include=tuple(
+                        SkimsSslTarget(host=host, port=int(port))
+                        for host, port in ssl_targets
+                    )
+                ),
             )
         urls = get_urls_from_scopes(scopes)
         ssl_targets = get_ssl_targets(urls)
@@ -348,9 +357,6 @@ async def generate_config(
         ),
         dast=dast_config,
         group=group_name,
-        http=SkimsHttpConfig(
-            include=tuple(urls),
-        ),
         language=language,
         namespace=namespace,
         output=os.path.abspath("result.csv"),
@@ -359,12 +365,6 @@ async def generate_config(
             exclude=tuple(sorted(("glob(**/.git)", *exclude))),
             lib_path=True,
             lib_root=True,
-        ),
-        ssl=SkimsSslConfig(
-            include=tuple(
-                SkimsSslTarget(host=host, port=int(port))
-                for host, port in ssl_targets
-            )
         ),
         start_dir=os.getcwd(),
         working_dir=os.path.abspath(working_dir),
