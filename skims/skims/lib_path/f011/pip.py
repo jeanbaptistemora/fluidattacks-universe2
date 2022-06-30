@@ -7,10 +7,28 @@ from model.core_model import (
     Platform,
     Vulnerabilities,
 )
+import os
 import requirements
+import subprocess  # nosec
 from typing import (
     Iterator,
 )
+from virtualenv import (
+    cli_run,
+)
+
+
+def create_venv_install_requirements(filename: str) -> None:
+    cli_run(["venv"])
+    activate_file = os.path.join("venv", "bin", "activate_this.py")
+    subprocess.call(["python", activate_file], shell=False)  # nosec
+    with open(filename, encoding="utf-8") as dependencies:
+        reqs = dependencies.readlines()
+
+    for item in reqs:
+        subprocess.call(  # nosec
+            ["venv/bin/pip", "install", f"{item}"], shell=False
+        )
 
 
 def pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
