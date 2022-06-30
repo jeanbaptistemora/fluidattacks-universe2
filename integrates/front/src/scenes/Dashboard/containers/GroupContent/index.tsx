@@ -18,6 +18,7 @@ import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupScopeView } from "../GroupScopeView";
 import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
 import { ToeContent } from "../ToeContent";
+import { Alert } from "components/Alert";
 import { Dot } from "components/Dot";
 import { Tab, Tabs } from "components/Tabs";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
@@ -65,6 +66,15 @@ const GroupContent: React.FC = (): JSX.Element => {
   const hasOpenEvents =
     events.filter((event): boolean => event.eventStatus === "CREATED").length >
     0;
+  const eventFormat: string =
+    events.filter((event): boolean => event.eventStatus.includes("CREATED"))
+      .length > 0
+      ? `${
+          events.filter((event): boolean =>
+            event.eventStatus.includes("CREATED")
+          ).length
+        } Event(s) need(s) attention`
+      : "None";
 
   // Side effects
   useTabTracking("Group");
@@ -76,6 +86,13 @@ const GroupContent: React.FC = (): JSX.Element => {
           <div>
             <div>
               <div>
+                <div>
+                  {hasOpenEvents ? (
+                    <Alert icon={true} variant={"error"}>
+                      {eventFormat}
+                    </Alert>
+                  ) : undefined}
+                </div>
                 <Tabs>
                   <Tab
                     id={"findingsTab"}
