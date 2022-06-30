@@ -413,6 +413,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if roots_to_clone:
         result = await put_action(
             action=Action.CLONE_ROOTS,
+            attempt_duration_seconds=5400,
             vcpus=1,
             memory=1800,
             entity=group_name,
