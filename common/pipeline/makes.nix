@@ -91,10 +91,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/commonKubernetes";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/commonOkta";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -140,10 +136,6 @@ in {
         }
         {
           output = "/lintTerraform/commonFoss";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintTerraform/commonKubernetes";
           gitlabExtra = gitlabLint;
         }
         {
@@ -228,10 +220,6 @@ in {
         }
         {
           output = "/testTerraform/commonFoss";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/testTerraform/commonKubernetes";
           gitlabExtra = gitlabTestInfra;
         }
         {
