@@ -3,6 +3,13 @@
     "appium": "1.22.0"
   },
   "overrides": {
-    "plist": "3.0.5"
+    "axios": "0.21.4",
+    "follow-redirects": "1.14.8",
+    "jpeg-js": "0.4.4",
+    "json-schema": "0.4.0",
+    "jszip": "3.10.0",
+    "minimist": "1.2.6",
+    "plist": "3.0.5",
+    "yargs-parser": "18.1.3"
   }
 }
