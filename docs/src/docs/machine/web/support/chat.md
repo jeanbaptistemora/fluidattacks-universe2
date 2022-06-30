@@ -5,6 +5,15 @@ sidebar_label: Live Chat
 slug: /machine/web/support/live-chat
 ---
 
+We offer three support channels,
+over which we give personalized
+and swift responses.
+These channels are
+Live chat,
+email `help@fluidattacks.com`
+and [Talk to an expert](/squad/support/talk-expert)
+(Squad Plan only).
+
 If you have a question about any
 feature of the ASM or need help
 on how to use it, we recommend
@@ -15,7 +24,7 @@ with fast and personalized support
 on minor issues for which it is not
 necessary to schedule a video call
 (in this case, the
-[Talk to an expert](/machine/web/support/talk-expert/)
+[Talk to an expert](/squad/support/talk-expert)
 option would apply).
 
 ![Second Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1644244093/docs/web/organizations/support/support__livechat_option.png)

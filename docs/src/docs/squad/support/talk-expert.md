@@ -2,7 +2,7 @@
 id: talk-expert
 title: Talk to an expert
 sidebar_label: Talk to an expert
-slug: /machine/web/support/talk-expert
+slug: /squad/support/talk-expert
 ---
 
 We recognize that sometimes you need

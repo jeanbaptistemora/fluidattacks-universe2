@@ -492,7 +492,6 @@ const Machine = [
         label: 'Support',
         items: [
           'machine/web/support/live-chat',
-          'machine/web/support/talk-expert',
         ],
       },
       {
@@ -621,6 +620,13 @@ const Machine = [
 const Squad = [
   'squad/reattacks',
   'squad/consulting',
+  {
+    type: 'category',
+    label: 'Support',
+    items: [
+      'squad/support/talk-expert',
+    ],
+  },
   'squad/false-negatives',
   'squad/weapons',
   'squad/counting-authors',
