@@ -12,6 +12,7 @@ import {
 } from "@storybook/addon-docs";
 import { ReactFramework } from "@storybook/react";
 import React, { Context, useContext } from "react";
+import styled from "styled-components";
 
 const ImportStatement = (): JSX.Element => {
   const context = useContext(
@@ -30,8 +31,14 @@ const ImportStatement = (): JSX.Element => {
   return <Source dark={true} language={"js"} code={statement} />;
 };
 
+const SBDocsTheme = styled.div.attrs({
+  className: "sb-theme",
+})`
+  font-family: Roboto, sans-serif;
+`;
+
 const DocsPage = (): JSX.Element => (
-  <React.Fragment>
+  <SBDocsTheme>
     <Title />
     <Subtitle />
     <Description />
@@ -39,7 +46,7 @@ const DocsPage = (): JSX.Element => (
     <Primary />
     <ArgsTable story={PRIMARY_STORY} />
     <Stories />
-  </React.Fragment>
+  </SBDocsTheme>
 );
 
 export { DocsPage };
