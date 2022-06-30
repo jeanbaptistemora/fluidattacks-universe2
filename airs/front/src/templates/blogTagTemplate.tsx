@@ -6,7 +6,11 @@ import { BlogTagList } from "../components/BlogTagList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { BlogPageArticle } from "../styles/styledComponents";
+import { Title } from "../components/Texts";
+import {
+  BlogPageArticle,
+  FlexCenterItemsContainer,
+} from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject } from "../utils/utilities";
 
@@ -47,6 +51,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
           <BlogPageArticle>
+            <FlexCenterItemsContainer>
+              <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"4"}>
+                {tagName}
+              </Title>
+            </FlexCenterItemsContainer>
             <BlogTagList tagName={tagName} />
           </BlogPageArticle>
         </div>

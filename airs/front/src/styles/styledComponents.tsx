@@ -366,6 +366,7 @@ const BlogPageArticle: StyledComponent<
   Record<string, unknown>
 > = styled.article.attrs({
   className: `
+    pt5
     bg-gray-221
   `,
 })``;
