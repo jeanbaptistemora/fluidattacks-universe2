@@ -177,7 +177,9 @@ async def clone_roots(*, item: BatchProcessing) -> None:
                 group_name=group_name,
                 root_id=root.id,
                 status=GitCloningStatus.FAILED,
-                message=root_cloned.message or "Clone failed",
+                message=root_cloned.message
+                if root_cloned.message and len(root_cloned.message) < 400
+                else "Clone failed",
             )
             LOGGER.info("Failed to clone %s", root.state.nickname)
 

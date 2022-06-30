@@ -20,9 +20,9 @@ async def validate_credentials_name_in_organization(
         Credentials, ...
     ] = await loaders.organization_credentials.load(organization_id)
     credentials_names = {
-        credentials.state.name for credentials in org_credentials
+        credentials.state.name.strip() for credentials in org_credentials
     }
-    if credentials_name in credentials_names:
+    if credentials_name.strip() in credentials_names:
         raise CredentialAlreadyExists()
 
 
