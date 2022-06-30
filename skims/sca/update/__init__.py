@@ -1,16 +1,26 @@
+from git import (
+    GitError,
+    Repo,
+)
 import json
+from repositories.advisories_community import (
+    get_advisories_community,
+    URL_ADVISORIES_COMMUNITY,
+)
 from repositories.advisory_database import (
     get_advisory_database,
-)
-from repositories.community_advisories import (
-    get_community_advisories,
+    URL_ADVISORY_DATABASE,
 )
 import sys
+from tempfile import (
+    TemporaryDirectory,
+)
 from typing import (
     Callable,
     Dict,
     Iterable,
     List,
+    Optional,
     Tuple,
 )
 from utils.logs import (
@@ -19,28 +29,64 @@ from utils.logs import (
 
 Advisories = Dict[str, Dict[str, str]]
 
-
-REPOSITORIES: List[Tuple[Callable[[Advisories, str], dict], Iterable[str]]] = [
-    (get_community_advisories, ("maven", "npm", "nuget")),
-    (get_advisory_database, ("maven", "npm", "nuget", "pip")),
+ALL_PLATFORMS = "all"
+REPOSITORIES: List[
+    Tuple[Callable[[Advisories, str, str], dict], str, Iterable[str]]
+] = [
+    (
+        get_advisories_community,
+        URL_ADVISORIES_COMMUNITY,
+        ("maven", "npm", "nuget"),
+    ),
+    (
+        get_advisory_database,
+        URL_ADVISORY_DATABASE,
+        ("maven", "npm", "nuget", "pip"),
+    ),
 ]
-VALID_ENTRIES = ("maven", "npm", "nuget", "pip")
+SUPPORTED_PLATFORMS = ("maven", "npm", "nuget", "pip")
+VALID_ENTRIES = (ALL_PLATFORMS, *SUPPORTED_PLATFORMS)
 
 
-def main(platform: str = None) -> None:
-    platform = platform or sys.argv[1] if len(sys.argv) > 1 else ""
-    if platform not in VALID_ENTRIES:
-        log_blocking("error", f"Invalid/Missing parameter")
+def clone_repo(url: str) -> Optional[str]:
+    tmp_dirname = TemporaryDirectory().name
+    try:
+        print(f"cloning {url}")
+        Repo.clone_from(url, tmp_dirname, depth=1)
+    except GitError as error:
+        log_blocking("error", f"Error cloning repository: {url}")
+        print(error)
         return None
-    platform = sys.argv[1]
-    advisories: Advisories = {}
-    for fun, platforms in REPOSITORIES:
-        if platform in platforms:
-            fun(advisories, platform)
+    return tmp_dirname
 
-    log_blocking("info", f"Creating file: {platform}.json")
-    with open(f"static/sca/{platform}_g.json", "w") as outfile:
-        json.dump(advisories, outfile, indent=2, sort_keys=True)
+
+def main() -> None:
+    pltf = sys.argv[1] if len(sys.argv) > 1 else ""
+    if pltf not in VALID_ENTRIES:
+        log_blocking(
+            "error",
+            f"Invalid/Missing parameter. Valid entries: {' | '.join(VALID_ENTRIES)}",
+        )
+        return None
+
+    # cloning repositories
+    log_blocking("info", f"Cloning neccesary repositories")
+    tmp_repositories = [
+        (fun, repo, platforms)
+        for fun, url, platforms in REPOSITORIES
+        if pltf in (ALL_PLATFORMS, *platforms) and (repo := clone_repo(url))
+    ]
+
+    for platform in (pltf) if pltf != ALL_PLATFORMS else SUPPORTED_PLATFORMS:
+        advisories: Advisories = {}
+        log_blocking("info", f"Processing vulnerabilities for {platform}")
+        for get_ad, repo, platforms in tmp_repositories:
+            if platform in platforms:
+                get_ad(advisories, repo, platform)
+        log_blocking("info", f"Creating file: {platform}.json")
+        with open(f"static/sca/{platform}.json", "w") as outfile:
+            json.dump(advisories, outfile, indent=2, sort_keys=True)
+            outfile.write("\n")
 
 
 main()

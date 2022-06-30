@@ -1,16 +1,9 @@
-from git import (
-    Repo,
-)
 import glob
 import json
-import tempfile
 from typing import (
     Any,
     Dict,
     List,
-)
-from utils.logs import (
-    log_blocking,
 )
 
 URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
@@ -46,27 +39,26 @@ def get_vulnerabilities_ranges(
                 advisories[pkg_name].update({vuln_id: str_range})
 
 
-def get_advisory_database(advisories: Advisories, platform: str) -> dict:
-    with tempfile.TemporaryDirectory() as tmp_dirname:
-        log_blocking("info", "Cloning repository: advisory-database")
-        Repo.clone_from(URL_ADVISORY_DATABASE, tmp_dirname, depth=1)
-        filenames = sorted(
-            glob.glob(
-                f"{tmp_dirname}/advisories/github-reviewed/**/*.json",
-                recursive=True,
-            )
+def get_advisory_database(
+    advisories: Advisories, tmp_dirname: str, platform: str
+) -> dict:
+    filenames = sorted(
+        glob.glob(
+            f"{tmp_dirname}/advisories/github-reviewed/**/*.json",
+            recursive=True,
         )
-        log_blocking("info", "Processing vulnerabilities")
-        for filename in filenames:
-            with open(filename, "r", encoding="utf-8") as stream:
-                try:
-                    from_json: dict = json.load(stream)
-                    vuln_id = str(from_json.get("id"))
-                    affected = from_json.get("affected") or []
-                    get_vulnerabilities_ranges(
-                        affected, vuln_id, platform, advisories
-                    )
-                except json.JSONDecodeError as exc:
-                    print(exc)
+    )
+    print("processing advisory-database")
+    for filename in filenames:
+        with open(filename, "r", encoding="utf-8") as stream:
+            try:
+                from_json: dict = json.load(stream)
+                vuln_id = str(from_json.get("id"))
+                affected = from_json.get("affected") or []
+                get_vulnerabilities_ranges(
+                    affected, vuln_id, platform, advisories
+                )
+            except json.JSONDecodeError as exc:
+                print(exc)
 
     return advisories
