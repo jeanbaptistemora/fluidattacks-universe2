@@ -41,6 +41,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.findings.constants import (
+    ME_DRAFTS_INDEX_METADATA,
+)
 from dynamodb import (
     historics,
     keys,
@@ -231,6 +234,39 @@ async def update_historic_state(  # pylint: disable=too-many-locals
         )
     )
     await collect(operation_coroutines)
+
+
+async def update_me_draft_index(
+    *,
+    finding_id: str,
+    group_name: str,
+    user_email: str,
+) -> None:
+    key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
+
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    base_condition = Attr(key_structure.partition_key).exists()
+    gsi_2_key = keys.build_key(
+        facet=ME_DRAFTS_INDEX_METADATA,
+        values={
+            "email": user_email,
+            "id": finding_id,
+        },
+    )
+    vulnerability_item = {
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+    }
+    await operations.update_item(
+        condition_expression=(base_condition),
+        item=vulnerability_item,
+        key=metadata_key,
+        table=TABLE,
+    )
 
 
 async def update_historic_verification(  # pylint: disable=too-many-locals

@@ -9,8 +9,17 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
+)
+from db_model.findings.update import (
+    update_me_draft_index,
+)
+from db_model.findings.utils import (
+    filter_non_state_status_findings,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -33,8 +42,6 @@ from typing import (
     Any,
     Dict,
     List,
-    Set,
-    Tuple,
 )
 
 
@@ -102,7 +109,7 @@ async def get_users_email_by_preferences(
     loaders: Any,
     group_name: str,
     notification: str,
-    roles: Set[str],
+    roles: set[str],
 ) -> List[str]:
     users = await get_group_users(group_name, active=True)
     user_roles = await collect(
@@ -136,18 +143,33 @@ async def remove_access(
         )
     )
     if user_email and group_name:
-        vulnerabilities: Tuple[
+        me_vulnerabilities: tuple[
             Vulnerability, ...
         ] = await loaders.me_vulnerabilities.load(user_email)
-        all_findings: Tuple[
+        me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(
+            user_email
+        )
+        all_findings: tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load(group_name)
 
-        findings_ids: Set[str] = {finding.id for finding in all_findings}
-        group_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        drafts = filter_non_state_status_findings(
+            all_findings,
+            {
+                FindingStateStatus.APPROVED,
+                FindingStateStatus.DELETED,
+            },
+        )
+
+        findings_ids: set[str] = {finding.id for finding in all_findings}
+        drafts_ids: set[str] = {draft.id for draft in drafts}
+        group_vulnerabilities: tuple[Vulnerability, ...] = tuple(
             vulnerability
-            for vulnerability in vulnerabilities
+            for vulnerability in me_vulnerabilities
             if vulnerability.finding_id in findings_ids
+        )
+        group_drafts: tuple[Finding, ...] = tuple(
+            draft for draft in me_drafts if draft.id in drafts_ids
         )
         await collect(
             tuple(
@@ -157,6 +179,16 @@ async def remove_access(
                     entry=None,
                 )
                 for vulnerability in group_vulnerabilities
+            )
+        )
+        await collect(
+            tuple(
+                update_me_draft_index(
+                    finding_id=draft.id,
+                    group_name=draft.group_name,
+                    user_email="",
+                )
+                for draft in group_drafts
             )
         )
     return success

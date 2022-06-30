@@ -24,6 +24,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.findings.constants import (
+    ME_DRAFTS_INDEX_METADATA,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -45,9 +48,17 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     if finding.state.status != FindingStateStatus.CREATED:
         raise InvalidStateStatus()
     key_structure = TABLE.primary_key
+    gsi_2_index = TABLE.indexes["gsi_2"]
     id_key = keys.build_key(
         facet=TABLE.facets["finding_id"],
         values={"id": finding.id},
+    )
+    gsi_2_key = keys.build_key(
+        facet=ME_DRAFTS_INDEX_METADATA,
+        values={
+            "email": finding.hacker_email,
+            "id": finding.id,
+        },
     )
     id_item = {
         key_structure.partition_key: id_key.partition_key,
@@ -93,6 +104,8 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
     initial_metadata: Dict[str, Any] = {
         key_structure.partition_key: metadata_key.partition_key,
         key_structure.sort_key: metadata_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         **finding_metadata,
     }
     items.append(initial_metadata)

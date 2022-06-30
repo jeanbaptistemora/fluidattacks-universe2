@@ -66,6 +66,72 @@ def format_evidences_item(evidences: FindingEvidences) -> Item:
     }
 
 
+def format_me_draft(
+    *,
+    item_id: str,
+    key_structure: PrimaryKey,
+    raw_items: Tuple[Item, ...],
+) -> Finding:
+    metadata = historics.get_metadata(
+        item_id=item_id, key_structure=key_structure, raw_items=raw_items
+    )
+
+    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
+        severity: Union[
+            Finding20Severity, Finding31Severity
+        ] = Finding31Severity(
+            **{
+                field: Decimal(metadata["severity"][field])
+                for field in Finding31Severity._fields
+            }
+        )
+    else:
+        severity = Finding20Severity(
+            **{
+                field: Decimal(metadata["severity"][field])
+                for field in Finding20Severity._fields
+            }
+        )
+    evidences = FindingEvidences(
+        **{
+            name: FindingEvidence(**evidence)
+            for name, evidence in metadata["evidences"].items()
+        }
+    )
+
+    min_time_to_remediate: Optional[int] = None
+    if "min_time_to_remediate" in metadata:
+        min_time_to_remediate = int(metadata["min_time_to_remediate"])
+
+    return Finding(
+        hacker_email=metadata["analyst_email"],
+        approval=None,
+        attack_vector_description=metadata["attack_vector_description"],
+        creation=None,
+        description=metadata["description"],
+        evidences=evidences,
+        group_name=metadata["group_name"],
+        id=metadata["id"],
+        severity=severity,
+        min_time_to_remediate=min_time_to_remediate,
+        sorts=FindingSorts[metadata["sorts"]],
+        submission=None,
+        recommendation=metadata["recommendation"],
+        requirements=metadata["requirements"],
+        title=metadata["title"],
+        threat=metadata["threat"],
+        state=FindingState(
+            justification=StateRemovalJustification.NO_JUSTIFICATION,
+            modified_by="",
+            modified_date="",
+            source=Source.ASM,
+            status=FindingStateStatus.CREATED,
+        ),
+        unreliable_indicators=FindingUnreliableIndicators(),
+        verification=None,
+    )
+
+
 def format_finding(
     *,
     item_id: str,

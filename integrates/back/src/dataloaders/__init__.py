@@ -33,6 +33,7 @@ from db_model.findings.get import (
     GroupDraftsAndFindingsLoader,
     GroupDraftsLoader,
     GroupFindingsLoader,
+    MeDraftsLoader,
 )
 from db_model.groups.get import (
     GroupHistoricStateLoader,
@@ -131,6 +132,7 @@ class Dataloaders(NamedTuple):
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_credentials: OrganizationCredentialsLoader
+    me_drafts: MeDraftsLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
@@ -228,6 +230,7 @@ def get_new_context() -> Dataloaders:
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
+        me_drafts=MeDraftsLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 23, 2022, 04:28 PM",
+    "DateLastModified": "Jun 30, 2022, 01:29 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2844,19 +2844,19 @@
           ],
           "NonKeyAttributes": [
             "access_token",
-            "email",
-            "first_name",
-            "is_concurrent_session",
-            "is_registered",
-            "notifications_preferences",
-            "last_login_date",
-            "last_name",
-            "legal_remember",
-            "phone",
-            "pk_2",
             "push_tokens",
             "registration_date",
+            "last_login_date",
+            "legal_remember",
+            "email",
+            "pk_2",
             "sk_2",
+            "notifications_preferences",
+            "first_name",
+            "last_name",
+            "is_concurrent_session",
+            "phone",
+            "is_registered",
             "tours"
           ]
         },
@@ -3980,8 +3980,8 @@
             }
           ],
           "NonKeyAttributes": [
-            "completed",
             "email",
+            "completed",
             "enrolled",
             "extension_date",
             "extension_days",
@@ -8258,21 +8258,21 @@
             }
           ],
           "NonKeyAttributes": [
-            "accessibility",
-            "action_after_blocking",
-            "action_before_blocking",
-            "affected_components",
-            "client",
-            "context",
             "description",
-            "event_date",
+            "type",
             "evidences",
-            "group_name",
-            "hacker",
+            "affected_components",
+            "accessibility",
             "id",
+            "group_name",
             "root_id",
             "state",
-            "type"
+            "context",
+            "client",
+            "hacker",
+            "event_date",
+            "action_after_blocking",
+            "action_before_blocking"
           ]
         },
         {
@@ -8658,9 +8658,9 @@
             }
           ],
           "NonKeyAttributes": [
-            "modified_by",
+            "status",
             "modified_date",
-            "status"
+            "modified_by"
           ]
         },
         {
@@ -12705,7 +12705,9 @@
             "group_name",
             "severity",
             "attack_vector_description",
-            "min_time_to_remediate"
+            "min_time_to_remediate",
+            "pk_2",
+            "sk_2"
           ]
         },
         {

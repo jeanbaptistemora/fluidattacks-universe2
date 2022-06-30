@@ -9,6 +9,7 @@ from .types import (
 from .utils import (
     filter_non_state_status_findings,
     format_finding,
+    format_me_draft,
     format_state,
     format_verification,
 )
@@ -29,6 +30,9 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.findings.constants import (
+    ME_DRAFTS_INDEX_METADATA,
 )
 from dynamodb import (
     historics,
@@ -79,6 +83,38 @@ async def _get_finding(*, group_name: str, finding_id: str) -> Finding:
         item_id=primary_key.partition_key,
         key_structure=key_structure,
         raw_items=response.items,
+    )
+
+
+async def _get_me_drafts(*, user_email: str) -> tuple[Finding, ...]:
+    primary_key = keys.build_key(
+        facet=ME_DRAFTS_INDEX_METADATA,
+        values={"email": user_email},
+    )
+
+    index = TABLE.indexes["gsi_2"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["finding_metadata"],),
+        index=index,
+        table=TABLE,
+    )
+    finding_items = defaultdict(list)
+    for item in response.items:
+        finding_id = "#".join(item[key_structure.sort_key].split("#")[:2])
+        finding_items[finding_id].append(item)
+
+    return tuple(
+        format_me_draft(
+            item_id=finding_id,
+            key_structure=key_structure,
+            raw_items=tuple(items),
+        )
+        for finding_id, items in finding_items.items()
     )
 
 
@@ -138,6 +174,18 @@ class GroupDraftsAndFindingsLoader(DataLoader):
     ) -> Tuple[Tuple[Finding, ...], ...]:
         return await collect(
             tuple(map(_get_drafts_and_findings_by_group, group_names))
+        )
+
+
+class MeDraftsLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, emails: tuple[str, ...]
+    ) -> tuple[Finding, ...]:
+        return await collect(
+            tuple(
+                _get_me_drafts(user_email=user_email) for user_email in emails
+            )
         )
 
 

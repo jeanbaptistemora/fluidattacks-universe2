@@ -81,11 +81,20 @@ async def approve_draft(
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.APPROVED,
     )
-    await findings_model.update_state(
-        current_value=finding.state,
-        finding_id=finding.id,
-        group_name=finding.group_name,
-        state=new_state,
+    await collect(
+        (
+            findings_model.update_state(
+                current_value=finding.state,
+                finding_id=finding.id,
+                group_name=finding.group_name,
+                state=new_state,
+            ),
+            findings_model.update_me_draft_index(
+                finding_id=finding.id,
+                group_name=finding.group_name,
+                user_email="",
+            ),
+        )
     )
     await collect(
         vulns_domain.update_historics_dates(
