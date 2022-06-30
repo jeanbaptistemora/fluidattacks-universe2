@@ -57,6 +57,9 @@ from decimal import (
 from group_access import (
     domain as group_access_domain,
 )
+from itertools import (
+    islice,
+)
 from mailer import (
     vulnerabilities as vulns_mailer,
 )
@@ -476,6 +479,7 @@ async def send_treatment_report_mail(
         notification=Notification.UPDATED_TREATMENT,
         roles=roles,
     )
+    managers_email = await get_managers_by_size(finding.group_name, 3)
     await vulns_mailer.send_mail_treatment_report(
         loaders=loaders,
         assigned=assigned,
@@ -483,12 +487,21 @@ async def send_treatment_report_mail(
         finding_title=finding.title,
         group_name=finding.group_name,
         justification=justification,
+        managers_email=managers_email,
         modified_by=modified_by,
         modified_date=str(datetime_utils.get_iso_date()),
         location=old_vuln_values.where,
         email_to=users_email,
         is_approved=is_approved,
     )
+
+
+async def get_managers_by_size(group_name: str, list_size: int) -> List[str]:
+    """Returns a list of managers with an specific length for the array"""
+    managers = list(
+        islice(await group_access_domain.get_managers(group_name), list_size)
+    )
+    return managers
 
 
 async def update_vulnerabilities_treatment(

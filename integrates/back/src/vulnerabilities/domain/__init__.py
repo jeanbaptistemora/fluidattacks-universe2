@@ -28,6 +28,7 @@ from .core import (
 )
 from .treatment import (
     add_vulnerability_treatment,
+    get_managers_by_size,
     get_treatment_changes,
     handle_vulnerabilities_acceptance,
     send_treatment_change_mail,
@@ -70,6 +71,7 @@ __all__ = [
     "verify_vulnerability",
     # treatment
     "add_vulnerability_treatment",
+    "get_managers_by_size",
     "get_treatment_changes",
     "handle_vulnerabilities_acceptance",
     "send_treatment_change_mail",

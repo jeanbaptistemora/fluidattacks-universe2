@@ -90,6 +90,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     finding_title: str,
     group_name: str,
     justification: Optional[str],
+    managers_email: List[str],
     modified_by: Optional[str],
     modified_date: str,
     location: str,
@@ -108,6 +109,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         "justification": justification,
         "finding": finding_title,
         "location": location,
+        "managers_email": managers_email,
         "approve_state": approve_state,
         "user_role": user_role.replace("_", " "),
         "finding_link": (

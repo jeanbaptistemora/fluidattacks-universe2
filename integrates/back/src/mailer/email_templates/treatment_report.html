@@ -12,13 +12,19 @@
       A permanent treatment {{ approve_state }} in the group <strong>{{ group }}</strong>
       {% if responsible %}by <strong>{{ responsible }}</strong> as {{ user_role }}{% endif %}:
     </p>
-    <p>
+    <p style="margin-bottom: 0px;">
       <strong>Date</strong>: {{ date }}<br>
       <strong>Type</strong>: {{ finding }}<br>
       <strong>Location</strong>: {{ location }}<br>
       <strong>Justification</strong>: {{ justification }}<br>
       <strong>Assigned</strong>: {{ assigned }}<br>
+      <Strong>Waiting for approval from</Strong>:
     </p>
+    <ul style="margin-top: 10px;line-height: 30px;margin-bottom: 2rem;">
+      {% for manager in managers_email %}
+        <li>{{ manager }}</li>
+      {% endfor %}
+    </ul>
     <p>Regards,<br>
       Fluid Attacks Team</p>
     {{ go_to_button('Go to type of vulnerability', finding_link) }}

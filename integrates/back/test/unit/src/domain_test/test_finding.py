@@ -53,6 +53,7 @@ from typing import (
     Tuple,
 )
 from vulnerabilities.domain import (
+    get_managers_by_size,
     send_treatment_report_mail,
     validate_treatment_change,
 )
@@ -573,3 +574,14 @@ async def test_send_treatment_report_mail_fail(
             vulnerability_id=vulnerability_id,
             is_approved=is_approved,
         )
+
+
+@pytest.mark.asyncio
+async def test_get_managers_by_size() -> None:
+    group_name = "unittesting"
+    email_managers = await get_managers_by_size(group_name, 3)
+    expected_len = 3
+    assert expected_len == len(email_managers)
+    email_managers = await get_managers_by_size(group_name, 2)
+    expected_len = 2
+    assert expected_len == len(email_managers)
