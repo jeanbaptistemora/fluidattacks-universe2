@@ -101,6 +101,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     approve_state: str = "has been approved" if is_approved else "is requested"
     user_email: str = modified_by if modified_by else ""
     user_role = await authz.get_group_level_role(user_email, group_name)
+    user_assigned_role = await authz.get_group_level_role(assigned, group_name)
     email_context: dict[str, Any] = {
         "assigned": assigned,
         "date": datetime_utils.get_date_from_iso_str(modified_date),
@@ -112,6 +113,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         "managers_email": managers_email,
         "approve_state": approve_state,
         "user_role": user_role.replace("_", " "),
+        "user_assigned_role": user_assigned_role.replace("_", " "),
         "finding_link": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
             f"/vulns/{finding_id}"
