@@ -1,6 +1,9 @@
 from aioextensions import (
     schedule,
 )
+from api.validations.directives import (
+    validate_directives,
+)
 from ariadne.asgi import (
     GraphQL,
 )
@@ -13,12 +16,16 @@ from dataloaders import (
 from dynamodb.exceptions import (
     DynamoDbBaseException,
 )
+from graphql import (
+    DocumentNode,
+)
 from newutils import (
     logs as logs_utils,
 )
 from starlette.requests import (
     Request,
 )
+import sys
 from typing import (
     Any,
     Dict,
@@ -54,7 +61,29 @@ async def _log_request(request: Request, operation: Operation) -> None:
     )
 
 
+def hook_early_validations() -> None:
+    """
+    Hook into the execution process before parsing the AST
+
+    Warning: This is intended as a temporal workaround while some patches
+    arrive upstream.
+    """
+    ariadne_graphql = sys.modules["ariadne.graphql"]
+    original = ariadne_graphql.parse_query  # type: ignore
+
+    def with_early_validations(query: str) -> DocumentNode:
+        validate_directives(query)
+
+        return original(query)
+
+    ariadne_graphql.parse_query = with_early_validations  # type: ignore
+
+
 class IntegratesAPI(GraphQL):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        hook_early_validations()
+
     async def get_context_for_request(self, request: Request) -> Request:
         data: Dict[str, Any] = await super().extract_data_from_request(request)
         operation = _get_operation(data)

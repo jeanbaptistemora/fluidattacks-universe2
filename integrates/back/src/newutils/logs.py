@@ -8,6 +8,10 @@ from aioextensions import (
 from context import (
     FI_ENVIRONMENT,
 )
+from custom_exceptions import (
+    ExpiredToken,
+    InvalidAuthorization,
+)
 import logging
 import logging.config
 from settings import (
@@ -28,7 +32,10 @@ def cloudwatch_log(request: Request, msg: str) -> None:
 
 
 async def cloudwatch_log_async(request: Request, msg: str) -> None:
-    user_data = await get_jwt_content(request)
+    try:
+        user_data = await get_jwt_content(request)
+    except (ExpiredToken, InvalidAuthorization):
+        user_data = {"user_email": "unauthenticated"}
     info = [str(user_data["user_email"])]
     info.append(FI_ENVIRONMENT)
     info.append(msg)
