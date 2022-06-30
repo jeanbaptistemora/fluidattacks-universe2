@@ -22,7 +22,7 @@
       <p>
         <strong>Last cloning date</strong>: {{ last_clone_date }}
         {%if days%}
-          ({{ days }} days ago)
+          ({{ days }} days ago).
         {% endif %}<br>
       </p>
     {% endif %}
@@ -30,9 +30,9 @@
     {{ go_to_button('Go to scope', scope_url) }}
     <p style="font-size: 13px !important; margin-top: 3rem !important; line-height : 150%;">
       <strong>More information about</strong>:<br>
-      <strong>ID</strong>: {{ root_id }}<br>
-      <strong>Creation Date</strong>: {{ root_creation_date }}<br>
-      <strong>Last modified by</strong>: {{ modified_by }}
+      <strong>ID</strong>: {{ root_id }}.<br>
+      <strong>Creation Date</strong>: {{ root_creation_date }}.<br>
+      <strong>Last modified by</strong>: {{ modified_by }}.
     </p>
   </div>
 

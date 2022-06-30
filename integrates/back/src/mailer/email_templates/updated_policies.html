@@ -13,9 +13,9 @@
       <strong>{{ responsible }}</strong> as {{ user_role }}:
     </p>
     <p>
-      <strong>Moment</strong>: {{ date }}<br>
+      <strong>Moment</strong>: {{ date }}.<br>
       {% for key, val in policies_content.items() %}
-        {{ key }}: <u>from</u> {{ val["from"] }} <u>to</u> {{ val["to"] }}<br>
+        {{ key }}: <u>from</u> {{ val["from"] }} <u>to</u> {{ val["to"] }}.<br>
       {% endfor %}
     </p>
     <p></p>
