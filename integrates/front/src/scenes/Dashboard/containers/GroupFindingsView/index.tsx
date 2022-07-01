@@ -49,7 +49,7 @@ import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/GroupFindingsView/types";
-import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikDropdown } from "utils/forms/fields";
@@ -741,7 +741,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }}
         exportCsv={false}
         extraButtons={
-          <Row>
+          <React.Fragment>
             <Can I={"api_resolvers_query_report__get_url_group_report"}>
               <TooltipWrapper
                 id={"group.findings.report.btn.tooltip.id"}
@@ -772,7 +772,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 </Button>
               </TooltipWrapper>
             </Can>
-          </Row>
+          </React.Fragment>
         }
         headers={tableHeaders}
         id={"tblFindings"}

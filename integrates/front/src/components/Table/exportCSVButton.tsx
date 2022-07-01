@@ -17,16 +17,14 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = ({
   }, [csvProps]);
 
   return (
-    <div>
-      <TooltipWrapper
-        id={"exportCsvTooltip"}
-        message={t("group.findings.exportCsv.tooltip")}
-      >
-        <Button onClick={handleClick}>
-          <FontAwesomeIcon icon={faDownload} />
-          &nbsp;{t("group.findings.exportCsv.text")}
-        </Button>
-      </TooltipWrapper>
-    </div>
+    <TooltipWrapper
+      id={"exportCsvTooltip"}
+      message={t("group.findings.exportCsv.tooltip")}
+    >
+      <Button onClick={handleClick}>
+        <FontAwesomeIcon icon={faDownload} />
+        &nbsp;{t("group.findings.exportCsv.text")}
+      </Button>
+    </TooltipWrapper>
   );
 };

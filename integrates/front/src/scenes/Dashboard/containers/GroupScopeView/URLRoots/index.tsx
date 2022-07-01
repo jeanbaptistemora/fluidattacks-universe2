@@ -19,7 +19,6 @@ import { Table } from "components/Table";
 import { changeFormatter } from "components/Table/formatters";
 import { filterSearchText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
-import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -209,7 +208,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                 dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
-                  <Row>
+                  <React.Fragment>
                     <InternalSurfaceButton />
                     <Can do={"api_mutations_add_url_root_mutate"}>
                       <Button onClick={openAddModal} variant={"secondary"}>
@@ -217,7 +216,7 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
                         &nbsp;{t("group.scope.common.add")}
                       </Button>
                     </Can>
-                  </Row>
+                  </React.Fragment>
                 }
                 headers={[
                   {

@@ -23,7 +23,6 @@ import {
   ADD_IP_ROOT,
   UPDATE_IP_ROOT,
 } from "scenes/Dashboard/containers/GroupScopeView/queries";
-import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -212,7 +211,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                 dataset={filterSearchtextResult}
                 exportCsv={true}
                 extraButtons={
-                  <Row>
+                  <React.Fragment>
                     <InternalSurfaceButton />
                     <Can do={"api_mutations_add_ip_root_mutate"}>
                       <Button onClick={openAddModal} variant={"secondary"}>
@@ -220,7 +219,7 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
                         &nbsp;{t("group.scope.common.add")}
                       </Button>
                     </Can>
-                  </Row>
+                  </React.Fragment>
                 }
                 headers={[
                   {

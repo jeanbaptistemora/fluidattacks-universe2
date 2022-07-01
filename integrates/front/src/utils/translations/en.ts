@@ -656,7 +656,7 @@ export const enTranslations: ResourceKey = {
         generateXls: "Generate XLS",
         modalClose: "Close",
         modalTitle: "Reports",
-        pdf: "  Executive",
+        pdf: "Executive",
         pdfTooltip:
           "Receive a pdf file with an executive report that gives you summarized information " +
           "about all the findings of this group",
