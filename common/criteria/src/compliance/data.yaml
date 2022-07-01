@@ -6587,4 +6587,151 @@
     "V1_1_1":
       title: Secure software development lifecycle requirements
       link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_1_3":
+      title: Secure software development lifecycle requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_2_2":
+      title: Authentication architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_2_4":
+      title: Authentication architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_4_1":
+      title: Access control architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_4_3":
+      title: Access control architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_4_4":
+      title: Access control architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_5_1":
+      title: Input and output architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_5_2":
+      title: Input and output architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_5_3":
+      title: Input and output architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_5_4":
+      title: Input and output architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_6_1":
+      title: Cryptographic architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_6_2":
+      title: Cryptographic architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_6_3":
+      title: Cryptographic architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_6_4":
+      title: Cryptographic architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_7_2":
+      title: Errors, logging and auditing architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_8_2":
+      title: Data protection and privacy architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_9_1":
+      title: Communications architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_9_2":
+      title: Communications architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_10_1":
+      title: Malicious software architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_11_3":
+      title: Business logic architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_12_1":
+      title: Secure file upload architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_12_2":
+      title: Secure file upload architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_14_1":
+      title: Configuration architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_14_2":
+      title: Configuration architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_14_5":
+      title: Configuration architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V1_14_6":
+      title: Configuration architectural requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_1_1":
+      title: Password security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_1_5":
+      title: Password security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_1_6":
+      title: Password security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_1_7":
+      title: Password security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_1":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_2":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_3":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_4":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_6":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_2_7":
+      title: General authenticator requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_3_1":
+      title: Authenticator lifecycle requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_4_1":
+      title: Credential storage requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_4_2":
+      title: Credential storage requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_4_5":
+      title: Credential storage requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_5_2":
+      title: Credential recovery requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_5_4":
+      title: Credential recovery requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_5_5":
+      title: Credential recovery requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_5_6":
+      title: Credential recovery requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_6_2":
+      title: Look-up secret verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_7_1":
+      title: Out of band verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_7_2":
+      title: Out of band verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_7_3":
+      title: Out of band verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_7_4":
+      title: Out of band verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
   metadata: {}
