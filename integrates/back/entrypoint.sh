@@ -41,11 +41,6 @@ function serve {
         # The number of worker processes for handling requests
         --workers 1
       )
-    elif test "${env}" == 'dev-mobile'; then
-      config+=(
-        # The number of worker processes for handling requests
-        --workers 1
-      )
     elif test "${env}" == 'eph'; then
       config+=(
         # The number of seconds to wait for requests on a Keep-Alive connection
@@ -70,7 +65,7 @@ function serve {
         --workers "1"
       )
     else
-      error First argument must be one of: dev, dev-mobile, eph, prod, prod-local
+      error First argument must be one of: dev, eph, prod, prod-local
     fi \
     && pushd integrates \
     && kill_port "${PORT}" \

@@ -6,21 +6,19 @@ function main {
   true \
     && case "${env}" in
       dev) aws_login_dev ;;
-      dev-mobile) aws_login_dev ;;
       eph) aws_login_dev ;;
       prod) aws_login_prod 'integrates' ;;
       prod-local) aws_login_prod 'integrates' ;;
-      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-local' ;;
+      *) abort '[ERROR] First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in
       dev) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
-      dev-mobile) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       eph) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
       prod-local) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
         && export DEBUG=True \
         && export REDIS_SERVER=localhost ;;
-      *) abort '[ERROR] First argument must be one of: dev, dev-mobile, eph, prod, prod-lcoal' ;;
+      *) abort '[ERROR] First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && export CI_COMMIT_REF_NAME \
     && export CI_COMMIT_SHA \

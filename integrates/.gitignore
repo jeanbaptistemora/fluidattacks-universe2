@@ -1,4 +1,3 @@
-/**/.expo/
 /**/google-services.json
 /**/*.css.d.ts
 /**/geckodriver.log
@@ -15,7 +14,6 @@
 /build
 back/src/reports/tpls/*.tpl
 db/.data/
-expoClient.apk
 coverage.xml
 .coverage.*
 /front/coverage

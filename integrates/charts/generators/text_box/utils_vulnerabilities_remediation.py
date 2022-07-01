@@ -7,9 +7,6 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.single_value_indicator.remediation import (
-    get_totals_by_week,
-)
 from charts.utils import (
     get_cvssf,
     get_portfolios_groups,
@@ -42,8 +39,12 @@ from db_model.utils import (
     get_first_day_iso_date,
     get_min_iso_date,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from decimal import (
     Decimal,
@@ -54,12 +55,16 @@ from dynamodb.exceptions import (
 from findings.domain.core import (
     get_severity_score,
 )
+from more_itertools import (
+    chunked,
+)
 from pandas import (
     date_range,
     DatetimeIndex,
 )
 from typing import (
     NamedTuple,
+    Optional,
 )
 
 
@@ -107,6 +112,119 @@ def get_percentage_change(
     return Decimal(
         Decimal(current / total).normalize() * Decimal("100.0")
     ).quantize(Decimal("0.01"))
+
+
+def get_current_sprint_state(
+    historic_state: tuple[VulnerabilityState, ...],
+    sprint_start_date: datetime,
+) -> Optional[VulnerabilityState]:
+    return next(
+        (
+            item
+            for item in list(reversed(historic_state))
+            if datetime.fromisoformat(item.modified_date) >= sprint_start_date
+        ),
+        None,
+    )
+
+
+def get_last_state(
+    historic_state: tuple[VulnerabilityState, ...],
+    last_day: datetime,
+) -> Optional[VulnerabilityState]:
+    return next(
+        (
+            item
+            for item in list(reversed(historic_state))
+            if datetime.fromisoformat(item.modified_date) <= last_day
+        ),
+        None,
+    )
+
+
+async def had_state_by_then(
+    *,
+    last_day: datetime,
+    findings_cvssf: dict[str, Decimal],
+    loaders: Dataloaders,
+    state: VulnerabilityStateStatus,
+    vulnerabilities: tuple[Vulnerability, ...],
+    sprint: bool = False,
+) -> Decimal:
+
+    historics_states: tuple[
+        tuple[VulnerabilityState, ...], ...
+    ] = await loaders.vulnerability_historic_state.load_many(
+        tuple(vulnerability.id for vulnerability in vulnerabilities)
+    )
+
+    lasts_valid_states: tuple[Optional[VulnerabilityState], ...] = tuple()
+    if sprint:
+        lasts_valid_states = tuple(
+            get_current_sprint_state(historic_state, last_day)
+            for historic_state in historics_states
+        )
+    else:
+        lasts_valid_states = tuple(
+            get_last_state(historic_state, last_day)
+            for historic_state in historics_states
+        )
+
+    return Decimal(
+        sum(
+            findings_cvssf[str(vulnerability.finding_id)]
+            if last_valid_state and last_valid_state.status == state
+            else Decimal("0.0")
+            for vulnerability, last_valid_state in zip(
+                vulnerabilities, lasts_valid_states
+            )
+        )
+    )
+
+
+async def get_totals_by_week(
+    *,
+    vulnerabilities: tuple[Vulnerability, ...],
+    findings_cvssf: dict[str, Decimal],
+    last_day: datetime,
+    loaders: Dataloaders,
+    sprint: bool = False,
+) -> tuple[Decimal, Decimal]:
+    open_vulnerabilities = sum(
+        await collect(
+            tuple(
+                had_state_by_then(
+                    last_day=last_day,
+                    loaders=loaders,
+                    state=VulnerabilityStateStatus.OPEN,
+                    vulnerabilities=chunked_vulnerabilities,
+                    findings_cvssf=findings_cvssf,
+                    sprint=sprint,
+                )
+                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
+            ),
+            workers=8,
+        )
+    )
+
+    closed_vulnerabilities = sum(
+        await collect(
+            tuple(
+                had_state_by_then(
+                    last_day=last_day,
+                    loaders=loaders,
+                    state=VulnerabilityStateStatus.CLOSED,
+                    vulnerabilities=chunked_vulnerabilities,
+                    findings_cvssf=findings_cvssf,
+                    sprint=sprint,
+                )
+                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
+            ),
+            workers=8,
+        )
+    )
+
+    return Decimal(open_vulnerabilities), Decimal(closed_vulnerabilities)
 
 
 @alru_cache(maxsize=None, typed=True)
