@@ -5,6 +5,7 @@ from aioextensions import (
 from batch.dal import (
     describe_jobs,
     get_action,
+    OPTIONS as BATCH_OPTIONS,
     put_action_to_batch,
     terminate_batch_job,
     update_action_to_dynamodb,
@@ -12,11 +13,6 @@ from batch.dal import (
 from batch.enums import (
     Action,
     Product,
-)
-from context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-    FI_AWS_SESSION_TOKEN,
 )
 from datetime import (
     datetime,
@@ -33,13 +29,6 @@ from typing import (
 )
 
 LOGGER = logging.getLogger("console")
-
-OPTIONS = dict(
-    service_name="batch",
-    aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-    aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    aws_session_token=FI_AWS_SESSION_TOKEN,
-)
 
 
 async def get_all_jobs(client: Any, queue: str, status: str) -> list[str]:
@@ -60,7 +49,7 @@ async def get_all_jobs(client: Any, queue: str, status: str) -> list[str]:
 
 
 async def get_log_streams(log_stream_name: str) -> list[Any]:
-    options = OPTIONS.copy()
+    options = BATCH_OPTIONS.copy()
     options.update({"service_name": "logs"})
 
     async with aioboto3.Session().client(**options) as cloudwatch:
@@ -74,7 +63,7 @@ async def get_log_streams(log_stream_name: str) -> list[Any]:
 
 
 async def main() -> None:
-    async with aioboto3.Session().client(**OPTIONS) as batch:
+    async with aioboto3.Session().client(**BATCH_OPTIONS) as batch:
         jobs = flatten(
             await collect(
                 [

@@ -1,9 +1,7 @@
-import aioboto3
 from aioextensions import (
     collect,
 )
 from batch.dal import (
-    delete_action,
     describe_jobs,
     get_actions_by_name,
     put_action,
@@ -16,10 +14,6 @@ from batch.types import (
     Job,
     PutActionResult,
     VulnerabilitiesSummary,
-)
-from context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
 )
 from custom_exceptions import (
     RootAlreadyCloning,
@@ -254,7 +248,7 @@ async def _queue_sync_git_roots(
     return None
 
 
-async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
+async def queue_job_new(  # pylint: disable=too-many-arguments
     group_name: str,
     dataloaders: Any,
     finding_codes: Union[Tuple[str, ...], List[str]],
@@ -277,49 +271,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
 
     if not roots:
         return None
-
-    current_executions = tuple(
-        execution
-        for execution in await get_actions_by_name(
-            action_name="execute-machine", entity=group_name
-        )
-        if execution.queue == queue.value
-    )
-    current_executions = tuple(
-        sorted(current_executions, key=lambda x: int(x.time))
-    )
-    for execution in current_executions:
-        exc_info = json.loads(execution.additional_info)
-        roots = tuple({*roots, *exc_info["roots"]})
-        finding_codes = tuple({*finding_codes, *exc_info["checks"]})
-
-    dynamodb_pk = (
-        current_executions[-1].key
-        if current_executions and not current_executions[-1].running
-        else None
-    )
-
-    async with aioboto3.Session().client(
-        **(
-            dict(
-                service_name="batch",
-                aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-                aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-            )
-        )
-    ) as batch:
-        for execution in current_executions[:-1]:
-            if not execution.running:
-                LOGGER.info(
-                    "There is already a job in queue, %s will be removed",
-                    execution.key,
-                )
-                await delete_action(dynamodb_pk=execution.key)
-                if job_id := execution.batch_job_id:
-                    await batch.terminate_job(
-                        jobId=job_id, reason="not required"
-                    )
-                    await batch.cancel_job(jobId=job_id, reason="not required")
 
     if (
         (clone_before and dataloaders)
@@ -357,7 +308,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments,too-many-locals
         ),
         attempt_duration_seconds=86400,
         subject="integrates@fluidattacks.com",
-        dynamodb_pk=dynamodb_pk,
         memory=7200,
         **kwargs,
     )

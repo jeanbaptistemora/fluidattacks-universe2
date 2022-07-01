@@ -12,6 +12,7 @@ import authz
 from context import (
     FI_AWS_BATCH_ACCESS_KEY,
     FI_AWS_BATCH_SECRET_KEY,
+    FI_AWS_SESSION_TOKEN,
 )
 from custom_exceptions import (
     HasVulns,
@@ -1414,12 +1415,13 @@ async def add_machine_execution(
     **kwargs: Any,
 ) -> bool:
     tzn = pytz.timezone(TIME_ZONE)
-    resource_options = dict(
+    options = dict(
         service_name="batch",
         aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
         aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+        aws_session_token=FI_AWS_SESSION_TOKEN,
     )
-    async with aioboto3.Session().client(**resource_options) as client:
+    async with aioboto3.Session().client(**options) as client:
         response = await client.describe_jobs(jobs=[job_id])
         jobs = response.get("jobs", [])
 

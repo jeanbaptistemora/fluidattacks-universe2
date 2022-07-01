@@ -5,13 +5,6 @@ from aioextensions import (
 from batch.types import (
     PutActionResult,
 )
-from botocore.exceptions import (
-    ClientError,
-)
-from context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
-)
 from contextlib import (
     suppress,
 )
@@ -41,7 +34,6 @@ from schedulers.common import (
     info,
 )
 from typing import (
-    Any,
     NamedTuple,
     Optional,
 )
@@ -84,23 +76,6 @@ def _is_check_available(check: str) -> bool:
     with suppress(NotImplementedError):
         return is_check_available(check)
     return False
-
-
-async def get_jobs_from_bach(*job_ids: str) -> list[dict[str, Any]]:
-    jobs = list(job_ids)
-    if not jobs:
-        return []
-    resource_options = dict(
-        service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
-    )
-    async with aioboto3.Session().client(**resource_options) as batch:
-        try:
-            result = await batch.describe_jobs(jobs=jobs)
-            return result["jobs"]
-        except ClientError:
-            return []
 
 
 async def _roots_by_group(
