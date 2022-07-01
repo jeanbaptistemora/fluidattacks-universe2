@@ -83,10 +83,10 @@ resource "okta_policy_rule_signon" "main" {
   risc_level         = ""
 
   mfa_required = true
-  mfa_prompt   = "ALWAYS"
+  mfa_prompt   = "SESSION"
+  mfa_lifetime = 1440
 
-  mfa_lifetime       = 1440
-  session_idle       = 1440
+  session_idle       = 10080
   session_lifetime   = 10080
   session_persistent = false
 }
