@@ -18,7 +18,7 @@ interface ICountries {
 }
 
 const countries = async (
-  setCities: React.Dispatch<React.SetStateAction<ICountries[] | undefined>>
+  setCountries: React.Dispatch<React.SetStateAction<ICountries[] | undefined>>
 ): Promise<void> => {
   const url =
     "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json";
@@ -28,15 +28,15 @@ const countries = async (
     const response = await fetch(url);
 
     if (response.status === 200) {
-      const citiesObj: ICountries[] = await response.json();
-      setCities(citiesObj);
+      const countriesObj: ICountries[] = await response.json();
+      setCountries(countriesObj);
     } else {
       Logger.error(errorMsg, response);
-      setCities(undefined);
+      setCountries(undefined);
     }
   } catch (error) {
     Logger.error(errorMsg, error);
-    setCities(undefined);
+    setCountries(undefined);
   }
 };
 

@@ -1,12 +1,14 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { countries } from "utils/countries";
+import type { ICountries } from "utils/countries";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 
 interface IAddOtherMethodModalProps {
   onClose: () => void;
@@ -32,7 +34,7 @@ const validations = object().shape({
   taxId: string().required(),
 });
 
-export const AddOtherMethodModal: React.FC<IAddOtherMethodModalProps> = ({
+export const AddOtherMethodModal = ({
   onClose,
   onSubmit,
   onChangeMethod,
@@ -42,6 +44,19 @@ export const AddOtherMethodModal: React.FC<IAddOtherMethodModalProps> = ({
   function goToCreditCard(): void {
     onChangeMethod("CREDIT_CARD");
   }
+
+  const [countriesData, setCountriesData] = useState<ICountries[] | undefined>(
+    undefined
+  );
+
+  useEffect((): void => {
+    async function getData(): Promise<void> {
+      await countries(setCountriesData);
+    }
+    getData().catch((): void => {
+      setCountriesData(undefined);
+    });
+  }, [setCountriesData]);
 
   return (
     <Modal
@@ -84,7 +99,36 @@ export const AddOtherMethodModal: React.FC<IAddOtherMethodModalProps> = ({
                   "organization.tabs.billing.paymentMethods.add.otherMethods.country"
                 )}
               </ControlLabel>
-              <Field component={FormikText} name={"country"} type={"text"} />
+              <Field component={FormikDropdown} name={"country"}>
+                <option value={""}>{""}</option>
+                {countriesData === undefined
+                  ? undefined
+                  : countriesData.map(
+                      (country): JSX.Element => (
+                        <option key={country.id} value={country.name}>
+                          {country.name}
+                        </option>
+                      )
+                    )}
+              </Field>
+            </div>
+            <div>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.otherMethods.state"
+                )}
+              </ControlLabel>
+              <Field component={FormikText} name={"state"} type={"text"} />
+            </div>
+            <div>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.otherMethods.city"
+                )}
+              </ControlLabel>
+              <Field component={FormikText} name={"city"} type={"text"} />
             </div>
             <div>
               <ControlLabel>
@@ -112,15 +156,6 @@ export const AddOtherMethodModal: React.FC<IAddOtherMethodModalProps> = ({
                 )}
               </ControlLabel>
               <Field component={FormikText} name={"taxId"} type={"text"} />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.city"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"city"} type={"text"} />
             </div>
             <ModalConfirm
               disabled={!dirty || isSubmitting}

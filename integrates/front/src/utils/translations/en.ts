@@ -1505,6 +1505,7 @@ export const enTranslations: ResourceKey = {
               creditCard: "Credit card",
               email: "email",
               rut: "rut",
+              state: "state",
               taxId: "taxId",
             },
             success: {
