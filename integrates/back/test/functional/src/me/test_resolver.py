@@ -1,7 +1,17 @@
-# pylint: disable=import-error, useless-suppression, too-many-arguments
+# pylint: disable=import-error, too-many-arguments
 from . import (
+    get_has_drafts_rejected,
     get_result,
     get_vulnerabilities,
+)
+from back.test.functional.src.reject_draft import (
+    get_result as reject_draft,
+)
+from back.test.functional.src.submit_draft import (
+    get_result as submit_draft,
+)
+from back.test.functional.src.unsubscribe_from_group import (
+    get_result as unsubscribe_from_group,
 )
 import pytest
 from typing import (
@@ -23,7 +33,7 @@ from typing import (
                 "countryCode": "US",
                 "nationalNumber": "1111111111",
             },
-            0,
+            2,
         ),
         (
             "user@gmail.com",
@@ -176,3 +186,68 @@ async def test_get_me_assigned(
     )
     assert "errors" not in result
     assert len(result["data"]["me"]["vulnerabilitiesAssigned"]) == length
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("me")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_get_me_has_drafts_rejected(populate: bool, email: str) -> None:
+    assert populate
+    not_rejected: dict[str, Any] = await get_has_drafts_rejected(
+        user=email,
+    )
+    assert "errors" not in not_rejected
+    assert not not_rejected["data"]["me"]["hasDraftsRejected"]
+
+    reject_draft_result: dict[str, Any] = await reject_draft(
+        user=email, finding_id="3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+    assert "errors" not in reject_draft_result
+    assert reject_draft_result["data"]["rejectDraft"]["success"]
+
+    rejected: dict[str, Any] = await get_has_drafts_rejected(
+        user=email,
+    )
+    assert "errors" not in rejected
+    assert rejected["data"]["me"]["hasDraftsRejected"]
+
+    submit_draft_result: dict[str, Any] = await submit_draft(
+        user=email, finding_id="3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+    assert "errors" not in submit_draft_result
+    assert submit_draft_result["data"]["submitDraft"]["success"]
+
+    not_rejected_1: dict[str, Any] = await get_has_drafts_rejected(
+        user=email,
+    )
+    assert "errors" not in not_rejected_1
+    assert not not_rejected_1["data"]["me"]["hasDraftsRejected"]
+
+    reject_draft_result_1: dict[str, Any] = await reject_draft(
+        user=email, finding_id="3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+    assert "errors" not in reject_draft_result_1
+    assert reject_draft_result_1["data"]["rejectDraft"]["success"]
+
+    rejected_2: dict[str, Any] = await get_has_drafts_rejected(
+        user=email,
+    )
+    assert "errors" not in rejected_2
+    assert rejected_2["data"]["me"]["hasDraftsRejected"]
+
+    unsubscribe: dict[str, Any] = await unsubscribe_from_group(
+        user=email, group="group1"
+    )
+    assert "errors" not in unsubscribe
+    assert unsubscribe["data"]["unsubscribeFromGroup"]["success"]
+
+    not_rejected_2: dict[str, Any] = await get_has_drafts_rejected(
+        user=email,
+    )
+    assert "errors" not in not_rejected_2
+    assert not not_rejected_2["data"]["me"]["hasDraftsRejected"]

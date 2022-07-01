@@ -99,3 +99,24 @@ async def get_vulnerabilities(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_has_drafts_rejected(
+    *,
+    user: str,
+) -> dict[str, Any]:
+    query: str = """
+        query GetMeHasDraftsRejected {
+            me {
+                hasDraftsRejected
+                userEmail
+                __typename
+            }
+        }
+    """
+    data: dict[str, Any] = {"query": query}
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
