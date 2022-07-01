@@ -23,6 +23,7 @@ import { Filters } from "./Filters";
 import { TableContainer } from "./styles";
 
 import { Button } from "components/Button";
+import { Gap } from "components/Layout";
 import { CustomToggleList } from "components/Table/customToggleList";
 import { ExportCSVButtonWrapper } from "components/Table/exportCSVButton";
 import style from "components/Table/index.css";
@@ -33,7 +34,6 @@ import type {
 } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
-  ButtonGroup,
   ButtonToolbarRow,
   SearchText,
   TableOptionsColBar,
@@ -134,112 +134,93 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           extraButtons !== undefined ||
           extraButtonsRight !== undefined ? (
             <div className={`flex flex-wrap justify-between pa0 w-100`}>
-              <div>
-                {exportCsv && (
-                  <ButtonGroup>
-                    <ExportCSVButtonWrapper {...toolkitProps} />
-                  </ButtonGroup>
-                )}
+              <Gap>
+                {extraButtons}
+                {exportCsv && <ExportCSVButtonWrapper {...toolkitProps} />}
                 {columnToggle && (
-                  <ButtonGroup>
-                    <CustomToggleList
-                      propsTable={tableProps}
-                      propsToggle={columnToggleProps}
-                    />
-                  </ButtonGroup>
+                  <CustomToggleList
+                    propsTable={tableProps}
+                    propsToggle={columnToggleProps}
+                  />
                 )}
                 {!_.isUndefined(isFilterEnabled) && (
-                  <ButtonGroup>
-                    <TooltipWrapper
-                      id={"filterTooltip"}
-                      message={t("table.tooltip")}
+                  <TooltipWrapper
+                    id={"filterTooltip"}
+                    message={t("table.tooltip")}
+                  >
+                    <Button
+                      onClick={handleUpdateEnableFilter}
+                      variant={"secondary"}
                     >
-                      <Button
-                        onClick={handleUpdateEnableFilter}
-                        variant={"secondary"}
-                      >
-                        {isFilterEnabled ? (
-                          <FontAwesomeIcon icon={faSearchMinus} />
-                        ) : (
-                          <FontAwesomeIcon icon={faSearchPlus} />
-                        )}
-                        &nbsp;
-                        {t("table.filters")}
-                      </Button>
-                    </TooltipWrapper>
-                  </ButtonGroup>
+                      <FontAwesomeIcon
+                        icon={isFilterEnabled ? faSearchMinus : faSearchPlus}
+                      />
+                      &nbsp;
+                      {t("table.filters")}
+                    </Button>
+                  </TooltipWrapper>
                 )}
-                <ButtonGroup>{extraButtons}</ButtonGroup>
                 {!_.isUndefined(isCustomFilterEnabled) && (
-                  <ButtonGroup>
-                    <TooltipWrapper
-                      id={"CustomFilterTooltip"}
-                      message={t("table.tooltip")}
+                  <TooltipWrapper
+                    id={"CustomFilterTooltip"}
+                    message={t("table.tooltip")}
+                  >
+                    <Button
+                      id={"filter-config"}
+                      onClick={handleUpdateEnableCustomFilter}
                     >
-                      <Button
-                        id={"filter-config"}
-                        onClick={handleUpdateEnableCustomFilter}
-                        variant={"secondary"}
-                      >
-                        {isCustomFilterEnabled ? (
-                          <FontAwesomeIcon icon={faSearchMinus} />
-                        ) : (
-                          <FontAwesomeIcon icon={faSearchPlus} />
-                        )}
-                        &nbsp;
-                        {t("table.filters")}
-                      </Button>
-                    </TooltipWrapper>
-                  </ButtonGroup>
+                      <FontAwesomeIcon
+                        icon={
+                          isCustomFilterEnabled ? faSearchMinus : faSearchPlus
+                        }
+                      />
+                      &nbsp;
+                      {t("table.filters")}
+                    </Button>
+                  </TooltipWrapper>
                 )}
                 {!_.isUndefined(isCustomSearchEnabled) &&
                   isCustomSearchEnabled &&
                   searchPosition === "left" && (
-                    <ButtonGroup>
-                      <div className={"pb1 ph1-5 w-100"}>
-                        <SearchText
-                          onChange={onUpdateCustomSearch}
-                          placeholder={t("table.search")}
-                          style={
-                            customSearchDefault === ""
-                              ? {}
-                              : {
-                                  boxShadow: "0 3px 5px #2e2e38",
-                                  color: "#2e2e38",
-                                }
-                          }
-                          value={customSearchDefault ?? ""}
-                        />
-                      </div>
-                    </ButtonGroup>
+                    <div className={"pb1 ph1-5 w-100"}>
+                      <SearchText
+                        onChange={onUpdateCustomSearch}
+                        placeholder={t("table.search")}
+                        style={
+                          customSearchDefault === ""
+                            ? {}
+                            : {
+                                boxShadow: "0 3px 5px #2e2e38",
+                                color: "#2e2e38",
+                              }
+                        }
+                        value={customSearchDefault ?? ""}
+                      />
+                    </div>
                   )}
-              </div>
+              </Gap>
               {extraButtonsRight === undefined &&
               isCustomSearchEnabled === false ? undefined : (
-                <div>
+                <div className={"dib"}>
                   {searchPosition === "right" ? (
-                    <ButtonGroup>
-                      <div
-                        className={"nt1-l nt0 pb1 pl2 pt1 pt0-m pt0-l w-100"}
-                      >
-                        <SearchText
-                          defaultValue={customSearchDefault ?? ""}
-                          onChange={onUpdateCustomSearch}
-                          placeholder={t("table.search")}
-                          style={
-                            customSearchDefault === ""
-                              ? {}
-                              : {
-                                  boxShadow: "0 3px 5px #2e2e38",
-                                  color: "#2e2e38",
-                                }
-                          }
-                          value={customSearchDefault ?? ""}
-                        />
-                      </div>
-                    </ButtonGroup>
+                    <div className={"nt1-l nt0 pb1 pl2 pt1 pt0-m pt0-l w-100"}>
+                      <SearchText
+                        defaultValue={customSearchDefault ?? ""}
+                        onChange={onUpdateCustomSearch}
+                        placeholder={t("table.search")}
+                        style={
+                          customSearchDefault === ""
+                            ? {}
+                            : {
+                                boxShadow: "0 3px 5px #2e2e38",
+                                color: "#2e2e38",
+                              }
+                        }
+                        value={customSearchDefault ?? ""}
+                      />
+                    </div>
                   ) : undefined}
-                  <ButtonGroup>{extraButtonsRight}</ButtonGroup>
+                  {extraButtonsRight}
                 </div>
               )}
             </div>
