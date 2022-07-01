@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    VulnNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -14,6 +17,9 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -69,12 +75,26 @@ async def reset_group_expired_accepted_findings(
             and (is_accepted_expired or is_undefined_accepted_expired)
         ):
             updated_values = {"treatment": "NEW"}
-            await vulns_domain.add_vulnerability_treatment(
-                finding_id=finding_id,
-                updated_values=updated_values,
-                vuln=vuln,
-                user_email=vuln.treatment.modified_by,
-            )
+            try:
+                await vulns_domain.add_vulnerability_treatment(
+                    finding_id=finding_id,
+                    updated_values=updated_values,
+                    vuln=vuln,
+                    user_email=vuln.treatment.modified_by,
+                )
+            # Retry due to optimistic locking on dynamo's part
+            except VulnNotFound:
+                loaders.vulnerability.clear(vuln.id)
+                rvuln: Vulnerability = await loaders.vulnerability.load(
+                    vuln.id
+                )
+                if rvuln.treatment and rvuln.treatment.modified_by:
+                    await vulns_domain.add_vulnerability_treatment(
+                        finding_id=finding_id,
+                        updated_values=updated_values,
+                        vuln=rvuln,
+                        user_email=rvuln.treatment.modified_by,
+                    )
             updated_finding_ids.add(finding_id)
             updated_vuln_ids.add(vuln.id)
 
