@@ -6881,4 +6881,58 @@
     "V6_2_6":
       title: Algorithms
       link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V10_2_1":
+      title: Malicious code search
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V10_2_3":
+      title: Malicious code search
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V10_3_2":
+      title: Deployed application integrity controls
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V10_3_3":
+      title: Deployed application integrity controls
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V11_1_2":
+      title: Business logic security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_1_1":
+      title: File upload requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_1_3":
+      title: File upload requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_2_2":
+      title: File integrity requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_4_1":
+      title: File storage requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_4_2":
+      title: File storage requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V12_5_1":
+      title: File download requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V13_1_1":
+      title: Generic web service security verification requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V13_1_2":
+      title: Generic web service security verification requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V13_1_3":
+      title: Generic web service security verification requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V13_1_5":
+      title: Generic web service security verification requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V14_2_4":
+      title: Dependency
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V14_3_2":
+      title: Unintended security disclosure requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V14_3_3":
+      title: Unintended security disclosure requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
   metadata: {}
