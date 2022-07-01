@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Gap } from "components/Layout";
 
 interface IModalConfirmProps {
   disabled?: boolean;
@@ -25,20 +26,22 @@ const ModalConfirm: React.FC<IModalConfirmProps> = ({
 
   return (
     <div className={"mt3 comp-modal-confirm"}>
-      <Button
-        disabled={disabled}
-        id={id}
-        onClick={isSubmit ? undefined : onConfirm}
-        type={isSubmit ? "submit" : "button"}
-        variant={"primary"}
-      >
-        {txtConfirm ?? t("components.modal.confirm")}
-      </Button>
-      {onCancel ? (
-        <Button id={`${id}-cancel`} onClick={onCancel} variant={"secondary"}>
-          {txtCancel ?? t("components.modal.cancel")}
+      <Gap>
+        <Button
+          disabled={disabled}
+          id={id}
+          onClick={isSubmit ? undefined : onConfirm}
+          type={isSubmit ? "submit" : "button"}
+          variant={"primary"}
+        >
+          {txtConfirm ?? t("components.modal.confirm")}
         </Button>
-      ) : undefined}
+        {onCancel ? (
+          <Button id={`${id}-cancel`} onClick={onCancel} variant={"secondary"}>
+            {txtCancel ?? t("components.modal.cancel")}
+          </Button>
+        ) : undefined}
+      </Gap>
     </div>
   );
 };
