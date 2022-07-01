@@ -23,14 +23,21 @@ and can respond to you as quickly as possible.
   the question mark icon on the
   top-right corner of the screen.
 
-  ![Talk to an expert option](https://res.cloudinary.com/fluid-attacks/image/upload/v1643913866/docs/web/organizations/support/support_drop_down_menu.png)
+  ![Talk to an expert option](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691473/docs/squad/support/talk_to_expert_option.png)
+
+1. A pop-up window will appear
+  where you will find
+  **Talk to an expert** next to
+  our other support options.
+
+  ![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691472/docs/squad/support/support_options.png)
 
 1. By clicking there, you can see
   calendar availability and schedule a
   videoconference according to your
   convenience to meet your information needs.
 
-  ![Calendar Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1643913866/docs/web/organizations/support/support_schedule_calendar.png)
+  ![Calendar Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691580/docs/squad/support/support_schedule_calendar.png)
 
 1. After selecting the date and
   time, you need to enter some details
@@ -41,7 +48,7 @@ and can respond to you as quickly as possible.
   Then, you click on the blue
   **Schedule event** button.
 
-  ![Schedule Event](https://res.cloudinary.com/fluid-attacks/image/upload/v1643913866/docs/web/organizations/support/support_schedule_event.png)
+  ![Schedule Event](https://res.cloudinary.com/fluid-attacks/image/upload/v1656691606/docs/squad/support/support_schedule_event.png)
 
 1. After that, you can see the
   pop-up window that gives you the
