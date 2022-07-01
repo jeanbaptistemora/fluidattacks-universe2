@@ -555,6 +555,7 @@ def require_login(func: TVar) -> TVar:
             user_data: Any = await token_utils.get_jwt_content(context)
             if token_utils.is_api_token(user_data):
                 await verify_jti(
+                    context.loaders,
                     user_data["user_email"],
                     context.headers.get("Authorization"),
                     user_data["jti"],
@@ -748,8 +749,10 @@ def validate_connection(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
-async def verify_jti(email: str, context: Dict[str, str], jti: str) -> None:
+async def verify_jti(
+    loaders: Any, email: str, context: Dict[str, str], jti: str
+) -> None:
     if not await stakeholders_domain.has_valid_access_token(
-        email, context, jti
+        loaders, email, context, jti
     ):
         raise InvalidAuthorization()

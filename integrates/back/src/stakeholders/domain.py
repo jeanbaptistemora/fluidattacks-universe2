@@ -27,6 +27,7 @@ from db_model.groups.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderAccessToken,
     StakeholderPhone,
 )
 from group_access import (
@@ -312,10 +313,18 @@ async def get_name(mail: str) -> dict[str, dict[str, Any]]:
 
 
 async def has_valid_access_token(
-    email: str, context: dict[str, str], jti: str
+    loaders: Any, email: str, context: dict[str, str], jti: str
 ) -> bool:
     """Verify if has active access token and match."""
-    access_token = cast(dict[str, str], await get_data(email, "access_token"))
+    try:
+        stakeholder: Optional[Stakeholder] = await loaders.stakeholder.load(
+            email
+        )
+    except StakeholderNotFound:
+        stakeholder = None
+    access_token: Optional[StakeholderAccessToken] = (
+        stakeholder.access_token if stakeholder else None
+    )
     resp = False
     if context and access_token:
         resp = token_utils.verificate_hash_token(access_token, jti)

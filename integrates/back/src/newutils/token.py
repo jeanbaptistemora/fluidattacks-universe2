@@ -23,6 +23,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.stakeholders.types import (
+    StakeholderAccessToken,
+)
 from jose import (
     jwt,
     JWTError,
@@ -231,12 +234,12 @@ def new_encoded_jwt(payload: Dict[str, Any], api: bool = False) -> str:
 
 
 def verificate_hash_token(
-    access_token: Dict[str, str], jti_token: str
+    access_token: StakeholderAccessToken, jti_token: str
 ) -> bool:
     resp = False
     backend = default_backend()
     token_hashed = Scrypt(
-        salt=binascii.unhexlify(access_token["salt"]),
+        salt=binascii.unhexlify(access_token.salt),
         length=NUMBER_OF_BYTES,
         n=SCRYPT_N,
         r=SCRYPT_R,
@@ -246,7 +249,7 @@ def verificate_hash_token(
     try:
         token_hashed.verify(
             binascii.unhexlify(jti_token),
-            binascii.unhexlify(access_token["jti"]),
+            binascii.unhexlify(access_token.jti),
         )
         resp = True
     except InvalidKey as ex:

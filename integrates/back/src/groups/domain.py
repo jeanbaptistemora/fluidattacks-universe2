@@ -31,6 +31,7 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
+    StakeholderNotFound,
     UserNotInOrganization,
 )
 from custom_types import (
@@ -528,7 +529,11 @@ async def complete_register_for_organization_invitation(
     )
 
     user_created = False
-    user_exists = bool(await stakeholders_domain.get_data(user_email, "email"))
+    try:
+        await loaders.stakeholder.load(user_email)
+        user_exists = True
+    except StakeholderNotFound:
+        user_exists = False
     if not user_exists:
         user_created = await add_without_group(
             user_email,

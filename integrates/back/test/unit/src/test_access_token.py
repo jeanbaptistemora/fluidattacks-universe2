@@ -1,6 +1,9 @@
 from datetime import (
     timedelta,
 )
+from db_model.stakeholders.types import (
+    StakeholderAccessToken,
+)
 from newutils import (
     token as token_utils,
 )
@@ -16,7 +19,9 @@ AGE_WEEKS = 27  # invalid expiration time
 
 def test_verificate_hash_token() -> None:
     token = token_utils.calculate_hash_token()
-    access_token = {"salt": token["salt"], "jti": token["jti_hashed"]}
+    access_token = StakeholderAccessToken(
+        iat=0, salt=token["salt"], jti=token["jti_hashed"]
+    )
     different_token = token_utils.calculate_hash_token()
 
     assert token_utils.verificate_hash_token(access_token, token["jti"])
