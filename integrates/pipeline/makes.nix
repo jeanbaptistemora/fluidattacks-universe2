@@ -196,16 +196,6 @@
     stage = "post-deploy";
     tags = ["autoscaling"];
   };
-  gitlabPreBuildDev = {
-    rules = gitlabOnlyDev;
-    stage = "pre-build";
-    tags = ["autoscaling"];
-  };
-  gitlabPreBuildProd = {
-    rules = gitlabOnlyMaster;
-    stage = "pre-build";
-    tags = ["autoscaling"];
-  };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
@@ -390,8 +380,6 @@ in {
                   [
                     "/integrates/back/test/unit"
                     "/integrates/front/test"
-                    "/integrates/mobile/test/enzyme"
-                    "/integrates/mobile/test/rtl"
                   ]
                   ++ (
                     builtins.map
@@ -478,80 +466,6 @@ in {
           {
             output = "/integrates/back/lint/charts";
             gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/integrates/mobile/build/android";
-            gitlabExtra = {
-              artifacts = {
-                expire_in = "1 day";
-                paths = ["integrates/mobile/output/"];
-                when = "on_success";
-              };
-              rules = gitlabOnlyMaster;
-              stage = "build";
-              tags = ["autoscaling-large"];
-              needs = ["/integrates/mobile/ota__prod"];
-              variables = {
-                GIT_DEPTH = 5;
-              };
-            };
-          }
-          {
-            output = "/integrates/mobile/deploy/playstore";
-            gitlabExtra = {
-              dependencies = ["/integrates/mobile/build/android"];
-              rules = gitlabOnlyMaster;
-              stage = "deploy-app";
-              tags = ["autoscaling"];
-              needs = ["/integrates/mobile/build/android"];
-              variables = {
-                GIT_DEPTH = 5;
-              };
-            };
-          }
-          {
-            output = "/integrates/mobile/lint";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            args = ["dev"];
-            output = "/integrates/mobile/ota";
-            gitlabExtra = gitlabPreBuildDev;
-          }
-          {
-            args = ["prod"];
-            output = "/integrates/mobile/ota";
-            gitlabExtra = gitlabPreBuildProd;
-          }
-          {
-            output = "/integrates/mobile/test/enzyme";
-            gitlabExtra =
-              gitlabTest
-              // {
-                after_script = [
-                  "cp ~/.makes/out-integrates-mobile-test-enzyme/coverage/lcov.info integrates/mobile/coverage.lcov"
-                ];
-                artifacts = {
-                  expire_in = "1 week";
-                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-                  paths = ["integrates/mobile/coverage.lcov"];
-                };
-              };
-          }
-          {
-            output = "/integrates/mobile/test/rtl";
-            gitlabExtra =
-              gitlabTest
-              // {
-                after_script = [
-                  "cp ~/.makes/out-integrates-mobile-test-rtl/coverage/lcov.info integrates/mobile/coverage.lcov"
-                ];
-                artifacts = {
-                  expire_in = "1 week";
-                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-                  paths = ["integrates/mobile/coverage.lcov"];
-                };
-              };
           }
         ]
         ++ (builtins.map
