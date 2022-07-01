@@ -13,7 +13,10 @@ from typing import (
     default="",
     help="A string of formats separated by comma, extends RFC3339",
 )
-def main(
-    date_formats: Optional[str],
-) -> None:
-    tap_json.main(date_formats.split(",") if date_formats else [])
+@click.option(
+    "--only-schema",
+    is_flag=True,
+    help="Emit only determined schemas",
+)
+def main(date_formats: Optional[str], only_schema: bool) -> None:
+    tap_json.main(date_formats.split(",") if date_formats else [], only_schema)

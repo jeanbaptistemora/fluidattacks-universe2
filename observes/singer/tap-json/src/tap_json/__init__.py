@@ -323,6 +323,9 @@ def dump_schema(table: str) -> None:
         )
     )
 
+
+def dump_records(table: str) -> None:
+    pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
     for precord in read(RECORDS_DIR, table, loads):
         record = {}
         for field, value in precord.items():
@@ -345,7 +348,7 @@ def dump_schema(table: str) -> None:
         )
 
 
-def main(date_formats: List[str]) -> None:
+def main(date_formats: List[str], only_schema: bool) -> None:
     """Usual entry point."""
 
     # add the user date formats, filter empty strings
@@ -367,6 +370,8 @@ def main(date_formats: List[str]) -> None:
     # Parse everything to singer
     for schema in os.listdir(SCHEMAS_DIR):
         dump_schema(schema)
+        if not only_schema:
+            dump_records(schema)
     if os.path.exists(f"{STATE_DIR}/states"):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
