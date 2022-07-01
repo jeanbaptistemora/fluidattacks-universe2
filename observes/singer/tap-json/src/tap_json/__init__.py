@@ -29,6 +29,7 @@ from typing import (
     Any,
     Callable,
     List,
+    Optional,
     Union,
 )
 from typing_extensions import (
@@ -348,7 +349,9 @@ def dump_records(table: str) -> None:
         )
 
 
-def main(date_formats: List[str], only_schema: bool) -> None:
+def main(
+    date_formats: List[str], only_schema: bool, schema_cache: Optional[str]
+) -> None:
     """Usual entry point."""
 
     # add the user date formats, filter empty strings
@@ -365,10 +368,12 @@ def main(date_formats: List[str], only_schema: bool) -> None:
                 linearize(stream_stru["stream"], stream_stru["record"])
             elif _type == "STATE":
                 write(STATE_DIR, "states", stream)
-    catalog()
+    if schema_cache is None:
+        catalog()
 
     # Parse everything to singer
-    for schema in os.listdir(SCHEMAS_DIR):
+    _schemas_dir = schema_cache if schema_cache else SCHEMAS_DIR
+    for schema in os.listdir(_schemas_dir):
         dump_schema(schema)
         if not only_schema:
             dump_records(schema)

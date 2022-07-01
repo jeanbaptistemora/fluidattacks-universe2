@@ -18,5 +18,16 @@ from typing import (
     is_flag=True,
     help="Emit only determined schemas",
 )
-def main(date_formats: Optional[str], only_schema: bool) -> None:
-    tap_json.main(date_formats.split(",") if date_formats else [], only_schema)
+@click.option(
+    "--schema-cache",
+    default=None,
+    help="Path to directory containing previously determined schemas",
+)
+def main(
+    date_formats: Optional[str], only_schema: bool, schema_cache: Optional[str]
+) -> None:
+    tap_json.main(
+        date_formats.split(",") if date_formats else [],
+        only_schema,
+        schema_cache,
+    )
