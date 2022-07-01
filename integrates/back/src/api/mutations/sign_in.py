@@ -5,6 +5,9 @@ from ariadne import (
 from authlib.integrations.starlette_client import (
     OAuthError,
 )
+from custom_exceptions import (
+    StakeholderNotFound,
+)
 from custom_types import (
     SignInPayload as SignInPayloadType,
 )
@@ -235,9 +238,11 @@ async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
         "last_name": last_name,
         "date_joined": today,
     }
-
-    db_user: Stakeholder = await loaders.stakeholder.load(email)
-    if db_user and db_user.first_name:
+    try:
+        db_user: Optional[Stakeholder] = await loaders.stakeholder.load(email)
+    except StakeholderNotFound:
+        db_user = None
+    if db_user is not None and db_user.first_name:
         if not db_user.is_registered:
             await stakeholders_domain.register(email)
 
