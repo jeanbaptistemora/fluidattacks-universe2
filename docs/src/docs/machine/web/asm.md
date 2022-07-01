@@ -332,27 +332,3 @@ what was removed and added, and
 on what file.
 
 ![Commit Hash Id](https://res.cloudinary.com/fluid-attacks/image/upload/v1646329458/docs/web/web_asm_update_commit.png)
-
-## Mobile application
-
-We have a mobile application that
-shows you the current remediation
-rate for each organization you
-have in the ASM.
-This rate represents the percentage
-of the total risk exposure (CVSSF)
-you have managed to close,
-considering all groups belonging
-to a specific organization.
-Our application also shows you
-the percentage change in this
-remediation rate relative to
-the immediately preceding week.
-
-![Application](https://res.cloudinary.com/fluid-attacks/image/upload/c_scale,q_100,w_431/v1654805990/docs/web/web_asm_mobile_app.png)
-
-You can download this application at
-[Apple App Store](https://apps.apple.com/co/app/fluid-attacks/id1470450298)
-or
-[Google Play Store](https://play.google.com/store/apps/details?id=com.fluidattacks.integrates)
-.

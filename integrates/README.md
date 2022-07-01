@@ -97,11 +97,3 @@ Run each command in a different terminal:
 ```bash
 m . /integrates/front
 ```
-
-## Local mobile application
-
-Run each command in a different terminal:
-
-```bash
-m . /integrates/mobile
-```

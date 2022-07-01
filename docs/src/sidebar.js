@@ -471,7 +471,6 @@ const Development = [
   'development/front-technologies',
   'development/dynamodb-patterns',
   'development/graphql-api',
-  'development/mobile-technologies',
   'development/writing-code-suggestions',
   'development/analytics-conventions',
   'development/melts',
