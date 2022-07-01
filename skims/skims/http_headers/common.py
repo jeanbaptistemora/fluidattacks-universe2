@@ -35,6 +35,11 @@ def get_header_value_delimiter(header_value: str) -> str:
     delimiter = ","
     with suppress(csv.Error):
         sniffer = csv.Sniffer()
-        data = sniffer.sniff(header_value, delimiters=[",", ";"])
+
+        # MyPy says `delimiters` is an Optional[str]
+        # However, reviewing the code,  it should be an Optional[Sequence[str]]
+        data = sniffer.sniff(
+            header_value, delimiters=[",", ";"]  # type: ignore
+        )
         delimiter = data.delimiter
     return delimiter
