@@ -34,6 +34,7 @@ import { Table } from "components/Table";
 import type { IHeaderConfig, ISelectRowProps } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils/filters";
 import { editAndDeleteActionFormatter } from "scenes/Dashboard/components/Navbar/UserProfile/CredentialsModal/formatters/editAndDeleteActionFormatter";
+import { GET_ROOTS } from "scenes/Dashboard/containers/GroupScopeView/queries";
 import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -84,7 +85,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
-      refetchQueries: [{ query: GET_STAKEHOLDER_CREDENTIALS }],
+      refetchQueries: [GET_STAKEHOLDER_CREDENTIALS],
     }
   );
   const [handleRemoveCredentials] = useMutation<IRemoveCredentialsResultAttr>(
@@ -107,7 +108,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
-      refetchQueries: [{ query: GET_STAKEHOLDER_CREDENTIALS }],
+      refetchQueries: [GET_STAKEHOLDER_CREDENTIALS, GET_ROOTS],
     }
   );
   const [handleUpdateCredentials] = useMutation<IUpdateCredentialsResultAttr>(
