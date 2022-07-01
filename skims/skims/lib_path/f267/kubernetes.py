@@ -1,8 +1,8 @@
 from kubernetes.structure import (
-    get_containers,
     get_containers_capabilities,
     is_kubernetes,
     is_privileged,
+    iter_containers_type,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -22,22 +22,27 @@ def _k8s_sys_admin_or_privileged_used(
     template: Any,
 ) -> Iterator[Any]:
     if is_kubernetes(template):
-        for cap in get_containers_capabilities(template, "add"):
-            if cap.data == "SYS_ADMIN":
-                yield cap
-        privileged = is_privileged(template)
-        if privileged and privileged.data:
-            yield privileged
+        for container_type in iter_containers_type(template):
+            for container in container_type:
+                for cap in get_containers_capabilities(container, "add"):
+                    if cap.data == "SYS_ADMIN":
+                        yield cap
+                if privileged := is_privileged(container):
+                    print(privileged)
+                    yield privileged
 
 
 def _k8s_allow_privilege_escalation_enabled(
     template: Any,
 ) -> Iterator[Any]:
     if is_kubernetes(template):
-        containers = get_containers(template)
-        for elem in containers:
-            if elem and elem.data:
-                sec_cont = elem.inner.get("securityContext", None)
+        for container in iter_containers_type(template):
+            for elem in container:
+                sec_cont = (
+                    elem.inner.get("securityContext", None)
+                    if elem and elem.data
+                    else None
+                )
                 if sec_cont and sec_cont.data:
                     escalation = sec_cont.inner.get(
                         "allowPrivilegeEscalation", None
