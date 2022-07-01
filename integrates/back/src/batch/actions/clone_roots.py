@@ -287,7 +287,11 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
 ) -> Optional[PutActionResult]:
     group: Group = await loaders.group.load(group_name)
     roots_in_current_actions: Set[str] = set()
-    roots = roots or await loaders.group_roots.load(group_name)
+    roots = roots or tuple(
+        root
+        for root in await loaders.group_roots.load(group_name)
+        if isinstance(root, GitRoot) and root.state.credential_id is not None
+    )
     roots = tuple(
         root
         for root in roots

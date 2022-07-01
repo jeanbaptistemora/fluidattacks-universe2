@@ -490,7 +490,6 @@ async def refresh_root_repo_toe_lines(
         for root in sorted_roots
         if isinstance(root, GitRoot)
         and root.state.status == RootStatus.INACTIVE
-        and root.state.nickname not in active_root_repos
     )
     active_root_repos_to_proccess = tuple(
         root_repo
@@ -506,7 +505,10 @@ async def refresh_root_repo_toe_lines(
         root_repo
         for root_repo in inactive_root_repos
         if not optional_repo_nickname
-        or root_repo.state.nickname == optional_repo_nickname
+        or (
+            root_repo.state.nickname == optional_repo_nickname
+            and optional_repo_nickname not in active_root_repos
+        )
     )
     for root_repo in inactive_root_repos_to_proccess:
         await refresh_inactive_root_repo_toe_lines(

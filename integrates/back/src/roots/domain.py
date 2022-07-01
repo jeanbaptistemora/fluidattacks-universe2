@@ -1227,14 +1227,27 @@ def get_root_ids_by_nicknames(
 ) -> Dict[str, str]:
     # Get a dict that have the relation between nickname and id for roots
     # There are roots with the same nickname
-    # then It is going to take the last modified root
-    sorted_roots = sorted(
-        group_roots,
+    # then It is going to take the active root first
+    sorted_active_roots = sorted(
+        [
+            root
+            for root in group_roots
+            if root.state.status == RootStatus.ACTIVE
+        ],
+        key=lambda root: datetime.fromisoformat(root.state.modified_date),
+        reverse=False,
+    )
+    sorted_inactive_roots = sorted(
+        [
+            root
+            for root in group_roots
+            if root.state.status == RootStatus.INACTIVE
+        ],
         key=lambda root: datetime.fromisoformat(root.state.modified_date),
         reverse=False,
     )
     root_ids: Dict[str, str] = {}
-    for root in sorted_roots:
+    for root in sorted_inactive_roots + sorted_active_roots:
         if not only_git_roots or isinstance(root, GitRoot):
             root_ids[root.state.nickname] = root.id
 
