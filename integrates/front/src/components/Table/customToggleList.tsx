@@ -31,16 +31,12 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
   }
 
   return (
-    <div>
+    <React.Fragment>
       <TooltipWrapper
         id={"toogleToolTip"}
         message={t("group.findings.tableSet.btn.tooltip")}
       >
-        <Button
-          id={"columns-filter"}
-          onClick={handleOpenTableSetClick}
-          variant={"secondary"}
-        >
+        <Button id={"columns-filter"} onClick={handleOpenTableSetClick}>
           <FontAwesomeIcon icon={faCog} />
           &nbsp;
           {t("group.findings.tableSet.btn.text")}
@@ -85,6 +81,6 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
           )}
         </ToggleContainer>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 };

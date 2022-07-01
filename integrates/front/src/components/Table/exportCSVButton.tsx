@@ -22,7 +22,7 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = ({
         id={"exportCsvTooltip"}
         message={t("group.findings.exportCsv.tooltip")}
       >
-        <Button onClick={handleClick} variant={"secondary"}>
+        <Button onClick={handleClick}>
           <FontAwesomeIcon icon={faDownload} />
           &nbsp;{t("group.findings.exportCsv.text")}
         </Button>

@@ -750,7 +750,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 <Button
                   id={"reports"}
                   onClick={openReportsModal}
-                  variant={"secondary"}
+                  variant={"primary"}
                 >
                   {t("group.findings.report.btn.text")}
                 </Button>

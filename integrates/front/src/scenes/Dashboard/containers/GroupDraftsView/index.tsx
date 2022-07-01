@@ -35,12 +35,7 @@ import {
   checkDuplicates,
   formatDrafts,
 } from "scenes/Dashboard/containers/GroupDraftsView/utils";
-import {
-  ButtonToolbar,
-  Col100,
-  HintFieldText,
-  Row,
-} from "styles/styledComponents";
+import { Col100, HintFieldText, Row } from "styles/styledComponents";
 import { Have } from "utils/authz/Have";
 import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -366,21 +361,17 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         )}
         exportCsv={true}
         extraButtons={
-          <Row>
-            <Have I={"can_report_vulnerabilities"}>
-              <ButtonToolbar>
-                <TooltipWrapper
-                  id={"group.drafts.btn.tooltip"}
-                  message={t("group.drafts.btn.tooltip")}
-                >
-                  <Button onClick={openNewDraftModal} variant={"secondary"}>
-                    <FontAwesomeIcon icon={faPlus} />
-                    &nbsp;{t("group.drafts.btn.text")}
-                  </Button>
-                </TooltipWrapper>
-              </ButtonToolbar>
-            </Have>
-          </Row>
+          <Have I={"can_report_vulnerabilities"}>
+            <TooltipWrapper
+              id={"group.drafts.btn.tooltip"}
+              message={t("group.drafts.btn.tooltip")}
+            >
+              <Button onClick={openNewDraftModal} variant={"primary"}>
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;{t("group.drafts.btn.text")}
+              </Button>
+            </TooltipWrapper>
+          </Have>
         }
         headers={tableHeaders}
         id={"tblDrafts"}

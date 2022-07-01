@@ -133,7 +133,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
         download={`charts-${entity}-${subject}.png`}
         href={downloadPngUrl.toString()}
       >
-        <Button variant={"secondary"}>
+        <Button variant={"primary"}>
           <FontAwesomeIcon icon={faDownload} />
           &nbsp;
           {t("analytics.sections.extras.download")}
@@ -141,7 +141,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
       </ExternalLink>
       <Dropdown
         button={
-          <Button variant={"primary"}>
+          <Button variant={"secondary"}>
             <FontAwesomeIcon
               icon={loadingSubscribe ? faHourglassHalf : faChartBar}
             />

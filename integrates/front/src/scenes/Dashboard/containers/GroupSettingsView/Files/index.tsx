@@ -29,7 +29,7 @@ import type {
   IGetFilesQuery,
   IGroupFileAttr,
 } from "scenes/Dashboard/containers/GroupSettingsView/types";
-import { ButtonToolbar, Row } from "styles/styledComponents";
+import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -348,27 +348,22 @@ const Files: React.FC<IFilesProps> = ({
           )}
           exportCsv={false}
           extraButtons={
-            <Row>
-              <Can do={"api_mutations_add_files_mutate"}>
-                <ButtonToolbar>
-                  <TooltipWrapper
-                    id={"searchFindings.tabResources.files.btnTooltip.id"}
-                    message={t("searchFindings.tabResources.files.btnTooltip")}
-                    placement={"top"}
-                  >
-                    <Button
-                      id={"file-add"}
-                      onClick={openAddModal}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;
-                      {t("searchFindings.tabResources.addRepository")}
-                    </Button>
-                  </TooltipWrapper>
-                </ButtonToolbar>
-              </Can>
-            </Row>
+            <Can do={"api_mutations_add_files_mutate"}>
+              <TooltipWrapper
+                id={"searchFindings.tabResources.files.btnTooltip.id"}
+                message={t("searchFindings.tabResources.files.btnTooltip")}
+                placement={"top"}
+              >
+                <Button
+                  id={"file-add"}
+                  onClick={openAddModal}
+                  variant={"primary"}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;{t("searchFindings.tabResources.addRepository")}
+                </Button>
+              </TooltipWrapper>
+            </Can>
           }
           headers={tableHeaders}
           id={"tblFiles"}

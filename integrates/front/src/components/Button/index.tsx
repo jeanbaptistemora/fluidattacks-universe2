@@ -78,7 +78,7 @@ const variants: Record<TVariant, IVariant> = {
 
 const Button = styled.button.attrs<IButtonProps>(
   ({ size = "md", type = "button" }): Partial<IButtonProps> => ({
-    className: `f${sizes[size].fontSize}`,
+    className: `comp-button f${sizes[size].fontSize}`,
     type,
   })
 )<IButtonProps>`
