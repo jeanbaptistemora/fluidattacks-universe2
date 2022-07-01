@@ -342,17 +342,6 @@ async def remove_access_token(email: str) -> bool:
     return await stakeholders_dal.update(email, {"access_token": None})
 
 
-async def remove_push_token(user_email: str, push_token: str) -> bool:
-    user_attrs: dict = await get_attributes(user_email, ["push_tokens"])
-    tokens: list[str] = list(
-        filter(
-            lambda token: token != push_token,
-            user_attrs.get("push_tokens", []),
-        )
-    )
-    return await stakeholders_dal.update(user_email, {"push_tokens": tokens})
-
-
 async def update_access_token(
     email: str, expiration_time: int, **kwargs_token: Any
 ) -> UpdateAccessTokenPayloadType:

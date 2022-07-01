@@ -50,21 +50,6 @@ async def test_add_push_token() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_push_token() -> None:
-    loaders: Dataloaders = get_new_context()
-    user_email = "unittest@fluidattacks.com"
-    token = "ExponentPushToken[dummy]"
-
-    attrs_before: Stakeholder = await loaders.stakeholder.load(user_email)
-    assert token in attrs_before.push_tokens
-
-    assert await stakeholders_domain.remove_push_token(user_email, token)
-    new_loaders: Dataloaders = get_new_context()
-    attrs_after: Stakeholder = await new_loaders.stakeholder.load(user_email)
-    assert token not in attrs_after.push_tokens
-
-
-@pytest.mark.changes_db
 async def test_remove_stakeholder() -> None:
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"

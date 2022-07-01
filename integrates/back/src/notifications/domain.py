@@ -23,9 +23,6 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
-from exponent_server_sdk import (
-    DeviceNotRegisteredError,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -46,7 +43,6 @@ from typing import (
     Any,
     cast,
     Dict,
-    List,
     Union,
 )
 
@@ -398,23 +394,6 @@ async def request_vulnerability_zero_risk(
             requester_email=requester_email,
         ),
     )
-
-
-async def send_push_notification(
-    user_email: str, title: str, message: str
-) -> None:
-    user_attrs: dict = await stakeholders_domain.get_attributes(
-        user_email, ["push_tokens"]
-    )
-    tokens: List[str] = user_attrs.get("push_tokens", [])
-
-    for token in tokens:
-        try:
-            notifications_dal.send_push_notification(
-                user_email, token, title, message
-            )
-        except DeviceNotRegisteredError:
-            await stakeholders_domain.remove_push_token(user_email, token)
 
 
 async def request_groups_upgrade(

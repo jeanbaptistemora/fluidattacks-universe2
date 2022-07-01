@@ -4,22 +4,8 @@ from context import (
     FI_ZENDESK_TOKEN,
 )
 import contextlib
-from decorators import (
-    retry_on_exceptions,
-)
-from exponent_server_sdk import (
-    DeviceNotRegisteredError,
-    PushClient,
-    PushMessage,
-    PushResponse,
-    PushResponseError,
-    PushServerError,
-)
 import logging
 import logging.config
-from requests.exceptions import (  # type: ignore
-    HTTPError,
-)
 from settings import (
     LOGGING,
 )
@@ -75,50 +61,6 @@ def create_ticket(
             },
         )
     return success
-
-
-@retry_on_exceptions(
-    exceptions=(HTTPError, PushResponseError, PushServerError),
-    max_attempts=5,
-    sleep_seconds=float("0.5"),
-)
-def send_push_notification(
-    user_email: str, token: str, title: str, message: str
-) -> None:
-    client = PushClient()
-    try:
-        response: PushResponse = client.publish(
-            PushMessage(
-                body=message,
-                channel_id="default",
-                data={"message": message, "title": title},
-                display_in_foreground=True,
-                priority="high",
-                sound="default",
-                title=title,
-                to=token,
-            )
-        )
-        response.validate_response()
-        LOGGER_TRANSACTIONAL.info(
-            ": ".join(
-                (
-                    user_email,
-                    "[notifier]: push notification sent successfully",
-                )
-            ),
-            extra={
-                "extra": {
-                    "email": user_email,
-                    "title": title,
-                }
-            },
-        )
-    except DeviceNotRegisteredError:
-        raise
-    except (PushResponseError, PushServerError) as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-        raise ex
 
 
 @contextlib.contextmanager
