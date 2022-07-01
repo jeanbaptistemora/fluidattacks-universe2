@@ -16,6 +16,10 @@
       <strong>File</strong>: {{ file_name }}.<br>
       <strong>Description</strong>: {{ file_description }}.<br>
       <strong>Moment</strong>: {{ report_date }}.
+      {% if uploaded_date %}
+        <strong>Uploaded date</strong>: {{ uploaded_date }}
+        ({{ uploaded_days_to_date }} days).
+      {% endif %}
     </p>
     <p></p>
     <p>Regards,<br>Fluid Attacks Team</p>

@@ -279,9 +279,15 @@ async def send_mail_file_report(
     file_description: str,
     report_date: date,
     email_to: List[str],
+    uploaded_date: Optional[date] = None,
 ) -> None:
     state_format: str = "added" if is_added else "deleted"
     user_role = await authz.get_group_level_role(responsible, group_name)
+    uploaded_days_to_date = (
+        (datetime_utils.get_now().date() - uploaded_date).days
+        if uploaded_date
+        else None
+    )
     await send_mails_async(
         email_to=email_to,
         context={
@@ -292,6 +298,8 @@ async def send_mail_file_report(
             "file_description": file_description,
             "report_date": report_date,
             "user_role": user_role.replace("_", " "),
+            "uploaded_date": uploaded_date,
+            "uploaded_days_to_date": uploaded_days_to_date,
         },
         tags=GENERAL_TAG,
         subject=(f"[ASM] Root file {state_format} in [{group_name}]"),

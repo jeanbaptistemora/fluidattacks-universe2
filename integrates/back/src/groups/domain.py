@@ -1400,6 +1400,11 @@ async def remove_file(
         ),
         organization_id=group.organization_id,
     )
+    uploaded_date = (
+        datetime_utils.get_date_from_iso_str(file_to_remove.modified_date)
+        if file_to_remove.modified_date
+        else None
+    )
     await send_mail_file_report(
         loaders=loaders,
         group_name=group_name,
@@ -1407,6 +1412,7 @@ async def remove_file(
         file_name=file_name,
         file_description=file_to_remove.description,
         modified_date=datetime_utils.get_iso_date(),
+        uploaded_date=uploaded_date,
     )
 
 
@@ -1419,6 +1425,7 @@ async def send_mail_file_report(
     file_description: str,
     is_added: bool = False,
     modified_date: str,
+    uploaded_date: Optional[date] = None,
 ) -> None:
     roles: set[str] = {
         "resourcer",
@@ -1441,6 +1448,7 @@ async def send_mail_file_report(
         file_description=file_description,
         report_date=datetime_utils.get_datetime_from_iso_str(modified_date),
         email_to=users_email,
+        uploaded_date=uploaded_date,
     )
 
 
