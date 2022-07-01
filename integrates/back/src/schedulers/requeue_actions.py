@@ -184,6 +184,7 @@ async def requeue_actions() -> bool:
         )
     }
     futures = []
+    attempt_duration_seconds: int = 3600
     for action in actions_to_requeue:
         if action.action_name == "execute-machine":
             continue
@@ -198,6 +199,9 @@ async def requeue_actions() -> bool:
                     }
                     vcpus = resources["VCPU"]
                     memory = resources["MEMORY"]
+                    attempt_duration_seconds = batch_jobs_dict[
+                        action.batch_job_id
+                    ]["timeout"]["attemptDurationSeconds"]
                 except KeyError:
                     vcpus = 2
                     memory = 2
@@ -207,6 +211,7 @@ async def requeue_actions() -> bool:
             futures.append(
                 batch_dal.put_action_to_batch(
                     action_name=action.action_name,
+                    attempt_duration_seconds=attempt_duration_seconds,
                     action_dynamo_pk=action.key,
                     entity=action.entity,
                     queue=action.queue,
