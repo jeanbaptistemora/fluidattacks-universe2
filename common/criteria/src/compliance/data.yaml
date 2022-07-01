@@ -6576,3 +6576,15 @@
       title: Vulnerability notification and patching (updates are accompanied by advisory messages)
       link: https://www.bsa.org/files/reports/bsa_framework_secure_software_update_2020.pdf
   metadata: {}
+"owaspmasv":
+  title: OWASP-M ASV
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "V1_1_1":
+      title: Secure software development lifecycle requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+  metadata: {}
