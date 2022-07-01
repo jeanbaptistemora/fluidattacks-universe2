@@ -10441,6 +10441,12 @@
               },
               "attack_vector_description": {
                 "S": "This is an attack vector"
+              },
+              "pk_2": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "sk_2": {
+                "S": "FIN#683100860"
               }
             },
             {
@@ -10702,6 +10708,12 @@
               },
               "attack_vector_description": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "pk_2": {
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "FIN#475041524"
               }
             },
             {
@@ -11368,6 +11380,12 @@
               },
               "attack_vector_description": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "pk_2": {
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "FIN#475041513"
               }
             },
             {
@@ -11512,6 +11530,12 @@
               },
               "attack_vector_description": {
                 "S": "Los servicios críticos sobre la red interna como acceso a bases de datos, recursos compartidos con información sensible y/o web services, no cuentan con un doble factor de autenticación lo cual hace más fácil para un atacante con un usuario comprometido acceder a estos"
+              },
+              "pk_2": {
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "FIN#475041535"
               }
             },
             {
@@ -12557,6 +12581,12 @@
               },
               "attack_vector_description": {
                 "S": "Test attack vector."
+              },
+              "pk_2": {
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "FIN#560175507"
               }
             },
             {

@@ -2,8 +2,8 @@
 """
 Populate the email in gsi_2 in finding_metadata
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-06-30 at 23:49:53 UTC
+Finalization Time: 2022-06-30 at 23:51:59 UTC
 """
 
 from aioextensions import (
@@ -30,6 +30,9 @@ from db_model.findings.constants import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.findings.utils import (
+    format_optional_state,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -39,6 +42,7 @@ from dynamodb import (
 )
 from dynamodb.historics import (
     get_metadata,
+    get_optional_latest,
 )
 import logging
 import logging.config
@@ -55,7 +59,7 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
-PROD = False
+PROD = True
 
 
 async def populate_index(
@@ -160,6 +164,17 @@ async def populate_by_draft(
         key_structure=key_structure,
         raw_items=response.items,
     )
+
+    approval = format_optional_state(
+        get_optional_latest(
+            item_id=primary_key.partition_key,
+            key_structure=key_structure,
+            historic_suffix="APPROVAL",
+            raw_items=response.items,
+        )
+    )
+    if approval is not None:
+        return
 
     await populate_index(
         metadata=metadata, draft_id=draft.id, group_name=group_name
