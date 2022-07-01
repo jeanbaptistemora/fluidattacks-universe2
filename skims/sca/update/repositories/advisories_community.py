@@ -58,9 +58,7 @@ def get_advisories_community(
         with open(filename, "r", encoding="utf-8") as stream:
             try:
                 parsed_yaml: dict = yaml.safe_load(stream)
-                if not (
-                    cve_key := parsed_yaml.get("identifier")
-                ) or cve_key.startswith("GMS"):
+                if not (cve_key := parsed_yaml.get("identifier")):
                     continue
                 package_slug = str(parsed_yaml.get("package_slug"))
                 package_key = package_slug.replace(
