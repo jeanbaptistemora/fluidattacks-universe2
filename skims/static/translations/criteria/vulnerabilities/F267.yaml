@@ -8,3 +8,8 @@ lib_path.f267.k8s_allow_privilege_escalation_enabled:
     Ensure containers do not run with AllowPrivilegeEscalation
   es: >
     Asegúrese de que los contenedores no se ejecuten con AllowPrivilegeEscalation
+lib_path.f267.k8s_root_container:
+  en: >
+    Ensure securityContext.runAsNonRoot property is set to true
+  es: >
+    Asegúrese de que la propiedad securityContext.runAsNonRoot esté establecida en verdadero

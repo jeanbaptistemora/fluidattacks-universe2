@@ -10650,6 +10650,50 @@ F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   31 |
      ^ Col 8
 ",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml","
+   1 | apiVersion: v1
+   2 | kind: Pod
+   3 | metadata:
+   4 |   name: rss-site
+   5 |   labels:
+   6 |     app: web
+   7 | spec:
+   8 |   containers:
+   9 |     - name: front-end
+  10 |       image: nginx
+  11 |       ports:
+  12 |         - containerPort: 80
+  13 |       securityContext:
+> 14 |         runAsNonRoot: false
+  15 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json","
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+> 21 |           ""runAsNonRoot"": false,
+  22 |           ""allowPrivilegeEscalation"": false
+  23 |         }
+  24 |       }
+  25 |     ]
+  26 |   }
+  27 | }
+     ^ Col 0
+",kubernetes.k8s_root_container
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
    5 |     Type: AWS::IAM::ManagedPolicy
    6 |     Properties:

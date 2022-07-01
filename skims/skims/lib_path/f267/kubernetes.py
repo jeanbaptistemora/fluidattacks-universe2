@@ -53,6 +53,23 @@ def _k8s_allow_privilege_escalation_enabled(
                         yield elem
 
 
+def _k8s_root_container(
+    template: Any,
+) -> Iterator[Any]:
+    if is_kubernetes(template):
+        for container in iter_containers_type(template):
+            for elem in container:
+                sec_cont = (
+                    elem.inner.get("securityContext", None)
+                    if elem and elem.data
+                    else None
+                )
+                if sec_cont and sec_cont.data:
+                    as_root = sec_cont.inner.get("runAsNonRoot", None)
+                    if as_root and not as_root.data:
+                        yield as_root
+
+
 def k8s_sys_admin_or_privileged_used(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -80,4 +97,16 @@ def k8s_allow_privilege_escalation_enabled(
         ),
         path=path,
         method=MethodsEnum.K8S_PRIVILEGE_ESCALATION_ENABLED,
+    )
+
+
+def k8s_root_container(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_root_container"),
+        iterator=get_cloud_iterator(_k8s_root_container(template=template)),
+        path=path,
+        method=MethodsEnum.K8S_ROOT_CONTAINER,
     )
