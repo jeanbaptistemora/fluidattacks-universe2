@@ -179,7 +179,7 @@ what functions are enabled
 for each role.
 
 |                     |User|Executive|Vulnerability manager|User manager|
-|:-------------------:|:--:|:-------:|:-------------------:|:----------:|
+|---------------------|:--:|:-------:|:-------------------:|:----------:|
 |Add roots            |X   |X        |                     |X           |
 |Add tags             |X   |X        |X                    |X           |
 |Add users            |    |         |                     |X           |
@@ -194,3 +194,101 @@ for each role.
 |Receive notifications|X   |         |X                    |X           |
 |Request reattack     |X   |X        |X                    |X           |
 |View vulnerabilities |X   |X        |X                    |X           |
+
+## Internal roles
+
+`Fluid Attacks’` internal roles on the ASM.
+
+### Hacker
+
+The hacker is a security analyst
+whose main objectives are identifying,
+exploiting and reporting vulnerabilities
+in organizations' systems.
+
+### Reattacker
+
+The reattacker is in
+charge of verifying,
+through diverse techniques,
+the effectiveness of the
+solutions implemented by the
+organizations for vulnerability
+remediation.
+
+### Customer manager
+
+The customer manager mainly provides
+support and streamlines processes
+of the organizations.
+For example,
+on the ASM,
+they can make changes
+in group information,
+request reattacks,
+generate reports and
+manage stakeholders,
+among many other things.
+
+### Resourcer
+
+The resourcer helps keep updated
+the inputs provided by the organizations,
+such as environment credentials
+and mailmap authors,
+among others.
+
+### Reviewer
+
+The reviewer is in charge of
+managing the vulnerabilities
+that are reported to the
+organizations.
+They evaluate drafts for
+approval or disapproval,
+request reattacks and verify
+and notify which vulnerabilities
+are zero risk.
+
+### Architect
+
+The architect's main objective
+is to ensure the highest quality
+of ethical hacking and pentesting
+deliverables.
+Among their functions are deleting
+false positives or errors,
+including or deleting evidence,
+and providing help to the
+organizations over the support channels.
+
+### Admin
+
+The admin is the one who has all
+the privileges on the ASM,
+except for the possibility
+to change treatments.
+
+## Internal roles table
+
+In the following table,
+we specify what functions are
+enabled for each role:
+
+|                          | Hacker | Reattacker | Resourcer | Reviewer | Architect | Customer Manager | Admin |
+|--------------------------|:------:|:----------:|:---------:|:--------:|:---------:|:----------------:|:-----:|
+| Add drafts               |    X   |      X     |           |          |     X     |                  |   X   |
+| Add events               |    X   |      X     |     X     |          |     X     |         X        |   X   |
+| Add roots                |        |            |           |          |           |         X        |   X   |
+| Approve drafts           |        |            |           |     X    |           |                  |   X   |
+| Change treatments        |    X   |            |           |          |     X     |                  |       |
+| Confirm/Reject ZR        |        |            |           |     X    |     X     |                  |   X   |
+| Deactivate/Activate root |        |            |           |          |           |                  |   X   |
+| Delete groups            |        |            |           |          |           |         X        |   X   |
+| Edit roots               |        |            |           |          |     X     |                  |   X   |
+| Generate a report        |    X   |            |           |          |     X     |         X        |   X   |
+| Manage evidences         |    X   |            |           |          |     X     |                  |   X   |
+| Request reattack         |    X   |      X     |     X     |     X    |     X     |         X        |   X   |
+| Request ZR               |        |            |           |          |           |         X        |   X   |
+| Solve events             |    X   |      X     |     X     |          |     X     |         X        |   X   |
+| Verify reattack          |    X   |      X     |           |          |     X     |                  |   X   |
