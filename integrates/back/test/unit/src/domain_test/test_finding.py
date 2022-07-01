@@ -501,7 +501,6 @@ async def test_get_treatment_summary() -> None:
     [
         "modified_by",
         "justification",
-        "assigned",
         "vulnerability_id",
         "is_approved",
     ],
@@ -509,14 +508,12 @@ async def test_get_treatment_summary() -> None:
         [
             "vulnmanager@gmail.com",
             "test",
-            "integratesuser@gmail.com",
             "15375781-31f2-4953-ac77-f31134225747",
             False,
         ],
         [
             "vulnmanager@gmail.com",
             "test",
-            "integratesuser@gmail.com",
             "15375781-31f2-4953-ac77-f31134225747",
             True,
         ],
@@ -525,7 +522,6 @@ async def test_get_treatment_summary() -> None:
 async def test_send_treatment_report_mail(
     modified_by: str,
     justification: str,
-    assigned: str,
     vulnerability_id: str,
     is_approved: bool,
 ) -> None:
@@ -533,7 +529,6 @@ async def test_send_treatment_report_mail(
         loaders=get_new_context(),
         modified_by=modified_by,
         justification=justification,
-        assigned=assigned,
         vulnerability_id=vulnerability_id,
         is_approved=is_approved,
     )
@@ -544,7 +539,6 @@ async def test_send_treatment_report_mail(
     [
         "modified_by",
         "justification",
-        "assigned",
         "vulnerability_id",
         "is_approved",
     ],
@@ -552,7 +546,6 @@ async def test_send_treatment_report_mail(
         [
             "vulnmanager@gmail.com",
             "test",
-            "integratesuser@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce9",
             False,
         ],
@@ -561,7 +554,6 @@ async def test_send_treatment_report_mail(
 async def test_send_treatment_report_mail_fail(
     modified_by: str,
     justification: str,
-    assigned: str,
     vulnerability_id: str,
     is_approved: bool,
 ) -> None:
@@ -570,7 +562,6 @@ async def test_send_treatment_report_mail_fail(
             loaders=get_new_context(),
             modified_by=modified_by,
             justification=justification,
-            assigned=assigned,
             vulnerability_id=vulnerability_id,
             is_approved=is_approved,
         )

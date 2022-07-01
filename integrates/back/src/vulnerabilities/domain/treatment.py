@@ -302,7 +302,6 @@ async def _handle_vulnerability_acceptance(
         )
         await send_treatment_report_mail(
             loaders=loaders,
-            assigned=vulnerability.treatment.assigned,
             modified_by=new_treatment.modified_by,
             justification=new_treatment.justification,
             vulnerability_id=vulnerability.id,
@@ -459,7 +458,6 @@ async def send_treatment_report_mail(
     loaders: Any,
     modified_by: Optional[str],
     justification: Optional[str],
-    assigned: str,
     vulnerability_id: str,
     is_approved: bool = False,
 ) -> None:
@@ -482,7 +480,6 @@ async def send_treatment_report_mail(
     managers_email = await get_managers_by_size(finding.group_name, 3)
     await vulns_mailer.send_mail_treatment_report(
         loaders=loaders,
-        assigned=assigned,
         finding_id=old_vuln_values.finding_id,
         finding_title=finding.title,
         group_name=finding.group_name,

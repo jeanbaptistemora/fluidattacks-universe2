@@ -114,7 +114,6 @@ async def mutate(
                     loaders=loaders,
                     modified_by=user_email,
                     justification=justification,
-                    assigned=assigned,
                     vulnerability_id=vulnerability_id,
                 )
 
