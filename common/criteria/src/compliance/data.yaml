@@ -6734,4 +6734,151 @@
     "V2_7_4":
       title: Out of band verifier requirements
       link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_7_6":
+      title: Out of band verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_8_1":
+      title: Single or multi factor one time verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_8_2":
+      title: Single or multi factor one time verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_8_4":
+      title: Single or multi factor one time verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_8_5":
+      title: Single or multi factor one time verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_8_7":
+      title: Single or multi factor one time verifier requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_10_2":
+      title: Service authentication requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V2_10_4":
+      title: Service authentication requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_1_1":
+      title: Fundamental session management requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_2_3":
+      title: Session binding requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_3_1":
+      title: Session logout and timeout requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_3_3":
+      title: Session logout and timeout requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_3_4":
+      title: Session logout and timeout requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_4_1":
+      title: Cookie-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_4_2":
+      title: Cookie-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_4_3":
+      title: Cookie-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_4_4":
+      title: Cookie-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_5_1":
+      title: Token-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_5_2":
+      title: Token-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_5_3":
+      title: Token-based session management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V3_7_1":
+      title: Defenses against session management exploits
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_1_1":
+      title: General access control design
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_1_3":
+      title: General access control design
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_1_4":
+      title: General access control design
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_2_1":
+      title: Operation level access control
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_2_2":
+      title: Operation level access control
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V4_3_1":
+      title: Other access control considerations
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_1_1":
+      title: Input validation requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_1_3":
+      title: Input validation requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_1_4":
+      title: Input validation requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_1_5":
+      title: Input validation requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_2_4":
+      title: Sanitization and sandboxing requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_2_5":
+      title: Sanitization and sandboxing requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_2_6":
+      title: Sanitization and sandboxing requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_1":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_4":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_5":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_7":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_8":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_9":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_3_10":
+      title: Output encoding and injection prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_4_1":
+      title: Memory, string, and unmanaged code requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_4_3":
+      title: Memory, string, and unmanaged code requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_5_1":
+      title: Deserialization prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_5_2":
+      title: Deserialization prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V5_5_3":
+      title: Deserialization prevention requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_1_3":
+      title: Data classification
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_2_3":
+      title: Algorithms
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_2_6":
+      title: Algorithms
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
   metadata: {}
