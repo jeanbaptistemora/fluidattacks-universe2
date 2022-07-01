@@ -15,7 +15,7 @@ makeScript {
       inputs.nixpkgs.bash
       inputs.nixpkgs.xdg_utils
       outputs."/docs/generate/criteria"
-      (makeNodeJsVersion "14")
+      (makeNodeJsVersion "16")
     ];
     nodeBin = [outputs."/docs/runtime"];
     nodeModule = ["./node_modules"];
