@@ -35,7 +35,6 @@ def get_header_value_delimiter(header_value: str) -> str:
     delimiter = ","
     with suppress(csv.Error):
         sniffer = csv.Sniffer()
-        data = sniffer.sniff(header_value)
-        if data.delimiter in [",", ";"]:
-            delimiter = data.delimiter
+        data = sniffer.sniff(header_value, delimiters=[",", ";"])
+        delimiter = data.delimiter
     return delimiter

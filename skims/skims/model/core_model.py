@@ -883,7 +883,7 @@ class FindingEnum(Enum):
         requirements=[266, 173],
     )
     F400: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F400",
         cwe=778,
         execution_queue=ExecutionQueue.cloud,
@@ -918,7 +918,7 @@ class FindingEnum(Enum):
         requirements=[185, 265, 266],
     )
     F408: FindingMetadata = FindingMetadata.new(
-        auto_approve=False,
+        auto_approve=True,
         code="F408",
         cwe=778,
         execution_queue=ExecutionQueue.cloud,
