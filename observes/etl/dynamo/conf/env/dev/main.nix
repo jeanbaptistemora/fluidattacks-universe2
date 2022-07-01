@@ -11,5 +11,5 @@ in
     searchPaths = {
       bin = [env];
     };
-    name = "observes-etl-dynamo-conf-env-development";
+    name = "observes-etl-dynamo-conf-env-dev";
   }

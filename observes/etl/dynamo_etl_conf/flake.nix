@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     purity.url = "gitlab:dmurciaatfluid/purity";
+    purity.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,

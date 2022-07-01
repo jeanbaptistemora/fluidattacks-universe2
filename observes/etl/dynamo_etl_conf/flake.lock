@@ -1,21 +1,21 @@
 {
   "nodes": {
-    "nixpkgs": {
+    "nix_filter": {
       "locked": {
-        "lastModified": 1644343489,
-        "narHash": "sha256-dpHKuZDqXKRk/MR8aMelqSCNmm0+BapSgk6tuiiI02E=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "d24b8431aaed3f7e959bef5cf155cc58a9e6be07",
+        "lastModified": 1645371475,
+        "narHash": "sha256-z2n0y5ME7yQTqzzGWnQTVd1MG5Bp1E+of7ZgA861/9E=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "38bc843f1ce76958a9f6f0a1e4e3455221c8ecf6",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
+        "owner": "numtide",
+        "repo": "nix-filter",
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs": {
       "locked": {
         "lastModified": 1644343489,
         "narHash": "sha256-dpHKuZDqXKRk/MR8aMelqSCNmm0+BapSgk6tuiiI02E=",
@@ -32,14 +32,17 @@
     },
     "purity": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nix_filter": "nix_filter",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1644932367,
-        "narHash": "sha256-rwOCyZbSDT5xKrAc7v0DWWKO1u9vZdFWfQlktj+bCig=",
+        "lastModified": 1655309016,
+        "narHash": "sha256-XXW86D0fmmv6LJ+8n7Awpj++jPv5avYBnSCm7N2gFEo=",
         "owner": "dmurciaatfluid",
         "repo": "purity",
-        "rev": "fd6bcbdd3bce4685ae577bd554663f842f88fb2d",
+        "rev": "1816492d1ac416becac6bcdd9ebb9b1be06ffddd",
         "type": "gitlab"
       },
       "original": {
