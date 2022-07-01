@@ -4,6 +4,7 @@
 from api.resolvers.me import (
     access_token,
     credentials,
+    has_drafts_rejected,
     has_mobile_app,
     is_concurrent_session,
     notifications_preferences,
@@ -25,6 +26,7 @@ ME = ObjectType("Me")
 ME.set_field("accessToken", access_token.resolve)
 ME.set_field("credentials", credentials.resolve)
 ME.set_field("hasMobileApp", has_mobile_app.resolve)
+ME.set_field("hasDraftsRejected", has_drafts_rejected.resolve)
 ME.set_field("isConcurrentSession", is_concurrent_session.resolve)
 ME.set_field("organizations", organizations.resolve)
 ME.set_field("permissions", permissions.resolve)

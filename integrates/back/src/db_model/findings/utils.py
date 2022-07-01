@@ -50,6 +50,21 @@ def filter_non_state_status_findings(
     )
 
 
+def has_rejected_drafts(*, drafts: tuple[Finding, ...]) -> bool:
+    return bool(
+        filter_non_state_status_findings(
+            drafts,
+            {
+                FindingStateStatus.APPROVED,
+                FindingStateStatus.CREATED,
+                FindingStateStatus.DELETED,
+                FindingStateStatus.MASKED,
+                FindingStateStatus.SUBMITTED,
+            },
+        )
+    )
+
+
 def format_evidence_item(evidence: FindingEvidence) -> Item:
     return {
         "description": evidence.description,

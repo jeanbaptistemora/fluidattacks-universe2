@@ -6,6 +6,8 @@ type Me {
   callerOrigin: CallerOrigin!
   "Credentials that belong to the stakeholder"
   credentials: [Credentials!]
+  "Indicates if user has rejected drafts"
+  hasDraftsRejected: Boolean!
   "Indicates if user has mobile app"
   hasMobileApp: Boolean!
   "Indicator to see if there's more than one open session currently"
