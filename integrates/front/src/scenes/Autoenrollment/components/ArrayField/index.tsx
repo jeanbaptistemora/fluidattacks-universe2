@@ -44,12 +44,12 @@ const FormikArrayField: React.FC<IArrayProps> = ({
                     <Col>{children(fieldName)}</Col>
                     <Col>
                       {index > 0 || allowEmpty ? (
-                        <Button onClick={removeItem} variant={"gray"}>
+                        <Button onClick={removeItem} variant={"secondary"}>
                           <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
                       ) : undefined}
                       {index === arrayValues.length ? (
-                        <Button onClick={addItem} variant={"gray"}>
+                        <Button onClick={addItem} variant={"secondary"}>
                           <FontAwesomeIcon icon={faPlus} />
                         </Button>
                       ) : undefined}
@@ -60,7 +60,7 @@ const FormikArrayField: React.FC<IArrayProps> = ({
             })}
             <Row>
               <Col>
-                <Button onClick={addItem} variant={"gray"}>
+                <Button onClick={addItem} variant={"secondary"}>
                   <FontAwesomeIcon icon={faPlus} />
                 </Button>
               </Col>

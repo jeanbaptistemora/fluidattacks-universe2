@@ -161,11 +161,9 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
             >
               <div className={"flex flex-column"}>
                 <Button
-                  margin={"0"}
                   onClick={function fn2(): void {
                     subscribeDropdownOnSelect(freq);
                   }}
-                  variant={"basic"}
                 >
                   {translateFrequency(freq, "action")}
                 </Button>

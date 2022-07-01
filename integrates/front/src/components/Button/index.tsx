@@ -1,9 +1,17 @@
 import styled from "styled-components";
 
+type TSize = "lg" | "md" | "sm" | "xl";
+type TVariant = "ghost" | "primary" | "secondary" | "tertiary";
+
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  margin?: string;
-  padding?: string;
-  variant: "basic" | "gray" | "primary" | "secondary";
+  size?: TSize;
+  variant?: TVariant;
+}
+
+interface ISize {
+  fontSize: number;
+  ph: number;
+  pv: number;
 }
 
 interface IVariant {
@@ -14,29 +22,52 @@ interface IVariant {
   colorHover: string;
 }
 
-const variants: Record<IButtonProps["variant"], IVariant> = {
-  basic: {
+const sizes: Record<TSize, ISize> = {
+  lg: {
+    fontSize: 5,
+    ph: 18,
+    pv: 12,
+  },
+  md: {
+    fontSize: 6,
+    ph: 15,
+    pv: 10,
+  },
+  sm: {
+    fontSize: 7,
+    ph: 12,
+    pv: 8,
+  },
+  xl: {
+    fontSize: 4,
+    ph: 21,
+    pv: 14,
+  },
+};
+
+const variants: Record<TVariant, IVariant> = {
+  ghost: {
     bgColor: "#dddde300",
     bgColorHover: "#dddde3",
     borderColor: "#dddde300",
     color: "#5c5c70",
     colorHover: "#121216",
   },
-  gray: {
-    bgColor: "#e9e9ed",
-    bgColorHover: "#c7c7d1",
-    borderColor: "#e9e9ed",
-    color: "#5c5c70",
-    colorHover: "#121216",
-  },
   primary: {
-    bgColor: "#ff3435",
-    bgColorHover: "#b80000",
-    borderColor: "#ff3435",
+    bgColor: "#bf0b1a",
+    bgColorHover: "#f2182a",
+    borderColor: "#bf0b1a",
     color: "#fff",
     colorHover: "white",
   },
   secondary: {
+    bgColor: "#2e2e38",
+    bgColorHover: "#49495a",
+    borderColor: "#2e2e38",
+    color: "#d2d2da",
+    colorHover: "#f4f4f6",
+  },
+  tertiary: {
     bgColor: "transparent",
     bgColorHover: "#ff3435",
     borderColor: "#ff3435",
@@ -46,11 +77,13 @@ const variants: Record<IButtonProps["variant"], IVariant> = {
 };
 
 const Button = styled.button.attrs<IButtonProps>(
-  (props): Partial<IButtonProps> => ({
-    type: props.type ?? "button",
+  ({ size = "md", type = "button" }): Partial<IButtonProps> => ({
+    className: `f${sizes[size].fontSize}`,
+    type,
   })
 )<IButtonProps>`
-  ${({ margin = "0 12px 0 0", padding = "10px 16px", variant }): string => {
+  ${({ size = "md", variant = "ghost" }): string => {
+    const { ph, pv } = sizes[size];
     const { bgColor, bgColorHover, borderColor, color, colorHover } =
       variants[variant];
 
@@ -60,8 +93,7 @@ const Button = styled.button.attrs<IButtonProps>(
     border-radius: 4px;
     color: ${color};
     font-weight: 400;
-    margin: ${margin};
-    padding: ${padding};
+    padding: ${pv}px ${ph}px;
     text-decoration: none;
     transition: all 0.3s ease;
 

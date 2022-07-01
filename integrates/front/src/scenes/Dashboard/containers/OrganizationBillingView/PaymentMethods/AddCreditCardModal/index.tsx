@@ -125,7 +125,6 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                 id={"other-payment-methods"}
                 onClick={goToOtherMethods}
                 type={"button"}
-                variant={"basic"}
               >
                 {t(
                   "organization.tabs.billing.paymentMethods.add.creditCard.otherPaymentMethod"

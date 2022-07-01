@@ -56,12 +56,12 @@ Default.args = {
 const Search = Template.bind({});
 Search.args = {
   childLeft: (
-    <Button margin={"0"} padding={"4px 8px"} variant={"basic"}>
+    <Button size={"sm"}>
       <FontAwesomeIcon icon={faMagnifyingGlass} />
     </Button>
   ),
   childRight: (
-    <Button margin={"0"} padding={"4px 8px"} variant={"basic"}>
+    <Button size={"sm"}>
       <FontAwesomeIcon icon={faXmark} />
     </Button>
   ),

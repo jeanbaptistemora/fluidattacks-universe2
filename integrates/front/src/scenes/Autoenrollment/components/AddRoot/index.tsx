@@ -490,7 +490,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
               )}
               <Row justify={"center"}>
                 <Col>
-                  <Button onClick={cancelClick} variant={"basic"}>
+                  <Button onClick={cancelClick}>
                     {t("components.modal.cancel")}
                   </Button>
                   <Modal onClose={noClick} open={showCancelModal} title={""}>

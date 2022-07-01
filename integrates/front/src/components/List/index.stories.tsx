@@ -20,9 +20,7 @@ Default.args = {
   columns: 2,
   getKey: (el: number): number => el,
   items: [...Array(15).keys()],
-  render: (el: number): JSX.Element => (
-    <Button variant={"basic"}>{`Element ${el}`}</Button>
-  ),
+  render: (el: number): JSX.Element => <Button>{`Element ${el}`}</Button>,
 };
 
 export { Default };
