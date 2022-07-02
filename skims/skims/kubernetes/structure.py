@@ -6,23 +6,10 @@ from typing import (
 )
 
 
-def is_kubernetes(template: Node) -> bool:
-    cond = template and template.data and isinstance(template.inner, dict)
-    if cond and (
-        list(template.inner.keys())
-        and list(template.inner.keys())[0] == "apiVersion"
-    ):
+def is_privileged(sec_ctx: Node) -> bool:
+    privileged = sec_ctx.inner.get("privileged")
+    if privileged and privileged.data:
         return True
-    return False
-
-
-def is_privileged(container: Node) -> bool:
-    if container and container.data:
-        sec_ctx = container.inner.get("securityContext")
-        if sec_ctx:
-            privileged = sec_ctx.inner.get("privileged")
-            if privileged and privileged.data:
-                return True
     return False
 
 
@@ -42,13 +29,23 @@ def iter_containers_type(
                     yield container.data
 
 
-def get_containers_capabilities(container: Node, type_cap: str) -> list:
-    if container and container.data:
-        sec_cont = container.inner.get("securityContext", None)
-    if sec_cont and sec_cont.data:
-        cap = sec_cont.inner.get("capabilities", None)
-        if cap and cap.data:
-            add = cap.inner.get(type_cap, None)
-            if add and add.data:
-                return add.data
+def get_containers_capabilities(sec_ctx: Node, type_cap: str) -> list:
+    cap = sec_ctx.inner.get("capabilities", None)
+    if cap and cap.data:
+        add = cap.inner.get(type_cap, None)
+        if add and add.data:
+            return add.data
     return []
+
+
+def iter_security_context(template: Node, upper_level: bool) -> Iterator[Node]:
+    if template.raw.get("apiVersion"):
+        if upper_level:
+            ctx = template.inner.get("securityContext", None)
+            if ctx and ctx.data:
+                yield ctx
+        for container in iter_containers_type(template):
+            for elem in container:
+                ctx = elem.inner.get("securityContext", None)
+                if ctx and ctx.data:
+                    yield ctx

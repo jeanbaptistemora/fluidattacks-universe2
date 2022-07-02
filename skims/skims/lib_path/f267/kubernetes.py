@@ -1,8 +1,6 @@
 from kubernetes.structure import (
     get_containers_capabilities,
-    is_kubernetes,
-    is_privileged,
-    iter_containers_type,
+    iter_security_context,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -21,74 +19,51 @@ from typing import (
 def _k8s_sys_admin_or_privileged_used(
     template: Any,
 ) -> Iterator[Any]:
-    if is_kubernetes(template):
-        for container_type in iter_containers_type(template):
-            for container in container_type:
-                for cap in get_containers_capabilities(container, "add"):
-                    if cap.data == "SYS_ADMIN":
-                        yield cap
-                if privileged := is_privileged(container):
-                    print(privileged)
-                    yield privileged
+    for ctx in iter_security_context(template, True):
+        for cap in get_containers_capabilities(ctx, "add"):
+            if cap.data == "SYS_ADMIN":
+                yield cap
+        privileged = ctx.inner.get("privileged")
+        if privileged and privileged.data:
+            yield privileged
 
 
 def _k8s_allow_privilege_escalation_enabled(
     template: Any,
 ) -> Iterator[Any]:
-    if is_kubernetes(template):
-        for container in iter_containers_type(template):
-            for elem in container:
-                sec_cont = (
-                    elem.inner.get("securityContext", None)
-                    if elem and elem.data
-                    else None
-                )
-                if sec_cont and sec_cont.data:
-                    escalation = sec_cont.inner.get(
-                        "allowPrivilegeEscalation", None
-                    )
-                    if escalation and escalation.data:
-                        yield escalation
-                    elif not escalation:
-                        yield sec_cont
+    for ctx in iter_security_context(template, True):
+        escalation = ctx.inner.get("allowPrivilegeEscalation")
+        if escalation and escalation.data:
+            yield escalation
+        elif not escalation:
+            yield ctx
 
 
 def _k8s_root_container(
     template: Any,
 ) -> Iterator[Any]:
-    if is_kubernetes(template):
-        for container in iter_containers_type(template):
-            for elem in container:
-                sec_cont = (
-                    elem.inner.get("securityContext", None)
-                    if elem and elem.data
-                    else None
-                )
-                if sec_cont and sec_cont.data:
-                    as_root = sec_cont.inner.get("runAsNonRoot", None)
-                    if as_root and not as_root.data:
-                        yield as_root
+    if template.raw.get("apiVersion") and (
+        ctx := template.inner.get("securityContext")
+    ):
+        as_root = ctx.inner.get("runAsNonRoot")
+        if as_root and not as_root.data:
+            yield as_root
+    else:
+        for ctx in iter_security_context(template, False):
+            as_root = ctx.inner.get("runAsNonRoot")
+            if as_root and not as_root.data:
+                yield as_root
 
 
 def _k8s_root_filesystem_read_only(
     template: Any,
 ) -> Iterator[Any]:
-    if is_kubernetes(template):
-        for container in iter_containers_type(template):
-            for elem in container:
-                sec_cont = (
-                    elem.inner.get("securityContext", None)
-                    if elem and elem.data
-                    else None
-                )
-                if sec_cont and sec_cont.data:
-                    read_only = sec_cont.inner.get(
-                        "readOnlyRootFilesystem", None
-                    )
-                    if read_only and not read_only.data:
-                        yield read_only
-                    elif not read_only:
-                        yield sec_cont
+    for ctx in iter_security_context(template, False):
+        read_only = ctx.inner.get("readOnlyRootFilesystem")
+        if read_only and not read_only.data:
+            yield read_only
+        elif not read_only:
+            yield ctx
 
 
 def k8s_sys_admin_or_privileged_used(
