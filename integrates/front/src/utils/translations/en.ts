@@ -424,6 +424,9 @@ export const enTranslations: ResourceKey = {
         text: "New",
         tooltip: "Create a new finding",
       },
+      error: {
+        hasDraftsRejected: "You have pending rejected drafts to review",
+      },
       errorSubmit: "Please provide {{missingFields}} before submitting",
       hint: {
         description: "Hint: Description",
@@ -3432,6 +3435,8 @@ export const enTranslations: ResourceKey = {
       "Groups without an active Fluid Attacks service " +
       "can not have Fluid Attacks staff",
     greaterDate: "The date must be today or before",
+    hasDraftsRejected:
+      "You cannot created a new draft. Review rejected drafts first.",
     inactiveSession:
       "You will be logged out for inactivity in a minute. Click on Dismiss if you wish to stay logged in.",
     inactiveSessionDismiss: "Dismiss",

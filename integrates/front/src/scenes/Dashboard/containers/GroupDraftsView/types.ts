@@ -19,6 +19,12 @@ interface IGroupDraftsAndFindingsAttr {
     name: string;
   };
 }
+interface IGetMeHasDraftsRejected {
+  me: {
+    hasDraftsRejected: boolean;
+    userEmail: string;
+  };
+}
 
 interface IDraftVariables {
   attackComplexity: string;
@@ -108,6 +114,7 @@ export type {
   IDraftVariables,
   IAddDraftMutationResult,
   IAddDraftMutationVariables,
+  IGetMeHasDraftsRejected,
   IGroupDraftsAndFindingsAttr,
   ISuggestion,
   IRequirementData,

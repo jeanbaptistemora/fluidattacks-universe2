@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
+import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
@@ -23,11 +24,13 @@ import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/fin
 import {
   ADD_DRAFT_MUTATION,
   GET_DRAFTS_AND_FINDING_TITLES,
+  GET_ME_HAS_DRAFTS_REJECTED,
 } from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import type {
   IAddDraftMutationResult,
   IAddDraftMutationVariables,
   IDraftVariables,
+  IGetMeHasDraftsRejected,
   IGroupDraftsAndFindingsAttr,
   ISuggestion,
 } from "scenes/Dashboard/containers/GroupDraftsView/types";
@@ -168,6 +171,19 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     }
   );
 
+  const { data: dataHasDraftsRejected, refetch: refetchHasDraftsRejected } =
+    useQuery<IGetMeHasDraftsRejected>(GET_ME_HAS_DRAFTS_REJECTED, {
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning(
+            "An error occurred getting me has drafts rejected",
+            error
+          );
+        });
+      },
+    });
+
   useEffect((): void => {
     async function fetchData(): Promise<void> {
       const findingNames: ISuggestion[] = await getFindingNames(
@@ -228,6 +244,11 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             type: "finding",
           })
         );
+      } else if (
+        error.message === "Exception - User has pending rejected drafts"
+      ) {
+        msgError(t("validations.hasDraftsRejected"));
+        void refetchHasDraftsRejected();
       } else {
         msgError(t("groupAlerts.errorTextsad"));
         Logger.error("An error occurred while adding drafts", error);
@@ -280,7 +301,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
     return matchingSuggestion.description;
   };
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
+  if (
+    _.isUndefined(data) ||
+    _.isEmpty(data) ||
+    _.isUndefined(dataHasDraftsRejected) ||
+    _.isEmpty(dataHasDraftsRejected)
+  ) {
     return <div />;
   }
   const validateFindingTypology: ConfigurableValidator =
@@ -311,22 +337,28 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
             <Form>
               <Row>
                 <Col100>
-                  <Field
-                    alignField={"horizontal"}
-                    component={FormikAutocompleteText}
-                    focus={true}
-                    id={"title"}
-                    name={"title"}
-                    renderAsEditable={true}
-                    suggestions={titleSuggestions}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validDraftTitle,
-                      validateFindingTypology,
-                      validateNoDuplicates,
-                    ])}
-                  />
+                  {dataHasDraftsRejected.me.hasDraftsRejected ? (
+                    <Alert variant={"error"}>
+                      {t("group.drafts.error.hasDraftsRejected")}
+                    </Alert>
+                  ) : (
+                    <Field
+                      alignField={"horizontal"}
+                      component={FormikAutocompleteText}
+                      focus={true}
+                      id={"title"}
+                      name={"title"}
+                      renderAsEditable={true}
+                      suggestions={titleSuggestions}
+                      type={"text"}
+                      validate={composeValidators([
+                        required,
+                        validDraftTitle,
+                        validateFindingTypology,
+                        validateNoDuplicates,
+                      ])}
+                    />
+                  )}
                 </Col100>
               </Row>
               {dirty && isValid ? (
@@ -341,7 +373,12 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
                 </React.Fragment>
               ) : undefined}
               <ModalConfirm
-                disabled={!dirty || !isValid || submitting}
+                disabled={
+                  !dirty ||
+                  !isValid ||
+                  submitting ||
+                  dataHasDraftsRejected.me.hasDraftsRejected
+                }
                 onCancel={closeNewDraftModal}
               />
             </Form>

@@ -73,4 +73,16 @@ const ADD_DRAFT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { ADD_DRAFT_MUTATION, GET_DRAFTS_AND_FINDING_TITLES };
+const GET_ME_HAS_DRAFTS_REJECTED: DocumentNode = gql`
+  query GetMeHasDraftsRejected {
+    me {
+      hasDraftsRejected
+      userEmail
+    }
+  }
+`;
+export {
+  ADD_DRAFT_MUTATION,
+  GET_DRAFTS_AND_FINDING_TITLES,
+  GET_ME_HAS_DRAFTS_REJECTED,
+};

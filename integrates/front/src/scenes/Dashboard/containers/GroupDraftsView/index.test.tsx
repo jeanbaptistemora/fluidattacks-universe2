@@ -10,7 +10,10 @@ import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
-import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import {
+  GET_DRAFTS_AND_FINDING_TITLES,
+  GET_ME_HAS_DRAFTS_REJECTED,
+} from "scenes/Dashboard/containers/GroupDraftsView/queries";
 import { authzGroupContext } from "utils/authz/config";
 import { msgError } from "utils/notifications";
 
@@ -135,6 +138,22 @@ describe("GroupDraftsView", (): void => {
     },
   ];
 
+  const mockMeHasDraftsRejected: MockedResponse[] = [
+    {
+      request: {
+        query: GET_ME_HAS_DRAFTS_REJECTED,
+      },
+      result: {
+        data: {
+          me: {
+            hasDraftsRejected: false,
+            userEmail: "",
+          },
+        },
+      },
+    },
+  ];
+
   const mockError: readonly MockedResponse[] = [
     {
       request: {
@@ -159,7 +178,10 @@ describe("GroupDraftsView", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mocks, ...mockMeHasDraftsRejected]}
+        >
           <authzGroupContext.Provider
             value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
           >
@@ -197,12 +219,71 @@ describe("GroupDraftsView", (): void => {
     ).toBeInTheDocument();
   });
 
+  it("should render error in modal", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksHasRejected: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_ME_HAS_DRAFTS_REJECTED,
+        },
+        result: {
+          data: {
+            me: {
+              hasDraftsRejected: true,
+              userEmail: "",
+            },
+          },
+        },
+      },
+    ];
+    render(
+      <MemoryRouter initialEntries={["orgs/orgtest/groups/TEST/drafts"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mocks, ...mocksHasRejected]}
+        >
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <Route
+              component={GroupDraftsView}
+              path={"orgs/:organizationName/groups/:groupName/drafts"}
+            />
+          </authzGroupContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("group.drafts.btn.text")).toBeInTheDocument();
+    expect(
+      screen.queryByText("group.drafts.error.hasDraftsRejected")
+    ).not.toBeInTheDocument();
+
+    userEvent.click(screen.getByText("group.drafts.btn.text"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("group.drafts.error.hasDraftsRejected")
+      ).toBeInTheDocument();
+    });
+
+    expect(
+      screen.queryByRole("textbox", { name: "title" })
+    ).not.toBeInTheDocument();
+  });
+
   it("should render an error in component", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
       <MemoryRouter initialEntries={["/groups/TEST/drafts"]}>
-        <MockedProvider addTypename={false} mocks={mockError}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockError, ...mockMeHasDraftsRejected]}
+        >
           <authzGroupContext.Provider
             value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
           >
