@@ -18,3 +18,8 @@ lib_path.f267.k8s_root_filesystem_read_only:
     Ensure securityContext.readOnlyRootFilesystem property is set to true
   es: >
     Asegúrese de que la propiedad securityContext.readOnlyRootFilesystem esté establecida en verdadero
+lib_path.f267.k8s_check_run_as_user:
+  en: >
+    Containers must not set securityContext.runAsUser property to 0
+  es: >
+    Los contenedores no deben establecer la propiedad securityContext.runAsUser en 0

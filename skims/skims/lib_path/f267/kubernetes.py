@@ -58,12 +58,21 @@ def _k8s_root_container(
 def _k8s_root_filesystem_read_only(
     template: Any,
 ) -> Iterator[Any]:
-    for ctx in iter_security_context(template, False):
+    for ctx in iter_security_context(template, True):
         read_only = ctx.inner.get("readOnlyRootFilesystem")
         if read_only and not read_only.data:
             yield read_only
         elif not read_only:
             yield ctx
+
+
+def _k8s_check_run_as_user(
+    template: Any,
+) -> Iterator[Any]:
+    for ctx in iter_security_context(template, False):
+        as_user = ctx.inner.get("runAsUser")
+        if as_user and as_user.data == 0:
+            yield as_user
 
 
 def k8s_sys_admin_or_privileged_used(
@@ -119,4 +128,16 @@ def k8s_root_filesystem_read_only(
         ),
         path=path,
         method=MethodsEnum.K8S_ROOT_FILESYSTEM_READ_ONLY,
+    )
+
+
+def k8s_check_run_as_user(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_check_run_as_user"),
+        iterator=get_cloud_iterator(_k8s_check_run_as_user(template=template)),
+        path=path,
+        method=MethodsEnum.K8S_CHECK_RUN_AS_USER,
     )
