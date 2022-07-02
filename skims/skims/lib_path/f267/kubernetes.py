@@ -21,7 +21,7 @@ def _k8s_sys_admin_or_privileged_used(
 ) -> Iterator[Any]:
     for ctx in iter_security_context(template, True):
         for cap in get_containers_capabilities(ctx, "add"):
-            if cap.data == "SYS_ADMIN":
+            if cap.data.lower() == "sys_admin":
                 yield cap
         privileged = ctx.inner.get("privileged")
         if privileged and privileged.data:
@@ -73,6 +73,34 @@ def _k8s_check_run_as_user(
         as_user = ctx.inner.get("runAsUser")
         if as_user and as_user.data == 0:
             yield as_user
+
+
+def _k8s_check_seccomp_profile(
+    template: Any,
+) -> Iterator[Any]:
+    if template.raw.get("apiVersion") and (
+        ctx := template.inner.get("securityContext")
+    ):
+        if sec_prof := ctx.inner.get("seccompProfile"):
+            if (
+                prof_type := sec_prof.inner.get("type")
+            ) and prof_type.data.lower() == "unconfined":
+                yield prof_type
+            elif not sec_prof.inner.get("type"):
+                yield 0, 0
+        else:
+            yield 0, 0
+    else:
+        for ctx in iter_security_context(template, False):
+            if sec_prof := ctx.inner.get("seccompProfile"):
+                if (
+                    prof_type := sec_prof.inner.get("type")
+                ) and prof_type.data.lower() == "unconfined":
+                    yield prof_type
+                elif not sec_prof.inner.get("type"):
+                    yield 0, 0
+            else:
+                yield 0, 0
 
 
 def k8s_sys_admin_or_privileged_used(
@@ -140,4 +168,18 @@ def k8s_check_run_as_user(
         iterator=get_cloud_iterator(_k8s_check_run_as_user(template=template)),
         path=path,
         method=MethodsEnum.K8S_CHECK_RUN_AS_USER,
+    )
+
+
+def k8s_check_seccomp_profile(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_check_seccomp_profile"),
+        iterator=get_cloud_iterator(
+            _k8s_check_seccomp_profile(template=template)
+        ),
+        path=path,
+        method=MethodsEnum.K8S_CHECK_SECCOMP_PROFILE,
     )

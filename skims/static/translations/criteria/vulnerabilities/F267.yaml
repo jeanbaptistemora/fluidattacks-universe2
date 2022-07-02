@@ -23,3 +23,8 @@ lib_path.f267.k8s_check_run_as_user:
     Containers must not set securityContext.runAsUser property to 0
   es: >
     Los contenedores no deben establecer la propiedad securityContext.runAsUser en 0
+lib_path.f267.k8s_check_seccomp_profile:
+  en: >
+    Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+  es: >
+    Asegúrese de que la propiedad securityContext.seccompProfile.type este presente y establecida en un valor diferente a Unconfined

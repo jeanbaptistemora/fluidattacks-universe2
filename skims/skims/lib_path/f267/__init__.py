@@ -5,6 +5,7 @@ from lib_path.common import (
 from lib_path.f267.kubernetes import (
     k8s_allow_privilege_escalation_enabled,
     k8s_check_run_as_user,
+    k8s_check_seccomp_profile,
     k8s_root_container,
     k8s_root_filesystem_read_only,
     k8s_sys_admin_or_privileged_used,
@@ -64,6 +65,15 @@ def run_k8s_check_run_as_user(
 
 
 @SHIELD_BLOCKING
+def run_k8s_check_seccomp_profile(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return k8s_check_seccomp_profile(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -85,5 +95,6 @@ def analyze(
                 run_k8s_root_container(content, path, template),
                 run_k8s_root_filesystem_read_only(content, path, template),
                 run_k8s_check_run_as_user(content, path, template),
+                run_k8s_check_seccomp_profile(content, path, template),
             )
     return results
