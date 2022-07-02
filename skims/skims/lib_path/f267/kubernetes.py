@@ -50,7 +50,7 @@ def _k8s_allow_privilege_escalation_enabled(
                     if escalation and escalation.data:
                         yield escalation
                     elif not escalation:
-                        yield elem
+                        yield sec_cont
 
 
 def _k8s_root_container(
@@ -68,6 +68,27 @@ def _k8s_root_container(
                     as_root = sec_cont.inner.get("runAsNonRoot", None)
                     if as_root and not as_root.data:
                         yield as_root
+
+
+def _k8s_root_filesystem_read_only(
+    template: Any,
+) -> Iterator[Any]:
+    if is_kubernetes(template):
+        for container in iter_containers_type(template):
+            for elem in container:
+                sec_cont = (
+                    elem.inner.get("securityContext", None)
+                    if elem and elem.data
+                    else None
+                )
+                if sec_cont and sec_cont.data:
+                    read_only = sec_cont.inner.get(
+                        "readOnlyRootFilesystem", None
+                    )
+                    if read_only and not read_only.data:
+                        yield read_only
+                    elif not read_only:
+                        yield sec_cont
 
 
 def k8s_sys_admin_or_privileged_used(
@@ -109,4 +130,18 @@ def k8s_root_container(
         iterator=get_cloud_iterator(_k8s_root_container(template=template)),
         path=path,
         method=MethodsEnum.K8S_ROOT_CONTAINER,
+    )
+
+
+def k8s_root_filesystem_read_only(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_root_filesystem_read_only"),
+        iterator=get_cloud_iterator(
+            _k8s_root_filesystem_read_only(template=template)
+        ),
+        path=path,
+        method=MethodsEnum.K8S_ROOT_FILESYSTEM_READ_ONLY,
     )

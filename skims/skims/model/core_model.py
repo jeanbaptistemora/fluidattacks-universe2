@@ -3085,6 +3085,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    K8S_ROOT_FILESYSTEM_READ_ONLY = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_root_filesystem_read_only",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_BUCKET_POLICY_SEC_TRANSPORT = MethodInfo(
         file_name="cloudformation",
         name="cfn_bucket_policy_has_secure_transport",

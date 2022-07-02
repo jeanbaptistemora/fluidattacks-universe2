@@ -13,3 +13,8 @@ lib_path.f267.k8s_root_container:
     Ensure securityContext.runAsNonRoot property is set to true
   es: >
     Asegúrese de que la propiedad securityContext.runAsNonRoot esté establecida en verdadero
+lib_path.f267.k8s_root_filesystem_read_only:
+  en: >
+    Ensure securityContext.readOnlyRootFilesystem property is set to true
+  es: >
+    Asegúrese de que la propiedad securityContext.readOnlyRootFilesystem esté establecida en verdadero
