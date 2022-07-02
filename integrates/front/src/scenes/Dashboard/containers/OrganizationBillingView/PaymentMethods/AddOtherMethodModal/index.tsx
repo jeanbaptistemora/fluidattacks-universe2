@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,15 +26,6 @@ interface IAddOtherMethodModalProps {
   >;
 }
 
-const validations = object().shape({
-  businessName: string().required(),
-  city: string().required(),
-  country: string().required(),
-  email: string().required(),
-  rut: string().required(),
-  taxId: string().required(),
-});
-
 export const AddOtherMethodModal = ({
   onClose,
   onSubmit,
@@ -48,6 +40,38 @@ export const AddOtherMethodModal = ({
   const [countriesData, setCountriesData] = useState<ICountries[] | undefined>(
     undefined
   );
+  const [states, setStates] = useState<string[] | undefined>(undefined);
+  const [cities, setCities] = useState<string[] | undefined>(undefined);
+
+  const validations = object().shape({
+    businessName: string().required(),
+    city: string().test(
+      "isRequired",
+      t("validations.required"),
+      (value): boolean => {
+        if (cities === undefined) {
+          return true;
+        }
+
+        return cities.length === 0 || value !== undefined;
+      }
+    ),
+    country: string().required(),
+    email: string().required(),
+    rut: string().required(),
+    state: string().test(
+      "isRequired",
+      t("validations.required"),
+      (value): boolean => {
+        if (states === undefined) {
+          return true;
+        }
+
+        return states.length === 0 || value !== undefined;
+      }
+    ),
+    taxId: string().required(),
+  });
 
   useEffect((): void => {
     async function getData(): Promise<void> {
@@ -71,110 +95,187 @@ export const AddOtherMethodModal = ({
           country: "",
           email: "",
           rut: "",
+          state: "",
           taxId: "",
         }}
         name={"addOtherMethods"}
         onSubmit={onSubmit}
         validationSchema={validations}
       >
-        {({ dirty, isSubmitting }): JSX.Element => (
-          <Form>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.businessName"
-                )}
-              </ControlLabel>
-              <Field
-                component={FormikText}
-                name={"businessName"}
-                type={"text"}
-              />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.country"
-                )}
-              </ControlLabel>
-              <Field component={FormikDropdown} name={"country"}>
-                <option value={""}>{""}</option>
-                {countriesData === undefined
-                  ? undefined
-                  : countriesData.map(
-                      (country): JSX.Element => (
-                        <option key={country.id} value={country.name}>
-                          {country.name}
-                        </option>
-                      )
-                    )}
-              </Field>
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.state"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"state"} type={"text"} />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.city"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"city"} type={"text"} />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.email"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"email"} type={"text"} />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"rut"} type={"text"} />
-            </div>
-            <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
-                )}
-              </ControlLabel>
-              <Field component={FormikText} name={"taxId"} type={"text"} />
-            </div>
-            <ModalConfirm
-              disabled={!dirty || isSubmitting}
-              onCancel={onClose}
-            />
-            <hr />
-            <div>
-              <Button
-                id={"other-payment-methods"}
-                onClick={goToCreditCard}
-                type={"button"}
+        {({ dirty, isSubmitting, setFieldValue, values }): JSX.Element => {
+          function changeCountry(): void {
+            setFieldValue("state", "");
+            setFieldValue("city", "");
+            setCities(undefined);
+            if (countriesData !== undefined && values.country !== "") {
+              setStates(
+                countriesData
+                  .filter(
+                    (country): boolean => country.name === values.country
+                  )[0]
+                  .states.map((state): string => state.name)
+              );
+            }
+          }
+          function changeState(): void {
+            setFieldValue("city", "");
+            if (
+              countriesData !== undefined &&
+              values.country !== "" &&
+              values.state !== ""
+            ) {
+              setCities(
+                countriesData
+                  .filter(
+                    (country): boolean => country.name === values.country
+                  )[0]
+                  .states.filter(
+                    (state): boolean => state.name === values.state
+                  )[0]
+                  .cities.map((city): string => city.name)
+              );
+            }
+          }
+
+          return (
+            <Form>
+              <div>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.businessName"
+                  )}
+                </ControlLabel>
+                <Field
+                  component={FormikText}
+                  name={"businessName"}
+                  type={"text"}
+                />
+              </div>
+              <div>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.country"
+                  )}
+                </ControlLabel>
+              </div>
+              <div
+                onClick={changeCountry}
+                onKeyDown={changeCountry}
+                role={"listitem"}
               >
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.creditCard"
-                )}
-              </Button>
-            </div>
-          </Form>
-        )}
+                <Field component={FormikDropdown} name={"country"}>
+                  <option value={""}>{""}</option>
+                  {countriesData === undefined
+                    ? undefined
+                    : countriesData.map(
+                        (country): JSX.Element => (
+                          <option key={country.id} value={country.name}>
+                            {country.name}
+                          </option>
+                        )
+                      )}
+                </Field>
+              </div>
+              {states === undefined
+                ? undefined
+                : states.length > 0 && (
+                    <React.Fragment>
+                      <div>
+                        <ControlLabel>
+                          <RequiredField>{"*"}&nbsp;</RequiredField>
+                          {t(
+                            "organization.tabs.billing.paymentMethods.add.otherMethods.state"
+                          )}
+                        </ControlLabel>
+                      </div>
+                      <div
+                        onClick={changeState}
+                        onKeyDown={changeState}
+                        role={"listitem"}
+                      >
+                        <Field component={FormikDropdown} name={"state"}>
+                          <option value={""}>{""}</option>
+                          {states.map(
+                            (state): JSX.Element => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            )
+                          )}
+                        </Field>
+                      </div>
+                    </React.Fragment>
+                  )}
+              {cities === undefined
+                ? undefined
+                : cities.length > 0 && (
+                    <div>
+                      <ControlLabel>
+                        <RequiredField>{"*"}&nbsp;</RequiredField>
+                        {t(
+                          "organization.tabs.billing.paymentMethods.add.otherMethods.city"
+                        )}
+                      </ControlLabel>
+                      <Field component={FormikDropdown} name={"city"}>
+                        <option value={""}>{""}</option>
+                        {cities.map(
+                          (city): JSX.Element => (
+                            <option key={city} value={city}>
+                              {city}
+                            </option>
+                          )
+                        )}
+                      </Field>
+                    </div>
+                  )}
+              <div>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.email"
+                  )}
+                </ControlLabel>
+                <Field component={FormikText} name={"email"} type={"text"} />
+              </div>
+              <div>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                  )}
+                </ControlLabel>
+                <Field component={FormikText} name={"rut"} type={"text"} />
+              </div>
+              <div>
+                <ControlLabel>
+                  <RequiredField>{"*"}&nbsp;</RequiredField>
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
+                  )}
+                </ControlLabel>
+                <Field component={FormikText} name={"taxId"} type={"text"} />
+              </div>
+              <ModalConfirm
+                disabled={!dirty || isSubmitting}
+                onCancel={onClose}
+              />
+              <hr />
+              <div>
+                <Button
+                  id={"other-payment-methods"}
+                  onClick={goToCreditCard}
+                  type={"button"}
+                >
+                  {t(
+                    "organization.tabs.billing.paymentMethods.add.otherMethods.creditCard"
+                  )}
+                </Button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </Modal>
   );
