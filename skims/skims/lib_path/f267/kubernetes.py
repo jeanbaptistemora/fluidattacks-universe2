@@ -20,14 +20,15 @@ def _k8s_check_add_capability(
     template: Any,
 ) -> Iterator[Any]:
     for ctx in iter_security_context(template, True):
-        cap_add = get_containers_capabilities(ctx, "add")[0]
-        if not cap_add.data.lower() in {
+        if (
+            cap_add := get_containers_capabilities(ctx, "add")
+        ) and not cap_add[0].data.lower() in {
             "net_bind_service",
             "null",
             "nil",
             "undefined",
         }:
-            yield cap_add
+            yield cap_add[0]
 
 
 def _k8s_allow_privilege_escalation_enabled(
