@@ -167,6 +167,15 @@ class AcceptanceNotRequested(CustomBaseException):
         super(AcceptanceNotRequested, self).__init__(msg)
 
 
+class HasRejectedDrafts(CustomBaseException):
+    """Exception to control draft-only operations"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - User has pending rejected drafts"
+        super(HasRejectedDrafts, self).__init__(msg)
+
+
 class AlreadyApproved(CustomBaseException):
     """Exception to control draft-only operations"""
 
