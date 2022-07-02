@@ -16,16 +16,18 @@ from typing import (
 )
 
 
-def _k8s_sys_admin_or_privileged_used(
+def _k8s_check_add_capability(
     template: Any,
 ) -> Iterator[Any]:
     for ctx in iter_security_context(template, True):
-        for cap in get_containers_capabilities(ctx, "add"):
-            if cap.data.lower() == "sys_admin":
-                yield cap
-        privileged = ctx.inner.get("privileged")
-        if privileged and privileged.data:
-            yield privileged
+        cap_add = get_containers_capabilities(ctx, "add")[0]
+        if not cap_add.data.lower() in {
+            "net_bind_service",
+            "null",
+            "nil",
+            "undefined",
+        }:
+            yield cap_add
 
 
 def _k8s_allow_privilege_escalation_enabled(
@@ -87,9 +89,9 @@ def _k8s_check_seccomp_profile(
             ) and prof_type.data.lower() == "unconfined":
                 yield prof_type
             elif not sec_prof.inner.get("type"):
-                yield 0, 0
+                yield sec_prof
         else:
-            yield 0, 0
+            yield ctx
     else:
         for ctx in iter_security_context(template, False):
             if sec_prof := ctx.inner.get("seccompProfile"):
@@ -98,22 +100,40 @@ def _k8s_check_seccomp_profile(
                 ) and prof_type.data.lower() == "unconfined":
                     yield prof_type
                 elif not sec_prof.inner.get("type"):
-                    yield 0, 0
+                    yield sec_prof
             else:
-                yield 0, 0
+                yield ctx
 
 
-def k8s_sys_admin_or_privileged_used(
+def _k8s_check_privileged_used(
+    template: Any,
+) -> Iterator[Any]:
+    for ctx in iter_security_context(template, True):
+        privileged = ctx.inner.get("privileged")
+        if privileged and privileged.data:
+            yield privileged
+
+
+def _k8s_check_drop_capability(
+    template: Any,
+) -> Iterator[Any]:
+    for ctx in iter_security_context(template, True):
+        cap_drop = get_containers_capabilities(ctx, "drop")
+        if cap_drop and "all" not in [cap.data.lower() for cap in cap_drop]:
+            yield cap_drop[0]
+
+
+def k8s_check_add_capability(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("lib_path.f267.k8s_sys_admin_linux_cap_is_used"),
+        description_key=("lib_path.f267.k8s_check_add_capability"),
         iterator=get_cloud_iterator(
-            _k8s_sys_admin_or_privileged_used(template=template)
+            _k8s_check_add_capability(template=template)
         ),
         path=path,
-        method=MethodsEnum.K8S_SYS_ADMIN_LINUX_CAP_USED,
+        method=MethodsEnum.K8S_CHECK_ADD_CAPABILITY,
     )
 
 
@@ -182,4 +202,32 @@ def k8s_check_seccomp_profile(
         ),
         path=path,
         method=MethodsEnum.K8S_CHECK_SECCOMP_PROFILE,
+    )
+
+
+def k8s_check_privileged_used(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_check_privileged_used"),
+        iterator=get_cloud_iterator(
+            _k8s_check_privileged_used(template=template)
+        ),
+        path=path,
+        method=MethodsEnum.K8S_CHECK_PRIVILEGED_USED,
+    )
+
+
+def k8s_check_drop_capability(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=("lib_path.f267.k8s_check_drop_capability"),
+        iterator=get_cloud_iterator(
+            _k8s_check_drop_capability(template=template)
+        ),
+        path=path,
+        method=MethodsEnum.K8S_CHECK_DROP_CAPABILITY,
     )

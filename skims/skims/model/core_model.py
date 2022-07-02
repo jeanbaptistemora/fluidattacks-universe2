@@ -3061,9 +3061,9 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    K8S_SYS_ADMIN_LINUX_CAP_USED = MethodInfo(
+    K8S_CHECK_ADD_CAPABILITY = MethodInfo(
         file_name="kubernetes",
-        name="k8s_sys_admin_linux_cap_used",
+        name="k8s_check_add_capability",
         module="lib_path",
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
@@ -3104,6 +3104,22 @@ class MethodsEnum(Enum):
     K8S_CHECK_SECCOMP_PROFILE = MethodInfo(
         file_name="kubernetes",
         name="k8s_check_seccomp_profile",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    K8S_CHECK_PRIVILEGED_USED = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_check_privileged_used",
+        module="lib_path",
+        finding=FindingEnum.F267,
+        developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    K8S_CHECK_DROP_CAPABILITY = MethodInfo(
+        file_name="kubernetes",
+        name="k8s_check_drop_capability",
         module="lib_path",
         finding=FindingEnum.F267,
         developer=DeveloperEnum.JUAN_ECHEVERRI,

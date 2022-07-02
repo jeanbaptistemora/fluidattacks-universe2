@@ -4,11 +4,13 @@ from lib_path.common import (
 )
 from lib_path.f267.kubernetes import (
     k8s_allow_privilege_escalation_enabled,
+    k8s_check_add_capability,
+    k8s_check_drop_capability,
+    k8s_check_privileged_used,
     k8s_check_run_as_user,
     k8s_check_seccomp_profile,
     k8s_root_container,
     k8s_root_filesystem_read_only,
-    k8s_sys_admin_or_privileged_used,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -24,10 +26,10 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_k8s_sys_admin_or_privileged_used(
+def run_k8s_check_add_capability(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return k8s_sys_admin_or_privileged_used(
+    return k8s_check_add_capability(
         content=content, path=path, template=template
     )
 
@@ -74,6 +76,24 @@ def run_k8s_check_seccomp_profile(
 
 
 @SHIELD_BLOCKING
+def run_k8s_check_privileged_used(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return k8s_check_privileged_used(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
+def run_k8s_check_drop_capability(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return k8s_check_drop_capability(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -88,7 +108,7 @@ def analyze(
         for template in load_templates_blocking(content, fmt=file_extension):
             results = (
                 *results,
-                run_k8s_sys_admin_or_privileged_used(content, path, template),
+                run_k8s_check_add_capability(content, path, template),
                 run_k8s_allow_privilege_escalation_enabled(
                     content, path, template
                 ),
@@ -96,5 +116,7 @@ def analyze(
                 run_k8s_root_filesystem_read_only(content, path, template),
                 run_k8s_check_run_as_user(content, path, template),
                 run_k8s_check_seccomp_profile(content, path, template),
+                run_k8s_check_privileged_used(content, path, template),
+                run_k8s_check_drop_capability(content, path, template),
             )
     return results
