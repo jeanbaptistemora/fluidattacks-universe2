@@ -35,6 +35,9 @@ class Jobs(Enum):
     DYNAMO_FORCES = f'{os.environ.get("dynamoDbEtls", "")} FORCES'
     DYNAMO_INTEGRATES = f'{os.environ.get("dynamoDbEtls", "")} GROUP'
     DYNAMO_INTEGRATES_MAIN = f'{os.environ.get("dynamoDbEtls", "")} CORE'
+    DYNAMO_INTEGRATES_MAIN_NO_CACHE = (
+        f'{os.environ.get("dynamoDbEtls", "")} CORE_NO_CACHE'
+    )
     FORMSTACK = os.environ.get("formstackEtl", "")
     GITLAB_PRODUCT = os.environ.get("gitlabEtlProduct", "")
     GITLAB_CHALLENGES = os.environ.get("gitlabEtlChallenges", "")
@@ -71,6 +74,7 @@ dynamo_days = (
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
+        weekly(ANY, 0, 6).unwrap(): (Jobs.DYNAMO_INTEGRATES_MAIN_NO_CACHE,),
         week_days(ANY, 12, dynamo_days).unwrap(): (
             Jobs.DYNAMO_INTEGRATES_MAIN,
         ),

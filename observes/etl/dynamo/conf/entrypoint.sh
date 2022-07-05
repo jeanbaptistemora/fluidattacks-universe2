@@ -14,6 +14,9 @@ function execute {
     CORE)
       python -c "${import} Jobs().core().compute()"
       ;;
+    CORE_NO_CACHE)
+      python -c "${import} Jobs().core_no_cache().compute()"
+      ;;
     GROUP)
       python -c "${import} Jobs().standard_group().compute()"
       ;;

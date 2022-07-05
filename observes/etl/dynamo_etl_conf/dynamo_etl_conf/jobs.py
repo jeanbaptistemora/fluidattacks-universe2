@@ -8,6 +8,9 @@ from dynamo_etl_conf.core import (
     SEGMENTATION,
     TargetTables,
 )
+from fa_purity import (
+    Maybe,
+)
 from fa_purity.cmd import (
     Cmd,
 )
@@ -27,31 +30,47 @@ class Jobs:
     _etl_big_bin: str = os.environ["DYNAMO_ETL_BIG_BIN"]
 
     def run(
-        self, schema: str, tables: FrozenList[str], segments: int, big: bool
+        self,
+        schema: str,
+        tables: FrozenList[str],
+        segments: int,
+        big: bool,
+        cache: Maybe[str],
     ) -> Cmd[None]:
         _bin = self._etl_big_bin if big else self._etl_bin
         return external_run(
             tuple([_bin, schema, " ".join(tables), str(segments)])
+            + cache.map(lambda c: ("yes", c)).value_or(("", ""))
         )
 
-    def default_run(self, table: TargetTables, big: bool = False) -> Cmd[None]:
+    def default_run(
+        self, table: TargetTables, big: bool, cache: Maybe[str]
+    ) -> Cmd[None]:
         return self.run(
             f"{self._schema_prefix}{table.value}",
             (table.value,),
             SEGMENTATION[table],
             big,
+            cache,
         )
 
     def standard_group(self) -> Cmd[None]:
         cmds = tuple(
-            self.default_run(table)
+            self.default_run(table, False, Maybe.empty())
             for table in TargetTables
             if table not in (TargetTables.CORE, TargetTables.FORCES)
         )
         return serial_merge(cmds).map(lambda _: None)
 
     def forces(self) -> Cmd[None]:
-        return self.default_run(TargetTables.FORCES)
+        return self.default_run(TargetTables.FORCES, False, Maybe.empty())
 
     def core(self) -> Cmd[None]:
-        return self.default_run(TargetTables.CORE, True)
+        return self.default_run(
+            TargetTables.CORE,
+            True,
+            Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
+        )
+
+    def core_no_cache(self) -> Cmd[None]:
+        return self.default_run(TargetTables.CORE, True, Maybe.empty())
