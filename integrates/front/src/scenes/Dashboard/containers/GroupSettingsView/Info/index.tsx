@@ -22,7 +22,6 @@ import { UPDATE_GROUP_INFO } from "scenes/Dashboard/components/EditGroupInformat
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { handleEditGroupDataError } from "scenes/Dashboard/containers/GroupSettingsView/Services/helpers";
 import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
-import { ButtonToolbar, Col40, Col60, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatIsoDate } from "utils/date";
@@ -198,38 +197,27 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Row>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col60 className={"pa0"}>
-          <h2>{t("searchFindings.infoTable.title")}</h2>
-        </Col60>
-        <Col40>
-          <ButtonToolbar>
-            <Can do={"api_mutations_update_group_stakeholder_mutate"}>
-              <TooltipWrapper
-                displayClass={"dib"}
-                id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                message={t(
-                  "searchFindings.tabResources.information.btnTooltip"
-                )}
-              >
-                <Button
-                  disabled={permissions.cannot(
-                    "api_mutations_update_group_mutate"
-                  )}
-                  id={"editGroup"}
-                  onClick={openEditGroupInformationModal}
-                  variant={"secondary"}
-                >
-                  <FluidIcon icon={"edit"} />
-                  &nbsp;
-                  {t("searchFindings.tabUsers.editButton.text")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
-          </ButtonToolbar>
-        </Col40>
-      </Row>
+      <div className={"flex justify-between"}>
+        <h2>{t("searchFindings.infoTable.title")}</h2>
+        <Can do={"api_mutations_update_group_stakeholder_mutate"}>
+          <TooltipWrapper
+            displayClass={"dib"}
+            id={"searchFindings.tabUsers.editButton.tooltip.id"}
+            message={t("searchFindings.tabResources.information.btnTooltip")}
+          >
+            <Button
+              disabled={permissions.cannot("api_mutations_update_group_mutate")}
+              id={"editGroup"}
+              onClick={openEditGroupInformationModal}
+              variant={"secondary"}
+            >
+              <FluidIcon icon={"edit"} />
+              &nbsp;
+              {t("searchFindings.tabUsers.editButton.text")}
+            </Button>
+          </TooltipWrapper>
+        </Can>
+      </div>
       <Table
         dataset={attributesDataset}
         exportCsv={false}

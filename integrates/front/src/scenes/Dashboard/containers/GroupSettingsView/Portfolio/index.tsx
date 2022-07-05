@@ -12,6 +12,7 @@ import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Gap } from "components/Layout";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -22,7 +23,6 @@ import {
   REMOVE_GROUP_TAG_MUTATION,
 } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import type { IGetTagsQuery } from "scenes/Dashboard/containers/GroupSettingsView/types";
-import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -161,52 +161,48 @@ const Portfolio: React.FC<IPortfolioProps> = ({
 
   return (
     <React.StrictMode>
-      <Row>
-        <div className={"ph1-5 pa0 w-60-ns"}>
-          <h2>{t("searchFindings.tabResources.tags.title")}</h2>
-        </div>
-        <div className={"ph1-5 pa0 w-40-ns"}>
-          <ButtonToolbar>
-            <Can do={"api_mutations_add_group_tags_mutate"}>
-              <TooltipWrapper
-                displayClass={"dib"}
-                id={"searchFindings.tabResources.tags.addTooltip.id"}
-                message={t("searchFindings.tabResources.tags.addTooltip")}
-                placement={"top"}
+      <div className={"flex justify-between"}>
+        <h2>{t("searchFindings.tabResources.tags.title")}</h2>
+        <Gap>
+          <Can do={"api_mutations_add_group_tags_mutate"}>
+            <TooltipWrapper
+              displayClass={"dib"}
+              id={"searchFindings.tabResources.tags.addTooltip.id"}
+              message={t("searchFindings.tabResources.tags.addTooltip")}
+              placement={"top"}
+            >
+              <Button
+                id={"portfolio-add"}
+                onClick={openAddModal}
+                variant={"secondary"}
               >
-                <Button
-                  id={"portfolio-add"}
-                  onClick={openAddModal}
-                  variant={"secondary"}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;
-                  {t("searchFindings.tabResources.addRepository")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
-            <Can do={"api_mutations_remove_group_tag_mutate"}>
-              <TooltipWrapper
-                displayClass={"dib"}
-                id={"searchFindings.tabResources.tags.removeTooltip.id"}
-                message={t("searchFindings.tabResources.tags.removeTooltip")}
-                placement={"top"}
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;
+                {t("searchFindings.tabResources.addRepository")}
+              </Button>
+            </TooltipWrapper>
+          </Can>
+          <Can do={"api_mutations_remove_group_tag_mutate"}>
+            <TooltipWrapper
+              displayClass={"dib"}
+              id={"searchFindings.tabResources.tags.removeTooltip.id"}
+              message={t("searchFindings.tabResources.tags.removeTooltip")}
+              placement={"top"}
+            >
+              <Button
+                disabled={_.isEmpty(currentRow) || removing}
+                id={"portfolio-remove"}
+                onClick={handleRemoveTag}
+                variant={"secondary"}
               >
-                <Button
-                  disabled={_.isEmpty(currentRow) || removing}
-                  id={"portfolio-remove"}
-                  onClick={handleRemoveTag}
-                  variant={"secondary"}
-                >
-                  <FontAwesomeIcon icon={faMinus} />
-                  &nbsp;
-                  {t("searchFindings.tabResources.removeRepository")}
-                </Button>
-              </TooltipWrapper>
-            </Can>
-          </ButtonToolbar>
-        </div>
-      </Row>
+                <FontAwesomeIcon icon={faMinus} />
+                &nbsp;
+                {t("searchFindings.tabResources.removeRepository")}
+              </Button>
+            </TooltipWrapper>
+          </Can>
+        </Gap>
+      </div>
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>
         {(canDelete: boolean): JSX.Element => (
           <Table
