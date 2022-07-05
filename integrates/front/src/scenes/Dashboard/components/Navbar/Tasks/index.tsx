@@ -4,7 +4,8 @@ import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
+import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
 
@@ -55,22 +56,16 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
           }`
         )}
       >
-        <ButtonOpacity onClick={onClick}>
-          <span className={"fa-layers fa-fw"}>
+        <Button onClick={onClick} size={"sm"}>
+          <Text size={4}>
             <FontAwesomeIcon color={"#2e2e38"} icon={faTasks} />
-            &nbsp;
-            {undefinedOrEmpty ? (
-              <div />
-            ) : (
-              <span
-                className={"fa-layers-counter f2 b light-gray"}
-                data-fa-transform={"shrink-8 down-3"}
-              >
+            {undefinedOrEmpty ? undefined : (
+              <span className={"fa-layers-counter f2 b"}>
                 {limitFormatter(allAssigned)}
               </span>
             )}
-          </span>
-        </ButtonOpacity>
+          </Text>
+        </Button>
       </TooltipWrapper>
     </React.StrictMode>
   );

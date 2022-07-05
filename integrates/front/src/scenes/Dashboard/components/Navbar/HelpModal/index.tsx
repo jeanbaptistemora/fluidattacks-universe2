@@ -15,10 +15,11 @@ import { useRouteMatch } from "react-router-dom";
 import { Button, ExtraMessage, Message } from "./styles";
 import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
-import { ButtonOpacity } from "components/Button";
+import { Button as Btn } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
+import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
@@ -119,9 +120,11 @@ export const HelpModal: React.FC<IHelpModal> = ({
 
   return (
     <React.StrictMode>
-      <ButtonOpacity onClick={toggleModal}>
-        <FontAwesomeIcon color={"#2e2e38"} icon={faQuestionCircle} />
-      </ButtonOpacity>
+      <Btn onClick={toggleModal} size={"sm"}>
+        <Text size={4}>
+          <FontAwesomeIcon icon={faQuestionCircle} />
+        </Text>
+      </Btn>
       <Modal
         onClose={onClose}
         open={isModalOpen}

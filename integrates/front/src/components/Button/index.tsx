@@ -4,6 +4,7 @@ type TSize = "lg" | "md" | "sm" | "xl";
 type TVariant = "ghost" | "primary" | "secondary" | "tertiary";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  disp?: "block" | "inline-block" | "inline";
   size?: TSize;
   variant?: TVariant;
 }
@@ -82,7 +83,7 @@ const Button = styled.button.attrs<IButtonProps>(
     type,
   })
 )<IButtonProps>`
-  ${({ size = "md", variant = "ghost" }): string => {
+  ${({ disp = "inline-block", size = "md", variant = "ghost" }): string => {
     const { ph, pv } = sizes[size];
     const { bgColor, bgColorHover, borderColor, color, colorHover } =
       variants[variant];
@@ -92,10 +93,12 @@ const Button = styled.button.attrs<IButtonProps>(
     border: 2px solid ${borderColor};
     border-radius: 4px;
     color: ${color};
+    display: ${disp};
     font-weight: 400;
     padding: ${pv}px ${ph}px;
     text-decoration: none;
     transition: all 0.3s ease;
+    width: ${disp === "block" ? "100%" : "auto"};
 
     :disabled {
       cursor: not-allowed;

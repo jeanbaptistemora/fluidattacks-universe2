@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
 import { Dropdown } from "components/Dropdown";
 import { ExternalLink } from "components/ExternalLink";
-import { MenuItem } from "components/Menu";
+import { Text } from "components/Text";
 import {
   ASM_DEPLOYMENT_DATE,
   CI_COMMIT_SHA,
@@ -20,29 +20,29 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
     <Dropdown
       align={"left"}
       button={
-        <ButtonOpacity>
-          <FontAwesomeIcon color={"#2e2e38"} icon={faInfoCircle} />
-        </ButtonOpacity>
+        <Button size={"sm"}>
+          <Text size={4}>
+            <FontAwesomeIcon icon={faInfoCircle} />
+          </Text>
+        </Button>
       }
     >
-      <MenuItem>
-        <button>
-          <p className={"f5 ma0"}>
-            {t("info.commit")}
-            &nbsp;
-            <ExternalLink
-              href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
-            >
-              {CI_COMMIT_SHORT_SHA}
-            </ExternalLink>
-          </p>
-          <p className={"f6 ma0"}>
-            {t("info.deploymentDate")}
-            &nbsp;
-            {ASM_DEPLOYMENT_DATE}
-          </p>
-        </button>
-      </MenuItem>
+      <Button>
+        <p className={"f5 ma0"}>
+          {t("info.commit")}
+          &nbsp;
+          <ExternalLink
+            href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+          >
+            {CI_COMMIT_SHORT_SHA}
+          </ExternalLink>
+        </p>
+        <p className={"f6 ma0"}>
+          {t("info.deploymentDate")}
+          &nbsp;
+          {ASM_DEPLOYMENT_DATE}
+        </p>
+      </Button>
     </Dropdown>
   );
 };

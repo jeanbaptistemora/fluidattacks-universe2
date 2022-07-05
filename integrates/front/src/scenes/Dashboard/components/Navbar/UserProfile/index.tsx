@@ -27,11 +27,12 @@ import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
-import { ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Dropdown } from "components/Dropdown";
-import { MenuDivider, MenuItem } from "components/Menu";
+import { MenuDivider } from "components/Menu";
 import { Switch } from "components/Switch";
+import { Text } from "components/Text";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { Alert, ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
@@ -131,30 +132,36 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     <Dropdown
       align={"left"}
       button={
-        <ButtonOpacity>
-          <FontAwesomeIcon color={"#2e2e38"} icon={faUserCircle} />
-        </ButtonOpacity>
+        <Button size={"sm"}>
+          <Text size={4}>
+            <FontAwesomeIcon icon={faUserCircle} />
+          </Text>
+        </Button>
       }
     >
-      <MenuItem>
-        <button>
-          <p className={"b f5 ma0"}>{userName}</p>
-          <p className={"f5 ma0"}>{userEmail}</p>
+      <div className={"flex flex-column tl"}>
+        <div className={"pa2"}>
+          <Text bright={7} fw={7} mb={1}>
+            {userName}
+          </Text>
+          <Text bright={7} mb={1}>
+            {userEmail}
+          </Text>
           {_.isUndefined(userIntPhone) ? undefined : (
-            <p className={"b f5 ma0"}>
+            <Text bright={7} mb={1}>
               {t("navbar.mobile")}
               &nbsp;
               {userIntPhone}
-            </p>
+            </Text>
           )}
           {userRole === undefined ? undefined : (
-            <p className={"f5 ma0"}>
+            <Text bright={7} mb={1}>
               {t("navbar.role")}
               &nbsp;
               {t(`userModal.roles.${_.camelCase(userRole)}`)}
-            </p>
+            </Text>
           )}
-          <p className={"f5 ma0"}>
+          <Text bright={7}>
             {t("navbar.featurePreview")}
             &nbsp;
             <Switch
@@ -162,56 +169,47 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               name={"featurePreview"}
               onChange={toggleFeaturePreview}
             />
-          </p>
-        </button>
-      </MenuItem>
-      <MenuDivider />
-      <MenuItem>
-        <button className={"f5"} onClick={openTokenModal}>
-          <FontAwesomeIcon icon={faKey} />
-          &nbsp;
-          {t("navbar.token")}
-        </button>
-        {isTokenModalOpen ? (
-          <APITokenModal onClose={closeTokenModal} open={true} />
-        ) : undefined}
-      </MenuItem>
-      <MenuItem>
-        <Link to={"/user/config"}>
-          <p className={"f5 ma0"}>
-            <FontAwesomeIcon icon={faUserCog} />
+          </Text>
+        </div>
+        <MenuDivider />
+        <Button disp={"block"} onClick={openTokenModal}>
+          <Text bright={8}>
+            <FontAwesomeIcon icon={faKey} />
             &nbsp;
-            {t("navbar.notification")}
-          </p>
-        </Link>
-      </MenuItem>
-      <MenuItem>
-        <button className={"f5"} onClick={openCredentialsModal}>
-          <FontAwesomeIcon icon={faUserLock} />
-          &nbsp;
-          {t("navbar.credentials")}
-        </button>
-        {isCredentialsModalOpen ? (
-          <CredentialsModal onClose={closeCredentialsModal} />
-        ) : undefined}
-      </MenuItem>
-      <MenuItem>
-        <button className={"f5"} onClick={openMobileModal}>
-          <FontAwesomeIcon icon={faMobileAlt} />
-          &nbsp;
-          {t("navbar.mobile")}
-        </button>
-        {isMobileModalOpen ? (
-          <MobileModal onClose={closeMobileModal} />
-        ) : undefined}
-      </MenuItem>
-      <Can do={"api_mutations_add_stakeholder_mutate"}>
-        <MenuItem>
-          <button className={"f5 ma0"} onClick={openStakeholderModal}>
-            <FontAwesomeIcon icon={faUserPlus} />
+            {t("navbar.token")}
+          </Text>
+        </Button>
+        <Button>
+          <Link to={"/user/config"}>
+            <Text bright={8}>
+              <FontAwesomeIcon icon={faUserCog} />
+              &nbsp;
+              {t("navbar.notification")}
+            </Text>
+          </Link>
+        </Button>
+        <Button onClick={openCredentialsModal}>
+          <Text bright={8}>
+            <FontAwesomeIcon icon={faUserLock} />
             &nbsp;
-            {t("navbar.user")}
-          </button>
+            {t("navbar.credentials")}
+          </Text>
+        </Button>
+        <Button onClick={openMobileModal}>
+          <Text bright={8}>
+            <FontAwesomeIcon icon={faMobileAlt} />
+            &nbsp;
+            {t("navbar.mobile")}
+          </Text>
+        </Button>
+        <Can do={"api_mutations_add_stakeholder_mutate"}>
+          <Button onClick={openStakeholderModal}>
+            <Text bright={8}>
+              <FontAwesomeIcon icon={faUserPlus} />
+              &nbsp;
+              {t("navbar.user")}
+            </Text>
+          </Button>
           {isStakeholderModalOpen ? (
             <AddUserModal
               action={"add"}
@@ -224,9 +222,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
               type={"user"}
             />
           ) : undefined}
-        </MenuItem>
-      </Can>
-      <MenuItem>
+        </Can>
         <ConfirmDialog
           message={
             <React.Fragment>
@@ -246,17 +242,17 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             }
 
             return (
-              <button className={"f5"} onClick={handleLogoutClick}>
-                <FontAwesomeIcon icon={faUserTimes} />
-                &nbsp;
-                {t("navbar.deleteAccount.text")}
-              </button>
+              <Button onClick={handleLogoutClick}>
+                <Text bright={8}>
+                  <FontAwesomeIcon icon={faUserTimes} />
+                  &nbsp;
+                  {t("navbar.deleteAccount.text")}
+                </Text>
+              </Button>
             );
           }}
         </ConfirmDialog>
-      </MenuItem>
-      <MenuDivider />
-      <MenuItem>
+        <MenuDivider />
         <ConfirmDialog title={t("navbar.logout")}>
           {(confirm): React.ReactNode => {
             function handleLogoutClick(): void {
@@ -267,15 +263,26 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             }
 
             return (
-              <button className={"f5"} onClick={handleLogoutClick}>
-                <FontAwesomeIcon icon={faSignOutAlt} />
-                &nbsp;
-                {t("navbar.logout")}
-              </button>
+              <Button onClick={handleLogoutClick}>
+                <Text bright={8}>
+                  <FontAwesomeIcon icon={faSignOutAlt} />
+                  &nbsp;
+                  {t("navbar.logout")}
+                </Text>
+              </Button>
             );
           }}
         </ConfirmDialog>
-      </MenuItem>
+      </div>
+      {isTokenModalOpen ? (
+        <APITokenModal onClose={closeTokenModal} open={true} />
+      ) : undefined}
+      {isCredentialsModalOpen ? (
+        <CredentialsModal onClose={closeCredentialsModal} />
+      ) : undefined}
+      {isMobileModalOpen ? (
+        <MobileModal onClose={closeMobileModal} />
+      ) : undefined}
     </Dropdown>
   );
 };

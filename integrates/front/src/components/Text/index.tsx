@@ -45,6 +45,7 @@ const colors: Record<TColor, string[]> = {
 
 interface ITextProps {
   bright?: Nums1To9 | 0;
+  disp?: "block" | "inline-block" | "inline";
   hoverBright?: Nums1To9 | 0;
   hoverTone?: TColor;
   mb?: Nums1To7 | 0;
@@ -72,11 +73,14 @@ const Text = styled.p.attrs(
 )<ITextProps>`
   ${({
     bright = 1,
-    hoverBright = 1,
-    hoverTone = "dark",
+    disp = "block",
     tone = "dark",
+    hoverBright = bright,
+    hoverTone = tone,
   }): string => `
     color: #${colors[tone][bright]};
+    display: ${disp};
+    text-align: start;
     transition: all 0.3s ease;
 
     :hover {
