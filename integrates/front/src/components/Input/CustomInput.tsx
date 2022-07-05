@@ -2,7 +2,13 @@ import type { FieldProps } from "formik";
 import React, { useCallback } from "react";
 
 import type { IStyledInputProps } from "./styles";
-import { InputBox, InputWrapper, StyledInput, StyledTextArea } from "./styles";
+import {
+  InputBox,
+  InputWrapper,
+  StyledInput,
+  StyledSelect,
+  StyledTextArea,
+} from "./styles";
 
 import { Alert } from "components/Alert";
 import { Text } from "components/Text";
@@ -10,6 +16,7 @@ import { Text } from "components/Text";
 interface IInputProps extends Partial<IStyledInputProps> {
   childLeft?: React.ReactNode;
   childRight?: React.ReactNode;
+  children?: React.ReactNode;
   disabled?: boolean;
   id?: string;
   label?: React.ReactNode;
@@ -19,7 +26,7 @@ interface IInputProps extends Partial<IStyledInputProps> {
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   rows?: number;
-  type?: "email" | "password" | "text" | "textarea";
+  type?: "email" | "password" | "select" | "text" | "textarea";
 }
 
 const CustomInput: React.FC<
@@ -27,6 +34,7 @@ const CustomInput: React.FC<
 > = ({
   childLeft,
   childRight,
+  children,
   disabled,
   field,
   form,
@@ -57,14 +65,24 @@ const CustomInput: React.FC<
     <InputBox showAlert={alert.length > 0}>
       {label === undefined ? undefined : (
         <label htmlFor={id}>
-          <div className={"mb1"}>
-            <Text>{label}</Text>
-          </div>
+          <Text mb={1}>{label}</Text>
         </label>
       )}
       <InputWrapper variant={variant}>
         {childLeft}
-        {type === "textarea" ? (
+        {type === "select" ? (
+          <StyledSelect
+            aria-label={name}
+            autoComplete={"off"}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onChange={onChange}
+            value={value}
+          >
+            {children}
+          </StyledSelect>
+        ) : type === "textarea" ? (
           <StyledTextArea
             aria-label={name}
             autoComplete={"off"}

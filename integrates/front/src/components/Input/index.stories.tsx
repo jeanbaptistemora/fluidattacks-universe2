@@ -72,5 +72,19 @@ Search.args = {
   variant: "solid",
 };
 
-export { Default, Search };
+const Select = Template.bind({});
+Select.args = {
+  children: (
+    <React.Fragment>
+      {[...Array(7).keys()].map(
+        (el): JSX.Element => (
+          <option key={el} value={el}>{`Option ${el}`}</option>
+        )
+      )}
+    </React.Fragment>
+  ),
+  type: "select",
+};
+
+export { Default, Search, Select };
 export default config;

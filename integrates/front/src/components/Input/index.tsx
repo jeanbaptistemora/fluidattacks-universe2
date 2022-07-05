@@ -8,6 +8,7 @@ import { CustomInput } from "./CustomInput";
 const Input: FC<IInputProps> = ({
   childLeft,
   childRight,
+  children,
   disabled = false,
   id,
   label,
@@ -35,7 +36,9 @@ const Input: FC<IInputProps> = ({
     rows={rows}
     type={type}
     variant={variant}
-  />
+  >
+    {children}
+  </Field>
 );
 
 export { Input };

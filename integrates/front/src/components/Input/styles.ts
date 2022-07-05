@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface IInputContainerProps {
   showAlert: boolean;
@@ -20,6 +20,25 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
     bgColor: "#f4f4f6",
   },
 };
+
+const sharedStyles = css`
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #121216;
+  line-height: 1.25;
+  outline: none;
+  padding: 6px 12px;
+  width: 100%;
+
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  ::placeholder {
+    color: #b0b0bf;
+  }
+`;
 
 const InputBox = styled.div.attrs({
   className: "comp-input",
@@ -49,40 +68,17 @@ const InputWrapper = styled.div<IStyledInputProps>`
 `;
 
 const StyledInput = styled.input`
-  background: none;
-  border: none;
-  color: #121216;
-  font-weight: 400;
-  outline: none;
-  padding: 6px 12px;
-  width: 100%;
+  ${sharedStyles}
+`;
 
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  ::placeholder {
-    color: #b0b0bf;
-  }
+const StyledSelect = styled.select`
+  ${sharedStyles}
 `;
 
 const StyledTextArea = styled.textarea`
-  background: none;
-  border: none;
-  line-height: 1.25;
-  outline: none;
-  padding: 6px 12px;
+  ${sharedStyles}
   resize: none;
-  width: 100%;
-
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  ::placeholder {
-    color: #b0b0bf;
-  }
 `;
 
 export type { IInputContainerProps, IStyledInputProps };
-export { InputBox, InputWrapper, StyledInput, StyledTextArea };
+export { InputBox, InputWrapper, StyledInput, StyledSelect, StyledTextArea };
