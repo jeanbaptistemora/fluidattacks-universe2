@@ -54,7 +54,6 @@ from newutils.requests import (
 )
 from typing import (
     Any,
-    Tuple,
 )
 
 
@@ -96,14 +95,14 @@ async def mutate(
         ] = await info.context.loaders.group_drafts_and_findings.load(
             group_name
         )
-        drafts: Tuple[Finding, ...] = filter_non_state_status_findings(
+        drafts: tuple[Finding, ...] = filter_non_state_status_findings(
             drafts_and_findings,
             {
                 FindingStateStatus.APPROVED,
                 FindingStateStatus.DELETED,
             },
         )
-        findings: Tuple[Finding, ...] = filter_non_state_status_findings(
+        findings: tuple[Finding, ...] = filter_non_state_status_findings(
             drafts_and_findings,
             {
                 FindingStateStatus.CREATED,
