@@ -82,6 +82,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "class_body",
             "constructor_body",
+            "interface_body",
         },
         syntax_reader=java_class_body.reader,
     ),

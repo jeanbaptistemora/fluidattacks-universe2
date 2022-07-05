@@ -16,6 +16,7 @@ DISPATCHERS: Dispatchers = (
         applicable_types={
             "Class",
             "ConstructorDeclaration",
+            "InterfaceDeclaration",
             "MethodDeclaration",
             "Namespace",
         },
@@ -25,6 +26,7 @@ DISPATCHERS: Dispatchers = (
         applicable_types={
             "DeclarationBlock",
             "File",
+            "PackageDeclaration",
         },
         cfg_builder=multi_path.build,
     ),
