@@ -1,5 +1,5 @@
-import { useQuery } from "@apollo/client";
-import type { ApolloError } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
@@ -29,19 +29,25 @@ import type {
   IHeaderConfig,
   ISelectRowProps,
 } from "components/Table/types";
-import { GET_TOE_INPUTS } from "scenes/Dashboard/containers/GroupToeInputsView/queries";
+import {
+  GET_TOE_INPUTS,
+  UPDATE_TOE_INPUT,
+} from "scenes/Dashboard/containers/GroupToeInputsView/queries";
 import type {
   IFilterSet,
   IGroupToeInputsViewProps,
   IToeInputData,
   IToeInputEdge,
   IToeInputsConnection,
+  IUpdateToeInputResultAttr,
 } from "scenes/Dashboard/containers/GroupToeInputsView/types";
 import { GET_ROOT_IDS } from "scenes/Dashboard/queries";
 import type { IGroupRootIdsAttr, IRootIdAttr } from "scenes/Dashboard/types";
 import { authzPermissionsContext } from "utils/authz/config";
+import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
+import { msgError, msgSuccess } from "utils/notifications";
 
 const NOSEENFIRSTTIMEBY = "no seen first time by";
 
@@ -72,6 +78,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
 
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
+  const [isMarkingAsAttacked, setIsMarkingAsAttacked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
@@ -139,6 +146,30 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   }, [isCustomFilterEnabled, setCustomFilterEnabled]);
 
   // // GraphQL operations
+  const [handleUpdateToeInput] = useMutation<IUpdateToeInputResultAttr>(
+    UPDATE_TOE_INPUT,
+    {
+      onError: (errors: ApolloError): void => {
+        errors.graphQLErrors.forEach((error: GraphQLError): void => {
+          switch (error.message) {
+            case "Exception - The toe input is not present":
+              msgError(t("group.toe.inputs.alerts.nonPresent"));
+              break;
+            case "Exception - The attack time must be between the previous attack and the current time":
+              msgError(t("group.toe.inputs.alerts.invalidAttackedAt"));
+              break;
+            case "Exception - The toe input has been updated by another operation":
+              msgError(t("group.toe.inputs.alerts.alreadyUpdate"));
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning("An error occurred updating the toe input", error);
+          }
+        });
+      },
+    }
+  );
+
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeInputs: IToeInputsConnection };
   }>(GET_TOE_INPUTS, {
@@ -346,6 +377,51 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     setIsEditing(!isEditing);
   }
 
+  const handleOnMarkAsAttackedCompleted = (
+    result: FetchResult<IUpdateToeInputResultAttr>
+  ): void => {
+    if (!_.isNil(result.data) && result.data.updateToeInput.success) {
+      msgSuccess(
+        t("group.toe.inputs.alerts.markAsAttacked.success"),
+        t("groupAlerts.updatedTitle")
+      );
+      void refetch();
+      setSelectedToeInputDatas([]);
+    }
+  };
+
+  async function handleMarkAsAttacked(): Promise<void> {
+    const presentSelectedToeInputDatas = selectedToeInputDatas.filter(
+      (toeInputData: IToeInputData): boolean => toeInputData.bePresent
+    );
+    setIsMarkingAsAttacked(true);
+    const results = await Promise.all(
+      presentSelectedToeInputDatas.map(
+        async (
+          toeInputData: IToeInputData
+        ): Promise<FetchResult<IUpdateToeInputResultAttr>> =>
+          handleUpdateToeInput({
+            variables: {
+              bePresent: toeInputData.bePresent,
+              component: toeInputData.component,
+              entryPoint: toeInputData.entryPoint,
+              groupName,
+              hasRecentAttack: true,
+              rootId: toeInputData.rootId,
+            },
+          })
+      )
+    );
+    const errors = getErrors<IUpdateToeInputResultAttr>(results);
+
+    if (!_.isEmpty(results) && _.isEmpty(errors)) {
+      handleOnMarkAsAttackedCompleted(results[0]);
+    } else {
+      void refetch();
+    }
+    setIsMarkingAsAttacked(false);
+  }
+
   const onBasicFilterValueChange = (
     filterName: keyof IFilterSet
   ): ((event: ChangeEvent<HTMLSelectElement>) => void) => {
@@ -529,8 +605,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
             isAdding={isAdding}
             isEditing={isEditing}
             isInternal={isInternal}
+            isMarkingAsAttacked={isMarkingAsAttacked}
             onAdd={toggleAdd}
             onEdit={toggleEdit}
+            onMarkAsAttacked={handleMarkAsAttacked}
           />
         }
         headers={headersToeInputsTable}

@@ -21,8 +21,10 @@ describe("ToeInputsActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isMarkingAsAttacked={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
@@ -43,8 +45,10 @@ describe("ToeInputsActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={false}
+          isMarkingAsAttacked={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
@@ -65,8 +69,10 @@ describe("ToeInputsActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isMarkingAsAttacked={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );
@@ -90,8 +96,10 @@ describe("ToeInputsActionButtons", (): void => {
           isAdding={false}
           isEditing={false}
           isInternal={true}
+          isMarkingAsAttacked={false}
           onAdd={jest.fn()}
           onEdit={jest.fn()}
+          onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
     );

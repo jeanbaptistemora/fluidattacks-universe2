@@ -63,4 +63,26 @@ const GET_TOE_INPUTS: DocumentNode = gql`
   }
 `;
 
-export { GET_TOE_INPUTS };
+const UPDATE_TOE_INPUT: DocumentNode = gql`
+  mutation UpdateToeInput(
+    $bePresent: Boolean!
+    $component: String!
+    $entryPoint: String!
+    $groupName: String!
+    $hasRecentAttack: Boolean
+    $rootId: String!
+  ) {
+    updateToeInput(
+      bePresent: $bePresent
+      component: $component
+      entryPoint: $entryPoint
+      groupName: $groupName
+      hasRecentAttack: $hasRecentAttack
+      rootId: $rootId
+    ) {
+      success
+    }
+  }
+`;
+
+export { GET_TOE_INPUTS, UPDATE_TOE_INPUT };

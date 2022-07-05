@@ -1096,6 +1096,15 @@ export const enTranslations: ResourceKey = {
           },
           title: "Add input",
         },
+        alerts: {
+          alreadyUpdate: "Something modified the input during the edition.",
+          invalidAttackedAt:
+            "The attacked at is not valid. There is a new datetime.",
+          markAsAttacked: {
+            success: "Input has been marked as attacked.",
+          },
+          nonPresent: "The input is not present.",
+        },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
         bePresent: "Be present",

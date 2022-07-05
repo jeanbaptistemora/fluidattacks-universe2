@@ -64,6 +64,12 @@ interface IToeInputData {
   seenFirstTimeBy: string;
 }
 
+interface IUpdateToeInputResultAttr {
+  updateToeInput: {
+    success: boolean;
+  };
+}
+
 export type {
   IFilterSet,
   IGroupToeInputsViewProps,
@@ -72,4 +78,5 @@ export type {
   IToeInputEdge,
   IToeInputData,
   IToeInputsConnection,
+  IUpdateToeInputResultAttr,
 };
