@@ -1062,6 +1062,10 @@ export const enTranslations: ResourceKey = {
             text: "Add",
             tooltip: "Add new input",
           },
+          attackedButton: {
+            text: "Attacked",
+            tooltip: "Mark selected inputs as attacked",
+          },
           cancelButton: {
             text: "Cancel",
             tooltip: "Cancel",
