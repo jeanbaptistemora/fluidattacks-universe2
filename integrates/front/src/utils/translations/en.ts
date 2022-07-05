@@ -3068,12 +3068,12 @@ export const enTranslations: ResourceKey = {
         text: "Remove",
         tooltip: "Remove a user from the group, first select one",
       },
-      success: ", an email will be sent to confirm the registration.",
+      success: "An invitation email will be sent to",
       successAdmin: "Stakeholder information updated.",
       successDelete: " was removed from this group.",
       textbox: "Email address (Azure, Google or Bitbucket)",
       title: "Add stakeholder to this group",
-      titleSuccess: "Congratulations",
+      titleSuccess: "Success",
     },
     tabVuln: {
       alerts: {

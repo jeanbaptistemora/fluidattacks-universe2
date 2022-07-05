@@ -170,7 +170,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
         const { email } =
           mtResult.grantStakeholderOrganizationAccess.grantedStakeholder;
         msgSuccess(
-          `${email}${t("searchFindings.tabUsers.success")}`,
+          `${t("searchFindings.tabUsers.success")} ${email}`,
           t("organization.tabs.users.successTitle")
         );
       }

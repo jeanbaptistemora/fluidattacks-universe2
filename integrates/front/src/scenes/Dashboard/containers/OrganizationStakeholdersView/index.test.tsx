@@ -255,7 +255,7 @@ describe("Organization users view", (): void => {
     userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
-        "testuser2@gmail.comsearchFindings.tabUsers.success",
+        "searchFindings.tabUsers.success testuser2@gmail.com",
         "organization.tabs.users.successTitle"
       );
     });
