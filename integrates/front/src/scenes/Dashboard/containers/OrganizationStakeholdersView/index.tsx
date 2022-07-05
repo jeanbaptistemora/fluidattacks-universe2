@@ -42,7 +42,6 @@ import type {
   IStakeholderDataSet,
   IUpdateStakeholderAttrs,
 } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -317,108 +316,86 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <div>
-          <div>
-            <div>
-              <div>
-                <Table
-                  customSearch={{
-                    customSearchDefault: searchTextFilter,
-                    isCustomSearchEnabled: true,
-                    onUpdateCustomSearch: onSearchTextChange,
-                    position: "right",
-                  }}
-                  dataset={filterSearchtextResult}
-                  exportCsv={true}
-                  extraButtons={
-                    <Row>
-                      <ButtonToolbar>
-                        <TooltipWrapper
-                          displayClass={"dib"}
-                          id={"organization.tabs.users.addButton.tooltip.btn"}
-                          message={t(
-                            "organization.tabs.users.addButton.tooltip"
-                          )}
-                        >
-                          <Button
-                            id={"addUser"}
-                            onClick={openAddStakeholderModal}
-                            variant={"secondary"}
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                            &nbsp;
-                            {t("organization.tabs.users.addButton.text")}
-                          </Button>
-                        </TooltipWrapper>
-                        <TooltipWrapper
-                          displayClass={"dib"}
-                          id={"organization.tabs.users.editButton.tooltip.btn"}
-                          message={t(
-                            "organization.tabs.users.editButton.tooltip"
-                          )}
-                        >
-                          <Button
-                            disabled={
-                              _.isEmpty(currentRow) ||
-                              removing ||
-                              loadingStakeholders
-                            }
-                            id={"editUser"}
-                            onClick={openEditStakeholderModal}
-                            variant={"secondary"}
-                          >
-                            <FontAwesomeIcon icon={faUserEdit} />
-                            &nbsp;
-                            {t("organization.tabs.users.editButton.text")}
-                          </Button>
-                        </TooltipWrapper>
-                        <TooltipWrapper
-                          displayClass={"dib"}
-                          id={
-                            "organization.tabs.users.removeButton.tooltip.btn"
-                          }
-                          message={t(
-                            "organization.tabs.users.removeButton.tooltip"
-                          )}
-                        >
-                          <Button
-                            disabled={
-                              _.isEmpty(currentRow) ||
-                              loadingStakeholders ||
-                              removing
-                            }
-                            id={"removeUser"}
-                            onClick={handleRemoveStakeholder}
-                            variant={"secondary"}
-                          >
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                            &nbsp;
-                            {t("organization.tabs.users.removeButton.text")}
-                          </Button>
-                        </TooltipWrapper>
-                      </ButtonToolbar>
-                    </Row>
+        <Table
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
+          }}
+          dataset={filterSearchtextResult}
+          exportCsv={true}
+          extraButtons={
+            <React.Fragment>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"organization.tabs.users.addButton.tooltip.btn"}
+                message={t("organization.tabs.users.addButton.tooltip")}
+              >
+                <Button
+                  id={"addUser"}
+                  onClick={openAddStakeholderModal}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
+                  {t("organization.tabs.users.addButton.text")}
+                </Button>
+              </TooltipWrapper>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"organization.tabs.users.editButton.tooltip.btn"}
+                message={t("organization.tabs.users.editButton.tooltip")}
+              >
+                <Button
+                  disabled={
+                    _.isEmpty(currentRow) || removing || loadingStakeholders
                   }
-                  headers={tableHeaders}
-                  id={"tblUsers"}
-                  pageSize={10}
-                  search={false}
-                  selectionMode={{
-                    clickToSelect: true,
-                    mode: "radio",
-                    onSelect: setCurrentRow,
-                    selected: getStakeHolderIndex(
-                      _.isEmpty(currentRow)
-                        ? []
-                        : [currentRow as unknown as IStakeholderAttrs],
-                      filterSearchtextResult
-                    ),
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+                  id={"editUser"}
+                  onClick={openEditStakeholderModal}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faUserEdit} />
+                  &nbsp;
+                  {t("organization.tabs.users.editButton.text")}
+                </Button>
+              </TooltipWrapper>
+              <TooltipWrapper
+                displayClass={"dib"}
+                id={"organization.tabs.users.removeButton.tooltip.btn"}
+                message={t("organization.tabs.users.removeButton.tooltip")}
+              >
+                <Button
+                  disabled={
+                    _.isEmpty(currentRow) || loadingStakeholders || removing
+                  }
+                  id={"removeUser"}
+                  onClick={handleRemoveStakeholder}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                  &nbsp;
+                  {t("organization.tabs.users.removeButton.text")}
+                </Button>
+              </TooltipWrapper>
+            </React.Fragment>
+          }
+          headers={tableHeaders}
+          id={"tblUsers"}
+          pageSize={10}
+          search={false}
+          selectionMode={{
+            clickToSelect: true,
+            mode: "radio",
+            onSelect: setCurrentRow,
+            selected: getStakeHolderIndex(
+              _.isEmpty(currentRow)
+                ? []
+                : [currentRow as unknown as IStakeholderAttrs],
+              filterSearchtextResult
+            ),
+          }}
+        />
         <AddUserModal
           action={stakeholderModalAction}
           editTitle={t("organization.tabs.users.modalEditTitle")}

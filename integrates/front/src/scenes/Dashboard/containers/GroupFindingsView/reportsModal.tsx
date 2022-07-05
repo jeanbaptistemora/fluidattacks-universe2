@@ -19,12 +19,13 @@ import { useParams } from "react-router-dom";
 import { setReportType } from "./helpers";
 
 import { Button } from "components/Button";
+import { Gap } from "components/Layout";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import { ButtonToolbarCenter, Col100, Row } from "styles/styledComponents";
+import { Col100 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -128,78 +129,74 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
               }
 
               return (
-                <Row>
-                  <Col100>
-                    <ButtonToolbarCenter>
-                      <TooltipWrapper
-                        id={"group.findings.report.certTooltip.id"}
-                        message={t("group.findings.report.certTooltip")}
-                      >
-                        <Button
-                          disabled={!enableCerts}
-                          hidden={userRole !== "user_manager"}
-                          id={"report-cert"}
-                          onClick={onRequestReport}
-                          variant={"secondary"}
-                        >
-                          <FontAwesomeIcon icon={faFileContract} />
-                          {t("group.findings.report.cert")}
-                        </Button>
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        id={"group.findings.report.pdfTooltip.id"}
-                        message={t("group.findings.report.pdfTooltip")}
-                      >
-                        <Button
-                          id={"report-pdf"}
-                          onClick={onRequestReport}
-                          variant={"secondary"}
-                        >
-                          <FontAwesomeIcon icon={faFilePdf} />
-                          {t("group.findings.report.pdf")}
-                        </Button>
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        id={"group.findings.report.xlsTooltip.id"}
-                        message={t("group.findings.report.xlsTooltip")}
-                      >
-                        <Button
-                          id={"report-excel"}
-                          onClick={onRequestReport}
-                          variant={"secondary"}
-                        >
-                          <FontAwesomeIcon icon={faFileExcel} />
-                          {t("group.findings.report.xls")}
-                        </Button>
-                        <Button
-                          id={"customize-report"}
-                          onClick={openFilterReportModal}
-                          variant={"secondary"}
-                        >
-                          <FontAwesomeIcon icon={faSlidersH} />
-                        </Button>
-                        <FilterReportModal
-                          closeReportsModal={onClose}
-                          isOpen={isFilterReportModalOpen}
-                          onClose={closeFilterReportsModal}
-                        />
-                      </TooltipWrapper>
-                      <TooltipWrapper
-                        id={"group.findings.report.dataTooltip.id"}
-                        message={t("group.findings.report.dataTooltip")}
-                      >
-                        <Button
-                          id={"report-zip"}
-                          onClick={onRequestReport}
-                          variant={"secondary"}
-                        >
-                          <FontAwesomeIcon icon={faFileArchive} />
-                          {t("group.findings.report.data")}
-                        </Button>
-                      </TooltipWrapper>
-                    </ButtonToolbarCenter>
-                  </Col100>
-                </Row>
+                <Gap>
+                  <TooltipWrapper
+                    id={"group.findings.report.certTooltip.id"}
+                    message={t("group.findings.report.certTooltip")}
+                  >
+                    <Button
+                      disabled={!enableCerts}
+                      hidden={userRole !== "user_manager"}
+                      id={"report-cert"}
+                      onClick={onRequestReport}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faFileContract} />
+                      {t("group.findings.report.cert")}
+                    </Button>
+                  </TooltipWrapper>
+                  <TooltipWrapper
+                    id={"group.findings.report.pdfTooltip.id"}
+                    message={t("group.findings.report.pdfTooltip")}
+                  >
+                    <Button
+                      id={"report-pdf"}
+                      onClick={onRequestReport}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faFilePdf} />
+                      {t("group.findings.report.pdf")}
+                    </Button>
+                  </TooltipWrapper>
+                  <TooltipWrapper
+                    id={"group.findings.report.xlsTooltip.id"}
+                    message={t("group.findings.report.xlsTooltip")}
+                  >
+                    <Button
+                      id={"report-excel"}
+                      onClick={onRequestReport}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faFileExcel} />
+                      {t("group.findings.report.xls")}
+                    </Button>
+                    <Button
+                      id={"customize-report"}
+                      onClick={openFilterReportModal}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faSlidersH} />
+                    </Button>
+                    <FilterReportModal
+                      closeReportsModal={onClose}
+                      isOpen={isFilterReportModalOpen}
+                      onClose={closeFilterReportsModal}
+                    />
+                  </TooltipWrapper>
+                  <TooltipWrapper
+                    id={"group.findings.report.dataTooltip.id"}
+                    message={t("group.findings.report.dataTooltip")}
+                  >
+                    <Button
+                      id={"report-zip"}
+                      onClick={onRequestReport}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faFileArchive} />
+                      {t("group.findings.report.data")}
+                    </Button>
+                  </TooltipWrapper>
+                </Gap>
               );
             }}
           </VerifyDialog>

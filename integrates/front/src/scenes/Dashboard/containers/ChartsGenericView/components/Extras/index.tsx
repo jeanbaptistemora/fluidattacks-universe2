@@ -143,7 +143,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
         </ExternalLink>
         <Dropdown
           button={
-            <Button variant={"primary"}>
+            <Button variant={"secondary"}>
               <FontAwesomeIcon
                 icon={loadingSubscribe ? faHourglassHalf : faChartBar}
               />
