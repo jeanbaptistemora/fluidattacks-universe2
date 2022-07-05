@@ -6421,7 +6421,7 @@
       La aplicación hace uso de funciones console: log, info, warning.
       El uso de estas funciones en ambientes productivos
       puede conducir a fugas de información
-      y revelar métodos, tecnologías, o lógica vulnerable
+      y revelar métodos, tecnologías, o lógica vulnerable.
     impact: >
       Recopilar información técnica
       para elaborar vectores de ataque más complejos.
