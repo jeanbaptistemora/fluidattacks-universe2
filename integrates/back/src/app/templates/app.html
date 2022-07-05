@@ -6,7 +6,12 @@
     {% endif %}
 
     <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'></script>
+    <script
+      defer src='https://static.cloudflareinsights.com/beacon.min.js'
+      data-cf-beacon='{"token": "f4f99c985c414a5591e8077bf301b39b"}'
+      integrity="sha384-vT1cKpwGtM/aAY4CiGFG4p3jozJ6qYSeqbKTnV/Q5SZZpZEc3BiTF1iHLpTuM4WC"
+      crossorigin="anonymous">
+    </script>
     <!-- End Cloudflare Web Analytics -->
 
     <meta charset="utf-8">
@@ -19,7 +24,11 @@
       <link rel="shortcut icon" href="{{ url_for('static', path='/imgs/favicon.ico') | replace('http', 'https') }}">
     {% endif %}
     <title>Fluid Attacks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+      integrity="sha384-Cr5RPHxcHREJ6WiTIhm5VCkJJ54ufz4UVsVOXvazwLKSMiTQ/47Zn/LqT7EiWinZ"
+      crossorigin="anonymous">
     {% if '127.0.0.1' in request.client.host and debug %}
       <link rel="stylesheet" href="https://localhost:3000/dashboard/app-style.min.css" type="text/css">
     {% else %}
@@ -38,7 +47,12 @@
     {% endif %}
     <!-- End of Delighted survey script -->
     <!-- Start of fluidattacks Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=dc2bbf98-b773-4e25-ac9f-6cb800f7d293"></script>
+    <script
+      id="ze-snippet"
+      src="https://static.zdassets.com/ekr/snippet.js?key=dc2bbf98-b773-4e25-ac9f-6cb800f7d293"
+      integrity="sha384-3JTi/Jp16m0QlkDlrSA1dEtFXNcVzuyXUgLGk+E1C/eKxrdb8rYZo/Ve099Xey9R"
+      crossorigin="anonymous">
+    </script>
     <!-- End of fluidattacks Zendesk Widget script -->
   </head>
   <body>
@@ -48,6 +62,10 @@
     {% else %}
       <script src="{{ js }}" type="text/javascript"></script>
     {% endif %}
-    <script src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js" async></script>
+    <script
+      src="https://rum-static.pingdom.net/pa-5ae7406129ccc50006000057.js"
+      integrity="sha384-rpzvJ4B//Yknsg3MbqJq+EDm7iOlG240P92GhTk+Oq8ci3sMdLTMJjUS1L7z4k0x"
+      crossorigin="anonymous" async>
+    </script>
   </body>
 </html>
