@@ -13138,9 +13138,9 @@
       errors presented.
     recommendation: >
       For every _try_ sentence define its respective _catch_
-      handling the exception accordingly
+      handling the exception accordingly.
     threat: >
-      Authenticated attacker from the Internet
+      Authenticated attacker from the Internet.
   es:
     title: Insecure exceptions - Empty or no catch
     description: >
@@ -13150,7 +13150,7 @@
       o sentencias _try_ sin su respectivo _catch_.
       Este comportamiendo puede llevar la aplicación
       a una indisponibilidad temporal o permanente
-      al presentarse errores que no se están manejando
+      al presentarse errores que no se están manejando.
     impact: >
       - Generar la caída de la aplicación
       a causa de los errores que no están
@@ -13160,9 +13160,9 @@
       errores presentados.
     recommendation: >
       Para toda sentencia _try_ definir su respectivo _catch_
-      con un manejo adecuado de la excepción presentada
+      con un manejo adecuado de la excepción presentada.
     threat: >
-      Atacante autenticado en la aplicación desde Internet
+      Atacante autenticado en la aplicación desde Internet.
   category: Abuse Functionality
   examples:
     non_compliant: |
