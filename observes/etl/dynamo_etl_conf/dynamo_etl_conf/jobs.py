@@ -29,48 +29,57 @@ class Jobs:
     _etl_bin: str = os.environ["DYNAMO_ETL_BIN"]
     _etl_big_bin: str = os.environ["DYNAMO_ETL_BIG_BIN"]
 
-    def run(
+    def _run(
         self,
         schema: str,
         tables: FrozenList[str],
         segments: int,
         big: bool,
         cache: Maybe[str],
+        use_cache: bool,
     ) -> Cmd[None]:
         _bin = self._etl_big_bin if big else self._etl_bin
         return external_run(
             tuple([_bin, schema, " ".join(tables), str(segments)])
-            + cache.map(lambda c: ("yes", c)).value_or(("", ""))
+            + ("yes" if use_cache else "no", cache.value_or("none"))
         )
 
-    def default_run(
-        self, table: TargetTables, big: bool, cache: Maybe[str]
+    def _default_run(
+        self,
+        table: TargetTables,
+        big: bool,
+        cache: Maybe[str],
+        use_cache: bool,
     ) -> Cmd[None]:
-        return self.run(
+        return self._run(
             f"{self._schema_prefix}{table.value}",
             (table.value,),
             SEGMENTATION[table],
             big,
             cache,
+            use_cache,
         )
 
     def standard_group(self) -> Cmd[None]:
         cmds = tuple(
-            self.default_run(table, False, Maybe.empty())
+            self._default_run(table, False, Maybe.empty(), False)
             for table in TargetTables
             if table not in (TargetTables.CORE, TargetTables.FORCES)
         )
         return serial_merge(cmds).map(lambda _: None)
 
     def forces(self) -> Cmd[None]:
-        return self.default_run(TargetTables.FORCES, False, Maybe.empty())
+        return self._default_run(
+            TargetTables.FORCES, False, Maybe.empty(), False
+        )
 
     def core(self) -> Cmd[None]:
-        return self.default_run(
+        return self._default_run(
             TargetTables.CORE,
             True,
             Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
+            True,
         )
 
     def core_no_cache(self) -> Cmd[None]:
-        return self.default_run(TargetTables.CORE, True, Maybe.empty())
+        return self._default_run(TargetTables.CORE, True, Maybe.empty(), False)
