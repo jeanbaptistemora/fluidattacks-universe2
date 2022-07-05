@@ -414,7 +414,7 @@ class CreatorPdf:
         """Add group information."""
         words = self.wordlist[self.lang]
         doctype = words[self.doctype]
-        full_group = f"{description} [{group}]"
+        full_group = f"{description} ({group.capitalize()})"
         team = "Engineering Team"
         version = "v1.0"
         team_mail = "engineering@fluidattacks.com"
@@ -436,7 +436,7 @@ class CreatorPdf:
             f"image::{main_pie_filename}[width=300, align=center]"
         )
         self.context = {
-            "full_group": full_group.upper(),
+            "full_group": full_group,
             "team": team,
             "team_mail": team_mail,
             "customer": "",
@@ -508,7 +508,7 @@ class CreatorPdf:
 
     def make_content(self, words: Dict[str, str]) -> Dict[str, str]:
         """Create context with the titles of the document."""
-        base_img = "image::../templates/pdf/{name}_{lang}.png[]"
+        base_img = "image::../templates/pdf/{name}_{lang}.png[align=center]"
         base_adoc = "include::../templates/pdf/{name}_{lang}.adoc[]"
         return {
             "content_title": words["content_title"],
@@ -516,10 +516,6 @@ class CreatorPdf:
             "goals_title": words["goals_title"],
             "goals_img": base_img.format(name="goals", lang=self.lang),
             "severity_img": base_img.format(name="severity", lang=self.lang),
-            "metodology_title": words["metodology_title"],
-            "metodology_img": base_img.format(
-                name="metodology", lang=self.lang
-            ),
             "footer_adoc": base_adoc.format(name="footer", lang=self.lang),
         }
 
