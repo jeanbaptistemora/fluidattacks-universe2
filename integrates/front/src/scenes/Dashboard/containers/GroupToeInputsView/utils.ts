@@ -8,6 +8,22 @@ import {
   filterSelect,
 } from "components/Table/utils/filters";
 
+const getNonSelectableToeInputIndex: (
+  allToeInputDatas: IToeInputData[]
+) => number[] = (allToeInputDatas: IToeInputData[]): number[] => {
+  return allToeInputDatas.reduce(
+    (
+      selectedToeInputIndex: number[],
+      currentToeInputData: IToeInputData,
+      currentToeInputDataIndex: number
+    ): number[] =>
+      currentToeInputData.bePresent
+        ? selectedToeInputIndex
+        : [...selectedToeInputIndex, currentToeInputDataIndex],
+    []
+  );
+};
+
 const getToeInputId: (toeInputData: IToeInputData) => string = (
   toeInputData: IToeInputData
 ): string =>
@@ -151,6 +167,7 @@ const formatRootId = (rootId: string): string | undefined =>
 
 export {
   getFilteredData,
+  getNonSelectableToeInputIndex,
   getToeInputIndex,
   onSelectSeveralToeInputHelper,
   formatBePresent,
