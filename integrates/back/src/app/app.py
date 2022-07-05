@@ -20,6 +20,9 @@ from api import (
 from api.schema import (
     SCHEMA,
 )
+from api.validations.characters import (
+    validate_characters,
+)
 from api.validations.query_breadth import (
     QueryBreadthValidation,
 )
@@ -371,9 +374,10 @@ def get_validation_rules(
     context_value: Any, _document: DocumentNode, _data: Dict[str, Any]
 ) -> Tuple[ValidationRule, ...]:
     return (
-        variables_check(context_value),
         QueryBreadthValidation,
         QueryDepthValidation,
+        validate_characters(context_value),
+        variables_check(context_value),
     )
 
 

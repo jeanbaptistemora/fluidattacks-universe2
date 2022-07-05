@@ -20,6 +20,7 @@ from graphql import (
 )
 import pytest
 from settings.api import (
+    API_MAX_CHARACTERS,
     API_MAX_DIRECTIVES,
 )
 from typing import (
@@ -148,14 +149,11 @@ def test_should_validate_variables() -> None:
         }
     """
 
-    class Context(NamedTuple):
-        operation: Operation
-
     errors = validate(
         SCHEMA,
         parse(query),
         get_validation_rules(
-            Context(
+            ContextValue(
                 operation=Operation(
                     name="",
                     query="",
@@ -203,3 +201,25 @@ def test_should_validate_fragments() -> None:
     hook_early_validations()
     with pytest.raises(GraphQLError):
         validate_query(SCHEMA, parse_query(query))
+
+
+def test_should_validate_characters() -> None:
+    query = f"""
+        query MaliciousQuery {{
+            {"a" * (API_MAX_CHARACTERS + 1)}: __typename
+        }}
+    """
+
+    errors = validate(
+        SCHEMA,
+        parse(query),
+        get_validation_rules(
+            ContextValue(
+                operation=Operation(name="", query=query, variables={})
+            ),
+            parse(query),
+            None,
+        ),
+    )
+    assert errors
+    assert errors[0].message == "Exception - Max characters exceeded"
