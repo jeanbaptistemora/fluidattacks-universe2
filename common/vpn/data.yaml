@@ -87,15 +87,15 @@ VPN_DATA_RAW:
         - domain: ENC[AES256_GCM,data:1IBain3GYkUv,iv:ZnYVKwyZJMjke1ITrnUR2PwXc+Lc2wdVbudZGgTurW8=,tag:mc14/+FEwigGqNxeGOMFEw==,type:str]
           hosts:
             - ip: ENC[AES256_GCM,data:JpuJxgMxnNfU/RIsew==,iv:Hgk2Dr4wv2j11OIgs1GVl0bgxDg1ZpfkrtI1VQgbQDw=,tag:nz9EZIC4MXOfADmeQchfAA==,type:str]
-              name: ENC[AES256_GCM,data:np9ZdA==,iv:xOUG9sL5P+CEddgepR17J2hNwRKRvK2+PZi86nG6tYM=,tag:iK0ABOVTd0Gp9Ozx+pDgow==,type:str]
+              name: ENC[AES256_GCM,data:YEZKFw==,iv:aEsIPwf6OABy90gt3BHHZPhUEkAEV/gC3s0muWwTInQ=,tag:sNPMT9z9J58kg2iFgNHrCw==,type:str]
         - domain: ENC[AES256_GCM,data:IokgBaGyPpKW,iv:PnWoUq9LzT2uGA/1r9z1agakdMXR8hlgNq+5OV/dFFI=,tag:F1Z8IC4KeG6/doSSiiF/JA==,type:str]
           hosts:
             - ip: ENC[AES256_GCM,data:ECQO753qSgj76qXg7Q==,iv:3HeDFowWamlk8wNm5fc4xE4ENcoBAKkRi18dzasrm9M=,tag:UGvNWXU4AkedemScF1h0JQ==,type:str]
-              name: ENC[AES256_GCM,data:h1izIA==,iv:7y/k7aA2GBCD3DAdbVlwHaLwXguFDqZ9OLQMB9AchGY=,tag:VsgXHMdc2vh54L3U2kl+yw==,type:str]
+              name: ENC[AES256_GCM,data:YEZKFw==,iv:aEsIPwf6OABy90gt3BHHZPhUEkAEV/gC3s0muWwTInQ=,tag:sNPMT9z9J58kg2iFgNHrCw==,type:str]
         - domain: ENC[AES256_GCM,data:pP+Y4dTW4kj4,iv:lxFsM15HfyafU5RkWynrzlpHxmeUwZeA/CBdBOGTPhY=,tag:5QDxzbFB6X8ysv7CvhMYQw==,type:str]
           hosts:
             - ip: ENC[AES256_GCM,data:J/NZCZAvMT4+PjpEeg==,iv:5EpEn+BSkyMxHCVuFz4aXWOdCTOsKjTAObbdRbtUFk8=,tag:eOvva1VNn9j+e0n9R/bjtQ==,type:str]
-              name: ENC[AES256_GCM,data:kRlfSg==,iv:R+T7kmelxUFT6/+cjL0rA134S/9zdxLrPi0AMhjnWdo=,tag:A2Fj6vi+LSguQZZDUreHqw==,type:str]
+              name: ENC[AES256_GCM,data:YEZKFw==,iv:aEsIPwf6OABy90gt3BHHZPhUEkAEV/gC3s0muWwTInQ=,tag:sNPMT9z9J58kg2iFgNHrCw==,type:str]
         - domain: ENC[AES256_GCM,data:3iSUXDiCzp11,iv:qeFsyJPw0OObWzi9TnCISawu9b752IhidN5Y919fTYw=,tag:pptK3IfLj/H7JIqw+jg0qA==,type:str]
           hosts:
             - ip: ENC[AES256_GCM,data:+Ccae/UVkAUXcDcljE8=,iv:yNvzaAVX6HQJwVj91hMqUVDqO8GmQ4mGS69qCSWmSQs=,tag:USoltzqkZgxtTsHhcZ6q6Q==,type:str]
@@ -105,6 +105,12 @@ VPN_DATA_RAW:
         - ENC[AES256_GCM,data:3RbeQhXeliija/Xfz6+XrQ==,iv:oqRzFQjQsPdYkaQ+ml8QElKxnnNYNvrJnUdjvD8MHFE=,tag:nffd+eKByrF1sg39YWR51w==,type:str]
         - ENC[AES256_GCM,data:m770xM3enjJvw7j8S0vyFQ==,iv:f8xNt/OUhiUilqXBE3NMa9Vzr6jtvHpIOBU8dbAtq3s=,tag:CNVc4eIHnomnjeckrzxJEw==,type:str]
         - ENC[AES256_GCM,data:eZWanP4Vrf9UdHk964xWaw==,iv:J8YCGrzddRZFps9QhQI9V7quhoXxFhh82MRJHaaoVJk=,tag:jsnsrXwmdjIb6Qiwz9kG3A==,type:str]
+    - id: ENC[AES256_GCM,data:JToA,iv:yuaqmAdGj+Q+yC3sSpaVveMyfe5uKzoEW3yAf5QYtDU=,tag:TN51nIkjjBcMZ6Ae4m4LuQ==,type:str]
+      aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
+      client_endpoint: ENC[AES256_GCM,data:2fJ9ciISeQoHHQA8fA==,iv:lzVcDQ8o9LRWfowqBn5VVrqxpthWI/oNxVuJTXDKW+I=,tag:kVUzxXQmjMwr54SxHJUczw==,type:str]
+      dns: []
+      routes:
+        - ENC[AES256_GCM,data:+KwwvFO+icLEn7u5csF88Fs=,iv:zVetpJki110NXJYQFkha27kGsuaJkB+Do2trVNxypVo=,tag:5oF9Y0BH9nQ3TXay7jj5+Q==,type:str]
     - id: ENC[AES256_GCM,data:TKbERIco3oKT/g==,iv:HqJ6qnYH4/YsdjrPmDy088EPMiQM/k29rrD2oZjXabI=,tag:cRObdzLQD553ZIqU6kAwSA==,type:str]
       aws_cidr: ENC[AES256_GCM,data:kCu40zwuRbqJtXsREQc=,iv:gbT517NvQJ7oC3RFoqyJBMh998jPULjWkpC6ePzO4wk=,tag:7XE8ft+hqfsMVEi3EpnEqg==,type:str]
       client_endpoint: ENC[AES256_GCM,data:eneiw4MJMqevzPPYkQ==,iv:DrlhGDHreJtmyLT8tiB66Z2mTrW4iOi+G4qZzD65nIw=,tag:qHPoyPYkYNOj1ZdbVfuHHw==,type:str]
@@ -141,8 +147,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-06-29T19:50:53Z"
-    mac: ENC[AES256_GCM,data:jXvP8c8N5xsoLiHbIxuJE1RI5tgp5gcD3ZkX8OQvml7Fsx5ZqbZlYiC4RyGTOZO+Bynw7DWPE+aJVLk0bkfJ2QMtqdyo0N/JU0RXq6xJHWcxLhmWUi2Uc9agM3L4Ir3AdB8i9JQB0NcBh5zAh4GA/ynxWn1mEpTOQLb6nuBczY0=,iv:zi0BUXZsGsutKAg5QIBQLFPoEIFrcdB8svuYEEZiCtE=,tag:4uSonyAhJRpfmMcdwkqgwA==,type:str]
+    lastmodified: "2022-07-05T16:41:36Z"
+    mac: ENC[AES256_GCM,data:4k1QNR21+Riw048esa2nHSDoQSq5jhU1XqqOvSqRFmVtfvLTZeRiHoFRa4Elty67jC9gGH90e3KcVMDGG9786wQ8xtMdy7z58QoXZpEGfxzFFZJ0sWHiV55OMB/ntsyiwWfTVjYniEbl82v9uKC5i/b3gDyaookEtQqFDwpqb9w=,iv:en+CeSDW1Eyt7ml+RDawAKAggD1er/bMqliSTi+/LTY=,tag:6BUc9sE3/XSyeTZ64+vpAg==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.2
