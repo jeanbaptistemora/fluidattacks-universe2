@@ -66,15 +66,8 @@ const GroupContent: React.FC = (): JSX.Element => {
   const hasOpenEvents =
     events.filter((event): boolean => event.eventStatus === "CREATED").length >
     0;
-  const eventFormat: string =
-    events.filter((event): boolean => event.eventStatus.includes("CREATED"))
-      .length > 0
-      ? `${
-          events.filter((event): boolean =>
-            event.eventStatus.includes("CREATED")
-          ).length
-        } Event(s) need(s) attention`
-      : "None";
+  const eventMessage: string =
+    "ACTION NEEDED: Your groups could be in risk. Please check open events.";
 
   // Side effects
   useTabTracking("Group");
@@ -89,7 +82,7 @@ const GroupContent: React.FC = (): JSX.Element => {
                 <div>
                   {hasOpenEvents ? (
                     <Alert icon={true} variant={"error"}>
-                      {eventFormat}
+                      {eventMessage}
                     </Alert>
                   ) : undefined}
                 </div>
