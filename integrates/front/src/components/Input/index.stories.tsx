@@ -51,7 +51,7 @@ Default.args = {
   id: "ExampleId",
   label: "ExampleLabel",
   placeholder: "Example placeholder",
-  type: "text",
+  type: "textarea",
   variant: "solid",
 };
 

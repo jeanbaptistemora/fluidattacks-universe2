@@ -2,7 +2,7 @@ import type { FieldProps } from "formik";
 import React, { useCallback } from "react";
 
 import type { IStyledInputProps } from "./styles";
-import { InputBox, InputWrapper, StyledInput } from "./styles";
+import { InputBox, InputWrapper, StyledInput, StyledTextArea } from "./styles";
 
 import { Alert } from "components/Alert";
 import { Text } from "components/Text";
@@ -18,7 +18,8 @@ interface IInputProps extends Partial<IStyledInputProps> {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  type?: "email" | "password" | "text";
+  rows?: number;
+  type?: "email" | "password" | "text" | "textarea";
 }
 
 const CustomInput: React.FC<
@@ -35,6 +36,7 @@ const CustomInput: React.FC<
   onFocus,
   onKeyDown,
   placeholder,
+  rows = 2,
   type,
   variant = "solid",
 }: Readonly<
@@ -62,20 +64,34 @@ const CustomInput: React.FC<
       )}
       <InputWrapper variant={variant}>
         {childLeft}
-        <StyledInput
-          aria-label={name}
-          autoComplete={"off"}
-          disabled={disabled}
-          id={id}
-          name={name}
-          onBlur={handleBlur}
-          onChange={onChange}
-          onFocus={onFocus}
-          onKeyDown={onKeyDown}
-          placeholder={placeholder}
-          type={type}
-          value={value}
-        />
+        {type === "textarea" ? (
+          <StyledTextArea
+            aria-label={name}
+            autoComplete={"off"}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onChange={onChange}
+            placeholder={placeholder}
+            rows={rows}
+            value={value}
+          />
+        ) : (
+          <StyledInput
+            aria-label={name}
+            autoComplete={"off"}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onBlur={handleBlur}
+            onChange={onChange}
+            onFocus={onFocus}
+            onKeyDown={onKeyDown}
+            placeholder={placeholder}
+            type={type}
+            value={value}
+          />
+        )}
         {childRight}
       </InputWrapper>
       <Alert icon={true} variant={"error"}>

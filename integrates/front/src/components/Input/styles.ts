@@ -21,24 +21,6 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
   },
 };
 
-const StyledInput = styled.input`
-  background: none;
-  border: none;
-  color: #121216;
-  font-weight: 400;
-  outline: none;
-  padding: 6px 12px;
-  width: 100%;
-
-  :disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  ::placeholder {
-    color: #b0b0bf;
-  }
-`;
-
 const InputBox = styled.div.attrs({
   className: "comp-input",
 })<IInputContainerProps>`
@@ -66,5 +48,41 @@ const InputWrapper = styled.div<IStyledInputProps>`
   transition: all 0.3s ease;
 `;
 
+const StyledInput = styled.input`
+  background: none;
+  border: none;
+  color: #121216;
+  font-weight: 400;
+  outline: none;
+  padding: 6px 12px;
+  width: 100%;
+
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  ::placeholder {
+    color: #b0b0bf;
+  }
+`;
+
+const StyledTextArea = styled.textarea`
+  background: none;
+  border: none;
+  line-height: 1.25;
+  outline: none;
+  padding: 6px 12px;
+  resize: none;
+  width: 100%;
+
+  :disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  ::placeholder {
+    color: #b0b0bf;
+  }
+`;
+
 export type { IInputContainerProps, IStyledInputProps };
-export { InputBox, InputWrapper, StyledInput };
+export { InputBox, InputWrapper, StyledInput, StyledTextArea };
