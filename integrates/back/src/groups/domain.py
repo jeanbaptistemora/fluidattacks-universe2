@@ -448,7 +448,6 @@ async def complete_register_for_group_invitation(
     group_access: dict[str, Any],
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
-    success: bool = False
     invitation = group_access["invitation"]
     if invitation["is_used"]:
         bugsnag.notify(Exception("Token already used"), severity="warning")
@@ -481,23 +480,23 @@ async def complete_register_for_group_invitation(
         coroutines.append(
             orgs_domain.add_user(loaders, organization_id, user_email, "user")
         )
+    if not all(await collect(coroutines)):
+        return False
 
     if not await stakeholders_domain.is_registered(user_email):
-        coroutines.extend(
+        await collect(
             [
                 stakeholders_domain.register(user_email),
                 authz.grant_user_level_role(user_email, "user"),
             ]
         )
 
-    success = all(await collect(coroutines))
-    if success:
-        redis_del_by_deps_soon(
-            "confirm_access",
-            group_name=group_name,
-            organization_id=organization_id,
-        )
-    return success
+    redis_del_by_deps_soon(
+        "confirm_access",
+        group_name=group_name,
+        organization_id=organization_id,
+    )
+    return True
 
 
 async def complete_register_for_organization_invitation(

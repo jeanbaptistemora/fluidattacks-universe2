@@ -32,6 +32,8 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
 def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
     item = {
         "is_concurrent_session": metadata.is_concurrent_session,
+        "push_tokens": metadata.push_tokens,
+        "registered": metadata.is_registered,
     }
     return {
         key: None if not value and value is not False else value

@@ -49,4 +49,6 @@ class Stakeholder(NamedTuple):
 
 class StakeholderMetadataToUpdate(NamedTuple):
     is_concurrent_session: Optional[bool] = None
+    is_registered: Optional[bool] = None
     notifications_preferences: Optional[NotificationsPreferences] = None
+    push_tokens: Optional[list[str]] = None

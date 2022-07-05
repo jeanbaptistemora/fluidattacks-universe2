@@ -101,8 +101,11 @@ async def add_push_token(
     stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
     tokens: list[str] = stakeholder.push_tokens or []
     if push_token not in tokens:
-        await stakeholders_dal.update(
-            user_email, {"push_tokens": tokens + [push_token]}
+        await stakeholders_dal.update_metadata(
+            metadata=StakeholderMetadataToUpdate(
+                push_tokens=tokens + [push_token]
+            ),
+            stakeholder_email=user_email,
         )
 
 
@@ -115,7 +118,12 @@ async def check_session_web_validity(request: Request) -> None:
     # raise the concurrent session modal flag
     if request.session.get("is_concurrent"):
         request.session.pop("is_concurrent")
-        await stakeholders_dal.update(email, {"is_concurrent_session": True})
+        await stakeholders_dal.update_metadata(
+            metadata=StakeholderMetadataToUpdate(
+                is_concurrent_session=True,
+            ),
+            stakeholder_email=email,
+        )
     try:
         # Check if the user has an active session but it's different
         # than the one in the cookie
@@ -337,8 +345,11 @@ async def is_registered(email: str) -> bool:
     return bool(await get_data(email, "registered"))
 
 
-async def register(email: str) -> bool:
-    return await stakeholders_dal.update(email, {"registered": True})
+async def register(email: str) -> None:
+    await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(is_registered=True),
+        stakeholder_email=email,
+    )
 
 
 async def remove_access_token(email: str) -> bool:
