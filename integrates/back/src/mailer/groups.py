@@ -10,6 +10,7 @@ from context import (
 )
 from datetime import (
     date,
+    datetime,
 )
 from db_model.enums import (
     Notification,
@@ -307,7 +308,7 @@ async def send_mail_file_report(
     )
 
 
-async def send_mail_root_cloning_status(
+async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     email_to: List[str],
@@ -316,32 +317,31 @@ async def send_mail_root_cloning_status(
     root_creation_date: str,
     root_nickname: str,
     root_id: str,
-    report_date: date,
+    report_date: datetime,
     modified_by: str,
     is_failed: bool,
 ) -> None:
     cloning_state: str = "failed" if is_failed else "changed"
     org_name = await get_organization_name(loaders, group_name)
     last_clone_date = None
-    days = None
-
+    cloning_time_delta = None
+    days_to_clone = None
+    last_clone_date_format: str = ""
     if last_successful_clone and not is_failed:
-        last_clone_date = datetime_utils.get_date_from_iso_str(
+        last_clone_date = datetime_utils.get_datetime_from_iso_str(
             last_successful_clone.modified_date
         )
-        days = (
-            datetime_utils.get_now()
-            - datetime_utils.get_datetime_from_iso_str(
-                last_successful_clone.modified_date
-            )
-        ).days
+        cloning_time_delta = report_date - last_clone_date
+        days_to_clone = cloning_time_delta.days
+        last_clone_date_format = last_clone_date.strftime("%Y/%m/%d")
 
     email_context: dict[str, Any] = {
         "is_failed": is_failed,
-        "days": days,
+        "days_to_clone": days_to_clone,
+        "cloning_time_delta": cloning_time_delta,
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
         "group": group_name,
-        "last_clone_date": last_clone_date,
+        "last_clone_date": last_clone_date_format,
         "root_creation_date": str(
             datetime_utils.get_date_from_iso_str(root_creation_date)
         ),
