@@ -931,9 +931,9 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
 
     loaders.group.clear(group_name)
     group: Group = await loaders.group.load(group_name)
+    is_failed_status_cloning: bool = await is_failed_cloning(loaders, root_id)
     is_failed: bool = (
-        status == GitCloningStatus.FAILED
-        and root.cloning.status == GitCloningStatus.OK
+        status == GitCloningStatus.FAILED and is_failed_status_cloning
     )
     is_cloning: bool = (
         status == GitCloningStatus.OK
@@ -1280,6 +1280,31 @@ async def get_last_status_update_date(loaders: Any, root_id: str) -> str:
     return last_status_update.modified_date
 
 
+async def historic_cloning_grouped(
+    loaders: Any, root_id: str
+) -> Tuple[Tuple[GitRootCloning, ...], ...]:
+    """Returns the history of cloning failures and successes grouped"""
+
+    loaders.root_historic_cloning.clear(root_id)
+    historic_cloning: Tuple[
+        GitRootCloning, ...
+    ] = await loaders.root_historic_cloning.load(root_id)
+    filtered_historic_cloning: Tuple[GitRootCloning, ...] = tuple(
+        filter(
+            lambda cloning: cloning.status
+            in [GitCloningStatus.OK, GitCloningStatus.FAILED],
+            historic_cloning,
+        )
+    )
+    grouped_historic_cloning = tuple(
+        tuple(group)
+        for _, group in groupby(
+            filtered_historic_cloning, key=attrgetter("status")
+        )
+    )
+    return grouped_historic_cloning
+
+
 async def get_last_cloning_successful(
     loaders: Any, root_id: str
 ) -> Optional[GitRootCloning]:
@@ -1288,13 +1313,8 @@ async def get_last_cloning_successful(
 
     [OK], FAILED, OK <-
     """
-    historic_cloning: Tuple[
-        GitRootCloning, ...
-    ] = await loaders.root_historic_cloning.load(root_id)
-    status_changes = tuple(
-        tuple(group)
-        for _, group in groupby(historic_cloning, key=attrgetter("status"))
-    )
+
+    status_changes = await historic_cloning_grouped(loaders, root_id)
 
     if len(status_changes) > 2:
         last_cloning_ok = status_changes[-3]
@@ -1303,6 +1323,26 @@ async def get_last_cloning_successful(
             return last_cloning
 
     return None
+
+
+async def is_failed_cloning(loaders: Any, root_id: str) -> bool:
+    """
+    Returns if last historic cloning has failed two times
+
+    OK, FAILED, FAILED
+    """
+    status_changes = await historic_cloning_grouped(loaders, root_id)
+    has_failed: bool = False
+
+    if len(status_changes) > 1:
+        last_cloning_failed = status_changes[-1]
+        last_cloning: GitRootCloning = last_cloning_failed[-1]
+        has_failed = (
+            last_cloning.status == GitCloningStatus.FAILED
+            and len(last_cloning_failed) == 2
+        )
+
+    return has_failed
 
 
 async def get_first_cloning_date(loaders: Any, root_id: str) -> str:
