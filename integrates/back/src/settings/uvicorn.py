@@ -37,6 +37,7 @@ class IntegratesWorker(  # pylint: disable=too-few-public-methods
                 "X-XSS-Protection",
                 "0",
             ],
+            ["Cache-Control", "must-revalidate, no-cache, no-store"],
             [
                 "Content-Security-Policy",
                 "script-src "
