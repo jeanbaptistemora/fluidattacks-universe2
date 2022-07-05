@@ -2,14 +2,18 @@
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
+import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { countries } from "utils/countries";
 import type { ICountries } from "utils/countries";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import {
+  FormikDropdown,
+  FormikFileInput,
+  FormikText,
+} from "utils/forms/fields";
 
 interface IAddOtherMethodModalProps {
   onClose: () => void;
@@ -58,7 +62,7 @@ export const AddOtherMethodModal = ({
     ),
     country: string().required(),
     email: string().required(),
-    rut: string().required(),
+    rut: mixed().required(),
     state: string().test(
       "isRequired",
       t("validations.required"),
@@ -70,7 +74,7 @@ export const AddOtherMethodModal = ({
         return states.length === 0 || value !== undefined;
       }
     ),
-    taxId: string().required(),
+    taxId: mixed().required(),
   });
 
   useEffect((): void => {
@@ -252,7 +256,14 @@ export const AddOtherMethodModal = ({
                         "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
                       )}
                     </ControlLabel>
-                    <Field component={FormikText} name={"rut"} type={"text"} />
+                    <Field
+                      accept={
+                        "application/pdf,application/zip,image/gif,image/jpg,image/png"
+                      }
+                      component={FormikFileInput}
+                      id={"rut"}
+                      name={"rut"}
+                    />
                   </div>
                 </React.Fragment>
               ) : (
@@ -263,7 +274,14 @@ export const AddOtherMethodModal = ({
                       "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
                     )}
                   </ControlLabel>
-                  <Field component={FormikText} name={"taxId"} type={"text"} />
+                  <Field
+                    accept={
+                      "application/pdf,application/zip,image/gif,image/jpg,image/png"
+                    }
+                    component={FormikFileInput}
+                    id={"taxId"}
+                    name={"taxId"}
+                  />
                 </div>
               )}
               <ModalConfirm
