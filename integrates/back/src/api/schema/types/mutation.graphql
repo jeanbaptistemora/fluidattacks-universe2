@@ -1228,7 +1228,7 @@ type Mutation {
     groupName: String!
     "Id of the root containing the ToE input to be updated"
     rootId: String!
-  ): SimplePayload!
+  ): UpdateToeInputPayload!
 
   """
   Updates the attacked lines for one or more ToE Lines of a concrete root

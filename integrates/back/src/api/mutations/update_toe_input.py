@@ -5,7 +5,7 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    SimplePayload as SimplePayloadType,
+    UpdateToeInputPayload,
 )
 from dataloaders import (
     Dataloaders,
@@ -54,7 +54,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     group_name: str,
     root_id: str,
     **kwargs: Any,
-) -> SimplePayloadType:
+) -> UpdateToeInputPayload:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
@@ -97,4 +97,10 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return UpdateToeInputPayload(
+        component=component,
+        entry_point=entry_point,
+        group_name=group_name,
+        root_id=root_id,
+        success=True,
+    )

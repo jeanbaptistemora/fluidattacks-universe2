@@ -104,7 +104,8 @@ from api.schema.types.credentials import (
     CREDENTIALS,
 )
 from api.schema.types.mutation_payloads import (
-    UPDATETOELINESPAYLOAD,
+    UPDATE_TOE_INPUT_PAYLOAD,
+    UPDATE_TOE_LINES_PAYLOAD,
 )
 from api.schema.types.toe_lines import (
     TOELINES,
@@ -154,7 +155,8 @@ TYPES: Tuple[ObjectType, ...] = (
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
-    UPDATETOELINESPAYLOAD,
+    UPDATE_TOE_INPUT_PAYLOAD,
+    UPDATE_TOE_LINES_PAYLOAD,
     URLROOT,
     VERIFICATION,
     VERIFICATION_SUMMARY,

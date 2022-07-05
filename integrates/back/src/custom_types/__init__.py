@@ -132,6 +132,16 @@ UpdateStakeholderPayload = NamedTuple(
         ("modified_stakeholder", Dict[str, Any]),
     ],
 )
+UpdateToeInputPayload = NamedTuple(
+    "UpdateToeInputPayload",
+    [
+        ("component", str),
+        ("entry_point", str),
+        ("group_name", str),
+        ("root_id", str),
+        ("success", bool),
+    ],
+)
 UpdateToeLinesPayload = NamedTuple(
     "UpdateToeLinesPayload",
     [

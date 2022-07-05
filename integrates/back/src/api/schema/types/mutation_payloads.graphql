@@ -81,6 +81,14 @@ type UpdateStakeholderPayload implements Payload {
   success: Boolean!
 }
 
+"Update toe input Payload type definition"
+type UpdateToeInputPayload implements Payload {
+  "Did the query succeed?"
+  success: Boolean!
+  "Modified Toe Input"
+  toeInput: ToeInput!
+}
+
 "Update toe lines Payload type definition"
 type UpdateToeLinesPayload implements Payload {
   "Did the query succeed?"
