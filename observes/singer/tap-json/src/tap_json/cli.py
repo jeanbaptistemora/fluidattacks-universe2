@@ -14,20 +14,22 @@ from typing import (
     help="A string of formats separated by comma, extends RFC3339",
 )
 @click.option(
-    "--only-schema",
+    "--schema-cache",
     is_flag=True,
-    help="Emit only determined schemas",
+    help="Use custom schema folder as cache, do not auto determine it",
 )
 @click.option(
-    "--schema-cache",
+    "--schema-folder",
     default=None,
-    help="Path to directory containing previously determined schemas",
+    help="Path to directory for input/output of the schemas",
 )
 def main(
-    date_formats: Optional[str], only_schema: bool, schema_cache: Optional[str]
+    date_formats: Optional[str],
+    schema_cache: bool,
+    schema_folder: Optional[str],
 ) -> None:
     tap_json.main(
         date_formats.split(",") if date_formats else [],
-        only_schema,
         schema_cache,
+        schema_folder,
     )

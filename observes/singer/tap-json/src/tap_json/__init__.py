@@ -350,9 +350,11 @@ def dump_records(table: str) -> None:
 
 
 def main(
-    date_formats: List[str], only_schema: bool, schema_cache: Optional[str]
+    date_formats: List[str], use_cache: bool, schema_folder: Optional[str]
 ) -> None:
     """Usual entry point."""
+
+    _schemas_dir = schema_folder if schema_folder else SCHEMAS_DIR
 
     # add the user date formats, filter empty strings
     DATE_FORMATS.extend(date_formats)
@@ -368,15 +370,13 @@ def main(
                 linearize(stream_stru["stream"], stream_stru["record"])
             elif _type == "STATE":
                 write(STATE_DIR, "states", stream)
-    if schema_cache is None:
+    if not use_cache:
         catalog()
 
     # Parse everything to singer
-    _schemas_dir = schema_cache if schema_cache else SCHEMAS_DIR
     for schema in os.listdir(_schemas_dir):
         dump_schema(schema)
-        if not only_schema:
-            dump_records(schema)
+        dump_records(schema)
     if os.path.exists(f"{STATE_DIR}/states"):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
