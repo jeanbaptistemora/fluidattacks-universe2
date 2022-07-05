@@ -23,6 +23,7 @@ import {
 import { Button } from "components/Button";
 import { Dropdown } from "components/Dropdown";
 import { ExternalLink } from "components/ExternalLink";
+import { Gap } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
@@ -129,49 +130,51 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
 
   return (
     <React.StrictMode>
-      <ExternalLink
-        download={`charts-${entity}-${subject}.png`}
-        href={downloadPngUrl.toString()}
-      >
-        <Button variant={"primary"}>
-          <FontAwesomeIcon icon={faDownload} />
-          &nbsp;
-          {t("analytics.sections.extras.download")}
-        </Button>
-      </ExternalLink>
-      <Dropdown
-        button={
-          <Button variant={"secondary"}>
-            <FontAwesomeIcon
-              icon={loadingSubscribe ? faHourglassHalf : faChartBar}
-            />
+      <Gap>
+        <ExternalLink
+          download={`charts-${entity}-${subject}.png`}
+          href={downloadPngUrl.toString()}
+        >
+          <Button variant={"primary"}>
+            <FontAwesomeIcon icon={faDownload} />
             &nbsp;
-            {translateFrequency(subscriptionFrequency, "statement")}
+            {t("analytics.sections.extras.download")}
           </Button>
-        }
-        id={"subscribe-dropdown"}
-      >
-        {frequencies.map(
-          (freq: string): JSX.Element => (
-            <TooltipWrapper
-              id={freq}
-              key={freq}
-              message={translateFrequencyArrivalTime(freq)}
-              placement={"right"}
-            >
-              <div className={"flex flex-column"}>
-                <Button
-                  onClick={function fn2(): void {
-                    subscribeDropdownOnSelect(freq);
-                  }}
-                >
-                  {translateFrequency(freq, "action")}
-                </Button>
-              </div>
-            </TooltipWrapper>
-          )
-        )}
-      </Dropdown>
+        </ExternalLink>
+        <Dropdown
+          button={
+            <Button variant={"primary"}>
+              <FontAwesomeIcon
+                icon={loadingSubscribe ? faHourglassHalf : faChartBar}
+              />
+              &nbsp;
+              {translateFrequency(subscriptionFrequency, "statement")}
+            </Button>
+          }
+          id={"subscribe-dropdown"}
+        >
+          {frequencies.map(
+            (freq: string): JSX.Element => (
+              <TooltipWrapper
+                id={freq}
+                key={freq}
+                message={translateFrequencyArrivalTime(freq)}
+                placement={"right"}
+              >
+                <div className={"flex flex-column"}>
+                  <Button
+                    onClick={function fn2(): void {
+                      subscribeDropdownOnSelect(freq);
+                    }}
+                  >
+                    {translateFrequency(freq, "action")}
+                  </Button>
+                </div>
+              </TooltipWrapper>
+            )
+          )}
+        </Dropdown>
+      </Gap>
     </React.StrictMode>
   );
 };

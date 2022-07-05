@@ -53,7 +53,6 @@ import {
   formatReattacks,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
-import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { castEventType } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
@@ -690,41 +689,35 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           )}
           exportCsv={true}
           extraButtons={
-            <Row>
-              <ButtonToolbar>
-                <Can do={"api_mutations_add_event_mutate"}>
-                  <TooltipWrapper
-                    id={"group.events.btn.tooltip.id"}
-                    message={t("group.events.btn.tooltip")}
+            <React.Fragment>
+              <Can do={"api_mutations_add_event_mutate"}>
+                <TooltipWrapper
+                  id={"group.events.btn.tooltip.id"}
+                  message={t("group.events.btn.tooltip")}
+                >
+                  <Button onClick={openNewEventModal} variant={"primary"}>
+                    <FontAwesomeIcon icon={faPlus} />
+                    &nbsp;{t("group.events.btn.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+              <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
+                <TooltipWrapper
+                  id={"group.events.form.affectedReattacks.btn.id"}
+                  message={t("group.events.form.affectedReattacks.btn.tooltip")}
+                >
+                  <Button
+                    disabled={!(hasReattacks && hasOpenEvents)}
+                    onClick={openUpdateAffectedModal}
+                    variant={"secondary"}
                   >
-                    <Button onClick={openNewEventModal} variant={"primary"}>
-                      <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;{t("group.events.btn.text")}
-                    </Button>
-                  </TooltipWrapper>
-                </Can>
-              </ButtonToolbar>
-              <ButtonToolbar>
-                <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
-                  <TooltipWrapper
-                    id={"group.events.form.affectedReattacks.btn.id"}
-                    message={t(
-                      "group.events.form.affectedReattacks.btn.tooltip"
-                    )}
-                  >
-                    <Button
-                      disabled={!(hasReattacks && hasOpenEvents)}
-                      onClick={openUpdateAffectedModal}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                      &nbsp;
-                      {t("group.events.form.affectedReattacks.btn.text")}
-                    </Button>
-                  </TooltipWrapper>
-                </Can>
-              </ButtonToolbar>
-            </Row>
+                    <FontAwesomeIcon icon={faPlus} />
+                    &nbsp;
+                    {t("group.events.form.affectedReattacks.btn.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+            </React.Fragment>
           }
           headers={tableHeaders}
           id={"tblEvents"}

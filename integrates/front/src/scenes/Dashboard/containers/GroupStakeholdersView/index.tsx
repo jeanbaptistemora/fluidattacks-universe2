@@ -46,7 +46,6 @@ import type {
   IUpdateGroupStakeholderAttr,
 } from "scenes/Dashboard/containers/GroupStakeholdersView/types";
 import type { IStakeholderAttrs as IGenericStakeholderAttrs } from "scenes/Dashboard/containers/OrganizationStakeholdersView/types";
-import { ButtonToolbar, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -423,139 +422,111 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div className={"tab-pane cont active"} id={"users"}>
-        <div>
-          <div>
-            <div>
-              <div>
-                <Table
-                  clearFiltersButton={clearFilters}
-                  customFilters={{
-                    customFiltersProps: customFilters,
-                    isCustomFilterEnabled,
-                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                    resultSize: {
-                      current: resultStakeHolders.length,
-                      total: stakeholdersList.length,
-                    },
-                  }}
-                  customSearch={{
-                    customSearchDefault: searchTextFilter,
-                    isCustomSearchEnabled: true,
-                    onUpdateCustomSearch: onSearchTextChange,
-                    position: "right",
-                  }}
-                  dataset={resultStakeHolders}
-                  exportCsv={true}
-                  extraButtons={
-                    <Row>
-                      <ButtonToolbar>
-                        <Can
-                          do={"api_mutations_grant_stakeholder_access_mutate"}
-                        >
-                          <TooltipWrapper
-                            displayClass={"dib"}
-                            id={"searchFindings.tabUsers.addButton.tooltip.id"}
-                            message={t(
-                              "searchFindings.tabUsers.addButton.tooltip"
-                            )}
-                          >
-                            <Button
-                              id={"addUser"}
-                              onClick={openAddUserModal}
-                              variant={"primary"}
-                            >
-                              <FontAwesomeIcon icon={faPlus} />
-                              &nbsp;
-                              {t("searchFindings.tabUsers.addButton.text")}
-                            </Button>
-                          </TooltipWrapper>
-                        </Can>
-                        <Can
-                          do={"api_mutations_update_group_stakeholder_mutate"}
-                        >
-                          <TooltipWrapper
-                            displayClass={"dib"}
-                            id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                            message={t(
-                              "searchFindings.tabUsers.editButton.tooltip"
-                            )}
-                          >
-                            <Button
-                              disabled={
-                                _.isEmpty(currentRow) ||
-                                removing ||
-                                loadingStakeholders
-                              }
-                              id={"editUser"}
-                              onClick={openEditUserModal}
-                              variant={"secondary"}
-                            >
-                              <FontAwesomeIcon icon={faUserEdit} />
-                              &nbsp;
-                              {t("searchFindings.tabUsers.editButton.text")}
-                            </Button>
-                          </TooltipWrapper>
-                        </Can>
-                        <Can
-                          do={"api_mutations_remove_stakeholder_access_mutate"}
-                        >
-                          <TooltipWrapper
-                            displayClass={"dib"}
-                            id={
-                              "searchFindings.tabUsers.removeUserButton.tooltip.id"
-                            }
-                            message={t(
-                              "searchFindings.tabUsers.removeUserButton.tooltip"
-                            )}
-                          >
-                            <Button
-                              disabled={
-                                _.isEmpty(currentRow) ||
-                                removing ||
-                                loadingStakeholders
-                              }
-                              id={"removeUser"}
-                              onClick={handleRemoveUser}
-                              variant={"secondary"}
-                            >
-                              <FontAwesomeIcon icon={faTrashAlt} />
-                              &nbsp;
-                              {t(
-                                "searchFindings.tabUsers.removeUserButton.text"
-                              )}
-                            </Button>
-                          </TooltipWrapper>
-                        </Can>
-                      </ButtonToolbar>
-                    </Row>
-                  }
-                  headers={tableHeaders}
-                  id={"tblUsers"}
-                  pageSize={10}
-                  search={false}
-                  selectionMode={{
-                    clickToSelect: true,
-                    hideSelectColumn:
-                      permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
-                      ) ||
-                      permissions.cannot(
-                        "api_mutations_remove_stakeholder_access_mutate"
-                      ),
-                    mode: "radio",
-                    onSelect: setCurrentRow,
-                    selected: getStakeHolderIndex(
-                      _.isEmpty(currentRow)
-                        ? []
-                        : [currentRow as unknown as IGenericStakeholderAttrs],
-                      resultStakeHolders as unknown as IGenericStakeholderAttrs[]
-                    ),
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Table
+          clearFiltersButton={clearFilters}
+          customFilters={{
+            customFiltersProps: customFilters,
+            isCustomFilterEnabled,
+            onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+            resultSize: {
+              current: resultStakeHolders.length,
+              total: stakeholdersList.length,
+            },
+          }}
+          customSearch={{
+            customSearchDefault: searchTextFilter,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchTextChange,
+            position: "right",
+          }}
+          dataset={resultStakeHolders}
+          exportCsv={true}
+          extraButtons={
+            <React.Fragment>
+              <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"searchFindings.tabUsers.addButton.tooltip.id"}
+                  message={t("searchFindings.tabUsers.addButton.tooltip")}
+                >
+                  <Button
+                    id={"addUser"}
+                    onClick={openAddUserModal}
+                    variant={"primary"}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                    &nbsp;
+                    {t("searchFindings.tabUsers.addButton.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+              <Can do={"api_mutations_update_group_stakeholder_mutate"}>
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"searchFindings.tabUsers.editButton.tooltip.id"}
+                  message={t("searchFindings.tabUsers.editButton.tooltip")}
+                >
+                  <Button
+                    disabled={
+                      _.isEmpty(currentRow) || removing || loadingStakeholders
+                    }
+                    id={"editUser"}
+                    onClick={openEditUserModal}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faUserEdit} />
+                    &nbsp;
+                    {t("searchFindings.tabUsers.editButton.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+              <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
+                <TooltipWrapper
+                  displayClass={"dib"}
+                  id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
+                  message={t(
+                    "searchFindings.tabUsers.removeUserButton.tooltip"
+                  )}
+                >
+                  <Button
+                    disabled={
+                      _.isEmpty(currentRow) || removing || loadingStakeholders
+                    }
+                    id={"removeUser"}
+                    onClick={handleRemoveUser}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                    &nbsp;
+                    {t("searchFindings.tabUsers.removeUserButton.text")}
+                  </Button>
+                </TooltipWrapper>
+              </Can>
+            </React.Fragment>
+          }
+          headers={tableHeaders}
+          id={"tblUsers"}
+          pageSize={10}
+          search={false}
+          selectionMode={{
+            clickToSelect: true,
+            hideSelectColumn:
+              permissions.cannot(
+                "api_mutations_update_group_stakeholder_mutate"
+              ) ||
+              permissions.cannot(
+                "api_mutations_remove_stakeholder_access_mutate"
+              ),
+            mode: "radio",
+            onSelect: setCurrentRow,
+            selected: getStakeHolderIndex(
+              _.isEmpty(currentRow)
+                ? []
+                : [currentRow as unknown as IGenericStakeholderAttrs],
+              resultStakeHolders as unknown as IGenericStakeholderAttrs[]
+            ),
+          }}
+        />
         <AddUserModal
           action={userModalAction}
           editTitle={t("searchFindings.tabUsers.editStakeholderTitle")}
