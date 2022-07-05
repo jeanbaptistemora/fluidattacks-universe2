@@ -30,7 +30,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
         filename="test/test#.config",
-        attacked_lines=8,
+        attacked_lines=180,
         comments="edited comments 1",
     )
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
@@ -41,7 +41,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
                 "node": {
                     "attackedAt": "2021-05-05T07:00:00+00:00",
                     "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 8,
+                    "attackedLines": 180,
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "edited comments 1",
@@ -101,14 +101,14 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
                 "node": {
                     "attackedAt": "2021-05-06T07:00:00+00:00",
                     "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 8,
+                    "attackedLines": 180,
                     "bePresent": True,
                     "bePresentUntil": None,
                     "comments": "edited comments 2",
                     "lastAuthor": "customer2@gmail.com",
                     "filename": "test2/test.sh",
                     "firstAttackAt": "2020-02-19T15:41:04+00:00",
-                    "loc": 8,
+                    "loc": 180,
                     "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {
@@ -167,7 +167,7 @@ async def test_update_toe_lines_attacked_lines_access_denied(
         group_name="group1",
         root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
         filename="test/test#.config",
-        attacked_lines=8,
+        attacked_lines=180,
         comments="edited comments 1",
     )
     assert "errors" in result

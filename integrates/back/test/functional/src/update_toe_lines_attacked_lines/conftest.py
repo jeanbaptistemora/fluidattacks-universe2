@@ -176,7 +176,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 has_vulnerabilities=False,
                 last_author="customer2@gmail.com",
                 last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                loc=8,
+                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),

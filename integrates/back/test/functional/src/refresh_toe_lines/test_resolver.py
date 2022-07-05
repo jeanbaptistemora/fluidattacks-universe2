@@ -216,7 +216,7 @@ async def test_refresh_toe_lines(
                     "firstAttackAt": "2020-02-19T15:41:04+00:00",
                     "lastAuthor": "customer2@gmail.com",
                     "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    "loc": 8,
+                    "loc": 180,
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,

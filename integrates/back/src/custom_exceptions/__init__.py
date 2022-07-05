@@ -1444,6 +1444,15 @@ class VulnerabilityUrlFieldDoNotExistInToeInputs(CustomBaseException):
         super(VulnerabilityUrlFieldDoNotExistInToeInputs, self).__init__(msg)
 
 
+class LineDoesNotExistInTheLinesOfCodeRange(CustomBaseException):
+    def __init__(self, line: str) -> None:
+        msg = (
+            "Exception -  The line does not exist in the range of 0 and "
+            f"lines of code: {line}"
+        )
+        super(LineDoesNotExistInTheLinesOfCodeRange, self).__init__(msg)
+
+
 class VulnerabilityEntryNotFound(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Vulnerability entry not found"

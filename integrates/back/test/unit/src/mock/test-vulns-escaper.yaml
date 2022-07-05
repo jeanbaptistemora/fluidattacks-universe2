@@ -1,5 +1,5 @@
 lines:
-- line: '890'
+- line: '89'
   commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
   path: product/test/test#.config
   state: open

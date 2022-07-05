@@ -47,7 +47,7 @@ async def test_get() -> None:
         has_vulnerabilities=False,
         last_author="user@gmail.com",
         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-        loc=8,
+        loc=180,
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
         seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
@@ -122,7 +122,7 @@ async def test_get_by_group() -> None:
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc=8,
+                    loc=180,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
@@ -219,7 +219,7 @@ async def test_get_by_root() -> None:
                     has_vulnerabilities=False,
                     last_author="user@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc=8,
+                    loc=180,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
