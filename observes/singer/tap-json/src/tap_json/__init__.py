@@ -277,7 +277,7 @@ def linearize__deconstruct(table: str, stru: STRU, ids: Any) -> STRU:
         write(RECORDS_DIR, table, record, func=dumps)
 
 
-def catalog() -> None:
+def catalog(schema_dir: str) -> None:
     """Deduce the schema of the generated tables."""
     for table_name in os.listdir(RECORDS_DIR):
         schema: JSON = {}
@@ -289,7 +289,7 @@ def catalog() -> None:
                         schema[key].append(vtype)
                 except KeyError:
                     schema[key] = [vtype]
-        write(SCHEMAS_DIR, table_name, schema, dumps)
+        write(schema_dir, table_name, schema, dumps)
 
 
 def choose_type(types: List[str]) -> str:
@@ -304,8 +304,8 @@ def choose_type(types: List[str]) -> str:
     return priority[max(map(priority.index, types))]
 
 
-def dump_schema(table: str) -> None:
-    pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
+def dump_schema(table: str, schemas_dir: str) -> None:
+    pschema = json_from_file(f"{schemas_dir}/{table}")
     props = {}
     for key, fts in pschema.items():
         selected_type = choose_type(fts)
@@ -325,8 +325,8 @@ def dump_schema(table: str) -> None:
     )
 
 
-def dump_records(table: str) -> None:
-    pschema = json_from_file(f"{SCHEMAS_DIR}/{table}")
+def dump_records(table: str, schemas_dir: str) -> None:
+    pschema = json_from_file(f"{schemas_dir}/{table}")
     for precord in read(RECORDS_DIR, table, loads):
         record = {}
         for field, value in precord.items():
@@ -371,12 +371,12 @@ def main(
             elif _type == "STATE":
                 write(STATE_DIR, "states", stream)
     if not use_cache:
-        catalog()
+        catalog(_schemas_dir)
 
     # Parse everything to singer
     for schema in os.listdir(_schemas_dir):
-        dump_schema(schema)
-        dump_records(schema)
+        dump_schema(schema, _schemas_dir)
+        dump_records(schema, _schemas_dir)
     if os.path.exists(f"{STATE_DIR}/states"):
         for state in read(STATE_DIR, "states"):
             if state.rstrip():
