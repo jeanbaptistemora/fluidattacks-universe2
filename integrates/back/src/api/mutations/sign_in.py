@@ -69,7 +69,7 @@ async def autoenroll_stakeholder(email: str) -> None:
     await stakeholders_dal.update_metadata(
         stakeholder_email=email,
         metadata=StakeholderMetadataToUpdate(
-            NotificationsPreferences(
+            notifications_preferences=NotificationsPreferences(
                 email=[
                     "ACCESS_GRANTED",
                     "AGENT_TOKEN",

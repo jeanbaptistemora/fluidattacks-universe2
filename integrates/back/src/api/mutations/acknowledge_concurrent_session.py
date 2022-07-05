@@ -13,20 +13,15 @@ from newutils import (
 from stakeholders import (
     domain as stakeholders_domain,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
 async def mutate(
-    _: Any,
+    _: None,
     info: GraphQLResolveInfo,
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    success = await stakeholders_domain.acknowledge_concurrent_session(
-        user_email
-    )
+    await stakeholders_domain.acknowledge_concurrent_session(user_email)
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

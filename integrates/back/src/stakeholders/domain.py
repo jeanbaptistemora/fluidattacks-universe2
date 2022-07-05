@@ -28,6 +28,7 @@ from db_model.groups.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderAccessToken,
+    StakeholderMetadataToUpdate,
     StakeholderPhone,
 )
 from group_access import (
@@ -82,10 +83,13 @@ from verify.enums import (
 )
 
 
-async def acknowledge_concurrent_session(email: str) -> bool:
-    """Acknowledge termination of concurrent session"""
-    return await stakeholders_dal.update(
-        email, {"is_concurrent_session": False}
+async def acknowledge_concurrent_session(email: str) -> None:
+    """Acknowledge termination of concurrent session."""
+    await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            is_concurrent_session=False,
+        ),
+        stakeholder_email=email,
     )
 
 

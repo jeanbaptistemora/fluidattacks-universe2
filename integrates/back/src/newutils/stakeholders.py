@@ -5,6 +5,7 @@ from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
     StakeholderAccessToken,
+    StakeholderMetadataToUpdate,
     StakeholderPhone,
     StakeholderTours,
 )
@@ -28,25 +29,15 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
     )
 
 
-def format_phone(item: Union[Item, tuple]) -> StakeholderPhone:
-    if isinstance(item, dict):
-        return StakeholderPhone(
-            calling_country_code=item["calling_country_code"],
-            country_code=item["country_code"],
-            national_number=item["national_number"],
-        )
-    return StakeholderPhone(
-        calling_country_code=item[0],
-        country_code=item[1],
-        national_number=item[2],
-    )
-
-
-def format_tours(item: Item) -> StakeholderTours:
-    return StakeholderTours(
-        new_group=bool(item["new_group"]),
-        new_root=bool(item["new_root"]),
-    )
+def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
+    item = {
+        "is_concurrent_session": metadata.is_concurrent_session,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }
 
 
 def format_notifications_preferences(
@@ -69,6 +60,27 @@ def format_notifications_preferences(
     return NotificationsPreferences(
         email=email_preferences,
         sms=sms_preferences,
+    )
+
+
+def format_phone(item: Union[Item, tuple]) -> StakeholderPhone:
+    if isinstance(item, dict):
+        return StakeholderPhone(
+            calling_country_code=item["calling_country_code"],
+            country_code=item["country_code"],
+            national_number=item["national_number"],
+        )
+    return StakeholderPhone(
+        calling_country_code=item[0],
+        country_code=item[1],
+        national_number=item[2],
+    )
+
+
+def format_tours(item: Item) -> StakeholderTours:
+    return StakeholderTours(
+        new_group=bool(item["new_group"]),
+        new_root=bool(item["new_root"]),
     )
 
 

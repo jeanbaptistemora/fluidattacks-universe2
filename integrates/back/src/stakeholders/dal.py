@@ -21,6 +21,9 @@ from dynamodb import (
 )
 import logging
 import logging.config
+from newutils import (
+    stakeholders as stakeholders_utils,
+)
 from settings import (
     LOGGING,
 )
@@ -141,3 +144,9 @@ async def update_metadata(
             ),
             stakeholder_email=stakeholder_email,
         )
+    item = stakeholders_utils.format_metadata_item(metadata=metadata)
+    if item and not await update(
+        email=stakeholder_email,
+        data=item,
+    ):
+        raise UnavailabilityError()

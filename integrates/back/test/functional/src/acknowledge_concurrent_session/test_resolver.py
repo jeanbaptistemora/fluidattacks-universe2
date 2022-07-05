@@ -1,10 +1,16 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -29,8 +35,12 @@ async def test_acknowledge_concurrent_session(
     populate: bool, email: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result
     assert result["data"]["acknowledgeConcurrentSession"]["success"]
+
+    loaders: Dataloaders = get_new_context()
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder.is_concurrent_session is False

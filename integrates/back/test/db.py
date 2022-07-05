@@ -105,7 +105,7 @@ async def populate_users(data: List[Any]) -> bool:
             dal_stakeholders.update_metadata(
                 stakeholder_email=user["email"],
                 metadata=StakeholderMetadataToUpdate(
-                    NotificationsPreferences(
+                    notifications_preferences=NotificationsPreferences(
                         email=[
                             "ACCESS_GRANTED",
                             "AGENT_TOKEN",
