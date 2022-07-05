@@ -5,11 +5,14 @@ import type { IStyledInputProps } from "./styles";
 import { InputBox, InputWrapper, StyledInput } from "./styles";
 
 import { Alert } from "components/Alert";
+import { Text } from "components/Text";
 
 interface IInputProps extends Partial<IStyledInputProps> {
   childLeft?: React.ReactNode;
   childRight?: React.ReactNode;
   disabled?: boolean;
+  id?: string;
+  label?: React.ReactNode;
   name: string;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -26,6 +29,8 @@ const CustomInput: React.FC<
   disabled,
   field,
   form,
+  id,
+  label,
   onBlur,
   onFocus,
   onKeyDown,
@@ -48,12 +53,20 @@ const CustomInput: React.FC<
 
   return (
     <InputBox showAlert={alert.length > 0}>
+      {label === undefined ? undefined : (
+        <label htmlFor={id}>
+          <div className={"mb1"}>
+            <Text>{label}</Text>
+          </div>
+        </label>
+      )}
       <InputWrapper variant={variant}>
         {childLeft}
         <StyledInput
           aria-label={name}
           autoComplete={"off"}
           disabled={disabled}
+          id={id}
           name={name}
           onBlur={handleBlur}
           onChange={onChange}

@@ -48,6 +48,8 @@ const Template: Story<IInputProps> = (props): JSX.Element => (
 const Default = Template.bind({});
 Default.args = {
   disabled: false,
+  id: "ExampleId",
+  label: "ExampleLabel",
   placeholder: "Example placeholder",
   type: "text",
   variant: "solid",

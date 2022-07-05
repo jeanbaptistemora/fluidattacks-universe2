@@ -45,27 +45,43 @@ const colors: Record<TColor, string[]> = {
 
 interface ITextProps {
   bright?: Nums1To9 | 0;
-  mh?: Nums1To7 | 0;
-  mv?: Nums1To7 | 0;
+  hoverBright?: Nums1To9 | 0;
+  hoverTone?: TColor;
+  mb?: Nums1To7 | 0;
+  ml?: Nums1To7 | 0;
+  mr?: Nums1To7 | 0;
+  mt?: Nums1To7 | 0;
   size?: Nums1To7;
   tone?: TColor;
-  weight?: Nums1To9;
+  fw?: Nums1To9;
 }
 
 const Text = styled.p.attrs(
   ({
-    mh = 0,
-    mv = 0,
-    size = 5,
-    weight = 4,
+    mb = 0,
+    ml = 0,
+    mr = 0,
+    mt = 0,
+    size = 3,
+    fw = 4,
   }: ITextProps): {
     className: string;
   } => ({
-    className: `f${size} fw${weight} mh${mh} mv${mv}`,
+    className: `comp-text f${8 - size} fw${fw} mb${mb} ml${ml} mr${mr} mt${mt}`,
   })
 )<ITextProps>`
-  ${({ bright = 1, tone = "dark" }): string => `
+  ${({
+    bright = 1,
+    hoverBright = 1,
+    hoverTone = "dark",
+    tone = "dark",
+  }): string => `
     color: #${colors[tone][bright]};
+    transition: all 0.3s ease;
+
+    :hover {
+      color: #${colors[hoverTone][hoverBright]};
+    }
   `}
 `;
 

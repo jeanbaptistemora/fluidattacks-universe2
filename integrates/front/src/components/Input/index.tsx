@@ -9,6 +9,8 @@ const Input: FC<IInputProps> = ({
   childLeft,
   childRight,
   disabled = false,
+  id,
+  label,
   name,
   onBlur,
   onFocus,
@@ -22,6 +24,8 @@ const Input: FC<IInputProps> = ({
     childRight={childRight}
     component={CustomInput}
     disabled={disabled}
+    id={id}
+    label={label}
     name={name}
     onBlur={onBlur}
     onFocus={onFocus}

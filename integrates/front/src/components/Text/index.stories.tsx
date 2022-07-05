@@ -19,9 +19,10 @@ const Default = Template.bind({});
 Default.args = {
   bright: 5,
   children: "Example Text",
-  mh: 5,
-  mv: 0,
-  size: 5,
+  hoverBright: 3,
+  hoverTone: "red",
+  ml: 5,
+  size: 3,
   tone: "dark",
 };
 
