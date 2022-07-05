@@ -34,17 +34,16 @@ pytestmark = [
 @pytest.mark.changes_db
 async def test_add_push_token() -> None:
     loaders: Dataloaders = get_new_context()
-    user_email = "test@mail.com"
+    user_email = "unittest@fluidattacks.com"
     with pytest.raises(InvalidPushToken):
         assert await stakeholders_domain.add_push_token(
             loaders, user_email, "not-a-push-token"
         )
 
     valid_token = "ExponentPushToken[something123]"
-    assert await stakeholders_domain.add_push_token(
-        loaders, user_email, valid_token
-    )
+    await stakeholders_domain.add_push_token(loaders, user_email, valid_token)
 
+    loaders = get_new_context()
     user_attrs: Stakeholder = await loaders.stakeholder.load(user_email)
     assert valid_token in user_attrs.push_tokens
 

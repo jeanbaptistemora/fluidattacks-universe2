@@ -7,22 +7,22 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result(
     *,
     user: str,
-) -> Dict[str, Any]:
-    query: str = """
-        mutation {
-            addPushToken(token: "ExponentPushToken[something123]") {
+    token: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        mutation {{
+            addPushToken(token: "{token}") {{
                 success
-            }
-        }
+            }}
+        }}
     """
-    data: Dict[str, str] = {
+    data: dict[str, str] = {
         "query": query,
     }
     return await get_graphql_result(

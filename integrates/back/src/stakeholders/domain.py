@@ -95,24 +95,15 @@ async def acknowledge_concurrent_session(email: str) -> None:
 
 async def add_push_token(
     loaders: Any, user_email: str, push_token: str
-) -> bool:
+) -> None:
     if not re.match(r"^ExponentPushToken\[[a-zA-Z\d_-]+\]$", push_token):
         raise InvalidPushToken()
-    try:
-        stakeholder: Optional[Stakeholder] = await loaders.stakeholder.load(
-            user_email
-        )
-    except StakeholderNotFound:
-        stakeholder = None
-    if stakeholder and stakeholder.push_tokens:
-        tokens: list[str] = stakeholder.push_tokens
-    else:
-        tokens = []
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    tokens: list[str] = stakeholder.push_tokens or []
     if push_token not in tokens:
-        return await stakeholders_dal.update(
+        await stakeholders_dal.update(
             user_email, {"push_tokens": tokens + [push_token]}
         )
-    return True
 
 
 async def check_session_web_validity(request: Request) -> None:
