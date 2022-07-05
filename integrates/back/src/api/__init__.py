@@ -4,6 +4,9 @@ from aioextensions import (
 from api.validations.directives import (
     validate_directives,
 )
+from api.validations.fragments import (
+    validate_fragments,
+)
 from ariadne.asgi import (
     GraphQL,
 )
@@ -18,6 +21,7 @@ from dynamodb.exceptions import (
 )
 from graphql import (
     DocumentNode,
+    GraphQLError,
 )
 from newutils import (
     logs as logs_utils,
@@ -63,20 +67,27 @@ async def _log_request(request: Request, operation: Operation) -> None:
 
 def hook_early_validations() -> None:
     """
-    Hook into the execution process before parsing the AST
+    Hook into the execution process
 
     Warning: This is intended as a temporal workaround while some patches
     arrive upstream.
     """
     ariadne_graphql = sys.modules["ariadne.graphql"]
-    original = ariadne_graphql.parse_query  # type: ignore
+    original_parse = ariadne_graphql.parse_query  # type: ignore
+    original_validate = ariadne_graphql.validate_query  # type: ignore
 
-    def with_early_validations(query: str) -> DocumentNode:
+    def before_parse(query: str) -> DocumentNode:
         validate_directives(query)
 
-        return original(query)
+        return original_parse(query)
 
-    ariadne_graphql.parse_query = with_early_validations  # type: ignore
+    def before_validate(*args: Any, **kwargs: Any) -> list[GraphQLError]:
+        validate_fragments(args[0], args[1])
+
+        return original_validate(*args, **kwargs)
+
+    ariadne_graphql.parse_query = before_parse  # type: ignore
+    ariadne_graphql.validate_query = before_validate  # type: ignore
 
 
 class IntegratesAPI(GraphQL):
