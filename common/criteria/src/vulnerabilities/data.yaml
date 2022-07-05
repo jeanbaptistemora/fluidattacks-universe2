@@ -6464,7 +6464,7 @@
   score:
     base:
       attack_vector: "N"
-      attack_complexity: "L"
+      attack_complexity: "H"
       privileges_required: "L"
       user_interaction: "N"
       scope: "U"
@@ -38015,10 +38015,10 @@
       ```yaml
       def send_email_password_reset(request: HTTP) -> bool:
           domain_app = request.body.redirect_url
-          user = request.session.user
+          user = DB.find_user(request.session.user)
 
           if(user):
-             token = DB.find_by_id(user.id)
+             token = generate_token(user.id)
              url = f"{domain_app}/reset-password?token={token}"
              Mailer.send_email(
                  from_email="support@vulnerable-app.com",
@@ -38075,8 +38075,8 @@
     temporal:
       exploit_code_maturity: "H"
       remediation_level: "U"
-      report_confidence: "R"
-  requirements: ["266","238"]
+      report_confidence: "C"
+  requirements: ["173","238"]
   metadata:
     en:
       details: __empty__
