@@ -80,12 +80,6 @@ async def test_update_vulnerabilities_treatment(
     assert (
         vulnerability_response["data"]["vulnerability"]["historicTreatment"][
             -1
-        ]["treatmentManager"]
-        == assigned
-    )
-    assert (
-        vulnerability_response["data"]["vulnerability"]["historicTreatment"][
-            -1
         ]["assigned"]
         == assigned
     )

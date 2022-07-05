@@ -69,7 +69,6 @@ async def get_vulnerability(
                     assigned
                     date
                     treatment
-                    treatmentManager
                 }
                 historicVerification{
                     date
