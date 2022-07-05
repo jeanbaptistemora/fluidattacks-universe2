@@ -311,10 +311,6 @@ async def get_group_stakeholders(
     return group_stakeholders
 
 
-async def get_name(mail: str) -> dict[str, dict[str, Any]]:
-    return {mail: await get_attributes(mail, ["last_name", "first_name"])}
-
-
 async def has_valid_access_token(
     loaders: Any, email: str, context: dict[str, str], jti: str
 ) -> bool:

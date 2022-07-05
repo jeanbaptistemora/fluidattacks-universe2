@@ -17,6 +17,9 @@ from datetime import (
 from db_model.events.types import (
     Event,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -31,9 +34,6 @@ from newutils.utils import (
 )
 from newutils.validations import (
     validate_field_length,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -86,7 +86,7 @@ async def add_comment(
     if parent_comment != "0":
         group_comments = [
             str(comment.get("user_id"))
-            for comment in await get_comments(group_name)
+            for comment in await get_comments(info.context.loaders, group_name)
         ]
         if parent_comment not in group_comments:
             raise InvalidCommentParent()
@@ -99,23 +99,19 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     return await group_comments_dal.delete_comment(group_name, user_id)
 
 
-async def get_comments(group_name: str) -> List[Dict[str, Any]]:
+async def get_comments(loaders: Any, group_name: str) -> List[Dict[str, Any]]:
     comments = await group_comments_dal.get_comments(group_name)
-    comments_name_data = await collect(
-        [
-            stakeholders_domain.get_name(mail)
-            for mail in set(str(comment["email"]) for comment in comments)
-        ]
+    emails = set(str(comment["email"]) for comment in comments)
+    stakeholders: tuple[Stakeholder] = await loaders.stakeholder.load_many(
+        emails
     )
-    comments_fullnames = {
-        mail: list(fullnames.values())
-        for data in comments_name_data
-        for mail, fullnames in data.items()
-    }
+    full_names = [
+        f"{stakeholder.first_name} {stakeholder.last_name}"
+        for stakeholder in stakeholders
+    ]
+
     for comment in comments:
-        comment["fullname"] = " ".join(
-            filter(None, comments_fullnames[comment["email"]][::-1])
-        )
+        comment["fullname"] = " ".join(filter(None, full_names[::-1]))
     return comments
 
 
@@ -136,8 +132,8 @@ async def list_comments(
     return list(filter(_is_scope_comment, comments))
 
 
-async def mask_comments(group_name: str) -> bool:
-    comments = await get_comments(group_name)
+async def mask_comments(loaders: Any, group_name: str) -> bool:
+    comments = await get_comments(loaders, group_name)
     return all(
         await collect(
             [
@@ -158,7 +154,7 @@ async def get_total_comments_date(
 ) -> int:
     """Get the total comments in the group"""
     group_comments_len = len(
-        filter_comments_date(await get_comments(group_name), min_date)
+        filter_comments_date(await get_comments(loaders, group_name), min_date)
     )
     events_group: tuple[Event, ...] = await loaders.group_events.load(
         group_name
