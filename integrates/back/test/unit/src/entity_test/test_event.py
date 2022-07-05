@@ -13,13 +13,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model import (
-    stakeholders as stakeholders_model,
-)
-from db_model.stakeholders.types import (
-    NotificationsPreferences,
-    StakeholderMetadataToUpdate,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -143,22 +136,6 @@ async def test_solve_event() -> None:
     """
     data = {"query": query}
     request = await create_dummy_session()
-    await stakeholders_model.update_metadata(
-        stakeholder_email="unittest",
-        metadata=StakeholderMetadataToUpdate(
-            NotificationsPreferences(
-                email=[
-                    "CHARTS_REPORT",
-                    "DAILY_DIGEST",
-                    "NEW_COMMENT",
-                    "NEW_DRAFT",
-                    "REMEDIATE_FINDING",
-                    "UPDATED_TREATMENT",
-                    "VULNERABILITY_ASSIGNED",
-                ]
-            )
-        ),
-    )
     _, result = await graphql(SCHEMA, data, context_value=request)
     if "errors" not in result:
         assert "errors" not in result

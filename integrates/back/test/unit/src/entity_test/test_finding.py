@@ -17,18 +17,11 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model import (
-    stakeholders as stakeholders_model,
-)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
 from db_model.findings.types import (
     Finding,
-)
-from db_model.stakeholders.types import (
-    NotificationsPreferences,
-    StakeholderMetadataToUpdate,
 )
 from freezegun import (  # type: ignore
     freeze_time,
@@ -57,22 +50,6 @@ async def _get_result(
     loaders: Optional[Dataloaders] = None,
 ) -> Dict[str, Any]:
     """Get result."""
-    await stakeholders_model.update_metadata(
-        stakeholder_email=user,
-        metadata=StakeholderMetadataToUpdate(
-            NotificationsPreferences(
-                email=[
-                    "CHARTS_REPORT",
-                    "DAILY_DIGEST",
-                    "NEW_COMMENT",
-                    "NEW_DRAFT",
-                    "REMEDIATE_FINDING",
-                    "UPDATED_TREATMENT",
-                    "VULNERABILITY_ASSIGNED",
-                ]
-            )
-        ),
-    )
     request = await create_dummy_session(username=user)
     request = apply_context_attrs(request, loaders or get_new_context())
     _, result = await graphql(SCHEMA, data, context_value=request)

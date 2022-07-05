@@ -10,6 +10,12 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
@@ -121,3 +127,17 @@ async def update(email: str, data: dict[str, Any]) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_metadata(
+    *,
+    metadata: StakeholderMetadataToUpdate,
+    stakeholder_email: str,
+) -> None:
+    if metadata.notifications_preferences:
+        await stakeholders_model.update_metadata(
+            metadata=StakeholderMetadataToUpdate(
+                notifications_preferences=metadata.notifications_preferences
+            ),
+            stakeholder_email=stakeholder_email,
+        )

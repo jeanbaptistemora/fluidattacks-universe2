@@ -20,7 +20,6 @@ from db_model import (
     groups as groups_model,
     organizations as orgs_model,
     roots as roots_model,
-    stakeholders as stakeholders_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
     vulnerabilities as vulns_model,
@@ -103,7 +102,7 @@ async def populate_users(data: List[Any]) -> bool:
     )
     await collect(
         [
-            stakeholders_model.update_metadata(
+            dal_stakeholders.update_metadata(
                 stakeholder_email=user["email"],
                 metadata=StakeholderMetadataToUpdate(
                     NotificationsPreferences(
