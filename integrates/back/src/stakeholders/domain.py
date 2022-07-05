@@ -232,7 +232,7 @@ async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
 async def get_by_email(email: str) -> dict[str, Any]:
     stakeholder_data: dict[str, Any] = {
         "email": email,
-        "first_login": "",
+        "date_joined": "",
         "first_name": "",
         "last_login": "",
         "last_name": "",
@@ -250,7 +250,7 @@ async def get_by_email(email: str) -> dict[str, Any]:
         stakeholder_data.update(
             {
                 "email": user["email"],
-                "first_login": user.get("date_joined", ""),
+                "date_joined": user.get("date_joined", ""),
                 "first_name": user.get("first_name", ""),
                 "last_login": user.get("last_login", ""),
                 "last_name": user.get("last_name", ""),

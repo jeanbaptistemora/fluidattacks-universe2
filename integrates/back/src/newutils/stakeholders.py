@@ -81,11 +81,6 @@ def format_stakeholder(
         else None,
         email=item_legacy["email"],
         first_name=item_legacy.get("first_name", ""),
-        first_login=datetime_utils.convert_to_iso_str(
-            item_legacy["first_login"]
-        )
-        if item_legacy.get("first_login")
-        else None,
         is_concurrent_session=item_legacy.get("is_concurrent_session", False),
         is_registered=item_legacy.get("registered", False),
         last_login_date=datetime_utils.convert_to_iso_str(

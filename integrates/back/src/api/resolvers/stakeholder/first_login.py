@@ -20,7 +20,5 @@ async def resolve(
     return (
         convert_from_iso_str(parent.registration_date)
         if parent.registration_date
-        else convert_from_iso_str(parent.first_login)
-        if parent.first_login
         else None
     )
