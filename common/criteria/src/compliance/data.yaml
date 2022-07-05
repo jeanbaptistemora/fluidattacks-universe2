@@ -6935,4 +6935,76 @@
     "V14_3_3":
       title: Unintended security disclosure requirements
       link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_3_1":
+      title: Random values
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_3_3":
+      title: Random values
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V6_4_2":
+      title: Secret Management
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_1_1":
+      title: Log content requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_1_2":
+      title: Log content requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_1_3":
+      title: Log content requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_1_4":
+      title: Log content requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_3_1":
+      title: Log protection requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_3_3":
+      title: Log protection requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V7_3_4":
+      title: Log protection requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_1_1":
+      title: General data protection
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_1_3":
+      title: General data protection
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_2_2":
+      title: Client-side data protection
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_1":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_2":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_3":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_4":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_6":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_7":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V8_3_8":
+      title: Sensitive private data
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V9_1_1":
+      title: Communications security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V9_1_3":
+      title: Communications security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V9_2_1":
+      title: Server communications security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
+    "V9_2_2":
+      title: Server communications security requirements
+      link: https://owasp.org/www-pdf-archive/OWASP_Application_Security_Verification_Standard_4.0-en.pdf
   metadata: {}
