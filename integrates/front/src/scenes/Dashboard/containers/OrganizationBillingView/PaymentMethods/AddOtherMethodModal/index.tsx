@@ -230,33 +230,42 @@ export const AddOtherMethodModal = ({
                       </Field>
                     </div>
                   )}
-              <div>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t(
-                    "organization.tabs.billing.paymentMethods.add.otherMethods.email"
-                  )}
-                </ControlLabel>
-                <Field component={FormikText} name={"email"} type={"text"} />
-              </div>
-              <div>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t(
-                    "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
-                  )}
-                </ControlLabel>
-                <Field component={FormikText} name={"rut"} type={"text"} />
-              </div>
-              <div>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t(
-                    "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
-                  )}
-                </ControlLabel>
-                <Field component={FormikText} name={"taxId"} type={"text"} />
-              </div>
+              {values.country === "Colombia" ? (
+                <React.Fragment>
+                  <div>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.email"
+                      )}
+                    </ControlLabel>
+                    <Field
+                      component={FormikText}
+                      name={"email"}
+                      type={"text"}
+                    />
+                  </div>
+                  <div>
+                    <ControlLabel>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                      )}
+                    </ControlLabel>
+                    <Field component={FormikText} name={"rut"} type={"text"} />
+                  </div>
+                </React.Fragment>
+              ) : (
+                <div>
+                  <ControlLabel>
+                    <RequiredField>{"*"}&nbsp;</RequiredField>
+                    {t(
+                      "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
+                    )}
+                  </ControlLabel>
+                  <Field component={FormikText} name={"taxId"} type={"text"} />
+                </div>
+              )}
               <ModalConfirm
                 disabled={!dirty || isSubmitting}
                 onCancel={onClose}
