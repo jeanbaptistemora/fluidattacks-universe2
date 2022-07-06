@@ -63,6 +63,7 @@
     "highlight.js": "11.2.0",
     "i18next": "20.6.1",
     "lodash": "4.17.21",
+    "modal-video-custom": "1.0.2",
     "moment": "2.29.1",
     "postcss": "8.3.9",
     "postcss-scss": "4.0.3",
