@@ -274,6 +274,26 @@ async def get_evidence_link(
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
 
 
+async def get_last_closing_state(
+    loaders: Any, event_id: str
+) -> Optional[EventState]:
+    historic_states: tuple[
+        EventState, ...
+    ] = await loaders.event_historic_state.load(event_id)
+    for state in reversed(historic_states):
+        if state.status == EventStateStatus.CLOSED:
+            return state
+
+    return None
+
+
+async def get_last_closing_date(loaders: Any, event_id: str) -> Optional[str]:
+    """Returns the date of the last closing state"""
+    last_closing_state = await get_last_closing_state(loaders, event_id)
+
+    return last_closing_state.modified_date if last_closing_state else None
+
+
 async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     """Verify if the user has access to a event submission."""
     event: Event = await loaders.event.load(event_id)
