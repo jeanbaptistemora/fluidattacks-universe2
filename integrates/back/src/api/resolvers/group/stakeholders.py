@@ -23,6 +23,7 @@ from newutils import (
 )
 from newutils.stakeholders import (
     format_stakeholder,
+    format_stakeholder_item,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -74,4 +75,9 @@ async def resolve_no_cache(
 ) -> list[Dict[str, Any]]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    return await loaders.group_stakeholders.load(group_name)
+    group_stakeholders = await loaders.group_stakeholders.load(group_name)
+    group_stakeholders_item = [
+        format_stakeholder_item(group_stakeholder)
+        for group_stakeholder in group_stakeholders
+    ]
+    return group_stakeholders_item

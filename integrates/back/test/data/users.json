@@ -695,6 +695,39 @@
             "S": ""
           },
           "last_name": {
+            "S": "Internal Manager"
+          },
+          "first_name": {
+            "S": "Integrates"
+          },
+          "date_joined": {
+            "S": "2018-02-28 11:54:12"
+          },
+          "legal_remember": {
+            "BOOL": true
+          },
+          "last_login": {
+            "S": "2019-10-29 13:40:37"
+          },
+          "email": {
+            "S": "org_testuser3@gmail.com"
+          },
+          "registered": {
+            "BOOL": true
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "company": {
+            "S": ""
+          },
+          "organization": {
+            "S": ""
+          },
+          "last_name": {
             "S": ""
           },
           "first_name": {

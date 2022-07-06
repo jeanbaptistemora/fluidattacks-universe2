@@ -34,9 +34,6 @@ from db_model.stakeholders.types import (
 from group_access import (
     domain as group_access_domain,
 )
-from itertools import (
-    chain,
-)
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
@@ -72,7 +69,6 @@ from starlette.requests import (
 from typing import (
     Any,
     Awaitable,
-    cast,
     Optional,
 )
 from verify import (
@@ -200,29 +196,6 @@ def get_invitation_state(
     return "CONFIRMED"
 
 
-async def format_stakeholder(email: str, group_name: str) -> dict[str, Any]:
-    group_access, stakeholder = await collect(
-        (
-            group_access_domain.get_user_access(email, group_name),
-            get_by_email(email),
-        )
-    )
-    invitation = group_access.get("invitation")
-    invitation_state = get_invitation_state(invitation, stakeholder)
-    if invitation_state == "PENDING":
-        responsibility = invitation["responsibility"]
-        group_role = invitation["role"]
-    else:
-        responsibility = cast(str, group_access.get("responsibility", ""))
-        group_role = await authz.get_group_level_role(email, group_name)
-    return {
-        **stakeholder,
-        "responsibility": responsibility,
-        "invitation_state": invitation_state,
-        "role": group_role,
-    }
-
-
 async def get(email: str) -> dict[str, Any]:
     return await stakeholders_dal.get(email)
 
@@ -281,34 +254,6 @@ async def get_data(email: str, attr: str) -> dict[str, Any]:
     if data_attr and attr in data_attr:
         return data_attr[attr]
     return {}
-
-
-async def get_group_stakeholders(
-    group_name: str,
-) -> list[dict[str, Any]]:
-    group_stakeholders_emails = cast(
-        list[str],
-        list(
-            chain.from_iterable(
-                await collect(
-                    [
-                        group_access_domain.get_group_users(group_name),
-                        group_access_domain.get_group_users(group_name, False),
-                    ]
-                )
-            )
-        ),
-    )
-    group_stakeholders = cast(
-        list[dict[str, Any]],
-        await collect(
-            tuple(
-                format_stakeholder(email, group_name)
-                for email in group_stakeholders_emails
-            )
-        ),
-    )
-    return group_stakeholders
 
 
 async def has_valid_access_token(

@@ -25,7 +25,7 @@ from stakeholders import (
 )
 
 
-async def _get_stakeholder(*, email: str) -> Stakeholder:
+async def get_stakeholder(*, email: str) -> Stakeholder:
     item_legacy = await stakeholders_dal.get(email)
     if not item_legacy:
         raise StakeholderNotFound()
@@ -49,5 +49,5 @@ class StakeholderTypedLoader(DataLoader):
         self, emails: tuple[str, ...]
     ) -> tuple[Stakeholder, ...]:
         return await collect(
-            tuple(_get_stakeholder(email=email) for email in emails)
+            tuple(get_stakeholder(email=email) for email in emails)
         )

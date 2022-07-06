@@ -121,3 +121,42 @@ def format_stakeholder(
         responsibility=item_legacy.get("responsibility", None),
         invitation_state=item_legacy.get("invitation_state", None),
     )
+
+
+def get_invitation_state(invitation: Item, stakeholder: Stakeholder) -> str:
+    if invitation and not invitation["is_used"]:
+        return "PENDING"
+    if not stakeholder.is_registered:
+        return "UNREGISTERED"
+    return "CONFIRMED"
+
+
+def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
+    item = {
+        "email": stakeholder.email,
+        "first_name": stakeholder.first_name,
+        "last_name": stakeholder.last_name,
+        "invitation_state": stakeholder.invitation_state,
+        "is_concurrent_session": stakeholder.is_concurrent_session,
+        "date_joined": datetime_utils.convert_from_iso_str(
+            stakeholder.registration_date
+        )
+        if stakeholder.registration_date
+        else None,
+        "last_login": datetime_utils.convert_from_iso_str(
+            stakeholder.last_login_date
+        )
+        if stakeholder.last_login_date
+        else None,
+        "legal_remember": stakeholder.legal_remember,
+        "phone": stakeholder.phone,
+        "push_tokens": stakeholder.push_tokens,
+        "is_registered": stakeholder.is_registered,
+        "tours": {
+            "new_group": stakeholder.tours.new_group,
+            "new_root": stakeholder.tours.new_root,
+        },
+        "role": stakeholder.role,
+        "responsibility": stakeholder.responsibility,
+    }
+    return item

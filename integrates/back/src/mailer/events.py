@@ -109,9 +109,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     org_name = await get_organization_name(loaders, group_name)
 
     group_stakeholders: Tuple[
-        Dict[str, Any], ...
+        Stakeholder, ...
     ] = await loaders.group_stakeholders.load(group_name)
-    recipients = [stakeholder["email"] for stakeholder in group_stakeholders]
+    recipients = [stakeholder.email for stakeholder in group_stakeholders]
     stakeholders: Tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
