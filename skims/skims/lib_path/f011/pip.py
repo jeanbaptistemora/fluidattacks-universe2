@@ -20,8 +20,10 @@ from virtualenv import (
 
 def create_venv_install_requirements(filename: str) -> None:
     cli_run(["venv"])
-    activate_file = os.path.join("venv", "bin", "activate_this.py")
-    subprocess.call(["python", activate_file], shell=False)  # nosec
+    subprocess.call(  # nosec
+        ["python", "venv/bin/activate_this.py"], shell=False
+    )
+    os.environ["PYTHONPATH"] = ""
     with open(filename, encoding="utf-8") as dependencies:
         reqs = dependencies.readlines()
 
@@ -29,6 +31,13 @@ def create_venv_install_requirements(filename: str) -> None:
         subprocess.call(  # nosec
             ["venv/bin/pip", "install", f"{item}"], shell=False
         )
+
+    with open("requirements_2.txt", "w", encoding="utf-8") as outfile:
+        subprocess.call(  # nosec
+            ["venv/bin/pip", "freeze", "--local"], stdout=outfile, shell=False
+        )
+
+    subprocess.call(["rm", "-rf", "venv"], shell=False)  # nosec
 
 
 def pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
