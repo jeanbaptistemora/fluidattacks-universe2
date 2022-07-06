@@ -10,8 +10,8 @@ from asyncio.tasks import (
 )
 import authz
 from context import (
-    FI_AWS_BATCH_ACCESS_KEY,
-    FI_AWS_BATCH_SECRET_KEY,
+    FI_AWS_ACCESS_KEY_ID,
+    FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
 )
 from custom_exceptions import (
@@ -1457,8 +1457,8 @@ async def add_machine_execution(
     tzn = pytz.timezone(TIME_ZONE)
     options = dict(
         service_name="batch",
-        aws_access_key_id=FI_AWS_BATCH_ACCESS_KEY,
-        aws_secret_access_key=FI_AWS_BATCH_SECRET_KEY,
+        aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
         aws_session_token=FI_AWS_SESSION_TOKEN,
     )
     async with aioboto3.Session().client(**options) as client:

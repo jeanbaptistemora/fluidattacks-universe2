@@ -6,8 +6,8 @@ from aiobotocore.config import (
     AioConfig,
 )
 from context import (
-    FI_AWS_DYNAMODB_ACCESS_KEY,
-    FI_AWS_DYNAMODB_SECRET_KEY,
+    FI_AWS_ACCESS_KEY_ID,
+    FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_DYNAMODB_HOST,
     FI_DYNAMODB_PORT,
@@ -24,8 +24,8 @@ from typing import (
 )
 
 RESOURCE_OPTIONS = {
-    "aws_access_key_id": FI_AWS_DYNAMODB_ACCESS_KEY,
-    "aws_secret_access_key": FI_AWS_DYNAMODB_SECRET_KEY,
+    "aws_access_key_id": FI_AWS_ACCESS_KEY_ID,
+    "aws_secret_access_key": FI_AWS_SECRET_ACCESS_KEY,
     "aws_session_token": FI_AWS_SESSION_TOKEN,
     "config": AioConfig(
         # The time in seconds till a timeout exception is thrown when
