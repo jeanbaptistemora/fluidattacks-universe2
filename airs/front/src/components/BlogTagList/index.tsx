@@ -78,7 +78,7 @@ const BlogTagList: React.FC<{ tagName: string }> = ({
   return (
     <React.Fragment>
       <BlogMainDiv>
-        {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
+        {(postsToShow as INodes[]).map((post): JSX.Element | undefined => {
           const {
             alt,
             date,

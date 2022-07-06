@@ -10,6 +10,7 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 import { Link, graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import { utc } from "moment";
@@ -156,7 +157,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
 
 export default BlogsIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query BlogsPages($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

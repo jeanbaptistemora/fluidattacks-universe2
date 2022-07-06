@@ -11,6 +11,7 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
 import { Link, graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
@@ -163,7 +164,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
 
 export default SolutionIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query SolutionIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

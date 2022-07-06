@@ -10,6 +10,7 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
 import { FreeTrialPage } from "../components/FreeTrialPage";
@@ -46,7 +47,7 @@ const FreeTrialIndex: React.FC<IQueryData> = ({
 
 export default FreeTrialIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query FreeTrialIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

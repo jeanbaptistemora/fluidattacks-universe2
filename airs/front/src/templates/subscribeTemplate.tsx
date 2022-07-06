@@ -3,6 +3,7 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
@@ -80,7 +81,7 @@ const SubscribeIndex: React.FC<IQueryData> = ({
 
 export default SubscribeIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query SubscribeIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {

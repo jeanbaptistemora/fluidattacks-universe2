@@ -4,4 +4,4 @@ interface IClientCard {
   person: string;
 }
 
-export { IClientCard };
+export type { IClientCard };

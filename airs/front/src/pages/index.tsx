@@ -1,6 +1,7 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
 import { Home } from "../components/Home";
@@ -41,7 +42,7 @@ const NewHomeIndex: React.FC<IQueryData> = ({
 // eslint-disable-next-line import/no-default-export
 export default NewHomeIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query {
     site {
       siteMetadata {

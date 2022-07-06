@@ -3,4 +3,4 @@ interface IProductCard {
   text: string;
 }
 
-export { IProductCard };
+export type { IProductCard };

@@ -12,6 +12,7 @@
 /* eslint react/forbid-component-props: 0 */
 /* eslint react/jsx-no-bind:0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import React, { useEffect, useState } from "react";
@@ -128,7 +129,7 @@ const FaqIndex: React.FC<IQueryData> = ({
 
 export default FaqIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query FaqIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

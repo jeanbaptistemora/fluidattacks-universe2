@@ -70,7 +70,7 @@ export const BlogsList: React.FC = (): JSX.Element => {
     <div>
       <BlogPageArticle>
         <BlogMainDiv>
-          {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
+          {(postsToShow as INodes[]).map((post): JSX.Element | undefined => {
             const {
               alt,
               date,

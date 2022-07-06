@@ -7,4 +7,4 @@ interface INumberCard {
   typeIcon: string;
 }
 
-export { INumberCard };
+export type { INumberCard };

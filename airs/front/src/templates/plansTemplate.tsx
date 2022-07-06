@@ -10,6 +10,7 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
 import { Layout } from "../components/Layout";
@@ -50,7 +51,7 @@ const PlansIndex: React.FC<IQueryData> = ({
 
 export default PlansIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query PlansIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

@@ -2,6 +2,7 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
 import { Seo } from "../components/Seo";
@@ -30,7 +31,7 @@ const SubscribeIndex: React.FC<IQueryData> = ({
 
 export default SubscribeIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query ThankYouIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

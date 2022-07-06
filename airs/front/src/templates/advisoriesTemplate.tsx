@@ -10,6 +10,7 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 import { Link, graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
@@ -90,7 +91,7 @@ const AdvisoriesIndex: React.FC<IQueryData> = ({
 
 export default AdvisoriesIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query AdvisoriesIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

@@ -79,7 +79,7 @@ const BlogAuthorList: React.FC<{ authorName: string }> = ({
   return (
     <React.Fragment>
       <BlogMainDiv>
-        {(postsToShow as INodes[]).map((post): JSX.Element | unknown => {
+        {(postsToShow as INodes[]).map((post): JSX.Element | undefined => {
           const {
             alt,
             date,

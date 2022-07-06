@@ -8,4 +8,4 @@ interface IPlansCard {
   title: string;
 }
 
-export { IPlansCard };
+export type { IPlansCard };

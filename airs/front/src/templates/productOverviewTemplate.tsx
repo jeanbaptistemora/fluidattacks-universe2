@@ -9,6 +9,7 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { decode } from "he";
 import React from "react";
 
@@ -47,7 +48,7 @@ const ProductOverview: React.FC<IQueryData> = ({
 
 export default ProductOverview;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query ProductOverviewBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html

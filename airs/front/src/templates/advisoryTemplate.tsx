@@ -14,6 +14,7 @@
 /* eslint @typescript-eslint/no-explicit-any: 0*/
 
 import { graphql } from "gatsby";
+import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
@@ -89,7 +90,7 @@ const AdvisoryIndex: React.FC<IQueryData> = ({
 
 export default AdvisoryIndex;
 
-export const query: void = graphql`
+export const query: StaticQueryDocument = graphql`
   query AdvisoryIndex($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       htmlAst
