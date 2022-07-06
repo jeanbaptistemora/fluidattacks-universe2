@@ -403,7 +403,7 @@ export const enTranslations: ResourceKey = {
       invitationState: {
         confirmed: "Registered",
         pending: "Pending",
-        unregistered: "Non-registered",
+        unregistered: "Unregistered",
       },
       repository: "Repository",
       sendInvitation: "Invite",
@@ -411,7 +411,7 @@ export const enTranslations: ResourceKey = {
         "Below you'll find the authors that have contributed " +
         "to your group in the selected month, and one example commit",
       tooltip: {
-        text: "Send group invitation to non-registered author",
+        text: "Send group invitation to unregistered author",
       },
     },
     drafts: {

@@ -476,9 +476,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
       onChangeSelect: onFilterAuthorsTableChange,
       placeholder: "Invitation",
       selectOptions: {
-        "Non-registered": "Non-registered",
         Pending: "Pending",
         Registered: "Registered",
+        Unregistered: "Unregistered",
       },
       tooltipId: "group.authors.filtersTooltips.invitation.id",
       tooltipMessage: "group.authors.filtersTooltips.invitation",
