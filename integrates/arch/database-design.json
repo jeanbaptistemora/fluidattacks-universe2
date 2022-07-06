@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jun 30, 2022, 01:29 PM",
+    "DateLastModified": "Jul 06, 2022, 06:58 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -872,6 +872,18 @@
         },
         {
           "AttributeName": "tours",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "creation",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "approval",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "submission",
           "AttributeType": "M"
         }
       ],
@@ -12737,7 +12749,13 @@
             "attack_vector_description",
             "min_time_to_remediate",
             "pk_2",
-            "sk_2"
+            "sk_2",
+            "state",
+            "creation",
+            "approval",
+            "submission",
+            "verification",
+            "unreliable_indicators"
           ]
         },
         {
