@@ -36,6 +36,12 @@ async def test_update_organization_policies(
         user=email,
         organization_id=org_id,
         organization_name=org_name,
+        max_acceptance_days=5,
+        max_acceptance_severity=8.2,
+        max_number_acceptances=3,
+        min_acceptance_severity=0.0,
+        min_breaking_severity=5.7,
+        vulnerability_grace_period=1000,
     )
     assert "errors" not in result
     assert result["data"]["updateOrganizationPolicies"]["success"]
@@ -71,6 +77,12 @@ async def test_update_organization_policies_fail(
         user=email,
         organization_id=org_id,
         organization_name=org_name,
+        max_acceptance_days=5,
+        max_acceptance_severity=8.2,
+        max_number_acceptances=3,
+        min_acceptance_severity=0.0,
+        min_breaking_severity=5.7,
+        vulnerability_grace_period=1000,
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
