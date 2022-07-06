@@ -96,6 +96,32 @@ def jpa_like(
                 ):
                     content = graph.nodes[string_literal_id]["label_text"]
                     if _has_like_injection(content):
+                        parameters_id = g.adj_ast(
+                            graph,
+                            g.pred_ast(
+                                graph,
+                                annotation_id,
+                                depth=2,
+                            )[1],
+                            label_type="formal_parameters",
+                        )[0]
+                        annotations = g.adj_ast(
+                            graph,
+                            parameters_id,
+                            depth=4,
+                            label_type="annotation",
+                        )
+                        if any(
+                            graph.nodes[
+                                g.adj_ast(
+                                    graph, annotation, label_type="identifier"
+                                )[0]
+                            ]["label_text"]
+                            == "Bind"
+                            for annotation in annotations
+                        ):
+                            continue
+
                         yield shard, string_literal_id
 
     return get_vulnerabilities_from_n_ids(
