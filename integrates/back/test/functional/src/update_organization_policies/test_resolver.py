@@ -45,7 +45,7 @@ async def test_update_organization_policies(
     assert organization.policies.max_acceptance_days == 5
     assert organization.policies.max_acceptance_severity == Decimal("8.2")
     assert organization.policies.max_number_acceptances == 3
-    assert organization.policies.min_acceptance_severity == Decimal("1.5")
+    assert organization.policies.min_acceptance_severity == Decimal("0.0")
     assert organization.policies.min_breaking_severity == Decimal("5.7")
     assert organization.policies.vulnerability_grace_period == 1000
 

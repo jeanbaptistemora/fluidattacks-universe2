@@ -81,11 +81,7 @@ def format_policies_item(
         "max_number_acceptances": policies.max_number_acceptances,
     }
 
-    return {
-        key: None if not value else value
-        for key, value in item.items()
-        if value is not None
-    }
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_state(state: Item) -> OrganizationState:

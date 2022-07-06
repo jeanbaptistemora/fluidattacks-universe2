@@ -638,13 +638,15 @@ async def update_policies(
             organization_name=organization_name,
             policies=policies_to_update,
         )
-        await send_mail_policies(
-            loaders=loaders,
-            new_policies=policies_to_update._asdict(),
-            organization_id=organization_id,
-            organization_name=organization_name,
-            responsible=user_email,
-            date=today,
+        schedule(
+            send_mail_policies(
+                loaders=loaders,
+                new_policies=policies_to_update._asdict(),
+                organization_id=organization_id,
+                organization_name=organization_name,
+                responsible=user_email,
+                date=today,
+            )
         )
 
 
