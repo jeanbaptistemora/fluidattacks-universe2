@@ -1,18 +1,35 @@
-import styled from "styled-components";
+import React from "react";
 
 import { CardBody } from "./Body";
 import { CardHeader } from "./Header";
+import type { ICardBoxProps } from "./styles";
+import { CardBox, CardImgBox } from "./styles";
 
-const Card = styled.article.attrs({ className: "ba br2 pa3" })`
-  background-color: #f4f4f6;
-  border-color: transparent;
-  border-width: 2px;
-  box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 10%);
-  transition: all 0.2s ease-in;
+import { Text } from "components/Text";
 
-  :hover {
-    border-color: #ff3435;
-  }
-`;
+interface ICardProps extends ICardBoxProps {
+  children?: React.ReactNode;
+  img?: React.ReactNode;
+  title?: string;
+}
 
+const Card: React.FC<ICardProps> = ({
+  children,
+  elevated = false,
+  img,
+  onClick,
+  title,
+}: Readonly<ICardProps>): JSX.Element => (
+  <CardBox elevated={elevated} onClick={onClick}>
+    {img === undefined ? undefined : <CardImgBox>{img}</CardImgBox>}
+    {title === undefined ? undefined : (
+      <Text fw={7} mb={3} size={4}>
+        {title}
+      </Text>
+    )}
+    {children}
+  </CardBox>
+);
+
+export type { ICardProps };
 export { Card, CardBody, CardHeader };
