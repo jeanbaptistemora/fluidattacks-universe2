@@ -20,7 +20,7 @@
         {% if value["from"] == value["to"] %}
           {{ value["to"] }}.<br>
         {% else %}
-          Modified <u>from</u> {{ value["from"] }} <u>to</u> {{ value["to"] }}.<br>
+          {{ value["from"] }} <u>to</u> {{ value["to"] }}.<br>
         {% endif %}
       {% endfor %}
     </p>
