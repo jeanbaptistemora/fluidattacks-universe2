@@ -1,6 +1,5 @@
 declare module "gatsby-plugin-breadcrumb";
 declare module "gatsby-plugin-transition-link/AniLink";
-declare module "modal-video-custom";
 declare module "*.png";
 declare module "*.svg";
 
