@@ -15,20 +15,26 @@ You can access the **Policies** section
 by clicking on the **Policies** tab on
 your organization's home page on ASM.
 
-In this section, you will find two tables.
+![Policies Section List](https://res.cloudinary.com/fluid-attacks/image/upload/v1657120528/docs/web/organizations/policies_list.png)
+
+In this section,
+you will find two tables.
 The first one allows you to define
 values for five policies within your
 organization.
-In front of the column where you enter
-the values, we provide you another column
-with the numbers we consider recommendable
-for each case.
+The first three policies specify
+the conditions for the temporary
+acceptance of vulnerabilities;
+the other two,
+for breaking the build.
+Below we explain each of the
+five policies you can set up.
+You can hover your cursor over
+the icon with the letter _i_
+next to a policy to see the
+value we recommend.
 
-![Policies Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537790/docs/web/organizations/policies_section_tab.png)
-
-Below we explain
-each of the five policies
-you can set up.
+![Policies Section Detail](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537790/docs/web/organizations/policies_section_tab.png)
 
 ## Maximum number of calendar days a finding can be temporarily accepted​
 
@@ -127,7 +133,7 @@ policy for a type of vulnerability by
 clicking the button with the minus sign.
 A pop-up window will appear asking
 for confirmation.
-By clicking on **Proceed**, this
+By clicking on **Confirm**, this
 vulnerability’s status will automatically
 change to **inactive**.
 
@@ -177,3 +183,25 @@ After clicking the add button,
 the tag(s) you chose will be
 applied automatically to all
 the vulnerabilities of that type.
+
+## Permanent acceptance
+
+In the second table,
+you will find a list of the
+types of vulnerabilities that
+your team has suggested for
+permanent acceptance.
+In front of each
+vulnerability type name,
+you will see whether that
+acceptance was approved,
+rejected or is pending.
+All those vulnerability types
+listed there as accepted will
+be ignored by our DevSecOps
+agent in its task of breaking
+the build.
+Therefore,
+you assume the risk that comes
+with their being allowed into
+production.
