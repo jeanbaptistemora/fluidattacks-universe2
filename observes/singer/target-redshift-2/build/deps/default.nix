@@ -48,7 +48,7 @@
       inherit nixpkgs observesIndex projectPath python_version;
     };
     _fa_purity = import ./fa-purity {
-      inherit nixpkgs system;
+      inherit nixpkgs;
     };
     _fa_singer_io = import ./fa-singer-io {
       inherit nixpkgs system;

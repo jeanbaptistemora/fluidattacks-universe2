@@ -1,14 +1,9 @@
-{
-  system,
-  nixpkgs,
-}: let
+{nixpkgs}: let
   src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
-    ref = "main";
-    rev = "1816492d1ac416becac6bcdd9ebb9b1be06ffddd";
+    ref = "refs/tags/v1.20.0";
   };
 in
   import src {
-    inherit src system;
-    legacy_pkgs = nixpkgs;
+    inherit src nixpkgs;
   }

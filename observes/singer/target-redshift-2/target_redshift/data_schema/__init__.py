@@ -44,7 +44,6 @@ def _to_columns(properties: JsonObj) -> FrozenList[Tuple[ColumnId, Column]]:
 
 
 def extract_table(schema: SingerSchema) -> ResultE[Table]:
-    schema.key_properties
     properties = (
         opt_transform(
             schema.schema.encode(), "properties", lambda u: u.to_json()

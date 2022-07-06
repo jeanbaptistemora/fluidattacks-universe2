@@ -18,13 +18,11 @@
     types-psycopg2
     utils-logger
   ];
-  build_deps = with python_pkgs; [poetry-core];
+  build_deps = with python_pkgs; [flit-core];
   test_deps = with python_pkgs; [
     import-linter
     mypy
     pytest
-    toml
-    types-toml
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata runtime_deps build_deps test_deps;
