@@ -1706,7 +1706,7 @@ export const enTranslations: ResourceKey = {
           submitPolicies: {
             modalTitle: "Re-submit organization vulnerability policy",
           },
-          title: "Vulnerability types policies",
+          title: "Permanent acceptance",
           tooltip: {
             addButton: "Add organization policy pending to approve",
             approveButton: "Approve organization vulnerability policy",
