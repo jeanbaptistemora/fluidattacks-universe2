@@ -3,12 +3,25 @@ import styled from "styled-components";
 import { Tab } from "./Tab";
 
 const Tabs = styled.ul.attrs({
-  className: "flex justify-around list ma0",
+  className: "comp-tabs list ma0 pa0",
 })`
-  background-color: #f4f4f6;
-  border: 1px solid #d2d2da;
-  border-radius: 4px;
-  padding: 0;
+  display: inline-flex;
+  overflow: hidden;
+
+  > a:first-child,
+  > *:first-child a {
+    border-radius: 4px 0 0 4px;
+  }
+
+  > a:last-child,
+  > *:last-child a {
+    border-radius: 0 4px 4px 0;
+  }
+
+  > a:not(:first-child),
+  > *:not(:first-child) a {
+    border-left-style: none;
+  }
 `;
 
 export { Tab, Tabs };
