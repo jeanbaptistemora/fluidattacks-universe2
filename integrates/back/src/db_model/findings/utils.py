@@ -156,53 +156,13 @@ def format_finding(
     metadata = historics.get_metadata(
         item_id=item_id, key_structure=key_structure, raw_items=raw_items
     )
-    state = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="STATE",
-            raw_items=raw_items,
-        )
-    )
+    state = format_state(metadata["state"])
+    creation = format_state(metadata["creation"])
+    submission = format_optional_state(metadata.get("submission"))
+    approval = format_optional_state(metadata.get("approval"))
+    verification = format_optional_verification(metadata.get("verification"))
     unreliable_indicators = format_unreliable_indicators(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="UNRELIABLEINDICATORS",
-            raw_items=raw_items,
-        )
-    )
-    approval = format_optional_state(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="APPROVAL",
-            raw_items=raw_items,
-        )
-    )
-    creation = format_state(
-        historics.get_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="CREATION",
-            raw_items=raw_items,
-        )
-    )
-    submission = format_optional_state(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="SUBMISSION",
-            raw_items=raw_items,
-        )
-    )
-    verification = format_optional_verification(
-        historics.get_optional_latest(
-            item_id=item_id,
-            key_structure=key_structure,
-            historic_suffix="VERIFICATION",
-            raw_items=raw_items,
-        )
+        metadata["unreliable_indicators"]
     )
 
     if metadata["cvss_version"] == FindingCvssVersion.V31.value:
