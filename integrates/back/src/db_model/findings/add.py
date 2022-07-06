@@ -38,9 +38,11 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+from dynamodb.types import (
+    Item,
+)
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -74,41 +76,8 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         )
     except ConditionalCheckFailedException as ex:
         raise AlreadyCreated() from ex
-    items = []
-    metadata_key = keys.build_key(
-        facet=TABLE.facets["finding_metadata"],
-        values={"group_name": finding.group_name, "id": finding.id},
-    )
-    metadata_evidences_item = format_evidences_item(finding.evidences)
-    cvss_version = (
-        FindingCvssVersion.V31
-        if isinstance(finding.severity, Finding31Severity)
-        else FindingCvssVersion.V20
-    )
-    finding_metadata = {
-        "analyst_email": finding.hacker_email,
-        "attack_vector_description": finding.attack_vector_description,
-        "cvss_version": cvss_version.value,
-        "description": finding.description,
-        "evidences": metadata_evidences_item,
-        "group_name": finding.group_name,
-        "id": finding.id,
-        "min_time_to_remediate": finding.min_time_to_remediate,
-        "severity": finding.severity._asdict(),
-        "sorts": finding.sorts.value,
-        "recommendation": finding.recommendation,
-        "requirements": finding.requirements,
-        "title": finding.title,
-        "threat": finding.threat,
-    }
-    initial_metadata: Dict[str, Any] = {
-        key_structure.partition_key: metadata_key.partition_key,
-        key_structure.sort_key: metadata_key.sort_key,
-        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
-        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
-        **finding_metadata,
-    }
-    items.append(initial_metadata)
+
+    items: list[Item] = []
     state_item = format_state_item(finding.state)
     historic_state = historics.build_historic(
         attributes=state_item,
@@ -159,6 +128,48 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         )
         items.append(verification)
         items.append(historic_verification)
+
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": finding.group_name, "id": finding.id},
+    )
+    metadata_evidences_item = format_evidences_item(finding.evidences)
+    cvss_version = (
+        FindingCvssVersion.V31
+        if isinstance(finding.severity, Finding31Severity)
+        else FindingCvssVersion.V20
+    )
+    finding_metadata = {
+        "analyst_email": finding.hacker_email,
+        "attack_vector_description": finding.attack_vector_description,
+        "creation": state_item,
+        "cvss_version": cvss_version.value,
+        "description": finding.description,
+        "evidences": metadata_evidences_item,
+        "group_name": finding.group_name,
+        "id": finding.id,
+        "min_time_to_remediate": finding.min_time_to_remediate,
+        "severity": finding.severity._asdict(),
+        "sorts": finding.sorts.value,
+        "state": state_item,
+        "recommendation": finding.recommendation,
+        "requirements": finding.requirements,
+        "title": finding.title,
+        "threat": finding.threat,
+        "unreliable_indicators": unreliable_indicators_item,
+        "verification": format_verification_item(finding.verification)
+        if finding.verification
+        else None,
+    }
+    initial_metadata: dict[str, Any] = {
+        key_structure.partition_key: metadata_key.partition_key,
+        key_structure.sort_key: metadata_key.sort_key,
+        gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+        **finding_metadata,
+    }
+    items.append(initial_metadata)
+
     await operations.batch_put_item(items=tuple(items), table=TABLE)
 
 

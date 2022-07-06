@@ -24,15 +24,9 @@ from .utils import (
     format_unreliable_indicators_item,
     format_verification_item,
     format_verification_summary_item,
-    get_latest_state,
-    get_latest_verification,
-)
-from aioextensions import (
-    collect,
 )
 from boto3.dynamodb.conditions import (
     Attr,
-    Key,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -57,7 +51,6 @@ from enum import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 
 
@@ -84,156 +77,6 @@ async def update_evidence(
         key=metadata_key,
         table=TABLE,
     )
-
-
-async def update_historic_state(  # pylint: disable=too-many-locals
-    *,
-    group_name: str,
-    finding_id: str,
-    historic_state: tuple[FindingState, ...],
-) -> None:
-    key_structure = TABLE.primary_key
-    primary_key = keys.build_key(
-        facet=TABLE.facets["finding_historic_state"],
-        values={"id": finding_id},
-    )
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["finding_historic_state"],),
-        table=TABLE,
-    )
-    current_state_keys = {
-        keys.build_key(
-            facet=TABLE.facets["finding_historic_state"],
-            values={
-                "iso8601utc": item["modified_date"],
-                "id": finding_id,
-            },
-        )
-        for item in response.items
-    }
-
-    # Format historic items
-    state_items = []
-    state_keys = set()
-    for state in historic_state:
-        state_item = format_state_item(state)
-        state_key = keys.build_key(
-            facet=TABLE.facets["finding_historic_state"],
-            values={
-                "iso8601utc": state.modified_date,
-                "id": finding_id,
-            },
-        )
-        state_keys.add(state_key)
-        state_item = {
-            key_structure.partition_key: state_key.partition_key,
-            key_structure.sort_key: state_key.sort_key,
-            **state_item,
-        }
-        state_items.append(state_item)
-
-    # Format state milestone
-    latest_state = get_latest_state(historic_state)
-    latest_key = keys.build_key(
-        facet=TABLE.facets["finding_state"],
-        values={
-            "group_name": group_name,
-            "id": finding_id,
-        },
-    )
-    latest_item = format_state_item(latest_state)
-    latest_item = {
-        key_structure.partition_key: latest_key.partition_key,
-        key_structure.sort_key: latest_key.sort_key,
-        **latest_item,
-    }
-    state_items.append(latest_item)
-
-    # Format creation milestone
-    creation = next(
-        state
-        for state in historic_state
-        if state.status == FindingStateStatus.CREATED
-    )
-    if creation:
-        creation_item = format_state_item(creation)
-        creation_key = keys.build_key(
-            facet=TABLE.facets["finding_creation"],
-            values={"group_name": group_name, "id": finding_id},
-        )
-        state_items.append(
-            {
-                key_structure.partition_key: creation_key.partition_key,
-                key_structure.sort_key: creation_key.sort_key,
-                **creation_item,
-            }
-        )
-
-    # Format submission milestone, if applies
-    submission = next(
-        (
-            state
-            for state in reversed(historic_state)
-            if state.status == FindingStateStatus.SUBMITTED
-        ),
-        None,
-    )
-    if submission:
-        submission_item = format_state_item(submission)
-        submission_key = keys.build_key(
-            facet=TABLE.facets["finding_submission"],
-            values={"group_name": group_name, "id": finding_id},
-        )
-        state_items.append(
-            {
-                key_structure.partition_key: submission_key.partition_key,
-                key_structure.sort_key: submission_key.sort_key,
-                **submission_item,
-            }
-        )
-
-    # Format approval milestone, if applies
-    approval = next(
-        (
-            state
-            for state in reversed(historic_state)
-            if state.status == FindingStateStatus.APPROVED
-        ),
-        None,
-    )
-    if approval:
-        approval_item = format_state_item(approval)
-        approval_key = keys.build_key(
-            facet=TABLE.facets["finding_approval"],
-            values={"group_name": group_name, "id": finding_id},
-        )
-        state_items.append(
-            {
-                key_structure.partition_key: approval_key.partition_key,
-                key_structure.sort_key: approval_key.sort_key,
-                **approval_item,
-            }
-        )
-
-    operation_coroutines = [
-        operations.batch_put_item(items=tuple(state_items), table=TABLE)
-    ]
-    states_to_remove = [
-        current_state_key
-        for current_state_key in current_state_keys
-        if current_state_key not in state_keys
-    ]
-    operation_coroutines.append(
-        operations.batch_delete_item(
-            keys=tuple(states_to_remove),
-            table=TABLE,
-        )
-    )
-    await collect(operation_coroutines)
 
 
 async def update_me_draft_index(
@@ -267,87 +110,6 @@ async def update_me_draft_index(
         key=metadata_key,
         table=TABLE,
     )
-
-
-async def update_historic_verification(  # pylint: disable=too-many-locals
-    *,
-    group_name: str,
-    finding_id: str,
-    historic_verification: Tuple[FindingVerification, ...],
-) -> None:
-    key_structure = TABLE.primary_key
-    primary_key = keys.build_key(
-        facet=TABLE.facets["finding_historic_verification"],
-        values={"id": finding_id},
-    )
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
-        facets=(TABLE.facets["finding_historic_verification"],),
-        table=TABLE,
-    )
-    current_verification_keys = {
-        keys.build_key(
-            facet=TABLE.facets["finding_historic_verification"],
-            values={
-                "iso8601utc": item["modified_date"],
-                "id": finding_id,
-            },
-        )
-        for item in response.items
-    }
-    verification_items = []
-    verification_keys = set()
-    for verification in historic_verification:
-        verification_item = format_verification_item(verification)
-        verification_key = keys.build_key(
-            facet=TABLE.facets["finding_historic_verification"],
-            values={
-                "iso8601utc": verification.modified_date,
-                "id": finding_id,
-            },
-        )
-        verification_keys.add(verification_key)
-        verification_item = {
-            key_structure.partition_key: verification_key.partition_key,
-            key_structure.sort_key: verification_key.sort_key,
-            **verification_item,
-        }
-        verification_items.append(verification_item)
-    latest_verification = get_latest_verification(historic_verification)
-    if latest_verification:
-        latest_key = keys.build_key(
-            facet=TABLE.facets["finding_verification"],
-            values={
-                "group_name": group_name,
-                "id": finding_id,
-            },
-        )
-        latest_optional_item = format_verification_item(latest_verification)
-        latest_item = {
-            key_structure.partition_key: latest_key.partition_key,
-            key_structure.sort_key: latest_key.sort_key,
-            **latest_optional_item,
-        }
-        verification_items.append(latest_item)
-
-    operation_coroutines = [
-        operations.batch_put_item(items=tuple(verification_items), table=TABLE)
-    ]
-    verifications_to_remove = [
-        current_verification_key
-        for current_verification_key in current_verification_keys
-        if current_verification_key not in verification_keys
-    ]
-    operation_coroutines.append(
-        operations.batch_delete_item(
-            keys=tuple(verifications_to_remove),
-            table=TABLE,
-        )
-    )
-    await collect(operation_coroutines)
 
 
 async def update_metadata(
@@ -388,7 +150,7 @@ async def update_metadata(
     )
 
 
-async def update_state(
+async def update_state(  # pylint: disable=too-many-locals
     *,
     current_value: FindingState,
     finding_id: str,
@@ -446,6 +208,24 @@ async def update_state(
         items.append(submission)
     await operations.batch_put_item(items=tuple(items), table=TABLE)
 
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    metadata_item = {"state": state_item}
+    if state.status == FindingStateStatus.APPROVED:
+        metadata_item["approval"] = state_item
+    elif state.status == FindingStateStatus.SUBMITTED:
+        metadata_item["submission"] = state_item
+    await operations.update_item(
+        condition_expression=Attr(key_structure.partition_key).exists()
+        & Attr("state.status").ne(FindingStateStatus.DELETED.value)
+        & Attr("state.modified_date").eq(current_value.modified_date),
+        item=metadata_item,
+        key=metadata_key,
+        table=TABLE,
+    )
+
 
 async def update_unreliable_indicators(
     *,
@@ -459,7 +239,7 @@ async def update_unreliable_indicators(
         facet=TABLE.facets["finding_unreliable_indicators"],
         values={"group_name": group_name, "id": finding_id},
     )
-    unreliable_indicators = {
+    unreliable_indicators_item = {
         key: value.value
         if isinstance(value, Enum)
         else format_treatment_summary_item(value)
@@ -473,7 +253,7 @@ async def update_unreliable_indicators(
     current_value_item = format_unreliable_indicators_item(current_value)
     conditions = (
         Attr(indicator_name).eq(current_value_item[indicator_name])
-        for indicator_name in unreliable_indicators
+        for indicator_name in unreliable_indicators_item
     )
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
@@ -481,8 +261,47 @@ async def update_unreliable_indicators(
     try:
         await operations.update_item(
             condition_expression=condition_expression,
-            item=unreliable_indicators,
+            item=unreliable_indicators_item,
             key=unreliable_indicators_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise IndicatorAlreadyUpdated() from ex
+
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    unreliable_indicators_item = {
+        f"unreliable_indicators.{key}": value.value
+        if isinstance(value, Enum)
+        else format_treatment_summary_item(value)
+        if isinstance(value, FindingTreatmentSummary)
+        else format_verification_summary_item(value)
+        if isinstance(value, FindingVerificationSummary)
+        else value
+        for key, value in indicators._asdict().items()
+        if value is not None
+    }
+    current_value_item = {
+        f"unreliable_indicators.{key}": value
+        for key, value in current_value_item.items()
+    }
+    conditions = (
+        (
+            Attr(indicator_name).not_exists()
+            | Attr(indicator_name).eq(current_value_item[indicator_name])
+        )
+        for indicator_name in unreliable_indicators_item
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    for condition in conditions:
+        condition_expression &= condition
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=unreliable_indicators_item,
+            key=metadata_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
@@ -522,5 +341,22 @@ async def update_verification(
     await operations.put_item(
         facet=TABLE.facets["finding_historic_verification"],
         item=historic,
+        table=TABLE,
+    )
+
+    metadata_key = keys.build_key(
+        facet=TABLE.facets["finding_metadata"],
+        values={"group_name": group_name, "id": finding_id},
+    )
+    metadata_item = {"verification": verification_item}
+    condition_expression = Attr(key_structure.partition_key).exists()
+    if current_value:
+        condition_expression &= Attr("verification.modified_date").eq(
+            current_value.modified_date
+        )
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=metadata_item,
+        key=metadata_key,
         table=TABLE,
     )
