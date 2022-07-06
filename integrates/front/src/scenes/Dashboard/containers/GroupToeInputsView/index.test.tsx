@@ -41,6 +41,7 @@ describe("GroupToeInputsView", (): void => {
               edges: [
                 {
                   node: {
+                    __typename: "ToeInput",
                     attackedAt: "2020-01-02T00:00:00-05:00",
                     bePresent: true,
                     component: "test.com/api/Test",
@@ -59,6 +60,7 @@ describe("GroupToeInputsView", (): void => {
                 },
                 {
                   node: {
+                    __typename: "ToeInput",
                     attackedAt: "2021-02-02T00:00:00-05:00",
                     bePresent: true,
                     component: "test.com/test/test.aspx",
@@ -77,6 +79,7 @@ describe("GroupToeInputsView", (): void => {
                 },
                 {
                   node: {
+                    __typename: "ToeInput",
                     attackedAt: "2021-02-11T00:00:00-05:00",
                     bePresent: false,
                     component: "test.com/test2/test.aspx",

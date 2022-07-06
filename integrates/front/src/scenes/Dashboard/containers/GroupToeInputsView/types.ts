@@ -67,6 +67,7 @@ interface IToeInputData {
 interface IUpdateToeInputResultAttr {
   updateToeInput: {
     success: boolean;
+    toeInput: IToeInputAttr | undefined;
   };
 }
 
