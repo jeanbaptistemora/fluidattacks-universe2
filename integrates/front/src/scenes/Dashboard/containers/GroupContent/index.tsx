@@ -4,6 +4,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
@@ -39,12 +40,12 @@ import { featurePreviewContext } from "utils/featurePreview";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 const GroupContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
   const { groupName } = useParams<{ groupName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
+  const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetToeLines: boolean = permissions.can(
@@ -57,7 +58,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
         Logger.warning("An error occurred loading group data", error);
-        msgError(translate.t("groupAlerts.errorTextsad"));
+        msgError(t("groupAlerts.errorTextsad"));
       });
     },
     variables: { groupName },
@@ -66,8 +67,7 @@ const GroupContent: React.FC = (): JSX.Element => {
   const hasOpenEvents =
     events.filter((event): boolean => event.eventStatus === "CREATED").length >
     0;
-  const eventMessage: string =
-    "FAILED: Something is wrong. For more details check your groups events.";
+  const eventMessage: string = t("group.events.eventBar");
 
   // Side effects
   useTabTracking("Group");
@@ -90,40 +90,40 @@ const GroupContent: React.FC = (): JSX.Element => {
                   <Tab
                     id={"findingsTab"}
                     link={`${url}/vulns`}
-                    tooltip={translate.t("group.tabs.findings.tooltip")}
+                    tooltip={t("group.tabs.findings.tooltip")}
                   >
-                    {translate.t("group.tabs.findings.text")}
+                    {t("group.tabs.findings.text")}
                   </Tab>
                   <Tab
                     id={"analyticsTab"}
                     link={`${url}/analytics`}
-                    tooltip={translate.t("group.tabs.indicators.tooltip")}
+                    tooltip={t("group.tabs.indicators.tooltip")}
                   >
-                    {translate.t("group.tabs.analytics.text")}
+                    {t("group.tabs.analytics.text")}
                   </Tab>
                   <Can do={"api_resolvers_group_drafts_resolve"}>
                     <Tab
                       id={"draftsTab"}
                       link={`${url}/drafts`}
-                      tooltip={translate.t("group.tabs.drafts.tooltip")}
+                      tooltip={t("group.tabs.drafts.tooltip")}
                     >
-                      {translate.t("group.tabs.drafts.text")}
+                      {t("group.tabs.drafts.text")}
                     </Tab>
                   </Can>
                   <Tab
                     id={"forcesTab"}
                     link={`${url}/devsecops`}
-                    tooltip={translate.t("group.tabs.forces.tooltip")}
+                    tooltip={t("group.tabs.forces.tooltip")}
                   >
-                    {translate.t("group.tabs.forces.text")}
+                    {t("group.tabs.forces.text")}
                   </Tab>
                   <div className={"flex"}>
                     <Tab
                       id={"eventsTab"}
                       link={`${url}/events`}
-                      tooltip={translate.t("group.tabs.events.tooltip")}
+                      tooltip={t("group.tabs.events.tooltip")}
                     >
-                      {translate.t("group.tabs.events.text")}
+                      {t("group.tabs.events.text")}
                       {hasOpenEvents ? <Dot /> : undefined}
                     </Tab>
                   </div>
@@ -132,9 +132,9 @@ const GroupContent: React.FC = (): JSX.Element => {
                       <Tab
                         id={"commentsTab"}
                         link={`${url}/consulting`}
-                        tooltip={translate.t("group.tabs.comments.tooltip")}
+                        tooltip={t("group.tabs.comments.tooltip")}
                       >
-                        {translate.t("group.tabs.comments.text")}
+                        {t("group.tabs.comments.text")}
                       </Tab>
                     </Can>
                   </Have>
@@ -144,9 +144,9 @@ const GroupContent: React.FC = (): JSX.Element => {
                     <Tab
                       id={"usersTab"}
                       link={`${url}/stakeholders`}
-                      tooltip={translate.t("group.tabs.users.tooltip")}
+                      tooltip={t("group.tabs.users.tooltip")}
                     >
-                      {translate.t("group.tabs.users.text")}
+                      {t("group.tabs.users.text")}
                     </Tab>
                   </Can>
                   <Have I={"has_service_white"}>
@@ -154,9 +154,9 @@ const GroupContent: React.FC = (): JSX.Element => {
                       <Tab
                         id={"authorsTab"}
                         link={`${url}/authors`}
-                        tooltip={translate.t("group.tabs.authors.tooltip")}
+                        tooltip={t("group.tabs.authors.tooltip")}
                       >
-                        {translate.t("group.tabs.authors.text")}
+                        {t("group.tabs.authors.text")}
                       </Tab>
                     </Can>
                   </Have>
@@ -164,17 +164,17 @@ const GroupContent: React.FC = (): JSX.Element => {
                     <Tab
                       id={"toeTab"}
                       link={`${url}/surface`}
-                      tooltip={translate.t("group.tabs.toe.tooltip")}
+                      tooltip={t("group.tabs.toe.tooltip")}
                     >
-                      {translate.t("group.tabs.toe.text")}
+                      {t("group.tabs.toe.text")}
                     </Tab>
                   )}
                   <Tab
                     id={"resourcesTab"}
                     link={`${url}/scope`}
-                    tooltip={translate.t("group.tabs.resources.tooltip")}
+                    tooltip={t("group.tabs.resources.tooltip")}
                   >
-                    {translate.t("group.tabs.resources.text")}
+                    {t("group.tabs.resources.text")}
                   </Tab>
                 </Tabs>
               </div>

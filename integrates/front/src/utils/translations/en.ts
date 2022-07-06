@@ -461,6 +461,9 @@ export const enTranslations: ResourceKey = {
             "will be set to Requested",
         },
       },
+      eventBar:
+        "FAILED: Something is wrong. For more details check your " +
+        "groups events.",
       evidence: {
         edit: "Edit",
         editTooltip: "Modify the evidence for this event",
