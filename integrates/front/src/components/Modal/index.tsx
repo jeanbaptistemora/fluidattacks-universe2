@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { ModalConfirm } from "./Confirm";
 import { Container as ContainerModal, Dialog, Header, Title } from "./styles";
 
-import { ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
 import { Container } from "components/Container";
 
 interface IModalProps {
@@ -46,9 +46,9 @@ const Modal: React.FC<IModalProps> = ({
             <Header>
               <Title>{title}</Title>
               {onClose ? (
-                <ButtonOpacity id={"modal-close"} onClick={onClose}>
+                <Button id={"modal-close"} onClick={onClose} size={"sm"}>
                   <FontAwesomeIcon icon={faClose} />
-                </ButtonOpacity>
+                </Button>
               ) : undefined}
             </Header>
             <Container minWidth={`${minWidth}px`} padding={"10px"}>

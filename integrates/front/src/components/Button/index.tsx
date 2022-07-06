@@ -114,15 +114,5 @@ const Button = styled.button.attrs<IButtonProps>(
   }}
 `;
 
-const ButtonOpacity = styled.button.attrs({
-  className: "bn mh1 pa2",
-})`
-  background: none;
-
-  :hover {
-    opacity: 0.75;
-  }
-`;
-
 export type { IButtonProps };
-export { Button, ButtonOpacity };
+export { Button };

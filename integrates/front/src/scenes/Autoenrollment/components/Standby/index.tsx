@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Lottie from "react-lottie-player";
 
-import { ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import scan from "resources/scan.json";
 
@@ -22,9 +22,9 @@ const Standby: React.FC<IStandbyProps> = (
       <Col>
         <Row justify={"flex-end"}>
           <Col>
-            <ButtonOpacity id={"close-standby"} onClick={onClose}>
+            <Button id={"close-standby"} onClick={onClose} size={"sm"}>
               <FontAwesomeIcon icon={faClose} />
-            </ButtonOpacity>
+            </Button>
           </Col>
         </Row>
         <Row align={"center"} justify={"center"}>

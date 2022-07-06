@@ -12,7 +12,7 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { Button, ButtonOpacity } from "components/Button";
+import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -158,9 +158,9 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
             id={name}
             message={t(`${tPath}recommended.${name}`)}
           >
-            <ButtonOpacity disabled={true}>
+            <Button disabled={true} size={"sm"}>
               <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-            </ButtonOpacity>
+            </Button>
           </TooltipWrapper>
         </p>
       ),
