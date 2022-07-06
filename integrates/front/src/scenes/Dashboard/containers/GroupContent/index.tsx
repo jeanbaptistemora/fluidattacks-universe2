@@ -67,7 +67,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     events.filter((event): boolean => event.eventStatus === "CREATED").length >
     0;
   const eventMessage: string =
-    "ACTION NEEDED: Your groups could be in risk. Please check open events.";
+    "FAILED: Something is wrong. For more details check your groups events.";
 
   // Side effects
   useTabTracking("Group");
