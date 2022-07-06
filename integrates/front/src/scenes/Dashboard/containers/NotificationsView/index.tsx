@@ -6,7 +6,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
 
-import { Card, CardBody, CardHeader } from "components/Card";
+import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Switch } from "components/Switch";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -142,45 +142,29 @@ const NotificationsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <div>
-        <Row>
-          {subscriptionsFiltered.map((item: ISubscriptionName): JSX.Element => {
-            return (
-              <Col key={item.name} large={"25"} medium={"100"} small={"100"}>
-                <TooltipWrapper
-                  id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
-                  message={item.tooltip}
-                >
-                  <Card>
-                    <CardBody>
-                      <Row>
-                        <Col large={"70"} medium={"70"} small={"70"}>
-                          <CardHeader>{item.name}</CardHeader>
-                        </Col>
-                        <Col large={"30"} medium={"25"} small={"30"}>
-                          <div className={"fr mt1"}>
-                            {translate.t(
-                              "searchFindings.notificationTable.email"
-                            )}
-                            {item.subscribeEmail}
-                          </div>
-                          <br />
-                          <div className={"fr mt1"}>
-                            {translate.t(
-                              "searchFindings.notificationTable.sms"
-                            )}
-                            {item.subscribeSms}
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </TooltipWrapper>
-              </Col>
-            );
-          })}
-        </Row>
-      </div>
+      <Row>
+        {subscriptionsFiltered.map(
+          (item: ISubscriptionName): JSX.Element => (
+            <Col key={item.name} large={"25"} medium={"50"} small={"100"}>
+              <TooltipWrapper
+                id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
+                message={item.tooltip}
+              >
+                <Card title={item.name}>
+                  <div className={"flex justify-between mt1"}>
+                    {translate.t("searchFindings.notificationTable.email")}
+                    {item.subscribeEmail}
+                  </div>
+                  <div className={"flex justify-between mt1"}>
+                    {translate.t("searchFindings.notificationTable.sms")}
+                    {item.subscribeSms}
+                  </div>
+                </Card>
+              </TooltipWrapper>
+            </Col>
+          )
+        )}
+      </Row>
     </React.StrictMode>
   );
 };
