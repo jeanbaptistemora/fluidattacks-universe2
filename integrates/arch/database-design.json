@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 06, 2022, 06:58 AM",
+    "DateLastModified": "Jul 06, 2022, 11:12 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -7842,6 +7842,13 @@
               },
               "event_date": {
                 "S": "2018-12-17T21:20:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_closing_date": {
+                    "S": "2018-12-26T18:37:00+00:00"
+                  }
+                }
               }
             },
             {
@@ -7915,6 +7922,9 @@
               },
               "event_date": {
                 "S": "2019-04-02T08:02:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {}
               }
             },
             {
@@ -7960,6 +7970,9 @@
               },
               "event_date": {
                 "S": "2018-06-27T12:00:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {}
               }
             },
             {
@@ -8010,6 +8023,9 @@
               },
               "event_date": {
                 "S": "2019-04-02T08:02:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {}
               }
             },
             {
@@ -8060,6 +8076,9 @@
               },
               "event_date": {
                 "S": "2019-09-19T13:09:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {}
               }
             },
             {
@@ -8105,6 +8124,13 @@
               },
               "event_date": {
                 "S": "2019-01-03T12:01:55+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-01-03T20:24:25+00:00"
+                  }
+                }
               }
             },
             {
@@ -8150,6 +8176,9 @@
               },
               "event_date": {
                 "S": "2019-01-02T12:00:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {}
               }
             },
             {
@@ -8221,6 +8250,13 @@
               },
               "event_date": {
                 "S": "2019-03-11T14:00:00+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_closing_date": {
+                    "S": "2019-04-11T18:37:00+00:00"
+                  }
+                }
               }
             },
             {
@@ -8266,6 +8302,13 @@
               },
               "event_date": {
                 "S": "2018-01-03T12:01:55+00:00"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_closing_date": {
+                    "S": "2018-01-03T20:24:25+00:00"
+                  }
+                }
               }
             }
           ],
@@ -8284,7 +8327,8 @@
             "hacker",
             "event_date",
             "action_after_blocking",
-            "action_before_blocking"
+            "action_before_blocking",
+            "unreliable_indicators"
           ]
         },
         {
