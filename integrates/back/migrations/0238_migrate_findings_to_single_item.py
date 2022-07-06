@@ -3,8 +3,8 @@
 Take findings latest states to the metadata item along with the
 unreliable indicators
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-07-06 at 19:31:09 UTC
+Finalization Time: 2022-07-06 at 19:33:17 UTC
 """
 
 from aioextensions import (
