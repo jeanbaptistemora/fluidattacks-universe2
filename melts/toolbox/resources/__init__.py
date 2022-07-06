@@ -515,7 +515,7 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
                     if isinstance(problem, FormatRepoProblem)
                 )
             )
-    _report_success(subs, results)
+
     if problems:
         LOGGER.error("Some problems occured: \n")
 
