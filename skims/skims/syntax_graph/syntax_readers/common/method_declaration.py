@@ -1,6 +1,9 @@
 from model.graph_model import (
     NId,
 )
+from syntax_graph.syntax_nodes.blockless_method_declaration import (
+    build_blockless_method_declaration_node,
+)
 from syntax_graph.syntax_nodes.method_declaration import (
     build_method_declaration_node,
 )
@@ -24,5 +27,8 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None
-
+    if not block_id:
+        return build_blockless_method_declaration_node(
+            args, name, parameters_id
+        )
     return build_method_declaration_node(args, name, block_id, parameters_id)
