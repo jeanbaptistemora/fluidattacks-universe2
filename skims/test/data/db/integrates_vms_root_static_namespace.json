@@ -316,6 +316,9 @@
           },
           "url": {
             "S": "https://fluidattacks.com/"
+          },
+          "type": {
+            "S": "URL"
           }
         }
       }
@@ -334,6 +337,9 @@
           },
           "url": {
             "S": "https://app.fluidattacks.com/"
+          },
+          "type": {
+            "S": "URL"
           }
         }
       }

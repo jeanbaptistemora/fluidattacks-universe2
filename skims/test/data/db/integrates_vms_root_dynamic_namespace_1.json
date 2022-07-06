@@ -228,6 +228,9 @@
           },
           "url": {
             "S": "https://localhost:4446"
+          },
+          "type": {
+            "S": "URL"
           }
         }
       }
