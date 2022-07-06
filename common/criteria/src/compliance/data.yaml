@@ -6654,7 +6654,7 @@
       title: Authentication and session management requirements
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     "V4_5":
-      title: Authentication and session management requirements
+      title: Authentication and session management requirements - Password policy
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
     "V4_6":
       title: Authentication and session management requirements
