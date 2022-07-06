@@ -37,6 +37,10 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.organizations.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -137,16 +141,18 @@ async def _validate_acceptance_severity(
         organization_data: Organization = await loaders.organization.load(
             organization_id
         )
-        min_value = organization_data.policies.min_acceptance_severity
-        max_value = organization_data.policies.max_acceptance_severity
-        if (
-            min_value is not None
-            and max_value is not None
-            and not (
-                min_value
-                <= Decimal(severity).quantize(Decimal("0.1"))
-                <= max_value
-            )
+        min_value: Decimal = (
+            organization_data.policies.min_acceptance_severity
+            or DEFAULT_MIN_SEVERITY
+        )
+        max_value: Decimal = (
+            organization_data.policies.max_acceptance_severity
+            or DEFAULT_MAX_SEVERITY
+        )
+        if not (
+            min_value
+            <= Decimal(severity).quantize(Decimal("0.1"))
+            <= max_value
         ):
             raise InvalidAcceptanceSeverity(str(severity))
     return valid
