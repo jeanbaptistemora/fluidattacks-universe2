@@ -2,6 +2,7 @@ import authz
 from custom_exceptions import (
     AcceptanceNotRequested,
     InvalidAssigned,
+    StakeholderNotFound,
 )
 from datetime import (
     datetime,
@@ -9,6 +10,9 @@ from datetime import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
@@ -21,9 +25,6 @@ from db_model.vulnerabilities.types import (
 import html
 from newutils import (
     datetime as datetime_utils,
-)
-from stakeholders.domain import (
-    is_registered,
 )
 from typing import (
     Any,
@@ -92,6 +93,7 @@ def validate_acceptance(vuln: Vulnerability) -> None:
 
 async def get_valid_assigned(
     *,
+    loaders: Any,
     assigned: str,
     is_manager: bool,
     user_email: str,
@@ -100,8 +102,15 @@ async def get_valid_assigned(
     if not is_manager:
         assigned = user_email
     enforcer = await authz.get_group_level_enforcer(assigned)
-    if not enforcer(group_name, "valid_assigned") or not await is_registered(
-        assigned
+    try:
+        stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
+    except StakeholderNotFound:
+        stakeholder = Stakeholder(
+            email=assigned, first_name="", last_name="", is_registered=False
+        )
+    if (
+        not enforcer(group_name, "valid_assigned")
+        or not stakeholder.is_registered
     ):
         raise InvalidAssigned()
     return assigned

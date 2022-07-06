@@ -9,6 +9,9 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
     UnavailabilityError,
 )
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
     timezone,
@@ -104,6 +107,7 @@ async def send_report(
     report_type: str,
     report_url: str,
 ) -> None:
+    loaders = get_new_context()
     translations: Dict[str, str] = {
         "CERT": "Certificate",
         "DATA": "Group Data",
@@ -118,6 +122,7 @@ async def send_report(
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
         await notifications_domain.new_password_protected_report(
+            loaders,
             item.subject,
             item.entity,
             translations[report_type.upper()],

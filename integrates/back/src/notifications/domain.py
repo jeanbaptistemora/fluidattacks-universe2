@@ -23,6 +23,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -36,9 +39,6 @@ from newutils import (
 from notifications import (
     dal as notifications_dal,
 )
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 from typing import (
     Any,
     cast,
@@ -47,8 +47,9 @@ from typing import (
 )
 
 
-async def _get_recipient_first_name_async(email: str) -> str:
-    first_name = str(await stakeholders_domain.get_data(email, "first_name"))
+async def _get_recipient_first_name_async(loaders: Any, email: str) -> str:
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    first_name = stakeholder.first_name
     if not first_name:
         first_name = email.split("@")[0]
     else:
@@ -305,13 +306,14 @@ async def managed_manually(
 
 
 async def new_password_protected_report(
+    loaders: Any,
     user_email: str,
     group_name: str,
     file_type: str,
     file_link: str = "",
 ) -> None:
     today = datetime_utils.get_now()
-    fname = await _get_recipient_first_name_async(user_email)
+    fname = await _get_recipient_first_name_async(loaders, user_email)
     subject = f"{file_type} Report for [{group_name}]"
     await groups_mail.send_mail_group_report(
         [user_email],

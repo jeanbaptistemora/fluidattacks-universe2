@@ -186,16 +186,6 @@ async def ensure_exists(email: str) -> bool:
     return bool(await stakeholders_dal.get(email))
 
 
-def get_invitation_state(
-    invitation: dict[str, Any], stakeholder: dict[str, Any]
-) -> str:
-    if invitation and not invitation["is_used"]:
-        return "PENDING"
-    if not stakeholder.get("is_registered", False):
-        return "UNREGISTERED"
-    return "CONFIRMED"
-
-
 async def get(email: str) -> dict[str, Any]:
     return await stakeholders_dal.get(email)
 
@@ -203,57 +193,6 @@ async def get(email: str) -> dict[str, Any]:
 async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
     """Get attributes of a user."""
     return await stakeholders_dal.get_attributes(email, data)
-
-
-async def get_by_email(email: str) -> dict[str, Any]:
-    stakeholder_data: dict[str, Any] = {
-        "email": email,
-        "date_joined": "",
-        "first_name": "",
-        "last_login": "",
-        "last_name": "",
-        "legal_remember": False,
-        "phone": None,
-        "push_tokens": [],
-        "is_registered": True,
-        "tours": {
-            "new_group": False,
-            "new_root": False,
-        },
-    }
-    user: dict[str, Any] = await stakeholders_dal.get(email)
-    if user:
-        stakeholder_data.update(
-            {
-                "email": user["email"],
-                "date_joined": user.get("date_joined", ""),
-                "first_name": user.get("first_name", ""),
-                "last_login": user.get("last_login", ""),
-                "last_name": user.get("last_name", ""),
-                "legal_remember": user.get("legal_remember", False),
-                "phone": None
-                if user.get("phone", None) is None
-                else StakeholderPhone(
-                    calling_country_code=user["phone"]["calling_country_code"],
-                    country_code=user["phone"]["country_code"],
-                    national_number=user["phone"]["national_number"],
-                ),
-                "push_tokens": user.get("push_tokens", []),
-                "tours": stakeholder_data["tours"]
-                if user.get("tours") is None
-                else user["tours"],
-            }
-        )
-    else:
-        stakeholder_data.update({"is_registered": False})
-    return stakeholder_data
-
-
-async def get_data(email: str, attr: str) -> dict[str, Any]:
-    data_attr = await get_attributes(email, [attr])
-    if data_attr and attr in data_attr:
-        return data_attr[attr]
-    return {}
 
 
 async def has_valid_access_token(
@@ -280,10 +219,6 @@ async def has_valid_access_token(
 
 def is_fluid_staff(email: str) -> bool:
     return email.endswith("@fluidattacks.com")
-
-
-async def is_registered(email: str) -> bool:
-    return bool(await get_data(email, "registered"))
 
 
 async def register(email: str) -> None:

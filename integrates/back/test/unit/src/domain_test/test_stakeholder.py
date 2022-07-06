@@ -3,6 +3,7 @@ from api.mutations.sign_in import (
 )
 from custom_exceptions import (
     InvalidPushToken,
+    StakeholderNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -50,12 +51,14 @@ async def test_add_push_token() -> None:
 
 @pytest.mark.changes_db
 async def test_remove_stakeholder() -> None:
+    loaders: Dataloaders = get_new_context()
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"
     await autoenroll_stakeholder(email)
     subscriptions = await get_user_subscriptions(user_email=email)
 
-    assert await stakeholders_domain.get_data(email, "email") == email
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder.email == email
     assert len(subscriptions) == 1
     assert subscriptions[0]["sk"]["entity"] == "DIGEST"
 
@@ -74,8 +77,9 @@ async def test_remove_stakeholder() -> None:
     await remove_stakeholder_all_organizations(
         loaders=get_new_context(), email=email, modified_by=modified_by
     )
-
-    assert await stakeholders_domain.get_data(email, "email") == {}
+    new_loaders: Dataloaders = get_new_context()
+    with pytest.raises(StakeholderNotFound):
+        await new_loaders.stakeholder.load(email)
     assert await get_user_subscriptions(user_email=email) == []
 
     after_remove_authzs = await dynamodb_ops.scan("fi_authz", {})

@@ -83,6 +83,9 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     Root,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.utils import (
     get_min_iso_date,
 )
@@ -482,8 +485,16 @@ async def complete_register_for_group_invitation(
         )
     if not all(await collect(coroutines)):
         return False
-
-    if not await stakeholders_domain.is_registered(user_email):
+    try:
+        stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    except StakeholderNotFound:
+        stakeholder = Stakeholder(
+            email=user_email,
+            first_name="",
+            last_name="",
+            is_registered=False,
+        )
+    if not stakeholder.is_registered:
         await collect(
             [
                 stakeholders_domain.register(user_email),
