@@ -102,17 +102,27 @@ Of course, if you choose the recommended
 0.0 score, no vulnerability can be
 temporarily accepted.
 
-In the second table, you will find a
-list of the types of vulnerabilities
-that your team has suggested for
+## Permanent acceptance
+
+In the second table,
+you will find a list of the
+types of vulnerabilities that
+your team has suggested for
 permanent acceptance.
-In front of each vulnerability type name,
-you will see whether that acceptance
-was approved, rejected or is pending.
-All those vulnerability types listed
-there as accepted will be ignored by
-our DevSecOps agent in its task of
-breaking the build.
+In front of each
+vulnerability type name,
+you will see whether that
+acceptance was approved,
+rejected or is pending.
+All those vulnerability types
+listed there as accepted will
+be ignored by our DevSecOps
+agent in its task of breaking
+the build.
+Therefore,
+you assume the risk that comes
+with their being allowed into
+production.
 
 ![List Types Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1645537791/docs/web/organizations/policies_list_types_vuln.png)
 
@@ -184,24 +194,3 @@ the tag(s) you chose will be
 applied automatically to all
 the vulnerabilities of that type.
 
-## Permanent acceptance
-
-In the second table,
-you will find a list of the
-types of vulnerabilities that
-your team has suggested for
-permanent acceptance.
-In front of each
-vulnerability type name,
-you will see whether that
-acceptance was approved,
-rejected or is pending.
-All those vulnerability types
-listed there as accepted will
-be ignored by our DevSecOps
-agent in its task of breaking
-the build.
-Therefore,
-you assume the risk that comes
-with their being allowed into
-production.
