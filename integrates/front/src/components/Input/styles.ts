@@ -17,13 +17,13 @@ const variants: Record<IStyledInputProps["variant"], IVariant> = {
     bgColor: "transparent",
   },
   solid: {
-    bgColor: "#f4f4f6",
+    bgColor: "#fff",
   },
 };
 
 const sharedStyles = css`
   background: none;
-  border: none;
+  border: none !important;
   box-shadow: none;
   color: #121216;
   line-height: 1.25;
@@ -44,7 +44,6 @@ const InputBox = styled.div.attrs({
   className: "comp-input",
 })<IInputContainerProps>`
   font-family: Roboto, sans-serif;
-  max-width: 400px;
   width: 100%;
 
   > .comp-alert {
@@ -59,7 +58,7 @@ const InputBox = styled.div.attrs({
 const InputWrapper = styled.div<IStyledInputProps>`
   align-items: center;
   background-color: ${({ variant }): string => variants[variant].bgColor};
-  border: 1px solid #b0b0bf;
+  border: 1px solid #d2d2da;
   border-radius: 4px;
   color: #b0b0bf;
   display: flex;

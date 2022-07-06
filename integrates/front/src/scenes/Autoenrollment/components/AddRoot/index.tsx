@@ -9,12 +9,13 @@ import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
+import { Input } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -28,7 +29,7 @@ import type {
   ICheckGitAccessResult,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
-import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 
 interface IAddRootProps {
   initialValues: IRootAttr;
@@ -189,273 +190,158 @@ const AddRoot: React.FC<IAddRootProps> = ({
           return (
             <Form>
               <Row justify={"flex-start"}>
-                <Col large={"50"} medium={"50"} small={"50"}>
-                  <Row>
-                    <Col>
-                      <strong>{t("autoenrollment.addRoot.url.label")}</strong>
-                      <TooltipWrapper
-                        displayClass={"dib"}
-                        id={"urlTooltip"}
-                        message={t("autoenrollment.addRoot.url.tooltip")}
-                        placement={"top"}
-                      >
-                        <FontAwesomeIcon
-                          color={"#b0b0bf"}
-                          icon={faCircleInfo}
-                          size={"sm"}
-                        />
-                      </TooltipWrapper>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Field
-                        component={FormikText}
-                        name={"url"}
-                        placeholder={t(
-                          "autoenrollment.addRoot.url.placeholder"
-                        )}
-                        type={"text"}
-                      />
-                    </Col>
-                  </Row>
+                <Col large={"50"} medium={"50"} small={"100"}>
+                  <Input
+                    label={
+                      <Fragment>
+                        {t("autoenrollment.addRoot.url.label")}
+                        <TooltipWrapper
+                          displayClass={"dib"}
+                          id={"urlTooltip"}
+                          message={t("autoenrollment.addRoot.url.tooltip")}
+                          placement={"top"}
+                        >
+                          <FontAwesomeIcon
+                            color={"#b0b0bf"}
+                            icon={faCircleInfo}
+                            size={"sm"}
+                          />
+                        </TooltipWrapper>
+                      </Fragment>
+                    }
+                    name={"url"}
+                    placeholder={t("autoenrollment.addRoot.url.placeholder")}
+                    type={"text"}
+                  />
                 </Col>
-                <Col large={"50"} medium={"50"} small={"50"}>
-                  <Row>
-                    <Col>
-                      <strong>
-                        {t("autoenrollment.addRoot.branch.label")}
-                      </strong>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Field
-                        component={FormikText}
-                        name={"branch"}
-                        placeholder={t(
-                          "autoenrollment.addRoot.branch.placeholder"
-                        )}
-                        type={"text"}
-                      />
-                    </Col>
-                  </Row>
+                <Col large={"50"} medium={"50"} small={"100"}>
+                  <Input
+                    label={t("autoenrollment.addRoot.branch.label")}
+                    name={"branch"}
+                    placeholder={t("autoenrollment.addRoot.branch.placeholder")}
+                    type={"text"}
+                  />
                 </Col>
-              </Row>
-              <Row justify={"flex-start"}>
-                <Col large={"50"} medium={"50"} small={"50"}>
-                  <Row>
-                    <Col>
-                      <strong>
-                        {t("autoenrollment.addRoot.credentials.type.label")}
-                      </strong>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Field
-                        component={FormikDropdown}
-                        name={"credentials.type"}
-                      >
-                        <option value={""}>{""}</option>
-                        <option value={"HTTPS"}>
-                          {t("autoenrollment.addRoot.credentials.type.https")}
-                        </option>
-                        <option value={"SSH"}>
-                          {t("autoenrollment.addRoot.credentials.type.ssh")}
-                        </option>
-                      </Field>
-                    </Col>
-                  </Row>
+                <Col large={"50"} medium={"50"} small={"100"}>
+                  <Input
+                    label={t("autoenrollment.addRoot.credentials.type.label")}
+                    name={"credentials.type"}
+                    type={"select"}
+                  >
+                    <option value={""}>{""}</option>
+                    <option value={"HTTPS"}>
+                      {t("autoenrollment.addRoot.credentials.type.https")}
+                    </option>
+                    <option value={"SSH"}>
+                      {t("autoenrollment.addRoot.credentials.type.ssh")}
+                    </option>
+                  </Input>
                 </Col>
-                <Col large={"50"} medium={"50"} small={"50"}>
-                  <Row>
-                    <Col>
-                      <strong>
-                        {t("autoenrollment.addRoot.credentials.name.label")}
-                      </strong>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Field
-                        component={FormikText}
-                        disabled={values.credentials.type === ""}
-                        name={"credentials.name"}
-                        placeholder={t(
-                          "autoenrollment.addRoot.credentials.name.placeholder"
-                        )}
-                        type={"text"}
-                      />
-                    </Col>
-                  </Row>
+                <Col large={"50"} medium={"50"} small={"100"}>
+                  <Input
+                    disabled={values.credentials.type === ""}
+                    label={t("autoenrollment.addRoot.credentials.name.label")}
+                    name={"credentials.name"}
+                    placeholder={t(
+                      "autoenrollment.addRoot.credentials.name.placeholder"
+                    )}
+                  />
                 </Col>
-              </Row>
-              {values.credentials.type === "SSH" && (
-                <React.Fragment>
-                  <Row justify={"center"}>
-                    <Col>
-                      <strong>
-                        {t("group.scope.git.repo.credentials.sshKey")}
-                      </strong>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Field
-                        component={FormikTextArea}
-                        name={"credentials.key"}
-                        placeholder={t(
-                          "group.scope.git.repo.credentials.sshHint"
-                        )}
-                        type={"text"}
-                      />
-                    </Col>
-                  </Row>
-                </React.Fragment>
-              )}
-              {values.credentials.type === "HTTPS" && (
-                <Row>
-                  <Col>
-                    <Field component={FormikDropdown} name={"credentials.auth"}>
+                {values.credentials.type === "SSH" && (
+                  <Col large={"100"} medium={"100"} small={"100"}>
+                    <Input
+                      label={t("group.scope.git.repo.credentials.sshKey")}
+                      name={"credentials.key"}
+                      placeholder={t(
+                        "group.scope.git.repo.credentials.sshHint"
+                      )}
+                      rows={3}
+                      type={"textarea"}
+                    />
+                  </Col>
+                )}
+                {values.credentials.type === "HTTPS" && (
+                  <Col large={"100"} medium={"100"} small={"100"}>
+                    <Input name={"credentials.auth"} type={"select"}>
                       <option value={"TOKEN"}>
                         {t("autoenrollment.addRoot.credentials.auth.token")}
                       </option>
                       <option value={"USER"}>
                         {t("autoenrollment.addRoot.credentials.auth.user")}
                       </option>
-                    </Field>
+                    </Input>
                   </Col>
-                </Row>
-              )}
-              {values.credentials.type === "HTTPS" &&
-                values.credentials.auth === "TOKEN" && (
-                  <Row>
-                    <Col large={"50"} medium={"50"} small={"50"}>
-                      <Row>
-                        <Col>
-                          <strong>
-                            {t("autoenrollment.addRoot.credentials.token")}
-                          </strong>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          <Field
-                            component={FormikText}
-                            name={"credentials.token"}
-                            type={"text"}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
                 )}
-              {values.credentials.type === "HTTPS" &&
-                values.credentials.auth === "USER" && (
-                  <Row>
-                    <Col large={"50"} medium={"50"} small={"50"}>
-                      <Row>
-                        <Col>
-                          <strong>
-                            {t("autoenrollment.addRoot.credentials.user")}
-                          </strong>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          <Field
-                            component={FormikText}
-                            name={"credentials.user"}
-                            type={"text"}
-                          />
-                        </Col>
-                      </Row>
+                {values.credentials.type === "HTTPS" &&
+                  values.credentials.auth === "TOKEN" && (
+                    <Col large={"100"} medium={"100"} small={"100"}>
+                      <Input
+                        label={t("autoenrollment.addRoot.credentials.token")}
+                        name={"credentials.token"}
+                      />
                     </Col>
-                    <Col large={"50"} medium={"50"} small={"50"}>
-                      <Row>
-                        <Col>
-                          <strong>
-                            {t("autoenrollment.addRoot.credentials.password")}
-                          </strong>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col>
-                          <Field
-                            component={FormikText}
-                            name={"credentials.password"}
-                            type={"password"}
-                          />
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                )}
-              <Row justify={"flex-start"}>
+                  )}
+                {values.credentials.type === "HTTPS" &&
+                  values.credentials.auth === "USER" && (
+                    <Fragment>
+                      <Col large={"50"} medium={"50"} small={"100"}>
+                        <Input
+                          label={t("autoenrollment.addRoot.credentials.user")}
+                          name={"credentials.user"}
+                        />
+                      </Col>
+                      <Col large={"50"} medium={"50"} small={"100"}>
+                        <Input
+                          label={t(
+                            "autoenrollment.addRoot.credentials.password"
+                          )}
+                          name={"credentials.password"}
+                          type={"password"}
+                        />
+                      </Col>
+                    </Fragment>
+                  )}
+                <Col large={"100"} medium={"100"} small={"100"}>
+                  <Input
+                    label={t("autoenrollment.addRoot.environment.label")}
+                    name={"env"}
+                    placeholder={t(
+                      "autoenrollment.addRoot.environment.placeholder"
+                    )}
+                  />
+                </Col>
                 <Col>
-                  <Row>
-                    <Col>
-                      <strong>
-                        {t("autoenrollment.addRoot.environment.label")}
-                      </strong>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
+                  {t("autoenrollment.addRoot.exclusions.label")}
+                  <TooltipWrapper
+                    displayClass={"dib"}
+                    id={"urlTooltip"}
+                    message={t("autoenrollment.addRoot.exclusions.tooltip")}
+                    placement={"top"}
+                  >
+                    <FontAwesomeIcon
+                      color={"#b0b0bf"}
+                      icon={faCircleInfo}
+                      size={"sm"}
+                    />
+                  </TooltipWrapper>
+                </Col>
+                <Col large={"100"} medium={"100"} small={"100"}>
+                  <FormikArrayField
+                    allowEmpty={true}
+                    initialValue={""}
+                    name={"exclusions"}
+                  >
+                    {(fieldName: string): JSX.Element => (
                       <Field
                         component={FormikText}
-                        name={"env"}
+                        name={fieldName}
                         placeholder={t(
-                          "autoenrollment.addRoot.environment.placeholder"
+                          "autoenrollment.addRoot.exclusions.placeholder"
                         )}
                         type={"text"}
                       />
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-              <Row justify={"flex-start"}>
-                <Col large={"50"} medium={"50"} small={"50"}>
-                  <Row>
-                    <Col>
-                      <strong>
-                        {t("autoenrollment.addRoot.exclusions.label")}
-                      </strong>
-                      <TooltipWrapper
-                        displayClass={"dib"}
-                        id={"urlTooltip"}
-                        message={t("autoenrollment.addRoot.exclusions.tooltip")}
-                        placement={"top"}
-                      >
-                        <FontAwesomeIcon
-                          color={"#b0b0bf"}
-                          icon={faCircleInfo}
-                          size={"sm"}
-                        />
-                      </TooltipWrapper>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col large={"100"} medium={"100"} small={"100"}>
-                      <FormikArrayField
-                        allowEmpty={true}
-                        initialValue={""}
-                        name={"exclusions"}
-                      >
-                        {(fieldName: string): JSX.Element => (
-                          <Field
-                            component={FormikText}
-                            name={fieldName}
-                            placeholder={t(
-                              "autoenrollment.addRoot.exclusions.placeholder"
-                            )}
-                            type={"text"}
-                          />
-                        )}
-                      </FormikArrayField>
-                    </Col>
-                  </Row>
+                    )}
+                  </FormikArrayField>
                 </Col>
               </Row>
               {!showSubmitAlert && rootMessages.message !== "" && (
@@ -467,9 +353,9 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   {rootMessages.message}
                 </Alert>
               )}
-              {isGitAccessible && !dirty ? (
-                <Row justify={"center"}>
-                  <Col>
+              <Row justify={"center"}>
+                <Col>
+                  {isGitAccessible && !dirty ? (
                     <Button
                       disabled={isSubmitting}
                       type={"submit"}
@@ -477,17 +363,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     >
                       {t("autoenrollment.addRoot.proceed.next")}
                     </Button>
-                  </Col>
-                </Row>
-              ) : (
-                <Row justify={"center"}>
-                  <Col>
+                  ) : (
                     <Button onClick={handleAccess} variant={"primary"}>
                       {t("autoenrollment.addRoot.proceed.checkAccess")}
                     </Button>
-                  </Col>
-                </Row>
-              )}
+                  )}
+                </Col>
+              </Row>
               <Row justify={"center"}>
                 <Col>
                   <Button onClick={cancelClick}>
