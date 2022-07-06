@@ -24722,7 +24722,7 @@
       exploit_code_maturity: "P"
       remediation_level: "U"
       report_confidence: "R"
-  requirements: ["173"]
+  requirements: ["266"]
   metadata:
     en:
       details: __empty__
