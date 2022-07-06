@@ -17,7 +17,7 @@ const Input: FC<IInputProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
-  rows = 2,
+  rows = 3,
   type = "text",
   variant = "solid",
 }: Readonly<IInputProps>): JSX.Element => (

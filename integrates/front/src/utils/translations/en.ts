@@ -266,7 +266,7 @@ export const enTranslations: ResourceKey = {
         placeholder: "My organization",
       },
       proceed: "Start your free trial now",
-      reportLanguage: "Report language",
+      reportLanguage: "Report language ",
       reportLanguageTip:
         "Select the language of your preference to report vulnerabilities",
       role: "User manager",
@@ -3431,6 +3431,7 @@ export const enTranslations: ResourceKey = {
     success: "{{email}} was added successfully",
   },
   validations: {
+    alphabetic: "Only alphabetic characters",
     alphanumeric: "Only alphanumeric characters",
     between: "This value must be between {{min}} and {{max}}",
     columns: "At least 1 column must be shown",
@@ -3497,6 +3498,7 @@ export const enTranslations: ResourceKey = {
     stakeholderHasGroupAccess:
       "The stakeholder has been granted access to the group previously",
     tags: "This field can only contain alphanumeric characters and dashes",
+    text: "Only alphanumerics, spaces and punctuations",
     unsanitizedInputFound:
       "Invalid characters, avoid the use of =, +, @, commas, semicolons," +
       "tabs + or carriage returns in sensitive fields",

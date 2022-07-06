@@ -4,42 +4,26 @@ import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { ConfigurableValidator } from "revalidate";
 import { array, object, string } from "yup";
 
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
-import { Col, Row } from "components/Layout";
+import { Input } from "components/Input";
+import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
+import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
-import {
-  FormikCheckbox,
-  FormikDropdown,
-  FormikText,
-  FormikTextArea,
-} from "utils/forms/fields";
-import {
-  alphaNumeric,
-  composeValidators,
-  maxLength,
-  required,
-  validTextField,
-} from "utils/validations";
+import { FormikCheckbox } from "utils/forms/fields";
 
-const MAX_DESCRIPTION_LENGTH: number = 200;
-const MAX_GROUP_NAME_LENGTH: number = 20;
-
-const maxDescriptionLength: ConfigurableValidator = maxLength(
-  MAX_DESCRIPTION_LENGTH
-);
-const maxGroupNameLength: ConfigurableValidator = maxLength(
-  MAX_GROUP_NAME_LENGTH
-);
+const MAX_DESCRIPTION_LENGTH = 200;
+const MAX_GROUP_LENGTH = 20;
+const MAX_ORG_LENGTH = 10;
+const MIN_ORG_LENGTH = 4;
 
 interface IAddOrganizationProps {
   isSubmitting: boolean;
@@ -88,16 +72,20 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
     setShowCancelModal(false);
   }
 
-  const minOrgLenth = 4;
-  const maxOrgLength = 10;
   const validations = object().shape({
-    groupDescription: string().required(),
-    groupName: string().required(),
+    groupDescription: string()
+      .required()
+      .max(MAX_DESCRIPTION_LENGTH)
+      .matches(/^[\w\-\s,;.¿?¡!]+$/u, t("validations.text")),
+    groupName: string()
+      .required()
+      .max(MAX_GROUP_LENGTH)
+      .matches(/^[a-zA-Z0-9]+$/u, t("validations.alphanumeric")),
     organizationName: string()
       .required()
-      .min(minOrgLenth)
-      .max(maxOrgLength)
-      .matches(/^[a-zA-Z]+$/u),
+      .min(MIN_ORG_LENGTH)
+      .max(MAX_ORG_LENGTH)
+      .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
     reportLanguage: string().required(),
     terms: array().of(string()).required().length(1, t("validations.required")),
   });
@@ -112,182 +100,152 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       >
         <Form>
           <Row justify={"flex-start"}>
-            <Col>
-              <Row>
-                <Col>
-                  <strong>
+            <Col large={"100"} medium={"100"} small={"100"}>
+              <Input
+                disabled={successMutation.organization}
+                label={
+                  <Fragment>
                     {t("autoenrollment.addOrganization.organizationName.label")}
-                  </strong>
-                  <TooltipWrapper
-                    displayClass={"dib"}
-                    id={"addGroupTooltip"}
-                    message={t("sidebar.newOrganization.modal.nameTooltip")}
-                    placement={"top"}
-                  >
-                    <FontAwesomeIcon
-                      color={"#b0b0bf"}
-                      icon={faCircleInfo}
-                      size={"sm"}
-                    />
-                  </TooltipWrapper>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Field
-                    component={FormikText}
-                    disabled={successMutation.organization}
-                    name={"organizationName"}
-                    placeholder={t(
-                      "autoenrollment.addOrganization.organizationName.placeholder"
-                    )}
-                    type={"text"}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <strong>
-                    {t("autoenrollment.addOrganization.groupName.label")}
-                  </strong>
-                  <TooltipWrapper
-                    displayClass={"dib"}
-                    id={"addGroupTooltip"}
-                    message={t("sidebar.newOrganization.modal.nameTooltip")}
-                    placement={"top"}
-                  >
-                    <FontAwesomeIcon
-                      color={"#b0b0bf"}
-                      icon={faCircleInfo}
-                      size={"sm"}
-                    />
-                  </TooltipWrapper>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Field
-                    component={FormikText}
-                    disabled={successMutation.group}
-                    name={"groupName"}
-                    placeholder={t(
-                      "autoenrollment.addOrganization.groupName.placeholder"
-                    )}
-                    type={"text"}
-                    validate={composeValidators([
-                      alphaNumeric,
-                      maxGroupNameLength,
-                      required,
-                      validTextField,
-                    ])}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <p>{t("autoenrollment.addOrganization.reportLanguageTip")}</p>
-                  <strong>
-                    {t("autoenrollment.addOrganization.reportLanguage")}
-                  </strong>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Field component={FormikDropdown} name={"reportLanguage"}>
-                    <option value={""}>{""}</option>
-                    <option value={"EN"}>
-                      {t("organization.tabs.groups.newGroup.language.EN")}
-                    </option>
-                    <option value={"ES"}>
-                      {t("organization.tabs.groups.newGroup.language.ES")}
-                    </option>
-                  </Field>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <strong>
-                    {t("autoenrollment.addOrganization.groupDescription.label")}
-                  </strong>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Field
-                    component={FormikTextArea}
-                    name={"groupDescription"}
-                    placeholder={t(
-                      "autoenrollment.addOrganization.groupDescription.placeholder"
-                    )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      maxDescriptionLength,
-                      validTextField,
-                    ])}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <strong>
-                    {t("autoenrollment.addOrganization.roleTitle")}
-                  </strong>
-                  <p>{t("autoenrollment.addOrganization.role")}</p>
-                </Col>
-              </Row>
-              <Row justify={"center"}>
-                <Col>
-                  <Field
-                    component={FormikCheckbox}
-                    label={""}
-                    name={"terms"}
-                    type={"checkbox"}
-                    value={"accept"}
-                  >
-                    <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-                      {t("autoenrollment.addOrganization.termsOfService")}
-                    </ExternalLink>
-                  </Field>
-                </Col>
-              </Row>
-              <Row justify={"center"}>
-                <Col>
-                  {!showSubmitAlert && orgMessages.message !== "" && (
-                    <Alert
-                      icon={true}
-                      timer={setShowSubmitAlert}
-                      variant={orgMessages.type as IAlertProps["variant"]}
+                    <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"addGroupTooltip"}
+                      message={t("sidebar.newOrganization.modal.nameTooltip")}
+                      placement={"top"}
                     >
-                      {orgMessages.message}
-                    </Alert>
-                  )}
-                  <Button
-                    disabled={isSubmitting}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    {t("autoenrollment.addOrganization.proceed")}
-                  </Button>
-                </Col>
-              </Row>
-              <Row justify={"center"}>
-                <Col>
-                  <Button onClick={cancelClick}>
-                    {t("components.modal.cancel")}
-                  </Button>
-                  <Modal onClose={noClick} open={showCancelModal} title={""}>
-                    <p>{t("autoenrollment.cancelModal.body")}</p>
-                    <ModalConfirm
-                      onCancel={noClick}
-                      onConfirm={yesClick}
-                      txtCancel={t("autoenrollment.cancelModal.no")}
-                      txtConfirm={t("autoenrollment.cancelModal.yes")}
-                    />
-                  </Modal>
-                </Col>
-              </Row>
+                      <FontAwesomeIcon
+                        color={"#b0b0bf"}
+                        icon={faCircleInfo}
+                        size={"sm"}
+                      />
+                    </TooltipWrapper>
+                  </Fragment>
+                }
+                name={"organizationName"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.organizationName.placeholder"
+                )}
+              />
             </Col>
+            <Col large={"100"} medium={"100"} small={"100"}>
+              <Input
+                disabled={successMutation.group}
+                label={
+                  <Fragment>
+                    {t("autoenrollment.addOrganization.groupName.label")}
+                    <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"addGroupTooltip"}
+                      message={t("sidebar.newOrganization.modal.nameTooltip")}
+                      placement={"top"}
+                    >
+                      <FontAwesomeIcon
+                        color={"#b0b0bf"}
+                        icon={faCircleInfo}
+                        size={"sm"}
+                      />
+                    </TooltipWrapper>
+                  </Fragment>
+                }
+                name={"groupName"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.groupName.placeholder"
+                )}
+              />
+            </Col>
+            <Col large={"100"} medium={"100"} small={"100"}>
+              <Input
+                label={
+                  <Fragment>
+                    {t("autoenrollment.addOrganization.reportLanguage")}
+                    <TooltipWrapper
+                      displayClass={"dib"}
+                      id={"addGroupTooltip"}
+                      message={t(
+                        "autoenrollment.addOrganization.reportLanguageTip"
+                      )}
+                      placement={"top"}
+                    >
+                      <FontAwesomeIcon
+                        color={"#b0b0bf"}
+                        icon={faCircleInfo}
+                        size={"sm"}
+                      />
+                    </TooltipWrapper>
+                  </Fragment>
+                }
+                name={"reportLanguage"}
+                type={"select"}
+              >
+                <option value={""}>{""}</option>
+                <option value={"EN"}>
+                  {t("organization.tabs.groups.newGroup.language.EN")}
+                </option>
+                <option value={"ES"}>
+                  {t("organization.tabs.groups.newGroup.language.ES")}
+                </option>
+              </Input>
+            </Col>
+            <Col large={"100"} medium={"100"} small={"100"}>
+              <Input
+                label={t(
+                  "autoenrollment.addOrganization.groupDescription.label"
+                )}
+                name={"groupDescription"}
+                placeholder={t(
+                  "autoenrollment.addOrganization.groupDescription.placeholder"
+                )}
+                type={"textarea"}
+              />
+            </Col>
+            <Col large={"100"} medium={"100"} small={"100"}>
+              <Field
+                component={FormikCheckbox}
+                label={""}
+                name={"terms"}
+                type={"checkbox"}
+                value={"accept"}
+              >
+                <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+                  <Text disp={"inline"}>
+                    {t("autoenrollment.addOrganization.termsOfService")}
+                  </Text>
+                </ExternalLink>
+              </Field>
+            </Col>
+            <Text fw={7} mb={1} mt={2}>
+              {t("autoenrollment.addOrganization.roleTitle")}
+            </Text>
+            <Text mb={2}>{t("autoenrollment.addOrganization.role")}</Text>
+            {!showSubmitAlert && orgMessages.message !== "" && (
+              <Alert
+                icon={true}
+                timer={setShowSubmitAlert}
+                variant={orgMessages.type as IAlertProps["variant"]}
+              >
+                {orgMessages.message}
+              </Alert>
+            )}
+            <Gap>
+              <Button
+                disabled={isSubmitting}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("autoenrollment.addOrganization.proceed")}
+              </Button>
+              <Button onClick={cancelClick}>
+                {t("components.modal.cancel")}
+              </Button>
+            </Gap>
+            <Modal onClose={noClick} open={showCancelModal} title={""}>
+              <Text>{t("autoenrollment.cancelModal.body")}</Text>
+              <ModalConfirm
+                onCancel={noClick}
+                onConfirm={yesClick}
+                txtCancel={t("autoenrollment.cancelModal.no")}
+                txtConfirm={t("autoenrollment.cancelModal.yes")}
+              />
+            </Modal>
           </Row>
         </Form>
       </Formik>

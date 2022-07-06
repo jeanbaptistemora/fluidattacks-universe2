@@ -255,7 +255,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
                       placeholder={t(
                         "group.scope.git.repo.credentials.sshHint"
                       )}
-                      rows={3}
                       type={"textarea"}
                     />
                   </Col>

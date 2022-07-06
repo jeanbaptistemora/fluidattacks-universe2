@@ -82,6 +82,7 @@ const Text = styled.p.attrs(
     display: ${disp};
     text-align: start;
     transition: all 0.3s ease;
+    width: ${disp === "block" ? "100%" : "auto"};
 
     :hover {
       color: #${colors[hoverTone][hoverBright]};

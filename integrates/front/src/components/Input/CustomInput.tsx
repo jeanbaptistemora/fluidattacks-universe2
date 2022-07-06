@@ -44,7 +44,7 @@ const CustomInput: React.FC<
   onFocus,
   onKeyDown,
   placeholder,
-  rows = 2,
+  rows = 3,
   type,
   variant = "solid",
 }: Readonly<
