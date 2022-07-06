@@ -31,7 +31,6 @@ from db_model.findings.enums import (
     FindingStateStatus,
 )
 from dynamodb import (
-    historics,
     keys,
     operations,
 )
@@ -79,55 +78,35 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
 
     items: list[Item] = []
     state_item = format_state_item(finding.state)
-    historic_state = historics.build_historic(
-        attributes=state_item,
-        historic_facet=TABLE.facets["finding_historic_state"],
-        key_structure=key_structure,
-        key_values={
-            "iso8601utc": finding.state.modified_date,
-            "group_name": finding.group_name,
+    state_key = keys.build_key(
+        facet=TABLE.facets["finding_historic_state"],
+        values={
             "id": finding.id,
+            "iso8601utc": finding.state.modified_date,
         },
-        latest_facet=TABLE.facets["finding_state"],
     )
-    items.extend(historic_state)
-    creation_key = keys.build_key(
-        facet=TABLE.facets["finding_creation"],
-        values={"group_name": finding.group_name, "id": finding.id},
-    )
-    creation = {
-        key_structure.partition_key: creation_key.partition_key,
-        key_structure.sort_key: creation_key.sort_key,
+    historic_state_item = {
+        key_structure.partition_key: state_key.partition_key,
+        key_structure.sort_key: state_key.sort_key,
         **state_item,
     }
-    items.append(creation)
-    unreliable_indicators_key = keys.build_key(
-        facet=TABLE.facets["finding_unreliable_indicators"],
-        values={"group_name": finding.group_name, "id": finding.id},
-    )
-    unreliable_indicators_item = format_unreliable_indicators_item(
-        finding.unreliable_indicators
-    )
-    unreliable_indicators = {
-        key_structure.partition_key: unreliable_indicators_key.partition_key,
-        key_structure.sort_key: unreliable_indicators_key.sort_key,
-        **unreliable_indicators_item,
-    }
-    items.append(unreliable_indicators)
+    items.append(historic_state_item)
+
     if finding.verification is not None:
-        verification, historic_verification = historics.build_historic(
-            attributes=format_verification_item(finding.verification),
-            historic_facet=TABLE.facets["finding_historic_verification"],
-            key_structure=key_structure,
-            key_values={
-                "iso8601utc": finding.verification.modified_date,
-                "group_name": finding.group_name,
+        verification_item = format_verification_item(finding.verification)
+        verification_key = keys.build_key(
+            facet=TABLE.facets["finding_historic_verification"],
+            values={
                 "id": finding.id,
+                "iso8601utc": finding.verification.modified_date,
             },
-            latest_facet=TABLE.facets["finding_verification"],
         )
-        items.append(verification)
-        items.append(historic_verification)
+        historic_verification_item = {
+            key_structure.partition_key: verification_key.partition_key,
+            key_structure.sort_key: verification_key.sort_key,
+            **verification_item,
+        }
+        items.append(historic_verification_item)
 
     metadata_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
@@ -156,7 +135,9 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "requirements": finding.requirements,
         "title": finding.title,
         "threat": finding.threat,
-        "unreliable_indicators": unreliable_indicators_item,
+        "unreliable_indicators": format_unreliable_indicators_item(
+            finding.unreliable_indicators
+        ),
         "verification": format_verification_item(finding.verification)
         if finding.verification
         else None,
