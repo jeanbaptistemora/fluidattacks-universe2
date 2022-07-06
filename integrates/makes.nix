@@ -4,6 +4,7 @@
     ./back/makes.nix
     ./infra/makes.nix
     ./pipeline/makes.nix
+    ./jobs/makes.nix
   ];
   secretsForAwsFromEnv = {
     prodIntegrates = {
