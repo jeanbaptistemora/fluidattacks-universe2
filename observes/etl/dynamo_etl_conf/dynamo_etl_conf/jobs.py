@@ -82,4 +82,9 @@ class Jobs:
         )
 
     def core_no_cache(self) -> Cmd[None]:
-        return self._default_run(TargetTables.CORE, True, Maybe.empty(), False)
+        return self._default_run(
+            TargetTables.CORE,
+            True,
+            Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
+            False,
+        )
