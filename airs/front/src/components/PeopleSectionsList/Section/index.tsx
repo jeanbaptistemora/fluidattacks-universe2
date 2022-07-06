@@ -1,6 +1,6 @@
 /* eslint react/forbid-component-props: 0 */
 import React from "react";
-import ScrollAnimation from "react-animate-on-scroll";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 import { CloudImage } from "../../CloudImage";
 import {
@@ -30,9 +30,12 @@ const PeopleSection: React.FC<IProps> = ({
     <SectionContainer>
       <div>
         <LeftColumn className={"tl-l tc"}>
-          <ScrollAnimation animateIn={"animate__fadeInLeft"} animateOnce={true}>
+          <AnimationOnScroll
+            animateIn={"animate__fadeInLeft"}
+            animateOnce={true}
+          >
             <CloudImage alt={imageAlt} src={imageSrc} />
-          </ScrollAnimation>
+          </AnimationOnScroll>
         </LeftColumn>
         <RightColumn className={"tl mw6"}>
           <SectionTitle>{title}</SectionTitle>
@@ -44,12 +47,12 @@ const PeopleSection: React.FC<IProps> = ({
     <SectionContainer>
       <div>
         <RightColumn className={"tl-l tc"}>
-          <ScrollAnimation
+          <AnimationOnScroll
             animateIn={"animate__fadeInRight"}
             animateOnce={true}
           >
             <CloudImage alt={imageAlt} src={imageSrc} />
-          </ScrollAnimation>
+          </AnimationOnScroll>
         </RightColumn>
         <LeftColumn className={"tl mw6"}>
           <SectionTitle>{title}</SectionTitle>

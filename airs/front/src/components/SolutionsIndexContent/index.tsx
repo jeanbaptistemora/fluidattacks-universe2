@@ -1,7 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { Link } from "gatsby";
 import React from "react";
-import ScrollAnimation from "react-animate-on-scroll";
+import { AnimationOnScroll } from "react-animation-on-scroll";
 
 import {
   BlackListItemSpaced,
@@ -31,13 +31,13 @@ const SolutionsIndexContent: React.FC<IProps> = ({
 }: IProps): JSX.Element => (
   <SolutionCardContainer>
     <FullWidthContainer>
-      <ScrollAnimation animateIn={animation} animateOnce={true}>
+      <AnimationOnScroll animateIn={animation} animateOnce={true}>
         <HalfScreenContainer>
           <Link to={link}>
             <img alt={"devSecOps Solution"} src={image} />
           </Link>
         </HalfScreenContainer>
-      </ScrollAnimation>
+      </AnimationOnScroll>
       <FullWidthContainerPlain>
         <SolutionsSectionDescription>
           <BlackListItemSpaced>

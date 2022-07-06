@@ -15,7 +15,7 @@ makeScript {
   name = "airs-lint-code";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.nodejs
+      inputs.nixpkgs.nodejs-16_x
     ];
     source = [
       outputs."/airs/npm/runtime"
