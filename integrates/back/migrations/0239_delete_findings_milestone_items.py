@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name
 """
-Take findings latest states to the metadata item along with the
-unreliable indicators
+Remove unwanted finding items for latest states and unreliable indicators.
+This info is now in the metadata.
 
 Execution Time:
 Finalization Time:
@@ -12,7 +12,7 @@ from aioextensions import (
     run,
 )
 from boto3.dynamodb.conditions import (
-    Attr,
+    Key,
 )
 from dataloaders import (
     Dataloaders,
@@ -24,14 +24,15 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.findings.utils import (
-    format_state_item,
-    format_unreliable_indicators_item,
-    format_verification_item,
+from db_model.groups.types import (
+    Group,
 )
 from dynamodb import (
     keys,
     operations,
+)
+from dynamodb.types import (
+    PrimaryKey,
 )
 import logging
 import logging.config
@@ -50,43 +51,59 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_finding(finding: Finding) -> None:
-    key_structure = TABLE.primary_key
-    metadata_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": finding.group_name, "id": finding.id},
     )
-    metadata_item = {
-        "state": format_state_item(finding.state),
-        "creation": format_state_item(finding.creation),
-        "unreliable_indicators": format_unreliable_indicators_item(
-            finding.unreliable_indicators
+    index = TABLE.indexes["inverted_index"]
+    response_index = await operations.query(
+        condition_expression=(
+            Key(index.primary_key.partition_key).eq(primary_key.sort_key)
+            & Key(index.primary_key.sort_key).begins_with(
+                primary_key.partition_key
+            )
         ),
-    }
-    if finding.approval:
-        metadata_item["approval"] = format_state_item(finding.approval)
-    if finding.submission:
-        metadata_item["submission"] = format_state_item(finding.submission)
-    if finding.verification:
-        metadata_item["verification"] = format_verification_item(
-            finding.verification
+        facets=(
+            TABLE.facets["finding_approval"],
+            TABLE.facets["finding_creation"],
+            TABLE.facets["finding_state"],
+            TABLE.facets["finding_submission"],
+            TABLE.facets["finding_unreliable_indicators"],
+            TABLE.facets["finding_verification"],
+        ),
+        index=index,
+        table=TABLE,
+    )
+
+    items = set(
+        PrimaryKey(
+            partition_key=item[TABLE.primary_key.partition_key],
+            sort_key=item[TABLE.primary_key.sort_key],
         )
-    await operations.update_item(
-        condition_expression=Attr(key_structure.partition_key).exists(),
-        item=metadata_item,
-        key=metadata_key,
+        for item in response_index.items
+        if item[TABLE.primary_key.partition_key] != primary_key.partition_key
+    )
+    await operations.batch_delete_item(
+        keys=tuple(
+            PrimaryKey(
+                partition_key=item.partition_key,
+                sort_key=item.sort_key,
+            )
+            for item in items
+        ),
         table=TABLE,
     )
 
 
 async def process_group(
     *,
-    group_name: str,
+    group: Group,
     loaders: Dataloaders,
     progress: float,
 ) -> None:
     group_findings: tuple[
         Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    ] = await loaders.group_drafts_and_findings.load(group.name)
     await collect(
         tuple(process_finding(finding=finding) for finding in group_findings),
         workers=16,
@@ -96,7 +113,7 @@ async def process_group(
         "Group processed",
         extra={
             "extra": {
-                "group_name": group_name,
+                "group_name": group.name,
                 "drafts_and_findings": len(group_findings),
                 "progress": round(progress, 2),
             }
@@ -115,7 +132,7 @@ async def main() -> None:
     await collect(
         tuple(
             process_group(
-                group_name=group_name,
+                group=group_name,
                 loaders=loaders,
                 progress=count / len(active_group_names),
             )
