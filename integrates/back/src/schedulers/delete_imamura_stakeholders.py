@@ -8,6 +8,9 @@ from dataloaders import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -27,15 +30,19 @@ async def delete_imamura_stakeholders() -> None:
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
     organization_stakeholders_loader = loaders.organization_stakeholders
-    org_stakeholders = await organization_stakeholders_loader.load(org_id)
+    org_stakeholders: list[
+        Stakeholder
+    ] = await organization_stakeholders_loader.load(org_id)
     inactive_stakeholders = [
         stakeholder
         for stakeholder in org_stakeholders
         if (
-            stakeholder["last_login"]
+            stakeholder.last_login_date
             and (
                 datetime_utils.get_plus_delta(
-                    datetime_utils.get_from_str(stakeholder["last_login"]),
+                    datetime_utils.get_datetime_from_iso_str(
+                        stakeholder.last_login_date
+                    ),
                     days=60,
                 )
                 < datetime_utils.get_now()
@@ -44,7 +51,7 @@ async def delete_imamura_stakeholders() -> None:
     ]
     inactive_stakeholder_orgs = await collect(
         [
-            orgs_domain.get_user_organizations(inactive_stakeholder["email"])
+            orgs_domain.get_user_organizations(inactive_stakeholder.email)
             for inactive_stakeholder in inactive_stakeholders
         ]
     )
@@ -58,7 +65,7 @@ async def delete_imamura_stakeholders() -> None:
     await collect(
         [
             orgs_domain.remove_user(
-                loaders, org_id, stakeholder_to_delete["email"], modified_by
+                loaders, org_id, stakeholder_to_delete.email, modified_by
             )
             for stakeholder_to_delete in stakeholders_to_delete
         ]

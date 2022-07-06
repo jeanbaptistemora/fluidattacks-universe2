@@ -57,6 +57,9 @@ from db_model.roots.types import (
     GitRoot,
     Root,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from decimal import (
     Decimal,
 )
@@ -705,14 +708,14 @@ async def send_mail_policies(
         "date": datetime_utils.get_datetime_from_iso_str(date),
     }
 
-    org_stakeholders_loaders = await loaders.organization_stakeholders.load(
-        organization_id
-    )
+    org_stakeholders_loaders: list[
+        Stakeholder
+    ] = await loaders.organization_stakeholders.load(organization_id)
 
     stakeholders_emails = [
-        stakeholder["email"]
+        stakeholder.email
         for stakeholder in org_stakeholders_loaders
-        if stakeholder["role"] in ["customer_manager", "user_manager"]
+        if stakeholder.role in ["customer_manager", "user_manager"]
     ]
 
     if policies_content:

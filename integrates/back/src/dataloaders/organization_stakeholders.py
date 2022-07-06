@@ -5,11 +5,20 @@ from aioextensions import (
     collect,
 )
 import authz
+from custom_exceptions import (
+    StakeholderNotFound,
+)
+from dataloaders.stakeholder import (
+    get_stakeholder,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
+from newutils.stakeholders import (
+    get_invitation_state,
+)
 from organizations import (
     domain as orgs_domain,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -20,23 +29,23 @@ from typing import (
 )
 
 
-def get_invitation_state(
-    invitation: Dict[str, Any], stakeholder: Dict[str, Any]
-) -> str:
-    if invitation and not invitation["is_used"]:
-        return "PENDING"
-    if not stakeholder.get("is_registered", False):
-        return "UNREGISTERED"
-    return "CONFIRMED"
-
-
-async def _get_stakeholder(email: str, org_id: str) -> Dict[str, Any]:
-    organization_access, stakeholder = await collect(
-        (
-            orgs_domain.get_user_access(org_id, email),
-            stakeholders_domain.get_by_email(email),
+async def _get_org_users(email: str, org_id: str) -> Dict[str, Any]:
+    try:
+        organization_access, stakeholder = await collect(
+            (
+                orgs_domain.get_user_access(org_id, email),
+                get_stakeholder(email=email),
+            )
         )
-    )
+    except StakeholderNotFound:
+        organization_access = await orgs_domain.get_user_access(org_id, email)
+        stakeholder = Stakeholder(
+            email=email,
+            first_name="",
+            last_name="",
+            is_registered=False,
+        )
+
     invitation = organization_access.get("invitation")
     invitation_state = get_invitation_state(invitation, stakeholder)
     if invitation_state == "PENDING":
@@ -44,12 +53,12 @@ async def _get_stakeholder(email: str, org_id: str) -> Dict[str, Any]:
     else:
         org_role = await authz.get_organization_level_role(email, org_id)
 
-    return {
-        **stakeholder,
-        "responsibility": "",
-        "invitation_state": invitation_state,
-        "role": org_role,
-    }
+    stakeholder = stakeholder._replace(
+        responsibility=None,
+        invitation_state=invitation_state,
+        role=org_role,
+    )
+    return stakeholder
 
 
 async def get_stakeholders_by_organization(
@@ -59,7 +68,7 @@ async def get_stakeholders_by_organization(
         organization_id
     )
     org_stakeholders = await collect(
-        _get_stakeholder(email, organization_id)
+        _get_org_users(email, organization_id)
         for email in org_stakeholders_emails
     )
     return tuple(org_stakeholders)

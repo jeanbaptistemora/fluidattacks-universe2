@@ -22,6 +22,9 @@ from db_model.organizations.types import (
 from db_model.portfolios.types import (
     Portfolio,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -431,9 +434,11 @@ async def test_remove_imamura_stakeholders() -> None:
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
     org_stakeholders_loader = loaders.organization_stakeholders
-    org_stakeholders = await org_stakeholders_loader.load(org_id)
+    org_stakeholders: list[Stakeholder] = await org_stakeholders_loader.load(
+        org_id
+    )
     org_stakeholders_emails = [
-        stakeholder["email"] for stakeholder in org_stakeholders
+        stakeholder.email for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == [
         "deleteimamura@fluidattacks.com",  # NOSONAR
@@ -456,7 +461,7 @@ async def test_remove_imamura_stakeholders() -> None:
     org_stakeholders_loader = loaders.organization_stakeholders
     org_stakeholders = await org_stakeholders_loader.load(org_id)
     org_stakeholders_emails = [
-        stakeholder["email"] for stakeholder in org_stakeholders
+        stakeholder.email for stakeholder in org_stakeholders
     ]
     assert org_stakeholders_emails == ["nodeleteimamura@fluidattacks.com"]
     remove_stakeholder = await stakeholders_dal.get(

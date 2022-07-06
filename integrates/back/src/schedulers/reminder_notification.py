@@ -51,19 +51,19 @@ async def send_reminder_notification() -> None:
     orgs_ids: set[str] = set(group.organization_id for group in groups)
 
     stakeholders_emails: list[str] = [
-        stakeholder["email"]
+        stakeholder.email
         for org_id in orgs_ids
         for stakeholder in await loaders.organization_stakeholders.load(org_id)
         if (
-            stakeholder["last_login"]
+            stakeholder.last_login_date
             and (
                 datetime_utils.get_now()
                 - datetime_utils.get_datetime_from_iso_str(
-                    stakeholder["last_login"]
+                    stakeholder.last_login_date
                 )
             ).days
             == INACTIVE_DAYS
-            and stakeholder["role"] in ["customer_manager", "user_manager"]
+            and stakeholder.role in ["customer_manager", "user_manager"]
         )
     ]
 

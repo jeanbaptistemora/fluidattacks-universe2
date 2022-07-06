@@ -15,6 +15,7 @@ from graphql.type.definition import (
 )
 from newutils.stakeholders import (
     format_stakeholder,
+    format_stakeholder_item,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -55,6 +56,10 @@ async def resolve_no_cache(
         info.context.loaders.organization_stakeholders
     )
     org_stakeholders: List[
-        Dict[str, Any]
+        Stakeholder
     ] = await organization_stakeholders_loader.load(org_id)
-    return org_stakeholders
+    org_stakeholders_item = [
+        format_stakeholder_item(group_stakeholder)
+        for group_stakeholder in org_stakeholders
+    ]
+    return org_stakeholders_item
