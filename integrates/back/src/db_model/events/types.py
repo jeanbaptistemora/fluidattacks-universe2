@@ -31,6 +31,10 @@ class EventState(NamedTuple):
     reason: Optional[EventSolutionReason] = None
 
 
+class EventUnreliableIndicators(NamedTuple):
+    unreliable_closing_date: Optional[str] = None
+
+
 class Event(NamedTuple):
     client: str
     description: str
@@ -51,8 +55,15 @@ class Event(NamedTuple):
     affected_components: Optional[set[EventAffectedComponents]] = None
     context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None
+    unreliable_indicators: EventUnreliableIndicators = (
+        EventUnreliableIndicators()
+    )
 
 
 class EventMetadataToUpdate(NamedTuple):
     client: Optional[str] = None
     description: Optional[str] = None
+
+
+class EventUnreliableIndicatorsToUpdate(NamedTuple):
+    unreliable_closing_date: Optional[str] = None

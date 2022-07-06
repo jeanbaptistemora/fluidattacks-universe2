@@ -4,6 +4,7 @@ from .types import (
     EventEvidences,
     EventMetadataToUpdate,
     EventState,
+    EventUnreliableIndicators,
 )
 from db_model.events.enums import (
     EventAccessibility,
@@ -38,6 +39,11 @@ def format_evidences(evidences: Item) -> EventEvidences:
 
 
 def format_event(item: Item) -> Event:
+    unreliable_indicators = (
+        format_unreliable_indicators(item["unreliable_indicators"])
+        if "unreliable_indicators" in item
+        else EventUnreliableIndicators()
+    )
     return Event(
         action_after_blocking=EventActionsAfterBlocking[
             item["action_after_blocking"]
@@ -79,6 +85,7 @@ def format_event(item: Item) -> Event:
             else None,
         ),
         type=EventType[item["type"]],
+        unreliable_indicators=unreliable_indicators,
     )
 
 
@@ -131,4 +138,12 @@ def format_state(item: Item) -> EventState:
         reason=EventSolutionReason[item["reason"]]
         if item.get("reason")
         else None,
+    )
+
+
+def format_unreliable_indicators(
+    item: Item,
+) -> EventUnreliableIndicators:
+    return EventUnreliableIndicators(
+        unreliable_closing_date=item.get("unreliable_closing_date"),
     )
