@@ -16,6 +16,7 @@ from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
     FI_AWS_ACCESS_KEY_ID,
+    FI_AWS_REGION_NAME,
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_BUGSNAG_ACCESS_TOKEN,
@@ -44,14 +45,11 @@ from typing import (
     Literal,
 )
 
-# logging
-AWS_REGION_NAME = "us-east-1"
-
 BOTO3_SESSION = Session(
     aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
     aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
     aws_session_token=FI_AWS_SESSION_TOKEN,
-    region_name=AWS_REGION_NAME,
+    region_name=FI_AWS_REGION_NAME,
 )
 
 

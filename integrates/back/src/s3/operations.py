@@ -10,7 +10,9 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_ACCESS_KEY_ID,
+    FI_AWS_REGION_NAME,
     FI_AWS_SECRET_ACCESS_KEY,
+    FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
 )
 import contextlib
@@ -21,7 +23,6 @@ from custom_exceptions import (
 import io
 import logging
 import logging.config
-import os
 from settings import (
     LOGGING,
 )
@@ -44,8 +45,8 @@ LOGGER = logging.getLogger(__name__)
 OPTIONS = dict(
     aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
     aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
-    aws_session_token=os.environ.get("AWS_SESSION_TOKEN"),
-    region_name="us-east-1",
+    aws_session_token=FI_AWS_SESSION_TOKEN,
+    region_name=FI_AWS_REGION_NAME,
     service_name="s3",
 )
 

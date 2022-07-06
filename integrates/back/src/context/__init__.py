@@ -58,12 +58,12 @@ try:
     PRODUCT_API_TOKEN: Optional[str] = os.environ.get("PRODUCT_API_TOKEN")
     SERVICES_GITLAB_API_TOKEN = os.environ["SERVICES_GITLAB_API_TOKEN"]
     SERVICES_GITLAB_API_USER = os.environ["SERVICES_GITLAB_API_USER"]
-    SQS_QUEUE_URL = os.environ["SQS_QUEUE_URL"]
     STARTDIR = os.environ["STARTDIR"]
 
     # not secrets but must be environment vars
     BASE_URL = "https://app.fluidattacks.com"
     FI_AWS_REDSHIFT_PORT = 5439
+    FI_AWS_REGION_NAME = "us-east-1"
     FI_AWS_S3_ANALYTICS_BUCKET = "fluidintegrates.analytics"
     FI_AWS_S3_BUCKET = "fluidintegrates.evidences"
     FI_AWS_S3_FORCES_BUCKET = "fluidintegrates.forces"

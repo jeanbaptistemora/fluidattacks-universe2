@@ -7,6 +7,7 @@ from aiobotocore.config import (
 )
 from context import (
     FI_AWS_ACCESS_KEY_ID,
+    FI_AWS_REGION_NAME,
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_DYNAMODB_HOST,
@@ -46,7 +47,7 @@ RESOURCE_OPTIONS = {
         if FI_ENVIRONMENT == "development"
         else None
     ),
-    "region_name": "us-east-1",
+    "region_name": FI_AWS_REGION_NAME,
     "service_name": "dynamodb",
     "use_ssl": True,
     "verify": True,
