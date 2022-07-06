@@ -15,9 +15,14 @@ from dataloaders import (
     get_new_context,
 )
 from db_model import (
+    events as events_model,
     findings as findings_model,
     roots as roots_model,
     vulnerabilities as vulns_model,
+)
+from db_model.events.types import (
+    Event,
+    EventUnreliableIndicatorsToUpdate,
 )
 from db_model.findings.enums import (
     FindingStatus,
@@ -41,6 +46,9 @@ from decorators import (
 )
 from dynamodb.exceptions import (
     UnavailabilityError,
+)
+from events import (
+    domain as events_domain,
 )
 from findings import (
     domain as findings_domain,
@@ -69,6 +77,54 @@ from vulnerabilities.types import (
     Treatments,
     Verifications,
 )
+
+
+@retry_on_exceptions(
+    exceptions=(
+        IndicatorAlreadyUpdated,
+        UnavailabilityError,
+    ),
+    max_attempts=20,
+    sleep_seconds=0,
+)
+async def update_event_unreliable_indicators(
+    loaders: Dataloaders,
+    event_id: str,
+    attrs_to_update: set[EntityAttr],
+) -> None:
+    event: Event = await loaders.event.load(event_id)
+    indicators = {}
+
+    if EntityAttr.closing_date in attrs_to_update:
+        indicators[
+            EntityAttr.closing_date
+        ] = events_domain.get_last_closing_date(loaders, event.id)
+
+    result = dict(zip(indicators.keys(), await collect(indicators.values())))
+
+    await events_model.update_unreliable_indicators(
+        current_value=event,
+        indicators=EventUnreliableIndicatorsToUpdate(
+            unreliable_closing_date=result.get(EntityAttr.closing_date),
+        ),
+    )
+
+
+async def update_events_unreliable_indicators(
+    event_ids: list[str],
+    attrs_to_update: set[EntityAttr],
+) -> None:
+    loaders = get_new_context()
+    await collect(
+        tuple(
+            update_event_unreliable_indicators(
+                loaders,
+                event_id,
+                attrs_to_update,
+            )
+            for event_id in set(event_ids)
+        )
+    )
 
 
 def _format_unreliable_status(
@@ -378,6 +434,14 @@ async def update_unreliable_indicators_by_deps(
         )
     )
     updates = []
+
+    if Entity.event in entities_to_update:
+        updates.append(
+            update_events_unreliable_indicators(
+                entities_to_update[Entity.finding].entity_ids[EntityId.ids],
+                entities_to_update[Entity.finding].attributes_to_update,
+            )
+        )
 
     if Entity.finding in entities_to_update:
         updates.append(

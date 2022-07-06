@@ -5,6 +5,7 @@ from enum import (
 
 
 class Entity(Enum):
+    event: str = "event"
     finding: str = "finding"
     root: str = "root"
     vulnerability: str = "vulnerability"
@@ -17,6 +18,7 @@ class EntityId(Enum):
 class EntityAttr(Enum):
     efficacy: str = "efficacy"
     closed_vulnerabilities: str = "closed_vulnerabilities"
+    closing_date: str = "closing_date"
     last_reattack_date: str = "last_reattack_date"
     last_reattack_requester: str = "last_reattack_requester"
     last_requested_reattack_date: str = "last_requested_reattack_date"
