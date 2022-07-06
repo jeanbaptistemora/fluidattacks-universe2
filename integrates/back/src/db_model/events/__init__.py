@@ -5,6 +5,7 @@ from .update import (
     update_evidence,
     update_metadata,
     update_state,
+    update_unreliable_indicators,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "update_evidence",
     "update_metadata",
     "update_state",
+    "update_unreliable_indicators",
 ]

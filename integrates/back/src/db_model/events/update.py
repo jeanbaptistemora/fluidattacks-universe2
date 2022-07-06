@@ -1,13 +1,16 @@
 from .types import (
+    Event,
     EventEvidence,
     EventMetadataToUpdate,
     EventState,
+    EventUnreliableIndicatorsToUpdate,
 )
 from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
     EventNotFound,
+    IndicatorAlreadyUpdated,
 )
 from db_model import (
     TABLE,
@@ -19,12 +22,16 @@ from db_model.events.enums import (
 from db_model.events.utils import (
     format_metadata_item,
 )
+from decimal import (
+    Decimal,
+)
 from dynamodb import (
     keys,
     operations,
 )
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
+    ValidationException,
 )
 import simplejson as json  # type: ignore
 from typing import (
@@ -131,3 +138,68 @@ async def update_state(
         item=historic_item,
         table=TABLE,
     )
+
+
+async def update_unreliable_indicators(
+    *,
+    current_value: Event,
+    indicators: EventUnreliableIndicatorsToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    primary_key = keys.build_key(
+        facet=TABLE.facets["event_metadata"],
+        values={
+            "id": current_value.id,
+            "name": current_value.group_name,
+        },
+    )
+    unreliable_indicators = {
+        f"unreliable_indicators.{key}": Decimal(str(value))
+        if isinstance(value, float)
+        else value
+        for key, value in json.loads(json.dumps(indicators)).items()
+        if value is not None
+    }
+    current_value_item = {
+        f"unreliable_indicators.{key}": Decimal(str(value))
+        if isinstance(value, float)
+        else value
+        for key, value in json.loads(
+            json.dumps(current_value.unreliable_indicators)
+        ).items()
+    }
+    conditions = (
+        (
+            Attr(indicator_name).not_exists()
+            | Attr(indicator_name).eq(current_value_item[indicator_name])
+        )
+        for indicator_name in unreliable_indicators
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    for condition in conditions:
+        condition_expression &= condition
+    try:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=unreliable_indicators,
+            key=primary_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise IndicatorAlreadyUpdated() from ex
+    except ValidationException:
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item={"unreliable_indicators": {}},
+            key=primary_key,
+            table=TABLE,
+        )
+        try:
+            await operations.update_item(
+                condition_expression=condition_expression,
+                item=unreliable_indicators,
+                key=primary_key,
+                table=TABLE,
+            )
+        except ConditionalCheckFailedException as ex:
+            raise IndicatorAlreadyUpdated() from ex
