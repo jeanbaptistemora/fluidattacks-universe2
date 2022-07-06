@@ -56,7 +56,6 @@ async def mutate(
 ) -> SimplePayload:
     try:
         finding_loader = info.context.loaders.finding
-        user_loader = info.context.loaders
         user_info = await token_utils.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         state_justification = StateRemovalJustification[justification]
@@ -74,7 +73,6 @@ async def mutate(
         )
         schedule(
             findings_mail.send_mail_remove_finding(
-                user_loader,
                 finding.id,
                 finding.title,
                 finding.group_name,

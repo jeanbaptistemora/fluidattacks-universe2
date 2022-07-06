@@ -8,6 +8,9 @@ from context import (
     BASE_URL,
     FI_MAIL_PROJECTS,
 )
+from custom_exceptions import (
+    StakeholderNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -94,7 +97,7 @@ async def get_remediated_findings() -> None:
             stakeholders_email,
             mail_context,
         )
-    except (TypeError, KeyError) as ex:
+    except (TypeError, KeyError, StakeholderNotFound) as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
 
 

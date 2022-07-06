@@ -7,6 +7,8 @@ from .common import (
 import authz
 from context import (
     BASE_URL,
+    FI_MAIL_CUSTOMER_SUCCESS,
+    FI_MAIL_REVIEWERS,
 )
 from datetime import (
     date,
@@ -141,8 +143,10 @@ async def send_mail_comment(
         if Notification.NEW_COMMENT
         in stakeholder.notifications_preferences.email
     ]
+    reviewers = FI_MAIL_REVIEWERS.split(",")
+    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
     await send_mails_async(
-        stakeholders_email,
+        [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
         f"[ASM] New comment in [{group_name}]",

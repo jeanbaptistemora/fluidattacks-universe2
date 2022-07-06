@@ -7,6 +7,7 @@ from .common import (
 import authz
 from context import (
     BASE_URL,
+    FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_REVIEWERS,
 )
 from db_model.enums import (
@@ -32,7 +33,6 @@ from typing import (
     Any,
     Dict,
     List,
-    Tuple,
 )
 
 
@@ -69,7 +69,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
@@ -78,8 +78,10 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         if Notification.NEW_COMMENT
         in stakeholder.notifications_preferences.email
     ]
+    reviewers = FI_MAIL_REVIEWERS.split(",")
+    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
     await send_mails_async(
-        stakeholders_email,
+        [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
         (
@@ -91,8 +93,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     )
 
 
-async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
-    loaders: Any,
+async def send_mail_remove_finding(
     finding_id: str,
     finding_name: str,
     group_name: str,
@@ -116,17 +117,8 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
         "group": group_name,
         "user_role": user_role.replace("_", " "),
     }
-    stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders
-        if Notification.REMEDIATE_FINDING
-        in stakeholder.notifications_preferences.email
-    ]
     await send_mails_async(
-        stakeholders_email,
+        recipients,
         mail_context,
         GENERAL_TAG,
         (
@@ -159,17 +151,8 @@ async def send_mail_new_draft(
         "organization": org_name,
         "user_role": user_role.replace("_", " "),
     }
-    stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders
-        if Notification.NEW_DRAFT
-        in stakeholder.notifications_preferences.email
-    ]
     await send_mails_async(
-        stakeholders_email,
+        recipients,
         email_context,
         GENERAL_TAG,
         f"[ASM] Draft submitted [{finding_title}] in [{group_name}]",
@@ -233,7 +216,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(group_name)
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
@@ -276,11 +259,11 @@ async def send_mail_vulnerability_report(
 ) -> None:
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
-    group_stakeholders: Tuple[
+    group_stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.group_stakeholders.load(group_name)
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
-    stakeholders: Tuple[
+    stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [

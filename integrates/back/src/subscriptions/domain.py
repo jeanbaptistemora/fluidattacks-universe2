@@ -11,8 +11,6 @@ from authz import (
 import base64
 from context import (
     FI_ENVIRONMENT,
-    FI_MAIL_CUSTOMER_SUCCESS,
-    FI_MAIL_REVIEWERS,
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
@@ -597,64 +595,22 @@ async def trigger_subscriptions_analytics() -> None:
     )
 
 
-async def is_user_subscribed_to_comments(
-    *,
-    user_email: str,
-) -> bool:
-    subscriptions = await get_user_subscriptions(user_email=user_email)
-    sub_to_comments = [
-        subscription
-        for subscription in subscriptions
-        if str(subscription["sk"]["entity"]).lower() == "comments"
-    ]
-    return len(sub_to_comments) > 0
-
-
-async def _get_consult_users(
-    *,
-    group_name: str,
-    comment_type: str,
-    is_finding_released: bool = True,
-) -> list[str]:
-    recipients = FI_MAIL_REVIEWERS.split(",")
-    users = await get_users_to_notify(group_name)
-    if comment_type.lower() == "observation" or not is_finding_released:
-        roles: list[str] = await collect(
-            [get_group_level_role(email, group_name) for email in users]
-        )
-        hackers = [
-            email for email, role in zip(users, roles) if role == "hacker"
-        ]
-
-        return [*recipients, *hackers]
-
-    return [*recipients, *users]
-
-
 async def get_users_subscribed_to_consult(
     *,
     group_name: str,
     comment_type: str,
     is_finding_released: bool = True,
 ) -> list[str]:
-    recipients: list[str] = await _get_consult_users(
-        group_name=group_name,
-        comment_type=comment_type,
-        is_finding_released=is_finding_released,
-    )
-    are_users_subscribed: list[bool] = await collect(
-        [
-            is_user_subscribed_to_comments(user_email=recipient)
-            for recipient in recipients
-        ]
-    )
-    suscribed_recipients = [
-        recipient
-        for recipient, is_user_subscribed in zip(
-            recipients, are_users_subscribed
+    users = await get_users_to_notify(group_name)
+    if comment_type.lower() == "observation" or not is_finding_released:
+        roles: list[str] = await collect(
+            tuple(get_group_level_role(email, group_name) for email in users),
+            workers=16,
         )
-        if is_user_subscribed
-    ]
-    customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
+        hackers = [
+            email for email, role in zip(users, roles) if role == "hacker"
+        ]
 
-    return [*suscribed_recipients, *customer_success_recipients]
+        return hackers
+
+    return users
