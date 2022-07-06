@@ -10,6 +10,89 @@ you can add and edit
 the repositories and environments
 to be included in the testing service
 
+## IP roots
+
+An IP address is the unique
+identifier of a device on the
+Internet or a local network.
+When you provide us with an IP address,
+we assess the security of all
+web applications accessible
+through this target.
+
+To add a new IP root,
+you need to go to the Scope
+section of the group of your
+choice and click on Add new root.
+A pop-up window will appear,
+asking you to enter the details
+of the root (in this case,
+IP address) you want to add.
+
+![IP Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141769/docs/web/groups/scope/iproot_add_new.png)
+
+Here are the definitions of
+the details you need to enter:
+
+- **Address:**
+  IP address where the
+  environment to be
+  assessed is deployed.
+- **Port:**
+  Service endpoint of the
+  environment within the device
+  identified with the IP address.
+- **Nickname:**
+  An alternative name to
+  easily identify the IP
+  root in the future.
+
+Once the IP address is added,
+it will be listed below IP Roots.
+There,
+it is shown whether it is active.
+Further,
+you can export the information in
+the table to a CSV (comma-separated values)
+file by clicking on the **Export** button.
+
+![IP Roots Export](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141769/docs/web/groups/scope/iproot_export.png)
+
+## URL roots
+
+URL roots are dynamic
+environments that have already
+been deployed to a web server.
+To add a new URL root,
+go to the Scope section of the
+group of your choice and click
+on the Add new root button.
+The following pop-up window will appear.
+
+![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141768/docs/web/groups/scope/urlroot_add_new.png)
+
+The details you need to enter
+are defined as follows:
+
+- **URL:**
+  Address where the
+  environment is deployed.
+- **Nickname:**
+  An alternative name to
+  easily identify the URL
+  root in the future.
+
+The URL roots you add will be
+listed below **URL Roots**.
+There,
+it is shown whether it is active.
+Further,
+you can export the information in the
+table to a CSV (comma-separated values)
+file by clicking on the **Export** button.
+
+![URL Roots Export](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141769/docs/web/groups/scope/urlroot_export.png)
+
 ## Single root assessment
 
 We assess only one
@@ -36,8 +119,9 @@ A component that can help you achieve this purpose is
 the SSH key (Security Shell), which you can use for authentication.
 By setting SSH keys, you can connect to your repository
 server without using a username and password.
-If you need to set up an SSH Key, we recommend reading
-this document: [Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account).
+If you need to set up an SSH Key,
+we recommend reading this document:
+[Use SSH keys to communicate with GitLab](https://docs.gitlab.com/ee/ssh/index.html#add-an-ssh-key-to-your-gitlab-account).
 There, we show you how to generate your private
 and public key step by step.
 
