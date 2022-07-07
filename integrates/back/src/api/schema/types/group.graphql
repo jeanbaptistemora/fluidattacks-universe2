@@ -163,12 +163,4 @@ type Group {
   userDeletion: String
   "Role of the current user within the group"
   userRole: String
-  "Assigned vulnerabilities of the current user within the group"
-  vulnerabilitiesAssigned: [Vulnerability!]
-    @deprecated(
-      reason: """
-      This field will be removed after 2022/06/28.
-      Use `vulnerabilitiesAssigned` from `Me` instead.
-      """
-    )
 }

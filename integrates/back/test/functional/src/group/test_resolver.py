@@ -1,6 +1,5 @@
 from . import (
     get_result,
-    get_vulnerabilities,
 )
 import pytest
 from typing import (
@@ -124,23 +123,3 @@ async def test_get_group_forces_token(populate: bool, email: str) -> None:
     assert result["data"]["group"]["forcesToken"] is not None
     test_token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ"
     assert result["data"]["group"]["forcesToken"] == test_token
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("group")
-@pytest.mark.parametrize(
-    ["email", "length"],
-    [
-        ["user@gmail.com", 1],
-        ["user_manager@gmail.com", 1],
-        ["vulnerability_manager@gmail.com", 1],
-    ],
-)
-async def test_get_assigned(populate: bool, email: str, length: int) -> None:
-    assert populate
-    group_name: str = "group1"
-    result: dict[str, Any] = await get_vulnerabilities(
-        user=email, group=group_name
-    )
-    assert "errors" not in result
-    assert len(result["data"]["group"]["vulnerabilitiesAssigned"]) == length

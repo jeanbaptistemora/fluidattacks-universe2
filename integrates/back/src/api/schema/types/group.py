@@ -44,7 +44,6 @@ from api.resolvers.group import (
     total_treatment,
     user_deletion,
     user_role,
-    vulnerabilities_assigned,
 )
 from ariadne import (
     ObjectType,
@@ -109,4 +108,3 @@ GROUP.set_field("userRole", user_role.resolve)
 GROUP.set_field("maxSeverity", max_severity.resolve)
 GROUP.set_field("maxSeverityFinding", max_severity_finding.resolve)
 GROUP.set_field("totalFindings", total_findings.resolve)
-GROUP.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
