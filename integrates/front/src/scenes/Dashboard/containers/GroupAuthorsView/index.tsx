@@ -474,7 +474,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     {
       defaultValue: filterAuthorsTable.invitationState ?? "",
       onChangeSelect: onFilterAuthorsTableChange,
-      placeholder: "Invitation",
+      placeholder: "Registration status",
       selectOptions: {
         Pending: "Pending",
         Registered: "Registered",

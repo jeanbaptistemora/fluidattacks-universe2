@@ -407,7 +407,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     {
       defaultValue: filterGroupStakeholdersTable.invitation,
       onChangeSelect: onInvitationChange,
-      placeholder: "Invitation",
+      placeholder: "Registration status",
       selectOptions: {
         CONFIRMED: "Confirmed",
         PENDING: "Pending",
