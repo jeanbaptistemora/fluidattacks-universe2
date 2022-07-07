@@ -6737,3 +6737,15 @@
       title: Resilience requirements - Impede comprehension
       link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
   metadata: {}
+"nist800171":
+  title: NIST 800-171
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "1_1":
+      title: Limit system access to authorized users, processes acting on behalf of authorized users and devices
+      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+  metadata: {}
