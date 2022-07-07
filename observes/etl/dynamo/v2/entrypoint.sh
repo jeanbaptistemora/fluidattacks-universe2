@@ -27,7 +27,7 @@ function get_schemas {
         --schema-folder "${out_folder}" \
         < "${input_data}" \
         > "${out_data}" \
-      && if test "${out_folder}" != "none"; then
+      && if test "${cache_bucket_folder}" != "none"; then
         echo '[INFO] Saving schemas...' \
           && aws_s3_sync "${out_folder}" "${cache_bucket_folder}" \
           && echo '[INFO] Schemas saved!'
