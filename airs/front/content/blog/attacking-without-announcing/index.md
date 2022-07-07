@@ -43,8 +43,10 @@ protecting their information by making it inaccessible
 or keeping it on paper is no longer viable.
 In a world where digital transformation is the norm,
 exposing more information to the client is a must.
-This transformation's benefits go from improving transaction times and costs
-to rising service windows and client satisfaction.
+This transformation's benefits
+go from improving transaction times and costs
+to rising client satisfaction
+and reducing or eliminating maintenance windows.
 Operations that were only possible on-site
 during office hours
 are now possible anywhere,
