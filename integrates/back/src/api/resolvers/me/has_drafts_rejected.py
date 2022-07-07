@@ -22,8 +22,4 @@ async def resolve(parent: dict[str, Any], info: GraphQLResolveInfo) -> bool:
         email
     )
 
-    return has_rejected_drafts(
-        drafts=await info.context.loaders.finding.load_many(
-            tuple(draft.id for draft in drafts)
-        )
-    )
+    return has_rejected_drafts(drafts=drafts)

@@ -81,11 +81,7 @@ async def mutate(
             Finding, ...
         ] = await info.context.loaders.me_drafts.load(user_email)
 
-        if has_rejected_drafts(
-            drafts=await info.context.loaders.finding.load_many(
-                tuple(draft.id for draft in user_drafts)
-            )
-        ):
+        if has_rejected_drafts(drafts=user_drafts):
             raise HasRejectedDrafts()
 
     try:
