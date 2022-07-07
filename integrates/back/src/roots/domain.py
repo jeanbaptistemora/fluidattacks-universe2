@@ -46,6 +46,7 @@ from db_model.enums import (
 )
 from db_model.groups.enums import (
     GroupStateStatus,
+    GroupSubscriptionType,
 )
 from db_model.groups.types import (
     Group,
@@ -209,10 +210,14 @@ async def add_git_root(  # pylint: disable=too-many-locals
         group.organization_id
     )
     organization_name = organization.id
-    if ensure_org_uniqueness and not validations.is_git_unique(
-        url,
-        branch,
-        await loaders.organization_roots.load(organization_name),
+    if (
+        ensure_org_uniqueness
+        and group.state.type != GroupSubscriptionType.ONESHOT
+        and not validations.is_git_unique(
+            url,
+            branch,
+            await loaders.organization_roots.load(organization_name),
+        )
     ):
         raise RepeatedRoot()
 
@@ -315,10 +320,14 @@ async def add_ip_root(
         group.organization_id
     )
     organization_name = organization.name
-    if ensure_org_uniqueness and not validations.is_ip_unique(
-        address,
-        port,
-        await loaders.organization_roots.load(organization_name),
+    if (
+        ensure_org_uniqueness
+        and group.state.type != GroupSubscriptionType.ONESHOT
+        and not validations.is_ip_unique(
+            address,
+            port,
+            await loaders.organization_roots.load(organization_name),
+        )
     ):
         raise RepeatedRoot()
 
@@ -389,13 +398,17 @@ async def add_url_root(  # pylint: disable=too-many-locals
         group.organization_id
     )
     organization_name = organization.name
-    if ensure_org_uniqueness and not validations.is_url_unique(
-        host,
-        path,
-        port,
-        protocol,
-        query,
-        await loaders.organization_roots.load(organization_name),
+    if (
+        ensure_org_uniqueness
+        and group.state.type != GroupSubscriptionType.ONESHOT
+        and not validations.is_url_unique(
+            host,
+            path,
+            port,
+            protocol,
+            query,
+            await loaders.organization_roots.load(organization_name),
+        )
     ):
         raise RepeatedRoot()
 
