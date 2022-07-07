@@ -4,10 +4,10 @@ title: Thick Clients
 description: Thick clients are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Thick Client, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Thick client applications are those in which most of the operations and
 information processing occurs on the client side, regardless of whether
@@ -20,7 +20,7 @@ vulnerabilities could affect both client-side and server-side systems.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 At Fluid Attacks, we can also help you detect vulnerabilities in your
 thick client applications. During the first steps of an application’s

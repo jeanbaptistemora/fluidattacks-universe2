@@ -4,10 +4,10 @@ title: Mobile Applications
 description: Mobile applications are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Mobile, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 The use of mobile devices has grown dramatically in recent years. This
 has gone in tandem with the increase of mobile applications (we are
@@ -21,7 +21,7 @@ prevent data leakages.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Fluid Attacks can help you with this mission through the work of our
 ethical hackers. With great skill and creativity, they are able to
@@ -34,7 +34,7 @@ accurately assess your mobile applications.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 In this case, the vulnerabilities to find are almost the same as for web
 applications, so we do not keep a narrow focus on OWASP Top 10 Mobile

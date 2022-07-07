@@ -4,10 +4,10 @@ title: Web Applications
 description: Web applications are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: luid Attacks, Web, Application, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Like any other software, web applications can be susceptible to showing
 vulnerabilities that put organizations’ and their clients’ information
@@ -20,7 +20,7 @@ them.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Our web application security testing goes beyond the most popular
 cybersecurity vulnerabilities (e.g., OWASP Top 10) and is performed from

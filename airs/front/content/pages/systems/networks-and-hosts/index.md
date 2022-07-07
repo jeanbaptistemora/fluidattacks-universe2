@@ -4,10 +4,10 @@ title: Networks and Hosts
 description: Networks are among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Internal Network, External Network, Hosts, Security, Continuous Hacking, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 The information flows that organizations usually establish and maintain
 in the current market are supported by external and internal networks.
@@ -23,7 +23,7 @@ company.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Our network security testing focuses on services, hosts and devices of
 your internal and external networks (e.g., PCs, servers, VPNs, DNSs,

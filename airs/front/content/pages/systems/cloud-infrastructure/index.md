@@ -4,10 +4,10 @@ title: Cloud Infrastructure
 description: Cloud infrastructure is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Cloud, Infrastructure, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 It is common today for many companies to move their systems and
 applications to the cloud, seeking benefits of higher speed and reduced
@@ -20,7 +20,7 @@ flow.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Our cloud security testing, which involves automatic and manual
 techniques such as SAST, DAST, IAST and SCA, does not have any problem

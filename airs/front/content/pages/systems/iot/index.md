@@ -4,10 +4,10 @@ title: Internet of Things (IoT)
 description: Internet of Things is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Internet of Things, IoT, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 IoT devices (e.g., cameras, scanners, sensors, vehicles) are becoming
 increasingly part of many organizations’ infrastructure, but this is
@@ -25,7 +25,7 @@ network.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Here at Fluid Attacks, we can help you with IoT devices’ continuous
 analyses using automatic scanning processes and manual hacking

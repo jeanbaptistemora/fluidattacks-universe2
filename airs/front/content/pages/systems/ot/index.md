@@ -5,10 +5,10 @@ category: systems
 description: Operational Technology is among the systems that we at Fluid Attacks help you evaluate to detect security vulnerabilities that you can subsequently remediate.
 keywords: Fluid Attacks, Operational Technology, SCADA, Continuous Hacking, Security, System, Ethical Hacking, Pentesting
 banner: bg-systems
-template: compliance
+template: system
 ---
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 Operational Technology (OT) contrasts with Information Technology (IT)
 because, although both use hardware and software, the former monitors
@@ -20,7 +20,7 @@ used.
 
 </div>
 
-<div class="paragraph fw3 f3 lh-2">
+<div class="paragraph fw3 f5 lh-2">
 
 It is in these types of systems, which collect data from sensors and
 send it to central systems, that we perform security testing at Fluid
