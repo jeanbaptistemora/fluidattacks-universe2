@@ -3,8 +3,8 @@
 Remove unwanted finding items for latest states and unreliable indicators.
 This info is now in the metadata.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-07-07 at 03:09:28 UTC
+Finalization Time: 2022-07-07 at 03:18:14 UTC
 """
 
 from aioextensions import (
@@ -23,9 +23,6 @@ from db_model import (
 )
 from db_model.findings.types import (
     Finding,
-)
-from db_model.groups.types import (
-    Group,
 )
 from dynamodb import (
     keys,
@@ -97,13 +94,13 @@ async def process_finding(finding: Finding) -> None:
 
 async def process_group(
     *,
-    group: Group,
+    group_name: str,
     loaders: Dataloaders,
     progress: float,
 ) -> None:
     group_findings: tuple[
         Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group.name)
+    ] = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(process_finding(finding=finding) for finding in group_findings),
         workers=16,
@@ -113,7 +110,7 @@ async def process_group(
         "Group processed",
         extra={
             "extra": {
-                "group_name": group.name,
+                "group_name": group_name,
                 "drafts_and_findings": len(group_findings),
                 "progress": round(progress, 2),
             }
@@ -132,7 +129,7 @@ async def main() -> None:
     await collect(
         tuple(
             process_group(
-                group=group_name,
+                group_name=group_name,
                 loaders=loaders,
                 progress=count / len(active_group_names),
             )
