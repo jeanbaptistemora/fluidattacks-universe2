@@ -1,12 +1,12 @@
 body {
   background-color: #f5f5f5;
-  font-family: Source Sans Pro, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   height: 100vh;
 }
 
 h2 {
-  font-family: Montserrat, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
   margin: 2px;
 }
