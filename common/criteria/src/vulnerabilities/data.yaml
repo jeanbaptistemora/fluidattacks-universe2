@@ -38080,3 +38080,63 @@
   metadata:
     en:
       details: __empty__
+"421":
+  en:
+    title: Insecure encryption algorithm - Insecure Elliptic Curve
+    description: >
+      The system makes use of weak elliptic curves.
+    impact: >
+      - Produce incorrect results for some unusual curve points
+      - Expose secret data when the input is not a curve point
+      - Expose secret data through branch synchronization
+      - Expose secret data through cache synchronization
+    recommendation: >
+      Ensure that the curves used are safe for both ECDLP and ECC in general.
+    threat: >
+      Unauthenticated attacker from the Internet.
+  category: Collect Information
+  examples:
+    non_compliant: |
+      
+      ```yaml
+      openssl ecparam -name secp256k1 -out secp256k1.pem
+      ```
+    compliant: |
+      
+      ```yaml
+      openssl ecparam -name X25519 -out X25519.pem
+      ```
+  remediation_time: "60"
+  es:
+    title: Insecure encryption algorithm - Insecure Elliptic Curve
+    description: >
+      La aplicación genera links de restablecimiento de contraseña de forma 
+      inadecuada, permitiendo a un atacante manipular la petición cambiando
+      el dominio a uno sobre su control.
+    impact: >
+      - Producir resultados incorrectos para algunos puntos de la curva poco comunes
+      - Exponer datos secretos cuando la entrada no es un punto de curva
+      - Exponer datos secretos a través de la sincronización de bifurcaciones
+      - Exponer datos secretos a través de la sincronización de la caché
+    recommendation: >
+      Asegurarse que las curvas usadas sean seguras tanto para ECDLP como para ECC en general.
+    threat: >
+      Atacante sin autenticación desde internet.
+  score:
+    base:
+      attack_vector: "A"
+      attack_complexity: "H"
+      privileges_required: "N"
+      user_interaction: "R"
+      scope: "U"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "U"
+      remediation_level: "U"
+      report_confidence: "R"
+  requirements: ["148","150"]
+  metadata:
+    en:
+      details: __empty__
