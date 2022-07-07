@@ -6,6 +6,8 @@ type Me {
   callerOrigin: CallerOrigin!
   "Credentials that belong to the stakeholder"
   credentials: [Credentials!]
+  "New findings yet to be approved"
+  drafts: [Finding!]
   "Indicates if user has rejected drafts"
   hasDraftsRejected: Boolean!
   "Indicates if user has mobile app"
