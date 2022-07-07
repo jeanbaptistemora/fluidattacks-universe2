@@ -158,7 +158,7 @@ async def had_state_by_then(
         tuple(vulnerability.id for vulnerability in vulnerabilities)
     )
 
-    lasts_valid_states: tuple[Optional[VulnerabilityState], ...] = tuple()
+    lasts_valid_states: tuple[Optional[VulnerabilityState], ...]
     if sprint:
         lasts_valid_states = tuple(
             get_current_sprint_state(historic_state, last_day)
