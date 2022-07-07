@@ -30,15 +30,7 @@ async def remove(*, group_name: str, finding_id: str) -> None:
                 primary_key.partition_key
             )
         ),
-        facets=(
-            TABLE.facets["finding_approval"],
-            TABLE.facets["finding_creation"],
-            TABLE.facets["finding_metadata"],
-            TABLE.facets["finding_state"],
-            TABLE.facets["finding_submission"],
-            TABLE.facets["finding_unreliable_indicators"],
-            TABLE.facets["finding_verification"],
-        ),
+        facets=(TABLE.facets["finding_metadata"],),
         index=index,
         table=TABLE,
     )

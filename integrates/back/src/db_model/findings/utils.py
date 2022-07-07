@@ -147,68 +147,60 @@ def format_me_draft(
     )
 
 
-def format_finding(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> Finding:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-    state = format_state(metadata["state"])
-    creation = format_state(metadata["creation"])
-    submission = format_optional_state(metadata.get("submission"))
-    approval = format_optional_state(metadata.get("approval"))
-    verification = format_optional_verification(metadata.get("verification"))
+def format_finding(item: Item) -> Finding:
+    state = format_state(item["state"])
+    creation = format_state(item["creation"])
+    submission = format_optional_state(item.get("submission"))
+    approval = format_optional_state(item.get("approval"))
+    verification = format_optional_verification(item.get("verification"))
     unreliable_indicators = format_unreliable_indicators(
-        metadata["unreliable_indicators"]
+        item["unreliable_indicators"]
     )
 
-    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
+    if item["cvss_version"] == FindingCvssVersion.V31.value:
         severity: Union[
             Finding20Severity, Finding31Severity
         ] = Finding31Severity(
             **{
-                field: Decimal(metadata["severity"][field])
+                field: Decimal(item["severity"][field])
                 for field in Finding31Severity._fields
             }
         )
     else:
         severity = Finding20Severity(
             **{
-                field: Decimal(metadata["severity"][field])
+                field: Decimal(item["severity"][field])
                 for field in Finding20Severity._fields
             }
         )
     evidences = FindingEvidences(
         **{
             name: FindingEvidence(**evidence)
-            for name, evidence in metadata["evidences"].items()
+            for name, evidence in item["evidences"].items()
         }
     )
 
     min_time_to_remediate: Optional[int] = None
-    if "min_time_to_remediate" in metadata:
-        min_time_to_remediate = int(metadata["min_time_to_remediate"])
+    if "min_time_to_remediate" in item:
+        min_time_to_remediate = int(item["min_time_to_remediate"])
 
     return Finding(
-        hacker_email=metadata["analyst_email"],
+        hacker_email=item["analyst_email"],
         approval=approval,
-        attack_vector_description=metadata["attack_vector_description"],
+        attack_vector_description=item["attack_vector_description"],
         creation=creation,
-        description=metadata["description"],
+        description=item["description"],
         evidences=evidences,
-        group_name=metadata["group_name"],
-        id=metadata["id"],
+        group_name=item["group_name"],
+        id=item["id"],
         severity=severity,
         min_time_to_remediate=min_time_to_remediate,
-        sorts=FindingSorts[metadata["sorts"]],
+        sorts=FindingSorts[item["sorts"]],
         submission=submission,
-        recommendation=metadata["recommendation"],
-        requirements=metadata["requirements"],
-        title=metadata["title"],
-        threat=metadata["threat"],
+        recommendation=item["recommendation"],
+        requirements=item["requirements"],
+        title=item["title"],
+        threat=item["threat"],
         state=state,
         unreliable_indicators=unreliable_indicators,
         verification=verification,
