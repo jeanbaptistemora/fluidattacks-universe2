@@ -56,6 +56,10 @@ export const commonConfig: Configuration = {
         test: /\.(?<extension>gif|jpg|png|svg)$/u,
         type: "asset/resource",
       },
+      {
+        test: /\.(?<ext>woff|woff2)/u,
+        use: [{ loader: "file-loader" }],
+      },
     ],
   },
   output: {
