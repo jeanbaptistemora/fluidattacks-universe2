@@ -461,9 +461,12 @@ export const enTranslations: ResourceKey = {
             "will be set to Requested",
         },
       },
-      eventBar:
-        "{{ vulnGroups }} groups FAILED: {{ openEvents }} event(s) " +
-        "need actions since {{ timeInDays }} days ago.",
+      eventBar: {
+        message:
+          "{{ vulnGroups }} groups FAILED: {{ openEvents }} event(s) " +
+          "need actions since {{ timeInDays }} days ago.",
+        tooltip: "You have unsolved events in {{ groups }}",
+      },
       evidence: {
         edit: "Edit",
         editTooltip: "Modify the evidence for this event",

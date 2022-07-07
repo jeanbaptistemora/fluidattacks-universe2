@@ -9,6 +9,7 @@ import { GET_ORG_EVENTS } from "./queries";
 import type { IEventBarDataset, IEventBarProps } from "./types";
 
 import { Alert } from "components/Alert";
+import { TooltipWrapper } from "components/TooltipWrapper";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -54,19 +55,27 @@ const EventBar: React.FC<IEventBarProps> = ({
   const timeInDays = Math.floor(
     (Date.now() - oldestDate.getTime()) / millisecondsInADay
   );
-  const eventMessage: string = t("group.events.eventBar", {
+  const vulnGroups: string[] = Object.keys(_.countBy(openEvents, "groupName"));
+
+  const eventMessage: string = t("group.events.eventBar.message", {
     openEvents: openEvents.length,
     timeInDays,
-    vulnGroups: Object.keys(_.countBy(openEvents, "groupName")).length,
+    vulnGroups: vulnGroups.length,
+  });
+
+  const tooltipMessage: string = t("group.events.eventBar.tooltip", {
+    groups: vulnGroups.join(", "),
   });
 
   return (
     <React.StrictMode>
       <div>
         {hasOpenEvents ? (
-          <Alert icon={true} variant={"error"}>
-            {eventMessage}
-          </Alert>
+          <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
+            <Alert icon={true} variant={"error"}>
+              {eventMessage}
+            </Alert>
+          </TooltipWrapper>
         ) : undefined}
       </div>
     </React.StrictMode>
