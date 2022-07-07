@@ -10,7 +10,7 @@ requires-python = ">=3.8"
 dependencies = [
     "boto3 >=1.17.104, <2.0.0",
     "click >=7.1.2, <8.0.0",
-    "fa-purity >=1.20.0, <2.0.0",
+    "fa-purity >=1.21.0, <2.0.0",
     "fa-singer-io >=1.1.0, <2.0.0",
     "jsonschema >=3.2.0, <4.0.0",
     "psycopg2 >=2.8.4, <3.0.0",

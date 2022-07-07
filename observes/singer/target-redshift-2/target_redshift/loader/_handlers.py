@@ -1,3 +1,6 @@
+from ._grouper import (
+    PackagedSinger,
+)
 from dataclasses import (
     dataclass,
 )
@@ -23,6 +26,7 @@ from fa_purity.result.transform import (
 from fa_singer_io.singer import (
     SingerRecord,
     SingerSchema,
+    SingerState,
 )
 from redshift_client.id_objs import (
     SchemaId,
@@ -66,14 +70,34 @@ class _TableAndRecords:
 
 
 @dataclass(frozen=True)
+class MutableTableMap:
+    _table_map: Dict[str, Tuple[TableId, Table]]
+
+    def update(
+        self, items: FrozenDict[str, Tuple[TableId, Table]]
+    ) -> Cmd[None]:
+        return Cmd.from_cmd(lambda: self._table_map.update(items))
+
+    def freeze(self) -> Cmd[StreamTables]:
+        return Cmd.from_cmd(lambda: FrozenDict(self._table_map))
+
+
+@dataclass(frozen=True)
 class SingerHandler:
     schema: SchemaId
     client: TableClient
 
-    def schema_handler(self, schema: SingerSchema) -> Cmd[None]:
+    def schema_handler(
+        self, table_map: StreamTables, schema: SingerSchema
+    ) -> Tuple[StreamTables, Cmd[None]]:
         table_id = TableId(self.schema, schema.stream)
         table = extract_table(schema).unwrap()
-        return self.client.new(table_id, table)
+        new_table_map = (
+            FrozenDict(dict(table_map) | {schema.stream: (table_id, table)})
+            if schema.stream not in table_map
+            else table_map
+        )
+        return (new_table_map, self.client.new(table_id, table))
 
     def record_handler(
         self, table_map: StreamTables, records: PureIter[SingerRecord]
@@ -96,3 +120,20 @@ class SingerHandler:
                 )
             ).unwrap()
         ).transform(consume)
+
+    def handle(
+        self, state: MutableTableMap, item: PackagedSinger
+    ) -> Cmd[None]:
+        if isinstance(item, SingerSchema):
+            _item = item  # dummy var for fixing mypy error
+
+            def _handler(result: Tuple[StreamTables, Cmd[None]]) -> Cmd[None]:
+                return result[1] + state.update(result[0])
+
+            return state.freeze().bind(
+                lambda t: _handler(self.schema_handler(t, _item))
+            )
+        if isinstance(item, SingerState):
+            raise NotImplementedError()
+        _item_2 = item
+        return state.freeze().bind(lambda t: self.record_handler(t, _item_2))
