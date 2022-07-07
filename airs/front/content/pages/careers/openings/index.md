@@ -67,8 +67,8 @@ experience in the use of office solutions.
 
 <p style="text-align:center">
   <img
-    class="tc w4 v-btm"
-    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1620242594/airs/careers/logo-autonomic_vf8crv.webp"
+    class="tc w5"
+    src="https://res.cloudinary.com/fluid-attacks/image/upload/v1657219483/airs/careers/autonomic-logo.webp"
     alt="Autonomic Mind logo"
   />
   <a href="https://www.linkedin.com/company/autonomicmind/">
