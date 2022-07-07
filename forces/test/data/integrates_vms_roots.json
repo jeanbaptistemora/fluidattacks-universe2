@@ -1,0 +1,81 @@
+{
+  "integrates_vms": [
+    {
+      "PutRequest": {
+        "Item": {
+          "sk": {
+            "S": "GROUP#herrin"
+          },
+          "pk_2": {
+            "S": "ORG#okada"
+          },
+          "pk": {
+            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
+          },
+          "state": {
+            "M": {
+              "reason": {
+                "NULL": true
+              },
+              "other": {
+                "NULL": true
+              },
+              "gitignore": {
+                "L": []
+              },
+              "modified_date": {
+                "S": "2021-01-08T19:41:58+00:00"
+              },
+              "branch": {
+                "S": "master"
+              },
+              "url": {
+                "S": "ssh://git@gitlab.com:fluidattacks/product"
+              },
+              "environment": {
+                "S": "production"
+              },
+              "git_environment_urls": {
+                "L": []
+              },
+              "includes_health_check": {
+                "BOOL": false
+              },
+              "modified_by": {
+                "S": "drestrepo@fluidattacks.com"
+              },
+              "nickname": {
+                "S": "product"
+              },
+              "environment_urls": {
+                "L": []
+              },
+              "status": {
+                "S": "ACTIVE"
+              }
+            }
+          },
+          "type": {
+            "S": "Git"
+          },
+          "cloning": {
+            "M": {
+              "modified_date": {
+                "S": "2021-01-08T19:41:58+00:00"
+              },
+              "reason": {
+                "S": "root created"
+              },
+              "status": {
+                "S": "UNKNOWN"
+              }
+            }
+          },
+          "sk_2": {
+            "S": "ROOT#08718dbe-7eb2-46c0-a276-ebbde995ba6c"
+          }
+        }
+      }
+    }
+  ]
+}
