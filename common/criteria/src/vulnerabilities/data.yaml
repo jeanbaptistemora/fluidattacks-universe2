@@ -38140,3 +38140,74 @@
   metadata:
     en:
       details: __empty__
+"422":
+  en:
+    title: Server side template injection
+    description: >
+      The application allows injecting malicious entries into a server-side command template.
+      This vulnerability occurs when an attacker can use the template's template syntax to inject
+      a malicious payload into a template, which is then executed on the server side.
+    impact: >
+     - Execute commands remotely
+     - View the contents of sensitive files stored on the server.
+     - Obtain sensitive information.
+     - Read system files.
+     - Cause strange behavior on the server.
+    recommendation: >
+      Properly sanitize user-controlled inputs. 
+      Encourage the use of sandboxing.
+    threat: >
+      Unauthenticated attacker from the Internet.
+  category: Inject Unexpected
+  examples:
+    non_compliant: |
+      
+      ```yaml
+      from jinja2 import Environment
+
+      env = Environment() # Sensitive: New Jinja2 Environment has autoescape set to false
+      env = Environment(autoescape=False) # Sensitive:
+      ```
+    compliant: |
+      
+      ```yaml
+      from jinja2 import Environment
+      env = Environment(autoescape=True) # Compliant
+      ```
+  remediation_time: "1440"
+  es:
+    title: Server side template injection
+    description: >
+      La aplicación permite inyectar entradas maliciosas en una plantilla de comandos
+      del lado del servidor. Esta vulnerabilidad ocurre cuando un atacante puede usar la
+      sintaxis de la plantilla para inyectar una carga util maliciosa en una plantilla,
+      que luego se ejecuta en el lado del servidor.
+    impact: >
+     - Ejecutar comandos remotamente
+     - Visualizar el contenido de archivos sensibles almacenados en el servidor.
+     - Obtener información sensible.
+     - Leer archivos del sistema.
+     - Causar comportamientos extraños en el servidor.
+    recommendation: >
+      Sanitizar correctamente las entradas controladas por el usuario. 
+      Propender por el uso de sandboxing.
+    threat: >
+      Atacante sin autenticación desde internet.
+  score:
+    base:
+      attack_vector: "N"
+      attack_complexity: "L"
+      privileges_required: "N"
+      user_interaction: "N"
+      scope: "C"
+      confidentiality: "L"
+      integrity: "L"
+      availability: "N"
+    temporal:
+      exploit_code_maturity: "H"
+      remediation_level: "U"
+      report_confidence: "C"
+  requirements: ["173", "176", "265", "266"]
+  metadata:
+    en:
+      details: __empty__
