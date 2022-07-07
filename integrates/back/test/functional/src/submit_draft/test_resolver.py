@@ -1,6 +1,12 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    get_new_context,
+)
+from mailer.findings import (
+    send_mail_new_draft,
+)
 import pytest
 from typing import (
     Any,
@@ -21,6 +27,13 @@ async def test_submit_draft(populate: bool, email: str) -> None:
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     result: Dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
+    )
+    await send_mail_new_draft(
+        get_new_context(),
+        "3c475384-834c-47b0-ac71-a41a022e401c",
+        "001. SQL injection - C Sharp SQL API",
+        "group1",
+        email,
     )
     assert "errors" not in result
     assert result["data"]["submitDraft"]["success"]
