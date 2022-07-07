@@ -5,14 +5,6 @@ sidebar_label: Portfolio
 slug: /machine/web/analytics/portfolio
 ---
 
-## How many vulnerabilities are remediated (closed)?
-
-![Vulns Remediated Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986556/docs/web/analytics/portfolios/portfolio_vuln_remed_closed.png)
-
-The percentage of
-closed and open vulnerabilities
-categorized by group.
-
 ## How many vulnerabilities are remediated and accepted?
 
 ![Vulns Remediated And Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986556/docs/web/analytics/portfolios/portfolio_vulners_remed_accept.png)

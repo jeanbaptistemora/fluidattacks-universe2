@@ -43,13 +43,6 @@ excluding yours.
 For each of your groups, you can find out
 the severity (CVSSF) of open vulnerabilities.
 
-## How many vulnerabilities are remediated (closed)?
-
-![Vulnerabilities Remediated Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_closed.png)
-
-The percentage of closed and open
-vulnerabilities categorized by group.
-
 ## How many vulnerabilities are remediated and accepted?
 
 ![How Many Vulnerabilities Remediated Accepted](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_vuln_remediat_acceptd.png)
