@@ -1681,6 +1681,16 @@ const SectionContainer = styled.div.attrs({
   `,
 })``;
 
+const SystemsCardContainer = styled.div.attrs({
+  className: `
+    tl
+    pv5
+    ph4
+    w-100
+    w-50-l
+  `,
+})``;
+
 export {
   AdvisoriesContainer,
   AdvisoryContainer,
@@ -1803,6 +1813,7 @@ export {
   SolutionsSubtitle,
   SquaredCardContainer,
   SubcategoryLink,
+  SystemsCardContainer,
   TitleContainer,
   WhiteBigParagraph,
 };
