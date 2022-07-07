@@ -13,6 +13,18 @@ and vulnerabilities effectively.
 To access this platform
 you can click [here](https://app.fluidattacks.com).
 
+We support the web browsers
+listed below and,
+in general,
+any browser that supports
+ECMAScript 2019 compilation.
+
+| Browser |           Version          |
+|---------|:--------------------------:|
+| Firefox | 91 ESR, 101, 102, 103, 104 |
+| Chrome  |        102, 103, 104       |
+| Edge    |        102, 103, 104       |
+
 ## Login
 
 To authenticate in the ASM,
