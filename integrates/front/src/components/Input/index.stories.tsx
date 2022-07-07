@@ -51,7 +51,6 @@ Default.args = {
   id: "ExampleId",
   label: "ExampleLabel",
   placeholder: "Example placeholder",
-  type: "textarea",
   variant: "solid",
 };
 
@@ -68,7 +67,6 @@ Search.args = {
     </Button>
   ),
   placeholder: "Example placeholder",
-  type: "text",
   variant: "solid",
 };
 
