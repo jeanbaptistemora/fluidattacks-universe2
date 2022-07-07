@@ -275,6 +275,15 @@ resource "cloudflare_record" "mailing_fluidattacks" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "makes" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "makes.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "yuaaxr.stackhero-network.com"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "stripe_dkim" {
   for_each = toset([
     "dyh5er647prfc3gs4euuquiva6xt6ibs",
