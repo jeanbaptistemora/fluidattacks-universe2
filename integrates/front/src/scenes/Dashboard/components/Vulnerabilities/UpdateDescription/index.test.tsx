@@ -26,7 +26,6 @@ import {
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -169,21 +168,6 @@ describe("Update Description component", (): void => {
       },
     },
   };
-  const mocksVulnGroups: MockedResponse = {
-    request: {
-      query: GET_VULNS_GROUPS,
-      variables: {
-        groupName: "testgroupname",
-      },
-    },
-    result: {
-      data: {
-        group: {
-          vulnerabilitiesAssigned: [],
-        },
-      },
-    },
-  };
   const mockedPermissions: PureAbility<string> = new PureAbility([
     { action: "api_mutations_remove_vulnerability_tags_mutate" },
     { action: "api_mutations_request_vulnerabilities_zero_risk_mutate" },
@@ -309,7 +293,6 @@ describe("Update Description component", (): void => {
       },
       ...mocksVulns,
       mocksFindingHeader,
-      mocksVulnGroups,
     ];
     render(
       <MockedProvider addTypename={false} mocks={mocksMutation}>
@@ -397,10 +380,7 @@ describe("Update Description component", (): void => {
       },
     ];
     render(
-      <MockedProvider
-        addTypename={false}
-        mocks={[...mocksMutation, mocksVulnGroups]}
-      >
+      <MockedProvider addTypename={false} mocks={[...mocksMutation]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <authzGroupContext.Provider
             value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
@@ -548,7 +528,7 @@ describe("Update Description component", (): void => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[...mocksMutation, ...mocksVulns, mocksVulnGroups]}
+        mocks={[...mocksMutation, ...mocksVulns]}
       >
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <authzGroupContext.Provider
@@ -657,10 +637,7 @@ describe("Update Description component", (): void => {
       },
     ];
     render(
-      <MockedProvider
-        addTypename={false}
-        mocks={[mocksError, ...mocksVulns, mocksVulnGroups]}
-      >
+      <MockedProvider addTypename={false} mocks={[mocksError, ...mocksVulns]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <authzGroupContext.Provider
             value={new PureAbility([{ action: "can_report_vulnerabilities" }])}

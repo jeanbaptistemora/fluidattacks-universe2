@@ -11,7 +11,6 @@ import {
   GET_FINDING_TITLE,
   GET_USER_ORGANIZATIONS,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
-import { GET_VULNS_GROUPS } from "scenes/Dashboard/queries";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -68,58 +67,12 @@ describe("Navbar", (): void => {
         },
       },
     };
-    const mocksQueryGroupVulns: MockedResponse = {
-      request: {
-        query: GET_VULNS_GROUPS,
-        variables: {
-          groupName: "testgroup",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            __typename: "Group",
-            name: "testgroup",
-            vulnerabilitiesAssigned: [
-              {
-                __typename: "Vulnerability",
-                currentState: "open",
-                externalBugTrackingSystem: null,
-                findingId: "422286126",
-                id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-                lastTreatmentDate: "2019-07-05 09:56:40",
-                lastVerificationDate: null,
-                remediated: true,
-                reportDate: "2019-07-05 09:56:40",
-                severity: "",
-                specific: "specific-1",
-                stream: "home > blog > articulo",
-                tag: "tag-1, tag-2",
-                treatment: "IN_PROGRESS",
-                treatmentAcceptanceDate: "",
-                treatmentAcceptanceStatus: "",
-                treatmentAssigned: "assigned-user-1",
-                treatmentDate: "2019-07-05 09:56:40",
-                treatmentJustification: "test progress justification",
-                verification: "Requested",
-                vulnerabilityType: "inputs",
-                where: "https://example.com/inputs",
-                zeroRisk: null,
-              },
-            ],
-          },
-        },
-      },
-    };
     localStorage.setItem("organization", JSON.stringify({ name: "okada" }));
 
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
-          <MockedProvider
-            addTypename={true}
-            mocks={[organizationsQuery, mocksQueryGroupVulns]}
-          >
+          <MockedProvider addTypename={true} mocks={[organizationsQuery]}>
             <authContext.Provider
               value={{
                 tours: {

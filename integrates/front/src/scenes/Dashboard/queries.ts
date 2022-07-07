@@ -113,18 +113,6 @@ const GET_USER_ORGANIZATIONS_GROUPS: DocumentNode = gql`
   }
 `;
 
-const GET_VULNS_GROUPS: DocumentNode = gql`
-  query GetVulnerabilitiesAssigned($groupName: String!) {
-    group(groupName: $groupName) {
-      vulnerabilitiesAssigned {
-        ...vulnFields
-      }
-      name
-    }
-  }
-  ${VULNS_FRAGMENT}
-`;
-
 const GET_ME_VULNERABILITIES_ASSIGNED: DocumentNode = gql`
   query GetMeVulnerabilitiesAssigned {
     me(callerOrigin: "FRONT") {
@@ -148,5 +136,4 @@ export {
   GET_GROUP_LEVEL_PERMISSIONS,
   GET_ROOT_IDS,
   GET_USER_ORGANIZATIONS_GROUPS,
-  GET_VULNS_GROUPS,
 };
