@@ -43,7 +43,8 @@ import { msgError } from "utils/notifications";
 
 const GroupContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
-  const { organizationName } = useParams<{ organizationName: string }>();
+  const { groupName, organizationName } =
+    useParams<{ groupName: string; organizationName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
   const { t } = useTranslation();
 
@@ -61,7 +62,7 @@ const GroupContent: React.FC = (): JSX.Element => {
         msgError(t("groupAlerts.errorTextsad"));
       });
     },
-    variables: { organizationName },
+    variables: { groupName },
   });
   const events = useMemo(
     (): IGetEventStatus["group"]["events"] =>
