@@ -122,7 +122,6 @@ async def test_solve_event() -> None:
         info=info,
         event_id="538745942",
         hacker_email="unittesting@fluidattacks.com",
-        date=parse_datetime("2019-12-09T05:00:00.000Z"),
         reason=EventSolutionReason.PERMISSION_GRANTED,
         other="Other info",
     )
@@ -139,7 +138,6 @@ async def test_solve_event() -> None:
             info=info,
             event_id="538745942",
             hacker_email="unittesting@fluidattacks.com",
-            date=parse_datetime("2019-12-09T05:00:00.000Z"),
             reason=None,
             other=None,
         )

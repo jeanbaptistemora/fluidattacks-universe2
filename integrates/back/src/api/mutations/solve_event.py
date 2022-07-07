@@ -7,9 +7,6 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from datetime import (
-    datetime,
-)
 from db_model.events.enums import (
     EventSolutionReason,
 )
@@ -36,6 +33,7 @@ from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
 from typing import (
+    Any,
     Optional,
 )
 from unreliable_indicators.enums import (
@@ -56,14 +54,14 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     event_id: str,
-    date: datetime,
     reason: str,
     other: Optional[str],
+    **_kwargs: Any,
 ) -> SimplePayload:
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
     (reattacks_dict, verifications_dict,) = await events_domain.solve_event(
-        info, event_id, hacker_email, date, EventSolutionReason[reason], other
+        info, event_id, hacker_email, EventSolutionReason[reason], other
     )
 
     loaders: Dataloaders = info.context.loaders

@@ -277,21 +277,17 @@ async def get_evidence_link(
 async def get_solving_state(
     loaders: Any, event_id: str
 ) -> Optional[EventState]:
-    solved_state: Optional[EventState] = None
     historic_states: tuple[
         EventState, ...
     ] = await loaders.event_historic_state.load(event_id)
     for state in sorted(
         historic_states,
         key=lambda state: datetime.fromisoformat(state.modified_date),
-        reverse=True,
     ):
         if state.status == EventStateStatus.SOLVED:
-            solved_state = state
-        elif state.status == EventStateStatus.CLOSED:
-            return solved_state
+            return state
 
-    return solved_state
+    return None
 
 
 async def get_solving_date(loaders: Any, event_id: str) -> Optional[str]:
@@ -359,11 +355,10 @@ async def remove_evidence(
     )
 
 
-async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
+async def solve_event(  # pylint: disable=too-many-locals
     info: GraphQLResolveInfo,
     event_id: str,
     hacker_email: str,
-    date: datetime,
     reason: EventSolutionReason,
     other: Optional[str],
 ) -> tuple[dict[str, set[str]], dict[str, list[str]]]:
@@ -424,17 +419,6 @@ async def solve_event(  # pylint: disable=too-many-arguments, too-many-locals
                 is_closing_event=True,
             )
 
-    await events_model.update_state(
-        event_id=event_id,
-        group_name=group_name,
-        state=EventState(
-            modified_by=hacker_email,
-            modified_date=datetime_utils.get_as_utc_iso_format(date),
-            other=other_reason,
-            reason=reason,
-            status=EventStateStatus.CLOSED,
-        ),
-    )
     await events_model.update_state(
         event_id=event_id,
         group_name=group_name,

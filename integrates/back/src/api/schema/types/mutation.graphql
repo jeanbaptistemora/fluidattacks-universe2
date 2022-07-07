@@ -775,7 +775,7 @@ type Mutation {
     "Identifier of the Event to solve"
     eventId: String!
     "Datetime of solving of the Event, in the format yyyy-MM-ddThh:mm:ssZ"
-    date: DateTime!
+    date: DateTime
     "Reason for solve event"
     reason: SolveEventReason!
     "Custom reason provided"
