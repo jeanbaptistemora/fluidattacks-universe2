@@ -188,10 +188,9 @@ def _check_policy_documents(stmt: AWSIamPolicyStatement) -> bool:
 
     if stmt.data.get("NotAction") or stmt.data.get("NotResource"):
         return True
-
-    if actions and get_wildcard_nodes(actions, WILDCARD_ACTION):
-        return True
     if resources and get_wildcard_nodes(resources, WILDCARD_RESOURCE):
+        return True
+    if actions and get_wildcard_nodes(actions, WILDCARD_ACTION):
         return True
     return False
 
