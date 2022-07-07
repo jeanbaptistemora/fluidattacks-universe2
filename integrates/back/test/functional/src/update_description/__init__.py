@@ -94,7 +94,7 @@ async def get_result(
                         cycle
                         date
                         justification
-                        manager
+                        assigned
                         open
                     }}
                     verified

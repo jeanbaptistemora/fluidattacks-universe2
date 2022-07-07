@@ -93,7 +93,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -104,7 +103,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -115,7 +113,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -126,7 +123,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -137,7 +133,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
     ]
@@ -164,7 +159,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -175,7 +169,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -186,7 +179,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 1,
             "accepted_undefined": 0,
             "assigned": "integratesuser@gmail.com",
-            "manager": "integratesuser@gmail.com",
             "justification": "accepted justification",
         },
     ]
@@ -213,7 +205,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "assigned": "",
             "accepted_undefined": 0,
-            "manager": "",
             "justification": "",
         },
     ]
@@ -240,7 +231,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -251,7 +241,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 0,
             "accepted_undefined": 0,
             "assigned": "",
-            "manager": "",
             "justification": "",
         },
         {
@@ -262,7 +251,6 @@ async def test_get_tracking_vulnerabilities() -> None:
             "accepted": 1,
             "accepted_undefined": 0,
             "assigned": "integratesuser@gmail.com",
-            "manager": "integratesuser@gmail.com",
             "justification": "This is a treatment justification test",
         },
     ]

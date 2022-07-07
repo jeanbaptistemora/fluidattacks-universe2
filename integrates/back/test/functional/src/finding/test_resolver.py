@@ -114,7 +114,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "date": "2018-04-07",
             "accepted": 0,
             "acceptedUndefined": 0,
-            "manager": "",
+            "assigned": "",
             "justification": "",
         },
         {
@@ -124,7 +124,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "date": "2018-04-07",
             "accepted": 0,
             "acceptedUndefined": 0,
-            "manager": "",
+            "assigned": "",
             "justification": "",
         },
         {
@@ -134,7 +134,7 @@ async def test_get_finding(populate: bool, email: str) -> None:
             "date": "2018-04-08",
             "accepted": 1,
             "acceptedUndefined": 0,
-            "manager": "anything@gmail.com",
+            "assigned": "anything@gmail.com",
             "justification": "justification",
         },
     ]

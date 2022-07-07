@@ -631,7 +631,7 @@ def _get_vuln_state_action(
                 datetime_utils.get_date_from_iso_str(state.modified_date)
             ),
             justification="",
-            manager="",
+            assigned="",
             times=1,
         )
         for state in historic_state
@@ -665,7 +665,7 @@ def _get_vuln_treatment_actions(
                 datetime_utils.get_date_from_iso_str(treatment.modified_date)
             ),
             justification=treatment.justification,
-            manager=treatment.assigned,
+            assigned=treatment.assigned,
             times=1,
         )
         for treatment in historic_treatment

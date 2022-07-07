@@ -23,9 +23,9 @@ Action = NamedTuple(
     "Action",
     [
         ("action", str),
+        ("assigned", str),
         ("date", str),
         ("justification", str),
-        ("manager", str),
         ("times", int),
     ],
 )
@@ -43,7 +43,6 @@ Tracking = TypedDict(
         "accepted": int,
         "accepted_undefined": int,
         "assigned": str,
-        "manager": str,
         "justification": str,
     },
     total=False,
