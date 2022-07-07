@@ -6747,5 +6747,92 @@
   definitions:
     "1_1":
       title: Limit system access to authorized users, processes acting on behalf of authorized users and devices
-      link: https://github.com/OWASP/owasp-masvs/releases/tag/v1.4.2
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_4":
+      title: Separate the duties of individuals
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_5":
+      title: Employ the principle of least privilege, including for specific security functions and privileged accounts
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_7":
+      title: Prevent non-privileged users from executing privileged functions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_9":
+      title: Provide privacy and security notices
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_11":
+      title: Terminate a user session after a defined condition
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_13":
+      title: Employ cryptographic mechanisms to protect the confidentiality of remote access sessions
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_16":
+      title: Authorize wireless access prior to allowing such connections
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_17":
+      title: Protect wireless access using authentication and encryption
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_18":
+      title: Control connection of mobile devices
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_19":
+      title: Encrypt CUI on mobile devices and mobile computing platforms
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "1_20":
+      title: Verify and control/limit connections to and use of external systems
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "3_6":
+      title: Provide audit record reduction
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "3_7":
+      title: Synchronizes internal system clocks with an authoritative source to generate time stamps for audit records
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "3_8":
+      title: Protect audit information and audit logging tools from unauthorized access, modification, and deletion
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "3_9":
+      title: Limit management of audit logging functionality to a subset of privileged users
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "4_2":
+      title: Establish and enforce security configuration settings for information technology products
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "4_3":
+      title: Track, review and log changes to organizational systems
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "4_6":
+      title: Employ the principle of least functionality and provide only essential capabilities
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "4_7":
+      title: Restrict, disable, or prevent the use of nonessential functions, ports, protocols, and services
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_1":
+      title: Identify system users, processes acting on behalf of users, and devices
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_2":
+      title: Authenticate or verify the identities of users, processes, or devices, as a prerequisite to allowing access to organizational systems
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_3":
+      title: Use multifactor authentication for local and network access to privileged accounts
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_4":
+      title: Employ replay-resistant authentication mechanisms
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_5":
+      title: Prevent reuse of identifiers for a defined period
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_6":
+      title: Disable identifiers after a defined period of inactivity
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_7":
+      title: Enforce a minimum password complexity and change of characters when new passwords are created
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_9":
+      title: Allow temporary password use for system logons with an immediate change to a permanent password
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_10":
+      title: Store and transmit only cryptographically-protected passwords
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
+    "5_11":
+      title: Obscure feedback of authentication information
+      link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
   metadata: {}
