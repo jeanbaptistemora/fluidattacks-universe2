@@ -18,6 +18,7 @@ from syntax_graph.syntax_readers.common import (
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
     string_literal as common_string_literal,
+    try_statement as common_try_statement,
 )
 from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
@@ -228,6 +229,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "try_statement",
+        },
+        syntax_reader=common_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={
