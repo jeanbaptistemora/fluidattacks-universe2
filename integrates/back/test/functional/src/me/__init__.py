@@ -19,6 +19,9 @@ async def get_result(
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
+            drafts{{
+                id
+            }}
             hasMobileApp
             isConcurrentSession
             notificationsPreferences{{

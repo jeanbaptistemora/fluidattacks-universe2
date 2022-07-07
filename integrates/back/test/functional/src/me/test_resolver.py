@@ -22,7 +22,7 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("me")
 @pytest.mark.parametrize(
-    ("email", "role", "permissions", "phone", "groups_length"),
+    ("email", "role", "permissions", "phone", "groups_length", "drafts"),
     (
         (
             "admin@gmail.com",
@@ -34,6 +34,7 @@ from typing import (
                 "nationalNumber": "1111111111",
             },
             2,
+            [{"id": "3c475384-834c-47b0-ac71-a41a022e401c"}],
         ),
         (
             "user@gmail.com",
@@ -45,6 +46,7 @@ from typing import (
                 "nationalNumber": "2029182132",
             },
             1,
+            [],
         ),
         (
             "user_manager@gmail.com",
@@ -56,6 +58,7 @@ from typing import (
                 "nationalNumber": "77777777777777",
             },
             1,
+            [],
         ),
         (
             "vulnerability_manager@gmail.com",
@@ -67,6 +70,7 @@ from typing import (
                 "nationalNumber": "1111111111111",
             },
             1,
+            [],
         ),
         (
             "hacker@gmail.com",
@@ -78,6 +82,7 @@ from typing import (
                 "nationalNumber": "2029182131",
             },
             2,
+            [],
         ),
         (
             "reattacker@gmail.com",
@@ -89,6 +94,7 @@ from typing import (
                 "nationalNumber": "4444444444444",
             },
             1,
+            [],
         ),
         (
             "resourcer@gmail.com",
@@ -100,6 +106,7 @@ from typing import (
                 "nationalNumber": "33333333333",
             },
             1,
+            [],
         ),
         (
             "reviewer@gmail.com",
@@ -111,8 +118,9 @@ from typing import (
                 "nationalNumber": "7777777777",
             },
             2,
+            [],
         ),
-        ("service_forces@gmail.com", "service_forces", 0, None, 1),
+        ("service_forces@gmail.com", "service_forces", 0, None, 1, []),
         (
             "customer_manager@fluidattacks.com",
             "customer_manager",
@@ -123,6 +131,7 @@ from typing import (
                 "nationalNumber": "9999999999999",
             },
             1,
+            [],
         ),
     ),
 )
@@ -133,6 +142,7 @@ async def test_get_me(
     permissions: int,
     phone: int,
     groups_length: int,
+    drafts: list[dict[str, str]],
 ) -> None:
     assert populate
     org_name: str = "orgtest"
@@ -144,6 +154,7 @@ async def test_get_me(
     assert "errors" not in result
     assert '{"hasAccessToken": false' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
+    assert result["data"]["me"]["drafts"] == drafts
     assert not result["data"]["me"]["hasMobileApp"]
     assert not result["data"]["me"]["isConcurrentSession"]
     assert len(result["data"]["me"]["notificationsPreferences"]["email"]) == 19

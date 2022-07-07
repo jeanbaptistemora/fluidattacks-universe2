@@ -99,13 +99,13 @@ async def update_me_draft_index(
             "id": finding_id,
         },
     )
-    vulnerability_item = {
+    item = {
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
     }
     await operations.update_item(
         condition_expression=(base_condition),
-        item=vulnerability_item,
+        item=item,
         key=metadata_key,
         table=TABLE,
     )

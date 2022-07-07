@@ -216,6 +216,12 @@ async def _populate_finding_historic_state(data: Dict[str, Any]) -> None:
             finding_id=finding.id,
             state=current,
         )
+        if current.status == FindingStateStatus.APPROVED:
+            await findings_model.update_me_draft_index(
+                finding_id=finding.id,
+                group_name=finding.group_name,
+                user_email="",
+            )
 
 
 async def _populate_finding_historic_verification(
