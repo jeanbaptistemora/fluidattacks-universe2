@@ -104,9 +104,10 @@ describe("ToeInputsActionButtons", (): void => {
       </authzPermissionsContext.Provider>
     );
 
-    expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(
-      screen.queryByText("group.toe.inputs.actionButtons.editButton.text")
+      screen.getByRole("button", {
+        name: "group.toe.inputs.actionButtons.editButton.text",
+      })
     ).toBeInTheDocument();
   });
 });
