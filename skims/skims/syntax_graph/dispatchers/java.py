@@ -17,6 +17,7 @@ from syntax_graph.syntax_readers.common import (
     method_declaration as common_method_declaration,
     null_literal as common_null_literal,
     number_literal as common_number_literal,
+    object_creation_expression as common_object_creation_expression,
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
     string_literal as common_string_literal,
@@ -204,6 +205,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "real_literal",
         },
         syntax_reader=common_number_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "object_creation_expression",
+        },
+        syntax_reader=common_object_creation_expression.reader,
     ),
     Dispatcher(
         applicable_types={
