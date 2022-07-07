@@ -17,9 +17,6 @@ from .types import (
     FindingVerification,
     FindingVerificationSummary,
 )
-from datetime import (
-    datetime,
-)
 from db_model.enums import (
     Source,
     StateRemovalJustification,
@@ -27,24 +24,18 @@ from db_model.enums import (
 from decimal import (
     Decimal,
 )
-from dynamodb import (
-    historics,
-)
 from dynamodb.types import (
     Item,
-    PrimaryKey,
 )
 from typing import (
     Optional,
-    Set,
-    Tuple,
     Union,
 )
 
 
 def filter_non_state_status_findings(
-    findings: Tuple[Finding, ...], status: Set[FindingStateStatus]
-) -> Tuple[Finding, ...]:
+    findings: tuple[Finding, ...], status: set[FindingStateStatus]
+) -> tuple[Finding, ...]:
     return tuple(
         finding for finding in findings if finding.state.status not in status
     )
@@ -79,72 +70,6 @@ def format_evidences_item(evidences: FindingEvidences) -> Item:
         for field, evidence in evidences._asdict().items()
         if evidence is not None
     }
-
-
-def format_me_draft(
-    *,
-    item_id: str,
-    key_structure: PrimaryKey,
-    raw_items: Tuple[Item, ...],
-) -> Finding:
-    metadata = historics.get_metadata(
-        item_id=item_id, key_structure=key_structure, raw_items=raw_items
-    )
-
-    if metadata["cvss_version"] == FindingCvssVersion.V31.value:
-        severity: Union[
-            Finding20Severity, Finding31Severity
-        ] = Finding31Severity(
-            **{
-                field: Decimal(metadata["severity"][field])
-                for field in Finding31Severity._fields
-            }
-        )
-    else:
-        severity = Finding20Severity(
-            **{
-                field: Decimal(metadata["severity"][field])
-                for field in Finding20Severity._fields
-            }
-        )
-    evidences = FindingEvidences(
-        **{
-            name: FindingEvidence(**evidence)
-            for name, evidence in metadata["evidences"].items()
-        }
-    )
-
-    min_time_to_remediate: Optional[int] = None
-    if "min_time_to_remediate" in metadata:
-        min_time_to_remediate = int(metadata["min_time_to_remediate"])
-
-    return Finding(
-        hacker_email=metadata["analyst_email"],
-        approval=None,
-        attack_vector_description=metadata["attack_vector_description"],
-        creation=None,
-        description=metadata["description"],
-        evidences=evidences,
-        group_name=metadata["group_name"],
-        id=metadata["id"],
-        severity=severity,
-        min_time_to_remediate=min_time_to_remediate,
-        sorts=FindingSorts[metadata["sorts"]],
-        submission=None,
-        recommendation=metadata["recommendation"],
-        requirements=metadata["requirements"],
-        title=metadata["title"],
-        threat=metadata["threat"],
-        state=FindingState(
-            justification=StateRemovalJustification.NO_JUSTIFICATION,
-            modified_by="",
-            modified_date="",
-            source=Source.ASM,
-            status=FindingStateStatus.CREATED,
-        ),
-        unreliable_indicators=FindingUnreliableIndicators(),
-        verification=None,
-    )
 
 
 def format_finding(item: Item) -> Finding:
@@ -368,43 +293,4 @@ def format_optional_verification(
     verification = None
     if verification_item is not None:
         verification = format_verification(verification_item)
-    return verification
-
-
-def format_optional_state_item(
-    state: Optional[FindingState],
-) -> Item:
-    state_item = {}
-    if state is not None:
-        state_item = format_state_item(state)
-    return state_item
-
-
-def format_optional_verification_item(
-    verification: Optional[FindingVerification],
-) -> Item:
-    verification_item = {}
-    if verification is not None:
-        verification_item = format_verification_item(verification)
-    return verification_item
-
-
-def get_latest_state(historic_state: tuple[FindingState, ...]) -> FindingState:
-    return max(
-        historic_state,
-        key=lambda state: datetime.fromisoformat(state.modified_date),
-    )
-
-
-def get_latest_verification(
-    historic_verification: Tuple[FindingVerification, ...]
-) -> Optional[FindingVerification]:
-    verification = None
-    if historic_verification:
-        verification = max(
-            historic_verification,
-            key=lambda verification: datetime.fromisoformat(
-                verification.modified_date
-            ),
-        )
     return verification

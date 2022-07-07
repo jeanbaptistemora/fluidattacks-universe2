@@ -9,7 +9,6 @@ from .types import (
 from .utils import (
     filter_non_state_status_findings,
     format_finding,
-    format_me_draft,
     format_state,
     format_verification,
 )
@@ -21,9 +20,6 @@ from aioextensions import (
 )
 from boto3.dynamodb.conditions import (
     Key,
-)
-from collections import (
-    defaultdict,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -42,8 +38,7 @@ from itertools import (
     chain,
 )
 from typing import (
-    List,
-    Tuple,
+    Iterable,
 )
 
 
@@ -87,24 +82,13 @@ async def _get_me_drafts(*, user_email: str) -> tuple[Finding, ...]:
         index=index,
         table=TABLE,
     )
-    finding_items = defaultdict(list)
-    for item in response.items:
-        finding_id = "#".join(item[key_structure.sort_key].split("#")[:2])
-        finding_items[finding_id].append(item)
 
-    return tuple(
-        format_me_draft(
-            item_id=finding_id,
-            key_structure=key_structure,
-            raw_items=tuple(items),
-        )
-        for finding_id, items in finding_items.items()
-    )
+    return tuple(format_finding(item) for item in response.items)
 
 
 async def _get_drafts_and_findings_by_group(
     group_name: str,
-) -> Tuple[Finding, ...]:
+) -> tuple[Finding, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name},
@@ -128,15 +112,15 @@ async def _get_drafts_and_findings_by_group(
 
 class GroupDraftsAndFindingsLoader(DataLoader):
     async def load_many_chained(
-        self, group_names: List[str]
-    ) -> Tuple[Finding, ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[Finding, ...]:
         unchained_data = await self.load_many(group_names)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[Finding, ...], ...]:
         return await collect(
             tuple(map(_get_drafts_and_findings_by_group, group_names))
         )
@@ -145,7 +129,7 @@ class GroupDraftsAndFindingsLoader(DataLoader):
 class MeDraftsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, emails: tuple[str, ...]
+        self, emails: Iterable[str]
     ) -> tuple[Finding, ...]:
         return await collect(
             tuple(
@@ -161,8 +145,8 @@ class GroupDraftsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[Finding, ...], ...]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
         )
@@ -184,15 +168,15 @@ class GroupFindingsLoader(DataLoader):
         self.dataloader = dataloader
 
     async def load_many_chained(
-        self, group_names: List[str]
-    ) -> Tuple[Finding, ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[Finding, ...]:
         unchained_data = await self.load_many(group_names)
         return tuple(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[Tuple[Finding, ...], ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[Finding, ...], ...]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
         )
@@ -213,14 +197,14 @@ class GroupFindingsLoader(DataLoader):
 class FindingLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Finding, ...]:
+        self, finding_ids: Iterable[str]
+    ) -> tuple[Finding, ...]:
         return await collect(tuple(map(_get_finding_by_id, finding_ids)))
 
 
 async def _get_historic_verification(
     finding_id: str,
-) -> Tuple[FindingVerification, ...]:
+) -> tuple[FindingVerification, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_verification"],
         values={"id": finding_id},
@@ -240,14 +224,14 @@ async def _get_historic_verification(
 class FindingHistoricVerificationLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[FindingVerification], ...]:
+        self, finding_ids: Iterable[str]
+    ) -> tuple[tuple[FindingVerification], ...]:
         return await collect(
             tuple(map(_get_historic_verification, finding_ids))
         )
 
 
-async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
+async def _get_historic_state(finding_id: str) -> tuple[FindingState, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
         values={"id": finding_id},
@@ -267,6 +251,6 @@ async def _get_historic_state(finding_id: str) -> Tuple[FindingState, ...]:
 class FindingHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, finding_ids: List[str]
-    ) -> Tuple[Tuple[FindingState], ...]:
+        self, finding_ids: Iterable[str]
+    ) -> tuple[tuple[FindingState], ...]:
         return await collect(tuple(map(_get_historic_state, finding_ids)))
