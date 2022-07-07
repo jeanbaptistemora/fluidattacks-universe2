@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.common import (
+    array_initializer as common_array_initializer,
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
     catch_clause as common_catch_clause,
@@ -48,6 +49,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "argument_list",
         },
         syntax_reader=java_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "array_initializer",
+        },
+        syntax_reader=common_array_initializer.reader,
     ),
     Dispatcher(
         applicable_types={
