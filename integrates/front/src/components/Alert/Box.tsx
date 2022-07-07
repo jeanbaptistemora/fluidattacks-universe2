@@ -37,7 +37,6 @@ const AlertBox = styled.div.attrs({
   padding: 10px 16px;
   font-family: Roboto, sans-serif;
   font-size: 16px;
-  margin: 10px;
   transition: all 0.3s ease;
 `;
 

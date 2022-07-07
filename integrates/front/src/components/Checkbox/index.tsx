@@ -7,17 +7,17 @@ import { CustomCheckbox } from "./CustomCheckbox";
 const Checkbox: React.FC<ICheckboxProps> = ({
   disabled = false,
   id,
-  initChecked = false,
+  label,
   name,
-  onChange,
+  value,
 }: Readonly<ICheckboxProps>): JSX.Element => (
   <Field
     component={CustomCheckbox}
     disabled={disabled}
     id={id}
-    initChecked={initChecked}
+    label={label}
     name={name}
-    onChange={onChange}
+    value={value}
   />
 );
 

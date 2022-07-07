@@ -1,18 +1,12 @@
 import styled from "styled-components";
 
-interface ICheckboxLabelProps {
+interface ICheckboxBoxProps {
   disabled?: boolean;
 }
 
-const CheckboxInput = styled.input.attrs({
-  type: "checkbox",
-})`
-  display: none;
-`;
-
-const CheckboxLabel = styled.label.attrs({
-  className: "comp-checkbox",
-})<ICheckboxLabelProps>`
+const CheckboxBox = styled.div.attrs({
+  className: "",
+})<ICheckboxBoxProps>`
   background-color: #e9e9ed;
   border: 1px solid #c7c7d1;
   border-radius: 4px;
@@ -45,5 +39,27 @@ const CheckboxLabel = styled.label.attrs({
   }
 `;
 
-export type { ICheckboxLabelProps };
-export { CheckboxInput, CheckboxLabel };
+const CheckboxInput = styled.input.attrs({
+  type: "checkbox",
+})`
+  display: none;
+
+  :not(:checked) + svg {
+    display: none;
+  }
+`;
+
+const CheckboxLabel = styled.label.attrs({
+  className: "comp-checkbox",
+})`
+  display: flex;
+
+  + .comp-alert {
+    font-size: 14px;
+    margin-top: 6px;
+    padding: 6px 8px;
+  }
+`;
+
+export type { ICheckboxBoxProps };
+export { CheckboxBox, CheckboxInput, CheckboxLabel };
