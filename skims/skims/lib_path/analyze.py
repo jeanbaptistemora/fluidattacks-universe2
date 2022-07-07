@@ -198,12 +198,8 @@ def analyze_one_path(  # noqa: MC0001
         if path in unique_nv_paths:
             if finding is not core_model.FindingEnum.F117:
                 continue
-        elif path in unique_nu_paths:
-            if finding is not core_model.FindingEnum.F079:
-                continue
         else:
             if finding in {
-                core_model.FindingEnum.F079,
                 core_model.FindingEnum.F117,
             }:
                 continue
@@ -215,6 +211,7 @@ def analyze_one_path(  # noqa: MC0001
             finding=finding,
             path=path,
             raw_content_generator=file_raw_content_generator,
+            unique_nu_paths=unique_nu_paths,
         )
 
     return result

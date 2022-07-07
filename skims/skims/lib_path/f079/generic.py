@@ -1,6 +1,5 @@
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
-    SHIELD_BLOCKING,
 )
 from model.core_model import (
     MethodsEnum,
@@ -8,7 +7,6 @@ from model.core_model import (
 )
 
 
-@SHIELD_BLOCKING
 def non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=raw_content.decode(encoding="utf-8", errors="replace"),

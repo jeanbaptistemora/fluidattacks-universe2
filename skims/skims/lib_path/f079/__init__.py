@@ -14,14 +14,23 @@ from typing import (
 
 
 @SHIELD_BLOCKING
+def run_non_upgradeable_deps(path: str, raw_content: bytes) -> Vulnerabilities:
+    return non_upgradeable_deps(path=path, raw_content=raw_content)
+
+
+@SHIELD_BLOCKING
 def analyze(
     path: str,
     raw_content_generator: Callable[[], bytes],
+    unique_nu_paths: str,
     **_: None,
 ) -> Tuple[Vulnerabilities, ...]:
+    results: Tuple[Vulnerabilities, ...] = ()
 
-    results: Tuple[Vulnerabilities, ...] = (
-        non_upgradeable_deps(path, raw_content_generator()),
-    )
+    if path in unique_nu_paths:
+        results = (
+            *results,
+            run_non_upgradeable_deps(path, raw_content_generator()),
+        )
 
     return results
