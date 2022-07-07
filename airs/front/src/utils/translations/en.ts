@@ -520,6 +520,58 @@ const pageTexts: ResourceKey = {
       subtitle: "Vulnerability Management",
     },
   },
+  systems: {
+    apis: {
+      paragraph:
+        "We evaluate microservices' interactions and operations, as well as the exposition " +
+        "of APIs in order to detect vulnerabilities which could be exploited by criminals.",
+      title: "APIs and Microservices",
+    },
+    cloud: {
+      paragraph:
+        "We can help you test the cloud infrastructure your company has acquired " +
+        "for its monetary and optimization benefits.",
+      title: "Cloud Infrastructure",
+    },
+    iot: {
+      paragraph:
+        "We provide you with security testing for each connected element " +
+        "and every new incorporation to find vulnerabilities that may affect " +
+        "other devices or servers.",
+      title: "Internet of Things",
+    },
+    mobileApps: {
+      paragraph:
+        "We stay up to date with attack vectors on mobile applications and provide you " +
+        "with security testing to identify vulnerabilities in this type of system.",
+      title: "Mobile applications",
+    },
+    networks: {
+      paragraph:
+        "We can help you detect misconfigurations and outdated components, among other flaws, " +
+        "going from general structure analysis to specific element inspection.",
+      title: "Networks and Hosts",
+    },
+    scada: {
+      paragraph:
+        "We implement security assessments in the system SCADA to find the cybersecurity " +
+        "risks your company may face when OT networks are connected to the Internet.",
+      title: "SCADA and OT",
+    },
+    thickClients: {
+      paragraph:
+        "We recognize the value of assessing thick clientes. Testing configurations " +
+        "and interactions, we look for vulnerabilities that affect both the client " +
+        "and the server-side.",
+      title: "Thick clients",
+    },
+    webApps: {
+      paragraph:
+        "We can help you test your web applications' features, functions " +
+        "and components which may possess security vulnerabilities.",
+      title: "Web applications",
+    },
+  },
 };
 
 export { pageTexts };
