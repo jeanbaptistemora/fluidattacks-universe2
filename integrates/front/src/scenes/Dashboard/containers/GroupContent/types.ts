@@ -1,8 +1,16 @@
-interface IEventsDataset {
-  group: {
-    events: {
-      eventStatus: string;
+interface IEventDataset {
+  eventDate: string;
+  eventStatus: string;
+  groupName: string;
+}
+
+interface IEventBarDataset {
+  organizationId: {
+    groups: {
+      events: IEventDataset[];
+      name: string;
     }[];
+    name: string;
   };
 }
 
@@ -11,4 +19,4 @@ interface IGroupContext {
   url: string;
 }
 
-export type { IEventsDataset, IGroupContext };
+export type { IEventBarDataset, IEventDataset, IGroupContext };

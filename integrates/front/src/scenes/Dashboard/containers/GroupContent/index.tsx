@@ -3,7 +3,8 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
-import React, { useContext } from "react";
+import _ from "lodash";
+import React, { useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Redirect,
@@ -26,7 +27,10 @@ import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupVi
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
 import { GET_EVENTS } from "scenes/Dashboard/containers/GroupContent/queries";
-import type { IEventsDataset } from "scenes/Dashboard/containers/GroupContent/types";
+import type {
+  IEventBarDataset,
+  IEventDataset,
+} from "scenes/Dashboard/containers/GroupContent/types";
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
@@ -43,7 +47,7 @@ import { msgError } from "utils/notifications";
 
 const GroupContent: React.FC = (): JSX.Element => {
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
-  const { groupName } = useParams<{ groupName: string }>();
+  const { organizationName } = useParams<{ organizationName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
   const { t } = useTranslation();
 
@@ -54,20 +58,45 @@ const GroupContent: React.FC = (): JSX.Element => {
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
-  const { data } = useQuery<IEventsDataset>(GET_EVENTS, {
+  const { data } = useQuery<IEventBarDataset>(GET_EVENTS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.warning("An error occurred loading group data", error);
+        Logger.warning("An error occurred loading event bar data", error);
         msgError(t("groupAlerts.errorTextsad"));
       });
     },
-    variables: { groupName },
+    variables: { organizationName },
   });
-  const events = data === undefined ? [] : data.group.events;
-  const hasOpenEvents =
-    events.filter((event): boolean => event.eventStatus === "CREATED").length >
-    0;
-  const eventMessage: string = t("group.events.eventBar");
+  const events = useMemo(
+    (): IEventDataset[] =>
+      data === undefined
+        ? []
+        : data.organizationId.groups.reduce(
+            (previousValue: IEventDataset[], currentValue): IEventDataset[] => [
+              ...previousValue,
+              ...currentValue.events,
+            ],
+            []
+          ),
+    [data]
+  );
+  const openEvents = events.filter(
+    (event): boolean => event.eventStatus === "CREATED"
+  );
+  const hasOpenEvents = openEvents.length > 0;
+
+  const millisecondsInADay = 86400000;
+  const oldestDate = hasOpenEvents
+    ? new Date(_.sortBy(openEvents, "eventDate")[0].eventDate)
+    : new Date();
+  const timeInDays = Math.floor(
+    (Date.now() - oldestDate.getTime()) / millisecondsInADay
+  );
+  const eventMessage: string = t("group.events.eventBar", {
+    openEvents: openEvents.length,
+    timeInDays,
+    vulnGroups: Object.keys(_.countBy(openEvents, "groupName")).length,
+  });
 
   // Side effects
   useTabTracking("Group");

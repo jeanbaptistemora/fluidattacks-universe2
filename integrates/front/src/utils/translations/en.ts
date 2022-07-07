@@ -462,8 +462,8 @@ export const enTranslations: ResourceKey = {
         },
       },
       eventBar:
-        "FAILED: Something is wrong. For more details check your " +
-        "groups events.",
+        "{{ vulnGroups }} groups FAILED: {{ openEvents }} event(s) " +
+        "need actions since {{ timeInDays }} days ago.",
       evidence: {
         edit: "Edit",
         editTooltip: "Modify the evidence for this event",
