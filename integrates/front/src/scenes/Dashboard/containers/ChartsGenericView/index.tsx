@@ -481,23 +481,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={320}
                 className={"g1"}
-                documentName={"remediatedGroup"}
-                documentType={"stackedBarChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"stackedBarChart"}
-                infoLink={`${graphInfoLink}${entity}#how-many-vulnerabilities-are-remediated-closed`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("tagIndicator.remediatedVuln")}
-              />
-            </Col100>
-          </RowCenter>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
                 documentName={"remediatedAcceptedGroup"}
                 documentType={"stackedBarChart"}
                 entity={entity}

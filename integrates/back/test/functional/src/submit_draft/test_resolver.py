@@ -30,7 +30,7 @@ async def test_submit_draft(populate: bool, email: str) -> None:
     )
     await send_mail_new_draft(
         get_new_context(),
-        "3c475384-834c-47b0-ac71-a41a022e401c",
+        finding_id,
         "001. SQL injection - C Sharp SQL API",
         "group1",
         email,

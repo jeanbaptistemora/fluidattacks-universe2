@@ -35,7 +35,6 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Vulnerabilities by level",
     "Accepted vulnerabilities by user",
     "Unsolved events by groups",
-    "How many vulnerabilities are remediated (closed)?",
     "How many vulnerabilities are remediated and accepted?",
     "Types of Vulnerabilities by Group",
     "Open Types of Vulnerabilities by Group",
