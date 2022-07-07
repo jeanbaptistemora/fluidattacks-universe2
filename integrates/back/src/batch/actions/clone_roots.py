@@ -51,6 +51,10 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     GitRoot,
 )
+import json
+from json import (
+    JSONDecodeError,
+)
 import logging
 import logging.config
 from machine.availability import (
@@ -88,8 +92,11 @@ LOGGER = logging.getLogger(__name__)
 
 async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    root_nicknames: List[str] = item.additional_info.split(",")
-
+    root_nicknames: List[str] = []
+    try:
+        root_nicknames = json.loads(item.additional_info)["roots"]
+    except JSONDecodeError:
+        root_nicknames = item.additional_info.split(",")
     LOGGER.info(
         "Cloning roots for %s, %s",
         group_name,
@@ -426,13 +433,18 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             memory=1800,
             entity=group_name,
             subject=user_email,
-            additional_info=",".join(
+            additional_info=json.dumps(
                 {
-                    *[
-                        roots_dict[root_id].state.nickname
-                        for root_id in set(roots_to_clone)
-                    ],
-                    *roots_in_current_actions,
+                    "group_name": group_name,
+                    "roots": list(
+                        {
+                            *[
+                                roots_dict[root_id].state.nickname
+                                for root_id in set(roots_to_clone)
+                            ],
+                            *roots_in_current_actions,
+                        }
+                    ),
                 }
             ),
             queue="clone",
