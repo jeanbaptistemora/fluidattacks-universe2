@@ -30,7 +30,7 @@ import { AddUserModal } from "../../AddUserModal";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Dropdown } from "components/Dropdown";
-import { MenuDivider } from "components/Menu";
+import { Hr } from "components/Layout";
 import { Switch } from "components/Switch";
 import { Text } from "components/Text";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
@@ -171,7 +171,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             />
           </Text>
         </div>
-        <MenuDivider />
+        <Hr />
         <Button disp={"block"} onClick={openTokenModal}>
           <Text bright={8}>
             <FontAwesomeIcon icon={faKey} />
@@ -252,7 +252,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             );
           }}
         </ConfirmDialog>
-        <MenuDivider />
+        <Hr />
         <ConfirmDialog title={t("navbar.logout")}>
           {(confirm): React.ReactNode => {
             function handleLogoutClick(): void {
