@@ -1,19 +1,34 @@
 import asyncio
+from asyncio import (
+    run,
+)
 import base64
+import boto3
 from contextlib import (
     asynccontextmanager,
     suppress,
+)
+from git import (
+    Repo,
+)
+from git.exc import (
+    GitError,
+)
+from git.repo.base import (
+    Repo,
 )
 import http.client
 import json
 import logging
 import os
-import requests
+import requests  # type: ignore
 import shutil
+import sys
 import tarfile
 import tempfile
 from typing import (
     Any,
+    NamedTuple,
     Optional,
     Tuple,
 )
@@ -25,6 +40,55 @@ from urllib.parse import (
     urlparse,
 )
 import uuid
+
+
+class BatchProcessing(NamedTuple):
+    key: str
+    action_name: str
+    entity: str
+    subject: str
+    time: str
+    additional_info: str
+    queue: str
+
+
+def get_action(
+    *,
+    action_dynamo_pk: str,
+) -> Optional[BatchProcessing]:
+    client = boto3.client("dynamodb", "us-east-1")
+    query_payload = {
+        "TableName": "fi_async_processing",
+        "KeyConditionExpression": "#69240 = :69240",
+        "ExpressionAttributeNames": {"#69240": "pk"},
+        "ExpressionAttributeValues": {":69240": {"S": action_dynamo_pk}},
+    }
+    response_items = client.query(**query_payload)
+    if not response_items or not response_items["Items"]:
+        return None
+
+    item = response_items["Items"][0]
+    return BatchProcessing(
+        key=item["pk"]["S"],
+        action_name=item["action_name"]["S"].lower(),
+        entity=item["entity"]["S"].lower(),
+        subject=item["subject"]["S"].lower(),
+        time=item["time"]["S"],
+        additional_info=item.get("additional_info", {}).get("S"),
+        queue=item["queue"]["S"],
+    )
+
+
+def delete_action(
+    *,
+    action_dynamo_pk: str,
+) -> None:
+    client = boto3.client("dynamodb", "us-east-1")
+    operation_payload = {
+        "TableName": "fi_async_processing",
+        "Key": {"pk": {"S": action_dynamo_pk}},
+    }
+    client.delete_item(**operation_payload)
 
 
 def get_roots(token: str, group_name: str) -> Optional[dict[str, Any]]:
@@ -268,7 +332,9 @@ async def upload_cloned_repo_to_s3_tar(
 
 
 @asynccontextmanager
-async def clone_root(*, group_name: str, root: dict[str, Any]) -> Any:
+async def clone_root(
+    *, group_name: str, root: dict[str, Any], token: str
+) -> Any:
     cred = root["credentials"]
     branch = root["branch"]
     root_url = root["url"]
@@ -314,7 +380,7 @@ async def clone_root(*, group_name: str, root: dict[str, Any]) -> Any:
                 ),
             )
             update_root_cloning_status(
-                token=os.environ["INTEGRATES_API_TOKEN"],
+                token=token,
                 group_name=group_name,
                 root_id=root["id"],
                 status="FAILED",
@@ -327,3 +393,84 @@ async def clone_root(*, group_name: str, root: dict[str, Any]) -> Any:
             yield folder_to_clone_root
         finally:
             shutil.rmtree(temp_dir, ignore_errors=True)
+
+
+async def main() -> None:
+    action_key = sys.argv[1]
+    action = get_action(action_dynamo_pk=action_key)
+    if not action:
+        logging.error("The job can not be found")
+        return
+
+    data = json.loads(action.additional_info)
+    group_name = data["group_name"]
+    root_nicknames = data["roots"]
+    token = os.environ["INTEGRATES_API_TOKEN"]
+    logging.basicConfig(level="INFO")
+    roots_data = get_roots(token, group_name)
+    if not roots_data:
+        return
+
+    roots = [
+        root
+        for root in roots_data["data"]["group"]["roots"]
+        if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
+    ]
+    for root in roots:
+        update_root_cloning_status(
+            token=token,
+            group_name=group_name,
+            root_id=root["id"],
+            status="CLONING",
+            message="Cloning in progress...",
+        )
+
+        logging.info("Cloning %s", root["nickname"])
+
+        async with clone_root(
+            group_name=group_name, root=root, token=token
+        ) as folder_to_clone_root:
+            success_upload = await upload_cloned_repo_to_s3_tar(
+                repo_path=folder_to_clone_root,
+                nickname=root["nickname"],
+                upload_url=root["uploadUrl"],
+            )
+            if success_upload:
+                try:
+                    commit = Repo(
+                        folder_to_clone_root, search_parent_directories=True
+                    ).head.object.hexsha
+                    logging.info(
+                        "Cloned success with commit: %s",
+                        commit,
+                    )
+                    update_root_cloning_status(
+                        token=token,
+                        group_name=group_name,
+                        root_id=root["id"],
+                        status="OK",
+                        message="Cloned successfully",
+                        commit=commit,
+                    )
+                    continue
+                except (GitError, AttributeError) as exc:
+                    logging.exception(
+                        exc,
+                        extra=dict(
+                            extra={
+                                "group_name": group_name,
+                                "root_nickname": root["nickname"],
+                            }
+                        ),
+                    )
+                    update_root_cloning_status(
+                        token=token,
+                        group_name=group_name,
+                        root_id=root["id"],
+                        status="FAILED",
+                        message=str(exc),
+                    )
+
+
+if __name__ == "__main__":
+    run(main())
