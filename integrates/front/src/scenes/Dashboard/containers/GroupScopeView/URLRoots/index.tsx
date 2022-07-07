@@ -182,7 +182,6 @@ export const URLRoots: React.FC<IURLRootsProps> = ({
 
   return (
     <React.Fragment>
-      <h2>{t("group.scope.url.title")}</h2>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm): JSX.Element => {
           const handleStateUpdate = (row: Record<string, string>): void => {

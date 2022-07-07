@@ -583,7 +583,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   return (
     <React.Fragment>
-      <h2>{t("group.scope.git.title")}</h2>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm): React.ReactNode => {
           const handleStateUpdate: (row: Record<string, string>) => void = (

@@ -185,7 +185,6 @@ export const IPRoots: React.FC<IIPRootsProps> = ({
 
   return (
     <React.Fragment>
-      <h2>{t("group.scope.ip.title")}</h2>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm): JSX.Element => {
           const handleStateUpdate = (row: Record<string, string>): void => {
