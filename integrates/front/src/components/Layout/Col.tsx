@@ -42,7 +42,9 @@ const getWidth = (width?: Width): string => {
   return `${width}%`;
 };
 
-const Col = styled.div.attrs({ className: "pr2 pt2" })<IColProps>`
+const Col = styled.div.attrs({
+  className: "comp-col",
+})<IColProps>`
   word-break: break-word;
 
   @media (max-width: 768px) {

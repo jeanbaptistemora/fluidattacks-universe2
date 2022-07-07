@@ -40,11 +40,16 @@ const getTextAlign = (justify: IRowProps["justify"]): string => {
 };
 
 const Row = styled.div.attrs({
-  className: "flex flex-row flex-wrap",
+  className: "comp-row flex flex-row flex-wrap",
 })<IRowProps>`
   align-items: ${(props): string => getAlignItems(props.align)};
   justify-content: ${(props): string => getJustifyContent(props.justify)};
   text-align: ${(props): string => getTextAlign(props.justify)};
+
+  margin: -6px;
+  > .comp-col {
+    padding: 6px;
+  }
 `;
 
 export { Row };
