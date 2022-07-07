@@ -639,3 +639,20 @@ async def send_mail_reminder(
         context=context,
         template_name="reminder_notification",
     )
+
+
+async def send_mail_numerator_report(
+    *,
+    loaders: Any,
+    context: dict[str, Any],
+    email_to: List[str],
+    report_date: date,
+) -> None:
+    await send_mails_async(
+        loaders=loaders,
+        email_to=email_to,
+        tags=GENERAL_TAG,
+        subject=f"[ASM] Enumeration Digest [{report_date}]",
+        context=context,
+        template_name="numerator_digest",
+    )

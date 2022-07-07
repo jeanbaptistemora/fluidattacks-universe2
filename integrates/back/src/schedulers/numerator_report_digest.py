@@ -14,6 +14,9 @@ from db_model.toe_inputs.types import (
     ToeInputsConnection,
 )
 import logging
+from mailer import (
+    groups as groups_mail,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -26,12 +29,14 @@ from settings import (
 from typing import (
     Any,
     Dict,
+    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+PRODUCTION_MAIL = "production@fluidattacks.com"
 
 
 def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
@@ -43,17 +48,9 @@ def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
     return validate_date
 
 
-async def send_numerator_report() -> None:
-    loaders: Dataloaders = get_new_context()
-    groups_names = await orgs_domain.get_all_active_group_names(loaders)
-
-    if FI_ENVIRONMENT == "production":
-        groups_names = tuple(
-            group
-            for group in groups_names
-            if group not in FI_TEST_PROJECTS.split(",")
-        )
-
+async def _generate_numerator_report(
+    loaders: Dataloaders, groups_names: Tuple[str, ...]
+) -> Dict[str, Any]:
     content: Dict[str, Any] = {}
 
     for group in groups_names:
@@ -68,6 +65,7 @@ async def send_numerator_report() -> None:
                     content[toe.node.seen_first_time_by] = {
                         "weekly_count": 0,
                         "past_day_count": 0,
+                        "today_count": 0,
                         "groups": {},
                     }
                 if _validate_date(toe.node.seen_at.date(), 1, 0):
@@ -85,6 +83,12 @@ async def send_numerator_report() -> None:
                             else 1
                         )
                     }
+                    content[toe.node.seen_first_time_by]["today_count"] = (
+                        int(
+                            content[toe.node.seen_first_time_by]["today_count"]
+                        )
+                        + 1
+                    )
                 else:
                     if _validate_date(toe.node.seen_at.date(), 2, 1):
                         content[toe.node.seen_first_time_by][
@@ -109,7 +113,54 @@ async def send_numerator_report() -> None:
                             + 1
                         )
 
-    if not content:
+    return content
+
+
+async def _send_mail_report(
+    loaders: Any,
+    content: Dict[str, Any],
+    report_date: date,
+    responsible: str,
+) -> None:
+    variation_yesterday: int = 0
+    variation_week: int = 0
+    context: Dict[str, Any] = {
+        "groups": content["groups"],
+        "responsible": responsible,
+        "today_count": content["today_count"],
+        "variation_yesterday": variation_yesterday,
+        "variation_week": variation_week,
+    }
+    await groups_mail.send_mail_numerator_report(
+        loaders=loaders,
+        context=context,
+        email_to=[PRODUCTION_MAIL],
+        report_date=report_date,
+    )
+
+
+async def send_numerator_report() -> None:
+    loaders: Dataloaders = get_new_context()
+    groups_names = await orgs_domain.get_all_active_group_names(loaders)
+    report_date = datetime_utils.get_now().date()
+
+    if FI_ENVIRONMENT == "production":
+        groups_names = tuple(
+            group
+            for group in groups_names
+            if group not in FI_TEST_PROJECTS.split(",")
+        )
+
+    content: Dict[str, Any] = await _generate_numerator_report(
+        loaders, groups_names
+    )
+
+    if content:
+        for user_email, user_content in content.items():
+            await _send_mail_report(
+                loaders, user_content, report_date, user_email
+            )
+    else:
         LOGGER.info("- numerator report NOT sent")
         return
 
