@@ -13,7 +13,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     field_declaration as c_sharp_field_declaration,
     for_each_statement as c_sharp_for_each_statement,
     for_statemente as c_sharp_for_statement,
-    if_statement as c_sharp_if_statement,
     initializer_expression as c_sharp_initializer_expression,
     interface_declaration as c_sharp_interface_declaration,
     interpolated_string_expression as c_sharp_interpolated_string_expression,
@@ -51,6 +50,7 @@ from syntax_graph.syntax_readers.common import (
     execution_block as common_execution_block,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
+    if_statement as common_if_statement,
     interpolation as common_interpolation,
     method_declaration as common_method_declaration,
     null_literal as common_null_literal,
@@ -226,7 +226,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "if_statement",
         },
-        syntax_reader=c_sharp_if_statement.reader,
+        syntax_reader=common_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
