@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 
 import { Tab, Tabs } from "components/Tabs";
+import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
 import { OrganizationBilling } from "scenes/Dashboard/containers/OrganizationBillingView";
 import {
@@ -135,6 +136,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
         <div>
           <div>
             <div>
+              <EventBar organizationName={organizationName} />
               <Tabs>
                 <Tab
                   id={"analyticsTab"}

@@ -1,20 +1,15 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
-const GET_EVENTS: DocumentNode = gql`
-  query GetEventsQuery($organizationName: String!) {
-    organizationId(organizationName: $organizationName) {
-      groups {
-        name
-        events {
-          eventStatus
-          eventDate
-          groupName
-        }
+const GET_GROUP_EVENT_STATUS: DocumentNode = gql`
+  query GetEventsQuery($groupName: String!) {
+    group(groupName: $groupName) {
+      events {
+        eventStatus
       }
       name
     }
   }
 `;
 
-export { GET_EVENTS };
+export { GET_GROUP_EVENT_STATUS };

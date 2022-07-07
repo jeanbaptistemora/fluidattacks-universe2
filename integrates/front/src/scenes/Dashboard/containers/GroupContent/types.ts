@@ -1,14 +1,7 @@
-interface IEventDataset {
-  eventDate: string;
-  eventStatus: string;
-  groupName: string;
-}
-
-interface IEventBarDataset {
-  organizationId: {
-    groups: {
-      events: IEventDataset[];
-      name: string;
+interface IGetEventStatus {
+  group: {
+    events: {
+      eventStatus: string;
     }[];
     name: string;
   };
@@ -19,4 +12,4 @@ interface IGroupContext {
   url: string;
 }
 
-export type { IEventBarDataset, IEventDataset, IGroupContext };
+export type { IGetEventStatus, IGroupContext };

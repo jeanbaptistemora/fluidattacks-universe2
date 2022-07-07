@@ -6,11 +6,13 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { GET_ORG_EVENTS } from "./queries";
-import type { IEventBarDataset, IEventBarProps, IEventDataset } from "./types";
+import type { IEventBarDataset, IEventBarProps } from "./types";
 
 import { Alert } from "components/Alert";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
+
+type EventDataset = IEventBarDataset["organizationId"]["groups"][0]["events"];
 
 const EventBar: React.FC<IEventBarProps> = ({
   organizationName,
@@ -28,11 +30,11 @@ const EventBar: React.FC<IEventBarProps> = ({
   });
 
   const events = useMemo(
-    (): IEventDataset[] =>
+    (): EventDataset =>
       data === undefined
         ? []
         : data.organizationId.groups.reduce(
-            (previousValue: IEventDataset[], currentValue): IEventDataset[] => [
+            (previousValue: EventDataset, currentValue): EventDataset => [
               ...previousValue,
               ...currentValue.events,
             ],
