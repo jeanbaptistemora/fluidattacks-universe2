@@ -6,6 +6,8 @@ closure:
   idna: "3.3"
   requests: 2.28.1
   smmap: 5.0.0
+  types-requests: 2.28.0
+  types-urllib3: 1.26.16
   urllib3: 1.26.9
 links:
   - name: certifi-2022.6.15-py3-none-any.whl
@@ -50,6 +52,18 @@ links:
   - name: smmap-5.0.0.tar.gz
     sha256: 0dh9nghcsgjc67cq0ifxxm45d7f0w95zgjf9n02f4fydb4hfch68
     url: https://files.pythonhosted.org/packages/21/2d/39c6c57032f786f1965022563eec60623bb3e1409ade6ad834ff703724f3/smmap-5.0.0.tar.gz
+  - name: types_requests-2.28.0-py3-none-any.whl
+    sha256: 1as93fnb5w20yny8pn2c1ibmkgsb96vbpi867yf66psky173nf45
+    url: https://files.pythonhosted.org/packages/30/e8/928544360eddf40c57ba7fcf31dcb9c10dbce752ca73e18331fecfb4b95d/types_requests-2.28.0-py3-none-any.whl
+  - name: types-requests-2.28.0.tar.gz
+    sha256: 1lwlwb7na1734cb1wv5j6f88bs3nksc3pyk4vbf5bymkzdnx2qwq
+    url: https://files.pythonhosted.org/packages/e5/9a/c11348b69e80858799e943106e414a6780ebb98e87eaa1cd8ebe61d09579/types-requests-2.28.0.tar.gz
+  - name: types_urllib3-1.26.16-py3-none-any.whl
+    sha256: 04r04q547bxgpdbc63x4pnvcz0qahfa5jw6j13ckd8swbql8qn10
+    url: https://files.pythonhosted.org/packages/04/9f/65ce26fb8b191c91ec7afe3804da305c02331111d8abec7bf706a35b68a5/types_urllib3-1.26.16-py3-none-any.whl
+  - name: types-urllib3-1.26.16.tar.gz
+    sha256: 03iv8n1qg5jbp9jsr0kxp6rfqfvh0jy2hvmr83nwnc2cd0n87cwb
+    url: https://files.pythonhosted.org/packages/7f/71/f6078ac156b931e70ab206fc84938697ca1f3a08510a2e08a683ba1b0317/types-urllib3-1.26.16.tar.gz
   - name: urllib3-1.26.9-py2.py3-none-any.whl
     sha256: 051c8x2xchkhcrvagwzw4p4jx6j6ym4cdlcvgik6yw5i7zay9v24
     url: https://files.pythonhosted.org/packages/ec/03/062e6444ce4baf1eac17a6a0ebfe36bb1ad05e1df0e20b110de59c278498/urllib3-1.26.9-py2.py3-none-any.whl

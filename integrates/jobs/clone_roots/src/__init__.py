@@ -1,12 +1,17 @@
 import asyncio
 import base64
 from contextlib import (
+    asynccontextmanager,
     suppress,
 )
 import http.client
 import json
 import logging
 import os
+import requests
+import shutil
+import tarfile
+import tempfile
 from typing import (
     Any,
     Optional,
@@ -222,3 +227,103 @@ async def https_clone(
     )
 
     return (None, stderr.decode("utf-8"))
+
+
+def create_git_root_tar_file(
+    root_nickname: str, repo_path: str, output_path: Optional[str] = None
+) -> bool:
+    git_dir = os.path.normpath(f"{repo_path}/.git")
+    with tarfile.open(
+        output_path or f"{root_nickname}.tar.gz", "w:gz"
+    ) as tar_handler:
+        if os.path.exists(git_dir):
+            tar_handler.add(
+                git_dir, arcname=f"{root_nickname}/.git", recursive=True
+            )
+            return True
+        return False
+
+
+async def upload_cloned_repo_to_s3_tar(
+    *, repo_path: str, nickname: str, upload_url: str
+) -> bool:
+    success: bool = False
+    _, zip_output_path = tempfile.mkstemp()
+
+    if not create_git_root_tar_file(nickname, repo_path, zip_output_path):
+        logging.error(
+            "Failed to compress root %s",
+            nickname,
+            extra=dict(extra=locals()),
+        )
+        os.remove(zip_output_path)
+        return False
+    with open(zip_output_path, "rb") as object_file:
+        object_text = object_file.read()
+        response = requests.put(upload_url, data=object_text)
+        response.raise_for_status()
+        success = True
+    os.remove(zip_output_path)
+    return success
+
+
+@asynccontextmanager
+async def clone_root(*, group_name: str, root: dict[str, Any]) -> Any:
+    cred = root["credentials"]
+    branch = root["branch"]
+    root_url = root["url"]
+    root_nickname = root["nickname"]
+    with tempfile.TemporaryDirectory() as temp_dir:
+        if key := cred.get("key"):
+            folder_to_clone_root, stderr = await ssh_clone(
+                branch=branch,
+                credential_key=key,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+            )
+        elif token := cred.get("token"):
+            folder_to_clone_root, stderr = await https_clone(
+                branch=branch,
+                password=None,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=token,
+                user=None,
+            )
+        elif user := cred.get("user") and (password := cred.get("password")):
+            folder_to_clone_root, stderr = await https_clone(
+                branch=branch,
+                password=password,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=None,
+                user=user,
+            )
+        else:
+            raise Exception()
+
+        if folder_to_clone_root is None:
+            logging.error(
+                "Root cloning failed",
+                extra=dict(
+                    extra={
+                        "group_name": group_name,
+                        "root_nickname": root_nickname,
+                        "stderr": stderr,
+                    }
+                ),
+            )
+            update_root_cloning_status(
+                token=os.environ["INTEGRATES_API_TOKEN"],
+                group_name=group_name,
+                root_id=root["id"],
+                status="FAILED",
+                message=stderr or "Failed to clone",
+            )
+            shutil.rmtree(temp_dir, ignore_errors=True)
+            return
+            yield
+        try:
+            yield folder_to_clone_root
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
