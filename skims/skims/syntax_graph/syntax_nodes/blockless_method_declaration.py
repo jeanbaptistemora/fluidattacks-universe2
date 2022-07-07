@@ -17,7 +17,7 @@ def build_blockless_method_declaration_node(
     args.syntax_graph.add_node(
         args.n_id,
         name=name,
-        label_type="MethodDeclaration",
+        label_type="BlocklessMethodDeclaration",
     )
 
     if parameters_id:

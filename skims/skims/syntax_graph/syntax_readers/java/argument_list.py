@@ -8,11 +8,11 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
-    adj_ast,
+    match_ast_group_d,
 )
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    _, *c_ids, _ = adj_ast(graph, args.n_id)  # do not consider { }
+    c_ids = match_ast_group_d(graph, args.n_id, "identifier")
     return build_argument_list_node(args, iter(c_ids))
