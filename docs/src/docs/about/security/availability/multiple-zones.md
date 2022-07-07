@@ -13,5 +13,7 @@ to ensure high availability
 of our systems.
 
 Used zones are:
-- Primary: EE.UU. East Region (Northern Virginia)
-- secondary: UE Region (Ireland)
+
+- Primary: EE.UU. East Region
+  (Northern Virginia)
+- Secondary: UE Region (Ireland)
