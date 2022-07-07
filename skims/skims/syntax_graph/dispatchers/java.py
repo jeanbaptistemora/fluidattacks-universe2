@@ -12,6 +12,7 @@ from syntax_graph.syntax_readers.common import (
     execution_block as common_execution_block,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
+    if_statement as common_if_statement,
     interpolation as common_interpolation,
     method_declaration as common_method_declaration,
     null_literal as common_null_literal,
@@ -153,6 +154,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "identifier",
         },
         syntax_reader=common_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "if_statement",
+        },
+        syntax_reader=common_if_statement.reader,
     ),
     Dispatcher(
         applicable_types={
