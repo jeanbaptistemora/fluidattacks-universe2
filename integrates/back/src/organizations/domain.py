@@ -387,7 +387,11 @@ async def invite_to_organization(
             "reject_access_url": reject_access_url,
             "user_role": user_role.replace("_", " "),
         }
-        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
+        schedule(
+            groups_mail.send_mail_access_granted(
+                loaders, mail_to, email_context
+            )
+        )
     return success
 
 
@@ -720,6 +724,7 @@ async def send_mail_policies(
 
     if policies_content:
         await groups_mail.send_mail_updated_policies(
+            loaders=loaders,
             email_to=stakeholders_emails,
             context=email_context,
         )

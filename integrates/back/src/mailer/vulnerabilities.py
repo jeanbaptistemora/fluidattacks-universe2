@@ -71,6 +71,7 @@ async def send_mail_updated_treatment(
         ),
     }
     await send_mails_async(
+        loaders,
         stakeholders_email,
         email_context,
         GENERAL_TAG,
@@ -116,6 +117,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         ),
     }
     await send_mails_async(
+        loaders,
         email_to,
         email_context,
         GENERAL_TAG,
@@ -155,6 +157,7 @@ async def send_mail_temporal_treatment_report(
         ),
     }
     await send_mails_async(
+        loaders,
         users_email,
         email_context,
         GENERAL_TAG,
@@ -186,6 +189,7 @@ async def send_mail_assigned_vulnerability(
         "where": where.splitlines(),
     }
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context=email_context,
         tags=GENERAL_TAG,

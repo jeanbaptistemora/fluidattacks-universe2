@@ -25,8 +25,9 @@ def error(*args: Any, extra: Any = None) -> None:
 
 
 def scheduler_send_mail(
+    loaders: Any,
     send_mail_function: Callable,
     mail_to: list[str],
     mail_context: dict[str, Any],
 ) -> None:
-    schedule(send_mail_function(mail_to, mail_context))
+    schedule(send_mail_function(loaders, mail_to, mail_context))

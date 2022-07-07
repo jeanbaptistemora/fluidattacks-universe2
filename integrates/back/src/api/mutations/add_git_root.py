@@ -134,6 +134,7 @@ async def mutate(
         )
 
     await groups_mail.send_mail_added_root(
+        loaders=loaders,
         branch=root.state.branch,
         email_to=users_email,
         environment=root.state.environment,

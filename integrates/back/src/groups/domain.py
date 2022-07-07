@@ -1288,7 +1288,11 @@ async def invite_to_group(
             "reject_access_url": reject_access_url,
             "user_role": user_role.replace("_", " "),
         }
-        schedule(groups_mail.send_mail_access_granted(mail_to, email_context))
+        schedule(
+            groups_mail.send_mail_access_granted(
+                loaders, mail_to, email_context
+            )
+        )
     return success
 
 
@@ -1456,6 +1460,7 @@ async def send_mail_file_report(
     )
 
     await groups_mail.send_mail_file_report(
+        loaders=loaders,
         group_name=group_name,
         responsible=responsible,
         is_added=is_added,
@@ -1622,6 +1627,7 @@ async def send_mail_unsubscribed(
     )
 
     await groups_mail.send_mail_user_unsubscribed(
+        loaders=loaders,
         group_name=group_name,
         user_email=user_email,
         report_date=datetime_utils.get_datetime_from_iso_str(report_date),
@@ -1667,6 +1673,7 @@ async def update_group_info(
 
     if metadata:
         await groups_mail.send_mail_updated_group_information(
+            loaders=loaders,
             group_name=group_name,
             responsible=user_email,
             group=group,
@@ -1848,6 +1855,7 @@ async def send_mail_portfolio_report(
     )
 
     await groups_mail.send_mail_portfolio_report(
+        loaders=loaders,
         group_name=group_name,
         responsible=responsible,
         is_added=is_added,

@@ -596,6 +596,7 @@ async def move_root(*, item: BatchProcessing) -> None:
             },
         )
         await send_mails_async(
+            get_new_context(),
             email_to=[item.subject],
             context={
                 "group": source_group_name,

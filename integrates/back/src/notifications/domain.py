@@ -316,6 +316,7 @@ async def new_password_protected_report(
     fname = await _get_recipient_first_name_async(loaders, user_email)
     subject = f"{file_type} Report for [{group_name}]"
     await groups_mail.send_mail_group_report(
+        loaders,
         [user_email],
         {
             "filetype": file_type,

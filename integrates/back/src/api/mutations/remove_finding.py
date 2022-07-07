@@ -73,6 +73,7 @@ async def mutate(
         )
         schedule(
             findings_mail.send_mail_remove_finding(
+                info.context.loaders,
                 finding.id,
                 finding.title,
                 finding.group_name,

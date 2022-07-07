@@ -196,6 +196,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         roles=roles,
     )
     await groups_mail.send_mail_deactivated_root(
+        loaders=loaders,
         activated_by=activated_by,
         email_to=users_email,
         group_name=group_name,

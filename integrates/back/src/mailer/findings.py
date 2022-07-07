@@ -81,6 +81,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
     await send_mails_async(
+        loaders,
         [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
@@ -93,7 +94,8 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     )
 
 
-async def send_mail_remove_finding(
+async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
+    loaders: Any,
     finding_id: str,
     finding_name: str,
     group_name: str,
@@ -118,6 +120,7 @@ async def send_mail_remove_finding(
         "user_role": user_role.replace("_", " "),
     }
     await send_mails_async(
+        loaders,
         recipients,
         mail_context,
         GENERAL_TAG,
@@ -152,6 +155,7 @@ async def send_mail_new_draft(
         "user_role": user_role.replace("_", " "),
     }
     await send_mails_async(
+        loaders,
         recipients,
         email_context,
         GENERAL_TAG,
@@ -161,9 +165,10 @@ async def send_mail_new_draft(
 
 
 async def send_mail_new_remediated(
-    email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders,
         email_to,
         context,
         GENERAL_TAG,
@@ -198,6 +203,7 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
         "user_role": user_role.replace("_", " "),
     }
     await send_mails_async(
+        loaders,
         recipients,
         email_context,
         GENERAL_TAG,
@@ -238,6 +244,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
         "solution_description": justification.splitlines(),
     }
     await send_mails_async(
+        loaders,
         stakeholders_email,
         mail_context,
         VERIFY_TAG,
@@ -286,6 +293,7 @@ async def send_mail_vulnerability_report(
         "state": state,
     }
     await send_mails_async(
+        loaders,
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,

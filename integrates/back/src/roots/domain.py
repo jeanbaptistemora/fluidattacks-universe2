@@ -881,6 +881,7 @@ async def send_mail_updated_root(
 
     if new_root_content:
         await groups_mail.send_mail_updated_root(
+            loaders=loaders,
             email_to=users_email,
             group_name=group_name,
             responsible=user_email,
@@ -1614,6 +1615,7 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     )
 
     await groups_mail.send_mail_environment_report(
+        loaders=loaders,
         email_to=users_email,
         group_name=group_name,
         responsible=user_email,

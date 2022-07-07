@@ -43,9 +43,10 @@ from typing import (
 
 
 async def send_mail_free_trial_start(
-    email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders,
         email_to=email_to,
         context=context,
         tags=[],
@@ -55,9 +56,10 @@ async def send_mail_free_trial_start(
 
 
 async def send_mail_access_granted(
-    email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders,
         email_to,
         context,
         GENERAL_TAG,
@@ -89,6 +91,7 @@ async def send_mail_daily_digest(
         in stakeholder.notifications_preferences.email
     ]
     await send_mails_async(
+        loaders,
         stakeholders_email,
         context,
         DIGEST_TAG,
@@ -98,9 +101,10 @@ async def send_mail_daily_digest(
 
 
 async def send_mail_group_report(
-    email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders,
         email_to,
         context,
         GENERAL_TAG,
@@ -146,6 +150,7 @@ async def send_mail_comment(
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
     await send_mails_async(
+        loaders,
         [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
@@ -156,6 +161,7 @@ async def send_mail_comment(
 
 async def send_mail_added_root(
     *,
+    loaders: Any,
     branch: str,
     email_to: List[str],
     environment: str,
@@ -177,6 +183,7 @@ async def send_mail_added_root(
     }
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
+        loaders,
         email_to=email_to,
         context={
             "branch": branch.capitalize(),
@@ -199,6 +206,7 @@ async def send_mail_added_root(
 
 async def send_mail_updated_root(
     *,
+    loaders: Any,
     email_to: List[str],
     group_name: str,
     responsible: str,
@@ -214,6 +222,7 @@ async def send_mail_updated_root(
     }
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "group_name": group_name,
@@ -233,6 +242,7 @@ async def send_mail_updated_root(
 
 async def send_mail_deactivated_root(
     *,
+    loaders: Any,
     activated_by: str,
     email_to: List[str],
     group_name: str,
@@ -253,6 +263,7 @@ async def send_mail_deactivated_root(
     )
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "group": group_name,
@@ -277,6 +288,7 @@ async def send_mail_deactivated_root(
 
 async def send_mail_file_report(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     is_added: bool,
@@ -294,6 +306,7 @@ async def send_mail_file_report(
         else None
     )
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "state": state_format,
@@ -355,6 +368,7 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
         "report_date": report_date.strftime("on %Y/%m/%d at %H:%M:%S"),
     }
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context=email_context,
         tags=GENERAL_TAG,
@@ -368,6 +382,7 @@ async def send_mail_root_cloning_status(  # pylint: disable=too-many-locals
 
 async def send_mail_portfolio_report(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     is_added: bool,
@@ -377,6 +392,7 @@ async def send_mail_portfolio_report(
 ) -> None:
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "is_added": is_added,
@@ -404,6 +420,7 @@ async def send_mail_updated_services(
     user_role = await authz.get_group_level_role(responsible, group_name)
     org_name = await get_organization_name(loaders, group_name)
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "group_name": group_name,
@@ -441,6 +458,7 @@ async def send_mail_devsecops_agent_token(
         "had_token": had_token,
     }
     await send_mails_async(
+        loaders,
         email_to,
         email_context,
         COMMENTS_TAG,
@@ -451,6 +469,7 @@ async def send_mail_devsecops_agent_token(
 
 async def send_mail_user_unsubscribed(
     *,
+    loaders: Any,
     group_name: str,
     user_email: str,
     report_date: date,
@@ -462,6 +481,7 @@ async def send_mail_user_unsubscribed(
         "user_email": user_email,
     }
     await send_mails_async(
+        loaders,
         email_to,
         email_context,
         COMMENTS_TAG,
@@ -472,6 +492,7 @@ async def send_mail_user_unsubscribed(
 
 async def send_mail_environment_report(
     *,
+    loaders: Any,
     email_to: List[str],
     group_name: str,
     responsible: str,
@@ -485,6 +506,7 @@ async def send_mail_environment_report(
 ) -> None:
     user_role = await authz.get_group_level_role(responsible, group_name)
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "group_name": group_name,
@@ -511,6 +533,7 @@ async def send_mail_environment_report(
 
 async def send_mail_updated_group_information(
     *,
+    loaders: Any,
     group_name: str,
     responsible: str,
     group: Group,
@@ -559,6 +582,7 @@ async def send_mail_updated_group_information(
     user_role = await authz.get_group_level_role(responsible, group_name)
 
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context={
             "group_name": group_name,
@@ -574,11 +598,12 @@ async def send_mail_updated_group_information(
 
 
 async def send_mail_updated_policies(
-    *, email_to: List[str], context: Dict[str, Any]
+    *, loaders: Any, email_to: List[str], context: Dict[str, Any]
 ) -> None:
     user_role = await authz.get_user_level_role(context["responsible"])
     context["user_role"] = user_role.replace("_", " ")
     await send_mails_async(
+        loaders,
         email_to,
         context,
         GENERAL_TAG,
@@ -588,9 +613,10 @@ async def send_mail_updated_policies(
 
 
 async def send_mail_users_weekly_report(
-    *, email_to: List[str], context: Dict[str, Any]
+    *, loaders: Any, email_to: List[str], context: Dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context=context,
         tags=GENERAL_TAG,
@@ -601,10 +627,12 @@ async def send_mail_users_weekly_report(
 
 async def send_mail_reminder(
     *,
+    loaders: Any,
     context: dict[str, Any],
     email_to: List[str],
 ) -> None:
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         tags=GENERAL_TAG,
         subject="[ASM] Reminder",

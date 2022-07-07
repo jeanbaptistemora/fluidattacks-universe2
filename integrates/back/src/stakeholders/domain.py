@@ -186,10 +186,6 @@ async def ensure_exists(email: str) -> bool:
     return bool(await stakeholders_dal.get(email))
 
 
-async def get(email: str) -> dict[str, Any]:
-    return await stakeholders_dal.get(email)
-
-
 async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
     """Get attributes of a user."""
     return await stakeholders_dal.get_attributes(email, data)

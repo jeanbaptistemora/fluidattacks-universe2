@@ -83,6 +83,7 @@ async def send_reminder_notification() -> None:
 
     if stakeholders_email:
         await groups_mail.send_mail_reminder(
+            loaders=loaders,
             context={},
             email_to=stakeholders_email,
         )

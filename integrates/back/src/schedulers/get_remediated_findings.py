@@ -93,6 +93,7 @@ async def get_remediated_findings() -> None:
             in stakeholder.notifications_preferences.email
         ]
         scheduler_send_mail(
+            loaders,
             findings_mail.send_mail_new_remediated,
             stakeholders_email,
             mail_context,

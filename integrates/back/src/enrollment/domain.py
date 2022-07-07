@@ -90,4 +90,4 @@ async def add_enrollment(
         "email": user_email,
         "empty_notification_notice": True,
     }
-    schedule(mail_free_trial_start(mail_to, email_context))
+    schedule(mail_free_trial_start(loaders, mail_to, email_context))

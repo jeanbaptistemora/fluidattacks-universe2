@@ -79,6 +79,7 @@ async def send_mail_comment(
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
     await send_mails_async(
+        loaders,
         [*stakeholders_email, *customer_success_recipients, *reviewers],
         email_context,
         COMMENTS_TAG,
@@ -155,6 +156,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "state": state,
     }
     await send_mails_async(
+        loaders=loaders,
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,

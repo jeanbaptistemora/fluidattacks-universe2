@@ -197,6 +197,7 @@ async def get_confirm_deletion(
 
 async def confirm_deletion_mail(
     *,
+    loaders: Any,
     email: str,
 ) -> bool:
     success = False
@@ -225,6 +226,6 @@ async def confirm_deletion_mail(
             "confirm_deletion_url": confirm_access_url,
             "empty_notification_notice": True,
         }
-        schedule(mail_confirm_deletion(mail_to, email_context))
+        schedule(mail_confirm_deletion(loaders, mail_to, email_context))
 
     return success

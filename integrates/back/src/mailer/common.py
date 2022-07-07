@@ -12,7 +12,11 @@ from context import (
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
+    StakeholderNotFound,
     UnableToSendMail,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
 )
 from http.client import (
     RemoteDisconnected,
@@ -36,9 +40,6 @@ from settings import (
 )
 from simplejson.errors import (  # type: ignore
     JSONDecodeError,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -67,11 +68,17 @@ def get_content(template_name: str, context: dict[str, Any]) -> str:
 
 
 async def get_recipient_first_name(
+    loaders: Any,
     email: str,
     is_access_granted: bool = False,
 ) -> Optional[str]:
     first_name = email.split("@")[0]
-    user_attr = await stakeholders_domain.get(email)
+    try:
+        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    except StakeholderNotFound:
+        stakeholder = Stakeholder(
+            email=email, first_name="", last_name="", is_registered=False
+        )
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
         *[
@@ -81,12 +88,10 @@ async def get_recipient_first_name(
         FI_MAIL_PROJECTS.lower(),
         *[fi_email.lower() for fi_email in FI_MAIL_REVIEWERS.split(",")],
     }
-    is_registered = (
-        bool(user_attr.get("registered", False)) if user_attr else False
-    )
+    is_registered = bool(stakeholder.is_registered) if stakeholder else False
     if is_constant or is_registered or is_access_granted:
-        if user_attr and user_attr.get("first_name"):
-            return str(user_attr["first_name"])
+        if stakeholder and stakeholder.first_name:
+            return str(stakeholder.first_name)
         return str(first_name)
     return None
 
@@ -97,6 +102,7 @@ async def log(msg: str, **kwargs: Any) -> None:
 
 async def send_mail_async(
     *,
+    loaders: Any,
     email_to: str,
     context: dict[str, Any],
     tags: List[str],
@@ -106,7 +112,7 @@ async def send_mail_async(
 ) -> None:
     mandrill_client = mailchimp_transactional.Client(FI_MANDRILL_API_KEY)
     first_name = await get_recipient_first_name(
-        email_to, is_access_granted=is_access_granted
+        loaders, email_to, is_access_granted=is_access_granted
     )
     if not first_name:
         return
@@ -152,6 +158,7 @@ async def send_mail_async(
 
 
 async def send_mails_async(  # pylint: disable=too-many-arguments
+    loaders: Any,
     email_to: List[str],
     context: dict[str, Any],
     tags: List[str],
@@ -163,6 +170,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
     await collect(
         tuple(
             send_mail_async(
+                loaders=loaders,
                 email_to=email,
                 context=context,
                 tags=tags,
@@ -177,9 +185,10 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_confirm_deletion(
-    email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: List[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
+        loaders=loaders,
         email_to=email_to,
         context=context,
         tags=[],

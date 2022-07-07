@@ -259,6 +259,7 @@ async def _send_analytics_report(
         in stakeholder.notifications_preferences.email
     ):
         await analytics_mail.send_mail_analytics(
+            get_new_context(),
             user_email,
             date=datetime_utils.get_as_str(
                 datetime_utils.get_now(), "%Y/%m/%d"

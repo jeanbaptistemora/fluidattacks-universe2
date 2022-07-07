@@ -29,26 +29,30 @@ import pytest
 
 @pytest.mark.asyncio
 async def test_get_recipient_first_name() -> None:
+    loaders: Dataloaders = get_new_context()
     assert (
-        await get_recipient_first_name("nonexistinguser@fluidattacks.com")
+        await get_recipient_first_name(
+            loaders, "nonexistinguser@fluidattacks.com"
+        )
         is None
     )
     assert (
-        await get_recipient_first_name(FI_MAIL_CUSTOMER_SUCCESS.split(",")[0])
+        await get_recipient_first_name(
+            loaders, FI_MAIL_CUSTOMER_SUCCESS.split(",")[0]
+        )
         is not None
     )
     assert (
-        await get_recipient_first_name("integratesmanager@gmail.com")
+        await get_recipient_first_name(loaders, "integratesmanager@gmail.com")
         is not None
     )
     assert (
         await get_recipient_first_name(
-            "nonexistinguser@fluidattacks.com", is_access_granted=True
+            loaders, "nonexistinguser@fluidattacks.com", is_access_granted=True
         )
         is not None
     )
 
-    loaders: Dataloaders = get_new_context()
     await invite_to_group(
         loaders=loaders,
         email="nonexistinguser@fluidattacks.com",
@@ -61,7 +65,7 @@ async def test_get_recipient_first_name() -> None:
     active_users = await get_group_users("oneshottest", active=True)
     users = inactive_users + active_users
     recipients = await collect(
-        tuple(get_recipient_first_name(email) for email in users)
+        tuple(get_recipient_first_name(loaders, email) for email in users)
     )
 
     assert len([recipient for recipient in recipients if recipient]) < len(

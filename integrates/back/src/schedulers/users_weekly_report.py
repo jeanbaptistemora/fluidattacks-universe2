@@ -84,6 +84,7 @@ async def send_users_weekly_report() -> None:
     if users:
         email_context: dict[str, Any] = {}
         await groups_mail.send_mail_users_weekly_report(
+            loaders=loaders,
             email_to=[],
             context=email_context,
         )
