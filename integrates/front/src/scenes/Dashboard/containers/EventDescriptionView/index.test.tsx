@@ -102,13 +102,17 @@ describe("EventDescriptionView", (): void => {
     });
 
     expect(
-      screen.queryByText("group.events.description.solved.date")
+      screen.queryByText(
+        "searchFindings.tabSeverity.common.deactivation.reason.label"
+      )
     ).not.toBeInTheDocument();
 
     userEvent.click(screen.getByText("searchFindings.tabSeverity.solve"));
     await waitFor((): void => {
       expect(
-        screen.getByText("group.events.description.solved.date")
+        screen.getByText(
+          "searchFindings.tabSeverity.common.deactivation.reason.label"
+        )
       ).toBeInTheDocument();
     });
   });

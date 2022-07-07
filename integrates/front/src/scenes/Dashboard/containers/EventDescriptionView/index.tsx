@@ -28,21 +28,11 @@ import {
   castAffectedComponents,
   formatAccessibility,
 } from "utils/formatHelpers";
-import {
-  EditableField,
-  FormikDateTime,
-  FormikDropdown,
-  FormikText,
-} from "utils/forms/fields";
+import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
-import {
-  composeValidators,
-  dateTimeBeforeToday,
-  required,
-  validDatetime,
-} from "utils/validations";
+import { composeValidators, required } from "utils/validations";
 
 interface IAffectedReattacks {
   findingId: string;
@@ -124,7 +114,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     (values: Record<string, unknown>): void => {
       void solveEvent({
         variables: {
-          date: values.date,
           eventId,
           other: values.other,
           reason: values.reason,
@@ -161,22 +150,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             {({ dirty, values }): React.ReactNode => (
               <Form id={"solveEvent"}>
                 <Row>
-                  <Col100>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.events.description.solved.date")}
-                      </ControlLabel>
-                      <Field
-                        component={FormikDateTime}
-                        name={"date"}
-                        validate={composeValidators([
-                          required,
-                          validDatetime,
-                          dateTimeBeforeToday,
-                        ])}
-                      />
-                    </FormGroup>
-                  </Col100>
                   <Col100>
                     <FormGroup>
                       <ControlLabel>
