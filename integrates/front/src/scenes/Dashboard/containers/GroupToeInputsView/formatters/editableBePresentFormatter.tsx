@@ -66,15 +66,15 @@ export const editableBePresentFormatter: (
     }
 
     return (
-      <div>
-        {formatBoolean(value)}
-        &nbsp;
-        <Switch
-          checked={row.bePresent}
-          name={"bePresentSwitch"}
-          onChange={handleOnChange}
-        />
-      </div>
+      <Switch
+        checked={value}
+        label={{
+          off: translate.t("group.toe.inputs.no"),
+          on: translate.t("group.toe.inputs.yes"),
+        }}
+        name={"bePresentSwitch"}
+        onChange={handleOnChange}
+      />
     );
   };
 

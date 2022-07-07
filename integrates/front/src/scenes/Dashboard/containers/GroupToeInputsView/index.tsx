@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useApolloClient, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { ActionButtons } from "./ActionButtons";
+import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import {
@@ -36,6 +37,7 @@ import {
 import type {
   IFilterSet,
   IGroupToeInputsViewProps,
+  IToeInputAttr,
   IToeInputData,
   IToeInputEdge,
   IToeInputsConnection,
@@ -55,6 +57,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   isInternal,
 }: IGroupToeInputsViewProps): JSX.Element => {
   const { t } = useTranslation();
+  const client = useApolloClient();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canGetAttackedAt: boolean = permissions.can(
@@ -170,6 +173,15 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     }
   );
 
+  const getToeInputsVariables = {
+    canGetAttackedAt,
+    canGetAttackedBy,
+    canGetBePresentUntil,
+    canGetFirstAttackAt,
+    canGetSeenFirstTimeBy,
+    groupName,
+    rootId: formatRootId(filterGroupToeInputTable.rootId),
+  };
   const { data, fetchMore, refetch } = useQuery<{
     group: { toeInputs: IToeInputsConnection };
   }>(GET_TOE_INPUTS, {
@@ -181,15 +193,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       });
     },
     variables: {
+      ...getToeInputsVariables,
       bePresent: formatBePresent(filterGroupToeInputTable.bePresent),
-      canGetAttackedAt,
-      canGetAttackedBy,
-      canGetBePresentUntil,
-      canGetFirstAttackAt,
-      canGetSeenFirstTimeBy,
       first: 150,
-      groupName,
-      rootId: formatRootId(filterGroupToeInputTable.rootId),
     },
   });
   const { data: rootIdsData } = useQuery<IGroupRootIdsAttr>(GET_ROOT_IDS, {
@@ -213,17 +219,20 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     seenFirstTimeBy: string
   ): string =>
     _.isEmpty(seenFirstTimeBy) ? NOSEENFIRSTTIMEBY : seenFirstTimeBy;
+  const formatToeInputData: (toeInputAttr: IToeInputAttr) => IToeInputData = (
+    toeInputAttr: IToeInputAttr
+  ): IToeInputData => ({
+    ...toeInputAttr,
+    attackedAt: formatOptionalDate(toeInputAttr.attackedAt),
+    bePresentUntil: formatOptionalDate(toeInputAttr.bePresentUntil),
+    firstAttackAt: formatOptionalDate(toeInputAttr.firstAttackAt),
+    markedSeenFirstTimeBy: markSeenFirstTimeBy(toeInputAttr.seenFirstTimeBy),
+    rootId: _.isNil(toeInputAttr.root) ? "" : toeInputAttr.root.id,
+    rootNickname: _.isNil(toeInputAttr.root) ? "" : toeInputAttr.root.nickname,
+    seenAt: formatOptionalDate(toeInputAttr.seenAt),
+  });
   const toeInputs: IToeInputData[] = toeInputsEdges.map(
-    ({ node }): IToeInputData => ({
-      ...node,
-      attackedAt: formatOptionalDate(node.attackedAt),
-      bePresentUntil: formatOptionalDate(node.bePresentUntil),
-      firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      markedSeenFirstTimeBy: markSeenFirstTimeBy(node.seenFirstTimeBy),
-      rootId: _.isNil(node.root) ? "" : node.root.id,
-      rootNickname: _.isNil(node.root) ? "" : node.root.nickname,
-      seenAt: formatOptionalDate(node.seenAt),
-    })
+    ({ node }): IToeInputData => formatToeInputData(node)
   );
 
   const formatBoolean = (value: boolean): string =>
@@ -248,6 +257,81 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
 
   const formatCsvEntrypoint = (value: string): string =>
     `'${value.trim().replace('"', '""')}`;
+
+  const handleUpdateToeInputBePresent: (
+    rootId: string,
+    component: string,
+    entryPoint: string,
+    bePresent: boolean
+  ) => Promise<void> = async (
+    rootId: string,
+    component: string,
+    entryPoint: string,
+    bePresent: boolean
+  ): Promise<void> => {
+    const result = await handleUpdateToeInput({
+      variables: {
+        ...getToeInputsVariables,
+        bePresent,
+        component,
+        entryPoint,
+        groupName,
+        hasRecentAttack: undefined,
+        rootId,
+        shouldGetNewToeInput: true,
+      },
+    });
+
+    if (!_.isNil(result.data) && result.data.updateToeInput.success) {
+      const updatedToeInput = result.data.updateToeInput.toeInput;
+      if (!_.isUndefined(updatedToeInput)) {
+        setSelectedToeInputDatas(
+          selectedToeInputDatas.map(
+            (toeInputData: IToeInputData): IToeInputData =>
+              toeInputData.rootId === rootId &&
+              toeInputData.component === component &&
+              toeInputData.entryPoint === entryPoint
+                ? formatToeInputData(updatedToeInput)
+                : toeInputData
+          )
+        );
+        client.writeQuery({
+          data: {
+            ...data,
+            group: {
+              ...data?.group,
+              toeInputs: {
+                ...data?.group.toeInputs,
+                edges: data?.group.toeInputs.edges.map(
+                  (value: IToeInputEdge): IToeInputEdge =>
+                    (_.isNil(value.node.root) ? "" : value.node.root.id) ===
+                      rootId &&
+                    value.node.component === component &&
+                    value.node.entryPoint === entryPoint
+                      ? {
+                          node: updatedToeInput,
+                        }
+                      : {
+                          node: value.node,
+                        }
+                ),
+              },
+            },
+          },
+          query: GET_TOE_INPUTS,
+          variables: {
+            ...getToeInputsVariables,
+            bePresent: formatBePresent(filterGroupToeInputTable.bePresent),
+            first: 150,
+          },
+        });
+      }
+      msgSuccess(
+        t("group.toe.inputs.alerts.updateInput"),
+        t("groupAlerts.updatedTitle")
+      );
+    }
+  };
 
   const headersToeInputsTable: IHeaderConfig[] = [
     {
@@ -318,7 +402,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     },
     {
       dataField: "bePresent",
-      formatter: formatBoolean,
+      formatter: editableBePresentFormatter(
+        canUpdateToeInput && isInternal,
+        handleUpdateToeInputBePresent
+      ),
       header: t("group.toe.inputs.bePresent"),
       onSort,
       visible: checkedItems.bePresent,
@@ -402,12 +489,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
         ): Promise<FetchResult<IUpdateToeInputResultAttr>> =>
           handleUpdateToeInput({
             variables: {
+              ...getToeInputsVariables,
               bePresent: toeInputData.bePresent,
               component: toeInputData.component,
               entryPoint: toeInputData.entryPoint,
               groupName,
               hasRecentAttack: true,
               rootId: toeInputData.rootId,
+              shouldGetNewToeInput: false,
             },
           })
       )

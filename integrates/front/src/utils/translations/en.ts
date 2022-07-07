@@ -1107,6 +1107,7 @@ export const enTranslations: ResourceKey = {
             success: "Input has been marked as attacked.",
           },
           nonPresent: "The input is not present.",
+          updateInput: "Input has been updated.",
         },
         attackedAt: "Attacked at",
         attackedBy: "Attacked by",
