@@ -1,7 +1,5 @@
 import React from "react";
 
-import { CardBody } from "./Body";
-import { CardHeader } from "./Header";
 import type { ICardBoxProps } from "./styles";
 import { CardBox, CardImgBox } from "./styles";
 
@@ -32,4 +30,4 @@ const Card: React.FC<ICardProps> = ({
 );
 
 export type { ICardProps };
-export { Card, CardBody, CardHeader };
+export { Card };
