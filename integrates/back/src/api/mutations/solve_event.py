@@ -74,6 +74,10 @@ async def mutate(
     logs_utils.cloudwatch_log(
         info.context, f"Security: Solved event {event_id} successfully"
     )
+    await update_unreliable_indicators_by_deps(
+        EntityDependency.solve_event,
+        event_ids=[event_id],
+    )
     if bool(reattacks_dict):
         await update_unreliable_indicators_by_deps(
             EntityDependency.request_vulnerabilities_verification,

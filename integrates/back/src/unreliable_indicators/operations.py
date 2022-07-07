@@ -95,17 +95,17 @@ async def update_event_unreliable_indicators(
     event: Event = await loaders.event.load(event_id)
     indicators = {}
 
-    if EntityAttr.closing_date in attrs_to_update:
-        indicators[
-            EntityAttr.closing_date
-        ] = events_domain.get_last_closing_date(loaders, event.id)
+    if EntityAttr.solving_date in attrs_to_update:
+        indicators[EntityAttr.solving_date] = events_domain.get_solving_date(
+            loaders, event.id
+        )
 
     result = dict(zip(indicators.keys(), await collect(indicators.values())))
 
     await events_model.update_unreliable_indicators(
         current_value=event,
         indicators=EventUnreliableIndicatorsToUpdate(
-            unreliable_closing_date=result.get(EntityAttr.closing_date),
+            unreliable_solving_date=result.get(EntityAttr.solving_date),
         ),
     )
 
@@ -438,8 +438,8 @@ async def update_unreliable_indicators_by_deps(
     if Entity.event in entities_to_update:
         updates.append(
             update_events_unreliable_indicators(
-                entities_to_update[Entity.finding].entity_ids[EntityId.ids],
-                entities_to_update[Entity.finding].attributes_to_update,
+                entities_to_update[Entity.event].entity_ids[EntityId.ids],
+                entities_to_update[Entity.event].attributes_to_update,
             )
         )
 

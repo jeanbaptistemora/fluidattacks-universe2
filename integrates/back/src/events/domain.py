@@ -274,22 +274,29 @@ async def get_evidence_link(
     return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BUCKET)
 
 
-async def get_last_closing_state(
+async def get_solving_state(
     loaders: Any, event_id: str
 ) -> Optional[EventState]:
+    solved_state: Optional[EventState] = None
     historic_states: tuple[
         EventState, ...
     ] = await loaders.event_historic_state.load(event_id)
-    for state in reversed(historic_states):
-        if state.status == EventStateStatus.CLOSED:
-            return state
+    for state in sorted(
+        historic_states,
+        key=lambda state: datetime.fromisoformat(state.modified_date),
+        reverse=True,
+    ):
+        if state.status == EventStateStatus.SOLVED:
+            solved_state = state
+        elif state.status == EventStateStatus.CLOSED:
+            return solved_state
 
-    return None
+    return solved_state
 
 
-async def get_last_closing_date(loaders: Any, event_id: str) -> Optional[str]:
+async def get_solving_date(loaders: Any, event_id: str) -> Optional[str]:
     """Returns the date of the last closing state"""
-    last_closing_state = await get_last_closing_state(loaders, event_id)
+    last_closing_state = await get_solving_state(loaders, event_id)
 
     return last_closing_state.modified_date if last_closing_state else None
 

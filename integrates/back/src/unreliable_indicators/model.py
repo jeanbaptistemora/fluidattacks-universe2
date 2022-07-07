@@ -15,6 +15,18 @@ from unreliable_indicators.types import (
 
 # Constants
 ENTITIES = {
+    Entity.event: dict(
+        args={
+            EntityId.ids,
+        },
+        attrs={
+            EntityAttr.solving_date: dict(
+                dependencies={
+                    EntityDependency.solve_event,
+                }
+            ),
+        },
+    ),
     Entity.finding: dict(
         args={
             EntityId.ids,

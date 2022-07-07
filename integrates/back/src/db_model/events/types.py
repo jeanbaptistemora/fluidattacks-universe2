@@ -32,7 +32,7 @@ class EventState(NamedTuple):
 
 
 class EventUnreliableIndicators(NamedTuple):
-    unreliable_closing_date: Optional[str] = None
+    unreliable_solving_date: Optional[str] = None
 
 
 class Event(NamedTuple):
@@ -66,4 +66,4 @@ class EventMetadataToUpdate(NamedTuple):
 
 
 class EventUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_closing_date: Optional[str] = None
+    unreliable_solving_date: Optional[str] = None

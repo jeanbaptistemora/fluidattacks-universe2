@@ -18,7 +18,7 @@ class EntityId(Enum):
 class EntityAttr(Enum):
     efficacy: str = "efficacy"
     closed_vulnerabilities: str = "closed_vulnerabilities"
-    closing_date: str = "closing_date"
+    solving_date: str = "solving_date"
     last_reattack_date: str = "last_reattack_date"
     last_reattack_requester: str = "last_reattack_requester"
     last_requested_reattack_date: str = "last_requested_reattack_date"
@@ -58,6 +58,7 @@ class EntityDependency(Enum):
         "request_vulnerabilities_zero_risk"
     )
     reset_expired_accepted_findings: str = "reset_expired_accepted_findings"
+    solve_event: str = "solve_event"
     update_nickname: str = "update_nickname"
     update_vulnerabilities_treatment: str = "update_vulnerabilities_treatment"
     update_vulnerability_commit: str = "update_vulnerability_commit"
