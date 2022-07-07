@@ -31,7 +31,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     return_statement as c_sharp_return_statement,
     this_expression as c_sharp_this_expression,
     throw_statement as c_sharp_throw_statement,
-    try_statement as c_sharp_try_statement,
     type_of_expression as c_sharp_type_of_expression,
     type_parameter_list as c_sharp_type_parameter_list,
     using_directive as c_sharp_using_directive,
@@ -59,6 +58,7 @@ from syntax_graph.syntax_readers.common import (
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
     string_literal as common_string_literal,
+    try_statement as common_try_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -396,7 +396,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "try_statement",
         },
-        syntax_reader=c_sharp_try_statement.reader,
+        syntax_reader=common_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={
