@@ -14,7 +14,7 @@
             (projectPath "/integrates/jobs/clone_roots/src")
           ];
         };
-        python = "3.9";
+        python = "3.8";
         src = "/integrates/jobs/clone_roots/src";
       };
     };

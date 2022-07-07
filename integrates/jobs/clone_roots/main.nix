@@ -11,7 +11,7 @@ makeScript {
     __argScript__ = ./src/__init__.py;
   };
   searchPaths = {
-    bin = [(makePythonVersion "3.9")];
+    bin = [(makePythonVersion "3.8")];
     source = [
       outputs."/common/utils/env"
     ];

@@ -112,4 +112,4 @@ links:
   - name: urllib3-1.26.9.tar.gz
     sha256: 13j4mkk6vgix4bixfqk3fhydsl3r5f61z94ss4fmwsl0fxjg3fma
     url: https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz
-python: "3.9"
+python: "3.8"

@@ -540,6 +540,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/lintPython/module/integratesJobsCloneRoots";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/lintPython/module/integratesBackMigrations";
             gitlabExtra = gitlabLint;
           }

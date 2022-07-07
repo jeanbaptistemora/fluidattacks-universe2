@@ -8,9 +8,6 @@ from contextlib import (
     asynccontextmanager,
     suppress,
 )
-from git import (
-    Repo,
-)
 from git.exc import (
     GitError,
 )
@@ -28,6 +25,7 @@ import tarfile
 import tempfile
 from typing import (
     Any,
+    Dict,
     NamedTuple,
     Optional,
     Tuple,
@@ -91,7 +89,7 @@ def delete_action(
     client.delete_item(**operation_payload)
 
 
-def get_roots(token: str, group_name: str) -> Optional[dict[str, Any]]:
+def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
     conn = http.client.HTTPSConnection("app.fluidattacks.com")
     query = """
         query GetRootUpload($groupName: String!) {
@@ -141,7 +139,7 @@ def update_root_cloning_status(  # pylint: disable=too-many-arguments
     status: str,
     message: str,
     commit: Optional[str] = None,
-) -> Optional[dict[str, Any]]:
+) -> Optional[Dict[str, Any]]:
     conn = http.client.HTTPSConnection("app.fluidattacks.com")
     query = """
         mutation MeltsUpdateRootCloningStatus(
@@ -333,7 +331,7 @@ async def upload_cloned_repo_to_s3_tar(
 
 @asynccontextmanager
 async def clone_root(
-    *, group_name: str, root: dict[str, Any], token: str
+    *, group_name: str, root: Dict[str, Any], token: str
 ) -> Any:
     cred = root["credentials"]
     branch = root["branch"]
@@ -396,17 +394,18 @@ async def clone_root(
 
 
 async def main() -> None:
-    action_key = sys.argv[1]
+    logging.basicConfig(level="INFO")
+    token = os.environ["INTEGRATES_API_TOKEN"]
+
+    action_key = sys.argv[2]
     action = get_action(action_dynamo_pk=action_key)
     if not action:
-        logging.error("The job can not be found")
+        logging.error("The job can not be found: %s", action_key)
         return
 
     data = json.loads(action.additional_info)
     group_name = data["group_name"]
     root_nicknames = data["roots"]
-    token = os.environ["INTEGRATES_API_TOKEN"]
-    logging.basicConfig(level="INFO")
     roots_data = get_roots(token, group_name)
     if not roots_data:
         return
@@ -452,6 +451,7 @@ async def main() -> None:
                         message="Cloned successfully",
                         commit=commit,
                     )
+                    delete_action(action_dynamo_pk=action_key)
                     continue
                 except (GitError, AttributeError) as exc:
                     logging.exception(
@@ -470,6 +470,15 @@ async def main() -> None:
                         status="FAILED",
                         message=str(exc),
                     )
+                    continue
+
+            update_root_cloning_status(
+                token=token,
+                group_name=group_name,
+                root_id=root["id"],
+                status="FAILED",
+                message="The repository can not be uploaded",
+            )
 
 
 if __name__ == "__main__":
