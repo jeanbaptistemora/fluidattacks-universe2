@@ -110,4 +110,32 @@ describe("ToeInputsActionButtons", (): void => {
       })
     ).toBeInTheDocument();
   });
+
+  it("should display the attacked button", (): void => {
+    expect.hasAssertions();
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_toe_input_mutate" },
+    ]);
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <ActionButtons
+          areInputsSelected={true}
+          isAdding={false}
+          isEditing={false}
+          isInternal={true}
+          isMarkingAsAttacked={false}
+          onAdd={jest.fn()}
+          onEdit={jest.fn()}
+          onMarkAsAttacked={jest.fn()}
+        />
+      </authzPermissionsContext.Provider>
+    );
+
+    expect(
+      screen.getByRole("button", {
+        name: "group.toe.inputs.actionButtons.attackedButton.text",
+      })
+    ).toBeInTheDocument();
+  });
 });
