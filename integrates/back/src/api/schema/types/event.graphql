@@ -58,16 +58,20 @@ type Event {
   hacker: String
   "List of historic configurations of the Event"
   historicState: [GenericScalar]
-  @deprecated(
+    @deprecated(
       reason: """
       This field will be removed after 2022/12/16.
       """
     )
   "Identifier of the event"
   id: String
+  "Description for other solving reason"
+  otherSolvingReason: String
+  "Reason of solving the Event"
+  solvingReason: SolveEventReason
   "Type of hacking subscription"
   subscription: String
-  @deprecated(
+    @deprecated(
       reason: """
       This field will be removed after 2022/12/16.
       Use Group `subscription` instead.

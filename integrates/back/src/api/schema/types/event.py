@@ -17,6 +17,8 @@ from api.resolvers.event import (
     group_name,
     hacker,
     historic_state,
+    other_solving_reason,
+    solving_reason,
     suscription,
 )
 from ariadne import (
@@ -42,4 +44,6 @@ EVENT.set_field("historicState", historic_state.resolve)
 EVENT.set_field("id", event_id.resolve)
 EVENT.set_field("affectedReattacks", affected_reattacks.resolve)
 EVENT.set_field("consulting", consulting.resolve)
+EVENT.set_field("otherSolvingReason", other_solving_reason.resolve)
+EVENT.set_field("solvingReason", solving_reason.resolve)
 EVENT.set_field("subscription", suscription.resolve)
