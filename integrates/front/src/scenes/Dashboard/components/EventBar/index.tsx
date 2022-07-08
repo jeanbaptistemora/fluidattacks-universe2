@@ -70,17 +70,15 @@ const EventBar: React.FC<IEventBarProps> = ({
 
   return (
     <React.StrictMode>
-      <div>
-        {hasOpenEvents ? (
-          <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
-            <Link to={`/orgs/${organizationName}/groups`}>
-              <Alert icon={true} variant={"error"}>
-                {eventMessage}
-              </Alert>
-            </Link>
-          </TooltipWrapper>
-        ) : undefined}
-      </div>
+      {hasOpenEvents ? (
+        <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
+          <Link to={`/orgs/${organizationName}/groups`}>
+            <Alert icon={true} variant={"error"}>
+              {eventMessage}
+            </Alert>
+          </Link>
+        </TooltipWrapper>
+      ) : undefined}
     </React.StrictMode>
   );
 };
