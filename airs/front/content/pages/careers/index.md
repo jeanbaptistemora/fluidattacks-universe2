@@ -53,7 +53,7 @@ expectations. This is mandatory and requires an estimated effort of 5 to
 complete the previous stage.
 
 To begin, click the following
-[link](https://careers.autonomicmind.com/candidateportal) and follow
+[link](https://zfrmz.com/jLlKfvhrnZwyECQ3EgJI) and follow
 these detailed instructions:
 
 1. Log In with your existing account. If you don’t have an account,
