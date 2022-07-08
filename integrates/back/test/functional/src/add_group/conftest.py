@@ -18,8 +18,8 @@ from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
 from db_model.organizations.types import (
-    OrganizationPolicies,
     OrganizationState,
+    Policies,
 )
 from decorators import (
     Organization,
@@ -40,7 +40,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "organization": Organization(
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="orgtest",
-                    policies=OrganizationPolicies(
+                    policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
                         modified_date="2019-11-22T20:07:57+00:00",
                     ),

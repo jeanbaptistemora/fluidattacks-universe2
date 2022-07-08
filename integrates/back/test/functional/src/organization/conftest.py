@@ -19,8 +19,8 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
     OrganizationState,
+    Policies,
 )
 from decimal import (
     Decimal,
@@ -81,7 +81,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "organization": Organization(
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="orgtest",
-                    policies=OrganizationPolicies(
+                    policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
                         modified_date="2019-11-22T20:07:57+00:00",
                         max_acceptance_days=90,
@@ -102,7 +102,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "organization": Organization(
                     id="8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
                     name="acme",
-                    policies=OrganizationPolicies(
+                    policies=Policies(
                         modified_by=generic_data["global_vars"]["user_email"],
                         modified_date="2019-11-22T20:07:57+00:00",
                     ),

@@ -31,15 +31,15 @@ from datetime import (
 from db_model import (
     vulnerabilities as vulns_model,
 )
+from db_model.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+)
 from db_model.enums import (
     Notification,
 )
 from db_model.findings.types import (
     Finding,
-)
-from db_model.organizations.constants import (
-    DEFAULT_MAX_SEVERITY,
-    DEFAULT_MIN_SEVERITY,
 )
 from db_model.organizations.types import (
     Organization,

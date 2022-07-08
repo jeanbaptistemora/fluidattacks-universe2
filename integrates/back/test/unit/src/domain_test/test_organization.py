@@ -27,8 +27,10 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPoliciesToUpdate,
     OrganizationState,
+)
+from db_model.types import (
+    PoliciesToUpdate,
 )
 from decimal import (
     Decimal,
@@ -334,7 +336,7 @@ async def test_update_policies() -> None:
     assert max_number_acceptances is None
     assert min_acceptance_severity == Decimal("3.4")
 
-    new_values = OrganizationPoliciesToUpdate(
+    new_values = PoliciesToUpdate(
         max_acceptance_days=20,
         max_acceptance_severity=Decimal("8.3"),
         max_number_acceptances=3,
@@ -356,13 +358,13 @@ async def test_update_policies() -> None:
     assert max_number_acceptances == Decimal("3")
     assert min_acceptance_severity == Decimal("2.2")
 
-    new_values = OrganizationPoliciesToUpdate(max_acceptance_days=-10)
+    new_values = PoliciesToUpdate(max_acceptance_days=-10)
     with pytest.raises(InvalidAcceptanceDays):
         await orgs_domain.update_policies(
             get_new_context(), org_id, org_name, "", new_values
         )
 
-    new_values = OrganizationPoliciesToUpdate(
+    new_values = PoliciesToUpdate(
         max_acceptance_severity=Decimal("10.5"),
     )
     with pytest.raises(InvalidAcceptanceSeverity):
@@ -370,13 +372,13 @@ async def test_update_policies() -> None:
             get_new_context(), org_id, org_name, "", new_values
         )
 
-    new_values = OrganizationPoliciesToUpdate(max_number_acceptances=-1)
+    new_values = PoliciesToUpdate(max_number_acceptances=-1)
     with pytest.raises(InvalidNumberAcceptances):
         await orgs_domain.update_policies(
             get_new_context(), org_id, org_name, "", new_values
         )
 
-    new_values = OrganizationPoliciesToUpdate(
+    new_values = PoliciesToUpdate(
         min_acceptance_severity=Decimal("-1.5"),
     )
     with pytest.raises(InvalidAcceptanceSeverity):
@@ -384,7 +386,7 @@ async def test_update_policies() -> None:
             get_new_context(), org_id, org_name, "", new_values
         )
 
-    new_values = OrganizationPoliciesToUpdate(
+    new_values = PoliciesToUpdate(
         max_acceptance_severity=Decimal("5.0"),
         min_acceptance_severity=Decimal("7.4"),
     )
@@ -393,7 +395,7 @@ async def test_update_policies() -> None:
             get_new_context(), org_id, org_name, "", new_values
         )
 
-    new_values = OrganizationPoliciesToUpdate(
+    new_values = PoliciesToUpdate(
         min_breaking_severity=Decimal("10.5"),
     )
     with pytest.raises(InvalidSeverity):
@@ -429,7 +431,7 @@ async def test_validate_severity_range() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("10.1"))
 
-    values = OrganizationPoliciesToUpdate(
+    values = PoliciesToUpdate(
         min_acceptance_severity=Decimal("8.0"),
         max_acceptance_severity=Decimal("5.0"),
     )

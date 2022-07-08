@@ -21,8 +21,8 @@ from db_model import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
     OrganizationState,
+    Policies,
 )
 from dynamodb import (
     keys,
@@ -56,10 +56,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def adjust_historic_dates(
-    historic: Union[
-        tuple[OrganizationState, ...], tuple[OrganizationPolicies, ...]
-    ],
-) -> Union[tuple[OrganizationState, ...], tuple[OrganizationPolicies, ...]]:
+    historic: Union[tuple[OrganizationState, ...], tuple[Policies, ...]],
+) -> Union[tuple[OrganizationState, ...], tuple[Policies, ...]]:
     """Ensure dates are not the same and in ascending order."""
     new_historic = []
     comparison_date = ""
@@ -80,7 +78,7 @@ def adjust_historic_dates(
 async def update_historic_policies(
     *,
     organization_id: str,
-    historic: tuple[OrganizationPolicies, ...],
+    historic: tuple[Policies, ...],
 ) -> None:
     organization_id = orgs_utils.remove_org_id_prefix(organization_id)
     key_structure = TABLE.primary_key

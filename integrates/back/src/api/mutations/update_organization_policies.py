@@ -7,8 +7,8 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.organizations.types import (
-    OrganizationPoliciesToUpdate,
+from db_model.types import (
+    PoliciesToUpdate,
 )
 from decimal import (
     Decimal,
@@ -33,8 +33,8 @@ from typing import (
 
 def _format_policies_to_update(
     policies_data: dict[str, Any],
-) -> OrganizationPoliciesToUpdate:
-    return OrganizationPoliciesToUpdate(
+) -> PoliciesToUpdate:
+    return PoliciesToUpdate(
         max_acceptance_days=int(policies_data["max_acceptance_days"])
         if policies_data.get("max_acceptance_days") is not None
         else None,

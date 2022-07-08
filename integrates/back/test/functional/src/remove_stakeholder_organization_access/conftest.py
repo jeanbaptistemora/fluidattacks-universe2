@@ -22,8 +22,8 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
     OrganizationState,
+    Policies,
 )
 import pytest
 from typing import (
@@ -44,7 +44,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "organization": Organization(
                     id=organization_id,
                     name="orgtest5",
-                    policies=OrganizationPolicies(
+                    policies=Policies(
                         modified_by=generic_data["global_vars"][
                             "customer_manager_fluid_email"
                         ],

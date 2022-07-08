@@ -29,8 +29,8 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationPolicies,
     OrganizationState,
+    Policies,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -73,7 +73,7 @@ async def populate() -> bool:
                 "organization": Organization(
                     id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                     name="org123",
-                    policies=OrganizationPolicies(
+                    policies=Policies(
                         modified_by="test@fluidattacks.com",
                         max_acceptance_days=7,
                         modified_date="2019-11-22T20:07:57+00:00",

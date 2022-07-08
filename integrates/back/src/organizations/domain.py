@@ -49,8 +49,6 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationMetadataToUpdate,
-    OrganizationPolicies,
-    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from db_model.roots.types import (
@@ -59,6 +57,10 @@ from db_model.roots.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+)
+from db_model.types import (
+    Policies,
+    PoliciesToUpdate,
 )
 from decimal import (
     Decimal,
@@ -274,7 +276,7 @@ async def add_organization(
     organization = Organization(
         id=add_org_id_prefix(str(uuid.uuid4())),
         name=organization_name.lower().strip(),
-        policies=OrganizationPolicies(
+        policies=Policies(
             modified_by=email,
             modified_date=modified_date,
         ),
@@ -619,7 +621,7 @@ async def update_policies(
     organization_id: str,
     organization_name: str,
     user_email: str,
-    policies_to_update: OrganizationPoliciesToUpdate,
+    policies_to_update: PoliciesToUpdate,
 ) -> None:
     validated_policies: dict[str, Any] = {}
     for attr, value in policies_to_update._asdict().items():
@@ -731,7 +733,7 @@ async def send_mail_policies(
 
 
 async def validate_acceptance_severity_range(
-    loaders: Any, organization_id: str, values: OrganizationPoliciesToUpdate
+    loaders: Any, organization_id: str, values: PoliciesToUpdate
 ) -> bool:
     success: bool = True
     organization_data: Organization = await loaders.organization.load(

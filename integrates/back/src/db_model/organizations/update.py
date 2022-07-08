@@ -1,6 +1,5 @@
 from .types import (
     OrganizationMetadataToUpdate,
-    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from .utils import (
@@ -21,6 +20,9 @@ from db_model.organizations.enums import (
 )
 from db_model.organizations.utils import (
     remove_org_id_prefix,
+)
+from db_model.types import (
+    PoliciesToUpdate,
 )
 from dynamodb import (
     keys,
@@ -67,7 +69,7 @@ async def update_policies(
     modified_date: str,
     organization_id: str,
     organization_name: str,
-    policies: OrganizationPoliciesToUpdate,
+    policies: PoliciesToUpdate,
 ) -> None:
     organization_id = remove_org_id_prefix(organization_id)
     key_structure = TABLE.primary_key

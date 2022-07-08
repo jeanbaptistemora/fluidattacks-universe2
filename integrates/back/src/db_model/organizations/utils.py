@@ -4,12 +4,14 @@ from .constants import (
 from .types import (
     Organization,
     OrganizationMetadataToUpdate,
-    OrganizationPolicies,
-    OrganizationPoliciesToUpdate,
     OrganizationState,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
+)
+from db_model.types import (
+    Policies,
+    PoliciesToUpdate,
 )
 from dynamodb.types import (
     Item,
@@ -46,8 +48,8 @@ def format_organization(item: Item) -> Organization:
     )
 
 
-def format_policies(policies: Item) -> OrganizationPolicies:
-    return OrganizationPolicies(
+def format_policies(policies: Item) -> Policies:
+    return Policies(
         max_acceptance_days=int(policies["max_acceptance_days"])
         if "max_acceptance_days" in policies
         else None,
@@ -68,7 +70,7 @@ def format_policies(policies: Item) -> OrganizationPolicies:
 def format_policies_item(
     modified_by: str,
     modified_date: str,
-    policies: OrganizationPoliciesToUpdate,
+    policies: PoliciesToUpdate,
 ) -> Item:
     item = {
         "modified_by": modified_by,
