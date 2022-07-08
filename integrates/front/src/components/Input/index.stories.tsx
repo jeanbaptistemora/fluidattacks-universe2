@@ -7,8 +7,10 @@ import React from "react";
 import { object, string } from "yup";
 
 import type { IInputProps } from "./CustomInput";
+import type { ISelectProps } from "./CustomSelect";
+import type { ITextAreaProps } from "./CustomTextArea";
 
-import { Input } from ".";
+import { Input, Select as SelectComp, TextArea as TextAreaComp } from ".";
 import { Button } from "components/Button";
 import { Logger } from "utils/logger";
 
@@ -32,7 +34,11 @@ const validations = object().shape({
     .matches(/^[a-zA-Z_0-9-]{1,8}$/u, "Allowed alphanumeric characters only"),
 });
 
-const Template: Story<IInputProps> = (props): JSX.Element => (
+const selectValidations = object().shape({
+  exampleName: string().required(),
+});
+
+const StoryDefault: Story<IInputProps> = (props): JSX.Element => (
   <Formik
     initialValues={{ exampleName: "" }}
     name={"exampleForm"}
@@ -40,21 +46,46 @@ const Template: Story<IInputProps> = (props): JSX.Element => (
     validationSchema={validations}
   >
     <Form id={"exampleForm"}>
-      <Input {...props} name={"exampleName"} />
+      <Input {...props} id={"ExampleId"} name={"exampleName"} />
     </Form>
   </Formik>
 );
 
-const Default = Template.bind({});
+const StorySelect: Story<ISelectProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+    validationSchema={selectValidations}
+  >
+    <Form id={"exampleForm"}>
+      <SelectComp {...props} id={"ExampleId"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
+const StoryTextArea: Story<ITextAreaProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+    validationSchema={validations}
+  >
+    <Form id={"exampleForm"}>
+      <TextAreaComp {...props} id={"ExampleId"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
+const Default = StoryDefault.bind({});
 Default.args = {
   disabled: false,
-  id: "ExampleId",
   label: "ExampleLabel",
   placeholder: "Example placeholder",
   variant: "solid",
 };
 
-const Search = Template.bind({});
+const Search = StoryDefault.bind({});
 Search.args = {
   childLeft: (
     <Button size={"sm"}>
@@ -70,7 +101,7 @@ Search.args = {
   variant: "solid",
 };
 
-const Select = Template.bind({});
+const Select = StorySelect.bind({});
 Select.args = {
   children: (
     <React.Fragment>
@@ -81,8 +112,19 @@ Select.args = {
       )}
     </React.Fragment>
   ),
-  type: "select",
+  disabled: false,
+  label: "ExampleLabel",
+  variant: "solid",
 };
 
-export { Default, Search, Select };
+const TextArea = StoryTextArea.bind({});
+TextArea.args = {
+  disabled: false,
+  label: "ExampleLabel",
+  placeholder: "Example placeholder",
+  rows: 3,
+  variant: "solid",
+};
+
+export { Default, Search, Select, TextArea };
 export default config;

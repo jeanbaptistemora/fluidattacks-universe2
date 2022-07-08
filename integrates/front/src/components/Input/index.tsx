@@ -4,6 +4,8 @@ import React from "react";
 
 import type { IInputProps } from "./CustomInput";
 import { CustomInput } from "./CustomInput";
+import { Select } from "./Select";
+import { TextArea } from "./TextArea";
 
 const Input: FC<IInputProps> = ({
   childLeft,
@@ -41,4 +43,4 @@ const Input: FC<IInputProps> = ({
   </Field>
 );
 
-export { Input };
+export { Input, Select, TextArea };

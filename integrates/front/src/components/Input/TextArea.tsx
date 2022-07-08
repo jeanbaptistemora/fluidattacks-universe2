@@ -13,6 +13,7 @@ const TextArea: FC<ITextAreaProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  placeholder,
   variant,
 }: Readonly<ITextAreaProps>): JSX.Element => (
   <Field
@@ -24,7 +25,7 @@ const TextArea: FC<ITextAreaProps> = ({
     onBlur={onBlur}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
-    type={"text"}
+    placeholder={placeholder}
     variant={variant}
   />
 );

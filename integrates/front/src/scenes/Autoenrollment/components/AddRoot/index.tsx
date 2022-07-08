@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { Input } from "components/Input";
+import { Input, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
@@ -223,10 +223,9 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   />
                 </Col>
                 <Col large={"50"} medium={"50"} small={"100"}>
-                  <Input
+                  <Select
                     label={t("autoenrollment.addRoot.credentials.type.label")}
                     name={"credentials.type"}
-                    type={"select"}
                   >
                     <option value={""}>{""}</option>
                     <option value={"HTTPS"}>
@@ -235,7 +234,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     <option value={"SSH"}>
                       {t("autoenrollment.addRoot.credentials.type.ssh")}
                     </option>
-                  </Input>
+                  </Select>
                 </Col>
                 <Col large={"50"} medium={"50"} small={"100"}>
                   <Input
@@ -249,26 +248,25 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 </Col>
                 {values.credentials.type === "SSH" && (
                   <Col large={"100"} medium={"100"} small={"100"}>
-                    <Input
+                    <TextArea
                       label={t("group.scope.git.repo.credentials.sshKey")}
                       name={"credentials.key"}
                       placeholder={t(
                         "group.scope.git.repo.credentials.sshHint"
                       )}
-                      type={"textarea"}
                     />
                   </Col>
                 )}
                 {values.credentials.type === "HTTPS" && (
                   <Col large={"100"} medium={"100"} small={"100"}>
-                    <Input name={"credentials.auth"} type={"select"}>
+                    <Select name={"credentials.auth"}>
                       <option value={"TOKEN"}>
                         {t("autoenrollment.addRoot.credentials.auth.token")}
                       </option>
                       <option value={"USER"}>
                         {t("autoenrollment.addRoot.credentials.auth.user")}
                       </option>
-                    </Input>
+                    </Select>
                   </Col>
                 )}
                 {values.credentials.type === "HTTPS" &&

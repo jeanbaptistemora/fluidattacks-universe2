@@ -13,7 +13,7 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Checkbox } from "components/Checkbox";
 import { ExternalLink } from "components/ExternalLink";
-import { Input } from "components/Input";
+import { Input, Select, TextArea } from "components/Input";
 import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -153,7 +153,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               />
             </Col>
             <Col large={"100"} medium={"100"} small={"100"}>
-              <Input
+              <Select
                 label={
                   <Fragment>
                     {t("autoenrollment.addOrganization.reportLanguage")}
@@ -174,7 +174,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                   </Fragment>
                 }
                 name={"reportLanguage"}
-                type={"select"}
               >
                 <option value={""}>{""}</option>
                 <option value={"EN"}>
@@ -183,10 +182,10 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 <option value={"ES"}>
                   {t("organization.tabs.groups.newGroup.language.ES")}
                 </option>
-              </Input>
+              </Select>
             </Col>
             <Col large={"100"} medium={"100"} small={"100"}>
-              <Input
+              <TextArea
                 label={t(
                   "autoenrollment.addOrganization.groupDescription.label"
                 )}
@@ -194,7 +193,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 placeholder={t(
                   "autoenrollment.addOrganization.groupDescription.placeholder"
                 )}
-                type={"textarea"}
               />
             </Col>
             <Col large={"100"} medium={"100"} small={"100"}>
