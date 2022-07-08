@@ -75,12 +75,12 @@ const tableHeaders: IHeaderConfig[] = [
   {
     dataField: "invitationState",
     formatter: statusFormatter,
-    header: translate.t("searchFindings.usersTable.invitation"),
+    header: translate.t("searchFindings.usersTable.invitationState"),
     width: "80px",
   },
   {
     dataField: "invitationResend",
-    header: "",
+    header: translate.t("searchFindings.usersTable.invitation"),
     width: "80px",
   },
 ];

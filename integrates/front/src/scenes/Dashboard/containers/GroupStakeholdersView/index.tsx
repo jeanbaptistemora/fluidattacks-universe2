@@ -157,12 +157,12 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     {
       dataField: "invitationState",
       formatter: statusFormatter,
-      header: t("searchFindings.usersTable.invitation"),
+      header: t("searchFindings.usersTable.invitationState"),
       width: "80px",
     },
     {
       dataField: "invitationResend",
-      header: "",
+      header: t("searchFindings.usersTable.invitation"),
       width: "80px",
     },
   ];
