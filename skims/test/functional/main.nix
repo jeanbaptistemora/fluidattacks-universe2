@@ -14,11 +14,9 @@ in
     inherit name;
     searchPaths = {
       bin = [
-        outputs."/integrates/batch"
         outputs."/integrates/cache"
         outputs."/integrates/db"
         outputs."/integrates/storage"
-        outputs."/skims"
       ];
       source = [
         outputs."/skims/config/runtime"

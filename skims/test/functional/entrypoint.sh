@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 function main {
-  export BATCH_BIN
   local resolver_test_group="${1}"
   export COVERAGE_FILE=.coverage."${resolver_test_group}"
   local populate_db="${2:-false}"
