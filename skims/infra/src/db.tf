@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "sca_advisories" {
-  name         = "sca_advisories"
+resource "aws_dynamodb_table" "skims_sca" {
+  name         = "skims_sca"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "pk"
   range_key    = "sk"
@@ -38,7 +38,8 @@ resource "aws_dynamodb_table" "sca_advisories" {
   }
 
   tags = {
-    "Name"               = "sca_advisories"
+    "Name"               = "skims_sca"
+    "management:area"    = "cost"
     "management:product" = "skims"
     "management:type"    = "product"
   }

@@ -101,13 +101,14 @@ locals {
             ]
           },
           {
-            Sid    = "s3Write"
+            Sid    = "write"
             Effect = "Allow"
             Action = ["*"]
             Resource = [
               "arn:aws:s3:::fluidattacks.com/resources/doc/skims/*",
               "arn:aws:s3:::fluidattacks-terraform-states-prod/skims*",
               "arn:aws:s3:::skims*",
+              "arn:aws:dynamodb:::skims*",
             ]
           },
           {
@@ -128,9 +129,7 @@ locals {
             Action = [
               "dynamodb:CreateTable"
             ]
-            Resource = [
-              "arn:aws:dynamodb:us-east-1:205810638802:table/sca_advisories",
-            ]
+            Resource = ["*"]
           },
           {
             Sid    = "dynamoReadJobs"
