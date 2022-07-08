@@ -22,6 +22,7 @@ from syntax_graph.syntax_readers.common import (
     parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
+    throw_statement as common_throw_statement,
     try_statement as common_try_statement,
 )
 from syntax_graph.syntax_readers.java import (
@@ -257,6 +258,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "throw_statement",
+        },
+        syntax_reader=common_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
