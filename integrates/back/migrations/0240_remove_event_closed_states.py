@@ -1,5 +1,9 @@
 # pylint: disable=invalid-name
 """
+Remove the states with closed status for all the events
+
+Execution Time:    2022-07-08 at 14:30:24 UTC
+Finalization Time: 2022-07-08 at 14:43:57 UTC
 """
 from aioextensions import (
     collect,
@@ -68,14 +72,19 @@ async def process_group(
     group_name: str,
 ) -> None:
     events = await loaders.group_events.load(group_name)
-    await collect(tuple(process_event(loaders, event) for event in events))
+    await collect(
+        tuple(process_event(loaders, event) for event in events), workers=30
+    )
 
 
 async def process_organization(
     loaders: Dataloaders, group_names: tuple[str, ...]
 ) -> None:
     await collect(
-        tuple(process_group(loaders, group_name) for group_name in group_names)
+        tuple(
+            process_group(loaders, group_name) for group_name in group_names
+        ),
+        workers=3,
     )
 
 
