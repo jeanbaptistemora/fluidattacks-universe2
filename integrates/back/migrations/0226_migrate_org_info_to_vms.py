@@ -22,6 +22,8 @@ from db_model import (
 from db_model.organizations.types import (
     Organization,
     OrganizationState,
+)
+from db_model.types import (
     Policies,
 )
 from dynamodb import (

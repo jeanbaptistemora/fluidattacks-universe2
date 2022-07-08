@@ -1,9 +1,6 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
-)
-from back.test.functional.src.conftest import (
-    generic_data,
 )
 from db_model.enums import (
     Source,
@@ -33,7 +30,6 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationState,
-    Policies,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -42,6 +38,9 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     IPRoot,
     IPRootState,
+)
+from db_model.types import (
+    Policies,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,

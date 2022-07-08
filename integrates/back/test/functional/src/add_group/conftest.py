@@ -18,11 +18,11 @@ from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
 from db_model.organizations.types import (
-    OrganizationState,
-    Policies,
-)
-from decorators import (
     Organization,
+    OrganizationState,
+)
+from db_model.types import (
+    Policies,
 )
 import pytest
 from typing import (

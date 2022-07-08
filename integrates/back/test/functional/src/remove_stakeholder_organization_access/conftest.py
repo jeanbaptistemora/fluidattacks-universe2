@@ -23,6 +23,8 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationState,
+)
+from db_model.types import (
     Policies,
 )
 import pytest

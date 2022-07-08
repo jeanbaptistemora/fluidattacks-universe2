@@ -1,4 +1,4 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
 )
@@ -31,7 +31,6 @@ from db_model.organizations.enums import (
 from db_model.organizations.types import (
     Organization,
     OrganizationState,
-    Policies,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -41,6 +40,9 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+)
+from db_model.types import (
+    Policies,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -118,18 +120,20 @@ async def populate() -> bool:
                 ),
             },
         ),
-        "organization_users": (
+        "organization_users": [
             {
                 "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 "users": [
                     "test@fluidattacks.com",
                 ],
+            },
+            {
                 "id": "5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
                 "users": [
                     "test@fluidattacks.com",
                 ],
             },
-        ),
+        ],
         "groups": (
             {
                 "group": Group(

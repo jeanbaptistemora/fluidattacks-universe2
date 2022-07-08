@@ -1,4 +1,3 @@
-# flake8: noqa
 from dataloaders import (
     get_new_context,
 )
@@ -14,13 +13,11 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
 )
 from db_model.vulnerabilities.types import (
+    Vulnerability,
     VulnerabilityUnreliableIndicators,
 )
 from decimal import (
     Decimal,
-)
-from decorators import (
-    Vulnerability,
 )
 from freezegun.api import (  # type: ignore
     freeze_time,
@@ -53,9 +50,15 @@ async def test_update_unreliable_indicators_by_deps() -> None:
     expected_finding_output = FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=0,
         unreliable_open_vulnerabilities=1,
-        unreliable_newest_vulnerability_report_date="2020-01-03T17:46:10+00:00",
-        unreliable_oldest_open_vulnerability_report_date="2020-01-03T17:46:10+00:00",
-        unreliable_oldest_vulnerability_report_date="2020-01-03T17:46:10+00:00",
+        unreliable_newest_vulnerability_report_date=(
+            "2020-01-03T17:46:10+00:00"
+        ),
+        unreliable_oldest_open_vulnerability_report_date=(
+            "2020-01-03T17:46:10+00:00"
+        ),
+        unreliable_oldest_vulnerability_report_date=(
+            "2020-01-03T17:46:10+00:00"
+        ),
         unreliable_status=FindingStatus.OPEN,
         unreliable_treatment_summary=FindingTreatmentSummary(
             accepted=0,
