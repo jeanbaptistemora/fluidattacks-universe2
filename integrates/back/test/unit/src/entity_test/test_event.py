@@ -115,7 +115,7 @@ async def test_solve_event() -> None:
     # The event with this ID starts with a couple of reattacks on hold
     reattacks_on_hold: Tuple[
         Vulnerability, ...
-    ] = await loaders.event_vulnerabilities_loader.load(("418900971"))
+    ] = await loaders.event_vulnerabilities_loader.load("418900971")
     for reattack in reattacks_on_hold:
         assert (
             reattack.verification.status
@@ -126,7 +126,6 @@ async def test_solve_event() -> None:
         mutation {
             solveEvent(
                 eventId: "418900971"
-                date: "2020-02-01T00:00:00Z"
                 reason: OTHER
                 other: "Test"
             ) {
@@ -226,8 +225,9 @@ async def test_update_event_evidence() -> None:
     request = await create_dummy_session()
     _, result = await graphql(SCHEMA, data, context_value=request)
     assert "errors" not in result
-    assert result["data"]["event"]["evidence"] == (
-        "unittesting-540462628-evidence.gif"
+    assert (
+        result["data"]["event"]["evidence"]
+        == "unittesting-540462628-evidence.gif"
     )
     assert result["data"]["event"]["evidenceDate"].split(" ")[0] == (
         date_str.split(" ")[0]

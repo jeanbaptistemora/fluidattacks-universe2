@@ -51,7 +51,6 @@ class EventEvidenceType(str, Enum):
 
 
 class EventStateStatus(str, Enum):
-    CLOSED: str = "CLOSED"
     CREATED: str = "CREATED"
     OPEN: str = "OPEN"
     SOLVED: str = "SOLVED"
