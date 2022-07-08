@@ -80,17 +80,6 @@ def test_iterate_iam_policy_documents() -> None:
             line=137,
         ),
         AWSIamPolicyStatement(
-            column=23,
-            data={
-                "Action": ["sts:AssumeRole"],
-                "Principal": {
-                    "Service": "ec2.amazonaws.com",
-                },
-                "Effect": "Allow",
-            },
-            line=5,
-        ),
-        AWSIamPolicyStatement(
             column=11,
             data={
                 "Action": ["ec2:Describe*"],

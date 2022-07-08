@@ -175,12 +175,6 @@ class AWSIamManagedPolicy(NamedTuple):
     line: int
 
 
-class AWSIamPolicyAttachment(NamedTuple):
-    column: int
-    data: List[Any]
-    line: int
-
-
 class AWSIamRole(NamedTuple):
     column: int
     data: List[Any]

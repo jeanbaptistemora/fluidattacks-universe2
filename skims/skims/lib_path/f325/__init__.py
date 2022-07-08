@@ -11,9 +11,7 @@ from lib_path.f325.cloudformation import (
     cfn_kms_key_has_master_keys_exposed_to_everyone,
 )
 from lib_path.f325.terraform import (
-    tfm_iam_has_privileges_over_iam,
     tfm_iam_has_wildcard_resource_on_write_action,
-    tfm_iam_is_policy_miss_configured,
     tfm_iam_role_is_over_privileged,
     tfm_kms_key_has_master_keys_exposed_to_everyone,
 )
@@ -78,24 +76,6 @@ def run_cfn_iam_is_role_over_privileged(
 ) -> Vulnerabilities:
     return cfn_iam_is_role_over_privileged(
         content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_iam_has_privileges_over_iam(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_has_privileges_over_iam(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_iam_is_policy_miss_configured(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_is_policy_miss_configured(
-        content=content, path=path, model=model
     )
 
 
@@ -165,8 +145,6 @@ def analyze(
                 fun(content, path, model)
                 for fun in (
                     run_tfm_kms_key_has_master_keys_exposed_to_everyone,
-                    run_tfm_iam_has_privileges_over_iam,
-                    run_tfm_iam_is_policy_miss_configured,
                     run_tfm_iam_has_wildcard_resource_on_write_action,
                     run_tfm_iam_role_is_over_privileged,
                 )

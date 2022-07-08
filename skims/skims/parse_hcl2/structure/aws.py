@@ -15,7 +15,6 @@ from aws.model import (
     AWSElb,
     AWSIamManagedPolicy,
     AWSIamManagedPolicyArns,
-    AWSIamPolicyAttachment,
     AWSIamPolicyStatement,
     AWSIamRole,
     AWSInstance,
@@ -33,6 +32,9 @@ from aws.model import (
 )
 from itertools import (
     chain,
+)
+from lark import (
+    Tree,
 )
 from parse_hcl2.common import (
     get_attribute_value,
@@ -53,24 +55,17 @@ from typing import (
     Union,
 )
 
+JSONENCODE = Tree(data="identifier", children=["jsonencode"])
+
 
 def iterate_iam_policy_documents(
     model: Any,
 ) -> Iterator[AWSIamPolicyStatement]:
     for iterator in (
         _iterate_iam_policy_documents_from_data_iam_policy_document,
-        _iterate_iam_policy_documents_from_resource_with_assume_role_policy,
         _iterate_iam_policy_documents_from_resource_with_policy,
     ):
         yield from iterator(model)
-
-
-def _iterate_iam_policy_documents_from_resource_with_assume_role_policy(
-    model: Any,
-) -> Iterator[AWSIamPolicyStatement]:
-    for resource in iterate_resources(model, "resource", "aws_iam_role"):
-        attribute = get_block_attribute(resource, "assume_role_policy")
-        yield from _yield_statements_from_policy_document_attribute(attribute)
 
 
 def _iterate_iam_policy_documents_from_resource_with_policy(
@@ -214,14 +209,6 @@ def iter_aws_iam_role(
         )
 
 
-def iter_iam_role_policy_statements(
-    model: Any,
-) -> Iterator[AWSIamPolicyStatement]:
-    for res in iterate_resources(model, "resource", "aws_iam_role_policy"):
-        attribute = get_block_attribute(res, "policy")
-        yield from _yield_statements_from_policy_document_attribute(attribute)
-
-
 def _yield_statements_from_policy_document_attribute(
     attribute: Any,
 ) -> Iterator[AWSIamPolicyStatement]:
@@ -233,24 +220,22 @@ def _yield_statements_from_policy_document_attribute(
                 data=stmt,
                 line=data.line,
             )
+    if attribute and isinstance(attribute.val, Tree):
+        tree = attribute.val
+        if tree.data == "function_call" and JSONENCODE in tree.children:
+            data = tree.children[1].children[0]
+            for stmt in yield_statements_from_policy_document(data):
+                yield AWSIamPolicyStatement(
+                    column=tree.column,
+                    data=stmt,
+                    line=tree.line,
+                )
 
 
 def iter_iam_user_policy(model: Any) -> Iterator[Any]:
     iterator = iterate_resources(model, "resource", "aws_iam_user_policy")
     for resource in iterator:
         yield AWSIamManagedPolicy(
-            data=resource.body,
-            column=resource.column,
-            line=resource.line,
-        )
-
-
-def iter_iam_policy_attachment(model: Any) -> Iterator[Any]:
-    iterator = iterate_resources(
-        model, "resource", "aws_iam_policy_attachment"
-    )
-    for resource in iterator:
-        yield AWSIamPolicyAttachment(
             data=resource.body,
             column=resource.column,
             line=resource.line,
