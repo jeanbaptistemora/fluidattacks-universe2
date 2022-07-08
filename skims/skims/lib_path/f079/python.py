@@ -6,10 +6,14 @@ from model.core_model import (
     Vulnerabilities,
 )
 import os
+import requirements
 import subprocess  # nosec
 from typing import (
     Iterator,
     Tuple,
+)
+from utils.fs import (
+    get_file_content_block,
 )
 from virtualenv import (
     cli_run,
@@ -39,16 +43,33 @@ def create_venv_install_requirements(filename: str) -> str:
     return os.getcwd()
 
 
+def _get_name(dependencies: requirements.Requirement) -> str:
+    return dependencies.name
+
+
 def pip_incomplete_dependencies_list(
     content: str, path: str
 ) -> Vulnerabilities:
+    build_requirements_path = (
+        create_venv_install_requirements(path) + "/requirements_2.txt"
+    )
+    get_requirements = get_file_content_block(build_requirements_path)
+
     def iterator() -> Iterator[Tuple[int, int]]:
-        yield 0, 0
+        dependencies_names = list(
+            map(_get_name, list(requirements.parse(get_requirements)))
+        )
+        client_dependencies_names = list(
+            map(_get_name, requirements.parse(content))
+        )
+        for line_number, name in enumerate(dependencies_names, 1):
+            if name not in client_dependencies_names:
+                yield line_number, 0
 
     return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f009.dockerfile_env_secrets.description",
+        content=get_requirements,
+        description_key="src.lib_path.f079.pip_incomplete_dependencies_list",
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.DOCKER_ENV_SECRETS,
+        method=MethodsEnum.PIP_INCOMPLETE_DEPENDENCIES_LIST,
     )
