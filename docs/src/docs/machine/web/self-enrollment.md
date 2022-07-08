@@ -20,9 +20,30 @@ Here is a short step-by-step guide
 to enroll in this free trial.
 
 First,
-you have to go to the official
-website of our [ASM](/machine/web/asm).
-There you need to log in with a Google,
+you need to go to `Fluid Attacks’`
+[homepage](https://fluidattacks.com/).
+There,
+you will find the
+Start free trial button.
+Click on it to access the
+free trial landing page.
+
+![Fluid Attacks Homepage](https://res.cloudinary.com/fluid-attacks/image/upload/v1657304596/docs/web/enrollment/fluid_home_page.png)
+
+The landing page states that
+self-enrollment is for a 21-day
+free trial of the Continuous
+Hacking Machine Plan and lists
+this plan’s benefits.
+To proceed,
+click on Start your Machine Plan.
+
+![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1657304596/docs/web/enrollment/landing_page.png)
+
+You will be taken to the
+official website of our
+[ASM](https://app.fluidattacks.com/).
+There you need to log in with a Gmail,
 Microsoft or Bitbucket business
 email account.
 You must not have
