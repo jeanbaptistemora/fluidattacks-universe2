@@ -16,6 +16,9 @@ from json.decoder import (
     JSONDecodeError,
 )
 import os
+from pathlib import (
+    Path,
+)
 import re
 import sys
 from tap_json.env import (
@@ -327,16 +330,24 @@ def dump_schema(table: str, schemas_dir: str) -> None:
 
 def dump_records(table: str, schemas_dir: str) -> None:
     pschema = json_from_file(f"{schemas_dir}/{table}")
+    path = Path(RECORDS_DIR) / Path(table)
+    if not path.exists():
+        return None
     for precord in read(RECORDS_DIR, table, loads):
         record = {}
         for field, value in precord.items():
-            types = pschema[field]
-            selected_type = choose_type(types)
-            if value == "":
-                record[f"{field}_str"] = value
+            if field in pschema:
+                types = pschema[field]
+                selected_type = choose_type(types)
+                if value == "":
+                    record[f"{field}_str"] = value
+                else:
+                    record[f"{field}_{selected_type}"] = stru_cast(
+                        value, selected_type
+                    )
             else:
-                record[f"{field}_{selected_type}"] = stru_cast(
-                    value, selected_type
+                LOG.warning(
+                    "field `%s` missing in schema of table `%s`", field, table
                 )
         emit(
             dumps(
@@ -347,6 +358,7 @@ def dump_records(table: str, schemas_dir: str) -> None:
                 }
             )
         )
+    return None
 
 
 def main(
