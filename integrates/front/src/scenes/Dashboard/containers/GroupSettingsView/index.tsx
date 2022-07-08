@@ -24,10 +24,14 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <Row id={"resources"}>
         <Col large={"100"} medium={"100"} small={"100"}>
-          <Files groupName={groupName} />
+          <Card title={t("searchFindings.tabResources.files.title")}>
+            <Files groupName={groupName} />
+          </Card>
         </Col>
         <Col large={"100"} medium={"100"} small={"100"}>
-          <Portfolio groupName={groupName} />
+          <Card title={t("searchFindings.tabResources.tags.title")}>
+            <Portfolio groupName={groupName} />
+          </Card>
         </Col>
         <Can do={"api_mutations_update_group_mutate"}>
           <Col large={"100"} medium={"100"} small={"100"}>

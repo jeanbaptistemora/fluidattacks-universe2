@@ -29,7 +29,6 @@ import type {
   IGetFilesQuery,
   IGroupFileAttr,
 } from "scenes/Dashboard/containers/GroupSettingsView/types";
-import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -329,11 +328,6 @@ const Files: React.FC<IFilesProps> = ({
 
   return (
     <React.StrictMode>
-      <Row>
-        <h2 className={"mb0 pb0"}>
-          {t("searchFindings.tabResources.files.title")}
-        </h2>
-      </Row>
       <div className={"flex flex-wrap nt1"}>
         <Table
           customSearch={{
