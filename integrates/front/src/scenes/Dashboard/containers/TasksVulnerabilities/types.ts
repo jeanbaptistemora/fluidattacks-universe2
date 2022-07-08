@@ -5,7 +5,7 @@ import type {
   IGetUserOrganizationsGroups,
 } from "scenes/Dashboard/types";
 
-interface ITasksContent {
+interface ITasksVulnerabilities {
   meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
   userData: IGetUserOrganizationsGroups | undefined;
   refetchVulnerabilitiesAssigned: () => Promise<
@@ -14,4 +14,20 @@ interface ITasksContent {
   setUserRole: (userRole: string | undefined) => void;
 }
 
-export type { ITasksContent };
+interface IAction {
+  action: string;
+}
+interface IGroupAction {
+  groupName: string;
+  actions: IAction[];
+}
+
+interface IFilterTodosSet {
+  reportDateRange?: { max: string; min: string };
+  tag: string;
+  treatment: string;
+  treatmentCurrentStatus: string;
+  verification?: string;
+}
+
+export type { IAction, IFilterTodosSet, IGroupAction, ITasksVulnerabilities };

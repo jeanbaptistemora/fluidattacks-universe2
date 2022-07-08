@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { TasksContent } from "scenes/Dashboard/containers/Tasks";
+import { TasksVulnerabilities } from "scenes/Dashboard/containers/TasksVulnerabilities";
 import {
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER_ORGANIZATIONS_GROUPS,
@@ -134,7 +134,7 @@ describe("VulnerabilitiesView", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
 
-    expect(typeof TasksContent).toBe("function");
+    expect(typeof TasksVulnerabilities).toBe("function");
   });
 
   it("should handle reattack button basic", async (): Promise<void> => {
@@ -149,7 +149,7 @@ describe("VulnerabilitiesView", (): void => {
       <MemoryRouter initialEntries={["/todos"]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <Route path={"/todos"}>
-            <TasksContent
+            <TasksVulnerabilities
               meVulnerabilitiesAssigned={
                 (
                   mocksVulnerabilities.result as Dictionary<{
@@ -220,7 +220,7 @@ describe("VulnerabilitiesView", (): void => {
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route path={"/todos"}>
-              <TasksContent
+              <TasksVulnerabilities
                 meVulnerabilitiesAssigned={
                   (
                     mocksVulnerabilities.result as Dictionary<{

@@ -3301,6 +3301,16 @@ export const enTranslations: ResourceKey = {
       },
     },
   },
+  todoList: {
+    tabs: {
+      drafts: "Drafts",
+      vulnerabilities: "Vulnerabilities",
+    },
+    tooltip: {
+      drafts: "Drafts in all your groups",
+      vulnerabilities: "Vulnerabilities assigned to you",
+    },
+  },
   tours: {
     addGitRoot: {
       addButton: "Now, let’s add your repository so we can analyze your code. ",
