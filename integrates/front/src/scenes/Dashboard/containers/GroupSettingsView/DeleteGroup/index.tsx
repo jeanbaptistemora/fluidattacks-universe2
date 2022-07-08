@@ -8,16 +8,9 @@ import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
+import { Text } from "components/Text";
 import { DeleteGroupModal } from "scenes/Dashboard/components/DeleteGroupModal";
 import { REMOVE_GROUP_MUTATION } from "scenes/Dashboard/components/DeleteGroupModal/queries";
-import {
-  ButtonToolbar,
-  Col40,
-  Flex,
-  GroupScopeText,
-  LastGroupSetting,
-  Row,
-} from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -63,23 +56,12 @@ const DeleteGroup: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <LastGroupSetting>
-        <Flex>
-          <h2>{t("searchFindings.servicesTable.deleteGroup.deleteGroup")}</h2>
-        </Flex>
-        <Row>
-          <GroupScopeText>
-            {t("searchFindings.servicesTable.deleteGroup.warning")}
-          </GroupScopeText>
-          <Col40>
-            <ButtonToolbar>
-              <Button onClick={handleChange} variant={"secondary"}>
-                {t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
-              </Button>
-            </ButtonToolbar>
-          </Col40>
-        </Row>
-      </LastGroupSetting>
+      <Text mb={2}>
+        {t("searchFindings.servicesTable.deleteGroup.warning")}
+      </Text>
+      <Button onClick={handleChange} variant={"tertiary"}>
+        {t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
+      </Button>
       <DeleteGroupModal
         groupName={groupName}
         isOpen={isModalOpen}

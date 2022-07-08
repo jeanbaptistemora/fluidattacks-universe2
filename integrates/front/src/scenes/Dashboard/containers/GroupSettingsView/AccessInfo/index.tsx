@@ -150,7 +150,6 @@ const AccessInfo: React.FC = (): JSX.Element => {
         />
       </Formik>
       <Can do={"api_resolvers_group_disambiguation_resolve"}>
-        <hr />
         <Formik
           enableReinitialize={true}
           initialValues={{ ...dataset }}

@@ -11,13 +11,8 @@ import { UnsubscribeModal } from "./UnsubscribeModal";
 import { UNSUBSCRIBE_FROM_GROUP_MUTATION } from "./UnsubscribeModal/queries";
 
 import { Button } from "components/Button";
+import { Text } from "components/Text";
 import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
-import {
-  ButtonToolbar,
-  Col40,
-  GroupScopeText,
-  Row,
-} from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -65,21 +60,12 @@ const Unsubscribe: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Row>
-        <h2>{t("searchFindings.servicesTable.unsubscribe.title")}</h2>
-      </Row>
-      <Row>
-        <GroupScopeText>
-          {t("searchFindings.servicesTable.unsubscribe.warning")}
-        </GroupScopeText>
-        <Col40>
-          <ButtonToolbar>
-            <Button onClick={handleChange} variant={"secondary"}>
-              {t("searchFindings.servicesTable.unsubscribe.button")}
-            </Button>
-          </ButtonToolbar>
-        </Col40>
-      </Row>
+      <Text mb={2}>
+        {t("searchFindings.servicesTable.unsubscribe.warning")}
+      </Text>
+      <Button onClick={handleChange} variant={"tertiary"}>
+        {t("searchFindings.servicesTable.unsubscribe.button")}
+      </Button>
       <UnsubscribeModal
         groupName={groupName}
         isOpen={isModalOpen}

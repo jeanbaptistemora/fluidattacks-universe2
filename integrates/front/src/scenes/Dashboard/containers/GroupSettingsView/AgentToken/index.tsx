@@ -4,14 +4,9 @@ import { useTranslation } from "react-i18next";
 import type { IServicesProps } from "../Services/types";
 import { Button } from "components/Button";
 import { ExternalLink } from "components/ExternalLink";
+import { Gap } from "components/Layout";
+import { Text } from "components/Text";
 import { APITokenForcesModal } from "scenes/Dashboard/components/APITokenForcesModal";
-import {
-  ButtonToolbar,
-  Col40,
-  GroupScopeText,
-  Row,
-} from "styles/styledComponents";
-import { translate } from "utils/translations/translate";
 
 const AgentToken: React.FC<IServicesProps> = (
   props: IServicesProps
@@ -27,28 +22,19 @@ const AgentToken: React.FC<IServicesProps> = (
 
   return (
     <React.StrictMode>
-      <Row>
-        <h2>{translate.t("searchFindings.agentTokenSection.title")}</h2>
-      </Row>
-      <Row>
-        <GroupScopeText>
-          {t("searchFindings.agentTokenSection.about")}
-        </GroupScopeText>
-        <Col40>
-          <ButtonToolbar>
-            <ExternalLink
-              href={"https://docs.fluidattacks.com/machine/agent/installation/"}
-            >
-              <Button variant={"secondary"}>
-                {t("searchFindings.agentTokenSection.install")}
-              </Button>
-            </ExternalLink>
-            <Button onClick={handleChange} variant={"secondary"}>
-              {t("searchFindings.agentTokenSection.generate")}
-            </Button>
-          </ButtonToolbar>
-        </Col40>
-      </Row>
+      <Text mb={2}>{t("searchFindings.agentTokenSection.about")}</Text>
+      <Gap>
+        <ExternalLink
+          href={"https://docs.fluidattacks.com/machine/agent/installation/"}
+        >
+          <Button variant={"tertiary"}>
+            {t("searchFindings.agentTokenSection.install")}
+          </Button>
+        </ExternalLink>
+        <Button onClick={handleChange} variant={"tertiary"}>
+          {t("searchFindings.agentTokenSection.generate")}
+        </Button>
+      </Gap>
       <APITokenForcesModal
         groupName={groupName}
         onClose={handleChange}
