@@ -195,11 +195,12 @@ async def update_unreliable_indicators(
             table=TABLE,
         )
         try:
-            await operations.update_item(
-                condition_expression=condition_expression,
-                item=unreliable_indicators,
-                key=primary_key,
-                table=TABLE,
-            )
+            if unreliable_indicators:
+                await operations.update_item(
+                    condition_expression=condition_expression,
+                    item=unreliable_indicators,
+                    key=primary_key,
+                    table=TABLE,
+                )
         except ConditionalCheckFailedException as ex:
             raise IndicatorAlreadyUpdated() from ex
