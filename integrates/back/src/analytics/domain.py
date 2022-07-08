@@ -241,17 +241,16 @@ def handle_graphic_request_parameters(
         "stackedBarChart",
         "textBox",
     }
-    valid_generator_name: set[str] = {"generic", "raw"}
+    valid_generator_name: set[str] = {"generic"}
     if generator_type not in valid_generator_type:
         raise ValueError("Invalid generator type")
 
     if generator_name not in valid_generator_name:
         raise ValueError("Invalid generator name")
 
-    if f"{generator_type}/{generator_name}" not in set(
-        [f"{g_type}/generic" for g_type in valid_generator_type]
-        + ["textBox/raw"]
-    ):
+    if f"{generator_type}/{generator_name}" not in {
+        f"{g_type}/generic" for g_type in valid_generator_type
+    }:
         raise ValueError("Invalid generator type or generator name")
 
     return GraphicParameters(
