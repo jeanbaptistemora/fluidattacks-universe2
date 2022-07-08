@@ -11,7 +11,11 @@ import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
 import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { FormikTextAreaAutosize } from "utils/forms/fields/TextArea";
-import { maxLength } from "utils/validations";
+import {
+  composeValidators,
+  maxLength,
+  validTextField,
+} from "utils/validations";
 
 interface ICommentEditorProps {
   id: number;
@@ -87,7 +91,7 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
             placeholder={t("comments.editorPlaceholder")}
             rows={"2"}
             type={"text"}
-            validate={maxContentLength}
+            validate={composeValidators([maxContentLength, validTextField])}
           />
         </Row>
         <div className={"pv2"}>

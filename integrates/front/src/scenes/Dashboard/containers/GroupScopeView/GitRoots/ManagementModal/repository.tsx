@@ -46,7 +46,11 @@ import {
 } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { openUrl } from "utils/resourceHelpers";
-import { hasSshFormat } from "utils/validations";
+import {
+  composeValidators,
+  hasSshFormat,
+  validTextField,
+} from "utils/validations";
 
 interface IRepositoryProps {
   groupName: string;
@@ -321,6 +325,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                           component={FormikText}
                           name={"url"}
                           type={"text"}
+                          validate={composeValidators([validTextField])}
                         />
                       </div>
                       <div className={"w-30"} id={"git-root-add-repo-branch"}>
