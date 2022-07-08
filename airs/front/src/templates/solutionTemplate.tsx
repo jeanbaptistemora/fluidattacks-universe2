@@ -10,7 +10,7 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
 /* eslint import/no-namespace:0 */
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
@@ -19,21 +19,15 @@ import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
-import { ShadowedCard } from "../components/ShadowedCard";
+import { Paragraph } from "../components/Texts";
 import {
-  BigPageContainer,
-  BigSolutionParagraph,
   BlackH2,
-  BlackSolutionParagraph,
-  CardsContainer,
-  CenteredSpacedContainer,
+  ComplianceContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
   MarkedTitle,
   PageArticle,
-  PageContainer,
   RedMark,
-  RegularRedButton,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -76,23 +70,14 @@ const SolutionIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle bgColor={"#f9f9f9"}>
-            <BigPageContainer>
-              <img
-                alt={"Fluid Solution"}
-                className={"ml-solution"}
-                src={image}
-              />
-              <RedMark className={"ml-solution"}>
+          <PageArticle bgColor={"#f4f4f6"}>
+            <ComplianceContainer>
+              <RedMark>
                 <MarkedTitle>{title}</MarkedTitle>
               </RedMark>
-              <FullWidthContainer className={"pv4"}>
-                <div className={"tl  ml-solution"}>
-                  <BigSolutionParagraph className={"tl"}>
-                    {solution}
-                  </BigSolutionParagraph>
-                </div>
-              </FullWidthContainer>
+              <Paragraph fColor={"#2e2e38"} fSize={"16"} marginTop={"1"}>
+                {solution}
+              </Paragraph>
               <FullWidthContainer>
                 <BlackH2>{translate.t("solution.benefits")}</BlackH2>
                 <FlexCenterItemsContainer
@@ -102,59 +87,7 @@ const SolutionIndex: React.FC<IQueryData> = ({
                   }}
                 />
               </FullWidthContainer>
-            </BigPageContainer>
-            <PageContainer>
-              <FullWidthContainer className={"pv4"}>
-                <CenteredSpacedContainer>
-                  <BlackSolutionParagraph className={"tc"}>
-                    {`${title} ${translate.t("solution.belonging")} `}
-                    <Link
-                      className={"basic-link"}
-                      to={"/services/continuous-hacking/"}
-                    >
-                      {"Continuous Hacking"}
-                    </Link>
-                    {" service"}
-                  </BlackSolutionParagraph>
-                </CenteredSpacedContainer>
-                <CenteredSpacedContainer>
-                  <Link to={"/contact-us/"}>
-                    <RegularRedButton>
-                      {translate.t("contactUs.contactFluidAttacks")}
-                    </RegularRedButton>
-                  </Link>
-                </CenteredSpacedContainer>
-              </FullWidthContainer>
-              <FullWidthContainer className={"pv4"}>
-                <BlackH2>{translate.t("solution.cardsTitle")}</BlackH2>
-                <CardsContainer>
-                  <ShadowedCard
-                    color={"bg-black-18"}
-                    image={"/airs/solutions/icon-skull"}
-                    number={translate.t("solution.cards.vulnerabilities")}
-                    text={translate.t("solution.cards.vulnerabilitiesText")}
-                  />
-                  <ShadowedCard
-                    color={"bg-black-18"}
-                    image={"/airs/solutions/icon-lock"}
-                    number={translate.t("solution.cards.percentage")}
-                    text={translate.t("solution.cards.percentageText")}
-                  />
-                  <ShadowedCard
-                    color={"bg-black-18"}
-                    image={"/airs/solutions/icon-security"}
-                    number={translate.t("solution.cards.hackers")}
-                    text={translate.t("solution.cards.hackersText")}
-                  />
-                  <ShadowedCard
-                    color={"bg-black-18"}
-                    image={"/airs/solutions/icon-fly"}
-                    number={translate.t("solution.cards.owasp")}
-                    text={translate.t("solution.cards.owaspText")}
-                  />
-                </CardsContainer>
-              </FullWidthContainer>
-            </PageContainer>
+            </ComplianceContainer>
           </PageArticle>
         </div>
       </Layout>
