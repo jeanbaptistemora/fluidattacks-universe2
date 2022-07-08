@@ -220,6 +220,31 @@
       "management:type" = "product";
     };
   };
+  integrates_numerator_report_digest = {
+    enabled = true;
+    command = [
+      "m"
+      "f"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.numerator_report_digest.main"
+    ];
+
+    schedule_expression = "cron(0 23 ? * 2-6 *)";
+    size = "nano";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = ["PRODUCT_API_TOKEN"];
+
+    tags = {
+      "Name" = "integrates_numerator_report_digest";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_get_remediated_findings = {
     enabled = true;
     command = [

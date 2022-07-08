@@ -1,5 +1,6 @@
 from context import (
     FI_ENVIRONMENT,
+    FI_MAIL_PRODUCTION,
     FI_TEST_PROJECTS,
 )
 from dataloaders import (
@@ -36,7 +37,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-PRODUCTION_MAIL = "production@fluidattacks.com"
 
 
 def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
@@ -71,20 +71,18 @@ async def _generate_numerator_report(
                     }
 
                 if _validate_date(toe.node.seen_at.date(), 1, 0):
-                    content[toe.node.seen_first_time_by]["groups"] = {
-                        group: (
-                            int(
-                                content[toe.node.seen_first_time_by]["groups"][
-                                    group
-                                ]
-                            )
-                            + 1
-                            if dict(
-                                content[toe.node.seen_first_time_by]["groups"]
-                            ).get(group)
-                            else 1
+                    content[toe.node.seen_first_time_by]["groups"][group] = (
+                        int(
+                            content[toe.node.seen_first_time_by]["groups"][
+                                group
+                            ]
                         )
-                    }
+                        + 1
+                        if dict(
+                            content[toe.node.seen_first_time_by]["groups"]
+                        ).get(group)
+                        else 1
+                    )
                     content[toe.node.seen_first_time_by]["today_count"] = (
                         int(
                             content[toe.node.seen_first_time_by]["today_count"]
@@ -157,7 +155,7 @@ async def _send_mail_report(
     await groups_mail.send_mail_numerator_report(
         loaders=loaders,
         context=context,
-        email_to=[PRODUCTION_MAIL],
+        email_to=[FI_MAIL_PRODUCTION],
         report_date=report_date,
     )
 

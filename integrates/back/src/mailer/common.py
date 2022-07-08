@@ -6,6 +6,7 @@ from context import (
     FI_EMAIL_TEMPLATES,
     FI_MAIL_CONTINUOUS,
     FI_MAIL_CUSTOMER_SUCCESS,
+    FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,
     FI_MAIL_REVIEWERS,
     FI_MANDRILL_API_KEY,
@@ -85,6 +86,7 @@ async def get_recipient_first_name(
             fi_email.lower()
             for fi_email in FI_MAIL_CUSTOMER_SUCCESS.split(",")
         ],
+        *[fi_email.lower() for fi_email in FI_MAIL_PRODUCTION.split(",")],
         FI_MAIL_PROJECTS.lower(),
         *[fi_email.lower() for fi_email in FI_MAIL_REVIEWERS.split(",")],
     }
