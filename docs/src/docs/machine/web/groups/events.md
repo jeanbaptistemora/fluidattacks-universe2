@@ -136,7 +136,7 @@ You can leave your comments there.
 
 ## Types of events
 
-### Authorization for spacial attack
+### Authorization for special attack
 
 This event type corresponds to
 situations when the hacker
