@@ -257,7 +257,6 @@ async def update_access_token(
             jti=token_data["jti_hashed"],
             salt=token_data["salt"],
         )
-        print(access_token)
         await stakeholders_dal.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 access_token=access_token,
@@ -270,9 +269,14 @@ async def update_access_token(
     return session_jwt
 
 
-async def update_legal_remember(email: str, remember: bool) -> bool:
+async def update_legal_remember(email: str, remember: bool) -> None:
     """Remember legal notice acceptance"""
-    return await stakeholders_dal.update(email, {"legal_remember": remember})
+    return await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            legal_remember=remember,
+        ),
+        stakeholder_email=email,
+    )
 
 
 async def update_last_login(email: str) -> bool:

@@ -48,6 +48,7 @@ class Stakeholder(NamedTuple):
 
 
 class StakeholderMetadataToUpdate(NamedTuple):
+    legal_remember: Optional[bool] = None
     is_concurrent_session: Optional[bool] = None
     is_registered: Optional[bool] = None
     notifications_preferences: Optional[NotificationsPreferences] = None

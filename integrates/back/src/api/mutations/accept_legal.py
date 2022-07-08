@@ -24,8 +24,6 @@ async def mutate(
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    success = await stakeholders_domain.update_legal_remember(
-        user_email, remember
-    )
+    await stakeholders_domain.update_legal_remember(user_email, remember)
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

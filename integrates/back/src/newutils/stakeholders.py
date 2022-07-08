@@ -41,6 +41,7 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         }
         if metadata.access_token
         else None,
+        "legal_remember": metadata.legal_remember,
     }
     if metadata.access_token and metadata.access_token.iat == 0:
         item["access_token"] = {}
