@@ -12,6 +12,7 @@ from context import (
 )
 from custom_exceptions import (
     EventAlreadyClosed,
+    EventHasNotBeenSolved,
     InvalidCommentParent,
     InvalidDate,
     InvalidFileSize,
@@ -492,6 +493,34 @@ async def update_evidence(
             modified_date=datetime_utils.get_as_utc_iso_format(update_date),
         ),
         evidence_type=evidence_type,
+    )
+
+
+async def update_solving_reason(
+    info: GraphQLResolveInfo,
+    event_id: str,
+    stakeholder_email: str,
+    reason: EventSolutionReason,
+    other: Optional[str],
+) -> None:
+    loaders = info.context.loaders
+    event: Event = await loaders.event.load(event_id)
+    group_name = event.group_name
+    other_reason: str = other if other else ""
+
+    if event.state.status != EventStateStatus.SOLVED:
+        raise EventHasNotBeenSolved()
+
+    await events_model.update_state(
+        event_id=event_id,
+        group_name=group_name,
+        state=EventState(
+            modified_by=stakeholder_email,
+            modified_date=datetime_utils.get_iso_date(),
+            other=other_reason,
+            reason=reason,
+            status=event.state.status,
+        ),
     )
 
 
