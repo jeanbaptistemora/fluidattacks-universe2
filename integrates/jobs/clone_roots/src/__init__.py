@@ -247,9 +247,7 @@ async def ssh_clone(
     if proc.returncode == 0:
         return (folder_to_clone_root, None)
 
-    logging.error(
-        "Repo cloning failed", extra={"extra": {"message": stderr.decode()}}
-    )
+    logging.error("Repo cloning failed: %s", stderr.decode())
 
     return (None, stderr.decode("utf-8"))
 
@@ -316,7 +314,6 @@ async def upload_cloned_repo_to_s3_tar(
         logging.error(
             "Failed to compress root %s",
             nickname,
-            extra=dict(extra=locals()),
         )
         os.remove(zip_output_path)
         return False
@@ -331,7 +328,7 @@ async def upload_cloned_repo_to_s3_tar(
 
 @asynccontextmanager
 async def clone_root(
-    *, group_name: str, root: Dict[str, Any], token: str
+    *, group_name: str, root: Dict[str, Any], api_token: str
 ) -> Any:
     cred = root["credentials"]
     branch = root["branch"]
@@ -367,18 +364,9 @@ async def clone_root(
             raise Exception()
 
         if folder_to_clone_root is None:
-            logging.error(
-                "Root cloning failed",
-                extra=dict(
-                    extra={
-                        "group_name": group_name,
-                        "root_nickname": root_nickname,
-                        "stderr": stderr,
-                    }
-                ),
-            )
+            logging.error("Failed to clone %s: %s", root_nickname, stderr)
             update_root_cloning_status(
-                token=token,
+                token=api_token,
                 group_name=group_name,
                 root_id=root["id"],
                 status="FAILED",
@@ -395,7 +383,7 @@ async def clone_root(
 
 async def main() -> None:
     logging.basicConfig(level="INFO")
-    token = os.environ["INTEGRATES_API_TOKEN"]
+    api_token = os.environ["INTEGRATES_API_TOKEN"]
 
     action_key = sys.argv[2]
     action = get_action(action_dynamo_pk=action_key)
@@ -406,7 +394,7 @@ async def main() -> None:
     data = json.loads(action.additional_info)
     group_name = data["group_name"]
     root_nicknames = data["roots"]
-    roots_data = get_roots(token, group_name)
+    roots_data = get_roots(api_token, group_name)
     if not roots_data:
         return
 
@@ -417,7 +405,7 @@ async def main() -> None:
     ]
     for root in roots:
         update_root_cloning_status(
-            token=token,
+            token=api_token,
             group_name=group_name,
             root_id=root["id"],
             status="CLONING",
@@ -426,59 +414,55 @@ async def main() -> None:
 
         logging.info("Cloning %s", root["nickname"])
 
-        async with clone_root(
-            group_name=group_name, root=root, token=token
-        ) as folder_to_clone_root:
-            success_upload = await upload_cloned_repo_to_s3_tar(
-                repo_path=folder_to_clone_root,
-                nickname=root["nickname"],
-                upload_url=root["uploadUrl"],
-            )
-            if success_upload:
-                try:
-                    commit = Repo(
-                        folder_to_clone_root, search_parent_directories=True
-                    ).head.object.hexsha
-                    logging.info(
-                        "Cloned success with commit: %s",
-                        commit,
-                    )
-                    update_root_cloning_status(
-                        token=token,
-                        group_name=group_name,
-                        root_id=root["id"],
-                        status="OK",
-                        message="Cloned successfully",
-                        commit=commit,
-                    )
-                    delete_action(action_dynamo_pk=action_key)
-                    continue
-                except (GitError, AttributeError) as exc:
-                    logging.exception(
-                        exc,
-                        extra=dict(
-                            extra={
-                                "group_name": group_name,
-                                "root_nickname": root["nickname"],
-                            }
-                        ),
-                    )
-                    update_root_cloning_status(
-                        token=token,
-                        group_name=group_name,
-                        root_id=root["id"],
-                        status="FAILED",
-                        message=str(exc),
-                    )
-                    continue
+        with suppress(RuntimeError):
+            async with clone_root(
+                group_name=group_name, root=root, api_token=api_token
+            ) as folder_to_clone_root:
+                success_upload = await upload_cloned_repo_to_s3_tar(
+                    repo_path=folder_to_clone_root,
+                    nickname=root["nickname"],
+                    upload_url=root["uploadUrl"],
+                )
+                if success_upload:
+                    try:
+                        commit = Repo(
+                            folder_to_clone_root,
+                            search_parent_directories=True,
+                        ).head.object.hexsha
+                        logging.info(
+                            "Cloned success with commit: %s",
+                            commit,
+                        )
+                        update_root_cloning_status(
+                            token=api_token,
+                            group_name=group_name,
+                            root_id=root["id"],
+                            status="OK",
+                            message="Cloned successfully",
+                            commit=commit,
+                        )
+                        delete_action(action_dynamo_pk=action_key)
+                        continue
+                    except (GitError, AttributeError) as exc:
+                        logging.exception(
+                            exc,
+                        )
+                        update_root_cloning_status(
+                            token=api_token,
+                            group_name=group_name,
+                            root_id=root["id"],
+                            status="FAILED",
+                            message=str(exc),
+                        )
+                        continue
 
-            update_root_cloning_status(
-                token=token,
-                group_name=group_name,
-                root_id=root["id"],
-                status="FAILED",
-                message="The repository can not be uploaded",
-            )
+                update_root_cloning_status(
+                    token=api_token,
+                    group_name=group_name,
+                    root_id=root["id"],
+                    status="FAILED",
+                    message="The repository can not be uploaded",
+                )
 
 
 if __name__ == "__main__":
