@@ -40,16 +40,6 @@ requesting Zero Risk treatments,
 adding and editing users for the group
 and more.
 
-## Executive role
-
-This role is made for
-users in managerial positions
-that need to be informed
-about all the vulnerabilities
-that the project has
-and interact with them
-to ensure their solution.
-
 ## User role
 
 This is the default user role,
@@ -178,22 +168,22 @@ we specify
 what functions are enabled
 for each role.
 
-|                     |User|Executive|Vulnerability manager|User manager|
-|---------------------|:--:|:-------:|:-------------------:|:----------:|
-|Add roots            |X   |X        |                     |X           |
-|Add tags             |X   |X        |X                    |X           |
-|Add users            |    |         |                     |X           |
-|Approve treatments   |    |         |X                    |X           |
-|Change treatments    |X   |X        |X                    |X           |
-|Deactivate/Activate root  |    |         |                     |X           |
-|Delete groups        |    |         |                     |X           |
-|Edit roots           |X   |X        |                     |X           |
-|Edit users           |    |         |                     |X           |
-|Exclusions           |    |         |                     |X           |
-|Generate a report    |    |         |X                    |X           |
-|Receive notifications|X   |         |X                    |X           |
-|Request reattack     |X   |X        |X                    |X           |
-|View vulnerabilities |X   |X        |X                    |X           |
+|                     |User|Vulnerability manager|User manager|
+|---------------------|:--:|:-------------------:|:----------:|
+|Add roots            |X   |                     |X           |
+|Add tags             |X   |X                    |X           |
+|Add users            |    |                     |X           |
+|Approve treatments   |    |X                    |X           |
+|Change treatments    |X   |X                    |X           |
+|Deactivate/Activate root  |                     |X           |
+|Delete groups        |    |                     |X           |
+|Edit roots           |X   |                     |X           |
+|Edit users           |    |                     |X           |
+|Exclusions           |    |                     |X           |
+|Generate a report    |    |X                    |X           |
+|Receive notifications|X   |X                    |X           |
+|Request reattack     |X   |X                    |X           |
+|View vulnerabilities |X   |X                    |X           |
 
 ## Internal roles
 
