@@ -1,3 +1,4 @@
+import aiohttp
 import asyncio
 from asyncio import (
     run,
@@ -14,7 +15,6 @@ from git.exc import (
 from git.repo.base import (
     Repo,
 )
-import http.client
 import json
 import logging
 import os
@@ -89,8 +89,7 @@ def delete_action(
     client.delete_item(**operation_payload)
 
 
-def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
-    conn = http.client.HTTPSConnection("app.fluidattacks.com")
+async def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
     query = """
         query GetRootUpload($groupName: String!) {
             group(groupName: $groupName) {
@@ -120,19 +119,18 @@ def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
     }
-    conn.request("POST", "/api", json.dumps(payload), headers)
-    res = conn.getresponse()
-    data = res.read()
-    with suppress(json.decoder.JSONDecodeError):
-        result = json.loads(data.decode("utf-8"))
-        if "errors" in result:
-            logging.error(result["errors"])
-            return None
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post(
+            "https://app.fluidattacks.com/api", data=json.dumps(payload)
+        ) as response:
+            result = await response.json()
+            if "errors" in result:
+                logging.error(result["errors"])
+                return None
         return result
-    return None
 
 
-def update_root_cloning_status(  # pylint: disable=too-many-arguments
+async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     token: str,
     group_name: str,
     root_id: str,
@@ -140,7 +138,6 @@ def update_root_cloning_status(  # pylint: disable=too-many-arguments
     message: str,
     commit: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
-    conn = http.client.HTTPSConnection("app.fluidattacks.com")
     query = """
         mutation MeltsUpdateRootCloningStatus(
           $groupName: String!
@@ -175,16 +172,15 @@ def update_root_cloning_status(  # pylint: disable=too-many-arguments
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
     }
-    conn.request("POST", "/api", json.dumps(payload), headers)
-    res = conn.getresponse()
-    data = res.read()
-    with suppress(json.decoder.JSONDecodeError):
-        result = json.loads(data.decode("utf-8"))
-        if "errors" in result:
-            logging.error(result["errors"])
-            return None
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post(
+            "https://app.fluidattacks.com/api", data=json.dumps(payload)
+        ) as response:
+            result = await response.json()
+            if "errors" in result:
+                logging.error(result["errors"])
+                return None
         return result
-    return None
 
 
 def _format_https_url(
@@ -365,7 +361,7 @@ async def clone_root(
 
         if folder_to_clone_root is None:
             logging.error("Failed to clone %s: %s", root_nickname, stderr)
-            update_root_cloning_status(
+            await update_root_cloning_status(
                 token=api_token,
                 group_name=group_name,
                 root_id=root["id"],
@@ -394,7 +390,7 @@ async def main() -> None:
     data = json.loads(action.additional_info)
     group_name = data["group_name"]
     root_nicknames = data["roots"]
-    roots_data = get_roots(api_token, group_name)
+    roots_data = await get_roots(api_token, group_name)
     if not roots_data:
         return
 
@@ -404,7 +400,7 @@ async def main() -> None:
         if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
     ]
     for root in roots:
-        update_root_cloning_status(
+        await update_root_cloning_status(
             token=api_token,
             group_name=group_name,
             root_id=root["id"],
@@ -433,7 +429,7 @@ async def main() -> None:
                             "Cloned success with commit: %s",
                             commit,
                         )
-                        update_root_cloning_status(
+                        await update_root_cloning_status(
                             token=api_token,
                             group_name=group_name,
                             root_id=root["id"],
@@ -447,7 +443,7 @@ async def main() -> None:
                         logging.exception(
                             exc,
                         )
-                        update_root_cloning_status(
+                        await update_root_cloning_status(
                             token=api_token,
                             group_name=group_name,
                             root_id=root["id"],
@@ -456,7 +452,7 @@ async def main() -> None:
                         )
                         continue
 
-                update_root_cloning_status(
+                await update_root_cloning_status(
                     token=api_token,
                     group_name=group_name,
                     root_id=root["id"],
