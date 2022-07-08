@@ -36,7 +36,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   return (
     <Row>
       <Have I={"has_service_white"}>
-        <Col>
+        <Col large={"100"} medium={"100"} small={"100"}>
           <Card title={t("group.scope.git.title")}>
             <GitRoots
               groupName={groupName}
@@ -47,7 +47,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
         </Col>
       </Have>
       <Have I={"has_service_black"}>
-        <Col>
+        <Col large={"100"} medium={"100"} small={"100"}>
           <Card title={t("group.scope.ip.title")}>
             <IPRoots
               groupName={groupName}
@@ -56,7 +56,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
             />
           </Card>
         </Col>
-        <Col>
+        <Col large={"100"} medium={"100"} small={"100"}>
           <Card title={t("group.scope.url.title")}>
             <URLRoots
               groupName={groupName}
@@ -66,7 +66,7 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
           </Card>
         </Col>
       </Have>
-      <Col>
+      <Col large={"100"} medium={"100"} small={"100"}>
         <GroupSettingsView />
       </Col>
     </Row>
