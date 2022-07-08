@@ -34,9 +34,6 @@ from custom_exceptions import (
     StakeholderNotFound,
     UserNotInOrganization,
 )
-from custom_types import (
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
-)
 from datetime import (
     date,
     datetime,
@@ -1690,21 +1687,19 @@ async def update_forces_access_token(
     email: str,
     expiration_time: int,
     responsible: str,
-) -> UpdateAccessTokenPayloadType:
+) -> str:
     group: Group = await loaders.group.load(group_name)
     had_token: bool = bool(group.agent_token)
 
     result = await stakeholders_domain.update_access_token(
         email, expiration_time
     )
-
-    if result.success:
-        await send_mail_devsecops_agent(
-            loaders=loaders,
-            group_name=group_name,
-            responsible=responsible,
-            had_token=had_token,
-        )
+    await send_mail_devsecops_agent(
+        loaders=loaders,
+        group_name=group_name,
+        responsible=responsible,
+        had_token=had_token,
+    )
 
     return result
 

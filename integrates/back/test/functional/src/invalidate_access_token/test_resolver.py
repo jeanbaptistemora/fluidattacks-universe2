@@ -1,6 +1,13 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 import pytest
 from typing import (
     Any,
@@ -11,25 +18,33 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("invalidate_access_token")
 @pytest.mark.parametrize(
-    ["email"],
+    ["email", "iat"],
     [
-        ["admin@gmail.com"],
-        ["hacker@gmail.com"],
-        ["reattacker@gmail.com"],
-        ["user@gmail.com"],
-        ["user_manager@gmail.com"],
-        ["vulnerability_manager@gmail.com"],
-        ["resourcer@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
-        ["reviewer@gmail.com"],
-        ["service_forces@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
+        ["admin@gmail.com", 1634677195],
+        ["hacker@gmail.com", 1634677195],
+        ["reattacker@gmail.com", 1657298463],
+        ["user@gmail.com", 1657298264],
+        ["user_manager@gmail.com", 1657298299],
+        ["vulnerability_manager@gmail.com", 1657298346],
+        ["resourcer@gmail.com", 1657298463],
+        ["reviewer@gmail.com", 1657295874],
+        ["service_forces@gmail.com", 1657278953],
+        ["customer_manager@fluidattacks.com", 1657287433],
     ],
 )
-async def test_invalidate_access_token(populate: bool, email: str) -> None:
+async def test_invalidate_access_token(
+    populate: bool, email: str, iat: int
+) -> None:
     assert populate
+    loaders: Dataloaders = get_new_context()
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder.access_token is not None
+    assert stakeholder.access_token.iat == iat
     result: Dict[str, Any] = await get_result(
         user=email,
     )
     assert "errors" not in result
     assert result["data"]["invalidateAccessToken"]["success"]
+    new_loader = get_new_context()
+    new_stakeholder: Stakeholder = await new_loader.stakeholder.load(email)
+    assert new_stakeholder.access_token is None

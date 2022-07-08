@@ -17,7 +17,6 @@ from custom_exceptions import (
 )
 from custom_types import (
     Phone,
-    UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
 )
 from datetime import (
     datetime,
@@ -186,11 +185,6 @@ async def ensure_exists(email: str) -> bool:
     return bool(await stakeholders_dal.get(email))
 
 
-async def get_attributes(email: str, data: list[str]) -> dict[str, Any]:
-    """Get attributes of a user."""
-    return await stakeholders_dal.get_attributes(email, data)
-
-
 async def has_valid_access_token(
     loaders: Any, email: str, context: dict[str, str], jti: str
 ) -> bool:
@@ -224,18 +218,26 @@ async def register(email: str) -> None:
     )
 
 
-async def remove_access_token(email: str) -> bool:
+async def remove_access_token(email: str) -> None:
     """Remove access token attribute"""
-    return await stakeholders_dal.update(email, {"access_token": None})
+    await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            access_token=StakeholderAccessToken(
+                iat=0,
+                jti="",
+                salt="",
+            ),
+        ),
+        stakeholder_email=email,
+    )
 
 
 async def update_access_token(
     email: str, expiration_time: int, **kwargs_token: Any
-) -> UpdateAccessTokenPayloadType:
+) -> str:
     """Update access token"""
     token_data = token_utils.calculate_hash_token()
     session_jwt = ""
-    success = False
 
     if token_utils.is_valid_expiration_time(expiration_time):
         iat = int(datetime.utcnow().timestamp())
@@ -250,20 +252,22 @@ async def update_access_token(
             },
             api=True,
         )
-        access_token = {
-            "iat": iat,
-            "jti": token_data["jti_hashed"],
-            "salt": token_data["salt"],
-        }
-        success = await stakeholders_dal.update(
-            email, {"access_token": access_token}
+        access_token = StakeholderAccessToken(
+            iat=iat,
+            jti=token_data["jti_hashed"],
+            salt=token_data["salt"],
+        )
+        print(access_token)
+        await stakeholders_dal.update_metadata(
+            metadata=StakeholderMetadataToUpdate(
+                access_token=access_token,
+            ),
+            stakeholder_email=email,
         )
     else:
         raise InvalidExpirationTime()
 
-    return UpdateAccessTokenPayloadType(
-        success=success, session_jwt=session_jwt
-    )
+    return session_jwt
 
 
 async def update_legal_remember(email: str, remember: bool) -> bool:

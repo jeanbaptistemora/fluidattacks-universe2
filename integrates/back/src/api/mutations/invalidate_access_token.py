@@ -1,6 +1,9 @@
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from custom_types import (
     SimplePayload as SimplePayloadType,
 )
@@ -29,18 +32,15 @@ async def mutate(
     info: GraphQLResolveInfo,
 ) -> SimplePayloadType:
     user_info = await token_utils.get_jwt_content(info.context)
-
-    success = await stakeholders_domain.remove_access_token(
-        user_info["user_email"]
-    )
-    if success:
+    try:
+        await stakeholders_domain.remove_access_token(user_info["user_email"])
         logs_utils.cloudwatch_log(
             info.context, f'{user_info["user_email"]} invalidate access token'
         )
-    else:
+    except UnavailabilityError:
         logs_utils.cloudwatch_log(
             info.context,
             f'{user_info["user_email"]} attempted to invalidate access token',
         )
 
-    return SimplePayloadType(success=success)
+    return SimplePayloadType(success=True)

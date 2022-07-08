@@ -34,7 +34,16 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         "is_concurrent_session": metadata.is_concurrent_session,
         "push_tokens": metadata.push_tokens,
         "registered": metadata.is_registered,
+        "access_token": {
+            "iat": metadata.access_token.iat,
+            "jti": metadata.access_token.jti,
+            "salt": metadata.access_token.salt,
+        }
+        if metadata.access_token
+        else None,
     }
+    if metadata.access_token and metadata.access_token.iat == 0:
+        item["access_token"] = {}
     return {
         key: None if not value and value is not False else value
         for key, value in item.items()
@@ -159,4 +168,8 @@ def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
         "role": stakeholder.role,
         "responsibility": stakeholder.responsibility,
     }
-    return item
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }

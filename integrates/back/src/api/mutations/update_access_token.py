@@ -3,6 +3,7 @@ from ariadne import (
 )
 from custom_exceptions import (
     InvalidExpirationTime,
+    UnavailabilityError,
 )
 from custom_types import (
     UpdateAccessTokenPayload as UpdateAccessTokenPayloadType,
@@ -39,16 +40,16 @@ async def mutate(
             first_name=user_info["first_name"],
             last_name=user_info["last_name"],
         )
-        if result.success:
-            logs_utils.cloudwatch_log(
-                info.context, f'{user_info["user_email"]} update access token'
-            )
-        else:
-            logs_utils.cloudwatch_log(
-                info.context,
-                f'{user_info["user_email"]} attempted to update access token',
-            )
-        return result
+        logs_utils.cloudwatch_log(
+            info.context, f'{user_info["user_email"]} update access token'
+        )
+        return UpdateAccessTokenPayloadType(success=True, session_jwt=result)
+    except UnavailabilityError:
+        logs_utils.cloudwatch_log(
+            info.context,
+            f'{user_info["user_email"]} attempted to update access token',
+        )
+        return UpdateAccessTokenPayloadType(success=False, session_jwt=result)
     except InvalidExpirationTime as exception:
         logs_utils.cloudwatch_log(
             info.context,

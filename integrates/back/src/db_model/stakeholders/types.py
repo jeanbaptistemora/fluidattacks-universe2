@@ -52,3 +52,4 @@ class StakeholderMetadataToUpdate(NamedTuple):
     is_registered: Optional[bool] = None
     notifications_preferences: Optional[NotificationsPreferences] = None
     push_tokens: Optional[list[str]] = None
+    access_token: Optional[StakeholderAccessToken] = None

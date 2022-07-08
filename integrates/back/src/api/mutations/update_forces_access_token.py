@@ -72,7 +72,7 @@ async def mutate(
             expiration_time=expiration_time,
             responsible=responsible,
         )
-        if result.success:
+        if result:
             logs_utils.cloudwatch_log(
                 info.context,
                 (
@@ -83,7 +83,7 @@ async def mutate(
             await forces_domain.update_token(
                 group_name=group_name,
                 organization_id=group.organization_id,
-                token=result.session_jwt,
+                token=result,
             )
             logs_utils.cloudwatch_log(
                 info.context,
@@ -92,15 +92,15 @@ async def mutate(
                     f"forces token for {user_email}"
                 ),
             )
-        else:
-            logs_utils.cloudwatch_log(
-                info.context,
-                (
-                    f'{user_info["user_email"]} attempted to update access '
-                    f"token for {group_name}"
-                ),
-            )
-        return result
+            return UpdateAccessTokenPayload(success=True, session_jwt=result)
+        logs_utils.cloudwatch_log(
+            info.context,
+            (
+                f'{user_info["user_email"]} attempted to update access '
+                f"token for {group_name}"
+            ),
+        )
+        return UpdateAccessTokenPayload(success=False, session_jwt=result)
     except InvalidExpirationTime as exc:
         logs_utils.cloudwatch_log(
             info.context,
