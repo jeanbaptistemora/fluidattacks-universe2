@@ -53,6 +53,14 @@ resource "aws_dynamodb_table" "sca_advisories" {
     projection_type = "ALL"
   }
 
+  server_side_encryption {
+    enabled = true
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
   tags = {
     "Name"               = "sca_advisories"
     "management:product" = "skims"
