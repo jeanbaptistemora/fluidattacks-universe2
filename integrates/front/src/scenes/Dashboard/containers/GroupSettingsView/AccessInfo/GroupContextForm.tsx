@@ -6,15 +6,10 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
+import { Text } from "components/Text";
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
-import {
-  Alert,
-  Col25,
-  Flex,
-  GroupScopeTextWide,
-  Row,
-} from "styles/styledComponents";
+import { Alert } from "styles/styledComponents";
 import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
@@ -78,71 +73,53 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
   return (
     <React.StrictMode>
       <Form id={"editGroupAccessInfo"}>
-        <Flex>
-          <h2>{t("searchFindings.groupAccessInfoSection.groupContext")}</h2>
-        </Flex>
-        <Row>
-          {dataset.groupContext || isEditing ? (
-            <GroupScopeTextWide>
-              {isEditing ? (
-                <Field name={"groupContext"} validate={maxGroupContextLength}>
-                  {({
-                    field,
-                    form: { values, setFieldValue },
-                  }: IFieldProps): JSX.Element => {
-                    function handleMDChange(value: string | undefined): void {
-                      setFieldValue("groupContext", value);
-                    }
+        {isEditing ? (
+          <Field name={"groupContext"} validate={maxGroupContextLength}>
+            {({
+              field,
+              form: { values, setFieldValue },
+            }: IFieldProps): JSX.Element => {
+              function handleMDChange(value: string | undefined): void {
+                setFieldValue("groupContext", value);
+              }
 
-                    return (
-                      <React.Fragment>
-                        <MDEditor
-                          height={200}
-                          highlightEnable={false}
-                          onChange={handleMDChange}
-                          // PrefixCls={""}
-                          value={values.groupContext}
-                        />
-                        <ValidationError>
-                          <ErrorMessage name={field.name} />
-                        </ValidationError>
-                        <Alert>
-                          {"*"}&nbsp;
-                          {t(
-                            "searchFindings.groupAccessInfoSection.markdownAlert"
-                          )}
-                        </Alert>
-                      </React.Fragment>
-                    );
-                  }}
-                </Field>
-              ) : (
-                <MDEditor.Markdown
-                  // eslint-disable-next-line react/forbid-component-props
-                  className={"bg-lbl-gray"}
-                  prefixCls={""}
-                  source={dataset.groupContext}
-                />
-              )}
-            </GroupScopeTextWide>
-          ) : (
-            <GroupScopeTextWide>
-              {t("searchFindings.groupAccessInfoSection.noGroupContext")}
-            </GroupScopeTextWide>
+              return (
+                <React.Fragment>
+                  <MDEditor
+                    height={200}
+                    highlightEnable={false}
+                    onChange={handleMDChange}
+                    // PrefixCls={""}
+                    value={values.groupContext}
+                  />
+                  <ValidationError>
+                    <ErrorMessage name={field.name} />
+                  </ValidationError>
+                  <Alert>
+                    {"*"}&nbsp;
+                    {t("searchFindings.groupAccessInfoSection.markdownAlert")}
+                  </Alert>
+                </React.Fragment>
+              );
+            }}
+          </Field>
+        ) : dataset.groupContext ? (
+          <MDEditor.Markdown prefixCls={""} source={dataset.groupContext} />
+        ) : (
+          <Text mb={2}>
+            {t("searchFindings.groupAccessInfoSection.noGroupContext")}
+          </Text>
+        )}
+        <ActionButtons
+          editTooltip={t(
+            "searchFindings.groupAccessInfoSection.tooltips.editGroupContext"
           )}
-          <Col25>
-            <ActionButtons
-              editTooltip={t(
-                "searchFindings.groupAccessInfoSection.tooltips.editGroupContext"
-              )}
-              isEditing={isEditing}
-              isPristine={isGroupAccessInfoPristine}
-              onEdit={toggleEdit}
-              onUpdate={handleSubmit}
-              permission={"api_mutations_update_group_access_info_mutate"}
-            />
-          </Col25>
-        </Row>
+          isEditing={isEditing}
+          isPristine={isGroupAccessInfoPristine}
+          onEdit={toggleEdit}
+          onUpdate={handleSubmit}
+          permission={"api_mutations_update_group_access_info_mutate"}
+        />
       </Form>
     </React.StrictMode>
   );

@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
+import { Gap } from "components/Layout";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
 interface IActionButtonsProps {
@@ -29,7 +29,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   const { t } = useTranslation();
 
   return (
-    <ButtonToolbarRow>
+    <Gap>
       <Can do={permission}>
         {isEditing ? (
           <TooltipWrapper
@@ -72,7 +72,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           </Button>
         </TooltipWrapper>
       </Can>
-    </ButtonToolbarRow>
+    </Gap>
   );
 };
 

@@ -7,6 +7,8 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { Card } from "components/Card";
+import { Col } from "components/Layout";
 import { DisambiguationForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/DisambiguationForm";
 import { GroupContextForm } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/GroupContextForm";
 import {
@@ -137,32 +139,40 @@ const AccessInfo: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{ ...dataset }}
-        name={"editGroupAccessInfo"}
-        onSubmit={handleGroupAccessInfoSubmit}
-      >
-        <GroupContextForm
-          data={data}
-          isEditing={isEditingGroupAccessInfo}
-          setEditing={setIsEditingGroupAccessInfo}
-        />
-      </Formik>
-      <Can do={"api_resolvers_group_disambiguation_resolve"}>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{ ...dataset }}
-          name={"editDisambiguation"}
-          onSubmit={handleDisambiguationSubmit}
-        >
-          <DisambiguationForm
-            data={data}
-            isEditing={isEditingDisambiguation}
-            setEditing={setIsEditingDisambiguation}
-          />
-        </Formik>
-      </Can>
+      <Col large={"50"} medium={"100"} small={"100"}>
+        <Card title={t("searchFindings.groupAccessInfoSection.groupContext")}>
+          <Formik
+            enableReinitialize={true}
+            initialValues={{ ...dataset }}
+            name={"editGroupAccessInfo"}
+            onSubmit={handleGroupAccessInfoSubmit}
+          >
+            <GroupContextForm
+              data={data}
+              isEditing={isEditingGroupAccessInfo}
+              setEditing={setIsEditingGroupAccessInfo}
+            />
+          </Formik>
+        </Card>
+      </Col>
+      <Col large={"50"} medium={"100"} small={"100"}>
+        <Card title={t("searchFindings.groupAccessInfoSection.disambiguation")}>
+          <Can do={"api_resolvers_group_disambiguation_resolve"}>
+            <Formik
+              enableReinitialize={true}
+              initialValues={{ ...dataset }}
+              name={"editDisambiguation"}
+              onSubmit={handleDisambiguationSubmit}
+            >
+              <DisambiguationForm
+                data={data}
+                isEditing={isEditingDisambiguation}
+                setEditing={setIsEditingDisambiguation}
+              />
+            </Formik>
+          </Can>
+        </Card>
+      </Col>
     </React.StrictMode>
   );
 };

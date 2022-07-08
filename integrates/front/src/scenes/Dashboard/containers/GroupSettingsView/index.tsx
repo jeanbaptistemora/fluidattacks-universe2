@@ -37,9 +37,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
         <Col large={"100"} medium={"100"} small={"100"}>
           <GroupInformation />
         </Col>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <AccessInfo />
-        </Col>
+        <AccessInfo />
         <Can do={"api_resolvers_group_forces_token_resolve"}>
           <Have I={"has_forces"}>
             <Col large={"33"} medium={"50"} small={"100"}>
