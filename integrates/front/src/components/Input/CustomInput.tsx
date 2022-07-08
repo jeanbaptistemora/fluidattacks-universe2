@@ -1,40 +1,26 @@
 import type { FieldProps } from "formik";
+import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
-import type { IStyledInputProps } from "./styles";
-import {
-  InputBox,
-  InputWrapper,
-  StyledInput,
-  StyledSelect,
-  StyledTextArea,
-} from "./styles";
+import type { IInputBase } from "./InputBase";
+import { InputBase } from "./InputBase";
+import { StyledInput } from "./styles";
 
-import { Alert } from "components/Alert";
-import { Text } from "components/Text";
-
-interface IInputProps extends Partial<IStyledInputProps> {
-  childLeft?: React.ReactNode;
-  childRight?: React.ReactNode;
-  children?: React.ReactNode;
-  disabled?: boolean;
-  id?: string;
-  label?: React.ReactNode;
-  name: string;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+interface IInputProps extends IInputBase {
+  childLeft?: ReactNode;
+  childRight?: ReactNode;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  rows?: number;
-  type?: "email" | "password" | "select" | "text" | "textarea";
+  type?: "email" | "password" | "text";
 }
 
-const CustomInput: React.FC<
-  FieldProps<string, Record<string, string>> & IInputProps
-> = ({
+type TInputProps = FieldProps<string, Record<string, string>> & IInputProps;
+
+const CustomInput: FC<TInputProps> = ({
   childLeft,
   childRight,
-  children,
   disabled,
   field,
   form,
@@ -44,17 +30,14 @@ const CustomInput: React.FC<
   onFocus,
   onKeyDown,
   placeholder,
-  rows = 3,
   type,
   variant = "solid",
-}: Readonly<
-  FieldProps<string, Record<string, string>> & IInputProps
->): JSX.Element => {
+}: Readonly<TInputProps>): JSX.Element => {
   const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = form.errors[name] ?? "";
+  const alert = form.errors[name];
 
   const handleBlur = useCallback(
-    (ev: React.FocusEvent<HTMLInputElement>): void => {
+    (ev: FocusEvent<HTMLInputElement>): void => {
       onBlurField(ev);
       onBlur?.(ev);
     },
@@ -62,60 +45,30 @@ const CustomInput: React.FC<
   );
 
   return (
-    <InputBox showAlert={alert.length > 0}>
-      {label === undefined ? undefined : (
-        <label htmlFor={id}>
-          <Text mb={1}>{label}</Text>
-        </label>
-      )}
-      <InputWrapper variant={variant}>
-        {childLeft}
-        {type === "select" ? (
-          <StyledSelect
-            aria-label={name}
-            autoComplete={"off"}
-            disabled={disabled}
-            id={id}
-            name={name}
-            onChange={onChange}
-            value={value}
-          >
-            {children}
-          </StyledSelect>
-        ) : type === "textarea" ? (
-          <StyledTextArea
-            aria-label={name}
-            autoComplete={"off"}
-            disabled={disabled}
-            id={id}
-            name={name}
-            onChange={onChange}
-            placeholder={placeholder}
-            rows={rows}
-            value={value}
-          />
-        ) : (
-          <StyledInput
-            aria-label={name}
-            autoComplete={"off"}
-            disabled={disabled}
-            id={id}
-            name={name}
-            onBlur={handleBlur}
-            onChange={onChange}
-            onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            placeholder={placeholder}
-            type={type}
-            value={value}
-          />
-        )}
-        {childRight}
-      </InputWrapper>
-      <Alert icon={true} variant={"error"}>
-        {alert}
-      </Alert>
-    </InputBox>
+    <InputBase
+      alert={alert}
+      id={id}
+      label={label}
+      name={name}
+      variant={variant}
+    >
+      {childLeft}
+      <StyledInput
+        aria-label={name}
+        autoComplete={"off"}
+        disabled={disabled}
+        id={id}
+        name={name}
+        onBlur={handleBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+      {childRight}
+    </InputBase>
   );
 };
 
