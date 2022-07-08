@@ -15,11 +15,11 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
-import { HandleEditionModal } from "./HandleEditionModal";
 import {
   formatBePresent,
   formatRootId,
   getFilteredData,
+  getNonSelectableToeInputIndex,
   getToeInputIndex,
   onSelectSeveralToeInputHelper,
 } from "./utils";
@@ -82,7 +82,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const [isAdding, setIsAdding] = useState(false);
   const [isMarkingAsAttacked, setIsMarkingAsAttacked] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [searchTextFilter, setSearchTextFilter] = useState("");
   const [selectedToeInputDatas, setSelectedToeInputDatas] = useState<
     IToeInputData[]
@@ -286,14 +285,18 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       const updatedToeInput = result.data.updateToeInput.toeInput;
       if (!_.isUndefined(updatedToeInput)) {
         setSelectedToeInputDatas(
-          selectedToeInputDatas.map(
-            (toeInputData: IToeInputData): IToeInputData =>
-              toeInputData.rootId === rootId &&
-              toeInputData.component === component &&
-              toeInputData.entryPoint === entryPoint
-                ? formatToeInputData(updatedToeInput)
-                : toeInputData
-          )
+          selectedToeInputDatas
+            .map(
+              (toeInputData: IToeInputData): IToeInputData =>
+                toeInputData.component === component &&
+                toeInputData.entryPoint === entryPoint &&
+                toeInputData.rootId === rootId
+                  ? formatToeInputData(updatedToeInput)
+                  : toeInputData
+            )
+            .filter(
+              (toeInputData: IToeInputData): boolean => toeInputData.bePresent
+            )
         );
         client.writeQuery({
           data: {
@@ -304,10 +307,10 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
                 ...data?.group.toeInputs,
                 edges: data?.group.toeInputs.edges.map(
                   (value: IToeInputEdge): IToeInputEdge =>
-                    (_.isNil(value.node.root) ? "" : value.node.root.id) ===
-                      rootId &&
                     value.node.component === component &&
-                    value.node.entryPoint === entryPoint
+                    value.node.entryPoint === entryPoint &&
+                    (_.isNil(value.node.root) ? "" : value.node.root.id) ===
+                      rootId
                       ? {
                           node: updatedToeInput,
                         }
@@ -459,9 +462,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
 
   function toggleAdd(): void {
     setIsAdding(!isAdding);
-  }
-  function toggleEdit(): void {
-    setIsEditing(!isEditing);
   }
 
   const handleOnMarkAsAttackedCompleted = (
@@ -656,7 +656,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     clickToSelect: false,
     hideSelectColumn: !isInternal || !canUpdateToeInput,
     mode: "checkbox",
-    nonSelectable: undefined,
+    nonSelectable: getNonSelectableToeInputIndex(filteredData),
     onSelect: onSelectOneToeInputData,
     onSelectAll: onSelectSeveralToeInputDatas,
     selected: getToeInputIndex(selectedToeInputDatas, filteredData),
@@ -692,11 +692,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
           <ActionButtons
             areInputsSelected={selectedToeInputDatas.length > 0}
             isAdding={isAdding}
-            isEditing={isEditing}
             isInternal={isInternal}
             isMarkingAsAttacked={isMarkingAsAttacked}
             onAdd={toggleAdd}
-            onEdit={toggleEdit}
             onMarkAsAttacked={handleMarkAsAttacked}
           />
         }
@@ -713,15 +711,6 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
           groupName={groupName}
           handleCloseModal={toggleAdd}
           refetchData={refetch}
-        />
-      ) : undefined}
-      {isEditing ? (
-        <HandleEditionModal
-          groupName={groupName}
-          handleCloseModal={toggleEdit}
-          refetchData={refetch}
-          selectedToeInputDatas={selectedToeInputDatas}
-          setSelectedToeInputDatas={setSelectedToeInputDatas}
         />
       ) : undefined}
     </React.StrictMode>

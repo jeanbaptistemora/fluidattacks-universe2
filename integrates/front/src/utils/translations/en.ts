@@ -1076,10 +1076,6 @@ export const enTranslations: ResourceKey = {
             text: "Cancel",
             tooltip: "Cancel",
           },
-          editButton: {
-            text: "Edit",
-            tooltip: "Edit input",
-          },
           removeButton: {
             text: "Remove",
             tooltip: "Remove non-enumerated input",

@@ -19,11 +19,9 @@ describe("ToeInputsActionButtons", (): void => {
         <ActionButtons
           areInputsSelected={true}
           isAdding={false}
-          isEditing={false}
           isInternal={true}
           isMarkingAsAttacked={false}
           onAdd={jest.fn()}
-          onEdit={jest.fn()}
           onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
@@ -43,11 +41,9 @@ describe("ToeInputsActionButtons", (): void => {
         <ActionButtons
           areInputsSelected={true}
           isAdding={false}
-          isEditing={false}
           isInternal={false}
           isMarkingAsAttacked={false}
           onAdd={jest.fn()}
-          onEdit={jest.fn()}
           onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
@@ -67,11 +63,9 @@ describe("ToeInputsActionButtons", (): void => {
         <ActionButtons
           areInputsSelected={true}
           isAdding={false}
-          isEditing={false}
           isInternal={true}
           isMarkingAsAttacked={false}
           onAdd={jest.fn()}
-          onEdit={jest.fn()}
           onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
@@ -80,34 +74,6 @@ describe("ToeInputsActionButtons", (): void => {
     expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(
       screen.queryByText("group.toe.inputs.actionButtons.addButton.text")
-    ).toBeInTheDocument();
-  });
-
-  it("should display the edition button", (): void => {
-    expect.hasAssertions();
-
-    const mockedPermissions: PureAbility<string> = new PureAbility([
-      { action: "api_mutations_update_toe_input_mutate" },
-    ]);
-    render(
-      <authzPermissionsContext.Provider value={mockedPermissions}>
-        <ActionButtons
-          areInputsSelected={true}
-          isAdding={false}
-          isEditing={false}
-          isInternal={true}
-          isMarkingAsAttacked={false}
-          onAdd={jest.fn()}
-          onEdit={jest.fn()}
-          onMarkAsAttacked={jest.fn()}
-        />
-      </authzPermissionsContext.Provider>
-    );
-
-    expect(
-      screen.getByRole("button", {
-        name: "group.toe.inputs.actionButtons.editButton.text",
-      })
     ).toBeInTheDocument();
   });
 
@@ -122,11 +88,9 @@ describe("ToeInputsActionButtons", (): void => {
         <ActionButtons
           areInputsSelected={true}
           isAdding={false}
-          isEditing={false}
           isInternal={true}
           isMarkingAsAttacked={false}
           onAdd={jest.fn()}
-          onEdit={jest.fn()}
           onMarkAsAttacked={jest.fn()}
         />
       </authzPermissionsContext.Provider>
