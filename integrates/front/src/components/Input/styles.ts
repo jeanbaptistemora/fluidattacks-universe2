@@ -43,14 +43,13 @@ const sharedStyles = css`
 const InputBox = styled.div.attrs({
   className: "comp-input",
 })<IInputContainerProps>`
-  font-family: Roboto, sans-serif;
   width: 100%;
 
   > .comp-alert {
   ${({ showAlert }): string => `
     font-size: ${showAlert ? "14px" : "0"};
     ${showAlert ? "" : "line-height: 0;"}
-    margin: ${showAlert ? " 6px 0 0 0" : "0"};
+    margin-top: ${showAlert ? " 6px" : "0"};
     padding: ${showAlert ? "6px 8px" : "0"};
   `}
 `;
