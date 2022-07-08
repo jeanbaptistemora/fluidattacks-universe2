@@ -26,21 +26,10 @@ interface IColProps {
   small?: Width;
 }
 
-const getFlexGrow = (width?: Width): string => {
-  if (width === undefined) {
-    return "1";
-  }
-
-  return "unset";
-};
-
-const getWidth = (width?: Width): string => {
-  if (width === undefined) {
-    return "unset";
-  }
-
-  return `${width}%`;
-};
+const getAttrs = (width?: Width): string => `
+  flex-grow: ${width === undefined ? "1" : "unset"};
+  width: ${width === undefined ? "unset" : `${width}%`};
+`;
 
 const Col = styled.div.attrs({
   className: "comp-col",
@@ -48,18 +37,15 @@ const Col = styled.div.attrs({
   word-break: break-word;
 
   @media (max-width: 768px) {
-    flex-grow: ${(props): string => getFlexGrow(props.small)};
-    width: ${(props): string => getWidth(props.small)};
+    ${({ small }): string => getAttrs(small)}
   }
 
   @media (min-width: 768px) and (max-width: 992px) {
-    flex-grow: ${(props): string => getFlexGrow(props.medium)};
-    width: ${(props): string => getWidth(props.medium)};
+    ${({ medium }): string => getAttrs(medium)}
   }
 
   @media (min-width: 992px) {
-    flex-grow: ${(props): string => getFlexGrow(props.large)};
-    width: ${(props): string => getWidth(props.large)};
+    ${({ large }): string => getAttrs(large)}
   }
 `;
 
