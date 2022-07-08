@@ -26,7 +26,6 @@ from syntax_graph.syntax_readers.c_sharp import (
     postfix_unary_expression as c_sharp_postfix_unary_expression,
     prefix_expression as c_sharp_prefix_expression,
     property_declaration as c_sharp_property_declaration,
-    return_statement as c_sharp_return_statement,
     this_expression as c_sharp_this_expression,
     throw_statement as c_sharp_throw_statement,
     type_of_expression as c_sharp_type_of_expression,
@@ -57,6 +56,7 @@ from syntax_graph.syntax_readers.common import (
     object_creation_expression as common_object_creation_expression,
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
+    return_statement as common_return_statement,
     string_literal as common_string_literal,
     try_statement as common_try_statement,
 )
@@ -358,7 +358,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
         applicable_types={
             "return_statement",
         },
-        syntax_reader=c_sharp_return_statement.reader,
+        syntax_reader=common_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
