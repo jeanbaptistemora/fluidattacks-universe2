@@ -61,6 +61,7 @@ async def _generate_numerator_report(
         )
         for toe in group_toe_inputs.edges:
             if toe.node.seen_first_time_by and toe.node.seen_at:
+
                 if not content.get(toe.node.seen_first_time_by):
                     content[toe.node.seen_first_time_by] = {
                         "weekly_count": 0,
@@ -68,6 +69,7 @@ async def _generate_numerator_report(
                         "today_count": 0,
                         "groups": {},
                     }
+
                 if _validate_date(toe.node.seen_at.date(), 1, 0):
                     content[toe.node.seen_first_time_by]["groups"] = {
                         group: (
@@ -89,6 +91,7 @@ async def _generate_numerator_report(
                         )
                         + 1
                     )
+
                 else:
                     if _validate_date(toe.node.seen_at.date(), 2, 1):
                         content[toe.node.seen_first_time_by][
@@ -116,21 +119,44 @@ async def _generate_numerator_report(
     return content
 
 
+def get_variation(num_a: int, num_b: int) -> float:
+    try:
+        variation: float = round((((num_b - num_a) / num_a) * 100), 2)
+    except TypeError:
+        LOGGER.info("- Parameters must be a numbers")
+        return 0.0
+    except ValueError:
+        LOGGER.info("- Parameters must be a numbers")
+        return 0.0
+    except ZeroDivisionError:
+        LOGGER.info("- division by zero not allowed")
+        return 0.0
+    return variation
+
+
 async def _send_mail_report(
     loaders: Any,
     content: Dict[str, Any],
     report_date: date,
     responsible: str,
 ) -> None:
-    variation_yesterday: int = 0
-    variation_week: int = 0
+    today_count: int = int(content["today_count"])
+    past_day_count: int = int(content["past_day_count"])
+    weekly_count: int = int(content["weekly_count"])
+
+    variation_from_yesterday: float = get_variation(
+        past_day_count, today_count
+    )
+    variation_from_week: float = get_variation(weekly_count, today_count)
+
     context: Dict[str, Any] = {
         "groups": content["groups"],
         "responsible": responsible,
         "today_count": content["today_count"],
-        "variation_yesterday": variation_yesterday,
-        "variation_week": variation_week,
+        "variation_yesterday": variation_from_yesterday,
+        "variation_week": variation_from_week,
     }
+
     await groups_mail.send_mail_numerator_report(
         loaders=loaders,
         context=context,

@@ -12,9 +12,11 @@
       Today were enumerated {{ today_count }} fields, by {{ responsible }}:
     </p>
     <p>
-      {% for group, fields in groups.items() %}
-        <strong>{{ group }}</strong>: {{ fields }} enumerated fields.<br />
-      {% endfor %}
+      {% if groups %}
+        {% for group, fields in groups.items() %}
+          <strong>{{ group }}</strong>: {{ fields }} enumerated fields.<br />
+        {% endfor %}
+      {% endif %}
       {{ variation_yesterday }}% variation from yesterday enumeration and
       {{ variation_week }}% from last 7 working days.
     </p>
