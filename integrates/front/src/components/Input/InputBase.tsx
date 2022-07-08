@@ -1,3 +1,4 @@
+import type { FC, ReactNode } from "react";
 import React from "react";
 
 import type { IStyledInputProps } from "./styles";
@@ -6,15 +7,19 @@ import { InputBox, InputWrapper } from "./styles";
 import { Alert } from "components/Alert";
 import { Text } from "components/Text";
 
-interface IInputBaseProps extends Partial<IStyledInputProps> {
-  alert?: string;
-  children?: React.ReactNode;
+interface IInputBase extends Partial<IStyledInputProps> {
+  disabled?: boolean;
   id?: string;
-  label?: React.ReactNode;
+  label?: ReactNode;
   name: string;
 }
 
-const InputBase: React.FC<IInputBaseProps> = ({
+interface IInputBaseProps extends IInputBase {
+  alert?: string;
+  children?: ReactNode;
+}
+
+const InputBase: FC<IInputBaseProps> = ({
   alert,
   children,
   id,
@@ -34,5 +39,5 @@ const InputBase: React.FC<IInputBaseProps> = ({
   </InputBox>
 );
 
-export type { IInputBaseProps };
+export type { IInputBase };
 export { InputBase };
