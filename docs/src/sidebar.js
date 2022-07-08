@@ -514,6 +514,7 @@ const Machine = [
         items: [
           'machine/web/groups/introduction',
           'machine/web/groups/general',
+          'machine/web/groups/global-credentials',
           'machine/web/groups/vulnerabilities',
           'machine/web/groups/reports',
           'machine/web/groups/events',
