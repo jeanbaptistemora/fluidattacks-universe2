@@ -2469,6 +2469,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_RESTREPO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    PIP_INCOMPLETE_DEPENDENCIES_LIST = MethodInfo(
+        file_name="python",
+        name="pip_incomplete_dependencies_list",
+        module="lib_path",
+        finding=FindingEnum.F079,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     USES_INSECURE_DELETE = MethodInfo(
         file_name="analyze_bytecodes",
         name="uses_insecure_delete",
