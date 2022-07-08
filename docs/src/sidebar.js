@@ -514,7 +514,6 @@ const Machine = [
         items: [
           'machine/web/groups/introduction',
           'machine/web/groups/general',
-          'machine/web/groups/global-credentials',
           'machine/web/groups/vulnerabilities',
           'machine/web/groups/reports',
           'machine/web/groups/events',
@@ -527,6 +526,7 @@ const Machine = [
             items: [
               'machine/web/groups/scope/introduction',
               'machine/web/groups/scope/roots',
+              'machine/web/groups/scope/global-credentials',
               'machine/web/groups/scope/exclusions',
               'machine/web/groups/scope/files',
               'machine/web/groups/scope/portfolios',

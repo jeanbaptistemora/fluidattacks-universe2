@@ -2,7 +2,7 @@
 id: global-credentials
 title: Global credentials
 sidebar_label: Credentials
-slug: /machine/web/groups/global-credentials
+slug: machine/web/groups/scope/global-credentials
 ---
 
 You can store credentials in your
