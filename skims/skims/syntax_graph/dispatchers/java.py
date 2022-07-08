@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.common import (
     object_creation_expression as common_object_creation_expression,
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
+    return_statement as common_return_statement,
     string_literal as common_string_literal,
     try_statement as common_try_statement,
 )
@@ -242,6 +243,12 @@ JAVA_DISPATCHERS: Dispatchers = (
             "parenthesized_expression",
         },
         syntax_reader=common_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "return_statement",
+        },
+        syntax_reader=common_return_statement.reader,
     ),
     Dispatcher(
         applicable_types={
