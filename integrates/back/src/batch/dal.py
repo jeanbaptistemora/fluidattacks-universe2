@@ -610,6 +610,9 @@ async def put_action_to_batch(
     if FI_ENVIRONMENT == "development":
         return None
     try:
+        command_name = f"/{product_name}/batch"
+        if action_name == "clone_roots":
+            command_name = "/integrates/jobs/clone_roots"
         async with aioboto3.Session().client(**OPTIONS) as batch:
             return (
                 await batch.submit_job(
@@ -620,7 +623,7 @@ async def put_action_to_batch(
                         "command": [
                             "m",
                             "f",
-                            f"/{product_name}/batch",
+                            command_name,
                             "prod",
                             action_dynamo_pk,
                         ],
