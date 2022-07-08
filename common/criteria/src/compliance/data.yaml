@@ -6741,7 +6741,17 @@
   title: NIST 800-171
   en:
     summary: >
-      __empty__
+      NIST Special Publication 800-171 named
+      Protecting Controlled Unclassified Information
+      in Nonfederal Systems and Organizations,
+      provides agencies with recommended security
+      requirements for protecting the confidentiality
+      of controlled unclassifield information (CUI)
+      when the information is resident in
+      nonfederal systems and organizations.
+      The version used in this section is
+      SP 800-171 revision 2,
+      January 2021.
   es:
     summary: __empty__
   definitions:
