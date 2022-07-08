@@ -2,5 +2,5 @@ src.lib_path.f079.non_upgradeable_deps.description:
   en: Non upgradeable dependency
   es: Dependencia no actualizable
 src.lib_path.f079.pip_incomplete_dependencies_list:
-  en: Dependency don't explicitly declared in your requirements.txt file
+  en: The dependency is not explicitly declared in your requirements.txt
   es: La dependencia no se declara explícitamente en el archivo requirements.txt

@@ -43,7 +43,7 @@ def create_venv_install_requirements(filename: str) -> str:
     return os.getcwd()
 
 
-def _get_name(dependencies: requirements.Requirement) -> str:
+def _get_name(dependencies: requirements.requirement.Requirement) -> str:
     return dependencies.name
 
 
