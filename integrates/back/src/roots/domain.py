@@ -187,6 +187,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
+    validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(
         nickname, url, kwargs["environment"]
     )
@@ -373,6 +374,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     group_name = str(kwargs["group_name"]).lower()
     nickname: str = str(kwargs["nickname"])
     url: str = str(kwargs["url"])
+    validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(url, nickname)
 
     try:
@@ -640,6 +642,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
 
+    validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(kwargs["environment"], url)
     if not (
         isinstance(root, GitRoot)

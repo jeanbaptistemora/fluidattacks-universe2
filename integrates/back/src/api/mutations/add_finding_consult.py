@@ -35,6 +35,7 @@ from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
+    validations as validations_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -81,6 +82,7 @@ async def send_finding_consult_mail(
 async def _add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
 ) -> Tuple[bool, str]:
+    validations_utils.validate_fields([parameters["content"]])
     param_type = parameters.get("type", "").lower()
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]

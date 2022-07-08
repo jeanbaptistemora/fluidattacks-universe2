@@ -27,6 +27,7 @@ from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
     token as token_utils,
+    validations as validations_utils,
 )
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
@@ -69,6 +70,7 @@ async def send_group_consult_mail(
 async def mutate(
     _: Any, info: GraphQLResolveInfo, group_name: str, **parameters: Any
 ) -> AddConsultPayloadType:
+    validations_utils.validate_fields([parameters["content"]])
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
