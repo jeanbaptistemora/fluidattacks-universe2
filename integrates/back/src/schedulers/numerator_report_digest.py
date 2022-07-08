@@ -104,7 +104,7 @@ async def _generate_numerator_report(
                             )
                             + 1
                         )
-                    if _validate_date(toe.node.seen_at.date(), 7, 1):
+                    if _validate_date(toe.node.seen_at.date(), 9, 1):
                         content[toe.node.seen_first_time_by][
                             "weekly_count"
                         ] = (
@@ -123,13 +123,10 @@ def get_variation(num_a: int, num_b: int) -> float:
     try:
         variation: float = round((((num_b - num_a) / num_a) * 100), 2)
     except TypeError:
-        LOGGER.info("- Parameters must be a numbers")
         return 0.0
     except ValueError:
-        LOGGER.info("- Parameters must be a numbers")
         return 0.0
     except ZeroDivisionError:
-        LOGGER.info("- division by zero not allowed")
         return 0.0
     return variation
 
