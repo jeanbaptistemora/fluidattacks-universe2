@@ -108,7 +108,7 @@ locals {
               "arn:aws:s3:::fluidattacks.com/resources/doc/skims/*",
               "arn:aws:s3:::fluidattacks-terraform-states-prod/skims*",
               "arn:aws:s3:::skims*",
-              "arn:aws:dynamodb:::skims*",
+              "arn:aws:dynamodb:us-east-1:::table/skims*",
             ]
           },
           {
@@ -122,14 +122,6 @@ locals {
             Resource = [
               var.terraform_state_lock_arn,
             ]
-          },
-          {
-            Sid    = "dynamoCreate"
-            Effect = "Allow"
-            Action = [
-              "dynamodb:CreateTable"
-            ]
-            Resource = ["*"]
           },
           {
             Sid    = "dynamoReadJobs"
