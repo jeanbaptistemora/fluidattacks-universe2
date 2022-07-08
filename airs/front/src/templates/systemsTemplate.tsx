@@ -113,7 +113,7 @@ const SystemsIndex: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
 
-          <PageArticle bgColor={"#f9f9f9"}>
+          <PageArticle bgColor={"#f4f4f6"}>
             <FlexCenterItemsContainer>
               <Title fColor={"#2e2e38"} fSize={"48"} marginTop={"4"}>
                 {title}
