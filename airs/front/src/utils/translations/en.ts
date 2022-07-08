@@ -44,6 +44,56 @@ const pageTexts: ResourceKey = {
       title: "philosophy",
     },
   },
+  categories: {
+    dast: {
+      paragraph:
+        "We provide you with the DAST technique for the identification " +
+        "of vulnerabilities in running applications. DAST is a form " +
+        "of black-box testing in which software weaknesses show a close " +
+        "connection to data, configuration, and business logic, no matter the programming language.",
+      subtitle: "DAST",
+    },
+    mpt: {
+      paragraph:
+        "We can perform Manual Penetration Testing (MPT) simulating real attacks " +
+        "to exploit security vulnerabilities that are difficult to identify " +
+        "by automatic methods. Through MPT, we can guarantee the reduction " +
+        "of rates of false positives and negatives achieved by machines.",
+      subtitle: "MPT",
+    },
+    ptaas: {
+      paragraph:
+        "We possess certified hackers with the ability to deconstruct your software " +
+        "through the complex technique of Reverse Engineering (RE). RE mixes different " +
+        "methods and can give our hackers a broad understanding of your systems " +
+        "and applications' security to identify vulnerabilities.",
+      subtitle: "PTaaS",
+    },
+    re: {
+      paragraph:
+        "We possess certified hackers with the ability to deconstruct your software " +
+        "through the complex technique of Reverse Engineering (RE). RE mixes different " +
+        "methods and can give our hackers a broad understanding of your systems " +
+        "and applications' security to identify vulnerabilities.",
+      subtitle: "RE",
+    },
+    sast: {
+      paragraph:
+        "We offer you the SAST technique for rapid vulnerability detection " +
+        "at any stage of your Software Development Lifecycle. SAST is a form " +
+        "of white-box testing working on non-running software and is compatible " +
+        "with a diversity of programming languages.",
+      subtitle: "SAST",
+    },
+    sca: {
+      paragraph:
+        "We have SCA among our techniques, a method for discovering cybersecurity " +
+        "risks related to open-source and third-party components you use " +
+        "in your software and systems. With SCA, we can inform you about " +
+        "licenses, versions, and security weaknesses in all these components.",
+      subtitle: "SCA",
+    },
+  },
   clients: {
     definition:
       "Since 2001, we have helped our clients manage their cybersecurity " +
