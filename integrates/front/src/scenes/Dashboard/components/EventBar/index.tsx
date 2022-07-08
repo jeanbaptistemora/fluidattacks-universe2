@@ -4,6 +4,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { GET_ORG_EVENTS } from "./queries";
 import type { IEventBarDataset, IEventBarProps } from "./types";
@@ -72,9 +73,11 @@ const EventBar: React.FC<IEventBarProps> = ({
       <div>
         {hasOpenEvents ? (
           <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
-            <Alert icon={true} variant={"error"}>
-              {eventMessage}
-            </Alert>
+            <Link to={`/orgs/${organizationName}/groups`}>
+              <Alert icon={true} variant={"error"}>
+                {eventMessage}
+              </Alert>
+            </Link>
           </TooltipWrapper>
         ) : undefined}
       </div>
