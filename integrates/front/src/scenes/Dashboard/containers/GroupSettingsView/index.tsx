@@ -35,11 +35,15 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
         </Col>
         <Can do={"api_mutations_update_group_mutate"}>
           <Col large={"100"} medium={"100"} small={"100"}>
-            <Services groupName={groupName} />
+            <Card title={t("searchFindings.servicesTable.services")}>
+              <Services groupName={groupName} />
+            </Card>
           </Col>
         </Can>
         <Col large={"100"} medium={"100"} small={"100"}>
-          <GroupInformation />
+          <Card title={t("searchFindings.infoTable.title")}>
+            <GroupInformation />
+          </Card>
         </Col>
         <AccessInfo />
         <Can do={"api_resolvers_group_forces_token_resolve"}>

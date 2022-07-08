@@ -22,7 +22,6 @@ import type {
   IGroupData,
   IServicesProps,
 } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
-import { Col80, Row } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -123,41 +122,33 @@ const Services: React.FC<IServicesProps> = ({
 
   return (
     <React.StrictMode>
-      <div>
-        <Row>
-          {/* eslint-disable-next-line react/forbid-component-props */}
-          <Col80 className={"pa0"}>
-            <h2>{t("searchFindings.servicesTable.services")}</h2>
-          </Col80>
-        </Row>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            asm: true,
-            comments: "",
-            confirmation: "",
-            description: data.group.description,
-            language: data.group.language,
-            machine: data.group.hasMachine,
-            reason: "NONE",
-            service: data.group.service,
-            squad: data.group.hasSquad,
-            type: data.group.subscription.toUpperCase(),
-          }}
-          name={"editGroup"}
-          onSubmit={handleFormSubmit}
-          validate={formValidations}
-        >
-          <ServicesForm
-            data={data}
-            groupName={groupName}
-            isModalOpen={isModalOpen}
-            loadingGroupData={loadingGroupData}
-            setIsModalOpen={setIsModalOpen}
-            submittingGroupData={submittingGroupData}
-          />
-        </Formik>
-      </div>
+      <Formik
+        enableReinitialize={true}
+        initialValues={{
+          asm: true,
+          comments: "",
+          confirmation: "",
+          description: data.group.description,
+          language: data.group.language,
+          machine: data.group.hasMachine,
+          reason: "NONE",
+          service: data.group.service,
+          squad: data.group.hasSquad,
+          type: data.group.subscription.toUpperCase(),
+        }}
+        name={"editGroup"}
+        onSubmit={handleFormSubmit}
+        validate={formValidations}
+      >
+        <ServicesForm
+          data={data}
+          groupName={groupName}
+          isModalOpen={isModalOpen}
+          loadingGroupData={loadingGroupData}
+          setIsModalOpen={setIsModalOpen}
+          submittingGroupData={submittingGroupData}
+        />
+      </Formik>
     </React.StrictMode>
   );
 };

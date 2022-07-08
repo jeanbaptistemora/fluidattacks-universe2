@@ -197,27 +197,24 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <div className={"flex justify-between"}>
-        <h2>{t("searchFindings.infoTable.title")}</h2>
-        <Can do={"api_mutations_update_group_stakeholder_mutate"}>
-          <TooltipWrapper
-            displayClass={"dib"}
-            id={"searchFindings.tabUsers.editButton.tooltip.id"}
-            message={t("searchFindings.tabResources.information.btnTooltip")}
+      <Can do={"api_mutations_update_group_stakeholder_mutate"}>
+        <TooltipWrapper
+          displayClass={"dib"}
+          id={"searchFindings.tabUsers.editButton.tooltip.id"}
+          message={t("searchFindings.tabResources.information.btnTooltip")}
+        >
+          <Button
+            disabled={permissions.cannot("api_mutations_update_group_mutate")}
+            id={"editGroup"}
+            onClick={openEditGroupInformationModal}
+            variant={"secondary"}
           >
-            <Button
-              disabled={permissions.cannot("api_mutations_update_group_mutate")}
-              id={"editGroup"}
-              onClick={openEditGroupInformationModal}
-              variant={"secondary"}
-            >
-              <FluidIcon icon={"edit"} />
-              &nbsp;
-              {t("searchFindings.tabUsers.editButton.text")}
-            </Button>
-          </TooltipWrapper>
-        </Can>
-      </div>
+            <FluidIcon icon={"edit"} />
+            &nbsp;
+            {t("searchFindings.tabUsers.editButton.text")}
+          </Button>
+        </TooltipWrapper>
+      </Can>
       <Table
         dataset={attributesDataset}
         exportCsv={false}
