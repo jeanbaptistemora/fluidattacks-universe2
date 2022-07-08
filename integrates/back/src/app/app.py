@@ -88,6 +88,10 @@ from redis_cluster.operations import (
 from remove_stakeholder import (
     domain as remove_stakeholder_domain,
 )
+from search.client import (
+    search_shutdown,
+    search_startup,
+)
 from sessions import (
     dal as sessions_dal,
 )
@@ -383,8 +387,8 @@ def get_validation_rules(
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
-    on_startup=[dynamo_startup],
-    on_shutdown=[dynamo_shutdown],
+    on_startup=[dynamo_startup, search_startup],
+    on_shutdown=[dynamo_shutdown, search_shutdown],
     routes=[
         Route("/", templates.login),
         Route(

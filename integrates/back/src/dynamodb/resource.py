@@ -62,11 +62,10 @@ async def dynamo_startup() -> None:
     # pylint: disable=global-statement
     global CONTEXT_STACK, RESOURCE
 
-    stack = AsyncExitStack()
-    RESOURCE = await stack.enter_async_context(
+    CONTEXT_STACK = AsyncExitStack()
+    RESOURCE = await CONTEXT_STACK.enter_async_context(
         SESSION.resource(**RESOURCE_OPTIONS)
     )
-    CONTEXT_STACK = stack
     TABLE_RESOURCES["integrates_vms"] = await RESOURCE.Table("integrates_vms")
 
 

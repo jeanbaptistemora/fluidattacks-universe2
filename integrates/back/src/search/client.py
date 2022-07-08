@@ -14,6 +14,9 @@ from context import (
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
 )
+from contextlib import (
+    AsyncExitStack,
+)
 from opensearchpy import (
     AIOHttpConnection,
     AsyncOpenSearch,
@@ -47,8 +50,11 @@ class AsyncAWSConnection(AIOHttpConnection):
         headers: Optional[dict[str, str]] = None,
     ) -> tuple[int, dict[str, str], str]:
         headers_ = headers if headers else {}
+        aws_body = (
+            self._gzip_compress(body) if self.http_compress and body else body
+        )
         aws_request = AWSRequest(
-            data=body,
+            data=aws_body,
             headers=headers_,
             method=method.upper(),
             url="".join([self.url_prefix, self.host, url]),
@@ -71,10 +77,35 @@ class AsyncAWSConnection(AIOHttpConnection):
         )
 
 
-CLIENT = AsyncOpenSearch(
-    connection_class=AsyncAWSConnection,
-    hosts=[FI_AWS_OPENSEARCH_HOST],
-    port=443,
-    use_ssl=True,
-    verify_certs=True,
-)
+CLIENT_OPTIONS = {
+    "connection_class": AsyncAWSConnection,
+    "hosts": [FI_AWS_OPENSEARCH_HOST],
+    "http_compress": True,
+    "port": 443,
+    "use_ssl": True,
+    "verify_certs": True,
+}
+CONTEXT_STACK = None
+CLIENT = None
+
+
+async def search_startup() -> None:
+    # pylint: disable=global-statement
+    global CONTEXT_STACK, CLIENT
+
+    CONTEXT_STACK = AsyncExitStack()
+    CLIENT = await CONTEXT_STACK.enter_async_context(
+        AsyncOpenSearch(**CLIENT_OPTIONS)
+    )
+
+
+async def search_shutdown() -> None:
+    if CONTEXT_STACK:
+        await CONTEXT_STACK.aclose()
+
+
+async def get_client() -> Any:
+    if CLIENT is None:
+        await search_startup()
+
+    return CLIENT
