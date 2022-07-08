@@ -1,56 +1,32 @@
 resource "aws_dynamodb_table" "sca_advisories" {
   name         = "sca_advisories"
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "Advisory"
-  range_key    = "PackageName"
+  hash_key     = "pk"
+  range_key    = "sk"
 
   attribute {
-    name = "Advisory"
+    name = "pk"
     type = "S"
   }
 
   attribute {
-    name = "PackageName"
-    type = "S"
-  }
-
-  attribute {
-    name = "PackageManager"
-    type = "S"
-  }
-
-  attribute {
-    name = "VulnerableVersion"
-    type = "S"
-  }
-
-  attribute {
-    name = "Severity"
-    type = "S"
-  }
-
-  attribute {
-    name = "Source"
+    name = "sk"
     type = "S"
   }
 
   global_secondary_index {
-    name            = "gsi_pm"
-    hash_key        = "Source"
-    range_key       = "PackageManager"
-    projection_type = "ALL"
-  }
-
-  global_secondary_index {
-    name            = "gsi_severity"
-    hash_key        = "Severity"
-    projection_type = "ALL"
-  }
-
-  global_secondary_index {
-    name            = "gsi_version"
-    hash_key        = "VulnerableVersion"
-    projection_type = "ALL"
+    name            = "gsi_sk"
+    hash_key        = "sk"
+    range_key       = "pk"
+    projection_type = "INCLUDE"
+    non_key_attributes = [
+      "associated_advisory",
+      "package_name",
+      "package_manager",
+      "vulnerable_version",
+      "severity",
+      "source"
+    ]
   }
 
   server_side_encryption {

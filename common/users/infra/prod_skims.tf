@@ -123,6 +123,16 @@ locals {
             ]
           },
           {
+            Sid    = "dynamoCreate"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:CreateTable"
+            ]
+            Resource = [
+              "arn:aws:dynamodb:us-east-1:205810638802:table/sca_advisories",
+            ]
+          },
+          {
             Sid    = "dynamoReadJobs"
             Effect = "Allow"
             Action = [
