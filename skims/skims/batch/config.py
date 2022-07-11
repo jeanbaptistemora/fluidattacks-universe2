@@ -49,6 +49,11 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
         "type": "file_extension",
     },
     {
+        "name": "App.Config",
+        "description": "C Sharp module",
+        "type": "file_extension",
+    },
+    {
         "name": ".sln",
         "description": "visual studio c sharp set of projects",
         "type": "file_extension",
@@ -61,15 +66,20 @@ PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
     {
         "name": "pom.xml",
         "requires": [
-            {"name": "directory", "values": ["src"], "optional": False}
+            {"name": "directory", "values": ["src"], "optional": True}
         ],
         "description": "java maven project",
         "type": "specific_file",
     },
     {
+        "name": "build.xml",
+        "description": "Apache ant build",
+        "type": "specific_file",
+    },
+    {
         "name": "build.gradle",
         "requires": [
-            {"name": "directory", "values": ["src"], "optional": False}
+            {"name": "directory", "values": ["src"], "optional": True}
         ],
         "description": "java gradel project",
         "type": "specific_file",
