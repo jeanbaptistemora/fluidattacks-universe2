@@ -19,6 +19,7 @@ from .types import (
 )
 from db_model.organizations.utils import (
     add_org_id_prefix,
+    format_policies,
 )
 from db_model.utils import (
     get_first_day_iso_date,
@@ -64,6 +65,9 @@ def format_group(item: Item) -> Group:
         language=GroupLanguage[item["language"]],
         name=item["name"],
         organization_id=add_org_id_prefix(item["organization_id"]),
+        policies=format_policies(item["policies"])
+        if item.get("policies")
+        else None,
         sprint_duration=int(item.get("sprint_duration", 1)),
         sprint_start_date=item.get(
             "sprint_start_date", get_first_day_iso_date()

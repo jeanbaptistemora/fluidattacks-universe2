@@ -8,6 +8,9 @@ from .enums import (
     GroupSubscriptionType,
     GroupTier,
 )
+from db_model.types import (
+    Policies,
+)
 from decimal import (
     Decimal,
 )
@@ -95,6 +98,7 @@ class Group(NamedTuple):
     context: Optional[str] = None
     disambiguation: Optional[str] = None
     files: Optional[list[GroupFile]] = None
+    policies: Optional[Policies] = None
     sprint_duration: int = 1
     sprint_start_date: str = ""
     tags: Optional[set[str]] = None

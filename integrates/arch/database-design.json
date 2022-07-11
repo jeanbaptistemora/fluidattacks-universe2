@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 06, 2022, 11:12 AM",
+    "DateLastModified": "Jul 11, 2022, 09:11 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -4552,6 +4552,34 @@
               "name": {
                 "S": "oneshottest"
               },
+              "policies": {
+                "M": {
+                  "max_number_acceptances": {
+                    "N": "3"
+                  },
+                  "min_acceptance_severity": {
+                    "N": "0"
+                  },
+                  "vulnerability_grace_period": {
+                    "N": "0"
+                  },
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "min_breaking_severity": {
+                    "N": "0"
+                  },
+                  "max_acceptance_days": {
+                    "N": "60"
+                  },
+                  "modified_date": {
+                    "S": "2021-11-22T20:07:57+00:00"
+                  },
+                  "max_acceptance_severity": {
+                    "N": "3.9"
+                  }
+                }
+              },
               "description": {
                 "S": "oneshot testing"
               },
@@ -5615,7 +5643,8 @@
             "context",
             "disambiguation",
             "sprint_duration",
-            "sprint_start_date"
+            "sprint_start_date",
+            "policies"
           ]
         },
         {
@@ -6132,6 +6161,57 @@
             "service",
             "tier",
             "managed"
+          ]
+        },
+        {
+          "FacetName": "group_historic_policies",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "GROUP#name",
+            "SortKeyAlias": "POLICIES#iso8601utc"
+          },
+          "TableData": [
+            {
+              "max_number_acceptances": {
+                "N": "3"
+              },
+              "min_acceptance_severity": {
+                "N": "0"
+              },
+              "vulnerability_grace_period": {
+                "N": "0"
+              },
+              "sk": {
+                "S": "POLICIES#2021-11-22T20:07:57+00:00"
+              },
+              "modified_by": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "min_breaking_severity": {
+                "N": "0"
+              },
+              "max_acceptance_days": {
+                "N": "60"
+              },
+              "pk": {
+                "S": "GROUP#oneshottest"
+              },
+              "modified_date": {
+                "S": "2021-11-22T20:07:57+00:00"
+              },
+              "max_acceptance_severity": {
+                "N": "3.9"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "modified_date",
+            "modified_by",
+            "max_acceptance_days",
+            "max_acceptance_severity",
+            "max_number_acceptances",
+            "min_acceptance_severity",
+            "min_breaking_severity",
+            "vulnerability_grace_period"
           ]
         },
         {
@@ -8322,13 +8402,13 @@
             "group_name",
             "root_id",
             "state",
+            "unreliable_indicators",
             "context",
             "client",
             "hacker",
             "event_date",
             "action_after_blocking",
-            "action_before_blocking",
-            "unreliable_indicators"
+            "action_before_blocking"
           ]
         },
         {
@@ -14839,11 +14919,11 @@
             "pk_2",
             "sk_2",
             "state",
+            "verification",
+            "unreliable_indicators",
             "creation",
             "approval",
-            "submission",
-            "verification",
-            "unreliable_indicators"
+            "submission"
           ]
         },
         {

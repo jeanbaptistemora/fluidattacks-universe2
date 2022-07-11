@@ -28,6 +28,7 @@ function main {
     git_root_historic_state
     git_root_metadata
     group_historic_state
+    group_historic_policies
     group_metadata
     group_unreliable_indicators
     ip_root_historic_state
