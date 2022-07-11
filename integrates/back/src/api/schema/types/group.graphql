@@ -99,6 +99,8 @@ type Group {
   meanRemediateLowSeverity: Int
   "Mean time to remediate medium-severity vulnerabilities in days"
   meanRemediateMediumSeverity: Int
+  "Minimum CVSS 3.1 score in which a finding can be temporarily accepted"
+  minAcceptanceSeverity: Float!
   "Name of the group"
   name: String
   "Amount of currently open Findings in the group"

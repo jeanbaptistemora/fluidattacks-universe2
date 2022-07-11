@@ -38,6 +38,7 @@ async def get_result(
                 meanRemediateHighSeverity
                 meanRemediateLowSeverity
                 meanRemediateMediumSeverity
+                minAcceptanceSeverity
                 openFindings
                 totalFindings
                 totalTreatment

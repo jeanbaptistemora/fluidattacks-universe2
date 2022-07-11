@@ -137,6 +137,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         max_acceptance_days=90,
                         max_acceptance_severity=Decimal("3.9"),
                         max_number_acceptances=3,
+                        min_acceptance_severity=Decimal("1.1"),
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2020-11-22T20:07:57+00:00",
                     ),

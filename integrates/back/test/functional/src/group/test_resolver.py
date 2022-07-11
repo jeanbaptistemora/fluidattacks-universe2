@@ -166,6 +166,9 @@ async def test_get_group_policies_inheritance(
             result["data"]["group"]["maxNumberAcceptances"]
             == organization.policies.max_number_acceptances
         )
+        assert str(result["data"]["group"]["minAcceptanceSeverity"]) == str(
+            organization.policies.min_acceptance_severity
+        )
     else:
         group: Group = await loaders.group.load(group_name)
         assert (
@@ -178,4 +181,7 @@ async def test_get_group_policies_inheritance(
         assert (
             result["data"]["group"]["maxNumberAcceptances"]
             == group.policies.max_number_acceptances
+        )
+        assert str(result["data"]["group"]["minAcceptanceSeverity"]) == str(
+            group.policies.min_acceptance_severity
         )
