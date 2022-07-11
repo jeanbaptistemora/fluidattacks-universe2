@@ -67,7 +67,7 @@ type Group {
   maxAcceptanceDays: Int
   "Maximum CVSS 3.1 score in which a finding can be temporarily accepted"
   maxAcceptanceSeverity: Float!
-  "Maximum number of times a finding can be temporally accepted"
+  "Maximum number of times a finding can be temporarily accepted"
   maxNumberAcceptances: Int
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float

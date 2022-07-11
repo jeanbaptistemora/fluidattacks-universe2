@@ -20,7 +20,11 @@ from db_model.groups.enums import (
     GroupStateStatus,
 )
 from db_model.organizations.utils import (
+    format_policies_item,
     remove_org_id_prefix,
+)
+from db_model.types import (
+    PoliciesToUpdate,
 )
 from dynamodb import (
     keys,
@@ -130,5 +134,56 @@ async def update_unreliable_indicators(
     await operations.update_item(
         item=unreliable_indicators,
         key=group_key,
+        table=TABLE,
+    )
+
+
+async def update_policies(
+    *,
+    group_name: str,
+    modified_by: str,
+    modified_date: str,
+    organization_id: str,
+    policies: PoliciesToUpdate,
+) -> None:
+    key_structure = TABLE.primary_key
+    policies_item = format_policies_item(modified_by, modified_date, policies)
+
+    try:
+        group_key = keys.build_key(
+            facet=TABLE.facets["group_metadata"],
+            values={
+                "name": group_name,
+                "organization_id": remove_org_id_prefix(organization_id),
+            },
+        )
+        group_item = {"policies": policies_item}
+        condition_expression = Attr(
+            key_structure.partition_key
+        ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=group_item,
+            key=group_key,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise GroupNotFound() from ex
+
+    historic_policies_key = keys.build_key(
+        facet=TABLE.facets["group_historic_policies"],
+        values={
+            "name": group_name,
+            "iso8601utc": modified_date,
+        },
+    )
+    historic_item = {
+        key_structure.partition_key: historic_policies_key.partition_key,
+        key_structure.sort_key: historic_policies_key.sort_key,
+        **policies_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["group_historic_policies"],
+        item=historic_item,
         table=TABLE,
     )
