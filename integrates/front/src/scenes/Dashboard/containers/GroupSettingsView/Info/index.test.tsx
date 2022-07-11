@@ -8,6 +8,16 @@ import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 
 describe("Info", (): void => {
+  const labels = [
+    "organization.tabs.groups.newGroup.businessId.text",
+    "organization.tabs.groups.newGroup.businessName.text",
+    "organization.tabs.groups.newGroup.description.text",
+    "organization.tabs.groups.newGroup.language.text",
+    "organization.tabs.groups.newGroup.sprintDuration.text",
+    "organization.tabs.groups.editGroup.sprintStartDate.text",
+    "organization.tabs.groups.newGroup.managed.text",
+  ];
+
   const mocksInfo: readonly MockedResponse[] = [
     {
       request: {
@@ -54,27 +64,15 @@ describe("Info", (): void => {
         </MemoryRouter>
       </MockedProvider>
     );
-    await waitFor((): void => {
-      expect(screen.getByRole("table")).toBeInTheDocument();
-    });
-    const thirdRow: number = 3;
-    const sixthRow: number = 6;
 
-    expect(
-      screen.queryByText("table.noDataIndication")
-    ).not.toBeInTheDocument();
-    expect(screen.getAllByRole("row")[1].textContent).toBe("LanguageEnglish");
-    expect(screen.getAllByRole("row")[2].textContent).toBe(
-      "Descriptiongroup description"
-    );
-    expect(screen.getAllByRole("row")[thirdRow].textContent).toBe(
-      "Business Registration Number1444"
-    );
-    expect(screen.getAllByRole("row")[4].textContent).toBe(
-      "Business NameTesting Company & Mocks"
-    );
-    expect(screen.getAllByRole("row")[sixthRow].textContent).toBe(
-      "Sprint Length2"
-    );
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("table.noDataIndication")
+      ).not.toBeInTheDocument();
+
+      labels.forEach((label): void => {
+        expect(screen.queryByText(label)).toBeInTheDocument();
+      });
+    });
   });
 });
