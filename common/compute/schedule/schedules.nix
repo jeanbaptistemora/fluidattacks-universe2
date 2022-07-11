@@ -545,30 +545,6 @@
       "management:type" = "product";
     };
   };
-  integrates_subscriptions_daily_digest = {
-    enabled = false;
-    command = [
-      "m"
-      "f"
-      "/integrates/subscriptions/daily-digest"
-      "prod"
-    ];
-
-    schedule_expression = "cron(0 9 ? * 3-7 *)";
-    size = "nano";
-    attempts = 3;
-    timeout = 86400;
-    parallel = 1;
-
-    environment = ["PRODUCT_API_TOKEN"];
-
-    tags = {
-      "Name" = "integrates_subscriptions_daily_digest";
-      "management:area" = "cost";
-      "management:product" = "integrates";
-      "management:type" = "product";
-    };
-  };
   integrates_temporal_treatment_report = {
     enabled = true;
     command = [
