@@ -39,7 +39,7 @@ async def mutate(
 
     # Update payment method
     result: bool = await billing_domain.update_payment_method(
-        org_billing_customer=org.billing_customer,
+        org=org,
         payment_method_id=kwargs["payment_method_id"],
         card_expiration_month=kwargs["card_expiration_month"],
         card_expiration_year=kwargs["card_expiration_year"],

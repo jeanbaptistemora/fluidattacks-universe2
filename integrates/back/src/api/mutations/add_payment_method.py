@@ -45,9 +45,7 @@ async def mutate(
 
     # Create payment method
     result: bool = await billing_domain.create_payment_method(
-        org_billing_customer=org.billing_customer,
-        org_id=org.id,
-        org_name=org.name,
+        org=org,
         user_email=user_email,
         card_number=kwargs["card_number"],
         card_expiration_month=kwargs["card_expiration_month"],

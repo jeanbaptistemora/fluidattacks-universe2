@@ -27,6 +27,10 @@ from datetime import (
 from db_model.groups.enums import (
     GroupTier,
 )
+from db_model.organizations.types import (
+    Organization,
+    OrganizationPaymentMethods,
+)
 from groups import (
     domain as groups_domain,
 )
@@ -239,35 +243,68 @@ async def get_customer(
 
 
 async def customer_payment_methods(
-    *, org_billing_customer: Optional[str], limit: int = 100
+    *,
+    org: Organization,
+    limit: int = 100,
 ) -> List[PaymentMethod]:
     """Return list of customer's payment methods"""
     # Return empty list if stripe customer does not exist
-    if org_billing_customer is None:
-        return []
+    payment_methods = []
 
-    customer: Customer = await dal.get_customer(
-        org_billing_customer=org_billing_customer,
-    )
-    payment_methods: List[
-        Dict[str, Any]
-    ] = await dal.get_customer_payment_methods(
-        org_billing_customer=org_billing_customer,
-        limit=limit,
-    )
-
-    return [
-        PaymentMethod(
-            id=payment_method["id"],
-            fingerprint=payment_method["card"]["fingerprint"],
-            last_four_digits=payment_method["card"]["last4"],
-            expiration_month=str(payment_method["card"]["exp_month"]),
-            expiration_year=str(payment_method["card"]["exp_year"]),
-            brand=payment_method["card"]["brand"],
-            default=payment_method["id"] == customer.default_payment_method,
+    if org.billing_customer is not None:
+        customer: Customer = await dal.get_customer(
+            org_billing_customer=org.billing_customer,
         )
-        for payment_method in payment_methods
-    ]
+        stripe_payment_methods: List[
+            Dict[str, Any]
+        ] = await dal.get_customer_payment_methods(
+            org_billing_customer=org.billing_customer,
+            limit=limit,
+        )
+
+        payment_methods += [
+            PaymentMethod(
+                id=payment_method["id"],
+                fingerprint=payment_method["card"]["fingerprint"],
+                last_four_digits=payment_method["card"]["last4"],
+                expiration_month=str(payment_method["card"]["exp_month"]),
+                expiration_year=str(payment_method["card"]["exp_year"]),
+                brand=payment_method["card"]["brand"],
+                default=payment_method["id"]
+                == customer.default_payment_method,
+                business_name="",
+                city="",
+                country="",
+                email="",
+                state="",
+            )
+            for payment_method in stripe_payment_methods
+        ]
+
+    if org.payment_methods is not None:
+        other_payment_methods: List[
+            OrganizationPaymentMethods
+        ] = org.payment_methods
+
+        payment_methods += [
+            PaymentMethod(
+                id="",
+                fingerprint="",
+                last_four_digits="",
+                expiration_month="",
+                expiration_year="",
+                brand="",
+                default=False,
+                business_name=payment_method.business_name,
+                city=payment_method.city,
+                country=payment_method.country,
+                email=payment_method.email,
+                state=payment_method.state,
+            )
+            for payment_method in other_payment_methods
+        ]
+
+    return payment_methods
 
 
 async def customer_portal(
@@ -295,9 +332,7 @@ async def customer_portal(
 
 async def create_payment_method(
     *,
-    org_billing_customer: Optional[str],
-    org_id: str,
-    org_name: str,
+    org: Organization,
     user_email: str,
     card_number: str,
     card_expiration_month: str,
@@ -308,15 +343,15 @@ async def create_payment_method(
     """Create a payment method and associate it to the customer"""
     # Create customer if it does not exist
     customer: Optional[Customer] = None
-    if org_billing_customer is None:
+    if org.billing_customer is None:
         customer = await dal.create_customer(
-            org_id=org_id,
-            org_name=org_name,
+            org_id=org.id,
+            org_name=org.name,
             user_email=user_email,
         )
     else:
         customer = await dal.get_customer(
-            org_billing_customer=org_billing_customer,
+            org_billing_customer=org.billing_customer,
         )
 
     try:
@@ -331,7 +366,7 @@ async def create_payment_method(
 
         # Raise exception if payment method already exists for customer
         payment_methods: List[PaymentMethod] = await customer_payment_methods(
-            org_billing_customer=customer.id,
+            org=org,
             limit=1000,
         )
         if created.fingerprint in [
@@ -360,19 +395,19 @@ async def create_payment_method(
 
 async def update_payment_method(
     *,
-    org_billing_customer: Optional[str],
+    org: Organization,
     payment_method_id: str,
     card_expiration_month: str,
     card_expiration_year: str,
     make_default: bool,
 ) -> bool:
     # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
+    if org.billing_customer is None:
         raise InvalidBillingCustomer()
 
     # Raise exception if payment method does not belong to organization
     payment_methods: List[PaymentMethod] = await customer_payment_methods(
-        org_billing_customer=org_billing_customer,
+        org=org,
         limit=1000,
     )
     if payment_method_id not in [
@@ -388,7 +423,7 @@ async def update_payment_method(
     if make_default:
         result = result and await dal.update_default_payment_method(
             payment_method_id=payment_method_id,
-            org_billing_customer=org_billing_customer,
+            org_billing_customer=org.billing_customer,
         )
 
     return result
@@ -396,15 +431,15 @@ async def update_payment_method(
 
 async def remove_payment_method(
     *,
-    org_billing_customer: Optional[str],
+    org: Organization,
     payment_method_id: str,
 ) -> bool:
     # Raise exception if stripe customer does not exist
-    if org_billing_customer is None:
+    if org.billing_customer is None:
         raise InvalidBillingCustomer()
 
     payment_methods: List[PaymentMethod] = await customer_payment_methods(
-        org_billing_customer=org_billing_customer,
+        org=org,
         limit=1000,
     )
 
@@ -415,7 +450,7 @@ async def remove_payment_method(
         raise InvalidBillingPaymentMethod()
 
     subscriptions: List[Subscription] = await dal.get_customer_subscriptions(
-        org_billing_customer=org_billing_customer,
+        org_billing_customer=org.billing_customer,
         limit=1000,
         status="",
     )
@@ -443,7 +478,7 @@ async def remove_payment_method(
         ]
         result = await dal.update_default_payment_method(
             payment_method_id=non_defaults[0].id,
-            org_billing_customer=org_billing_customer,
+            org_billing_customer=org.billing_customer,
         )
 
     result = result and await dal.remove_payment_method(

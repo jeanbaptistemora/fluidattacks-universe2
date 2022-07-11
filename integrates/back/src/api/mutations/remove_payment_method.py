@@ -39,7 +39,7 @@ async def mutate(
 
     # Remove payment method
     result: bool = await billing_domain.remove_payment_method(
-        org_billing_customer=org.billing_customer,
+        org=org,
         payment_method_id=kwargs["payment_method_id"],
     )
 

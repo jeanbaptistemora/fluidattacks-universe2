@@ -12,9 +12,6 @@ from decorators import (
     enforce_organization_level_auth_async,
     require_login,
 )
-from graphql.type.definition import (
-    GraphQLResolveInfo,
-)
 from typing import (
     List,
 )
@@ -26,11 +23,9 @@ from typing import (
 )
 async def resolve(
     parent: Organization,
-    _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> List[PaymentMethod]:
-    org_billing_customer = parent.billing_customer
     return await billing_domain.customer_payment_methods(
-        org_billing_customer=org_billing_customer,
+        org=parent,
         limit=100,
     )

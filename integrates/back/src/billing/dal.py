@@ -194,6 +194,11 @@ async def create_payment_method(
         expiration_year=str(data["card"]["exp_year"]),
         brand=data["card"]["brand"],
         default=default,
+        business_name="",
+        city="",
+        country="",
+        email="",
+        state="",
     )
 
 

@@ -31,6 +31,11 @@ class PaymentMethod(NamedTuple):
     expiration_year: str
     brand: str
     default: bool
+    business_name: str
+    city: str
+    country: str
+    email: str
+    state: str
 
 
 class Price(NamedTuple):
