@@ -885,6 +885,22 @@
         {
           "AttributeName": "submission",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "payment_methods",
+          "AttributeType": "L"
+        },
+        {
+          "AttributeName": "country",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "state",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "city",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -3800,6 +3816,29 @@
               "name": {
                 "S": "okada"
               },
+              "payment_methods": {
+                "L": [
+                  {
+                    "M" : {
+                      "business_name": {
+                        "S": "Fluid"
+                      },
+                      "email": {
+                        "S": "test@fluidattacks.com"
+                      },
+                      "country": {
+                        "S": "Colombia"
+                      },
+                      "state": {
+                        "S": "Antioquia"
+                      },
+                      "city": {
+                        "S": "Medellín"
+                      }
+                    }
+                  }
+                ]
+              },
               "policies": {
                 "M": {
                   "max_number_acceptances": {
@@ -3919,6 +3958,7 @@
             "pk_2",
             "sk_2",
             "state",
+            "payment_methods",
             "policies",
             "billing_customer"
           ]
