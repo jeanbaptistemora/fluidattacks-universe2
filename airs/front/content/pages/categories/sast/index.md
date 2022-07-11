@@ -58,10 +58,4 @@ The SAST technique can be complemented by other methods used in Fluid
 Attacks, such as DAST, IAST, SCA, RE, and Manual Pentesting, to
 constitute a comprehensive application security testing.
 
-</div>
-
-<div class="sect2 db-l dn">
-
-</div>
-
- 
+</div> 

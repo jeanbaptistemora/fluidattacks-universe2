@@ -41,11 +41,3 @@ help you with your concerns regarding the findings and their possible
 solutions.
 
 </div>
-
-<div class="sect2 db-l dn">
-
-</div>
-
-<div class="sect2 db-l dn">
-
-</div>

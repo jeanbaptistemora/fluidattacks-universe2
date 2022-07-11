@@ -85,10 +85,3 @@ constitute a comprehensive application security testing.
 
 </div>
  
-<div class="sect2 db-l dn">
-
-</div>
-
-<div class="sect2 db-l dn">
-
-</div>

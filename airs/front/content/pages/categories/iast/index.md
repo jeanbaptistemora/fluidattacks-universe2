@@ -59,8 +59,3 @@ Attacks, such as SAST, DAST, SCA, RE, and Manual Pentesting, to
 constitute a comprehensive application security testing.
 
 </div>
-
-<div class="sect2 db-l dn">
-
-</div>
- 

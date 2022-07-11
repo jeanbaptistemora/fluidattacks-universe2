@@ -52,13 +52,4 @@ application security testing. This way, we guarantee minimal rates of
 false positives and false negatives in your software’s assessments.
 
 </div>
-
-<div class="sect2 db-l dn">
-
-</div>
-
-<div class="sect2 db-l dn">
-
-</div>
-
  
