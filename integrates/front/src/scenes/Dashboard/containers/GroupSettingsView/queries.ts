@@ -1,6 +1,44 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const ADD_FILES_TO_DB_MUTATION: DocumentNode = gql`
+  mutation addFilesToDbMutation($filesData: JSONString!, $groupName: String!) {
+    addFilesToDb(filesData: $filesData, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
+const ADD_GROUP_TAGS_MUTATION: DocumentNode = gql`
+  mutation AddGroupTagsMutation($groupName: String!, $tagsData: JSONString!) {
+    addGroupTags(tags: $tagsData, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
+const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
+  mutation DownloadFileMutation($filesData: JSONString!, $groupName: String!) {
+    downloadFile(filesData: $filesData, groupName: $groupName) {
+      success
+      url
+    }
+  }
+`;
+
+const GET_FILES: DocumentNode = gql`
+  query GetFilesQuery($groupName: String!) {
+    resources(groupName: $groupName) {
+      files {
+        description
+        fileName
+        uploadDate
+        uploader
+      }
+    }
+  }
+`;
+
 const GET_GROUP_ACCESS_INFO: DocumentNode = gql`
   query GetGroupAccessInfo($groupName: String!) {
     group(groupName: $groupName) {
@@ -25,6 +63,68 @@ const GET_GROUP_DATA: DocumentNode = gql`
       sprintDuration
       sprintStartDate
       subscription
+    }
+  }
+`;
+
+const GET_TAGS: DocumentNode = gql`
+  query GetTagsQuery($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      tags
+    }
+  }
+`;
+
+const REMOVE_FILE_MUTATION: DocumentNode = gql`
+  mutation RemoveFileMutation($filesData: JSONString!, $groupName: String!) {
+    removeFiles(filesData: $filesData, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
+const REMOVE_GROUP_TAG_MUTATION: DocumentNode = gql`
+  mutation RemoveGroupTagMutation($tagToRemove: String!, $groupName: String!) {
+    removeGroupTag(tag: $tagToRemove, groupName: $groupName) {
+      success
+    }
+  }
+`;
+
+const SIGN_POST_URL_MUTATION: DocumentNode = gql`
+  mutation SignPostUrlMutation($filesData: JSONString!, $groupName: String!) {
+    signPostUrl(filesData: $filesData, groupName: $groupName) {
+      success
+      url {
+        url
+        fields {
+          key
+          awsaccesskeyid
+          policy
+          signature
+        }
+      }
+    }
+  }
+`;
+
+const SIGN_POST_URL_REQUESTER_MUTATION: DocumentNode = gql`
+  mutation SignPostUrlRequesterMutation(
+    $filesData: JSONString!
+    $groupName: String!
+  ) {
+    signPostUrlRequester(filesData: $filesData, groupName: $groupName) {
+      success
+      url {
+        url
+        fields {
+          key
+          awsaccesskeyid
+          policy
+          signature
+        }
+      }
     }
   }
 `;
@@ -81,119 +181,53 @@ const UPDATE_GROUP_DISAMBIGUATION: DocumentNode = gql`
   }
 `;
 
-const REMOVE_GROUP_TAG_MUTATION: DocumentNode = gql`
-  mutation RemoveGroupTagMutation($tagToRemove: String!, $groupName: String!) {
-    removeGroupTag(tag: $tagToRemove, groupName: $groupName) {
-      success
-    }
-  }
-`;
-
-const GET_TAGS: DocumentNode = gql`
-  query GetTagsQuery($groupName: String!) {
-    group(groupName: $groupName) {
-      name
-      tags
-    }
-  }
-`;
-
-const ADD_GROUP_TAGS_MUTATION: DocumentNode = gql`
-  mutation AddGroupTagsMutation($groupName: String!, $tagsData: JSONString!) {
-    addGroupTags(tags: $tagsData, groupName: $groupName) {
-      success
-    }
-  }
-`;
-
-const GET_FILES: DocumentNode = gql`
-  query GetFilesQuery($groupName: String!) {
-    resources(groupName: $groupName) {
-      files {
-        description
-        fileName
-        uploadDate
-        uploader
-      }
-    }
-  }
-`;
-
-const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
-  mutation DownloadFileMutation($filesData: JSONString!, $groupName: String!) {
-    downloadFile(filesData: $filesData, groupName: $groupName) {
-      success
-      url
-    }
-  }
-`;
-
-const REMOVE_FILE_MUTATION: DocumentNode = gql`
-  mutation RemoveFileMutation($filesData: JSONString!, $groupName: String!) {
-    removeFiles(filesData: $filesData, groupName: $groupName) {
-      success
-    }
-  }
-`;
-
-const SIGN_POST_URL_MUTATION: DocumentNode = gql`
-  mutation SignPostUrlMutation($filesData: JSONString!, $groupName: String!) {
-    signPostUrl(filesData: $filesData, groupName: $groupName) {
-      success
-      url {
-        url
-        fields {
-          key
-          awsaccesskeyid
-          policy
-          signature
-        }
-      }
-    }
-  }
-`;
-
-const SIGN_POST_URL_REQUESTER_MUTATION: DocumentNode = gql`
-  mutation SignPostUrlRequesterMutation(
-    $filesData: JSONString!
+const UPDATE_GROUP_INFO: DocumentNode = gql`
+  mutation UpdateGroupInfo(
+    $businessId: String
+    $businessName: String
+    $comments: String!
+    $description: String!
     $groupName: String!
+    $language: Language!
+    $managed: ManagedType!
+    $sprintDuration: Int
+    $sprintStartDate: DateTime
   ) {
-    signPostUrlRequester(filesData: $filesData, groupName: $groupName) {
+    updateGroupInfo(
+      businessId: $businessId
+      businessName: $businessName
+      description: $description
+      groupName: $groupName
+      language: $language
+      sprintDuration: $sprintDuration
+      sprintStartDate: $sprintStartDate
+    ) {
       success
-      url {
-        url
-        fields {
-          key
-          awsaccesskeyid
-          policy
-          signature
-        }
-      }
     }
-  }
-`;
-
-const ADD_FILES_TO_DB_MUTATION: DocumentNode = gql`
-  mutation addFilesToDbMutation($filesData: JSONString!, $groupName: String!) {
-    addFilesToDb(filesData: $filesData, groupName: $groupName) {
+    updateGroupManaged(
+      comments: $comments
+      groupName: $groupName
+      managed: $managed
+    ) {
       success
     }
   }
 `;
 
 export {
+  ADD_FILES_TO_DB_MUTATION,
+  ADD_GROUP_TAGS_MUTATION,
+  DOWNLOAD_FILE_MUTATION,
+  GET_FILES,
   GET_GROUP_ACCESS_INFO,
   GET_GROUP_DATA,
+  GET_TAGS,
+  REMOVE_FILE_MUTATION,
+  REMOVE_GROUP_TAG_MUTATION,
+  SIGN_POST_URL_MUTATION,
+  SIGN_POST_URL_REQUESTER_MUTATION,
   UPDATE_GROUP_ACCESS_INFO,
   UPDATE_GROUP_DATA,
   UPDATE_GROUP_DISAMBIGUATION,
-  REMOVE_GROUP_TAG_MUTATION,
-  GET_TAGS,
-  ADD_GROUP_TAGS_MUTATION,
-  GET_FILES,
-  DOWNLOAD_FILE_MUTATION,
-  REMOVE_FILE_MUTATION,
-  SIGN_POST_URL_MUTATION,
-  SIGN_POST_URL_REQUESTER_MUTATION,
-  ADD_FILES_TO_DB_MUTATION,
+  UPDATE_GROUP_INFO,
 };

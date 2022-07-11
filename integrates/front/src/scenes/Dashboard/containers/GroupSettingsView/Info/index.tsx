@@ -19,8 +19,10 @@ import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
-import { UPDATE_GROUP_INFO } from "scenes/Dashboard/components/EditGroupInformationModal/queries";
-import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/queries";
+import {
+  GET_GROUP_DATA,
+  UPDATE_GROUP_INFO,
+} from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import { handleEditGroupDataError } from "scenes/Dashboard/containers/GroupSettingsView/Services/helpers";
 import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { authzPermissionsContext } from "utils/authz/config";
