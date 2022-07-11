@@ -269,7 +269,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
                     <Route path={`/portfolios/${tagRegex}`}>
                       <OrganizationRedirect type={"portfolios"} />
                     </Route>
-                    <Route exact={true} path={"/todos"}>
+                    <Route path={"/todos"}>
                       <authzPermissionsContext.Provider
                         value={groupLevelPermissions}
                       >

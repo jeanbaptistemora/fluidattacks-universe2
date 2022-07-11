@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import React from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
@@ -16,6 +17,8 @@ import type {
 import { Logger } from "utils/logger";
 
 export const TasksDrafts: React.FC = (): JSX.Element => {
+  const { push } = useHistory();
+
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
@@ -105,6 +108,19 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
           )
         );
 
+  const goToDraft: (
+    event: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { id: string }
+  ) => void = (
+    _0: React.FormEvent<HTMLButtonElement>,
+    rowInfo: { id: string }
+  ): void => {
+    const [draftSelected]: ITodoDraftAttr[] = dataset.filter(
+      (draftAttr: ITodoDraftAttr): boolean => draftAttr.id === rowInfo.id
+    );
+    push(`/groups/${draftSelected.groupName}/drafts/${rowInfo.id}/locations`);
+  };
+
   return (
     <React.StrictMode>
       <Table
@@ -113,6 +129,7 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
         headers={tableHeaders}
         id={"tblUserDrafts"}
         pageSize={25}
+        rowEvents={{ onClick: goToDraft }}
         search={false}
       />
     </React.StrictMode>
