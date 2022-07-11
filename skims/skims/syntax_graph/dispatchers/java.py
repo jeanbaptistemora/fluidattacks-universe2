@@ -20,6 +20,7 @@ from syntax_graph.syntax_readers.common import (
     object_creation_expression as common_object_creation_expression,
     parameter as common_parameter,
     parenthesized_expression as common_parenthesized_expression,
+    program as common_program,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
     throw_statement as common_throw_statement,
@@ -36,7 +37,6 @@ from syntax_graph.syntax_readers.java import (
     method_invocation as java_method_invocation,
     package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
-    program as java_program,
     update_expression as java_update_expression,
     variable_declaration as java_variable_declaration,
     variable_declarator as java_variable_declarator,
@@ -218,7 +218,7 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "program",
         },
-        syntax_reader=java_program.reader,
+        syntax_reader=common_program.reader,
     ),
     Dispatcher(
         applicable_types={
