@@ -17,7 +17,6 @@ from db_model import (
 )
 from db_model.events.enums import (
     EventEvidenceType,
-    EventStateStatus,
 )
 from db_model.events.utils import (
     format_metadata_item,
@@ -93,7 +92,7 @@ async def update_metadata(
 
 async def update_state(
     *,
-    event_id: str,
+    current_value: Event,
     group_name: str,
     state: EventState,
 ) -> None:
@@ -104,14 +103,16 @@ async def update_state(
         primary_key = keys.build_key(
             facet=TABLE.facets["event_metadata"],
             values={
-                "id": event_id,
+                "id": current_value.id,
                 "name": group_name,
             },
         )
         item = {"state": state_item}
         condition_expression = Attr(
             key_structure.partition_key
-        ).exists() & Attr("state.status").ne(EventStateStatus.SOLVED.value)
+        ).exists() & Attr("state.modified_date").eq(
+            current_value.state.modified_date
+        )
         await operations.update_item(
             condition_expression=condition_expression,
             item=item,
@@ -124,7 +125,7 @@ async def update_state(
     historic_state_key = keys.build_key(
         facet=TABLE.facets["event_historic_state"],
         values={
-            "id": event_id,
+            "id": current_value.id,
             "iso8601utc": state.modified_date,
         },
     )

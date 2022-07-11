@@ -220,7 +220,7 @@ async def add_event(
     )
     await events_model.add(event=event)
     await events_model.update_state(
-        event_id=event.id,
+        current_value=event,
         group_name=group_name,
         state=EventState(
             modified_by=hacker_email,
@@ -421,7 +421,7 @@ async def solve_event(  # pylint: disable=too-many-locals
             )
 
     await events_model.update_state(
-        event_id=event_id,
+        current_value=event,
         group_name=group_name,
         state=EventState(
             modified_by=hacker_email,
@@ -506,13 +506,17 @@ async def update_solving_reason(
     loaders = info.context.loaders
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
-    other_reason: str = other if other else ""
+    if reason == EventSolutionReason.OTHER and not other:
+        raise InvalidParameter("other")
+    other_reason: Optional[str] = (
+        other if reason == EventSolutionReason.OTHER else None
+    )
 
     if event.state.status != EventStateStatus.SOLVED:
         raise EventHasNotBeenSolved()
 
     await events_model.update_state(
-        event_id=event_id,
+        current_value=event,
         group_name=group_name,
         state=EventState(
             modified_by=stakeholder_email,

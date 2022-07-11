@@ -378,10 +378,14 @@ async def populate_consultings(data: List[Any]) -> bool:
 async def _populate_event_historic_state(data: Dict[str, Any]) -> None:
     event: Event = data["event"]
     historic = data.get("historic_state", [])
+    current_value = event
     for state in historic:
         await events_model.update_state(
-            event_id=event.id, group_name=event.group_name, state=state
+            current_value=current_value,
+            group_name=event.group_name,
+            state=state,
         )
+        current_value = event._replace(state=state)
 
 
 async def populate_events(data: List[Any]) -> bool:
