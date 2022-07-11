@@ -29,7 +29,8 @@ resource "aws_opensearch_domain" "integrates" {
   engine_version = "OpenSearch_1.2"
 
   cluster_config {
-    instance_type = "t3.small.search"
+    instance_type          = "t3.small.search"
+    zone_awareness_enabled = true
   }
 
   ebs_options {
@@ -39,6 +40,11 @@ resource "aws_opensearch_domain" "integrates" {
 
   encrypt_at_rest {
     enabled = true
+  }
+
+  log_publishing_options {
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.fluid.arn
+    log_type                 = "INDEX_SLOW_LOGS"
   }
 
   vpc_options {
