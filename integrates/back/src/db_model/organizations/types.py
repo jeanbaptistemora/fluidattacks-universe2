@@ -10,6 +10,14 @@ from typing import (
 )
 
 
+class OrganizationPaymentMethods(NamedTuple):
+    business_name: str
+    email: str
+    country: str
+    state: str
+    city: str
+
+
 class OrganizationState(NamedTuple):
     status: OrganizationStateStatus
     modified_by: str
@@ -22,6 +30,7 @@ class Organization(NamedTuple):
     name: str
     policies: Policies
     state: OrganizationState
+    payment_methods: Optional[list[OrganizationPaymentMethods]] = None
     billing_customer: Optional[str] = None
 
 

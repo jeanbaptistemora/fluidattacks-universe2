@@ -4,6 +4,7 @@ from .constants import (
 from .types import (
     Organization,
     OrganizationMetadataToUpdate,
+    OrganizationPaymentMethods,
     OrganizationState,
 )
 from db_model.organizations.enums import (
@@ -43,9 +44,27 @@ def format_organization(item: Item) -> Organization:
         billing_customer=item.get("billing_customer"),
         id=add_org_id_prefix(item["id"]),
         name=item["name"],
+        payment_methods=format_payment_methods(item["payment_methods"])
+        if item.get("payment_methods")
+        else None,
         policies=format_policies(item["policies"]),
         state=format_state(item["state"]),
     )
+
+
+def format_payment_methods(
+    payment_methods: list[dict[str, str]]
+) -> list[OrganizationPaymentMethods]:
+    return [
+        OrganizationPaymentMethods(
+            business_name=payment_method.get("business_name", ""),
+            email=payment_method.get("email", ""),
+            country=payment_method.get("country", ""),
+            state=payment_method.get("state", ""),
+            city=payment_method.get("city", ""),
+        )
+        for payment_method in payment_methods
+    ]
 
 
 def format_policies(policies: Item) -> Policies:
