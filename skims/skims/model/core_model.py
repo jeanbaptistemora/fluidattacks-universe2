@@ -595,6 +595,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.http,
         requirements=[62, 266, 349],
     )
+    F143: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F143",
+        cwe=676,
+        execution_queue=ExecutionQueue.injection,
+        requirements=[266],
+    )
     F157: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F157",
@@ -2772,6 +2779,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F134,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_USES_EVAL = MethodInfo(
+        file_name="javascript",
+        name="js_uses_eval",
+        module="lib_root",
+        finding=FindingEnum.F143,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TFM_AZURE_UNRESTRICTED_ACCESS = MethodInfo(
         file_name="terraform",
