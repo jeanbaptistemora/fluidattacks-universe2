@@ -707,7 +707,7 @@ async def send_closed_vulnerabilities_report(
             "Location": vuln.where,
             "Assigned": vuln.treatment.assigned if vuln.treatment else None,
             "Report date": report_date,
-            "Time to remediate": days_open,
+            "Time to remediate": f"{days_open} calendar days",
             "Reattack requester": reattack_requester,
             "Reduction in exposure": round(exposure, 1),
         }
