@@ -1,6 +1,3 @@
-from db_model.events.enums import (
-    EventStateStatus,
-)
 from db_model.events.types import (
     Event,
 )
@@ -17,8 +14,9 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:
-    if parent.state.status == EventStateStatus.SOLVED:
-        closing_date = convert_from_iso_str(parent.state.modified_date)
+    solving_date = parent.unreliable_indicators.unreliable_solving_date
+    if solving_date:
+        closing_date = convert_from_iso_str(solving_date)
     else:
         closing_date = "-"
     return closing_date
