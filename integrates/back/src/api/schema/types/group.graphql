@@ -63,6 +63,8 @@ type Group {
   lastClosedVulnerabilityFinding: Finding
   "If the group is managed manually"
   managed: ManagedType
+  "Maximum number of calendar days a finding can be temporarily accepted"
+  maxAcceptanceDays: Int
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float
   "Current open vulnerability with the highest severity"
