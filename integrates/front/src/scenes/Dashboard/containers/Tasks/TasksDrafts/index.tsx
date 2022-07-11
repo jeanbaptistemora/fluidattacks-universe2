@@ -95,11 +95,13 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
       : _.flatten(
           data.me.organizations.map(
             (org: ITodoOrganizationAttr): ITodoDraftAttr[] =>
-              _.flatten(
-                org.groups.map(
-                  (group: ITodoGroupAttr): ITodoDraftAttr[] => group.drafts
-                )
-              )
+              org.name === "imamura"
+                ? []
+                : _.flatten(
+                    org.groups.map(
+                      (group: ITodoGroupAttr): ITodoDraftAttr[] => group.drafts
+                    )
+                  )
           )
         );
 

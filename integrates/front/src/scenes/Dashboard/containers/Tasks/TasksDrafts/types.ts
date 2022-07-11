@@ -15,6 +15,7 @@ interface ITodoGroupAttr {
 
 interface ITodoOrganizationAttr {
   groups: ITodoGroupAttr[];
+  name: string;
 }
 
 interface IGetTodoDrafts {
