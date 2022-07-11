@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from asyncio.tasks import (
+    sleep,
+)
 from custom_exceptions import (
     VulnNotFound,
 )
@@ -84,6 +87,7 @@ async def reset_group_expired_accepted_findings(
                 )
             # Retry due to optimistic locking on dynamo's part
             except VulnNotFound:
+                await sleep(1.0)
                 loaders.vulnerability.clear(vuln.id)
                 rvuln: Vulnerability = await loaders.vulnerability.load(
                     vuln.id
