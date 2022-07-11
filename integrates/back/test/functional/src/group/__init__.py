@@ -29,6 +29,9 @@ async def get_result(
                 closedVulnerabilities
                 lastClosedVulnerability
                 managed
+                maxAcceptanceDays
+                maxAcceptanceSeverity
+                maxNumberAcceptances
                 maxSeverity
                 meanRemediate
                 meanRemediateCriticalSeverity

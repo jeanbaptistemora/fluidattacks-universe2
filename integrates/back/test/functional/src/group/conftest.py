@@ -1,4 +1,4 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
 )
@@ -17,7 +17,6 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
-    EventEvidence,
     EventEvidences,
     EventState,
 )
@@ -58,6 +57,9 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+)
+from db_model.types import (
+    Policies,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -123,6 +125,38 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     mean_remediate=Decimal("2.0"),
                     mean_remediate_low_severity=Decimal("3.0"),
                     mean_remediate_medium_severity=Decimal("4.0"),
+                ),
+            },
+            {
+                "group": Group(
+                    context="This is a dummy group5 context",
+                    description="this is group5",
+                    language=GroupLanguage.EN,
+                    name="group5",
+                    policies=Policies(
+                        max_acceptance_days=90,
+                        max_acceptance_severity=Decimal("3.9"),
+                        max_number_acceptances=3,
+                        modified_by=generic_data["global_vars"]["admin_email"],
+                        modified_date="2020-11-22T20:07:57+00:00",
+                    ),
+                    state=GroupState(
+                        has_machine=True,
+                        has_squad=True,
+                        managed=GroupManaged["MANUALLY"],
+                        modified_by=generic_data["global_vars"]["admin_email"],
+                        modified_date="2020-05-20T22:00:00+00:00",
+                        status=GroupStateStatus.ACTIVE,
+                        tier=GroupTier.SQUAD,
+                        type=GroupSubscriptionType.CONTINUOUS,
+                        service=GroupService.WHITE,
+                    ),
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    tags={"testing"},
+                    business_id="18671",
+                    business_name="Testing a Company",
+                    sprint_duration=4,
+                    sprint_start_date="2020-06-06T00:00:00",
                 ),
             },
         ],
@@ -328,37 +362,58 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",
+                            url=(
+                                "group1-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-evidence1"
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence2=FindingEvidence(
                             description="evidence2",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence2",
+                            url=(
+                                "group1-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-evidence2"
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence3=FindingEvidence(
                             description="evidence3",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence3",
+                            url=(
+                                "group1-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-evidence3"
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence4=FindingEvidence(
                             description="evidence4",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence4",
+                            url=(
+                                "group1-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-evidence4"
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         evidence5=FindingEvidence(
                             description="evidence5",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence5",
+                            url=(
+                                "group1-3c475384-834c-47b0-"
+                                "ac71-a41a022e401c-evidence5"
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                         exploitation=FindingEvidence(
                             description="exploitation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-exploitation",
+                            url=(
+                                "group1-3c475384-834c-47b0-ac71"
+                                "-a41a022e401c-exploitation"
+                            ),
                             modified_date="2010-11-19T13:37:10+00:00",
                         ),
                         animation=FindingEvidence(
                             description="animation",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-animation",
+                            url=(
+                                "group1-3c475384-834c-47b0-ac71-",
+                                "a41a022e401c-animation",
+                            ),
                             modified_date="2020-11-19T13:37:10+00:00",
                         ),
                     ),
@@ -642,6 +697,14 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=EventStateStatus.CREATED,
                     ),
                 ],
+            },
+        ],
+        "policies": [
+            {
+                "level": "group",
+                "subject": generic_data["global_vars"]["admin_email"],
+                "object": "group5",
+                "role": "admin",
             },
         ],
     }

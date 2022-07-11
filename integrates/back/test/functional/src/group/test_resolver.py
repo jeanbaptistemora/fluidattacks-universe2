@@ -1,6 +1,16 @@
 from . import (
     get_result,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from db_model.groups.types import (
+    Group,
+)
+from db_model.organizations.types import (
+    Organization,
+)
 import pytest
 from typing import (
     Any,
@@ -123,3 +133,49 @@ async def test_get_group_forces_token(populate: bool, email: str) -> None:
     assert result["data"]["group"]["forcesToken"] is not None
     test_token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBABCXYZ"
     assert result["data"]["group"]["forcesToken"] == test_token
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("group")
+@pytest.mark.parametrize(
+    ["email", "group_name", "is_inheritance"],
+    [
+        ["admin@gmail.com", "group1", True],
+        ["admin@gmail.com", "group5", False],
+    ],
+)
+async def test_get_group_policies_inheritance(
+    populate: bool, email: str, group_name: str, is_inheritance: bool
+) -> None:
+    assert populate
+    loaders: Dataloaders = get_new_context()
+    organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
+    result: dict[str, Any] = await get_result(user=email, group=group_name)
+    if is_inheritance:
+        organization: Organization = await loaders.organization.load(
+            organization_id
+        )
+        assert (
+            result["data"]["group"]["maxAcceptanceDays"]
+            == organization.policies.max_acceptance_days
+        )
+        assert str(result["data"]["group"]["maxAcceptanceSeverity"]) == str(
+            organization.policies.max_acceptance_severity
+        )
+        assert (
+            result["data"]["group"]["maxNumberAcceptances"]
+            == organization.policies.max_number_acceptances
+        )
+    else:
+        group: Group = await loaders.group.load(group_name)
+        assert (
+            result["data"]["group"]["maxAcceptanceDays"]
+            == group.policies.max_acceptance_days
+        )
+        assert str(result["data"]["group"]["maxAcceptanceSeverity"]) == str(
+            group.policies.max_acceptance_severity
+        )
+        assert (
+            result["data"]["group"]["maxNumberAcceptances"]
+            == group.policies.max_number_acceptances
+        )

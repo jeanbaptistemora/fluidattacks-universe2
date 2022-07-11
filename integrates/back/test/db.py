@@ -54,6 +54,9 @@ from db_model.toe_inputs.types import (
 from db_model.toe_lines.types import (
     ToeLines,
 )
+from db_model.types import (
+    PoliciesToUpdate,
+)
 from dynamodb.types import (
     OrgFindingPolicyItem,
 )
@@ -159,6 +162,22 @@ async def populate_organizations(data: list[Any]) -> bool:
     return True
 
 
+async def _populate_group_policies(data: dict[str, Any]) -> None:
+    group: Group = data["group"]
+    if data.get("policies"):
+        await groups_model.update_policies(
+            group_name=group.name,
+            modified_by=group.policies.modified_by,
+            modified_date=group.policies.modified_date,
+            organization_id=group.organization_id,
+            policies=PoliciesToUpdate(
+                max_acceptance_days=group.policies.max_acceptance_days,
+                max_acceptance_severity=group.policies.max_acceptance_severity,
+                max_number_acceptances=group.policies.max_number_acceptances,
+            ),
+        )
+
+
 async def _populate_group_unreliable_indicators(data: Dict[str, Any]) -> None:
     group: Group = data["group"]
     if data.get("unreliable_indicators"):
@@ -189,6 +208,10 @@ async def populate_groups(data: List[Dict[str, Any]]) -> bool:
     await collect([_populate_group_historic_state(item) for item in data])
     await collect(
         [_populate_group_unreliable_indicators(item) for item in data]
+    )
+    await collect(
+        tuple(_populate_group_policies(item) for item in data),
+        workers=16,
     )
     return True
 
