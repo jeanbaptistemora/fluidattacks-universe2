@@ -11,6 +11,7 @@
     fa-singer-io
     jsonschema
     mypy-boto3-s3
+    pathos
     psycopg2
     redshift-client
     types-boto3

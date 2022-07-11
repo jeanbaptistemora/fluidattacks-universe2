@@ -13,6 +13,7 @@ dependencies = [
     "fa-purity >=1.21.0, <2.0.0",
     "fa-singer-io >=1.1.0, <2.0.0",
     "jsonschema >=3.2.0, <4.0.0",
+    "pathos >=0.2.8, <0.3.0",
     "psycopg2 >=2.8.4, <3.0.0",
     "mypy-boto3-s3 >=1.23.0, <2.0.0",
     "types-boto3 >=1.0.2, <2.0.0",
