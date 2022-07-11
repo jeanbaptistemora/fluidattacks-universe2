@@ -421,7 +421,6 @@
     - "pci.6_5_7"
     - "pci.6_5_9"
     - "pci.6_5_10"
-    - "cwe25.352"
     - "mitre.M1021"
     - "padss.5_2_7"
     - "padss.5_2_9"
@@ -449,6 +448,8 @@
     - "mvsp.3_3"
     - "owaspscp.4"
     - "bsafss.SC_3-3"
+    - "cwe25.79"
+    - "cwe25.352"
   metadata: {}
 "030":
   en:
@@ -515,7 +516,6 @@
     - "owasp10.A7"
     - "owasp10.A8"
     - "pci.6_5_10"
-    - "cwe25.287"
     - "owaspm10.M2"
     - "owaspm10.M3"
     - "certj.IDS14-J"
@@ -705,7 +705,6 @@
     - "owasp10.A2"
     - "owasp10.A3"
     - "pci.6_5_10"
-    - "cwe25.200"
     - "owaspm10.M2"
     - "nist.PR_DS-5"
     - "certj.IDS14-J"
@@ -913,7 +912,6 @@
     - "owasp10.A1"
     - "pci.6_5_8"
     - "pci.8_1_2"
-    - "cwe25.862"
     - "owaspm10.M6"
     - "nist.PR_AC-1"
     - "nist.DE_DP-1"
@@ -943,6 +941,7 @@
     - "owasprisks.P2"
     - "bsafss.AA_1-2"
     - "bsafss.AA_2-1"
+    - "cwe25.862"
   metadata: {}
 "036":
   en:
@@ -1037,7 +1036,6 @@
     - "owasp10.A2"
     - "owasp10.A3"
     - "pci.6_5_10"
-    - "cwe25.22"
     - "owaspm10.M8"
     - "sans25.22"
     - "wasc.A_34"
@@ -1100,6 +1098,7 @@
     - "cmmc.CA_L2-3_12_2"
     - "hitrust.09_j"
     - "issaf.K_9_1"
+    - "cwe25.434"
   metadata: {}
 "040":
   en:
@@ -1128,13 +1127,13 @@
     - "cwe.434"
     - "cwe.646"
     - "asvs.V12_2_1"
-    - "cwe25.434"
     - "sans25.434"
     - "wassec.6_2_4_10"
     - "nistssdf.PS_3_1"
     - "issaf.J_7_3_5"
     - "issaf.Q_16_27"
     - "owaspscp.12"
+    - "cwe25.434"
   metadata: {}
 "041":
   en:
@@ -2062,8 +2061,6 @@
     - "pci.6_5_8"
     - "pci.10_5_2"
     - "pci.10_5_3"
-    - "cwe25.200"
-    - "cwe25.862"
     - "nist.PR_PT-1"
     - "nist.DE_AE-2"
     - "certj.IDS03-J"
@@ -2539,7 +2536,6 @@
     - "pci.7_1_3"
     - "pci.7_2_2"
     - "soc2.CC6_2"
-    - "cwe25.276"
     - "nist.ID_AM-5"
     - "bizec.APP-04"
     - "certc.FIO32-C"
@@ -2575,6 +2571,7 @@
     - "bsafss.IA_2-1"
     - "nist800171.1_4"
     - "nist800171.1_7"
+    - "cwe25.862"
   metadata: {}
 "096":
   en:
@@ -2639,9 +2636,6 @@
     - "pci.7_1_3"
     - "pci.7_2_2"
     - "pci.10_5_1"
-    - "cwe25.276"
-    - "cwe25.287"
-    - "cwe25.306"
     - "nist.ID_AM-5"
     - "bizec.APP-04"
     - "certc.FIO32-C"
@@ -2693,6 +2687,7 @@
     - "nist800171.1_7"
     - "nist800171.3_9"
     - "nist800171.5_2"
+    - "cwe25.862"
   metadata: {}
 "114":
   en:
@@ -2748,6 +2743,7 @@
     - "bsafss.IA_1-2"
     - "bsafss.AA_1-3"
     - "nist800171.5_6"
+    - "cwe25.287"
   metadata: {}
 "115":
   en:
@@ -2904,7 +2900,6 @@
   references:
     - "cwe.200"
     - "gdpr.5_1f"
-    - "cwe25.200"
     - "sans25.200"
   metadata: {}
 "121":
@@ -2974,7 +2969,6 @@
     - "pci.8_1_2"
     - "pci.8_2_2"
     - "soc2.CC6_2"
-    - "cwe25.287"
     - "nist.PR_AC-1"
     - "mitre.M1043"
     - "sans25.287"
@@ -2987,6 +2981,7 @@
     - "mvsp.2_4"
     - "bsafss.IA_1-1"
     - "owaspmasvs.V8_10"
+    - "cwe25.287"
   metadata: {}
 "123":
   en:
@@ -3105,6 +3100,7 @@
     - "osstmm3.11_5_3"
     - "wasc.W_49"
     - "owaspscp.3"
+    - "cwe25.798"
   metadata: {}
 "127":
   en:
@@ -3166,6 +3162,7 @@
     - "owaspscp.3"
     - "bsafss.IA_1-2"
     - "owaspmasvs.V4_5"
+    - "cwe25.798"
   metadata: {}
 "128":
   en:
@@ -3189,7 +3186,6 @@
     - "cwe.522"
     - "asvs.V6_4_1"
     - "asvs.V6_4_2"
-    - "cwe25.522"
     - "padss.10_2_2"
   metadata: {}
 "129":
@@ -3262,6 +3258,7 @@
     - "ptes.5_5_3"
     - "owaspmasvs.V4_5"
     - "nist800171.5_7"
+    - "cwe25.287"
   metadata: {}
 "131":
   en:
@@ -3442,6 +3439,7 @@
     - "bsafss.SI_1-5"
     - "owaspmasvs.V4_5"
     - "nist800171.5_10"
+    - "cwe25.798"
   metadata: {}
 "135":
   en:
@@ -3632,6 +3630,7 @@
     - "owaspmasvs.V4_5"
     - "nist800171.5_2"
     - "nist800171.5_9"
+    - "cwe25.287"
   metadata: {}
 "139":
   en:
@@ -3731,11 +3730,11 @@
     - "asvs.V2_8_4"
     - "owasp10.A7"
     - "pci.6_5_10"
-    - "cwe25.287"
     - "sans25.287"
     - "cmmc.IA_L2-3_5_5"
     - "iec62443.CR-1_7-RE_2"
     - "nist800171.5_2"
+    - "cwe25.287"
   metadata: {}
 "141":
   en:
@@ -3861,6 +3860,7 @@
     - "ptes.5_5_3"
     - "owaspscp.11"
     - "bsafss.CF_1-4"
+    - "cwe25.276"
   metadata: {}
 "143":
   en:
@@ -4013,7 +4013,6 @@
      - "pci.3_6_3"
      - "pci.3_6_7"
      - "pci.6_5_3"
-     - "cwe25.522"
      - "padss.2_5"
      - "padss.2_5_1"
      - "padss.2_5_3"
@@ -4384,7 +4383,6 @@
     - "asvs.V2_7_4"
     - "owasp10.A7"
     - "pci.6_5_10"
-    - "cwe25.287"
     - "owaspm10.M4"
     - "nist.PR_PT-2"
     - "sans25.287"
@@ -4653,8 +4651,6 @@
     - "asvs.V6_4_1"
     - "asvs.V6_4_2"
     - "owasp10.A2"
-    - "cwe25.522"
-    - "cwe25.798"
     - "agile.9"
     - "nyshield.5575_B_2"
     - "mitre.M1013"
@@ -4703,11 +4699,6 @@
     - "asvs.V14_1_2"
     - "owasp10.A5"
     - "pci.6_5_2"
-    - "cwe25.119"
-    - "cwe25.125"
-    - "cwe25.416"
-    - "cwe25.611"
-    - "cwe25.787"
     - "owaspm10.M7"
     - "agile.9"
     - "misrac.1_4"
@@ -4720,6 +4711,7 @@
     - "sans25.787"
     - "wassec.5_3"
     - "nistssdf.PW_6_1"
+    - "cwe25.416"
   metadata: {}
 "158":
   en:
@@ -4759,10 +4751,6 @@
     - "asvs.V14_2_4"
     - "owasp10.A6"
     - "pci.6_2"
-    - "cwe25.119"
-    - "cwe25.125"
-    - "cwe25.416"
-    - "cwe25.787"
     - "agile.9"
     - "certj.MET03-J"
     - "mitre.M1013"
@@ -4781,6 +4769,9 @@
     - "ptes.5_5_7"
     - "mvsp.2_5"
     - "owaspmasvs.V7_8"
+    - "cwe25.125"
+    - "cwe25.416"
+    - "cwe25.119"
   metadata: {}
 "159":
   en:
@@ -4902,8 +4893,6 @@
     - "owasp10.A9"
     - "pci.6_5_1"
     - "pci.6_5_7"
-    - "cwe25.20"
-    - "cwe25.79"
     - "certc.FIO30-C"
     - "mitre.M1013"
     - "padss.1_1_1"
@@ -5034,6 +5023,8 @@
     - "ptes.5_5_7"
     - "owasprisks.P15"
     - "owaspmasvs.V7_6"
+    - "cwe25.476"
+    - "cwe25.276"
   metadata: {}
 "162":
   en:
@@ -5084,8 +5075,6 @@
   references:
     - "cwe.20"
     - "asvs.V5_1_4"
-    - "cwe25.20"
-    - "cwe25.119"
     - "owaspm10.M7"
     - "agile.9"
     - "certj.MSC04-J"
@@ -5197,7 +5186,6 @@
     - "asvs.V5_3_4"
     - "owasp10.A3"
     - "pci.6_5_1"
-    - "cwe25.89"
     - "agile.9"
     - "bizec.APP-02"
     - "bizec.APP-06"
@@ -5216,6 +5204,7 @@
     - "ptes.5_2_3_1"
     - "ptes.7_4_2_3"
     - "owaspscp.11"
+    - "cwe25.89"
   metadata: {}
 "171":
   en:
@@ -5307,7 +5296,6 @@
     - "cwe.798"
     - "asvs.V2_10_4"
     - "owasp10.A7"
-    - "cwe25.798"
     - "owaspm10.M7"
     - "owaspm10.M9"
     - "agile.9"
@@ -5321,6 +5309,7 @@
     - "issaf.H_15_9"
     - "owaspscp.11"
     - "owaspscp.13"
+    - "cwe25.77"
   metadata: {}
 "173":
   en:
@@ -5474,12 +5463,6 @@
     - "pci.6_5_1"
     - "pci.6_5_2"
     - "pci.6_5_7"
-    - "cwe25.20"
-    - "cwe25.77"
-    - "cwe25.78"
-    - "cwe25.79"
-    - "cwe25.89"
-    - "cwe25.119"
     - "owaspm10.M2"
     - "agile.9"
     - "bizec.APP-01"
@@ -5564,6 +5547,14 @@
     - "bsafss.SC_3-3"
     - "bsafss.LO_2-4"
     - "owaspmasvs.V6_2"
+    - "cwe25.79"
+    - "cwe25.89"
+    - "cwe25.20"
+    - "cwe25.78"
+    - "cwe25.22"
+    - "cwe25.77"
+    - "cwe25.918"
+    - "cwe25.611"
   metadata: {}
 "174":
   en:
@@ -5592,7 +5583,6 @@
     - "cwe.352"
     - "asvs.V4_2_2"
     - "pci.6_5_9"
-    - "cwe25.352"
     - "padss.5_2_9"
     - "sans25.352"
     - "cmmc.AC_L1-3_1_2"
@@ -5602,6 +5592,7 @@
     - "wasc.A_09"
     - "owasprisks.P20"
     - "mvsp.3_3"
+    - "cwe25.352"
   metadata: {}
 "175":
   en:
@@ -5748,8 +5739,6 @@
     - "pci.6_5_8"
     - "pci.7_1_1"
     - "pci.10_5_1"
-    - "cwe25.287"
-    - "cwe25.306"
     - "nist.PR_DS-1"
     - "cpra.1798_104"
     - "glba.501_A"
@@ -6027,7 +6016,6 @@
     - "owasp10.A3"
     - "pci.6_4_1"
     - "pci.6_4_3"
-    - "cwe25.200"
     - "mitre.M1048"
     - "padss.5_1_1"
     - "sans25.200"
@@ -6129,7 +6117,6 @@
     - "pci.6_5_4"
     - "pci.8_2_1"
     - "soc2.CC6_7"
-    - "cwe25.200"
     - "nist.PR_AC-3"
     - "nist.PR_DS-2"
     - "certj.IDS14-J"
@@ -6287,7 +6274,6 @@
     - "iso27001.18_1_3"
     - "asvs.V8_3_4"
     - "owasp10.A2"
-    - "cwe25.200"
     - "owaspm10.M9"
     - "sans25.200"
     - "iso27002.8_26"
@@ -6403,6 +6389,7 @@
     - "bsafss.EN_1-1"
     - "owaspmasvs.V2_14"
     - "owaspmasvs.V8_10"
+    - "cwe25.798"
   metadata: {}
 "186":
   en:
@@ -6488,10 +6475,6 @@
     - "pci.7_1_2"
     - "soc2.CC6_3"
     - "soc2.P1_1"
-    - "cwe25.77"
-    - "cwe25.276"
-    - "cwe25.732"
-    - "cwe25.862"
     - "nist.PR_AC-4"
     - "certj.FIO01-J"
     - "mitre.M1056"
@@ -7270,8 +7253,6 @@
     - "asvs.V1_2_2"
     - "asvs.V1_2_3"
     - "owasp10.A7"
-    - "cwe25.287"
-    - "cwe25.306"
     - "nist.DE_DP-4"
     - "certj.OBJ10-J"
     - "nyshield.5575_B_4"
@@ -7385,7 +7366,6 @@
     - "pci.8_1_1"
     - "pci.8_2"
     - "soc2.P4_2"
-    - "cwe25.306"
     - "owaspm10.M2"
     - "nist.PR_AC-7"
     - "nyshield.5575_B_2"
@@ -7424,6 +7404,7 @@
     - "owaspmasvs.V4_1"
     - "nist800171.1_17"
     - "nist800171.5_2"
+    - "cwe25.287"
   metadata: {}
 "231":
   en:
@@ -7535,7 +7516,6 @@
     - "cwe.287"
     - "owasp10.A7"
     - "pci.12_3_2"
-    - "cwe25.287"
     - "mitre.M1025"
     - "sans25.287"
     - "sans25.732"
@@ -7677,7 +7657,6 @@
     - "asvs.V13_2_4"
     - "owasp10.A7"
     - "pci.6_5_10"
-    - "cwe25.287"
     - "sans25.287"
     - "hitrust.08_b"
     - "iec62443.IAC-1_1"
@@ -8332,7 +8311,6 @@
     - "asvs.V4_3_2"
     - "owasp10.A2"
     - "pci.1_3_7"
-    - "cwe25.200"
     - "padss.9_1"
     - "sans25.200"
     - "pdpa.6_24"
@@ -8530,8 +8508,6 @@
     - "pci.6_5_10"
     - "pci.8_1_1"
     - "soc2.CC6_1"
-    - "cwe25.287"
-    - "cwe25.306"
     - "nist.PR_AC-7"
     - "nydfs.500_12"
     - "sans25.287"
@@ -8563,6 +8539,8 @@
     - "owaspmasvs.V4_1"
     - "owaspmasvs.V4_10"
     - "nist800171.1_17"
+    - "cwe25.287"
+    - "cwe25.362"
   metadata: {}
 "265":
   en:
@@ -8632,9 +8610,6 @@
     - "owasp10.A7"
     - "pci.6_5_8"
     - "pci.8_7"
-    - "cwe25.287"
-    - "cwe25.306"
-    - "cwe25.862"
     - "mitre.M1025"
     - "padss.5_2_8"
     - "sans25.269"
@@ -8658,6 +8633,8 @@
     - "issaf.Q_16_20"
     - "issaf.U_11"
     - "issaf.V_13"
+    - "cwe25.78"
+    - "cwe25.306"
   metadata: {}
 "266":
   en:
@@ -8811,6 +8788,10 @@
     - "owaspmasvs.V6_7"
     - "owaspmasvs.V7_6"
     - "nist800171.4_2"
+    - "cwe25.78"
+    - "cwe25.416"
+    - "cwe25.476"
+    - "cwe25.119"
   metadata: {}
 "273":
   en:
@@ -9974,8 +9955,6 @@
     - "asvs.V14_5_4"
     - "owasp10.A7"
     - "pci.6_5_10"
-    - "cwe25.287"
-    - "cwe25.306"
     - "owaspm10.M4"
     - "nydfs.500_12"
     - "padss.8_3"
@@ -9990,6 +9969,7 @@
     - "nistssdf.PW_1_1"
     - "owaspscp.5"
     - "bsafss.SI_1-3"
+    - "cwe25.287"
   metadata: {}
 "320":
   en:
@@ -10059,7 +10039,6 @@
     - "owasp10.A2"
     - "pci.6_5_8"
     - "pci.6_5_10"
-    - "cwe25.862"
     - "owaspm10.M1"
     - "agile.11"
     - "certj.LCK11-J"
@@ -10084,6 +10063,7 @@
     - "owaspscp.8"
     - "owaspmasvs.V1_2"
     - "owaspmasvs.V8_10"
+    - "cwe25.22"
   metadata: {}
 "321":
   en:
@@ -10151,7 +10131,6 @@
     - "owasp10.A3"
     - "owasp10.A8"
     - "pci.6_5_1"
-    - "cwe25.502"
     - "nist.PR_DS-6"
     - "certj.SER12-J"
     - "padss.5_2_1"
@@ -10163,6 +10142,7 @@
     - "iec62443.IAC-1_13"
     - "owaspscp.1"
     - "owaspmasvs.V6_8"
+    - "cwe25.502"
   metadata: {}
 "322":
   en:
@@ -10369,7 +10349,6 @@
     - "asvs.V12_6_1"
     - "asvs.V14_4_6"
     - "owasp10.A10"
-    - "cwe25.918"
     - "certj.IDS17-J"
     - "cmmc.AC_L1-3_1_20"
     - "hitrust.01_j"
@@ -10378,6 +10357,7 @@
     - "mvsp.2_2"
     - "owaspscp.1"
     - "owaspscp.12"
+    - "cwe25.918"
   metadata: {}
 "325":
   en:
@@ -11084,7 +11064,6 @@
     - "asvs.V2_7_3"
     - "owasp10.A7"
     - "pci.3_2_1"
-    - "cwe25.287"
     - "owaspm10.M4"
     - "padss.1_1_1"
     - "padss.1_1_2"
@@ -11278,6 +11257,7 @@
     - "mitre.M1025"
     - "wasc.W_40"
     - "owaspscp.14"
+    - "cwe25.362"
   metadata: {}
 "338":
   en:
@@ -11577,8 +11557,6 @@
     - "pci.7_1_2"
     - "pci.7_2_2"
     - "soc2.CC6_3"
-    - "cwe25.276"
-    - "cwe25.732"
     - "certj.FIO01-J"
     - "padss.5_2_8"
     - "cmmc.SC_L2-3_13_6"
@@ -11655,8 +11633,6 @@
     - "asvs.V8_1_1"
     - "owasp10.A3"
     - "owasp10.A8"
-    - "cwe25.20"
-    - "cwe25.125"
     - "certj.IDS16-J"
     - "sans25.20"
     - "sans25.125"
@@ -11673,6 +11649,8 @@
     - "issaf.V_7"
     - "issaf.V_9"
     - "owaspscp.1"
+    - "cwe25.20"
+    - "cwe25.22"
   metadata: {}
 "343":
   en:
@@ -11791,7 +11769,6 @@
     - "owasp10.A3"
     - "pci.6_5_1"
     - "pci.6_5_7"
-    - "cwe25.20"
     - "agile.9"
     - "mitre.M1013"
     - "mitre.M1038"
@@ -11803,6 +11780,7 @@
     - "nistssdf.PW_6_1"
     - "owaspscp.7"
     - "owaspscp.14"
+    - "cwe25.77"
   metadata: {}
 "345":
   en:
@@ -11878,13 +11856,6 @@
     - "asvs.V5_4_2"
     - "asvs.V5_4_3"
     - "pci.6_5_2"
-    - "cwe25.77"
-    - "cwe25.119"
-    - "cwe25.125"
-    - "cwe25.190"
-    - "cwe25.416"
-    - "cwe25.476"
-    - "cwe25.787"
     - "owaspm10.M7"
     - "agile.9"
     - "certc.INT32-C"
@@ -11910,6 +11881,8 @@
     - "ptes.6_7_1_1"
     - "owaspscp.1"
     - "owaspscp.13"
+    - "cwe25.125"
+    - "cwe25.190"
   metadata: {}
 "346":
   en:
@@ -12022,7 +11995,6 @@
     - "asvs.V3_2_1"
     - "owasp10.A7"
     - "pci.6_5_10"
-    - "cwe25.287"
     - "sans25.287"
   metadata: {}
 "348":
@@ -12105,6 +12077,7 @@
     - "c2m2.9_5_g"
     - "nistssdf.PW_4_1"
     - "ptes.6_2_1_1"
+    - "cwe25.918"
   metadata: {}
 "349":
   en:
@@ -12181,7 +12154,6 @@
     - "owasp10.A5"
     - "pci.6_5_7"
     - "pci.6_5_9"
-    - "cwe25.352"
     - "mitre.M1021"
     - "padss.5_2_7"
     - "padss.5_2_9"
@@ -12446,7 +12418,6 @@
     - "asvs.V12_5_1"
     - "asvs.V14_4_1"
     - "asvs.V14_4_2"
-    - "cwe25.200"
     - "agile.11"
     - "c2m2.9_1_e"
     - "issaf.T_6_5"
@@ -12521,7 +12492,6 @@
     - "owasp10.A7"
     - "owasp10.A8"
     - "pci.6_5_10"
-    - "cwe25.798"
     - "owaspm10.M4"
     - "padss.3_1_4"
     - "iec62443.SI-3_8"
@@ -12605,6 +12575,7 @@
     - "cmmc.SC_L2-3_13_6"
     - "issaf.U_15"
     - "owaspmasvs.V7_6"
+    - "cwe25.476"
   metadata: {}
 "360":
   en:
@@ -12816,7 +12787,6 @@
     - "pci.6_5_10"
     - "pci.8_5"
     - "pci.8_6"
-    - "cwe25.287"
     - "nist.PR_AC-7"
     - "nydfs.500_12"
     - "mitre.M1032"
@@ -12834,6 +12804,7 @@
     - "c2m2.4_1_b"
     - "owasprisks.P2"
     - "nist800171.5_3"
+    - "cwe25.287"
   metadata: {}
 "363":
   en:
@@ -12983,7 +12954,6 @@
     oneshot: true
   references:
     - "cwe.710"
-    - "cwe25.476"
     - "agile.9"
     - "sans25.476"
     - "iso27002.8_28"
@@ -13281,8 +13251,6 @@
     - "asvs.V2_10_3"
     - "owasp10.A2"
     - "soc2.C1_1"
-    - "cwe25.200"
-    - "cwe25.522"
     - "mitre.M1043"
     - "sans25.200"
     - "pdpo.S1_4"
@@ -13546,7 +13514,6 @@
   references:
     - "cwe.256"
     - "cwe.522"
-    - "cwe25.522"
     - "nist.PR_AC-1"
     - "certj.SEC04-J"
     - "mitre.M1027"
@@ -13577,7 +13544,6 @@
   references:
     - "cwe.73"
     - "cwe.710"
-    - "cwe25.476"
     - "sans25.22"
     - "sans25.476"
   metadata: {}

@@ -2725,28 +2725,25 @@
       testers and users
       to provide insight into the most severe
       and current security weaknesses.
-      The version used in this section is CWE Top 25 2021.
+      The version used in this section is CWE Top 25 2022.
   es:
     summary: __empty__
   definitions:
-    "787":
-      title: Out-of-bounds write
-      link: https://cwe.mitre.org/data/definitions/787.html
     "79":
       title: Improper neutralization of input during web page generation (cross-site scripting)
       link: https://cwe.mitre.org/data/definitions/79.html
-    "125":
-      title: Out-of-bounds read
-      link: https://cwe.mitre.org/data/definitions/125.html
-    "20":
-      title: Improper input validation
-      link: https://cwe.mitre.org/data/definitions/20.html
-    "78":
-      title: Improper neutralization of special elements used in an OS command (OS command injection)
-      link: https://cwe.mitre.org/data/definitions/78.html
     "89":
       title: Improper neutralization of special elements used in an SQL command (SQL injection)
       link: https://cwe.mitre.org/data/definitions/89.html
+    "20":
+      title: Improper input validation
+      link: https://cwe.mitre.org/data/definitions/20.html
+    "125":
+      title: Out-of-bounds read
+      link: https://cwe.mitre.org/data/definitions/125.html
+    "78":
+      title: Improper neutralization of special elements used in an OS command (OS command injection)
+      link: https://cwe.mitre.org/data/definitions/78.html
     "416":
       title: User after free
       link: https://cwe.mitre.org/data/definitions/416.html
@@ -2759,51 +2756,45 @@
     "434":
       title: Unrestricted upload of file with dangerous type
       link: https://cwe.mitre.org/data/definitions/434.html
-    "306":
-      title: Missing authentication for critical function
-      link: https://cwe.mitre.org/data/definitions/306.html
-    "190":
-      title: Integer overflow or wraparound
-      link: https://cwe.mitre.org/data/definitions/190.html
-    "502":
-      title: Deserialization of untrusted data
-      link: https://cwe.mitre.org/data/definitions/502.html
-    "287":
-      title: Improper authentication
-      link: https://cwe.mitre.org/data/definitions/287.html
     "476":
       title: NULL pointer dereference
       link: https://cwe.mitre.org/data/definitions/476.html
+    "502":
+      title: Deserialization of untrusted data
+      link: https://cwe.mitre.org/data/definitions/502.html
+    "190":
+      title: Integer overflow or wraparound
+      link: https://cwe.mitre.org/data/definitions/190.html
+    "287":
+      title: Improper authentication
+      link: https://cwe.mitre.org/data/definitions/287.html
     "798":
       title: Use of hard-coded credentials
       link: https://cwe.mitre.org/data/definitions/798.html
-    "119":
-      title: Improper restriction of operations within the bounds of a memory buffer
-      link: https://cwe.mitre.org/data/definitions/119.html
     "862":
       title: Missing authorization
       link: https://cwe.mitre.org/data/definitions/862.html
-    "276":
-      title: Incorrect default permissions
-      link: https://cwe.mitre.org/data/definitions/276.html
-    "200":
-      title: Exposure of sensitive information to an unauthorized actor
-      link: https://cwe.mitre.org/data/definitions/200.html
-    "522":
-      title: Insufficiently protected credentials
-      link: https://cwe.mitre.org/data/definitions/522.html
-    "732":
-      title: Incorrect permission assignment for critical resource
-      link: https://cwe.mitre.org/data/definitions/732.html
-    "611":
-      title: Improper restriction of XML external entity reference
-      link: https://cwe.mitre.org/data/definitions/611.html
-    "918":
-      title: Server-side request forgery (SSRF)
-      link: https://cwe.mitre.org/data/definitions/918.html
     "77":
       title: Improper neutralization of special elements used in a command (command injection)
       link: https://cwe.mitre.org/data/definitions/77.html
+    "306":
+      title: Missing authentication for critical function
+      link: https://cwe.mitre.org/data/definitions/306.html
+    "119":
+      title: Improper restriction of operations within the bounds of a memory buffer
+      link: https://cwe.mitre.org/data/definitions/119.html
+    "276":
+      title: Incorrect default permissions
+      link: https://cwe.mitre.org/data/definitions/276.html
+    "918":
+      title: Server-side request forgery (SSRF)
+      link: https://cwe.mitre.org/data/definitions/918.html
+    "362":
+      title: Concurrent execution using shared resource with improper synchronization (Race condition)
+      link: https://cwe.mitre.org/data/definitions/362.html
+    "611":
+      title: Improper restriction of XML external entity reference
+      link: https://cwe.mitre.org/data/definitions/611.html
   metadata: {}
 "owaspm10":
   title: OWASP-M TOP 10
