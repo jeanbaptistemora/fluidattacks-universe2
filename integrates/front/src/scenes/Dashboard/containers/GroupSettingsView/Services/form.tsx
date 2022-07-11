@@ -1,11 +1,13 @@
 import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Select } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Table } from "components/Table";
-import type { IHeaderConfig } from "components/Table/types";
+import { Text } from "components/Text";
 import {
   computeConfirmationMessage,
   isDowngrading,
@@ -13,21 +15,11 @@ import {
 } from "scenes/Dashboard/containers/GroupSettingsView/Services/businessLogic";
 import type {
   IFormData,
-  IServicesDataSet,
   IServicesFormProps,
 } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
-import {
-  Alert,
-  ButtonToolbar,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-  Well,
-} from "styles/styledComponents";
-import { FormikDropdown, FormikText, FormikTextArea } from "utils/forms/fields";
+import { Alert, FormGroup } from "styles/styledComponents";
+import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
-import { translate } from "utils/translations/translate";
 import {
   composeValidators,
   maxLength,
@@ -59,24 +51,27 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   } = props;
   const { values, setFieldValue, dirty, submitForm, isValid } =
     useFormikContext<IFormData>();
+  const { t } = useTranslation();
 
-  const handleMachineBtnChange: (withMachine: boolean) => void = (
-    withMachine: boolean
-  ): void => {
-    setFieldValue("machine", withMachine);
-    if (!withMachine) {
-      setFieldValue("squad", false);
-    }
-  };
+  const handleMachineBtnChange: (withMachine: boolean) => void = useCallback(
+    (withMachine: boolean): void => {
+      setFieldValue("machine", withMachine);
+      if (!withMachine) {
+        setFieldValue("squad", false);
+      }
+    },
+    [setFieldValue]
+  );
 
-  const handleSquadBtnChange: (withSquad: boolean) => void = (
-    withSquad: boolean
-  ): void => {
-    setFieldValue("squad", withSquad);
-    if (withSquad) {
-      setFieldValue("machine", true);
-    }
-  };
+  const handleSquadBtnChange: (withSquad: boolean) => void = useCallback(
+    (withSquad: boolean): void => {
+      setFieldValue("squad", withSquad);
+      if (withSquad) {
+        setFieldValue("machine", true);
+      }
+    },
+    [setFieldValue]
+  );
 
   const handleClose: () => void = useCallback((): void => {
     setIsModalOpen(false);
@@ -85,143 +80,101 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     setIsModalOpen(true);
   }, [setIsModalOpen]);
 
-  // Rendered elements
-  const tableHeaders: IHeaderConfig[] = [
-    {
-      dataField: "service",
-      header: translate.t("searchFindings.servicesTable.service"),
-      width: "75%",
-      wrapped: true,
-    },
-    {
-      dataField: "status",
-      header: translate.t("searchFindings.servicesTable.status"),
-      width: "25%",
-      wrapped: true,
-    },
-  ];
-  const servicesList: IServicesDataSet[] = [
-    {
-      id: "machineSwitch",
-      onChange: handleMachineBtnChange,
-      service: "machine",
-    },
-    {
-      id: "squadSwitch",
-      onChange: handleSquadBtnChange,
-      service: "squad",
-    },
-  ];
-
-  const servicesDataSet: Record<string, JSX.Element>[] = [
-    {
-      service: <p>{translate.t("searchFindings.servicesTable.type")}</p>,
-      status: (
-        <Field component={FormikDropdown} name={"type"}>
-          <option value={"CONTINUOUS"}>
-            {translate.t("searchFindings.servicesTable.continuous")}
-          </option>
-          <option value={"ONESHOT"}>
-            {translate.t("searchFindings.servicesTable.oneShot")}
-          </option>
-        </Field>
-      ),
-    },
-    {
-      service: <p>{translate.t("searchFindings.servicesTable.service")}</p>,
-      status: (
-        <Field component={FormikDropdown} name={"service"}>
-          <option value={"BLACK"}>
-            {translate.t("searchFindings.servicesTable.black")}
-          </option>
-          <option value={"WHITE"}>
-            {translate.t("searchFindings.servicesTable.white")}
-          </option>
-        </Field>
-      ),
-    },
-  ].concat(
-    servicesList.map(
-      (
-        element: IServicesDataSet
-      ): {
-        service: JSX.Element;
-        status: JSX.Element;
-      } => ({
-        service: (
-          <p>
-            {translate.t(`searchFindings.servicesTable.${element.service}`)}
-          </p>
-        ),
-        status: (
-          <FormGroup>
-            <Field
-              component={FormikSwitchButton}
-              id={element.id}
-              name={element.service}
-              offlabel={translate.t("searchFindings.servicesTable.inactive")}
-              onChange={
-                _.isUndefined(element.onChange) ? undefined : element.onChange
-              }
-              onlabel={translate.t("searchFindings.servicesTable.active")}
-              type={"checkbox"}
-            />
-          </FormGroup>
-        ),
-      })
-    )
-  );
-
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
   }
 
   return (
     <Form id={"editGroup"}>
-      <Table
-        dataset={servicesDataSet}
-        exportCsv={false}
-        headers={tableHeaders}
-        id={"tblServices"}
-        pageSize={10}
-        search={false}
-      />
+      <Row>
+        <Col large={"30"} medium={"50"} small={"50"}>
+          <Select label={t("searchFindings.servicesTable.type")} name={"type"}>
+            <option value={"CONTINUOUS"}>
+              {t("searchFindings.servicesTable.continuous")}
+            </option>
+            <option value={"ONESHOT"}>
+              {t("searchFindings.servicesTable.oneShot")}
+            </option>
+          </Select>
+        </Col>
+        <Col large={"30"} medium={"50"} small={"50"}>
+          <Select
+            label={t("searchFindings.servicesTable.service")}
+            name={"service"}
+          >
+            <option value={"BLACK"}>
+              {t("searchFindings.servicesTable.black")}
+            </option>
+            <option value={"WHITE"}>
+              {t("searchFindings.servicesTable.white")}
+            </option>
+          </Select>
+        </Col>
+        <Col large={"20"} medium={"50"} small={"50"}>
+          <div className={"flex justify-center"}>
+            <div>
+              <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
+              <Field
+                component={FormikSwitchButton}
+                id={"machineSwitch"}
+                name={"machine"}
+                offlabel={t("searchFindings.servicesTable.inactive")}
+                onChange={handleMachineBtnChange}
+                onlabel={t("searchFindings.servicesTable.active")}
+                type={"checkbox"}
+              />
+            </div>
+          </div>
+        </Col>
+        <Col large={"20"} medium={"50"} small={"50"}>
+          <div className={"flex justify-center"}>
+            <div>
+              <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
+              <Field
+                component={FormikSwitchButton}
+                id={"squadSwitch"}
+                name={"squad"}
+                offlabel={t("searchFindings.servicesTable.inactive")}
+                onChange={handleSquadBtnChange}
+                onlabel={t("searchFindings.servicesTable.active")}
+                type={"checkbox"}
+              />
+            </div>
+          </div>
+        </Col>
+      </Row>
       {/* Intentionally hidden while loading/submitting to offer a better UX
        *   this way the button does not twinkle and is visually stable
        */}
       {!dirty || loadingGroupData || submittingGroupData ? undefined : (
-        <Row>
-          <Col100>
-            <ButtonToolbar>
-              <Button onClick={handleTblButtonClick} variant={"secondary"}>
-                {translate.t("searchFindings.servicesTable.modal.continue")}
-              </Button>
-            </ButtonToolbar>
-          </Col100>
-        </Row>
+        <div className={"mt2"}>
+          <Button onClick={handleTblButtonClick} variant={"secondary"}>
+            {t("searchFindings.servicesTable.modal.continue")}
+          </Button>
+        </div>
       )}
       <Modal
         open={isModalOpen}
-        title={translate.t("searchFindings.servicesTable.modal.title")}
+        title={t("searchFindings.servicesTable.modal.title")}
       >
-        <ControlLabel>
-          {translate.t("searchFindings.servicesTable.modal.changesToApply")}
-        </ControlLabel>
-        <Well>
+        <Text mb={2}>
+          {t("searchFindings.servicesTable.modal.changesToApply")}
+        </Text>
+        <div className={"mb3 ml4"}>
           {computeConfirmationMessage(data, values).map(
             (line: string): JSX.Element => (
               <p key={line}>{line}</p>
             )
           )}
-        </Well>
+        </div>
         <FormGroup>
-          <ControlLabel>
-            {translate.t("searchFindings.servicesTable.modal.observations")}
-          </ControlLabel>
+          <Text mb={2}>
+            {t("searchFindings.servicesTable.modal.observations")}
+          </Text>
           <Field
             component={FormikTextArea}
             name={"comments"}
-            placeholder={translate.t(
+            placeholder={t(
               "searchFindings.servicesTable.modal.observationsPlaceholder"
             )}
             type={"text"}
@@ -230,14 +183,14 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         </FormGroup>
         {isDowngradingServices(data, values) ? (
           <FormGroup>
-            <ControlLabel>
-              {translate.t("searchFindings.servicesTable.modal.downgrading")}
-            </ControlLabel>
-            <Field component={FormikDropdown} name={"reason"} type={"text"}>
+            <Text mb={2}>
+              {t("searchFindings.servicesTable.modal.downgrading")}
+            </Text>
+            <Select name={"reason"}>
               {downgradeReasons.map(
                 (reason: string): JSX.Element => (
                   <option key={reason} value={reason}>
-                    {translate.t(
+                    {t(
                       `searchFindings.servicesTable.modal.${_.camelCase(
                         reason.toLowerCase()
                       )}`
@@ -245,25 +198,23 @@ const ServicesForm: React.FC<IServicesFormProps> = (
                   </option>
                 )
               )}
-            </Field>
+            </Select>
           </FormGroup>
         ) : undefined}
         {isDowngrading(true, values.asm) ? (
           <FormGroup>
-            <ControlLabel>
-              {translate.t("searchFindings.servicesTable.modal.warning")}
-            </ControlLabel>
+            <Text mb={2}>
+              {t("searchFindings.servicesTable.modal.warning")}
+            </Text>
             <Alert>
-              {translate.t(
-                "searchFindings.servicesTable.modal.warningDowngradeASM"
-              )}
+              {t("searchFindings.servicesTable.modal.warningDowngradeASM")}
             </Alert>
           </FormGroup>
         ) : undefined}
         <FormGroup>
-          <ControlLabel>
-            {translate.t("searchFindings.servicesTable.modal.typeGroupName")}
-          </ControlLabel>
+          <Text mb={2}>
+            {t("searchFindings.servicesTable.modal.typeGroupName")}
+          </Text>
           <Field
             component={FormikText}
             name={"confirmation"}
@@ -274,9 +225,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
         </FormGroup>
         <Alert>
           {"* "}
-          {translate.t(
-            "organization.tabs.groups.newGroup.extraChargesMayApply"
-          )}
+          {t("organization.tabs.groups.newGroup.extraChargesMayApply")}
         </Alert>
         <ModalConfirm
           disabled={!isValid}

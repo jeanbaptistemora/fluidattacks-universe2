@@ -14,7 +14,6 @@ import {
 import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -190,10 +189,10 @@ describe("Services", (): void => {
   });
 
   [
-    { group: "unittesting", rows: 5 },
-    { group: "oneshottest", rows: 5 },
-    { group: "not-exists", rows: 0 },
-  ].forEach((test: { group: string; rows: number }): void => {
+    { group: "unittesting", texts: 10 },
+    { group: "oneshottest", texts: 10 },
+    { group: "not-exists", texts: 0 },
+  ].forEach((test: { group: string; texts: number }): void => {
     it(`should render services for: ${test.group}`, async (): Promise<void> => {
       expect.hasAssertions();
 
@@ -208,7 +207,11 @@ describe("Services", (): void => {
       );
 
       await waitFor((): void => {
-        expect(screen.queryAllByRole("row")).toHaveLength(test.rows);
+        expect(
+          screen.queryAllByText("searchFindings.servicesTable.", {
+            exact: false,
+          })
+        ).toHaveLength(test.texts);
       });
 
       jest.clearAllMocks();
@@ -331,31 +334,21 @@ describe("Services", (): void => {
       </MockedProvider>
     );
 
-    const totalRows = 5;
     await waitFor((): void => {
-      expect(screen.queryAllByRole("row")).toHaveLength(totalRows);
+      expect(
+        screen.queryAllByText("searchFindings.servicesTable.", { exact: false })
+      ).toHaveLength(10);
     });
-
-    expect(
-      screen.getByRole("cell", { name: "Subscription type" })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "Service" })).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "Machine" })).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "Squad" })).toBeInTheDocument();
 
     userEvent.click(screen.getByRole("checkbox", { name: "machine" }));
 
     await waitFor((): void => {
       expect(
-        screen.getByText(
-          translate.t("searchFindings.servicesTable.modal.continue")
-        )
+        screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
     userEvent.click(
-      screen.getByText(
-        translate.t("searchFindings.servicesTable.modal.continue")
-      )
+      screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();
@@ -376,15 +369,11 @@ describe("Services", (): void => {
     userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
-        screen.getByText(
-          translate.t("searchFindings.servicesTable.modal.continue")
-        )
+        screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
     userEvent.click(
-      screen.getByText(
-        translate.t("searchFindings.servicesTable.modal.continue")
-      )
+      screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();
@@ -406,15 +395,11 @@ describe("Services", (): void => {
     userEvent.click(screen.getByRole("checkbox", { name: "squad" }));
     await waitFor((): void => {
       expect(
-        screen.getByText(
-          translate.t("searchFindings.servicesTable.modal.continue")
-        )
+        screen.getByText("searchFindings.servicesTable.modal.continue")
       ).toBeInTheDocument();
     });
     userEvent.click(
-      screen.getByText(
-        translate.t("searchFindings.servicesTable.modal.continue")
-      )
+      screen.getByText("searchFindings.servicesTable.modal.continue")
     );
     await waitFor((): void => {
       expect(screen.getByText(btnConfirm)).toBeInTheDocument();

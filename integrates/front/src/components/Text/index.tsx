@@ -63,7 +63,7 @@ const Text = styled.p.attrs(
     ml = 0,
     mr = 0,
     mt = 0,
-    size = 3,
+    size = 2,
     fw = 4,
   }: ITextProps): {
     className: string;
