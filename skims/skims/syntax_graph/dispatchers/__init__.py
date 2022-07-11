@@ -7,6 +7,9 @@ from syntax_graph.dispatchers.c_sharp import (
 from syntax_graph.dispatchers.java import (
     JAVA_DISPATCHERS,
 )
+from syntax_graph.dispatchers.javascript import (
+    JAVASCRIPT_DISPATCHERS,
+)
 from syntax_graph.types import (
     Dispatchers,
 )
@@ -17,4 +20,5 @@ from typing import (
 DISPATCHERS_BY_LANG: Dict[GraphLanguage, Dispatchers] = {
     GraphLanguage.CSHARP: CSHARP_DISPATCHERS,
     GraphLanguage.JAVA: JAVA_DISPATCHERS,
+    GraphLanguage.JAVASCRIPT: JAVASCRIPT_DISPATCHERS,
 }
