@@ -40,6 +40,10 @@ from urllib.parse import (
 import uuid
 
 
+class CredentialsNotFound(Exception):
+    pass
+
+
 class BatchProcessing(NamedTuple):
     key: str
     action_name: str
@@ -196,8 +200,6 @@ def _format_https_url(
         url = str(parsed_url._replace(auth=token))
     elif user is not None and password is not None:
         url = str(parsed_url._replace(auth=f"{user}:{password}"))
-    else:
-        raise Exception()
 
     return url
 
@@ -347,7 +349,7 @@ async def clone_root(
                 token=token,
                 user=None,
             )
-        elif user := cred.get("user") and (password := cred.get("password")):
+        elif (user := cred.get("user")) and (password := cred.get("password")):
             folder_to_clone_root, stderr = await https_clone(
                 branch=branch,
                 password=password,
@@ -357,7 +359,15 @@ async def clone_root(
                 user=user,
             )
         else:
-            raise Exception()
+            await update_root_cloning_status(
+                token=api_token,
+                group_name=group_name,
+                root_id=root["id"],
+                status="FAILED",
+                message=stderr or "Credentials not found",
+            )
+            return
+            yield
 
         if folder_to_clone_root is None:
             logging.error("Failed to clone %s: %s", root_nickname, stderr)
