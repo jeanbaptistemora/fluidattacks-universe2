@@ -1,3 +1,6 @@
+from . import (
+    _upload,
+)
 from ._core import (
     CmdContext,
 )
@@ -11,7 +14,8 @@ from typing import (
 )
 
 
-@click.option(  # type: ignore[misc]
+@click.group()  # type: ignore[misc]
+@click.option(
     "--db-name",
     envvar="REDSHIFT_DATABASE",
     required=True,
@@ -51,3 +55,6 @@ def main(  # type: ignore[misc]
             DatabaseId(db_name, db_host, db_port),
             Credentials(db_user, db_passwd),
         )
+
+
+main.add_command(_upload.destroy_and_upload)
