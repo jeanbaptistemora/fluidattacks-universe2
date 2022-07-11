@@ -26,6 +26,7 @@ import { ButtonCol, Title, TitleContainer } from "./styles";
 
 import { Modal, ModalConfirm } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
+import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
 import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 import { CommentsView } from "scenes/Dashboard/containers/CommentsView/index";
@@ -227,6 +228,7 @@ const FindingContent: React.FC = (): JSX.Element => {
         <div>
           <div>
             <div>
+              <EventBar organizationName={organizationName} />
               <TitleContainer>
                 <Title>{headerData.finding.title}</Title>
                 <ButtonCol>

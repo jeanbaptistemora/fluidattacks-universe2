@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 
 import { Tab, Tabs } from "components/Tabs";
+import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { EventHeader } from "scenes/Dashboard/components/EventHeader";
 import type { IEventHeaderProps } from "scenes/Dashboard/components/EventHeader";
 import { EventCommentsView } from "scenes/Dashboard/containers/EventCommentsView";
@@ -30,7 +31,8 @@ interface IEventHeaderData {
 
 const EventContent: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  const { eventId } = useParams<{ eventId: string }>();
+  const { eventId, organizationName } =
+    useParams<{ eventId: string; organizationName: string }>();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
 
   // Side effects
@@ -62,6 +64,7 @@ const EventContent: React.FC = (): JSX.Element => {
       <div>
         <div>
           <div>
+            <EventBar organizationName={organizationName} />
             <EventHeader
               eventDate={eventDate}
               eventStatus={eventStatus}
