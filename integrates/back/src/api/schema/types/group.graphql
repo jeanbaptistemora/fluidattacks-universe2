@@ -65,6 +65,8 @@ type Group {
   managed: ManagedType
   "Maximum number of calendar days a finding can be temporarily accepted"
   maxAcceptanceDays: Int
+  "Maximum CVSS 3.1 score in which a finding can be temporarily accepted"
+  maxAcceptanceSeverity: Float!
   "Current highest severity of an open vulnerability in the group"
   maxOpenSeverity: Float
   "Current open vulnerability with the highest severity"
