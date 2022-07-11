@@ -27,6 +27,13 @@ TEST_GROUPS: Set[str] = {
     "test_should_close_vulns_to_namespace_verify",
     "test_should_close_vulns_on_namespace2_run",
     "test_should_close_vulns_on_namespace2_verify",
+    "test_get_scopes_from_group",
+    "test_generate_config",
+    "test_main_empty_configs",
+    "test_main_with_configs",
+    "test_main_bad_roots",
+    "test_mock_git_report",
+    "test_rebase_change_line",
 }
 
 
