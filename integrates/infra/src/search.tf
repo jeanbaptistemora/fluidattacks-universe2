@@ -29,11 +29,11 @@ resource "aws_opensearch_domain" "integrates" {
   engine_version = "OpenSearch_1.2"
 
   cluster_config {
-    instance_count         = 2
+    instance_count         = 3
     instance_type          = "t3.small.search"
     zone_awareness_enabled = true
     zone_awareness_config {
-      availability_zone_count = 2
+      availability_zone_count = 3
     }
   }
 
@@ -52,12 +52,12 @@ resource "aws_opensearch_domain" "integrates" {
   }
 
   vpc_options {
-    subnet_ids = [
-      for subnet in data.aws_subnet.main : subnet.id
-    ]
-
     security_group_ids = [
       aws_security_group.integrates-opensearch.id,
+    ]
+
+    subnet_ids = [
+      for subnet in data.aws_subnet.main : subnet.id
     ]
   }
 
