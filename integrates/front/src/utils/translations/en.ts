@@ -3299,6 +3299,7 @@ export const enTranslations: ResourceKey = {
       drafts: "Drafts",
       vulnerabilities: "Vulnerabilities",
     },
+    title: "To-Do",
     tooltip: {
       drafts: "Drafts in all your groups",
       vulnerabilities: "Vulnerabilities assigned to you",

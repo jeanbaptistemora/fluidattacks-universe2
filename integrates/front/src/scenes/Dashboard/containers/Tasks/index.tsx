@@ -24,6 +24,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
   return (
     <React.StrictMode>
+      <p className={"f3 fw7 mt4 mb3"}>{t("todoList.title")}</p>
       <MemoryRouter initialEntries={[`${url}/vulns`]} initialIndex={0}>
         <Tabs>
           <Tab
