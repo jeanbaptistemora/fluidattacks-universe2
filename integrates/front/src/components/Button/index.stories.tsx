@@ -4,10 +4,11 @@ import type { PropsWithChildren } from "react";
 import React from "react";
 
 import type { IButtonProps } from ".";
-import { Button } from ".";
+import { Button, ButtonGroup } from ".";
 
 const config: Meta = {
   component: Button,
+  subcomponents: { ButtonGroup },
   title: "components/Button",
 };
 

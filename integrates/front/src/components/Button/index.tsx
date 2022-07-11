@@ -114,5 +114,18 @@ const Button = styled.button.attrs<IButtonProps>(
   }}
 `;
 
+const ButtonGroup = styled.div.attrs({
+  className: "comp-button-group",
+})`
+  .comp-button:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .comp-button:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+`;
+
 export type { IButtonProps };
-export { Button };
+export { Button, ButtonGroup };
