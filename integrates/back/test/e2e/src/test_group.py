@@ -209,7 +209,7 @@ def test_group_scope_repositories(
     environment.send_keys("production")
     reject_health_check = utils.wait_for_id(
         driver,
-        "No",
+        "Yes",
         timeout,
     )
     reject_health_check.click()
@@ -219,10 +219,6 @@ def test_group_scope_repositories(
         timeout,
     )
     reject_health_a.click()
-    checkboxes = driver.find_elements_by_css_selector("input[type='checkbox']")
-    for checkbox in checkboxes[1:]:
-        if not checkbox.is_selected():
-            checkbox.click()
     proceed = utils.wait_for_id(
         driver,
         "git-root-add-confirm",
