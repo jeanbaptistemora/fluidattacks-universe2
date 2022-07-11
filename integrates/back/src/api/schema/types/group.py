@@ -20,6 +20,7 @@ from api.resolvers.group import (
     managed,
     max_acceptance_days,
     max_acceptance_severity,
+    max_number_acceptances,
     max_open_severity,
     max_open_severity_finding,
     max_severity,
@@ -76,6 +77,7 @@ GROUP.set_field("lastClosedVulnerability", last_closed_vulnerability.resolve)
 GROUP.set_field("managed", managed.resolve)
 GROUP.set_field("maxAcceptanceDays", max_acceptance_days.resolve)
 GROUP.set_field("maxAcceptanceSeverity", max_acceptance_severity.resolve)
+GROUP.set_field("maxNumberAcceptances", max_number_acceptances.resolve)
 GROUP.set_field("maxOpenSeverity", max_open_severity.resolve)
 GROUP.set_field("maxOpenSeverityFinding", max_open_severity_finding.resolve)
 GROUP.set_field("meanRemediate", mean_remediate.resolve)
