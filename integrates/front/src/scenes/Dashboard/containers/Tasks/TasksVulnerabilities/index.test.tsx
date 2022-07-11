@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { TasksVulnerabilities } from "scenes/Dashboard/containers/TasksVulnerabilities";
+import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities";
 import {
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER_ORGANIZATIONS_GROUPS,
@@ -18,9 +18,9 @@ import type {
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
+jest.mock("utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
+    "utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
