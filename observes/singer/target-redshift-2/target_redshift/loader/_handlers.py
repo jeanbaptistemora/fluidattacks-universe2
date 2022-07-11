@@ -7,8 +7,10 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     FrozenDict,
+    JsonValue,
     Maybe,
     PureIter,
+    Result,
     ResultE,
 )
 from fa_purity.json.value.transform import (
@@ -44,6 +46,9 @@ from redshift_client.table.core import (
 from target_redshift.data_schema import (
     extract_table,
 )
+from target_redshift.errors import (
+    MissingKey,
+)
 from typing import (
     Dict,
     Tuple,
@@ -56,7 +61,14 @@ def _to_row(table: Table, record: SingerRecord) -> ResultE[RowData]:
     return pure_map(
         lambda c: Maybe.from_optional(record.record.get(c.name))
         .to_result()
-        .alt(lambda _: Exception(f"Missing key `{c.name}` on the record"))
+        .alt(Exception)
+        .lash(
+            lambda _: Result.success(JsonValue(None), Exception)
+            if table.columns[c].nullable
+            else Result.failure(
+                MissingKey(f"on non-nullable column `{c.name}`", table)
+            )
+        )
         .bind(lambda x: Unfolder(x).to_any_primitive()),
         table.order,
     ).transform(lambda x: all_ok(tuple(x)).map(lambda d: RowData(d)))

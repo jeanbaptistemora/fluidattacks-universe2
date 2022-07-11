@@ -4,7 +4,7 @@
 }: let
   src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-    ref = "refs/tags/v0.9.0";
+    ref = "refs/tags/v0.9.1";
   };
 in
   import src {

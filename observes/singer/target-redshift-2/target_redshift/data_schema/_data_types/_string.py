@@ -68,7 +68,7 @@ def _string_handler(encoded: JsonObj) -> ResultE[DataType]:
         .alt(Exception)
         .bind(_to_meta_type)
         .alt(lambda e: Exception(f"Error at metatype. {e}")),
-    ).value_or(Result.success(_MetaType.STATIC))
+    ).value_or(Result.success(_MetaType.DYNAMIC))
     p_type = meta_type.map(
         lambda m: PrecisionTypes.CHAR
         if m is _MetaType.STATIC

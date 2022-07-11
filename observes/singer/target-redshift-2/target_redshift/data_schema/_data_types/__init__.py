@@ -32,6 +32,9 @@ from redshift_client.data_type.core import (
     DataType,
     StaticTypes,
 )
+from target_redshift.errors import (
+    MissingKey,
+)
 from typing import (
     Callable,
 )
@@ -115,10 +118,10 @@ def jschema_type_handler(encoded: JsonObj) -> ResultE[Column]:
             .lash(lambda _: t.to_list_of(str).map(_union.inr)),
         )
         .to_result()
-        .alt(lambda _: Exception("Missing required field `type`"))
+        .alt(lambda _: MissingKey("`type`", encoded))
+        .alt(Exception)
         .bind(lambda b: b.alt(Exception))
     )
-
     return (
         _types.map(_to_list)
         .bind(_simplify_type_list)
