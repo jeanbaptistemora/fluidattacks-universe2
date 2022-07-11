@@ -95,13 +95,12 @@ def delete_action(
 
 async def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
     query = """
-        query GetRootUpload($groupName: String!) {
+        query GetRoots($groupName: String!) {
             group(groupName: $groupName) {
               roots {
                 ... on GitRoot {
                   id
                   nickname
-                  uploadUrl
                   branch
                   url
                   credentials {
@@ -127,10 +126,51 @@ async def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
         async with session.post(
             "https://app.fluidattacks.com/api", data=json.dumps(payload)
         ) as response:
-            result = await response.json()
-            if "errors" in result:
-                logging.error(result["errors"])
-                return None
+            if response.status == 200:
+                result = await response.json()
+            else:
+                logging.error(
+                    "Failed to fetch root info for group %s", group_name
+                )
+                result = None
+        return result
+
+
+async def get_root_upload_url(
+    token: str, group_name: str, root_id: str
+) -> Optional[str]:
+    query = """
+        query GetRootUploadUrl($groupName: String!, $rootId: ID!) {
+            root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                  uploadUrl
+                }
+            }
+        }
+    """
+    payload = {
+        "query": query,
+        "variables": {"groupName": group_name, "rootId": root_id},
+    }
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post(
+            "https://app.fluidattacks.com/api", data=json.dumps(payload)
+        ) as request:
+            if request.status == 200:
+                response = await request.json()
+                result = response["data"]["root"]["uploadUrl"]
+            else:
+                logging.error(
+                    "Failed to get upload URL for root %s in group %s",
+                    root_id,
+                    group_name,
+                )
+                result = None
         return result
 
 
@@ -417,58 +457,62 @@ async def main() -> None:
             status="CLONING",
             message="Cloning in progress...",
         )
+        upload_url = await get_root_upload_url(
+            token=api_token, group_name=group_name, root_id=root["id"]
+        )
 
-        logging.info("Cloning %s", root["nickname"])
+        if upload_url:
+            logging.info("Cloning %s", root["nickname"])
 
-        with suppress(RuntimeError):
-            async with clone_root(
-                group_name=group_name, root=root, api_token=api_token
-            ) as folder_to_clone_root:
-                success_upload = await upload_cloned_repo_to_s3_tar(
-                    repo_path=folder_to_clone_root,
-                    nickname=root["nickname"],
-                    upload_url=root["uploadUrl"],
-                )
-                if success_upload:
-                    try:
-                        commit = Repo(
-                            folder_to_clone_root,
-                            search_parent_directories=True,
-                        ).head.object.hexsha
-                        logging.info(
-                            "Cloned success with commit: %s",
-                            commit,
-                        )
-                        await update_root_cloning_status(
-                            token=api_token,
-                            group_name=group_name,
-                            root_id=root["id"],
-                            status="OK",
-                            message="Cloned successfully",
-                            commit=commit,
-                        )
-                        delete_action(action_dynamo_pk=action_key)
-                        continue
-                    except (GitError, AttributeError) as exc:
-                        logging.exception(
-                            exc,
-                        )
-                        await update_root_cloning_status(
-                            token=api_token,
-                            group_name=group_name,
-                            root_id=root["id"],
-                            status="FAILED",
-                            message=str(exc),
-                        )
-                        continue
+            with suppress(RuntimeError):
+                async with clone_root(
+                    group_name=group_name, root=root, api_token=api_token
+                ) as folder_to_clone_root:
+                    success_upload = await upload_cloned_repo_to_s3_tar(
+                        repo_path=folder_to_clone_root,
+                        nickname=root["nickname"],
+                        upload_url=upload_url,
+                    )
+                    if success_upload:
+                        try:
+                            commit = Repo(
+                                folder_to_clone_root,
+                                search_parent_directories=True,
+                            ).head.object.hexsha
+                            logging.info(
+                                "Cloned success with commit: %s",
+                                commit,
+                            )
+                            await update_root_cloning_status(
+                                token=api_token,
+                                group_name=group_name,
+                                root_id=root["id"],
+                                status="OK",
+                                message="Cloned successfully",
+                                commit=commit,
+                            )
+                            delete_action(action_dynamo_pk=action_key)
+                            continue
+                        except (GitError, AttributeError) as exc:
+                            logging.exception(
+                                exc,
+                            )
+                            await update_root_cloning_status(
+                                token=api_token,
+                                group_name=group_name,
+                                root_id=root["id"],
+                                status="FAILED",
+                                message=str(exc),
+                            )
+                            continue
 
-                await update_root_cloning_status(
-                    token=api_token,
-                    group_name=group_name,
-                    root_id=root["id"],
-                    status="FAILED",
-                    message="The repository can not be uploaded",
-                )
+                    await update_root_cloning_status(
+                        token=api_token,
+                        group_name=group_name,
+                        root_id=root["id"],
+                        status="FAILED",
+                        message="The repository can not be uploaded",
+                    )
 
 
 if __name__ == "__main__":
