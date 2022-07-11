@@ -15,16 +15,18 @@ const LanguagesListContainer: StyledComponent<
   roboto
 `,
 })``;
+
 const ListContainer: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
   className: `
   center
-  moon-gray
   mw8
+  tc
 `,
 })``;
+
 const ListColumn: StyledComponent<
   "ul",
   Record<string, unknown>
@@ -32,9 +34,7 @@ const ListColumn: StyledComponent<
   className: `
   list
   roboto
-  f3-ns
-  f4
-  fw7
+  f5
   dib-l
   ph4
   mv0
@@ -42,7 +42,10 @@ const ListColumn: StyledComponent<
   pv4
   tl
 `,
-})``;
+})`
+  color: #5c5c70;
+`;
+
 const SastParagraph: StyledComponent<
   "div",
   Record<string, unknown>
@@ -54,6 +57,7 @@ const SastParagraph: StyledComponent<
     f4
     lh-2
     pv4
+    tc
   `,
 })``;
 

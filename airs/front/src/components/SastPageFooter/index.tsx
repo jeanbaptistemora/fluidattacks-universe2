@@ -8,35 +8,24 @@ import {
   SastParagraph,
 } from "./styledComponents";
 
-import { BlackH2 } from "../../styles/styledComponents";
 import { translate } from "../../utils/translations/translate";
 import { CloudImage } from "../CloudImage";
+import { Title } from "../Texts";
 
 export const SastPageFooter: React.FC = (): JSX.Element => (
   <LanguagesListContainer>
     <SastParagraph>
-      <div className={"flex"}>
-        <CloudImage
-          alt={"OWASP-logo"}
-          src={"/airs/categories/icon-logo-owasp-rojo"}
-          styles={"pv4 pr3 w3 h3"}
-        />
-        <p className={"lh-copy"}>
-          {translate.t("sastCategoryParagraph.phrase1")}
-          <b>{translate.t("sastCategoryParagraph.bold1")}</b>
-          {translate.t("sastCategoryParagraph.phrase2")}
-          <b>{translate.t("sastCategoryParagraph.bold2")}</b>
-          {translate.t("sastCategoryParagraph.phrase3")}
-          <b>{translate.t("sastCategoryParagraph.bold3")}</b>
-          {translate.t("sastCategoryParagraph.phrase4")}
-          <b>{translate.t("sastCategoryParagraph.bold4")}</b>
-          {translate.t("sastCategoryParagraph.phrase5")}
-          <b>{translate.t("sastCategoryParagraph.bold5")}</b>
-          {"."}
-        </p>
-      </div>
+      <CloudImage
+        alt={"OWASP-logo"}
+        src={"/airs/categories/icon-logo-owasp-rojo"}
+        styles={"pr3 w3 h3"}
+      />
+      <p className={"ma0"}>{translate.t("sastCategoryParagraph.phrase1")}</p>
+      <b className={"ma0"}>{translate.t("sastCategoryParagraph.bold1")}</b>
+      <Title fColor={"#2e2e38"} fSize={"24"} marginTop={"4"}>
+        {"Supported Languages"}
+      </Title>
     </SastParagraph>
-    <BlackH2 className={"roboto"}>{"Supported Languages"}</BlackH2>
     <ListContainer>
       <ListColumn>
         <li>{"ABAP"}</li>

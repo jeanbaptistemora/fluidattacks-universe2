@@ -19,16 +19,15 @@ import { NavbarComponent } from "../components/Navbar";
 import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
+import { Paragraph } from "../components/Texts";
 import {
-  BannerContainer,
-  BigPageContainer,
   BlackH2,
+  ComplianceContainer,
   FlexCenterItemsContainer,
   FullWidthContainer,
-  LittleBannerTitle,
-  LittleBlackParagraph,
+  MarkedTitle,
   PageArticle,
-  PageContainer,
+  RedMark,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
@@ -40,16 +39,8 @@ const CategoryIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const {
-    banner,
-    description,
-    image,
-    keywords,
-    slug,
-    defaux,
-    definition,
-    title,
-  } = data.markdownRemark.frontmatter;
+  const { description, image, keywords, slug, defaux, definition, title } =
+    data.markdownRemark.frontmatter;
 
   return (
     <React.Fragment>
@@ -77,30 +68,18 @@ const CategoryIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f9f9f9"}>
-            <BannerContainer className={banner}>
+            <ComplianceContainer>
+              <RedMark>
+                <MarkedTitle>{title}</MarkedTitle>
+              </RedMark>
+              <Paragraph fColor={"#2e2e38"} fSize={"16"} marginTop={"1"}>
+                {definition}
+              </Paragraph>
+              <Paragraph fColor={"#2e2e38"} fSize={"16"} marginTop={"1"}>
+                {defaux}
+              </Paragraph>
               <FullWidthContainer>
-                <LittleBannerTitle>{title}</LittleBannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
-            <PageContainer>
-              <FullWidthContainer className={"pv4"}>
-                <FlexCenterItemsContainer className={"flex-wrap center"}>
-                  <div>
-                    <div className={"tl"}>
-                      <LittleBlackParagraph className={"tl"}>
-                        {definition}
-                        <br />
-                        <br />
-                        {defaux}
-                      </LittleBlackParagraph>
-                    </div>
-                  </div>
-                </FlexCenterItemsContainer>
-              </FullWidthContainer>
-            </PageContainer>
-            <BigPageContainer>
-              <FullWidthContainer className={"pv4"}>
-                <BlackH2 className={"roboto"}>{"Benefits"}</BlackH2>
+                <BlackH2>{`These are the benefits of ${title}`}</BlackH2>
                 <FlexCenterItemsContainer
                   className={"solution-benefits flex-wrap"}
                   dangerouslySetInnerHTML={{
@@ -108,8 +87,8 @@ const CategoryIndex: React.FC<IQueryData> = ({
                   }}
                 />
               </FullWidthContainer>
-            </BigPageContainer>
-            {slug === "categories/sast/" ? <SastPageFooter /> : undefined}
+              {slug === "categories/sast/" ? <SastPageFooter /> : undefined}
+            </ComplianceContainer>
           </PageArticle>
         </div>
       </Layout>
