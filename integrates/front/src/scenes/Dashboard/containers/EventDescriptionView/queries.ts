@@ -16,6 +16,8 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
       eventStatus
       hacker
       id
+      otherSolvingReason
+      solvingReason
     }
   }
 `;
@@ -32,4 +34,24 @@ const SOLVE_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
-export { GET_EVENT_DESCRIPTION, SOLVE_EVENT_MUTATION };
+const UPDATE_EVENT_SOLVING_REASON_MUTATION: DocumentNode = gql`
+  mutation UpdateEventSolvingReasonMutation(
+    $eventId: String!
+    $other: String
+    $reason: SolveEventReason!
+  ) {
+    updateEventSolvingReason(
+      eventId: $eventId
+      reason: $reason
+      other: $other
+    ) {
+      success
+    }
+  }
+`;
+
+export {
+  GET_EVENT_DESCRIPTION,
+  SOLVE_EVENT_MUTATION,
+  UPDATE_EVENT_SOLVING_REASON_MUTATION,
+};

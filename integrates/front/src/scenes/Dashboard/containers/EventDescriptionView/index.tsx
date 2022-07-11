@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -7,8 +9,9 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import type { IEventDescriptionData } from "./types";
+
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Modal, ModalConfirm } from "components/Modal";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
@@ -34,28 +37,34 @@ import { msgError } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
-interface IAffectedReattacks {
-  findingId: string;
-  where: string;
-  specific: string;
-}
-
-interface IEventDescriptionData {
-  event: {
-    accessibility: string[];
-    affectedComponents: string[];
-    affectedReattacks: IAffectedReattacks[];
-    hacker: string;
-    client: string;
-    detail: string;
-    eventStatus: string;
-    id: string;
-  };
-}
-
 const EventDescriptionView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { eventId } = useParams<{ eventId: string }>();
+
+  const solvingReason: Record<string, string> = {
+    AFFECTED_RESOURCE_REMOVED_FROM_SCOPE: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.removedFromScope"
+    ),
+    OTHER: t("searchFindings.tabSeverity.common.deactivation.reason.other"),
+    PERMISSION_DENIED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.permissionDenied"
+    ),
+    PERMISSION_GRANTED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.permissionGranted"
+    ),
+    PROBLEM_SOLVED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.problemSolved"
+    ),
+    SUPPLIES_WERE_GIVEN: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.suppliesWereGiven"
+    ),
+    TOE_CHANGE_APPROVED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.toeApproved"
+    ),
+    TOE_WILL_REMAIN_UNCHANGED: t(
+      "searchFindings.tabSeverity.common.deactivation.reason.toeUnchanged"
+    ),
+  };
 
   // State management
   const [isSolvingModalOpen, setIsSolvingModalOpen] = useState(false);
@@ -106,7 +115,10 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     {
       onCompleted: handleUpdateResult,
       onError: handleUpdateError,
-      refetchQueries: [{ query: GET_EVENT_HEADER, variables: { eventId } }],
+      refetchQueries: [
+        { query: GET_EVENT_HEADER, variables: { eventId } },
+        GET_EVENT_DESCRIPTION,
+      ],
     }
   );
 
@@ -164,45 +176,27 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       >
                         <option value={""} />
                         <option value={"PERMISSION_GRANTED"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.permissionGranted"
-                          )}
+                          {solvingReason.PERMISSION_GRANTED}
                         </option>
                         <option value={"PERMISSION_DENIED"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.permissionDenied"
-                          )}
+                          {solvingReason.PERMISSION_DENIED}
                         </option>
                         <option value={"AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.removedFromScope"
-                          )}
+                          {solvingReason.AFFECTED_RESOURCE_REMOVED_FROM_SCOPE}
                         </option>
                         <option value={"SUPPLIES_WERE_GIVEN"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.suppliesWereGiven"
-                          )}
+                          {solvingReason.SUPPLIES_WERE_GIVEN}
                         </option>
                         <option value={"TOE_CHANGE_APPROVED"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.toeApproved"
-                          )}
+                          {solvingReason.TOE_CHANGE_APPROVED}
                         </option>
                         <option value={"TOE_WILL_REMAIN_UNCHANGED"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.toeUnchanged"
-                          )}
+                          {solvingReason.TOE_WILL_REMAIN_UNCHANGED}
                         </option>
                         <option value={"PROBLEM_SOLVED"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.problemSolved"
-                          )}
+                          {solvingReason.PROBLEM_SOLVED}
                         </option>
-                        <option value={"OTHER"}>
-                          {t(
-                            "searchFindings.tabSeverity.common.deactivation.reason.other"
-                          )}
-                        </option>
+                        <option value={"OTHER"}>{solvingReason.OTHER}</option>
                       </Field>
                     </FormGroup>
                     {values.reason === "OTHER" ? (
@@ -254,7 +248,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         onClick={openSolvingModal}
                         variant={"primary"}
                       >
-                        <FluidIcon icon={"verified"} />
+                        <FontAwesomeIcon icon={faCheck} />
                         &nbsp;
                         {t("searchFindings.tabSeverity.solve")}
                       </Button>
@@ -347,6 +341,43 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     />
                   </Col50>
                 </Row>
+                {data.event.eventStatus === "SOLVED" ? (
+                  <Row>
+                    {data.event.solvingReason === "OTHER" ? (
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={
+                            _.isNil(data.event.otherSolvingReason)
+                              ? "-"
+                              : _.capitalize(data.event.otherSolvingReason)
+                          }
+                          label={t("searchFindings.tabEvents.solvingReason")}
+                          name={"otherSolvingReason"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                    ) : (
+                      <Col50>
+                        <EditableField
+                          alignField={"horizontalWide"}
+                          component={FormikText}
+                          currentValue={
+                            _.isNil(data.event.solvingReason)
+                              ? "-"
+                              : solvingReason[data.event.solvingReason]
+                          }
+                          label={t("searchFindings.tabEvents.solvingReason")}
+                          name={"solvingReason"}
+                          renderAsEditable={false}
+                          type={"text"}
+                        />
+                      </Col50>
+                    )}
+                  </Row>
+                ) : undefined}
               </div>
             </div>
           </Form>
