@@ -648,11 +648,12 @@ async def send_mail_numerator_report(
     email_to: List[str],
     report_date: date,
 ) -> None:
+    user_login = str(context["responsible"]).split("@", maxsplit=1)[0]
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
         tags=GENERAL_TAG,
-        subject=f"[ASM] Enumeration Digest [{report_date}]",
+        subject=f"[ASM] Enumeration Digest {user_login} [{report_date}]",
         context=context,
         template_name="numerator_digest",
     )
