@@ -23,7 +23,7 @@ def client() -> Iterator[GraphQLClient]:
     if hasattr(CTX, "api_token") and CTX.api_token:
         transport: Transport = RequestsHTTPTransport(
             headers={"Authorization": f"Bearer {CTX.api_token}"},
-            timeout=5,
+            timeout=10,
             url="https://app.fluidattacks.com/api",
         )
         yield GraphQLClient(transport=transport)

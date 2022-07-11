@@ -67,7 +67,7 @@ def associate_vulns_to_files(
                     for consequent in consequents:
                         suggestion = {
                             "findingTitle": consequent,
-                            "probability": round(int(rule[2]) * 100),
+                            "probability": int(rule[2] * 100),
                         }
                         sorts_suggestions.append(suggestion)
                 if len(sorts_suggestions) >= 5:
@@ -77,13 +77,14 @@ def associate_vulns_to_files(
                 "filename": file[0].split("/", 1)[1],
                 "sortsSuggestions": sorts_suggestions[:5],
             }
-            executor.submit(
-                update_toe_lines_suggestions,
-                group_name,
-                file_info["rootNickname"],
-                file_info["filename"],
-                file_info["sortsSuggestions"],
-            )
+            if sorts_suggestions:
+                executor.submit(
+                    update_toe_lines_suggestions,
+                    group_name,
+                    file_info["rootNickname"],
+                    file_info["filename"],
+                    file_info["sortsSuggestions"],
+                )
     log("info", f"ToeLines's sortsSuggestions for {group_name} updated")
 
 
