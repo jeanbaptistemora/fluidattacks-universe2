@@ -30,7 +30,7 @@ import { msgError } from "utils/notifications";
 
 export const Breadcrumb: React.FC = (): JSX.Element => {
   const { pathname } = useLocation();
-  const { action, goBack, push } = useHistory();
+  const { goBack, push } = useHistory();
   const { t } = useTranslation();
 
   const [lastOrganization, setLastOrganization] = useStoredState(
@@ -132,24 +132,21 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     void refetch();
   }, [refetch]);
 
-  const isOrphanPath: boolean = useMemo(
-    (): boolean => _.includes(["/user/config", "/todos"], pathname),
-    [pathname]
-  );
   const shouldDisplayGoBack: boolean = useMemo(
-    (): boolean => action !== "POP" && isOrphanPath,
-    [action, isOrphanPath]
+    (): boolean =>
+      _.includes(["/user/config", "/todos/vulns", "/todos/drafts"], pathname),
+    [pathname]
   );
 
   const handleOrganizationChange = useCallback(
     (eventKey: string): void => {
-      if (eventKey !== lastOrganization.name || isOrphanPath) {
+      if (eventKey !== lastOrganization.name || shouldDisplayGoBack) {
         setLastOrganization({ name: eventKey });
         push(`/orgs/${eventKey}/groups`);
       }
       setIsOrgItemsOpen(false);
     },
-    [lastOrganization.name, isOrphanPath, push, setLastOrganization]
+    [lastOrganization.name, shouldDisplayGoBack, push, setLastOrganization]
   );
 
   const [isGroupItemsOpen, setIsGroupItemsOpen] = useState(false);
