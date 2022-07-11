@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import { Tab, Tabs } from "components/Tabs";
+import { TasksDrafts } from "scenes/Dashboard/containers/Tasks/TasksDrafts";
 import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities";
 import type { ITasksContent } from "scenes/Dashboard/containers/Tasks/types";
 import { TabContent } from "styles/styledComponents";
@@ -55,9 +56,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
               />
             </Route>
             <Route exact={true} path={`${path}/drafts`}>
-              <div>
-                <h1>{"Under construction"}</h1>
-              </div>
+              <TasksDrafts />
             </Route>
           </Switch>
         </TabContent>
