@@ -11,6 +11,12 @@ interface IEnvironmentUrl {
   createdAt: string;
   urlType: string;
 }
+interface IBasicEnvironmentUrl {
+  id: string;
+  url: string;
+  urlType: string;
+}
+
 interface ICredentials {
   id: string;
   key: string;
@@ -101,6 +107,7 @@ interface IFormValues {
 
 export type {
   Root,
+  IBasicEnvironmentUrl,
   IGitRootAttr,
   IIPRootAttr,
   IURLRootAttr,

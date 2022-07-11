@@ -128,11 +128,6 @@ const GET_ROOT_ENVIRONMENT_URLS: DocumentNode = gql`
         gitEnvironmentUrls {
           url
           id
-          secrets {
-            value
-            key
-            description
-          }
           urlType
         }
       }

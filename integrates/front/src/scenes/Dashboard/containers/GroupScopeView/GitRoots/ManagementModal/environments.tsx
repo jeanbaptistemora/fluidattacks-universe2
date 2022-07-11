@@ -15,7 +15,7 @@ import {
   GET_ROOT_ENVIRONMENT_URLS,
   REMOVE_ENVIRONMENT_URL,
 } from "../../queries";
-import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../../types";
+import type { IBasicEnvironmentUrl, IFormValues } from "../../types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalConfirm } from "components/Modal";
@@ -31,7 +31,7 @@ interface IEnvironmentsProps {
   onUpdate: () => void;
 }
 
-interface IEnvironmentUrlItem extends IEnvironmentUrl {
+interface IEnvironmentUrlItem extends IBasicEnvironmentUrl {
   element: JSX.Element;
 }
 
@@ -46,17 +46,16 @@ const Environments: React.FC<IEnvironmentsProps> = ({
 
   const [isAddEnvModalOpen, setIsAddEnvModalOpen] = useState(false);
   const initialValues = { ...rootInitialValues, other: "", reason: "" };
-  const { data, refetch } = useQuery<{ root: IGitRootAttr }>(
-    GET_ROOT_ENVIRONMENT_URLS,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          Logger.error("Couldn't load secrets", error);
-        });
-      },
-      variables: { groupName, rootId: initialValues.id },
-    }
-  );
+  const { data, refetch } = useQuery<{
+    root: { gitEnvironmentUrls: IBasicEnvironmentUrl[] };
+  }>(GET_ROOT_ENVIRONMENT_URLS, {
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        Logger.error("Couldn't load secrets", error);
+      });
+    },
+    variables: { groupName, rootId: initialValues.id },
+  });
   const [removeEnvironmentUrl] = useMutation(REMOVE_ENVIRONMENT_URL, {
     onCompleted: async (): Promise<void> => {
       await refetch();
@@ -96,7 +95,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
     }
 
     return data.root.gitEnvironmentUrls.map(
-      (gitEnvironment: IEnvironmentUrl): IEnvironmentUrlItem => {
+      (gitEnvironment: IBasicEnvironmentUrl): IEnvironmentUrlItem => {
         return {
           ...gitEnvironment,
           element: (
