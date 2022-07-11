@@ -679,9 +679,6 @@ export const enTranslations: ResourceKey = {
         state: "Status",
         treatment: "Treatment",
         xls: "  Technical",
-        xlsTooltip:
-          "Receive an xls file with a technical report that gives you more detailed " +
-          "information about all the findings of this group",
       },
       tableSet: {
         btn: {

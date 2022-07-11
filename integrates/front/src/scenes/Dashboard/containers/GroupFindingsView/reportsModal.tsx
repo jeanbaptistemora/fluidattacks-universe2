@@ -18,14 +18,13 @@ import { useParams } from "react-router-dom";
 
 import { setReportType } from "./helpers";
 
-import { Button } from "components/Button";
+import { Button, ButtonGroup } from "components/Button";
 import { Gap } from "components/Layout";
 import { Modal } from "components/Modal";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import { Col100 } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -106,101 +105,101 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
         open={isOpen}
         title={t("group.findings.report.modalTitle")}
       >
-        <Col100>
-          <VerifyDialog isOpen={isVerifyDialogOpen}>
-            {(setVerifyCallbacks): JSX.Element => {
-              function onRequestReport(
-                event: React.MouseEvent<HTMLElement>
-              ): void {
-                const target: HTMLElement = event.currentTarget as HTMLElement;
-                const icon: SVGElement | null = target.querySelector("svg");
-                if (icon !== null) {
-                  const reportType: string = setReportType(icon);
-                  setVerifyCallbacks(
-                    (verificationCode: string): void => {
-                      handleRequestGroupReport(reportType, verificationCode);
-                    },
-                    (): void => {
-                      setIsVerifyDialogOpen(false);
-                    }
-                  );
-                  setIsVerifyDialogOpen(true);
-                }
+        <VerifyDialog isOpen={isVerifyDialogOpen}>
+          {(setVerifyCallbacks): JSX.Element => {
+            function onRequestReport(
+              event: React.MouseEvent<HTMLElement>
+            ): void {
+              const target: HTMLElement = event.currentTarget as HTMLElement;
+              const icon: SVGElement | null = target.querySelector("svg");
+              if (icon !== null) {
+                const reportType: string = setReportType(icon);
+                setVerifyCallbacks(
+                  (verificationCode: string): void => {
+                    handleRequestGroupReport(reportType, verificationCode);
+                  },
+                  (): void => {
+                    setIsVerifyDialogOpen(false);
+                  }
+                );
+                setIsVerifyDialogOpen(true);
               }
+            }
 
-              return (
-                <Gap>
+            return (
+              <Gap>
+                {userRole === "user_manager" ? (
                   <TooltipWrapper
                     id={"group.findings.report.certTooltip.id"}
                     message={t("group.findings.report.certTooltip")}
                   >
                     <Button
                       disabled={!enableCerts}
-                      hidden={userRole !== "user_manager"}
                       id={"report-cert"}
                       onClick={onRequestReport}
                       variant={"secondary"}
                     >
                       <FontAwesomeIcon icon={faFileContract} />
+                      &nbsp;
                       {t("group.findings.report.cert")}
                     </Button>
                   </TooltipWrapper>
-                  <TooltipWrapper
-                    id={"group.findings.report.pdfTooltip.id"}
-                    message={t("group.findings.report.pdfTooltip")}
+                ) : undefined}
+                <TooltipWrapper
+                  id={"group.findings.report.pdfTooltip.id"}
+                  message={t("group.findings.report.pdfTooltip")}
+                >
+                  <Button
+                    id={"report-pdf"}
+                    onClick={onRequestReport}
+                    variant={"secondary"}
                   >
-                    <Button
-                      id={"report-pdf"}
-                      onClick={onRequestReport}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faFilePdf} />
-                      {t("group.findings.report.pdf")}
-                    </Button>
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    id={"group.findings.report.xlsTooltip.id"}
-                    message={t("group.findings.report.xlsTooltip")}
+                    <FontAwesomeIcon icon={faFilePdf} />
+                    &nbsp;
+                    {t("group.findings.report.pdf")}
+                  </Button>
+                </TooltipWrapper>
+                <ButtonGroup>
+                  <Button
+                    id={"report-excel"}
+                    onClick={onRequestReport}
+                    variant={"secondary"}
                   >
-                    <Button
-                      id={"report-excel"}
-                      onClick={onRequestReport}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faFileExcel} />
-                      {t("group.findings.report.xls")}
-                    </Button>
-                    <Button
-                      id={"customize-report"}
-                      onClick={openFilterReportModal}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faSlidersH} />
-                    </Button>
-                    <FilterReportModal
-                      closeReportsModal={onClose}
-                      isOpen={isFilterReportModalOpen}
-                      onClose={closeFilterReportsModal}
-                    />
-                  </TooltipWrapper>
-                  <TooltipWrapper
-                    id={"group.findings.report.dataTooltip.id"}
-                    message={t("group.findings.report.dataTooltip")}
+                    <FontAwesomeIcon icon={faFileExcel} />
+                    &nbsp;
+                    {t("group.findings.report.xls")}
+                  </Button>
+                  <Button
+                    id={"customize-report"}
+                    onClick={openFilterReportModal}
+                    variant={"secondary"}
                   >
-                    <Button
-                      id={"report-zip"}
-                      onClick={onRequestReport}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faFileArchive} />
-                      {t("group.findings.report.data")}
-                    </Button>
-                  </TooltipWrapper>
-                </Gap>
-              );
-            }}
-          </VerifyDialog>
-        </Col100>
+                    <FontAwesomeIcon icon={faSlidersH} />
+                  </Button>
+                </ButtonGroup>
+                <TooltipWrapper
+                  id={"group.findings.report.dataTooltip.id"}
+                  message={t("group.findings.report.dataTooltip")}
+                >
+                  <Button
+                    id={"report-zip"}
+                    onClick={onRequestReport}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faFileArchive} />
+                    &nbsp;
+                    {t("group.findings.report.data")}
+                  </Button>
+                </TooltipWrapper>
+                <FilterReportModal
+                  closeReportsModal={onClose}
+                  isOpen={isFilterReportModalOpen}
+                  onClose={closeFilterReportsModal}
+                />
+              </Gap>
+            );
+          }}
+        </VerifyDialog>
       </Modal>
     </React.StrictMode>
   );
