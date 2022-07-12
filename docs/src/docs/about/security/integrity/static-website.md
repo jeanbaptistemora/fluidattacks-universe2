@@ -11,3 +11,9 @@ meaning that it only serves plain HTML files.
 As it does not have any complex functionality
 that would require an application server,
 it cannot be hacked.
+
+## Requirements
+
+- [176. Restrict system objects](/criteria/requirements/176)
+- [266. Disable insecure functionalities](/criteria/requirements/266)
+- [349. Include HTTP security headers](/criteria/requirements/349)

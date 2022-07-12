@@ -30,3 +30,9 @@ updating the operating system monthly,
 executing code,
 formatting the computer,
 among many others.
+
+## Requirements
+
+- [231. Implement a biometric verification component](/criteria/requirements/231)
+- [265. Restrict access to critical processes](/criteria/requirements/265)
+- [266. Disable insecure functionalities](/criteria/requirements/266)

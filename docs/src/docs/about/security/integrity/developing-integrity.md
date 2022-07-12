@@ -250,3 +250,12 @@ a developer must do the following:
 If all tests and the peer review are passed,
 a new production version with the updated dependency
 will be automatically deployed.
+
+## Requirements
+
+- [051. Store source code in a repository](/criteria/requirements/051)
+- [159. Obfuscate code](/criteria/requirements/159)
+- [180. Use mock data](/criteria/requirements/180)
+- [265. Restrict access to critical processes](/criteria/requirements/265)
+- [302. Declare dependencies explicitly](/criteria/requirements/302)
+- [374. Use of isolation methods in running applications](/criteria/requirements/374)

@@ -23,3 +23,7 @@ that implements the following:
 - Hotlink protection
 
 - Anti-bot challenges
+
+## Requirements
+
+- [273. Define a fixed security suite](/criteria/requirements/273)

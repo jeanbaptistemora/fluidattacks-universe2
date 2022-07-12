@@ -15,3 +15,10 @@ These protocols help email recipients
 verify if an email comes from a trusted source,
 thus helping them avoid phishing
 and fake emails.
+
+## Requirements
+
+- [115. Filter malicious emails](/criteria/requirements/115)
+- [118. Inspect attachments](/criteria/requirements/118)
+- [121. Guarantee uniqueness of emails](/criteria/requirements/121)
+- [123. Restrict the reading of emails](/criteria/requirements/123)
