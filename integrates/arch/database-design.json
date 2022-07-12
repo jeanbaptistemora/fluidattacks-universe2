@@ -4601,7 +4601,7 @@
                     "N": "0"
                   },
                   "vulnerability_grace_period": {
-                    "N": "0"
+                    "N": "10"
                   },
                   "modified_by": {
                     "S": "integratesmanager@gmail.com"

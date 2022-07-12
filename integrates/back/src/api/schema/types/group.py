@@ -49,6 +49,7 @@ from api.resolvers.group import (
     total_treatment,
     user_deletion,
     user_role,
+    vulnerability_grace_period,
 )
 from ariadne import (
     ObjectType,
@@ -113,6 +114,7 @@ GROUP.set_field("toeLines", toe_lines.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userDeletion", user_deletion.resolve)
 GROUP.set_field("userRole", user_role.resolve)
+GROUP.set_field("vulnerabilityGracePeriod", vulnerability_grace_period.resolve)
 
 # --------------------------- Deprecated fields -------------------------------
 GROUP.set_field("maxSeverity", max_severity.resolve)

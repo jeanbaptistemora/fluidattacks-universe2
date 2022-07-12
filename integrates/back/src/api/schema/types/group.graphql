@@ -174,4 +174,7 @@ type Group {
   userDeletion: String
   "Role of the current user within the group"
   userRole: String
+  """Grace period in days where newly reported vulnerabilities won't break the
+  build (DevSecOps only)"""
+  vulnerabilityGracePeriod: Int!
 }
