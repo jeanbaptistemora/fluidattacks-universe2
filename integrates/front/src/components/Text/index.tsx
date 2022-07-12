@@ -55,6 +55,7 @@ interface ITextProps {
   size?: Nums1To7;
   tone?: TColor;
   fw?: Nums1To9;
+  ta?: "center" | "end" | "start";
 }
 
 const Text = styled.p.attrs(
@@ -77,10 +78,11 @@ const Text = styled.p.attrs(
     tone = "dark",
     hoverBright = bright,
     hoverTone = tone,
+    ta = "start",
   }): string => `
     color: #${colors[tone][bright]};
     display: ${disp};
-    text-align: start;
+    text-align: ${ta};
     transition: all 0.3s ease;
     width: ${disp === "block" ? "100%" : "auto"};
 
