@@ -28,7 +28,7 @@ jest.mock("utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("VulnerabilitiesView", (): void => {
+describe("TodoVulnerabilitiesView", (): void => {
   const mocksVulnerabilities: MockedResponse = {
     request: {
       query: GET_ME_VULNERABILITIES_ASSIGNED,
