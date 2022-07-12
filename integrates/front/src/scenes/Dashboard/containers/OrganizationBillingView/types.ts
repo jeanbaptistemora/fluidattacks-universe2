@@ -25,6 +25,11 @@ interface IPaymentMethodAttr {
   lastFourDigits: string;
   expirationMonth: string;
   expirationYear: string;
+  businessName: string;
+  email: string;
+  country: string;
+  state: string;
+  city: string;
 }
 
 interface IGetOrganizationBilling {

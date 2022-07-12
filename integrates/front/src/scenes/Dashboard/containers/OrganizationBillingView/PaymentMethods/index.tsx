@@ -51,8 +51,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
 
     // Data
-    const data: IPaymentMethodAttr[] = paymentMethods.map(
-      (paymentMethodData: IPaymentMethodAttr): IPaymentMethodAttr => {
+    const creditCardData: IPaymentMethodAttr[] = paymentMethods
+      .map((paymentMethodData: IPaymentMethodAttr): IPaymentMethodAttr => {
         const isDefault: boolean = paymentMethodData.default;
         const capitalized: string = _.capitalize(paymentMethodData.brand);
         const brand: string = isDefault
@@ -65,27 +65,50 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           ...paymentMethodData,
           brand,
         };
+      })
+      .filter((paymentMethod: IPaymentMethodAttr): boolean => {
+        return paymentMethod.id !== "";
+      });
+
+    const otherMethodData: IPaymentMethodAttr[] = paymentMethods.filter(
+      (paymentMethod: IPaymentMethodAttr): boolean => {
+        return paymentMethod.id === "";
       }
     );
 
-    // Search bar
-    const [searchTextFilter, setSearchTextFilter] = useState("");
-    function onSearchTextChange(
+    // Search credit card bar
+    const [searchFilterCreditCard, setSearchFilterCreditCard] = useState("");
+    function onSearchCreditCardChange(
       event: React.ChangeEvent<HTMLInputElement>
     ): void {
-      setSearchTextFilter(event.target.value);
+      setSearchFilterCreditCard(event.target.value);
     }
-    const filterSearchtextResult: IPaymentMethodAttr[] = filterSearchText(
-      data,
-      searchTextFilter
+    const filterSearchTextCreditCard: IPaymentMethodAttr[] = filterSearchText(
+      creditCardData,
+      searchFilterCreditCard
+    );
+
+    // Search other method bar
+    const [searchFilterOtherMethod, setSearchFilterOtherMethod] = useState("");
+    function onSearchOtherMethodChange(
+      event: React.ChangeEvent<HTMLInputElement>
+    ): void {
+      setSearchFilterOtherMethod(event.target.value);
+    }
+    const filterSearchTextOtherMethod: IPaymentMethodAttr[] = filterSearchText(
+      otherMethodData,
+      searchFilterOtherMethod
     );
 
     // Add payment method
     const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState<
       "CREDIT_CARD" | "OTHER_METHOD" | false
     >(false);
-    const openAddModal = useCallback((): void => {
+    const openAddCreditCardModal = useCallback((): void => {
       setIsAddingPaymentMethod("CREDIT_CARD");
+    }, []);
+    const openAddOtherMethodModal = useCallback((): void => {
+      setIsAddingPaymentMethod("OTHER_METHOD");
     }, []);
     const closeAddModal = useCallback((): void => {
       setIsAddingPaymentMethod(false);
@@ -259,7 +282,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       [updatePaymentMethod, organizationId, currentRow.id]
     );
 
-    const tableHeaders: IHeaderConfig[] = [
+    const creditCardTableHeaders: IHeaderConfig[] = [
       {
         dataField: "brand",
         header: "Brand",
@@ -278,29 +301,51 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
     ];
 
+    const otherMethodsTableHeaders: IHeaderConfig[] = [
+      {
+        dataField: "businessName",
+        header: "Business Name",
+      },
+      {
+        dataField: "email",
+        header: "e-factura email",
+      },
+      {
+        dataField: "country",
+        header: "Country",
+      },
+    ];
+
     return (
       <Container>
         <Row>
           <div className={"w-100-ns"}>
             <Row>
               <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
+            </Row>
+            <Row>
+              <h3>
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.creditCard.label"
+                )}
+              </h3>
               <Table
                 columnToggle={false}
                 customSearch={{
-                  customSearchDefault: searchTextFilter,
+                  customSearchDefault: searchFilterCreditCard,
                   isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchTextChange,
+                  onUpdateCustomSearch: onSearchCreditCardChange,
                   position: "right",
                 }}
-                dataset={filterSearchtextResult}
+                dataset={filterSearchTextCreditCard}
                 defaultSorted={{ dataField: "brand", order: "asc" }}
                 exportCsv={false}
                 extraButtons={
                   <Row>
                     <Can do={"api_mutations_add_payment_method_mutate"}>
                       <Button
-                        id={"addPaymentMethod"}
-                        onClick={openAddModal}
+                        id={"addCreditCard"}
+                        onClick={openAddCreditCardModal}
                         variant={"primary"}
                       >
                         <FontAwesomeIcon icon={faPlus} />
@@ -313,7 +358,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     <Can do={"api_mutations_update_payment_method_mutate"}>
                       <Button
                         disabled={_.isEmpty(currentRow) || removing || updating}
-                        id={"updatePaymentMethod"}
+                        id={"updateCreditCard"}
                         onClick={openUpdateModal}
                         variant={"secondary"}
                       >
@@ -327,7 +372,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     <Can do={"api_mutations_remove_payment_method_mutate"}>
                       <Button
                         disabled={_.isEmpty(currentRow) || removing || updating}
-                        id={"removePaymentMethod"}
+                        id={"removeCreditCard"}
                         onClick={handleRemovePaymentMethod}
                         variant={"secondary"}
                       >
@@ -340,8 +385,54 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                     </Can>
                   </Row>
                 }
-                headers={tableHeaders}
-                id={"tblPaymentMethods"}
+                headers={creditCardTableHeaders}
+                id={"tblCreditCard"}
+                pageSize={10}
+                search={false}
+                selectionMode={{
+                  clickToSelect: canRemove || canUpdate,
+                  hideSelectColumn: !canRemove && !canUpdate,
+                  mode: "radio",
+                  onSelect: setCurrentRow,
+                }}
+              />
+            </Row>
+            <Row>
+              <h3>
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.otherMethods.label"
+                )}
+              </h3>
+              <Table
+                columnToggle={false}
+                customSearch={{
+                  customSearchDefault: searchFilterOtherMethod,
+                  isCustomSearchEnabled: true,
+                  onUpdateCustomSearch: onSearchOtherMethodChange,
+                  position: "right",
+                }}
+                dataset={filterSearchTextOtherMethod}
+                defaultSorted={{ dataField: "businessName", order: "asc" }}
+                exportCsv={false}
+                extraButtons={
+                  <Row>
+                    <Can do={"api_mutations_add_payment_method_mutate"}>
+                      <Button
+                        id={"addOtherMethod"}
+                        onClick={openAddOtherMethodModal}
+                        variant={"primary"}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                        &nbsp;
+                        {t(
+                          "organization.tabs.billing.paymentMethods.add.button"
+                        )}
+                      </Button>
+                    </Can>
+                  </Row>
+                }
+                headers={otherMethodsTableHeaders}
+                id={"tblOtherMethods"}
                 pageSize={10}
                 search={false}
                 selectionMode={{

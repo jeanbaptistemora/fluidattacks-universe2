@@ -27,6 +27,11 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         expirationMonth
         expirationYear
         lastFourDigits
+        businessName
+        email
+        country
+        state
+        city
       }
     }
   }
