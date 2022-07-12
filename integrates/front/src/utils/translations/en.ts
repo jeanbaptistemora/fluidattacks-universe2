@@ -3298,11 +3298,13 @@ export const enTranslations: ResourceKey = {
   todoList: {
     tabs: {
       drafts: "Drafts",
+      reattacks: "Reattacks",
       vulnerabilities: "Vulnerabilities",
     },
     title: "To-Do",
     tooltip: {
       drafts: "Drafts in all your groups",
+      reattacks: "Findings with pending reattacks",
       vulnerabilities: "Vulnerabilities assigned to you",
     },
   },
