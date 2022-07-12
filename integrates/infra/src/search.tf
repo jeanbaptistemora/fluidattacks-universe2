@@ -29,7 +29,7 @@ resource "aws_iam_service_linked_role" "integrates-opensearch" {
 }
 
 resource "aws_opensearch_domain" "integrates" {
-  depends_on     = ["aws_iam_service_linked_role.integrates-opensearch"]
+  depends_on     = [aws_iam_service_linked_role.integrates-opensearch]
   domain_name    = "integrates"
   engine_version = "OpenSearch_1.2"
 
