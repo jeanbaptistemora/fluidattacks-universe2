@@ -9,11 +9,11 @@ describe("Container", (): void => {
     expect(typeof Container).toBe("object");
   });
 
-  it("should render container content", (): void => {
+  it("should render a container", (): void => {
     expect.hasAssertions();
 
     render(
-      <Container height={"500px"}>
+      <Container>
         <p>{"Container content"}</p>
       </Container>
     );

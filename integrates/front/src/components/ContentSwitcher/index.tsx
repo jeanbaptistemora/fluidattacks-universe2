@@ -4,7 +4,7 @@ import { Buttons } from "./styles";
 
 interface IContentSwitcherProps {
   contents: JSX.Element[];
-  initSelection: number;
+  initSelection?: number;
   tabs: string[];
 }
 
