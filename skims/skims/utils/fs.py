@@ -42,6 +42,9 @@ from typing import (
 from utils.logs import (
     log_blocking,
 )
+from wcmatch import (
+    glob as w_glob,
+)
 
 MAX_FILE_SIZE: int = 102400  # 100KiB
 
@@ -424,3 +427,29 @@ def iter_rel_paths(starting_path: str) -> Iterator[str]:
         path.replace(starting_path, "")[1:]
         for path in _iter_full_paths(starting_path)
     )
+
+
+def transform_glob(pattern: str) -> str:
+    if pattern.startswith("glob(") and pattern.endswith(")"):
+        return pattern[5:-1]
+    return pattern
+
+
+def path_is_include(
+    path: str,
+    include_patterns: Optional[List[str]] = None,
+    exclude_patterns: Optional[List[str]] = None,
+) -> bool:
+    is_include = False
+    if not include_patterns and not exclude_patterns:
+        return True
+    for include_pattern in include_patterns or []:
+        if w_glob.globmatch(path, transform_glob(include_pattern)):
+            is_include = True
+            break
+    for exclude_path in exclude_patterns or []:
+        if w_glob.globmatch(path, transform_glob(exclude_path)):
+            is_include = False
+            break
+
+    return is_include
