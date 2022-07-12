@@ -879,7 +879,7 @@ async def send_mail_updated_root(
         key: value
         for key, value in new_state._asdict().items()
         if old_state[key] != value
-        and key not in ["modified_by", "modified_date"]
+        and key not in ["modified_by", "modified_date", "credential_id"]
     }
 
     if new_root_content:

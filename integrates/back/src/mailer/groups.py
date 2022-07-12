@@ -240,6 +240,34 @@ async def send_mail_updated_root(
     )
 
 
+async def send_mail_updated_root_credential(
+    *,
+    loaders: Any,
+    email_to: List[str],
+    group_name: str,
+    responsible: str,
+    root_nickname: str,
+) -> None:
+    user_role = await authz.get_group_level_role(responsible, group_name)
+    org_name = await get_organization_name(loaders, group_name)
+    await send_mails_async(
+        loaders=loaders,
+        email_to=email_to,
+        context={
+            "group": group_name,
+            "responsible": responsible,
+            "root_nickname": root_nickname,
+            "user_role": user_role.replace("_", " "),
+            "scope_link": (
+                f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"
+            ),
+        },
+        tags=GENERAL_TAG,
+        subject=f"[ASM] Root credential alert in [{group_name}]",
+        template_name="root_credential_report",
+    )
+
+
 async def send_mail_deactivated_root(
     *,
     loaders: Any,
