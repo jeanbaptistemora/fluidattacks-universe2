@@ -56,3 +56,11 @@ This is used as a measure to identify
 who generated the report in the first place
 and discourage its distribution
 through channels other than [ASM](https://app.fluidattacks.com/).
+
+## Requirements
+
+- [032. Avoid session ID leakages](/criteria/requirements/032)
+- [045. Remove metadata when sharing files](/criteria/requirements/045)
+- [132. Passphrases with at least 4 words](/criteria/requirements/132)
+- [261. Avoid exposing sensitive information](/criteria/requirements/261)
+- [300. Mask sensitive data](/criteria/requirements/300)

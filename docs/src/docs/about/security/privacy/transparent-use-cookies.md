@@ -25,3 +25,9 @@ such as the following:
 - [Allow user consent revocation](/criteria/requirements/312)
 
 - [Provide processed data information](/criteria/requirements/315)
+
+## Requirements
+
+- [029. Cookies with security attributes](/criteria/requirements/029)
+- [030. Avoid object reutilization](/criteria/requirements/030)
+- [342. Validate request parameters](/criteria/requirements/342)

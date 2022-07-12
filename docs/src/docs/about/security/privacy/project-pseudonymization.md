@@ -24,3 +24,8 @@ Generally speaking,
 only the people who need to know
 who the client of a project is
 are those who actually know it.
+
+## Requirements
+
+- [300. Mask sensitive data](/criteria/requirements/300)
+- [313. Inform inability to identify users](/criteria/requirements/313)

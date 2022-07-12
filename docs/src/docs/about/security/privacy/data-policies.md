@@ -33,3 +33,9 @@ project source code, secrets,
 metadata and other project-related
 [data are completely removed](/criteria/requirements/183)
 from all our systems.
+
+## Requirements
+
+- [183. Delete sensitive data securely](/criteria/requirements/183)
+- [314. Provide processing confirmation](/criteria/requirements/314)
+- [317. Allow erasure requests](/criteria/requirements/317)

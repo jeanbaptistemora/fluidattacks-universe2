@@ -13,3 +13,8 @@ Additionally,
 all chat histories
 [are reset every day](/criteria/requirements/183)
 as an extra measure to avoid leaks.
+
+## Requirements
+
+- [181. Transmit data using secure protocols](/criteria/requirements/181)
+- [183. Delete sensitive data securely](/criteria/requirements/183)

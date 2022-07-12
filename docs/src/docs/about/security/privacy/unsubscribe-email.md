@@ -15,3 +15,7 @@ By doing so,
 their emails are placed on a list
 of unsubscribed emails,
 and we do not send new messages to them.
+
+## Requirements
+
+- [312. Allow user consent revocation](/criteria/requirements/312)
