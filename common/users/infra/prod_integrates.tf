@@ -120,6 +120,7 @@ locals {
             Action = ["*"]
             Resource = [
               "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:FLUID*",
+              "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group::log-stream"
             ]
           },
           {
