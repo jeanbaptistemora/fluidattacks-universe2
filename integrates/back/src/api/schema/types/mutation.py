@@ -71,7 +71,6 @@ from api.mutations import (
     send_assigned_notification,
     sign_in,
     sign_post_url,
-    sign_post_url_requester,
     solve_event,
     start_machine_execution,
     submit_draft,
@@ -232,7 +231,6 @@ MUTATION.set_field(
 )
 MUTATION.set_field("signIn", sign_in.mutate)
 MUTATION.set_field("signPostUrl", sign_post_url.mutate)
-MUTATION.set_field("signPostUrlRequester", sign_post_url_requester.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
 MUTATION.set_field("submitDraft", submit_draft.mutate)
 MUTATION.set_field("submitMachineJob", submit_machine_job.mutate)

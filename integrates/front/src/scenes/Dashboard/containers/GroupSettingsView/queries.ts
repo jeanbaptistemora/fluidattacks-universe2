@@ -109,26 +109,6 @@ const SIGN_POST_URL_MUTATION: DocumentNode = gql`
   }
 `;
 
-const SIGN_POST_URL_REQUESTER_MUTATION: DocumentNode = gql`
-  mutation SignPostUrlRequesterMutation(
-    $filesData: JSONString!
-    $groupName: String!
-  ) {
-    signPostUrlRequester(filesData: $filesData, groupName: $groupName) {
-      success
-      url {
-        url
-        fields {
-          key
-          awsaccesskeyid
-          policy
-          signature
-        }
-      }
-    }
-  }
-`;
-
 const UPDATE_GROUP_ACCESS_INFO: DocumentNode = gql`
   mutation UpdateGroupAccessInfo($groupContext: String, $groupName: String!) {
     updateGroupAccessInfo(groupContext: $groupContext, groupName: $groupName) {
@@ -225,7 +205,6 @@ export {
   REMOVE_FILE_MUTATION,
   REMOVE_GROUP_TAG_MUTATION,
   SIGN_POST_URL_MUTATION,
-  SIGN_POST_URL_REQUESTER_MUTATION,
   UPDATE_GROUP_ACCESS_INFO,
   UPDATE_GROUP_DATA,
   UPDATE_GROUP_DISAMBIGUATION,
