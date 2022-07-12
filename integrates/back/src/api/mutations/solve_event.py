@@ -34,7 +34,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -55,9 +54,9 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     reason: str,
-    other: Optional[str],
-    **_kwargs: Any,
+    **kwargs: Any,
 ) -> SimplePayload:
+    other = kwargs.get("other")
     user_info = await token_utils.get_jwt_content(info.context)
     hacker_email = user_info["user_email"]
     (reattacks_dict, verifications_dict,) = await events_domain.solve_event(

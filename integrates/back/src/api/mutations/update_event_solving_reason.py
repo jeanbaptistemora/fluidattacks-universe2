@@ -28,7 +28,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -43,12 +42,12 @@ async def mutate(
     info: GraphQLResolveInfo,
     event_id: str,
     reason: str,
-    other: Optional[str],
-    **_kwargs: Any,
+    **kwargs: Any,
 ) -> SimplePayload:
     try:
         user_info = await token_utils.get_jwt_content(info.context)
         stakeholder_email = user_info["user_email"]
+        other = kwargs.get("other")
         await events_domain.update_solving_reason(
             info=info,
             event_id=event_id,
