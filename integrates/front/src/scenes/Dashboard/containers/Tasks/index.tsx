@@ -4,6 +4,7 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import { Tab, Tabs } from "components/Tabs";
 import { TasksDrafts } from "scenes/Dashboard/containers/Tasks/Drafts";
+import { TasksReattacks } from "scenes/Dashboard/containers/Tasks/Reattacks";
 import type { ITasksContent } from "scenes/Dashboard/containers/Tasks/types";
 import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
 import { TabContent } from "styles/styledComponents";
@@ -43,6 +44,15 @@ export const TasksContent: React.FC<ITasksContent> = ({
               {t("todoList.tabs.drafts")}
             </Tab>
           </Can>
+          <Can do={"front_can_retrieve_todo_reattacks"}>
+            <Tab
+              id={"tasksReattacks"}
+              link={`${url}/reattacks`}
+              tooltip={t("todoList.tooltip.reattacks")}
+            >
+              {t("todoList.tabs.reattacks")}
+            </Tab>
+          </Can>
         </authzPermissionsContext.Provider>
       </Tabs>
       <TabContent>
@@ -57,6 +67,9 @@ export const TasksContent: React.FC<ITasksContent> = ({
           </Route>
           <Route path={`${path}/drafts`}>
             <TasksDrafts />
+          </Route>
+          <Route path={`${path}/reattacks`}>
+            <TasksReattacks />
           </Route>
           <Redirect to={`${path}/vulns`} />
         </Switch>

@@ -134,7 +134,10 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
 
   const shouldDisplayGoBack: boolean = useMemo(
     (): boolean =>
-      _.includes(["/user/config", "/todos/vulns", "/todos/drafts"], pathname),
+      _.includes(
+        ["/user/config", "/todos/vulns", "/todos/drafts", "/todos/reattacks"],
+        pathname
+      ),
     [pathname]
   );
 

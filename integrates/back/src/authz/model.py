@@ -1155,6 +1155,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             *USER_LEVEL_ROLES["admin"]["actions"],
             "front_can_edit_credentials_secrets_in_bulk",
             "front_can_retrieve_todo_drafts",
+            "front_can_retrieve_todo_reattacks",
         },
         tags={
             *USER_LEVEL_ROLES["admin"]["tags"],
@@ -1169,6 +1170,7 @@ USER_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "front_can_edit_credentials_secrets_in_bulk",
             "front_can_use_groups_searchbar",
             "front_can_retrieve_todo_drafts",
+            "front_can_retrieve_todo_reattacks",
         },
         tags={
             *USER_LEVEL_ROLES["hacker"]["tags"],
