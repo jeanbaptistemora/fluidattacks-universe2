@@ -169,6 +169,13 @@ async def test_get_group_policies_inheritance(
         assert str(result["data"]["group"]["minAcceptanceSeverity"]) == str(
             organization.policies.min_acceptance_severity
         )
+        assert str(result["data"]["group"]["minBreakingSeverity"]) == str(
+            organization.policies.min_breaking_severity
+        )
+        assert (
+            result["data"]["group"]["vulnerabilityGracePeriod"]
+            == organization.policies.vulnerability_grace_period
+        )
     else:
         group: Group = await loaders.group.load(group_name)
         assert (
@@ -184,4 +191,11 @@ async def test_get_group_policies_inheritance(
         )
         assert str(result["data"]["group"]["minAcceptanceSeverity"]) == str(
             group.policies.min_acceptance_severity
+        )
+        assert str(result["data"]["group"]["minBreakingSeverity"]) == str(
+            group.policies.min_breaking_severity
+        )
+        assert (
+            result["data"]["group"]["vulnerabilityGracePeriod"]
+            == group.policies.vulnerability_grace_period
         )

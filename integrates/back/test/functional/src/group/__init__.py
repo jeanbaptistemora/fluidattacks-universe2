@@ -39,6 +39,7 @@ async def get_result(
                 meanRemediateLowSeverity
                 meanRemediateMediumSeverity
                 minAcceptanceSeverity
+                minBreakingSeverity
                 openFindings
                 totalFindings
                 totalTreatment
@@ -96,6 +97,7 @@ async def get_result(
                 businessName
                 sprintDuration
                 sprintStartDate
+                vulnerabilityGracePeriod
                 __typename
             }}
         }}

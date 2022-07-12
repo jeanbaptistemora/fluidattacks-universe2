@@ -528,6 +528,7 @@ def generic_data(  # pylint: disable=too-many-locals
                             modified_by=admin_email,
                             max_acceptance_days=7,
                             modified_date="2019-11-22T20:07:57+00:00",
+                            vulnerability_grace_period=5,
                         ),
                         state=OrganizationState(
                             modified_by=admin_email,
