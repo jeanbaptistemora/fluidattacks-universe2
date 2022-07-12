@@ -20,11 +20,11 @@ from typing import (
 
 
 def test_get_variation() -> None:
-    assert get_variation(10, 10) == 0.0
-    assert get_variation(0, 10) == 0.0
-    assert get_variation("0", 10) == 0.0
-    assert get_variation(10, 0) == -100.0
-    assert get_variation(10, 10.555) == 5.55
+    assert get_variation(10, 10) == "0.0%"
+    assert get_variation(0, 10) == "N/A"
+    assert get_variation("0", 10) == "N/A"
+    assert get_variation(10, 0) == "-100.0%"
+    assert get_variation(10, 10.555) == "5.55%"
 
 
 def test_validate_date() -> None:

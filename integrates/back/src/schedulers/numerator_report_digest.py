@@ -117,16 +117,16 @@ async def _generate_numerator_report(
     return content
 
 
-def get_variation(num_a: int, num_b: int) -> float:
+def get_variation(num_a: int, num_b: int) -> str:
     try:
         variation: float = round((((num_b - num_a) / num_a) * 100), 2)
     except TypeError:
-        return 0.0
+        return "N/A"
     except ValueError:
-        return 0.0
+        return "N/A"
     except ZeroDivisionError:
-        return 0.0
-    return variation
+        return "N/A"
+    return f"{variation}%"
 
 
 async def _send_mail_report(
@@ -139,10 +139,8 @@ async def _send_mail_report(
     past_day_count: int = int(content["past_day_count"])
     weekly_count: int = int(content["weekly_count"])
 
-    variation_from_yesterday: float = get_variation(
-        past_day_count, today_count
-    )
-    variation_from_week: float = get_variation(weekly_count, today_count)
+    variation_from_yesterday: str = get_variation(past_day_count, today_count)
+    variation_from_week: str = get_variation(weekly_count, today_count)
 
     context: Dict[str, Any] = {
         "groups": content["groups"],
