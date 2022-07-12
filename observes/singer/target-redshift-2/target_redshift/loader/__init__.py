@@ -4,6 +4,7 @@ from ._grouper import (
 from ._handlers import (
     MutableTableMap,
     SingerHandler,
+    SingerHandlerOptions,
 )
 from fa_purity import (
     Cmd,
@@ -40,14 +41,22 @@ def _stdin_buffer() -> Cmd[TextIOWrapper]:
 
 
 def main(
-    schema: SchemaId, client: TableClient, limit: int, truncate: bool
+    schema: SchemaId,
+    client: TableClient,
+    limit: int,
+    options: SingerHandlerOptions,
 ) -> Cmd[None]:
     data: Stream[SingerMessage] = unsafe_from_cmd(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
-    handler = SingerHandler(schema, client, truncate)
+    handler = SingerHandler(schema, client, options)
     schemas = MutableTableMap({})
     cmds = data.transform(lambda d: group_records(d, limit)).map(
         lambda p: handler.handle(schemas, p)
     )
     return consume(cmds)
+
+
+__all__ = [
+    "SingerHandlerOptions",
+]

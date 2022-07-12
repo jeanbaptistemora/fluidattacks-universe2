@@ -27,6 +27,9 @@ from redshift_client.table.client import (
 from target_redshift import (
     loader,
 )
+from target_redshift.loader import (
+    SingerHandlerOptions,
+)
 from typing import (
     NoReturn,
 )
@@ -57,7 +60,10 @@ def _post_upload(client: SchemaClient, schema: SchemaId) -> Cmd[None]:
 
 
 def _main(
-    conn: DbConnection, schema: SchemaId, records_limit: int, truncate: bool
+    conn: DbConnection,
+    schema: SchemaId,
+    records_limit: int,
+    options: SingerHandlerOptions,
 ) -> Cmd[None]:
     client = new_client(conn, LOG)
     schema_client = client.map(SchemaClient)
@@ -66,7 +72,7 @@ def _main(
         lambda c: c.recreate_cascade(_loading(schema))
     )
     upload = table_client.bind(
-        lambda c: loader.main(_loading(schema), c, records_limit, truncate)
+        lambda c: loader.main(_loading(schema), c, records_limit, options)
     )
     post_upload = schema_client.bind(lambda c: _post_upload(c, schema))
     return recreate + upload + post_upload
@@ -84,8 +90,22 @@ def _main(
     "--records-limit",
     type=int,
     required=False,
-    default=10000,
+    default=1000000,
     help="Max # of records per group",
+)
+@click.option(
+    "--records-per-query",
+    type=int,
+    required=False,
+    default=1000,
+    help="Max # of records per sql query",
+)
+@click.option(
+    "--threads",
+    type=int,
+    required=False,
+    default=1000,
+    help="# of threads for query upload",
 )
 @click.option(
     "--truncate",
@@ -95,10 +115,20 @@ def _main(
 )
 @pass_ctx
 def destroy_and_upload(
-    ctx: CmdContext, schema_name: str, records_limit: int, truncate: bool
+    ctx: CmdContext,
+    schema_name: str,
+    records_limit: int,
+    truncate: bool,
+    records_per_query: int,
+    threads: int,
 ) -> NoReturn:
     _schema = SchemaId(schema_name)
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
+    options = SingerHandlerOptions(
+        truncate,
+        records_per_query,
+        threads,
+    )
     connection.bind(
-        lambda c: _main(c, _schema, records_limit, truncate)
+        lambda c: _main(c, _schema, records_limit, options)
     ).compute()

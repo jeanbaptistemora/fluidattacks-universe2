@@ -16,10 +16,15 @@ from fa_purity import (
     Result,
     ResultE,
 )
+from fa_purity.cmd.core import (
+    CmdUnwrapper,
+    new_cmd,
+)
 from fa_purity.json.value.transform import (
     Unfolder,
 )
 from fa_purity.pure_iter.factory import (
+    from_flist,
     pure_map,
 )
 from fa_purity.pure_iter.transform import (
@@ -33,6 +38,8 @@ from fa_singer_io.singer import (
     SingerSchema,
     SingerState,
 )
+import logging
+from pathos.threading import ThreadPool  # type: ignore[import]
 from redshift_client.id_objs import (
     SchemaId,
     TableId,
@@ -53,11 +60,24 @@ from target_redshift.errors import (
     MissingKey,
 )
 from typing import (
+    cast,
     Dict,
+    Iterable,
     Tuple,
 )
 
+LOG = logging.getLogger(__name__)
 StreamTables = FrozenDict[str, Tuple[TableId, Table]]
+
+
+def _in_threads(cmds: PureIter[Cmd[None]], nodes: int) -> Cmd[None]:
+    def _action(act: CmdUnwrapper) -> None:
+        pool = ThreadPool(nodes=nodes)  # type: ignore[misc]
+        results: Iterable[None] = cast(Iterable[None], pool.imap(lambda c: act.unwrap(c), cmds))  # type: ignore[misc]
+        for _ in results:
+            pass
+
+    return new_cmd(_action)
 
 
 def _to_row(table: Table, record: SingerRecord) -> ResultE[RowData]:
@@ -98,10 +118,17 @@ class MutableTableMap:
 
 
 @dataclass(frozen=True)
+class SingerHandlerOptions:
+    truncate_str: bool
+    records_per_query: int
+    pkg_threads: int
+
+
+@dataclass(frozen=True)
 class SingerHandler:
     schema: SchemaId
     client: TableClient
-    truncate_str: bool
+    options: SingerHandlerOptions
 
     def schema_handler(
         self, table_map: StreamTables, schema: SingerSchema
@@ -114,6 +141,26 @@ class SingerHandler:
             else table_map
         )
         return (new_table_map, self.client.new(table_id, table))
+
+    def _upload_records(self, tar: _TableAndRecords) -> Cmd[None]:
+        chunks = tar.records.map(
+            lambda r: _to_row(tar.table, r)
+            .map(
+                lambda d: _truncate.truncate_row(tar.table, d)
+                if self.options.truncate_str
+                else d
+            )
+            .unwrap()
+        ).chunked(self.options.records_per_query)
+        cmds = chunks.map(
+            lambda p: self.client.insert(
+                tar.table_id,
+                tar.table,
+                from_flist(p),
+            )
+            + Cmd.from_cmd(lambda: LOG.debug("insert done!"))
+        )
+        return _in_threads(cmds, self.options.pkg_threads)
 
     def record_handler(
         self, table_map: StreamTables, records: PureIter[SingerRecord]
@@ -128,22 +175,8 @@ class SingerHandler:
             tuple(tables),
         )
         return grouped.map(
-            lambda m: m.map(
-                lambda tar: self.client.insert(
-                    tar.table_id,
-                    tar.table,
-                    tar.records.map(
-                        lambda r: _to_row(tar.table, r)
-                        .map(
-                            lambda d: _truncate.truncate_row(tar.table, d)
-                            if self.truncate_str
-                            else d
-                        )
-                        .unwrap()
-                    ),
-                )
-            ).unwrap()
-        ).transform(consume)
+            lambda m: m.map(self._upload_records).unwrap()
+        ).transform(lambda x: _in_threads(x, 100))
 
     def handle(
         self, state: MutableTableMap, item: PackagedSinger
