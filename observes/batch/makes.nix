@@ -124,6 +124,17 @@ in {
         queue = "medium";
       };
 
+    observesDynamoV3EtlBig =
+      sharedConfiguration
+      // {
+        attemptDurationSeconds = 172800;
+        attempts = 1;
+        command = ["m" "f" "/observes/etl/dynamo/v3"];
+        vcpus = 4;
+        memory = 7600;
+        queue = "medium";
+      };
+
     observesDbMigration =
       sharedConfiguration
       // {
