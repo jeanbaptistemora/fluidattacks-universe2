@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import _ from "lodash";
 import React, { useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
+import { selectFilter } from "react-bootstrap-table2-filter";
 import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
@@ -20,13 +21,24 @@ import { Logger } from "utils/logger";
 export const TasksDrafts: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const [searchTextFilter, setSearchTextFilter] = useState("");
+  const selectOptionsStatus = {
+    CREATED: "Created",
+    REJECTED: "Rejected",
+    SUBMITTED: "Submitted",
+  };
+
+  const onFilterStatus: (filterVal: string) => void = (
+    filterVal: string
+  ): void => {
+    sessionStorage.setItem("todoDraftStatusFilter", filterVal);
+  };
 
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
     order: SortOrder
   ): void => {
     const newSorted = { dataField, order };
-    sessionStorage.setItem("userDraftSort", JSON.stringify(newSorted));
+    sessionStorage.setItem("todoDraftSort", JSON.stringify(newSorted));
   };
 
   const hackerFormatter = (value: string): JSX.Element => {
@@ -75,6 +87,11 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
     },
     {
       dataField: "currentState",
+      filter: selectFilter({
+        defaultValue: _.get(sessionStorage, "todoDraftStatusFilter"),
+        onFilter: onFilterStatus,
+        options: selectOptionsStatus,
+      }),
       formatter: statusFormatter,
       header: "State",
       onSort: onSortState,
@@ -115,7 +132,7 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchtextResult: ITodoDraftAttr[] = filterSearchText(
+  const filterSearchTextResult: ITodoDraftAttr[] = filterSearchText(
     dataset,
     searchTextFilter
   );
@@ -142,10 +159,10 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={filterSearchtextResult}
-        exportCsv={false}
+        dataset={filterSearchTextResult}
+        exportCsv={true}
         headers={tableHeaders}
-        id={"tblUserDrafts"}
+        id={"tblTodoDrafts"}
         pageSize={25}
         rowEvents={{ onClick: goToDraft }}
         search={false}

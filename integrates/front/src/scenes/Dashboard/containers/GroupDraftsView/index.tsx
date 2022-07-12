@@ -317,7 +317,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
 
   const dataset: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
     formatDrafts(data.group.drafts);
-  const filterSearchtextResult: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
+  const filterSearchTextResult: IGroupDraftsAndFindingsAttr["group"]["drafts"][0][] =
     filterSearchText(dataset, searchTextFilter);
 
   return (
@@ -392,7 +392,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
           onUpdateCustomSearch: onSearchTextChange,
           position: "right",
         }}
-        dataset={filterSearchtextResult}
+        dataset={filterSearchTextResult}
         defaultSorted={JSON.parse(
           _.get(sessionStorage, "draftSort", "{}") as string
         )}
