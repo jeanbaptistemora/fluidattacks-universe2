@@ -9,13 +9,13 @@ import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/TasksDrafts/queries";
+import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/Drafts/queries";
 import type {
   IGetTodoDrafts,
   ITodoDraftAttr,
   ITodoGroupAttr,
   ITodoOrganizationAttr,
-} from "scenes/Dashboard/containers/Tasks/TasksDrafts/types";
+} from "scenes/Dashboard/containers/Tasks/Drafts/types";
 import { Logger } from "utils/logger";
 
 export const TasksDrafts: React.FC = (): JSX.Element => {

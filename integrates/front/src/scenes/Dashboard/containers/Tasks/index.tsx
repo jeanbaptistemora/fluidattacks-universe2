@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 
 import { Tab, Tabs } from "components/Tabs";
-import { TasksDrafts } from "scenes/Dashboard/containers/Tasks/TasksDrafts";
-import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities";
+import { TasksDrafts } from "scenes/Dashboard/containers/Tasks/Drafts";
 import type { ITasksContent } from "scenes/Dashboard/containers/Tasks/types";
+import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import {
@@ -36,7 +36,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
         <authzPermissionsContext.Provider value={userLevelPermissions}>
           <Can do={"front_can_retrieve_todo_drafts"}>
             <Tab
-              id={"tasksVulnerabilities"}
+              id={"tasksDrafts"}
               link={`${url}/drafts`}
               tooltip={t("todoList.tooltip.drafts")}
             >

@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities";
+import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
 import {
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER_ORGANIZATIONS_GROUPS,

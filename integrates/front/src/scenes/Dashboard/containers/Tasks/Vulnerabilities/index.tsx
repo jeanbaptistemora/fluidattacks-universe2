@@ -30,14 +30,14 @@ import {
   filterTreatmentCurrentStatus,
   formatVulnerabilitiesTreatment,
 } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import { ReattackVulnerabilities } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities/ActionsButtons/ReattackVulnerabilities/index";
+import { ReattackVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/ActionsButtons/ReattackVulnerabilities/index";
 import type {
   IAction,
   IFilterTodosSet,
   IGroupAction,
   ITasksVulnerabilities,
-} from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities/types";
-import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/TasksVulnerabilities/utils";
+} from "scenes/Dashboard/containers/Tasks/Vulnerabilities/types";
+import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/utils";
 import { EditButton } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/EditButton";
 import type { IModalConfig } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
