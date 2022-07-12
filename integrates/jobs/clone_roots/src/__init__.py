@@ -404,7 +404,7 @@ async def clone_root(
                 group_name=group_name,
                 root_id=root["id"],
                 status="FAILED",
-                message=stderr or "Credentials not found",
+                message="Credentials not found",
             )
             return
             yield
