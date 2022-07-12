@@ -42,6 +42,11 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         if metadata.access_token
         else None,
         "legal_remember": metadata.legal_remember,
+        "last_login": datetime_utils.convert_from_iso_str(
+            metadata.last_login_date
+        )
+        if metadata.last_login_date
+        else None,
     }
     if metadata.access_token and metadata.access_token.iat == 0:
         item["access_token"] = {}

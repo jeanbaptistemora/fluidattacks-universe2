@@ -279,9 +279,12 @@ async def update_legal_remember(email: str, remember: bool) -> None:
     )
 
 
-async def update_last_login(email: str) -> bool:
-    return await stakeholders_dal.update(
-        str(email), {"last_login": datetime_utils.get_now_as_str()}
+async def update_last_login(email: str) -> None:
+    return await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            last_login_date=datetime_utils.get_iso_date(),
+        ),
+        stakeholder_email=email,
     )
 
 

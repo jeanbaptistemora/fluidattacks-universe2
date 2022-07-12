@@ -48,6 +48,7 @@ class Stakeholder(NamedTuple):
 
 
 class StakeholderMetadataToUpdate(NamedTuple):
+    last_login_date: Optional[str] = None
     legal_remember: Optional[bool] = None
     is_concurrent_session: Optional[bool] = None
     is_registered: Optional[bool] = None
