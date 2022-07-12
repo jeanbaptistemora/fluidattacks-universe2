@@ -118,6 +118,9 @@ def format_event_item(event: Event) -> Item:
         else None,
         "context": event.context,
         "root_id": event.root_id,
+        "unreliable_indicators": json.loads(
+            json.dumps(event.unreliable_indicators)
+        ),
     }
 
 
