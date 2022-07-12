@@ -39,3 +39,9 @@ We make rotations in the following two ways:
   is required to rotate them.
   These secrets include KMS keys
   and other application credentials.
+
+## Requirements
+
+- [089. Limit validity of certificates](/criteria/requirements/089)
+- [130. Limit password lifespan](/criteria/requirements/130)
+- [145. Protect system cryptographic keys](/criteria/requirements/145)

@@ -39,3 +39,9 @@ Some examples are the following:
   [Granting or removing access to applications](/criteria/requirements/034)
   is simple,
   and no users/passwords are leaked.
+
+## Requirements
+
+- [034. Manage user accounts](/criteria/requirements/034)
+- [176. Restrict system objects](/criteria/requirements/176)
+- [374. Use of isolation methods in running applications](/criteria/requirements/374)

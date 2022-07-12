@@ -34,3 +34,9 @@ that easy access revocation is fundamental
 when dealing with sensitive data in an organization.
 That is why we have put so much effort
 into making this process as simple as possible.
+
+## Requirements
+
+- [023. Terminate inactive user sessions](/criteria/requirements/023)
+- [114. Deny access with inactive credentials](/criteria/requirements/114)
+- [144. Remove inactive accounts periodically](/criteria/requirements/144)

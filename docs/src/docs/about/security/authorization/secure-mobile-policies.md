@@ -21,3 +21,12 @@ Some of the requirements are the following:
 - Establishing a strong passphrase.
 - Setting [biometric authentication](/criteria/requirements/231)
   in case the device supports it.
+
+## Requirements
+
+- [205. Configure PIN](/criteria/requirements/205)
+- [213. Allow geographic location](/criteria/requirements/213)
+- [231. Implement a biometric verification component](/criteria/requirements/231)
+- [326. Detect rooted devices](/criteria/requirements/326)
+- [329. Keep client-side storage without sensitive data](/criteria/requirements/329)
+- [373. Use certificate pinning](/criteria/requirements/373)

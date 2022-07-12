@@ -21,3 +21,10 @@ to other members of their team.
 Some of the available roles are hacker,
 admin, releaser, escaper,
 user and project manager.
+
+## Requirements
+
+- [035. Manage privilege modifications](/criteria/requirements/035)
+- [095. Define users with privileges](/criteria/requirements/095)
+- [096. Set user's required privileges](/criteria/requirements/096)
+- [186. Use the principle of least privilege](/criteria/requirements/186)
