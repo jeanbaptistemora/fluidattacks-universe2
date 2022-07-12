@@ -101,6 +101,7 @@ async def test_generate_config(test_group: str) -> None:
         ),
         start_dir=os.getcwd(),
         working_dir=os.path.abspath("."),
+        execution_id=None,
     )
     result = await config.generate_config(
         group_name=test_group,

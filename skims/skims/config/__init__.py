@@ -11,6 +11,7 @@ from typing import (
 from utils.logs import (
     log_blocking,
 )
+import yaml  # type: ignore
 
 
 def load_checks(config: Any) -> Set[core_model.FindingEnum]:
@@ -71,6 +72,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 "language": confuse.Choice(core_model.LocalesEnum),
                 "namespace": confuse.String(),
                 "output": confuse.String(),
+                "execution_id": confuse.String(),
                 "path": confuse.Template(
                     {
                         "exclude": confuse.Sequence(confuse.String()),
@@ -133,6 +135,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
             ),
             start_dir=os.getcwd(),
             working_dir=os.path.abspath(config.pop("working_dir", ".")),
+            execution_id=config.pop("execution_id", None),
         )
     except KeyError as exc:
         raise confuse.ConfigError(f"Key: {exc.args[0]} is required")
@@ -146,3 +149,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     log_blocking("debug", "%s", skims_config)
 
     return skims_config
+
+
+def dump_to_yaml(config: core_model.SkimsConfig) -> str:
+    return yaml.dump(config._asdict())

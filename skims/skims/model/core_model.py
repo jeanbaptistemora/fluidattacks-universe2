@@ -1103,6 +1103,7 @@ class SkimsConfig(NamedTuple):
     start_dir: str
     working_dir: str
     dast: Optional[SkimsDastConfig]
+    execution_id: Optional[str]
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):

@@ -41,6 +41,7 @@ from urllib3.util.url import (
     parse_url,
     Url,
 )
+import uuid
 
 PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
     {
@@ -392,4 +393,5 @@ async def generate_config(
         ),
         start_dir=os.getcwd(),
         working_dir=os.path.abspath(working_dir),
+        execution_id=f"{group_name}_{uuid.uuid4().hex}",
     )
