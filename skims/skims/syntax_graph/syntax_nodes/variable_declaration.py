@@ -11,9 +11,10 @@ from typing import (
 
 def build_variable_declaration_node(
     args: SyntaxGraphArgs,
-    variable: str,
+    variable: Optional[str],
     variable_type: str,
     value_id: Optional[NId],
+    declarator_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -28,6 +29,13 @@ def build_variable_declaration_node(
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(value_id)),
+            label_ast="AST",
+        )
+
+    if declarator_id:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(declarator_id)),
             label_ast="AST",
         )
 

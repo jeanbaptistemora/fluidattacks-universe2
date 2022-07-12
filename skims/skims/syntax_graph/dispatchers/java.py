@@ -25,6 +25,8 @@ from syntax_graph.syntax_readers.common import (
     string_literal as common_string_literal,
     throw_statement as common_throw_statement,
     try_statement as common_try_statement,
+    variable_declaration as common_variable_declaration,
+    variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.java import (
     argument_list as java_argument_list,
@@ -38,8 +40,6 @@ from syntax_graph.syntax_readers.java import (
     package_declaration as java_package_declaration,
     parameter_list as java_parameter_list,
     update_expression as java_update_expression,
-    variable_declaration as java_variable_declaration,
-    variable_declarator as java_variable_declarator,
     while_statement as java_while_statement,
 )
 from syntax_graph.types import (
@@ -281,13 +281,13 @@ JAVA_DISPATCHERS: Dispatchers = (
         applicable_types={
             "local_variable_declaration",
         },
-        syntax_reader=java_variable_declaration.reader,
+        syntax_reader=common_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
             "variable_declarator",
         },
-        syntax_reader=java_variable_declarator.reader,
+        syntax_reader=common_variable_declarator.reader,
     ),
     Dispatcher(
         applicable_types={
