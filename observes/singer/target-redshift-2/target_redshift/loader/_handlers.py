@@ -1,3 +1,6 @@
+from . import (
+    _trucate,
+)
 from ._grouper import (
     PackagedSinger,
 )
@@ -98,6 +101,7 @@ class MutableTableMap:
 class SingerHandler:
     schema: SchemaId
     client: TableClient
+    truncate_str: bool
 
     def schema_handler(
         self, table_map: StreamTables, schema: SingerSchema
@@ -128,7 +132,15 @@ class SingerHandler:
                 lambda tar: self.client.insert(
                     tar.table_id,
                     tar.table,
-                    tar.records.map(lambda r: _to_row(tar.table, r).unwrap()),
+                    tar.records.map(
+                        lambda r: _to_row(tar.table, r)
+                        .map(
+                            lambda d: _trucate.truncate_row(tar.table, d)
+                            if self.truncate_str
+                            else d
+                        )
+                        .unwrap()
+                    ),
                 )
             ).unwrap()
         ).transform(consume)

@@ -57,7 +57,7 @@ def _post_upload(client: SchemaClient, schema: SchemaId) -> Cmd[None]:
 
 
 def _main(
-    conn: DbConnection, schema: SchemaId, records_limit: int
+    conn: DbConnection, schema: SchemaId, records_limit: int, truncate: bool
 ) -> Cmd[None]:
     client = new_client(conn, LOG)
     schema_client = client.map(SchemaClient)
@@ -66,7 +66,7 @@ def _main(
         lambda c: c.recreate_cascade(_loading(schema))
     )
     upload = table_client.bind(
-        lambda c: loader.main(_loading(schema), c, records_limit)
+        lambda c: loader.main(_loading(schema), c, records_limit, truncate)
     )
     post_upload = schema_client.bind(lambda c: _post_upload(c, schema))
     return recreate + upload + post_upload
@@ -87,10 +87,18 @@ def _main(
     default=10000,
     help="Max # of records per group",
 )
+@click.option(
+    "--truncate",
+    type=bool,
+    is_flag=True,
+    help="Truncate records that exceed column size?",
+)
 @pass_ctx
 def destroy_and_upload(
-    ctx: CmdContext, schema_name: str, records_limit: int
+    ctx: CmdContext, schema_name: str, records_limit: int, truncate: bool
 ) -> NoReturn:
     _schema = SchemaId(schema_name)
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
-    connection.bind(lambda c: _main(c, _schema, records_limit)).compute()
+    connection.bind(
+        lambda c: _main(c, _schema, records_limit, truncate)
+    ).compute()

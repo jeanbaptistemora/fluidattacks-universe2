@@ -39,11 +39,13 @@ def _stdin_buffer() -> Cmd[TextIOWrapper]:
     )
 
 
-def main(schema: SchemaId, client: TableClient, limit: int) -> Cmd[None]:
+def main(
+    schema: SchemaId, client: TableClient, limit: int, truncate: bool
+) -> Cmd[None]:
     data: Stream[SingerMessage] = unsafe_from_cmd(
         _stdin_buffer().map(from_file).map(lambda x: iter(x))
     )
-    handler = SingerHandler(schema, client)
+    handler = SingerHandler(schema, client, truncate)
     schemas = MutableTableMap({})
     cmds = data.transform(lambda d: group_records(d, limit)).map(
         lambda p: handler.handle(schemas, p)
