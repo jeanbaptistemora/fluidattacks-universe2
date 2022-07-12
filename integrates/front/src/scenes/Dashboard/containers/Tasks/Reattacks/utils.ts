@@ -23,8 +23,8 @@ const getOldestRequestedReattackDate = (
 
 const formatFindings = (
   findings: ITodoFindingToReattackAttr[]
-): IFindingFormatted[] =>
-  findings.map(
+): IFindingFormatted[] => {
+  const formatted = findings.map(
     (finding): IFindingFormatted => ({
       ...finding,
       oldestReattackRequestedDate: getOldestRequestedReattackDate(
@@ -32,5 +32,8 @@ const formatFindings = (
       ),
     })
   );
+
+  return _.orderBy(formatted, ["oldestReattackRequestedDate"], ["asc"]);
+};
 
 export { formatFindings };
