@@ -1,7 +1,9 @@
 from .config import (
     generate_config,
     generate_configs,
+    upload_config,
 )
+import aioextensions
 from aioextensions import (
     collect,
     run,
@@ -305,6 +307,10 @@ async def main(  # pylint: disable=too-many-locals)
                     configs[0].working_dir,
                     token,
                 )
+        log_blocking("info", "Uploading set of configs")
+        await aioextensions.collect(
+            [upload_config(config) for config in configs]
+        )
         log_blocking("info", "Executing set of configs")
         try:
             await execute_skims_configs(configs, group_name, token)
@@ -312,7 +318,7 @@ async def main(  # pylint: disable=too-many-locals)
             log_exception_blocking("exception", exc)
             success = False
 
-    delete_action(action_dynamo_pk=action_dynamo_pk)
+    # delete_action(action_dynamo_pk=action_dynamo_pk)
     if not success:
         sys.exit(1)
     return None

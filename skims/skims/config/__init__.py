@@ -152,4 +152,47 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
 
 
 def dump_to_yaml(config: core_model.SkimsConfig) -> str:
-    return yaml.dump(config._asdict())
+    return yaml.dump(
+        {
+            "apk": {
+                "exclude": list(config.apk.exclude),
+                "include": list(config.apk.include),
+            },
+            "checks": [check.name for check in config.checks],
+            "dast": {
+                "aws_credentials": [
+                    {
+                        "access_key_id": cred.access_key_id,
+                        "secret_access_key": cred.secret_access_key,
+                    }
+                    for cred in config.dast.aws_credentials
+                    if cred
+                ],
+                "http": {
+                    "include": list(config.dast.http.include),
+                },
+                "ssl": {
+                    "include": [
+                        {
+                            "host": ssl.host,
+                            "port": ssl.port,
+                        }
+                        for ssl in config.dast.ssl.include
+                    ],
+                },
+            }
+            if config.dast
+            else None,
+            "language": config.language.value,
+            "namespace": config.namespace,
+            "output": config.output,
+            "execution_id": config.execution_id,
+            "path": {
+                "exclude": list(config.path.exclude),
+                "include": list(config.path.include),
+                "lib_path": config.path.lib_path,
+                "lib_root": config.path.lib_root,
+            },
+            "working_dir": config.working_dir,
+        }
+    )

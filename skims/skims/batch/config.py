@@ -1,5 +1,9 @@
+import aioboto3
 from aioextensions import (
     collect,
+)
+from config import (
+    dump_to_yaml,
 )
 from contextlib import (
     suppress,
@@ -9,6 +13,9 @@ from integrates.dal import (
 )
 from integrates.graphql import (
     create_session,
+)
+from model import (
+    core_model,
 )
 from model.core_model import (
     AwsCredentials,
@@ -24,6 +31,7 @@ from model.core_model import (
 )
 import os
 import re
+import tempfile
 from typing import (
     Any,
     cast,
@@ -395,3 +403,20 @@ async def generate_config(
         working_dir=os.path.abspath(working_dir),
         execution_id=f"{group_name}_{uuid.uuid4().hex}",
     )
+
+
+async def upload_config(config: core_model.SkimsConfig) -> bool:
+    file_content = dump_to_yaml(config)
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        file_path = f"{tmp_dir}/{config.execution_id}.yaml"
+        with open(file_path, "w", encoding="utf-8") as handler:
+            handler.write(file_content)
+        with open(file_path, "rb") as reader:
+            session = aioboto3.Session()
+            async with session.client("s3") as s3_client:
+                await s3_client.upload_fileobj(
+                    reader,
+                    "skims.data",
+                    f"configs/{config.execution_id}.yaml",
+                )
+                return True
