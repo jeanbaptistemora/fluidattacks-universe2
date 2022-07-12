@@ -115,59 +115,43 @@ def get_percentage_change(
 
 
 def get_current_sprint_state(
-    historic_state: tuple[VulnerabilityState, ...],
+    state: VulnerabilityState,
     sprint_start_date: datetime,
 ) -> Optional[VulnerabilityState]:
-    return next(
-        (
-            item
-            for item in list(reversed(historic_state))
-            if datetime.fromisoformat(item.modified_date) >= sprint_start_date
-        ),
-        None,
-    )
+    if datetime.fromisoformat(state.modified_date) >= sprint_start_date:
+        return state
+
+    return None
 
 
 def get_last_state(
-    historic_state: tuple[VulnerabilityState, ...],
+    state: VulnerabilityState,
     last_day: datetime,
 ) -> Optional[VulnerabilityState]:
-    return next(
-        (
-            item
-            for item in list(reversed(historic_state))
-            if datetime.fromisoformat(item.modified_date) <= last_day
-        ),
-        None,
-    )
+    if datetime.fromisoformat(state.modified_date) <= last_day:
+        return state
+
+    return None
 
 
 async def had_state_by_then(
     *,
     last_day: datetime,
     findings_cvssf: dict[str, Decimal],
-    loaders: Dataloaders,
     state: VulnerabilityStateStatus,
     vulnerabilities: tuple[Vulnerability, ...],
     sprint: bool = False,
 ) -> Decimal:
-
-    historics_states: tuple[
-        tuple[VulnerabilityState, ...], ...
-    ] = await loaders.vulnerability_historic_state.load_many(
-        tuple(vulnerability.id for vulnerability in vulnerabilities)
-    )
-
     lasts_valid_states: tuple[Optional[VulnerabilityState], ...]
     if sprint:
         lasts_valid_states = tuple(
-            get_current_sprint_state(historic_state, last_day)
-            for historic_state in historics_states
+            get_current_sprint_state(vulnerability.state, last_day)
+            for vulnerability in vulnerabilities
         )
     else:
         lasts_valid_states = tuple(
-            get_last_state(historic_state, last_day)
-            for historic_state in historics_states
+            get_last_state(vulnerability.state, last_day)
+            for vulnerability in vulnerabilities
         )
 
     return Decimal(
@@ -187,7 +171,6 @@ async def get_totals_by_week(
     vulnerabilities: tuple[Vulnerability, ...],
     findings_cvssf: dict[str, Decimal],
     last_day: datetime,
-    loaders: Dataloaders,
     sprint: bool = False,
 ) -> tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
@@ -195,7 +178,6 @@ async def get_totals_by_week(
             tuple(
                 had_state_by_then(
                     last_day=last_day,
-                    loaders=loaders,
                     state=VulnerabilityStateStatus.OPEN,
                     vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
@@ -212,7 +194,6 @@ async def get_totals_by_week(
             tuple(
                 had_state_by_then(
                     last_day=last_day,
-                    loaders=loaders,
                     state=VulnerabilityStateStatus.CLOSED,
                     vulnerabilities=chunked_vulnerabilities,
                     findings_cvssf=findings_cvssf,
@@ -260,7 +241,6 @@ async def generate_one(
         vulnerabilities=vulnerabilities,
         findings_cvssf=findings_cvssf,
         last_day=current_sprint_date,
-        loaders=loaders,
         sprint=True,
     )
 
@@ -268,7 +248,6 @@ async def generate_one(
         vulnerabilities=vulnerabilities,
         findings_cvssf=findings_cvssf,
         last_day=datetime.now(tz=timezone.utc),
-        loaders=loaders,
     )
 
     solved: Decimal = get_percentage_change(
