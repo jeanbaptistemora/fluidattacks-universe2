@@ -1,11 +1,12 @@
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
+import { filterSearchText } from "components/Table/utils";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { GET_TODO_DRAFTS } from "scenes/Dashboard/containers/Tasks/TasksDrafts/queries";
 import type {
@@ -18,6 +19,7 @@ import { Logger } from "utils/logger";
 
 export const TasksDrafts: React.FC = (): JSX.Element => {
   const { push } = useHistory();
+  const [searchTextFilter, setSearchTextFilter] = useState("");
 
   const onSortState: (dataField: string, order: SortOrder) => void = (
     dataField: string,
@@ -28,7 +30,7 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   };
 
   const hackerFormatter = (value: string): JSX.Element => {
-    return <span className={`black tl truncate`}>{value}</span>;
+    return <div className={`tl truncate`}>{value}</div>;
   };
 
   const tableHeaders: IHeaderConfig[] = [
@@ -108,6 +110,16 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
           )
         );
 
+  function onSearchTextChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    setSearchTextFilter(event.target.value);
+  }
+  const filterSearchtextResult: ITodoDraftAttr[] = filterSearchText(
+    dataset,
+    searchTextFilter
+  );
+
   const goToDraft: (
     event: React.FormEvent<HTMLButtonElement>,
     rowInfo: { id: string }
@@ -124,7 +136,13 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Table
-        dataset={dataset}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
+        }}
+        dataset={filterSearchtextResult}
         exportCsv={false}
         headers={tableHeaders}
         id={"tblUserDrafts"}
