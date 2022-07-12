@@ -319,8 +319,18 @@ async def update_invited_stakeholder(
     return success
 
 
-async def update_attributes(email: str, data_dict: dict[str, Any]) -> bool:
-    return await stakeholders_dal.update(email, data_dict)
+async def update_attributes(
+    email: str, stakeholder_data: StakeholderMetadataToUpdate
+) -> None:
+    return await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            first_name=stakeholder_data.first_name,
+            last_name=stakeholder_data.last_name,
+            registration_date=stakeholder_data.registration_date,
+            last_login_date=stakeholder_data.last_login_date,
+        ),
+        stakeholder_email=email,
+    )
 
 
 async def update_mobile(

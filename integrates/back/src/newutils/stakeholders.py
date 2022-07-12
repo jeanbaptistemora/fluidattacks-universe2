@@ -31,6 +31,8 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
 
 def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
     item = {
+        "first_name": metadata.first_name,
+        "last_name": metadata.last_name,
         "is_concurrent_session": metadata.is_concurrent_session,
         "push_tokens": metadata.push_tokens,
         "registered": metadata.is_registered,
@@ -42,6 +44,11 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         if metadata.access_token
         else None,
         "legal_remember": metadata.legal_remember,
+        "registration_date": datetime_utils.convert_from_iso_str(
+            metadata.registration_date
+        )
+        if metadata.registration_date
+        else None,
         "last_login": datetime_utils.convert_from_iso_str(
             metadata.last_login_date
         )

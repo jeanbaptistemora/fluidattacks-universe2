@@ -229,13 +229,13 @@ async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
     last_name = user.get("family_name", "")[:29]
     email = user["email"].lower()
 
-    today = datetime_utils.get_now_as_str()
-    data_dict = {
-        "first_name": first_name,
-        "last_login": today,
-        "last_name": last_name,
-        "date_joined": today,
-    }
+    today = datetime_utils.get_iso_date()
+    stakeholder_data = StakeholderMetadataToUpdate(
+        first_name=first_name,
+        last_login_date=today,
+        last_name=last_name,
+        registration_date=today,
+    )
     try:
         db_user: Optional[Stakeholder] = await loaders.stakeholder.load(email)
     except StakeholderNotFound:
@@ -248,4 +248,4 @@ async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
     else:
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_stakeholder(email)
-        await stakeholders_domain.update_attributes(email, data_dict)
+        await stakeholders_domain.update_attributes(email, stakeholder_data)
