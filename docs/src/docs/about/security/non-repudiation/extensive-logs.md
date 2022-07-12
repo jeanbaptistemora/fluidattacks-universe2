@@ -69,3 +69,11 @@ we store logs for:
   when,
   and the console output.
   These logs never expire and cannot be modified.
+
+## Requirements
+
+- [075. Record exceptional events in logs](/criteria/requirements/075)
+- [079. Record exact occurrence time of events](/criteria/requirements/079)
+- [080. Prevent log modification](/criteria/requirements/080)
+- [376. Register severity level](/criteria/requirements/376)
+- [377. Store logs based on valid regulation](/criteria/requirements/377)

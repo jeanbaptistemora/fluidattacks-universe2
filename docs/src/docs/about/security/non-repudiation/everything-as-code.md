@@ -29,3 +29,9 @@ we keep all our systems as code:
 - [Infrastructure](https://docs.fluidattacks.com/about/security/integrity/developing-integrity#infrastructure-as-code-iac)
 
 - General documentation
+
+## Requirements
+
+- [075. Record exceptional events in logs](/criteria/requirements/075)
+- [079. Record exact occurrence time of events](/criteria/requirements/079)
+- [378. Use of log management system](/criteria/requirements/378)
