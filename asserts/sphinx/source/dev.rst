@@ -50,7 +50,6 @@ from a project exploit:
 .. code-block:: python
 
    from fluidasserts.lang import javascript
-   javascript.uses_eval('my-script.js')
 
 Other good function name ideas:
 

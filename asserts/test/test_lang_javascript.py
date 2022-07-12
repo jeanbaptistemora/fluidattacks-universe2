@@ -86,16 +86,6 @@ def test_has_if_without_else_open():
     ).is_open()
 
 
-def test_uses_eval_open():
-    """Search eval function calls."""
-    assert javascript.uses_eval(INSECURE_CODE)
-
-
-def test_uses_eval_in_dir_open():
-    """Search eval function calls."""
-    assert javascript.uses_eval(CODE_DIR)
-
-
 #
 # Closing tests
 #
@@ -148,10 +138,3 @@ def test_has_if_without_else_close():
     assert javascript.has_if_without_else(
         NOT_EXISTANT_CODE, conditions=[]
     ).is_unknown()
-
-
-def test_uses_eval_close():
-    """Search eval function calls."""
-    assert not javascript.uses_eval(SECURE_CODE)
-    assert not javascript.uses_eval(CODE_DIR, exclude=["test"])
-    assert not javascript.uses_eval(NOT_EXISTANT_CODE)

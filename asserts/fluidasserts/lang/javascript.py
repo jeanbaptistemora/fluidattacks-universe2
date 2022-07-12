@@ -46,32 +46,6 @@ L_CHAR = QuotedString("'")
 L_STRING = QuotedString('"')
 
 
-@api(risk=MEDIUM, kind=SAST)
-def uses_eval(js_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for ``eval()`` calls in a JavaScript file or directory.
-
-    :param js_dest: Path to a JavaScript source file or directory.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = Keyword("eval") + nestedExpr()
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    return lang.generic_method(
-        path=js_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code uses eval() method",
-            CLOSED: "Code does not use eval() method",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(risk=LOW, kind=SAST)
 def uses_localstorage(js_dest: str, exclude: list = None) -> tuple:
     """
