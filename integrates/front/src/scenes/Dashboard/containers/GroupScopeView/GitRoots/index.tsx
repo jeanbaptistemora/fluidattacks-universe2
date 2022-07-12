@@ -5,7 +5,7 @@ import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { Fragment, useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
@@ -52,7 +52,6 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
-import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
@@ -629,7 +628,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                 }}
                 exportCsv={true}
                 extraButtons={
-                  <Row>
+                  <Fragment>
                     <Can do={"api_mutations_add_git_root_mutate"}>
                       <TooltipWrapper
                         hide={runTour}
@@ -639,7 +638,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         <Button
                           id={"git-root-add"}
                           onClick={openAddModal}
-                          variant={"secondary"}
+                          variant={"primary"}
                         >
                           <FontAwesomeIcon icon={faPlus} />
                           &nbsp;{t("group.scope.common.add")}
@@ -661,7 +660,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                       ) : undefined}
                     </Can>
                     <InternalSurfaceButton />
-                  </Row>
+                  </Fragment>
                 }
                 headers={[
                   {

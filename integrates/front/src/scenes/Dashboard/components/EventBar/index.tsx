@@ -73,7 +73,7 @@ const EventBar: React.FC<IEventBarProps> = ({
       {hasOpenEvents ? (
         <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
           <Link to={`/orgs/${organizationName}/groups`}>
-            <Alert closable={true} icon={true} variant={"error"}>
+            <Alert autoHide={true} icon={true} time={12} variant={"error"}>
               {eventMessage}
             </Alert>
           </Link>

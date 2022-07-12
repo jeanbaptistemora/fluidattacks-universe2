@@ -47,7 +47,7 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
                 <Button
                   id={"git-root-internal-surface"}
                   onClick={handleClick}
-                  variant={"primary"}
+                  variant={"secondary"}
                 >
                   {t("group.tabs.toe.text")}
                 </Button>
