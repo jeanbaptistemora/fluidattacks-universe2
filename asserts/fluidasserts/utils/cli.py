@@ -1195,7 +1195,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "javascript",
             "Javascript",
         ): """
-            javascript.has_insecure_randoms('__path__')
             javascript.has_switch_without_default('__path__')
             javascript.swallows_exceptions('__path__')
             """,

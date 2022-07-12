@@ -30,16 +30,6 @@ NPM_SECURE_PACKAGE = "test/static/sca/npm/close/package.json"
 #
 
 
-def test_has_insecure_randoms_open():
-    """Search Math.random() calls."""
-    assert javascript.has_insecure_randoms(INSECURE_CODE)
-
-
-def test_has_insecure_randoms_in_dir_open():
-    """Search Math.random() calls."""
-    assert javascript.has_insecure_randoms(CODE_DIR)
-
-
 def test_swallows_exceptions_open():
     """Search empty catches."""
     assert javascript.swallows_exceptions(INSECURE_CODE)
@@ -79,13 +69,6 @@ def test_has_if_without_else_open():
 #
 # Closing tests
 #
-
-
-def test_has_insecure_randoms_close():
-    """Search Math.random() calls."""
-    assert not javascript.has_insecure_randoms(SECURE_CODE)
-    assert not javascript.has_insecure_randoms(CODE_DIR, exclude=["test"])
-    assert not javascript.has_insecure_randoms(NOT_EXISTANT_CODE)
 
 
 def test_swallows_exceptions_close():

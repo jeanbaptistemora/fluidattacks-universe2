@@ -47,34 +47,6 @@ L_STRING = QuotedString('"')
 
 
 @api(risk=LOW, kind=SAST)
-def has_insecure_randoms(js_dest: str, exclude: list = None) -> tuple:
-    r"""
-    Check if code uses ``Math.Random()``\ .
-
-    See `REQ.224 <https://fluidattacks.com/products/rules/list/224/>`_.
-
-    :param js_dest: Path to a JavaScript source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = Keyword("Math") + "." + Keyword("random") + nestedExpr()
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    return lang.generic_method(
-        path=js_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code uses Math.random() method",
-            CLOSED: "Code does not use Math.random() method",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def swallows_exceptions(js_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``catch`` blocks that are empty or only have comments.
