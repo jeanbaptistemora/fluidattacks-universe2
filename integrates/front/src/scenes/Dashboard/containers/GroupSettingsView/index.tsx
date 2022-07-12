@@ -6,6 +6,7 @@ import { Unsubscribe } from "./Unsubscribe";
 
 import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
+import { Text } from "components/Text";
 import { AccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { AgentToken } from "scenes/Dashboard/containers/GroupSettingsView/AgentToken";
 import { DeleteGroup } from "scenes/Dashboard/containers/GroupSettingsView/DeleteGroup";
@@ -35,9 +36,10 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
         </Col>
         <Can do={"api_mutations_update_group_mutate"}>
           <Col large={"100"} medium={"100"} small={"100"}>
-            <Card title={t("searchFindings.servicesTable.services")}>
-              <Services groupName={groupName} />
-            </Card>
+            <Text fw={7} mb={3} mt={4} size={5}>
+              {t("searchFindings.servicesTable.services")}
+            </Text>
+            <Services groupName={groupName} />
           </Col>
         </Can>
         <Col large={"100"} medium={"100"} small={"100"}>

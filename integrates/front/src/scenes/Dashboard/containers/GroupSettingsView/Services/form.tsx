@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { Card } from "components/Card";
 import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
@@ -88,59 +89,62 @@ const ServicesForm: React.FC<IServicesFormProps> = (
     <Form id={"editGroup"}>
       <Row>
         <Col large={"30"} medium={"50"} small={"50"}>
-          <Select label={t("searchFindings.servicesTable.type")} name={"type"}>
-            <option value={"CONTINUOUS"}>
-              {t("searchFindings.servicesTable.continuous")}
-            </option>
-            <option value={"ONESHOT"}>
-              {t("searchFindings.servicesTable.oneShot")}
-            </option>
-          </Select>
+          <Card>
+            <Select
+              label={t("searchFindings.servicesTable.type")}
+              name={"type"}
+            >
+              <option value={"CONTINUOUS"}>
+                {t("searchFindings.servicesTable.continuous")}
+              </option>
+              <option value={"ONESHOT"}>
+                {t("searchFindings.servicesTable.oneShot")}
+              </option>
+            </Select>
+          </Card>
         </Col>
         <Col large={"30"} medium={"50"} small={"50"}>
-          <Select
-            label={t("searchFindings.servicesTable.service")}
-            name={"service"}
-          >
-            <option value={"BLACK"}>
-              {t("searchFindings.servicesTable.black")}
-            </option>
-            <option value={"WHITE"}>
-              {t("searchFindings.servicesTable.white")}
-            </option>
-          </Select>
+          <Card>
+            <Select
+              label={t("searchFindings.servicesTable.service")}
+              name={"service"}
+            >
+              <option value={"BLACK"}>
+                {t("searchFindings.servicesTable.black")}
+              </option>
+              <option value={"WHITE"}>
+                {t("searchFindings.servicesTable.white")}
+              </option>
+            </Select>
+          </Card>
         </Col>
         <Col large={"20"} medium={"50"} small={"50"}>
-          <div className={"flex justify-center"}>
-            <div>
-              <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
-              <Field
-                component={FormikSwitchButton}
-                id={"machineSwitch"}
-                name={"machine"}
-                offlabel={t("searchFindings.servicesTable.inactive")}
-                onChange={handleMachineBtnChange}
-                onlabel={t("searchFindings.servicesTable.active")}
-                type={"checkbox"}
-              />
-            </div>
-          </div>
+          <Card>
+            <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
+            <Field
+              component={FormikSwitchButton}
+              id={"machineSwitch"}
+              name={"machine"}
+              offlabel={t("searchFindings.servicesTable.inactive")}
+              onChange={handleMachineBtnChange}
+              onlabel={t("searchFindings.servicesTable.active")}
+              type={"checkbox"}
+            />
+          </Card>
         </Col>
         <Col large={"20"} medium={"50"} small={"50"}>
-          <div className={"flex justify-center"}>
-            <div>
-              <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
-              <Field
-                component={FormikSwitchButton}
-                id={"squadSwitch"}
-                name={"squad"}
-                offlabel={t("searchFindings.servicesTable.inactive")}
-                onChange={handleSquadBtnChange}
-                onlabel={t("searchFindings.servicesTable.active")}
-                type={"checkbox"}
-              />
-            </div>
-          </div>
+          <Card>
+            <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
+            <Field
+              component={FormikSwitchButton}
+              id={"squadSwitch"}
+              name={"squad"}
+              offlabel={t("searchFindings.servicesTable.inactive")}
+              onChange={handleSquadBtnChange}
+              onlabel={t("searchFindings.servicesTable.active")}
+              type={"checkbox"}
+            />
+          </Card>
         </Col>
       </Row>
       {/* Intentionally hidden while loading/submitting to offer a better UX
