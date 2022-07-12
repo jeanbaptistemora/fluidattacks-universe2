@@ -1,5 +1,5 @@
 from . import (
-    _trucate,
+    _truncate,
 )
 from ._grouper import (
     PackagedSinger,
@@ -135,7 +135,7 @@ class SingerHandler:
                     tar.records.map(
                         lambda r: _to_row(tar.table, r)
                         .map(
-                            lambda d: _trucate.truncate_row(tar.table, d)
+                            lambda d: _truncate.truncate_row(tar.table, d)
                             if self.truncate_str
                             else d
                         )

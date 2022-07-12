@@ -1,3 +1,6 @@
+from .utf8_truncation import (
+    utf8_byte_truncate,
+)
 from fa_purity.pure_iter.factory import (
     pure_map,
 )
@@ -26,8 +29,14 @@ def _truncate_str(column: Column, item: PrimitiveVal) -> PrimitiveVal:
             PrecisionTypes.VARCHAR,
         ):
             if isinstance(item, str):
-                return item[0 : column.data_type.value.precision]
-            raise Exception("`CHAR` or `VARCHAR` item must be an str instance")
+                return utf8_byte_truncate(
+                    item, column.data_type.value.precision
+                ).unwrap()
+            if column.nullable and item is None:
+                return item
+            raise Exception(
+                f"`CHAR` or `VARCHAR` item must be an str instance; got {type(item)}"
+            )
     return item
 
 
