@@ -46,8 +46,7 @@ const onTreatmentChangeHelper = (
 const acceptanceProps = (
   refetchData: () => void,
   handleCloseModal: () => void,
-  findingId: string,
-  groupName: string
+  findingId: string
 ): MutationHookOptions => {
   return {
     onCompleted: (data: IHandleVulnerabilitiesAcceptanceResultAttr): void => {
@@ -87,7 +86,6 @@ const acceptanceProps = (
         query: GET_FINDING_AND_GROUP_INFO,
         variables: {
           findingId,
-          groupName,
         },
       },
     ],

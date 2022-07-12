@@ -77,7 +77,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     // GraphQL operations
     const [handleAcceptance, { loading: handlingAcceptance }] = useMutation(
       HANDLE_VULNS_ACCEPTANCE,
-      acceptanceProps(refetchData, handleCloseModal, findingId, groupName)
+      acceptanceProps(refetchData, handleCloseModal, findingId)
     );
     const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
       CONFIRM_VULNERABILITIES_ZERO_RISK,
