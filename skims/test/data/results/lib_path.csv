@@ -10288,39 +10288,39 @@ F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,5,200,skims
    10 |         c = Number(a);
    11 |         if(c < 5) throw ""too low"";
    12 |         if(c > 10) throw ""too high"";
-   13 |         eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
-   14 |     }
-   15 |     catch(err) {
-   16 |         // a comment
-   17 |         /* a comment */
-   18 |         /*
-   19 |             a comment
-   20 |         */
-   21 |     }
+   13 |     }
+   14 |     catch(err) {
+   15 |         // a comment
+   16 |         /* a comment */
+   17 |         /*
+   18 |             a comment
+   19 |         */
+   20 |     }
+   21 |
       ^ Col 0
 ",javascript.js_uses_console_log
-F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,67,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
-   57 |             break;
-   58 |         case 6:
-   59 |             day = ""Saturday"";
-   60 |             break;
-   61 |     }
-   62 | }
-   63 |
-   64 | function functionBWithConsoleLog() {
-   65 |     var a = 13
-   66 |     var b = 31
->  67 |     console.log(a+b)
-   68 |     localStorage.clear();
-   69 |     try {
-   70 |         if(a == """") throw ""empty"";
-   71 |         if(isNaN(a)) throw ""not a number"";
-   72 |         c = Number(a);
-   73 |         if(c < 5) throw ""too low"";
-   74 |         if(c > 10) throw ""too high"";
-   75 |     }
-   76 |     catch(err) {
-   77 |         //console.log(a+b)
+F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,66,200,skims,066. Technical information leak - Console functions,console.log() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,"
+   56 |             break;
+   57 |         case 6:
+   58 |             day = ""Saturday"";
+   59 |             break;
+   60 |     }
+   61 | }
+   62 |
+   63 | function functionBWithConsoleLog() {
+   64 |     var a = 13
+   65 |     var b = 31
+>  66 |     console.log(a+b)
+   67 |     localStorage.clear();
+   68 |     try {
+   69 |         if(a == """") throw ""empty"";
+   70 |         if(isNaN(a)) throw ""not a number"";
+   71 |         c = Number(a);
+   72 |         if(c < 5) throw ""too low"";
+   73 |         if(c > 10) throw ""too high"";
+   74 |     }
+   75 |     catch(err) {
+   76 |         //console.log(a+b)
       ^ Col 0
 ",javascript.js_uses_console_log
 F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
@@ -27247,6 +27247,30 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protoc
   19 | }
      ^ Col 0
 ",terraform.tfm_elb2_uses_insecure_protocol
+F143,lines,namespace/skims/test/data/lib_root/f143/eval_open.js,11,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a JavaScript file or directory. in namespace/skims/test/data/lib_root/f143/eval_open.js,"
+   1 | function functionAWithConsoleLog() {
+   2 |     var a = 13
+   3 |     var c = Math.floor((Math.random() * 100) + 1);
+   4 |     localStorage.getItem('key');
+   5 |     try {
+   6 |         if(a == """") throw ""empty"";
+   7 |         if(isNaN(a)) throw ""not a number"";
+   8 |         c = Number(a);
+   9 |         if(c < 5) throw ""too low"";
+  10 |         if(c > 10) throw ""too high"";
+> 11 |         eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
+  12 |         // eval('alert(""Your query string was ' + unescape(document.location.search) + '"");');
+  13 |     }
+  14 |     catch(err) {
+  15 |         // a comment
+  16 |         /* a comment */
+  17 |         /*
+  18 |             a comment
+  19 |         */
+  20 |     }
+  21 | }
+     ^ Col 0
+",javascript.js_uses_eval
 F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,4,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml","
    1 | Resources:

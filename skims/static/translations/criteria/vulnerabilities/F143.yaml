@@ -1,3 +1,3 @@
-lib_path.f143.js_uses_eval:
+lib_root.f143.js_uses_eval:
   en: eval() calls in a JavaScript file or directory.
   es: Se llama a eval() en un archivo JavaScript o un directorio

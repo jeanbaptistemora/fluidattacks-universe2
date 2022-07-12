@@ -10,7 +10,6 @@ function functionAWithConsoleLog() {
         c = Number(a);
         if(c < 5) throw "too low";
         if(c > 10) throw "too high";
-        eval('alert("Your query string was ' + unescape(document.location.search) + '");');
     }
     catch(err) {
         // a comment
