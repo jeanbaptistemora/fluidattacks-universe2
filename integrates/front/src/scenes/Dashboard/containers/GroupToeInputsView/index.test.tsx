@@ -371,18 +371,6 @@ describe("groupToeInputsView", (): void => {
         "group.toe.inputs.bePresentUntil",
       ].join("")
     );
-    expect(screen.getAllByRole("row")[1].textContent).toStrictEqual(
-      [
-        "test_nickname",
-        "idTest",
-        "group.toe.inputs.no",
-        "2020-01-02",
-        "2000-01-01",
-        "",
-        "Yes",
-        "",
-      ].join("")
-    );
 
     const row = screen.getByRole("row", {
       name: [
@@ -403,6 +391,128 @@ describe("groupToeInputsView", (): void => {
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "group.toe.inputs.alerts.updateInput",
+        "groupAlerts.updatedTitle"
+      );
+    });
+  });
+
+  it("should mark input as attacked", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_TOE_INPUT,
+          variables: {
+            bePresent: true,
+            canGetAttackedAt: true,
+            canGetAttackedBy: true,
+            canGetBePresentUntil: true,
+            canGetFirstAttackAt: true,
+            canGetSeenFirstTimeBy: true,
+            component: "test.com/api/Test",
+            entryPoint: "idTest",
+            groupName: "unittesting",
+            hasRecentAttack: true,
+            rootId: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+            shouldGetNewToeInput: false,
+          },
+        },
+        result: {
+          data: {
+            updateToeInput: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+    const mockedToeInputs: MockedResponse = {
+      request: {
+        query: GET_TOE_INPUTS,
+        variables: {
+          canGetAttackedAt: true,
+          canGetAttackedBy: true,
+          canGetBePresentUntil: true,
+          canGetFirstAttackAt: true,
+          canGetSeenFirstTimeBy: true,
+          first: 150,
+          groupName: "unittesting",
+        },
+      },
+      result: {
+        data: {
+          group: {
+            name: "unittesting",
+            toeInputs: {
+              __typename: "ToeInputsConnection",
+              edges: [
+                {
+                  node: {
+                    __typename: "ToeInput",
+                    attackedAt: "2020-01-02T00:00:00-05:00",
+                    bePresent: true,
+                    bePresentUntil: null,
+                    component: "test.com/api/Test",
+                    entryPoint: "idTest",
+                    firstAttackAt: "2020-02-19T15:41:04+00:00",
+                    hasVulnerabilities: false,
+                    root: {
+                      id: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+                      nickname: "test_nickname",
+                    },
+                    rootId: "1a32cab8-7b4c-4761-a0a5-85cb8b64ce68",
+                    rootNickname: "test_nickname",
+                    seenAt: "2000-01-01T05:00:00+00:00",
+                    seenFirstTimeBy: "",
+                  },
+                },
+              ],
+              pageInfo: {
+                endCursor: "bnVsbA==",
+                hasNextPage: false,
+              },
+            },
+          },
+        },
+      },
+    };
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_resolvers_toe_input_attacked_at_resolve" },
+      { action: "api_resolvers_toe_input_attacked_by_resolve" },
+      { action: "api_resolvers_toe_input_be_present_until_resolve" },
+      { action: "api_resolvers_toe_input_first_attack_at_resolve" },
+      { action: "api_resolvers_toe_input_seen_first_time_by_resolve" },
+      { action: "api_mutations_update_toe_input_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/inputs"]}>
+        <MockedProvider
+          addTypename={true}
+          mocks={[mockedToeInputs].concat(mocksMutation)}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/inputs"}>
+              <GroupToeInputsView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getAllByRole("checkbox", { name: "" })[0]);
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "group.toe.inputs.actionButtons.attackedButton.text",
+      })
+    );
+
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.toe.inputs.alerts.markAsAttacked.success",
         "groupAlerts.updatedTitle"
       );
     });

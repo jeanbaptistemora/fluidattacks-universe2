@@ -1111,21 +1111,6 @@ export const enTranslations: ResourceKey = {
         bePresentUntil: "Be present until",
         commit: "Commit",
         component: "Component",
-        editModal: {
-          alerts: {
-            alreadyUpdate: "Something modified the input during the edition.",
-            invalidAttackedAt:
-              "The attacked at is not valid. There is a new datetime.",
-            nonPresent: "The input is not present.",
-            success: "Input has been updated.",
-          },
-          close: "Close",
-          fields: {
-            bePresent: "Be present",
-            hasRecentAttack: "Has it been attacked recently?",
-          },
-          title: "Edit input",
-        },
         entryPoint: "Entry point",
         filters: {
           bePresent: {
