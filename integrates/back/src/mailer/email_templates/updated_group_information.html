@@ -18,10 +18,16 @@
       {% for key, value in group_changes.items() %}
         <strong>{{ key }}</strong>:
         {% if value["from"] == value["to"] %}
-          {{ value["to"] }}.<br>
+          {{ value["to"] }}.
         {% else %}
-          {{ value["from"] }} <u>to</u> {{ value["to"] }}.<br>
+          {% if key in ["Sprint Length"] %}
+            {{ value["from"].split()[0] }}
+          {% else %}
+            {{ value["from"] }}
+          {% endif %}
+          <u>to</u> {{ value["to"] }}.
         {% endif %}
+        <br>
       {% endfor %}
     </p>
     <p>Regards,<br>Fluid Attacks Team</p>

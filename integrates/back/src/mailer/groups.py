@@ -531,6 +531,10 @@ async def send_mail_environment_report(
     )
 
 
+def weeks_format(val: Optional[int]) -> str:
+    return f"{val} {'week' if val == 1 else 'weeks'}"
+
+
 async def send_mail_updated_group_information(
     *,
     loaders: Any,
@@ -564,8 +568,8 @@ async def send_mail_updated_group_information(
             "to": language_format[language_metadata],
         },
         "Sprint Length": {
-            "from": group.sprint_duration,
-            "to": metadata.sprint_duration,
+            "from": weeks_format(group.sprint_duration),
+            "to": weeks_format(metadata.sprint_duration),
         },
         **(
             {
