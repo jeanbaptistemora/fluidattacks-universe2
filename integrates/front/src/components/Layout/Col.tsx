@@ -47,6 +47,10 @@ const Col = styled.div.attrs({
   @media (min-width: 992px) {
     ${({ large }): string => getAttrs(large)}
   }
+
+  > .comp-card {
+    height: 100%;
+  }
 `;
 
 export { Col };
