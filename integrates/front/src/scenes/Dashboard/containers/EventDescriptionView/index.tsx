@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -9,7 +9,10 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import type { IEventDescriptionData } from "./types";
+import type {
+  IEventDescriptionData,
+  IUpdateEventSolvingReasonAttr,
+} from "./types";
 
 import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
@@ -17,6 +20,7 @@ import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queri
 import {
   GET_EVENT_DESCRIPTION,
   SOLVE_EVENT_MUTATION,
+  UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
   ButtonToolbar,
@@ -33,7 +37,7 @@ import {
 } from "utils/formatHelpers";
 import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
-import { msgError } from "utils/notifications";
+import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
@@ -68,8 +72,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
   // State management
   const [isSolvingModalOpen, setIsSolvingModalOpen] = useState(false);
+  const [isEditingSolvingReason, setIsEditingSolvingReason] = useState(false);
   const openSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(true);
+    setIsEditingSolvingReason(false);
+  }, []);
+  const openEditReasonModal: () => void = useCallback((): void => {
+    setIsSolvingModalOpen(true);
+    setIsEditingSolvingReason(true);
   }, []);
   const closeSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(false);
@@ -122,18 +132,70 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     }
   );
 
+  const [updateEventSolvingReason] = useMutation(
+    UPDATE_EVENT_SOLVING_REASON_MUTATION,
+    {
+      onCompleted: (mtResult: IUpdateEventSolvingReasonAttr): void => {
+        if (mtResult.updateEventSolvingReason.success) {
+          msgSuccess(
+            t("group.events.description.alerts.editSolvingReason.success"),
+            t("groupAlerts.updatedTitle")
+          );
+        }
+      },
+      onError: (error: ApolloError): void => {
+        error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+          switch (message) {
+            case "Exception - The event has not been solved":
+              msgError(
+                t(
+                  `group.events.description.alerts.editSolvingReason.nonSolvedEvent`
+                )
+              );
+              break;
+            default:
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.warning(
+                "An error occurred updating the event solving reason",
+                error
+              );
+          }
+        });
+      },
+      refetchQueries: [GET_EVENT_DESCRIPTION],
+    }
+  );
+
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
-      void solveEvent({
-        variables: {
-          eventId,
-          other: values.other,
-          reason: values.reason,
-        },
-      });
+      const otherReason = values.reason === "OTHER" ? values.other : undefined;
+      if (isEditingSolvingReason) {
+        void updateEventSolvingReason({
+          variables: {
+            eventId,
+            other: otherReason,
+            reason: values.reason,
+          },
+        });
+      } else {
+        void solveEvent({
+          variables: {
+            eventId,
+            other: otherReason,
+            reason: values.reason,
+          },
+        });
+      }
+
       closeSolvingModal();
     },
-    [eventId, closeSolvingModal, solveEvent]
+    [
+      eventId,
+      closeSolvingModal,
+      isEditingSolvingReason,
+      solveEvent,
+      updateEventSolvingReason,
+    ]
   );
 
   const handleDescriptionSubmit: () => void = useCallback(
@@ -151,16 +213,27 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         <Modal
           onClose={closeSolvingModal}
           open={isSolvingModalOpen}
-          title={t("searchFindings.tabSeverity.solve")}
+          title={
+            isEditingSolvingReason
+              ? t("group.events.description.editSolvingReason")
+              : t("group.events.description.markAsSolved")
+          }
         >
           <Formik
             enableReinitialize={true}
-            initialValues={{ other: "", reason: "" }}
-            name={"solveEvent"}
+            initialValues={
+              isEditingSolvingReason
+                ? {
+                    other: data.event.otherSolvingReason,
+                    reason: data.event.solvingReason,
+                  }
+                : { other: "", reason: "" }
+            }
+            name={"solvingReason"}
             onSubmit={handleSubmit}
           >
             {({ dirty, values }): React.ReactNode => (
-              <Form id={"solveEvent"}>
+              <Form id={"solvingReason"}>
                 <Row>
                   <Col100>
                     <FormGroup>
@@ -215,7 +288,8 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     ) : undefined}
                   </Col100>
                 </Row>
-                {_.isEmpty(data.event.affectedReattacks) ? undefined : (
+                {_.isEmpty(data.event.affectedReattacks) ||
+                isEditingSolvingReason ? undefined : (
                   <Row>
                     <Col100>
                       {t("group.events.description.solved.holds", {
@@ -242,17 +316,28 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
               <div>
                 <Row>
                   <ButtonToolbar>
-                    <Can do={"api_mutations_solve_event_mutate"}>
-                      <Button
-                        disabled={data.event.eventStatus === "SOLVED"}
-                        onClick={openSolvingModal}
-                        variant={"primary"}
+                    {data.event.eventStatus === "SOLVED" ? (
+                      <Can
+                        do={"api_mutations_update_event_solving_reason_mutate"}
                       >
-                        <FontAwesomeIcon icon={faCheck} />
-                        &nbsp;
-                        {t("searchFindings.tabSeverity.solve")}
-                      </Button>
-                    </Can>
+                        <Button
+                          onClick={openEditReasonModal}
+                          variant={"primary"}
+                        >
+                          <FontAwesomeIcon icon={faPen} />
+                          &nbsp;
+                          {t("group.events.description.editSolvingReason")}
+                        </Button>
+                      </Can>
+                    ) : (
+                      <Can do={"api_mutations_solve_event_mutate"}>
+                        <Button onClick={openSolvingModal} variant={"primary"}>
+                          <FontAwesomeIcon icon={faCheck} />
+                          &nbsp;
+                          {t("group.events.description.markAsSolved")}
+                        </Button>
+                      </Can>
+                    )}
                   </ButtonToolbar>
                 </Row>
                 <Row>

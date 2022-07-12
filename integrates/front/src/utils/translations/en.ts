@@ -454,6 +454,14 @@ export const enTranslations: ResourceKey = {
         tooltip: "Create a new event",
       },
       description: {
+        alerts: {
+          editSolvingReason: {
+            nonSolvedEvent: "The event has not been solved",
+            success: "Solving reason has been updated",
+          },
+        },
+        editSolvingReason: "Edit solving reason",
+        markAsSolved: "Mark as solved",
         solved: {
           date: "Resolution date",
           holds:
@@ -3001,7 +3009,6 @@ export const enTranslations: ResourceKey = {
           "The Scope metric captures whether a vulnerability in one vulnerable component " +
           "impacts resources in components beyond its security scope. ",
       },
-      solve: "Mark as solved",
       tabTitle: "Severity",
       tooltip: "Assigned score according to CVSS 3.1 metrics",
       update: "Update",

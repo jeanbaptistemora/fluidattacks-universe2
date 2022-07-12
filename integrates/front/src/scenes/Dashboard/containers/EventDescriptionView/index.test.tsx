@@ -97,7 +97,7 @@ describe("EventDescriptionView", (): void => {
     );
     await waitFor((): void => {
       expect(
-        screen.getByText("searchFindings.tabSeverity.solve")
+        screen.getByText("group.events.description.markAsSolved")
       ).toBeInTheDocument();
     });
 
@@ -107,7 +107,7 @@ describe("EventDescriptionView", (): void => {
       )
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getByText("searchFindings.tabSeverity.solve"));
+    userEvent.click(screen.getByText("group.events.description.markAsSolved"));
     await waitFor((): void => {
       expect(
         screen.getByText(
