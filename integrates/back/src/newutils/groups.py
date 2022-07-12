@@ -1,3 +1,7 @@
+from db_model.constants import (
+    DEFAULT_MAX_SEVERITY,
+    DEFAULT_MIN_SEVERITY,
+)
 from db_model.groups.enums import (
     GroupStateStatus,
 )
@@ -6,6 +10,9 @@ from db_model.groups.types import (
 )
 from db_model.organizations.types import (
     Organization,
+)
+from decimal import (
+    Decimal,
 )
 from typing import (
     Any,
@@ -51,3 +58,32 @@ async def get_group_max_number_acceptances(
         group.organization_id
     )
     return organization.policies.max_number_acceptances
+
+
+async def get_group_max_acceptance_severity(
+    *, loaders: Any, group: Group
+) -> Decimal:
+    if group.policies:
+        return group.policies.max_acceptance_severity or DEFAULT_MAX_SEVERITY
+
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    return (
+        organization.policies.max_acceptance_severity or DEFAULT_MAX_SEVERITY
+    )
+
+
+async def get_group_min_acceptance_severity(
+    *, loaders: Any, group: Group
+) -> Decimal:
+
+    if group.policies:
+        return group.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    return (
+        organization.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+    )

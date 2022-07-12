@@ -1,17 +1,14 @@
-from db_model.constants import (
-    DEFAULT_MIN_SEVERITY,
-)
 from db_model.groups.types import (
     Group,
-)
-from db_model.organizations.types import (
-    Organization,
 )
 from decimal import (
     Decimal,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from newutils.groups import (
+    get_group_min_acceptance_severity,
 )
 
 
@@ -20,12 +17,8 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Decimal:
-    if parent.policies:
-        return parent.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
 
-    organization: Organization = await info.context.loaders.organization.load(
-        parent.organization_id
-    )
-    return (
-        organization.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+    return await get_group_min_acceptance_severity(
+        loaders=info.context.loaders,
+        group=parent,
     )

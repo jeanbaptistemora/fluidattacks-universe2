@@ -31,10 +31,6 @@ from datetime import (
 from db_model import (
     vulnerabilities as vulns_model,
 )
-from db_model.constants import (
-    DEFAULT_MAX_SEVERITY,
-    DEFAULT_MIN_SEVERITY,
-)
 from db_model.enums import (
     Notification,
 )
@@ -43,9 +39,6 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     Group,
-)
-from db_model.organizations.types import (
-    Organization,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -76,7 +69,9 @@ from newutils import (
 )
 from newutils.groups import (
     get_group_max_acceptance_days,
+    get_group_max_acceptance_severity,
     get_group_max_number_acceptances,
+    get_group_min_acceptance_severity,
 )
 from typing import (
     Any,
@@ -84,7 +79,6 @@ from typing import (
     Dict,
     List,
     Optional,
-    Tuple,
 )
 
 
@@ -137,7 +131,7 @@ async def _validate_acceptance_days(
 
 
 async def _validate_acceptance_severity(
-    loaders: Any, values: Dict[str, str], severity: float, organization_id: str
+    loaders: Any, values: Dict[str, str], severity: float, group_name: str
 ) -> bool:
     """
     Check that the severity of the finding to temporaryly accept is inside
@@ -145,16 +139,14 @@ async def _validate_acceptance_severity(
     """
     valid: bool = True
     if values.get("treatment") == "ACCEPTED":
-        organization_data: Organization = await loaders.organization.load(
-            organization_id
+        group: Group = await loaders.group.load(group_name)
+        min_value: Decimal = await get_group_min_acceptance_severity(
+            loaders=loaders,
+            group=group,
         )
-        min_value: Decimal = (
-            organization_data.policies.min_acceptance_severity
-            or DEFAULT_MIN_SEVERITY
-        )
-        max_value: Decimal = (
-            organization_data.policies.max_acceptance_severity
-            or DEFAULT_MAX_SEVERITY
+        max_value: Decimal = await get_group_max_acceptance_severity(
+            loaders=loaders,
+            group=group,
         )
         if not (
             min_value
@@ -168,7 +160,7 @@ async def _validate_acceptance_severity(
 async def _validate_number_acceptances(
     loaders: Any,
     values: Dict[str, str],
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    historic_treatment: tuple[VulnerabilityTreatment, ...],
     group_name: str,
 ) -> bool:
     """
@@ -201,16 +193,15 @@ async def validate_treatment_change(
     *,
     finding_severity: float,
     group_name: str,
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
+    historic_treatment: tuple[VulnerabilityTreatment, ...],
     loaders: Any,
-    organization_id: str,
     values: Dict[str, str],
 ) -> bool:
     validate_acceptance_days_coroutine = _validate_acceptance_days(
         loaders, values, group_name
     )
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
-        loaders, values, finding_severity, organization_id
+        loaders, values, finding_severity, group_name
     )
     validate_number_acceptances_coroutine = _validate_number_acceptances(
         loaders,
@@ -265,7 +256,7 @@ async def add_vulnerability_treatment(
 
 def get_treatment_change(
     vulnerability: Vulnerability, min_date: Datetime
-) -> Optional[Tuple[str, Vulnerability]]:
+) -> Optional[tuple[str, Vulnerability]]:
     if vulnerability.treatment is not None:
         last_treatment_date = datetime.fromisoformat(
             vulnerability.treatment.modified_date
@@ -286,7 +277,7 @@ async def get_treatment_changes(
     loaders: Any,
     vuln: Vulnerability,
 ) -> int:
-    historic: Tuple[
+    historic: tuple[
         VulnerabilityTreatment, ...
     ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
     if historic:
@@ -306,7 +297,7 @@ async def _handle_vulnerability_acceptance(
     new_treatment: VulnerabilityTreatment,
     vulnerability: Vulnerability,
 ) -> None:
-    treatments_to_add: Tuple[VulnerabilityTreatment, ...] = tuple()
+    treatments_to_add: tuple[VulnerabilityTreatment, ...] = tuple()
     if (
         new_treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.APPROVED
@@ -377,7 +368,7 @@ async def handle_vulnerabilities_acceptance(
     today = datetime_utils.get_iso_date()
     coroutines: List[Awaitable[None]] = []
 
-    all_vulns: Tuple[
+    all_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding_id)
     vulnerabilities = tuple(
@@ -444,7 +435,7 @@ async def send_treatment_change_mail(
     min_date: Datetime,
     modified_by: str,
 ) -> bool:
-    vulns: Tuple[
+    vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load(finding_id)
     changes = list(
@@ -522,7 +513,6 @@ async def update_vulnerabilities_treatment(
     loaders: Any,
     finding_id: str,
     updated_values: Dict[str, str],
-    organization_id: str,
     finding_severity: float,
     user_email: str,
     vulnerability_id: str,
@@ -531,7 +521,7 @@ async def update_vulnerabilities_treatment(
     if "assigned" not in updated_values:
         updated_values["assigned"] = user_email
 
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_all.load(finding_id)
     vulnerability = next(
@@ -579,7 +569,6 @@ async def update_vulnerabilities_treatment(
         group_name=group_name,
         historic_treatment=historic_treatment,
         loaders=loaders,
-        organization_id=organization_id,
         values=updated_values,
     ):
         return False
@@ -598,7 +587,7 @@ async def validate_and_send_notification_request(
     vulnerabilities: List[str],
 ) -> bool:
     # Validate finding with vulns in group
-    finding_vulns: Tuple[
+    finding_vulns: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_all.load(finding.id)
     assigned_vulns = list(

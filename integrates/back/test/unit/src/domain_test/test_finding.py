@@ -338,7 +338,6 @@ async def test_validate_evidence_records_invalid_type() -> None:
     ],
 )
 async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date="2020-02-01T17:00:00+00:00",
@@ -358,13 +357,11 @@ async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
             group_name="kurome",
             historic_treatment=historic_treatment,
             loaders=get_new_context(),
-            organization_id=org_id,
             values=values_accepted,
         )
 
 
 async def test_validate_acceptance_severity() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date="2020-02-01T17:00:00+00:00",
@@ -387,13 +384,11 @@ async def test_validate_acceptance_severity() -> None:
             group_name="kurome",
             historic_treatment=historic_treatment,
             loaders=get_new_context(),
-            organization_id=org_id,
             values=values_accepted,
         )
 
 
 async def test_validate_number_acceptances() -> None:
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     historic_treatment = (
         VulnerabilityTreatment(
             modified_date="2020-01-01T17:00:00+00:00",
@@ -423,7 +418,6 @@ async def test_validate_number_acceptances() -> None:
             group_name="kurome",
             historic_treatment=historic_treatment,
             loaders=get_new_context(),
-            organization_id=org_id,
             values=values_accepted,
         )
 
