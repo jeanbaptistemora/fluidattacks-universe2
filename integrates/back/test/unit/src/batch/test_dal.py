@@ -19,13 +19,122 @@ import pytest
 from typing import (
     List,
 )
+from unittest import (
+    mock,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
 ]
 
+scan_actions_result = {
+    "Items": [
+        {
+            "additional_info": {
+                "S": """
+              {\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\",
+               \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\":
+               [\"CLOSED\", \"OPEN\"], \"verifications\": [],
+                \"closing_date\": null}
+            """
+            },
+            "subject": {"S": "unittesting@fluidattacks.com"},
+            "action_name": {"S": "report"},
+            "pk": {
+                "S": """
+              1bc77999477bfcc84cd111ac745407f2b9ff21e930f59b097b414bbe34f29b46
+            """
+            },
+            "time": {"S": "1616116348"},
+            "entity": {"S": "unittesting"},
+            "queue": {"S": "small"},
+        },
+        {
+            "additional_info": {
+                "S": """
+              {\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\",
+               \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\":
+               [\"CLOSED\", \"OPEN\"], \"verifications\": [],
+                \"closing_date\": null}
+            """
+            },
+            "subject": {"S": "unittesting@fluidattacks.com"},
+            "action_name": {"S": "report"},
+            "pk": {
+                "S": """
+              7eda9da492308050bee1bb70b386ffcb3fc9bcabe5b41185113706fe6a2d490c
+            """
+            },
+            "time": {"S": "1615834776"},
+            "entity": {"S": "unittesting"},
+            "queue": {"S": "small"},
+        },
+        {
+            "additional_info": {
+                "S": """
+              {\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\",
+               \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\":
+               [\"CLOSED\", \"OPEN\"], \"verifications\": [],
+                \"closing_date\": null}
+            """
+            },
+            "subject": {"S": "unittesting@fluidattacks.com"},
+            "action_name": {"S": "report"},
+            "pk": {
+                "S": """
+              71992ff157b46d63fe5bb9dd37176cdb0e27854009b0529d648375d9bfb38977
+            """
+            },
+            "time": {"S": "1616116348"},
+            "entity": {"S": "unittesting"},
+            "queue": {"S": "small"},
+        },
+        {
+            "additional_info": {
+                "S": """
+            {\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\",
+             \"NEW\"], \"states\": [\"OPEN\"], \"verifications\":
+             [\"REQUESTED\"], \"closing_date\": null}
+            """
+            },
+            "subject": {"S": "unittesting@fluidattacks.com"},
+            "action_name": {"S": "report"},
+            "pk": {
+                "S": """
+              0b60f7743b70ef85c0bc62d49483cef23a883ef03aac17d8921021214f082ad6
+            """
+            },
+            "time": {"S": "1615834776"},
+            "entity": {"S": "unittesting"},
+            "queue": {"S": "small"},
+        },
+        {
+            "additional_info": {
+                "S": """
+              {\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\",
+               \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\":
+              [\"CLOSED\"], \"verifications\": [\"VERIFIED\"],
+              \"closing_date\": \"2020-06-01T05:00:00+00:00\"}
+            """
+            },
+            "subject": {"S": "unittesting@fluidattacks.com"},
+            "action_name": {"S": "report"},
+            "pk": {
+                "S": """
+              5ae92b4b4437e3e004fb668bed37472fe4615d92767e3a31d81a7d9ea7c7d999
+            """
+            },
+            "time": {"S": "1656429212"},
+            "entity": {"S": "unittesting"},
+            "queue": {"S": "small"},
+        },
+    ],
+}
+
 
 async def test_get_actions() -> None:
+    with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
+        mock_scan.result = scan_actions_result
     all_actions = await batch_dal.get_actions()
     assert isinstance(all_actions, list)
     assert len(all_actions) == 5
