@@ -54,7 +54,7 @@ async def get_data_one_group(
                 [
                     event
                     for event in events_group
-                    if event.state.status == EventStateStatus.CREATED
+                    if event.state.status != EventStateStatus.SOLVED
                 ]
             )
         ),
@@ -112,7 +112,7 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
             ),
         ),
         barChartYTickFormat=True,
-        maxValue=format_max_value(data),
+        maxValue=format_max_value(limited_data),
     )
 
 
