@@ -24,7 +24,12 @@ resource "aws_security_group" "integrates-opensearch" {
   }
 }
 
+resource "aws_iam_service_linked_role" "integrates-opensearch" {
+  aws_service_name = "opensearchservice.amazonaws.com"
+}
+
 resource "aws_opensearch_domain" "integrates" {
+  depends_on     = ["aws_iam_service_linked_role.integrates-opensearch"]
   domain_name    = "integrates"
   engine_version = "OpenSearch_1.2"
 
