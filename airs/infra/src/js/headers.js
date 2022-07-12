@@ -1079,7 +1079,10 @@ const redirectMap = new Map([
   ["/blog/what-is-devsecops", "https://fluidattacks.com/blog/devsecops-concept/"],
   ["/blog/what-is-devsecops/", "https://fluidattacks.com/blog/devsecops-concept/"],
   ["/web/blog/updating-belief", "https://fluidattacks.com/blog/updating-belief/"],
-  ["/web/blog/updating-belief/", "https://fluidattacks.com/blog/updating-belief/"]
+  ["/web/blog/updating-belief/", "https://fluidattacks.com/blog/updating-belief/"],
+  ["/web/blog/reversing-mortals/image3.png", "https://fluidattacks.com/blog/reversing-mortals/"],
+  ["/web/blog/reversing-mortals", "https://fluidattacks.com/blog/reversing-mortals/"],
+  ["/web/blog/reversing-mortals/", "https://fluidattacks.com/blog/reversing-mortals/"],
 ]);
 
 addEventListener('fetch', event => {
