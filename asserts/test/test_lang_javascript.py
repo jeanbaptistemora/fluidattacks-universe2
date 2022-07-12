@@ -30,16 +30,6 @@ NPM_SECURE_PACKAGE = "test/static/sca/npm/close/package.json"
 #
 
 
-def test_uses_localstorage_open():
-    """Search localStorage calls."""
-    assert javascript.uses_localstorage(INSECURE_CODE)
-
-
-def test_uses_localstorage_in_dir_open():
-    """Search localStorage calls."""
-    assert javascript.uses_localstorage(CODE_DIR)
-
-
 def test_has_insecure_randoms_open():
     """Search Math.random() calls."""
     assert javascript.has_insecure_randoms(INSECURE_CODE)
@@ -89,13 +79,6 @@ def test_has_if_without_else_open():
 #
 # Closing tests
 #
-
-
-def test_uses_localstorage_close():
-    """Search localStorage calls."""
-    assert not javascript.uses_localstorage(SECURE_CODE)
-    assert not javascript.uses_localstorage(CODE_DIR, exclude=["test"])
-    assert not javascript.uses_localstorage(NOT_EXISTANT_CODE)
 
 
 def test_has_insecure_randoms_close():
