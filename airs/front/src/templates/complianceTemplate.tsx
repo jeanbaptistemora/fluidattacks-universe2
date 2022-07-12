@@ -17,11 +17,10 @@ import React from "react";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { Title } from "../components/Texts";
 import {
-  BannerContainer,
-  BannerTitle,
   ComplianceContainer,
-  FullWidthContainer,
+  FlexCenterItemsContainer,
   PageArticle,
 } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
@@ -34,7 +33,7 @@ const ComplianceIndex: React.FC<IQueryData> = ({
     breadcrumb: { crumbs },
   } = pageContext;
 
-  const { banner, description, keywords, slug, title } =
+  const { description, keywords, slug, title } =
     data.markdownRemark.frontmatter;
 
   return (
@@ -59,11 +58,11 @@ const ComplianceIndex: React.FC<IQueryData> = ({
           />
 
           <PageArticle bgColor={"#f9f9f9"}>
-            <BannerContainer className={banner}>
-              <FullWidthContainer>
-                <BannerTitle>{title}</BannerTitle>
-              </FullWidthContainer>
-            </BannerContainer>
+            <FlexCenterItemsContainer>
+              <Title fColor={"#2e2e38"} fSize={"48"} marginTop={"4"}>
+                {title}
+              </Title>
+            </FlexCenterItemsContainer>
             <ComplianceContainer
               dangerouslySetInnerHTML={{
                 __html: data.markdownRemark.html,

@@ -8,7 +8,7 @@ banner: bg-compliance-internal
 template: compliance
 ---
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### How can Fluid Attacks help with HIPAA compliance?
 
@@ -40,7 +40,7 @@ vulnerability.
 
 </div>
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### What is HIPAA?
 
@@ -62,7 +62,7 @@ associates](https://www.hhs.gov/hipaa/for-professionals/privacy/guidance/busines
 
 </div>
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### What is HIPAA compliance?
 

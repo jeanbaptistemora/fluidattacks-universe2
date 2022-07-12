@@ -251,12 +251,6 @@ body {
 .wm-tb-rl { writing-mode: tb-rl; }
 
 // Media queries
-@media screen and (min-width: 1290px) {
-  .owasp-col {
-    min-height: 480px;
-    width: 610px;
-  }
-}
 
 // Big screen sizes
 @media screen and (min-width: 60em) {
@@ -750,19 +744,24 @@ body {
 .compliance-grid { grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); }
 
 .compliance-page {
+  color: $black-gray;
+
   .sect2 {
-    h3 { font-size: 2.25rem; }
+    h3 {
+      color: $fluid-black;
+      font-size: 2rem;
+    }
   }
 
   .sect3 {
-    h4 { font-size: 1.5rem; }
-
-    h4::after {
-      border-bottom: 4px solid $red-255;
-      content: '';
-      display: block;
-      width: 30%;
+    h4 {
+      color: $fluid-black;
+      font-size: 1.5rem;
     }
+  }
+
+  a {
+    color: $black-gray;
   }
 }
 

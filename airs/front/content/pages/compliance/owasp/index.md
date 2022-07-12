@@ -8,7 +8,7 @@ banner: bg-compliance-internal
 template: compliance
 ---
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### How can Fluid Attacks help with OWASP compliance?
 
@@ -45,7 +45,7 @@ and what would be considered a vulnerability.
 
 </div>
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### What is the OWASP?
 
@@ -68,7 +68,7 @@ with extensive experience in cybersecurity.
 
 </div>
 
-<div class="sect2 fw3 f3 lh-2">
+<div class="sect2 fw3 f5 lh-2">
 
 ### What is the OWASP Top 10?
 
@@ -95,7 +95,9 @@ Here we show you the current list of risks
 with a brief description of each one (for more information see
 the [official report](https://owasp.org/Top10/)):
 
-<div class="sect3 owasp-col fl">
+<div class="flex flex-wrap">
+
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 1. Broken Access Control
 
@@ -109,7 +111,7 @@ and operate as any user, including administrators.
 
 </div>
 
-<div class="sect3 owasp-col fr">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 2. Cryptographic Failures
 
@@ -123,7 +125,7 @@ that can obtain them for illegal activities.
 
 </div>
 
-<div class="sect3 owasp-col fl">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 3. Injection
 
@@ -135,7 +137,7 @@ to make it process the input as code.
 
 </div>
 
-<div class="sect3 owasp-col fr">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 4. Insecure Design
 
@@ -145,7 +147,7 @@ and failure to establish a secure development lifecycle.
 
 </div>
 
-<div class="sect3 owasp-col fl">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 5. Security Misconfiguration
 
@@ -160,7 +162,7 @@ inferred from the information exposed in error messages.
 
 </div>
 
-<div class="sect3 owasp-col fr">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 6. Vulnerable and Outdated Components
 
@@ -174,7 +176,7 @@ leads to having an application exposed to exploitation.
 
 </div>
 
-<div class="sect3 owasp-col fl">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 7. Identification and Authentication Failures
 
@@ -186,7 +188,7 @@ to gain access to user accounts and compromise the system.
 
 </div>
 
-<div class="sect3 owasp-col fr">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 8. Software and Data Integrity Failures
 
@@ -201,7 +203,7 @@ being introduced into the software pipeline.
 
 </div>
 
-<div class="sect3 owasp-col fl">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 9. Security Logging and Monitoring Failures
 
@@ -214,7 +216,7 @@ when attackers have already done a lot of damage.
 
 </div>
 
-<div class="sect3 owasp-col fr">
+<div class="sect3 ph3 w-50-l w-100">
 
 #### 10. Server-Side Request Forgery (SSRF)
 
@@ -229,7 +231,9 @@ to send a crafted request to an unexpected destination.
 
 </div>
 
-<div class="sect2 fw3 f3 lh-2">
+</div>
+
+<div class="sect2 fw3 f5 lh-2">
 
 ### OWASP Benchmark Project v1.2
 
