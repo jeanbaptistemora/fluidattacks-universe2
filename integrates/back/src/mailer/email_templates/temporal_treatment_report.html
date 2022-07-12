@@ -4,13 +4,13 @@
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_group('Temporal Treatment Alert') }}
+  {{ banner_group('Treatment Expiration Alert') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      The temporal treatment of the following vulnerabilities of type <strong>{{ finding }}</strong>,
-      in group <strong>{{ group }}</strong>, is close to end:<br><br>
+      The temporary acceptance period of the following vulnerabilities of the type <strong>{{ finding }}</strong>,
+      in group <strong>{{ group }}</strong>, is close to its end:<br><br>
       {% for key, value in locations.items() %}
         - {{ key }} ({{ value["vuln_count"] }}
         {% if value["vuln_count"] == 1 %}vulnerability{% else %}vulnerabilities{% endif %}).<br>
