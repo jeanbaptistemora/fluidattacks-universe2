@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface IAlertBoxProps {
+  show?: boolean;
   variant: "error" | "info" | "success" | "warning";
 }
 
@@ -31,13 +32,26 @@ const variants: Record<IAlertBoxProps["variant"], IVariant> = {
 const AlertBox = styled.div.attrs({
   className: "comp-alert",
 })<IAlertBoxProps>`
-  background-color: ${({ variant }): string => variants[variant].bgColor};
+  align-items: center;
   border-radius: 4px;
-  color: ${({ variant }): string => variants[variant].color};
-  padding: 10px 16px;
-  font-family: Roboto, sans-serif;
+  display: flex;
   font-size: 16px;
+  justify-content: space-between;
+  overflow: hidden;
   transition: all 0.3s ease;
+
+  ${({ show = true, variant }): string => `
+    background-color: ${variants[variant].bgColor};
+    height: ${show ? 35 : 0}px;
+    padding: ${show ? "10px 16px" : 0};
+  `}
+
+  > .comp-button {
+    background-color: transparent !important;
+    border: none !important;
+    margin-right: -10px;
+    padding: 4px 8px;
+  }
 `;
 
 export type { IAlertBoxProps };

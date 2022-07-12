@@ -33,7 +33,7 @@ const InputBase: FC<IInputBaseProps> = ({
       </label>
     )}
     <InputWrapper variant={variant}>{children}</InputWrapper>
-    <Alert icon={true} variant={"error"}>
+    <Alert icon={true} show={alert !== undefined} variant={"error"}>
       {alert}
     </Alert>
   </InputBox>

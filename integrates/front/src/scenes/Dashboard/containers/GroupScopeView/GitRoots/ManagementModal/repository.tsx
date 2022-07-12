@@ -522,7 +522,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                       {!showGitAlert && validateGitMsg.message !== "" && (
                         <Alert
                           icon={true}
-                          timer={setShowGitAlert}
+                          onTimeOut={setShowGitAlert}
                           variant={
                             validateGitMsg.type as IAlertProps["variant"]
                           }
@@ -699,7 +699,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                 {!showSubmitAlert && modalMessages.message !== "" && (
                   <Alert
                     icon={true}
-                    timer={setShowSubmitAlert}
+                    onTimeOut={setShowSubmitAlert}
                     variant={modalMessages.type as IAlertProps["variant"]}
                   >
                     {modalMessages.message}

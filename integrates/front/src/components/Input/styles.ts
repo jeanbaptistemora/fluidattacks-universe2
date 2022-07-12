@@ -46,12 +46,8 @@ const InputBox = styled.div.attrs({
   width: 100%;
 
   > .comp-alert {
-  ${({ showAlert }): string => `
-    font-size: ${showAlert ? "14px" : "0"};
-    ${showAlert ? "" : "line-height: 0;"}
-    margin-top: ${showAlert ? " 6px" : "0"};
-    padding: ${showAlert ? "6px 8px" : "0"};
-  `}
+    margin-top: ${({ showAlert }): number => (showAlert ? 4 : 0)}px;
+  }
 `;
 
 const InputWrapper = styled.div<IStyledInputProps>`

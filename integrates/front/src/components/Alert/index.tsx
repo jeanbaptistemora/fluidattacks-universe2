@@ -5,17 +5,25 @@ import {
   faCircleExclamation,
   faCircleInfo,
   faTriangleExclamation,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import type { IAlertBoxProps } from "./Box";
 import { AlertBox } from "./Box";
 
+import { Button } from "components/Button";
+import { Gap } from "components/Layout";
+
 interface IAlertProps extends IAlertBoxProps {
-  children: React.ReactNode;
+  autoHide?: boolean;
+  children: ReactNode;
+  closable?: boolean;
   icon?: boolean;
-  timer?: React.Dispatch<React.SetStateAction<boolean>>;
+  time?: 4 | 8 | 12;
+  onTimeOut?: Dispatch<SetStateAction<boolean>>;
 }
 
 interface IIcons {
@@ -37,34 +45,47 @@ const icons: Record<IAlertProps["variant"], IIcons> = {
   },
 };
 
-const Alert: React.FC<IAlertProps> = ({
+const Alert: FC<IAlertProps> = ({
+  autoHide = false,
   children,
+  closable = false,
+  show = true,
   icon = false,
-  timer = (): void => undefined,
+  time = 8,
+  onTimeOut: timer,
   variant,
-}: IAlertProps): JSX.Element | null => {
-  const [seconds, setSeconds] = useState(0);
+}: Readonly<IAlertProps>): JSX.Element | null => {
+  const [showBox, setShowBox] = useState(show);
+  const handleHide = useCallback((): void => {
+    setShowBox(false);
+  }, []);
   useEffect((): VoidFunction => {
-    const interval = setInterval((): void => {
-      setSeconds((secs): number => secs + 1);
-    }, 1000);
+    const timeout = setTimeout((): void => {
+      timer?.(true);
+      if (autoHide) {
+        handleHide();
+      }
+    }, time * 1000);
 
     return (): void => {
-      clearInterval(interval);
+      clearTimeout(timeout);
     };
-  }, []);
-  if (seconds > 10) {
-    timer(true);
-  }
+  }, [autoHide, handleHide, time, timer]);
+  useEffect((): void => {
+    setShowBox(show);
+  }, [show, setShowBox]);
 
   return (
-    <AlertBox variant={variant}>
-      {icon ? (
-        <span className={"mr2"}>
-          <FontAwesomeIcon icon={icons[variant].icon} />
-        </span>
+    <AlertBox show={showBox} variant={variant}>
+      <Gap>
+        {icon ? <FontAwesomeIcon icon={icons[variant].icon} /> : undefined}
+        {children}
+      </Gap>
+      {closable ? (
+        <Button onClick={handleHide} size={"sm"}>
+          <FontAwesomeIcon icon={faXmark} />
+        </Button>
       ) : undefined}
-      {children}
     </AlertBox>
   );
 };

@@ -215,7 +215,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             {!showSubmitAlert && orgMessages.message !== "" && (
               <Alert
                 icon={true}
-                timer={setShowSubmitAlert}
+                onTimeOut={setShowSubmitAlert}
                 variant={orgMessages.type as IAlertProps["variant"]}
               >
                 {orgMessages.message}

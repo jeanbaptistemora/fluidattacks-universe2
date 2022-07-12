@@ -164,7 +164,7 @@ const Secrets: React.FC<ISecretsProps> = ({
       {!showAlert && modalMessages.message !== "" && (
         <Alert
           icon={true}
-          timer={setShowAlert}
+          onTimeOut={setShowAlert}
           variant={modalMessages.type as IAlertProps["variant"]}
         >
           {modalMessages.message}
