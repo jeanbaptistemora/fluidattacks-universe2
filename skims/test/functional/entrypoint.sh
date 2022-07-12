@@ -1,8 +1,8 @@
 # shellcheck shell=bash
 
 function main {
-  local resolver_test_group="${1}"
-  export COVERAGE_FILE=.coverage."${resolver_test_group}"
+  local skims_test_group="${1}"
+  export COVERAGE_FILE=.coverage."${skims_test_group}"
   local populate_db="${2:-false}"
   local pytest_args=(
     --cov 'back'
@@ -10,7 +10,7 @@ function main {
     --disable-warnings
     --exitfirst
     --no-cov-on-fail
-    --resolver-test-group "${resolver_test_group}"
+    --skims-test-group "${skims_test_group}"
     --verbose
   )
 
@@ -19,7 +19,7 @@ function main {
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \
-    && echo "[INFO] Running tests for: ${resolver_test_group}" \
+    && echo "[INFO] Running tests for: ${skims_test_group}" \
     && pushd skims \
     && pytest test/functional/src "${pytest_args[@]}" \
     && popd \

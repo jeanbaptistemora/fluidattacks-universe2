@@ -24,6 +24,8 @@
   "nist_c_sharp_f021",
   "nist_c_sharp_f063",
   "nist_c_sharp_f107",
+  "test_client",
+  "test_build_vulnerabilities_stream",
   "unittesting",
   "vulnerableapp",
   "vulnerable_js_app",
