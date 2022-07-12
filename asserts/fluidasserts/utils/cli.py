@@ -1192,13 +1192,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.throws_generic_exceptions('__path__')
             """,
         (
-            "javascript",
-            "Javascript",
-        ): """
-            javascript.has_switch_without_default('__path__')
-            javascript.swallows_exceptions('__path__')
-            """,
-        (
             "php",
             "PHP",
         ): """
