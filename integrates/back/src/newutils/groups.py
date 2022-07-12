@@ -39,3 +39,15 @@ async def get_group_max_acceptance_days(
         group.organization_id
     )
     return organization.policies.max_acceptance_days
+
+
+async def get_group_max_number_acceptances(
+    *, loaders: Any, group: Group
+) -> Optional[int]:
+    if group.policies:
+        return group.policies.max_number_acceptances
+
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    return organization.policies.max_number_acceptances

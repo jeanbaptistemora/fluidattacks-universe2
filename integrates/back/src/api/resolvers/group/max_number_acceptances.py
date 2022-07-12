@@ -1,11 +1,11 @@
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from newutils.groups import (
+    get_group_max_number_acceptances,
 )
 from typing import (
     Optional,
@@ -17,10 +17,8 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[int]:
-    if parent.policies:
-        return parent.policies.max_number_acceptances
 
-    organization: Organization = await info.context.loaders.organization.load(
-        parent.organization_id
+    return await get_group_max_number_acceptances(
+        loaders=info.context.loaders,
+        group=parent,
     )
-    return organization.policies.max_number_acceptances

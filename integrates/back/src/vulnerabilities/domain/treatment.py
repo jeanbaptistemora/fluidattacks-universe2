@@ -76,6 +76,7 @@ from newutils import (
 )
 from newutils.groups import (
     get_group_max_acceptance_days,
+    get_group_max_number_acceptances,
 )
 from typing import (
     Any,
@@ -168,7 +169,7 @@ async def _validate_number_acceptances(
     loaders: Any,
     values: Dict[str, str],
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
-    organization_id: str,
+    group_name: str,
 ) -> bool:
     """
     Check that a finding to temporarily accept does not exceed the maximum
@@ -176,10 +177,11 @@ async def _validate_number_acceptances(
     """
     valid: bool = True
     if values["treatment"] == "ACCEPTED":
-        organization_data: Organization = await loaders.organization.load(
-            organization_id
+        group: Group = await loaders.group.load(group_name)
+        max_acceptances = await get_group_max_number_acceptances(
+            loaders=loaders,
+            group=group,
         )
-        max_acceptances = organization_data.policies.max_number_acceptances
         current_acceptances: int = sum(
             1
             for item in historic_treatment
@@ -214,7 +216,7 @@ async def validate_treatment_change(
         loaders,
         values,
         historic_treatment,
-        organization_id,
+        group_name,
     )
     return all(
         await collect(
@@ -574,8 +576,8 @@ async def update_vulnerabilities_treatment(
     )
     if not await validate_treatment_change(
         finding_severity=finding_severity,
-        historic_treatment=historic_treatment,
         group_name=group_name,
+        historic_treatment=historic_treatment,
         loaders=loaders,
         organization_id=organization_id,
         values=updated_values,
