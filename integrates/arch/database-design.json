@@ -4607,7 +4607,7 @@
                     "S": "integratesmanager@gmail.com"
                   },
                   "min_breaking_severity": {
-                    "N": "0"
+                    "N": "3.9"
                   },
                   "max_acceptance_days": {
                     "N": "90"

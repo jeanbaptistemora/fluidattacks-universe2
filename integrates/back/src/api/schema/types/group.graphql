@@ -101,6 +101,9 @@ type Group {
   meanRemediateMediumSeverity: Int
   "Minimum CVSS 3.1 score in which a finding can be temporarily accepted"
   minAcceptanceSeverity: Float!
+  """Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
+  the build in strict mode"""
+  minBreakingSeverity: Float!
   "Name of the group"
   name: String
   "Amount of currently open Findings in the group"

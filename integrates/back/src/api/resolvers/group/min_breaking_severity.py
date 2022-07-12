@@ -21,11 +21,9 @@ async def resolve(
     **_kwargs: None,
 ) -> Decimal:
     if parent.policies:
-        return parent.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
+        return parent.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY
 
     organization: Organization = await info.context.loaders.organization.load(
         parent.organization_id
     )
-    return (
-        organization.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
-    )
+    return organization.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY
