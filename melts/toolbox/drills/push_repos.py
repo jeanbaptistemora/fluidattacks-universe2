@@ -184,10 +184,13 @@ def main(
                     f"groups/{subs}/fusion/{repo}", root["branch"]
                 )
             ):
-                if force or (
-                    local_commit
-                    and local_commit
-                    != root.get("cloningStatus", {}).get("commit")
+                if "uploadUrl" in root and (
+                    force
+                    or (
+                        local_commit
+                        and local_commit
+                        != root.get("cloningStatus", {}).get("commit")
+                    )
                 ):
                     LOGGER.info(
                         (
@@ -198,6 +201,7 @@ def main(
                         local_commit,
                         root.get("cloningStatus", {}).get("commit"),
                     )
+
                     executor.submit(
                         s3_sync_fusion_to_s3,
                         subs,
@@ -205,6 +209,7 @@ def main(
                         root["id"],
                         root["uploadUrl"],
                     )
+
                 else:
                     LOGGER.info("%s is already in S3", repo)
             else:
