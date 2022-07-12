@@ -39,6 +39,15 @@ describe("TodoReattacksView", (): void => {
                       severityScore: 2.7,
                       state: "open",
                       title: "038. Business information leak",
+                      vulnerabilitiesToReattackConnection: {
+                        edges: [
+                          {
+                            node: {
+                              lastRequestedReattackDate: "2022-07-12 16:42:53",
+                            },
+                          },
+                        ],
+                      },
                     },
                   ],
                   name: "group1",

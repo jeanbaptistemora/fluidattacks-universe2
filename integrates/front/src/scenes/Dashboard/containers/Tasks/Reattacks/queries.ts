@@ -18,6 +18,13 @@ export const GET_TODO_REATTACKS: DocumentNode = gql`
             severityScore
             state
             title
+            vulnerabilitiesToReattackConnection {
+              edges {
+                node {
+                  lastRequestedReattackDate
+                }
+              }
+            }
           }
         }
       }

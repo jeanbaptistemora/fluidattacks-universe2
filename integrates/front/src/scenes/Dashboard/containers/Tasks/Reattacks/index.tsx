@@ -6,16 +6,19 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
+import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { formatState } from "scenes/Dashboard/containers/GroupFindingsView/utils";
 import { GET_TODO_REATTACKS } from "scenes/Dashboard/containers/Tasks/Reattacks/queries";
 import type {
+  IFindingFormatted,
   IGetTodoReattacks,
   ITodoFindingToReattackAttr,
   ITodoGroupAttr,
   ITodoOrganizationAttr,
 } from "scenes/Dashboard/containers/Tasks/Reattacks/types";
+import { formatFindings } from "scenes/Dashboard/containers/Tasks/Reattacks/utils";
 import { Logger } from "utils/logger";
 
 export const TasksReattacks: React.FC = (): JSX.Element => {
@@ -81,6 +84,14 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       onSort: onSortState,
       width: "10%",
     },
+    {
+      dataField: "oldestReattackRequestedDate",
+      header: "Reattack Date",
+      headerFormatter: tooltipFormatter,
+      onSort: onSortState,
+      tooltipDataField: "Oldest Requested Reattack Date",
+      width: "10%",
+    },
   ];
 
   const { data } = useQuery<IGetTodoReattacks>(GET_TODO_REATTACKS, {
@@ -94,7 +105,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     },
   });
 
-  const dataset: ITodoFindingToReattackAttr[] =
+  const dataset: IFindingFormatted[] = formatFindings(
     _.isUndefined(data) || _.isEmpty(data)
       ? []
       : _.flatten(
@@ -109,7 +120,8 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
                     )
                   )
           )
-        );
+        )
+  );
 
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
