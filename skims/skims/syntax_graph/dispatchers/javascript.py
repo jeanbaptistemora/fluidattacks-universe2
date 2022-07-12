@@ -22,4 +22,10 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         },
         syntax_reader=common_program.reader,
     ),
+    Dispatcher(
+        applicable_types={
+            "variable_declarator",
+        },
+        syntax_reader=common_program.reader,
+    ),
 )
