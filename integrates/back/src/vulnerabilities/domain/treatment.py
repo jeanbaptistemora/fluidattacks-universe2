@@ -41,6 +41,9 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -71,6 +74,9 @@ from newutils import (
     datetime as datetime_utils,
     validations,
 )
+from newutils.groups import (
+    get_group_max_acceptance_days,
+)
 from typing import (
     Any,
     Awaitable,
@@ -98,7 +104,7 @@ def _validate_acceptance_date(values: Dict[str, str]) -> bool:
 
 
 async def _validate_acceptance_days(
-    loaders: Any, values: Dict[str, str], organization_id: str
+    loaders: Any, values: Dict[str, str], group_name: str
 ) -> bool:
     """
     Check that the date during which the finding will be temporarily accepted
@@ -114,10 +120,10 @@ async def _validate_acceptance_days(
             values["acceptance_date"]
         )
         acceptance_days = Decimal((acceptance_date - today).days)
-        organization_data: Organization = await loaders.organization.load(
-            organization_id
+        group: Group = await loaders.group.load(group_name)
+        max_acceptance_days = await get_group_max_acceptance_days(
+            loaders=loaders, group=group
         )
-        max_acceptance_days = organization_data.policies.max_acceptance_days
         if (
             max_acceptance_days is not None
             and acceptance_days > max_acceptance_days
@@ -190,14 +196,16 @@ async def _validate_number_acceptances(
 
 
 async def validate_treatment_change(
+    *,
     finding_severity: float,
+    group_name: str,
     historic_treatment: Tuple[VulnerabilityTreatment, ...],
     loaders: Any,
     organization_id: str,
     values: Dict[str, str],
 ) -> bool:
     validate_acceptance_days_coroutine = _validate_acceptance_days(
-        loaders, values, organization_id
+        loaders, values, group_name
     )
     validate_acceptance_severity_coroutine = _validate_acceptance_severity(
         loaders, values, finding_severity, organization_id
@@ -565,11 +573,12 @@ async def update_vulnerabilities_treatment(
         vulnerability.id
     )
     if not await validate_treatment_change(
-        finding_severity,
-        historic_treatment,
-        loaders,
-        organization_id,
-        updated_values,
+        finding_severity=finding_severity,
+        historic_treatment=historic_treatment,
+        group_name=group_name,
+        loaders=loaders,
+        organization_id=organization_id,
+        values=updated_values,
     ):
         return False
 

@@ -354,11 +354,12 @@ async def test_validate_past_acceptance_days(acceptance_date: str) -> None:
     }
     with pytest.raises(InvalidAcceptanceDays):
         assert await validate_treatment_change(
-            severity,
-            historic_treatment,
-            get_new_context(),
-            org_id,
-            values_accepted,
+            finding_severity=severity,
+            group_name="kurome",
+            historic_treatment=historic_treatment,
+            loaders=get_new_context(),
+            organization_id=org_id,
+            values=values_accepted,
         )
 
 
@@ -382,11 +383,12 @@ async def test_validate_acceptance_severity() -> None:
     }
     with pytest.raises(InvalidAcceptanceSeverity):
         assert await validate_treatment_change(
-            severity,
-            historic_treatment,
-            get_new_context(),
-            org_id,
-            values_accepted,
+            finding_severity=severity,
+            group_name="kurome",
+            historic_treatment=historic_treatment,
+            loaders=get_new_context(),
+            organization_id=org_id,
+            values=values_accepted,
         )
 
 
@@ -417,11 +419,12 @@ async def test_validate_number_acceptances() -> None:
     }
     with pytest.raises(InvalidNumberAcceptances):
         assert await validate_treatment_change(
-            severity,
-            historic_treatment,
-            get_new_context(),
-            org_id,
-            values_accepted,
+            finding_severity=severity,
+            group_name="kurome",
+            historic_treatment=historic_treatment,
+            loaders=get_new_context(),
+            organization_id=org_id,
+            values=values_accepted,
         )
 
 
