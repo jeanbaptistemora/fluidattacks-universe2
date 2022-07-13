@@ -96,7 +96,7 @@ file by clicking on the **Export** button.
 ## Single root assessment
 
 We assess only one
-repository branch,
+repository branch per group,
 looking for vulnerabilities in
 one single version of the system.
 Testing only one branch allows

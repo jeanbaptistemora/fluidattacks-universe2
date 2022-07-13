@@ -73,12 +73,8 @@ you will see the
 that shows you all the
 reports and alerts that
 our ASM generates.
-There you can toggle the
-on/off button to enable
-or disable the delivery
-of each notification to
-your registered email.
-Learn more about how you can manage notifications
+Learn more about how you
+can manage notifications
 [here](/machine/web/notifications).
 
 ![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
@@ -111,8 +107,7 @@ the Mobile option,
 a pop-up window will appear.
 If you had not registered
 your mobile phone before,
-you will be asked to you will
-see a window where you must
+you will be asked to
 add your number and then
 enter the verification code
 sent to you via SMS to
