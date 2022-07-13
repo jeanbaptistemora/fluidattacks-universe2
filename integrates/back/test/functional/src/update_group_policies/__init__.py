@@ -1,5 +1,4 @@
-# pylint: disable=import-error
-from back.test.functional.src.utils import (
+from ..utils import (
     get_graphql_result,
 )
 from dataloaders import (

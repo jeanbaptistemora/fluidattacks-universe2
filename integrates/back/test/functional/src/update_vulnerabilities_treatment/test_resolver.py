@@ -6,8 +6,11 @@ from . import (
     grant_stakeholder,
     put_mutation,
 )
+from back.test.functional.src.update_group_policies import (
+    update_group_policies,
+)
 from back.test.functional.src.update_organization_policies import (
-    get_result as update_org_policies,
+    get_result as update_organization_policies,
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -126,7 +129,7 @@ async def test_update_vulnerabilities_treatment(
     ),
 )
 @freeze_time("2021-03-31")
-async def test_update_vulnerabilities_treatment_invalid_acceptance(
+async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     populate: bool,
     email: str,
     vulnerability: str,
@@ -151,7 +154,7 @@ async def test_update_vulnerabilities_treatment_invalid_acceptance(
     assert "errors" not in result_1
     assert result_1["data"]["updateVulnerabilitiesTreatment"]["success"]
 
-    update_policies_1: dict[str, Any] = await update_org_policies(
+    update_policies_1: dict[str, Any] = await update_organization_policies(
         user="admin@gmail.com",
         organization_id=org_id,
         organization_name=org_name,
@@ -181,7 +184,7 @@ async def test_update_vulnerabilities_treatment_invalid_acceptance(
         )
     )
 
-    update_policies_2: dict[str, Any] = await update_org_policies(
+    update_policies_2: dict[str, Any] = await update_organization_policies(
         user="admin@gmail.com",
         organization_id=org_id,
         organization_name=org_name,
@@ -194,6 +197,116 @@ async def test_update_vulnerabilities_treatment_invalid_acceptance(
     )
     assert "errors" not in update_policies_2
     assert update_policies_2["data"]["updateOrganizationPolicies"]["success"]
+
+    result_3: dict[str, Any] = await put_mutation(
+        user=email,
+        finding=finding_id,
+        vulnerability=vulnerability,
+        treatment=treatment,
+        assigned=assigned,
+        acceptance_date="2021-05-21 19:45:11",
+    )
+    assert "errors" in result_3
+    assert result_3["errors"][0]["message"] == str(
+        InvalidAcceptanceSeverity(str(get_severity_score(finding.severity)))
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
+@pytest.mark.parametrize(
+    ("email", "vulnerability", "treatment", "assigned"),
+    (
+        (
+            "vulnerability_manager@gmail.com",
+            "be09edb7-cd5c-47ed-bee4-97c645acdc11",
+            "ACCEPTED",
+            "customer1@gmail.com",
+        ),
+    ),
+)
+@freeze_time("2021-03-31")
+async def test_update_vulnerabilities_treatment_invalid_group_policies(
+    populate: bool,
+    email: str,
+    vulnerability: str,
+    treatment: str,
+    assigned: str,
+) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    group_name: str = "group1"
+    loaders: Dataloaders = get_new_context()
+    finding: Finding = await loaders.finding.load(finding_id)
+
+    organization_policies: dict[str, Any] = await update_organization_policies(
+        user="admin@gmail.com",
+        organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+        organization_name="orgtest",
+        max_acceptance_days=7,
+        max_acceptance_severity=10.0,
+        max_number_acceptances=30,
+        min_acceptance_severity=0.0,
+        min_breaking_severity=0.0,
+        vulnerability_grace_period=5,
+    )
+    assert "errors" not in organization_policies
+    assert organization_policies["data"]["updateOrganizationPolicies"][
+        "success"
+    ]
+
+    result_1: dict[str, Any] = await put_mutation(
+        user=email,
+        finding=finding_id,
+        vulnerability=vulnerability,
+        treatment=treatment,
+        assigned=assigned,
+        acceptance_date="2021-04-02 19:45:11",
+    )
+    assert "errors" not in result_1
+    assert result_1["data"]["updateVulnerabilitiesTreatment"]["success"]
+
+    update_policies_1: dict[str, Any] = await update_group_policies(
+        group_name=group_name,
+        max_acceptance_days=5,
+        max_acceptance_severity=4.9,
+        max_number_acceptances=5,
+        min_acceptance_severity=0.0,
+        min_breaking_severity=5.9,
+        vulnerability_grace_period=10,
+        user="admin@gmail.com",
+    )
+    assert "errors" not in update_policies_1
+    assert update_policies_1["data"]["updateGroupPolicies"]["success"]
+
+    result_2: dict[str, Any] = await put_mutation(
+        user=email,
+        finding=finding_id,
+        vulnerability=vulnerability,
+        treatment=treatment,
+        assigned=assigned,
+        acceptance_date="2021-05-11 19:45:11",
+    )
+    assert "errors" in result_2
+    assert result_2["errors"][0]["message"] == str(
+        InvalidAcceptanceDays(
+            "Chosen date is either in the past or exceeds "
+            "the maximum number of days allowed by the defined policy"
+        )
+    )
+
+    update_policies_2: dict[str, Any] = await update_group_policies(
+        group_name=group_name,
+        max_acceptance_days=120,
+        max_acceptance_severity=3.9,
+        max_number_acceptances=5,
+        min_acceptance_severity=0.0,
+        min_breaking_severity=5.9,
+        user="admin@gmail.com",
+        vulnerability_grace_period=10,
+    )
+    assert "errors" not in update_policies_2
+    assert update_policies_2["data"]["updateGroupPolicies"]["success"]
 
     result_3: dict[str, Any] = await put_mutation(
         user=email,
