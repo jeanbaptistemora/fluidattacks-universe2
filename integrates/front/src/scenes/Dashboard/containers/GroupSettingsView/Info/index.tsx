@@ -389,7 +389,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
                   <Card>
-                    <Text mb={2}>
+                    <Text fw={7} mb={2}>
                       {t("organization.tabs.groups.newGroup.managed.text")}
                     </Text>
                     <TooltipWrapper
