@@ -480,11 +480,13 @@ const SYNC_GIT_ROOT: DocumentNode = gql`
 
 const VALIDATE_GIT_ACCESS: DocumentNode = gql`
   mutation ValidateGitAccess(
+    $branch: String!
     $credentials: RootCredentialsInput!
     $groupName: String!
     $url: String!
   ) {
     validateGitAccess(
+      branch: $branch
       credentials: $credentials
       groupName: $groupName
       url: $url

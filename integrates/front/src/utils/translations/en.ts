@@ -866,6 +866,7 @@ export const enTranslations: ResourceKey = {
         envUrls: "Environment URLs",
         errors: {
           invalid: "Repository URL or branch are not valid",
+          invalidBranch: "The branch was not found in the repository",
           invalidGitCredentials:
             "Git repository was not accessible with given credentials",
           rootInGitignore:

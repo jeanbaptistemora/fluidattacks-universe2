@@ -165,20 +165,25 @@ const Repository: React.FC<IRepositoryProps> = ({
     onError: ({ graphQLErrors }: ApolloError): void => {
       setShowGitAlert(false);
       graphQLErrors.forEach((error: GraphQLError): void => {
-        if (
-          error.message ===
-          "Exception - Git repository was not accessible with given credentials"
-        ) {
-          setValidateGitMsg({
-            message: t("group.scope.git.errors.invalidGitCredentials"),
-            type: "error",
-          });
-        } else {
-          setValidateGitMsg({
-            message: t("groupAlerts.errorTextsad"),
-            type: "error",
-          });
-          Logger.error("Couldn't activate root", error);
+        switch (error.message) {
+          case "Exception - Git repository was not accessible with given credentials":
+            setValidateGitMsg({
+              message: t("group.scope.git.errors.invalidGitCredentials"),
+              type: "error",
+            });
+            break;
+          case "Exception - Branch not found":
+            setValidateGitMsg({
+              message: t("group.scope.git.errors.invalidBranch"),
+              type: "error",
+            });
+            break;
+          default:
+            setValidateGitMsg({
+              message: t("groupAlerts.errorTextsad"),
+              type: "error",
+            });
+            Logger.error("Couldn't activate root", error);
         }
       });
       setIsGitAccessible(false);
@@ -213,6 +218,7 @@ const Repository: React.FC<IRepositoryProps> = ({
     if (formRef.current !== null) {
       void validateGitAccess({
         variables: {
+          branch: formRef.current.values.branch,
           credentials: {
             key: formRef.current.values.credentials.key
               ? Buffer.from(formRef.current.values.credentials.key).toString(
