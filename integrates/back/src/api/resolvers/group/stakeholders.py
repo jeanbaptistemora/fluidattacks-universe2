@@ -33,7 +33,6 @@ from stakeholders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -49,7 +48,7 @@ async def resolve(
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
     exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
-    response: list[Dict[str, Any]] = await redis_get_or_set_entity_attr(
+    response: list[dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
         attr="stakeholders",
@@ -72,7 +71,7 @@ async def resolve_no_cache(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     group_stakeholders = await loaders.group_stakeholders.load(group_name)

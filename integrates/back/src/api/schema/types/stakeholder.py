@@ -4,6 +4,7 @@ from api.resolvers.stakeholder import (
     groups,
     last_login,
     responsibility,
+    role,
 )
 from ariadne import (
     ObjectType,
@@ -15,3 +16,4 @@ STAKEHOLDER.set_field("groups", groups.resolve)
 STAKEHOLDER.set_field("firstLogin", first_login.resolve)
 STAKEHOLDER.set_field("lastLogin", last_login.resolve)
 STAKEHOLDER.set_field("responsibility", responsibility.resolve)
+STAKEHOLDER.set_field("role", role.resolve)

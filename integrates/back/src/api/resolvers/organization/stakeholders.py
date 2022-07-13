@@ -1,3 +1,6 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -22,8 +25,6 @@ from redis_cluster.operations import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -32,8 +33,8 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **kwargs: None,
-) -> List[Stakeholder]:
-    response: List[Dict[str, Any]] = await redis_get_or_set_entity_attr(
+) -> list[Stakeholder]:
+    response: list[dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
         attr="stakeholders",
@@ -50,14 +51,11 @@ async def resolve_no_cache(
     parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> List[Dict[str, Any]]:
-    org_id = parent.id
-    organization_stakeholders_loader = (
-        info.context.loaders.organization_stakeholders
-    )
-    org_stakeholders: List[
-        Stakeholder
-    ] = await organization_stakeholders_loader.load(org_id)
+) -> list[dict[str, Any]]:
+    loaders: Dataloaders = info.context.loaders
+    org_stakeholders: tuple[
+        Stakeholder, ...
+    ] = await loaders.organization_stakeholders.load(parent.id)
     org_stakeholders_item = [
         format_stakeholder_item(group_stakeholder)
         for group_stakeholder in org_stakeholders

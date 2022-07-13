@@ -26,9 +26,6 @@ from group_access import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from typing import (
-    List,
-)
 
 
 @enforce_organization_level_auth_async
@@ -75,10 +72,8 @@ async def _resolve_for_group(
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Stakeholder:
-    group_entities: List[str] = ["GROUP", "PROJECT"]
     entity: str = kwargs["entity"]
     email: str = kwargs["user_email"]
-    group_name_provided: bool
 
     if entity == "ORGANIZATION" and "organization_id" in kwargs:
         org_id: str = kwargs["organization_id"]
@@ -88,9 +83,7 @@ async def resolve(
             organization_id=org_id,
         )
 
-    # Compatibility with old API
-    group_name_provided = "group_name" in kwargs or "project_name" in kwargs
-    if entity in group_entities and group_name_provided:
+    if entity == "GROUP" and "group_name" in kwargs:
         group_name: str = get_key_or_fallback(kwargs)
         return await _resolve_for_group(
             info,
