@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import React from "react";
+import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -14,7 +14,7 @@ import { isGitRoot, isIPRoot, isURLRoot, mapInactiveStatus } from "./utils";
 
 import { GroupSettingsView } from "../GroupSettingsView";
 import { Card } from "components/Card";
-import { Col, Row } from "components/Layout";
+import { Text } from "components/Text";
 import { Have } from "utils/authz/Have";
 import { Logger } from "utils/logger";
 
@@ -34,41 +34,42 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   const roots: Root[] = data === undefined ? [] : data.group.roots;
 
   return (
-    <Row>
+    <Fragment>
       <Have I={"has_service_white"}>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("group.scope.git.title")}>
-            <GitRoots
-              groupName={groupName}
-              onUpdate={refetch}
-              roots={mapInactiveStatus(roots.filter(isGitRoot))}
-            />
-          </Card>
-        </Col>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("group.scope.git.title")}
+        </Text>
+        <Card>
+          <GitRoots
+            groupName={groupName}
+            onUpdate={refetch}
+            roots={mapInactiveStatus(roots.filter(isGitRoot))}
+          />
+        </Card>
       </Have>
       <Have I={"has_service_black"}>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("group.scope.ip.title")}>
-            <IPRoots
-              groupName={groupName}
-              onUpdate={refetch}
-              roots={roots.filter(isIPRoot)}
-            />
-          </Card>
-        </Col>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("group.scope.url.title")}>
-            <URLRoots
-              groupName={groupName}
-              onUpdate={refetch}
-              roots={roots.filter(isURLRoot)}
-            />
-          </Card>
-        </Col>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("group.scope.ip.title")}
+        </Text>
+        <Card>
+          <IPRoots
+            groupName={groupName}
+            onUpdate={refetch}
+            roots={roots.filter(isIPRoot)}
+          />
+        </Card>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("group.scope.url.title")}
+        </Text>
+        <Card>
+          <URLRoots
+            groupName={groupName}
+            onUpdate={refetch}
+            roots={roots.filter(isURLRoot)}
+          />
+        </Card>
       </Have>
-      <Col large={"100"} medium={"100"} small={"100"}>
-        <GroupSettingsView />
-      </Col>
-    </Row>
+      <GroupSettingsView />
+    </Fragment>
   );
 };
