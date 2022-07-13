@@ -483,6 +483,20 @@ resource "cloudflare_page_rule" "redirect_www" {
   }
 }
 
+resource "cloudflare_page_rule" "redirect_community" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "community.${cloudflare_zone.fluidattacks_com.zone}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    forwarding_url {
+      url         = "https://${cloudflare_zone.fluidattacks_com.zone}/"
+      status_code = 301
+    }
+  }
+}
+
 # Workers
 
 resource "cloudflare_worker_script" "headers" {
