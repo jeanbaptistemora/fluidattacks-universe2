@@ -1,6 +1,7 @@
 inputs:
-- field: search
-  state: open
-  repo_nickname: product
-  url: https://example.com
-  stream: home,blog,articulo,
+  - field: search
+    state: open
+    repo_nickname: product
+    url: https://example.com
+    stream: home,blog,articulo,
+    source: analyst

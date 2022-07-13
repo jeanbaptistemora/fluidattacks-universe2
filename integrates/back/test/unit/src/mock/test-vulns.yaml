@@ -4,6 +4,7 @@ inputs:
   repo_nickname: product
   url: https://test.com/test2/test.aspx
   stream: home,blog,articulo
+  source: analyst
 lines:
 - line: '123'
   commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
@@ -11,9 +12,11 @@ lines:
   path: product/test/test#.config
   state: closed
   repo_nickname: product
+  source: analyst
 - line: '345'
   commit_hash: e17059d1e17059d1e17059d1e17059d1e17059d1
   repo_nickname: product
   path: product/path/to/file3.ext
   state: closed
   repo_nickname: product
+  source: analyst

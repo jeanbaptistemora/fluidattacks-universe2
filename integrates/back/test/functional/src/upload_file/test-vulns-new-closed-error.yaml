@@ -1,6 +1,7 @@
 inputs:
-- field: phone
-  state: closed
-  url: https://test_new_closed.com
-  stream: home,info,contact_me
-  repo_nickname: product
+  - field: phone
+    state: closed
+    url: https://test_new_closed.com
+    stream: home,info,contact_me
+    repo_nickname: product
+    source: analyst

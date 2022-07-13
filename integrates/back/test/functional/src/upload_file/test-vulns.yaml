@@ -1,46 +1,53 @@
 inputs:
-- field: phone
-  state: open
-  url: https://example.com
-  stream: home,blog,articulo
-  repo_nickname: product
+  - field: phone
+    state: open
+    url: https://example.com
+    stream: home,blog,articulo
+    repo_nickname: product
+    source: analyst
 lines:
-- line: '123'
-  commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-  path: product/path/to/file1.ext
-  state: open
-  repo_nickname: product
-- line: "1"
-  path: product/test/1
-  repo_nickname: product
-  state: open
-  commit_hash: 000000000000000000000000000000000000000f
-- line: "1"
-  path: product/test/1
-  repo_nickname: product
-  state: open
-  commit_hash: 111111111111111111111111111111111111111f
+  - line: "123"
+    commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
+    path: product/path/to/file1.ext
+    state: open
+    repo_nickname: product
+    source: analyst
+  - line: "1"
+    path: product/test/1
+    repo_nickname: product
+    state: open
+    commit_hash: 000000000000000000000000000000000000000f
+    source: analyst
+  - line: "1"
+    path: product/test/1
+    repo_nickname: product
+    state: open
+    commit_hash: 111111111111111111111111111111111111111f
+    source: analyst
+
 ports:
-- host: 'https://example.com'
-  port: '8080'
-  state: open
-  repo_nickname: product
-- host: '192.168.1.44'
-  port: '4444'
-  state: open
-  repo_nickname: product
-- host: '192.168.1.45'
-  port: '4545'
-  state: closed
-  repo_nickname: product
-- host: '192.168.1.46'
-  port: '4646'
-  state: open
-  repo_nickname: product
-  source: 'escape'
-  escaper: 'escaper@gmail.com'
-- host: '192.168.1.47'
-  port: '4747'
-  source: 'asm'
-  state: closed
-  repo_nickname: product
+  - host: "https://example.com"
+    port: "8080"
+    state: open
+    repo_nickname: product
+    source: analyst
+  - host: "192.168.1.44"
+    port: "4444"
+    state: open
+    repo_nickname: product
+    source: analyst
+  - host: "192.168.1.45"
+    port: "4545"
+    state: closed
+    repo_nickname: product
+    source: analyst
+  - host: "192.168.1.46"
+    port: "4646"
+    state: open
+    repo_nickname: product
+    source: "escape"
+  - host: "192.168.1.47"
+    port: "4747"
+    source: "analyst"
+    state: closed
+    repo_nickname: product

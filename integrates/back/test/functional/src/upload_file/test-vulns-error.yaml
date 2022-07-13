@@ -1,5 +1,6 @@
 ports:
-- host: '192.168.1.45'
-  port: '4545'
-  state: closed
-  repo_nickname: product123
+  - host: "192.168.1.45"
+    port: "4545"
+    state: closed
+    repo_nickname: product123
+    source: analyst

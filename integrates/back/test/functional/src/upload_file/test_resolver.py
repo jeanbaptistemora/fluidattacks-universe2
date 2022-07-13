@@ -217,7 +217,6 @@ async def test_upload_file(populate: bool, email: str) -> None:
         and vuln.state.status == VulnerabilityStateStatus.OPEN
     )
     assert escaper_vuln.state.source == Source.ESCAPE
-    assert escaper_vuln.state.modified_by == "escaper@gmail.com"
 
     vuln_loader = loaders.vulnerability
     open_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
@@ -262,7 +261,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
     vuln_changed_source: Vulnerability = await vuln_loader.load(
         changed_source_id
     )
-    assert vuln_changed_source.state.source == Source.ASM
+    assert vuln_changed_source.state.source == Source.ANALYST
 
     finding: Finding = await loaders.finding.load(finding_id)
     assert finding.unreliable_indicators == FindingUnreliableIndicators(

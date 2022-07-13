@@ -4,7 +4,9 @@ from enum import (
 
 
 class Source(str, Enum):
+    ANALYST: str = "ANALYST"
     ASM: str = "ASM"
+    DETERMINISTIC: str = "DETERMINISTIC"
     ESCAPE: str = "ESCAPE"
     MACHINE: str = "MACHINE"
 

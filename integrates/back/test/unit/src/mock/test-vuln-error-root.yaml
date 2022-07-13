@@ -4,3 +4,4 @@ lines:
     path: nonexistent/path/to/file1.ext
     state: open
     repo_nickname: nonexistent
+    source: analyst
