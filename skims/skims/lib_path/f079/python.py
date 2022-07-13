@@ -29,10 +29,14 @@ def create_venv_install_requirements(filename: str) -> str:
     with open(filename, encoding="utf-8") as dependencies:
         reqs = dependencies.readlines()
 
-    for item in reqs:
-        subprocess.call(  # nosec
-            ["venv/bin/pip", "install", f"{item}"], shell=False
-        )
+    with open(os.devnull, "wb") as devnull:
+        for item in reqs:
+            subprocess.call(  # nosec
+                ["venv/bin/pip", "install", f"{item}"],
+                shell=False,
+                stdout=devnull,
+                stderr=devnull,
+            )
 
     with open("requirements_2.txt", "w", encoding="utf-8") as outfile:
         subprocess.call(  # nosec
