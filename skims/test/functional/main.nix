@@ -21,6 +21,7 @@ in
       source = [
         outputs."/skims/config/runtime"
         outputs."/common/utils/sops"
+        outputs."/secretsForAwsFromEnv/dev"
         pythonRequirements
       ];
     };
