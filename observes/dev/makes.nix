@@ -11,6 +11,7 @@
     observesServiceJobLastSuccess = service.job_last_success;
     observesScheduler = service.scheduler;
     observesTapCheckly = tap.checkly;
+    observesTapDynamo = tap.dynamo;
     observesTapGitlab = tap.gitlab;
     observesTargetRedshift = target.redshift_2;
     observesEtlDynamoConf = etl.dynamo;
@@ -44,11 +45,6 @@ in {
       observesSingerIO = {
         source = [
           outputs."/observes/common/singer-io/env/development"
-        ];
-      };
-      observesTapDynamo = {
-        source = [
-          outputs."/observes/singer/tap-dynamo/env/development"
         ];
       };
       observesCommonUtilsLogger = {

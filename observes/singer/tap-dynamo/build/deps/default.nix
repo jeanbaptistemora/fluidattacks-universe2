@@ -1,6 +1,7 @@
 {
   nixpkgs,
   python_version,
+  system,
 }: let
   python_pkgs = nixpkgs."${python_version}Packages";
   lib = {

@@ -83,7 +83,7 @@ in {
     checkly = new_std "${singerPath}/tap-checkly";
     csv = std_data "${singerPath}/tap-csv";
     delighted = std_data "${singerPath}/tap-delighted";
-    dynamo = std_data "${singerPath}/tap-dynamo";
+    dynamo = new_std "${singerPath}/tap-dynamo";
     formstack = std_data "${singerPath}/tap-formstack";
     git = std_data "${singerPath}/tap-git";
     gitlab = new_std "${singerPath}/tap-gitlab";

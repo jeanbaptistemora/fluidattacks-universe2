@@ -1,0 +1,23 @@
+{
+  nixpkgs,
+  python_version,
+  src,
+  system,
+}: let
+  metadata = let
+    _metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).project;
+    file_str = builtins.readFile "${src}/${_metadata.name}/__init__.py";
+    match = builtins.match ".*__version__ *= *\"(.+?)\"\n.*" file_str;
+    version = builtins.elemAt match 0;
+  in
+    _metadata // {inherit version;};
+  deps = import ./build/deps {
+    inherit nixpkgs python_version system;
+  };
+  self_pkgs = import ./build/pkg {
+    inherit src metadata;
+    lib = deps.lib;
+    python_pkgs = deps.python_pkgs;
+  };
+in
+  self_pkgs
