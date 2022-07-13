@@ -30,13 +30,18 @@ def uses_eval(
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVASCRIPT,
         ):
+            graph = shard.graph
             for member in g.filter_nodes(
                 shard.graph,
                 nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(label_type="expression_statement"),
+                predicate=g.pred_has_labels(label_type="call_expression"),
             ):
-                if node_to_str(shard.graph, member).startswith("eval"):
-                    yield shard, member
+                match = g.match_ast(graph, member, "identifier")
+
+                if member_expression_id := match["identifier"]:
+                    method_name = node_to_str(graph, member_expression_id)
+                    if method_name == "eval":
+                        yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f143.js_uses_eval",
