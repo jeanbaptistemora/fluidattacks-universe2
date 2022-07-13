@@ -25,13 +25,11 @@ from newutils.stakeholders import (
     get_invitation_state,
 )
 from typing import (
-    cast,
-    List,
-    Tuple,
+    Iterable,
 )
 
 
-async def format_group_stakeholder(email: str, group_name: str) -> Stakeholder:
+async def _get_stakeholder(email: str, group_name: str) -> Stakeholder:
     try:
         group_access, stakeholder = await collect(
             (
@@ -50,10 +48,10 @@ async def format_group_stakeholder(email: str, group_name: str) -> Stakeholder:
     invitation = group_access.get("invitation")
     invitation_state = get_invitation_state(invitation, stakeholder)
     if invitation_state == "PENDING":
-        responsibility = invitation["responsibility"]
+        responsibility: str = invitation["responsibility"]
         group_role = invitation["role"]
     else:
-        responsibility = cast(str, group_access.get("responsibility", ""))
+        responsibility = group_access.get("responsibility", "")
         group_role = await authz.get_group_level_role(email, group_name)
 
     stakeholder = stakeholder._replace(
@@ -66,23 +64,20 @@ async def format_group_stakeholder(email: str, group_name: str) -> Stakeholder:
 
 async def get_group_stakeholders(
     group_name: str,
-) -> list[Stakeholder]:
-    group_stakeholders_emails = cast(
-        list[str],
-        list(
-            chain.from_iterable(
-                await collect(
-                    [
-                        get_group_users(group_name),
-                        get_group_users(group_name, False),
-                    ]
-                )
+) -> tuple[Stakeholder, ...]:
+    group_stakeholders_emails: list[str] = list(
+        chain.from_iterable(
+            await collect(
+                [
+                    get_group_users(group=group_name, active=True),
+                    get_group_users(group=group_name, active=False),
+                ]
             )
-        ),
+        )
     )
     group_stakeholders = await collect(
         tuple(
-            format_group_stakeholder(email, group_name)
+            _get_stakeholder(email, group_name)
             for email in group_stakeholders_emails
         )
     )
@@ -91,12 +86,10 @@ async def get_group_stakeholders(
 
 
 class GroupStakeholdersLoader(DataLoader):
-    """Batches load calls within the same execution fragment."""
-
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: List[str]
-    ) -> Tuple[List[Stakeholder], ...]:
+        self, group_names: Iterable[str]
+    ) -> tuple[tuple[Stakeholder], ...]:
         return await collect(
-            (get_group_stakeholders(group_name) for group_name in group_names)
+            get_group_stakeholders(group_name) for group_name in group_names
         )

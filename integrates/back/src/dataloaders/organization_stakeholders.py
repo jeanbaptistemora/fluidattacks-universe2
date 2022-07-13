@@ -21,15 +21,11 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
-    Any,
-    cast,
-    Dict,
-    List,
-    Tuple,
+    Iterable,
 )
 
 
-async def _get_org_users(email: str, org_id: str) -> Dict[str, Any]:
+async def _get_stakeholder(email: str, org_id: str) -> Stakeholder:
     try:
         organization_access, stakeholder = await collect(
             (
@@ -61,30 +57,25 @@ async def _get_org_users(email: str, org_id: str) -> Dict[str, Any]:
     return stakeholder
 
 
-async def get_stakeholders_by_organization(
+async def get_organization_stakeholders(
     organization_id: str,
-) -> Tuple[Dict[str, Any], ...]:
-    org_stakeholders_emails: List[str] = await orgs_domain.get_users(
+) -> tuple[Stakeholder, ...]:
+    org_stakeholders_emails: list[str] = await orgs_domain.get_users(
         organization_id
     )
     org_stakeholders = await collect(
-        _get_org_users(email, organization_id)
+        _get_stakeholder(email, organization_id)
         for email in org_stakeholders_emails
     )
     return tuple(org_stakeholders)
 
 
 class OrganizationStakeholdersLoader(DataLoader):
-    """Batches load calls within the same execution fragment."""
-
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, organization_names: List[str]
-    ) -> Tuple[Tuple[Dict[str, Any], ...], ...]:
-        return cast(
-            Tuple[Tuple[Dict[str, Any], ...], ...],
-            await collect(
-                get_stakeholders_by_organization(organization_name)
-                for organization_name in organization_names
-            ),
+        self, organization_names: Iterable[str]
+    ) -> tuple[tuple[Stakeholder, ...], ...]:
+        return await collect(
+            get_organization_stakeholders(organization_name)
+            for organization_name in organization_names
         )
