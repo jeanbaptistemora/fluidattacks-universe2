@@ -6848,4 +6848,37 @@
     "3_2":
       title: Log review
       link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "3_4":
+      title: System configuration review
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "3_5":
+      title: Network sniffing
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "3_6":
+      title: File integrity checking
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "4_2":
+      title: Network port and service identification
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "4_4":
+      title: Wireless scanning
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "4_4_1":
+      title: Passive wireless scanning
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "5_1":
+      title: Password cracking
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "6_6":
+      title: Legal considerations
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "7_4_1":
+      title: Data collection
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "7_4_3":
+      title: Data transmission
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+    "7_4_4":
+      title: Data destruction
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
   metadata: {}
