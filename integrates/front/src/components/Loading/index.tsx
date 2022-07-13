@@ -1,7 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
 interface ILoadingProps {
-  size: number;
+  anim?: "ease" | "linear";
+  size?: number;
 }
 
 const spinAnim = keyframes`
@@ -11,12 +12,15 @@ const spinAnim = keyframes`
 
 const Loading = styled.div<ILoadingProps>`
   animation: ${spinAnim} 1s linear infinite;
-  border: ${({ size }): number => size / 7 + 1}px solid #dddde3;
-  border-top: ${({ size }): number => size / 7 + 1}px solid #a5a5b6;
+  ${({ anim = "linear", size = 24 }): string => `
+  animation-timing-function: ${anim};
+  border: ${Math.ceil(size / 7)}px solid #dddde3;
+  border-top: ${Math.ceil(size / 7)}px solid #a5a5b6;
   border-radius: 50%;
   display: inline-block;
-  height: ${({ size }): number => size}px;
-  width: ${({ size }): number => size}px;
+  height: ${size}px;
+  width: ${size}px;
+  `}
 `;
 
 export type { ILoadingProps };
