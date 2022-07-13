@@ -74,6 +74,7 @@ from api.mutations import (
     solve_event,
     start_machine_execution,
     submit_draft,
+    submit_group_machine_execution,
     submit_machine_job,
     submit_organization_finding_policy,
     subscribe_to_entity_report,
@@ -234,6 +235,9 @@ MUTATION.set_field("signIn", sign_in.mutate)
 MUTATION.set_field("signPostUrl", sign_post_url.mutate)
 MUTATION.set_field("solveEvent", solve_event.mutate)
 MUTATION.set_field("submitDraft", submit_draft.mutate)
+MUTATION.set_field(
+    "submitGroupMachineExecution", submit_group_machine_execution.mutate
+)
 MUTATION.set_field("submitMachineJob", submit_machine_job.mutate)
 MUTATION.set_field(
     "submitOrganizationFindingPolicy",

@@ -563,7 +563,6 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_reject_vulnerabilities_zero_risk_mutate",
             "api_mutations_remove_finding_mutate",
             "api_mutations_request_vulnerabilities_verification_mutate",
-            "api_mutations_submit_machine_job_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
             "api_mutations_update_group_access_info_mutate",
             "api_resolvers_finding_consulting_resolve",
@@ -752,6 +751,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_toe_input_mutate",
             "api_mutations_add_toe_lines_mutate",
             "api_mutations_refresh_toe_lines_mutate",
+            "api_mutations_submit_group_machine_execution_mutate",
             "api_mutations_submit_machine_job_mutate",
             "api_mutations_update_subscription_mutate",
             "api_mutations_update_toe_input_mutate",
@@ -911,6 +911,7 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
     reviewer=dict(
         actions={
             *GROUP_LEVEL_ROLES["reviewer"]["actions"],
+            "api_mutations_submit_machine_job_mutate",
             "api_resolvers_group_disambiguation_resolve",
             "api_resolvers_group_toe_inputs_resolve",
             "api_resolvers_group_toe_lines_resolve",
@@ -1107,6 +1108,7 @@ USER_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_add_machine_execution_mutate",
             "api_mutations_finish_machine_execution_mutate",
             "api_mutations_start_machine_execution_mutate",
+            "api_mutations_submit_group_machine_execution_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_mutate",
             "api_mutations_add_stakeholder_mutate",

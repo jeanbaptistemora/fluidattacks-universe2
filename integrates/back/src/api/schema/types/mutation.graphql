@@ -802,6 +802,14 @@ type Mutation {
     findingId: String!
   ): SimplePayload!
 
+  "Queues a Machine execution to check all findings over specified roots"
+  submitGroupMachineExecution(
+    "Name of the group"
+    groupName: String!
+    "Nicknames of the roots to check"
+    rootNicknames: [String!]!
+  ): SimplePayloadMessage!
+
   "Queues a job to execute Machine (Skims) on the provided root"
   submitMachineJob(
     """
