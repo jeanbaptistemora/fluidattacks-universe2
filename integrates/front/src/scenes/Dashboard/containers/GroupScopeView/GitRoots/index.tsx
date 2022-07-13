@@ -22,7 +22,6 @@ import {
 import { ManagementEnvironmentUrlsModal } from "./ManagementEnvironmentUrlsModal";
 import { ManagementModal } from "./ManagementModal";
 import { renderRepoDescription } from "./repoDescription";
-import { Container } from "./styles";
 
 import { DeactivationModal } from "../deactivationModal";
 import { InternalSurfaceButton } from "../InternalSurfaceButton";
@@ -34,6 +33,7 @@ import {
 } from "../queries";
 import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../types";
 import { Button } from "components/Button";
+import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import {
@@ -48,6 +48,7 @@ import {
   filterSelect,
   filterText,
 } from "components/Table/utils";
+import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
@@ -581,7 +582,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <ConfirmDialog title={t("group.scope.common.confirm")}>
         {(confirm): React.ReactNode => {
           const handleStateUpdate: (row: Record<string, string>) => void = (
@@ -597,174 +598,180 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           };
 
           return (
-            <Container>
-              <Table
-                clearFiltersButton={clearFilters}
-                columnToggle={true}
-                csvFilename={`${groupName}.csv`}
-                customFilters={{
-                  customFiltersProps,
-                  isCustomFilterEnabled,
-                  onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                  resultSize: {
-                    current: resultExecutions.length,
-                    total: roots.length,
-                  },
-                }}
-                customSearch={{
-                  customSearchDefault: searchTextFilter,
-                  isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchTextChange,
-                  position: "right",
-                }}
-                dataset={resultExecutions}
-                expandRow={{
-                  expandByColumnOnly: true,
-                  expanded: expandedRows,
-                  onExpand: handleRowExpand,
-                  onExpandAll: handleRowExpandAll,
-                  renderer: renderRepoDescription(groupName),
-                  showExpandColumn: true,
-                }}
-                exportCsv={true}
-                extraButtons={
-                  <Fragment>
-                    <Can do={"api_mutations_add_git_root_mutate"}>
-                      <TooltipWrapper
-                        hide={runTour}
-                        id={t("group.scope.common.addTooltip.id")}
-                        message={t("group.scope.common.addTooltip")}
-                      >
-                        <Button
-                          id={"git-root-add"}
-                          onClick={openAddModal}
-                          variant={"primary"}
+            <Fragment>
+              <Text fw={7} mb={3} mt={4} size={5}>
+                {t("group.scope.git.title")}
+              </Text>
+              <Card>
+                <Table
+                  clearFiltersButton={clearFilters}
+                  columnToggle={true}
+                  csvFilename={`${groupName}.csv`}
+                  customFilters={{
+                    customFiltersProps,
+                    isCustomFilterEnabled,
+                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+                    resultSize: {
+                      current: resultExecutions.length,
+                      total: roots.length,
+                    },
+                  }}
+                  customSearch={{
+                    customSearchDefault: searchTextFilter,
+                    isCustomSearchEnabled: true,
+                    onUpdateCustomSearch: onSearchTextChange,
+                    position: "right",
+                  }}
+                  dataset={resultExecutions}
+                  expandRow={{
+                    expandByColumnOnly: true,
+                    expanded: expandedRows,
+                    onExpand: handleRowExpand,
+                    onExpandAll: handleRowExpandAll,
+                    renderer: renderRepoDescription(groupName),
+                    showExpandColumn: true,
+                  }}
+                  exportCsv={true}
+                  extraButtons={
+                    <Fragment>
+                      <Can do={"api_mutations_add_git_root_mutate"}>
+                        <TooltipWrapper
+                          hide={runTour}
+                          id={t("group.scope.common.addTooltip.id")}
+                          message={t("group.scope.common.addTooltip")}
                         >
-                          <FontAwesomeIcon icon={faPlus} />
-                          &nbsp;{t("group.scope.common.add")}
-                        </Button>
-                      </TooltipWrapper>
-                      {runTour ? (
-                        <Tour
-                          run={false}
-                          steps={[
-                            {
-                              ...BaseStep,
-                              content: t("tours.addGitRoot.addButton"),
-                              disableBeacon: true,
-                              hideFooter: true,
-                              target: "#git-root-add",
-                            },
-                          ]}
-                        />
-                      ) : undefined}
-                    </Can>
-                    <InternalSurfaceButton />
-                  </Fragment>
-                }
-                headers={[
-                  {
-                    dataField: "id",
-                    header: t("group.machine.rootId"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    dataField: "url",
-                    header: t("group.scope.git.repo.url"),
-                    visible: checkedItems.url,
-                    wrapped: true,
-                  },
-                  {
-                    dataField: "branch",
-                    header: t("group.scope.git.repo.branch"),
-                    visible: checkedItems.branch,
-                  },
-                  {
-                    changeFunction: handleStateUpdate,
-                    dataField: "state",
-                    formatter: canUpdateRootState
-                      ? changeFormatter
-                      : statusFormatter,
-                    header: t("group.scope.common.state"),
-                    visible: checkedItems.state,
-                    width: canUpdateRootState ? "130px" : "100px",
-                  },
-                  {
-                    dataField: "cloningStatus.status",
-                    formatter: statusFormatter,
-                    header: t("group.scope.git.repo.cloning.status"),
-                    visible: checkedItems["cloningStatus.status"],
-                    width: "105px",
-                  },
-                  {
-                    dataField: "includesHealthCheck",
-                    formatter: formatBoolean,
-                    header: t("group.scope.git.healthCheck.tableHeader"),
-                    headerFormatter: tooltipFormatter,
-                    tooltipDataField: t(
-                      "group.scope.git.healthCheck.titleTooltip"
-                    ),
-                    visible: _.isUndefined(checkedItems.includesHealthCheck)
-                      ? false
-                      : checkedItems.includesHealthCheck,
-                    width: "45px",
-                  },
-                  {
-                    dataField: "nickname",
-                    header: t("group.scope.git.repo.nickname"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    dataField: "environment",
-                    header: t("group.scope.git.repo.environment"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    dataField: "gitignore",
-                    header: t("group.scope.git.filter.exclude"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    dataField: "environmentUrls",
-                    header: t("group.scope.git.envUrls"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    dataField: "useVpn",
-                    header: t("group.scope.git.repo.useVpn"),
-                    nonToggleList: true,
-                    visible: false,
-                  },
-                  {
-                    changeFunction: handleSyncClick,
-                    csvExport: false,
-                    dataField: "sync",
-                    formatter: syncButtonFormatter,
-                    header: t("group.scope.git.repo.cloning.sync"),
-                    visible: canSyncGitRoot && checkedItems.sync,
-                    width: "15px",
-                  },
-                ]}
-                id={"tblGitRoots"}
-                onColumnToggle={handleChange}
-                pageSize={10}
-                rowEvents={{ onClick: handleRowClick }}
-                search={false}
-              />
-            </Container>
+                          <Button
+                            id={"git-root-add"}
+                            onClick={openAddModal}
+                            variant={"primary"}
+                          >
+                            <FontAwesomeIcon icon={faPlus} />
+                            &nbsp;{t("group.scope.common.add")}
+                          </Button>
+                        </TooltipWrapper>
+                        {runTour ? (
+                          <Tour
+                            run={false}
+                            steps={[
+                              {
+                                ...BaseStep,
+                                content: t("tours.addGitRoot.addButton"),
+                                disableBeacon: true,
+                                hideFooter: true,
+                                target: "#git-root-add",
+                              },
+                            ]}
+                          />
+                        ) : undefined}
+                      </Can>
+                      <InternalSurfaceButton />
+                    </Fragment>
+                  }
+                  headers={[
+                    {
+                      dataField: "id",
+                      header: t("group.machine.rootId"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      dataField: "url",
+                      header: t("group.scope.git.repo.url"),
+                      visible: checkedItems.url,
+                      wrapped: true,
+                    },
+                    {
+                      dataField: "branch",
+                      header: t("group.scope.git.repo.branch"),
+                      visible: checkedItems.branch,
+                    },
+                    {
+                      changeFunction: handleStateUpdate,
+                      dataField: "state",
+                      formatter: canUpdateRootState
+                        ? changeFormatter
+                        : statusFormatter,
+                      header: t("group.scope.common.state"),
+                      visible: checkedItems.state,
+                      width: canUpdateRootState ? "130px" : "100px",
+                    },
+                    {
+                      dataField: "cloningStatus.status",
+                      formatter: statusFormatter,
+                      header: t("group.scope.git.repo.cloning.status"),
+                      visible: checkedItems["cloningStatus.status"],
+                      width: "105px",
+                    },
+                    {
+                      dataField: "includesHealthCheck",
+                      formatter: formatBoolean,
+                      header: t("group.scope.git.healthCheck.tableHeader"),
+                      headerFormatter: tooltipFormatter,
+                      tooltipDataField: t(
+                        "group.scope.git.healthCheck.titleTooltip"
+                      ),
+                      visible: _.isUndefined(checkedItems.includesHealthCheck)
+                        ? false
+                        : checkedItems.includesHealthCheck,
+                      width: "45px",
+                    },
+                    {
+                      dataField: "nickname",
+                      header: t("group.scope.git.repo.nickname"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      dataField: "environment",
+                      header: t("group.scope.git.repo.environment"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      dataField: "gitignore",
+                      header: t("group.scope.git.filter.exclude"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      dataField: "environmentUrls",
+                      header: t("group.scope.git.envUrls"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      dataField: "useVpn",
+                      header: t("group.scope.git.repo.useVpn"),
+                      nonToggleList: true,
+                      visible: false,
+                    },
+                    {
+                      changeFunction: handleSyncClick,
+                      csvExport: false,
+                      dataField: "sync",
+                      formatter: syncButtonFormatter,
+                      header: t("group.scope.git.repo.cloning.sync"),
+                      visible: canSyncGitRoot && checkedItems.sync,
+                      width: "15px",
+                    },
+                  ]}
+                  id={"tblGitRoots"}
+                  onColumnToggle={handleChange}
+                  pageSize={10}
+                  rowEvents={{ onClick: handleRowClick }}
+                  search={false}
+                />
+              </Card>
+            </Fragment>
           );
         }}
       </ConfirmDialog>
-      <br />
       {envDataset.length === 0 ? undefined : (
-        <React.Fragment>
-          <h2 className={"mb0 pb0"}>{t("group.scope.git.envUrls")}</h2>
-          <div className={"flex flex-wrap nt2"}>
+        <Fragment>
+          <Text fw={7} mb={3} mt={4} size={5}>
+            {t("group.scope.git.envUrls")}
+          </Text>
+          <Card>
             <Table
               customSearch={{
                 customSearchDefault: searchEnvsTextFilter,
@@ -794,7 +801,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               }
               search={false}
             />
-          </div>
+          </Card>
           <Can do={"api_resolvers_query_environment_url_resolve"}>
             {_.isUndefined(currentRowUrl) ? undefined : (
               <ManagementEnvironmentUrlsModal
@@ -805,7 +812,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
               />
             )}
           </Can>
-        </React.Fragment>
+        </Fragment>
       )}
       {isManagingRoot === false ? undefined : (
         <ManagementModal
@@ -830,6 +837,6 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           rootId={deactivationModal.rootId}
         />
       ) : undefined}
-    </React.Fragment>
+    </Fragment>
   );
 };

@@ -36,16 +36,11 @@ export const GroupScopeView: React.FC = (): JSX.Element => {
   return (
     <Fragment>
       <Have I={"has_service_white"}>
-        <Text fw={7} mb={3} mt={4} size={5}>
-          {t("group.scope.git.title")}
-        </Text>
-        <Card>
-          <GitRoots
-            groupName={groupName}
-            onUpdate={refetch}
-            roots={mapInactiveStatus(roots.filter(isGitRoot))}
-          />
-        </Card>
+        <GitRoots
+          groupName={groupName}
+          onUpdate={refetch}
+          roots={mapInactiveStatus(roots.filter(isGitRoot))}
+        />
       </Have>
       <Have I={"has_service_black"}>
         <Text fw={7} mb={3} mt={4} size={5}>

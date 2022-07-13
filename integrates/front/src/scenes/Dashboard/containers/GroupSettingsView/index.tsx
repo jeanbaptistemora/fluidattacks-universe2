@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Unsubscribe } from "./Unsubscribe";
 
 import { Card } from "components/Card";
-import { Col, Row } from "components/Layout";
+import { Col, Hr, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { AccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { AgentToken } from "scenes/Dashboard/containers/GroupSettingsView/AgentToken";
@@ -46,6 +46,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
           {t("searchFindings.infoTable.title")}
         </Text>
         <GroupInformation />
+        <Hr mv={32} />
         <Row>
           <AccessInfo />
           <Can do={"api_resolvers_group_forces_token_resolve"}>
