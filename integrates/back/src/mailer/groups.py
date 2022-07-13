@@ -685,7 +685,7 @@ async def send_mail_numerator_report(
         loaders=loaders,
         email_to=email_to,
         tags=GENERAL_TAG,
-        subject=f"[ASM] Enumeration Digest {user_login} [{report_date}]",
+        subject=f"[ASM] Progress Report {user_login} [{report_date}]",
         context=context,
         template_name="numerator_digest",
     )
