@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 import aiohttp
 import asyncio
 from asyncio import (
@@ -427,6 +430,74 @@ async def clone_root(
             shutil.rmtree(temp_dir, ignore_errors=True)
 
 
+async def update_root_mirror(
+    root: Dict[str, Any], group_name: str, api_token: str, action_key: str
+) -> Tuple[str, bool]:
+    await update_root_cloning_status(
+        token=api_token,
+        group_name=group_name,
+        root_id=root["id"],
+        status="CLONING",
+        message="Cloning in progress...",
+    )
+    upload_url = await get_root_upload_url(
+        token=api_token, group_name=group_name, root_id=root["id"]
+    )
+    mirror_updated: bool = False
+
+    if upload_url:
+        logging.info("Cloning %s", root["nickname"])
+
+        with suppress(RuntimeError):
+            async with clone_root(
+                group_name=group_name, root=root, api_token=api_token
+            ) as folder_to_clone_root:
+                success_upload = await upload_cloned_repo_to_s3_tar(
+                    repo_path=folder_to_clone_root,
+                    nickname=root["nickname"],
+                    upload_url=upload_url,
+                )
+                if success_upload:
+                    try:
+                        commit = Repo(
+                            folder_to_clone_root,
+                            search_parent_directories=True,
+                        ).head.object.hexsha
+                        logging.info(
+                            "Cloned %s successfully with commit: %s",
+                            root["nickname"],
+                            commit,
+                        )
+                        await update_root_cloning_status(
+                            token=api_token,
+                            group_name=group_name,
+                            root_id=root["id"],
+                            status="OK",
+                            message="Cloned successfully",
+                            commit=commit,
+                        )
+                        mirror_updated = True
+                        delete_action(action_dynamo_pk=action_key)
+                    except (GitError, AttributeError) as exc:
+                        logging.exception(exc)
+                        await update_root_cloning_status(
+                            token=api_token,
+                            group_name=group_name,
+                            root_id=root["id"],
+                            status="FAILED",
+                            message=str(exc),
+                        )
+
+                await update_root_cloning_status(
+                    token=api_token,
+                    group_name=group_name,
+                    root_id=root["id"],
+                    status="FAILED",
+                    message="The repository can not be uploaded",
+                )
+    return (root["nickname"], mirror_updated)
+
+
 async def main() -> None:
     logging.basicConfig(level="INFO")
     api_token = os.environ["INTEGRATES_API_TOKEN"]
@@ -449,70 +520,18 @@ async def main() -> None:
         for root in roots_data["data"]["group"]["roots"]
         if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
     ]
-    for root in roots:
-        await update_root_cloning_status(
-            token=api_token,
-            group_name=group_name,
-            root_id=root["id"],
-            status="CLONING",
-            message="Cloning in progress...",
-        )
-        upload_url = await get_root_upload_url(
-            token=api_token, group_name=group_name, root_id=root["id"]
-        )
-
-        if upload_url:
-            logging.info("Cloning %s", root["nickname"])
-
-            with suppress(RuntimeError):
-                async with clone_root(
-                    group_name=group_name, root=root, api_token=api_token
-                ) as folder_to_clone_root:
-                    success_upload = await upload_cloned_repo_to_s3_tar(
-                        repo_path=folder_to_clone_root,
-                        nickname=root["nickname"],
-                        upload_url=upload_url,
-                    )
-                    if success_upload:
-                        try:
-                            commit = Repo(
-                                folder_to_clone_root,
-                                search_parent_directories=True,
-                            ).head.object.hexsha
-                            logging.info(
-                                "Cloned success with commit: %s",
-                                commit,
-                            )
-                            await update_root_cloning_status(
-                                token=api_token,
-                                group_name=group_name,
-                                root_id=root["id"],
-                                status="OK",
-                                message="Cloned successfully",
-                                commit=commit,
-                            )
-                            delete_action(action_dynamo_pk=action_key)
-                            continue
-                        except (GitError, AttributeError) as exc:
-                            logging.exception(
-                                exc,
-                            )
-                            await update_root_cloning_status(
-                                token=api_token,
-                                group_name=group_name,
-                                root_id=root["id"],
-                                status="FAILED",
-                                message=str(exc),
-                            )
-                            continue
-
-                    await update_root_cloning_status(
-                        token=api_token,
-                        group_name=group_name,
-                        root_id=root["id"],
-                        status="FAILED",
-                        message="The repository can not be uploaded",
-                    )
+    await collect(
+        (
+            update_root_mirror(
+                root=root,
+                group_name=group_name,
+                api_token=api_token,
+                action_key=action_key,
+            )
+            for root in roots
+        ),
+        workers=15,
+    )
 
 
 if __name__ == "__main__":
