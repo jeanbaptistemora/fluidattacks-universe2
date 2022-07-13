@@ -31,6 +31,12 @@ def remove_org_id_prefix(organization_id: str) -> str:
 def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
     item = {
         "billing_customer": metadata.billing_customer,
+        "payment_methods": [
+            payment_method._asdict()
+            for payment_method in metadata.payment_methods
+        ]
+        if metadata.payment_methods
+        else None,
     }
     return {
         key: None if not value else value

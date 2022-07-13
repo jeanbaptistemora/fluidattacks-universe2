@@ -36,3 +36,4 @@ class Organization(NamedTuple):
 
 class OrganizationMetadataToUpdate(NamedTuple):
     billing_customer: Optional[str] = None
+    payment_methods: Optional[list[OrganizationPaymentMethods]] = None

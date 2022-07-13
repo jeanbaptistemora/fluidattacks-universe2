@@ -24,11 +24,15 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model import (
+    organizations as organizations_model,
+)
 from db_model.groups.enums import (
     GroupTier,
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationMetadataToUpdate,
     OrganizationPaymentMethods,
 )
 from groups import (
@@ -330,7 +334,7 @@ async def customer_portal(
     )
 
 
-async def create_payment_method(
+async def create_payment_method(  # pylint: disable=too-many-locals
     *,
     org: Organization,
     user_email: str,
@@ -339,10 +343,16 @@ async def create_payment_method(
     card_expiration_year: str,
     card_cvc: str,
     make_default: bool,
+    business_name: str,
+    city: str,
+    country: str,
+    email: str,
+    state: str,
 ) -> bool:
     """Create a payment method and associate it to the customer"""
     # Create customer if it does not exist
     customer: Optional[Customer] = None
+    result: bool = False
     if org.billing_customer is None:
         customer = await dal.create_customer(
             org_id=org.id,
@@ -353,42 +363,68 @@ async def create_payment_method(
         customer = await dal.get_customer(
             org_billing_customer=org.billing_customer,
         )
-
-    try:
-        # Create payment method
-        created: PaymentMethod = await dal.create_payment_method(
-            card_number=card_number,
-            card_expiration_month=card_expiration_month,
-            card_expiration_year=card_expiration_year,
-            card_cvc=card_cvc,
-            default=make_default,
+    # create other payment methods
+    if card_number == "":
+        # get actual payment methods
+        other_payment_methods: List[OrganizationPaymentMethods] = []
+        if org.payment_methods:
+            other_payment_methods = org.payment_methods
+        other_payment_methods.append(
+            OrganizationPaymentMethods(
+                business_name=business_name,
+                city=city,
+                country=country,
+                email=email,
+                state=state,
+            )
         )
+        await organizations_model.update_metadata(
+            metadata=OrganizationMetadataToUpdate(
+                payment_methods=other_payment_methods
+            ),
+            organization_id=org.id,
+            organization_name=org.name,
+        )
+        result = True
 
-        # Raise exception if payment method already exists for customer
+    # create credit card payment method
+    if business_name == "":
+        # get actual payment methods
         payment_methods: List[PaymentMethod] = await customer_payment_methods(
             org=org,
             limit=1000,
         )
-        if created.fingerprint in [
-            payment_method.fingerprint for payment_method in payment_methods
-        ]:
-            raise PaymentMethodAlreadyExists()
+        try:
+            created: PaymentMethod = await dal.create_payment_method(
+                card_number=card_number,
+                card_expiration_month=card_expiration_month,
+                card_expiration_year=card_expiration_year,
+                card_cvc=card_cvc,
+                default=make_default,
+            )
 
-        # Attach payment method to customer
-        result: bool = await dal.attach_payment_method(
-            payment_method_id=created.id,
-            org_billing_customer=customer.id,
-        )
-    except CardError as ex:
-        raise CouldNotCreatePaymentMethod() from ex
+            # Raise exception if payment method already exists for customer
+            if created.fingerprint in [
+                payment_method.fingerprint
+                for payment_method in payment_methods
+            ]:
+                raise PaymentMethodAlreadyExists()
 
-    # If payment method is the first one registered or selected as default,
-    # then make it default
-    if not customer.default_payment_method or make_default:
-        await dal.update_default_payment_method(
-            payment_method_id=created.id,
-            org_billing_customer=customer.id,
-        )
+            # Attach payment method to customer
+            result = await dal.attach_payment_method(
+                payment_method_id=created.id,
+                org_billing_customer=customer.id,
+            )
+        except CardError as ex:
+            raise CouldNotCreatePaymentMethod() from ex
+
+        # If payment method is the first one registered or selected as default,
+        # then make it default
+        if not customer.default_payment_method or make_default:
+            await dal.update_default_payment_method(
+                payment_method_id=created.id,
+                org_billing_customer=customer.id,
+            )
 
     return result
 
