@@ -6,6 +6,10 @@ from lib_path.common import (
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
 )
+from lib_path.f070.common import (
+    PREDEFINED_SSL_POLICY_VALUES,
+    SAFE_SSL_POLICY_VALUES,
+)
 from metaloaders.model import (
     Node,
 )
@@ -28,14 +32,12 @@ def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
     listeners_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for listener in listeners_iterator:
-        acceptable = (
-            "ELBSecurityPolicy-2016-08",
-            "ELBSecurityPolicy-TLS-1-1-2017-01",
-            "ELBSecurityPolicy-FS-2018-06",
-            "ELBSecurityPolicy-TLS-1-2-Ext-2018-06",
-        )
         ssl_policy = listener.inner.get("SslPolicy")
-        if ssl_policy and ssl_policy.raw not in acceptable:
+        if (
+            ssl_policy
+            and ssl_policy.raw in PREDEFINED_SSL_POLICY_VALUES
+            and ssl_policy.raw not in SAFE_SSL_POLICY_VALUES
+        ):
             yield ssl_policy
 
 

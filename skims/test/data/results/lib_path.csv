@@ -17811,6 +17811,30 @@ F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_a
   26 | }
      ^ Col 0
 ",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,17,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+   7 |          RedirectConfig:
+   8 |            Protocol: ""HTTPS""
+   9 |            Port: 443
+  10 |            Host: ""#{host}""
+  11 |            Path: ""/#{path}""
+  12 |            Query: ""#{query}""
+  13 |            StatusCode: ""HTTP_301""
+  14 |      LoadBalancerArn: myLoadBalancer
+  15 |      Port: 80
+  16 |      Protocol: ""HTTPS""
+> 17 |      SslPolicy: ELBSecurityPolicy-2016-08
+  18 |   listener2:
+  19 |    Type: ""AWS::ElasticLoadBalancingV2::Listener""
+  20 |    Properties:
+  21 |      DefaultActions:
+  22 |        - Type: ""redirect""
+  23 |          RedirectConfig:
+  24 |            Protocol: ""HTTPS""
+  25 |            Port: 443
+  26 |            Host: ""#{host}""
+  27 |            Path: ""/#{path}""
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,33,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
   13 |            StatusCode: ""HTTP_301""
   14 |      LoadBalancerArn: myLoadBalancer
@@ -17833,6 +17857,30 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   31 |      Port: 80
   32 |      Protocol: ""HTTP""
 > 33 |      SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,22,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
+  12 |               ""Host"": ""#{host}"",
+  13 |               ""Path"": ""/#{path}"",
+  14 |               ""Query"": ""#{query}"",
+  15 |               ""StatusCode"": ""HTTP_301""
+  16 |             }
+  17 |           }
+  18 |         ],
+  19 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  20 |         ""Port"": 80,
+  21 |         ""Protocol"": ""HTTPS"",
+> 22 |         ""SslPolicy"": ""ELBSecurityPolicy-2016-08""
+  23 |       }
+  24 |     },
+  25 |     ""listener2"": {
+  26 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+  27 |       ""Properties"": {
+  28 |         ""DefaultActions"": [
+  29 |           {
+  30 |             ""Type"": ""redirect"",
+  31 |             ""RedirectConfig"": {
+  32 |               ""Protocol"": ""HTTPS"",
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
@@ -17859,6 +17907,30 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_securi
   48 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/tfm_elb2_uses_insecure_security_policy.tf,5,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/tfm_elb2_uses_insecure_security_policy.tf,"
+   1 | resource ""aws_lb_listener"" ""front_end"" {
+   2 |   load_balancer_arn = aws_lb.front_end.arn
+   3 |   port              = ""443""
+   4 |   protocol          = ""HTTPS""
+>  5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
+   6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+   7 |
+   8 |   default_action {
+   9 |     type             = ""forward""
+  10 |     target_group_arn = aws_lb_target_group.front_end.arn
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_lb_listener"" ""front_end"" {
+  15 |   load_balancer_arn = aws_lb.front_end.arn
+  16 |   port              = ""443""
+  17 |   protocol          = ""HTTPS""
+  18 |   ssl_policy        = ""ELBSecurityPolicy-FS-1-1-2019-08""
+  19 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+  20 |
+  21 |   default_action {
+     ^ Col 0
+",terraform.tfm_elb2_uses_insecure_security_policy
 F070,lines,namespace/skims/test/data/lib_path/f070/tfm_elb2_uses_insecure_security_policy.tf,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/tfm_elb2_uses_insecure_security_policy.tf,"
    5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
    6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
