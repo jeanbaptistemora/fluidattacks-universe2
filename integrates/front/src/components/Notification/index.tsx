@@ -1,32 +1,30 @@
+import type { FC } from "react";
 import React from "react";
-import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
+
+import { Text } from "components/Text";
 
 interface INotificationProps {
   text: string;
   title: string;
 }
 
-const NotificationContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "sans-pro pa1",
+const NotificationBox = styled.div.attrs({
+  className: "pa2",
 })``;
 
-export const Notification: React.FC<INotificationProps> = (
-  props: Readonly<INotificationProps>
-): JSX.Element => {
-  const { title, text } = props;
+const Notification: FC<INotificationProps> = ({
+  text,
+  title,
+}: Readonly<INotificationProps>): JSX.Element => (
+  <NotificationBox>
+    <Text mb={1} size={1} tone={"light"}>
+      {title}
+    </Text>
+    <Text size={3} tone={"light"}>
+      {text}
+    </Text>
+  </NotificationBox>
+);
 
-  return (
-    <NotificationContainer>
-      <p>
-        <small>{title}</small>
-      </p>
-      <p>{text}</p>
-    </NotificationContainer>
-  );
-};
+export { Notification };
