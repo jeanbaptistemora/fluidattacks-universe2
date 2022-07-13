@@ -42,6 +42,7 @@ const AlertBox = styled.div.attrs({
 
   ${({ show = true, variant }): string => `
     background-color: ${variants[variant].bgColor};
+    color: ${variants[variant].color};
     height: ${show ? 35 : 0}px;
     padding: ${show ? "10px 16px" : 0};
   `}

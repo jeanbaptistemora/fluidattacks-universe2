@@ -36,6 +36,12 @@ const Row = styled.div.attrs({
   text-align: ${({ justify }): string => getTextAlign(justify)};
 
   margin: -6px;
+
+  > *:not(.comp-col) {
+    width: 100%;
+    margin: 6px;
+  }
+
   > .comp-col {
     padding: 6px;
   }
