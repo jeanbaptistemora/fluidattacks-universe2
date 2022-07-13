@@ -5,24 +5,27 @@ sidebar_label: Notifications
 slug: /machine/web/notifications
 ---
 
-Notifications are an excellent way
-for you to have an up-to-date
+Notifications are an excellent
+way for you to have an up-to-date
 understanding of the activity
-concerning your system’s vulnerabilities
-and your groups on the ASM.
+concerning your system’s
+vulnerabilities and your
+groups on the ASM.
 These notifications are sent
-directly to your email address.
+directly to your email address
+or mobile phone (via SMS).
 You are free to customize the
 notifications you wish to receive
 in the Notifications section on the ASM.
+
 To access this section,
 you need to click on the
-User information drop-down menu
-and choose Notifications.
-There,
-you will be presented with a matrix
-where you can turn on/off different
-kinds of email notifications.
+[User information drop-down menu](https://fluidattacks.com/privacy/)
+and choose then Notifications.
+By toggling the on/off button,
+you can enable or disable the
+delivery of each notification to
+your registered email or mobile phone.
 
 ![Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_matrix.png)
 
@@ -287,7 +290,7 @@ new selected values.
 
 ![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_policies_updated.png)
 
-## Treatment expiration alert
+### Treatment expiration alert
 
 If you are a user manager,
 customer manager,
