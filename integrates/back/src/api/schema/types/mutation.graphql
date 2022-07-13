@@ -1044,6 +1044,30 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
+"Updates the Group's policies"
+  updateGroupPolicies(
+    "Maximum number of calendar days a finding can be temporarily accepted"
+    maxAcceptanceDays: Int
+    "Maximum CVSS 3.1 score in which a finding can be temporarily accepted"
+    maxAcceptanceSeverity: Float
+    "Maximum number of times a finding can be temporarily accepted"
+    maxNumberAcceptances: Int
+    "Minimum CVSS 3.1 score in which a finding can be temporarily accepted"
+    minAcceptanceSeverity: Float
+    """
+    Minimum CVSS 3.1 score of an open vulnerability for DevSecOps to break
+    the build in strict mode
+    """
+    minBreakingSeverity: Float
+    "Name of the Group whose policies are to be updated"
+    groupName: String!
+    """
+    Grace period in days where newly reported vulnerabilities won't break
+    the build (DevSecOps only)
+    """
+    vulnerabilityGracePeriod: Int
+  ): SimplePayload!
+
   "Updates/edits an user belonging to a group"
   updateGroupStakeholder(
     "Name of the group to which the user to be updated belongs"

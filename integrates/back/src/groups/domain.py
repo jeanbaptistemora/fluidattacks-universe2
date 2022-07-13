@@ -26,6 +26,7 @@ from custom_exceptions import (
     ErrorUpdatingGroup,
     GroupNotFound,
     HasActiveRoots,
+    InvalidAcceptanceSeverityRange,
     InvalidGroupName,
     InvalidGroupServicesConfig,
     InvalidGroupTier,
@@ -40,6 +41,9 @@ from datetime import (
 )
 from db_model import (
     groups as groups_model,
+)
+from db_model.constants import (
+    POLICIES_FORMATTED,
 )
 from db_model.enums import (
     Notification,
@@ -82,6 +86,9 @@ from db_model.roots.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+)
+from db_model.types import (
+    PoliciesToUpdate,
 )
 from db_model.utils import (
     get_min_iso_date,
@@ -2197,3 +2204,136 @@ async def get_oldest_finding_date(
     if ages:
         return min(ages)
     return None
+
+
+async def update_policies(
+    *,
+    group_name: str,
+    loaders: Any,
+    organization_id: str,
+    policies_to_update: PoliciesToUpdate,
+    user_email: str,
+) -> None:
+    validated_policies: dict[str, Any] = {}
+    for attr, value in policies_to_update._asdict().items():
+        if value is not None:
+            value = (
+                Decimal(value).quantize(Decimal("0.1"))
+                if isinstance(value, float)
+                else Decimal(value)
+            )
+            validated_policies[attr] = value
+            validator_func = getattr(orgs_domain, f"validate_{attr}")
+            validator_func(value)
+    await validate_acceptance_severity_range(
+        group_name=group_name, loaders=loaders, values=policies_to_update
+    )
+
+    if validated_policies:
+        today = datetime_utils.get_iso_date()
+        await groups_model.update_policies(
+            group_name=group_name,
+            modified_by=user_email,
+            modified_date=today,
+            organization_id=organization_id,
+            policies=policies_to_update,
+        )
+        schedule(
+            send_mail_policies(
+                group_name=group_name,
+                loaders=loaders,
+                modified_date=today,
+                new_policies=policies_to_update._asdict(),
+                responsible=user_email,
+            )
+        )
+
+
+async def validate_acceptance_severity_range(
+    *, group_name: str, loaders: Any, values: PoliciesToUpdate
+) -> bool:
+    success: bool = True
+    group: Group = await loaders.group.load(group_name)
+    min_acceptance_severity = (
+        await groups_utils.get_group_min_acceptance_severity(
+            loaders=loaders,
+            group=group,
+        )
+    )
+    max_acceptance_severity = (
+        await groups_utils.get_group_max_acceptance_severity(
+            loaders=loaders,
+            group=group,
+        )
+    )
+    min_value = (
+        values.min_acceptance_severity
+        if values.min_acceptance_severity is not None
+        else min_acceptance_severity
+    )
+    max_value = (
+        values.max_acceptance_severity
+        if values.max_acceptance_severity is not None
+        else max_acceptance_severity
+    )
+    if (
+        min_value is not None
+        and max_value is not None
+        and (min_value > max_value)
+    ):
+        raise InvalidAcceptanceSeverityRange()
+    return success
+
+
+async def send_mail_policies(
+    *,
+    group_name: str,
+    loaders: Any,
+    modified_date: str,
+    new_policies: dict[str, Any],
+    responsible: str,
+) -> None:
+    group_data: Group = await loaders.group.load(group_name)
+    organization_data: Organization = await loaders.organization.load(
+        group_data.organization_id
+    )
+
+    policies_content: dict[str, Any] = {}
+    for key, val in new_policies.items():
+        old_value = (
+            group_data.policies._asdict().get(key)
+            if group_data.policies
+            else organization_data.policies._asdict().get(key)
+        )
+        if val is not None and val != old_value:
+            policies_content[POLICIES_FORMATTED[key]] = {
+                "from": old_value,
+                "to": val,
+            }
+
+    email_context: dict[str, Any] = {
+        "entity_name": group_name,
+        "policies_link": (
+            f"{BASE_URL}/orgs/{organization_data.name}"
+            f"/groups/{group_name}/scope"
+        ),
+        "policies_content": policies_content,
+        "responsible": responsible,
+        "date": datetime_utils.get_datetime_from_iso_str(modified_date),
+    }
+    group_stakeholders: tuple[
+        Stakeholder, ...
+    ] = await loaders.group_stakeholders.load(group_name)
+
+    stakeholders_emails = [
+        stakeholder.email
+        for stakeholder in group_stakeholders
+        if stakeholder.role in ["customer_manager", "user_manager"]
+    ]
+
+    if policies_content:
+        await groups_mail.send_mail_updated_policies(
+            loaders=loaders,
+            email_to=stakeholders_emails,
+            context=email_context,
+        )
