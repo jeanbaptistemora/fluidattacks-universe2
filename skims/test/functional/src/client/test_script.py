@@ -5,7 +5,7 @@ import pytest
 
 
 @pytest.mark.asyncio
-@pytest.mark.skims_test_group("test_client")
+@pytest.mark.skims_test_group("client")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_client(
     test_integrates_api_token: str,

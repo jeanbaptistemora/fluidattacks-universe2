@@ -17,7 +17,7 @@ from utils.repositories import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.skims_test_group("test_build_vulnerabilities_stream")
+@pytest.mark.skims_test_group("build_vulnerabilities_stream")
 async def test_build_vulnerabilities_stream() -> None:
     sast_developer = core_model.DeveloperEnum.DIEGO_RESTREPO
     sast_method = "query.query_f034"

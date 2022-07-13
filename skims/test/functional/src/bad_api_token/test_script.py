@@ -36,7 +36,7 @@ def get_suite_config(suite: str) -> str:
     return f"skims/test/data/config/{suite}.yaml"
 
 
-@pytest.mark.skims_test_group("test_bad_integrates_api_token")
+@pytest.mark.skims_test_group("bad_api_token")
 def test_bad_integrates_api_token(test_group: str) -> None:
     suite: str = "nothing_to_do"
     code, stdout, stderr = skims(
