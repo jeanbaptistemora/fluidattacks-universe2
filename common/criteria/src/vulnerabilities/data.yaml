@@ -1681,7 +1681,8 @@
   category: Collect Information
   examples:
     non_compliant: |
-      Examples with insecure TLS protocol configuration
+      #### Examples with insecure TLS protocol configuration on resources
+      Using IaC on terraform and other options
       ```terraform
       resource "azurerm_storage_account" "insecure_example" {
         name                     = "storageaccountname"
@@ -1717,7 +1718,32 @@
                   - TLSv1.1
                   - TLSv1.2
       ```
-      Example using method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp
+      Using the AWS CLI with the following comands
+      ```
+      $ aws cloudfront get-distribution --id {distribution_id}
+            --query 'Distribution.DistributionConfig.Origins.Items[*].CustomOriginConfig'
+      ```
+      The configuration metadata is obtained. An insecure configuration would show the following code:
+      ```
+      [
+        {
+          "OriginProtocolPolicy": "https-only",
+          "HTTPPort": 80,
+          "OriginSslProtocols": {
+            "Items": [
+              "SSLv3",
+              "TLSv1",
+              "TLSv1.1",
+              "TLSv1.2"
+            ],
+            "Quantity": 4
+          },
+          "HTTPSPort": 443
+        }
+      ]
+      ```
+      #### Examples on source code
+      Using method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp
       ```c {3,7,15}
       using System;
       using Microsoft.WindowsAzure.Storage;
@@ -1763,7 +1789,7 @@
       }
       ```
     compliant: |
-      Implementing a secure TLS protocol version in the resources
+      Implement a secure TLS protocol version in the resources
       ```terraform
       resource "azurerm_storage_account" "secure_example" {
         name                     = "storageaccountname"
@@ -2527,6 +2553,35 @@
         }
       }
       ```
+      Using the AWS CLI with the following comands
+      ```
+      $ aws ec2 describe-security-groups
+            --region us-east-1
+            --filters Name=ip-permission.from-port,Values=53 Name=ip-permission.to-port,Values=53 Name=ip-permission.ipv6-cidr,Values='::/0'
+            --query 'SecurityGroups[*].{Name:GroupName}'
+      ```
+      Returns any group that has an insecure DNS configuration
+      ```
+      [
+        {
+          "Name": "DNSServerSecurityGroup"
+        }
+      ]
+      ```
+      Similarly, the following command returns any group with unrestricted FTP access
+      ```
+      $ aws ec2 describe-security-groups
+            --region us-east-1
+            --filters Name=ip-permission.from-port,Values=20,21 Name=ip-permission.to-port,Values=20,21 Name=ip-permission.ipv6-cidr,Values='::/0'
+            --query 'SecurityGroups[*].{Name:GroupName}'
+      ```
+      The following command checks if a security group has unrestricted outbound access on all ports
+      ```
+      $ aws ec2 describe-security-groups
+            --region us-east-1
+            --group-ids {group_id}
+            --query 'SecurityGroups[*].IpPermissionsEgress[]'
+      ```
     compliant: |
       Define a specific range of ports for the resource
       ```terraform
@@ -3233,6 +3288,26 @@
                 - Effect: Allow
                   Action: iam:Pass*
                   Resource: '*'
+      ```
+      Using the AWS CLI, the following command checks for Overly Permissive IAM Group Policies
+      ```
+      $ aws iam get-policy-version
+            --policy-arn {arn_iam_policy}
+            --version-id v1
+            --query 'PolicyVersion.Document'
+      ```
+      This returns the policy version configuration. If the output contains any wildcards (*), the policy is too permisive, for example:
+      ```
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": "*",
+            "Resource": "*",
+            "Effect": "Allow"
+          }
+        ]
+      }
       ```
     compliant: |
       Every resource should have clearly defined authorization restrictions
@@ -6952,6 +7027,14 @@
           Protocol: "HTTP"
           SslPolicy: ELBSecurityPolicy-2016-08
       ```
+      Using the AWS CLI, check the ELBv2 security policy using the following command
+      ```
+      $ aws elbv2 describe-listeners
+            --region us-east-1
+            --load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/app/cc-internet-facing-alb/aaaabbbbccccdddd
+            --query 'Listeners[*].SslPolicy'
+      ```
+      Verify that the return output uses the most recent secutiry default configurations defined by AWS
     compliant: |
       The port property and security policy are set to secure values
       ```terraform
@@ -7236,6 +7319,18 @@
             StorageEncrypted: False
           Type: "AWS::RDS::DBCluster"
       ```
+      Using the AWS CLI, the following commands check if the RDS is publicly accessible
+      ```
+      $ aws rds describe-db-instances
+            --region us-east-1
+            --db-instance-identifier mysql-production-db
+            --query 'DBInstances[*].PubliclyAccessible'
+      $ aws ec2 describe-security-groups
+            --region us-east-1
+            --group-ids {sg_id}
+            --query 'SecurityGroups[*].IpPermissions'
+      ```
+      If the first command returns the flag True, and the security group associated with the instance is using the 0.0.0.0/0 CIDR/IP for inbound rules (second command), the RDS is publicly accessible and insecure
     compliant: |
       All sensitive resources are safely configured with restricted access
       ```terraform
@@ -9570,6 +9665,12 @@
                     "Null":
                       's3:x-amz-server-side-encryption': False
       ```
+      Using the AWS CLI, the following command checks the bucket encryption configuration
+      ```
+      $ aws s3api get-bucket-encryption
+        --bucket {my_bucket_name}
+      ```
+      If the command returns the error message "ServerSideEncryptionConfigurationNotFoundError", the default encryption is not enabled and the resource has an insecure configuration
     compliant: |
       Sensitive data is stored in resources with properly defined encryption
       ```yaml
@@ -10481,6 +10582,14 @@
             ImageId: "ami-79fd7eee"
             KeyName: "testkey"
       ```
+      Using the AWS CLI, the following command checks the subnet groups associated with a given database instance subnet ID
+      ```
+      $ aws ec2 describe-route-tables
+          --region us-east-1
+          --filters "Name=association.subnet-id,Values=subnet-19e7cc6f"
+          --query 'RouteTables[*].Routes[]'
+      ```
+      If the output contains any entries with the GatewayId value set to igw-xxxxxxxx and the DestinationCidrBlock value set to 0.0.0.0/0, the selected RDS database instance was provisioned inside a public subnet, and has an insecure configuration
     compliant: |
       The resources have defined security groups
       ```yaml
@@ -14656,7 +14765,7 @@
         }
       }
       ```
-      A resource has a deafult network access configured
+      A resource has a default network access configured
       ```terraform
       resource "azurerm_storage_account_network_rules" "vulnerable" {
         resource_group_name  = azurerm_resource_group.test.name
@@ -14689,6 +14798,13 @@
         }
       }
       ```
+      Using the azure CLI, the following command returns the network access configuration
+      ```
+      $ az cosmosdb show
+           --ids {subscription_id}
+           --query '{"ipRangeFilter":ipRules,"isVirtualNetworkFilterEnabled":isVirtualNetworkFilterEnabled}'
+      ```
+      If the command output returns false for the "isVirtualNetworkFilterEnabled" attribute and [] for the "ipRangeFilter" attribute, the resource has an insecure default network access.
     compliant: |
       All resources in the application have properly defined network segments
       ```terraform
@@ -16676,6 +16792,15 @@
             ImageId: "ami-79fd7eee"
             KeyName: "testkey"
       ```
+      Using the AWS CLI, the following command checks if the EC2 instance uses the default security groups
+      ```
+      $ aws ec2 describe-instances
+            --region us-east-1
+            --filters "Name=instance.group-name,Values=default"
+            --output table
+            --query 'Reservations[*].Instances[*].InstanceId'
+      ```
+      If the output returns one or more instance ID, these have the default security group configured
     compliant: |
       The services have specific security groups configured
       ```yaml
@@ -18845,6 +18970,13 @@
         }
       }
       ```
+      Using the AWS CLI, the following command returns the S3 bucket ACL configuration
+      ```
+      $ aws s3api get-bucket-acl
+            --bucket {bucket_id}
+            --query 'Grants[?(Grantee.URI==`http://acs.amazonaws.com/groups/global/AllUsers`)]'
+      ```
+      If the command output returns "FULL_CONTROL" for the "Permission" attribute, the bucket is publicly accessible and insecure
     compliant: |
       All AWS buckets have restricted permissions only accesible to authorized users
       ```yaml
@@ -22657,6 +22789,14 @@
           StorageEncrypted: False
         Type: "AWS::RDS::DBCluster"
       ```
+      Using the AWS CLI, the following command checks if the RDS enables encryption for the information
+      ```
+      $ aws rds describe-db-instances
+            --region us-east-1
+            --db-instance-identifier prod-mysql-db
+            --query 'DBInstances[*].StorageEncrypted'
+      ```
+      If the command output returns false, data encryption is not enabled on the RDS.
     compliant: |
       All sensitive resources are correctly configured without storing their credentials in the source code
       ```terraform
@@ -23047,6 +23187,40 @@
         }
       }
       ```
+      Using the AWS CLI, the following command checks if an EBS volume has encryption enabled
+      ```
+      $ aws ec2 describe-volumes
+            --filters Name=attachment.instance-id, Values= {storage_id}
+      ```
+      The command outputs the following structure
+      ```
+      {
+        "Volumes": [
+          {
+            "AvailabilityZone": "us-east-1a",
+            "Attachments": [
+              {
+                "AttachTime": "2016-04-04T16:51:00.000Z",
+                "InstanceId": "i-67988ffd",
+                "VolumeId": "vol-f0e0ee2e",
+                "State": "attached",
+                "DeleteOnTermination": true,
+                "Device": "/dev/xvda"
+              }
+            ],
+            "Encrypted": false,
+            "VolumeType": "gp2",
+            "VolumeId": "vol-f0e0ee2e",
+            "State": "in-use",
+            "Iops": 90,
+            "SnapshotId": "snap-12c47a84",
+            "CreateTime": "2016-04-04T16:51:00.136Z",
+            "Size": 30
+          }
+        ]
+      }
+      ```
+      If the "Encrypted" attribute is set to "false", the EBS volume does not enable encryption
     compliant: |
       All storing resources are securely configured through the use of encryption
       ```yaml
@@ -23545,6 +23719,14 @@
             StorageEncrypted: True
           Type: "AWS::RDS::DBCluster"
       ```
+      Using the AWS CLI, verify that the RDS instances are protected against deletion
+      ```
+      $ aws rds describe-db-instances
+          --region us-east-1
+          --db-instance-identifier {resource_identifier}
+          --query 'DBInstances[*].DeletionProtection'
+      ```
+      If the command output returns false, deletion protection is not enabled
     compliant: |
       All resources have a secure protection mechanism against deletion
       ```terraform
@@ -23656,6 +23838,14 @@
         disable_api_termination = false
       }
       ```
+      Using the AWS CLI, verify that EC2 has protection against deletion using the following command
+      ```
+      $ aws ec2 describe-instance-attribute
+            --region us-east-1
+            --instance-id {instance_id}
+            --attribute disableApiTermination
+      ```
+      If the command output returns false, termination protection is not enabled for the selected instance
     compliant: |
       The resource has correctly configured protection against deletion
       ```yaml
@@ -23745,6 +23935,14 @@
             - Key: "access_logs.s3.bucket"
               Value: "bk"
       ```
+      Using the AWS CLI, verify that ELB has protection against deletion using the following command
+      ```
+      $ aws elbv2 describe-load-balancer-attributes
+            --region us-east-1
+            --load-balancer-arn {elb_arn_id}
+            --query 'Attributes[?(Key == `deletion_protection.enabled`)].Value | []'
+      ```
+      If the command output returns false, deletion protection is not enabled for the selected instance
     compliant: |
       The resource has correctly configured its protection against deletion
       ```yaml
@@ -25836,6 +26034,14 @@
         POLICY
       }
       ```
+      Using the AWS CLI, verify the AWS resource does not an insecure transport channel
+      ```
+      $ aws s3api get-bucket-policy
+            --bucket cc-media-repo
+            --query Policy
+            --output text > s3-access-policy.json
+      ```
+      If the command output copies the security policy in the s3-access-policy.json, if the document has **aws:SecureTransport** set to **false** the resource does not enable a secure transport configuration
     compliant: |
       The AWS resource enables secure transport configuration
       ```yaml
@@ -29661,6 +29867,14 @@
                   Action: 'kms:*'
                   Resource: '*'
       ```
+      Using the AWS CLI, the following command checks if any IAM policies alow full administrative privileges
+      ```
+      $ aws iam get-policy-version
+            --policy-arn {iam_policy_arn}
+            --version-id v1
+            --query 'PolicyVersion.Document'
+      ```
+      If the json output document includes any wildcard (*) for the **Effect, Allow, Action** or **Resource** elements, the policy is insecurely configured
     compliant: |
       Access to resources is securely configured for each security policy
       ```terraform
@@ -30300,6 +30514,14 @@
             SecurityGroupIds:
               - sg-083cd3bfb8example
       ```
+      Using the AWS CLI, check if the EC2 instance uses IAM Roles instead of IAM access keys
+      ```
+      $ aws ec2 describe-instances
+            --region us-east-1
+            --instance-ids {EC2_id}
+            --query 'Reservations[*].Instances[*].IamInstanceProfile'
+      ```
+      If the command output is an empty array, the selected EC2 instance does not have associated IAM Roles, which is considered an insecure service configuration
     compliant: |
       All EC2 instances are securely configured
       ```yaml
@@ -30534,6 +30756,12 @@
         }
       }
       ```
+      Using the AWS CLI, the following command check if the S3 configuration has the versioning flag enabled
+      ```
+      $ aws s3api get-bucket-versioning
+            --bucket {bucket_id}
+      ```
+      If the command does not return any CLI output, the S3 versioning feature is not enabled for the searched bucket
     compliant: |
       All services should have the versioning configuration correctly configured
       ```terraform
@@ -32882,6 +33110,26 @@
             Name: MySecretForAppA
             Description: "This secret has a dynamically generated secret password."
       ```
+      Using the AWS CLI, the following command returns the password policy for the AWS Account
+      ```
+      $ aws iam get-account-password-policy
+      ```
+      The return policy has the following structure:
+      ```
+      {
+        "PasswordPolicy": {
+          "AllowUsersToChangePassword": true,
+          "RequireLowercaseCharacters": false,
+          "RequireUppercaseCharacters": false,
+          "MinimumPasswordLength": 8,
+          "RequireNumbers": false,
+          "RequireSymbols": false,
+          "HardExpiry": false,
+          "ExpirePasswords": false
+        }
+      }
+      ```
+      If the password policy does not comply with strong configuration settings, the policy is insecure
     compliant: |
       The resource has strong secure password configuration settings
       ```yaml
@@ -33678,6 +33926,14 @@
           Targets:
           - Id: [ MyLambdaFunction, Arn ]
       ```
+      Using the AWS CLI, the following command returns security groups that have ingress rules that allow HTTP traffic
+      ```
+      $ aws ec2 describe-security-groups
+            --region us-east-1
+            --filters Name=ip-permission.from-port,Values=80 Name=ip-permission.to-port,Values=80 Name=ip-permission.cidr,Values='0.0.0.0/0'
+            --query 'SecurityGroups[*].{Name:GroupName}'
+      ```
+      The command output returns any EC2 security groups that allow unrestricted HTTP access
     compliant: |
       The resource has https channel over tls securely configured
       ```terraform
@@ -35627,6 +35883,28 @@
         include_global_service_events = false
       }
       ```
+      Using the AWS CLI, the following command checks CloudTrail trails have file integrity validation feature enabled
+      ```
+      $ aws cloudtrail describe-trails
+      ```
+      The command returns the following output
+      ```
+      {
+        "trailList": [
+          {
+            "IncludeGlobalServiceEvents": true,
+            "Name": "MyGlobalTrail",
+            "TrailARN": "arn:aws:cloudtrail:us-east-1:
+                        123456789012:trail/MyGlobalTrail",
+            "LogFileValidationEnabled": false,
+            "IsMultiRegionTrail": false,
+            "S3BucketName": "cloudtrail-global-logging",
+            "HomeRegion": "us-east-1"
+          }
+        ]
+      }
+      ```
+      If **LogFileValidationEnabled** config parameter value is set to **false**, the trail has an insecure configuration
     compliant: |
       The resource correctly enables log file validation
       ```yaml
@@ -35798,6 +36076,13 @@
         enable_key_rotation      = false
       }
       ```
+      Using the AWS CLI, the following command verifies the Key Rotation flag for a selected CMK
+      ```
+      $ aws kms get-key-rotation-status
+            --key-id {CMK_id}
+
+      ```
+      If command output returns false for the **KeyRotationEnabled** flag, the service has an insecure configuration
     compliant: |
       The resource has automatic key rotation enabled
       ```yaml
@@ -36187,6 +36472,12 @@
         is_multi_region_trail         = false
       }
       ```
+      Using the AWS CLI, the following command checks if an AWS S3 Server Access Logging feature is enabled
+      ```
+      $ aws s3api get-bucket-logging
+            --bucket {bucket_name}
+      ```
+      If the command does not return any output, the access logging feature is not currently enabled for the selected bucket.
     compliant: |
       The resource has the logging property correctly configured
       ```yaml
@@ -36295,6 +36586,13 @@
         key_vault_id = data.azurerm_key_vault.kv.id
       }
       ```
+      Using the Azure CLI, the following command checks the secret keys have an expiration date
+      ```
+      $ az keyvault secret show
+          --id {Active_secret_key_id}
+          --query '{"expires":attributes.expires}'
+      ```
+      If the command output returns null as value for the "expires" attribute, he selected AKV secret key does not have an expiration date configured
     compliant: |
       There is a correctly set expiration date on the azure secrets
       ```terraform
@@ -36395,6 +36693,14 @@
         }
       }
       ```
+      All sensitive changes should have an alert mechanism, for example, using the Azure CLI, the following command checks that an alert is configured for "Update Security Service" events
+      ```
+      $ az monitor activity-log alert show
+          --ids {alert_rule_id}
+          --query 'condition'
+      ```
+      Check the command output for the object with the "field" property set to "operationName".
+      If the object's "equals" property is not set to "Microsoft.Security/policies/write", the selected alert rule is not configured to detect "Update Security Policy" events.
     compliant: |
       The resource correctly enables logging for sensitive requests
       ```terraform
@@ -36788,6 +37094,14 @@
         encrypted      = false
       }
       ```
+      Using the AWS CLI, the following command checks if the EFS file systems are encrypted
+      ```
+      $ aws efs describe-file-systems
+            --region us-east-1
+            --file-system-id {fs_id}
+            --query 'FileSystems[*].Encrypted'
+      ```
+      If the command output returns **false**, the file system is unencrypted.
     compliant: |
       The resource has encryption correctly configured with a KMS Key
       ```yaml
@@ -36888,6 +37202,12 @@
         }
       }
       ```
+      Using the AWS CLI, the following command checks if the EBS Volumes are encrypted
+      ```
+      $ aws ec2 describe-volumes
+          --filters Name=attachment.instance-id, Values= {volume_id}
+      ```
+      If the command output returns **false** in the **Encrypted** element, the volume is unencrypted.
     compliant: |
       The resource has encryption mechanism enabled
       ```yaml
@@ -36990,6 +37310,38 @@
         stage_name    = "example"
       }
       ```
+      Using the AWS CLI, the following command checks that the AWS CloudWatch logs are enabled for all APIs created with Amazon API Gateway
+      ```
+      $ aws apigateway get-stages
+            --region us-east-1
+            --rest-api-id {api_id}
+      ```
+      The command output follows the following structure
+      ```
+      {
+        "item": [
+          {
+            "stageName": "Development",
+            "cacheClusterEnabled": false,
+            "cacheClusterStatus": "NOT_AVAILABLE",
+            "deploymentId": "z0haur",
+            "lastUpdatedDate": 1509558521,
+            "createdDate": 1509558521,
+            "methodSettings": {}
+          },
+          {
+            "stageName": "Production",
+            "cacheClusterEnabled": false,
+            "cacheClusterStatus": "NOT_AVAILABLE",
+            "deploymentId": "z0haur",
+            "lastUpdatedDate": 1509557971,
+            "createdDate": 1509557971,
+            "methodSettings": {}
+          }
+        ]
+      }
+      ```
+      If the methodSettings object returned for the specified stage does not contain a property named loggingLevel, logging using Amazon CloudWatch is not enabled for the selected API stage.
     compliant: |
       The resource has the logging feature correctly enabled
       ```yaml
@@ -37086,6 +37438,14 @@
             SSEEnabled: false
             SSEType: KMS
       ```
+      Using the AWS CLI, the following command checks if Amazon DynamoDB tables are using AWS-managed Customer Master Keys (CMKs)
+      ```
+      $ aws dynamodb describe-table
+          --region us-east-1
+          --table-name {dynamo_table_name}
+          --query 'Table.SSEDescription.SSEType'
+      ```
+      If the command output returns AES256 instead of KMS, the selected Amazon DynamoDB table is configured to use AWS-owned Customer Master Keys instead of AWS-managed CMKs for Server-Side Encryption, which is insecure.
     compliant: |
       The resource has server side encryption enabled
       ```terraform
@@ -37266,6 +37626,16 @@
         }
       }
       ```
+      Using the AWS CLI, the following two commands check the EBS volumes are using KMS CMK customer-managed keys instead of AWS managed-keys
+      ```
+      $ aws ec2 describe-volumes
+            --volume-ids vol-f7f65326
+      $ aws kms list-aliases
+            --region us-east-1
+      ```
+      The first comand should return the KMS key ARN (Amazon Resource Name) ID. The ARN ID is returned as the value for the KmsKeyId parameter.
+      The second command output should return all the KMS keys metadata.
+      If the alias for the matched ID between the two command outputs is “alias/aws/ebs”, the key used for encryption is a default key / AWS-managed key.
     compliant: |
       The resource has safe configuration of KMS Key for encryption
       ```yaml
@@ -37348,6 +37718,13 @@
         tenant_id                  = data.azurerm_client_config.current.tenant_id
       }
       ```
+      Using the Azure CLI, the following command checks production Azure Key Vaults are recoverable
+      ```
+      $ az keyvault show
+           --name {keyvault_id}
+           --query 'properties.{"enableSoftDelete":enableSoftDelete,"enablePurgeProtection":enablePurgeProtection}'
+      ```
+      If the command output returns null for both "enablePurgeProtection" and "enableSoftDelete" configuration attributes, the verified Microsoft Azure Key Vault instance and its objects are not recoverable, which means that the resource does not have protection against deletion.
     compliant: |
       All resources have protection against deletion enabled
       ```terraform
@@ -37998,21 +38375,20 @@
   en:
     title: Password reset poisoning
     description: >
-      The application generates password reset links improperly, 
-      allowing an attacker to manipulate the request by changing 
+      The application generates password reset links improperly,
+      allowing an attacker to manipulate the request by changing
       the domain to one under his control.
     impact: >
       Compromising user accounts.
     recommendation: >
-      Ensure that password change URLs are not disposed in client-side 
+      Ensure that password change URLs are not disposed in client-side
       requests.
     threat: >
       Attacker without authentication from the Internet.
   category: Abuse Functionality
   examples:
     non_compliant: |
-      
-      ```yaml
+      ```python
       def send_email_password_reset(request: HTTP) -> bool:
           domain_app = request.body.redirect_url
           user = DB.find_user(request.session.user)
@@ -38030,8 +38406,7 @@
           return False
       ```
     compliant: |
-      
-      ```yaml
+      ```python
       def send_email_password_reset(request: HTTP) -> bool:
           domain_app = env.production.domain_app
           user = DB.find_user(request.session.user)
@@ -38052,13 +38427,13 @@
   es:
     title: Password reset poisoning
     description: >
-      La aplicación genera links de restablecimiento de contraseña de forma 
+      La aplicación genera links de restablecimiento de contraseña de forma
       inadecuada, permitiendo a un atacante manipular la petición cambiando
       el dominio a uno sobre su control.
     impact: >
       Comprometer cuentas de usuarios.
     recommendation: >
-      Asegurar que las URL de cambio de password no sean dispuestas en las 
+      Asegurar que las URL de cambio de password no sean dispuestas en las
       solicitudes del lado del cliente.
     threat: >
       Atacante sin autenticación desde internet.
@@ -38097,12 +38472,10 @@
   category: Collect Information
   examples:
     non_compliant: |
-      
       ```yaml
       openssl ecparam -name secp256k1 -out secp256k1.pem
       ```
     compliant: |
-      
       ```yaml
       openssl ecparam -name X25519 -out X25519.pem
       ```
@@ -38110,7 +38483,7 @@
   es:
     title: Insecure encryption algorithm - Insecure Elliptic Curve
     description: >
-      La aplicación genera links de restablecimiento de contraseña de forma 
+      La aplicación genera links de restablecimiento de contraseña de forma
       inadecuada, permitiendo a un atacante manipular la petición cambiando
       el dominio a uno sobre su control.
     impact: >
@@ -38154,14 +38527,13 @@
      - Read system files.
      - Cause strange behavior on the server.
     recommendation: >
-      Properly sanitize user-controlled inputs. 
+      Properly sanitize user-controlled inputs.
       Encourage the use of sandboxing.
     threat: >
       Unauthenticated attacker from the Internet.
   category: Inject Unexpected
   examples:
     non_compliant: |
-      
       ```yaml
       from jinja2 import Environment
 
@@ -38169,7 +38541,6 @@
       env = Environment(autoescape=False) # Sensitive:
       ```
     compliant: |
-      
       ```yaml
       from jinja2 import Environment
       env = Environment(autoescape=True) # Compliant
@@ -38189,7 +38560,7 @@
      - Leer archivos del sistema.
      - Causar comportamientos extraños en el servidor.
     recommendation: >
-      Sanitizar correctamente las entradas controladas por el usuario. 
+      Sanitizar correctamente las entradas controladas por el usuario.
       Propender por el uso de sandboxing.
     threat: >
       Atacante sin autenticación desde internet.
