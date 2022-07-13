@@ -90,7 +90,7 @@ resource "cloudflare_record" "community" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "community.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = cloudflare_zone.fluidsignal_com.zone
+  value   = cloudflare_zone.fluidattacks_com.zone
   proxied = true
   ttl     = 1
 }
@@ -108,8 +108,8 @@ resource "cloudflare_record" "landing" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "landing.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
-  value   = "a2cbfad5d1d14c9eb6099182bb1adb48.unbouncepages.com"
-  proxied = false
+  value   = "try.${cloudflare_zone.fluidattacks_com.zone}"
+  proxied = true
   ttl     = 1
 }
 
