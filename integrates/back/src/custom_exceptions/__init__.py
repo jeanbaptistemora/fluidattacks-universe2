@@ -422,7 +422,7 @@ class InvalidAcceptanceSeverity(CustomBaseException):
         if expr:
             msg = (
                 "Exception - Vulnerability cannot be accepted, severity "
-                "outside of range set by the organization"
+                "outside of range set by the defined policy"
             )
         else:
             msg = (
@@ -679,7 +679,7 @@ class InvalidNumberAcceptances(CustomBaseException):
         if expr:
             msg = (
                 "Exception - Vulnerability has been accepted the maximum "
-                "number of times allowed by the organization"
+                "number of times allowed by the defined policy"
             )
         else:
             msg = (

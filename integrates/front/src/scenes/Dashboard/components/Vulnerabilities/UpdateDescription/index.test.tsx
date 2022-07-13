@@ -616,7 +616,7 @@ describe("Update Description component", (): void => {
       result: {
         errors: [
           new GraphQLError(
-            "Vulnerability has been accepted the maximum number of times allowed by the organization"
+            "Vulnerability has been accepted the maximum number of times allowed by the defined policy"
           ),
         ],
       },

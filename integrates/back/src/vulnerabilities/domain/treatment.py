@@ -125,7 +125,7 @@ async def _validate_acceptance_days(
         ) or acceptance_days < 0:
             raise InvalidAcceptanceDays(
                 "Chosen date is either in the past or exceeds "
-                "the maximum number of days allowed by the organization"
+                "the maximum number of days allowed by the defined policy"
             )
     return valid
 
@@ -135,7 +135,7 @@ async def _validate_acceptance_severity(
 ) -> bool:
     """
     Check that the severity of the finding to temporaryly accept is inside
-    the range set by the organization.
+    the range set by the defined policy.
     """
     valid: bool = True
     if values.get("treatment") == "ACCEPTED":

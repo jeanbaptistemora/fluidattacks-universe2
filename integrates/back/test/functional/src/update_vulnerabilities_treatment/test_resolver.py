@@ -177,7 +177,7 @@ async def test_update_vulnerabilities_treatment_invalid_acceptance(
     assert result_2["errors"][0]["message"] == str(
         InvalidAcceptanceDays(
             "Chosen date is either in the past or exceeds "
-            "the maximum number of days allowed by the organization"
+            "the maximum number of days allowed by the defined policy"
         )
     )
 

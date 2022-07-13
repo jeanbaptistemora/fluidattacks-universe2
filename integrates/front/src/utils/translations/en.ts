@@ -1334,9 +1334,9 @@ export const enTranslations: ResourceKey = {
     organizationPolicies: {
       exceedsAcceptanceDate:
         "Chosen date is either in the past or exceeds the maximum number of days allowed " +
-        "by the organization",
+        "by the defined policy",
       severityOutOfRange:
-        "Finding severity outside of the acceptance range set by the organization",
+        "Finding severity outside of the acceptance range set by the defined policy",
     },
     pathValue: "Path value should not use backslash.",
     portValue: "Port value should be between 0 and 65535.",
@@ -3093,7 +3093,7 @@ export const enTranslations: ResourceKey = {
         hasNewVulns_plural:
           "The treatment on one or more vulnerabilities is set as new, please select a treatment for the vulnerabilities.",
         maximumNumberOfAcceptances:
-          "Vulnerability has been accepted the maximum number of times allowed by the organization",
+          "Vulnerability has been accepted the maximum number of times allowed by the defined policy",
         tagReminder:
           "Remember to add tags to your vulnerabilities to ease their management",
         treatmentChange: "Vulnerability treatment will be changed",
@@ -3147,7 +3147,7 @@ export const enTranslations: ResourceKey = {
       exceptions: {
         sameValues: "Same values",
         severityOutOfRange:
-          "Vulnerability cannot be accepted, severity outside of range set by the organization",
+          "Vulnerability cannot be accepted, severity outside of range set by the defined policy",
       },
       info: {
         text: "Please select vulnerabilities to reattack",
