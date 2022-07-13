@@ -1,7 +1,9 @@
 from syntax_graph.syntax_readers.common import (
     call_expression as common_call_expression,
+    comment as common_comment,
     identifier as common_identifier,
     program as common_program,
+    string_literal as common_string_literal,
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.javascript import (
@@ -28,6 +30,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "comment",
+        },
+        syntax_reader=common_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
         },
         syntax_reader=common_identifier.reader,
@@ -43,6 +51,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "program",
         },
         syntax_reader=common_program.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "string",
+        },
+        syntax_reader=common_string_literal.reader,
     ),
     Dispatcher(
         applicable_types={
