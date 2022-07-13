@@ -1,5 +1,5 @@
 /* eslint react/forbid-component-props: 0 */
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 
 import { DemoBanner } from "./DemoBanner";
 import {
@@ -113,7 +113,7 @@ const ProductSection: React.FC = (): JSX.Element => {
     }
   };
 
-  useEffect((): (() => void) => {
+  useLayoutEffect((): (() => void) => {
     const productSection = document.getElementsByClassName("product-section");
 
     window.addEventListener("scroll", onScroll);
