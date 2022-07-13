@@ -102,6 +102,7 @@
     ["update_group_disambiguation"]
     ["update_group_info"]
     ["update_group_managed"]
+    ["update_group_policies"]
     ["update_group_stakeholder"]
     ["update_ip_root"]
     ["update_nickname"]

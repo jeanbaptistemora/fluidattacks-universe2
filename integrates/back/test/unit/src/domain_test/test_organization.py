@@ -38,6 +38,9 @@ from decimal import (
 from group_access import (
     domain as group_access_domain,
 )
+from groups import (
+    domain as group_domain,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -440,6 +443,13 @@ async def test_validate_severity_range() -> None:
             get_new_context(),
             "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
             values,
+        )
+
+    with pytest.raises(InvalidAcceptanceSeverityRange):
+        await group_domain.validate_acceptance_severity_range(
+            loaders=get_new_context(),
+            group_name="oneshottest",
+            values=values,
         )
 
 
