@@ -68,7 +68,7 @@ describe("TodoReattacksView", (): void => {
     expect(typeof TasksReattacks).toBe("function");
   });
 
-  it("should render a component", async (): Promise<void> => {
+  it("should render a component and its colunms and data", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -80,7 +80,23 @@ describe("TodoReattacksView", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("table")).toHaveLength(1);
+      expect(
+        screen.getByText("038. Business information leak")
+      ).toBeInTheDocument();
     });
+
+    expect(screen.queryAllByRole("table")).toHaveLength(1);
+
+    expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Age")).toBeInTheDocument();
+    expect(screen.getByText("Last Report")).toBeInTheDocument();
+    expect(screen.getByText("Status")).toBeInTheDocument();
+    expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Open Vulnerabilities")).toBeInTheDocument();
+    expect(screen.getByText("Group Name")).toBeInTheDocument();
+    expect(screen.getByText("Reattack Date")).toBeInTheDocument();
+
+    expect(screen.getByText("Open")).toBeInTheDocument();
+    expect(screen.getByText("2022-07-12 16:42:53")).toBeInTheDocument();
   });
 });

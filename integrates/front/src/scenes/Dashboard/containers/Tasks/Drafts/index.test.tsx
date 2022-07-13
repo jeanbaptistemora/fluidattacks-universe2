@@ -33,7 +33,7 @@ describe("TodoDraftsView", (): void => {
                     {
                       currentState: "SUBMITTED",
                       groupName: "group1",
-                      hacker: "unittest@fluidattacks.com",
+                      hacker: "test1@fluidattacks.com",
                       id: "475041513",
                       openVulnerabilities: 1,
                       reportDate: "2019-04-12 08:45:48",
@@ -43,7 +43,7 @@ describe("TodoDraftsView", (): void => {
                     {
                       currentState: "CREATED",
                       groupName: "gropu1",
-                      hacker: "unittest@fluidattacks.com",
+                      hacker: "test2@fluidattacks.com",
                       id: "475041535",
                       openVulnerabilities: 0,
                       reportDate: "2019-02-04 12:46:10",
@@ -69,7 +69,7 @@ describe("TodoDraftsView", (): void => {
     expect(typeof TasksDrafts).toBe("function");
   });
 
-  it("should render a component", async (): Promise<void> => {
+  it("should render a component and its colunms and data", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -81,7 +81,27 @@ describe("TodoDraftsView", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("table")).toHaveLength(1);
+      expect(
+        screen.getByText("081. Lack of multi-factor authentication")
+      ).toBeInTheDocument();
     });
+
+    expect(screen.queryAllByRole("table")).toHaveLength(1);
+
+    expect(screen.getByText("Date")).toBeInTheDocument();
+    expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Severity")).toBeInTheDocument();
+    expect(screen.getByText("Open Vulns.")).toBeInTheDocument();
+    expect(screen.getByText("Group Name")).toBeInTheDocument();
+    expect(screen.getByText("Hacker")).toBeInTheDocument();
+    expect(screen.getByText("State")).toBeInTheDocument();
+
+    expect(screen.getByText("test1@fluidattacks.com")).toBeInTheDocument();
+    expect(screen.getAllByText("Submitted")).toHaveLength(2);
+    expect(
+      screen.getByText("006. Authentication mechanism absence or evasion")
+    ).toBeInTheDocument();
+    expect(screen.getByText("test2@fluidattacks.com")).toBeInTheDocument();
+    expect(screen.getAllByText("Created")).toHaveLength(2);
   });
 });

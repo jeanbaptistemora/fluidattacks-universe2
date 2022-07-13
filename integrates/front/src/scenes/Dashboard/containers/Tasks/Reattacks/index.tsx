@@ -53,7 +53,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       dataField: "lastVulnerability",
       formatter: (value: number): string =>
         t("group.findings.description.value", { count: value }),
-      header: "Last report",
+      header: "Last Report",
       onSort: onSortState,
       width: "10%",
       wrapped: true,
