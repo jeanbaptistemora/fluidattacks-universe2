@@ -297,6 +297,6 @@ async def send_mail_vulnerability_report(
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"[ASM] [{finding_title}] {state} in [{group_name}].",
+        subject=f"[ASM] {finding_title} {state} in [{group_name}].",
         template_name="vulnerability_report",
     )
