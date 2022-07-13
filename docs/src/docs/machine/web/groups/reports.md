@@ -98,3 +98,51 @@ through the link is only
 available for one hour.
 
 ![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1650645963/docs/web/groups/reports/reports_announcement.png)
+
+## Report Filters
+
+If you want to customize
+the technical report,
+you have the option to
+apply filters to these
+reports to generate the
+data you are interested in.
+To use these,
+you must go to the filters
+button on the right side of
+the Technical Report button.
+
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1657731874/docs/web/groups/reports/reports_filters.png)
+
+When you click on it,
+a pop-up window will appear
+where you will be able to
+select what information
+you want to generate,
+finding four different
+filter options:
+
+![Filter Options](https://res.cloudinary.com/fluid-attacks/image/upload/v1657731874/docs/web/groups/reports/reports_filter_options.png)
+
+- **Closing date:**
+  Filters closed locations
+  with a date equal to or
+  before the specified date.
+- **Treatment:**
+  Filter locations according
+  to treatment.
+- **Reattack:**
+  Filter locations according
+  to their Reattack status.
+- **Status:**
+  Filter vulnerabilities
+  according to Open/Closed state.
+
+When you apply the
+filters of your interest,
+click on the generate XLS button.
+You will receive the verification
+code on your cell phone;
+after successful verification,
+you will receive the report in
+your email with the selected data.
