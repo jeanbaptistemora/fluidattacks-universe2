@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    BranchNotFound,
     CredentialCanNotBeUsedInGroup,
     InactiveRoot,
     InvalidChar,
@@ -265,41 +266,55 @@ def validate_nickname(nickname: str) -> None:
 
 
 async def _validate_git_credentials_ssh(
-    repo_url: str, credential_key: str
+    repo_url: str, branch: Optional[str], credential_key: str
 ) -> None:
-    las_commit = await newutils.git.ssh_ls_remote(
-        repo_url=repo_url, credential_key=credential_key
+    last_commit = await newutils.git.ssh_ls_remote(
+        repo_url=repo_url,
+        branch=branch or "HEAD",
+        credential_key=credential_key,
     )
-    if las_commit is None:
+    if last_commit is None:
         raise InvalidGitCredentials()
+
+    if not last_commit:
+        raise BranchNotFound()
 
 
 async def _validate_git_credentials_https(
     repo_url: str,
+    branch: Optional[str] = None,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
 ) -> None:
-    las_commit = await newutils.git.https_ls_remote(
+    last_commit = await newutils.git.https_ls_remote(
+        branch=branch or "HEAD",
         repo_url=repo_url,
         password=password,
         token=token,
         user=user,
     )
-    if las_commit is None:
+    if last_commit is None:
         raise InvalidGitCredentials()
+
+    if not last_commit:
+        raise BranchNotFound()
 
 
 async def validate_git_credentials(
-    repo_url: str, credential_type: CredentialType, credentials: Dict[str, str]
+    repo_url: str,
+    branch: Optional[str],
+    credential_type: CredentialType,
+    credentials: Dict[str, str],
 ) -> None:
     if (credential_type.value == "SSH") and (
         credential_key := credentials.get("key")
     ):
-        await _validate_git_credentials_ssh(repo_url, credential_key)
+        await _validate_git_credentials_ssh(repo_url, branch, credential_key)
     elif credential_type.value == "HTTPS":
         await _validate_git_credentials_https(
             repo_url,
+            branch=branch,
             token=credentials.get("token"),
             user=credentials.get("user"),
             password=credentials.get("password"),
