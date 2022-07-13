@@ -287,11 +287,11 @@ def validate_nickname(nickname: str) -> None:
 
 
 async def _validate_git_credentials_ssh(
-    repo_url: str, branch: Optional[str], credential_key: str
+    repo_url: str, branch: str, credential_key: str
 ) -> None:
     last_commit = await newutils.git.ssh_ls_remote(
         repo_url=repo_url,
-        branch=branch or "HEAD",
+        branch=branch,
         credential_key=credential_key,
     )
     if last_commit is None:
@@ -303,13 +303,13 @@ async def _validate_git_credentials_ssh(
 
 async def _validate_git_credentials_https(
     repo_url: str,
-    branch: Optional[str] = None,
+    branch: str,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
 ) -> None:
     last_commit = await newutils.git.https_ls_remote(
-        branch=branch or "HEAD",
+        branch=branch,
         repo_url=repo_url,
         password=password,
         token=token,
@@ -324,7 +324,7 @@ async def _validate_git_credentials_https(
 
 async def validate_git_credentials(
     repo_url: str,
-    branch: Optional[str],
+    branch: str,
     credential_type: CredentialType,
     credentials: Dict[str, str],
 ) -> None:

@@ -16,17 +16,19 @@ async def get_result(
     user: str,
     group: str,
     key: str,
+    url: str,
 ) -> Dict[str, Any]:
     query: str = f"""
       mutation {{
         validateGitAccess(
+            branch: "master"
             credentials: {{
                 key: "{key}"
                 name: "SSH Key"
                 type: SSH
             }}
             groupName: "{group}"
-            url: "git@gitlab.com:fluidattacks/product.git"
+            url: "{url}"
         ) {{
             success
         }}

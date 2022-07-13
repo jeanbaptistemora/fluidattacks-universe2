@@ -1696,7 +1696,7 @@ async def start_machine_execution(
 
 async def validate_git_access(**kwargs: Any) -> None:
     url: str = format_git_repo_url(kwargs["url"])
-    branch: Optional[str] = kwargs.get("branch")
+    branch: str = kwargs["branch"]
     cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
     if key := kwargs["credentials"].get("key"):
         kwargs["credentials"]["key"] = orgs_utils.format_credentials_ssh_key(

@@ -1369,7 +1369,7 @@ type Mutation {
   "Validate if Git root is accessible with the credentials provided"
   validateGitAccess(
     "Branch of the Git repository"
-    branch: String
+    branch: String!
     "Credentials used to access the repository"
     credentials: RootCredentialsInput!
     "Name of the group"
