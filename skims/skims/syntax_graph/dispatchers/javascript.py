@@ -5,6 +5,7 @@ from syntax_graph.syntax_readers.common import (
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.javascript import (
+    arguments as javascript_arguments,
     lexical_declaration as javascript_lexical_declaration,
 )
 from syntax_graph.types import (
@@ -13,6 +14,12 @@ from syntax_graph.types import (
 )
 
 JAVASCRIPT_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "arguments",
+        },
+        syntax_reader=javascript_arguments.reader,
+    ),
     Dispatcher(
         applicable_types={
             "call_expression",
