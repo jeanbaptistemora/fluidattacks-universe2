@@ -132,6 +132,15 @@ locals {
             Resource = ["*"]
           },
           {
+            Sid    = "dynamoRead"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:Get*",
+              "dynamodb:ListTagsOfResource"
+            ]
+            Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/skims*"]
+          },
+          {
             Sid    = "dynamoReadJobs"
             Effect = "Allow"
             Action = [
