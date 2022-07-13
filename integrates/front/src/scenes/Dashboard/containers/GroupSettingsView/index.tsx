@@ -23,58 +23,60 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Row id={"resources"}>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("searchFindings.tabResources.files.title")}>
-            <Files groupName={groupName} />
-          </Card>
-        </Col>
-        <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("searchFindings.tabResources.tags.title")}>
-            <Portfolio groupName={groupName} />
-          </Card>
-        </Col>
+      <div id={"resources"}>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("searchFindings.tabResources.files.title")}
+        </Text>
+        <Card>
+          <Files groupName={groupName} />
+        </Card>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("searchFindings.tabResources.tags.title")}
+        </Text>
+        <Card>
+          <Portfolio groupName={groupName} />
+        </Card>
         <Can do={"api_mutations_update_group_mutate"}>
-          <Col large={"100"} medium={"100"} small={"100"}>
-            <Text fw={7} mb={3} mt={4} size={5}>
-              {t("searchFindings.servicesTable.services")}
-            </Text>
-            <Services groupName={groupName} />
-          </Col>
-        </Can>
-        <Col large={"100"} medium={"100"} small={"100"}>
           <Text fw={7} mb={3} mt={4} size={5}>
-            {t("searchFindings.infoTable.title")}
+            {t("searchFindings.servicesTable.services")}
           </Text>
-          <GroupInformation />
-        </Col>
-        <AccessInfo />
-        <Can do={"api_resolvers_group_forces_token_resolve"}>
-          <Have I={"has_forces"}>
-            <Col large={"33"} medium={"50"} small={"100"}>
-              <Card title={t("searchFindings.agentTokenSection.title")}>
-                <AgentToken groupName={groupName} />
+          <Services groupName={groupName} />
+        </Can>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("searchFindings.infoTable.title")}
+        </Text>
+        <GroupInformation />
+        <Row>
+          <AccessInfo />
+          <Can do={"api_resolvers_group_forces_token_resolve"}>
+            <Have I={"has_forces"}>
+              <Col large={"33"} medium={"50"} small={"100"}>
+                <Card title={t("searchFindings.agentTokenSection.title")}>
+                  <AgentToken groupName={groupName} />
+                </Card>
+              </Col>
+            </Have>
+          </Can>
+          <Can do={"api_mutations_unsubscribe_from_group_mutate"}>
+            <Col large={"34"} medium={"50"} small={"100"}>
+              <Card title={t("searchFindings.servicesTable.unsubscribe.title")}>
+                <Unsubscribe />
               </Card>
             </Col>
-          </Have>
-        </Can>
-        <Can do={"api_mutations_unsubscribe_from_group_mutate"}>
-          <Col large={"34"} medium={"50"} small={"100"}>
-            <Card title={t("searchFindings.servicesTable.unsubscribe.title")}>
-              <Unsubscribe />
-            </Card>
-          </Col>
-        </Can>
-        <Can do={"api_mutations_remove_group_mutate"}>
-          <Col large={"33"} medium={"50"} small={"100"}>
-            <Card
-              title={t("searchFindings.servicesTable.deleteGroup.deleteGroup")}
-            >
-              <DeleteGroup />
-            </Card>
-          </Col>
-        </Can>
-      </Row>
+          </Can>
+          <Can do={"api_mutations_remove_group_mutate"}>
+            <Col large={"33"} medium={"50"} small={"100"}>
+              <Card
+                title={t(
+                  "searchFindings.servicesTable.deleteGroup.deleteGroup"
+                )}
+              >
+                <DeleteGroup />
+              </Card>
+            </Col>
+          </Can>
+        </Row>
+      </div>
     </React.StrictMode>
   );
 };
