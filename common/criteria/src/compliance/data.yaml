@@ -6841,7 +6841,16 @@
   title: NIST 800-115
   en:
     summary: >
-      __empty__
+      NIST Special Publication 800-115
+      is an overview of the key elements
+      of security testing.
+      It directs organizations on how
+      to plan and conduct technical
+      information security testing,
+      analyze the findings,
+      and develop remediation strategies.
+      The version used in this section
+      is NIST 800-115 September 2008.
   es:
     summary: __empty__
   definitions:
