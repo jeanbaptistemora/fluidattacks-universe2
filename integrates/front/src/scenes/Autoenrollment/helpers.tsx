@@ -115,20 +115,25 @@ const handleValidationError = (
   setMessages: IAlertMessages
 ): void => {
   graphQLErrors.forEach((error: GraphQLError): void => {
-    if (
-      error.message ===
-      "Exception - Git repository was not accessible with given credentials"
-    ) {
-      setMessages({
-        message: translate.t("group.scope.git.errors.invalidGitCredentials"),
-        type: "error",
-      });
-    } else {
-      setMessages({
-        message: translate.t("groupAlerts.errorTextsad"),
-        type: "error",
-      });
-      Logger.error("Couldn't activate root", error);
+    switch (error.message) {
+      case "Exception - Git repository was not accessible with given credentials":
+        setMessages({
+          message: translate.t("group.scope.git.errors.invalidGitCredentials"),
+          type: "error",
+        });
+        break;
+      case "Exception - Branch not found":
+        setMessages({
+          message: translate.t("group.scope.git.errors.invalidBranch"),
+          type: "error",
+        });
+        break;
+      default:
+        setMessages({
+          message: translate.t("groupAlerts.errorTextsad"),
+          type: "error",
+        });
+        Logger.error("Couldn't activate root", error);
     }
   });
 };

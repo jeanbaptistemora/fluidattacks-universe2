@@ -97,6 +97,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
       const response: FetchResult<ICheckGitAccessResult> =
         await validateGitAccess({
           variables: {
+            branch: formRef.current.values.branch,
             credentials: {
               key: formRef.current.values.credentials.key
                 ? Buffer.from(formRef.current.values.credentials.key).toString(
