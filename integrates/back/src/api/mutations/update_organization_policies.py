@@ -7,11 +7,8 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.types import (
-    PoliciesToUpdate,
-)
-from decimal import (
-    Decimal,
+from db_model.utils import (
+    format_policies_to_update,
 )
 from decorators import (
     enforce_organization_level_auth_async,
@@ -31,39 +28,6 @@ from typing import (
 )
 
 
-def _format_policies_to_update(
-    policies_data: dict[str, Any],
-) -> PoliciesToUpdate:
-    return PoliciesToUpdate(
-        max_acceptance_days=int(policies_data["max_acceptance_days"])
-        if policies_data.get("max_acceptance_days") is not None
-        else None,
-        max_acceptance_severity=Decimal(
-            policies_data["max_acceptance_severity"]
-        ).quantize(Decimal("0.1"))
-        if policies_data.get("max_acceptance_severity") is not None
-        else None,
-        max_number_acceptances=int(policies_data["max_number_acceptances"])
-        if policies_data.get("max_number_acceptances") is not None
-        else None,
-        min_acceptance_severity=Decimal(
-            policies_data["min_acceptance_severity"]
-        ).quantize(Decimal("0.1"))
-        if policies_data.get("min_acceptance_severity") is not None
-        else None,
-        min_breaking_severity=Decimal(
-            policies_data["min_breaking_severity"]
-        ).quantize(Decimal("0.1"))
-        if policies_data.get("min_breaking_severity") is not None
-        else None,
-        vulnerability_grace_period=int(
-            policies_data["vulnerability_grace_period"]
-        )
-        if policies_data.get("vulnerability_grace_period") is not None
-        else None,
-    )
-
-
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(
@@ -76,7 +40,7 @@ async def mutate(
     user_email = user_data["user_email"]
     organization_id = kwargs.pop("organization_id")
     organization_name = kwargs.pop("organization_name")
-    policies_to_update = _format_policies_to_update(kwargs)
+    policies_to_update = format_policies_to_update(kwargs)
     await orgs_domain.update_policies(
         loaders,
         organization_id,
