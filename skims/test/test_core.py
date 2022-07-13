@@ -85,6 +85,29 @@ async def test_diff_results() -> None:
             where=common_where,
         )
     )
+    # put vulnerability that no are in the scope of analysis
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=common_integrates_metadata,
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="backend/model/index.js",
+            where=common_where,
+        )
+    )
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=common_integrates_metadata,
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.CLOSED,
+            what="backend/model/user.js",
+            where=common_where,
+        )
+    )
 
     # Something was closed at Integrates and found open by Skims
     integrates_store.store(
@@ -106,6 +129,28 @@ async def test_diff_results() -> None:
             namespace=namespace,
             state=core_model.VulnerabilityStateEnum.OPEN,
             what="3",
+            where=common_where,
+        )
+    )
+    integrates_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=common_integrates_metadata,
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.CLOSED,
+            what="backend/domain/user.js",
+            where=common_where,
+        )
+    )
+    skims_store.store(
+        core_model.Vulnerability(
+            finding=common_finding,
+            integrates_metadata=common_integrates_metadata,
+            kind=common_kind,
+            namespace=namespace,
+            state=core_model.VulnerabilityStateEnum.OPEN,
+            what="backend/domain/user.js",
             where=common_where,
         )
     )
@@ -154,6 +199,8 @@ async def test_diff_results() -> None:
         skims_store=skims_store,
         integrates_store=integrates_store,
         namespace=namespace,
+        include_path_patterns=["1", "2", "3", "4", "5", "backend/domain/*"],
+        exclude_path_patterns=["backend/model/*"],
     )
 
     assert sorted([(x.what, x.state) for x in diff_store.iterate()]) == [
@@ -161,6 +208,7 @@ async def test_diff_results() -> None:
         ("2", core_model.VulnerabilityStateEnum.CLOSED),
         ("3", core_model.VulnerabilityStateEnum.OPEN),
         ("4", core_model.VulnerabilityStateEnum.CLOSED),
+        ("backend/domain/user.js", core_model.VulnerabilityStateEnum.OPEN),
     ]
 
 

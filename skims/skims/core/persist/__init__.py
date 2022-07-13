@@ -52,8 +52,12 @@ from state.ephemeral import (
 import sys
 from typing import (
     Dict,
+    List,
     Optional,
     Tuple,
+)
+from utils.fs import (
+    path_is_include,
 )
 from utils.logs import (
     log,
@@ -141,6 +145,8 @@ async def diff_results(
     skims_store: EphemeralStore,
     integrates_store: EphemeralStore,
     namespace: str,
+    include_path_patterns: Optional[List[str]] = None,
+    exclude_path_patterns: Optional[List[str]] = None,
 ) -> EphemeralStore:
     """Diff results from Skims and Integrates, closing or creating if needed.
 
@@ -215,8 +221,20 @@ async def diff_results(
         if (
             # Ensure this is part of the old generation
             result.digest in integrates_hashes
-            # And his result was not found by Skims
-            and result.digest not in skims_hashes
+            and (
+                # And his result was not found by Skims
+                result.digest not in skims_hashes
+                and (
+                    # the result path is included in the current analysis
+                    path_is_include(
+                        result.what,
+                        include_path_patterns,
+                        exclude_path_patterns,
+                    )
+                    if result.kind == core_model.VulnerabilityKindEnum.LINES
+                    else True
+                )
+            )
         )
     )
     with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
@@ -286,6 +304,14 @@ async def persist_finding(  # pylint: disable=too-many-locals
             integrates_store=integrates_store,
             skims_store=store,
             namespace=CTX.config.namespace,
+            include_path_patterns=[
+                *CTX.config.path.include,
+                *CTX.config.apk.include,
+            ],
+            exclude_path_patterns=[
+                *CTX.config.path.exclude,
+                *CTX.config.apk.exclude,
+            ],
         )
 
         # Get vulnerabilities with a reattack requested
