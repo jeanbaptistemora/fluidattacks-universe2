@@ -287,6 +287,21 @@ new selected values.
 
 ![Policies Update](https://res.cloudinary.com/fluid-attacks/image/upload/v1651005444/docs/web/notifications/notif_policies_updated.png)
 
+## Treatment expiration alert
+
+If you are a user manager,
+customer manager,
+vulnerability manager or
+resourcer and enable
+these notifications,
+you will receive an email or
+an SMS seven days and one day
+before the end of the time set
+for the temporary acceptance
+of a vulnerability.
+
+![Treatment Expiration Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1657719383/docs/web/notifications/notif_treat_exp_alert.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
