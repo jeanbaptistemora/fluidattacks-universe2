@@ -18,7 +18,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.enums import (
-    GitCloningStatus,
     Notification,
 )
 from db_model.roots.types import (
@@ -110,13 +109,6 @@ async def mutate(
             )
         )
     ):
-        await roots_domain.update_root_cloning_status(
-            loaders=loaders,
-            group_name=group_name,
-            root_id=root.id,
-            status=GitCloningStatus.QUEUED,
-            message="Cloning queued...",
-        )
         await queue_job_new(
             group_name=root.group_name,
             finding_codes=tuple(

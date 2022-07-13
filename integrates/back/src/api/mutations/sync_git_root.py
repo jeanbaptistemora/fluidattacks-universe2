@@ -10,9 +10,6 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.enums import (
-    GitCloningStatus,
-)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -28,9 +25,6 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-)
-from roots.domain import (
-    update_root_cloning_status,
 )
 from typing import (
     Any,
@@ -58,13 +52,6 @@ async def mutate(
         user_email=user_email,
         group_name=root.group_name,
         force=True,
-    )
-    await update_root_cloning_status(
-        loaders=loaders,
-        group_name=group_name,
-        root_id=root.id,
-        status=GitCloningStatus.QUEUED,
-        message="Cloning queued...",
     )
     logs_utils.cloudwatch_log(
         info.context,

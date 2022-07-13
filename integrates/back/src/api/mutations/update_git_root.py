@@ -20,9 +20,6 @@ from custom_exceptions import (
 from custom_types import (
     SimplePayload,
 )
-from db_model.enums import (
-    GitCloningStatus,
-)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -75,13 +72,6 @@ async def mutate(
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
-            )
-            await roots_domain.update_root_cloning_status(
-                loaders=info.context.loaders,
-                group_name=root.group_name,
-                root_id=root.id,
-                status=GitCloningStatus.QUEUED,
-                message="Cloning queued...",
             )
 
     nickname: str = kwargs.get("nickname") or old_root.state.nickname

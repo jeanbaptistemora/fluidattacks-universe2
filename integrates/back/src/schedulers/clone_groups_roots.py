@@ -41,6 +41,7 @@ async def _queue_sync_git_roots(
                 user_email=user_email,
                 group_name=group_name,
                 queue_with_vpn=queue_with_vpn,
+                from_scheduler=True,
             )
         )
         if result is not None:

@@ -291,6 +291,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     check_existing_jobs: bool = True,
     force: bool = False,
     queue_with_vpn: bool = False,
+    from_scheduler: bool = False,
 ) -> Optional[PutActionResult]:
     group: Group = await loaders.group.load(group_name)
     roots_in_current_actions: Set[str] = set()
@@ -406,7 +407,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         )
     )
 
-    roots_to_clone = tuple(
+    roots_to_clone = set(
         root_id
         for root_id in (
             root_id
@@ -440,7 +441,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
                         {
                             *[
                                 roots_dict[root_id].state.nickname
-                                for root_id in set(roots_to_clone)
+                                for root_id in roots_to_clone
                             ],
                             *roots_in_current_actions,
                         }
@@ -451,6 +452,19 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             product_name=Product.INTEGRATES,
             dynamodb_pk=current_action.key if current_action else None,
         )
+        if not from_scheduler:
+            await collect(
+                tuple(
+                    roots_domain.update_root_cloning_status(
+                        loaders=loaders,
+                        group_name=group_name,
+                        root_id=root_id,
+                        status=GitCloningStatus.QUEUED,
+                        message="Cloning queued...",
+                    )
+                    for root_id in roots_to_clone
+                )
+            )
 
         return result
     return None

@@ -272,7 +272,7 @@ async def test_queue_sync_git_roots_cloning(
     root: GitRoot = await loaders.root.load(
         ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
-    assert root.cloning.status == GitCloningStatus.FAILED
+    assert root.cloning.status == GitCloningStatus.QUEUED
 
 
 @pytest.mark.asyncio
@@ -342,7 +342,7 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     root: GitRoot = await loaders.root.load(
         ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
-    assert root.cloning.status == GitCloningStatus.FAILED
+    assert root.cloning.status == GitCloningStatus.QUEUED
 
 
 @pytest.mark.asyncio
