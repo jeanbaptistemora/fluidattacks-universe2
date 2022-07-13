@@ -1550,3 +1550,9 @@ class EventHasNotBeenSolved(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The event has not been solved"
         super(EventHasNotBeenSolved, self).__init__(msg)
+
+
+class BranchNotFound(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Branch not found"
+        super(BranchNotFound, self).__init__(msg)
