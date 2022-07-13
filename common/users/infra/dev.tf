@@ -109,11 +109,18 @@ locals {
             Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"]
           },
           {
-            Sid    = "dynamoReadSkims"
+            Sid      = "dynamodbList"
+            Effect   = "Allow"
+            Action   = ["dynamodb:ListTables"]
+            Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/*"]
+          },
+          {
+            Sid    = "dynamodbReadSkims"
             Effect = "Allow"
             Action = [
               "dynamodb:Get*",
-              "dynamodb:ListTagsOfResource"
+              "dynamodb:ListTagsOfResource",
+              "dynamodb:Scan",
             ]
             Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/skims*"]
           },
