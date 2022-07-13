@@ -16,31 +16,29 @@ from typing import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.resolver_test_group("update_stakeholder_phone")
+@pytest.mark.resolver_test_group("update_tours")
 @pytest.mark.parametrize(
-    ("email", "new_phone", "verification_code"),
+    ("email", "tours"),
     (
         (
             "admin@gmail.com",
-            {"callingCountryCode": "1", "nationalNumber": "12345"},
-            "12134",
+            {"newGroup": "true", "newRoot": "true"},
         ),
     ),
 )
-async def test_update_stakeholder_phone(
+async def test_update_tours(
     populate: bool,
     email: str,
-    new_phone: Dict[str, str],
-    verification_code: str,
+    tours: Dict[str, bool],
 ) -> None:
     assert populate
     result: Dict[str, Any] = await get_result(
         user=email,
-        new_phone=new_phone,
-        verification_code=verification_code,
+        tours=tours,
     )
     assert "errors" not in result
-    assert result["data"]["updateStakeholderPhone"]["success"]
+    assert result["data"]["updateTours"]["success"]
     loaders: Dataloaders = get_new_context()
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    assert stakeholder.phone.national_number == new_phone["nationalNumber"]
+    assert stakeholder.tours.new_group is True
+    assert stakeholder.tours.new_root is True

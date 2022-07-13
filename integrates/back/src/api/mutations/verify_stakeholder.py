@@ -5,8 +5,10 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    Phone,
     SimplePayload as SimplePayloadType,
+)
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from decorators import (
     concurrent_decorators,
@@ -44,9 +46,10 @@ async def mutate(
         new_phone_dict = kwargs.get("new_phone")
         new_phone = None
         if new_phone_dict:
-            new_phone = Phone(
+            new_phone = StakeholderPhone(
                 calling_country_code=new_phone_dict["calling_country_code"],
                 national_number=new_phone_dict["national_number"],
+                country_code="",
             )
 
         await stakeholders_domain.verify(

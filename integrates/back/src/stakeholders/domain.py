@@ -15,9 +15,6 @@ from custom_exceptions import (
     SecureAccessException,
     StakeholderNotFound,
 )
-from custom_types import (
-    Phone,
-)
 from datetime import (
     datetime,
 )
@@ -29,6 +26,7 @@ from db_model.stakeholders.types import (
     StakeholderAccessToken,
     StakeholderMetadataToUpdate,
     StakeholderPhone,
+    StakeholderTours,
 )
 from group_access import (
     domain as group_access_domain,
@@ -334,7 +332,7 @@ async def update_attributes(
 
 
 async def update_mobile(
-    email: str, new_phone: Phone, verification_code: str
+    email: str, new_phone: StakeholderPhone, verification_code: str
 ) -> None:
     """Update the user's phone number"""
     validate_phone(new_phone)
@@ -353,20 +351,31 @@ async def update_mobile(
         country_code=country_code,
         national_number=new_phone.national_number,
     )
-    await stakeholders_dal.update(
-        email, {"phone": stakeholder_phone._asdict()}
+    return await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            phone=stakeholder_phone,
+        ),
+        stakeholder_email=email,
     )
 
 
-async def update_tours(email: str, tours: dict[str, bool]) -> bool:
+async def update_tours(email: str, tours: dict[str, bool]) -> None:
     """New user workflow acknowledgment"""
-    return await stakeholders_dal.update(email, {"tours": tours})
+    return await stakeholders_dal.update_metadata(
+        metadata=StakeholderMetadataToUpdate(
+            tours=StakeholderTours(
+                new_group=tours["new_group"],
+                new_root=tours["new_root"],
+            ),
+        ),
+        stakeholder_email=email,
+    )
 
 
 async def verify(
     loaders: Any,
     email: str,
-    new_phone: Optional[Phone],
+    new_phone: Optional[StakeholderPhone],
     verification_code: Optional[str],
 ) -> None:
     """Start a verification process using OTP"""

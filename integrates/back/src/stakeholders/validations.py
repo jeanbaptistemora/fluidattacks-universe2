@@ -2,15 +2,15 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMobileNumber,
 )
-from custom_types import (
-    Phone,
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from newutils import (
     validations,
 )
 
 
-def validate_phone(phone: Phone) -> None:
+def validate_phone(phone: StakeholderPhone) -> None:
     try:
         validations.validate_field_length(
             phone.calling_country_code,

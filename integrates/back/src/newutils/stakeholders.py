@@ -54,9 +54,22 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         )
         if metadata.last_login_date
         else None,
+        "tours": {
+            "new_group": metadata.tours.new_group,
+            "new_root": metadata.tours.new_root,
+        }
+        if metadata.tours
+        else None,
+        "phone": {
+            "calling_country_code": metadata.phone.calling_country_code,
+            "country_code": metadata.phone.country_code,
+            "national_number": metadata.phone.national_number,
+        }
+        if metadata.phone
+        else None,
     }
     if metadata.access_token and metadata.access_token.iat == 0:
-        item["access_token"] = {}
+        item["access_token"] = []
     return {
         key: None if not value and value is not False else value
         for key, value in item.items()

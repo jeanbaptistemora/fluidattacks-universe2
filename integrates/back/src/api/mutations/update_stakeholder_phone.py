@@ -5,8 +5,10 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_types import (
-    Phone,
     SimplePayload as SimplePayloadType,
+)
+from db_model.stakeholders.types import (
+    StakeholderPhone,
 )
 from decorators import (
     concurrent_decorators,
@@ -46,9 +48,10 @@ async def mutate(
         user_email: str = user_info["user_email"]
         await stakeholders_domain.update_mobile(
             user_email,
-            Phone(
+            StakeholderPhone(
                 national_number=phone["national_number"],
                 calling_country_code=phone["calling_country_code"],
+                country_code="",
             ),
             verification_code,
         )

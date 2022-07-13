@@ -48,8 +48,10 @@ class Stakeholder(NamedTuple):
 
 
 class StakeholderMetadataToUpdate(NamedTuple):
+    tours: Optional[StakeholderTours] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    phone: Optional[StakeholderPhone] = None
     registration_date: Optional[str] = None
     last_login_date: Optional[str] = None
     legal_remember: Optional[bool] = None
