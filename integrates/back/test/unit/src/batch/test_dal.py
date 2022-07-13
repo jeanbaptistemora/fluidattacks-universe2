@@ -46,10 +46,10 @@ scan_actions_result = {
             ),
             "subject": "unittesting@fluidattacks.com",
             "action_name": "report",
-            "pk": """
-                1bc77999477bfcc84cd111ac745407f2b9ff21e930f59b097b414bbe34f29b
-                46
-            """,
+            "pk": (
+                "1bc77999477bfcc84cd111ac745407f2b9ff21e930f59b097b414bbe34f2"
+                "9b46"
+            ),
             "time": "1616116348",
             "entity": "unittesting",
             "queue": "small",
@@ -71,10 +71,10 @@ scan_actions_result = {
             ),
             "subject": "unittesting@fluidattacks.com",
             "action_name": "report",
-            "pk": """
-                7eda9da492308050bee1bb70b386ffcb3fc9bcabe5b41185113706fe6a2d49
-                0c
-            """,
+            "pk": (
+                "7eda9da492308050bee1bb70b386ffcb3fc9bcabe5b41185113706fe6a2d"
+                "490c"
+            ),
             "time": "1615834776",
             "entity": "unittesting",
             "queue": "small",
@@ -96,10 +96,10 @@ scan_actions_result = {
             ),
             "subject": "unittesting@fluidattacks.com",
             "action_name": "report",
-            "pk": """
-                71992ff157b46d63fe5bb9dd37176cdb0e27854009b0529d648375d9bfb389
-                77
-            """,
+            "pk": (
+                "71992ff157b46d63fe5bb9dd37176cdb0e27854009b0529d648375d9bfb3"
+                "8977"
+            ),
             "time": "1616116348",
             "entity": "unittesting",
             "queue": "small",
@@ -116,10 +116,10 @@ scan_actions_result = {
             ),
             "subject": "unittesting@fluidattacks.com",
             "action_name": "report",
-            "pk": """
-                0b60f7743b70ef85c0bc62d49483cef23a883ef03aac17d8921021214f082a
-                d6
-            """,
+            "pk": (
+                "0b60f7743b70ef85c0bc62d49483cef23a883ef03aac17d8921021214f08"
+                "2ad6"
+            ),
             "time": "1615834776",
             "entity": "unittesting",
             "queue": "small",
@@ -141,10 +141,10 @@ scan_actions_result = {
             ),
             "subject": "unittesting@fluidattacks.com",
             "action_name": "report",
-            "pk": """
-                5ae92b4b4437e3e004fb668bed37472fe4615d92767e3a31d81a7d9ea7c7d9
-                99
-            """,
+            "pk": (
+                "5ae92b4b4437e3e004fb668bed37472fe4615d92767e3a31d81a7d9ea7c7"
+                "d999"
+            ),
             "time": "1656429212",
             "entity": "unittesting",
             "queue": "small",
@@ -162,51 +162,66 @@ async def test_get_actions() -> None:
 
 
 async def test_get_action() -> None:
-    item_1 = dict(
-        action="report",
-        additional_info=json.dumps(
-            {
-                "report_type": "XLS",
-                "treatments": list(sorted(["ACCEPTED", "NEW"])),
-                "states": ["OPEN"],
-                "verifications": ["REQUESTED"],
-                "closing_date": None,
-            }
-        ),
-        entity="unittesting",
-        subject="integratesmanager@gmail.com",
-        time="1615834776",
-    )
-    key = batch_dal.mapping_to_key(
-        [
-            item_1["action"],
-            item_1["additional_info"],
-            item_1["entity"],
-            item_1["subject"],
-            item_1["time"],
-        ]
-    )
-    action = await batch_dal.get_action(action_dynamo_pk=key)
-    assert bool(action)
+    def side_effect(table_name: str, key_condition: dict) -> list:
+        for item in scan_actions_result["Items"]:
+            if item["pk"] in key_condition.values() and bool(table_name):
+                return [item]
+        return []
 
-    item_2 = dict(
-        action="report",
-        additional_info="PDF",
-        entity="continuoustesting",
-        subject="integratesmanager@gmail.com",
-        time="1615834776",
-    )
-    key_2 = batch_dal.mapping_to_key(
-        [
-            item_2["action"],
-            item_2["additional_info"],
-            item_2["entity"],
-            item_2["subject"],
-            item_2["time"],
-        ]
-    )
-    optional_action = await batch_dal.get_action(action_dynamo_pk=key_2)
-    assert not bool(optional_action)
+    with mock.patch(
+        "batch.dal.boto3.dynamodb.conditions.Equals"
+    ) as mock_key_condition:
+        with mock.patch("batch.dal.dynamodb_ops.query") as mock_query:
+            mock_query.side_effect = side_effect
+            item_1 = dict(
+                action="report",
+                additional_info=json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": list(sorted(["ACCEPTED", "NEW"])),
+                        "states": ["OPEN"],
+                        "verifications": ["REQUESTED"],
+                        "closing_date": None,
+                    }
+                ),
+                entity="unittesting",
+                subject="integratesmanager@gmail.com",
+                time="1615834776",
+            )
+            key = batch_dal.mapping_to_key(
+                [
+                    item_1["action"],
+                    item_1["additional_info"],
+                    item_1["entity"],
+                    item_1["subject"],
+                    item_1["time"],
+                ]
+            )
+            mock_key_condition.return_value = key
+            action = await batch_dal.get_action(action_dynamo_pk=key)
+            assert bool(action)
+
+            item_2 = dict(
+                action="report",
+                additional_info="PDF",
+                entity="continuoustesting",
+                subject="integratesmanager@gmail.com",
+                time="1615834776",
+            )
+            key_2 = batch_dal.mapping_to_key(
+                [
+                    item_2["action"],
+                    item_2["additional_info"],
+                    item_2["entity"],
+                    item_2["subject"],
+                    item_2["time"],
+                ]
+            )
+            mock_key_condition.return_value = key_2
+            optional_action = await batch_dal.get_action(
+                action_dynamo_pk=key_2
+            )
+            assert not bool(optional_action)
 
 
 async def test_requeue_actions() -> None:
