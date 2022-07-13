@@ -43,9 +43,10 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
           </Col>
         </Can>
         <Col large={"100"} medium={"100"} small={"100"}>
-          <Card title={t("searchFindings.infoTable.title")}>
-            <GroupInformation />
-          </Card>
+          <Text fw={7} mb={3} mt={4} size={5}>
+            {t("searchFindings.infoTable.title")}
+          </Text>
+          <GroupInformation />
         </Col>
         <AccessInfo />
         <Can do={"api_resolvers_group_forces_token_resolve"}>

@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
+import { Card } from "components/Card";
 import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
@@ -206,201 +207,223 @@ const GroupInformation: React.FC = (): JSX.Element => {
             <Form>
               <Row>
                 <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.businessId.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.businessId.tooltip"}
-                    message={t(
-                      "organization.tabs.groups.newGroup.businessId.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikText}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
+                  <Card>
+                    <Text mb={2}>
+                      {t("organization.tabs.groups.newGroup.businessId.text")}
+                    </Text>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.businessId.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.newGroup.businessId.tooltip"
                       )}
-                      id={"add-group-description"}
-                      name={"businessId"}
-                      type={"text"}
-                      validate={composeValidators([
-                        maxBusinessInfoLength,
-                        validTextField,
-                      ])}
-                    />
-                  </TooltipWrapper>
-                </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.businessName.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={
-                      "organization.tabs.groups.newGroup.businessName.tooltip"
-                    }
-                    message={t(
-                      "organization.tabs.groups.newGroup.businessName.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikText}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
-                      )}
-                      id={"add-group-description"}
-                      name={"businessName"}
-                      type={"text"}
-                      validate={composeValidators([
-                        maxBusinessInfoLength,
-                        validTextField,
-                      ])}
-                    />
-                  </TooltipWrapper>
-                </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.description.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.description.tooltip"}
-                    message={t(
-                      "organization.tabs.groups.newGroup.description.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikText}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
-                      )}
-                      id={"add-group-description"}
-                      name={"description"}
-                      type={"text"}
-                      validate={composeValidators([
-                        required,
-                        maxDescriptionLength,
-                        validTextField,
-                      ])}
-                    />
-                  </TooltipWrapper>
-                </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.language.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.language.tooltip"}
-                    message={t(
-                      "organization.tabs.groups.newGroup.language.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Select
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
-                      )}
-                      name={"language"}
+                      placement={"top"}
                     >
-                      <option value={"EN"}>
-                        {t("organization.tabs.groups.newGroup.language.EN")}
-                      </option>
-                      <option value={"ES"}>
-                        {t("organization.tabs.groups.newGroup.language.ES")}
-                      </option>
-                    </Select>
-                  </TooltipWrapper>
+                      <Field
+                        component={FormikText}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        id={"add-group-description"}
+                        name={"businessId"}
+                        type={"text"}
+                        validate={composeValidators([
+                          maxBusinessInfoLength,
+                          validTextField,
+                        ])}
+                      />
+                    </TooltipWrapper>
+                  </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.sprintDuration.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={
-                      "organization.tabs.groups.newGroup.sprintDuration.tooltip"
-                    }
-                    message={t(
-                      "organization.tabs.groups.newGroup.sprintDuration.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikText}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
+                  <Card>
+                    <Text mb={2}>
+                      {t("organization.tabs.groups.newGroup.businessName.text")}
+                    </Text>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.businessName.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.newGroup.businessName.tooltip"
                       )}
-                      id={"add-group-description"}
-                      name={"sprintDuration"}
-                      type={"text"}
-                      validate={composeValidators([
-                        numberBetween(MIN_SPRINT_DURATION, MAX_SPRINT_DURATION),
-                        numeric,
-                      ])}
-                    />
-                  </TooltipWrapper>
+                      placement={"top"}
+                    >
+                      <Field
+                        component={FormikText}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        id={"add-group-description"}
+                        name={"businessName"}
+                        type={"text"}
+                        validate={composeValidators([
+                          maxBusinessInfoLength,
+                          validTextField,
+                        ])}
+                      />
+                    </TooltipWrapper>
+                  </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t(
-                      "organization.tabs.groups.editGroup.sprintStartDate.text"
-                    )}
-                  </Text>
-                  <TooltipWrapper
-                    id={
-                      "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
-                    }
-                    message={t(
-                      "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikDate}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
+                  <Card>
+                    <Text mb={2}>
+                      {t("organization.tabs.groups.newGroup.description.text")}
+                    </Text>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.description.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.newGroup.description.tooltip"
                       )}
-                      name={"sprintStartDate"}
-                      validate={composeValidators([required, isGreaterDate])}
-                    />
-                  </TooltipWrapper>
+                      placement={"top"}
+                    >
+                      <Field
+                        component={FormikText}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        id={"add-group-description"}
+                        name={"description"}
+                        type={"text"}
+                        validate={composeValidators([
+                          required,
+                          maxDescriptionLength,
+                          validTextField,
+                        ])}
+                      />
+                    </TooltipWrapper>
+                  </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
-                  <Text mb={2}>
-                    {t("organization.tabs.groups.newGroup.managed.text")}
-                  </Text>
-                  <TooltipWrapper
-                    id={"organization.tabs.groups.newGroup.managed.tooltip"}
-                    message={t(
-                      "organization.tabs.groups.newGroup.managed.tooltip"
-                    )}
-                    placement={"top"}
-                  >
-                    <Field
-                      component={FormikSwitchButton}
-                      disabled={permissions.cannot(
-                        "api_mutations_update_group_stakeholder_mutate"
+                  <Card>
+                    <Text mb={2}>
+                      {t("organization.tabs.groups.newGroup.language.text")}
+                    </Text>
+                    <TooltipWrapper
+                      id={"organization.tabs.groups.newGroup.language.tooltip"}
+                      message={t(
+                        "organization.tabs.groups.newGroup.language.tooltip"
                       )}
-                      name={"managed"}
-                      offlabel={t(
-                        "organization.tabs.groups.newGroup.managed.notManually"
-                      )}
-                      onChange={managedOnChange}
-                      onlabel={t(
-                        "organization.tabs.groups.newGroup.managed.manually"
-                      )}
-                      type={"checkbox"}
-                    />
-                  </TooltipWrapper>
+                      placement={"top"}
+                    >
+                      <Select
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        name={"language"}
+                      >
+                        <option value={"EN"}>
+                          {t("organization.tabs.groups.newGroup.language.EN")}
+                        </option>
+                        <option value={"ES"}>
+                          {t("organization.tabs.groups.newGroup.language.ES")}
+                        </option>
+                      </Select>
+                    </TooltipWrapper>
+                  </Card>
                 </Col>
-                {!dirty || loadingGroupData || isSubmitting ? undefined : (
-                  <Col large={"33"} medium={"50"} small={"100"}>
-                    <Button type={"submit"} variant={"secondary"}>
-                      {t("searchFindings.servicesTable.modal.continue")}
-                    </Button>
-                  </Col>
-                )}
+                <Col large={"33"} medium={"50"} small={"100"}>
+                  <Card>
+                    <Text mb={2}>
+                      {t(
+                        "organization.tabs.groups.newGroup.sprintDuration.text"
+                      )}
+                    </Text>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.newGroup.sprintDuration.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.newGroup.sprintDuration.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <Field
+                        component={FormikText}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        id={"add-group-description"}
+                        name={"sprintDuration"}
+                        type={"text"}
+                        validate={composeValidators([
+                          numberBetween(
+                            MIN_SPRINT_DURATION,
+                            MAX_SPRINT_DURATION
+                          ),
+                          numeric,
+                        ])}
+                      />
+                    </TooltipWrapper>
+                  </Card>
+                </Col>
+                <Col large={"33"} medium={"50"} small={"100"}>
+                  <Card>
+                    <Text mb={2}>
+                      {t(
+                        "organization.tabs.groups.editGroup.sprintStartDate.text"
+                      )}
+                    </Text>
+                    <TooltipWrapper
+                      id={
+                        "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
+                      }
+                      message={t(
+                        "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <Field
+                        component={FormikDate}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        name={"sprintStartDate"}
+                        validate={composeValidators([required, isGreaterDate])}
+                      />
+                    </TooltipWrapper>
+                  </Card>
+                </Col>
+                <Col large={"33"} medium={"50"} small={"100"}>
+                  <Card>
+                    <Text mb={2}>
+                      {t("organization.tabs.groups.newGroup.managed.text")}
+                    </Text>
+                    <TooltipWrapper
+                      id={"organization.tabs.groups.newGroup.managed.tooltip"}
+                      message={t(
+                        "organization.tabs.groups.newGroup.managed.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <Field
+                        component={FormikSwitchButton}
+                        disabled={permissions.cannot(
+                          "api_mutations_update_group_stakeholder_mutate"
+                        )}
+                        name={"managed"}
+                        offlabel={t(
+                          "organization.tabs.groups.newGroup.managed.notManually"
+                        )}
+                        onChange={managedOnChange}
+                        onlabel={t(
+                          "organization.tabs.groups.newGroup.managed.manually"
+                        )}
+                        type={"checkbox"}
+                      />
+                    </TooltipWrapper>
+                  </Card>
+                </Col>
               </Row>
+              <div className={"mt2"} />
+              {!dirty || loadingGroupData || isSubmitting ? undefined : (
+                <Button type={"submit"} variant={"secondary"}>
+                  {t("searchFindings.servicesTable.modal.continue")}
+                </Button>
+              )}
             </Form>
           );
         }}
