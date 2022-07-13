@@ -108,6 +108,15 @@ locals {
             ]
             Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"]
           },
+          {
+            Sid    = "dynamoReadSkims"
+            Effect = "Allow"
+            Action = [
+              "dynamodb:Get*",
+              "dynamodb:ListTagsOfResource"
+            ]
+            Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/skims*"]
+          },
         ]
       }
       cloudflare = {
