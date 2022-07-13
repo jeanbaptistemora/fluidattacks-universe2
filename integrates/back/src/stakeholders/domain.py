@@ -133,21 +133,15 @@ async def check_session_web_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def add(email: str, data: dict[str, Any]) -> bool:
-    return await stakeholders_dal.add(email, data)
+async def add(data: Stakeholder) -> None:
+    return await stakeholders_dal.add_typed(data)
 
 
-async def remove(email: str) -> bool:
-    success = all(
-        await collect(
-            [
-                authz.revoke_user_level_role(email),
-                stakeholders_dal.remove(email),
-            ]
-        )
-    )
+async def remove(email: str) -> None:
+    await authz.revoke_user_level_role(email)
+    await stakeholders_dal.remove(email)
     await redis_del_by_deps("session_logout", session_email=email)
-    return success
+    return None
 
 
 async def update_information(

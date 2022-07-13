@@ -681,19 +681,16 @@ async def add_without_group(
 ) -> bool:
     success = False
     if validate_email_address(email):
-        new_user_data: dict[str, Any] = {}
-        new_user_data["email"] = email
-        if is_register_after_complete:
-            new_user_data["registered"] = True
-
-        success = all(
-            await collect(
-                [
-                    authz.grant_user_level_role(email, role),
-                    stakeholders_domain.add(email, new_user_data),
-                ]
-            )
+        new_user_data = Stakeholder(
+            email=email,
+            first_name="",
+            last_name="",
         )
+        if is_register_after_complete:
+            new_user_data = new_user_data._replace(is_registered=True)
+
+        success = await authz.grant_user_level_role(email, role)
+        await stakeholders_domain.add(new_user_data)
     return success
 
 
@@ -1583,8 +1580,8 @@ async def remove_user(  # pylint: disable=too-many-locals
     )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
-        success = await stakeholders_domain.remove(email)
-    return success
+        await stakeholders_domain.remove(email)
+    return True
 
 
 async def unsubscribe_from_group(

@@ -1,6 +1,12 @@
+from dataloaders import (
+    get_new_context,
+)
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 import pytest
 from stakeholders.dal import (
-    add,
+    add_typed,
     get,
     remove,
     update,
@@ -23,7 +29,7 @@ async def test_delete() -> None:
         "organization": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64",
         "registered": False,
     } == await get(test_1)
-    assert await remove(test_1)
+    await remove(test_1)
     assert {} == await get(test_1)
 
 
@@ -31,8 +37,18 @@ async def test_delete() -> None:
 async def test_update() -> None:
     assert await get("unittest5") == {}
 
-    await add("unittest4", {})
-    assert await get("unittest4") == {"email": "unittest4"}
+    stakeholder = Stakeholder(
+        email="unittest4@gmail.com",
+        first_name="",
+        last_name="",
+        is_registered=True,
+    )
+    await add_typed(stakeholder)
+    loaders = get_new_context()
+    load_stakeholder: Stakeholder = await loaders.stakeholder.load(
+        "unittest4@gmail.com"
+    )
+    assert load_stakeholder.email == "unittest4@gmail.com"
 
     await update("unittest4", {"last_name": "testing"})
     assert await get("unittest4") == {

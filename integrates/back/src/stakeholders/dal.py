@@ -14,6 +14,7 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.stakeholders.types import (
+    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from dynamodb import (
@@ -37,6 +38,16 @@ LOGGER = logging.getLogger(__name__)
 USERS_TABLE_NAME = "FI_users"
 
 
+async def add_typed(stakeholder: Stakeholder) -> None:
+    try:
+        data = stakeholders_utils.format_stakeholder_item(
+            stakeholder=stakeholder
+        )
+        await dynamodb_ops.put_item(USERS_TABLE_NAME, data)
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+
+
 async def add(email: str, data: dict[str, Any]) -> bool:
     resp = False
     try:
@@ -47,14 +58,12 @@ async def add(email: str, data: dict[str, Any]) -> bool:
     return resp
 
 
-async def remove(email: str) -> bool:
-    resp = False
+async def remove(email: str) -> None:
     try:
         delete_attrs = DynamoDeleteType(Key={"email": email.lower()})
-        resp = await dynamodb_ops.delete_item(USERS_TABLE_NAME, delete_attrs)
+        await dynamodb_ops.delete_item(USERS_TABLE_NAME, delete_attrs)
     except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
-    return resp
+        raise UnavailabilityError() from ex
 
 
 async def get(email: str) -> dict[str, Any]:
