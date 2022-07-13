@@ -44,10 +44,8 @@ async def set_forces_exit_code(
         await log(
             "info",
             (
-                (
-                    "Newly reported vulnerabilities' [bright_yellow]grace "
-                    f"period[/] policy is set to {config.grace_period} day(s)"
-                )
+                "Newly reported vulnerabilities' [bright_yellow]grace "
+                f"period[/] policy is set to {config.grace_period} day(s)"
             ),
         )
         for finding in findings:

@@ -347,10 +347,10 @@ async def get_groups_access(
             organizations {
               groups {
                 name
+                minBreakingSeverity
+                vulnerabilityGracePeriod
                 userRole
               }
-              minBreakingSeverity
-              vulnerabilityGracePeriod
             }
           }
         }
@@ -378,8 +378,8 @@ async def get_groups_access(
     return list(
         (
             group,
-            cast(float, organization["minBreakingSeverity"]),
-            cast(int, organization["vulnerabilityGracePeriod"]),
+            cast(float, group["minBreakingSeverity"]),
+            cast(int, group["vulnerabilityGracePeriod"]),
         )
         for organization in response["me"]["organizations"]
         for group in cast(List[Dict[str, str]], organization["groups"])
