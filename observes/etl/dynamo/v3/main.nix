@@ -14,6 +14,8 @@ makeScript {
       outputs."${inputs.observesIndex.target.redshift_2.bin}"
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/common/utils/aws"
+      outputs."/common/utils/sops"
+      outputs."/observes/common/db-creds"
     ];
   };
   name = "observes-etl-dynamo-v3";
