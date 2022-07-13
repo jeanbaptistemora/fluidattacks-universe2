@@ -30,7 +30,6 @@ from dynamodb import (
 )
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
-    ValidationException,
 )
 import simplejson as json  # type: ignore
 from typing import (
@@ -180,28 +179,12 @@ async def update_unreliable_indicators(
     for condition in conditions:
         condition_expression &= condition
     try:
-        await operations.update_item(
-            condition_expression=condition_expression,
-            item=unreliable_indicators,
-            key=primary_key,
-            table=TABLE,
-        )
+        if unreliable_indicators:
+            await operations.update_item(
+                condition_expression=condition_expression,
+                item=unreliable_indicators,
+                key=primary_key,
+                table=TABLE,
+            )
     except ConditionalCheckFailedException as ex:
         raise IndicatorAlreadyUpdated() from ex
-    except ValidationException:
-        await operations.update_item(
-            condition_expression=condition_expression,
-            item={"unreliable_indicators": {}},
-            key=primary_key,
-            table=TABLE,
-        )
-        try:
-            if unreliable_indicators:
-                await operations.update_item(
-                    condition_expression=condition_expression,
-                    item=unreliable_indicators,
-                    key=primary_key,
-                    table=TABLE,
-                )
-        except ConditionalCheckFailedException as ex:
-            raise IndicatorAlreadyUpdated() from ex

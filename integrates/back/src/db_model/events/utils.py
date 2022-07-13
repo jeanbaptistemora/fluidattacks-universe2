@@ -39,11 +39,6 @@ def format_evidences(evidences: Item) -> EventEvidences:
 
 
 def format_event(item: Item) -> Event:
-    unreliable_indicators = (
-        format_unreliable_indicators(item["unreliable_indicators"])
-        if "unreliable_indicators" in item
-        else EventUnreliableIndicators()
-    )
     return Event(
         action_after_blocking=EventActionsAfterBlocking[
             item["action_after_blocking"]
@@ -85,7 +80,9 @@ def format_event(item: Item) -> Event:
             else None,
         ),
         type=EventType[item["type"]],
-        unreliable_indicators=unreliable_indicators,
+        unreliable_indicators=format_unreliable_indicators(
+            item["unreliable_indicators"]
+        ),
     )
 
 
