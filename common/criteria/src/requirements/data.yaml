@@ -812,6 +812,7 @@
     - "c2m2.9_2_k"
     - "c2m2.9_3_c"
     - "issaf.S_5_1"
+    - "nist800115.3_5"
   metadata: {}
 "034":
   en:
@@ -1134,6 +1135,7 @@
     - "issaf.Q_16_27"
     - "owaspscp.12"
     - "cwe25.434"
+    - "nist800115.3_6"
   metadata: {}
 "041":
   en:
@@ -1620,6 +1622,7 @@
     - "owaspmasvs.V1_10"
     - "owaspmasvs.V5_2"
     - "nist800171.4_2"
+    - "nist800115.3_4"
   metadata: {}
 "072":
   en:
@@ -1826,6 +1829,7 @@
     - "bsafss.EE_1-3"
     - "nist800171.3_6"
     - "nist800171.4_3"
+    - "nist800115.3_2"
   metadata: {}
 "077":
   en:
@@ -3163,6 +3167,7 @@
     - "bsafss.IA_1-2"
     - "owaspmasvs.V4_5"
     - "cwe25.798"
+    - "nist800115.5_1"
   metadata: {}
 "128":
   en:
@@ -3259,6 +3264,7 @@
     - "owaspmasvs.V4_5"
     - "nist800171.5_7"
     - "cwe25.287"
+    - "nist800115.5_1"
   metadata: {}
 "131":
   en:
@@ -3360,6 +3366,7 @@
     - "ptes.5_5_3"
     - "mvsp.2_4"
     - "owaspscp.3"
+    - "nist800115.5_1"
   metadata: {}
 "133":
   en:
@@ -3405,6 +3412,7 @@
     - "owaspmasvs.V4_5"
     - "nist800171.5_2"
     - "nist800171.5_7"
+    - "nist800115.5_1"
   metadata: {}
 "134":
   en:
@@ -3675,6 +3683,7 @@
     - "wassec.6_2_1_1"
     - "issaf.D_1"
     - "ptes.5_5_3"
+    - "nist800115.5_1"
   metadata: {}
 "140":
   en:
@@ -4489,6 +4498,7 @@
     - "issaf.Q_16_13"
     - "ptes.5_2_2_1"
     - "ptes.7_7"
+    - "nist800115.4_4_1"
   metadata: {}
 "155":
   en:
@@ -5956,6 +5966,7 @@
     - "owaspscp.14"
     - "bsafss.SM_4-1"
     - "owaspmasvs.V8_10"
+    - "nist800115.3_6"
   metadata: {}
 "180":
   en:
@@ -6162,6 +6173,9 @@
     - "bsafss.SM_3-2"
     - "bsafss.VM_3-2"
     - "owaspmasvs.V5_5"
+    - "nist800115.3_5"
+    - "nist800115.4_4"
+    - "nist800115.7_4_3"
   metadata: {}
 "183":
   en:
@@ -6248,6 +6262,7 @@
     - "c2m2.1_2_i"
     - "ferpa.D_35_b_2"
     - "owaspscp.8"
+    - "nist800115.7_4_4"
   metadata: {}
 "184":
   en:
@@ -7672,6 +7687,7 @@
     - "issaf.T_11_1"
     - "issaf.V_9"
     - "ptes.5_2_3_2"
+    - "nist800115.4_2"
   metadata: {}
 "238":
   en:
@@ -7846,6 +7862,7 @@
     - "issaf.K_9_1"
     - "ptes.6_7_6_2"
     - "ptes.7_4_5_2"
+    - "nist800115.4_4"
   metadata: {}
 "250":
   en:
@@ -8012,6 +8029,7 @@
     - "issaf.G_14"
     - "issaf.L_3_1"
     - "nist800171.1_16"
+    - "nist800115.4_4_1"
   metadata: {}
 "254":
   en:
@@ -8041,6 +8059,7 @@
     - "nistssdf.PW_9_1"
     - "issaf.L_4_3"
     - "ptes.6_7_6_2"
+    - "nist800115.4_4_1"
   metadata: {}
 "255":
   en:
@@ -8101,6 +8120,7 @@
     - "ptes.5_2_2_2"
     - "ptes.7_3_1"
     - "nist800171.4_7"
+    - "nist800115.3_5"
   metadata: {}
 "257":
   en:
@@ -8792,6 +8812,7 @@
     - "cwe25.416"
     - "cwe25.476"
     - "cwe25.119"
+    - "nist800115.4_2"
   metadata: {}
 "273":
   en:
@@ -10064,6 +10085,7 @@
     - "owaspmasvs.V1_2"
     - "owaspmasvs.V8_10"
     - "cwe25.22"
+    - "nist800115.3_6"
   metadata: {}
 "321":
   en:
@@ -10219,6 +10241,7 @@
     - "osstmm3.11_9_3"
     - "c2m2.5_1_e"
     - "nist800171.3_6"
+    - "nist800115.3_2"
   metadata: {}
 "323":
   en:
@@ -10579,6 +10602,7 @@
     - "issaf.T_16_2"
     - "owaspmasvs.V4_6"
     - "owaspmasvs.V8_1"
+    - "nist800115.4_2"
   metadata: {}
 "328":
   en:
@@ -10824,6 +10848,7 @@
     - "owasprisks.P5"
     - "mvsp.1_6"
     - "owaspmasvs.V1_12"
+    - "nist800115.6_6"
   metadata: {}
 "332":
   en:
@@ -10882,6 +10907,7 @@
     - "mvsp.2_4"
     - "owaspscp.3"
     - "owaspmasvs.V4_5"
+    - "nist800115.5_1"
   metadata: {}
 "333":
   en:
@@ -10936,6 +10962,7 @@
     - "iec62443.CR-1_7"
     - "issaf.V_6_3"
     - "owaspscp.3"
+    - "nist800115.5_1"
   metadata: {}
 "334":
   en:
@@ -12664,6 +12691,7 @@
     - "owasprisks.P6"
     - "owaspscp.8"
     - "owaspmasvs.V2_10"
+    - "nist800115.7_4_4"
   metadata: {}
 "361":
   en:
@@ -12933,6 +12961,7 @@
     - "hitrust.06_d"
     - "iso27002.8_8"
     - "iec62443.DC-4_1"
+    - "nist800115.7_4_1"
   metadata: {}
 "366":
   en:
@@ -13319,6 +13348,7 @@
     - "owaspscp.7"
     - "bsafss.LO_1-3"
     - "nist800171.4_3"
+    - "nist800115.3_2"
   metadata: {}
 "377":
   en:
@@ -13377,6 +13407,7 @@
     - "c2m2.5_2_d"
     - "c2m2.6_1_c"
     - "issaf.G_12"
+    - "nist800115.3_2"
   metadata: {}
 "378":
   en:
