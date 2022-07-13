@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from asyncio.tasks import (
-    sleep,
-)
 from custom_exceptions import (
     VulnNotFound,
 )
@@ -24,6 +21,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -39,6 +39,22 @@ from unreliable_indicators.operations import (
 from vulnerabilities import (
     domain as vulns_domain,
 )
+
+
+@retry_on_exceptions(exceptions=(VulnNotFound,), sleep_seconds=2.0)
+async def _reset_expired_accepted_vuln(
+    loaders: Dataloaders, vuln_id: str
+) -> None:
+    updated_values = {"treatment": "NEW"}
+    loaders.vulnerability.clear(vuln_id)
+    vuln_to_update: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    if vuln_to_update.treatment and vuln_to_update.treatment.modified_by:
+        await vulns_domain.add_vulnerability_treatment(
+            finding_id=vuln_to_update.finding_id,
+            updated_values=updated_values,
+            vuln=vuln_to_update,
+            user_email=vuln_to_update.treatment.modified_by,
+        )
 
 
 async def reset_group_expired_accepted_findings(
@@ -77,28 +93,7 @@ async def reset_group_expired_accepted_findings(
             and vuln.treatment.modified_by
             and (is_accepted_expired or is_undefined_accepted_expired)
         ):
-            updated_values = {"treatment": "NEW"}
-            try:
-                await vulns_domain.add_vulnerability_treatment(
-                    finding_id=finding_id,
-                    updated_values=updated_values,
-                    vuln=vuln,
-                    user_email=vuln.treatment.modified_by,
-                )
-            # Retry due to optimistic locking on dynamo's part
-            except VulnNotFound:
-                await sleep(1.0)
-                loaders.vulnerability.clear(vuln.id)
-                rvuln: Vulnerability = await loaders.vulnerability.load(
-                    vuln.id
-                )
-                if rvuln.treatment and rvuln.treatment.modified_by:
-                    await vulns_domain.add_vulnerability_treatment(
-                        finding_id=finding_id,
-                        updated_values=updated_values,
-                        vuln=rvuln,
-                        user_email=rvuln.treatment.modified_by,
-                    )
+            await _reset_expired_accepted_vuln(loaders, vuln.id)
             updated_finding_ids.add(finding_id)
             updated_vuln_ids.add(vuln.id)
 
