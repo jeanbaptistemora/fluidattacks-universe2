@@ -115,12 +115,33 @@ def validate_nickname_is_unique(
         raise RepeatedRootNickname()
 
 
-def is_git_unique(url: str, branch: str, roots: Tuple[Root, ...]) -> bool:
-    return (url, branch) not in tuple(
-        (root.state.url, root.state.branch)
-        for root in roots
-        if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
-    )
+def is_git_unique(
+    url: str, branch: str, group_name: str, roots: Tuple[Root, ...]
+) -> bool:
+    """
+    Validation util to check whether a git root is unique
+
+    This logic must match the associated documentation page at:
+    https://docs.fluidattacks.com/machine/web/groups/scope/roots#single-root-assessment
+    """
+    for root in roots:
+        if (
+            isinstance(root, GitRoot)
+            and root.state.status == RootStatus.ACTIVE
+        ):
+            if (url.lower(), group_name) == (
+                root.state.url.lower(),
+                root.group_name,
+            ):
+                return False
+
+            if (url.lower(), branch) == (
+                root.state.url.lower(),
+                root.state.branch,
+            ):
+                return False
+
+    return True
 
 
 def is_valid_ip(address: str) -> bool:
