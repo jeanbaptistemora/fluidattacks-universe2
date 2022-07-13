@@ -100,7 +100,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
               >
                 <ExternalLink
                   href={
-                    "https://docs.fluidattacks.com/machine/web/support/talk-expert"
+                    "https://docs.fluidattacks.com/squad/support/talk-expert"
                   }
                 >
                   <FontAwesomeIcon

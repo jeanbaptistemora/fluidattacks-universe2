@@ -21,13 +21,13 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         }
       }
       paymentMethods {
+        businessName
         id
         brand
         default
         expirationMonth
         expirationYear
         lastFourDigits
-        businessName
         email
         country
         state
@@ -45,6 +45,11 @@ const ADD_PAYMENT_METHOD: DocumentNode = gql`
     $cardExpirationYear: String!
     $cardCvc: String!
     $makeDefault: Boolean!
+    $businessName: String!
+    $email: String!
+    $country: String!
+    $state: String!
+    $city: String!
   ) {
     addPaymentMethod(
       organizationId: $organizationId
@@ -53,6 +58,11 @@ const ADD_PAYMENT_METHOD: DocumentNode = gql`
       cardExpirationYear: $cardExpirationYear
       cardCvc: $cardCvc
       makeDefault: $makeDefault
+      businessName: $businessName
+      email: $email
+      country: $country
+      state: $state
+      city: $city
     ) {
       success
     }

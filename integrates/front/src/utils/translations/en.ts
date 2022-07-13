@@ -1431,7 +1431,7 @@ export const enTranslations: ResourceKey = {
         mail: "Direct communication channel through an email ticketing system",
       },
       support: "Support",
-      tooltip: "Go to for more information",
+      tooltip: "For more information",
     },
     logout: "Log out",
     mobile: "Mobile",

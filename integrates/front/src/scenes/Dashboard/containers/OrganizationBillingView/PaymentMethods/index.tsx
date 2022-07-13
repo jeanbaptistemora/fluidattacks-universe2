@@ -153,14 +153,24 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         cardNumber: string;
         makeDefault: boolean;
       }): Promise<void> => {
+        const businessName = "";
+        const email = "";
+        const country = "";
+        const state = "";
+        const city = "";
         await addPaymentMethod({
           variables: {
+            businessName,
             cardCvc,
             cardExpirationMonth,
             cardExpirationYear,
             cardNumber,
+            city,
+            country,
+            email,
             makeDefault,
             organizationId,
+            state,
           },
         });
       },
