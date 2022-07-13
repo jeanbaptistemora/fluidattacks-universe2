@@ -86,6 +86,15 @@ resource "cloudflare_record" "www" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "community" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "community.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = cloudflare_zone.fluidsignal_com.zone
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "roadmap" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "roadmap.${cloudflare_zone.fluidattacks_com.zone}"
