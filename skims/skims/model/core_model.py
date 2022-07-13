@@ -2389,6 +2389,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_USES_CONSOLE_LOG = MethodInfo(
+        file_name="javascript",
+        name="js_uses_console_log",
+        module="lib_root",
+        finding=FindingEnum.F066,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="cloudformation",
         name="cfn_elb2_uses_insecure_security_policy",
@@ -3323,14 +3331,6 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F338,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
-        technique=TechniqueEnum.BASIC_SAST,
-    )
-    JS_USES_CONSOLE_LOG = MethodInfo(
-        file_name="javascript",
-        name="js_uses_console_log",
-        module="lib_path",
-        finding=FindingEnum.F066,
-        developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
     DANGEROUS_PERMISSIONS = MethodInfo(
