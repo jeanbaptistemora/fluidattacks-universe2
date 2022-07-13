@@ -6837,3 +6837,15 @@
       title: Obscure feedback of authentication information
       link: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-171r2.pdf
   metadata: {}
+"nist800115":
+  title: NIST 800-115
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "3_2":
+      title: Log review
+      link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
+  metadata: {}
