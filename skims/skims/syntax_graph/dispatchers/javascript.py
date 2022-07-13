@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.common import (
+    call_expression as common_call_expression,
     identifier as common_identifier,
     program as common_program,
     variable_declarator as common_variable_declarator,
@@ -12,6 +13,12 @@ from syntax_graph.types import (
 )
 
 JAVASCRIPT_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "call_expression",
+        },
+        syntax_reader=common_call_expression.reader,
+    ),
     Dispatcher(
         applicable_types={
             "identifier",
