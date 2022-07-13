@@ -160,6 +160,8 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=(f"[ASM] Event {state} #[{event_id}] for [{group_name}]"),
+        subject=(
+            f"[ASM] ACTION NEEDED: Your group [{group_name}] could be in risk"
+        ),
         template_name="event_report",
     )
