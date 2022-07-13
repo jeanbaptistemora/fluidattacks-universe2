@@ -29,6 +29,9 @@ from db_model import (
     organizations as orgs_model,
     roots as roots_model,
 )
+from db_model.constants import (
+    POLICIES_FORMATTED,
+)
 from db_model.credentials.types import (
     Credentials,
     CredentialsRequest,
@@ -671,43 +674,18 @@ async def send_mail_policies(
     organization_data: Organization = await loaders.organization.load(
         organization_id
     )
-    policies_format = {
-        "max_acceptance_days": (
-            "Maximum number of calendar days a finding "
-            "can be temporarily accepted"
-        ),
-        "max_acceptance_severity": (
-            "Maximum temporal CVSS 3.1 score range "
-            "between which a finding can be accepted"
-        ),
-        "min_breaking_severity": (
-            "Minimum CVSS 3.1 score of an open "
-            "vulnerability for DevSecOps to break the build in strict mode"
-        ),
-        "min_acceptance_severity": (
-            "Minimum temporal CVSS 3.1 score range "
-            "between which a finding can be accepted"
-        ),
-        "vulnerability_grace_period": (
-            "Grace period in days where newly "
-            "reported vulnerabilities won't break the build (DevSecOps only)"
-        ),
-        "max_number_acceptances": (
-            "Maximum number of times a finding can be temporarily accepted"
-        ),
-    }
 
     policies_content: dict[str, Any] = {}
     for key, val in new_policies.items():
         old_value = organization_data.policies._asdict().get(key)
         if val is not None and val != old_value:
-            policies_content[policies_format[key]] = {
+            policies_content[POLICIES_FORMATTED[key]] = {
                 "from": old_value,
                 "to": val,
             }
 
     email_context: dict[str, Any] = {
-        "org_name": organization_name,
+        "entity_name": organization_name,
         "policies_link": f"{BASE_URL}/orgs/{organization_name}/policies",
         "policies_content": policies_content,
         "responsible": responsible,

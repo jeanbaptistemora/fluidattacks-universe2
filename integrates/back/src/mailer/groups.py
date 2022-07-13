@@ -639,7 +639,7 @@ async def send_mail_updated_policies(
         email_to,
         context,
         GENERAL_TAG,
-        f'[ASM] Policies have been changed in [{context["org_name"]}]',
+        f'[ASM] Policies have been changed in [{context["entity_name"]}]',
         "updated_policies",
     )
 
