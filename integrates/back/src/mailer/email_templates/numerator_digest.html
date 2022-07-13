@@ -9,16 +9,20 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Today were enumerated {{ today_count }} fields, by {{ responsible }}:
+      Today were enumerated {{ today_enumerated_count }} and
+      verified {{ today_verified_count }} fields, by {{ responsible }}:
     </p>
     <p>
       {% if groups %}
         {% for group, fields in groups.items() %}
-          <strong>{{ group }}</strong>: {{ fields }} enumerated fields.<br />
+          <strong>{{ group }}</strong>:
+          {{ fields["enumerated_count"] }} enumerated,
+          {{ fields["verified_count"] }} verified.<br />
         {% endfor %}
       {% endif %}
-      {{ variation_yesterday }} variation from yesterday enumeration and
-      {{ variation_week }} from last 7 working days.
+      <br />
+      {{ enumerated_variation }} variation in enumerated and
+      {{ verified_variation }} in verified inputs from yesterday
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>
