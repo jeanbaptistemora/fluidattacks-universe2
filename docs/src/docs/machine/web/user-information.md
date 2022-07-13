@@ -94,7 +94,7 @@ Follow
 [this link](/machine/web/groups/scope/machine/web/groups/scope/global-credentials)
 to learn the entire procedure.
 
-![Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
+![Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1657726201/docs/web/web_asm-user_credentials.png)
 
 Next is **Mobile**,
 which allows you to
