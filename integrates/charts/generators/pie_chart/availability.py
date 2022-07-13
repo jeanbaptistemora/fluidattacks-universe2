@@ -48,7 +48,6 @@ class EventsAvailability(NamedTuple):
 async def get_data_one_group(
     *, group_name: str, loaders: Dataloaders
 ) -> EventsAvailability:
-    # group: Group = await loaders.group.load(group_name)
     creation_date: date = get_date_from_iso_str(
         await get_creation_date(loaders=loaders, group_name=group_name)
     )
@@ -75,7 +74,7 @@ async def get_data_one_group(
         start, stop = events_dates[0][0], events_dates[0][1]
         for event in events_dates:
             if event[0] <= stop:
-                stop = event[1]
+                stop = event[1] if stop < event[1] else stop
             else:
                 open_range.append((start, stop))
                 start, stop = event[0], event[1]
@@ -87,7 +86,9 @@ async def get_data_one_group(
     )
 
     return EventsAvailability(
-        available=group_days - open_event_days,
+        available=group_days - open_event_days
+        if group_days > open_event_days
+        else 0,
         non_available=open_event_days,
     )
 
