@@ -29,6 +29,7 @@ import tempfile
 from typing import (
     Any,
     Dict,
+    List,
     NamedTuple,
     Optional,
     Tuple,
@@ -96,7 +97,29 @@ def delete_action(
     client.delete_item(**operation_payload)
 
 
-async def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
+async def _request_asm(
+    payload: Dict[str, Any],
+    token: str,
+) -> Optional[Dict[str, Any]]:
+    result: Optional[Dict[str, Any]] = None
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+    }
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post(
+            "https://app.fluidattacks.com/api", data=json.dumps(payload)
+        ) as response:
+            if response.status == 200:
+                result = await response.json()
+
+    return result
+
+
+async def get_roots(
+    token: str, group_name: str
+) -> Optional[List[Dict[str, Any]]]:
+    result: Optional[List[Dict[str, Any]]] = None
     query = """
         query GetRoots($groupName: String!) {
             group(groupName: $groupName) {
@@ -121,27 +144,19 @@ async def get_roots(token: str, group_name: str) -> Optional[Dict[str, Any]]:
     """
     payload = {"query": query, "variables": {"groupName": group_name}}
 
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-    }
-    async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post(
-            "https://app.fluidattacks.com/api", data=json.dumps(payload)
-        ) as response:
-            if response.status == 200:
-                result = await response.json()
-            else:
-                logging.error(
-                    "Failed to fetch root info for group %s", group_name
-                )
-                result = None
-        return result
+    response = await _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["group"]["roots"]
+    else:
+        logging.error("Failed to fetch root info for group %s", group_name)
+
+    return result
 
 
 async def get_root_upload_url(
     token: str, group_name: str, root_id: str
 ) -> Optional[str]:
+    result: Optional[str] = None
     query = """
         query GetRootUploadUrl($groupName: String!, $rootId: ID!) {
             root(groupName: $groupName, rootId: $rootId) {
@@ -156,25 +171,16 @@ async def get_root_upload_url(
         "variables": {"groupName": group_name, "rootId": root_id},
     }
 
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-    }
-    async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post(
-            "https://app.fluidattacks.com/api", data=json.dumps(payload)
-        ) as request:
-            if request.status == 200:
-                response = await request.json()
-                result = response["data"]["root"]["uploadUrl"]
-            else:
-                logging.error(
-                    "Failed to get upload URL for root %s in group %s",
-                    root_id,
-                    group_name,
-                )
-                result = None
-        return result
+    response = await _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["root"]["uploadUrl"]
+    else:
+        logging.error(
+            "Failed to get upload URL for root %s in group %s",
+            root_id,
+            group_name,
+        )
+    return result
 
 
 async def update_root_cloning_status(  # pylint: disable=too-many-arguments
@@ -184,9 +190,10 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     status: str,
     message: str,
     commit: Optional[str] = None,
-) -> Optional[Dict[str, Any]]:
+) -> bool:
+    result: bool = False
     query = """
-        mutation MeltsUpdateRootCloningStatus(
+        mutation UpdateRootCloningStatus(
           $groupName: String!
           $rootId: ID!
           $status: CloningStatus!
@@ -215,19 +222,55 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         },
     }
 
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
+    response = await _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["updateRootCloningStatus"]["success"]
+    else:
+        logging.error(
+            "Failed to update status for root %s in group %s",
+            root_id,
+            group_name,
+        )
+
+    return result
+
+
+async def submit_group_machine_execution(
+    group_name: str,
+    root_nicknames: List[str],
+    token: str,
+) -> bool:
+    result: bool = False
+    query = """
+        mutation ExecuteMachinePostClone(
+          $groupName: String!
+          $rootNicknames: [String!]!
+        ) {
+          submitGroupMachineExecution(
+            groupName: $groupName
+            rootNicknames: $rootNicknames
+          ) {
+            success
+          }
+        }
+    """
+    payload = {
+        "query": query,
+        "variables": {
+            "groupName": group_name,
+            "rootNicknames": root_nicknames,
+        },
     }
-    async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post(
-            "https://app.fluidattacks.com/api", data=json.dumps(payload)
-        ) as response:
-            result = await response.json()
-            if "errors" in result:
-                logging.error(result["errors"])
-                return None
-        return result
+
+    response = await _request_asm(payload=payload, token=token)
+    if response is not None:
+        result = response["data"]["submitGroupMachineExecution"]["success"]
+    else:
+        logging.error(
+            "Failed to submit Machine execution for group %s", group_name
+        )
+
+    return result
 
 
 def _format_https_url(
@@ -445,7 +488,7 @@ async def update_root_mirror(
     )
     mirror_updated: bool = False
 
-    if upload_url:
+    if upload_url is not None:
         logging.info("Cloning %s", root["nickname"])
 
         with suppress(RuntimeError):
@@ -512,15 +555,15 @@ async def main() -> None:
     group_name = data["group_name"]
     root_nicknames = data["roots"]
     roots_data = await get_roots(api_token, group_name)
-    if not roots_data:
+    if roots_data is None:
         return
 
     roots = [
         root
-        for root in roots_data["data"]["group"]["roots"]
+        for root in roots_data
         if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
     ]
-    await collect(
+    roots_update_ok = await collect(
         (
             update_root_mirror(
                 root=root,
@@ -532,6 +575,19 @@ async def main() -> None:
         ),
         workers=15,
     )
+    roots_to_analyze = [
+        nickname for nickname, status in roots_update_ok if status
+    ]
+    machine_queued = await submit_group_machine_execution(
+        group_name=group_name,
+        root_nicknames=roots_to_analyze,
+        token=api_token,
+    )
+    if machine_queued:
+        logging.info(
+            "Machine execution queued for roots:\n\t%s",
+            "\t".join(roots_to_analyze),
+        )
 
 
 if __name__ == "__main__":
