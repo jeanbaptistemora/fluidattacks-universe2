@@ -8,32 +8,31 @@ slug: /machine/web/user-information
 On the ASM, it is quite easy to
 find the options to enable early
 access to changes to the platform,
+create and manage credentials,
+register your mobile phone number,
 access the platform’s API,
-configure what notifications
-you want to receive
-in your email,
-delete your
-account,
+configure what notifications you
+want to receive in your email,
+delete your account,
 and log out.
 These are shown on a drop-down
 menu that appears when you click
 the user icon on the upper-right
 part of your screen.
 Your username,
-email address and
-role are shown as well.
+email address and role
+are shown as well.
 
 ![User Drop Down Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_dropdown_menu.png)
 
 The first information on
 this menu is your username,
-email address with which
-you signed in and your
-mobile phone number which
+followed by the email address
+with which you signed in and
+your mobile phone number which
 one you subscribe to the ASM.
-Remember your privileges
-are attached to this
-email address.
+Remember your privileges are
+attached to this email address.
 
 Differences in access
 privileges are managed depending
@@ -45,7 +44,7 @@ more about roles
 (be sure to check out the
 [role table](/machine/web/groups/roles/#roles-table)).
 Below the user role information is
-the Feature preview option,
+the **Feature preview** option,
 which you can toggle on to enable
 early access to changes to the
 platform features,
@@ -53,7 +52,7 @@ i.e.,
 before they are officially released.
 
 Further down,
-there’s an option that says **API**.
+there’s an option that says **API token**.
 Clicking on it will allow you to
 generate an access token to
 consume the ASM’s API.
@@ -70,7 +69,7 @@ which notifications you
 want to receive.
 When you click on it,
 you will see the
-**Notifications** matrix
+**Notifications matrix**
 that shows you all the
 reports and alerts that
 our ASM generates.
@@ -79,11 +78,25 @@ on/off button to enable
 or disable the delivery
 of each notification to
 your registered email.
+Learn more about how you can manage notifications
+[here](/machine/web/notifications).
 
 ![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
 
-The next option
-is **Mobile**,
+The next option is **Credentials**,
+which allows you to
+create and manage credentials.
+From here you can also manage
+the credentials you entered
+when adding a root in the
+Scope section.
+Follow
+[this link](/machine/web/groups/scope/machine/web/groups/scope/global-credentials)
+to learn the entire procedure.
+
+![Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
+
+Next is **Mobile**,
 which allows you to
 register your mobile
 phone number to the ASM.
@@ -95,12 +108,23 @@ the ASM reports.
 
 When you click on
 the Mobile option,
-you will see a window
-where you must add your
-number and then enter
-the verification code
+a pop-up window will appear.
+If you had not registered
+your mobile phone before,
+you will be asked to you will
+see a window where you must
+add your number and then
+enter the verification code
 sent to you via SMS to
 complete the registration.
+However,
+if you had already registered it,
+you will be presented with
+the option to change it.
+To do this,
+you will need to click on
+Edit and follow a verification
+procedure.
 
 ![Enter Mobile](https://res.cloudinary.com/fluid-attacks/image/upload/v1651073722/docs/web/web_asm-user_mobile_window.png)
 
