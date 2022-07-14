@@ -30,7 +30,7 @@ async def test_get_stakeholder(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["stakeholder"]["email"] == email
     assert result["data"]["stakeholder"]["firstLogin"] is None
-    assert result["data"]["stakeholder"]["invitationState"] is None
+    assert result["data"]["stakeholder"]["invitationState"] == "CONFIRMED"
     assert result["data"]["stakeholder"]["lastLogin"] is None
     assert result["data"]["stakeholder"]["responsibility"] is None
     assert result["data"]["stakeholder"]["role"] == email.split("@")[0]

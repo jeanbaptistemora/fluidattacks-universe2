@@ -197,7 +197,7 @@ def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
         "legal_remember": stakeholder.legal_remember,
         "phone": stakeholder.phone,
         "push_tokens": stakeholder.push_tokens,
-        "is_registered": stakeholder.is_registered,
+        "registered": stakeholder.is_registered,
         "tours": {
             "new_group": stakeholder.tours.new_group,
             "new_root": stakeholder.tours.new_root,
