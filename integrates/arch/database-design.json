@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 11, 2022, 09:11 AM",
+    "DateLastModified": "Jul 14, 2022, 04:05 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -3771,7 +3771,7 @@
               "payment_methods": {
                 "L": [
                   {
-                    "M" : {
+                    "M": {
                       "id": {
                         "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
                       },
@@ -22347,10 +22347,30 @@
               "findings_executed": {
                 "L": [
                   {
-                    "S": "F001"
+                    "M": {
+                      "finding": {
+                        "S": "F001"
+                      },
+                      "modified": {
+                        "N": "0"
+                      },
+                      "open": {
+                        "N": "0"
+                      }
+                    }
                   },
                   {
-                    "S": "F002"
+                    "M": {
+                      "finding": {
+                        "S": "F002"
+                      },
+                      "modified": {
+                        "N": "0"
+                      },
+                      "open": {
+                        "N": "0"
+                      }
+                    }
                   }
                 ]
               },
