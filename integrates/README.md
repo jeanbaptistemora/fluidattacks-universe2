@@ -42,7 +42,7 @@ curl -sL https://nixos.org/nix/install | sh
 1. Clone the repository into any folder
 
     ```bash
-    $ git clone git@gitlab.com:fluidattacks/product.git
+    $ git clone git@gitlab.com:fluidattacks/universe.git
     Cloning into 'product'...
     # ...
     ```
@@ -77,7 +77,7 @@ available commands is displayed.
 ## Credentials / Authentication
 
 Some commands can be run without authentication while others require you to login.
-Please check out the [Get development keys](https://gitlab.com/fluidattacks/product/-/wikis/%5BIntegrates%5D-Get-development-keys) wiki for instructions.
+Please check out the [Get development keys](https://gitlab.com/fluidattacks/universe/-/wikis/%5BIntegrates%5D-Get-development-keys) wiki for instructions.
 
 ## Local back-end server
 

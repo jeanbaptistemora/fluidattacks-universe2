@@ -195,7 +195,7 @@
           <p><strong>{{ remediation_rate['max_group'] }}</strong> has the <strong>highest</strong> remediation rate</p>
         </div>
       </div>
-      {%- if remediation_time['max'] != 0 %} <!-- https://gitlab.com/fluidattacks/product/-/issues/5627 -->
+      {%- if remediation_time['max'] != 0 %} <!-- https://gitlab.com/fluidattacks/universe/-/issues/5627 -->
       <div class="numbers">
         <div>
           {%- if remediation_time['max'] >= 60 %}
@@ -223,7 +223,7 @@
           <h3>{{ remediation_rate['max'] }}%</h3>
           <p>Remediation rate at <strong>{{ remediation_rate['max_group'] }}</strong></p>
         </div>
-        {%- if remediation_time['max'] != 0 %} <!-- https://gitlab.com/fluidattacks/product/-/issues/5627 -->
+        {%- if remediation_time['max'] != 0 %} <!-- https://gitlab.com/fluidattacks/universe/-/issues/5627 -->
         <div>
           {%- if remediation_time['max'] >= 60 %}
             <h3>{{ (remediation_time['max'] * 0.032855)|round(1, 'common') }}</h3><strong> months</strong>

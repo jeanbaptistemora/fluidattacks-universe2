@@ -32,7 +32,7 @@ export const TechnicalInfo: React.FC = (): JSX.Element => {
           {t("info.commit")}
           &nbsp;
           <ExternalLink
-            href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+            href={`https://gitlab.com/fluidattacks/universe/-/tree/${CI_COMMIT_SHA}`}
           >
             {CI_COMMIT_SHORT_SHA}
           </ExternalLink>

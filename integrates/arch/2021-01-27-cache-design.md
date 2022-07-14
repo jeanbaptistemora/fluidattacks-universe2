@@ -1,8 +1,8 @@
 # Cache Design
 
 - Why? because of performance. More in the issues:
-  - https://gitlab.com/fluidattacks/product/-/issues/3985
-  - https://gitlab.com/fluidattacks/product/-/issues/2988
+  - https://gitlab.com/fluidattacks/universe/-/issues/3985
+  - https://gitlab.com/fluidattacks/universe/-/issues/2988
 - Redis Constraints:
   - Redis is a key-value store, O(1) complexity (fast) for single-key commands
     and O(num-of-keys-stored-in-all-shards) complexity (slow) for

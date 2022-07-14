@@ -87,7 +87,7 @@ export const Login: React.FC = (): JSX.Element => {
           </p>
           <ExternalLink
             className={style["link-default"]}
-            href={`https://gitlab.com/fluidattacks/product/-/tree/${CI_COMMIT_SHA}`}
+            href={`https://gitlab.com/fluidattacks/universe/-/tree/${CI_COMMIT_SHA}`}
           >
             {t("info.commit")}&nbsp;
             {CI_COMMIT_SHORT_SHA}

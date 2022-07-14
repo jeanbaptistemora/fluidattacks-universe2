@@ -63,7 +63,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: true,
                 nickname: "product",
                 state: "ACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -112,7 +112,7 @@ describe("GroupScopeView", (): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
         [
           // Url
-          "https://gitlab.com/fluidattacks/product",
+          "https://gitlab.com/fluidattacks/universe",
           // Branch
           "master",
           // State
@@ -149,7 +149,7 @@ describe("GroupScopeView", (): void => {
           groupName: "unittesting",
           includesHealthCheck: false,
           nickname: "",
-          url: "https://gitlab.com/fluidattacks/product",
+          url: "https://gitlab.com/fluidattacks/universe",
           useVpn: false,
         },
       },
@@ -190,7 +190,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: false,
                 nickname: "product",
                 state: "ACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -260,7 +260,7 @@ describe("GroupScopeView", (): void => {
 
     userEvent.type(
       screen.getByRole("textbox", { name: "url" }),
-      "https://gitlab.com/fluidattacks/product"
+      "https://gitlab.com/fluidattacks/universe"
     );
     userEvent.type(screen.getByRole("textbox", { name: "branch" }), "master");
     userEvent.type(
@@ -289,7 +289,7 @@ describe("GroupScopeView", (): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
         [
           // Url
-          "https://gitlab.com/fluidattacks/product",
+          "https://gitlab.com/fluidattacks/universe",
           // Branch
           "master",
           // State
@@ -337,7 +337,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: false,
                 nickname: "product",
                 state: "ACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -395,7 +395,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: true,
                 nickname: "product",
                 state: "ACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -495,7 +495,7 @@ describe("GroupScopeView", (): void => {
       expect(screen.queryAllByRole("row")[1].textContent).toStrictEqual(
         [
           // Url
-          "https://gitlab.com/fluidattacks/product",
+          "https://gitlab.com/fluidattacks/universe",
           // Branch
           "master",
           // State
@@ -543,7 +543,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: false,
                 nickname: "product",
                 state: "INACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -598,7 +598,7 @@ describe("GroupScopeView", (): void => {
                 includesHealthCheck: false,
                 nickname: "product",
                 state: "ACTIVE",
-                url: "https://gitlab.com/fluidattacks/product",
+                url: "https://gitlab.com/fluidattacks/universe",
                 useVpn: false,
               },
             ],
@@ -707,7 +707,7 @@ describe("GroupScopeView", (): void => {
                   includesHealthCheck: false,
                   nickname: "product",
                   state: "ACTIVE",
-                  url: "https://gitlab.com/fluidattacks/product",
+                  url: "https://gitlab.com/fluidattacks/universe",
                   useVpn: false,
                 },
               ],
@@ -764,7 +764,7 @@ describe("GroupScopeView", (): void => {
                   includesHealthCheck: false,
                   nickname: "product",
                   state: "INACTIVE",
-                  url: "https://gitlab.com/fluidattacks/product",
+                  url: "https://gitlab.com/fluidattacks/universe",
                   useVpn: false,
                 },
               ],

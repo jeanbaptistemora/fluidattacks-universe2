@@ -2523,7 +2523,7 @@ export const enTranslations: ResourceKey = {
     },
     tabResources: {
       addRepository: "Add",
-      baseUrlPlaceholder: "gitlab.com/fluidattacks/product.git",
+      baseUrlPlaceholder: "gitlab.com/fluidattacks/universe.git",
       branch: {
         label: "Branch",
         tooltip: "Target branch",
@@ -3339,7 +3339,7 @@ export const enTranslations: ResourceKey = {
         "or only the new work from this point onward. ",
       rootUrl:
         "Start by entering a valid URL of the code repository you need to analyze. " +
-        "For example: https://gitlab.com/fluidattacks/product. ",
+        "For example: https://gitlab.com/fluidattacks/universe. ",
       vpn: "Check if access to the repository is done through a VPN. ",
     },
     addGroup: {

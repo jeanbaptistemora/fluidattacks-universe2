@@ -536,7 +536,7 @@ async def test_get_roots() -> None:
             "gitignore": ["bower_components/*", "node_modules/*"],
             "id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
             "includesHealthCheck": True,
-            "url": "https://gitlab.com/fluidattacks/product",
+            "url": "https://gitlab.com/fluidattacks/universe",
         },
         {
             "__typename": "GitRoot",

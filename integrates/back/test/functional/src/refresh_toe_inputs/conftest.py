@@ -64,7 +64,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         other=None,
                         reason=None,
                         status=RootStatus.INACTIVE,
-                        url="https://gitlab.com/fluidattacks/product",
+                        url="https://gitlab.com/fluidattacks/universe",
                     ),
                     type=RootType.GIT,
                 ),

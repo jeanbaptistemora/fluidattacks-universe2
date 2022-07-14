@@ -55,7 +55,7 @@ def get_hash_from_typed(vuln: Vulnerability, from_yaml: bool = False) -> int:
     type_ = vuln.type.value
     where = vuln.where
     if from_yaml:
-        # https://gitlab.com/fluidattacks/product/-/issues/5556#note_725588290
+        # https://gitlab.com/fluidattacks/universe/-/issues/5556#note_725588290
         specific = html.escape(specific, quote=False)
         where = html.escape(where, quote=False)
     return get_hash(specific=specific, type_=type_, where=where)

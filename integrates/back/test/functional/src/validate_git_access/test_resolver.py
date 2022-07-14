@@ -17,7 +17,7 @@ async def test_validate_git_access(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     key: str = os.environ["TEST_SSH_KEY"]
-    url = "git@gitlab.com:fluidattacks/product.git"
+    url = "git@gitlab.com:fluidattacks/universe.git"
     result = await get_result(user=email, group=group_name, key=key, url=url)
     assert "errors" not in result
     assert result["data"]["validateGitAccess"]["success"]

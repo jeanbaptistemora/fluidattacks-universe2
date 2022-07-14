@@ -11,7 +11,7 @@ from charts.generators.text_box.utils import (
 
 async def generate_one() -> ForcesReport:
     # By default, Forces is enabled for all groups
-    # https://gitlab.com/fluidattacks/product/-/issues/4880
+    # https://gitlab.com/fluidattacks/universe/-/issues/4880
     return ForcesReport(fontSizeRatio=0.5, text="Active")
 
 

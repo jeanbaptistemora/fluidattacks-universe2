@@ -56,7 +56,7 @@ describe("GitRoots", (): void => {
         nickname: "",
         secrets: [],
         state: "ACTIVE",
-        url: "https://gitlab.com/fluidattacks/product",
+        url: "https://gitlab.com/fluidattacks/universe",
         useVpn: false,
       },
     ];
@@ -177,7 +177,7 @@ describe("GitRoots", (): void => {
     userEvent.clear(screen.getByRole("textbox", { name: "url" }));
     userEvent.type(
       screen.getByRole("textbox", { name: "url" }),
-      "https://gitlab.com/fluidattacks/product"
+      "https://gitlab.com/fluidattacks/universe"
     );
 
     await waitFor((): void => {
@@ -246,7 +246,7 @@ describe("GitRoots", (): void => {
       nickname: "",
       secrets: [],
       state: "ACTIVE",
-      url: "https://gitlab.com/fluidattacks/product",
+      url: "https://gitlab.com/fluidattacks/universe",
       useVpn: false,
     };
     render(
@@ -282,7 +282,7 @@ describe("GitRoots", (): void => {
     });
 
     expect(screen.getByRole("textbox", { name: "url" })).toHaveValue(
-      "https://gitlab.com/fluidattacks/product"
+      "https://gitlab.com/fluidattacks/universe"
     );
     // Present always when editing
     expect(

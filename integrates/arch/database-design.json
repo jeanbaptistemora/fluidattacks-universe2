@@ -8928,7 +8928,7 @@
                     "S": "master"
                   },
                   "url": {
-                    "S": "https://gitlab.com/fluidattacks/product"
+                    "S": "https://gitlab.com/fluidattacks/universe"
                   },
                   "environment": {
                     "S": "production"
@@ -9102,7 +9102,7 @@
                 "S": "master"
               },
               "url": {
-                "S": "https://gitlab.com/fluidattacks/product"
+                "S": "https://gitlab.com/fluidattacks/universe"
               },
               "environment": {
                 "S": "production"
