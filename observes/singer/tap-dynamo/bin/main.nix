@@ -1,18 +1,25 @@
 {
+  fetchNixpkgs,
   inputs,
   makeScript,
-  outputs,
+  projectPath,
   ...
-}:
-makeScript {
-  entrypoint = ''
-    import_and_run tap_dynamo.cli main "$@"
-  '';
-  searchPaths = {
-    source = [
-      outputs."/observes/common/import-and-run"
-      outputs."${inputs.observesIndex.tap.dynamo.env.runtime}"
-    ];
+}: let
+  root = projectPath inputs.observesIndex.tap.dynamo.root;
+  pkg = import "${root}/entrypoint.nix" {
+    inherit fetchNixpkgs projectPath;
+    observesIndex = inputs.observesIndex;
   };
-  name = "observes-singer-tap-dynamo-bin";
-}
+  env = pkg.env.bin;
+in
+  makeScript {
+    entrypoint = ''
+      tap-dynamo "$@"
+    '';
+    searchPaths = {
+      bin = [
+        env
+      ];
+    };
+    name = "observes-singer-tap-dynamo-bin";
+  }

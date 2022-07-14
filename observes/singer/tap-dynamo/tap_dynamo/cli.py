@@ -1,4 +1,5 @@
 import click
+import sys
 from tap_dynamo.auth import (
     Creds,
 )
@@ -30,9 +31,7 @@ pass_creds = click.make_pass_decorator(Creds)
     help="tables segmentation for fast extraction",
 )
 @pass_creds
-def stream(  # type: ignore[misc]
-    creds: Creds, tables: str, segments: int
-) -> NoReturn:
+def stream(creds: Creds, tables: str, segments: int) -> NoReturn:
     client = new_client(creds)
     stream_tables(client, tuple(tables.split()), segments).compute()
 
@@ -43,7 +42,7 @@ def stream(  # type: ignore[misc]
 @click.option("--region", type=str, envvar="AWS_DEFAULT_REGION")
 @click.pass_context
 def main(ctx: Any, key_id: str, secret_id: str, region: str) -> None:
-    if "--help" not in click.get_os_args():
+    if "--help" not in sys.argv[1:]:
         ctx.obj = Creds(key_id, secret_id, region)
 
 

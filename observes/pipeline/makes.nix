@@ -51,6 +51,7 @@
     service.scheduler
     service.job_last_success
     tap.checkly
+    tap.dynamo
     tap.gitlab
   ];
   _if_exists = attrs: key: gitlabExtra:
@@ -219,10 +220,6 @@ in {
           }
           {
             output = "/lintPython/module/observesTapDelighted";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesTapDynamo";
             gitlabExtra = gitlabLint;
           }
           {

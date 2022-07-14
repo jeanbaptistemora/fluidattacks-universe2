@@ -1,14 +1,22 @@
 {
+  fetchNixpkgs,
   inputs,
   makeTemplate,
-  outputs,
+  projectPath,
   ...
-}:
-makeTemplate {
-  name = "observes-singer-tap-dynamo-env-development";
-  searchPaths = {
-    source = [
-      outputs."${inputs.observesIndex.tap.dynamo.env.runtime}"
-    ];
+}: let
+  root = projectPath inputs.observesIndex.tap.dynamo.root;
+  pkg = import "${root}/entrypoint.nix" {
+    inherit fetchNixpkgs projectPath;
+    observesIndex = inputs.observesIndex;
   };
-}
+  env = pkg.env.dev;
+in
+  makeTemplate {
+    name = "observes-singer-tap-dynamo-env-dev";
+    searchPaths = {
+      bin = [
+        env
+      ];
+    };
+  }

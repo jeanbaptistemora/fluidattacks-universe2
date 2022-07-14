@@ -3,7 +3,6 @@
   projectPath,
   observesIndex,
 }: let
-  system = "x86_64-linux";
   python_version = "python38";
   nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
@@ -17,7 +16,7 @@
       legacy_pkgs = nixpkgs;
     };
   out = import ./. {
-    inherit python_version system;
+    inherit python_version;
     nixpkgs =
       nixpkgs
       // {

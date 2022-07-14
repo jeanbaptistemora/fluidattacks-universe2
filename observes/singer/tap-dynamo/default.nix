@@ -2,7 +2,6 @@
   nixpkgs,
   python_version,
   src,
-  system,
 }: let
   metadata = let
     _metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).project;
@@ -12,7 +11,7 @@
   in
     _metadata // {inherit version;};
   deps = import ./build/deps {
-    inherit nixpkgs python_version system;
+    inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
     inherit src metadata;

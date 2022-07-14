@@ -1,7 +1,2 @@
-from tap_dynamo import (
-    __version__,
-)
-
-
-def test_version() -> None:
-    assert __version__ == "0.1.0"
+def test_placeholder() -> None:
+    assert 1

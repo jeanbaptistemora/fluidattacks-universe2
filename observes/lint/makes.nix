@@ -211,13 +211,6 @@ in {
         python = "3.8";
         src = inputs.observesIndex.tap.delighted.src;
       };
-      observesTapDynamo = {
-        searchPaths.source = [
-          outputs."${inputs.observesIndex.tap.dynamo.env.runtime}"
-        ];
-        python = "3.8";
-        src = inputs.observesIndex.tap.dynamo.src;
-      };
       observesTapFormstack = {
         searchPaths.source = [
           outputs."${inputs.observesIndex.tap.formstack.env.runtime}"

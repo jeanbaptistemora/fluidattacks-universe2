@@ -30,21 +30,15 @@ from fa_purity.stream.transform import (
     chain,
     consume,
 )
-from pathos.pools import (
-    ThreadPool,
-)
-from purity.adapters.fa_purity.from_returns import (
-    to_cmd,
-)
-from purity.adapters.fa_purity.to_legacy import (
-    to_jval_v1,
-)
-import simplejson  # type: ignore
-from singer_io.singer2 import (
-    SingerEmitter,
-    SingerMessage,
+from fa_singer_io.singer import (
+    emitter,
     SingerRecord,
 )
+from pathos.pools import (  # type: ignore [import]
+    ThreadPool,
+)
+import simplejson
+import sys
 from tap_dynamo.client import (
     Client,
     ScanArgs,
@@ -205,10 +199,8 @@ def to_singer(page: PageData) -> FrozenList[SingerRecord]:
         return tuple(
             SingerRecord(
                 page.t_segment.table_name,
-                {
-                    k: to_jval_v1(v)
-                    for k, v in Unfolder(item).to_json().unwrap().items()
-                },
+                Unfolder(item).to_json().unwrap(),
+                None,
             )
             for item in Unfolder(data["Items"]).to_list().unwrap()
         )
@@ -217,8 +209,6 @@ def to_singer(page: PageData) -> FrozenList[SingerRecord]:
 def stream_tables(
     client: Client, tables: FrozenList[str], segmentation: int
 ) -> Cmd[None]:
-    # pylint: disable=unnecessary-lambda
-    emitter = SingerEmitter()
     pages = from_piter(
         from_flist(tables).map(
             lambda t: extract_table(client, t, segmentation).map(
@@ -232,8 +222,4 @@ def stream_tables(
         .map(lambda x: from_flist(x))
         .transform(lambda x: chain(x))
     )
-
-    def emit(msg: SingerMessage) -> Cmd[None]:
-        return to_cmd(lambda: emitter.emit(msg))
-
-    return consume(records.map(emit))
+    return consume(records.map(lambda i: emitter.emit(sys.stdout, i)))
