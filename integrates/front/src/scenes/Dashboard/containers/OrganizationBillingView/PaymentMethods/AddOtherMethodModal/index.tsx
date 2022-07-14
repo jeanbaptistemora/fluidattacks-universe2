@@ -23,8 +23,9 @@ interface IAddOtherMethodModalProps {
     country: string;
     email: string;
     rut: string;
+    state: string;
     taxId: string;
-  }) => void;
+  }) => Promise<void>;
   onChangeMethod: React.Dispatch<
     React.SetStateAction<"CREDIT_CARD" | "OTHER_METHOD" | false>
   >;

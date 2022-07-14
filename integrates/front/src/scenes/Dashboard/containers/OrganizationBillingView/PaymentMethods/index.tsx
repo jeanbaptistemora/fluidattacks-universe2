@@ -177,9 +177,43 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       [addPaymentMethod, organizationId]
     );
 
-    const handleAddOtherMethodSubmit = useCallback((): void => {
-      closeAddModal();
-    }, [closeAddModal]);
+    const handleAddOtherMethodSubmit = useCallback(
+      async ({
+        businessName,
+        city,
+        country,
+        email,
+        state,
+      }: {
+        businessName: string;
+        city: string;
+        country: string;
+        email: string;
+        state: string;
+      }): Promise<void> => {
+        const cardCvc = "";
+        const cardExpirationMonth = "";
+        const cardExpirationYear = "";
+        const cardNumber = "";
+        const makeDefault = false;
+        await addPaymentMethod({
+          variables: {
+            businessName,
+            cardCvc,
+            cardExpirationMonth,
+            cardExpirationYear,
+            cardNumber,
+            city,
+            country,
+            email,
+            makeDefault,
+            organizationId,
+            state,
+          },
+        });
+      },
+      [addPaymentMethod, organizationId]
+    );
 
     // Remove payment method
     const canRemove: boolean = permissions.can(
