@@ -84,7 +84,9 @@ async def test_add_group_consult_with_suppress(
         "user_id": comment_id,
         "content": "Test consult",
         "created": current_time,
-        "fullname": str.join(" ", [user.first_name, user.last_name]),
+        "fullname": str.join(
+            " ", [user.first_name or "", user.last_name or ""]
+        ),
         "modified": current_time,
         "parent": "0",
     }

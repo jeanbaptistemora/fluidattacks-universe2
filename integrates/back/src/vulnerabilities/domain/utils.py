@@ -105,9 +105,7 @@ async def get_valid_assigned(
     try:
         stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
     except StakeholderNotFound:
-        stakeholder = Stakeholder(
-            email=assigned, first_name="", last_name="", is_registered=False
-        )
+        stakeholder = Stakeholder(email=assigned)
     if (
         not enforcer(group_name, "valid_assigned")
         or not stakeholder.is_registered

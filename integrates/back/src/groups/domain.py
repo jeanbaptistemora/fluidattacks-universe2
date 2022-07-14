@@ -492,12 +492,7 @@ async def complete_register_for_group_invitation(
     try:
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
     except StakeholderNotFound:
-        stakeholder = Stakeholder(
-            email=user_email,
-            first_name="",
-            last_name="",
-            is_registered=False,
-        )
+        stakeholder = Stakeholder(email=user_email)
     if not stakeholder.is_registered:
         await collect(
             [
@@ -688,16 +683,13 @@ async def add_without_group(
 ) -> bool:
     success = False
     if validate_email_address(email):
-        new_user_data = Stakeholder(
-            email=email,
-            first_name="",
-            last_name="",
-        )
-        if is_register_after_complete:
-            new_user_data = new_user_data._replace(is_registered=True)
-
         success = await authz.grant_user_level_role(email, role)
-        await stakeholders_domain.add(new_user_data)
+        await stakeholders_domain.add(
+            Stakeholder(
+                email=email,
+                is_registered=is_register_after_complete,
+            )
+        )
     return success
 
 

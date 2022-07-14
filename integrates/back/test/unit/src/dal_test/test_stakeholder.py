@@ -39,8 +39,6 @@ async def test_update() -> None:
 
     stakeholder = Stakeholder(
         email="unittest4@gmail.com",
-        first_name="",
-        last_name="",
         is_registered=True,
     )
     await add_typed(stakeholder)

@@ -133,7 +133,7 @@ def format_stakeholder(
         if item_legacy.get("access_token")
         else None,
         email=item_legacy["email"],
-        first_name=item_legacy.get("first_name", ""),
+        first_name=item_legacy.get("first_name"),
         is_concurrent_session=item_legacy.get("is_concurrent_session", False),
         is_registered=item_legacy.get("registered", False),
         last_login_date=datetime_utils.convert_to_iso_str(
@@ -141,7 +141,7 @@ def format_stakeholder(
         )
         if item_legacy.get("last_login")
         else None,
-        last_name=item_legacy.get("last_name", ""),
+        last_name=item_legacy.get("last_name"),
         legal_remember=item_legacy.get("legal_remember", False),
         notifications_preferences=format_notifications_preferences(item_vms),
         phone=format_phone(item_legacy["phone"])

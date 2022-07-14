@@ -77,9 +77,7 @@ async def get_recipient_first_name(
     try:
         stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     except StakeholderNotFound:
-        stakeholder = Stakeholder(
-            email=email, first_name="", last_name="", is_registered=False
-        )
+        stakeholder = Stakeholder(email=email)
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
         *[

@@ -86,11 +86,11 @@ def format_stakeholder(item: Item) -> Stakeholder:
         if item.get("access_token")
         else None,
         email=item["email"],
-        first_name=item.get("first_name", ""),
+        first_name=item.get("first_name"),
         is_concurrent_session=item.get("is_concurrent_session", False),
         is_registered=item.get("is_registered", False),
         last_login_date=item.get("last_login_date"),
-        last_name=item.get("last_name", ""),
+        last_name=item.get("last_name"),
         legal_remember=item.get("legal_remember", False),
         notifications_preferences=format_notifications_preferences(
             item.get("notifications_preferences")

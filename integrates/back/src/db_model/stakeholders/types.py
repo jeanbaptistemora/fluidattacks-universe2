@@ -28,12 +28,12 @@ class StakeholderTours(NamedTuple):
 
 class Stakeholder(NamedTuple):
     email: str
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
     access_token: Optional[StakeholderAccessToken] = None
+    first_name: Optional[str] = None
     is_concurrent_session: bool = False
     is_registered: bool = False
     last_login_date: Optional[str] = None
+    last_name: Optional[str] = None
     legal_remember: bool = False
     notifications_preferences: NotificationsPreferences = (
         NotificationsPreferences()
@@ -45,15 +45,15 @@ class Stakeholder(NamedTuple):
 
 
 class StakeholderMetadataToUpdate(NamedTuple):
-    tours: Optional[StakeholderTours] = None
+    access_token: Optional[StakeholderAccessToken] = None
     first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    phone: Optional[StakeholderPhone] = None
-    registration_date: Optional[str] = None
-    last_login_date: Optional[str] = None
-    legal_remember: Optional[bool] = None
     is_concurrent_session: Optional[bool] = None
     is_registered: Optional[bool] = None
+    last_login_date: Optional[str] = None
+    last_name: Optional[str] = None
+    legal_remember: Optional[bool] = None
     notifications_preferences: Optional[NotificationsPreferences] = None
+    phone: Optional[StakeholderPhone] = None
     push_tokens: Optional[list[str]] = None
-    access_token: Optional[StakeholderAccessToken] = None
+    registration_date: Optional[str] = None
+    tours: Optional[StakeholderTours] = None

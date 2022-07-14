@@ -138,8 +138,6 @@ async def mutate(
     return GrantStakeholderAccessPayload(
         success=success,
         granted_stakeholder=Stakeholder(
-            first_name="",
-            last_name="",
             email=new_user_email,
         ),
     )

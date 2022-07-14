@@ -27,8 +27,6 @@ async def _get_stakeholder(email: str) -> Stakeholder:
     except StakeholderNotFound:
         stakeholder = Stakeholder(
             email=email,
-            first_name="",
-            last_name="",
             is_registered=False,
         )
     return stakeholder
