@@ -547,13 +547,14 @@ async def update_root_mirror(
                             message=str(exc),
                         )
 
-                await update_root_cloning_status(
-                    token=api_token,
-                    group_name=group_name,
-                    root_id=root["id"],
-                    status="FAILED",
-                    message="The repository can not be uploaded",
-                )
+                else:
+                    await update_root_cloning_status(
+                        token=api_token,
+                        group_name=group_name,
+                        root_id=root["id"],
+                        status="FAILED",
+                        message="The repository can not be uploaded",
+                    )
     return (root["nickname"], mirror_updated)
 
 
