@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 14, 2022, 02:46 PM",
+    "DateLastModified": "Jul 14, 2022, 04:56 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -52,7 +52,7 @@
           "FacetName": "advisories",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "PLATFORM#name#PACKAGE#name",
-            "SortKeyAlias": "ADVISORY#id#SOURCE#name"
+            "SortKeyAlias": "SOURCE#name#ADVISORY#id"
           },
           "TableData": [],
           "DataAccess": {
@@ -66,7 +66,7 @@
             "S": "PLATFORM#maven#PACKAGE#axis:axis"
           },
           "sk": {
-            "S": "ADVISORY#CVE-2012-5784#SOURCE#test"
+            "S": "SOURCE#test#ADVISORY#CVE-2012-5784"
           },
           "associated_advisory": {
             "S": "CVE-2012-5784"
@@ -92,7 +92,7 @@
             "S": "PLATFORM#maven#PACKAGE#axis:axis"
           },
           "sk": {
-            "S": "ADVISORY#CVE-2014-3596#SOURCE#patch"
+            "S": "SOURCE#patch#ADVISORY#CVE-2014-3596"
           },
           "associated_advisory": {
             "S": "CVE-2014-3596"
