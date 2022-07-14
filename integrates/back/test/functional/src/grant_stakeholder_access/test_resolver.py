@@ -61,7 +61,7 @@ async def test_grant_stakeholder_access_confirmed(
         "stakeholders"
     ]:
         if stakeholder["email"] == stakeholder_email:
-            assert stakeholder["invitationState"] == "CONFIRMED"
+            assert stakeholder["invitationState"] == "REGISTERED"
 
 
 @pytest.mark.asyncio

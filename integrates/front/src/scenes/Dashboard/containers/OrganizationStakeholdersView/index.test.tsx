@@ -59,14 +59,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "2020-09-01",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "-",
                   role: "user_manager",
                 },
@@ -151,7 +151,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
@@ -195,14 +195,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01 13:40:37",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01 13:40:37",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "2020-10-29 13:40:37",
                   role: "user",
                 },
@@ -288,7 +288,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[10, 35207]",
                   role: "user",
                 },
@@ -332,7 +332,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[10, 35207]",
                   role: "user_manager",
                 },
@@ -416,14 +416,14 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },
                 {
                   email: "testuser2@gmail.com",
                   firstLogin: "2020-08-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[-1, -1]",
                   role: "user_manager",
                 },
@@ -463,7 +463,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },
@@ -574,7 +574,7 @@ describe("Organization users view", (): void => {
                 {
                   email: "testuser1@gmail.com",
                   firstLogin: "2020-06-01",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "[10, 35207]",
                   role: "customer_manager",
                 },

@@ -92,7 +92,7 @@ async def test_group() -> None:
         {
             "email": "integratesserviceforces@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2019-10-29 13:40:37",  # NOSONAR
             "responsibility": "Test",
             "role": "service_forces",
@@ -100,7 +100,7 @@ async def test_group() -> None:
         {
             "email": "integratesmanager@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2019-12-29 11:50:17",
             "responsibility": "Test",
             "role": "admin",
@@ -108,7 +108,7 @@ async def test_group() -> None:
         {
             "email": "integratesuser2@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2019-10-29 13:40:37",
             "responsibility": "Test",
             "role": "user",
@@ -116,7 +116,7 @@ async def test_group() -> None:
         {
             "email": "integratesuser@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2019-10-29 13:40:37",
             "responsibility": "Test",
             "role": "user_manager",
@@ -124,7 +124,7 @@ async def test_group() -> None:
         {
             "email": "continuoushacking@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2020-03-23 10:45:37",
             "responsibility": "Test",
             "role": "user_manager",
@@ -132,7 +132,7 @@ async def test_group() -> None:
         {
             "email": "continuoushack2@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
-            "invitationState": "CONFIRMED",
+            "invitationState": "REGISTERED",
             "lastLogin": "2020-03-23 10:45:37",
             "responsibility": "Test",
             "role": "user_manager",

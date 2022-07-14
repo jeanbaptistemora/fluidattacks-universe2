@@ -409,8 +409,8 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
       onChangeSelect: onInvitationChange,
       placeholder: "Registration status",
       selectOptions: {
-        CONFIRMED: "Confirmed",
         PENDING: "Pending",
+        REGISTERED: "Registered",
         UNREGISTERED: "Unregistered",
       },
       tooltipId: "group.stakeHolders.filtersTooltips.invitation.id",

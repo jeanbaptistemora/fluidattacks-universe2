@@ -164,7 +164,7 @@ def format_invitation_state(invitation: Item, is_registered: bool) -> str:
         return "PENDING"
     if not is_registered:
         return "UNREGISTERED"
-    return "CONFIRMED"
+    return "REGISTERED"
 
 
 def format_stakeholder_item(stakeholder: Stakeholder) -> Item:

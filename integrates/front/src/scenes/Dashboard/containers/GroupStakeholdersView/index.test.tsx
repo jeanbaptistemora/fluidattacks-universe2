@@ -45,7 +45,7 @@ describe("Group stakeholders view", (): void => {
               {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
-                invitationState: "CONFIRMED",
+                invitationState: "REGISTERED",
                 lastLogin: "2017-10-29 13:40:37",
                 responsibility: "Test responsibility",
                 role: "user",
@@ -70,7 +70,7 @@ describe("Group stakeholders view", (): void => {
               {
                 email: "user@gmail.com",
                 firstLogin: "2017-09-05 15:00:00",
-                invitationState: "CONFIRMED",
+                invitationState: "REGISTERED",
                 lastLogin: "2017-10-29 13:40:37",
                 responsibility: "Rest responsibility",
                 role: "user",
@@ -78,7 +78,7 @@ describe("Group stakeholders view", (): void => {
               {
                 email: "unittest@test.com",
                 firstLogin: "2017-09-05 15:00:00",
-                invitationState: "CONFIRMED",
+                invitationState: "REGISTERED",
                 lastLogin: "2017-10-29 13:40:37",
                 responsibility: "Project Manager",
                 role: "hacker",
@@ -172,7 +172,7 @@ describe("Group stakeholders view", (): void => {
     expect(
       screen.getByText(timeFromNow("2017-10-29 13:40:37"))
     ).toBeInTheDocument();
-    expect(screen.getByText("Confirmed")).toBeInTheDocument();
+    expect(screen.getByText("Registered")).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
