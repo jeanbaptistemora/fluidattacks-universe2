@@ -44,8 +44,8 @@ LOGGER = logging.getLogger(__name__)
 def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
     validate_date: bool = (
         datetime_utils.get_now_minus_delta(days=from_day).date()
-        < date_attr
-        <= datetime_utils.get_now_minus_delta(days=to_day).date()
+        <= date_attr
+        < datetime_utils.get_now_minus_delta(days=to_day).date()
     )
     return validate_date
 
@@ -74,13 +74,16 @@ def _generate_group_fields() -> Dict[str, Any]:
 def _generate_count_report(
     *,
     content: Dict[str, Any],
+    date_range: int,
     date_report: Optional[datetime],
     field: str,
     group: str,
     user_email: str,
 ) -> Dict[str, Any]:
     if user_email and date_report:
-        is_valid_date = _validate_date(date_report.date(), 1, 0)
+        is_valid_date = _validate_date(
+            date_report.date(), date_range, date_range - 1
+        )
 
         if not content.get(user_email):
             content[user_email] = _generate_fields()
@@ -97,7 +100,7 @@ def _generate_count_report(
                 int(content[user_email][f"today_{field}"]) + 1
             )
         else:
-            if _validate_date(date_report.date(), 2, 1):
+            if _validate_date(date_report.date(), date_range + 1, date_range):
                 content[user_email][f"past_day_{field}"] = (
                     int(content[user_email][f"past_day_{field}"]) + 1
                 )
@@ -109,6 +112,7 @@ async def _generate_numerator_report(
     loaders: Dataloaders, groups_names: Tuple[str, ...]
 ) -> Dict[str, Any]:
     content: Dict[str, Any] = {}
+    date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
     for group in groups_names:
         group_toe_inputs: ToeInputsConnection = (
@@ -119,6 +123,7 @@ async def _generate_numerator_report(
         for toe in group_toe_inputs.edges:
             content = _generate_count_report(
                 content=content,
+                date_range=date_range,
                 date_report=toe.node.seen_at,
                 field="enumerated_count",
                 group=group,
@@ -127,6 +132,7 @@ async def _generate_numerator_report(
 
             content = _generate_count_report(
                 content=content,
+                date_range=date_range,
                 date_report=toe.node.attacked_at,
                 field="verified_count",
                 group=group,

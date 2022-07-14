@@ -230,7 +230,7 @@
       "schedulers.numerator_report_digest.main"
     ];
 
-    schedule_expression = "cron(0 23 ? * 2-6 *)";
+    schedule_expression = "cron(0 11 ? * 2-6 *)";
     size = "nano";
     attempts = 3;
     timeout = 86400;

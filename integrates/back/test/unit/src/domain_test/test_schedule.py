@@ -30,10 +30,10 @@ def test_get_variation() -> None:
 
 
 def test_validate_date() -> None:
-    actual_date: date = datetime_utils.get_now().date()
-    in_range_date: date = datetime_utils.get_now_minus_delta(days=1).date()
-    in_range_date2: date = datetime_utils.get_now_minus_delta(days=8).date()
-    assert _validate_date(actual_date, 1, 0)
+    report_date: date = datetime_utils.get_now_minus_delta(days=1).date()
+    in_range_date: date = datetime_utils.get_now_minus_delta(days=2).date()
+    in_range_date2: date = datetime_utils.get_now_minus_delta(days=9).date()
+    assert _validate_date(report_date, 1, 0)
     assert _validate_date(in_range_date, 2, 1)
     assert _validate_date(in_range_date, 9, 1)
     assert _validate_date(in_range_date2, 9, 1)
@@ -41,16 +41,16 @@ def test_validate_date() -> None:
 
 def test_validate_date_fail() -> None:
     actual_date: date = datetime_utils.get_now().date()
-    not_in_range_date: date = datetime_utils.get_now_minus_delta(days=1).date()
+    not_in_range_date: date = datetime_utils.get_now_minus_delta(days=2).date()
     not_in_range_date2: date = datetime_utils.get_now_minus_delta(
-        days=9
+        days=10
     ).date()
-    assert not _validate_date(actual_date, 2, 1)
-    assert not _validate_date(actual_date, 9, 1)
+    assert not _validate_date(actual_date, 1, 0)
+    assert not _validate_date(actual_date, 9, 2)
     assert not _validate_date(not_in_range_date, 1, 0)
     assert not _validate_date(not_in_range_date, 9, 2)
-    assert not _validate_date(not_in_range_date2, 1, 0)
-    assert not _validate_date(not_in_range_date2, 9, 1)
+    assert not _validate_date(not_in_range_date2, 9, 0)
+    assert not _validate_date(not_in_range_date2, 20, 10)
 
 
 @pytest.mark.parametrize(
@@ -87,6 +87,8 @@ def test_generate_count_report(
     content: Dict[str, Any],
     user_email: str,
 ) -> None:
+    date_days = 3 if datetime_utils.get_now().weekday() == 0 else 1
+
     fields: List[str] = [
         "verified_count",
         "verified_count",
@@ -103,7 +105,8 @@ def test_generate_count_report(
     for group, field in zip(groups, fields):
         content = _generate_count_report(
             content=content,
-            date_report=datetime_utils.get_now(),
+            date_range=date_days,
+            date_report=datetime_utils.get_now_minus_delta(days=date_days),
             field=field,
             group=group,
             user_email=user_email,
@@ -118,14 +121,16 @@ def test_generate_count_report(
     assert content[user_email]["groups"]["test_group"]["verified_count"] == 1
     content = _generate_count_report(
         content=content,
-        date_report=datetime_utils.get_now_minus_delta(days=1),
+        date_range=date_days,
+        date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
         field="verified_count",
         group="test_group",
         user_email=user_email,
     )
     content = _generate_count_report(
         content=content,
-        date_report=datetime_utils.get_now_minus_delta(days=1),
+        date_range=date_days,
+        date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
         field="verified_count",
         group="test_group",
         user_email=user_email,
