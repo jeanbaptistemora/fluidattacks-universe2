@@ -148,14 +148,6 @@ def test_has_generic_exceptions_open():
     assert len(results.vulns[0].specific) == 7
 
 
-def test_swallows_exceptions_open():
-    """Code swallows exceptions."""
-    assert python.swallows_exceptions(CODE_DIR).is_open()
-    results = python.swallows_exceptions(INSECURE_CODE)
-    assert results.is_open()
-    assert len(results.vulns[0].specific) == 4
-
-
 def test_insecure_functions_open():
     """Search for insecure functions."""
     assert python.uses_insecure_functions(CODE_DIR).is_open()
@@ -185,12 +177,6 @@ def test_has_generic_exceptions_close():
     assert python.has_generic_exceptions(
         CODE_DIR, exclude=["test"]
     ).is_closed()
-
-
-def test_swallows_exceptions_close():
-    """Code swallows exceptions."""
-    assert python.swallows_exceptions(SECURE_CODE).is_closed()
-    assert python.swallows_exceptions(CODE_DIR, exclude=["test"]).is_closed()
 
 
 def test_insecure_functions_close():
@@ -225,11 +211,6 @@ def test_uses_catch_for_syntax_errors_closed():
 def test_has_generic_exceptions_unknown():
     """Code uses generic exceptions."""
     assert python.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_swallows_exceptions_unknown():
-    """Code swallows exceptions."""
-    assert python.swallows_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_insecure_functions_unknown():

@@ -127,35 +127,6 @@ def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
     )
 
 
-@api(risk=LOW, kind=SAST)
-def swallows_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for on-error without code.
-
-    See `REQ.075 <https://fluidattacks.com/products/rules/list/075>`_.
-
-    :param rpg_dest: Path to a RPG source or directory.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    monitor = ON_ERROR + Optional(ERROR_CODES) + Optional(";")
-    end_monitor = CaselessKeyword("endmon") + Optional(";")
-    grammar = MatchFirst([monitor + end_monitor, monitor + monitor])
-    grammar.ignore(cppStyleComment)
-
-    return lang.generic_method(
-        path=rpg_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code swallows exceptions",
-            CLOSED: "Code does not swallow exceptions",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(
     risk=LOW,
     kind=SAST,

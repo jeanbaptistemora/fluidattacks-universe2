@@ -100,9 +100,6 @@ def test_exclude_parameter():
         java.uses_print_stack_trace(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.swallows_exceptions(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.does_not_handle_exceptions(JAVA, should_have=[], exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
@@ -192,9 +189,6 @@ def test_lang_specs_parameter():
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_print_stack_trace(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.swallows_exceptions(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.does_not_handle_exceptions(MARKD, should_have=[])

@@ -364,40 +364,6 @@ def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> tuple:
     )
 
 
-@api(risk=LOW, kind=SAST)
-def swallows_exceptions(py_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for swallowed exceptions.
-
-    Identifies ``except`` blocks that are either empty
-    or only contain comments or the ``pass`` statement.
-
-    :param py_dest: Path to a Python script or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = (
-        Keyword("except")
-        + SkipTo(LineEnd(), include=True)
-        + indentedBlock(Keyword("pass"), indentStack=[1])
-    )
-    grammar.ignore(pythonStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-
-    return lang.generic_method(
-        path=py_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has empty "catches"',
-            CLOSED: 'Code does not have empty "catches"',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(risk=HIGH, kind=SAST)
 def uses_insecure_functions(py_dest: str, exclude: list = None) -> tuple:
     """

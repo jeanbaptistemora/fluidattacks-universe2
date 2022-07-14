@@ -66,11 +66,6 @@ def test_uses_print_stack_trace_in_dir_open():
     assert java.uses_print_stack_trace(CODE_DIR).is_open()
 
 
-def test_swallows_exceptions_open():
-    """Search empty catches."""
-    assert java.swallows_exceptions(INSECURE_EMPTY_CATCH).is_open()
-
-
 def test_does_not_handle_exceptions_open():
     """Search empty catches."""
     assert java.does_not_handle_exceptions(
@@ -83,11 +78,6 @@ def test_does_not_handle_exceptions_open():
         ],
         use_regex=True,
     ).is_open()
-
-
-def test_has_empty_catches_in_dir_open():
-    """Search empty catches."""
-    assert java.swallows_exceptions(CODE_DIR).is_open()
 
 
 def test_has_switch_without_default_open():
@@ -313,13 +303,6 @@ def test_uses_print_stack_trace_close():
     assert java.uses_print_stack_trace(SECURE_CODE).is_closed()
     assert java.uses_print_stack_trace(CODE_DIR, exclude=["test"]).is_closed()
     assert java.uses_print_stack_trace(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_has_empty_catches_close():
-    """Search empty catches."""
-    assert java.swallows_exceptions(SECURE_EMPTY_CATCH).is_closed()
-    assert java.swallows_exceptions(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.swallows_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_does_not_handle_exceptions_close():

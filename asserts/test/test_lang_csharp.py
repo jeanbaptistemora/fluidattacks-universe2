@@ -52,16 +52,6 @@ def test_uses_catch_for_null_reference_exception_open():
     assert csharp.uses_catch_for_null_reference_exception(CODE_DIR).is_open()
 
 
-def test_swallows_exceptions_open():
-    """Search empty catches."""
-    assert csharp.swallows_exceptions(INSECURE_EMPTY_CATCH)
-
-
-def test_swallows_exceptions_in_dir_open():
-    """Search empty catches."""
-    assert csharp.swallows_exceptions(CODE_DIR)
-
-
 def test_has_switch_without_default_open():
     """Search switch without default clause."""
     assert csharp.has_switch_without_default(INSECURE_SWITCH)
@@ -117,13 +107,6 @@ def test_uses_catch_for_null_reference_exception_close():
     assert csharp.uses_catch_for_null_reference_exception(
         NON_EXISTANT_CODE
     ).is_unknown()
-
-
-def test_swallows_exceptions_close():
-    """Search empty catches."""
-    assert not csharp.swallows_exceptions(SECURE_EMPTY_CATCH)
-    assert not csharp.swallows_exceptions(CODE_DIR, exclude=["test"])
-    assert not csharp.swallows_exceptions(NON_EXISTANT_CODE)
 
 
 def test_has_switch_without_default_close():

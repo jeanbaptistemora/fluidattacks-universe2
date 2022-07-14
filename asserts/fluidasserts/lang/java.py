@@ -293,43 +293,6 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(java_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for ``catch`` blocks that are empty or only have comments.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    See `CWE-391 <https://cwe.mitre.org/data/definitions/391.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    # Empty() grammar matches 'anything'
-    # ~Empty() grammar matches 'not anything' or 'nothing'
-    grammar = (
-        Suppress(Keyword("catch"))
-        + nestedExpr(opener="(", closer=")")
-        + nestedExpr(opener="{", closer="}", content=~Empty())
-    )
-    grammar.ignore(javaStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has empty "catch" blocks',
-            CLOSED: 'Code does not have empty "catch" blocks',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def does_not_handle_exceptions(
     java_dest: str,
     should_have: List[str],

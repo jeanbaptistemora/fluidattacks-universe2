@@ -157,41 +157,6 @@ def uses_catch_for_null_reference_exception(
 
 
 @api(risk=LOW, kind=SAST)
-def swallows_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for ``catch`` blocks that are empty or only have comments.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    :param csharp_dest: Path to a C# source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    # Empty() grammar matches 'anything'
-    # ~Empty() grammar matches 'not anything' or 'nothing'
-    grammar = (
-        Suppress(Keyword("catch"))
-        + Optional(nestedExpr(opener="(", closer=")"))
-        + nestedExpr(opener="{", closer="}", content=~Empty())
-    )
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-
-    return lang.generic_method(
-        path=csharp_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has empty "catch" blocks',
-            CLOSED: 'Code does not have empty "catch" blocks',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def has_switch_without_default(
     csharp_dest: str, exclude: list = None
 ) -> tuple:

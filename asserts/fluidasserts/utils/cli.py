@@ -1143,7 +1143,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             csharp.has_generic_exceptions('__path__')
             csharp.has_insecure_randoms('__path__')
             csharp.has_switch_without_default('__path__')
-            csharp.swallows_exceptions('__path__')
             csharp.uses_catch_for_null_reference_exception('__path__')
             csharp.uses_debug_writeline('__path__')
             """,
@@ -1164,7 +1163,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.has_insecure_randoms('__path__')
             java.has_log_injection('__path__')
             java.has_switch_without_default('__path__')
-            java.swallows_exceptions('__path__')
             java.uses_catch_for_null_pointer_exception('__path__')
             java.uses_catch_for_runtime_exception('__path__')
             java.uses_des_algorithm('__path__')
@@ -1194,7 +1192,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             python.has_generic_exceptions('__path__')
             python.uses_catch_for_memory_error('__path__')
             python.uses_catch_for_syntax_errors('__path__')
-            python.swallows_exceptions('__path__')
             python.uses_insecure_functions('__path__')
             """,
         (
@@ -1203,7 +1200,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
         ): """
             rpgle.has_dos_dow_sqlcod('__path__')
             rpgle.has_generic_exceptions('__path__')
-            rpgle.swallows_exceptions('__path__')
             rpgle.uses_debugging('__path__')
             """,
     }

@@ -48,16 +48,6 @@ def test_has_generic_exceptions_in_dir_open():
     assert rpgle.has_generic_exceptions(CODE_DIR).is_open()
 
 
-def test_swallows_exceptions_open():
-    """Code swallows exceptions."""
-    assert rpgle.swallows_exceptions(INSECURE_CODE).is_open()
-
-
-def test_swallows_exceptions_in_dir_open():
-    """Code swallows exceptions."""
-    assert rpgle.swallows_exceptions(CODE_DIR).is_open()
-
-
 def test_uses_debugging_open():
     """Search debug statements."""
     assert rpgle.uses_debugging(INSECURE_CODE).is_open()
@@ -102,10 +92,3 @@ def test_has_generic_exceptions_close():
     assert rpgle.has_generic_exceptions(SECURE_CODE).is_closed()
     assert rpgle.has_generic_exceptions(CODE_DIR, exclude=["test"]).is_closed()
     assert rpgle.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_swallows_exceptions_close():
-    """Code swallows exceptions."""
-    assert rpgle.swallows_exceptions(SECURE_CODE).is_closed()
-    assert rpgle.swallows_exceptions(CODE_DIR, exclude=["test"]).is_closed()
-    assert rpgle.swallows_exceptions(NON_EXISTANT_CODE).is_unknown()
