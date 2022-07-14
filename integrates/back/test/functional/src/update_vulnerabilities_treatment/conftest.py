@@ -22,6 +22,10 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+    StakeholderAccessToken,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -346,16 +350,22 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "role": "user",
             },
         ],
-        "users": [
+        "users": [],
+        "stakeholders": [
             {
-                "email": user_email,
-                "first_login": "",
-                "first_name": "",
-                "last_login": "",
-                "last_name": "",
-                "legal_remember": False,
-                "push_tokens": [],
-                "registered": True,
+                "stakeholder": Stakeholder(
+                    email="new_user",
+                    first_name="new_user",
+                    last_name="new_user",
+                    access_token=StakeholderAccessToken(
+                        iat=1634677195,
+                        jti="c8d9d5f058cf200f7435508fc2dba37d07447ec12dcd07",
+                        salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
+                    ),
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                ),
             },
         ],
     }
