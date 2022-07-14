@@ -15,12 +15,6 @@ from charts.utils import (
     json_dump,
     retry_on_exceptions,
 )
-from contextlib import (
-    suppress,
-)
-from custom_exceptions import (
-    GroupNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -36,7 +30,6 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.utils import (
-    get_first_day_iso_date,
     get_min_iso_date,
 )
 from db_model.vulnerabilities.enums import (
@@ -214,15 +207,10 @@ async def generate_one(
     loaders: Dataloaders,
     group_name: str,
 ) -> FormatSprint:
-    sprint_length: int = 1
-    sprint_start_date: str = get_first_day_iso_date()
-    with suppress(GroupNotFound):
-        group: Group = await loaders.group.load(group_name)
-        sprint_length = group.sprint_duration
-        sprint_start_date = group.sprint_start_date
-
+    group: Group = await loaders.group.load(group_name)
     current_sprint_date = get_last_sprint_start_date(
-        sprint_start_date=sprint_start_date, sprint_length=sprint_length
+        sprint_start_date=group.sprint_start_date,
+        sprint_length=group.sprint_duration,
     )
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name

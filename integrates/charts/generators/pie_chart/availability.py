@@ -11,9 +11,6 @@ from charts.utils import (
     iterate_groups,
     json_dump,
 )
-from contextlib import (
-    suppress,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -52,11 +49,10 @@ class EventsAvailability(NamedTuple):
 async def get_data_one_group(
     *, group_name: str, loaders: Dataloaders
 ) -> EventsAvailability:
-    creation_date = current_date = get_now().date()
-    with suppress(IndexError):
-        creation_date = get_date_from_iso_str(
-            await get_creation_date(loaders=loaders, group_name=group_name)
-        )
+    current_date: date = get_now().date()
+    creation_date = get_date_from_iso_str(
+        await get_creation_date(loaders=loaders, group_name=group_name)
+    )
     events_group: tuple[Event, ...] = await loaders.group_events.load(
         group_name
     )
