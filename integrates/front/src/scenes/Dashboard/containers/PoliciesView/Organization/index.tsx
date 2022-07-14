@@ -19,13 +19,13 @@ import { TooltipWrapper } from "components/TooltipWrapper";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
-} from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
+} from "scenes/Dashboard/containers/PoliciesView/Organization/queries";
 import type {
   IOrganizationPolicies,
   IOrganizationPoliciesData,
   IPoliciesFormData,
-} from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
-import { VulnerabilityPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/VulnerabilityPolicies/index";
+} from "scenes/Dashboard/containers/PoliciesView/Organization/types";
+import { VulnerabilityPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization/VulnerabilityPolicies/index";
 import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { FormikText } from "utils/forms/fields";

@@ -31,9 +31,9 @@ import type {
   IOrganizationPermission,
 } from "scenes/Dashboard/containers/OrganizationContent/types";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationGroupsView";
-import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/index";
 import { OrganizationPortfolios } from "scenes/Dashboard/containers/OrganizationPortfoliosView/index";
 import { OrganizationStakeholders } from "scenes/Dashboard/containers/OrganizationStakeholdersView/index";
+import { OrganizationPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization/index";
 import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";

@@ -1,4 +1,4 @@
-import type { IVulnerabilityPoliciesData } from "scenes/Dashboard/containers/OrganizationPoliciesView/VulnerabilityPolicies/types";
+import type { IVulnerabilityPoliciesData } from "scenes/Dashboard/containers/PoliciesView/Organization/VulnerabilityPolicies/types";
 
 interface IOrganizationPolicies {
   organizationId: string;

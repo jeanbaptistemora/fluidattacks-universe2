@@ -7,18 +7,18 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { OrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView";
+import { OrganizationPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
-} from "scenes/Dashboard/containers/OrganizationPoliciesView/queries";
-import type { IOrganizationPolicies } from "scenes/Dashboard/containers/OrganizationPoliciesView/types";
+} from "scenes/Dashboard/containers/PoliciesView/Organization/queries";
+import type { IOrganizationPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
-jest.mock("../../../../utils/notifications", (): Dictionary => {
+jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
-    "../../../../utils/notifications"
+    "../../../../../utils/notifications"
   );
   jest.spyOn(mockedNotifications, "msgError").mockImplementation();
   jest.spyOn(mockedNotifications, "msgSuccess").mockImplementation();
