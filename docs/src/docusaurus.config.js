@@ -98,7 +98,7 @@ module.exports = {
             },
             {
               label: 'Gitlab',
-              href: 'https://gitlab.com/fluidattacks/product',
+              href: 'https://gitlab.com/fluidattacks/universe',
             },
           ],
         },

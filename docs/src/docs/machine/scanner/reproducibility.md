@@ -9,7 +9,7 @@ Everything at [Fluid Attacks](https://fluidattacks.com)
 is [Open Source](https://opensource.com/resources/what-open-source).
 This means that you can download,
 inspect, modify and enhance the
-[source code](https://gitlab.com/fluidattacks/product)
+[source code](https://gitlab.com/fluidattacks/universe)
 that powers it all.
 
 Going Open Source
@@ -69,7 +69,7 @@ we'll need to:
 1. Execute:
 
     ```bash
-    m f /skims scan config.yaml
+    m gitlab:fluidattacks/universe@master /skims scan config.yaml
     ```
 
     This will take some time,

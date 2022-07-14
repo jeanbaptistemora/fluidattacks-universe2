@@ -73,7 +73,7 @@ in pretty-printed or CSV format:
 ## Using
 
 ```bash
-$ m f /skims --help
+$ m gitlab:fluidattacks/universe@master /skims --help
 
   Usage: skims [OPTIONS] COMMAND [ARGS]...
 
@@ -85,7 +85,7 @@ $ m f /skims --help
 ## Running the scanner
 
 ```bash
-$ m f /skims scan /path/to/config.yaml
+$ m gitlab:fluidattacks/universe@master /skims scan /path/to/config.yaml
 
   ... 🚀 !!
 ```
@@ -166,7 +166,7 @@ ssl:
 # Description:
 #   Findings to analyze.
 #   The complete list of findings can be found here:
-#   https://gitlab.com/fluidattacks/product/-/blob/master/skims/manifests/findings.lst
+#   https://gitlab.com/fluidattacks/universe/-/blob/master/skims/manifests/findings.lst
 # Optional:
 #   Yes, if not present all security findings will be analyzed.
 # Example:

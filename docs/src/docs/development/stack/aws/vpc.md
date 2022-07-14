@@ -104,7 +104,7 @@ networking and security configurations for:
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/1aa1cbe233dcd683d372df6ed547c899a7ba0168/makes/applications/makes/vpc/src/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/universe/-/tree/1aa1cbe233dcd683d372df6ed547c899a7ba0168/makes/applications/makes/vpc/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform/),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).

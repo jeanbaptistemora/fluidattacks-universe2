@@ -69,11 +69,11 @@ like databases, DNS records, firewall rules,
 computing clusters, among others.
 Some examples are:
 
-1. [Gitlab Runners](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/ci/src/terraform).
-1. [DNS](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/dns/src/terraform).
-1. [Kubernetes](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/k8s/src/terraform).
-1. [Okta](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/okta/src/terraform).
-1. [Website](https://gitlab.com/fluidattacks/product/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/airs/deploy/production/terraform).
+1. [Gitlab Runners](https://gitlab.com/fluidattacks/universe/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/ci/src/terraform).
+1. [DNS](https://gitlab.com/fluidattacks/universe/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/dns/src/terraform).
+1. [Kubernetes](https://gitlab.com/fluidattacks/universe/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/k8s/src/terraform).
+1. [Okta](https://gitlab.com/fluidattacks/universe/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/makes/applications/makes/okta/src/terraform).
+1. [Website](https://gitlab.com/fluidattacks/universe/-/tree/2a1e5fc66bcf675fd4249cdf3faf31d3a414a85d/airs/deploy/production/terraform).
 
 We do not use [Terraform][TERRAFORM] in:
 

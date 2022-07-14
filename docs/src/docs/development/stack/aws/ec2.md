@@ -63,7 +63,7 @@ are the following:
   for interruptible tasks
   like [CI/CD jobs][CI],
   [Batch tasks][BATCH]
-  and [horizontally-scaled applications](https://gitlab.com/fluidattacks/product/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
+  and [horizontally-scaled applications](https://gitlab.com/fluidattacks/universe/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7)
   like our [ASM](https://fluidattacks.com/categories/asm/).
 - It supports [Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html),
   which allows us to automatically scale up and down
@@ -72,7 +72,7 @@ are the following:
   when combined with our Kubernetes Cluster
   running on [EKS](/development/stack/aws/eks/),
   as multiple instances of our ASM can be turned on and off
-  based on [specific parameters](https://gitlab.com/fluidattacks/product/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7).
+  based on [specific parameters](https://gitlab.com/fluidattacks/universe/-/blob/56683d3cfbc2b1be3ebe8ae6dd4627b066961aa9/makes/applications/integrates/back/deploy/prod/k8s/deployment.yaml#L7).
 - It supports [advanced networking](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-networking.html)
   features
   that allow assigning public [IP addresses](https://en.wikipedia.org/wiki/IP_address),

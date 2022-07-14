@@ -43,7 +43,7 @@ over other alternatives are:
 1. It supports
     [complex data types](https://redis.io/topics/data-types),
     which considerably simplifies
-    [mapping data from applications](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/arch/2021-01-27-cache-design.md)
+    [mapping data from applications](https://gitlab.com/fluidattacks/universe/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/arch/2021-01-27-cache-design.md)
     to it.
 1. It supports
     [local deployments](https://redis.io/topics/cluster-tutorial),
@@ -59,7 +59,7 @@ over other alternatives are:
     [cache node sizes](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/CacheNodes.SupportedTypes.html),
     which come preconfigured
     and are
-    [very easy to set](https://gitlab.com/fluidattacks/product/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/deploy/cache-db/terraform/database.tf#L34).
+    [very easy to set](https://gitlab.com/fluidattacks/universe/-/blob/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/deploy/cache-db/terraform/database.tf#L34).
 1. It supports
     [VPC security groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/GettingStarted.AuthorizeAccess.html),
     allowing to specify
@@ -83,7 +83,7 @@ over other alternatives are:
     and the application,
     allowing to cache data
     without having to maintain an
-    [extra layer of complexity](https://gitlab.com/fluidattacks/product/-/tree/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/back/src/redis_cluster)
+    [extra layer of complexity](https://gitlab.com/fluidattacks/universe/-/tree/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/back/src/redis_cluster)
     in your application.
     It does not support local deployments,
     its [query cache](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.concepts.html#DAX.concepts.query-cache)
@@ -96,7 +96,7 @@ over other alternatives are:
 1. [AWS DynamoDB (No cache)][DYNAMODB]:
     We are considering
     removing the entire
-    [extra layer of complexity](https://gitlab.com/fluidattacks/product/-/tree/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/back/src/redis_cluster)
+    [extra layer of complexity](https://gitlab.com/fluidattacks/universe/-/tree/148eccecfb68b6d5cd2c0418679330c0d6c02c2b/integrates/back/src/redis_cluster)
     that cache brings with it
     and only using [DynamoDB][DYNAMODB],
     as it already provides
@@ -123,14 +123,14 @@ We use [Redis][REDIS] for:
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/deploy/cache-db/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/deploy/cache-db/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform/),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
 1. Please adhere to our current
-    [design](https://gitlab.com/fluidattacks/product/-/blob/master/integrates/arch/2021-01-27-cache-design.md)
+    [design](https://gitlab.com/fluidattacks/universe/-/blob/master/integrates/arch/2021-01-27-cache-design.md)
     when modifying the
-    [Redis logic](https://gitlab.com/fluidattacks/product/-/tree/master/integrates/back/src/redis_cluster),
+    [Redis logic](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/redis_cluster),
     that way we can keep
     a consistent architecture.
 1. When working on our [ASM][ASM],

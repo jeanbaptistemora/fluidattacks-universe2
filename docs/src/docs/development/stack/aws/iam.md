@@ -57,7 +57,7 @@ The main reasons why we chose it over other alternatives are the following:
   over the AWS resources.
 - It supports [OIDC](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html),
   allowing our [Kubernetes Cluster](/development/stack/kubernetes/)
-  to [perform actions](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf#L52)
+  to [perform actions](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf#L52)
   within AWS,
   like [automatically creating load balancers](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
   when applications are deployed.
@@ -77,23 +77,23 @@ The main reasons why we chose it over other alternatives are the following:
 
 We use [AWS IAM][IAM] for managing
 
-- [development and production users](https://gitlab.com/fluidattacks/product/-/tree/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/users)
+- [development and production users](https://gitlab.com/fluidattacks/universe/-/tree/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/users)
   in all our products
   (every user has their own policies and permissions
   in order to grant [least privilege][LEAST-PRIVILEGE] compliance;
-  access keys for users are [rotated on a daily basis](https://gitlab.com/fluidattacks/product/-/blob/017612ea61db1e2be1229a20e97d701be9b3894c/makes/applications/makes/users/integrates/rotate/even/default.nix));
-- a [SAML trust relationship](https://gitlab.com/fluidattacks/product/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/okta/src/terraform/aws-saml.tf)
+  access keys for users are [rotated on a daily basis](https://gitlab.com/fluidattacks/universe/-/blob/017612ea61db1e2be1229a20e97d701be9b3894c/makes/applications/makes/users/integrates/rotate/even/default.nix));
+- a [SAML trust relationship](https://gitlab.com/fluidattacks/universe/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/okta/src/terraform/aws-saml.tf)
   between IAM and [Okta][OKTA]
   to allow developers and analysts to assume
-  [IAM Roles](https://gitlab.com/fluidattacks/product/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/okta/src/terraform/aws-roles.tf)
+  [IAM Roles](https://gitlab.com/fluidattacks/universe/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/okta/src/terraform/aws-roles.tf)
   by authenticating with their Okta credentials;
-- [S3 bucket policies](https://gitlab.com/fluidattacks/product/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/airs/deploy/production/terraform/bucket.tf#L25),
+- [S3 bucket policies](https://gitlab.com/fluidattacks/universe/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/airs/deploy/production/terraform/bucket.tf#L25),
   to allow access through
   [Cloudflare](/development/stack/cloudflare) only;
-- [KMS key policies](https://gitlab.com/fluidattacks/product/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/airs/deploy/secret-management/terraform/key-prod.tf#L1),
+- [KMS key policies](https://gitlab.com/fluidattacks/universe/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/airs/deploy/secret-management/terraform/key-prod.tf#L1),
   to specify what users can use a key
   and what actions each of them can do;
-- [service roles](https://gitlab.com/fluidattacks/product/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/compute/src/terraform/aws_batch.tf#L59),
+- [service roles](https://gitlab.com/fluidattacks/universe/-/blob/9ef43c3585a0871299117178d7fb4dceb129854b/makes/applications/makes/compute/src/terraform/aws_batch.tf#L59),
   to allow automated [CI/CD](/development/stack/gitlab-ci) processes
   to assume them,
   and execute specific actions within AWS.

@@ -62,7 +62,7 @@ The main reasons why we chose it over other alternatives are the following:
   when combined with [AWS IAM](/development/stack/aws/iam/),
   it allows us to specify permissions
   over general actions like creating keys.
-- Keys and permissions can be [written as code](https://gitlab.com/fluidattacks/product/-/blob/6416b9035e089b575336c3ba074ff5fd39575306/makes/applications/makes/secrets/src/terraform/key-production.tf)
+- Keys and permissions can be [written as code](https://gitlab.com/fluidattacks/universe/-/blob/6416b9035e089b575336c3ba074ff5fd39575306/makes/applications/makes/secrets/src/terraform/key-production.tf)
   using [Terraform](/development/stack/terraform/).
 - It integrates with [Sops](/development/stack/sops/),
   allowing us to use its keys
@@ -84,10 +84,10 @@ The main reasons why we chose it over other alternatives are the following:
 We use [AWS KMS][KMS] for
 
 - [DynamoDB Encryption at rest](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table#server_side_encryption);
-- [S3 server-side encryption](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/airs/deploy/production/terraform/bucket.tf#L5);
-- [encrypting and decrypting](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/secrets/src/production.yaml#L14)
+- [S3 server-side encryption](https://gitlab.com/fluidattacks/universe/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/airs/deploy/production/terraform/bucket.tf#L5);
+- [encrypting and decrypting](https://gitlab.com/fluidattacks/universe/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/secrets/src/production.yaml#L14)
   our [Sops](/development/stack/sops/) secrets;
-- [encrypting and decrypting](https://gitlab.com/fluidattacks/product/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/k8s/src/terraform/cluster.tf#L42)
+- [encrypting and decrypting](https://gitlab.com/fluidattacks/universe/-/blob/a089fc93ce78b5a073a9ef35c46ec59f7d622e2c/makes/applications/makes/k8s/src/terraform/cluster.tf#L42)
   our [Kubernetes](/development/stack/kubernetes) workers
   [EBS][EBS] disks;
 - encrypting and decrypting our [ERP](https://en.wikipedia.org/wiki/Enterprise_resource_planning)

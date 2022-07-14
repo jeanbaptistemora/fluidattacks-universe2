@@ -20,7 +20,7 @@ The main reasons why we chose it over other alternatives are the following:
   allowing us to easily integrate with [EC2](/development/stack/aws/ec2/)
   for [automatic worker provisioning](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler),
   [IAM](/development/stack/aws/iam/)
-  for [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55),
+  for [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55),
   [Redis](/development/stack/aws/redis/)
   for [In-VPC](/development/stack/aws/vpc/) cache,
   and [Elastic Load Balancing](/development/stack/aws/elb/)
@@ -36,11 +36,11 @@ The main reasons why we chose it over other alternatives are the following:
   and information security.
 - It is supported by almost all [Kubernetes SIGs](https://github.com/kubernetes-sigs)
   utilities.
-- Clusters can be [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
+- Clusters can be [fully managed](https://gitlab.com/fluidattacks/universe/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
   using [Terraform][TERRAFORM].
 - It is constantly updated to support new [Kubernetes versions](https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html).
 - It supports [OIDC](https://docs.aws.amazon.com/eks/latest/userguide/authenticate-oidc-identity-provider.html),
-  allowing our Kubernetes Cluster to [perform actions](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf#L52)
+  allowing our Kubernetes Cluster to [perform actions](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf#L52)
   within AWS
   like [automatically creating load balancers](https://github.com/kubernetes-sigs/aws-load-balancer-controller)
   when applications are deployed.
@@ -74,13 +74,13 @@ This is a clear example of cloud dependency.
 
 We use EKS for
 
-- providing [networking infrastructure](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/network.tf)
+- providing [networking infrastructure](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/network.tf)
   for our Kubernetes Cluster;
-- [automatically deploying worker groups](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/cluster.tf#L29);
+- [automatically deploying worker groups](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/cluster.tf#L29);
 - connecting to [EC2](/development/stack/aws/ec2/)
   for [automatic worker provisioning](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler);
 - connecting to [IAM](/development/stack/aws/iam/)
-  for [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55);
+  for [in-cluster authentication and authorization](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/variables.tf#L55);
 - connecting to [Redis](/development/stack/aws/redis/)
   for [In-VPC](/development/stack/aws/vpc/) cache.
 

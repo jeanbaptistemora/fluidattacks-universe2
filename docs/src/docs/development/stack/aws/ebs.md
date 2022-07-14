@@ -89,7 +89,7 @@ We use [AWS EBS][EBS] for
   such as [GitLab Runner](https://docs.gitlab.com/runner/install/)
   and [Docker Machine](https://docs.docker.com/machine/install-machine/);
   high disk throughput is not required);
-- [GitLab CI workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/ci/src/config.toml#L57)
+- [GitLab CI workers](https://gitlab.com/fluidattacks/universe/-/blob/master/makes/applications/makes/ci/src/config.toml#L57)
   (we use 10 GiB [GP3][GP2] disks
   just for hosting our workers' [operating system][OS].
   Additionally,
@@ -99,12 +99,12 @@ We use [AWS EBS][EBS] for
   for achieving as-fast-as-possible
   job performance within our [CI](/development/stack/gitlab-ci));
 - [Batch](/development/stack/aws/batch/) processing
-  [workers](https://gitlab.com/fluidattacks/product/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112)
+  [workers](https://gitlab.com/fluidattacks/universe/-/blob/master/makes/applications/makes/compute/src/terraform/aws_batch.tf#L112)
   (we use 8 GiB GP2 disks
   just for hosting the operating system.
   These workers also come with 50 GiB internal NVMe disks);
 - [Kubernetes](/development/stack/kubernetes) cluster
-  [workers](https://gitlab.com/fluidattacks/product/-/blob/53879d903b3c8c2561d45552cbc53f2350601e38/makes/applications/makes/k8s/src/terraform/cluster.tf#L40)
+  [workers](https://gitlab.com/fluidattacks/universe/-/blob/53879d903b3c8c2561d45552cbc53f2350601e38/makes/applications/makes/k8s/src/terraform/cluster.tf#L40)
   (we use 50 GiB GP2 disks
   for hosting the base operating system
   and stored containers

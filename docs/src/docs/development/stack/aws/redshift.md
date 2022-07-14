@@ -113,7 +113,7 @@ over other alternatives are:
 
 1. We use [Redshift][REDSHIFT]
     for storing data
-    from [many of our services](https://gitlab.com/fluidattacks/product/-/tree/56b145a05ca4ff05cec79a65c6b1cab16d16fba3/observes/singer)
+    from [many of our services](https://gitlab.com/fluidattacks/universe/-/tree/56b145a05ca4ff05cec79a65c6b1cab16d16fba3/observes/singer)
     and then visualizing it using [ChartIO](https://chartio.com/).
 1. Our [Redshift][REDSHIFT] architecture
     is not documented.

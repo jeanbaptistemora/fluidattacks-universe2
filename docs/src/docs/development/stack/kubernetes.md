@@ -37,7 +37,7 @@ it over other alternatives are:
     more on the application development
     and less on the infrastructure supporting it.
 1. It can be
-    [fully managed](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
+    [fully managed](https://gitlab.com/fluidattacks/universe/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/cluster.tf)
     using [Terraform](/development/stack/terraform/).
 1. It supports
     [Blue-Green deployments](https://www.redhat.com/en/topics/devops/what-is-blue-green-deployment),
@@ -68,7 +68,7 @@ it over other alternatives are:
     a granular `cpu/memory per container` approach.
 1. It has its own [package manager](https://helm.sh/),
     which makes deploying services
-    [very easy](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/new-relic.tf#L5).
+    [very easy](https://gitlab.com/fluidattacks/universe/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/makes/k8s/src/terraform/new-relic.tf#L5).
 1. It has its own
     [local reproducibility](https://minikube.sigs.k8s.io/docs/)
     tool for simulating clusters
@@ -144,20 +144,20 @@ but not chosen for the following reasons:
 
 We use [Kubernetes][KUBERNETES] for:
 
-1. [Hosting](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
+1. [Hosting](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
     our
     [ASM][ASM].
-1. [Automatically](https://gitlab.com/fluidattacks/product/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
+1. [Automatically](https://gitlab.com/fluidattacks/universe/-/blob/ba230133febd3325d0f5c995f638a176b89d32a2/makes/applications/integrates/back/deploy/dev/entrypoint.sh)
     deploying
     [ephemeral environments](/about/security/integrity/developing-integrity#ephemeral-environments)
     on
     [CI/CD](https://docs.gitlab.com/ee/ci/introduction/)
     workflows.
-1. [Automatically deploying DNS records](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/dns.tf)
+1. [Automatically deploying DNS records](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/dns.tf)
     for applications.
-1. [Automatically deploying load balancers](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/alb.tf)
+1. [Automatically deploying load balancers](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/alb.tf)
     for applications.
-1. [Automatically scaling worker nodes](https://gitlab.com/fluidattacks/product/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf)
+1. [Automatically scaling worker nodes](https://gitlab.com/fluidattacks/universe/-/blob/086a0ace31819d4db76113a20f029c991d8375ce/makes/applications/makes/k8s/src/terraform/autoscaler.tf)
     based on application load.
 1. Running application performance monitoring using [New Relic](https://newrelic.com/).
 
@@ -183,7 +183,7 @@ We do not use [Kubernetes][KUBERNETES] for:
 ### General
 
 1. Any changes to the
-    [cluster](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/modules/makes/kubernetes)
+    [cluster](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/modules/makes/kubernetes)
     infrastructure and configuration
     must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
@@ -191,9 +191,9 @@ We do not use [Kubernetes][KUBERNETES] for:
     [ASM][ASM]
     (deployments, autoscaling, ingress...)
     for both
-    [development](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/dev/k8s)
+    [development](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/dev/k8s)
     and
-    [production](https://gitlab.com/fluidattacks/product/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
+    [production](https://gitlab.com/fluidattacks/universe/-/tree/4ad18b78c630878afdafbf192fcbf54c7bc7a006/makes/foss/units/integrates/back/deploy/prod/k8s)
     must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 1. To learn how to test and apply infrastructure

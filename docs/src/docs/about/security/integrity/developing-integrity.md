@@ -11,7 +11,7 @@ to reach a high integrity level.
 
 ## Monorepo
 
-We have a [Git repository](https://gitlab.com/fluidattacks/product)
+We have a [Git repository](https://gitlab.com/fluidattacks/universe)
 for all our applications.
 By taking this approach
 instead of dividing applications
@@ -49,7 +49,7 @@ the only variable that affects an application.
 ## Infrastructure as Code (IaC)
 
 All our infrastructure is versioned
-in our [Git repository](https://gitlab.com/fluidattacks/product)
+in our [Git repository](https://gitlab.com/fluidattacks/universe)
 written as code.
 Such code can be deployed anywhere
 and has all the properties of any other source code,

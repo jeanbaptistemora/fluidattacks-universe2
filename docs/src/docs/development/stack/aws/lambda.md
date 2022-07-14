@@ -32,7 +32,7 @@ The main reasons why we chose it over other alternatives are the following:
   allowing to run lambdas
   on a scheduled basis.
   This is especially useful for tasks
-  like [CI workers cleaning](https://gitlab.com/fluidattacks/product/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/makes/applications/makes/ci/src/terraform/clean-lambda-schedule.tf).
+  like [CI workers cleaning](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/makes/applications/makes/ci/src/terraform/clean-lambda-schedule.tf).
 - It [integrates](https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html)
   with other [AWS][AWS] services,
   allowing us to easily manage
@@ -46,7 +46,7 @@ The main reasons why we chose it over other alternatives are the following:
 ## Alternatives
 
 - **[Cloudflare Workers](https://workers.cloudflare.com/):**
-  We use it to set up [security headers](https://gitlab.com/fluidattacks/product/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/airs/deploy/production/terraform/js/headers.js)
+  We use it to set up [security headers](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/airs/deploy/production/terraform/js/headers.js)
   with [Cloudflare](/development/stack/cloudflare/).
   It does not easily connect with other [AWS][AWS] services.
 - **[Google Functions](https://cloud.google.com/functions):**
@@ -60,9 +60,9 @@ We use [Lambda][LAMBDA] for
 
 - cleaning [GitLab CI](/development/stack/gitlab-ci)
   stale machines
-  by using [scheduled lambdas](https://gitlab.com/fluidattacks/product/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/makes/applications/makes/ci/src/terraform/clean-lambda.tf),
+  by using [scheduled lambdas](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/makes/applications/makes/ci/src/terraform/clean-lambda.tf),
   and
-- [sending emails](https://gitlab.com/fluidattacks/product/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/integrates/deploy/terraform-resources/lambda/send_mail_notification.tf)
+- [sending emails](https://gitlab.com/fluidattacks/universe/-/blob/1f35599056b3bd800fcf4c109b471ec3597b2f8a/integrates/deploy/terraform-resources/lambda/send_mail_notification.tf)
   on our [ASM](https://fluidattacks.com/categories/asm/).
 
 ## Guidelines

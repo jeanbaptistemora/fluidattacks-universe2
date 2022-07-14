@@ -26,7 +26,7 @@ it over other alternatives are:
 
 1. It allows us to
     have a standardized
-    [commit history](https://gitlab.com/fluidattacks/product/-/commits/master),
+    [commit history](https://gitlab.com/fluidattacks/universe/-/commits/master),
     greatly improving documentation
     on what each commit does
     from a high level perspective
@@ -38,7 +38,7 @@ it over other alternatives are:
     [CLI](https://en.wikipedia.org/wiki/Command-line_interface),
     allowing us to
     automatize it as a
-    [CI job](https://gitlab.com/fluidattacks/product/-/blob/f4f630df896ae88f1a88257fcc72e6d8ea9344fc/.gitlab-ci.yml#L100).
+    [CI job](https://gitlab.com/fluidattacks/universe/-/blob/f4f630df896ae88f1a88257fcc72e6d8ea9344fc/.gitlab-ci.yml#L100).
 1. As commit data is standardized,
     it allows us to run
     [data analytics](https://fluidattacks.com/blog/git-steroids/)
@@ -74,9 +74,9 @@ it over other alternatives are:
 
 We use [Commitlint](https://github.com/conventional-changelog/commitlint) for:
 
-1. [Linting](https://gitlab.com/fluidattacks/product/-/blob/f9dccced62b019b654c0cc5675392f3ad254baea/makes/applications/makes/lint-commit-msg/entrypoint.sh)
+1. [Linting](https://gitlab.com/fluidattacks/universe/-/blob/f9dccced62b019b654c0cc5675392f3ad254baea/makes/applications/makes/lint-commit-msg/entrypoint.sh)
     commit messages in our
-    [repository](https://gitlab.com/fluidattacks/product/-/blob/f9dccced62b019b654c0cc5675392f3ad254baea/.commitlintrc.js).
+    [repository](https://gitlab.com/fluidattacks/universe/-/blob/f9dccced62b019b654c0cc5675392f3ad254baea/.commitlintrc.js).
 
 ## Guidelines
 
@@ -86,6 +86,6 @@ We use [Commitlint](https://github.com/conventional-changelog/commitlint) for:
     syntax documentation
     [here](/development/stack/commitlint/syntax/commit).
 1. You can find
-    [merge requests](https://gitlab.com/fluidattacks/product/-/merge_requests)
+    [merge requests](https://gitlab.com/fluidattacks/universe/-/merge_requests)
     syntax documentation
     [here](/development/stack/commitlint/syntax/merge-request).

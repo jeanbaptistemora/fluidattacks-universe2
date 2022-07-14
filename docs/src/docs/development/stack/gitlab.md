@@ -48,7 +48,7 @@ over other alternatives are:
     [Development Planning](https://docs.gitlab.com/ee/topics/plan_and_track.html)
     with
     [issues][ISSUE],
-    [milestones](https://gitlab.com/fluidattacks/product/-/milestones),
+    [milestones](https://gitlab.com/fluidattacks/universe/-/milestones),
     [roadmaps](https://docs.gitlab.com/ee/user/group/roadmap/index.html),
     among others.
     Such features are essential for
@@ -84,28 +84,28 @@ over other alternatives are:
     [REST API](https://docs.gitlab.com/ee/api/)
     that allows us to automatize
     processes like
-    [reviewing merge requests](https://gitlab.com/fluidattacks/product/-/tree/f153761ee61aad37b00212e134eb8ac689e1952e/reviews),
-    [rotating AWS secrets](https://gitlab.com/fluidattacks/product/-/tree/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/user-rotate-keys)
+    [reviewing merge requests](https://gitlab.com/fluidattacks/universe/-/tree/f153761ee61aad37b00212e134eb8ac689e1952e/reviews),
+    [rotating AWS secrets](https://gitlab.com/fluidattacks/universe/-/tree/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/user-rotate-keys)
     and
-    [programatically cloning repositories](https://gitlab.com/fluidattacks/product/-/blob/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/git/template.sh#L35).
+    [programatically cloning repositories](https://gitlab.com/fluidattacks/universe/-/blob/f153761ee61aad37b00212e134eb8ac689e1952e/makes/utils/git/template.sh#L35).
 1. It has its own
-    [Container registry](https://gitlab.com/fluidattacks/product/container_registry),
+    [Container registry](https://gitlab.com/fluidattacks/universe/container_registry),
     allowing us to seamlessly store all our containers in the same place.
 1. It supports
-    [CI/CD schedules](https://gitlab.com/fluidattacks/product/-/pipeline_schedules),
+    [CI/CD schedules](https://gitlab.com/fluidattacks/universe/-/pipeline_schedules),
     which allows us to easily run scheduled
     [jobs][JOBS].
 1. It supports
-    [Environments](https://gitlab.com/fluidattacks/product/-/environments)
+    [Environments](https://gitlab.com/fluidattacks/universe/-/environments)
     for seamlessly accessing both development and production environments.
 1. It supports built-in
-    [Analytics](https://gitlab.com/fluidattacks/product/-/value_stream_analytics)
+    [Analytics](https://gitlab.com/fluidattacks/universe/-/value_stream_analytics)
     that provide
-    [issue insights](https://gitlab.com/fluidattacks/product/insights/#/issues),
+    [issue insights](https://gitlab.com/fluidattacks/universe/insights/#/issues),
     [CI/CD analytics](https://docs.gitlab.com/ee/user/analytics/ci_cd_analytics.html),
     [merge request analytics](https://docs.gitlab.com/ee/user/analytics/merge_request_analytics.html),
-    [issue analytics](https://gitlab.com/fluidattacks/product/-/analytics/issues_analytics),
-    [repository analytics](https://gitlab.com/fluidattacks/product/-/graphs/master/charts),
+    [issue analytics](https://gitlab.com/fluidattacks/universe/-/analytics/issues_analytics),
+    [repository analytics](https://gitlab.com/fluidattacks/universe/-/graphs/master/charts),
     among others.
 1. It supports many
     [ChatOps integrations](https://docs.gitlab.com/ee/user/project/integrations/overview.html).
@@ -186,11 +186,11 @@ We use [Gitlab][GITLAB] for:
 1. Hosting our
     [issues][ISSUES].
 1. Hosting our
-    [milestones](https://gitlab.com/fluidattacks/product/-/milestones).
+    [milestones](https://gitlab.com/fluidattacks/universe/-/milestones).
 1. Opening our
     [merge requests][MR].
 1. Hosting our
-    [containers](https://gitlab.com/fluidattacks/product/container_registry).
+    [containers](https://gitlab.com/fluidattacks/universe/container_registry).
 1. Visualizing
     [jobs][JOBS]
     and
@@ -198,7 +198,7 @@ We use [Gitlab][GITLAB] for:
 
 We do not use [Gitlab][GITLAB] for:
 
-1. [Implementing it as code](https://gitlab.com/fluidattacks/product/-/issues/468):
+1. [Implementing it as code](https://gitlab.com/fluidattacks/universe/-/issues/468):
     We can partially implement
     [Gitlab][GITLAB] as code
     using [Terraform](/development/stack/terraform#usage).
@@ -210,9 +210,9 @@ We do not use [Gitlab][GITLAB] for:
     We currently do not use a stack that
     integrates with [Gitlab][GITLAB].
     Issues have been opened for this:
-    [Review Sentry](https://gitlab.com/fluidattacks/product/-/issues/4729),
-    [Review Jaeger](https://gitlab.com/fluidattacks/product/-/issues/4728),
-    [Review Elastic Stack](https://gitlab.com/fluidattacks/product/-/issues/4727).
+    [Review Sentry](https://gitlab.com/fluidattacks/universe/-/issues/4729),
+    [Review Jaeger](https://gitlab.com/fluidattacks/universe/-/issues/4728),
+    [Review Elastic Stack](https://gitlab.com/fluidattacks/universe/-/issues/4727).
 
 ## Guidelines
 
@@ -227,10 +227,10 @@ We do not use [Gitlab][GITLAB] for:
 > Some of the information might be outdated.
 
 [GITLAB]: https://about.gitlab.com/
-[PRODUCT]: https://gitlab.com/fluidattacks/product
+[PRODUCT]: https://gitlab.com/fluidattacks/universe
 [CICD]: /development/stack/gitlab-ci
 [OSS]: https://opensource.com/resources/what-open-source
-[ISSUES]: https://gitlab.com/fluidattacks/product/-/issues
-[MR]: https://gitlab.com/fluidattacks/product/-/merge_requests
+[ISSUES]: https://gitlab.com/fluidattacks/universe/-/issues
+[MR]: https://gitlab.com/fluidattacks/universe/-/merge_requests
 [JOBS]: https://docs.gitlab.com/ee/ci/jobs/
 [PUSH-RULES]: https://docs.gitlab.com/ee/push_rules/push_rules.html

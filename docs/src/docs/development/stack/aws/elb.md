@@ -70,9 +70,9 @@ The main reasons why we chose it over other alternatives are the following:
 We use [ELB][ELB] for
 
 - serving our [ASM](https://fluidattacks.com/categories/asm/)
-  production [environment](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/dev/k8s/ingress.yaml#L6),
+  production [environment](https://gitlab.com/fluidattacks/universe/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/dev/k8s/ingress.yaml#L6),
   and
-- serving our ASM [ephemeral environments](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/prod/k8s/ingress.yaml#L6).
+- serving our ASM [ephemeral environments](https://gitlab.com/fluidattacks/universe/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/prod/k8s/ingress.yaml#L6).
 
 We do not use ELB for serving [our website](https://fluidattacks.com)
 and [documentation](https://docs.fluidattacks.com),
@@ -85,7 +85,7 @@ without having to manage load balancers.
 - You can access the ELB console
   after [authenticating on AWS](/development/stack/aws#guidelines).
 - Any changes to ELB's infrastructure must be done
-  modyfing [its modules](https://gitlab.com/fluidattacks/product/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/prod/k8s/ingress.yaml)
+  modyfing [its modules](https://gitlab.com/fluidattacks/universe/-/blob/527c74bf5984f74582a8d9620a6f9c5ae54d2838/makes/applications/integrates/back/deploy/prod/k8s/ingress.yaml)
   via [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/).
 
 [ELB]: https://aws.amazon.com/elasticloadbalancing/

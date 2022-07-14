@@ -38,7 +38,7 @@ ASM gives all project stakeholders access
 to details concerning vulnerabilities
 reported by `Fluid Attacks`.
 (We have the source code
-of all our [products](https://gitlab.com/fluidattacks/product)
+of all our [products](https://gitlab.com/fluidattacks/universe)
 in our [public repository](https://gitlab.com/fluidattacks).)
 
 ## What happens when a vulnerability is reported?

@@ -121,13 +121,13 @@ it over other alternatives are:
 
 We use [Okta][OKTA] for:
 
-1. [Managing apps, groups, users and permissions](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/data.yaml).
-1. [Managing AWS roles with SAML](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/aws-roles.tf).
+1. [Managing apps, groups, users and permissions](https://gitlab.com/fluidattacks/universe/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/data.yaml).
+1. [Managing AWS roles with SAML](https://gitlab.com/fluidattacks/universe/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform/aws-roles.tf).
 
 We do not use [Okta][OKTA] for:
 
 1. [Managing users via universal directory](https://www.okta.com/products/universal-directory/):
-    We are [currently returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561).
+    We are [currently returning from JumpCloud](https://gitlab.com/fluidattacks/universe/-/issues/4561).
 1. [Managing RADIUS](https://help.okta.com/en/prod/Content/Topics/integrations/ha-main.htm):
     The [Okta RADIUS Agent](https://help.okta.com/en/prod/Content/Topics/integrations/getting-started-about-radius.htm)
     only supports
@@ -138,7 +138,7 @@ We do not use [Okta][OKTA] for:
     look for other
     [RADIUS](https://en.wikipedia.org/wiki/RADIUS)
     providers once
-    [returning from JumpCloud](https://gitlab.com/fluidattacks/product/-/issues/4561)
+    [returning from JumpCloud](https://gitlab.com/fluidattacks/universe/-/issues/4561)
     is finished.
 
 ## Guidelines
@@ -150,7 +150,7 @@ We do not use [Okta][OKTA] for:
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/product/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/universe/-/blob/6e16ae7ed5a28d5f56601357a299eea18b20e283/makes/applications/makes/okta/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).

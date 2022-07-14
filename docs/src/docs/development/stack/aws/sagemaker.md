@@ -37,7 +37,7 @@ over other alternatives are:
     raw data,
     datasets
     and training outputs
-    in our [S3 Bucket](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/infra/s3.tf).
+    in our [S3 Bucket](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/infra/s3.tf).
 1. It supports
     a [wide range](https://aws.amazon.com/sagemaker/pricing/)
     of [EC2][EC2] [ML-specific][ML] machines
@@ -52,16 +52,16 @@ over other alternatives are:
     it is very easy
     to implement [parallelism](https://en.wikipedia.org/wiki/Parallel_computing)
     by running several
-    [models](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/sagemaker_provisioner.py#L69)
+    [models](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/sagemaker_provisioner.py#L69)
     or
-    [feature combinations](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/constants.py#L38)
+    [feature combinations](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/constants.py#L38)
     in separate machines,
     greatly increasing
     training performance.
 1. It supports
     [Hyperparametrization](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html),
     allowing to concurrently
-    [train several instances of a model](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/constants.py#L68)
+    [train several instances of a model](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/constants.py#L68)
     using different parameter values.
     Such feature is essential
     for optimizing
@@ -78,7 +78,7 @@ over other alternatives are:
 1. It supports a
     [wide range of frameworks](https://docs.aws.amazon.com/sagemaker/latest/dg/algorithms-choose.html),
     including [scikit-learn](https://scikit-learn.org/),
-    the one that [Sorts](https://gitlab.com/fluidattacks/product/-/tree/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts)
+    the one that [Sorts](https://gitlab.com/fluidattacks/universe/-/tree/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts)
     uses.
 1. [EC2][EC2] workers performance
     can be [monitored](https://docs.aws.amazon.com/sagemaker/latest/dg/monitoring-cloudwatch.html)
@@ -107,7 +107,7 @@ over other alternatives are:
 1. We use [SageMaker][SAGEMAKER]
     as the [Machine Learning][ML]
     platform for training
-    [sorts](https://gitlab.com/fluidattacks/product/-/tree/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts),
+    [sorts](https://gitlab.com/fluidattacks/universe/-/tree/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts),
     our [ML-based][ML] software vulnerability scanner.
 1. We do not use
     [SageMaker spot instances](https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html).
@@ -123,14 +123,14 @@ over other alternatives are:
     configurations must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
-    [estimator configuration](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/sagemaker_provisioner.py#L31).
+    [estimator configuration](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/sagemaker_provisioner.py#L31).
 1. Keep in mind that
     [SageMaker][SAGEMAKER] workers
     do not use [Nix](https://nixos.org/)
     but a preconfigured environment.
     You can add dependencies
     by modifying the
-    [requirements file](https://gitlab.com/fluidattacks/product/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/requirements.txt).
+    [requirements file](https://gitlab.com/fluidattacks/universe/-/blob/f630ceecb7015146118ef8e9aa4f2576a13785e6/sorts/training/requirements.txt).
 
 [SAGEMAKER]: https://aws.amazon.com/sagemaker/
 [ML]: https://en.wikipedia.org/wiki/Machine_learning

@@ -107,13 +107,13 @@ but not chosen for the following reasons:
 
 We use [Cloudflare][CLOUDFLARE] for:
 
-1. [Overall network configurations](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L1).
-1. [DNS Records](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L79).
-1. [HTTP Redirections](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L436).
-1. [Managing security headers](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L481).
-1. [Managing digital certificates](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/certificates.tf).
-1. [Managing rate limiting](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/rate_limit.tf).
-1. [Managing CDN Cache](https://gitlab.com/fluidattacks/product/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/airs/deploy/production/terraform/cache.tf).
+1. [Overall network configurations](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L1).
+1. [DNS Records](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L79).
+1. [HTTP Redirections](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L436).
+1. [Managing security headers](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/fluidattacks.tf#L481).
+1. [Managing digital certificates](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/certificates.tf).
+1. [Managing rate limiting](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform/rate_limit.tf).
+1. [Managing CDN Cache](https://gitlab.com/fluidattacks/universe/-/blob/46f915132f8ba81b787ad9061456f2411e2b02a9/airs/deploy/production/terraform/cache.tf).
 1. Hosting `.com` and `.io` supported
     [TLDs](https://www.cloudflare.com/tld-policies/)
     using
@@ -140,7 +140,7 @@ We do not use the following
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/product/-/tree/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/universe/-/tree/46f915132f8ba81b787ad9061456f2411e2b02a9/makes/applications/makes/dns/src/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
