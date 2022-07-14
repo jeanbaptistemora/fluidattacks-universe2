@@ -24,10 +24,8 @@ from opensearchpy import (
 from opensearchpy.helpers.signer import (
     OPENSEARCH_SERVICE,
 )
-from safe_pickle import (
-    Any,
-)
 from typing import (
+    Any,
     Optional,
 )
 
@@ -104,7 +102,7 @@ async def search_shutdown() -> None:
         await CONTEXT_STACK.aclose()
 
 
-async def get_client() -> Any:
+async def get_client() -> AsyncOpenSearch:
     if CLIENT is None:
         await search_startup()
 
