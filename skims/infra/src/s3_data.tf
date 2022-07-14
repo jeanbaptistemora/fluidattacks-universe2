@@ -48,6 +48,46 @@ resource "aws_s3_bucket_lifecycle_configuration" "skims_data" {
       days = 7
     }
   }
+  rule {
+    id     = "skims_data_configs"
+    status = "Enabled"
+
+    filter {
+      prefix = "configs/"
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 15
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 15
+    }
+
+    expiration {
+      days = 15
+    }
+  }
+  rule {
+    id     = "skims_data_results"
+    status = "Enabled"
+
+    filter {
+      prefix = "results/"
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 15
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 15
+    }
+
+    expiration {
+      days = 15
+    }
+  }
 }
 
 resource "aws_s3_bucket_versioning" "skims_data" {
