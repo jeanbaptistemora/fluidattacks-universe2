@@ -19,9 +19,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 from newutils import (
     token as token_utils,
 )
@@ -45,13 +42,10 @@ async def _resolve_for_group(
     email: str,
     group_name: str,
 ) -> Stakeholder:
+    if not group_name:
+        raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    group_access = await group_access_domain.get_user_access(email, group_name)
-    group_stakeholder = stakeholder._replace(
-        responsibility=group_access.get("responsibility", None),
-    )
-    return group_stakeholder
+    return await loaders.stakeholder.load(email)
 
 
 @convert_kwargs_to_snake_case
