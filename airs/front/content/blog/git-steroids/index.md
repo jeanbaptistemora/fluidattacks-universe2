@@ -620,7 +620,7 @@ the most important one.
 
 I invite you to check the commit history of our public repository:
 
-- [Product](https://gitlab.com/fluidattacks/product/commits/master)
+- [Product](https://gitlab.com/fluidattacks/universe/commits/master)
 
 ### Want to get more technical?
 

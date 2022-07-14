@@ -35,7 +35,7 @@ the security of our production deployments. Thereby, we have been able
 to reach the following average rates:
 
 <div class="avarage-rates-section">
-<a href="https://gitlab.com/fluidattacks/product/-/merge_requests?scope=all&state=merged"
+<a href="https://gitlab.com/fluidattacks/universe/-/merge_requests?scope=all&state=merged"
 target="_blank">
 <div class="fl w-100 w-50-l pa2">
 <div class="outline-transparent bg-button-red hv-bg-fluid-rd pointer white pv3
@@ -45,7 +45,7 @@ fw7 f3 t-all-3-eio br2 bc-fluid-red ba roboto tc">
 </div>
 </div>
 </a>
-<a href="https://gitlab.com/fluidattacks/product/-/merge_requests?scope=all&state=merged"
+<a href="https://gitlab.com/fluidattacks/universe/-/merge_requests?scope=all&state=merged"
 target="_blank">
 <div class="fl w-100 w-50-l pa2">
 <div class="outline-transparent bg-button-red hv-bg-fluid-rd pointer white pv3

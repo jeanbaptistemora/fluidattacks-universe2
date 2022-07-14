@@ -4,12 +4,12 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/fluidattacks/product.git"
+    "url": "git+https://gitlab.com/fluidattacks/universe.git"
   },
   "author": "development@fluidattacks.com",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://gitlab.com/fluidattacks/product/issues"
+    "url": "https://gitlab.com/fluidattacks/universe/issues"
   },
   "dependencies": {
     "@bugsnag/js": "7.17.0",
