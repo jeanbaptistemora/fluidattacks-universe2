@@ -62,6 +62,7 @@ from typing import (
     List,
     Optional,
 )
+import uuid
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -292,7 +293,7 @@ async def customer_payment_methods(
 
         payment_methods += [
             PaymentMethod(
-                id="",
+                id=payment_method.id,
                 fingerprint="",
                 last_four_digits="",
                 expiration_month="",
@@ -375,6 +376,7 @@ async def create_payment_method(  # pylint: disable=too-many-locals
                 city=city,
                 country=country,
                 email=email,
+                id=(str(uuid.uuid4())),
                 state=state,
             )
         )

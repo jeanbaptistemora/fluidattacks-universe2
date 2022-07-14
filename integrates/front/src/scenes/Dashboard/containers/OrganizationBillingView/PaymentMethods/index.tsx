@@ -67,12 +67,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         };
       })
       .filter((paymentMethod: IPaymentMethodAttr): boolean => {
-        return paymentMethod.id !== "";
+        return paymentMethod.lastFourDigits !== "";
       });
 
     const otherMethodData: IPaymentMethodAttr[] = paymentMethods.filter(
       (paymentMethod: IPaymentMethodAttr): boolean => {
-        return paymentMethod.id === "";
+        return paymentMethod.lastFourDigits === "";
       }
     );
 

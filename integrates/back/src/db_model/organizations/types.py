@@ -11,6 +11,7 @@ from typing import (
 
 
 class OrganizationPaymentMethods(NamedTuple):
+    id: str
     business_name: str
     email: str
     country: str

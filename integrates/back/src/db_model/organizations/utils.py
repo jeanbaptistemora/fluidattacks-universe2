@@ -63,6 +63,7 @@ def format_payment_methods(
 ) -> list[OrganizationPaymentMethods]:
     return [
         OrganizationPaymentMethods(
+            id=payment_method.get("id", ""),
             business_name=payment_method.get("business_name", ""),
             email=payment_method.get("email", ""),
             country=payment_method.get("country", ""),
