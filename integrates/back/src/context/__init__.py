@@ -34,6 +34,8 @@ try:
     FI_JWT_SECRET = os.environ["JWT_SECRET"]
     FI_JWT_SECRET_API = os.environ["JWT_SECRET_API"]
     FI_MAIL_CONTINUOUS = os.environ["MAIL_CONTINUOUS"]
+    FI_MAIL_COS = os.environ["MAIL_COS"]
+    FI_MAIL_CTO = os.environ["MAIL_CTO"]
     FI_MAIL_CUSTOMER_SUCCESS = os.environ["MAIL_CUSTOMER_SUCCESS"]
     FI_MAIL_PRODUCTION = os.environ["MAIL_PRODUCTION"]
     FI_MAIL_PROJECTS = os.environ["MAIL_PROJECTS"]
