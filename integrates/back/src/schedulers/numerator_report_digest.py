@@ -184,7 +184,7 @@ async def _send_mail_report(
     await groups_mail.send_mail_numerator_report(
         loaders=loaders,
         context=context,
-        email_to=[FI_MAIL_PRODUCTION],
+        email_to=[FI_MAIL_PRODUCTION, responsible],
         report_date=report_date,
     )
 
