@@ -157,7 +157,7 @@ async def test_get_me(
     email: str,
     role: str,
     permissions: int,
-    phone: int,
+    phone: dict[str, str],
     groups_length: int,
     drafts: list[dict[str, str]],
     assigned: list[dict[str, str]],

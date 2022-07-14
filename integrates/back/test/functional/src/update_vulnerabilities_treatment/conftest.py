@@ -22,10 +22,6 @@ from db_model.findings.types import (
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-    StakeholderAccessToken,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -53,7 +49,7 @@ from typing import (
 @pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
-    user_email: str = "customer1@gmail.com"
+    user_email: str = "user@gmail.com"
     data: dict[str, Any] = {
         "findings": [
             {
@@ -348,24 +344,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "subject": user_email,
                 "object": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 "role": "user",
-            },
-        ],
-        "users": [],
-        "stakeholders": [
-            {
-                "stakeholder": Stakeholder(
-                    email="new_user",
-                    first_name="new_user",
-                    last_name="new_user",
-                    access_token=StakeholderAccessToken(
-                        iat=1634677195,
-                        jti="c8d9d5f058cf200f7435508fc2dba37d07447ec12dcd07",
-                        salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
-                    ),
-                    legal_remember=False,
-                    push_tokens=[],
-                    is_registered=True,
-                ),
             },
         ],
     }

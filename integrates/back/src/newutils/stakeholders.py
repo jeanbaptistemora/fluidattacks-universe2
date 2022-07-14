@@ -191,7 +191,13 @@ def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
         if stakeholder.last_login_date
         else None,
         "legal_remember": stakeholder.legal_remember,
-        "phone": stakeholder.phone,
+        "phone": {
+            "calling_country_code": stakeholder.phone.calling_country_code,
+            "country_code": stakeholder.phone.country_code,
+            "national_number": stakeholder.phone.national_number,
+        }
+        if stakeholder.phone
+        else None,
         "push_tokens": stakeholder.push_tokens,
         "registered": stakeholder.is_registered,
         "tours": {

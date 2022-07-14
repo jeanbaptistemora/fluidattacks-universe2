@@ -41,6 +41,10 @@ from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+    StakeholderPhone,
+)
 from db_model.types import (
     Policies,
 )
@@ -69,23 +73,23 @@ async def populate() -> bool:
                 "role": "admin",
             },
         ),
-        "users": (
+        "stakeholders": [
             {
-                "email": "test@fluidattacks.com",
-                "first_login": "",
-                "first_name": "",
-                "last_login": "",
-                "last_name": "",
-                "legal_remember": False,
-                "push_tokens": [],
-                "registered": True,
-                "phone": {
-                    "calling_country_code": "1",
-                    "country_code": "US",
-                    "national_number": "1111111111",
-                },
+                "stakeholder": Stakeholder(
+                    email="test@fluidattacks.com",
+                    first_name="",
+                    last_name="",
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="1111111111",
+                    ),
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                ),
             },
-        ),
+        ],
         "organizations": (
             {
                 "organization": Organization(

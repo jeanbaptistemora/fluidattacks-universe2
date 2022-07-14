@@ -18,7 +18,6 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "users": [],
         "stakeholders": [
             {
                 "stakeholder": Stakeholder(

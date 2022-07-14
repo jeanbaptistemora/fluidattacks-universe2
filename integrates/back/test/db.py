@@ -138,52 +138,6 @@ async def populate_stakeholders(data: List[Any]) -> bool:
     return True
 
 
-async def populate_users(data: List[Any]) -> bool:
-    await collect(
-        [
-            dal_stakeholders.add(
-                user["email"],
-                user,
-            )
-            for user in data
-        ]
-    )
-    await collect(
-        [
-            dal_stakeholders.update_metadata(
-                stakeholder_email=user["email"],
-                metadata=StakeholderMetadataToUpdate(
-                    notifications_preferences=NotificationsPreferences(
-                        email=[
-                            "ACCESS_GRANTED",
-                            "AGENT_TOKEN",
-                            "CHARTS_REPORT",
-                            "DAILY_DIGEST",
-                            "EVENT_REPORT",
-                            "FILE_UPDATE",
-                            "GROUP_INFORMATION",
-                            "GROUP_REPORT",
-                            "NEW_COMMENT",
-                            "NEW_DRAFT",
-                            "PORTFOLIO_UPDATE",
-                            "REMEDIATE_FINDING",
-                            "REMINDER_NOTIFICATION",
-                            "ROOT_UPDATE",
-                            "SERVICE_UPDATE",
-                            "UNSUBSCRIPTION_ALERT",
-                            "UPDATED_TREATMENT",
-                            "VULNERABILITY_ASSIGNED",
-                            "VULNERABILITY_REPORT",
-                        ]
-                    )
-                ),
-            )
-            for user in data
-        ]
-    )
-    return True
-
-
 async def populate_organization_users(data: list[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for org in data:

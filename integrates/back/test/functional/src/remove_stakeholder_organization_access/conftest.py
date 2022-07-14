@@ -78,7 +78,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ],
             },
         ],
-        "users": [],
         "stakeholders": [
             {
                 "stakeholder": Stakeholder(
