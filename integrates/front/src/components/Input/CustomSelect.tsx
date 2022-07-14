@@ -1,16 +1,13 @@
 import type { FieldProps } from "formik";
-import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
+import type { FC, FocusEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
 import type { IInputBase } from "./InputBase";
 import { InputBase } from "./InputBase";
 import { StyledSelect } from "./styles";
 
-interface ISelectProps extends IInputBase {
+interface ISelectProps extends IInputBase<HTMLSelectElement> {
   children?: ReactNode;
-  onBlur?: (event: FocusEvent<HTMLSelectElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLSelectElement>) => void;
-  onKeyDown?: (event: KeyboardEvent<HTMLSelectElement>) => void;
 }
 
 type TSelectProps = FieldProps<string, Record<string, string>> & ISelectProps;

@@ -1,15 +1,12 @@
 import type { FieldProps } from "formik";
-import type { FC, FocusEvent, KeyboardEvent } from "react";
+import type { FC, FocusEvent } from "react";
 import React, { useCallback } from "react";
 
 import type { IInputBase } from "./InputBase";
 import { InputBase } from "./InputBase";
 import { StyledTextArea } from "./styles";
 
-interface ITextAreaProps extends IInputBase {
-  onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLTextAreaElement>) => void;
-  onKeyDown?: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
+interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
   placeholder?: string;
   rows?: number;
 }

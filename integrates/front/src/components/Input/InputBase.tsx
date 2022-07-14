@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
 import React from "react";
 
 import type { IStyledInputProps } from "./styles";
@@ -7,11 +7,14 @@ import { InputBox, InputWrapper } from "./styles";
 import { Alert } from "components/Alert";
 import { Text } from "components/Text";
 
-interface IInputBase extends Partial<IStyledInputProps> {
+interface IInputBase<T = HTMLElement> extends Partial<IStyledInputProps> {
   disabled?: boolean;
   id?: string;
   label?: ReactNode;
   name: string;
+  onBlur?: (event: FocusEvent<T>) => void;
+  onFocus?: (event: FocusEvent<T>) => void;
+  onKeyDown?: (event: KeyboardEvent<T>) => void;
 }
 
 interface IInputBaseProps extends IInputBase {

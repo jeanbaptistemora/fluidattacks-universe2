@@ -1,17 +1,14 @@
 import type { FieldProps } from "formik";
-import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
+import type { FC, FocusEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
 import type { IInputBase } from "./InputBase";
 import { InputBase } from "./InputBase";
 import { StyledInput } from "./styles";
 
-interface IInputProps extends IInputBase {
+interface IInputProps extends IInputBase<HTMLInputElement> {
   childLeft?: ReactNode;
   childRight?: ReactNode;
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: "email" | "password" | "text";
 }
