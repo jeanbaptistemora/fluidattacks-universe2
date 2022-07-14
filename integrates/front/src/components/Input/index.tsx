@@ -4,6 +4,7 @@ import React from "react";
 
 import type { IInputProps } from "./CustomInput";
 import { CustomInput } from "./CustomInput";
+import { DatePicker } from "./DatePicker";
 import { Select } from "./Select";
 import { TextArea } from "./TextArea";
 
@@ -38,4 +39,4 @@ const Input: FC<IInputProps> = ({
   />
 );
 
-export { Input, Select, TextArea };
+export { Input, DatePicker, Select, TextArea };

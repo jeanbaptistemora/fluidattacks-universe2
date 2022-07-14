@@ -9,8 +9,14 @@ import { object, string } from "yup";
 import type { IInputProps } from "./CustomInput";
 import type { ISelectProps } from "./CustomSelect";
 import type { ITextAreaProps } from "./CustomTextArea";
+import type { IDatePickerProps } from "./DatePicker";
 
-import { Input, Select as SelectComp, TextArea as TextAreaComp } from ".";
+import {
+  DatePicker as DatePickerComp,
+  Input,
+  Select as SelectComp,
+  TextArea as TextAreaComp,
+} from ".";
 import { Button } from "components/Button";
 import { Logger } from "utils/logger";
 
@@ -51,6 +57,18 @@ const StoryDefault: Story<IInputProps> = (props): JSX.Element => (
   </Formik>
 );
 
+const StoryDatePicker: Story<IDatePickerProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+  >
+    <Form id={"exampleForm"}>
+      <DatePickerComp {...props} id={"ExampleId"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
 const StorySelect: Story<ISelectProps> = (props): JSX.Element => (
   <Formik
     initialValues={{ exampleName: "" }}
@@ -78,6 +96,14 @@ const StoryTextArea: Story<ITextAreaProps> = (props): JSX.Element => (
 );
 
 const Default = StoryDefault.bind({});
+Default.args = {
+  disabled: false,
+  label: "ExampleLabel",
+  placeholder: "Example placeholder",
+  variant: "solid",
+};
+
+const DatePicker = StoryDatePicker.bind({});
 Default.args = {
   disabled: false,
   label: "ExampleLabel",
@@ -126,5 +152,5 @@ TextArea.args = {
   variant: "solid",
 };
 
-export { Default, Search, Select, TextArea };
+export { Default, DatePicker as InputDate, Search, Select, TextArea };
 export default config;
