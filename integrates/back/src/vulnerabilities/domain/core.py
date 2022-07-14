@@ -663,6 +663,7 @@ async def request_vulnerabilities_zero_risk(
         finding_id=finding_id,
         justification=justification,
         requester_email=str(user_email),
+        vulnerabilities=vulnerabilities,
     )
     return True
 

@@ -26,6 +26,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -353,11 +356,12 @@ async def request_health_check(
     )
 
 
-async def request_vulnerability_zero_risk(
+async def request_vulnerability_zero_risk(  # pylint: disable=too-many-locals
     loaders: Any,
     finding_id: str,
     justification: str,
     requester_email: str,
+    vulnerabilities: tuple[Vulnerability, ...],
 ) -> bool:
     finding_loader: DataLoader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
@@ -372,6 +376,7 @@ async def request_vulnerability_zero_risk(
         f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
         f"{finding_id}/locations"
     )
+    new_line = "\n\t"
     description = f"""
         You are receiving this case because a zero risk vulnerability has been
         requested through ASM by Fluid Attacks.
@@ -383,6 +388,14 @@ async def request_vulnerability_zero_risk(
         - ID: {finding_id}
         - URL: {finding_url}
         - Justification: {justification}
+
+        Locations:
+        {new_line+new_line.join(
+            [
+                f"- {vulnerability.where} | {vulnerability.specific}"
+                for vulnerability in vulnerabilities
+            ]
+        )}
 
         If you require any further information,
         do not hesitate to contact us.
