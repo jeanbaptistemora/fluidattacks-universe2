@@ -25,10 +25,10 @@ async def resolve(
     entity = request_store.get("entity")
 
     if entity == "GROUP":
-        group_name: str = request_store["group_name"]
-        group_access = await group_access_domain.get_user_access(
-            parent.email, group_name
+        responsibility = await group_access_domain.get_responsibility(
+            email=parent.email,
+            group_name=request_store["group_name"],
+            is_registered=parent.is_registered,
         )
-        responsibility = group_access.get("responsibility", "")
 
     return responsibility if responsibility else None

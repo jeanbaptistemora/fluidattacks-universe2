@@ -235,6 +235,23 @@ async def get_invitation_state(
     )
 
 
+async def get_responsibility(
+    email: str,
+    group_name: str,
+    is_registered: bool,
+) -> str:
+    user_access = await get_user_access(email, group_name)
+    invitation: Item = user_access.get("invitation", {})
+    invitation_state = stakeholders_utils.format_invitation_state(
+        invitation, is_registered
+    )
+    return (
+        invitation["responsibility"]
+        if invitation_state == "PENDING"
+        else user_access.get("responsibility", "")
+    )
+
+
 async def get_stakeholder_role(
     email: str,
     group_name: str,
@@ -245,9 +262,8 @@ async def get_stakeholder_role(
     invitation_state = stakeholders_utils.format_invitation_state(
         invitation, is_registered
     )
-    if invitation_state == "PENDING":
-        stakeholder_role = invitation["role"]
-    else:
-        stakeholder_role = await authz.get_group_level_role(email, group_name)
-
-    return stakeholder_role
+    return (
+        invitation["role"]
+        if invitation_state == "PENDING"
+        else await authz.get_group_level_role(email, group_name)
+    )

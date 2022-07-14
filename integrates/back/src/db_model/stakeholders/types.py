@@ -41,7 +41,6 @@ class Stakeholder(NamedTuple):
     phone: Optional[StakeholderPhone] = None
     push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
-    responsibility: Optional[str] = None
     tours: StakeholderTours = StakeholderTours()
 
 

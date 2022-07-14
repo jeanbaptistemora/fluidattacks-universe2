@@ -156,7 +156,6 @@ def format_stakeholder(
         tours=format_tours(item_legacy["tours"])
         if item_legacy.get("tours")
         else StakeholderTours(),
-        responsibility=item_legacy.get("responsibility", None),
     )
 
 
@@ -199,7 +198,6 @@ def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
             "new_group": stakeholder.tours.new_group,
             "new_root": stakeholder.tours.new_root,
         },
-        "responsibility": stakeholder.responsibility,
     }
     return {
         key: None if not value and value is not False else value
