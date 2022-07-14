@@ -124,7 +124,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   return (
     <div>
-      <div className={`flex flex-wrap ${style.tableOptions}`}>
+      <div className={"flex flex-wrap mb2"}>
         <div className={"w-100"}>
           {exportCsv ||
           columnToggle ||

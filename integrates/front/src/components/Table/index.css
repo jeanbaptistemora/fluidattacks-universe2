@@ -3,11 +3,6 @@
   height: 30px;
 }
 
-:local .tableOptions {
-  margin-bottom: 8px;
-  margin-top: 8px;
-}
-
 @media (max-width: 1920px) {
   :local .textMesure {
     max-width: 20em;
