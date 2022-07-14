@@ -13,15 +13,16 @@ from dataloaders import (
 )
 import pytest
 
-pytestmark = pytest.mark.asyncio
+pytestmark = [
+    pytest.mark.asyncio,
+]
 
 
-@pytest.mark.asyncio
 async def test_get_tag_query() -> None:
     """Check for group alert."""
     query = """
         query{
-            tag(tag: "test-groups"){
+            tag(tag: "test-nogroups"){
                 lastClosedVulnerability
                 meanRemediateCriticalSeverity
                 meanRemediateHighSeverity
@@ -56,7 +57,7 @@ async def test_get_tag_query() -> None:
     assert result["data"]["tag"]["maxOpenSeverity"] == 3.3
     assert result["data"]["tag"]["maxSeverity"] == 4.3
     assert result["data"]["tag"]["organization"] == "makimachi"
-    assert result["data"]["tag"]["name"] == "test-groups"
+    assert result["data"]["tag"]["name"] == "test-nogroups"
 
 
 async def test_get_tag_query_access_denied() -> None:

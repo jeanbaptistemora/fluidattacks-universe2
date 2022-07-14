@@ -160,7 +160,7 @@ async def test_group() -> None:
     assert result["data"]["group"]["subscription"] == "continuous"
     assert result["data"]["group"]["deletionDate"] is None
     assert result["data"]["group"]["userDeletion"] is None
-    assert result["data"]["group"]["tags"][0] == "test-groups"
+    assert sorted(result["data"]["group"]["tags"])[0] == "test-groups"
     assert (
         result["data"]["group"]["description"] == "Integrates unit test group"
     )

@@ -3051,51 +3051,9 @@
               },
               "groups": {
                 "SS": [
-                  "project1",
-                  "project10",
-                  "project11",
-                  "project12",
-                  "project13",
-                  "project14",
-                  "project15",
-                  "project16",
-                  "project17",
-                  "project18",
-                  "project19",
-                  "project2",
-                  "project20",
-                  "project21",
-                  "project22",
-                  "project23",
-                  "project24",
-                  "project25",
-                  "project26",
-                  "project27",
-                  "project28",
-                  "project29",
-                  "project3",
-                  "project30",
-                  "project31",
-                  "project32",
-                  "project33",
-                  "project34",
-                  "project35",
-                  "project36",
-                  "project37",
-                  "project38",
-                  "project39",
-                  "project4",
-                  "project40",
-                  "project41",
-                  "project42",
-                  "project43",
-                  "project44",
-                  "project45",
-                  "project5",
-                  "project6",
-                  "project7",
-                  "project8",
-                  "project9"
+                  "continuoustesting",
+                  "oneshottest",
+                  "unittesting"
                 ]
               },
               "id": {
@@ -3147,13 +3105,13 @@
                 ]
               },
               "id": {
-                "S": "test-groups"
+                "S": "test-newgroups"
               },
               "organization_name": {
                 "S": "kamiya"
               },
               "pk": {
-                "S": "PORTFOLIO#test-groups"
+                "S": "PORTFOLIO#test-newgroups"
               },
               "unreliable_indicators": {
                 "M": {
@@ -3191,20 +3149,18 @@
               "groups": {
                 "SS": [
                   "asgard",
-                  "barranquilla",
                   "gotham",
-                  "metropolis",
-                  "monteria"
+                  "metropolis"
                 ]
               },
               "id": {
-                "S": "test-groups"
+                "S": "test-nogroups"
               },
               "organization_name": {
                 "S": "makimachi"
               },
               "pk": {
-                "S": "PORTFOLIO#test-groups"
+                "S": "PORTFOLIO#test-nogroups"
               },
               "unreliable_indicators": {
                 "M": {
@@ -3881,7 +3837,7 @@
                     "S": "unknown"
                   },
                   "modified_date": {
-                    "S": "2019-11-22T20:07:57+00:00"
+                    "S": "2018-02-08T00:43:18+00:00"
                   },
                   "status": {
                     "S": "ACTIVE"
@@ -4525,7 +4481,7 @@
             },
             {
               "sk": {
-                "S": "STATE#2019-11-22T20:07:57+00:00"
+                "S": "STATE#2018-02-08T00:43:18+00:00"
               },
               "modified_by": {
                 "S": "unknown"
@@ -4534,7 +4490,7 @@
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
               "modified_date": {
-                "S": "2019-11-22T20:07:57+00:00"
+                "S": "2018-02-08T00:43:18+00:00"
               },
               "status": {
                 "S": "ACTIVE"
@@ -4672,6 +4628,12 @@
                   },
                   {
                     "S": "another-tag"
+                  },
+                  {
+                    "S": "test-updates"
+                  },
+                  {
+                    "S": "test-tag"
                   }
                 ]
               }
@@ -4693,6 +4655,12 @@
                 "L": [
                   {
                     "S": "test-groups"
+                  },
+                  {
+                    "S": "test-updates"
+                  },
+                  {
+                    "S": "test-tag"
                   }
                 ]
               },
@@ -4803,7 +4771,7 @@
                     "BOOL": true
                   },
                   "modified_date": {
-                    "S": "2020-05-20T22:00:00+00:00"
+                    "S": "2018-03-08T00:43:18+00:00"
                   },
                   "type": {
                     "S": "CONTINUOUS"
@@ -5051,6 +5019,9 @@
                 "L": [
                   {
                     "S": "another-tag"
+                  },
+                  {
+                    "S": "test-tag"
                   }
                 ]
               }
@@ -5120,7 +5091,7 @@
               "tags": {
                 "L": [
                   {
-                    "S": "test-groups"
+                    "S": "test-nogroups"
                   }
                 ]
               }
@@ -5190,7 +5161,7 @@
               "tags": {
                 "L": [
                   {
-                    "S": "test-groups"
+                    "S": "test-newgroups"
                   }
                 ]
               }
@@ -5330,7 +5301,7 @@
               "tags": {
                 "L": [
                   {
-                    "S": "test-groups"
+                    "S": "test-newgroups"
                   }
                 ]
               }
@@ -5463,7 +5434,7 @@
               "tags": {
                 "L": [
                   {
-                    "S": "test-groups"
+                    "S": "test-nogroups"
                   }
                 ]
               }
@@ -5599,7 +5570,7 @@
               "tags": {
                 "L": [
                   {
-                    "S": "test-groups"
+                    "S": "test-nogroups"
                   }
                 ]
               }
@@ -5742,7 +5713,7 @@
                 "S": "WHITE"
               },
               "sk": {
-                "S": "STATE#2020-05-20T22:00:00+00:00"
+                "S": "STATE#2018-03-08T00:43:18+00:00"
               },
               "modified_by": {
                 "S": "unknown"
@@ -5754,7 +5725,7 @@
                 "S": "GROUP#unittesting"
               },
               "modified_date": {
-                "S": "2020-05-20T22:00:00+00:00"
+                "S": "2018-03-08T00:43:18+00:00"
               },
               "type": {
                 "S": "CONTINUOUS"

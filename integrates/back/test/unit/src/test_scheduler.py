@@ -353,6 +353,8 @@ async def test_update_portfolios_indicators() -> None:
     updated_tags = [
         "another-tag",
         "test-groups",
+        "test-tag",
+        "test-updates",
     ]
     org_tags = await loaders.organization_portfolios.load(org_name)
     org_tags_names = sorted([tag.id for tag in org_tags])
