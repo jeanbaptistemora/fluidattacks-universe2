@@ -24,6 +24,9 @@ from db_model.organizations.types import (
     Organization,
     OrganizationState,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from db_model.types import (
     Policies,
 )
@@ -73,16 +76,17 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
             },
         ],
-        "users": [
+        "users": [],
+        "stakeholders": [
             {
-                "email": new_user,
-                "first_login": "",
-                "first_name": "new_user",
-                "last_login": "",
-                "last_name": "new_user",
-                "legal_remember": False,
-                "push_tokens": [],
-                "registered": True,
+                "stakeholder": Stakeholder(
+                    email=new_user,
+                    first_name="new_user",
+                    last_name="new_user",
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                ),
             },
         ],
         "groups": [

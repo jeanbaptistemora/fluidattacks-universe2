@@ -114,7 +114,9 @@ async def add(
         "content": str(comment_data.get("content")),
         "created": today,
         "email": user_info.email,
-        "fullname": str.join(" ", [user_info.first_name, user_info.last_name]),
+        "fullname": str.join(" ", [user_info.first_name, user_info.last_name])
+        if user_info.first_name and user_info.last_name
+        else "",
         "modified": today,
         "parent": comment_data.get("parent", "0"),
     }

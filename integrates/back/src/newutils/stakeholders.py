@@ -68,7 +68,11 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         if metadata.phone
         else None,
     }
-    if metadata.access_token and metadata.access_token.iat == 0:
+    if (
+        metadata.access_token
+        and metadata.access_token.iat == 0
+        and metadata.access_token.jti == ""
+    ):
         item["access_token"] = []
     return {
         key: None if not value and value is not False else value
@@ -171,6 +175,13 @@ def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
         "email": stakeholder.email,
         "first_name": stakeholder.first_name,
         "last_name": stakeholder.last_name,
+        "access_token": {
+            "iat": stakeholder.access_token.iat,
+            "jti": stakeholder.access_token.jti,
+            "salt": stakeholder.access_token.salt,
+        }
+        if stakeholder.access_token
+        else None,
         "invitation_state": stakeholder.invitation_state,
         "is_concurrent_session": stakeholder.is_concurrent_session,
         "date_joined": datetime_utils.convert_from_iso_str(
