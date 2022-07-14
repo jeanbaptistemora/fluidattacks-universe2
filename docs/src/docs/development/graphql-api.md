@@ -72,8 +72,9 @@ You can access it on:
 
 - https://app.fluidattacks.com/api,
     which is production.
-- https://youruseratfluid.app.fluidattacks.com/api,
-    which are the ephemerals.
+- `https://youruseratfluid.app.fluidattacks.com/api`,
+    which are the ephemerals
+    (where `youruseratfluid` is assigned depending on the name of your git branch).
 - https://localhost:8081/api,
     which is local.
 

@@ -97,7 +97,7 @@ one is **Treatment**.
 This field will let you filter
 vulnerabilities in terms
 of their assigned
-[treatment](machine/web/vulnerabilities/management/treatments).
+[treatment](/machine/web/vulnerabilities/management/treatments).
 You can select one of the
 four possible treatments.
 
