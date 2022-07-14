@@ -65,7 +65,7 @@ in {
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/gitlab/product"];
+        command = ["m" "f" "/observes/etl/gitlab/universe"];
       };
 
     observesGitlabEtlServices =

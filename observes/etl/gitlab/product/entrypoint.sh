@@ -11,7 +11,7 @@ function start_etl {
     && export_notifier_key \
     && gitlab-etl \
       'gitlab-ci' \
-      'fluidattacks/product' \
+      'fluidattacks/universe' \
       's3://observes.state/gitlab_etl/product_state.json' \
       "${PRODUCT_API_TOKEN}" \
       "${db_creds}"
