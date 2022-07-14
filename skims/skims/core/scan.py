@@ -325,20 +325,20 @@ async def execute_set_of_configs(
 
         await execute_skims(stores)
 
-    if integrates_access:
-        persisted_results = await persist_to_integrates(stores)
-        if integrates_access and batch_job_id:
-            await notify_end(batch_job_id, persisted_results)
-        success = success and all(persisted_results.values())
-    else:
-        log_blocking(
-            "info",
-            (
-                "In case you want to persist results to Integrates "
-                "please make sure you set the --token and --group flag "
-                "in the CLI"
-            ),
-        )
+        if integrates_access:
+            persisted_results = await persist_to_integrates(stores)
+            if integrates_access and batch_job_id:
+                await notify_end(batch_job_id, persisted_results)
+            success = success and all(persisted_results.values())
+        else:
+            log_blocking(
+                "info",
+                (
+                    "In case you want to persist results to Integrates "
+                    "please make sure you set the --token and --group flag "
+                    "in the CLI"
+                ),
+            )
 
     reset_ephemeral_state()
     return success
