@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.common import (
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     lexical_declaration as javascript_lexical_declaration,
+    object as javascript_object,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -45,6 +46,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "lexical_declaration",
         },
         syntax_reader=javascript_lexical_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "object",
+        },
+        syntax_reader=javascript_object.reader,
     ),
     Dispatcher(
         applicable_types={
