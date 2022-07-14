@@ -492,7 +492,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       onChangeSelect: onStatusChange,
       placeholder: "Status",
       selectOptions: {
+        CLONING: "Cloning",
         FAILED: "Failed",
+        "N/A": "N/A",
         OK: "Ok",
         QUEUED: "Queued",
         UNKNOWN: "Unknown",
