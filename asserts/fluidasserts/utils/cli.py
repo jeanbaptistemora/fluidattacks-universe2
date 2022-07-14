@@ -1148,12 +1148,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             csharp.uses_debug_writeline('__path__')
             """,
         (
-            "docker",
-            "Docker",
-        ): """
-            docker.not_pinned('__path__')
-            """,
-        (
             "dotnetconfig",
             ".NET Config",
         ): """
