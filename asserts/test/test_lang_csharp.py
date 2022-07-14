@@ -82,50 +82,6 @@ def test_has_insecure_randoms_in_dir_open():
     assert csharp.has_insecure_randoms(CODE_DIR)
 
 
-def test_has_if_without_else_open():
-    """Search conditionals without an else option."""
-    assert csharp.has_if_without_else(CODE_DIR, conditions=["a > 5"]).is_open()
-    assert csharp.has_if_without_else(
-        CODE_DIR, conditions=[r".*? > \d+"], use_regex=True
-    ).is_open()
-    assert csharp.has_if_without_else(
-        INSECURE_CODE, conditions=["a > 5"]
-    ).is_open()
-    assert csharp.has_if_without_else(
-        INSECURE_CODE, conditions=[r".*? > \d+"], use_regex=True
-    ).is_open()
-
-
-def test_uses_md5_hash_open():
-    """Search MD5 hash calls."""
-    assert csharp.uses_md5_hash(INSECURE_CODE)
-
-
-def test_uses_md5_hash_in_dir_open():
-    """Search MD5 hash calls."""
-    assert csharp.uses_md5_hash(CODE_DIR)
-
-
-def test_uses_sha1_hash_open():
-    """Search SHA1 hash calls."""
-    assert csharp.uses_sha1_hash(INSECURE_CODE)
-
-
-def test_uses_sha1_hash_in_dir_open():
-    """Search SHA1 hash calls."""
-    assert csharp.uses_sha1_hash(CODE_DIR)
-
-
-def test_uses_ecb_encryption_mode_open():
-    """Search ECB Encryption Mode usage."""
-    assert csharp.uses_ecb_encryption_mode(INSECURE_RANDOM)
-
-
-def test_uses_ecb_encryption_mode_in_dir_open():
-    """Search ECB Encryption Mode usage."""
-    assert csharp.uses_ecb_encryption_mode(CODE_DIR)
-
-
 def test_uses_debug_writeline_open():
     """Search Debug.WriteLine usage."""
     assert csharp.uses_debug_writeline(INSECURE_WRITELINE)
@@ -134,16 +90,6 @@ def test_uses_debug_writeline_open():
 def test_uses_debug_writeline_in_dir_open():
     """Search Debug.WriteLine usage."""
     assert csharp.uses_debug_writeline(CODE_DIR)
-
-
-def test_uses_console_writeline_open():
-    """Search Console.WriteLine usage."""
-    assert csharp.uses_console_writeline(INSECURE_WRITELINE)
-
-
-def test_uses_console_writeline_in_dir_open():
-    """Search Console.WriteLine usage."""
-    assert csharp.uses_console_writeline(CODE_DIR)
 
 
 #
@@ -194,55 +140,8 @@ def test_has_insecure_randoms_close():
     assert not csharp.has_insecure_randoms(NON_EXISTANT_CODE)
 
 
-def test_has_if_without_else_close():
-    """Search conditionals without an else option."""
-    assert csharp.has_if_without_else(
-        SECURE_CODE, conditions=["a > 5"]
-    ).is_closed()
-    assert csharp.has_if_without_else(
-        SECURE_CODE, conditions=[r".*? > \d+"], use_regex=True
-    ).is_closed()
-    assert csharp.has_if_without_else(
-        INSECURE_CODE, conditions=["this is not happenning"]
-    ).is_closed()
-    assert csharp.has_if_without_else(
-        CODE_DIR, conditions=[], exclude=["test"]
-    ).is_closed()
-    assert csharp.has_if_without_else(
-        NON_EXISTANT_CODE, conditions=[]
-    ).is_unknown()
-
-
-def test_uses_md5_hash_close():
-    """Search MD5 hash calls."""
-    assert not csharp.uses_md5_hash(SECURE_CODE)
-    assert not csharp.uses_md5_hash(CODE_DIR, exclude=["test"])
-    assert not csharp.uses_md5_hash(NON_EXISTANT_CODE)
-
-
-def test_uses_sha1_hash_close():
-    """Search MD5 hash calls."""
-    assert not csharp.uses_sha1_hash(SECURE_CODE)
-    assert not csharp.uses_sha1_hash(CODE_DIR, exclude=["test"])
-    assert not csharp.uses_sha1_hash(NON_EXISTANT_CODE)
-
-
-def test_uses_ecb_encryption_mode_close():
-    """Search ECB Encryption Mode usage."""
-    assert not csharp.uses_ecb_encryption_mode(SECURE_CODE)
-    assert not csharp.uses_ecb_encryption_mode(CODE_DIR, exclude=["test"])
-    assert not csharp.uses_ecb_encryption_mode(NON_EXISTANT_CODE)
-
-
 def test_uses_debug_writeline_close():
     """Search Debug.WriteLine usage."""
     assert not csharp.uses_debug_writeline(SECURE_WRITELINE)
     assert not csharp.uses_debug_writeline(CODE_DIR, exclude=["test"])
     assert not csharp.uses_debug_writeline(NON_EXISTANT_CODE)
-
-
-def test_uses_console_writeline_close():
-    """Search Console.WriteLine usage."""
-    assert not csharp.uses_console_writeline(SECURE_WRITELINE)
-    assert not csharp.uses_console_writeline(CODE_DIR, exclude=["test"])
-    assert not csharp.uses_console_writeline(NON_EXISTANT_CODE)

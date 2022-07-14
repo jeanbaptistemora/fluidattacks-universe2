@@ -1145,11 +1145,7 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             csharp.has_switch_without_default('__path__')
             csharp.swallows_exceptions('__path__')
             csharp.uses_catch_for_null_reference_exception('__path__')
-            csharp.uses_console_writeline('__path__')
             csharp.uses_debug_writeline('__path__')
-            csharp.uses_ecb_encryption_mode('__path__')
-            csharp.uses_md5_hash('__path__')
-            csharp.uses_sha1_hash('__path__')
             """,
         (
             "docker",
