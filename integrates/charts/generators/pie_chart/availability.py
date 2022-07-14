@@ -41,6 +41,7 @@ from typing import (
 
 class EventsAvailability(NamedTuple):
     available: int
+    name: str
     non_available: int
 
 
@@ -89,6 +90,7 @@ async def get_data_one_group(
         available=group_days - open_event_days
         if group_days > open_event_days
         else 0,
+        name=group_name,
         non_available=open_event_days,
     )
 
@@ -98,13 +100,13 @@ def format_data(*, data: EventsAvailability) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["available", data.available],
-                ["non available", data.non_available],
+                ["Available", data.available],
+                ["Non available", data.non_available],
             ],
             type="pie",
             colors={
-                "available": RISK.agressive,
-                "non available": RISK.passive,
+                "Available": RISK.agressive,
+                "Non available": RISK.passive,
             },
         ),
         legend=dict(
