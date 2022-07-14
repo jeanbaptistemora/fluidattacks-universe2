@@ -155,13 +155,18 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "root_url": root_url,
         "state": state,
     }
+
+    subject: str = (
+        f"[ASM] Event solved #[{event_id}] for [{group_name}]"
+        if is_closed
+        else f"[ASM] ACTION NEEDED: Your group [{group_name}] could be in risk"
+    )
+
     await send_mails_async(
         loaders=loaders,
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=(
-            f"[ASM] ACTION NEEDED: Your group [{group_name}] could be in risk"
-        ),
+        subject=subject,
         template_name="event_report",
     )
