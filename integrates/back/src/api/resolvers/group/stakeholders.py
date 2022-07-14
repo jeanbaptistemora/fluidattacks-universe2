@@ -45,9 +45,13 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: None,
 ) -> list[Stakeholder]:
+    # The store is needed to resolve stakeholder's role
+    request_store = token_utils.get_request_store(info.context)
+    request_store["entity"] = "GROUP"
+    request_store["group_name"] = parent.name
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
-    exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
+
     response: list[dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="group",
@@ -58,6 +62,7 @@ async def resolve(
         format_stakeholder(item_legacy=stakeholder, item_vms=None)
         for stakeholder in response
     ]
+    exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
     if exclude_fluid_staff:
         stakeholders = [
             stakeholder

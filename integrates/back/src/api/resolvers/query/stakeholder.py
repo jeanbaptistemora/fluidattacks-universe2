@@ -1,7 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-import authz
 from custom_exceptions import (
     InvalidParameter,
     StakeholderNotFound,
@@ -23,8 +22,8 @@ from graphql.type.definition import (
 from group_access import (
     domain as group_access_domain,
 )
-from newutils.utils import (
-    get_key_or_fallback,
+from newutils import (
+    token as token_utils,
 )
 
 
@@ -34,17 +33,10 @@ async def _resolve_for_organization(
     email: str,
     organization_id: str,
 ) -> Stakeholder:
+    if not organization_id:
+        raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    org_role: str = await authz.get_organization_level_role(
-        email, organization_id
-    )
-    if org_role:
-        stakeholder = stakeholder._replace(
-            role=org_role,
-        )
-        return stakeholder
-    raise StakeholderNotFound()
+    return await loaders.stakeholder.load(email)
 
 
 @enforce_group_level_auth_async
@@ -55,16 +47,11 @@ async def _resolve_for_group(
 ) -> Stakeholder:
     loaders: Dataloaders = info.context.loaders
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    group_role: str = await authz.get_group_level_role(email, group_name)
-
-    if group_role:
-        access = await group_access_domain.get_user_access(email, group_name)
-        stakeholder = stakeholder._replace(
-            responsibility=access.get("responsibility", None),
-            role=group_role,
-        )
-        return stakeholder
-    raise StakeholderNotFound()
+    group_access = await group_access_domain.get_user_access(email, group_name)
+    group_stakeholder = stakeholder._replace(
+        responsibility=group_access.get("responsibility", None),
+    )
+    return group_stakeholder
 
 
 @convert_kwargs_to_snake_case
@@ -72,11 +59,14 @@ async def _resolve_for_group(
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Stakeholder:
+    request_store = token_utils.get_request_store(info.context)
     entity: str = kwargs["entity"]
+    request_store["entity"] = entity
     email: str = kwargs["user_email"]
 
     if entity == "ORGANIZATION" and "organization_id" in kwargs:
         org_id: str = kwargs["organization_id"]
+        request_store["organization_id"] = org_id
         return await _resolve_for_organization(
             info,
             email,
@@ -84,7 +74,8 @@ async def resolve(
         )
 
     if entity == "GROUP" and "group_name" in kwargs:
-        group_name: str = get_key_or_fallback(kwargs)
+        group_name: str = kwargs["group_name"]
+        request_store["group_name"] = group_name
         return await _resolve_for_group(
             info,
             email,

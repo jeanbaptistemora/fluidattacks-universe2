@@ -16,6 +16,9 @@ from functools import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    token as token_utils,
+)
 from newutils.stakeholders import (
     format_stakeholder,
     format_stakeholder_item,
@@ -34,6 +37,11 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: None,
 ) -> list[Stakeholder]:
+    # The store is needed to resolve stakeholder's role
+    request_store = token_utils.get_request_store(info.context)
+    request_store["entity"] = "ORGANIZATION"
+    request_store["organization_id"] = parent.id
+
     response: list[dict[str, Any]] = await redis_get_or_set_entity_attr(
         partial(resolve_no_cache, parent, info, **kwargs),
         entity="organization",
