@@ -1,5 +1,4 @@
 closure:
-  aioextensions: 21.7.2261349
   aiohttp: 3.8.1
   aiosignal: 1.2.0
   async-timeout: 4.0.2
@@ -8,14 +7,17 @@ closure:
   botocore: 1.27.29
   certifi: 2022.6.15
   charset-normalizer: 2.1.0
+  decorator: 5.1.1
   frozenlist: 1.3.0
   gitdb: 4.0.9
   gitpython: 3.1.12
   idna: "3.3"
   jmespath: 1.0.1
   multidict: 6.0.2
+  py: 1.11.0
   python-dateutil: 2.8.2
   requests: 2.28.1
+  retry2: 0.9.3
   s3transfer: 0.6.0
   six: 1.16.0
   smmap: 5.0.0
@@ -24,12 +26,6 @@ closure:
   urllib3: 1.26.9
   yarl: 1.7.2
 links:
-  - name: aioextensions-21.7.2261349-py3-none-any.whl
-    sha256: 0ci63rmghcgkgyrysqsqc1i5pk63qdrs74qv0nilm02gl39vdxz2
-    url: https://files.pythonhosted.org/packages/84/a9/fe0acc4b74b435c8944e5e1ff9b9d3d0e4706076b9409102b3434086c9eb/aioextensions-21.7.2261349-py3-none-any.whl
-  - name: aioextensions-21.7.2261349.tar.gz
-    sha256: 0izw3ripgpdc2z579wc4xhblc7x75iwfkj786wa36ps9j8kcbb1f
-    url: https://files.pythonhosted.org/packages/92/28/c8ad44c7cb153900fd0a7bb73d7fc48a331fce01af69fe8841cd8c752935/aioextensions-21.7.2261349.tar.gz
   - name: aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 0drj55w7dlysrp347lf87kggwxyqfbsapcfx3fpqb493n0p5lcgm
     url: https://files.pythonhosted.org/packages/a8/0e/068cb215e8709703c497fcd07e8a81e68b3eb8b83083f96e93ef964d4685/aiohttp-3.8.1-cp39-cp39-macosx_10_9_universal2.whl
@@ -114,6 +110,12 @@ links:
   - name: charset-normalizer-2.1.0.tar.gz
     sha256: 04zlajr77f6c7ai59l46as1idi0jjgbvj72lh4v5wfpz2s070pjp
     url: https://files.pythonhosted.org/packages/93/1d/d9392056df6670ae2a29fcb04cfa5cee9f6fbde7311a1bb511d4115e9b7a/charset-normalizer-2.1.0.tar.gz
+  - name: decorator-5.1.1-py3-none-any.whl
+    sha256: 11kisc16y8lmka9khfvnm4gzwaa7x6n5lg4i4lr45p5r01czihxq
+    url: https://files.pythonhosted.org/packages/d5/50/83c593b07763e1161326b3b8c6686f0f4b0f24d5526546bee538c89837d6/decorator-5.1.1-py3-none-any.whl
+  - name: decorator-5.1.1.tar.gz
+    sha256: 0c63rcx2ba3vjalan7spklplg299wbxf8d8lz5g3idin20hrcyb3
+    url: https://files.pythonhosted.org/packages/66/0c/8d907af351aa16b42caae42f9d6aa37b900c67308052d10fdce809f8d952/decorator-5.1.1.tar.gz
   - name: frozenlist-1.3.0-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 11h4apfv043s7nqpnp1qv7q2pfsvhnzhq1an2ynsvm5m7xvgwdq4
     url: https://files.pythonhosted.org/packages/0d/92/3becdfd47713c3bc588dab8af9f6a8679004c0745bdf04207973b9115bef/frozenlist-1.3.0-cp39-cp39-macosx_10_9_universal2.whl
@@ -222,6 +224,12 @@ links:
   - name: multidict-6.0.2.tar.gz
     sha256: 04xhddyvb725w62f6az29hf842s39mxdzwkhykql6k4fydsvvwsz
     url: https://files.pythonhosted.org/packages/fa/a7/71c253cdb8a1528802bac7503bf82fe674367e4055b09c28846fdfa4ab90/multidict-6.0.2.tar.gz
+  - name: py-1.11.0-py2.py3-none-any.whl
+    sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
+    url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
+  - name: py-1.11.0.tar.gz
+    sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
+    url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
@@ -234,6 +242,9 @@ links:
   - name: requests-2.28.1.tar.gz
     sha256: 10vrr7bijzrypvms3g2sgz8vya7f9ymmcv423ikampgy0aqrjmbw
     url: https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz
+  - name: retry2-0.9.3-py2.py3-none-any.whl
+    sha256: 1gambd4dh4a8iq0dz5ix50qqhjaw7a4zpwj4l8v29rrg4bk3zlns
+    url: https://files.pythonhosted.org/packages/03/bb/8d2d57987d629874fb1877ccdba019a30dca6136019eca58a3e8160684e7/retry2-0.9.3-py2.py3-none-any.whl
   - name: s3transfer-0.6.0-py3-none-any.whl
     sha256: 1kayip95pym87m33l4s7fq5h8aa4kb11ynpjnkqn2px1yds6n5q6
     url: https://files.pythonhosted.org/packages/5e/c6/af903b5fab3f9b5b1e883f49a770066314c6dcceb589cf938d48c89556c1/s3transfer-0.6.0-py3-none-any.whl

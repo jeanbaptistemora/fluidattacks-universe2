@@ -1,9 +1,11 @@
-from aioextensions import (
-    collect,
-)
 import aiohttp
+from aiohttp.client_exceptions import (
+    ClientOSError,
+    ServerDisconnectedError,
+)
 import asyncio
 from asyncio import (
+    gather,
     run,
 )
 import base64
@@ -22,6 +24,9 @@ import json
 import logging
 import os
 import requests  # type: ignore
+from retry import (  # type: ignore
+    retry,
+)
 import shutil
 import sys
 import tarfile
@@ -97,6 +102,16 @@ def delete_action(
     client.delete_item(**operation_payload)
 
 
+@retry(
+    (
+        TypeError,
+        ClientOSError,
+        asyncio.exceptions.TimeoutError,
+        ServerDisconnectedError,
+    ),
+    tries=5,
+    delay=2,
+)
 async def _request_asm(
     payload: Dict[str, Any],
     token: str,
@@ -183,6 +198,7 @@ async def get_root_upload_url(
     return result
 
 
+@retry((TypeError,), tries=3, delay=1)
 async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     token: str,
     group_name: str,
@@ -388,6 +404,7 @@ def create_git_root_tar_file(
         return False
 
 
+@retry(ConnectionError, tries=5, delay=2)
 async def upload_cloned_repo_to_s3_tar(
     *, repo_path: str, nickname: str, upload_url: str
 ) -> bool:
@@ -563,8 +580,8 @@ async def main() -> None:
         for root in roots_data
         if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
     ]
-    roots_update_ok = await collect(
-        (
+    roots_update_ok = await gather(
+        *[
             update_root_mirror(
                 root=root,
                 group_name=group_name,
@@ -572,8 +589,7 @@ async def main() -> None:
                 action_key=action_key,
             )
             for root in roots
-        ),
-        workers=15,
+        ]
     )
     roots_to_analyze = [
         nickname for nickname, status in roots_update_ok if status
