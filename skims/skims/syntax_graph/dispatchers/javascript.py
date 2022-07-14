@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.common import (
     call_expression as common_call_expression,
     comment as common_comment,
     identifier as common_identifier,
+    pair as common_pair,
     program as common_program,
     string_literal as common_string_literal,
     variable_declarator as common_variable_declarator,
@@ -52,6 +53,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "object",
         },
         syntax_reader=javascript_object.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "pair",
+        },
+        syntax_reader=common_pair.reader,
     ),
     Dispatcher(
         applicable_types={
