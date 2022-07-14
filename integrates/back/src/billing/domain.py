@@ -353,7 +353,6 @@ async def create_payment_method(  # pylint: disable=too-many-locals
     """Create a payment method and associate it to the customer"""
     # Create customer if it does not exist
     customer: Optional[Customer] = None
-    result: bool = False
     if org.billing_customer is None:
         customer = await dal.create_customer(
             org_id=org.id,
@@ -370,6 +369,12 @@ async def create_payment_method(  # pylint: disable=too-many-locals
         other_payment_methods: List[OrganizationPaymentMethods] = []
         if org.payment_methods:
             other_payment_methods = org.payment_methods
+        # Raise exception if payment method already exists for customer
+        if business_name in [
+            payment_method.business_name
+            for payment_method in other_payment_methods
+        ]:
+            raise PaymentMethodAlreadyExists()
         other_payment_methods.append(
             OrganizationPaymentMethods(
                 business_name=business_name,
@@ -387,9 +392,10 @@ async def create_payment_method(  # pylint: disable=too-many-locals
             organization_id=org.id,
             organization_name=org.name,
         )
-        result = True
+        return True
 
     # create credit card payment method
+    result: bool = False
     if business_name == "":
         # get actual payment methods
         payment_methods: List[PaymentMethod] = await customer_payment_methods(
@@ -486,6 +492,34 @@ async def remove_payment_method(
         payment_method.id for payment_method in payment_methods
     ]:
         raise InvalidBillingPaymentMethod()
+
+    if (
+        list(
+            filter(
+                lambda method: method.id == payment_method_id, payment_methods
+            )
+        )[0].last_four_digits
+        == ""
+    ):
+        # get actual payment methods
+        other_payment_methods: List[OrganizationPaymentMethods] = []
+        if org.payment_methods:
+            other_payment_methods = org.payment_methods
+
+        other_payment_methods = list(
+            filter(
+                lambda method: method.id != payment_method_id,
+                other_payment_methods,
+            )
+        )
+        await organizations_model.update_metadata(
+            metadata=OrganizationMetadataToUpdate(
+                payment_methods=other_payment_methods
+            ),
+            organization_id=org.id,
+            organization_name=org.name,
+        )
+        return True
 
     subscriptions: List[Subscription] = await dal.get_customer_subscriptions(
         org_billing_customer=org.billing_customer,
