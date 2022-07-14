@@ -5,7 +5,6 @@ from aiohttp.client_exceptions import (
 )
 import asyncio
 from asyncio import (
-    gather,
     run,
 )
 import base64
@@ -580,17 +579,15 @@ async def main() -> None:
         for root in roots_data
         if root["state"] == "ACTIVE" and root["nickname"] in root_nicknames
     ]
-    roots_update_ok = await gather(
-        *[
-            update_root_mirror(
-                root=root,
-                group_name=group_name,
-                api_token=api_token,
-                action_key=action_key,
-            )
-            for root in roots
-        ]
-    )
+    roots_update_ok = [
+        await update_root_mirror(
+            root=root,
+            group_name=group_name,
+            api_token=api_token,
+            action_key=action_key,
+        )
+        for root in roots
+    ]
     roots_to_analyze = [
         nickname for nickname, status in roots_update_ok if status
     ]
