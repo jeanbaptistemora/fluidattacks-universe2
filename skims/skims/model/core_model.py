@@ -1124,6 +1124,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     skims_method: Optional[str]
     skims_technique: Optional[str]
     developer: Optional[str]
+    source: Optional[str] = "machine"
 
 
 class IntegratesVulnerabilitiesInputs(NamedTuple):
@@ -1135,6 +1136,7 @@ class IntegratesVulnerabilitiesInputs(NamedTuple):
     skims_method: Optional[str]
     skims_technique: Optional[str]
     developer: Optional[str]
+    source: Optional[str] = "machine"
 
 
 class Vulnerability(NamedTuple):

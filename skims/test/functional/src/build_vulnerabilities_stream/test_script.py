@@ -85,6 +85,7 @@ async def test_build_vulnerabilities_stream() -> None:
           repo_nickname: test
           skims_method: {dast_method}
           skims_technique: {dast_technique.value}
+          source: machine
           state: open
           stream: home,socket-send,socket-response
           url: https://example.com:443 (test)
@@ -96,6 +97,7 @@ async def test_build_vulnerabilities_stream() -> None:
           repo_nickname: test
           skims_method: {sast_method}
           skims_technique: {sast_technique.value}
+          source: machine
           state: open
     """
         )[1:]

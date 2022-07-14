@@ -141,12 +141,13 @@ async def upload_evidences(
     )
 
 
-async def diff_results(
+async def diff_results(  # pylint: disable=too-many-arguments
     skims_store: EphemeralStore,
     integrates_store: EphemeralStore,
     namespace: str,
     include_path_patterns: Optional[List[str]] = None,
     exclude_path_patterns: Optional[List[str]] = None,
+    has_dast: bool = True,
 ) -> EphemeralStore:
     """Diff results from Skims and Integrates, closing or creating if needed.
 
@@ -232,7 +233,12 @@ async def diff_results(
                         exclude_path_patterns,
                     )
                     if result.kind == core_model.VulnerabilityKindEnum.LINES
-                    else True
+                    else (
+                        has_dast
+                        if result.kind
+                        == core_model.VulnerabilityKindEnum.INPUTS
+                        else True
+                    )
                 )
             )
         )
@@ -312,6 +318,7 @@ async def persist_finding(  # pylint: disable=too-many-locals
                 *CTX.config.path.exclude,
                 *CTX.config.apk.exclude,
             ],
+            has_dast=CTX.config.dast is not None,
         )
 
         # Get vulnerabilities with a reattack requested
