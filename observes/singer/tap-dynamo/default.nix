@@ -19,5 +19,6 @@
     lib = deps.lib;
     python_pkgs = deps.python_pkgs;
   };
+  checks = import ./check {self_pkg = self_pkgs.pkg;};
 in
-  self_pkgs
+  self_pkgs // {check = checks;}
