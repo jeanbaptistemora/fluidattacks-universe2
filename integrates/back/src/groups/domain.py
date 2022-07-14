@@ -2328,7 +2328,10 @@ async def send_mail_policies(
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in group_stakeholders
-        if stakeholder.role in ["customer_manager", "user_manager"]
+        if await group_access_domain.get_stakeholder_role(
+            stakeholder.email, group_name, stakeholder.is_registered
+        )
+        in ["customer_manager", "user_manager"]
     ]
 
     if policies_content:

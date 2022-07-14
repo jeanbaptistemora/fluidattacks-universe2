@@ -4,7 +4,6 @@ from aiodataloader import (
 from aioextensions import (
     collect,
 )
-import authz
 from custom_exceptions import (
     StakeholderNotFound,
 )
@@ -22,7 +21,7 @@ from itertools import (
     chain,
 )
 from newutils.stakeholders import (
-    get_invitation_state,
+    format_invitation_state,
 )
 from typing import (
     Iterable,
@@ -46,18 +45,16 @@ async def _get_stakeholder(email: str, group_name: str) -> Stakeholder:
             is_registered=False,
         )
     invitation = group_access.get("invitation")
-    invitation_state = get_invitation_state(invitation, stakeholder)
+    invitation_state = format_invitation_state(
+        invitation, stakeholder.is_registered
+    )
     if invitation_state == "PENDING":
         responsibility: str = invitation["responsibility"]
-        group_role = invitation["role"]
     else:
         responsibility = group_access.get("responsibility", "")
-        group_role = await authz.get_group_level_role(email, group_name)
 
     stakeholder = stakeholder._replace(
         responsibility=responsibility,
-        invitation_state=invitation_state,
-        role=group_role,
     )
     return stakeholder
 

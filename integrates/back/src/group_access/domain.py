@@ -30,8 +30,14 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
+from dynamodb.types import (
+    Item,
+)
 from group_access import (
     dal as group_access_dal,
+)
+from newutils import (
+    stakeholders as stakeholders_utils,
 )
 from newutils.datetime import (
     get_from_epoch,
@@ -215,3 +221,33 @@ def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     if current_date - creation_date < timedelta(minutes=1):
         raise RequestedInvitationTooSoon()
     return True
+
+
+async def get_invitation_state(
+    email: str,
+    group_name: str,
+    is_registered: bool,
+) -> str:
+    user_access = await get_user_access(email, group_name)
+    invitation: Item = user_access.get("invitation", {})
+    return stakeholders_utils.format_invitation_state(
+        invitation, is_registered
+    )
+
+
+async def get_stakeholder_role(
+    email: str,
+    group_name: str,
+    is_registered: bool,
+) -> str:
+    user_access = await get_user_access(email, group_name)
+    invitation: Item = user_access.get("invitation", {})
+    invitation_state = stakeholders_utils.format_invitation_state(
+        invitation, is_registered
+    )
+    if invitation_state == "PENDING":
+        stakeholder_role = invitation["role"]
+    else:
+        stakeholder_role = await authz.get_group_level_role(email, group_name)
+
+    return stakeholder_role

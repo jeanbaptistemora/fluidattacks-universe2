@@ -68,6 +68,9 @@ from db_model.types import (
 from decimal import (
     Decimal,
 )
+from dynamodb.types import (
+    Item,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -80,7 +83,8 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
-    token,
+    stakeholders as stakeholders_utils,
+    token as token_utils,
 )
 from newutils.organizations import (
     add_org_id_prefix,
@@ -207,7 +211,7 @@ async def get_access_by_url_token(
 ) -> dict[str, Any]:
     access = {}
     try:
-        token_content = token.decode_jwt(url_token)
+        token_content = token_utils.decode_jwt(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
         access = await orgs_dal.get_access_by_url_token(
@@ -314,6 +318,38 @@ async def get_user_access(organization_id: str, email: str) -> dict[str, Any]:
     return await orgs_dal.get_access_by_url_token(organization_id, email)
 
 
+async def get_invitation_state(
+    email: str,
+    is_registered: bool,
+    organization_id: str,
+) -> str:
+    user_access = await get_user_access(organization_id, email)
+    invitation: Item = user_access.get("invitation", {})
+    return stakeholders_utils.format_invitation_state(
+        invitation, is_registered
+    )
+
+
+async def get_stakeholder_role(
+    email: str,
+    is_registered: bool,
+    organization_id: str,
+) -> str:
+    user_access = await get_user_access(organization_id, email)
+    invitation: Item = user_access.get("invitation", {})
+    invitation_state = stakeholders_utils.format_invitation_state(
+        invitation, is_registered
+    )
+    if invitation_state == "PENDING":
+        stakeholder_role = invitation["role"]
+    else:
+        stakeholder_role = await authz.get_organization_level_role(
+            email, organization_id
+        )
+
+    return stakeholder_role
+
+
 async def get_user_organizations(email: str) -> list[str]:
     return await orgs_dal.get_ids_for_user(email)
 
@@ -357,7 +393,7 @@ async def invite_to_organization(
             organization_name
         )
         organization_id = organization.id
-        url_token = token.new_encoded_jwt(
+        url_token = token_utils.new_encoded_jwt(
             {
                 "organization_id": organization_id,
                 "user_email": email,
@@ -699,7 +735,10 @@ async def send_mail_policies(
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in org_stakeholders_loaders
-        if stakeholder.role in ["customer_manager", "user_manager"]
+        if await get_stakeholder_role(
+            stakeholder.email, stakeholder.is_registered, organization_id
+        )
+        in ["customer_manager", "user_manager"]
     ]
 
     if policies_content:

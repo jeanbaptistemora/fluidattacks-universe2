@@ -9,6 +9,9 @@ from dataloaders import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -70,16 +73,19 @@ async def send_users_weekly_report() -> None:
 
     users: dict[str, list[str]] = {}
 
-    for group in group_names:
+    for group_name in group_names:
         group_stakeholders: tuple[
             Stakeholder, ...
-        ] = await loaders.group_stakeholders.load(group)
+        ] = await loaders.group_stakeholders.load(group_name)
         for stakeholder in group_stakeholders:
-            if stakeholder.role in ["customer_manager", "user_manager"]:
+            stakeholder_role = await group_access_domain.get_stakeholder_role(
+                stakeholder.email, group_name, stakeholder.is_registered
+            )
+            if stakeholder_role in ["customer_manager", "user_manager"]:
                 if users[stakeholder.email]:
-                    users[stakeholder.email].append(group)
+                    users[stakeholder.email].append(group_name)
                 else:
-                    users[stakeholder.email] = [group]
+                    users[stakeholder.email] = [group_name]
 
     if users:
         email_context: dict[str, Any] = {}

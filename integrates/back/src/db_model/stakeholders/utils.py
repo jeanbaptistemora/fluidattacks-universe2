@@ -106,7 +106,5 @@ def format_stakeholder(item: Item) -> Stakeholder:
 
 def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
     item: Item = json.loads(json.dumps(stakeholder))
-    item.pop("responsibility", None)
-    item.pop("role", None)
 
     return item

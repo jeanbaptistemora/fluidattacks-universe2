@@ -1,9 +1,5 @@
-import authz
 from db_model.stakeholders.types import (
     Stakeholder,
-)
-from dynamodb.types import (
-    Item,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -12,7 +8,6 @@ from group_access import (
     domain as group_access_domain,
 )
 from newutils import (
-    stakeholders as stakeholders_utils,
     token as token_utils,
 )
 from organizations import (
@@ -33,35 +28,17 @@ async def resolve(
     entity = request_store.get("entity")
 
     if entity == "GROUP":
-        group_name: str = request_store["group_name"]
-        group_access = await group_access_domain.get_user_access(
-            parent.email, group_name
+        stakeholder_role = await group_access_domain.get_stakeholder_role(
+            email=parent.email,
+            group_name=request_store["group_name"],
+            is_registered=parent.is_registered,
         )
-        invitation: Item = group_access.get("invitation", {})
-        invitation_state = stakeholders_utils.get_invitation_state(
-            invitation, parent
-        )
-        if invitation_state == "PENDING":
-            stakeholder_role = invitation["role"]
-        else:
-            stakeholder_role = await authz.get_group_level_role(
-                parent.email, group_name
-            )
 
     elif entity == "ORGANIZATION":
-        organization_id: str = request_store["organization_id"]
-        organization_access = await orgs_domain.get_user_access(
-            organization_id, parent.email
+        stakeholder_role = await orgs_domain.get_stakeholder_role(
+            email=parent.email,
+            is_registered=parent.is_registered,
+            organization_id=request_store["organization_id"],
         )
-        invitation = organization_access.get("invitation", {})
-        invitation_state = stakeholders_utils.get_invitation_state(
-            invitation, parent
-        )
-        if invitation_state == "PENDING":
-            stakeholder_role = invitation["role"]
-        else:
-            stakeholder_role = await authz.get_organization_level_role(
-                parent.email, organization_id
-            )
 
     return stakeholder_role if stakeholder_role else None
