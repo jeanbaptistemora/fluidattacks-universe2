@@ -61,8 +61,16 @@ export const AddOtherMethodModal = ({
       }
     ),
     country: string().required(),
-    email: string().required(),
-    rut: mixed().required(),
+    email: string().email().when("country", {
+      is: "Colombia",
+      otherwise: string(),
+      then: string().email().required(),
+    }),
+    rut: mixed().when("country", {
+      is: "Colombia",
+      otherwise: mixed(),
+      then: mixed().required(),
+    }),
     state: string().test(
       "isRequired",
       t("validations.required"),
@@ -74,7 +82,11 @@ export const AddOtherMethodModal = ({
         return states.length === 0 || value !== undefined;
       }
     ),
-    taxId: mixed().required(),
+    taxId: mixed().when("country", {
+      is: "Colombia",
+      otherwise: mixed().required(),
+      then: mixed(),
+    }),
   });
 
   useEffect((): void => {
