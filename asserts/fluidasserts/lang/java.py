@@ -138,35 +138,6 @@ def _declares_throws_for_exceptions(
     )
 
 
-@api(risk=LOW, kind=SAST)
-def has_generic_exceptions(java_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for generic exceptions in a Java source file or package.
-
-    See `CWE-396 <https://cwe.mitre.org/data/definitions/396.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        java_dest=java_dest,
-        exceptions_list=[
-            "Exception",
-            "Throwable",
-            "lang.Exception",
-            "lang.Throwable",
-            "java.lang.Exception",
-            "java.lang.Throwable",
-        ],
-        msgs={
-            OPEN: 'Code declares a "catch" for generic exceptions',
-            CLOSED: 'Code does not declare "catch" for generic exceptions',
-        },
-        exclude=exclude,
-    )
-
-
 @api(risk=LOW, kind=SAST, standars={"CWE": "397"})
 def throws_generic_exceptions(java_dest: str, exclude: list = None):
     """

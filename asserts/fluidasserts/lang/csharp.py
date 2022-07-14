@@ -96,34 +96,6 @@ def _declares_catch_for_exceptions(
 
 
 @api(risk=LOW, kind=SAST)
-def has_generic_exceptions(csharp_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for generic exceptions in a C# source file or package.
-
-    :param csharp_dest: Path to a C# source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        csharp_dest=csharp_dest,
-        exceptions_list=[
-            "Exception",
-            "ApplicationException",
-            "SystemException",
-            "System.Exception",
-            "System.ApplicationException",
-            "System.SystemException",
-        ],
-        allow_empty=True,
-        msgs={
-            OPEN: 'Code declares a "catch" for generic exceptions',
-            CLOSED: 'Code does not declare "catch" for generic exceptions',
-        },
-        exclude=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def uses_catch_for_null_reference_exception(
     csharp_dest: str, exclude: list = None
 ) -> tuple:

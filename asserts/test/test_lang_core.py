@@ -148,13 +148,6 @@ def test_has_unnecessary_permissions_open():
     ).is_open()
 
 
-def test_has_generic_exceptions_open():
-    """Test if code has generic exceptions."""
-    assert core.has_generic_exceptions(
-        JAVA_BAD, "catch(Exception except)"
-    ).is_open()
-
-
 def test_leaks_technical_information_open():
     """Test if code generates leak of technical information."""
     assert core.leaks_technical_information(
@@ -311,13 +304,6 @@ def test_leaks_technical_information_close():
     """Test if code generates leak of technical information."""
     assert core.leaks_technical_information(
         JAVA_GOOD, "e.printStackTrace()"
-    ).is_closed()
-
-
-def test_has_generic_exceptions_close():
-    """Test if code has generic exceptions."""
-    assert core.has_generic_exceptions(
-        JAVA_GOOD, "catch(Exception except)"
     ).is_closed()
 
 

@@ -36,14 +36,6 @@ LINES_FORMAT = "lines: "
 #
 
 
-def test_has_generic_exceptions_open():
-    """Code uses generic exceptions."""
-    result = csharp.has_generic_exceptions(INSECURE_CODE)
-    assert result.is_open()
-    assert len(result.vulns[0].specific) == 3
-    assert csharp.has_generic_exceptions(CODE_DIR).is_open()
-
-
 def test_uses_catch_for_null_reference_exception_open():
     """Code uses generic exceptions."""
     assert csharp.uses_catch_for_null_reference_exception(
@@ -85,15 +77,6 @@ def test_uses_debug_writeline_in_dir_open():
 #
 # Closing tests
 #
-
-
-def test_has_generic_exceptions_close():
-    """Code uses generic exceptions."""
-    assert csharp.has_generic_exceptions(SECURE_CODE).is_closed()
-    assert csharp.has_generic_exceptions(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert csharp.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_catch_for_null_reference_exception_close():

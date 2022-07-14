@@ -38,16 +38,6 @@ def test_has_dos_dow_sqlcod_in_dir_open():
     assert rpgle.has_dos_dow_sqlcod(CODE_DIR).is_open()
 
 
-def test_has_generic_exceptions_open():
-    """Code has empty on-error."""
-    assert rpgle.has_generic_exceptions(INSECURE_CODE).is_open()
-
-
-def test_has_generic_exceptions_in_dir_open():
-    """Code has empty on-error."""
-    assert rpgle.has_generic_exceptions(CODE_DIR).is_open()
-
-
 def test_uses_debugging_open():
     """Search debug statements."""
     assert rpgle.uses_debugging(INSECURE_CODE).is_open()
@@ -85,10 +75,3 @@ def test_has_dos_dow_sqlcod_close():
     assert rpgle.has_dos_dow_sqlcod(SECURE_CODE).is_closed()
     assert rpgle.has_dos_dow_sqlcod(CODE_DIR, exclude=["test"]).is_closed()
     assert rpgle.has_dos_dow_sqlcod(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_has_generic_exceptions_close():
-    """Code has empty on-error."""
-    assert rpgle.has_generic_exceptions(SECURE_CODE).is_closed()
-    assert rpgle.has_generic_exceptions(CODE_DIR, exclude=["test"]).is_closed()
-    assert rpgle.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()

@@ -93,40 +93,6 @@ def has_dos_dow_sqlcod(rpg_dest: str, exclude: list = None) -> tuple:
     )
 
 
-@api(risk=LOW, kind=SAST)
-def has_generic_exceptions(rpg_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for on-error empty or *PROGRAM, *FILE, or *ALL codes.
-
-    See `REQ. 161
-    <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    :param rpg_dest: Path to a RPG source or directory.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    generics_list = ("*PROGRAM", "*FILE", "*ALL")
-
-    generics = ERROR_CODES.copy()
-    generics.addCondition(
-        lambda t: not t or any(x.upper() in generics_list for x in t)
-    )
-
-    grammar = ON_ERROR + generics
-
-    return lang.generic_method(
-        path=rpg_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code has generic/empty monitors",
-            CLOSED: "Code does not have generic/empty monitors",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(
     risk=LOW,
     kind=SAST,

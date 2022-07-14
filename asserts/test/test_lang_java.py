@@ -42,20 +42,6 @@ LINES_FORMAT = "lines: "
 #
 
 
-def test_has_generic_exceptions_open():
-    """Code uses generic exceptions."""
-    exceptions = 8
-    throwables = 1
-    result = java.has_generic_exceptions(INSECURE_CODE)
-    assert result.is_open()
-    assert result.get_vulns_number() == exceptions + throwables
-
-
-def test_has_generic_exceptions_in_dir_open():
-    """Code uses generic exceptions."""
-    assert java.has_generic_exceptions(CODE_DIR).is_open()
-
-
 def test_uses_print_stack_trace_open():
     """Search printStackTrace calls."""
     assert java.uses_print_stack_trace(INSECURE_CODE).is_open()
@@ -289,13 +275,6 @@ def test_uses_insecure_rsa_closed():
     assert java.uses_insecure_rsa(SECURE_CODE).is_closed()
     assert java.uses_insecure_rsa(CODE_DIR, exclude=["test"]).is_closed()
     assert java.uses_insecure_rsa(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_has_generic_exceptions_close():
-    """Code uses generic exceptions."""
-    assert java.has_generic_exceptions(SECURE_CODE).is_closed()
-    assert java.has_generic_exceptions(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.has_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_print_stack_trace_close():

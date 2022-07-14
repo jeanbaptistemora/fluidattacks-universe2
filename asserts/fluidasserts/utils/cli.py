@@ -1140,7 +1140,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "csharp",
             "C#",
         ): """
-            csharp.has_generic_exceptions('__path__')
             csharp.has_insecure_randoms('__path__')
             csharp.has_switch_without_default('__path__')
             csharp.uses_catch_for_null_reference_exception('__path__')
@@ -1159,7 +1158,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "java",
             "Java",
         ): """
-            java.has_generic_exceptions('__path__')
             java.has_insecure_randoms('__path__')
             java.has_log_injection('__path__')
             java.has_switch_without_default('__path__')
@@ -1189,7 +1187,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "python",
             "Python",
         ): """
-            python.has_generic_exceptions('__path__')
             python.uses_catch_for_memory_error('__path__')
             python.uses_catch_for_syntax_errors('__path__')
             python.uses_insecure_functions('__path__')
@@ -1199,7 +1196,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "RPG",
         ): """
             rpgle.has_dos_dow_sqlcod('__path__')
-            rpgle.has_generic_exceptions('__path__')
             rpgle.uses_debugging('__path__')
             """,
     }

@@ -85,12 +85,6 @@ def test_exclude_parameter():
         core.uses_unencrypted_sockets(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_generic_exceptions(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_generic_exceptions(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_catch_for_null_pointer_exception(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
@@ -175,11 +169,6 @@ def test_lang_specs_parameter():
 
     # Checks below will be skiped because java searches for .java files
     # And the directory is full of .md files
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_generic_exceptions(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_generic_exceptions(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_catch_for_null_pointer_exception(MARKD)
