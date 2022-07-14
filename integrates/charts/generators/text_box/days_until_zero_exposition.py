@@ -27,21 +27,19 @@ from decimal import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name.lower()
     )
-    findings_ids: Tuple[str, ...] = tuple(
+    findings_ids: tuple[str, ...] = tuple(
         finding.id for finding in group_findings
     )
-    finding_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
+    finding_vulns: tuple[
+        tuple[Vulnerability, ...], ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many(findings_ids)
 
     counter: Decimal = Decimal("0.0")
@@ -59,10 +57,10 @@ async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
 
 
 async def get_data_many_groups(
-    groups: Tuple[str, ...], loaders: Dataloaders
+    groups: tuple[str, ...], loaders: Dataloaders
 ) -> Decimal:
 
-    groups_data: Tuple[Decimal, ...] = await collect(
+    groups_data: tuple[Decimal, ...] = await collect(
         tuple(get_data_one_group(group, loaders) for group in groups),
         workers=32,
     )
@@ -70,7 +68,7 @@ async def get_data_many_groups(
     return Decimal(sum(group for group in groups_data))
 
 
-def format_data(days: Decimal) -> Dict[str, Any]:
+def format_data(days: Decimal) -> dict[str, Any]:
 
     return {
         "fontSizeRatio": 0.5,

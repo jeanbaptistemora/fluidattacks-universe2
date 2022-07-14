@@ -37,7 +37,6 @@ from typing import (
     Any,
     Dict,
     List,
-    Tuple,
 )
 
 
@@ -45,7 +44,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    events_group: Tuple[Event, ...] = await loaders.group_events.load(group)
+    events_group: tuple[Event, ...] = await loaders.group_events.load(group)
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),
@@ -63,7 +62,7 @@ async def get_data_one_group(
 
 async def get_data_many_groups(
     *,
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
 ) -> List[PortfoliosGroupsInfo]:
     groups_data = await collect(
