@@ -426,6 +426,31 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         )
     )
 
+    # Update the cloning date to know the repository was verified
+    await collect(
+        [
+            roots_domain.update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                status=roots_dict[root_id].cloning.status,
+                message=roots_dict[root_id].cloning.reason,
+                commit=roots_dict[root_id].cloning.commit,
+            )
+            for root_id in (
+                root_id
+                for root_id, commit in last_commits_dict.items()
+                if (
+                    commit  # if the commit exists the credentials works
+                    and commit == roots_dict[root_id].cloning.commit
+                    and GitCloningStatus.OK
+                    == roots_dict[root_id].cloning.status
+                    and root_id not in roots_to_clone
+                )
+            )
+        ]
+    )
+
     if roots_to_clone:
         result = await put_action(
             action=Action.CLONE_ROOTS,
