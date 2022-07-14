@@ -1,0 +1,123 @@
+{
+  "ModelName": "database-design",
+  "ModelMetadata": {
+    "Author": "",
+    "DateCreated": "Jul 14, 2022, 02:09 PM",
+    "DateLastModified": "Jul 14, 2022, 02:46 PM",
+    "Description": "",
+    "AWSService": "Amazon DynamoDB",
+    "Version": "3.0"
+  },
+  "DataModel": [
+    {
+      "TableName": "skims_sca",
+      "KeyAttributes": {
+        "PartitionKey": {
+          "AttributeName": "pk",
+          "AttributeType": "S"
+        },
+        "SortKey": {
+          "AttributeName": "sk",
+          "AttributeType": "S"
+        }
+      },
+      "NonKeyAttributes": [
+        {
+          "AttributeName": "associated_advisory",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "package_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "package_manager",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "vulnerable_version",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "severity",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "source",
+          "AttributeType": "S"
+        }
+      ],
+      "TableFacets": [
+        {
+          "FacetName": "advisories",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "PLATFORM#name#PACKAGE#name",
+            "SortKeyAlias": "ADVISORY#id#SOURCE#name"
+          },
+          "TableData": [],
+          "DataAccess": {
+            "MySql": {}
+          }
+        }
+      ],
+      "TableData": [
+        {
+          "pk": {
+            "S": "PLATFORM#maven#PACKAGE#axis:axis"
+          },
+          "sk": {
+            "S": "ADVISORY#CVE-2012-5784#SOURCE#test"
+          },
+          "associated_advisory": {
+            "S": "CVE-2012-5784"
+          },
+          "package_name": {
+            "S": "axis:axis"
+          },
+          "package_manager": {
+            "S": "maven"
+          },
+          "vulnerable_version": {
+            "S": "<=1.4"
+          },
+          "severity": {
+            "S": "test"
+          },
+          "source": {
+            "S": "test"
+          }
+        },
+        {
+          "pk": {
+            "S": "PLATFORM#maven#PACKAGE#axis:axis"
+          },
+          "sk": {
+            "S": "ADVISORY#CVE-2014-3596#SOURCE#patch"
+          },
+          "associated_advisory": {
+            "S": "CVE-2014-3596"
+          },
+          "package_name": {
+            "S": "axis:axis"
+          },
+          "package_manager": {
+            "S": "maven"
+          },
+          "vulnerable_version": {
+            "S": "<=1.4"
+          },
+          "severity": {
+            "S": "test"
+          },
+          "source": {
+            "S": "patch"
+          }
+        }
+      ],
+      "DataAccess": {
+        "MySql": {}
+      },
+      "BillingMode": "PAY_PER_REQUEST"
+    }
+  ]
+}
