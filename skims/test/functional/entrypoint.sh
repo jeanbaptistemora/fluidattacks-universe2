@@ -16,6 +16,7 @@ function main {
 
   sops_export_vars skims/secrets/dev.yaml \
     INTEGRATES_API_TOKEN \
+    && DAEMON=true integrates-back dev \
     && DAEMON=true integrates-cache \
     && DAEMON=true integrates-storage \
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \

@@ -17,6 +17,7 @@ in
         outputs."/integrates/cache"
         outputs."/integrates/db"
         outputs."/integrates/storage"
+        outputs."/integrates/back"
       ];
       source = [
         outputs."/skims/config/runtime"
