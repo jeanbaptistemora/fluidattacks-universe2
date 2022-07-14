@@ -1,3 +1,4 @@
+import aioboto3
 from config import (
     load,
 )
@@ -48,6 +49,7 @@ from state.ephemeral import (
     get_ephemeral_store,
     reset as reset_ephemeral_state,
 )
+import tempfile
 from typing import (
     Dict,
     List,
@@ -67,6 +69,22 @@ from utils.repositories import (
 from zone import (
     t,
 )
+
+
+async def _upload_csv_result(
+    stores: Dict[core_model.FindingEnum, EphemeralStore]
+) -> None:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
+        notify_findings_as_csv(stores, file_path)
+        with open(file_path, "rb") as reader:
+            session = aioboto3.Session()
+            async with session.client("s3") as s3_client:
+                await s3_client.upload_fileobj(
+                    reader,
+                    "skims.data",
+                    f"results/{CTX.config.execution_id}.csv",
+                )
 
 
 async def execute_skims(
@@ -96,6 +114,8 @@ async def execute_skims(
             await analyze_http(stores=stores)
         for aws_cred in CTX.config.dast.aws_credentials:
             await analyze_dast_aws(credentials=aws_cred, stores=stores)
+    if CTX.config.execution_id:
+        await _upload_csv_result(stores)
     if CTX.config.output:
         notify_findings_as_csv(stores, CTX.config.output)
     else:
@@ -283,11 +303,14 @@ async def execute_set_of_configs(
 
     batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
 
-    stores = {
-        finding: get_ephemeral_store() for finding in core_model.FindingEnum
-    }
+    success = True
+
     for index, current_config in enumerate(configs):
         CTX.config = current_config
+        stores = {
+            finding: get_ephemeral_store()
+            for finding in core_model.FindingEnum
+        }
         if integrates_access and batch_job_id:
             await notify_start(batch_job_id)
 
@@ -300,12 +323,13 @@ async def execute_set_of_configs(
 
         os.chdir(CTX.config.working_dir)
 
-        stores = await execute_skims(stores)
+        await execute_skims(stores)
 
-    persisted_results = {}
-    success = True
     if integrates_access:
         persisted_results = await persist_to_integrates(stores)
+        if integrates_access and batch_job_id:
+            await notify_end(batch_job_id, persisted_results)
+        success = success and all(persisted_results.values())
     else:
         log_blocking(
             "info",
@@ -315,11 +339,6 @@ async def execute_set_of_configs(
                 "in the CLI"
             ),
         )
-
-    success = all(persisted_results.values())
-
-    if integrates_access and batch_job_id:
-        await notify_end(batch_job_id, persisted_results)
 
     reset_ephemeral_state()
     return success
