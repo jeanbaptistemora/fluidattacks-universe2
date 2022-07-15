@@ -37,6 +37,10 @@ class ErrorLoadingOrganizations(_SingleMessageException):
     msg: str = "Unable to read organizations data"
 
 
+class ErrorLoadingStakeholders(_SingleMessageException):
+    msg: str = "Unable to read stakeholders data"
+
+
 class ErrorRemovingGroup(_SingleMessageException):
     msg: str = "Unable to remove group"
 
