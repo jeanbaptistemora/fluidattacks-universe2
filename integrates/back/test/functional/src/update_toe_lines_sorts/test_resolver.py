@@ -68,7 +68,7 @@ async def test_update_toe_lines_sorts(
                     "loc": 4324,
                     "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
-                    "root": {"nickname": "product"},
+                    "root": {"nickname": "universe"},
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,
                     "sortsSuggestions": None,

@@ -40,7 +40,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
                     "modifiedDate": "2020-11-15T15:41:04+00:00",
                     "root": {
                         "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
+                        "nickname": "universe",
                     },
                     "seenAt": "2020-02-01T15:41:04+00:00",
                     "sortsRiskLevel": 80,

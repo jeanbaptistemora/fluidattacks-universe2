@@ -72,7 +72,7 @@ describe("groupToeLinesView", (): void => {
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
                       id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "product",
+                      nickname: "universe",
                     },
                     seenAt: "2020-02-01T15:41:04+00:00",
                     sortsRiskLevel: 80,
@@ -166,7 +166,7 @@ describe("groupToeLinesView", (): void => {
     );
     expect(screen.getAllByRole("row")[2].textContent).toStrictEqual(
       [
-        "product",
+        "universe",
         "50%",
         "8",
         "4",
@@ -263,7 +263,7 @@ describe("groupToeLinesView", (): void => {
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
                       id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "product",
+                      nickname: "universe",
                     },
                     seenAt: "2020-02-01T15:41:04+00:00",
                     sortsRiskLevel: 80,
@@ -393,7 +393,7 @@ describe("groupToeLinesView", (): void => {
                 modifiedDate: "2020-11-15T15:41:04+00:00",
                 root: {
                   id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                  nickname: "product",
+                  nickname: "universe",
                 },
                 seenAt: "2020-02-01T15:41:04+00:00",
                 sortsRiskLevel: 80,
@@ -445,7 +445,7 @@ describe("groupToeLinesView", (): void => {
                     modifiedDate: "2020-11-15T15:41:04+00:00",
                     root: {
                       id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "product",
+                      nickname: "universe",
                     },
                     seenAt: "2020-02-01T15:41:04+00:00",
                     sortsRiskLevel: 80,

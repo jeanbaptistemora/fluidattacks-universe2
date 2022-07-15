@@ -3,24 +3,24 @@ inputs:
     state: open
     url: https://example.com
     stream: home,blog,articulo
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
 lines:
   - line: "123"
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-    path: product/path/to/file1.ext
+    path: universe/path/to/file1.ext
     state: open
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
   - line: "1"
-    path: product/test/1
-    repo_nickname: product
+    path: universe/test/1
+    repo_nickname: universe
     state: open
     commit_hash: 000000000000000000000000000000000000000f
     source: analyst
   - line: "1"
-    path: product/test/1
-    repo_nickname: product
+    path: universe/test/1
+    repo_nickname: universe
     state: open
     commit_hash: 111111111111111111111111111111111111111f
     source: analyst
@@ -29,25 +29,25 @@ ports:
   - host: "https://example.com"
     port: "8080"
     state: open
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
   - host: "192.168.1.44"
     port: "4444"
     state: open
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
   - host: "192.168.1.45"
     port: "4545"
     state: closed
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
   - host: "192.168.1.46"
     port: "4646"
     state: open
-    repo_nickname: product
+    repo_nickname: universe
     source: "escape"
   - host: "192.168.1.47"
     port: "4747"
     source: "analyst"
     state: closed
-    repo_nickname: product
+    repo_nickname: universe

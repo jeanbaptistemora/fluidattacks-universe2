@@ -1,13 +1,13 @@
 lines:
   - line: "123"
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
-    path: product/test/test#.config
+    path: universe/test/test#.config
     state: open
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst
   - line: "89"
     commit_hash: fffff9c8eac80d60cfba7322791c0a9b19efffff
-    path: product/test/test#.config
+    path: universe/test/test#.config
     state: closed
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst

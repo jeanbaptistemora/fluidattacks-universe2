@@ -109,29 +109,29 @@ async def test_upload_file(populate: bool, email: str) -> None:
     assert await _get_vulns(loaders, finding_id, "group1") == [
         {
             "commit_hash": "111111111111111111111111111111111111111f",
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "1",
             "state_status": "OPEN",
             "stream": None,
             "treatment_status": "NEW",
             "type": "LINES",
             "verification_status": None,
-            "where": "product/test/1",
+            "where": "universe/test/1",
         },
         {
             "commit_hash": "5b5c92105b5c92105b5c92105b5c92105b5c9210",
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "123",
             "state_status": "OPEN",
             "stream": None,
             "treatment_status": "NEW",
             "type": "LINES",
             "verification_status": None,
-            "where": "product/path/to/file1.ext",
+            "where": "universe/path/to/file1.ext",
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "4444",
             "state_status": "OPEN",
             "stream": None,
@@ -142,7 +142,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "4545",
             "state_status": "CLOSED",
             "stream": None,
@@ -153,7 +153,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "4646",
             "state_status": "CLOSED",
             "stream": None,
@@ -164,7 +164,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "4646",
             "state_status": "OPEN",
             "stream": None,
@@ -175,7 +175,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "4747",
             "state_status": "CLOSED",
             "stream": None,
@@ -186,7 +186,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "8080",
             "state_status": "OPEN",
             "stream": None,
@@ -197,7 +197,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         },
         {
             "commit_hash": None,
-            "repo_nickname": "product",
+            "repo_nickname": "universe",
             "specific": "phone",
             "state_status": "OPEN",
             "stream": ["home", "blog", "articulo"],
@@ -285,7 +285,7 @@ async def test_upload_file(populate: bool, email: str) -> None:
         ),
         unreliable_where=(
             "192.168.1.44, 192.168.1.46, https://example.com, "
-            "product/path/to/file1.ext, product/test/1"
+            "universe/path/to/file1.ext, universe/test/1"
         ),
     )
 

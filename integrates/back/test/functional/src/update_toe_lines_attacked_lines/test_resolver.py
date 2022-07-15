@@ -53,7 +53,7 @@ async def test_update_toe_lines_attacked_lines_set_lines(
                     "modifiedDate": "2020-11-16T15:41:04+00:00",
                     "root": {
                         "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "product",
+                        "nickname": "universe",
                     },
                     "seenAt": "2020-01-01T15:41:04+00:00",
                     "sortsRiskLevel": 0,

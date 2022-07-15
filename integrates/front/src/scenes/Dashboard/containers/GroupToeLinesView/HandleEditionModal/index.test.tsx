@@ -65,10 +65,10 @@ describe("handle toe lines edition modal", (): void => {
         modifiedDate: new Date("2020-11-15T15:41:04+00:00"),
         root: {
           id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-          nickname: "product",
+          nickname: "universe",
         },
         rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-        rootNickname: "product",
+        rootNickname: "universe",
         seenAt: new Date("2020-02-01T15:41:04+00:00"),
         sortsRiskLevel: 80,
         sortsSuggestions: null,

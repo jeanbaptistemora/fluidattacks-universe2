@@ -3,5 +3,5 @@ inputs:
     state: closed
     url: https://test_new_closed.com
     stream: home,info,contact_me
-    repo_nickname: product
+    repo_nickname: universe
     source: analyst

@@ -35,7 +35,7 @@ async def test_validate_git_access_fail(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     key: str = "VGVzdCBTU0gK"
-    url = "git@gitlab.com:fluidattacks/test-product-test-fail-functional.git"
+    url = "git@gitlab.com:fluidattacks/test-universe-test-fail-functional.git"
     result = await get_result(user=email, group=group_name, key=key, url=url)
     assert (
         result["errors"][0]["message"]

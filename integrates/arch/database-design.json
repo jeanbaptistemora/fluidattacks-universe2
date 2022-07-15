@@ -8960,7 +8960,7 @@
                     "S": "jdoe@fluidattacks.com"
                   },
                   "nickname": {
-                    "S": "product"
+                    "S": "universe"
                   }
                 }
               },
@@ -9134,7 +9134,7 @@
                 "S": "jdoe@fluidattacks.com"
               },
               "nickname": {
-                "S": "product"
+                "S": "universe"
               }
             },
             {
@@ -19007,7 +19007,7 @@
                 "S": "LINES"
               },
               "where": {
-                "S": "product/path/to/file3.ext"
+                "S": "universe/path/to/file3.ext"
               },
               "specific": {
                 "S": "345"
@@ -19237,7 +19237,7 @@
                 "S": "LINES"
               },
               "where": {
-                "S": "product/test/test#.config"
+                "S": "universe/test/test#.config"
               },
               "specific": {
                 "S": "123345"
@@ -19348,7 +19348,7 @@
                 "S": "LINES"
               },
               "where": {
-                "S": "product/test/test#.config"
+                "S": "universe/test/test#.config"
               },
               "specific": {
                 "S": "123"
@@ -19568,7 +19568,7 @@
                 "S": "LINES"
               },
               "where": {
-                "S": "product/test/test#.config"
+                "S": "universe/test/test#.config"
               },
               "specific": {
                 "S": "123345"

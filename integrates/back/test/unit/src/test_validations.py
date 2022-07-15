@@ -173,9 +173,9 @@ def test_is_valid_ip() -> None:
 
 
 def test_is_exclude_valid() -> None:
-    repo_url: str = "https://fluidattacks.com/product"
+    repo_url: str = "https://fluidattacks.com/universe"
     assert is_exclude_valid(
-        ["*/test.py", "production/test.py", "test/product/test.py"], repo_url
+        ["*/test.py", "production/test.py", "test/universe/test.py"], repo_url
     )
-    assert not is_exclude_valid(["Product/test.py"], repo_url)
-    assert not is_exclude_valid(["product/**/test.py"], repo_url)
+    assert not is_exclude_valid(["Universe/test.py"], repo_url)
+    assert not is_exclude_valid(["universe/**/test.py"], repo_url)
