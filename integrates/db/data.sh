@@ -1,7 +1,11 @@
 # shellcheck shell=bash
 
+function get_git_email {
+  HOME="${HOME_IMPURE}" git config user.email
+}
+
 function main {
-  local email="${GITLAB_USER_EMAIL:-$(git config user.email)}"
+  local email="${GITLAB_USER_EMAIL:-$(get_git_email)}"
   local out="integrates/db/.data"
   local i=0
   local included_facets=(
