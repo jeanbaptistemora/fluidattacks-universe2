@@ -520,6 +520,7 @@ const Machine = [
           'machine/web/groups/stakeholders',
           'machine/web/groups/roles',
           'machine/web/groups/authors',
+          'machine/web/groups/surface',
           {
             type: 'category',
             label: 'Scope',
