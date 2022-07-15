@@ -699,6 +699,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 entity={entity}
                 generatorName={"generic"}
                 generatorType={"c3"}
+                infoLink={`${graphInfoLink}groups#group-availability`}
                 reportMode={reportMode}
                 subject={subject}
                 title={t("analytics.pieChart.availability.title")}
