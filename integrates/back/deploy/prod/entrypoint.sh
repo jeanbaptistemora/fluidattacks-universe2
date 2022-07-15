@@ -67,7 +67,7 @@ function deploy {
   export B64_CI_COMMIT_SHA
   export B64_PROD_INTEGRATES_AWS_ACCESS_KEY_ID
   export B64_PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY
-  export B64_PRODUCT_API_TOKEN
+  export B64_UNIVERSE_API_TOKEN
   export REPLICAS
   export UUID
 
@@ -77,7 +77,7 @@ function deploy {
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_PROD_INTEGRATES_AWS_ACCESS_KEY_ID="$(b64 "${PROD_INTEGRATES_AWS_ACCESS_KEY_ID}")" \
     && B64_PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY="$(b64 "${PROD_INTEGRATES_AWS_SECRET_ACCESS_KEY}")" \
-    && B64_PRODUCT_API_TOKEN="$(b64 "${PRODUCT_API_TOKEN}")" \
+    && B64_UNIVERSE_API_TOKEN="$(b64 "${UNIVERSE_API_TOKEN}")" \
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
     && sops_export_vars integrates/secrets/production.yaml \

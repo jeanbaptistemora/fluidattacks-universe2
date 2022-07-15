@@ -58,7 +58,7 @@ try:
     LOG_LEVEL_WATCHTOWER: Optional[str] = os.environ.get(
         "LOG_LEVEL_WATCHTOWER"
     )
-    PRODUCT_API_TOKEN: Optional[str] = os.environ.get("PRODUCT_API_TOKEN")
+    UNIVERSE_API_TOKEN: Optional[str] = os.environ.get("UNIVERSE_API_TOKEN")
     SERVICES_GITLAB_API_TOKEN = os.environ["SERVICES_GITLAB_API_TOKEN"]
     SERVICES_GITLAB_API_USER = os.environ["SERVICES_GITLAB_API_USER"]
     STARTDIR = os.environ["STARTDIR"]

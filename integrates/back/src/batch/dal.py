@@ -28,7 +28,7 @@ from context import (
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
-    PRODUCT_API_TOKEN,
+    UNIVERSE_API_TOKEN,
 )
 from custom_types import (
     DynamoDelete,
@@ -634,8 +634,8 @@ async def put_action_to_batch(
                                 "value": "true",
                             },
                             {
-                                "name": "PRODUCT_API_TOKEN",
-                                "value": PRODUCT_API_TOKEN,
+                                "name": "UNIVERSE_API_TOKEN",
+                                "value": UNIVERSE_API_TOKEN,
                             },
                         ],
                         "resourceRequirements": [
