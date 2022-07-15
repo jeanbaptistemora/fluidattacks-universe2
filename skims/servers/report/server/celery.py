@@ -1,5 +1,9 @@
-from celery import Celery
-from kombu.utils.url import safequote
+from celery import (
+    Celery,
+)
+from kombu.utils.url import (
+    safequote,
+)
 import os
 
 BROKER_TRANSPORT_OPTIONS = {
