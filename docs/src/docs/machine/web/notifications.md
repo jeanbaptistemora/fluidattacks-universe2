@@ -305,6 +305,17 @@ of a vulnerability.
 
 ![Treatment Expiration Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1657719383/docs/web/notifications/notif_treat_exp_alert.png)
 
+### Treatment report
+
+If you are a user manager
+or vulnerability manager,
+you will receive an email
+or an SMS when a vulnerability
+has Temporarily Accepted
+treatment request and acceptance.
+
+![Treatment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1657900877/docs/web/notifications/notif_treatment_report.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
