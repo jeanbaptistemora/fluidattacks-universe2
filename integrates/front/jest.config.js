@@ -36,6 +36,7 @@ const esModules = [
   "is-hexadecimal",
   "is-alphanumerical",
   "is-alphabetical",
+  "trim-lines",
 ].join("|");
 
 module.exports = {

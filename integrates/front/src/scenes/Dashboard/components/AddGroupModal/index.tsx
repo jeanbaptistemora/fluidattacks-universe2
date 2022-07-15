@@ -7,7 +7,7 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { Fragment, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { Step } from "react-joyride";
-import LoadingOverlay from "react-loading-overlay";
+import LoadingOverlay from "react-loading-overlay-ts";
 import { useHistory } from "react-router-dom";
 import FadeLoader from "react-spinners/FadeLoader";
 import type { ConfigurableValidator } from "revalidate";
