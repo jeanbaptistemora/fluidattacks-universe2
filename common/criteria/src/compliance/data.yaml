@@ -6902,4 +6902,58 @@
     "1_2":
       title: Operating system privilege account controls
       link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "1_3":
+      title: Virtualisation platform protection
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "1_4":
+      title: Restriction of internet access
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_1":
+      title: Internal data flow security
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_2":
+      title: Security updates
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_3":
+      title: System hardening
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_5":
+      title: External transmission data protection
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_6":
+      title: Operator session confidentiality and integrity
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "2_10":
+      title: Application hardening
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "3_1":
+      title: Physical security
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "4_1":
+      title: Password policy
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "4_2":
+      title: Multi-factor authentication
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "5_1":
+      title: Logical access control
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "5_2":
+      title: Token management
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "5_4":
+      title: Physical and logical password storage
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "6_1":
+      title: Malware protection
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "6_2":
+      title: Software integrity
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "6_3":
+      title: Database integrity
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+    "6_4":
+      title: Logging and monitoring
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
   metadata: {}
