@@ -25,14 +25,6 @@ export const onRenderBody = (
       data-blockingmode={"auto"}
       type={"text/javascript"}
     />,
-    // Cloudflare Web Analytics
-    <script
-      defer
-      src={"https://static.cloudflareinsights.com/beacon.min.js"}
-      integrity={"sha384-lu8/dHPGwWuSCz/SBocbxK6Lj5OzJHq5oj0ZydQRA2Z6mK8I5onrNuWNyygTRsHx"}
-      crossOrigin={"anonymous"}
-      data-cf-beacon={'{"token": "f4f99c985c414a5591e8077bf301b39b"}'}
-    />,
     // Highlight.js syntax highlighter
     <link
       rel={"stylesheet"}
