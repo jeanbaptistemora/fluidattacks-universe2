@@ -44,7 +44,7 @@ security vulnerabilities:
   cost-effective throughout your Software Security
   Development Lifecycle.
 
-### Service status
+## Service status
 
 ![Service Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122367/docs/web/analytics/groups/service_status.png)
 
@@ -52,7 +52,7 @@ Here you can see
 if the Agent is
 active or inactive.
 
-### Service usage
+## Service usage
 
 ![Service Usage](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122427/docs/web/analytics/groups/service_usage.png)
 
@@ -60,7 +60,7 @@ Number of times
 your team used the agent
 to check for vulnerabilities.
 
-### Repositories and branches
+## Repositories and branches
 
 ![Repositories And Branches](https://res.cloudinary.com/fluid-attacks/image/upload/v1652122486/docs/web/analytics/groups/repos_and_branch.png)
 
@@ -69,7 +69,7 @@ in any of your repositories
 at any of its versions
 (commits or branches).
 
-### Your commitment towards security
+## Your commitment towards security
 
 ![Commitment Towards Security](https://res.cloudinary.com/fluid-attacks/image/upload/v1643984899/docs/web/analytics/groups/groups_comm_towards_security.png)
 
@@ -98,7 +98,7 @@ The maximum benefit is reached
 when the accepted risk is low,
 and the strict mode high.
 
-### Builds risk
+## Builds risk
 
 ![Builds Risk](https://res.cloudinary.com/fluid-attacks/image/upload/v1643986228/docs/web/analytics/groups/groups_build_risk.png)
 
@@ -112,3 +112,12 @@ introduced into your system:
   stops those security issues
   from being delivered
   to your end users.
+
+## Group availability
+
+![Group Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1657916271/docs/web/analytics/groups/group_availability.png)
+
+The percentage of time
+that the group has unsolved
+events compared to the entire
+existence of the group.
