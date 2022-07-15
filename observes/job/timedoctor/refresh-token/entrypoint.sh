@@ -13,7 +13,7 @@ function refresh_token {
     && json_db_creds "${db_creds}" \
     && analytics_auth_timedoctor=$(
       get_project_variable \
-        "${PRODUCT_API_TOKEN}" \
+        "${UNIVERSE_API_TOKEN}" \
         "${CI_PROJECT_ID}" \
         "analytics_auth_timedoctor"
     ) \

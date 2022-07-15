@@ -12,7 +12,7 @@ function start_etl {
     && gitlab-etl \
       'gitlab_ci_issues' \
       'fluidattacks/universe' \
-      "${PRODUCT_API_TOKEN}" \
+      "${UNIVERSE_API_TOKEN}" \
       "${db_creds}"
 }
 

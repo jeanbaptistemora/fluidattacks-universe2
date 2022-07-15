@@ -102,7 +102,7 @@ def code_grant_page(creds: str) -> None:
 def recreate_save_refresh_token(creds: str, temp_code: str) -> None:
     project_id = os.environ["CI_PROJECT_ID"]
     timedoctor = json.loads(creds)
-    analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
+    analytics_gitlab_token = os.environ["UNIVERSE_API_TOKEN"]
     new_timedoctor = json.loads(
         get_from_url(
             method="GET",
@@ -136,7 +136,7 @@ def recreate_and_save_token(creds: str) -> bool:
     # Get the current values
     project_id = os.environ["CI_PROJECT_ID"]
     timedoctor = json.loads(creds)
-    analytics_gitlab_token = os.environ["PRODUCT_API_TOKEN"]
+    analytics_gitlab_token = os.environ["UNIVERSE_API_TOKEN"]
 
     # Get the new token
     new_timedoctor = json.loads(

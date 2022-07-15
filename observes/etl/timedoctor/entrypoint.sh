@@ -16,7 +16,7 @@ function job_timedoctor {
       analytics_s3_cache_timedoctor \
     && analytics_auth_timedoctor=$(
       get_project_variable \
-        "${PRODUCT_API_TOKEN}" \
+        "${UNIVERSE_API_TOKEN}" \
         "${CI_PROJECT_ID}" \
         "analytics_auth_timedoctor"
     ) \

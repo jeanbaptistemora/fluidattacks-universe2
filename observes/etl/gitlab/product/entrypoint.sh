@@ -13,7 +13,7 @@ function start_etl {
       'gitlab-ci' \
       'fluidattacks/universe' \
       's3://observes.state/gitlab_etl/product_state.json' \
-      "${PRODUCT_API_TOKEN}" \
+      "${UNIVERSE_API_TOKEN}" \
       "${db_creds}"
 }
 

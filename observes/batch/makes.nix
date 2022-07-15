@@ -2,7 +2,7 @@
   sharedConfiguration = rec {
     attempts = 5;
     definition = "makes";
-    environment = ["PRODUCT_API_TOKEN"];
+    environment = ["UNIVERSE_API_TOKEN"];
     memory = 1800 * vcpus;
     queue = "small";
     setup = [outputs."/secretsForAwsFromEnv/prodObserves"];
