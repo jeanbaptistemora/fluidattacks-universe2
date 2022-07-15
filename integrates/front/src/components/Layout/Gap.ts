@@ -1,20 +1,21 @@
 import styled from "styled-components";
 
 interface IGapProps {
-  display?: "block" | "flex" | "inline-block" | "inline";
-  hg?: number;
-  vg?: number;
+  disp?: "block" | "flex" | "inline-block" | "inline";
+  mh?: number;
+  mv?: number;
 }
 
 const Gap = styled.div.attrs({
   className: "comp-gap",
 })<IGapProps>`
-  ${({ display = "flex", hg = 4, vg = 0 }): string => `
-  display: ${display};
-  margin: ${-vg}px ${-hg}px;
+  ${({ disp = "flex", mh = 4, mv = 4 }): string => `
+  align-items: center;
+  display: ${disp};
+  margin: ${-mv}px ${-mh}px;
 
   > * {
-    margin: ${vg}px ${hg}px;
+    margin: ${mv}px ${mh}px;
   }
   `}
 `;
