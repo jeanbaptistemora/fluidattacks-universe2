@@ -44,6 +44,11 @@ async def mutate(
         card_expiration_month=kwargs["card_expiration_month"],
         card_expiration_year=kwargs["card_expiration_year"],
         make_default=kwargs["make_default"],
+        business_name=kwargs["business_name"],
+        city=kwargs["city"],
+        country=kwargs["country"],
+        email=kwargs["email"],
+        state=kwargs["state"],
     )
 
     return SimplePayload(success=result)

@@ -444,6 +444,11 @@ async def update_payment_method(
     card_expiration_month: str,
     card_expiration_year: str,
     make_default: bool,
+    business_name: str,
+    city: str,
+    country: str,
+    email: str,
+    state: str,
 ) -> bool:
     # Raise exception if stripe customer does not exist
     if org.billing_customer is None:
@@ -458,6 +463,44 @@ async def update_payment_method(
         payment_method.id for payment_method in payment_methods
     ]:
         raise InvalidBillingPaymentMethod()
+
+    if (
+        list(
+            filter(
+                lambda method: method.id == payment_method_id, payment_methods
+            )
+        )[0].last_four_digits
+        == ""
+    ):
+        # get actual payment methods
+        other_payment_methods: List[OrganizationPaymentMethods] = []
+        if org.payment_methods:
+            other_payment_methods = org.payment_methods
+
+        other_payment_methods = list(
+            filter(
+                lambda method: method.id != payment_method_id,
+                other_payment_methods,
+            )
+        )
+        other_payment_methods.append(
+            OrganizationPaymentMethods(
+                business_name=business_name,
+                city=city,
+                country=country,
+                email=email,
+                id=payment_method_id,
+                state=state,
+            )
+        )
+        await organizations_model.update_metadata(
+            metadata=OrganizationMetadataToUpdate(
+                payment_methods=other_payment_methods
+            ),
+            organization_id=org.id,
+            organization_name=org.name,
+        )
+        return True
 
     result: bool = await dal.update_payment_method(
         payment_method_id=payment_method_id,

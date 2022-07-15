@@ -1152,6 +1152,16 @@ type Mutation {
     cardExpirationYear: String!
     "Select card as default"
     makeDefault: Boolean!
+    "Business name of payment method"
+    businessName: String!
+    "e-factura email"
+    email: String!
+    "Country of payment method business"
+    country: String!
+    "State of payment method business"
+    state: String!
+    "City of payment method business"
+    city: String!
   ): SimplePayload!
 
   "Updates the Root cloning status"
