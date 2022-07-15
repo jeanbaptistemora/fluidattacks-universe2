@@ -12,6 +12,7 @@ import { tooltipFormatter } from "components/Table/headerFormatters/tooltipForma
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
+import { Text } from "components/Text";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { areMutationsValid } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/helpers";
 import { linkFormatter } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/linkFormatter";
@@ -23,7 +24,6 @@ import type {
   IGetOrganizationBilling,
   IGroupAttr,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
-import { Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -496,59 +496,55 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
 
   return (
     <Container>
-      <Row>
-        <div className={"w-100-ns"}>
-          <Row>
-            <h2>{t("organization.tabs.billing.groups.title")}</h2>
-            <Table
-              clearFiltersButton={clearFilters}
-              customFilters={{
-                customFiltersProps,
-                isCustomFilterEnabled,
-                onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                resultSize: {
-                  current: resultDataset.length,
-                  total: dataset.length,
-                },
-              }}
-              customSearch={{
-                customSearchDefault: searchTextFilter,
-                isCustomSearchEnabled: true,
-                onUpdateCustomSearch: onSearchTextChange,
-                position: "right",
-              }}
-              dataset={resultDataset}
-              defaultSorted={{ dataField: "name", order: "asc" }}
-              exportCsv={false}
-              extraButtons={
-                <Can do={"api_resolvers_organization_billing_portal_resolve"}>
-                  <ExternalLink href={billingPortal}>
-                    <Button variant={"primary"}>
-                      <FontAwesomeIcon icon={faMoneyBill} />
-                      &nbsp;
-                      {t("organization.tabs.billing.portal.title")}
-                    </Button>
-                  </ExternalLink>
-                </Can>
-              }
-              headers={tableHeaders}
-              id={"tblGroups"}
-              pageSize={10}
-              search={false}
-            />
-            {isUpdatingSubscription === false ? undefined : (
-              <UpdateSubscriptionModal
-                current={currentRow.tier.toUpperCase()}
-                groupName={currentRow.name}
-                managed={currentRow.managed}
-                onClose={closeModal}
-                onSubmit={handleUpdateGroupSubmit}
-                permissions={currentRow.permissions}
-              />
-            )}
-          </Row>
-        </div>
-      </Row>
+      <Text fw={7} mb={3} mt={4} size={5}>
+        {t("organization.tabs.billing.groups.title")}
+      </Text>
+      <Table
+        clearFiltersButton={clearFilters}
+        customFilters={{
+          customFiltersProps,
+          isCustomFilterEnabled,
+          onUpdateEnableCustomFilter: handleUpdateCustomFilter,
+          resultSize: {
+            current: resultDataset.length,
+            total: dataset.length,
+          },
+        }}
+        customSearch={{
+          customSearchDefault: searchTextFilter,
+          isCustomSearchEnabled: true,
+          onUpdateCustomSearch: onSearchTextChange,
+          position: "right",
+        }}
+        dataset={resultDataset}
+        defaultSorted={{ dataField: "name", order: "asc" }}
+        exportCsv={false}
+        extraButtons={
+          <Can do={"api_resolvers_organization_billing_portal_resolve"}>
+            <ExternalLink href={billingPortal}>
+              <Button variant={"primary"}>
+                <FontAwesomeIcon icon={faMoneyBill} />
+                &nbsp;
+                {t("organization.tabs.billing.portal.title")}
+              </Button>
+            </ExternalLink>
+          </Can>
+        }
+        headers={tableHeaders}
+        id={"tblGroups"}
+        pageSize={10}
+        search={false}
+      />
+      {isUpdatingSubscription === false ? undefined : (
+        <UpdateSubscriptionModal
+          current={currentRow.tier.toUpperCase()}
+          groupName={currentRow.name}
+          managed={currentRow.managed}
+          onClose={closeModal}
+          onSubmit={handleUpdateGroupSubmit}
+          permissions={currentRow.permissions}
+        />
+      )}
     </Container>
   );
 };

@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddCreditCardModal } from "./AddCreditCardModal";
@@ -26,7 +26,7 @@ import { Button } from "components/Button";
 import { Table } from "components/Table/index";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { Row } from "styles/styledComponents";
+import { Text } from "components/Text";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -362,133 +362,111 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
 
     return (
       <Container>
-        <Row>
-          <div className={"w-100-ns"}>
-            <Row>
-              <h2>{t("organization.tabs.billing.paymentMethods.title")}</h2>
-            </Row>
-            <Row>
-              <h3>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.creditCard.label"
-                )}
-              </h3>
-              <Table
-                columnToggle={false}
-                customSearch={{
-                  customSearchDefault: searchFilterCreditCard,
-                  isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchCreditCardChange,
-                  position: "right",
-                }}
-                dataset={filterSearchTextCreditCard}
-                defaultSorted={{ dataField: "brand", order: "asc" }}
-                exportCsv={false}
-                extraButtons={
-                  <Row>
-                    <Can do={"api_mutations_add_payment_method_mutate"}>
-                      <Button
-                        id={"addCreditCard"}
-                        onClick={openAddCreditCardModal}
-                        variant={"primary"}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;
-                        {t(
-                          "organization.tabs.billing.paymentMethods.add.button"
-                        )}
-                      </Button>
-                    </Can>
-                    <Can do={"api_mutations_update_payment_method_mutate"}>
-                      <Button
-                        disabled={_.isEmpty(currentRow) || removing || updating}
-                        id={"updateCreditCard"}
-                        onClick={openUpdateModal}
-                        variant={"secondary"}
-                      >
-                        <FontAwesomeIcon icon={faUserEdit} />
-                        &nbsp;
-                        {t(
-                          "organization.tabs.billing.paymentMethods.update.button"
-                        )}
-                      </Button>
-                    </Can>
-                    <Can do={"api_mutations_remove_payment_method_mutate"}>
-                      <Button
-                        disabled={_.isEmpty(currentRow) || removing || updating}
-                        id={"removeCreditCard"}
-                        onClick={handleRemovePaymentMethod}
-                        variant={"secondary"}
-                      >
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                        &nbsp;
-                        {t(
-                          "organization.tabs.billing.paymentMethods.remove.button"
-                        )}
-                      </Button>
-                    </Can>
-                  </Row>
-                }
-                headers={creditCardTableHeaders}
-                id={"tblCreditCard"}
-                pageSize={10}
-                search={false}
-                selectionMode={{
-                  clickToSelect: canRemove || canUpdate,
-                  hideSelectColumn: !canRemove && !canUpdate,
-                  mode: "radio",
-                  onSelect: setCurrentRow,
-                }}
-              />
-            </Row>
-            <Row>
-              <h3>
-                {t(
-                  "organization.tabs.billing.paymentMethods.add.otherMethods.label"
-                )}
-              </h3>
-              <Table
-                columnToggle={false}
-                customSearch={{
-                  customSearchDefault: searchFilterOtherMethod,
-                  isCustomSearchEnabled: true,
-                  onUpdateCustomSearch: onSearchOtherMethodChange,
-                  position: "right",
-                }}
-                dataset={filterSearchTextOtherMethod}
-                defaultSorted={{ dataField: "businessName", order: "asc" }}
-                exportCsv={false}
-                extraButtons={
-                  <Row>
-                    <Can do={"api_mutations_add_payment_method_mutate"}>
-                      <Button
-                        id={"addOtherMethod"}
-                        onClick={openAddOtherMethodModal}
-                        variant={"primary"}
-                      >
-                        <FontAwesomeIcon icon={faPlus} />
-                        &nbsp;
-                        {t(
-                          "organization.tabs.billing.paymentMethods.add.button"
-                        )}
-                      </Button>
-                    </Can>
-                  </Row>
-                }
-                headers={otherMethodsTableHeaders}
-                id={"tblOtherMethods"}
-                pageSize={10}
-                search={false}
-                selectionMode={{
-                  clickToSelect: canRemove || canUpdate,
-                  hideSelectColumn: !canRemove && !canUpdate,
-                  mode: "radio",
-                  onSelect: setCurrentRow,
-                }}
-              />
-            </Row>
-          </div>
-        </Row>
+        <Text fw={7} mb={3} mt={4} size={5}>
+          {t("organization.tabs.billing.paymentMethods.title")}
+        </Text>
+        <Text fw={7} mb={2} mt={3} size={4}>
+          {t("organization.tabs.billing.paymentMethods.add.creditCard.label")}
+        </Text>
+        <Table
+          columnToggle={false}
+          customSearch={{
+            customSearchDefault: searchFilterCreditCard,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchCreditCardChange,
+            position: "right",
+          }}
+          dataset={filterSearchTextCreditCard}
+          defaultSorted={{ dataField: "brand", order: "asc" }}
+          exportCsv={false}
+          extraButtons={
+            <Fragment>
+              <Can do={"api_mutations_add_payment_method_mutate"}>
+                <Button
+                  id={"addCreditCard"}
+                  onClick={openAddCreditCardModal}
+                  variant={"primary"}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.add.button")}
+                </Button>
+              </Can>
+              <Can do={"api_mutations_update_payment_method_mutate"}>
+                <Button
+                  disabled={_.isEmpty(currentRow) || removing || updating}
+                  id={"updateCreditCard"}
+                  onClick={openUpdateModal}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faUserEdit} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.update.button")}
+                </Button>
+              </Can>
+              <Can do={"api_mutations_remove_payment_method_mutate"}>
+                <Button
+                  disabled={_.isEmpty(currentRow) || removing || updating}
+                  id={"removeCreditCard"}
+                  onClick={handleRemovePaymentMethod}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.remove.button")}
+                </Button>
+              </Can>
+            </Fragment>
+          }
+          headers={creditCardTableHeaders}
+          id={"tblCreditCard"}
+          pageSize={10}
+          search={false}
+          selectionMode={{
+            clickToSelect: canRemove || canUpdate,
+            hideSelectColumn: !canRemove && !canUpdate,
+            mode: "radio",
+            onSelect: setCurrentRow,
+          }}
+        />
+        <Text fw={7} mb={2} mt={3} size={4}>
+          {t("organization.tabs.billing.paymentMethods.add.otherMethods.label")}
+        </Text>
+        <Table
+          columnToggle={false}
+          customSearch={{
+            customSearchDefault: searchFilterOtherMethod,
+            isCustomSearchEnabled: true,
+            onUpdateCustomSearch: onSearchOtherMethodChange,
+            position: "right",
+          }}
+          dataset={filterSearchTextOtherMethod}
+          defaultSorted={{ dataField: "businessName", order: "asc" }}
+          exportCsv={false}
+          extraButtons={
+            <Can do={"api_mutations_add_payment_method_mutate"}>
+              <Button
+                id={"addOtherMethod"}
+                onClick={openAddOtherMethodModal}
+                variant={"primary"}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;
+                {t("organization.tabs.billing.paymentMethods.add.button")}
+              </Button>
+            </Can>
+          }
+          headers={otherMethodsTableHeaders}
+          id={"tblOtherMethods"}
+          pageSize={10}
+          search={false}
+          selectionMode={{
+            clickToSelect: canRemove || canUpdate,
+            hideSelectColumn: !canRemove && !canUpdate,
+            mode: "radio",
+            onSelect: setCurrentRow,
+          }}
+        />
         {isAddingPaymentMethod === "CREDIT_CARD" && (
           <AddCreditCardModal
             onChangeMethod={setIsAddingPaymentMethod}
