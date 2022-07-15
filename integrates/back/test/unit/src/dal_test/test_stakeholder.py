@@ -6,7 +6,7 @@ from db_model.stakeholders.types import (
 )
 import pytest
 from stakeholders.dal import (
-    add_typed,
+    add,
     get,
     remove,
     update,
@@ -41,7 +41,7 @@ async def test_update() -> None:
         email="unittest4@gmail.com",
         is_registered=True,
     )
-    await add_typed(stakeholder)
+    await add(stakeholder)
     loaders = get_new_context()
     load_stakeholder: Stakeholder = await loaders.stakeholder.load(
         "unittest4@gmail.com"

@@ -38,7 +38,7 @@ LOGGER = logging.getLogger(__name__)
 USERS_TABLE_NAME = "FI_users"
 
 
-async def add_typed(stakeholder: Stakeholder) -> None:
+async def add(stakeholder: Stakeholder) -> None:
     try:
         data = stakeholders_utils.format_stakeholder_item(
             stakeholder=stakeholder
@@ -46,16 +46,6 @@ async def add_typed(stakeholder: Stakeholder) -> None:
         await dynamodb_ops.put_item(USERS_TABLE_NAME, data)
     except ClientError as ex:
         raise UnavailabilityError() from ex
-
-
-async def add(email: str, data: dict[str, Any]) -> bool:
-    resp = False
-    try:
-        data.update({"email": email})
-        resp = await dynamodb_ops.put_item(USERS_TABLE_NAME, data)
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return resp
 
 
 async def remove(email: str) -> None:
@@ -86,23 +76,6 @@ async def get_all(
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
     items = await dynamodb_ops.scan(USERS_TABLE_NAME, scan_attrs)
-    return items
-
-
-async def get_attributes(email: str, attributes: list[str]) -> dict[str, Any]:
-    items = {}
-    try:
-        query_attrs = {"KeyConditionExpression": Key("email").eq(email)}
-        if attributes:
-            projection = ",".join(attributes)
-            query_attrs.update({"ProjectionExpression": projection})
-        response_items = await dynamodb_ops.query(
-            USERS_TABLE_NAME, query_attrs
-        )
-        if response_items:
-            items = response_items[0]
-    except ClientError as ex:
-        LOGGER.exception(ex, extra={"extra": locals()})
     return items
 
 

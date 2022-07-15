@@ -96,7 +96,7 @@ from typing import (
 async def populate_stakeholders(data: List[Any]) -> bool:
     await collect(
         [
-            dal_stakeholders.add_typed(
+            dal_stakeholders.add(
                 stakeholder=item["stakeholder"],
             )
             for item in data

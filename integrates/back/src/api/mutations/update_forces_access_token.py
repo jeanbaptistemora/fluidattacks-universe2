@@ -6,6 +6,7 @@ from ariadne.utils import (
 )
 from custom_exceptions import (
     InvalidExpirationTime,
+    StakeholderNotFound,
 )
 from custom_types import (
     UpdateAccessTokenPayload,
@@ -33,9 +34,6 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
-from stakeholders import (
-    domain as stakeholders_domain,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -51,7 +49,9 @@ async def mutate(
     group: Group = await loaders.group.load(group_name)
 
     user_email = forces_domain.format_forces_user_email(group_name)
-    if not await stakeholders_domain.ensure_exists(user_email):
+    try:
+        await loaders.stakeholder.load(user_email)
+    except StakeholderNotFound:
         logs_utils.cloudwatch_log(
             info.context,
             (
@@ -60,7 +60,6 @@ async def mutate(
             ),
         )
         return UpdateAccessTokenPayload(success=False, session_jwt="")
-
     expiration_time = int(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )

@@ -134,7 +134,7 @@ async def check_session_web_validity(request: Request) -> None:
 
 
 async def add(data: Stakeholder) -> None:
-    return await stakeholders_dal.add_typed(data)
+    return await stakeholders_dal.add(data)
 
 
 async def remove(email: str) -> None:
@@ -171,10 +171,6 @@ async def update_information(
     if coroutines:
         success = all(await collect(coroutines))
     return success
-
-
-async def ensure_exists(email: str) -> bool:
-    return bool(await stakeholders_dal.get(email))
 
 
 async def has_valid_access_token(
