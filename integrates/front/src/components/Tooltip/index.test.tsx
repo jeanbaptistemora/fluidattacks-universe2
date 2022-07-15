@@ -12,7 +12,7 @@ describe("Tooltip", (): void => {
   it("should render a Tooltip", (): void => {
     expect.hasAssertions();
 
-    render(<Tooltip id={"TooltipId"}>{"Tooltip·content"}</Tooltip>);
+    render(<Tooltip id={"TooltipId"}>{"Tooltip content"}</Tooltip>);
 
     expect(screen.queryByText("Tooltip content")).toBeInTheDocument();
   });
