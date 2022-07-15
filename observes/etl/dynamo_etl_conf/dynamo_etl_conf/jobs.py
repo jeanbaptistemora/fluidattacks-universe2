@@ -88,7 +88,7 @@ class Jobs:
             self._etl_parrallel,
             f"{self._schema_prefix}{table.value}",
             table.value,
-            100,  # total_segments: MUST coincide with batch parallel conf
+            "100",  # total_segments: MUST coincide with batch parallel conf
             "s3://observes.cache/dynamoEtl/vms_schema",
         ]
         return external_run(tuple(args))
