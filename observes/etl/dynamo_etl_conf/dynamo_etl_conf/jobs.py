@@ -29,6 +29,7 @@ class Jobs:
     _etl_bin: str = os.environ["DYNAMO_ETL_BIN"]
     _etl_big_bin: str = os.environ["DYNAMO_ETL_BIG_BIN"]
     _etl_parrallel: str = os.environ["DYNAMO_PARALLEL"]
+    _etl_prepare: str = os.environ["DYNAMO_PREPARE"]
 
     def _run(
         self,
@@ -81,6 +82,15 @@ class Jobs:
             Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
             True,
         )
+
+    def prepare_core(self) -> Cmd[None]:
+        table = TargetTables.CORE
+        args = [
+            self._etl_prepare,
+            f"{self._schema_prefix}{table.value}_loading",
+            "s3://observes.cache/dynamoEtl/vms_schema",
+        ]
+        return external_run(tuple(args))
 
     def core_no_cache(self) -> Cmd[None]:
         table = TargetTables.CORE

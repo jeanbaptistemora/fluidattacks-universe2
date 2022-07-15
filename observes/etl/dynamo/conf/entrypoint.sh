@@ -3,6 +3,7 @@
 export DYNAMO_ETL_BIN=__argSendTableETL__
 export DYNAMO_ETL_BIG_BIN=__argSendBigTableETL__
 export DYNAMO_PARALLEL=__argSendParallelTableETL__
+export DYNAMO_PREPARE=__argSendPrepare__
 
 function execute {
   local selection="${1}"
@@ -17,6 +18,9 @@ function execute {
       ;;
     CORE_NO_CACHE)
       python -c "${import} Jobs().core_no_cache().compute()"
+      ;;
+    CORE_PREPARE)
+      python -c "${import} Jobs().prepare_core().compute()"
       ;;
     GROUP)
       python -c "${import} Jobs().standard_group().compute()"

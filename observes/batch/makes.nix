@@ -123,13 +123,24 @@ in {
         memory = 7600;
         queue = "medium";
       };
+
     observesDynamoParallel =
       sharedConfiguration
       // {
         attemptDurationSeconds = 36000;
+        attempts = 1;
         command = ["m" "f" "/observes/etl/dynamo/parallel"];
         parallel = 100;
       };
+
+    observesDynamoPrepare =
+      sharedConfiguration
+      // {
+        attemptDurationSeconds = 1800;
+        attempts = 1;
+        command = ["m" "f" "/observes/etl/dynamo/prepare"];
+      };
+
     observesDynamoV3EtlBig =
       sharedConfiguration
       // {
