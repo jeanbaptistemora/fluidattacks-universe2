@@ -1,6 +1,7 @@
 from .enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
+    VulnerabilityToolImpact,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
     VulnerabilityVerificationStatus,
@@ -23,6 +24,11 @@ from typing import (
     Tuple,
     Union,
 )
+
+
+class VulnerabilityTool(NamedTuple):
+    name: str
+    impacts: set[VulnerabilityToolImpact]
 
 
 class VulnerabilityState(NamedTuple):
@@ -86,6 +92,7 @@ class Vulnerability(NamedTuple):
     skims_technique: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
+    tool: Optional[VulnerabilityToolImpact] = None
     treatment: Optional[VulnerabilityTreatment] = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()

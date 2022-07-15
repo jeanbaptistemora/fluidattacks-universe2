@@ -3,6 +3,11 @@ from enum import (
 )
 
 
+class VulnerabilityToolImpact(str, Enum):
+    DIRECT: str = "DIRECT"
+    INDIRECT: str = "INDIRECT"
+
+
 class VulnerabilityType(str, Enum):
     INPUTS: str = "INPUTS"
     LINES: str = "LINES"
