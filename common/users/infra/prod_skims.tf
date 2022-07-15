@@ -144,6 +144,39 @@ locals {
               "arn:aws:dynamodb:us-east-1:205810638802:table/fi_async_processing",
             ]
           },
+          {
+            Sid    = "sqsWrite"
+            Effect = "Allow"
+            Action = [
+              "sqs:CreateQueue",
+              "sqs:DeleteQueue",
+              "sqs:GetQueueAttributes",
+              "sqs:SetQueueAttributes",
+              "sqs:TagQueue",
+              "sqs:UntagQueue",
+              "sqs:AddPermission",
+              "sqs:RemovePermission",
+            ]
+            Resource = [
+              "*",
+            ]
+          },
+          {
+            Sid    = "sqsAll"
+            Effect = "Allow"
+            Action = [
+              "sqs:*",
+              "sqs:ChangeMessageVisibility",
+              "sqs:DeleteMessage",
+              "sqs:GetQueueUrl",
+              "sqs:PurgeQueue",
+              "sqs:ReceiveMessage",
+              "sqs:SendMessage",
+            ]
+            Resource = [
+              "arn:aws:sqs:us-east-1:205810638802:skims-*",
+            ]
+          },
         ]
       }
     }
