@@ -3266,6 +3266,7 @@ export const enTranslations: ResourceKey = {
     openVulnsGroups: "Open vulnerabilities by group",
     remediatedAcceptedVuln:
       "How many vulnerabilities are remediated and accepted?",
+    reportTechnique: "Report Technique",
     topOldestFindings: "Top Oldest Types of Vulnerabilities",
     undefinedTitle: "Undefined Treatment by Group",
     vulnerabilitiesByLevel: "Vulnerabilities by level",
