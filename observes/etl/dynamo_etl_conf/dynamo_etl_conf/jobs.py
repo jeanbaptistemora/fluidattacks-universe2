@@ -28,6 +28,7 @@ class Jobs:
     _schema_prefix: str = "dynamodb_"
     _etl_bin: str = os.environ["DYNAMO_ETL_BIN"]
     _etl_big_bin: str = os.environ["DYNAMO_ETL_BIG_BIN"]
+    _etl_parrallel: str = os.environ["DYNAMO_PARALLEL"]
 
     def _run(
         self,
@@ -82,9 +83,12 @@ class Jobs:
         )
 
     def core_no_cache(self) -> Cmd[None]:
-        return self._default_run(
-            TargetTables.CORE,
-            True,
-            Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
-            False,
-        )
+        table = TargetTables.CORE
+        args = [
+            self._etl_parrallel,
+            f"{self._schema_prefix}{table.value}",
+            table.value,
+            100,  # total_segments: MUST coincide with batch parallel conf
+            "s3://observes.cache/dynamoEtl/vms_schema",
+        ]
+        return external_run(tuple(args))

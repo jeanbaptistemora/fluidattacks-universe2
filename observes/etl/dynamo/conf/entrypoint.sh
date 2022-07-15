@@ -2,6 +2,7 @@
 
 export DYNAMO_ETL_BIN=__argSendTableETL__
 export DYNAMO_ETL_BIG_BIN=__argSendBigTableETL__
+export DYNAMO_PARALLEL=__argSendParallelTableETL__
 
 function execute {
   local selection="${1}"
