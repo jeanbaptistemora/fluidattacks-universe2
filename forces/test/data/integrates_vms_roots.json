@@ -30,7 +30,7 @@
                 "S": "master"
               },
               "url": {
-                "S": "ssh://git@gitlab.com:fluidattacks/product"
+                "S": "ssh://git@gitlab.com:fluidattacks/universe"
               },
               "environment": {
                 "S": "production"
