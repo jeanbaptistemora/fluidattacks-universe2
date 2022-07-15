@@ -33,7 +33,7 @@ def delete_duplicated_users_dynamo() -> None:
             if STAGE == "test":
                 print(f'User {user["email"]} will be deleted from DynamoDB...')
             else:
-                remove_dynamo_user(user["email"])
+                remove_dynamo_user(email=user["email"])
                 log(
                     f'Migration 0007: User {user["email"]} was deleted '
                     "from DynamoDB"

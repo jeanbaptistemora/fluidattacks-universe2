@@ -59,7 +59,7 @@ async def main() -> None:
     users = await operations_legacy.scan(USERS_TABLE, {})
     for user in users:
         await stakeholders_model.update_metadata(
-            stakeholder_email=user["email"],
+            email=user["email"],
             metadata=StakeholderMetadataToUpdate(
                 NotificationsPreferences(
                     email=[

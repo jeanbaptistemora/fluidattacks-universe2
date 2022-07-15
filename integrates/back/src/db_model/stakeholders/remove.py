@@ -9,10 +9,10 @@ from dynamodb.operations import (
 )
 
 
-async def remove(*, stakeholder_email: str) -> None:
+async def remove(*, email: str) -> None:
     secret_key = keys.build_key(
         facet=TABLE.facets["stakeholder_metadata"],
-        values={"email": stakeholder_email},
+        values={"email": email},
     )
 
     await delete_item(key=secret_key, table=TABLE)

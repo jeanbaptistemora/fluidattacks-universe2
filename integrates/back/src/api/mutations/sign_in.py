@@ -67,7 +67,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def autoenroll_stakeholder(email: str) -> None:
     await stakeholders_dal.update_metadata(
-        stakeholder_email=email,
+        email=email,
         metadata=StakeholderMetadataToUpdate(
             notifications_preferences=NotificationsPreferences(
                 email=[

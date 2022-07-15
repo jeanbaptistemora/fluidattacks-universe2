@@ -16,11 +16,11 @@ from dynamodb import (
 async def update_metadata(
     *,
     metadata: StakeholderMetadataToUpdate,
-    stakeholder_email: str,
+    email: str,
 ) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_metadata"],
-        values={"email": stakeholder_email},
+        values={"email": email},
     )
     item = format_metadata_item(metadata)
     if item:

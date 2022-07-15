@@ -82,7 +82,7 @@ async def acknowledge_concurrent_session(email: str) -> None:
         metadata=StakeholderMetadataToUpdate(
             is_concurrent_session=False,
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -98,7 +98,7 @@ async def add_push_token(
             metadata=StakeholderMetadataToUpdate(
                 push_tokens=tokens + [push_token]
             ),
-            stakeholder_email=user_email,
+            email=user_email,
         )
 
 
@@ -115,7 +115,7 @@ async def check_session_web_validity(request: Request) -> None:
             metadata=StakeholderMetadataToUpdate(
                 is_concurrent_session=True,
             ),
-            stakeholder_email=email,
+            email=email,
         )
     try:
         # Check if the user has an active session but it's different
@@ -134,12 +134,12 @@ async def check_session_web_validity(request: Request) -> None:
 
 
 async def add(data: Stakeholder) -> None:
-    return await stakeholders_dal.add(data)
+    return await stakeholders_dal.add(stakeholder=data)
 
 
 async def remove(email: str) -> None:
     await authz.revoke_user_level_role(email)
-    await stakeholders_dal.remove(email)
+    await stakeholders_dal.remove(email=email)
     await redis_del_by_deps("session_logout", session_email=email)
     return None
 
@@ -202,7 +202,7 @@ def is_fluid_staff(email: str) -> bool:
 async def register(email: str) -> None:
     await stakeholders_dal.update_metadata(
         metadata=StakeholderMetadataToUpdate(is_registered=True),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -216,7 +216,7 @@ async def remove_access_token(email: str) -> None:
                 salt="",
             ),
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -249,7 +249,7 @@ async def update_access_token(
             metadata=StakeholderMetadataToUpdate(
                 access_token=access_token,
             ),
-            stakeholder_email=email,
+            email=email,
         )
     else:
         raise InvalidExpirationTime()
@@ -263,7 +263,7 @@ async def update_legal_remember(email: str, remember: bool) -> None:
         metadata=StakeholderMetadataToUpdate(
             legal_remember=remember,
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -272,7 +272,7 @@ async def update_last_login(email: str) -> None:
         metadata=StakeholderMetadataToUpdate(
             last_login_date=datetime_utils.get_iso_date(),
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -317,7 +317,7 @@ async def update_attributes(
             registration_date=stakeholder_data.registration_date,
             last_login_date=stakeholder_data.last_login_date,
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -345,7 +345,7 @@ async def update_mobile(
         metadata=StakeholderMetadataToUpdate(
             phone=stakeholder_phone,
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 
@@ -358,7 +358,7 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
                 new_root=tours["new_root"],
             ),
         ),
-        stakeholder_email=email,
+        email=email,
     )
 
 

@@ -38,7 +38,7 @@ LOGGER = logging.getLogger(__name__)
 USERS_TABLE_NAME = "FI_users"
 
 
-async def add(stakeholder: Stakeholder) -> None:
+async def add(*, stakeholder: Stakeholder) -> None:
     try:
         data = stakeholders_utils.format_stakeholder_item(
             stakeholder=stakeholder
@@ -48,7 +48,7 @@ async def add(stakeholder: Stakeholder) -> None:
         raise UnavailabilityError() from ex
 
 
-async def remove(email: str) -> None:
+async def remove(*, email: str) -> None:
     try:
         delete_attrs = DynamoDeleteType(Key={"email": email.lower()})
         await dynamodb_ops.delete_item(USERS_TABLE_NAME, delete_attrs)
@@ -117,18 +117,18 @@ async def update(email: str, data: dict[str, Any]) -> bool:
 async def update_metadata(
     *,
     metadata: StakeholderMetadataToUpdate,
-    stakeholder_email: str,
+    email: str,
 ) -> None:
     if metadata.notifications_preferences:
         await stakeholders_model.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 notifications_preferences=metadata.notifications_preferences
             ),
-            stakeholder_email=stakeholder_email,
+            email=email,
         )
     item = stakeholders_utils.format_metadata_item(metadata=metadata)
     if item and not await update(
-        email=stakeholder_email,
+        email=email,
         data=item,
     ):
         raise UnavailabilityError()

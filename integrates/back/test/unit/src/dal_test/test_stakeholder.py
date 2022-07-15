@@ -29,7 +29,7 @@ async def test_delete() -> None:
         "organization": "ORG#6ee4c12b-7881-4490-a851-07357fff1d64",
         "registered": False,
     } == await get(test_1)
-    await remove(test_1)
+    await remove(email=test_1)
     assert {} == await get(test_1)
 
 
@@ -41,7 +41,7 @@ async def test_update() -> None:
         email="unittest4@gmail.com",
         is_registered=True,
     )
-    await add(stakeholder)
+    await add(stakeholder=stakeholder)
     loaders = get_new_context()
     load_stakeholder: Stakeholder = await loaders.stakeholder.load(
         "unittest4@gmail.com"

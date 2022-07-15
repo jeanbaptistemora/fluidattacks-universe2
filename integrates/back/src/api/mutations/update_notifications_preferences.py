@@ -35,7 +35,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
 
     await stakeholders_dal.update_metadata(
-        stakeholder_email=user_email,
+        email=user_email,
         metadata=StakeholderMetadataToUpdate(
             notifications_preferences=format_notifications_preferences(
                 notifications_preferences

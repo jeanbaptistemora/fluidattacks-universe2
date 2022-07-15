@@ -27,15 +27,15 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
 
 
 def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
-    item = {
-        "notifications_preferences": json.loads(
-            json.dumps(metadata.notifications_preferences)
-        )
-        if metadata.notifications_preferences
-        else None,
-    }
+    item: Item = json.loads(json.dumps(metadata))
+    if (
+        metadata.access_token
+        and metadata.access_token.iat == 0
+        and metadata.access_token.jti == ""
+    ):
+        item["access_token"] = []
     return {
-        key: None if not value else value
+        key: None if not value and value is not False else value
         for key, value in item.items()
         if value is not None
     }
@@ -105,6 +105,4 @@ def format_stakeholder(item: Item) -> Stakeholder:
 
 
 def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
-    item: Item = json.loads(json.dumps(stakeholder))
-
-    return item
+    return json.loads(json.dumps(stakeholder))

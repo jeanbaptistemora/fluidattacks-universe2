@@ -107,8 +107,8 @@ async def remove_stakeholder_all_organizations(
 
     await collect(
         (
-            remove(email),
-            stakeholders_model.remove(stakeholder_email=email),
+            remove(email=email),
+            stakeholders_model.remove(email=email),
         )
     )
 

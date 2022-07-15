@@ -105,7 +105,7 @@ async def populate_stakeholders(data: List[Any]) -> bool:
     await collect(
         [
             dal_stakeholders.update_metadata(
-                stakeholder_email=user["stakeholder"].email,
+                email=user["stakeholder"].email,
                 metadata=StakeholderMetadataToUpdate(
                     notifications_preferences=NotificationsPreferences(
                         email=[
