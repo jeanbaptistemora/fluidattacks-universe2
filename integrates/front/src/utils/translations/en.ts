@@ -96,6 +96,9 @@ export const enTranslations: ResourceKey = {
       },
     },
     pieChart: {
+      availability: {
+        title: "Group availability",
+      },
       resources: {
         title: "Active resources distribution",
       },

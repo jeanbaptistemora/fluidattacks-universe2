@@ -674,7 +674,7 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               />
             </Col50>
           </RowCenter>
-          <Row>
+          <RowCenter>
             <Col50>
               <Graphic
                 bsHeight={160}
@@ -690,7 +690,21 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 title={t("tagIndicator.reportTechnique")}
               />
             </Col50>
-          </Row>
+            <Col50>
+              <Graphic
+                bsHeight={160}
+                className={"g2"}
+                documentName={"availability"}
+                documentType={"pieChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("analytics.pieChart.availability.title")}
+              />
+            </Col50>
+          </RowCenter>
         </div>
       ) : undefined}
       {doesEntityMatch(["group", "organization", "portfolio"]) ? (

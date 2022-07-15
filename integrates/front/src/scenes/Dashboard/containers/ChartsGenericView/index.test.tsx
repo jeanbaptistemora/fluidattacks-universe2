@@ -31,7 +31,7 @@ describe("ChartsGenericView", (): void => {
   it("should render a component and number of graphics of entity", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const groupGraphics: number = 34;
+    const groupGraphics: number = 35;
     const organizationAndPortfolioGraphics: number = 39;
 
     const { container, rerender } = render(
