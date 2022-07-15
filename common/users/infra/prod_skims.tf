@@ -195,7 +195,7 @@ module "prod_skims_publish_credentials" {
   source = "./modules/publish_credentials"
 
   providers = {
-    gitlab = gitlab.product
+    gitlab = gitlab.universe
   }
 
   key_1     = module.prod_skims_aws.keys.1

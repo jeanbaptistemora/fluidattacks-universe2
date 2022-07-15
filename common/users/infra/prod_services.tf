@@ -87,7 +87,7 @@ module "prod_services_publish_credentials_product" {
   source = "./modules/publish_credentials"
 
   providers = {
-    gitlab = gitlab.product
+    gitlab = gitlab.universe
   }
 
   key_1     = module.prod_services_aws.keys.1

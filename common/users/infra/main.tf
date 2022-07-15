@@ -26,7 +26,7 @@ terraform {
 }
 
 provider "gitlab" {
-  alias = "product"
+  alias = "universe"
   token = var.gitlab_token
 }
 

@@ -50,7 +50,7 @@ module "prod_melts_publish_credentials" {
   source = "./modules/publish_credentials"
 
   providers = {
-    gitlab = gitlab.product
+    gitlab = gitlab.universe
   }
 
   key_1     = module.prod_melts_aws.keys.1
