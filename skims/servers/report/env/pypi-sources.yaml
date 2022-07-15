@@ -5,6 +5,8 @@ closure:
   async-timeout: 4.0.2
   attrs: 21.4.0
   billiard: 3.6.4.0
+  boto3: 1.24.30
+  botocore: 1.27.30
   celery: 5.2.7
   certifi: 2022.6.15
   charset-normalizer: 2.1.0
@@ -15,11 +17,14 @@ closure:
   colorama: 0.4.5
   frozenlist: 1.3.0
   idna: "3.3"
+  jmespath: 1.0.1
   kombu: 5.2.4
   multidict: 6.0.2
   prompt-toolkit: 3.0.30
+  python-dateutil: 2.8.2
   pytz: "2022.1"
   requests: 2.28.1
+  s3transfer: 0.6.0
   six: 1.16.0
   urllib3: 1.26.10
   vine: 5.0.0
@@ -98,6 +103,18 @@ links:
   - name: billiard-3.6.4.0.tar.gz
     sha256: 0ismj2p8c66ykpss94rs0bfra5agxxmljz8r3gaq79r8valfb799
     url: https://files.pythonhosted.org/packages/92/91/40de1901da8ec9eeb7c6a22143ba5d55d8aaa790761ca31342cedcd5c793/billiard-3.6.4.0.tar.gz
+  - name: boto3-1.24.30-py3-none-any.whl
+    sha256: 1wgc09ck4v2jkvh2wy28djl95qn01r287rw65x2bfpxb46v9ka9c
+    url: https://files.pythonhosted.org/packages/12/78/a6e9e95aeb9435d7878c6a6b06f4620f4cdf5c7a3f9cf1f42b355e2464b3/boto3-1.24.30-py3-none-any.whl
+  - name: boto3-1.24.30.tar.gz
+    sha256: 1frrinr3jxspxvfqrk0v15p7pxwpvllyin314h3447qhf284l6mc
+    url: https://files.pythonhosted.org/packages/72/1e/feadf4ded0fc262f4f2660457b8e443bab5dda83f4431e4b02e7f4ee2136/boto3-1.24.30.tar.gz
+  - name: botocore-1.27.30-py3-none-any.whl
+    sha256: 14i04516h5d2h1bch0pcga46prfj7bgcbsg654i0na1k0169nfwm
+    url: https://files.pythonhosted.org/packages/38/93/7302e89ec54032cc6373c22938b91cef1f8bb86505b4c06e1f0fcaa520af/botocore-1.27.30-py3-none-any.whl
+  - name: botocore-1.27.30.tar.gz
+    sha256: 0af8j4rn1rlwrbx6iig3jim0zvl02l6nn7rqywsvk02zpxlpb29m
+    url: https://files.pythonhosted.org/packages/c1/b9/c0bba321431b8e4823e53c4e09295df20743f930d0aedb6b20dce6e1b9d8/botocore-1.27.30.tar.gz
   - name: celery-5.2.7-py3-none-any.whl
     sha256: 050f5hq7bl9lcdnd7rgxgapkkzcivazbcmv2grqdcn6d4302110k
     url: https://files.pythonhosted.org/packages/1d/99/21fe9d1829cab4fc77d18f89d0c4cbcfe754e95f8b8f4af64fe4997c442f/celery-5.2.7-py3-none-any.whl
@@ -191,6 +208,12 @@ links:
   - name: idna-3.3.tar.gz
     sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
     url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: jmespath-1.0.1-py3-none-any.whl
+    sha256: 10194nk0641vz2kpy442dsgdv44ia43zksrf6f4apg5mf76f9qh2
+    url: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
+  - name: jmespath-1.0.1.tar.gz
+    sha256: 1gpdc1f0q5c9scmbw1l9g40jjfk3pxwg91ayvn7xbvvddlh1n9lh
+    url: https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz
   - name: kombu-5.2.4-py3-none-any.whl
     sha256: 19314gymk6n8vj386ai3xbipjq3mgxxm7xfjy2y1fd1x54j3n8cb
     url: https://files.pythonhosted.org/packages/d9/f3/62d12dd7ebad710319f0877c1c33bca379fc7d28069daae890fa2fa444c8/kombu-5.2.4-py3-none-any.whl
@@ -245,6 +268,12 @@ links:
   - name: prompt_toolkit-3.0.30.tar.gz
     sha256: 1h49zmf80dwanbqn94ski36iy72dcyj7g7w2jxgmzr5xa0y2i6w5
     url: https://files.pythonhosted.org/packages/c5/7e/71693dc21d20464e4cd7c600f2d8fad1159601a42ed55566500272fe69b5/prompt_toolkit-3.0.30.tar.gz
+  - name: python_dateutil-2.8.2-py2.py3-none-any.whl
+    sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
+    url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.2.tar.gz
+    sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
+    url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
   - name: pytz-2022.1-py2.py3-none-any.whl
     sha256: 0p3amik3hqpyi9y1x22a552n490614xikcqyi1madncnaac8b2g6
     url: https://files.pythonhosted.org/packages/60/2e/dec1cc18c51b8df33c7c4d0a321b084cf38e1733b98f9d15018880fb4970/pytz-2022.1-py2.py3-none-any.whl
@@ -257,6 +286,12 @@ links:
   - name: requests-2.28.1.tar.gz
     sha256: 10vrr7bijzrypvms3g2sgz8vya7f9ymmcv423ikampgy0aqrjmbw
     url: https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz
+  - name: s3transfer-0.6.0-py3-none-any.whl
+    sha256: 1kayip95pym87m33l4s7fq5h8aa4kb11ynpjnkqn2px1yds6n5q6
+    url: https://files.pythonhosted.org/packages/5e/c6/af903b5fab3f9b5b1e883f49a770066314c6dcceb589cf938d48c89556c1/s3transfer-0.6.0-py3-none-any.whl
+  - name: s3transfer-0.6.0.tar.gz
+    sha256: 0iy98b51l33b0dpqgmvx24drh9sqag2hz87l3dbcq8zmcqw7vl1f
+    url: https://files.pythonhosted.org/packages/e1/eb/e57c93d5cd5edf8c1d124c831ef916601540db70acd96fa21fe60cef1365/s3transfer-0.6.0.tar.gz
   - name: six-1.16.0-py2.py3-none-any.whl
     sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
     url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
