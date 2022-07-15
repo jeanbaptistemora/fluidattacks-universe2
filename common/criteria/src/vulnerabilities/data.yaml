@@ -21677,7 +21677,7 @@
     temporal:
       exploit_code_maturity: "P"
       remediation_level: "U"
-      report_confidence: "C"
+      report_confidence: "R"
   requirements: ["077","176"]
   metadata:
     en:
