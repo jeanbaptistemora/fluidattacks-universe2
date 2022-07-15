@@ -21,8 +21,8 @@ in {
           "androguard" = inputs.skimsAndroguard;
           "owasp_benchmark" = inputs.skimsBenchmarkOwasp;
           "NIST-SARD-Test-Suites" = inputs.skimsNistTestSuites;
-          "product" = builtins.path {
-            name = "product";
+          "universe" = builtins.path {
+            name = "universe";
             path = ../..;
           };
           "VulnerableApp" = inputs.skimsVulnerableApp;

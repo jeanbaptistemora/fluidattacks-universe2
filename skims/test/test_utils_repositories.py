@@ -13,7 +13,7 @@ from utils.repositories import (
 
 @pytest.mark.skims_test_group("unittesting")
 def test_get_repo_head_hash() -> None:
-    base = "../product"
+    base = "../universe"
     head = get_repo_head_hash(base)
     assert head != DEFAULT_COMMIT
 
@@ -34,7 +34,7 @@ def test_get_repo_head_hash() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_get_diff() -> None:
-    repo = get_repo("../product")
+    repo = get_repo("../universe")
 
     # Nice format
     path: str = "makes/packages/skims/config-runtime/default.nix"

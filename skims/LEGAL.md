@@ -55,4 +55,4 @@ to skims and the software it's build upon.
 
 - License: [MPL-2.0][MPL-2.0]
 - References:
-  - https://gitlab.com/fluidattacks/product
+  - https://gitlab.com/fluidattacks/universe

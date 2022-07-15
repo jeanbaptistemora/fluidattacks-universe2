@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F046,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
    3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
@@ -23,7 +23,7 @@ F046,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),android
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
    3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
@@ -47,7 +47,7 @@ F046,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),android/s
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
    3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
@@ -71,7 +71,7 @@ F046,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),android/
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),android/support/annotation/RestrictTo$Scope is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/annotation/RestrictTo$Scope is not obfuscated,"
 >  1 | package android.support.annotation;
    2 | public final enum class RestrictTo$Scope extends java.lang.Enum {
    3 |     private static final synthetic android.support.annotation.RestrictTo$Scope[] $VALUES;
@@ -95,7 +95,7 @@ F046,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),and
   17 |         android.support.annotation.RestrictTo$Scope[] v0_8 = new android.support.annotation.RestrictTo$Scope[5];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/app/INotificationSideChannel$Stub$Proxy is not obfuscated,"
 >  1 | package android.support.v4.app;
    2 |  class INotificationSideChannel$Stub$Proxy implements android.support.v4.app.INotificationSideChannel {
    3 |     private android.os.IBinder mRemote;
@@ -119,7 +119,7 @@ F046,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),android
   21 |             v0.writeString(p6);
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F046,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),android/support/v4/os/ResultReceiver$1 is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/os/ResultReceiver$1 is not obfuscated,"
+F046,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),android/support/v4/os/ResultReceiver$1 is not obfuscated,1269,"home,apk,bytecodes",046. Missing secure obfuscation - APK,android/support/v4/os/ResultReceiver$1 is not obfuscated,"
 >  1 | package android.support.v4.os;
    2 | final class ResultReceiver$1 implements android.os.Parcelable$Creator {
    3 |
@@ -143,14 +143,14 @@ F046,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),andr
   21 |         android.support.v4.os.ResultReceiver[] v0 = new android.support.v4.os.ResultReceiver[p2];
      ^ Col 0
 ",analyze_bytecodes.no_obfuscation
-F048,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/get_insecure.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/get_insecure.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -167,14 +167,14 @@ F048,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Miss
      |  'addFontFromAssetManager', 'addFontFromBuffer', 'addFontWeightStyle', 'addFragment', 'addFrame', 'addHeaderView', 'addH
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/has_frida.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/has_frida.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -191,14 +191,14 @@ F048,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing
      | ss$13400', 'access$13500', 'access$13600', 'access$13700', 'access$13800', 'access$13900', 'access$1400', 'access$14000'
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/http_refs.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/http_refs.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -215,14 +215,14 @@ F048,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),Missing
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/js_open.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/js_open.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -239,14 +239,14 @@ F048,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing r
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/ssl_open.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/ssl_open.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -263,14 +263,14 @@ F048,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing 
      | To', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAssetMana
      ^ Col 0
 ",analyze_bytecodes.no_root_check
-F048,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
+F048,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing rooted device detection,250,"home,apk,bytecodes",048. Lack of root detection,Missing rooted device detection,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -350,7 +350,7 @@ F075,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),applic
        | ountTypeActivity"" android:process="":ui"" android:theme=""@android:01030132"">
        ^ Col 0
 ",analyze_bytecodes.apk_exported_cp
-F207,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
+F207,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -359,7 +359,7 @@ F207,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),Missing
    6 | >>> from bs4 import BeautifulSoup
    7 |
    8 | >>> # This object represents the APK to analyze
-   9 | >>> apk = APK('../product/skims/test/data/lib_apk/http_refs.apk')
+   9 | >>> apk = APK('../universe/skims/test/data/lib_apk/http_refs.apk')
   10 |
   11 | >>> # Read and parse the Network Security Config manifest
   12 | >>> nsc = apk.get_file(""res/xml/network_security_config.xml"")
@@ -367,7 +367,7 @@ F207,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),Missing
   14 | []  # Empty list means no <pin-set> tags were defined
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
+F207,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Missing pin-set(s),295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing pin-set(s),"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
@@ -376,7 +376,7 @@ F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
    6 | >>> from bs4 import BeautifulSoup
    7 |
    8 | >>> # This object represents the APK to analyze
-   9 | >>> apk = APK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   9 | >>> apk = APK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')
   10 |
   11 | >>> # Read and parse the Network Security Config manifest
   12 | >>> nsc = apk.get_file(""res/xml/network_security_config.xml"")
@@ -384,14 +384,14 @@ F207,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),Mis
   14 | []  # Empty list means no <pin-set> tags were defined
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+F207,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/get_insecure.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/get_insecure.apk')
    8 |
    9 | >>> # List all files in the APK
   10 | >>> apk_files = apk.zip.nameslist()
@@ -399,14 +399,14 @@ F207,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),Miss
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+F207,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/has_frida.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/has_frida.apk')
    8 |
    9 | >>> # List all files in the APK
   10 | >>> apk_files = apk.zip.nameslist()
@@ -414,14 +414,14 @@ F207,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Missing
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+F207,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/js_open.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/js_open.apk')
    8 |
    9 | >>> # List all files in the APK
   10 | >>> apk_files = apk.zip.nameslist()
@@ -429,14 +429,14 @@ F207,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),Missing r
   12 | False  # No network security config exists
      ^ Col 0
 ",analyze_bytecodes.no_certs_pinning
-F207,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
+F207,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),Missing res/xml/network_security_config.xml,295,"home,apk,bytecodes",207. Security controls bypass or absence - SSLPinning,Missing res/xml/network_security_config.xml,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/ssl_open.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/ssl_open.apk')
    8 |
    9 | >>> # List all files in the APK
   10 | >>> apk_files = apk.zip.nameslist()
@@ -491,13 +491,13 @@ F313,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),"No network sec
   12 | >>> allows user-supplied CAs by default
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
-F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK has Frida gadget embedded.,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,The APK has Frida gadget embedded.,"
+F206,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),The APK has Frida gadget embedded.,295,"home,apk,bytecodes",206. Security controls bypass or absence - Anti hooking,The APK has Frida gadget embedded.,"
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> apk_obj, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/has_frida.apk')
+   8 | >>> apk_obj, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/has_frida.apk')
    9 |
   10 | >>> # Get the files attribute
   11 | >>> apk_obj.get_files()
@@ -515,14 +515,14 @@ F206,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),The APK
      | ml', 'res/color/abc_tint_switch_track.xml', 'res/color/abc_background_cache_hint_selector_material_dark.xml', 'res/color
      ^ Col 0
 ",analyze_bytecodes.has_frida
-F313,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
+F313,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/http_refs.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/http_refs.apk')
    8 |
    9 | >>> # Get network security config file
   10 | >>> apk.get_file(""res/xml/network_security_config.xml"")()
@@ -539,14 +539,14 @@ F313,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
-F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
+F313,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK allows to trust user-supplied CAs.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK allows to trust user-supplied CAs.,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')
    8 |
    9 | >>> # Get network security config file
   10 | >>> apk.get_file(""res/xml/network_security_config.xml"")()
@@ -563,13 +563,13 @@ F313,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The
      | \x00\\x00\\xff\\xff\\xff\\xff\\x08\\x00\\x00\\x12\\x00\\x00\\x00\\x00\\x04\\x01\\x10\\x00\\x1c\\x00\\x00\\x00\\x04\\x00\
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
-F313,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),The given APK uses sockets created with getInsecure.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK uses sockets created with getInsecure.,"
+F313,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),The given APK uses sockets created with getInsecure.,295,"home,apk,bytecodes",313. Insecure service configuration - Certificates,The given APK uses sockets created with getInsecure.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/get_insecure.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/get_insecure.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
   10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -587,14 +587,14 @@ F313,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),The 
      | 'addHistoricalRecord', 'addIntentOptions', 'addInternal', 'addInvisibleAction', 'addItem', 'addItemView', 'addKeyboardNa
      ^ Col 0
 ",analyze_bytecodes.improper_certificate_validation
-F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
+F103,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),Not signed,325,"home,apk,bytecodes",103. Insufficient data authenticity validation - APK signing,Not signed,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.core.bytecodes.apk import APK
    5 |
    6 | >>> # This object represents the APK to analyze
-   7 | >>> apk = APK('../product/skims/test/data/lib_apk/has_frida.apk')
+   7 | >>> apk = APK('../universe/skims/test/data/lib_apk/has_frida.apk')
    8 |
    9 | >>> # Check the META-INF/ folder and retrieve signature pairs
   10 | >>> # with extensions: .DSA & .DF, .EC & .DF, or .RSA & .DF
@@ -602,14 +602,14 @@ F103,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),Not sig
 > 12 | []  # Empty list means no signatures exist
      ^ Col 0
 ",analyze_bytecodes.apk_unsigned
-F060,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK doesn't verify the SSLSocket hostname.,396,"home,apk,bytecodes",060. Insecure service configuration - Host verification,The given APK doesn't verify the SSLSocket hostname.,"
+F060,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),The given APK doesn't verify the SSLSocket hostname.,396,"home,apk,bytecodes",060. Insecure service configuration - Host verification,The given APK doesn't verify the SSLSocket hostname.,"
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/ssl_open.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/ssl_open.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -626,14 +626,14 @@ F060,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),The give
      |          v0_2[v4_0] = v1_1.checkPermission(this.val$permissions[v4_0], v2_1);\n            v4_0++;\n        }\n        (
      ^ Col 0
 ",analyze_bytecodes.not_verifies_ssl_hostname
-F082,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
+F082,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/http_refs.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/http_refs.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -650,14 +650,14 @@ F082,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The giv
      | EmailTo', 'addEnforcedAttribute', 'addExtension', 'addExtras', 'addFirst', 'addFlags', 'addFocusables', 'addFontFromAsse
      ^ Col 0
 ",analyze_bytecodes.uses_insecure_delete
-F082,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
+F082,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),The given APK uses insecure delete of data.,459,"home,apk,bytecodes",082. Insecurely deleted files,The given APK uses insecure delete of data.,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -698,7 +698,7 @@ F398,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The application
      | s$000(this.this$0).setLang(((String) this.val$langs.get(p5)));\n        return;\n    }\n\n    public void onNothingSelec
      ^ Col 0
 ",analyze_bytecodes.has_fragment_injection
-F058,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+F058,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -722,7 +722,7 @@ F058,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),applica
   16 |   </activity>
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F058,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+F058,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -746,7 +746,7 @@ F058,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),app
   16 |   </activity>
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F058,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+F058,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -770,7 +770,7 @@ F058,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),applicati
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+F058,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -794,7 +794,7 @@ F058,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),applicat
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F058,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+F058,inputs,../universe/skims/test/data/lib_apk/get_insecure.apk (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:compilesdkversion=""29"" android:compilesdkversioncodename=""10"" android:versioncode=""1"" android:versionn
      | ame=""1.0"" package=""com.example.android.activityscenetransitionbasic"" platformbuildversioncode=""29"" platformbuildversionn
      | ame=""10"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -818,7 +818,7 @@ F058,inputs,../product/skims/test/data/lib_apk/get_insecure.apk (namespace),appl
   18 | </manifest>
      ^ Col 0
 ",analyze_bytecodes.apk_debugging_enabled
-F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+F055,inputs,../universe/skims/test/data/lib_apk/has_frida.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""23"" android:compilesdkversioncodename=""6.0-2438415"" package=""com.google.mediapipe.a
      | pps.handtrackinggpu"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=""http://schemas.android.co
      | m/apk/res/android"">
@@ -842,7 +842,7 @@ F055,inputs,../product/skims/test/data/lib_apk/has_frida.apk (namespace),applica
   16 |   </activity>
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F055,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+F055,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -866,7 +866,7 @@ F055,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),applica
   16 |   </activity>
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F055,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+F055,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -890,7 +890,7 @@ F055,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),app
   16 |   </activity>
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F055,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+F055,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -914,7 +914,7 @@ F055,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),applicati
   17 |   <activity android:excludefromrecents=""true"" android:exported=""false"" android:name=""com.google.android.gms.auth.api.sig
      ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F055,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
+F055,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),application.android:allowBackup enabled,530,"home,apk,bytecodes",055. Insecure service configuration - ADB Backups,application.android:allowBackup enabled,"
    1 | <manifest android:compilesdkversion=""28"" android:compilesdkversioncodename=""9"" android:versioncode=""1"" android:versionna
      | me=""1.0"" package=""com.fluidattacks.integrates"" platformbuildversioncode=""28"" platformbuildversionname=""9"" xmlns:android=
      | ""http://schemas.android.com/apk/res/android"">
@@ -990,14 +990,14 @@ F055,inputs,examples/tests/lineageos_nexus5_framework-res.apk (namespace),"appli
   1630 |     <category android:name=""android.intent.category.DEFAULT"">
        ^ Col 0
 ",analyze_bytecodes.apk_backups_enabled
-F372,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK references HTTP (not HTTPS) resources.,650,"home,apk,bytecodes",372. Use of an insecure channel - HTTP,The given APK references HTTP (not HTTPS) resources.,"
+F372,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),The given APK references HTTP (not HTTPS) resources.,650,"home,apk,bytecodes",372. Use of an insecure channel - HTTP,The given APK references HTTP (not HTTPS) resources.,"
    1 | $ python3.8
    2 |
    3 | >>> # We'll use the version 3.3.5 of ""androguard""
    4 | >>> from androguard.misc import AnalyzeAPK
    5 |
    6 | >>> # Parse all Dalvik Executables (classes*.dex) in the APK
-   7 | >>> dex = AnalyzeAPK('../product/skims/test/data/lib_apk/http_refs.apk')[2]
+   7 | >>> dex = AnalyzeAPK('../universe/skims/test/data/lib_apk/http_refs.apk')[2]
    8 |
    9 | >>> # Get the method names from all classes in each .dex file
 > 10 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1021,7 +1021,7 @@ F372,inputs,examples/tests/com.teleca.jamendo_35.apk (namespace),The given APK r
      | http://www.jamendo.com/en/cgu_user', 'http://www.jamendo.com/track/%d']
      ^ Col 0
 ",analyze_bytecodes.uses_http_resources
-F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+F268,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ","
    1 | $ python3.8
@@ -1031,7 +1031,7 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The se
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/http_refs.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/http_refs.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1040,7 +1040,7 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The se
   14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+F268,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ","
    1 | $ python3.8
@@ -1050,7 +1050,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJ
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/js_open.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/js_open.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1059,7 +1059,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJ
   14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+F268,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ","
    1 | $ python3.8
@@ -1069,7 +1069,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The set
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/ssl_open.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/ssl_open.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1078,7 +1078,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The set
   14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
+F268,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and there're additional ones that allow access to resources.
 ","
    1 | $ python3.8
@@ -1088,7 +1088,7 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"Th
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1097,7 +1097,7 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"Th
   14 | >>> ['setAllowFileAccess']
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+F268,inputs,../universe/skims/test/data/lib_apk/http_refs.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ","
    2 |
@@ -1106,7 +1106,7 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The se
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/http_refs.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/http_refs.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1123,7 +1123,7 @@ F268,inputs,../product/skims/test/data/lib_apk/http_refs.apk (namespace),"The se
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+F268,inputs,../universe/skims/test/data/lib_apk/js_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ","
    2 |
@@ -1132,7 +1132,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJ
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/js_open.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/js_open.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1149,7 +1149,7 @@ F268,inputs,../product/skims/test/data/lib_apk/js_open.apk (namespace),"The setJ
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+F268,inputs,../universe/skims/test/data/lib_apk/ssl_open.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ","
    2 |
@@ -1158,7 +1158,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The set
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/ssl_open.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/ssl_open.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
@@ -1175,7 +1175,7 @@ F268,inputs,../product/skims/test/data/lib_apk/ssl_open.apk (namespace),"The set
      |   android.support.v4.app.ActivityCompat$OnRequestPermissionsResultCallback v4_0 = 0;\n        while (v4_0 < v3_0) {\n
      ^ Col 0
 ",analyze_bytecodes.webview_vulnerabilities
-F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
+F268,inputs,../universe/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ",749,"home,apk,bytecodes",268. Insecure service configuration - Webview,"The setJavaScriptEnabled method is enabled and the clearCache method is not present.
 ","
    2 |
@@ -1184,7 +1184,7 @@ F268,inputs,../product/skims/test/data/lib_apk/unsafe_delete.apk (namespace),"Th
    5 |
    6 | >>> # Parse APK and all Dalvik Executables (classes*.dex)
    7 | >>> # in the APK
-   8 | >>> _, dex, _ = AnalyzeAPK('../product/skims/test/data/lib_apk/unsafe_delete.apk')
+   8 | >>> _, dex, _ = AnalyzeAPK('../universe/skims/test/data/lib_apk/unsafe_delete.apk')
    9 |
   10 | >>> # Get the method names from all classes in each .dex file
   11 | >>> sorted(set(method.name for method in dex.get_methods()))
