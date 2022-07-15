@@ -4,7 +4,7 @@ import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback } from "react";
+import React, { Fragment, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { Step } from "react-joyride";
 import LoadingOverlay from "react-loading-overlay";
@@ -18,16 +18,17 @@ import {
   handleUpdateError,
 } from "./helpers";
 
+import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Switch } from "components/Switch";
+import { Text } from "components/Text";
 import { TooltipWrapper } from "components/TooltipWrapper";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
-import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { msgSuccess } from "utils/notifications";
 import {
   alphaNumeric,
@@ -213,7 +214,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
             }
 
             return (
-              <React.Fragment>
+              <Fragment>
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
                   <Row
@@ -221,89 +222,79 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     justify={"space-between"}
                   >
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup>
-                        <ControlLabel>
-                          {t(
-                            "organization.tabs.groups.newGroup.organization.text"
-                          )}
-                        </ControlLabel>
-                        <TooltipWrapper
-                          hide={runTour}
-                          id={
-                            "organization.tabs.groups.newGroup.organization.tooltip"
-                          }
-                          message={t(
-                            "organization.tabs.groups.newGroup.organization.tooltip"
-                          )}
-                          placement={"top"}
-                        >
-                          <FormGroup>
-                            <Field
-                              component={FormikText}
-                              disabled={true}
-                              name={"organization"}
-                              type={"text"}
-                              validate={composeValidators([
-                                required,
-                                maxOrganizationLength,
-                                validTextField,
-                              ])}
-                            />
-                          </FormGroup>
-                        </TooltipWrapper>
-                      </FormGroup>
-                    </Col>
-                    <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.name")}
-                        </ControlLabel>
+                      <Text mb={1}>
+                        {t(
+                          "organization.tabs.groups.newGroup.organization.text"
+                        )}
+                      </Text>
+                      <TooltipWrapper
+                        hide={runTour}
+                        id={
+                          "organization.tabs.groups.newGroup.organization.tooltip"
+                        }
+                        message={t(
+                          "organization.tabs.groups.newGroup.organization.tooltip"
+                        )}
+                        placement={"top"}
+                      >
                         <Field
                           component={FormikText}
-                          id={"add-group-name"}
-                          name={"name"}
+                          disabled={true}
+                          name={"organization"}
                           type={"text"}
                           validate={composeValidators([
-                            alphaNumeric,
-                            maxGroupNameLength,
                             required,
+                            maxOrganizationLength,
                             validTextField,
                           ])}
                         />
-                      </FormGroup>
+                      </TooltipWrapper>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
-                      <FormGroup>
-                        <ControlLabel>
-                          {t(
-                            "organization.tabs.groups.newGroup.description.text"
-                          )}
-                        </ControlLabel>
-                        <TooltipWrapper
-                          hide={runTour}
-                          id={
-                            "organization.tabs.groups.newGroup.description.tooltip"
-                          }
-                          message={t(
-                            "organization.tabs.groups.newGroup.description.tooltip"
-                          )}
-                          placement={"top"}
-                        >
-                          <FormGroup>
-                            <Field
-                              component={FormikText}
-                              id={"add-group-description"}
-                              name={"description"}
-                              type={"text"}
-                              validate={composeValidators([
-                                required,
-                                maxDescriptionLength,
-                                validTextField,
-                              ])}
-                            />
-                          </FormGroup>
-                        </TooltipWrapper>
-                      </FormGroup>
+                      <Text mb={1}>
+                        {t("organization.tabs.groups.newGroup.name")}
+                      </Text>
+                      <Field
+                        component={FormikText}
+                        id={"add-group-name"}
+                        name={"name"}
+                        type={"text"}
+                        validate={composeValidators([
+                          alphaNumeric,
+                          maxGroupNameLength,
+                          required,
+                          validTextField,
+                        ])}
+                      />
+                    </Col>
+                    <Col large={"33"} medium={"33"} small={"33"}>
+                      <Text mb={1}>
+                        {t(
+                          "organization.tabs.groups.newGroup.description.text"
+                        )}
+                      </Text>
+                      <TooltipWrapper
+                        hide={runTour}
+                        id={
+                          "organization.tabs.groups.newGroup.description.tooltip"
+                        }
+                        message={t(
+                          "organization.tabs.groups.newGroup.description.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <Field
+                          component={FormikText}
+                          id={"add-group-description"}
+                          name={"description"}
+                          type={"text"}
+                          validate={composeValidators([
+                            required,
+                            maxDescriptionLength,
+                            validTextField,
+                          ])}
+                        />
+                      </TooltipWrapper>
                     </Col>
                   </Row>
                   <Row justify={"space-between"}>
@@ -313,34 +304,32 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       medium={"33"}
                       small={"33"}
                     >
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.type.title")}
-                        </ControlLabel>
-                        <TooltipWrapper
-                          hide={runTour}
-                          id={"organization.tabs.groups.newGroup.type.tooltip"}
-                          message={t(
-                            "organization.tabs.groups.newGroup.type.tooltip"
+                      <TooltipWrapper
+                        hide={runTour}
+                        id={"organization.tabs.groups.newGroup.type.tooltip"}
+                        message={t(
+                          "organization.tabs.groups.newGroup.type.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <Select
+                          label={t(
+                            "organization.tabs.groups.newGroup.type.title"
                           )}
-                          placement={"top"}
+                          name={"type"}
                         >
-                          <FormGroup>
-                            <Field component={FormikDropdown} name={"type"}>
-                              <option value={"CONTINUOUS"}>
-                                {t(
-                                  "organization.tabs.groups.newGroup.type.continuous"
-                                )}
-                              </option>
-                              <option value={"ONESHOT"}>
-                                {t(
-                                  "organization.tabs.groups.newGroup.type.oneShot"
-                                )}
-                              </option>
-                            </Field>
-                          </FormGroup>
-                        </TooltipWrapper>
-                      </FormGroup>
+                          <option value={"CONTINUOUS"}>
+                            {t(
+                              "organization.tabs.groups.newGroup.type.continuous"
+                            )}
+                          </option>
+                          <option value={"ONESHOT"}>
+                            {t(
+                              "organization.tabs.groups.newGroup.type.oneShot"
+                            )}
+                          </option>
+                        </Select>
+                      </TooltipWrapper>
                     </Col>
                     <Col
                       id={"add-group-testing-type"}
@@ -348,23 +337,19 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       medium={"33"}
                       small={"33"}
                     >
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.service.title")}
-                        </ControlLabel>
-                        <Field component={FormikDropdown} name={"service"}>
-                          <option value={"BLACK"}>
-                            {t(
-                              "organization.tabs.groups.newGroup.service.black"
-                            )}
-                          </option>
-                          <option value={"WHITE"}>
-                            {t(
-                              "organization.tabs.groups.newGroup.service.white"
-                            )}
-                          </option>
-                        </Field>
-                      </FormGroup>
+                      <Select
+                        label={t(
+                          "organization.tabs.groups.newGroup.service.title"
+                        )}
+                        name={"service"}
+                      >
+                        <option value={"BLACK"}>
+                          {t("organization.tabs.groups.newGroup.service.black")}
+                        </option>
+                        <option value={"WHITE"}>
+                          {t("organization.tabs.groups.newGroup.service.white")}
+                        </option>
+                      </Select>
                     </Col>
                     <Col
                       id={"add-group-report-language"}
@@ -372,113 +357,88 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       medium={"33"}
                       small={"33"}
                     >
-                      <FormGroup>
-                        <ControlLabel>
-                          {t("organization.tabs.groups.newGroup.language.text")}
-                        </ControlLabel>
-                        <TooltipWrapper
-                          hide={runTour}
-                          id={
-                            "organization.tabs.groups.newGroup.language.tooltip"
-                          }
-                          message={t(
-                            "organization.tabs.groups.newGroup.language.tooltip"
-                          )}
-                          placement={"top"}
-                        >
-                          <FormGroup>
-                            <Field component={FormikDropdown} name={"language"}>
-                              <option value={"EN"}>
-                                {t(
-                                  "organization.tabs.groups.newGroup.language.EN"
-                                )}
-                              </option>
-                              <option value={"ES"}>
-                                {t(
-                                  "organization.tabs.groups.newGroup.language.ES"
-                                )}
-                              </option>
-                            </Field>
-                          </FormGroup>
-                        </TooltipWrapper>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row justify={"center"}>
-                    <Col hidden={true} large={"50"} medium={"50"} small={"50"}>
                       <TooltipWrapper
                         hide={runTour}
-                        id={"organization.tabs.groups.newGroup.machine.tooltip"}
+                        id={
+                          "organization.tabs.groups.newGroup.language.tooltip"
+                        }
                         message={t(
-                          "organization.tabs.groups.newGroup.machine.tooltip"
+                          "organization.tabs.groups.newGroup.language.tooltip"
                         )}
                         placement={"top"}
                       >
-                        <FormGroup>
-                          <ControlLabel>
-                            {t(
-                              "organization.tabs.groups.newGroup.machine.text"
-                            )}
-                            {" *"}
-                          </ControlLabel>
-                          <Switch
-                            checked={values.machine}
-                            label={{
-                              off: t(
-                                "organization.tabs.groups.newGroup.switch.no"
-                              ),
-                              on: t(
-                                "organization.tabs.groups.newGroup.switch.yes"
-                              ),
-                            }}
-                            name={"machine"}
-                            onChange={handleMachineBtnChange}
-                          />
-                        </FormGroup>
+                        <Select
+                          label={t(
+                            "organization.tabs.groups.newGroup.language.text"
+                          )}
+                          name={"language"}
+                        >
+                          <option value={"EN"}>
+                            {t("organization.tabs.groups.newGroup.language.EN")}
+                          </option>
+                          <option value={"ES"}>
+                            {t("organization.tabs.groups.newGroup.language.ES")}
+                          </option>
+                        </Select>
                       </TooltipWrapper>
                     </Col>
-                    {isContinuous && (
-                      <Col
-                        id={"add-group-plan"}
-                        large={"50"}
-                        medium={"50"}
-                        small={"50"}
-                      >
-                        <TooltipWrapper
-                          hide={runTour}
-                          id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                          message={t(
-                            "organization.tabs.groups.newGroup.squad.tooltip"
-                          )}
-                          placement={"top"}
-                        >
-                          <FormGroup>
-                            <ControlLabel>
-                              {t(
-                                "organization.tabs.groups.newGroup.squad.text"
-                              )}
-                              {" *"}
-                            </ControlLabel>
-                            <Switch
-                              checked={values.squad}
-                              label={{
-                                off: t(
-                                  "organization.tabs.groups.newGroup.switch.no"
-                                ),
-                                on: t(
-                                  "organization.tabs.groups.newGroup.switch.yes"
-                                ),
-                              }}
-                              name={"squad"}
-                              onChange={handleSquadBtnChange}
-                            />
-                          </FormGroup>
-                        </TooltipWrapper>
-                      </Col>
-                    )}
                   </Row>
+                  <div className={"mv2"} hidden={true}>
+                    <TooltipWrapper
+                      hide={runTour}
+                      id={"organization.tabs.groups.newGroup.machine.tooltip"}
+                      message={t(
+                        "organization.tabs.groups.newGroup.machine.tooltip"
+                      )}
+                      placement={"top"}
+                    >
+                      <Text mb={1}>
+                        {"* "}
+                        {t("organization.tabs.groups.newGroup.machine.text")}
+                      </Text>
+                      <Switch
+                        checked={values.machine}
+                        label={{
+                          off: t("organization.tabs.groups.newGroup.switch.no"),
+                          on: t("organization.tabs.groups.newGroup.switch.yes"),
+                        }}
+                        name={"machine"}
+                        onChange={handleMachineBtnChange}
+                      />
+                    </TooltipWrapper>
+                  </div>
+                  {isContinuous && (
+                    <div className={"mv2"} id={"add-group-plan"}>
+                      <TooltipWrapper
+                        hide={runTour}
+                        id={"organization.tabs.groups.newGroup.squad.tooltip"}
+                        message={t(
+                          "organization.tabs.groups.newGroup.squad.tooltip"
+                        )}
+                        placement={"top"}
+                      >
+                        <Text mb={1}>
+                          {"* "}
+                          {t("organization.tabs.groups.newGroup.squad.text")}
+                        </Text>
+                        <Switch
+                          checked={values.squad}
+                          label={{
+                            off: t(
+                              "organization.tabs.groups.newGroup.switch.no"
+                            ),
+                            on: t(
+                              "organization.tabs.groups.newGroup.switch.yes"
+                            ),
+                          }}
+                          name={"squad"}
+                          onChange={handleSquadBtnChange}
+                        />
+                      </TooltipWrapper>
+                    </div>
+                  )}
                   {isContinuous &&
-                    `${" *"} ${t(
+                    `${"* "} ${t(
                       "organization.tabs.groups.newGroup.extraChargesMayApply"
                     )}`}
                   <ModalConfirm
@@ -488,7 +448,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                   />
                 </Form>
                 <Tour onFinish={finishTour} run={runTour} steps={steps} />
-              </React.Fragment>
+              </Fragment>
             );
           }}
         </Formik>
