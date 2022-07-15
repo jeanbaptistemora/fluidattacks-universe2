@@ -493,16 +493,6 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
-            args = ["dev"];
-            output = "/integrates/subscriptions/daily-digest";
-            gitlabExtra = {
-              retry = 2;
-              rules = gitlabOnlyDev;
-              stage = "subscriptions";
-              tags = ["autoscaling"];
-            };
-          }
-          {
             output = "/integrates/web/e2e";
             gitlabExtra =
               gitlabPostDeployDev
