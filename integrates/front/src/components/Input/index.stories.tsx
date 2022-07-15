@@ -10,10 +10,12 @@ import type { IInputProps } from "./CustomInput";
 import type { ISelectProps } from "./CustomSelect";
 import type { ITextAreaProps } from "./CustomTextArea";
 import type { IDatePickerProps } from "./DatePicker";
+import type { IInputNumberProps } from "./InputNumber";
 
 import {
   DatePicker as DatePickerComp,
   Input,
+  InputNumber as InputNumberComp,
   Select as SelectComp,
   TextArea as TextAreaComp,
 } from ".";
@@ -38,6 +40,10 @@ const validations = object().shape({
     .required("Field required")
     .max(8, "Use less characters")
     .matches(/^[a-zA-Z_0-9-]{1,8}$/u, "Allowed alphanumeric characters only"),
+});
+
+const validationsInputNumber = object().shape({
+  exampleName: string().required().min(-10).max(10),
 });
 
 const selectValidations = object().shape({
@@ -65,6 +71,19 @@ const StoryDatePicker: Story<IDatePickerProps> = (props): JSX.Element => (
   >
     <Form id={"exampleForm"}>
       <DatePickerComp {...props} id={"ExampleId"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
+const StoryInputNumber: Story<IInputNumberProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+    validationSchema={validationsInputNumber}
+  >
+    <Form id={"exampleForm"}>
+      <InputNumberComp {...props} id={"ExampleId"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -104,9 +123,13 @@ Default.args = {
 };
 
 const DatePicker = StoryDatePicker.bind({});
-Default.args = {
+
+const InputNumber = StoryInputNumber.bind({});
+InputNumber.args = {
   disabled: false,
   label: "ExampleLabel",
+  max: 10,
+  min: -10,
   placeholder: "Example placeholder",
   variant: "solid",
 };
@@ -152,5 +175,5 @@ TextArea.args = {
   variant: "solid",
 };
 
-export { Default, DatePicker as InputDate, Search, Select, TextArea };
+export { Default, DatePicker, InputNumber, Search, Select, TextArea };
 export default config;
