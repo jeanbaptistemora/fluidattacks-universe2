@@ -153,8 +153,7 @@
       unauthorized actions
       in name of the user (impersonation)
       and a loss of traceability
-      of the impersonated users actions
-      <<r1, ^[1]^>> <<r2, ^[2]^>>.
+      of the impersonated users actions.
   es:
     title: Gestionar sesiones concurrentes
     summary: >
@@ -176,8 +175,7 @@
       acciones no autorizadas
       en nombre del usuario (suplantación)
       y pérdida de trazabilidad de acciones
-      hechas por el usuario suplantado
-      <<r1, ^[1]^>> <<r2, ^[2]^>>.
+      hechas por el usuario suplantado.
   category: Session
   supported_in:
     machine: false
