@@ -1187,8 +1187,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "python",
             "Python",
         ): """
-            python.uses_catch_for_memory_error('__path__')
-            python.uses_catch_for_syntax_errors('__path__')
             python.uses_insecure_functions('__path__')
             """,
         (

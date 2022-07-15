@@ -291,56 +291,6 @@ def _declares_catch_for_exceptions(
     )
 
 
-@api(risk=LOW, kind=SAST)
-def uses_catch_for_memory_error(py_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for the use of MemoryError "catch" in a path.
-
-    See `CWE-544 <https://cwe.mitre.org/data/definitions/544.html>`_.
-
-    :param py_dest: Path to a Python script or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        py_dest=py_dest,
-        exceptions_list=[
-            "MemoryError",
-        ],
-        msgs={
-            OPEN: 'Code declares a "catch" for MemoryError exceptions',
-            CLOSED: 'Code does not declare "catch" for MemoryError exceptions',
-        },
-        exclude=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-def uses_catch_for_syntax_errors(py_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for the use of SyntaxError catch and its derived classes in a path.
-
-    See `CWE-544 <https://cwe.mitre.org/data/definitions/544.html>`_.
-
-    :param py_dest: Path to a Python script or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        py_dest=py_dest,
-        exceptions_list=[
-            "TabError",
-            "SyntaxError",
-            "IndentationError",
-        ],
-        msgs={
-            OPEN: "Code declares catch for syntax error exceptions",
-            CLOSED: "Code does not declare catch for syntax error exceptions",
-        },
-        exclude=exclude,
-    )
-
-
 @api(risk=HIGH, kind=SAST)
 def uses_insecure_functions(py_dest: str, exclude: list = None) -> tuple:
     """
