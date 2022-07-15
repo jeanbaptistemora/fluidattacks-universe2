@@ -214,7 +214,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         modified_date="2020-01-01T00:45:12+00:00",
                         status=FindingVerificationStatus.REQUESTED,
                         vulnerability_ids={
-                            "be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                            "48780201-b087-43c5-9882-a5c65dec6efb",
                         },
                     )
                 ],
@@ -364,7 +364,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
-                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    id="48780201-b087-43c5-9882-a5c65dec6efb",
                     specific="9999",
                     state=VulnerabilityState(
                         modified_by=generic_data["global_vars"]["admin_email"],
