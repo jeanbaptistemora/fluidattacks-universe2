@@ -6895,7 +6895,22 @@
   title: SWIFT CSCF
   en:
     summary: >
-      __empty__
+      SWIFT Customer Security Controls
+      Framework (CSCF) establishes a
+      set of mandatory and advisory
+      security controls for the operating
+      environment of SWIFT users.
+      SWIFT provides the global messaging
+      system that financial organisations
+      use to transmit information and
+      instructions securely.
+      Users can compare the security
+      controls they have implemented
+      with those listed in the CSCF
+      to identify and remediate any
+      compliance gaps.
+      The version used in this
+      section is CSCF v2021.
   es:
     summary: __empty__
   definitions:
