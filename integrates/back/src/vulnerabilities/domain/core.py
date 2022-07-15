@@ -813,7 +813,7 @@ async def update_metadata_and_state(
         or vulnerability.state.status != new_state.status
     ):
         if (
-            vulnerability.state.source == Source.ASM
+            vulnerability.state.source != new_state.source
             and vulnerability.state.status == VulnerabilityStateStatus.CLOSED
         ):
             await vulns_model.update_historic_entry(

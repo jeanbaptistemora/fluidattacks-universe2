@@ -6,6 +6,7 @@ from enum import (
 class Source(str, Enum):
     ANALYST: str = "ANALYST"
     ASM: str = "ASM"
+    CUSTOMER: str = "CUSTOMER"
     DETERMINISTIC: str = "DETERMINISTIC"
     ESCAPE: str = "ESCAPE"
     MACHINE: str = "MACHINE"
