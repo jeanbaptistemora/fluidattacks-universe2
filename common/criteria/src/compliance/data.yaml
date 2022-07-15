@@ -6891,3 +6891,15 @@
       title: Data destruction
       link: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-115.pdf
   metadata: {}
+"swiftcsc":
+  title: SWIFT CSCF
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "1_2":
+      title: Operating system privilege account controls
+      link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
+  metadata: {}
