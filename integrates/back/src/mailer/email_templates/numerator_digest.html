@@ -9,20 +9,28 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Today were enumerated {{ today_enumerated_count }} and
-      verified {{ today_verified_count }} fields, by {{ responsible }}:
+      enumerated: {{ count_var_report["enumerated"]["count"] }} <br />
+      Verified: {{ count_var_report["verified"]["count"] }} fields,
+      {{ count_var_report["loc"]["count"] }} LoC.
     </p>
     <p>
+      Group details:<br />
       {% if groups %}
         {% for group, fields in groups.items() %}
           <strong>{{ group }}</strong>:
-          {{ fields["enumerated_count"] }} enumerated,
-          {{ fields["verified_count"] }} verified.<br />
+          {{ fields["enumerated"] }} ie,
+          {{ fields["verified"] }} iv,
+          {{ fields["loc"] }} lv.<br />
         {% endfor %}
       {% endif %}
       <br />
-      {{ enumerated_variation }} variation in enumerated and
-      {{ verified_variation }} in verified inputs from yesterday
+      Variation from yesterday:<br />
+      - {{ count_var_report["enumerated"]["variation"] }}  ie,
+      {{ count_var_report["verified"]["variation"] }} iv,
+      {{ count_var_report["loc"]["variation"] }} lv
+    </p>
+    <p>
+      Legend: ie: Inputs enumerated, iv: Input verified, lv: LoC verified
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>

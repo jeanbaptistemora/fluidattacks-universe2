@@ -62,18 +62,34 @@ def test_validate_date_fail() -> None:
         [
             {
                 "test@test.com": {
-                    "past_day_enumerated_count": 0,
-                    "past_day_verified_count": 0,
-                    "today_enumerated_count": 0,
-                    "today_verified_count": 0,
+                    "enumerated": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
+                    "verified": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
+                    "loc": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
                     "groups": {
                         "unittesting": {
-                            "verified_count": 0,
-                            "enumerated_count": 0,
+                            "verified": 0,
+                            "enumerated": 0,
+                            "loc": 0,
                         },
                         "test_group": {
-                            "verified_count": 0,
-                            "enumerated_count": 0,
+                            "verified": 0,
+                            "enumerated": 0,
+                            "loc": 0,
                         },
                     },
                 },
@@ -90,10 +106,10 @@ def test_generate_count_report(
     date_days = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
     fields: List[str] = [
-        "verified_count",
-        "verified_count",
-        "verified_count",
-        "enumerated_count",
+        "verified",
+        "verified",
+        "verified",
+        "enumerated",
     ]
     groups: List[str] = [
         "unittesting",
@@ -112,18 +128,16 @@ def test_generate_count_report(
             user_email=user_email,
         )
 
-    assert content[user_email]["today_verified_count"] == 3
-    assert content[user_email]["today_enumerated_count"] == 1
-    assert (
-        content[user_email]["groups"]["unittesting"]["enumerated_count"] == 1
-    )
-    assert content[user_email]["groups"]["unittesting"]["verified_count"] == 2
-    assert content[user_email]["groups"]["test_group"]["verified_count"] == 1
+    assert content[user_email]["verified"]["count"]["today"] == 3
+    assert content[user_email]["enumerated"]["count"]["today"] == 1
+    assert content[user_email]["groups"]["unittesting"]["enumerated"] == 1
+    assert content[user_email]["groups"]["unittesting"]["verified"] == 2
+    assert content[user_email]["groups"]["test_group"]["verified"] == 1
     content = _generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
-        field="verified_count",
+        field="verified",
         group="test_group",
         user_email=user_email,
     )
@@ -131,11 +145,11 @@ def test_generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
-        field="verified_count",
+        field="verified",
         group="test_group",
         user_email=user_email,
     )
-    assert content[user_email]["past_day_verified_count"] == 2
+    assert content[user_email]["verified"]["count"]["past_day"] == 2
 
 
 @pytest.mark.asyncio
@@ -146,18 +160,34 @@ def test_generate_count_report(
     [
         [
             {
-                "past_day_enumerated_count": 4,
-                "past_day_verified_count": 3,
-                "today_enumerated_count": 10,
-                "today_verified_count": 5,
+                "enumerated": {
+                    "count": {
+                        "past_day": 4,
+                        "today": 10,
+                    }
+                },
+                "verified": {
+                    "count": {
+                        "past_day": 3,
+                        "today": 5,
+                    }
+                },
+                "loc": {
+                    "count": {
+                        "past_day": 0,
+                        "today": 0,
+                    }
+                },
                 "groups": {
                     "unittesting": {
-                        "verified_count": 6,
-                        "enumerated_count": 3,
+                        "verified": 6,
+                        "enumerated": 3,
+                        "loc": 0,
                     },
                     "test_group": {
-                        "verified_count": 4,
-                        "enumerated_count": 2,
+                        "verified": 4,
+                        "enumerated": 2,
+                        "loc": 0,
                     },
                 },
             },

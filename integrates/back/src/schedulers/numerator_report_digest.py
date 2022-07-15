@@ -1,6 +1,7 @@
 from context import (
     FI_ENVIRONMENT,
-    FI_MAIL_PRODUCTION,
+    FI_MAIL_COS,
+    FI_MAIL_CTO,
     FI_TEST_PROJECTS,
 )
 from dataloaders import (
@@ -14,6 +15,10 @@ from datetime import (
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
+)
+from db_model.toe_lines.types import (
+    GroupToeLinesRequest,
+    ToeLinesConnection,
 )
 import logging
 from mailer import (
@@ -50,24 +55,28 @@ def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
     return validate_date
 
 
+def _generate_count_fields() -> Dict[str, Any]:
+    fields: Dict[str, Any] = {
+        "count": {
+            "past_day": 0,
+            "today": 0,
+        },
+    }
+    return fields
+
+
 def _generate_fields() -> Dict[str, Any]:
     fields: Dict[str, Any] = {
-        "past_day_enumerated_count": 0,
-        "past_day_verified_count": 0,
-        "today_enumerated_count": 0,
-        "today_verified_count": 0,
+        "enumerated": _generate_count_fields(),
+        "verified": _generate_count_fields(),
+        "loc": _generate_count_fields(),
         "groups": {},
     }
-
     return fields
 
 
 def _generate_group_fields() -> Dict[str, Any]:
-    fields: Dict[str, Any] = {
-        "verified_count": 0,
-        "enumerated_count": 0,
-    }
-
+    fields: Dict[str, Any] = {"verified": 0, "enumerated": 0, "loc": 0}
     return fields
 
 
@@ -96,13 +105,13 @@ def _generate_count_report(
                 int(content[user_email]["groups"][group][field]) + 1
             )
 
-            content[user_email][f"today_{field}"] = (
-                int(content[user_email][f"today_{field}"]) + 1
+            content[user_email][field]["count"]["today"] = (
+                int(content[user_email][field]["count"]["today"]) + 1
             )
         else:
             if _validate_date(date_report.date(), date_range + 1, date_range):
-                content[user_email][f"past_day_{field}"] = (
-                    int(content[user_email][f"past_day_{field}"]) + 1
+                content[user_email][field]["count"]["past_day"] = (
+                    int(content[user_email][field]["count"]["past_day"]) + 1
                 )
 
     return content
@@ -120,23 +129,39 @@ async def _generate_numerator_report(
                 GroupToeInputsRequest(group_name=group)
             )
         )
-        for toe in group_toe_inputs.edges:
+        group_toe_lines: ToeLinesConnection = (
+            await loaders.group_toe_lines.load(
+                GroupToeLinesRequest(group_name=group)
+            )
+        )
+
+        for toe_inputs in group_toe_inputs.edges:
             content = _generate_count_report(
                 content=content,
                 date_range=date_range,
-                date_report=toe.node.seen_at,
-                field="enumerated_count",
+                date_report=toe_inputs.node.seen_at,
+                field="enumerated",
                 group=group,
-                user_email=toe.node.seen_first_time_by,
+                user_email=toe_inputs.node.seen_first_time_by,
             )
 
             content = _generate_count_report(
                 content=content,
                 date_range=date_range,
-                date_report=toe.node.attacked_at,
-                field="verified_count",
+                date_report=toe_inputs.node.attacked_at,
+                field="verified",
                 group=group,
-                user_email=toe.node.attacked_by,
+                user_email=toe_inputs.node.attacked_by,
+            )
+
+        for toe_lines in group_toe_lines.edges:
+            content = _generate_count_report(
+                content=content,
+                date_range=date_range,
+                date_report=toe_lines.node.attacked_at,
+                field="loc",
+                group=group,
+                user_email=toe_lines.node.attacked_by,
             )
 
     return content
@@ -154,37 +179,38 @@ def get_variation(num_a: int, num_b: int) -> str:
     return f"{variation}%"
 
 
+def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
+    count_and_variation: Dict[str, Any] = {}
+    for key, value in content.items():
+        if key not in ["groups"]:
+            count_and_variation[key] = {
+                "count": value["count"]["today"],
+                "variation": get_variation(
+                    value["count"]["past_day"], value["count"]["today"]
+                ),
+            }
+
+    return count_and_variation
+
+
 async def _send_mail_report(
     loaders: Any,
     content: Dict[str, Any],
     report_date: date,
     responsible: str,
 ) -> None:
-    past_day_enumerated_count: int = int(content["past_day_enumerated_count"])
-    past_day_verified_count: int = int(content["past_day_verified_count"])
-    today_enumerated_count: int = int(content["today_enumerated_count"])
-    today_verified_count: int = int(content["today_verified_count"])
-
-    enumerated_variation: str = get_variation(
-        past_day_enumerated_count, today_enumerated_count
-    )
-    verified_variation: str = get_variation(
-        past_day_verified_count, today_verified_count
-    )
+    count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
 
     context: Dict[str, Any] = {
-        "enumerated_variation": enumerated_variation,
+        "count_var_report": count_var_report,
         "groups": content["groups"],
         "responsible": responsible,
-        "today_enumerated_count": today_enumerated_count,
-        "today_verified_count": today_verified_count,
-        "verified_variation": verified_variation,
     }
 
     await groups_mail.send_mail_numerator_report(
         loaders=loaders,
         context=context,
-        email_to=[FI_MAIL_PRODUCTION, responsible],
+        email_to=[FI_MAIL_COS, FI_MAIL_CTO, responsible],
         report_date=report_date,
     )
 
@@ -208,8 +234,8 @@ async def send_numerator_report() -> None:
     if content:
         for user_email, user_content in content.items():
             if (
-                int(user_content["today_enumerated_count"]) > 0
-                or int(user_content["today_verified_count"]) > 0
+                int(user_content["enumerated"]["count"]["today"]) > 0
+                or int(user_content["verified"]["count"]["today"]) > 0
             ):
                 await _send_mail_report(
                     loaders, user_content, report_date, user_email

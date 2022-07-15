@@ -5,6 +5,8 @@ from aioextensions import (
 from context import (
     FI_EMAIL_TEMPLATES,
     FI_MAIL_CONTINUOUS,
+    FI_MAIL_COS,
+    FI_MAIL_CTO,
     FI_MAIL_CUSTOMER_SUCCESS,
     FI_MAIL_PRODUCTION,
     FI_MAIL_PROJECTS,
@@ -80,6 +82,8 @@ async def get_recipient_first_name(
         stakeholder = Stakeholder(email=email)
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
+        *[fi_email.lower() for fi_email in FI_MAIL_COS.split(",")],
+        *[fi_email.lower() for fi_email in FI_MAIL_CTO.split(",")],
         *[
             fi_email.lower()
             for fi_email in FI_MAIL_CUSTOMER_SUCCESS.split(",")
