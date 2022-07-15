@@ -358,3 +358,12 @@ exposure value).
 The value is zero when no
 vulnerability has been
 remediated in the period.
+
+## Report Technique
+
+![Report Technique](https://res.cloudinary.com/fluid-attacks/image/upload/v1657895822/docs/web/analytics/common/report_technique.png)
+
+This pie chart shows you the
+percentage of each technique
+used to report security
+vulnerabilities
