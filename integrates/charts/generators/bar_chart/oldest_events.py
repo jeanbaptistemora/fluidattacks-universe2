@@ -94,8 +94,10 @@ async def get_data_many_groups(
     return tuple(sorted(groups_events, key=attrgetter("days"), reverse=True))
 
 
-def format_data(data: tuple[EventsInfo, ...]) -> dict[str, Any]:
-    limited_data = [group for group in data if group.days > 0]
+def format_data(
+    *, data: tuple[EventsInfo, ...], x_label: str
+) -> dict[str, Any]:
+    limited_data = [group for group in data if group.days > 0][:18]
 
     return dict(
         data=dict(
@@ -110,19 +112,27 @@ def format_data(data: tuple[EventsInfo, ...]) -> dict[str, Any]:
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
         ),
         axis=dict(
             x=dict(
                 categories=[group.name for group in limited_data],
-                type="category",
+                label=dict(
+                    position="inner-right",
+                    text=x_label,
+                ),
                 tick=dict(
                     multiline=False,
                     outer=False,
                     rotate=TICK_ROTATION,
                 ),
+                type="category",
             ),
             y=dict(
+                label=dict(
+                    position="inner-top",
+                    text="Days open",
+                ),
                 min=0,
                 padding=dict(
                     bottom=0,
@@ -136,6 +146,7 @@ def format_data(data: tuple[EventsInfo, ...]) -> dict[str, Any]:
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
+    x_label_many_groups: str = "Group name"
 
     async for group in iterate_groups():
         json_dump(
@@ -144,6 +155,7 @@ async def generate_all() -> None:
                     group=group,
                     loaders=loaders,
                 ),
+                x_label="Event ID",
             ),
             entity="group",
             subject=group,
@@ -155,6 +167,7 @@ async def generate_all() -> None:
                 data=await get_data_many_groups(
                     groups=org_groups, loaders=loaders
                 ),
+                x_label=x_label_many_groups,
             ),
             entity="organization",
             subject=org_id,
@@ -167,6 +180,7 @@ async def generate_all() -> None:
                     data=await get_data_many_groups(
                         groups=tuple(groups), loaders=loaders
                     ),
+                    x_label=x_label_many_groups,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
