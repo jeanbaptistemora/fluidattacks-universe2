@@ -135,16 +135,6 @@ def test_uses_insecure_rsa_open():
     assert java.uses_insecure_rsa(INSECURE_CODE).is_open()
 
 
-def test_uses_cipher_in_ecb_mode_open():
-    """Search ECB cipher mode."""
-    assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
-
-
-def test_uses_cipher_in_ecb_mode_open():
-    """Search ECB cipher mode."""
-    assert java.uses_cipher_in_ecb_mode(INSECURE_CODE).is_open()
-
-
 def test_uses_insecure_ssl_context_open():
     """Search insecure SSL context."""
     assert java.uses_insecure_ssl_context(INSECURE_CODE).is_open()
@@ -155,23 +145,9 @@ def test_uses_various_verbs_in_request_mapping_open():
     assert java.uses_various_verbs_in_request_mapping(INSECURE_CODE).is_open()
 
 
-def test_uses_insecure_key_pair_length_open():
-    """Search insecure length in generated key pairs."""
-    assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
-
-
 #
 # Closing tests
 #
-
-
-def test_uses_insecure_key_pair_length_closed():
-    """Search insecure length in generated key pairs."""
-    assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
-    assert java.uses_insecure_key_pair_length(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert java.uses_insecure_key_pair_length(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_various_verbs_in_request_mapping_closed():
@@ -192,22 +168,6 @@ def test_uses_insecure_ssl_context_closed():
         CODE_DIR, exclude=["test"]
     ).is_closed()
     assert java.uses_insecure_ssl_context(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_broken_password_encryptio_closed():
-    """Search insecure encryption methods."""
-    assert java.uses_broken_password_encryption(SECURE_CODE).is_closed()
-    assert java.uses_broken_password_encryption(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert java.uses_broken_password_encryption(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_cipher_in_ecb_mode_closed():
-    """Search ECB cipher mode."""
-    assert java.uses_cipher_in_ecb_mode(SECURE_CODE).is_closed()
-    assert java.uses_cipher_in_ecb_mode(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_cipher_in_ecb_mode(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_insecure_rsa_closed():
