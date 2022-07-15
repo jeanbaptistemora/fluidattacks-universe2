@@ -52,7 +52,7 @@ async def add_user(organization_id: str, email: str) -> bool:
     return success
 
 
-async def get_access_by_url_token(
+async def get_organization_access(
     organization_id: str,
     user_email: str,
 ) -> dict[str, Any]:

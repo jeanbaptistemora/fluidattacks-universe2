@@ -214,7 +214,7 @@ async def get_access_by_url_token(
         token_content = token_utils.decode_jwt(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
-        access = await orgs_dal.get_access_by_url_token(
+        access = await orgs_dal.get_organization_access(
             organization_id, user_email
         )
     except JWTError:
@@ -315,7 +315,7 @@ async def get_or_add(
 
 
 async def get_user_access(organization_id: str, email: str) -> dict[str, Any]:
-    return await orgs_dal.get_access_by_url_token(organization_id, email)
+    return await orgs_dal.get_organization_access(organization_id, email)
 
 
 async def get_invitation_state(

@@ -13,6 +13,9 @@ from .stakeholder_level_role import (
 from collections import (
     defaultdict,
 )
+from dataloaders.organization_access import (
+    OrganizationAcessTypedLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -131,6 +134,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
+    organization_access: OrganizationAcessTypedLoader
     organization_credentials: OrganizationCredentialsLoader
     me_drafts: MeDraftsLoader
     organization_groups: OrganizationGroupsLoader
@@ -237,6 +241,7 @@ def get_new_context() -> Dataloaders:
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
+        organization_access=OrganizationAcessTypedLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),

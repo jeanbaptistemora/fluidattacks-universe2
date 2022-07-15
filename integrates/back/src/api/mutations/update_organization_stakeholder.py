@@ -73,7 +73,7 @@ async def mutate(
     user_email: str = str(parameters.get("user_email"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
 
-    organization_access = await orgs_dal.get_access_by_url_token(
+    organization_access = await orgs_dal.get_organization_access(
         organization_id, user_email
     )
     # Validate role requirements before changing anything
