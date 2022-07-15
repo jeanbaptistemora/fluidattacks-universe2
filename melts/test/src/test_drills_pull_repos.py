@@ -20,8 +20,8 @@ def test_drills_pull_repos() -> None:
 def test_get_repo_from_url() -> None:
     for url, repo in (
         (
-            "ssh://git@gitlab.com:fluidattacks/product.git",
-            "product",
+            "ssh://git@gitlab.com:fluidattacks/universe.git",
+            "universe",
         ),
         (
             (

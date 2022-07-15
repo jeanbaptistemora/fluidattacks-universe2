@@ -10,7 +10,7 @@ You can do a local install using `nix-env -i melts-bin -f .` ( must be in the ro
 
 ### From Nix
 
-Follow the the product [guide](https://gitlab.com/fluidattacks/product).
+Follow the the product [guide](https://gitlab.com/fluidattacks/universe).
 
 ## Usage
 
