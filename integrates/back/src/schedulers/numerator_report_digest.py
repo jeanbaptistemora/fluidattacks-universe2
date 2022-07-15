@@ -12,6 +12,10 @@ from datetime import (
     date,
     datetime,
 )
+from db_model.findings.types import (
+    Finding,
+    FindingVerification,
+)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
@@ -70,13 +74,19 @@ def _generate_fields() -> Dict[str, Any]:
         "enumerated": _generate_count_fields(),
         "verified": _generate_count_fields(),
         "loc": _generate_count_fields(),
+        "reattacked": _generate_count_fields(),
         "groups": {},
     }
     return fields
 
 
 def _generate_group_fields() -> Dict[str, Any]:
-    fields: Dict[str, Any] = {"verified": 0, "enumerated": 0, "loc": 0}
+    fields: Dict[str, Any] = {
+        "verified": 0,
+        "enumerated": 0,
+        "loc": 0,
+        "reattacked": 0,
+    }
     return fields
 
 
@@ -87,6 +97,7 @@ def _generate_count_report(
     date_report: Optional[datetime],
     field: str,
     group: str,
+    to_add: int = 1,
     user_email: str,
 ) -> Dict[str, Any]:
     if user_email and date_report:
@@ -102,16 +113,17 @@ def _generate_count_report(
                 content[user_email]["groups"][group] = _generate_group_fields()
 
             content[user_email]["groups"][group][field] = (
-                int(content[user_email]["groups"][group][field]) + 1
+                int(content[user_email]["groups"][group][field]) + to_add
             )
 
             content[user_email][field]["count"]["today"] = (
-                int(content[user_email][field]["count"]["today"]) + 1
+                int(content[user_email][field]["count"]["today"]) + to_add
             )
         else:
             if _validate_date(date_report.date(), date_range + 1, date_range):
                 content[user_email][field]["count"]["past_day"] = (
-                    int(content[user_email][field]["count"]["past_day"]) + 1
+                    int(content[user_email][field]["count"]["past_day"])
+                    + to_add
                 )
 
     return content
@@ -133,6 +145,9 @@ async def _generate_numerator_report(
             await loaders.group_toe_lines.load(
                 GroupToeLinesRequest(group_name=group)
             )
+        )
+        findings: tuple[Finding, ...] = await loaders.group_findings.load(
+            group
         )
 
         for toe_inputs in group_toe_inputs.edges:
@@ -163,6 +178,25 @@ async def _generate_numerator_report(
                 group=group,
                 user_email=toe_lines.node.attacked_by,
             )
+
+        for finding in findings:
+            historic_verification: Tuple[
+                FindingVerification, ...
+            ] = await loaders.finding_historic_verification.load(finding.id)
+
+            for verification in historic_verification:
+                if verification.vulnerability_ids:
+                    content = _generate_count_report(
+                        content=content,
+                        date_range=date_range,
+                        date_report=datetime_utils.get_datetime_from_iso_str(
+                            verification.modified_date
+                        ),
+                        field="reattacked",
+                        group=group,
+                        to_add=len(verification.vulnerability_ids),
+                        user_email=verification.modified_by,
+                    )
 
     return content
 

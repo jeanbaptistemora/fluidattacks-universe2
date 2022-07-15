@@ -80,6 +80,12 @@ def test_validate_date_fail() -> None:
                             "today": 0,
                         }
                     },
+                    "reattacked": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
                     "groups": {
                         "unittesting": {
                             "verified": 0,
@@ -173,6 +179,12 @@ def test_generate_count_report(
                     }
                 },
                 "loc": {
+                    "count": {
+                        "past_day": 0,
+                        "today": 0,
+                    }
+                },
+                "reattacked": {
                     "count": {
                         "past_day": 0,
                         "today": 0,

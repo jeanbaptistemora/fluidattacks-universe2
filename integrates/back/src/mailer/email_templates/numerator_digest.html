@@ -11,7 +11,9 @@
     <p>
       enumerated: {{ count_var_report["enumerated"]["count"] }} <br />
       Verified: {{ count_var_report["verified"]["count"] }} fields,
-      {{ count_var_report["loc"]["count"] }} LoC.
+      {{ count_var_report["loc"]["count"] }} LoC. <br />
+      Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.<br />
+      Responsible: {{ responsible }}
     </p>
     <p>
       Group details:<br />
@@ -20,17 +22,20 @@
           <strong>{{ group }}</strong>:
           {{ fields["enumerated"] }} ie,
           {{ fields["verified"] }} iv,
-          {{ fields["loc"] }} lv.<br />
+          {{ fields["loc"] }} lv,
+          {{ fields["reattacked"] }} re.<br />
         {% endfor %}
       {% endif %}
       <br />
       Variation from yesterday:<br />
       - {{ count_var_report["enumerated"]["variation"] }}  ie,
       {{ count_var_report["verified"]["variation"] }} iv,
-      {{ count_var_report["loc"]["variation"] }} lv
+      {{ count_var_report["loc"]["variation"] }} lv,
+      {{ count_var_report["reattacked"]["variation"] }} re
     </p>
     <p>
-      Legend: ie: Inputs enumerated, iv: Input verified, lv: LoC verified
+      Legend: ie: Inputs enumerated, iv: Input verified, lv: LoC verified,
+      re: Reattacked.
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>
