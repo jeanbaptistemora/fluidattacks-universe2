@@ -696,7 +696,7 @@
     command = [
       "m"
       "f"
-      "/observes/etl/gitlab/product/ephemeral"
+      "/observes/etl/gitlab/universe/ephemeral"
     ];
 
     schedule_expression = "cron(0 11 ? * 1-5 *)";

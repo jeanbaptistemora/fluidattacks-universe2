@@ -10,7 +10,7 @@ function main {
     --builder-name "${CI_COMMIT_AUTHOR}" \
     --release-stage "${release_stage}" \
     --source-control-provider 'gitlab' \
-    --source-control-repository 'https://gitlab.com/fluidattacks/product' \
+    --source-control-repository 'https://gitlab.com/fluidattacks/universe' \
     --source-control-revision "${CI_COMMIT_SHA}"
 }
 
