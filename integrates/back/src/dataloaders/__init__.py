@@ -196,6 +196,9 @@ def get_new_context() -> Dataloaders:
 
     stakeholder_loader = StakeholderTypedLoader()
     group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
+    organization_stakeholders_loader = OrganizationStakeholdersLoader(
+        stakeholder_loader
+    )
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -238,7 +241,7 @@ def get_new_context() -> Dataloaders:
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
-        organization_stakeholders=OrganizationStakeholdersLoader(),
+        organization_stakeholders=organization_stakeholders_loader,
         organization=OrganizationLoader(),
         portfolio=PortfolioLoader(),
         root=RootLoader(),
