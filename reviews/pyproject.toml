@@ -19,7 +19,7 @@
     { include = "utils", from = "src" },
   ]
   readme = "./README.md"
-  repository = "https://gitlab.com/fluidattacks/product/-/tree/master/reviews"
+  repository = "https://gitlab.com/fluidattacks/universe/-/tree/master/reviews"
   version = "1.0.0"
 
 [tool.poetry.dependencies]
