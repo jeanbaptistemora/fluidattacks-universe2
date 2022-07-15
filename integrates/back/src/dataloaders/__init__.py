@@ -257,7 +257,7 @@ def get_new_context() -> Dataloaders:
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
-        stakeholder=StakeholderTypedLoader(),
+        stakeholder=stakeholder_loader,
         stakeholder_level_role=StakeholderLevelRoleLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
