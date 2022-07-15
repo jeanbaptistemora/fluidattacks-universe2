@@ -265,7 +265,7 @@ two things happen:
 Generally,
 to run any schedule,
 all that is necessary is to
-export the `PRODUCT_API_TOKEN`
+export the `UNIVERSE_API_TOKEN`
 variable.
 Bear in mind that `schedules.nix`
 becomes the single source of

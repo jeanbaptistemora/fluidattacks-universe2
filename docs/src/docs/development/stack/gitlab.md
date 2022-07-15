@@ -9,7 +9,7 @@ slug: /development/stack/gitlab
 
 [Gitlab][GITLAB]
 is the platform we use for
-[developing our software][PRODUCT].
+[developing our software][UNIVERSE].
 It provides essential services like
 [Git repositories](https://blog.axosoft.com/learning-git-repository/),
 [Merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/index.html),
@@ -43,7 +43,7 @@ over other alternatives are:
     which gives unlimited
     [ultimate](https://about.gitlab.com/pricing/) free seats to
     [Open Source][OSS]
-    projects like [ours][PRODUCT].
+    projects like [ours][UNIVERSE].
 1. It provides
     [Development Planning](https://docs.gitlab.com/ee/topics/plan_and_track.html)
     with
@@ -124,7 +124,7 @@ over other alternatives are:
 1. It supports
     [Repository Mirroring](https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html),
     allowing us to have a mirror
-    of [our repository][PRODUCT]
+    of [our repository][UNIVERSE]
     on GitHub.
 1. It supports
     [Project Access Tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html),
@@ -182,7 +182,7 @@ over other alternatives are:
 We use [Gitlab][GITLAB] for:
 
 1. Hosting our
-    [product repository][PRODUCT].
+    [universe repository][UNIVERSE].
 1. Hosting our
     [issues][ISSUES].
 1. Hosting our
@@ -227,7 +227,7 @@ We do not use [Gitlab][GITLAB] for:
 > Some of the information might be outdated.
 
 [GITLAB]: https://about.gitlab.com/
-[PRODUCT]: https://gitlab.com/fluidattacks/universe
+[UNIVERSE]: https://gitlab.com/fluidattacks/universe
 [CICD]: /development/stack/gitlab-ci
 [OSS]: https://opensource.com/resources/what-open-source
 [ISSUES]: https://gitlab.com/fluidattacks/universe/-/issues
