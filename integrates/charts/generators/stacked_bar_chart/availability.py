@@ -88,7 +88,7 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
         format_availability_percentages(
             values={
                 "Non available": Decimal(group.non_available),
-                "Available": Decimal(group.non_available),
+                "Available": Decimal(group.available),
             }
         )
         for group in sorted_data
