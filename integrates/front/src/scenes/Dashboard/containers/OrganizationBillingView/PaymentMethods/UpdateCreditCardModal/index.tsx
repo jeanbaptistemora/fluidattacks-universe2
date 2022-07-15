@@ -13,13 +13,23 @@ interface IUpdateCreditCardModalProps {
     cardExpirationMonth: string;
     cardExpirationYear: string;
     makeDefault: boolean;
+    businessName: string;
+    city: string;
+    country: string;
+    email: string;
+    state: string;
   }) => Promise<void>;
 }
 
 const validations = object().shape({
+  businessName: string(),
   cardExpirationMonth: string().required(),
   cardExpirationYear: string().required(),
+  city: string(),
+  country: string(),
+  email: string(),
   makeDefault: boolean().required(),
+  state: string(),
 });
 
 export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
@@ -36,9 +46,14 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
     >
       <Formik
         initialValues={{
+          businessName: "",
           cardExpirationMonth: "",
           cardExpirationYear: "",
+          city: "",
+          country: "",
+          email: "",
           makeDefault: false,
+          state: "",
         }}
         name={"updateCreditCard"}
         onSubmit={onSubmit}

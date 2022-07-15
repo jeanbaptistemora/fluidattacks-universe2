@@ -15,6 +15,7 @@ import { AddCreditCardModal } from "./AddCreditCardModal";
 import { AddOtherMethodModal } from "./AddOtherMethodModal";
 import { Container } from "./styles";
 import { UpdateCreditCardModal } from "./UpdateCreditCardModal";
+import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
 import {
   ADD_PAYMENT_METHOD,
@@ -272,10 +273,17 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       void removePaymentMethod({
         variables: {
           organizationId,
-          paymentMethodId: currentCreditCardRow.id,
+          paymentMethodId: currentCreditCardRow.id
+            ? currentCreditCardRow.id
+            : currentOtherMethodRow.id,
         },
       });
-    }, [organizationId, currentCreditCardRow.id, removePaymentMethod]);
+    }, [
+      organizationId,
+      currentCreditCardRow,
+      currentOtherMethodRow,
+      removePaymentMethod,
+    ]);
 
     // Update payment method
     const canUpdate: boolean = permissions.can(
@@ -323,22 +331,44 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         cardExpirationMonth,
         cardExpirationYear,
         makeDefault,
+        businessName,
+        city,
+        country,
+        email,
+        state,
       }: {
         cardExpirationMonth: string;
         cardExpirationYear: string;
         makeDefault: boolean;
+        businessName: string;
+        city: string;
+        country: string;
+        email: string;
+        state: string;
       }): Promise<void> => {
         await updatePaymentMethod({
           variables: {
+            businessName,
             cardExpirationMonth,
             cardExpirationYear,
+            city,
+            country,
+            email,
             makeDefault,
             organizationId,
-            paymentMethodId: currentCreditCardRow.id,
+            paymentMethodId: currentCreditCardRow.id
+              ? currentCreditCardRow.id
+              : currentOtherMethodRow.id,
+            state,
           },
         });
       },
-      [updatePaymentMethod, organizationId, currentCreditCardRow.id]
+      [
+        updatePaymentMethod,
+        organizationId,
+        currentCreditCardRow,
+        currentOtherMethodRow,
+      ]
     );
 
     const creditCardTableHeaders: IHeaderConfig[] = [
@@ -494,7 +524,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                   disabled={
                     _.isEmpty(currentOtherMethodRow) || removing || updating
                   }
-                  id={"removeCreditCard"}
+                  id={"removeOtherMethod"}
                   onClick={handleRemovePaymentMethod}
                   variant={"secondary"}
                 >
@@ -537,7 +567,19 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           />
         )}
         {isUpdatingOhterMethod === false ? undefined : (
-          <UpdateCreditCardModal
+          <UpdateOtherMethodModal
+            initialValues={{
+              businessName: currentOtherMethodRow.businessName,
+              cardExpirationMonth: "",
+              cardExpirationYear: "",
+              city: currentOtherMethodRow.city,
+              country: currentOtherMethodRow.country,
+              email: currentOtherMethodRow.email,
+              makeDefault: false,
+              rut: currentOtherMethodRow.rut,
+              state: currentOtherMethodRow.state,
+              taxId: currentOtherMethodRow.taxid,
+            }}
             onClose={closeUpdateOhterMethodModal}
             onSubmit={handleUpdatePaymentMethodSubmit}
           />

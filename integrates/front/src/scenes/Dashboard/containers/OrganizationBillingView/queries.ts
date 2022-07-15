@@ -90,6 +90,11 @@ const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
     $cardExpirationMonth: String!
     $cardExpirationYear: String!
     $makeDefault: Boolean!
+    $businessName: String!
+    $email: String!
+    $country: String!
+    $state: String!
+    $city: String!
   ) {
     updatePaymentMethod(
       organizationId: $organizationId
@@ -97,6 +102,11 @@ const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
       cardExpirationMonth: $cardExpirationMonth
       cardExpirationYear: $cardExpirationYear
       makeDefault: $makeDefault
+      businessName: $businessName
+      email: $email
+      country: $country
+      state: $state
+      city: $city
     ) {
       success
     }
