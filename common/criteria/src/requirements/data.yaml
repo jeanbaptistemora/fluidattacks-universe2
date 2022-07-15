@@ -95,6 +95,7 @@
     - "owaspmasvs.V4_7"
     - "nist800171.1_11"
     - "nist800171.5_6"
+    - "swiftcsc.2_6"
   metadata: {}
 "024":
   en:
@@ -620,6 +621,7 @@
     - "mvsp.3_3"
     - "owaspscp.4"
     - "nist800171.5_6"
+    - "swiftcsc.5_2"
   metadata: {}
 "032":
   en:
@@ -813,6 +815,7 @@
     - "c2m2.9_3_c"
     - "issaf.S_5_1"
     - "nist800115.3_5"
+    - "swiftcsc.1_2"
   metadata: {}
 "034":
   en:
@@ -943,6 +946,7 @@
     - "bsafss.AA_1-2"
     - "bsafss.AA_2-1"
     - "cwe25.862"
+    - "swiftcsc.5_1"
   metadata: {}
 "036":
   en:
@@ -1623,6 +1627,7 @@
     - "owaspmasvs.V5_2"
     - "nist800171.4_2"
     - "nist800115.3_4"
+    - "swiftcsc.1_3"
   metadata: {}
 "072":
   en:
@@ -1830,6 +1835,7 @@
     - "nist800171.3_6"
     - "nist800171.4_3"
     - "nist800115.3_2"
+    - "swiftcsc.6_4"
   metadata: {}
 "077":
   en:
@@ -2010,6 +2016,7 @@
     - "owaspscp.7"
     - "bsafss.LO_1-3"
     - "nist800171.3_7"
+    - "swiftcsc.6_4"
   metadata: {}
 "080":
   en:
@@ -2576,6 +2583,7 @@
     - "nist800171.1_4"
     - "nist800171.1_7"
     - "cwe25.862"
+    - "swiftcsc.1_2"
   metadata: {}
 "096":
   en:
@@ -2692,6 +2700,7 @@
     - "nist800171.3_9"
     - "nist800171.5_2"
     - "cwe25.862"
+    - "swiftcsc.5_1"
   metadata: {}
 "114":
   en:
@@ -3168,6 +3177,7 @@
     - "owaspmasvs.V4_5"
     - "cwe25.798"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "128":
   en:
@@ -3265,6 +3275,7 @@
     - "nist800171.5_7"
     - "cwe25.287"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "131":
   en:
@@ -3367,6 +3378,7 @@
     - "mvsp.2_4"
     - "owaspscp.3"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "133":
   en:
@@ -3413,6 +3425,7 @@
     - "nist800171.5_2"
     - "nist800171.5_7"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "134":
   en:
@@ -3684,6 +3697,7 @@
     - "issaf.D_1"
     - "ptes.5_5_3"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "140":
   en:
@@ -4411,6 +4425,8 @@
     - "owaspscp.3"
     - "owaspmasvs.V4_10"
     - "owaspmasvs.V5_5"
+    - "swiftcsc.2_1"
+    - "swiftcsc.2_5"
   metadata: {}
 "154":
   en:
@@ -4594,6 +4610,7 @@
     - "owaspscp.14"
     - "nist800171.1_7"
     - "nist800171.1_18"
+    - "swiftcsc.6_1"
   metadata: {}
 "156":
   en:
@@ -5320,6 +5337,7 @@
     - "owaspscp.11"
     - "owaspscp.13"
     - "cwe25.77"
+    - "swiftcsc.6_3"
   metadata: {}
 "173":
   en:
@@ -5603,6 +5621,7 @@
     - "owasprisks.P20"
     - "mvsp.3_3"
     - "cwe25.352"
+    - "swiftcsc.2_1"
   metadata: {}
 "175":
   en:
@@ -5967,6 +5986,7 @@
     - "bsafss.SM_4-1"
     - "owaspmasvs.V8_10"
     - "nist800115.3_6"
+    - "swiftcsc.6_2"
   metadata: {}
 "180":
   en:
@@ -6176,6 +6196,8 @@
     - "nist800115.3_5"
     - "nist800115.4_4"
     - "nist800115.7_4_3"
+    - "swiftcsc.2_1"
+    - "swiftcsc.2_6"
   metadata: {}
 "183":
   en:
@@ -6298,6 +6320,7 @@
     - "nistssdf.PW_6_2"
     - "ptes.6_2_1_1"
     - "owasprisks.P1"
+    - "swiftcsc.5_4"
   metadata: {}
 "185":
   en:
@@ -6405,6 +6428,7 @@
     - "owaspmasvs.V2_14"
     - "owaspmasvs.V8_10"
     - "cwe25.798"
+    - "swiftcsc.5_4"
   metadata: {}
 "186":
   en:
@@ -6513,6 +6537,7 @@
     - "bsafss.AA_1-1"
     - "nist800171.1_5"
     - "nist800171.4_6"
+    - "swiftcsc.5_1"
   metadata: {}
 "189":
   en:
@@ -6640,6 +6665,7 @@
     - "c2m2.4_1_a"
     - "owaspmasvs.V2_11"
     - "nist800171.1_18"
+    - "swiftcsc.3_1"
   metadata: {}
 "206":
   en:
@@ -6890,6 +6916,7 @@
   references:
     - "capec.115"
     - "bsafss.TC_1-6"
+    - "swiftcsc.1_3"
   metadata: {}
 "223":
   en:
@@ -7096,6 +7123,7 @@
     - "owaspmasvs.V1_8"
     - "owaspmasvs.V3_4"
     - "nist800171.1_13"
+    - "swiftcsc.2_1"
   metadata: {}
 "225":
   en:
@@ -7543,6 +7571,7 @@
     - "osstmm3.8_7_4"
     - "c2m2.4_1_a"
     - "ptes.7_4_4_1"
+    - "swiftcsc.3_1"
   metadata: {}
 "235":
   en:
@@ -7863,6 +7892,7 @@
     - "ptes.6_7_6_2"
     - "ptes.7_4_5_2"
     - "nist800115.4_4"
+    - "swiftcsc.1_4"
   metadata: {}
 "250":
   en:
@@ -8465,6 +8495,8 @@
     - "bsafss.VN_1-2"
     - "bsafss.VN_3-1"
     - "owaspmasvs.V7_5"
+    - "swiftcsc.2_2"
+    - "swiftcsc.6_2"
   metadata: {}
 "264":
   en:
@@ -8813,6 +8845,9 @@
     - "cwe25.476"
     - "cwe25.119"
     - "nist800115.4_2"
+    - "swiftcsc.2_3"
+    - "swiftcsc.2_10"
+    - "swiftcsc.3_1"
   metadata: {}
 "273":
   en:
@@ -8883,6 +8918,7 @@
     - "ptes.7_3_1_6"
     - "mvsp.3_3"
     - "nist800171.1_18"
+    - "swiftcsc.3_1"
   metadata: {}
 "280":
   en:
@@ -9221,6 +9257,7 @@
     - "osstmm3.11_15_3"
     - "c2m2.9_5_f"
     - "owaspscp.4"
+    - "swiftcsc.5_2"
   metadata: {}
 "310":
   en:
@@ -10786,6 +10823,8 @@
     - "nistssdf.PO_1_3"
     - "nistssdf.PS_2_1"
     - "owaspscp.14"
+    - "swiftcsc.6_2"
+    - "swiftcsc.6_3"
   metadata: {}
 "331":
   en:
@@ -10908,6 +10947,7 @@
     - "owaspscp.3"
     - "owaspmasvs.V4_5"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "333":
   en:
@@ -10963,6 +11003,7 @@
     - "issaf.V_6_3"
     - "owaspscp.3"
     - "nist800115.5_1"
+    - "swiftcsc.4_1"
   metadata: {}
 "334":
   en:
@@ -11106,6 +11147,7 @@
     - "wasc.W_47"
     - "owasprisks.P8"
     - "owaspmasvs.V4_7"
+    - "swiftcsc.5_2"
   metadata: {}
 "336":
   en:
@@ -11203,6 +11245,7 @@
     - "mvsp.2_9"
     - "owaspscp.9"
     - "owaspmasvs.V5_1"
+    - "swiftcsc.2_6"
   metadata: {}
 "337":
   en:
@@ -12357,6 +12400,7 @@
     - "issaf.L_4_3"
     - "ptes.5_2_3_3"
     - "nist800171.1_18"
+    - "swiftcsc.2_2"
   metadata: {}
 "354":
   en:
@@ -12527,6 +12571,7 @@
     - "wassec.6_2_2_1"
     - "owaspscp.4"
     - "owaspmasvs.V4_3"
+    - "swiftcsc.5_2"
   metadata: {}
 "358":
   en:
@@ -12833,6 +12878,8 @@
     - "owasprisks.P2"
     - "nist800171.5_3"
     - "cwe25.287"
+    - "swiftcsc.4_2"
+    - "swiftcsc.5_2"
   metadata: {}
 "363":
   en:
@@ -13349,6 +13396,7 @@
     - "bsafss.LO_1-3"
     - "nist800171.4_3"
     - "nist800115.3_2"
+    - "swiftcsc.6_4"
   metadata: {}
 "377":
   en:
@@ -13552,6 +13600,7 @@
     - "hitrust.01_d"
     - "hitrust.01_r"
     - "iso27002.5_17"
+    - "swiftcsc.5_4"
   metadata: {}
 "381":
   en:
