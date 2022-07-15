@@ -1,19 +1,19 @@
 # shellcheck shell=bash
 
-function export_product_variable {
+function export_universe_variable {
   local var_name="${1}"
   local api_token
   local var_value
 
   if test -n "${GITLAB_API_TOKEN:-}"; then
     api_token="${GITLAB_API_TOKEN}"
-  elif test -n "${PRODUCT_API_TOKEN:-}"; then
-    api_token="${PRODUCT_API_TOKEN}"
+  elif test -n "${UNIVERSE_API_TOKEN:-}"; then
+    api_token="${UNIVERSE_API_TOKEN}"
   else
     abort \
       "[CRITICAL] ${var_name} is not present in the environment" \
       "and can not be fetched from Gitlab because GITLAB_API_TOKEN or" \
-      "PRODUCT_API_TOKEN are also not present in the environment"
+      "UNIVERSE_API_TOKEN are also not present in the environment"
   fi
 
   if var_value="$(get_project_variable "${api_token}" "20741933" "${var_name}")"; then
@@ -35,7 +35,7 @@ function ensure_gitlab_env_var {
   local var_name="${1}"
 
   if test -z "${!var_name:-}"; then
-    export_product_variable "${var_name}"
+    export_universe_variable "${var_name}"
   fi
 }
 
