@@ -96,59 +96,6 @@ def _declares_catch_for_exceptions(
 
 
 @api(risk=LOW, kind=SAST)
-def uses_catch_for_null_reference_exception(
-    csharp_dest: str, exclude: list = None
-) -> tuple:
-    """
-    Search for the use of NullReferenceException "catch" in a path.
-
-    See `CWE-395 <https://cwe.mitre.org/data/definitions/395.html>`_.
-
-    :param csharp_dest: Path to a C# source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        csharp_dest=csharp_dest,
-        exceptions_list=[
-            "NullReferenceException",
-            "system.NullReferenceException",
-        ],
-        msgs={
-            OPEN: (
-                "Code uses NullReferenceException "
-                "Catch to handle NULL Pointer Dereferences"
-            ),
-            CLOSED: (
-                "Code does not use NullPointerException "
-                "Catch to handle NULL Pointer Dereferences"
-            ),
-        },
-        exclude=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-def has_switch_without_default(
-    csharp_dest: str, exclude: list = None
-) -> tuple:
-    r"""
-    Check if all ``switch``\ es have a ``default`` clause.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
-
-    :param csharp_dest: Path to a C# source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return core.generic_c_has_switch_without_default(
-        csharp_dest, LANGUAGE_SPECS, exclude
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def has_insecure_randoms(csharp_dest: str, exclude: list = None) -> tuple:
     """
     Check if code instantiates ``Random`` class.

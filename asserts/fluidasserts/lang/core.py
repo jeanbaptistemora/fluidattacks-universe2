@@ -62,51 +62,6 @@ def _flatten(elements, aux_list=None):
     return aux_list
 
 
-def generic_c_has_if_without_else(
-    location: str,
-    conditions: list,
-    use_regex: bool = False,
-    lang_specs: dict = None,
-    exclude: list = None,
-) -> tuple:
-    """Perform a generic has_if_without_else that can be reused."""
-    no_else_found = "__no_else_found__"
-
-    content = MatchFirst(
-        [
-            Regex(condition) if use_regex else Literal(condition)
-            for condition in conditions
-        ]
-    )
-
-    args_if = "(" + content + ")"
-    args_else_if = nestedExpr(opener="(", closer=")")
-    block = nestedExpr(opener="{", closer="}")
-
-    if_block = Keyword("if") + args_if + block
-    else_if_block = Keyword("else") + Keyword("if") + args_else_if + block
-    else_block = Optional(Keyword("else") + block, default=no_else_found)
-
-    else_block.addCondition(lambda x: no_else_found in str(x))
-
-    grammar = if_block + ZeroOrMore(else_if_block) + else_block
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_CHAR)
-    grammar.ignore(L_STRING)
-
-    return lang.generic_method(
-        path=location,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has "if" without "else" clause',
-            CLOSED: 'Code has "if" with "else" clause',
-        },
-        spec=lang_specs,
-        excl=exclude,
-    )
-
-
 def _switch_condition(tokens):
     default = Literal("default") + Char(":")
     result = []
@@ -118,40 +73,6 @@ def _switch_condition(tokens):
             else:
                 result.append(not default.searchString(str(value)))
     return all(result)
-
-
-def generic_c_has_switch_without_default(
-    location: str, lang_specs: dict = None, exclude: list = None
-) -> tuple:
-    r"""
-    Check if all ``switch``\ es have a ``default`` clause.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
-
-    :param location: Path to a source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    switch = Keyword("switch") + nestedExpr(opener="(", closer=")")
-    grammar = Suppress(switch) + nestedExpr(opener="{", closer="}")
-    grammar.ignore(cppStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-    grammar.addCondition(_switch_condition)
-
-    return lang.generic_method(
-        path=location,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code does not have "switch" with "default" clause',
-            CLOSED: 'Code has "switch" with "default" clause',
-        },
-        spec=lang_specs,
-        excl=exclude,
-    )
 
 
 @api(risk=LOW, kind=SAST)

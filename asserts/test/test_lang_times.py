@@ -88,22 +88,10 @@ def test_exclude_parameter():
         java.uses_catch_for_null_pointer_exception(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_catch_for_runtime_exception(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_print_stack_trace(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.does_not_handle_exceptions(JAVA, should_have=[], exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_switch_without_default(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_insecure_randoms(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_if_without_else(JAVA, conditions=[], exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_insecure_cipher(JAVA, "DES", exclude=[JAVA])
@@ -174,22 +162,10 @@ def test_lang_specs_parameter():
         java.uses_catch_for_null_pointer_exception(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_catch_for_runtime_exception(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_print_stack_trace(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.does_not_handle_exceptions(MARKD, should_have=[])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_switch_without_default(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_insecure_randoms(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.has_if_without_else(MARKD, conditions=[])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_insecure_cipher(MARKD, "DES")

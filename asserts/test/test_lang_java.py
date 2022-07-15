@@ -52,30 +52,6 @@ def test_uses_print_stack_trace_in_dir_open():
     assert java.uses_print_stack_trace(CODE_DIR).is_open()
 
 
-def test_does_not_handle_exceptions_open():
-    """Search empty catches."""
-    assert java.does_not_handle_exceptions(
-        INSECURE_EMPTY_CATCH,
-        [
-            # Let's assume that logging the error is the only handling needed
-            r"logger\.log\(",
-            r"logger\.info\(",
-            r"logger\.error\(",
-        ],
-        use_regex=True,
-    ).is_open()
-
-
-def test_has_switch_without_default_open():
-    """Search switch without default clause."""
-    assert java.has_switch_without_default(INSECURE_SWITCH).is_open()
-
-
-def test_has_switch_without_default_in_dir_open():
-    """Search switch without default clause."""
-    assert java.has_switch_without_default(CODE_DIR).is_open()
-
-
 def test_has_insecure_randoms_open():
     """Search Math.random() calls."""
     assert java.has_insecure_randoms(INSECURE_RANDOM).is_open()
@@ -86,33 +62,10 @@ def test_has_insecure_randoms_in_dir_open():
     assert java.has_insecure_randoms(CODE_DIR).is_open()
 
 
-def test_has_if_without_else_open():
-    """Search conditionals without an else option."""
-    assert java.has_if_without_else(
-        CODE_DIR, conditions=["a[0] > 200"]
-    ).is_open()
-    assert java.has_if_without_else(
-        CODE_DIR, conditions=[r".*? > \d+"], use_regex=True
-    ).is_open()
-    assert java.has_if_without_else(
-        INSECURE_CODE, conditions=["a[0] > 200"]
-    ).is_open()
-    assert java.has_if_without_else(
-        INSECURE_CODE, conditions=[r".*? > \d+"], use_regex=True
-    ).is_open()
-
-
 def test_uses_catch_for_null_pointer_exception_open():
     """Search for the use of NullPointerException "catch" in a path."""
     assert java.uses_catch_for_null_pointer_exception(
         INSECURE_NULL_POINTER_EXCEPTION
-    ).is_open()
-
-
-def test_uses_catch_for_runtime_exception_open():
-    """Search for the use of NullPointerException "catch" in a path."""
-    assert java.uses_catch_for_runtime_exception(
-        INSECURE_RUNTIME_EXCEPTION
     ).is_open()
 
 
@@ -207,22 +160,9 @@ def test_uses_insecure_key_pair_length_open():
     assert java.uses_insecure_key_pair_length(INSECURE_CODE).is_open()
 
 
-def test_throws_generic_exceptions_open():
-    """Search throws for generic exceptions."""
-    result = java.throws_generic_exceptions(INSECURE_CODE)
-    assert result.is_open()
-    assert result.get_vulns_number() == 2 * 2
-
-
 #
 # Closing tests
 #
-
-
-def test_throws_generic_exceptions_closed():
-    """Search throws for generic exceptions."""
-    assert java.throws_generic_exceptions(SECURE_CODE).is_closed()
-    assert java.throws_generic_exceptions(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_insecure_key_pair_length_closed():
@@ -284,59 +224,11 @@ def test_uses_print_stack_trace_close():
     assert java.uses_print_stack_trace(NON_EXISTANT_CODE).is_unknown()
 
 
-def test_does_not_handle_exceptions_close():
-    """Search catches without handlers."""
-    should_have = [
-        # Let's assume that this statements are handling the exception
-        "log.info(",
-        "System.exit(",
-        "System.out.println(",
-        "e.printStackTrace(",
-    ]
-    assert java.does_not_handle_exceptions(
-        SECURE_EMPTY_CATCH, should_have
-    ).is_closed()
-    assert java.does_not_handle_exceptions(
-        CODE_DIR, should_have, exclude=["test"]
-    ).is_closed()
-    assert java.does_not_handle_exceptions(
-        NON_EXISTANT_CODE, should_have
-    ).is_unknown()
-
-
-def test_has_switch_without_default_close():
-    """Search switch without default clause."""
-    assert java.has_switch_without_default(SECURE_SWITCH).is_closed()
-    assert java.has_switch_without_default(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert java.has_switch_without_default(NON_EXISTANT_CODE).is_unknown()
-
-
 def test_has_insecure_randoms_close():
     """Search insecure randoms."""
     assert java.has_insecure_randoms(SECURE_CODE).is_closed()
     assert java.has_insecure_randoms(CODE_DIR, exclude=["test"]).is_closed()
     assert java.has_insecure_randoms(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_has_if_without_else_close():
-    """Search conditionals without an else option."""
-    assert java.has_if_without_else(
-        SECURE_CODE, conditions=["a[0] > 200"]
-    ).is_closed()
-    assert java.has_if_without_else(
-        SECURE_CODE, conditions=[r".*? > \d+"], use_regex=True
-    ).is_closed()
-    assert java.has_if_without_else(
-        INSECURE_CODE, conditions=["this is not happenning"]
-    ).is_closed()
-    assert java.has_if_without_else(
-        CODE_DIR, conditions=[], exclude=["test"]
-    ).is_closed()
-    assert java.has_if_without_else(
-        NON_EXISTANT_CODE, conditions=[]
-    ).is_unknown()
 
 
 def test_uses_catch_for_null_pointer_exception_close():
@@ -348,19 +240,6 @@ def test_uses_catch_for_null_pointer_exception_close():
         CODE_DIR, exclude=["test"]
     ).is_closed()
     assert java.uses_catch_for_null_pointer_exception(
-        NON_EXISTANT_CODE
-    ).is_unknown()
-
-
-def test_uses_catch_for_runtime_exception_close():
-    """Search for the use of NullPointerException "catch" in a path."""
-    assert java.uses_catch_for_runtime_exception(
-        SECURE_RUNTIME_EXCEPTION
-    ).is_closed()
-    assert java.uses_catch_for_runtime_exception(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert java.uses_catch_for_runtime_exception(
         NON_EXISTANT_CODE
     ).is_unknown()
 

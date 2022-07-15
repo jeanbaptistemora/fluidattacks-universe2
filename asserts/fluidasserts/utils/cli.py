@@ -1141,8 +1141,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             "C#",
         ): """
             csharp.has_insecure_randoms('__path__')
-            csharp.has_switch_without_default('__path__')
-            csharp.uses_catch_for_null_reference_exception('__path__')
             csharp.uses_debug_writeline('__path__')
             """,
         (
@@ -1160,9 +1158,7 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
         ): """
             java.has_insecure_randoms('__path__')
             java.has_log_injection('__path__')
-            java.has_switch_without_default('__path__')
             java.uses_catch_for_null_pointer_exception('__path__')
-            java.uses_catch_for_runtime_exception('__path__')
             java.uses_des_algorithm('__path__')
             java.uses_md5_hash('__path__')
             java.uses_print_stack_trace('__path__')
@@ -1175,7 +1171,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.uses_insecure_rsa('__path__')
             java.uses_insecure_ssl_context('__path__')
             java.uses_various_verbs_in_request_mapping('__path__')
-            java.throws_generic_exceptions('__path__')
             """,
         (
             "php",

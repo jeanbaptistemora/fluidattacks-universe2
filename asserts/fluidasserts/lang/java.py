@@ -138,36 +138,6 @@ def _declares_throws_for_exceptions(
     )
 
 
-@api(risk=LOW, kind=SAST, standars={"CWE": "397"})
-def throws_generic_exceptions(java_dest: str, exclude: list = None):
-    """
-    Check if the code throws generic exceptions.
-
-    Throwing overly broad exceptions promotes complex error handling code that
-    is more likely to contain security vulnerabilities.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_throws_for_exceptions(
-        java_dest=java_dest,
-        exceptions_list=[
-            "Exception",
-            "Throwable",
-            "lang.Exception",
-            "lang.Throwable",
-            "java.lang.Exception",
-            "java.lang.Throwable",
-        ],
-        msgs={
-            OPEN: "Code throws generic exceptions",
-            CLOSED: "Code does not throw generic exceptions",
-        },
-        exclude=exclude,
-    )
-
-
 @api(risk=LOW, kind=SAST)
 def uses_catch_for_null_pointer_exception(
     java_dest: str, exclude: list = None
@@ -203,38 +173,6 @@ def uses_catch_for_null_pointer_exception(
 
 
 @api(risk=LOW, kind=SAST)
-def uses_catch_for_runtime_exception(
-    java_dest: str, exclude: list = None
-) -> tuple:
-    """
-    Search for the use of RuntimeException "catch" in a path.
-
-    See `CWE-544 <https://cwe.mitre.org/data/definitions/544.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _declares_catch_for_exceptions(
-        java_dest=java_dest,
-        exceptions_list=[
-            "RuntimeException",
-            "lang.RuntimeException",
-            "java.lang.RuntimeException",
-        ],
-        msgs={
-            OPEN: (
-                "Code declares a catch for RuntimeException "
-                "to handle programming mistakes "
-                "instead of prevent them by coding defensively"
-            ),
-            CLOSED: "Code does not declare a catch for RuntimeException",
-        },
-        exclude=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
     """
     Search for ``printStackTrace`` calls in a path.
@@ -260,71 +198,6 @@ def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
         },
         spec=LANGUAGE_SPECS,
         excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-def does_not_handle_exceptions(
-    java_dest: str,
-    should_have: List[str],
-    use_regex: bool = False,
-    exclude: List[str] = None,
-) -> tuple:
-    """
-    Search for ``catch`` blocks that do not handle the exception.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    See `CWE-755 <https://cwe.mitre.org/data/definitions/755.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param should_have: List of expected exception handlers.
-    :param use_regex: Use regular expressions instead of literals to search.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    if not use_regex:
-        should_have = list(map(re.escape, should_have))
-    should_have_regexps = tuple(re.compile(sh) for sh in should_have)
-
-    grammar = Suppress(
-        Keyword("catch") + nestedExpr(opener="(", closer=")")
-    ) + nestedExpr(opener="{", closer="}")
-    grammar.ignore(javaStyleComment)
-    grammar.ignore(L_CHAR)
-    grammar.ignore(L_STRING)
-    grammar.addCondition(
-        lambda x: not any(shr.search(str(x)) for shr in should_have_regexps)
-    )
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: 'Code has "catch" blocks that do not handle its exceptions',
-            CLOSED: 'All "catch" blocks in code handles its exceptions',
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-def has_switch_without_default(java_dest: str, exclude: list = None) -> tuple:
-    r"""
-    Check if all ``switch``\ es have a ``default`` clause.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    See `CWE-478 <https://cwe.mitre.org/data/definitions/478.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return core.generic_c_has_switch_without_default(
-        java_dest, LANGUAGE_SPECS, exclude
     )
 
 
@@ -377,30 +250,6 @@ def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
         },
         spec=LANGUAGE_SPECS,
         excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
-def has_if_without_else(
-    java_dest: str,
-    conditions: list,
-    use_regex: bool = False,
-    exclude: list = None,
-) -> tuple:
-    r"""
-    Check if all ``if``\ s have an ``else`` clause.
-
-    See `REQ.161 <https://fluidattacks.com/products/rules/list/161/>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param conditions: List of texts between parentheses of the
-                      `if (condition)` statement.
-    :param use_regex: Use regular expressions instead of literals to search.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return core.generic_c_has_if_without_else(
-        java_dest, conditions, use_regex, LANGUAGE_SPECS, exclude
     )
 
 

@@ -36,24 +36,6 @@ LINES_FORMAT = "lines: "
 #
 
 
-def test_uses_catch_for_null_reference_exception_open():
-    """Code uses generic exceptions."""
-    assert csharp.uses_catch_for_null_reference_exception(
-        INSECURE_CODE
-    ).is_open()
-    assert csharp.uses_catch_for_null_reference_exception(CODE_DIR).is_open()
-
-
-def test_has_switch_without_default_open():
-    """Search switch without default clause."""
-    assert csharp.has_switch_without_default(INSECURE_SWITCH)
-
-
-def test_has_switch_without_default_in_dir_open():
-    """Search switch without default clause."""
-    assert csharp.has_switch_without_default(CODE_DIR)
-
-
 def test_has_insecure_randoms_open():
     """Search class Random instantiation."""
     assert csharp.has_insecure_randoms(INSECURE_RANDOM)
@@ -77,26 +59,6 @@ def test_uses_debug_writeline_in_dir_open():
 #
 # Closing tests
 #
-
-
-def test_uses_catch_for_null_reference_exception_close():
-    """Code uses generic exceptions."""
-    assert csharp.uses_catch_for_null_reference_exception(
-        SECURE_CODE
-    ).is_closed()
-    assert csharp.uses_catch_for_null_reference_exception(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert csharp.uses_catch_for_null_reference_exception(
-        NON_EXISTANT_CODE
-    ).is_unknown()
-
-
-def test_has_switch_without_default_close():
-    """Search switch without default clause."""
-    assert not csharp.has_switch_without_default(SECURE_SWITCH)
-    assert not csharp.has_switch_without_default(CODE_DIR, exclude=["test"])
-    assert not csharp.has_switch_without_default(NON_EXISTANT_CODE)
 
 
 def test_has_insecure_randoms_close():
