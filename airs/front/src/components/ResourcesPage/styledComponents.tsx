@@ -15,10 +15,11 @@ const CardContainer: StyledComponent<
     mt0-ns
     ma-auto
     bg-white
-    w-blog-card
     all-card
   `,
-})``;
+})`
+  max-width: 480px;
+`;
 
 const WebinarLanguage: StyledComponent<
   "span",
@@ -87,61 +88,6 @@ const ButtonContainer: StyledComponent<
   `,
 })``;
 
-const CardInnerContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    ba1
-    mb3
-    relative
-    dt-ns
-    mt0-ns
-    pr3-ns
-    pl3-ns
-    pt3
-    pt3
-    center
-  `,
-})``;
-
-const CardInnerTitle: StyledComponent<
-  "h2",
-  Record<string, unknown>
-> = styled.h2.attrs({
-  className: `
-    f3
-    lh-solid
-    c-fluid-bk
-    roboto
-  `,
-})``;
-
-const CardInnerDescription: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    fw3
-    f5
-    c-black-gray
-    roboto
-  `,
-})``;
-
-const ImageContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    tc
-    w-100
-    mb5
-    ml-auto
-    mr-auto
-  `,
-})``;
-
 const TextContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -179,17 +125,34 @@ const LittleRegularRedButton: StyledComponent<
   `,
 })``;
 
+const MainCardContainer = styled.div.attrs({
+  className: `
+    tc
+    pv5
+    ph4
+    mt3
+    center
+  `,
+})`
+  background-color: #f4f4f6;
+  max-width: 880px;
+`;
+
+const ResourcesContainer = styled.div.attrs({
+  className: `
+    ph-body
+  `,
+})``;
+
 export {
   ButtonContainer,
   CardContainer,
   CardDescription,
-  CardInnerContainer,
-  CardInnerDescription,
-  CardInnerTitle,
   CardTextContainer,
   CardTitle,
-  ImageContainer,
   LittleRegularRedButton,
+  MainCardContainer,
+  ResourcesContainer,
   TextContainer,
   WebinarLanguage,
 };
