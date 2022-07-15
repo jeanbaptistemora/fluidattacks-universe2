@@ -22,6 +22,9 @@ from datetime import (
     date as datetype,
     datetime,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.roots.types import (
     Root,
 )
@@ -213,6 +216,11 @@ async def format_vulnerabilities(
         "inputs": {"where": "url", "specific": "field"},
     }
     for vuln in vulnerabilities:
+        format_source = (
+            str(vuln.state.source.value).lower()
+            if vuln.state.source != Source.ASM
+            else "analyst"
+        )
         vuln_type = str(vuln.type.value).lower()
         finding[vuln_type].append(
             {
@@ -221,6 +229,7 @@ async def format_vulnerabilities(
                     html.unescape(vuln.specific)
                 ),
                 "state": str(vuln.state.status.value).lower(),
+                "source": format_source,
             }
         )
         if vuln.commit:

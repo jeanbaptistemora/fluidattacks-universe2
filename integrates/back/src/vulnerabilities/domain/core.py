@@ -812,12 +812,29 @@ async def update_metadata_and_state(
         vulnerability.state.source != new_state.source
         or vulnerability.state.status != new_state.status
     ):
-        await vulns_model.update_historic_entry(
-            current_value=vulnerability,
-            finding_id=vulnerability.finding_id,
-            vulnerability_id=vulnerability.id,
-            entry=new_state,
-        )
+        if (
+            vulnerability.state.source == Source.ASM
+            and vulnerability.state.status == VulnerabilityStateStatus.CLOSED
+        ):
+            await vulns_model.update_historic_entry(
+                current_value=vulnerability,
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=VulnerabilityState(
+                    modified_by=vulnerability.state.modified_by,
+                    modified_date=vulnerability.state.modified_date,
+                    source=new_state.source,
+                    status=vulnerability.state.status,
+                    justification=vulnerability.state.justification,
+                ),
+            )
+        else:
+            await vulns_model.update_historic_entry(
+                current_value=vulnerability,
+                finding_id=vulnerability.finding_id,
+                vulnerability_id=vulnerability.id,
+                entry=new_state,
+            )
         if (
             finding_policy
             and new_state.status == VulnerabilityStateStatus.OPEN
