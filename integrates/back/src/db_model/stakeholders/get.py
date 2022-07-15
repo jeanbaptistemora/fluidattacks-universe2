@@ -20,6 +20,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_stakeholder(*, email: str) -> Stakeholder:
@@ -41,7 +44,7 @@ async def _get_stakeholder(*, email: str) -> Stakeholder:
 class StakeholderLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, emails: tuple[str, ...]
+        self, emails: Iterable[str]
     ) -> tuple[Stakeholder, ...]:
         return await collect(
             tuple(_get_stakeholder(email=email) for email in emails)

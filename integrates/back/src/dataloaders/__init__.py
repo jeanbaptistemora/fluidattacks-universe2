@@ -176,9 +176,9 @@ def get_new_context() -> Dataloaders:
         group_drafts_and_findings_loader
     )
 
-    vulnerability = VulnerabilityLoader()
+    vulnerability_loader = VulnerabilityLoader()
     finding_vulnerabilities_loader = FindingVulnerabilitiesLoader(
-        vulnerability
+        vulnerability_loader
     )
     finding_vulns_non_deleted_loader = FindingVulnerabilitiesNonDeletedLoader(
         finding_vulnerabilities_loader
@@ -193,6 +193,9 @@ def get_new_context() -> Dataloaders:
             finding_vulns_non_deleted_loader
         )
     )
+
+    stakeholder_loader = StakeholderTypedLoader()
+    group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -225,7 +228,7 @@ def get_new_context() -> Dataloaders:
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
-        group_stakeholders=GroupStakeholdersLoader(),
+        group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
@@ -251,7 +254,7 @@ def get_new_context() -> Dataloaders:
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials=UserCredentialsLoader(),
-        vulnerability=vulnerability,
+        vulnerability=vulnerability_loader,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
         vulnerability_historic_treatment=(
             VulnerabilityHistoricTreatmentLoader()

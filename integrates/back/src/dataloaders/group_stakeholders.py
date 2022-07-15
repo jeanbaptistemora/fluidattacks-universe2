@@ -7,9 +7,6 @@ from aioextensions import (
 from custom_exceptions import (
     StakeholderNotFound,
 )
-from dataloaders.stakeholder import (
-    get_stakeholder,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -24,21 +21,23 @@ from typing import (
 )
 
 
-async def _get_stakeholder(email: str) -> Stakeholder:
+async def _get_stakeholder(
+    stakeholder_loader: DataLoader, email: str
+) -> Stakeholder:
     try:
-        stakeholder = await get_stakeholder(email=email)
+        return await stakeholder_loader.load(email)
     except StakeholderNotFound:
-        stakeholder = Stakeholder(
+        return Stakeholder(
             email=email,
             is_registered=False,
         )
-    return stakeholder
 
 
 async def get_group_stakeholders(
     group_name: str,
+    stakeholder_loader: DataLoader,
 ) -> tuple[Stakeholder, ...]:
-    group_stakeholders_emails: list[str] = list(
+    stakeholders_emails: list[str] = list(
         chain.from_iterable(
             await collect(
                 [
@@ -48,18 +47,24 @@ async def get_group_stakeholders(
             )
         )
     )
-    group_stakeholders = await collect(
-        tuple(_get_stakeholder(email) for email in group_stakeholders_emails)
+    return await collect(
+        tuple(
+            _get_stakeholder(stakeholder_loader, email)
+            for email in stakeholders_emails
+        )
     )
-
-    return group_stakeholders
 
 
 class GroupStakeholdersLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[tuple[Stakeholder], ...]:
         return await collect(
-            get_group_stakeholders(group_name) for group_name in group_names
+            get_group_stakeholders(group_name, self.dataloader)
+            for group_name in group_names
         )
