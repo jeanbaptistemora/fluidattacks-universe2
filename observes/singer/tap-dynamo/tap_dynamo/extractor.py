@@ -23,6 +23,9 @@ from fa_purity.pure_iter.factory import (
     from_flist,
     from_range,
 )
+from fa_purity.pure_iter.transform import (
+    consume as piter_consume,
+)
 from fa_purity.stream.factory import (
     from_piter,
 )
@@ -223,3 +226,17 @@ def stream_tables(
         .transform(lambda x: chain(x))
     )
     return consume(records.map(lambda i: emitter.emit(sys.stdout, i)))
+
+
+def stream_segment(db_client: Client, segment: TableSegment) -> Cmd[None]:
+    return (
+        extract_segment(db_client, segment)
+        .map(lambda x: from_flist(x))
+        .bind(
+            lambda p: p.map(lambda x: to_singer(x))
+            .map(lambda x: from_flist(x))
+            .bind(lambda x: x)
+            .map(lambda i: emitter.emit(sys.stdout, i))
+            .transform(lambda x: piter_consume(x))
+        )
+    )

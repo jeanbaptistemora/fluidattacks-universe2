@@ -1,13 +1,13 @@
 import click
 import sys
+from tap_dynamo import (
+    extractor,
+)
 from tap_dynamo.auth import (
     Creds,
 )
 from tap_dynamo.client import (
     new_client,
-)
-from tap_dynamo.extractor import (
-    stream_tables,
 )
 from typing import (
     Any,
@@ -33,7 +33,35 @@ pass_creds = click.make_pass_decorator(Creds)
 @pass_creds
 def stream(creds: Creds, tables: str, segments: int) -> NoReturn:
     client = new_client(creds)
-    stream_tables(client, tuple(tables.split()), segments).compute()
+    extractor.stream_tables(client, tuple(tables.split()), segments).compute()
+
+
+@click.command()
+@click.option(
+    "--table",
+    type=str,
+    required=True,
+    help="dynamoDB source table",
+)
+@click.option(
+    "--current",
+    type=int,
+    required=True,
+    help="# of table segment",
+)
+@click.option(
+    "--total",
+    type=int,
+    required=True,
+    help="total table segments",
+)
+@pass_creds
+def stream_segment(
+    creds: Creds, table: str, current: int, total: int
+) -> NoReturn:
+    client = new_client(creds)
+    seg = extractor.TableSegment(table, current, total)
+    extractor.stream_segment(client, seg).compute()
 
 
 @click.group()
@@ -47,3 +75,4 @@ def main(ctx: Any, key_id: str, secret_id: str, region: str) -> None:
 
 
 main.add_command(stream)
+main.add_command(stream_segment)
