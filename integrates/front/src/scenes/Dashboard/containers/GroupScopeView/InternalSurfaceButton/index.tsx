@@ -7,7 +7,7 @@ import { groupContext } from "../../GroupContent/context";
 import type { IGroupContext } from "../../GroupContent/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const InternalSurfaceButton: React.FC = (): JSX.Element => {
@@ -40,9 +40,9 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
             }
 
             return (
-              <TooltipWrapper
+              <Tooltip
                 id={t("group.tabs.toe.tooltip.id")}
-                message={t("group.tabs.toe.tooltip")}
+                tip={t("group.tabs.toe.tooltip")}
               >
                 <Button
                   id={"git-root-internal-surface"}
@@ -51,7 +51,7 @@ const InternalSurfaceButton: React.FC = (): JSX.Element => {
                 >
                   {t("group.tabs.toe.text")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             );
           }}
         </ConfirmDialog>

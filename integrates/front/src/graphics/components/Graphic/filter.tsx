@@ -4,7 +4,7 @@ import React from "react";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { Tooltip } from "components/Tooltip/index";
 import styles from "graphics/components/Graphic/index.css";
 import { GraphicButton } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
@@ -31,14 +31,14 @@ const DropdownFilter: React.FC<IDropdownFilterProps> = ({
   children,
 }: IDropdownFilterProps): JSX.Element => (
   <Dropdown>
-    <TooltipWrapper
+    <Tooltip
       id={"filter_button_tooltip"}
-      message={translate.t("analytics.buttonToolbar.filter.tooltip")}
+      tip={translate.t("analytics.buttonToolbar.filter.tooltip")}
     >
       <GraphicButton>
         <FontAwesomeIcon icon={faFilter} />
       </GraphicButton>
-    </TooltipWrapper>
+    </Tooltip>
     <Children>{children}</Children>
   </Dropdown>
 );

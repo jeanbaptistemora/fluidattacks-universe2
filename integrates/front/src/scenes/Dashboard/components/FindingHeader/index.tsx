@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import type { IBadgeProps } from "components/Badge";
 import { Badge } from "components/Badge";
 import { Indicator, Indicators } from "components/Indicators";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import defaultIcon from "resources/default_finding_state.svg";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
@@ -106,60 +106,60 @@ const FindingHeader: React.FC<IFindingHeaderProps> = ({
         icon={faTriangleExclamation}
         title={t("searchFindings.header.severity.label")}
       >
-        <TooltipWrapper
+        <Tooltip
           id={"severityTooltip"}
-          message={
+          tip={
             t("searchFindings.header.severity.tooltip") + severityLevelTooltip
           }
         >
           <Badge variant={color}>{severity}</Badge>
           &nbsp;{"-"}&nbsp;
           {severityText}
-        </TooltipWrapper>
+        </Tooltip>
       </Indicator>
       <Indicator
         icon={faSkullCrossbones}
         title={t("searchFindings.header.status.label")}
       >
-        <TooltipWrapper
+        <Tooltip
           id={"statusTooltip"}
-          message={t("searchFindings.header.status.tooltip") + statusTooltip}
+          tip={t("searchFindings.header.status.tooltip") + statusTooltip}
         >
           {statusText}
-        </TooltipWrapper>
+        </Tooltip>
       </Indicator>
       <Indicator
         icon={faUnlockKeyhole}
         title={t("searchFindings.header.openVulns.label")}
       >
-        <TooltipWrapper
+        <Tooltip
           id={"openVulnsTooltip"}
-          message={t("searchFindings.header.openVulns.tooltip")}
+          tip={t("searchFindings.header.openVulns.tooltip")}
         >
           {openVulns}
-        </TooltipWrapper>
+        </Tooltip>
       </Indicator>
       <Indicator
         icon={faCalendarTimes}
         title={t("searchFindings.header.discoveryDate.label")}
       >
-        <TooltipWrapper
+        <Tooltip
           id={"discoveryDateTooltip"}
-          message={t("searchFindings.header.discoveryDate.tooltip")}
+          tip={t("searchFindings.header.discoveryDate.tooltip")}
         >
           {discoveryDate}
-        </TooltipWrapper>
+        </Tooltip>
       </Indicator>
       <Indicator
         icon={faClock}
         title={t("searchFindings.header.estRemediationTime.label")}
       >
-        <TooltipWrapper
+        <Tooltip
           id={"estRemediationTime"}
-          message={t("searchFindings.header.estRemediationTime.tooltip")}
+          tip={t("searchFindings.header.estRemediationTime.tooltip")}
         >
           {estRemediationTime}
-        </TooltipWrapper>
+        </Tooltip>
       </Indicator>
     </Indicators>
   );

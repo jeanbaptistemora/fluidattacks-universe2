@@ -24,7 +24,7 @@ import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
@@ -327,10 +327,10 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
           exportCsv={true}
           extraButtons={
             <React.Fragment>
-              <TooltipWrapper
-                displayClass={"dib"}
+              <Tooltip
+                disp={"inline-block"}
                 id={"organization.tabs.users.addButton.tooltip.btn"}
-                message={t("organization.tabs.users.addButton.tooltip")}
+                tip={t("organization.tabs.users.addButton.tooltip")}
               >
                 <Button
                   id={"addUser"}
@@ -341,11 +341,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                   &nbsp;
                   {t("organization.tabs.users.addButton.text")}
                 </Button>
-              </TooltipWrapper>
-              <TooltipWrapper
-                displayClass={"dib"}
+              </Tooltip>
+              <Tooltip
+                disp={"inline-block"}
                 id={"organization.tabs.users.editButton.tooltip.btn"}
-                message={t("organization.tabs.users.editButton.tooltip")}
+                tip={t("organization.tabs.users.editButton.tooltip")}
               >
                 <Button
                   disabled={
@@ -359,11 +359,11 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                   &nbsp;
                   {t("organization.tabs.users.editButton.text")}
                 </Button>
-              </TooltipWrapper>
-              <TooltipWrapper
-                displayClass={"dib"}
+              </Tooltip>
+              <Tooltip
+                disp={"inline-block"}
                 id={"organization.tabs.users.removeButton.tooltip.btn"}
-                message={t("organization.tabs.users.removeButton.tooltip")}
+                tip={t("organization.tabs.users.removeButton.tooltip")}
               >
                 <Button
                   disabled={
@@ -377,7 +377,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                   &nbsp;
                   {t("organization.tabs.users.removeButton.text")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             </React.Fragment>
           }
           headers={tableHeaders}

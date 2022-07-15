@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
 
 interface INavbarTasksProps {
@@ -48,9 +48,9 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
 
   return (
     <React.StrictMode>
-      <TooltipWrapper
+      <Tooltip
         id={"navbar.task.id"}
-        message={t(
+        tip={t(
           `navbar.task.tooltip.${
             undefinedOrEmpty ? "assignedless" : "assigned"
           }`
@@ -66,7 +66,7 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
             )}
           </Text>
         </Button>
-      </TooltipWrapper>
+      </Tooltip>
     </React.StrictMode>
   );
 };

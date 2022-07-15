@@ -42,7 +42,7 @@ import {
   filterSubSelectCount,
   filterWhere,
 } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/GroupFindingsView/reportsModal";
 import type {
@@ -743,9 +743,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         extraButtons={
           <React.Fragment>
             <Can I={"api_resolvers_query_report__get_url_group_report"}>
-              <TooltipWrapper
+              <Tooltip
                 id={"group.findings.report.btn.tooltip.id"}
-                message={t("group.findings.report.btn.tooltip")}
+                tip={t("group.findings.report.btn.tooltip")}
               >
                 <Button
                   id={"reports"}
@@ -754,13 +754,12 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 >
                   {t("group.findings.report.btn.text")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             </Can>
             <Can do={"api_mutations_remove_finding_mutate"}>
-              <TooltipWrapper
-                displayClass={"dib"}
+              <Tooltip
                 id={"searchFindings.delete.btn.tooltip"}
-                message={t("searchFindings.delete.btn.tooltip")}
+                tip={t("searchFindings.delete.btn.tooltip")}
               >
                 <Button
                   disabled={selectedFindings.length === 0 || deleting}
@@ -770,7 +769,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                   <FontAwesomeIcon icon={faTrashAlt} />
                   &nbsp;{t("searchFindings.delete.btn.text")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             </Can>
           </React.Fragment>
         }

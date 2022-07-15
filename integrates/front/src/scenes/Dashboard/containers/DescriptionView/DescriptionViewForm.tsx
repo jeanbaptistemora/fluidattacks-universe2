@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { ExternalLink } from "components/ExternalLink";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { ActionButtons } from "scenes/Dashboard/containers/DescriptionView/ActionButtons";
 import type {
   IFinding,
@@ -200,9 +200,9 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
             {isEditing && isDraft ? (
               <Row>
                 <Col100>
-                  <TooltipWrapper
+                  <Tooltip
                     id={"searchFindings.tabDescription.title.tooltip"}
-                    message={t("searchFindings.tabDescription.title.tooltip")}
+                    tip={t("searchFindings.tabDescription.title.tooltip")}
                   >
                     <FormGroup>
                       <ControlLabel>
@@ -221,7 +221,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                         ])}
                       />
                     </FormGroup>
-                  </TooltipWrapper>
+                  </Tooltip>
                 </Col100>
               </Row>
             ) : undefined}
@@ -261,11 +261,9 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
           </Row>
           <Row>
             <Col100>
-              <TooltipWrapper
+              <Tooltip
                 id={"searchFindings.tabDescription.requirements.tooltip.id"}
-                message={t(
-                  "searchFindings.tabDescription.requirements.tooltip"
-                )}
+                tip={t("searchFindings.tabDescription.requirements.tooltip")}
               >
                 <FormGroup>
                   <ControlLabel>
@@ -297,7 +295,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                     </p>
                   )}
                 </FormGroup>
-              </TooltipWrapper>
+              </Tooltip>
             </Col100>
           </Row>
           <Row>
@@ -393,9 +391,9 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
             {isEditing ? (
               <Row>
                 <Col45>
-                  <TooltipWrapper
+                  <Tooltip
                     id={"searchFindings.tabDescription.sorts.tooltip"}
-                    message={t("searchFindings.tabDescription.sorts.tooltip")}
+                    tip={t("searchFindings.tabDescription.sorts.tooltip")}
                   >
                     <FormGroup>
                       <ControlLabel>
@@ -417,7 +415,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                         </option>
                       </Field>
                     </FormGroup>
-                  </TooltipWrapper>
+                  </Tooltip>
                 </Col45>
               </Row>
             ) : undefined}

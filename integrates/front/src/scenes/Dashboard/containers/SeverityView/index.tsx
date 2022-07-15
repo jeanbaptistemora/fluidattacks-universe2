@@ -17,7 +17,7 @@ import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
   GET_SEVERITY,
@@ -169,16 +169,16 @@ const SeverityView: React.FC = (): JSX.Element => {
           <React.Fragment>
             <Can do={"api_mutations_update_severity_mutate"}>
               <ButtonToolbarRow>
-                <TooltipWrapper
+                <Tooltip
                   id={"severityEditTooltip"}
-                  message={t("searchFindings.tabSeverity.editable.tooltip")}
+                  tip={t("searchFindings.tabSeverity.editable.tooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
                     &nbsp;
                     {t("searchFindings.tabSeverity.editable.label")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </ButtonToolbarRow>
             </Can>
             <br />

@@ -24,7 +24,7 @@ import { Button } from "components/Button";
 import { Dropdown } from "components/Dropdown";
 import { ExternalLink } from "components/ExternalLink";
 import { Gap } from "components/Layout";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   SUBSCRIBE_TO_ENTITY_REPORT,
   SUBSCRIPTIONS_TO_ENTITY_REPORT,
@@ -155,11 +155,11 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
         >
           {frequencies.map(
             (freq: string): JSX.Element => (
-              <TooltipWrapper
+              <Tooltip
                 id={freq}
                 key={freq}
-                message={translateFrequencyArrivalTime(freq)}
-                placement={"right"}
+                place={"right"}
+                tip={translateFrequencyArrivalTime(freq)}
               >
                 <div className={"flex flex-column"}>
                   <Button
@@ -170,7 +170,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                     {translateFrequency(freq, "action")}
                   </Button>
                 </div>
-              </TooltipWrapper>
+              </Tooltip>
             )
           )}
         </Dropdown>

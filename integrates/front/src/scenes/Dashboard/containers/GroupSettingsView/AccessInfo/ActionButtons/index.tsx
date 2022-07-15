@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { Gap } from "components/Layout";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
 interface IActionButtonsProps {
@@ -32,9 +32,9 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <Gap>
       <Can do={permission}>
         {isEditing ? (
-          <TooltipWrapper
+          <Tooltip
             id={"searchFindings.tabDescription.save.tooltip.btn"}
-            message={t("searchFindings.tabDescription.save.tooltip")}
+            tip={t("searchFindings.tabDescription.save.tooltip")}
           >
             <Button
               disabled={isPristine}
@@ -45,11 +45,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               &nbsp;
               {t("searchFindings.tabDescription.save.text")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         ) : undefined}
-        <TooltipWrapper
+        <Tooltip
           id={`${editTooltip}.id`}
-          message={
+          tip={
             isEditing
               ? t("searchFindings.tabDescription.editable.cancelTooltip")
               : editTooltip
@@ -70,7 +70,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               </React.Fragment>
             )}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       </Can>
     </Gap>
   );

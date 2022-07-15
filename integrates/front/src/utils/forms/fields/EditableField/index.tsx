@@ -4,7 +4,7 @@ import _ from "lodash";
 import React from "react";
 
 import { ExternalLink } from "components/ExternalLink";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   Col50,
   ControlLabel,
@@ -70,9 +70,9 @@ const renderHorizontal: (props: IEditableFieldProps) => JSX.Element = (
           ) : _.isUndefined(tooltip) || _.isEmpty(tooltip) ? (
             renderCurrentValue(currentValue)
           ) : (
-            <TooltipWrapper id={id} message={tooltip} placement={"right"}>
+            <Tooltip disp={"block"} id={id} place={"right"} tip={tooltip}>
               {renderCurrentValue(currentValue)}
-            </TooltipWrapper>
+            </Tooltip>
           )}
         </EditableFieldContent>
       </Row>
@@ -138,23 +138,18 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
             <b>{label}</b>
           </ControlLabel>
           <br />
-          <TooltipWrapper id={id} message={tooltip}>
+          <Tooltip id={id} tip={tooltip}>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Field {...fieldProps} />{" "}
-          </TooltipWrapper>
+          </Tooltip>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <TooltipWrapper
-            displayClass={"dib"}
-            id={id}
-            message={tooltip}
-            placement={"top"}
-          >
+          <Tooltip disp={"inline-block"} id={id} place={"top"} tip={tooltip}>
             <ControlLabel>
               <b>{label}</b>
             </ControlLabel>
-          </TooltipWrapper>
+          </Tooltip>
           <br />
           {renderCurrentValue(currentValue)}
           {infoLink ? (

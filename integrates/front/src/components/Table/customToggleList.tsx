@@ -12,7 +12,7 @@ import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Switch } from "components/Switch";
 import type { ICustomToggleProps, IHeaderConfig } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 export const CustomToggleList: React.FC<ICustomToggleProps> = (
   props: Readonly<ICustomToggleProps>
@@ -32,16 +32,16 @@ export const CustomToggleList: React.FC<ICustomToggleProps> = (
 
   return (
     <React.Fragment>
-      <TooltipWrapper
+      <Tooltip
         id={"toogleToolTip"}
-        message={t("group.findings.tableSet.btn.tooltip")}
+        tip={t("group.findings.tableSet.btn.tooltip")}
       >
         <Button id={"columns-filter"} onClick={handleOpenTableSetClick}>
           <FontAwesomeIcon icon={faCog} />
           &nbsp;
           {t("group.findings.tableSet.btn.text")}
         </Button>
-      </TooltipWrapper>
+      </Tooltip>
       <Modal
         onClose={handleCloseTableSetClick}
         open={hidden}

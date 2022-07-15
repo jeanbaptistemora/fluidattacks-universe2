@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
 interface IVerifyVulnerabilitiesButtonProps {
@@ -72,16 +72,16 @@ export const VerifyVulnerabilitiesButton: React.FC<IVerifyVulnerabilitiesButtonP
           </Button>
         ) : undefined}
         {shouldRenderVerifyBtn ? (
-          <TooltipWrapper
-            displayClass={"dib"}
+          <Tooltip
+            disp={"inline-block"}
             id={"searchFindings.tabVuln.buttonsTooltip.cancelVerify.id"}
-            message={tooltipMessage}
-            placement={"top"}
+            place={"top"}
+            tip={tooltipMessage}
           >
             <Button onClick={onVerify} variant={"secondary"}>
               <DisplayIcon />
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         ) : undefined}
       </Can>
     );

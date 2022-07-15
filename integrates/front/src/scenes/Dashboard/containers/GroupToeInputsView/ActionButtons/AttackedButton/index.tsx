@@ -6,7 +6,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IAttackedButtonProps {
@@ -28,10 +28,10 @@ const AttackedButton: React.FC<IAttackedButtonProps> = ({
   return (
     <React.StrictMode>
       {canUpdateToeInput ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"group.toe.inputs.actionButtons.attackedButton.tooltip.id"}
-          message={t("group.toe.inputs.actionButtons.attackedButton.tooltip")}
+          tip={t("group.toe.inputs.actionButtons.attackedButton.tooltip")}
         >
           <Button
             disabled={isDisabled}
@@ -43,7 +43,7 @@ const AttackedButton: React.FC<IAttackedButtonProps> = ({
             &nbsp;
             {t("group.toe.inputs.actionButtons.attackedButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

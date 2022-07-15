@@ -5,7 +5,7 @@ import type { ToolkitContextType } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = ({
   csvProps,
@@ -17,14 +17,14 @@ export const ExportCSVButtonWrapper: React.FC<ToolkitContextType> = ({
   }, [csvProps]);
 
   return (
-    <TooltipWrapper
+    <Tooltip
       id={"exportCsvTooltip"}
-      message={t("group.findings.exportCsv.tooltip")}
+      tip={t("group.findings.exportCsv.tooltip")}
     >
       <Button onClick={handleClick}>
         <FontAwesomeIcon icon={faDownload} />
         &nbsp;{t("group.findings.exportCsv.text")}
       </Button>
-    </TooltipWrapper>
+    </Tooltip>
   );
 };

@@ -19,7 +19,7 @@ import { Card } from "components/Card";
 import { Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   GET_GROUP_DATA,
   UPDATE_GROUP_INFO,
@@ -211,14 +211,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.businessId.text")}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={
                         "organization.tabs.groups.newGroup.businessId.tooltip"
                       }
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.businessId.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikText}
@@ -233,7 +233,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                           validTextField,
                         ])}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -241,14 +241,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.businessName.text")}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={
                         "organization.tabs.groups.newGroup.businessName.tooltip"
                       }
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.businessName.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikText}
@@ -263,7 +263,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                           validTextField,
                         ])}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -271,14 +271,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.description.text")}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={
                         "organization.tabs.groups.newGroup.description.tooltip"
                       }
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.description.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikText}
@@ -294,7 +294,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                           validTextField,
                         ])}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -302,12 +302,12 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.language.text")}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={"organization.tabs.groups.newGroup.language.tooltip"}
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.language.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Select
                         disabled={permissions.cannot(
@@ -322,7 +322,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                           {t("organization.tabs.groups.newGroup.language.ES")}
                         </option>
                       </Select>
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -332,14 +332,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         "organization.tabs.groups.newGroup.sprintDuration.text"
                       )}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={
                         "organization.tabs.groups.newGroup.sprintDuration.tooltip"
                       }
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.sprintDuration.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikText}
@@ -357,7 +357,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                           numeric,
                         ])}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -367,14 +367,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         "organization.tabs.groups.editGroup.sprintStartDate.text"
                       )}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={
                         "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
                       }
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikDate}
@@ -384,7 +384,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         name={"sprintStartDate"}
                         validate={composeValidators([required, isGreaterDate])}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
                 <Col large={"33"} medium={"50"} small={"100"}>
@@ -392,12 +392,12 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     <Text fw={7} mb={2}>
                       {t("organization.tabs.groups.newGroup.managed.text")}
                     </Text>
-                    <TooltipWrapper
+                    <Tooltip
                       id={"organization.tabs.groups.newGroup.managed.tooltip"}
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.managed.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Field
                         component={FormikSwitchButton}
@@ -414,7 +414,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         )}
                         type={"checkbox"}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Card>
                 </Col>
               </Row>

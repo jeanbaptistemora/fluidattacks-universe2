@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button/index";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
 import {
   ButtonToolbarLeft,
@@ -73,10 +73,10 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
         validate={validate}
       />
       {isDescriptionEditable ? (
-        <TooltipWrapper
+        <Tooltip
           id={t("searchFindings.tabEvidence.descriptionTooltip.id")}
-          message={t("searchFindings.tabEvidence.descriptionTooltip")}
-          placement={"right"}
+          place={"right"}
+          tip={t("searchFindings.tabEvidence.descriptionTooltip")}
         >
           <Field
             component={FormikTextArea}
@@ -87,21 +87,21 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
               validTextField,
             ])}
           />
-        </TooltipWrapper>
+        </Tooltip>
       ) : (
         <p>{description}</p>
       )}
       {isRemovable === true ? (
         <ButtonToolbarLeft>
-          <TooltipWrapper
+          <Tooltip
             id={t("searchFindings.tabEvidence.removeTooltip.id")}
-            message={t("searchFindings.tabEvidence.removeTooltip")}
+            tip={t("searchFindings.tabEvidence.removeTooltip")}
           >
             <Button onClick={onDelete} variant={"secondary"}>
               <FontAwesomeIcon icon={faTrashAlt} />
               &nbsp;{t("searchFindings.tabEvidence.remove")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         </ButtonToolbarLeft>
       ) : undefined}
     </div>

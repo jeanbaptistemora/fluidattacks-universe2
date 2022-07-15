@@ -10,7 +10,7 @@ import { GET_ORG_EVENTS } from "./queries";
 import type { IEventBarDataset, IEventBarProps } from "./types";
 
 import { Alert } from "components/Alert";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
@@ -71,13 +71,13 @@ const EventBar: React.FC<IEventBarProps> = ({
   return (
     <React.StrictMode>
       {hasOpenEvents ? (
-        <TooltipWrapper id={"eventBarTooltip"} message={tooltipMessage}>
+        <Tooltip id={"eventBarTooltip"} tip={tooltipMessage}>
           <Link to={`/orgs/${organizationName}/groups`}>
             <Alert autoHide={true} icon={true} time={12} variant={"error"}>
               {eventMessage}
             </Alert>
           </Link>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

@@ -14,7 +14,7 @@ import { tooltipFormatter } from "components/Table/headerFormatters/tooltipForma
 import { Table } from "components/Table/index";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterText } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { Tooltip } from "components/Tooltip/index";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -304,12 +304,12 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                     <Row>
                       <Can do={"api_mutations_add_group_mutate"}>
                         <ButtonToolbar>
-                          <TooltipWrapper
+                          <Tooltip
                             hide={runTour}
                             id={
                               "organization.tabs.groups.newGroup.new.tooltip.btn"
                             }
-                            message={t(
+                            tip={t(
                               "organization.tabs.groups.newGroup.new.tooltip"
                             )}
                           >
@@ -336,7 +336,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                                 ]}
                               />
                             ) : undefined}
-                          </TooltipWrapper>
+                          </Tooltip>
                         </ButtonToolbar>
                       </Can>
                     </Row>

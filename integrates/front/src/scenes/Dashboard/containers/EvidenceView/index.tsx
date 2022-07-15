@@ -24,7 +24,7 @@ import {
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import {
@@ -170,15 +170,15 @@ const EvidenceView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <ButtonToolbarRow>
         <Can do={"api_mutations_update_evidence_mutate"}>
-          <TooltipWrapper
+          <Tooltip
             id={"searchFindings.tabEvidence.editableTooltip.id"}
-            message={t("searchFindings.tabEvidence.editableTooltip")}
+            tip={t("searchFindings.tabEvidence.editableTooltip")}
           >
             <Button onClick={handleEditClick} variant={"secondary"}>
               <FluidIcon icon={"edit"} />
               &nbsp;{t("searchFindings.tabEvidence.editable")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         </Can>
       </ButtonToolbarRow>
       <br />
@@ -199,9 +199,9 @@ const EvidenceView: React.FC = (): JSX.Element => {
               <React.Fragment>
                 {isEditing ? (
                   <ButtonToolbarRow>
-                    <TooltipWrapper
+                    <Tooltip
                       id={t("searchFindings.tabEvidence.updateTooltip.id")}
-                      message={t("searchFindings.tabEvidence.updateTooltip")}
+                      tip={t("searchFindings.tabEvidence.updateTooltip")}
                     >
                       <Button
                         disabled={!dirty}
@@ -211,7 +211,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         <FluidIcon icon={"loading"} />
                         &nbsp;{t("searchFindings.tabEvidence.update")}
                       </Button>
-                    </TooltipWrapper>
+                    </Tooltip>
                   </ButtonToolbarRow>
                 ) : undefined}
                 <Row>

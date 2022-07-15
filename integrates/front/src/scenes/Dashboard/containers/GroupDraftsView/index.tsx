@@ -18,7 +18,7 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import { getFindingNames } from "scenes/Dashboard/containers/GroupDraftsView/findingNames";
 import {
@@ -399,15 +399,15 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
         exportCsv={true}
         extraButtons={
           <Have I={"can_report_vulnerabilities"}>
-            <TooltipWrapper
+            <Tooltip
               id={"group.drafts.btn.tooltip"}
-              message={t("group.drafts.btn.tooltip")}
+              tip={t("group.drafts.btn.tooltip")}
             >
               <Button onClick={openNewDraftModal} variant={"primary"}>
                 <FontAwesomeIcon icon={faPlus} />
                 &nbsp;{t("group.drafts.btn.text")}
               </Button>
-            </TooltipWrapper>
+            </Tooltip>
           </Have>
         }
         headers={tableHeaders}

@@ -19,7 +19,7 @@ import {
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
 import {
@@ -148,9 +148,9 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
       <React.Fragment>
         <ButtonToolbarRow>
           <Can do={"api_mutations_update_event_evidence_mutate"}>
-            <TooltipWrapper
+            <Tooltip
               id={t("group.events.evidence.editTooltip.id")}
-              message={t("group.events.evidence.editTooltip")}
+              tip={t("group.events.evidence.editTooltip")}
             >
               <Button
                 disabled={data.event.eventStatus === "SOLVED"}
@@ -160,7 +160,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                 <FluidIcon icon={"edit"} />
                 &nbsp;{t("group.events.evidence.edit")}
               </Button>
-            </TooltipWrapper>
+            </Tooltip>
           </Can>
         </ButtonToolbarRow>
         <br />
@@ -182,9 +182,9 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             <Form id={"editEvidences"}>
               {isEditing ? (
                 <ButtonToolbarRow>
-                  <TooltipWrapper
+                  <Tooltip
                     id={t("searchFindings.tabEvidence.updateTooltip.id")}
-                    message={t("searchFindings.tabEvidence.updateTooltip")}
+                    tip={t("searchFindings.tabEvidence.updateTooltip")}
                   >
                     <Button
                       disabled={!dirty}
@@ -194,7 +194,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       <FluidIcon icon={"loading"} />
                       &nbsp;{t("searchFindings.tabEvidence.update")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 </ButtonToolbarRow>
               ) : undefined}
               {checkNotEmptyOrEditing(data.event.evidence, isEditing) ? (

@@ -15,7 +15,7 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { AddFilesModal } from "scenes/Dashboard/components/AddFilesModal";
 import { FileOptionsModal } from "scenes/Dashboard/components/FileOptionsModal";
 import {
@@ -343,10 +343,10 @@ const Files: React.FC<IFilesProps> = ({
           exportCsv={false}
           extraButtons={
             <Can do={"api_mutations_add_files_mutate"}>
-              <TooltipWrapper
+              <Tooltip
                 id={"searchFindings.tabResources.files.btnTooltip.id"}
-                message={t("searchFindings.tabResources.files.btnTooltip")}
-                placement={"top"}
+                place={"top"}
+                tip={t("searchFindings.tabResources.files.btnTooltip")}
               >
                 <Button
                   id={"file-add"}
@@ -356,7 +356,7 @@ const Files: React.FC<IFilesProps> = ({
                   <FontAwesomeIcon icon={faPlus} />
                   &nbsp;{t("searchFindings.tabResources.addRepository")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             </Can>
           }
           headers={tableHeaders}

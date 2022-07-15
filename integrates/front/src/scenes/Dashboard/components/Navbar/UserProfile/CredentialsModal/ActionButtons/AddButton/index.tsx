@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import type { IAddButtonProps } from "./types";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 const AddButton: React.FC<IAddButtonProps> = ({
   isHided,
@@ -17,19 +17,17 @@ const AddButton: React.FC<IAddButtonProps> = ({
   return (
     <React.StrictMode>
       {isHided ? undefined : (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"profile.credentialsModal.actionButtons.addButton.tooltip.id"}
-          message={t(
-            "profile.credentialsModal.actionButtons.addButton.tooltip"
-          )}
+          tip={t("profile.credentialsModal.actionButtons.addButton.tooltip")}
         >
           <Button id={"addCredentials"} onClick={onAdd} variant={"primary"}>
             <FontAwesomeIcon icon={faPlus} />
             &nbsp;
             {t("profile.credentialsModal.actionButtons.addButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       )}
     </React.StrictMode>
   );

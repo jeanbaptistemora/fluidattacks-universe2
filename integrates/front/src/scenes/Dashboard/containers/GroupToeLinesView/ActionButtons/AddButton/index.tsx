@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import type { IAddButtonProps } from "./types";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const AddButton: React.FC<IAddButtonProps> = ({
@@ -25,10 +25,10 @@ const AddButton: React.FC<IAddButtonProps> = ({
   return (
     <React.StrictMode>
       {canAddToeLines ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"group.toe.lines.actionButtons.addButton.tooltip.id"}
-          message={t("group.toe.lines.actionButtons.addButton.tooltip")}
+          tip={t("group.toe.lines.actionButtons.addButton.tooltip")}
         >
           <Button
             disabled={isDisabled}
@@ -40,7 +40,7 @@ const AddButton: React.FC<IAddButtonProps> = ({
             &nbsp;
             {t("group.toe.lines.actionButtons.addButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

@@ -31,7 +31,7 @@ import {
   userInteractionBgColor,
   userInteractionOptions,
 } from "../utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 const Row: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
   className: string;
@@ -130,9 +130,9 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
           <Row>
             <FlexCol>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"userInteractionTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     userInteractionOptions,
                     userInteraction,
                     userInteractionBgColor
@@ -144,12 +144,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={userInteraction}
                     valueText={t(userInteractionOptions[userInteraction])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"privilegesRequiredTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     castPrivileges(severityScope),
                     privilegesRequired,
                     privilegesRequiredBgColor
@@ -163,16 +163,16 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                       castPrivileges(severityScope)[privilegesRequired]
                     )}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
             </FlexCol>
           </Row>
           <Row>
             <FlexCol>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"attackVectorTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     attackVectorOptions,
                     attackVector,
                     attackVectorBgColor
@@ -184,12 +184,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={attackVector}
                     valueText={t(attackVectorOptions[attackVector])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"attackComplexityTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     attackComplexityOptions,
                     attackComplexity,
                     attackComplexityBgColor
@@ -201,12 +201,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={attackComplexity}
                     valueText={t(attackComplexityOptions[attackComplexity])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"exploitabilityTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     exploitabilityOptions,
                     exploitability,
                     exploitabilityBgColor
@@ -218,12 +218,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={exploitability}
                     valueText={t(exploitabilityOptions[exploitability])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"severityScopeTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     severityScopeOptions,
                     severityScope,
                     severityScopeBgColor
@@ -235,16 +235,16 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={severityScope}
                     valueText={t(severityScopeOptions[severityScope])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
             </FlexCol>
           </Row>
           <Row>
             <FlexCol>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"availabilityImpactTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     availabilityImpactOptions,
                     availabilityImpact,
                     availabilityImpactBgColor
@@ -256,12 +256,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={availabilityImpact}
                     valueText={t(availabilityImpactOptions[availabilityImpact])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"integrityImpactTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     integrityImpactOptions,
                     integrityImpact,
                     integrityImpactBgColor
@@ -273,12 +273,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={integrityImpact}
                     valueText={t(integrityImpactOptions[integrityImpact])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"confidentialityImpactTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     confidentialityImpactOptions,
                     confidentialityImpact,
                     confidentialityImpactBgColor
@@ -292,16 +292,16 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                       confidentialityImpactOptions[confidentialityImpact]
                     )}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
             </FlexCol>
           </Row>
           <Row>
             <FlexCol>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"remediationLevelTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     remediationLevelOptions,
                     remediationLevel,
                     remediationLevelBgColor
@@ -313,12 +313,12 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={remediationLevel}
                     valueText={t(remediationLevelOptions[remediationLevel])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
               <Col>
-                <TooltipWrapper
+                <Tooltip
                   id={"reportConfidenceTooltip"}
-                  message={getTooltips(
+                  tip={getTooltips(
                     reportConfidenceOptions,
                     reportConfidence,
                     reportConfidenceBgColor
@@ -330,7 +330,7 @@ export const SeverityContent: React.FC<ISeverityAttr["finding"]["severity"]> =
                     value={reportConfidence}
                     valueText={t(reportConfidenceOptions[reportConfidence])}
                   />
-                </TooltipWrapper>
+                </Tooltip>
               </Col>
             </FlexCol>
           </Row>

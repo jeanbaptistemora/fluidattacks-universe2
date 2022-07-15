@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   GET_ORGANIZATION_POLICIES,
   UPDATE_ORGANIZATION_POLICIES,
@@ -153,15 +153,15 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
         <p>
           {t(`${tPath}policies.${name}`)}
           &nbsp;
-          <TooltipWrapper
-            displayClass={"di"}
+          <Tooltip
+            disp={"inline"}
             id={name}
-            message={t(`${tPath}recommended.${name}`)}
+            tip={t(`${tPath}recommended.${name}`)}
           >
             <Button disabled={true} size={"sm"}>
               <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         </p>
       ),
       value:

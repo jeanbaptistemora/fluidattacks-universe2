@@ -15,7 +15,7 @@ import { Button } from "components/Button";
 import { Gap } from "components/Layout";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { AddTagsModal } from "scenes/Dashboard/components/AddTagsModal";
 import {
   ADD_GROUP_TAGS_MUTATION,
@@ -163,11 +163,11 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     <React.StrictMode>
       <Gap>
         <Can do={"api_mutations_add_group_tags_mutate"}>
-          <TooltipWrapper
-            displayClass={"dib"}
+          <Tooltip
+            disp={"inline-block"}
             id={"searchFindings.tabResources.tags.addTooltip.id"}
-            message={t("searchFindings.tabResources.tags.addTooltip")}
-            placement={"top"}
+            place={"top"}
+            tip={t("searchFindings.tabResources.tags.addTooltip")}
           >
             <Button
               id={"portfolio-add"}
@@ -178,14 +178,14 @@ const Portfolio: React.FC<IPortfolioProps> = ({
               &nbsp;
               {t("searchFindings.tabResources.addRepository")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         </Can>
         <Can do={"api_mutations_remove_group_tag_mutate"}>
-          <TooltipWrapper
-            displayClass={"dib"}
+          <Tooltip
+            disp={"inline-block"}
             id={"searchFindings.tabResources.tags.removeTooltip.id"}
-            message={t("searchFindings.tabResources.tags.removeTooltip")}
-            placement={"top"}
+            place={"top"}
+            tip={t("searchFindings.tabResources.tags.removeTooltip")}
           >
             <Button
               disabled={_.isEmpty(currentRow) || removing}
@@ -197,7 +197,7 @@ const Portfolio: React.FC<IPortfolioProps> = ({
               &nbsp;
               {t("searchFindings.tabResources.removeRepository")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         </Can>
       </Gap>
       <Can do={"api_mutations_remove_group_tag_mutate"} passThrough={true}>

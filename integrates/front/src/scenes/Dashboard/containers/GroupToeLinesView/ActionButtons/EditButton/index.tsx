@@ -6,7 +6,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IEditButtonProps {
@@ -28,10 +28,10 @@ const EditButton: React.FC<IEditButtonProps> = ({
   return (
     <React.StrictMode>
       {canUpdateAttackedLines ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"group.toe.lines.actionButtons.editButton.tooltip.id"}
-          message={t("group.toe.lines.actionButtons.editButton.tooltip")}
+          tip={t("group.toe.lines.actionButtons.editButton.tooltip")}
         >
           <Button
             disabled={isDisabled}
@@ -43,7 +43,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
             &nbsp;
             {t("group.toe.lines.actionButtons.editButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

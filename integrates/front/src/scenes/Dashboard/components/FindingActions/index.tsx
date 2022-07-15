@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
@@ -39,10 +39,10 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
         <React.Fragment>
           <Can do={"api_mutations_submit_draft_mutate"}>
             {hasSubmission ? undefined : (
-              <TooltipWrapper
-                displayClass={"dib"}
+              <Tooltip
+                disp={"inline-block"}
                 id={"group.drafts.submit.text"}
-                message={t("group.drafts.submit.tooltip")}
+                tip={t("group.drafts.submit.tooltip")}
               >
                 <Button
                   disabled={loading}
@@ -51,7 +51,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                 >
                   {t("group.drafts.submit.text")}
                 </Button>
-              </TooltipWrapper>
+              </Tooltip>
             )}
           </Can>
           <Can do={"api_mutations_approve_draft_mutate"}>
@@ -64,10 +64,10 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                 }
 
                 return (
-                  <TooltipWrapper
-                    displayClass={"dib"}
+                  <Tooltip
+                    disp={"inline-block"}
                     id={"group.drafts.approve.text"}
-                    message={t("group.drafts.approve.tooltip")}
+                    tip={t("group.drafts.approve.tooltip")}
                   >
                     <Button
                       disabled={!canApprove || loading}
@@ -77,7 +77,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                       <FontAwesomeIcon icon={faCheck} />
                       &nbsp;{t("group.drafts.approve.text")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 );
               }}
             </ConfirmDialog>
@@ -92,10 +92,9 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                 }
 
                 return (
-                  <TooltipWrapper
-                    displayClass={"dib"}
+                  <Tooltip
                     id={"group.drafts.reject.tooltip"}
-                    message={t("group.drafts.reject.tooltip")}
+                    tip={t("group.drafts.reject.tooltip")}
                   >
                     <Button
                       disabled={!hasSubmission || loading}
@@ -104,22 +103,22 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                     >
                       {t("group.drafts.reject.text")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 );
               }}
             </ConfirmDialog>
           </Can>
           <Can do={"api_mutations_remove_finding_mutate"}>
-            <TooltipWrapper
-              displayClass={"dib"}
+            <Tooltip
+              disp={"inline-block"}
               id={"searchFindings.delete.btn.tooltip"}
-              message={t("searchFindings.delete.btn.tooltip")}
+              tip={t("searchFindings.delete.btn.tooltip")}
             >
               <Button onClick={onDelete} variant={"secondary"}>
                 <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{t("searchFindings.delete.btn.text")}
               </Button>
-            </TooltipWrapper>
+            </Tooltip>
           </Can>
         </React.Fragment>
       ) : undefined}

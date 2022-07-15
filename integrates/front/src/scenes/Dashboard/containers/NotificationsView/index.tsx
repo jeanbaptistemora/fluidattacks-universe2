@@ -9,7 +9,7 @@ import React, { useCallback } from "react";
 import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
 import { Switch } from "components/Switch";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   GET_SUBSCRIPTIONS,
   UPDATE_NOTIFICATIONS_PREFERENCES,
@@ -146,9 +146,9 @@ const NotificationsView: React.FC = (): JSX.Element => {
         {subscriptionsFiltered.map(
           (item: ISubscriptionName): JSX.Element => (
             <Col key={item.name} large={"25"} medium={"50"} small={"100"}>
-              <TooltipWrapper
+              <Tooltip
                 id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
-                message={item.tooltip}
+                tip={item.tooltip}
               >
                 <Card title={item.name}>
                   <div className={"flex justify-between mt1"}>
@@ -160,7 +160,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
                     {item.subscribeSms}
                   </div>
                 </Card>
-              </TooltipWrapper>
+              </Tooltip>
             </Col>
           )
         )}

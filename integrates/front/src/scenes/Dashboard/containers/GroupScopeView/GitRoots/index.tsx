@@ -49,7 +49,7 @@ import {
   filterText,
 } from "components/Table/utils";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
@@ -637,10 +637,10 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                   extraButtons={
                     <Fragment>
                       <Can do={"api_mutations_add_git_root_mutate"}>
-                        <TooltipWrapper
+                        <Tooltip
                           hide={runTour}
                           id={t("group.scope.common.addTooltip.id")}
-                          message={t("group.scope.common.addTooltip")}
+                          tip={t("group.scope.common.addTooltip")}
                         >
                           <Button
                             id={"git-root-add"}
@@ -650,7 +650,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                             <FontAwesomeIcon icon={faPlus} />
                             &nbsp;{t("group.scope.common.add")}
                           </Button>
-                        </TooltipWrapper>
+                        </Tooltip>
                         {runTour ? (
                           <Tour
                             run={false}

@@ -21,7 +21,7 @@ import { Switch } from "components/Switch";
 import { Table } from "components/Table";
 import { changeVulnStateFormatter } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal/index";
 import {
   REQUEST_VULNERABILITIES_VERIFICATION,
@@ -209,12 +209,12 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
 
     return (
       <React.StrictMode>
-        <TooltipWrapper
+        <Tooltip
           id={"toogleToolTip"}
-          message={t(
+          place={"top"}
+          tip={t(
             "searchFindings.tabDescription.remediationModal.globalSwitch.tooltip"
           )}
-          placement={"top"}
         >
           <div className={"pr4 tr w-100"}>
             <span className={"mb0 mt1 pr2"}>
@@ -229,7 +229,7 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
               onChange={handleOnChange}
             />
           </div>
-        </TooltipWrapper>
+        </Tooltip>
         <Table
           dataset={vulnerabilitiesList}
           exportCsv={false}

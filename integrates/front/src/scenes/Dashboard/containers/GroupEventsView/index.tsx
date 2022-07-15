@@ -41,7 +41,7 @@ import {
   filterSearchText,
   filterSelect,
 } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
   ADD_EVENT_MUTATION,
@@ -661,9 +661,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           onSubmit={handleUpdateAffectedSubmit}
         />
       ) : undefined}
-      <TooltipWrapper
+      <Tooltip
         id={"group.events.help"}
-        message={t("searchFindings.tabEvents.tableAdvice")}
+        tip={t("searchFindings.tabEvents.tableAdvice")}
       >
         <Table
           clearFiltersButton={clearFilters}
@@ -691,20 +691,20 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           extraButtons={
             <React.Fragment>
               <Can do={"api_mutations_add_event_mutate"}>
-                <TooltipWrapper
+                <Tooltip
                   id={"group.events.btn.tooltip.id"}
-                  message={t("group.events.btn.tooltip")}
+                  tip={t("group.events.btn.tooltip")}
                 >
                   <Button onClick={openNewEventModal} variant={"primary"}>
                     <FontAwesomeIcon icon={faPlus} />
                     &nbsp;{t("group.events.btn.text")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </Can>
               <Can do={"api_mutations_request_vulnerabilities_hold_mutate"}>
-                <TooltipWrapper
+                <Tooltip
                   id={"group.events.form.affectedReattacks.btn.id"}
-                  message={t("group.events.form.affectedReattacks.btn.tooltip")}
+                  tip={t("group.events.form.affectedReattacks.btn.tooltip")}
                 >
                   <Button
                     disabled={!(hasReattacks && hasOpenEvents)}
@@ -715,7 +715,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                     &nbsp;
                     {t("group.events.form.affectedReattacks.btn.text")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </Can>
             </React.Fragment>
           }
@@ -726,7 +726,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           rowEvents={{ onClick: goToEvent }}
           search={false}
         />
-      </TooltipWrapper>
+      </Tooltip>
     </React.Fragment>
   );
 };

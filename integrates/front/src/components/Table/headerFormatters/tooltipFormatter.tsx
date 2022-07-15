@@ -1,7 +1,7 @@
 import React from "react";
 import type { ColumnDescription } from "react-bootstrap-table-next";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 export const tooltipFormatter = (
   column: ColumnDescription,
@@ -11,15 +11,15 @@ export const tooltipFormatter = (
     filterElement: JSX.Element;
   }
 ): JSX.Element => (
-  <TooltipWrapper
+  <Tooltip
     id={`headers.${column.text}.${colIndex}.help`}
-    message={column.tooltipDataField ?? ""}
-    placement={"top"}
+    place={"top"}
+    tip={column.tooltipDataField ?? ""}
   >
     <div className={"nowrap"}>
       {column.text}
       {components.sortElement}
     </div>
     {components.filterElement}
-  </TooltipWrapper>
+  </Tooltip>
 );

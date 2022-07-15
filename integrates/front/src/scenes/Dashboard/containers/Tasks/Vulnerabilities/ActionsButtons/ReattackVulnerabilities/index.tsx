@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 import { msgSuccess } from "utils/notifications";
@@ -87,10 +87,10 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
           </Button>
         ) : undefined}
         {shouldRenderRequestVerifyBtn ? (
-          <TooltipWrapper
-            displayClass={"dib"}
+          <Tooltip
+            disp={"inline-block"}
             id={"searchFindings.tabVuln.buttonsTooltip.cancelReattack.id"}
-            message={tooltipMessage}
+            tip={tooltipMessage}
           >
             <Button
               disabled={areVulnerabilitiesReattacked}
@@ -100,7 +100,7 @@ export const ReattackVulnerabilities: React.FC<IReattackVulnButtonProps> = ({
             >
               <DisplayIcon />
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         ) : undefined}
       </Can>
     </Have>

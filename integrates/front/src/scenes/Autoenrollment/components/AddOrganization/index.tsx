@@ -17,7 +17,7 @@ import { Input, Select, TextArea } from "components/Input";
 import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
 
 const MAX_DESCRIPTION_LENGTH = 200;
@@ -106,18 +106,18 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 label={
                   <Fragment>
                     {t("autoenrollment.addOrganization.organizationName.label")}
-                    <TooltipWrapper
-                      displayClass={"dib"}
+                    <Tooltip
+                      disp={"inline-block"}
                       id={"addGroupTooltip"}
-                      message={t("sidebar.newOrganization.modal.nameTooltip")}
-                      placement={"top"}
+                      place={"top"}
+                      tip={t("sidebar.newOrganization.modal.nameTooltip")}
                     >
                       <FontAwesomeIcon
                         color={"#b0b0bf"}
                         icon={faCircleInfo}
                         size={"sm"}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Fragment>
                 }
                 name={"organizationName"}
@@ -132,18 +132,18 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 label={
                   <Fragment>
                     {t("autoenrollment.addOrganization.groupName.label")}
-                    <TooltipWrapper
-                      displayClass={"dib"}
+                    <Tooltip
+                      disp={"inline-block"}
                       id={"addGroupTooltip"}
-                      message={t("sidebar.newOrganization.modal.nameTooltip")}
-                      placement={"top"}
+                      place={"top"}
+                      tip={t("sidebar.newOrganization.modal.nameTooltip")}
                     >
                       <FontAwesomeIcon
                         color={"#b0b0bf"}
                         icon={faCircleInfo}
                         size={"sm"}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Fragment>
                 }
                 name={"groupName"}
@@ -157,20 +157,20 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 label={
                   <Fragment>
                     {t("autoenrollment.addOrganization.reportLanguage")}
-                    <TooltipWrapper
-                      displayClass={"dib"}
+                    <Tooltip
+                      disp={"inline-block"}
                       id={"addGroupTooltip"}
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "autoenrollment.addOrganization.reportLanguageTip"
                       )}
-                      placement={"top"}
                     >
                       <FontAwesomeIcon
                         color={"#b0b0bf"}
                         icon={faCircleInfo}
                         size={"sm"}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Fragment>
                 }
                 name={"reportLanguage"}

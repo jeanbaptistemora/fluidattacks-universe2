@@ -18,7 +18,7 @@ import { Button } from "components/Button";
 import { Input, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
   handleValidationError,
@@ -196,18 +196,18 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     label={
                       <Fragment>
                         {t("autoenrollment.addRoot.url.label")}
-                        <TooltipWrapper
-                          displayClass={"dib"}
+                        <Tooltip
+                          disp={"inline-block"}
                           id={"urlTooltip"}
-                          message={t("autoenrollment.addRoot.url.tooltip")}
-                          placement={"top"}
+                          place={"top"}
+                          tip={t("autoenrollment.addRoot.url.tooltip")}
                         >
                           <FontAwesomeIcon
                             color={"#b0b0bf"}
                             icon={faCircleInfo}
                             size={"sm"}
                           />
-                        </TooltipWrapper>
+                        </Tooltip>
                       </Fragment>
                     }
                     name={"url"}
@@ -310,18 +310,18 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 </Col>
                 <Col>
                   {t("autoenrollment.addRoot.exclusions.label")}
-                  <TooltipWrapper
-                    displayClass={"dib"}
+                  <Tooltip
+                    disp={"inline-block"}
                     id={"urlTooltip"}
-                    message={t("autoenrollment.addRoot.exclusions.tooltip")}
-                    placement={"top"}
+                    place={"top"}
+                    tip={t("autoenrollment.addRoot.exclusions.tooltip")}
                   >
                     <FontAwesomeIcon
                       color={"#b0b0bf"}
                       icon={faCircleInfo}
                       size={"sm"}
                     />
-                  </TooltipWrapper>
+                  </Tooltip>
                 </Col>
                 <Col large={"100"} medium={"100"} small={"100"}>
                   <FormikArrayField

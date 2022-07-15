@@ -27,7 +27,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ModalConfirm } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { BaseStep, Tour } from "components/Tour";
 import {
   ControlLabel,
@@ -669,16 +669,16 @@ const Repository: React.FC<IRepositoryProps> = ({
                   </Have>
                   <Can do={"update_git_root_filter"}>
                     <fieldset className={"bn"}>
-                      <TooltipWrapper
-                        displayClass={"dib"}
+                      <Tooltip
+                        disp={"inline-block"}
                         hide={runTour}
                         id={"group.scope.git.filter.tooltip.info"}
-                        message={t("group.scope.git.filter.tooltip")}
+                        tip={t("group.scope.git.filter.tooltip")}
                       >
                         <ControlLabel>
                           {t("group.scope.git.filter.exclude")}
                         </ControlLabel>
-                      </TooltipWrapper>
+                      </Tooltip>
                       <QuestionButton onClick={goToDocumentation}>
                         <FontAwesomeIcon icon={faQuestionCircle} />
                       </QuestionButton>

@@ -28,7 +28,7 @@ import React, {
 
 import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper/index";
+import { Tooltip } from "components/Tooltip/index";
 import type { IDocumentValues } from "graphics/components/Graphic/ctx";
 import {
   allowedDocumentNames,
@@ -415,17 +415,17 @@ export const Graphic: React.FC<IGraphicProps> = (
                       getAdditionalInfoLink(documentName, documentType)
                     }
                   >
-                    <TooltipWrapper
-                      displayClass={"dib"}
+                    <Tooltip
+                      disp={"inline-block"}
                       id={"information_button_tooltip"}
-                      message={translate.t(
+                      tip={translate.t(
                         "analytics.buttonToolbar.information.tooltip"
                       )}
                     >
                       <GraphicButton>
                         <FontAwesomeIcon icon={faInfoCircle} />
                       </GraphicButton>
-                    </TooltipWrapper>
+                    </Tooltip>
                   </ExternalLink>
                 )}
                 <ExternalLink
@@ -443,29 +443,27 @@ export const Graphic: React.FC<IGraphicProps> = (
                   )}
                   onClick={track}
                 >
-                  <TooltipWrapper
-                    displayClass={"dib"}
+                  <Tooltip
+                    disp={"inline-block"}
                     id={"download_button_tooltip"}
-                    message={translate.t(
+                    tip={translate.t(
                       "analytics.buttonToolbar.download.tooltip"
                     )}
                   >
                     <GraphicButton>
                       <FontAwesomeIcon icon={faDownload} />
                     </GraphicButton>
-                  </TooltipWrapper>
+                  </Tooltip>
                 </ExternalLink>
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"refresh_button_tooltip"}
-                  message={translate.t(
-                    "analytics.buttonToolbar.refresh.tooltip"
-                  )}
+                  tip={translate.t("analytics.buttonToolbar.refresh.tooltip")}
                 >
                   <GraphicButton onClick={modalFrameOnRefresh}>
                     <FontAwesomeIcon icon={faSyncAlt} />
                   </GraphicButton>
-                </TooltipWrapper>
+                </Tooltip>
               </ButtonToolbar>
             </div>
           </div>
@@ -547,17 +545,17 @@ export const Graphic: React.FC<IGraphicProps> = (
                               getAdditionalInfoLink(documentName, documentType)
                             }
                           >
-                            <TooltipWrapper
-                              displayClass={"dib"}
+                            <Tooltip
+                              disp={"inline-block"}
                               id={"information_button_tooltip"}
-                              message={translate.t(
+                              tip={translate.t(
                                 "analytics.buttonToolbar.information.tooltip"
                               )}
                             >
                               <GraphicButton>
                                 <FontAwesomeIcon icon={faInfoCircle} />
                               </GraphicButton>
-                            </TooltipWrapper>
+                            </Tooltip>
                           </ExternalLink>
                         )}
                         <ExternalLink
@@ -575,40 +573,40 @@ export const Graphic: React.FC<IGraphicProps> = (
                           )}
                           onClick={track}
                         >
-                          <TooltipWrapper
-                            displayClass={"dib"}
+                          <Tooltip
+                            disp={"inline-block"}
                             id={"download_button_tooltip"}
-                            message={translate.t(
+                            tip={translate.t(
                               "analytics.buttonToolbar.download.tooltip"
                             )}
                           >
                             <GraphicButton>
                               <FontAwesomeIcon icon={faDownload} />
                             </GraphicButton>
-                          </TooltipWrapper>
+                          </Tooltip>
                         </ExternalLink>
-                        <TooltipWrapper
-                          displayClass={"dib"}
+                        <Tooltip
+                          disp={"inline-block"}
                           id={"refresh_button_tooltip"}
-                          message={translate.t(
+                          tip={translate.t(
                             "analytics.buttonToolbar.refresh.tooltip"
                           )}
                         >
                           <GraphicButton onClick={frameOnRefresh}>
                             <FontAwesomeIcon icon={faSyncAlt} />
                           </GraphicButton>
-                        </TooltipWrapper>
-                        <TooltipWrapper
-                          displayClass={"dib"}
+                        </Tooltip>
+                        <Tooltip
+                          disp={"inline-block"}
                           id={"expand_button_tooltip"}
-                          message={translate.t(
+                          tip={translate.t(
                             "analytics.buttonToolbar.expand.tooltip"
                           )}
                         >
                           <GraphicButton onClick={frameOnFullScreen}>
                             <FontAwesomeIcon icon={faExpandArrowsAlt} />
                           </GraphicButton>
-                        </TooltipWrapper>
+                        </Tooltip>
                       </ButtonGroup>
                     )}
                 </div>

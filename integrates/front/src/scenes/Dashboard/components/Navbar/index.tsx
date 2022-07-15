@@ -10,7 +10,7 @@ import { TaskInfo } from "./Tasks";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import type {
   IGetMeVulnerabilitiesAssigned,
   IGetUserOrganizationsGroups,
@@ -57,12 +57,9 @@ export const Navbar: React.FC<INavbarProps> = ({
             </li>
           </Can>
           <li>
-            <TooltipWrapper
-              id={"navbar.newsTooltip.id"}
-              message={t("navbar.newsTooltip")}
-            >
+            <Tooltip id={"navbar.newsTooltip.id"} tip={t("navbar.newsTooltip")}>
               <NewsWidget />
-            </TooltipWrapper>
+            </Tooltip>
           </li>
           <li>
             <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />

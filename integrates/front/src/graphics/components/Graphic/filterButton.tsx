@@ -11,7 +11,7 @@ import { mergedDocuments } from "./ctx";
 import { DropdownFilter } from "./filter";
 import { DaysLabel, DocumentMerged } from "./helpers";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import styles from "graphics/components/Graphic/index.css";
 import { GraphicButton } from "styles/styledComponents";
 
@@ -50,9 +50,9 @@ const GButton: React.FC<IGButton> = ({
   }
 
   return (
-    <TooltipWrapper
+    <Tooltip
       id={alternative.tooltip.split(" ").join("_")}
-      message={alternative.tooltip}
+      tip={alternative.tooltip}
     >
       <GraphicButton className={styles.buttonSize} onClick={onClick}>
         <DocumentMerged
@@ -60,7 +60,7 @@ const GButton: React.FC<IGButton> = ({
           label={alternative.label}
         />
       </GraphicButton>
-    </TooltipWrapper>
+    </Tooltip>
   );
 };
 
@@ -79,9 +79,9 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
 
   return (
     <React.StrictMode>
-      <TooltipWrapper
+      <Tooltip
         id={"analytics.limitData.thirtyDays.tooltip.id"}
-        message={t("analytics.limitData.thirtyDays.tooltip")}
+        tip={t("analytics.limitData.thirtyDays.tooltip")}
       >
         <GraphicButton
           className={styles.buttonSize}
@@ -89,23 +89,23 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
         >
           <DaysLabel days={"30"} isEqual={subjectName === `${subject}_30`} />
         </GraphicButton>
-      </TooltipWrapper>
-      <TooltipWrapper
+      </Tooltip>
+      <Tooltip
         id={"analytics.limitData.ninetyDays.tooltip.id"}
-        message={t("analytics.limitData.ninetyDays.tooltip")}
+        tip={t("analytics.limitData.ninetyDays.tooltip")}
       >
         <GraphicButton className={styles.buttonSize} onClick={changeToNinety}>
           <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
         </GraphicButton>
-      </TooltipWrapper>
-      <TooltipWrapper
+      </Tooltip>
+      <Tooltip
         id={"analytics.limitData.all.tooltip.id"}
-        message={t("analytics.limitData.all.tooltip")}
+        tip={t("analytics.limitData.all.tooltip")}
       >
         <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
           <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
         </GraphicButton>
-      </TooltipWrapper>
+      </Tooltip>
     </React.StrictMode>
   );
 };
@@ -128,14 +128,14 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
 
   return (
     <React.StrictMode>
-      <TooltipWrapper id={tooltip.split(" ").join("_")} message={tooltip}>
+      <Tooltip id={tooltip.split(" ").join("_")} tip={tooltip}>
         <GraphicButton className={styles.buttonSize} onClick={changeToDefault}>
           <DocumentMerged
             isEqual={documentName === currentDocumentName}
             label={mergedDocuments[documentName].default.label}
           />
         </GraphicButton>
-      </TooltipWrapper>
+      </Tooltip>
       {mergedDocuments[documentName].alt.map(
         (alternative: IDocumentValues, index: number): JSX.Element => (
           <GButton

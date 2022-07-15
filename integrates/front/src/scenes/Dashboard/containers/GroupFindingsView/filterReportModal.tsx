@@ -17,7 +17,7 @@ import { array, object } from "yup";
 import { Button } from "components/Button";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { ButtonToolbar, Col100 } from "styles/styledComponents";
@@ -192,12 +192,12 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                   {t("group.findings.report.closingDate.text")}
                                 </span>
                               </p>
-                              <TooltipWrapper
+                              <Tooltip
                                 id={"group.findings.report.closingDate.id"}
-                                message={t(
+                                place={"top"}
+                                tip={t(
                                   "group.findings.report.closingDate.tooltip"
                                 )}
-                                placement={"top"}
                               >
                                 <Field
                                   component={FormikDate}
@@ -205,7 +205,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                   name={"closingDate"}
                                   validate={composeValidators([isGreaterDate])}
                                 />
-                              </TooltipWrapper>
+                              </Tooltip>
                             </Col>
                           </Col>
                           {_.isEmpty(values.closingDate) ? (

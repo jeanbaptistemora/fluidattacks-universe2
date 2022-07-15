@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
 import { Table } from "components/Table";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   REMOVE_EVIDENCE_MUTATION,
   UPDATE_EVIDENCE_MUTATION,
@@ -140,15 +140,15 @@ const RecordsView: React.FC = (): JSX.Element => {
             {/* eslint-disable-next-line react/forbid-component-props */}
             <Col100 className={"pa0"}>
               <ButtonToolbarRow>
-                <TooltipWrapper
+                <Tooltip
                   id={t("searchFindings.tabRecords.editableTooltip.id")}
-                  message={t("searchFindings.tabRecords.editableTooltip")}
+                  tip={t("searchFindings.tabRecords.editableTooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
                     <FluidIcon icon={"edit"} />
                     &nbsp;{t("searchFindings.tabRecords.editable")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </ButtonToolbarRow>
             </Col100>
           </Row>

@@ -2,7 +2,7 @@ import React from "react";
 
 import { TabLink } from "./styles";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 interface ITabProps {
   id: string;
@@ -18,11 +18,11 @@ const Tab: React.FC<ITabProps> = ({
 }: Readonly<React.PropsWithChildren<ITabProps>>): JSX.Element => {
   return (
     <li>
-      <TooltipWrapper id={`${id}Tooltip`} message={tooltip}>
+      <Tooltip id={`${id}Tooltip`} tip={tooltip}>
         <TabLink id={id} to={link}>
           {children}
         </TabLink>
-      </TooltipWrapper>
+      </Tooltip>
     </li>
   );
 };

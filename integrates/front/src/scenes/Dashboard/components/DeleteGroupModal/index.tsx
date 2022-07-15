@@ -3,7 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Modal, ModalConfirm } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { Alert, ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
@@ -76,12 +76,12 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = ({
                 <ControlLabel>
                   {t("searchFindings.servicesTable.deleteGroup.reason.title")}
                 </ControlLabel>
-                <TooltipWrapper
+                <Tooltip
                   id={"searchFindings.servicesTable.deleteGroup.reason.tooltip"}
-                  message={t(
+                  place={"top"}
+                  tip={t(
                     "searchFindings.servicesTable.deleteGroup.reason.tooltip"
                   )}
-                  placement={"top"}
                 >
                   <FormGroup>
                     <Field component={FormikDropdown} name={"reason"}>
@@ -112,7 +112,7 @@ const DeleteGroupModal: React.FC<IDeleteGroupModalProps> = ({
                       </option>
                     </Field>
                   </FormGroup>
-                </TooltipWrapper>
+                </Tooltip>
               </FormGroup>
               <ModalConfirm
                 disabled={!dirty || !isValid}

@@ -7,7 +7,7 @@ import type { IHandleAcceptanceButtonProps } from "./types";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
@@ -40,11 +40,11 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderHandleAcceptanceBtn ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"searchFindings.tabVuln.buttonsTooltip.handleAcceptance.id"}
-          message={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
-          placement={"top"}
+          place={"top"}
+          tip={t("searchFindings.tabVuln.buttonsTooltip.handleAcceptance")}
         >
           <Button
             id={"handleAcceptanceButton"}
@@ -57,7 +57,7 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
               {t("searchFindings.tabVuln.buttons.handleAcceptance")}
             </React.Fragment>
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

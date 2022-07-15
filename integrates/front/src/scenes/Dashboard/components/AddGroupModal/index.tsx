@@ -23,7 +23,7 @@ import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Switch } from "components/Switch";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { BaseStep, Tour } from "components/Tour/index";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
@@ -227,15 +227,15 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           "organization.tabs.groups.newGroup.organization.text"
                         )}
                       </Text>
-                      <TooltipWrapper
+                      <Tooltip
                         hide={runTour}
                         id={
                           "organization.tabs.groups.newGroup.organization.tooltip"
                         }
-                        message={t(
+                        place={"top"}
+                        tip={t(
                           "organization.tabs.groups.newGroup.organization.tooltip"
                         )}
-                        placement={"top"}
                       >
                         <Field
                           component={FormikText}
@@ -248,7 +248,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                             validTextField,
                           ])}
                         />
-                      </TooltipWrapper>
+                      </Tooltip>
                     </Col>
                     <Col large={"33"} medium={"33"} small={"33"}>
                       <Text mb={1}>
@@ -273,15 +273,15 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           "organization.tabs.groups.newGroup.description.text"
                         )}
                       </Text>
-                      <TooltipWrapper
+                      <Tooltip
                         hide={runTour}
                         id={
                           "organization.tabs.groups.newGroup.description.tooltip"
                         }
-                        message={t(
+                        place={"top"}
+                        tip={t(
                           "organization.tabs.groups.newGroup.description.tooltip"
                         )}
-                        placement={"top"}
                       >
                         <Field
                           component={FormikText}
@@ -294,7 +294,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                             validTextField,
                           ])}
                         />
-                      </TooltipWrapper>
+                      </Tooltip>
                     </Col>
                   </Row>
                   <Row justify={"space-between"}>
@@ -304,13 +304,13 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       medium={"33"}
                       small={"33"}
                     >
-                      <TooltipWrapper
+                      <Tooltip
                         hide={runTour}
                         id={"organization.tabs.groups.newGroup.type.tooltip"}
-                        message={t(
+                        place={"top"}
+                        tip={t(
                           "organization.tabs.groups.newGroup.type.tooltip"
                         )}
-                        placement={"top"}
                       >
                         <Select
                           label={t(
@@ -329,7 +329,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                             )}
                           </option>
                         </Select>
-                      </TooltipWrapper>
+                      </Tooltip>
                     </Col>
                     <Col
                       id={"add-group-testing-type"}
@@ -357,15 +357,15 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       medium={"33"}
                       small={"33"}
                     >
-                      <TooltipWrapper
+                      <Tooltip
                         hide={runTour}
                         id={
                           "organization.tabs.groups.newGroup.language.tooltip"
                         }
-                        message={t(
+                        place={"top"}
+                        tip={t(
                           "organization.tabs.groups.newGroup.language.tooltip"
                         )}
-                        placement={"top"}
                       >
                         <Select
                           label={t(
@@ -380,17 +380,17 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                             {t("organization.tabs.groups.newGroup.language.ES")}
                           </option>
                         </Select>
-                      </TooltipWrapper>
+                      </Tooltip>
                     </Col>
                   </Row>
                   <div className={"mv2"} hidden={true}>
-                    <TooltipWrapper
+                    <Tooltip
                       hide={runTour}
                       id={"organization.tabs.groups.newGroup.machine.tooltip"}
-                      message={t(
+                      place={"top"}
+                      tip={t(
                         "organization.tabs.groups.newGroup.machine.tooltip"
                       )}
-                      placement={"top"}
                     >
                       <Text mb={1}>
                         {"* "}
@@ -405,17 +405,17 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         name={"machine"}
                         onChange={handleMachineBtnChange}
                       />
-                    </TooltipWrapper>
+                    </Tooltip>
                   </div>
                   {isContinuous && (
                     <div className={"mv2"} id={"add-group-plan"}>
-                      <TooltipWrapper
+                      <Tooltip
                         hide={runTour}
                         id={"organization.tabs.groups.newGroup.squad.tooltip"}
-                        message={t(
+                        place={"top"}
+                        tip={t(
                           "organization.tabs.groups.newGroup.squad.tooltip"
                         )}
-                        placement={"top"}
                       >
                         <Text mb={1}>
                           {"* "}
@@ -434,7 +434,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                           name={"squad"}
                           onChange={handleSquadBtnChange}
                         />
-                      </TooltipWrapper>
+                      </Tooltip>
                     </div>
                   )}
                   {isContinuous &&

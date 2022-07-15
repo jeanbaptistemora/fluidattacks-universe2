@@ -14,7 +14,7 @@ import {
   VerticalLine,
 } from "./styles";
 
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 
 interface INumberInputProps {
   defaultValue: number;
@@ -113,11 +113,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
 
   return (
     <StyledInputContainer onBlur={handleOnInputContainerBlur} tabIndex={-1}>
-      <TooltipWrapper
-        hide={_.isUndefined(tooltipMessage)}
-        id={"numberInputTooltip"}
-        message={_.isUndefined(tooltipMessage) ? "" : tooltipMessage}
-      >
+      <Tooltip id={"numberInputTooltip"} tip={tooltipMessage}>
         <Row>
           <Col50>
             <StyledInput
@@ -145,7 +141,7 @@ const NumberInput: React.FC<INumberInputProps> = ({
             </Row>
           </Col50>
         </Row>
-      </TooltipWrapper>
+      </Tooltip>
     </StyledInputContainer>
   );
 };

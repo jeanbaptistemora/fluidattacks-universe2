@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IEditButtonProps {
@@ -50,10 +50,10 @@ const EditButton: React.FC<IEditButtonProps> = ({
   return (
     <React.StrictMode>
       {shouldRenderEditBtn ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"searchFindings.tabDescription.saveEdit.tooltip.id"}
-          message={tooltipMessage}
+          tip={tooltipMessage}
         >
           <Button
             disabled={isRequestingReattack || isVerifying || isDisabled}
@@ -73,7 +73,7 @@ const EditButton: React.FC<IEditButtonProps> = ({
               </React.Fragment>
             )}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

@@ -32,7 +32,7 @@ import type {
   ICustomSearchProps,
   ITableWrapperProps,
 } from "components/Table/types";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   ButtonToolbarRow,
   SearchText,
@@ -144,10 +144,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                   />
                 )}
                 {!_.isUndefined(isFilterEnabled) && (
-                  <TooltipWrapper
-                    id={"filterTooltip"}
-                    message={t("table.tooltip")}
-                  >
+                  <Tooltip id={"filterTooltip"} tip={t("table.tooltip")}>
                     <Button
                       onClick={handleUpdateEnableFilter}
                       variant={"secondary"}
@@ -158,13 +155,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       &nbsp;
                       {t("table.filters")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 )}
                 {!_.isUndefined(isCustomFilterEnabled) && (
-                  <TooltipWrapper
-                    id={"CustomFilterTooltip"}
-                    message={t("table.tooltip")}
-                  >
+                  <Tooltip id={"CustomFilterTooltip"} tip={t("table.tooltip")}>
                     <Button
                       id={"filter-config"}
                       onClick={handleUpdateEnableCustomFilter}
@@ -177,7 +171,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
                       &nbsp;
                       {t("table.filters")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 )}
                 {!_.isUndefined(isCustomSearchEnabled) &&
                   isCustomSearchEnabled &&
@@ -241,17 +235,14 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         )}
       </div>
       {resultSize && shouldShowResults && (
-        <TooltipWrapper
-          id={"tableResultTooltip"}
-          message={t("table.results.tooltip")}
-        >
+        <Tooltip id={"tableResultTooltip"} tip={t("table.results.tooltip")}>
           <p>
             {t("table.results.text", {
               matches: resultSize.current,
               total: resultSize.total,
             })}
           </p>
-        </TooltipWrapper>
+        </Tooltip>
       )}
       <TableContainer
         isRowFunctional={rowEvents !== undefined}

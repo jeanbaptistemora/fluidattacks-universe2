@@ -13,7 +13,7 @@ import { errorMessageHelper } from "./helpers";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   DOWNLOAD_VULNERABILITIES,
   UPLOAD_VULNERABILITIES,
@@ -240,11 +240,11 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           <RowCenter>
             <Col33>
               <ButtonToolbarLeft>
-                <TooltipWrapper
+                <Tooltip
                   id={t(
                     "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
                   )}
-                  message={t(
+                  tip={t(
                     "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
                   )}
                 >
@@ -257,7 +257,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                     &nbsp;
                     {t("searchFindings.tabDescription.downloadVulnerabilities")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </ButtonToolbarLeft>
             </Col33>
             <div className={"ph1-5 w-25-ns upload-file"}>
@@ -273,11 +273,11 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             </div>
             <Col33>
               <ButtonToolbarLeft>
-                <TooltipWrapper
+                <Tooltip
                   id={t(
                     "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
                   )}
-                  message={t(
+                  tip={t(
                     "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
                   )}
                 >
@@ -290,7 +290,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                     &nbsp;
                     {t("searchFindings.tabDescription.updateVulnerabilities")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </ButtonToolbarLeft>
             </Col33>
           </RowCenter>

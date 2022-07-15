@@ -6,7 +6,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IVerifyButtonProps {
@@ -28,10 +28,10 @@ const VerifyButton: React.FC<IVerifyButtonProps> = ({
   return (
     <React.StrictMode>
       {canUpdateAttackedLines ? (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={"group.toe.lines.actionButtons.verifyButton.tooltip.id"}
-          message={t("group.toe.lines.actionButtons.verifyButton.tooltip")}
+          tip={t("group.toe.lines.actionButtons.verifyButton.tooltip")}
         >
           <Button
             disabled={isDisabled}
@@ -43,7 +43,7 @@ const VerifyButton: React.FC<IVerifyButtonProps> = ({
             &nbsp;
             {t("group.toe.lines.actionButtons.verifyButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       ) : undefined}
     </React.StrictMode>
   );

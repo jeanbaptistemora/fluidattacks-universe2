@@ -30,7 +30,7 @@ import {
   filterSelect,
   filterText,
 } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
 import styles from "scenes/Dashboard/containers/GroupAuthorsView/index.css";
@@ -315,9 +315,9 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
               invitation: (
                 <React.StrictMode>
                   <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
-                    <TooltipWrapper
+                    <Tooltip
                       id={"authorsGrantTooltip"}
-                      message={t("group.authors.tooltip.text")}
+                      tip={t("group.authors.tooltip.text")}
                     >
                       <div className={"nl2"}>
                         <Button
@@ -328,7 +328,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                           {t("group.authors.sendInvitation")}
                         </Button>
                       </div>
-                    </TooltipWrapper>
+                    </Tooltip>
                   </Can>
                 </React.StrictMode>
               ),

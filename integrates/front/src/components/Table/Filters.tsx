@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import type { ICustomFiltersProps, IFilterProps, ITableProps } from "./types";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import {
   Filters as FiltersContainer,
   FlexAutoContainer,
@@ -219,13 +219,13 @@ const Filters = ({
 
           return filter.omit === true ? undefined : (
             <SelectContainer key={filter.tooltipId}>
-              <TooltipWrapper
+              <Tooltip
                 id={filter.tooltipId}
-                message={t(filter.tooltipMessage)}
-                placement={"top"}
+                place={"top"}
+                tip={t(filter.tooltipMessage)}
               >
                 {filterOption(filter)}
-              </TooltipWrapper>
+              </Tooltip>
               {isRange ? (
                 <Small>{t(filter.placeholder ?? "")}</Small>
               ) : undefined}

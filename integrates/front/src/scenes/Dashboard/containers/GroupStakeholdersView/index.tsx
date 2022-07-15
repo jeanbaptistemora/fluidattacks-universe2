@@ -28,7 +28,7 @@ import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import { filterSearchText, filterSelect } from "components/Table/utils";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { AddUserModal } from "scenes/Dashboard/components/AddUserModal";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
 import {
@@ -444,10 +444,10 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
           extraButtons={
             <React.Fragment>
               <Can do={"api_mutations_grant_stakeholder_access_mutate"}>
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"searchFindings.tabUsers.addButton.tooltip.id"}
-                  message={t("searchFindings.tabUsers.addButton.tooltip")}
+                  tip={t("searchFindings.tabUsers.addButton.tooltip")}
                 >
                   <Button
                     id={"addUser"}
@@ -458,13 +458,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     &nbsp;
                     {t("searchFindings.tabUsers.addButton.text")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </Can>
               <Can do={"api_mutations_update_group_stakeholder_mutate"}>
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"searchFindings.tabUsers.editButton.tooltip.id"}
-                  message={t("searchFindings.tabUsers.editButton.tooltip")}
+                  tip={t("searchFindings.tabUsers.editButton.tooltip")}
                 >
                   <Button
                     disabled={
@@ -478,15 +478,13 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     &nbsp;
                     {t("searchFindings.tabUsers.editButton.text")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </Can>
               <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
-                  message={t(
-                    "searchFindings.tabUsers.removeUserButton.tooltip"
-                  )}
+                  tip={t("searchFindings.tabUsers.removeUserButton.tooltip")}
                 >
                   <Button
                     disabled={
@@ -500,7 +498,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                     &nbsp;
                     {t("searchFindings.tabUsers.removeUserButton.text")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
               </Can>
             </React.Fragment>
           }

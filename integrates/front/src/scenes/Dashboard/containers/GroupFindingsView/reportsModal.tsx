@@ -21,7 +21,7 @@ import { setReportType } from "./helpers";
 import { Button, ButtonGroup } from "components/Button";
 import { Gap } from "components/Layout";
 import { Modal } from "components/Modal";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { FilterReportModal } from "scenes/Dashboard/containers/GroupFindingsView/filterReportModal";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
@@ -129,9 +129,9 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
             return (
               <Gap>
                 {userRole === "user_manager" ? (
-                  <TooltipWrapper
+                  <Tooltip
                     id={"group.findings.report.certTooltip.id"}
-                    message={t("group.findings.report.certTooltip")}
+                    tip={t("group.findings.report.certTooltip")}
                   >
                     <Button
                       disabled={!enableCerts}
@@ -143,11 +143,11 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                       &nbsp;
                       {t("group.findings.report.cert")}
                     </Button>
-                  </TooltipWrapper>
+                  </Tooltip>
                 ) : undefined}
-                <TooltipWrapper
+                <Tooltip
                   id={"group.findings.report.pdfTooltip.id"}
-                  message={t("group.findings.report.pdfTooltip")}
+                  tip={t("group.findings.report.pdfTooltip")}
                 >
                   <Button
                     id={"report-pdf"}
@@ -158,7 +158,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                     &nbsp;
                     {t("group.findings.report.pdf")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
                 <ButtonGroup>
                   <Button
                     id={"report-excel"}
@@ -177,9 +177,9 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                     <FontAwesomeIcon icon={faSlidersH} />
                   </Button>
                 </ButtonGroup>
-                <TooltipWrapper
+                <Tooltip
                   id={"group.findings.report.dataTooltip.id"}
-                  message={t("group.findings.report.dataTooltip")}
+                  tip={t("group.findings.report.dataTooltip")}
                 >
                   <Button
                     id={"report-zip"}
@@ -190,7 +190,7 @@ const ReportsModal: React.FC<IDeactivationModalProps> = ({
                     &nbsp;
                     {t("group.findings.report.data")}
                   </Button>
-                </TooltipWrapper>
+                </Tooltip>
                 <FilterReportModal
                   closeReportsModal={onClose}
                   isOpen={isFilterReportModalOpen}

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { FluidIcon } from "components/FluidIcon";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
@@ -28,9 +28,9 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     <ButtonToolbarRow>
       <Can do={"api_mutations_update_finding_description_mutate"}>
         {isEditing ? (
-          <TooltipWrapper
+          <Tooltip
             id={"searchFindings.tabDescription.save.tooltip.btn"}
-            message={t("searchFindings.tabDescription.save.tooltip")}
+            tip={t("searchFindings.tabDescription.save.tooltip")}
           >
             <Button
               disabled={isPristine}
@@ -41,11 +41,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               &nbsp;
               {t("searchFindings.tabDescription.save.text")}
             </Button>
-          </TooltipWrapper>
+          </Tooltip>
         ) : undefined}
-        <TooltipWrapper
+        <Tooltip
           id={"searchFindings.tabDescription.editable.cancelEditTooltip-btn"}
-          message={
+          tip={
             isEditing
               ? t("searchFindings.tabDescription.editable.cancelTooltip")
               : t("searchFindings.tabDescription.editable.editableTooltip")
@@ -66,7 +66,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               </React.Fragment>
             )}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       </Can>
     </ButtonToolbarRow>
   );

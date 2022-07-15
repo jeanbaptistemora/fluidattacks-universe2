@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import type { IEditSecretsButtonProps } from "./types";
 
 import { Button } from "components/Button";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
 const EditSecretsButton: React.FC<IEditSecretsButtonProps> = ({
@@ -25,12 +25,12 @@ const EditSecretsButton: React.FC<IEditSecretsButtonProps> = ({
   return (
     <React.StrictMode>
       {isHided || !canEditSecretsInBulk ? undefined : (
-        <TooltipWrapper
-          displayClass={"dib"}
+        <Tooltip
+          disp={"inline-block"}
           id={
             "profile.credentialsModal.actionButtons.editSecretsButton.tooltip.id"
           }
-          message={t(
+          tip={t(
             "profile.credentialsModal.actionButtons.editSecretsButton.tooltip"
           )}
         >
@@ -43,7 +43,7 @@ const EditSecretsButton: React.FC<IEditSecretsButtonProps> = ({
             &nbsp;
             {t("profile.credentialsModal.actionButtons.editSecretsButton.text")}
           </Button>
-        </TooltipWrapper>
+        </Tooltip>
       )}
     </React.StrictMode>
   );

@@ -20,7 +20,7 @@ import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Text } from "components/Text";
-import { TooltipWrapper } from "components/TooltipWrapper";
+import { Tooltip } from "components/Tooltip";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { toggleZendesk } from "utils/widgets";
@@ -93,10 +93,10 @@ export const HelpModal: React.FC<IHelpModal> = ({
             <ExtraMessage>
               {t("navbar.help.extra.expert")}
               &nbsp;
-              <TooltipWrapper
-                displayClass={"dib"}
+              <Tooltip
+                disp={"inline-block"}
                 id={"talkExpertTooltip"}
-                message={t("navbar.help.tooltip")}
+                tip={t("navbar.help.tooltip")}
               >
                 <ExternalLink
                   href={
@@ -108,7 +108,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
                     icon={faExternalLinkAlt}
                   />
                 </ExternalLink>
-              </TooltipWrapper>
+              </Tooltip>
             </ExtraMessage>
           </Message>
         </Col>
@@ -141,10 +141,10 @@ export const HelpModal: React.FC<IHelpModal> = ({
               <ExtraMessage>
                 {t("navbar.help.extra.chat")}
                 &nbsp;
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"liveChatTooltip"}
-                  message={t("navbar.help.tooltip")}
+                  tip={t("navbar.help.tooltip")}
                 >
                   <ExternalLink
                     href={
@@ -156,7 +156,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
                       icon={faExternalLinkAlt}
                     />
                   </ExternalLink>
-                </TooltipWrapper>
+                </Tooltip>
               </ExtraMessage>
             </Message>
           </Col>
@@ -178,10 +178,10 @@ export const HelpModal: React.FC<IHelpModal> = ({
               <ExtraMessage>
                 {t("navbar.help.extra.mail")}
                 &nbsp;
-                <TooltipWrapper
-                  displayClass={"dib"}
+                <Tooltip
+                  disp={"inline-block"}
                   id={"helpChannelTooltip"}
-                  message={t("navbar.help.tooltip")}
+                  tip={t("navbar.help.tooltip")}
                 >
                   <ExternalLink
                     href={
@@ -193,7 +193,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
                       icon={faExternalLinkAlt}
                     />
                   </ExternalLink>
-                </TooltipWrapper>
+                </Tooltip>
               </ExtraMessage>
             </Message>
           </Col>
