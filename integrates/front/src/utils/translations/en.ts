@@ -1425,7 +1425,7 @@ export const enTranslations: ResourceKey = {
     featurePreview: "Feature preview",
     help: {
       chat: "Live Chat",
-      expert: "Talk to an expert",
+      expert: "Talk to a hacker",
       extra: {
         chat: "Fast and personalized attention",
         expert: "Request any help you need through a scheduled videoconference",

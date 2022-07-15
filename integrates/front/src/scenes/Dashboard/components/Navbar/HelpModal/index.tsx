@@ -69,7 +69,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
             email: userEmail,
             name: userName,
           },
-          url: "https://calendly.com/fluidattacks/talk-to-an-expert",
+          url: "https://calendly.com/fluidattacks/talk-to-a-hacker",
         });
       } else {
         setIsUpgradeOpen(true);
