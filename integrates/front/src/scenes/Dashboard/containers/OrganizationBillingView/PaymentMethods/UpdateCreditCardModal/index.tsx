@@ -7,7 +7,7 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikCheckbox, FormikText } from "utils/forms/fields";
 
-interface IUpdatePaymentModalProps {
+interface IUpdateCreditCardModalProps {
   onClose: () => void;
   onSubmit: (values: {
     cardExpirationMonth: string;
@@ -22,10 +22,10 @@ const validations = object().shape({
   makeDefault: boolean().required(),
 });
 
-export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
+export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
   onClose,
   onSubmit,
-}: IUpdatePaymentModalProps): JSX.Element => {
+}: IUpdateCreditCardModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -40,7 +40,7 @@ export const UpdatePaymentModal: React.FC<IUpdatePaymentModalProps> = ({
           cardExpirationYear: "",
           makeDefault: false,
         }}
-        name={"updatePaymentMethod"}
+        name={"updateCreditCard"}
         onSubmit={onSubmit}
         validationSchema={validations}
       >

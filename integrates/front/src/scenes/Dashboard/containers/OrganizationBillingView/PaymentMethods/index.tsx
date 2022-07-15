@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { AddCreditCardModal } from "./AddCreditCardModal";
 import { AddOtherMethodModal } from "./AddOtherMethodModal";
 import { Container } from "./styles";
-import { UpdatePaymentModal } from "./UpdatePaymentMethodModal";
+import { UpdateCreditCardModal } from "./UpdateCreditCardModal";
 
 import {
   ADD_PAYMENT_METHOD,
@@ -48,7 +48,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const permissions: PureAbility<string> = useAbility(
       authzPermissionsContext
     );
-    const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
+    const [currentCreditCardRow, setCurrentCreditCardRow] = useState<
+      Record<string, string>
+    >({});
+    const [currentOtherMethodRow, setCurrentOtherMethodRow] = useState<
+      Record<string, string>
+    >({});
 
     // Data
     const creditCardData: IPaymentMethodAttr[] = paymentMethods
@@ -224,7 +229,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       {
         onCompleted: (): void => {
           onUpdate();
-          setCurrentRow({});
+          setCurrentCreditCardRow({});
+          setCurrentOtherMethodRow({});
           msgSuccess(
             t("organization.tabs.billing.paymentMethods.remove.success.body"),
             t("organization.tabs.billing.paymentMethods.remove.success.title")
@@ -266,30 +272,39 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       void removePaymentMethod({
         variables: {
           organizationId,
-          paymentMethodId: currentRow.id,
+          paymentMethodId: currentCreditCardRow.id,
         },
       });
-    }, [organizationId, currentRow.id, removePaymentMethod]);
+    }, [organizationId, currentCreditCardRow.id, removePaymentMethod]);
 
     // Update payment method
     const canUpdate: boolean = permissions.can(
       "api_mutations_update_payment_method_mutate"
     );
-    const [isUpdatingPaymentMethod, setIsUpdatingPaymentMethod] = useState<
+    const [isUpdatingCreditCard, setIsUpdatingCreditCard] = useState<
       false | { mode: "UPDATE" }
     >(false);
-    const openUpdateModal = useCallback((): void => {
-      setIsUpdatingPaymentMethod({ mode: "UPDATE" });
+    const openUpdateCreditCardModal = useCallback((): void => {
+      setIsUpdatingCreditCard({ mode: "UPDATE" });
     }, []);
-    const closeUpdateModal = useCallback((): void => {
-      setIsUpdatingPaymentMethod(false);
+    const closeUpdateCreditCardModal = useCallback((): void => {
+      setIsUpdatingCreditCard(false);
+    }, []);
+    const [isUpdatingOhterMethod, setIsUpdatingOhterMethod] = useState<
+      false | { mode: "UPDATE" }
+    >(false);
+    const openUpdateOhterMethodModal = useCallback((): void => {
+      setIsUpdatingOhterMethod({ mode: "UPDATE" });
+    }, []);
+    const closeUpdateOhterMethodModal = useCallback((): void => {
+      setIsUpdatingOhterMethod(false);
     }, []);
     const [updatePaymentMethod, { loading: updating }] = useMutation(
       UPDATE_PAYMENT_METHOD,
       {
         onCompleted: (): void => {
           onUpdate();
-          closeUpdateModal();
+          closeUpdateCreditCardModal();
           msgSuccess(
             t("organization.tabs.billing.paymentMethods.update.success.body"),
             t("organization.tabs.billing.paymentMethods.update.success.title")
@@ -319,11 +334,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             cardExpirationYear,
             makeDefault,
             organizationId,
-            paymentMethodId: currentRow.id,
+            paymentMethodId: currentCreditCardRow.id,
           },
         });
       },
-      [updatePaymentMethod, organizationId, currentRow.id]
+      [updatePaymentMethod, organizationId, currentCreditCardRow.id]
     );
 
     const creditCardTableHeaders: IHeaderConfig[] = [
@@ -394,9 +409,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               </Can>
               <Can do={"api_mutations_update_payment_method_mutate"}>
                 <Button
-                  disabled={_.isEmpty(currentRow) || removing || updating}
+                  disabled={
+                    _.isEmpty(currentCreditCardRow) || removing || updating
+                  }
                   id={"updateCreditCard"}
-                  onClick={openUpdateModal}
+                  onClick={openUpdateCreditCardModal}
                   variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faUserEdit} />
@@ -406,7 +423,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               </Can>
               <Can do={"api_mutations_remove_payment_method_mutate"}>
                 <Button
-                  disabled={_.isEmpty(currentRow) || removing || updating}
+                  disabled={
+                    _.isEmpty(currentCreditCardRow) || removing || updating
+                  }
                   id={"removeCreditCard"}
                   onClick={handleRemovePaymentMethod}
                   variant={"secondary"}
@@ -426,7 +445,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             clickToSelect: canRemove || canUpdate,
             hideSelectColumn: !canRemove && !canUpdate,
             mode: "radio",
-            onSelect: setCurrentRow,
+            onSelect: setCurrentCreditCardRow,
           }}
         />
         <Text fw={7} mb={2} mt={3} size={4}>
@@ -444,17 +463,47 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           defaultSorted={{ dataField: "businessName", order: "asc" }}
           exportCsv={false}
           extraButtons={
-            <Can do={"api_mutations_add_payment_method_mutate"}>
-              <Button
-                id={"addOtherMethod"}
-                onClick={openAddOtherMethodModal}
-                variant={"primary"}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-                &nbsp;
-                {t("organization.tabs.billing.paymentMethods.add.button")}
-              </Button>
-            </Can>
+            <Fragment>
+              <Can do={"api_mutations_add_payment_method_mutate"}>
+                <Button
+                  id={"addOtherMethod"}
+                  onClick={openAddOtherMethodModal}
+                  variant={"primary"}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.add.button")}
+                </Button>
+              </Can>
+              <Can do={"api_mutations_update_payment_method_mutate"}>
+                <Button
+                  disabled={
+                    _.isEmpty(currentOtherMethodRow) || removing || updating
+                  }
+                  id={"updateCreditCard"}
+                  onClick={openUpdateOhterMethodModal}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faUserEdit} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.update.button")}
+                </Button>
+              </Can>
+              <Can do={"api_mutations_remove_payment_method_mutate"}>
+                <Button
+                  disabled={
+                    _.isEmpty(currentOtherMethodRow) || removing || updating
+                  }
+                  id={"removeCreditCard"}
+                  onClick={handleRemovePaymentMethod}
+                  variant={"secondary"}
+                >
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                  &nbsp;
+                  {t("organization.tabs.billing.paymentMethods.remove.button")}
+                </Button>
+              </Can>
+            </Fragment>
           }
           headers={otherMethodsTableHeaders}
           id={"tblOtherMethods"}
@@ -464,7 +513,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             clickToSelect: canRemove || canUpdate,
             hideSelectColumn: !canRemove && !canUpdate,
             mode: "radio",
-            onSelect: setCurrentRow,
+            onSelect: setCurrentOtherMethodRow,
           }}
         />
         {isAddingPaymentMethod === "CREDIT_CARD" && (
@@ -481,9 +530,15 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             onSubmit={handleAddOtherMethodSubmit}
           />
         )}
-        {isUpdatingPaymentMethod === false ? undefined : (
-          <UpdatePaymentModal
-            onClose={closeUpdateModal}
+        {isUpdatingCreditCard === false ? undefined : (
+          <UpdateCreditCardModal
+            onClose={closeUpdateOhterMethodModal}
+            onSubmit={handleUpdatePaymentMethodSubmit}
+          />
+        )}
+        {isUpdatingOhterMethod === false ? undefined : (
+          <UpdateCreditCardModal
+            onClose={closeUpdateOhterMethodModal}
             onSubmit={handleUpdatePaymentMethodSubmit}
           />
         )}
