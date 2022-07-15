@@ -17,7 +17,7 @@ def guess_environment() -> Union[
 ]:
     if any(
         (
-            "product/" in BASE_DIR,
+            "universe/" in BASE_DIR,
             environ.get("CI_COMMIT_REF_NAME", "master") != "master",
         )
     ):
