@@ -2,8 +2,8 @@
 """
 Migrate stakeholders metadata to "integrates_vms" table.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-07-16 at 04:42:23 UTC
+Finalization Time: 2022-07-16 at 04:42:57 UTC
 """
 
 from aioextensions import (
@@ -118,7 +118,7 @@ async def main() -> None:
 
     await collect(
         tuple(process_stakeholder(item) for item in stakeholders_scanned),
-        workers=8,
+        workers=32,
     )
 
 
