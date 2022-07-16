@@ -18,6 +18,9 @@ from custom_exceptions import (
 from datetime import (
     datetime,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -51,9 +54,6 @@ from redis_cluster.operations import (
 from sessions import (
     dal as sessions_dal,
 )
-from stakeholders import (
-    dal as stakeholders_dal,
-)
 from stakeholders.utils import (
     get_international_format_phone_number,
 )
@@ -78,7 +78,7 @@ from verify.enums import (
 
 async def acknowledge_concurrent_session(email: str) -> None:
     """Acknowledge termination of concurrent session."""
-    await stakeholders_dal.update_metadata(
+    await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             is_concurrent_session=False,
         ),
@@ -94,7 +94,7 @@ async def add_push_token(
     stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
     tokens: list[str] = stakeholder.push_tokens or []
     if push_token not in tokens:
-        await stakeholders_dal.update_metadata(
+        await stakeholders_model.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 push_tokens=tokens + [push_token]
             ),
@@ -111,7 +111,7 @@ async def check_session_web_validity(request: Request) -> None:
     # raise the concurrent session modal flag
     if request.session.get("is_concurrent"):
         request.session.pop("is_concurrent")
-        await stakeholders_dal.update_metadata(
+        await stakeholders_model.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 is_concurrent_session=True,
             ),
@@ -134,12 +134,12 @@ async def check_session_web_validity(request: Request) -> None:
 
 
 async def add(data: Stakeholder) -> None:
-    return await stakeholders_dal.add(stakeholder=data)
+    return await stakeholders_model.add(stakeholder=data)
 
 
 async def remove(email: str) -> None:
     await authz.revoke_user_level_role(email)
-    await stakeholders_dal.remove(email=email)
+    await stakeholders_model.remove(email=email)
     await redis_del_by_deps("session_logout", session_email=email)
     return None
 
@@ -200,7 +200,7 @@ def is_fluid_staff(email: str) -> bool:
 
 
 async def register(email: str) -> None:
-    await stakeholders_dal.update_metadata(
+    await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(is_registered=True),
         email=email,
     )
@@ -208,7 +208,7 @@ async def register(email: str) -> None:
 
 async def remove_access_token(email: str) -> None:
     """Remove access token attribute"""
-    await stakeholders_dal.update_metadata(
+    await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             access_token=StakeholderAccessToken(
                 iat=0,
@@ -245,7 +245,7 @@ async def update_access_token(
             jti=token_data["jti_hashed"],
             salt=token_data["salt"],
         )
-        await stakeholders_dal.update_metadata(
+        await stakeholders_model.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 access_token=access_token,
             ),
@@ -259,7 +259,7 @@ async def update_access_token(
 
 async def update_legal_remember(email: str, remember: bool) -> None:
     """Remember legal notice acceptance"""
-    return await stakeholders_dal.update_metadata(
+    return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             legal_remember=remember,
         ),
@@ -268,7 +268,7 @@ async def update_legal_remember(email: str, remember: bool) -> None:
 
 
 async def update_last_login(email: str) -> None:
-    return await stakeholders_dal.update_metadata(
+    return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             last_login_date=datetime_utils.get_iso_date(),
         ),
@@ -310,7 +310,7 @@ async def update_invited_stakeholder(
 async def update_attributes(
     email: str, stakeholder_data: StakeholderMetadataToUpdate
 ) -> None:
-    return await stakeholders_dal.update_metadata(
+    return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             first_name=stakeholder_data.first_name,
             last_name=stakeholder_data.last_name,
@@ -341,7 +341,7 @@ async def update_mobile(
         country_code=country_code,
         national_number=new_phone.national_number,
     )
-    return await stakeholders_dal.update_metadata(
+    return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             phone=stakeholder_phone,
         ),
@@ -351,7 +351,7 @@ async def update_mobile(
 
 async def update_tours(email: str, tours: dict[str, bool]) -> None:
     """New user workflow acknowledgment"""
-    return await stakeholders_dal.update_metadata(
+    return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             tours=StakeholderTours(
                 new_group=tours["new_group"],

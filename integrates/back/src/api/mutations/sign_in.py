@@ -14,6 +14,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model import (
+    stakeholders as stakeholders_model,
+)
 from db_model.stakeholders.types import (
     NotificationsPreferences,
     Stakeholder,
@@ -48,7 +51,6 @@ from settings.auth import (
     OAUTH,
 )
 from stakeholders import (
-    dal as stakeholders_dal,
     domain as stakeholders_domain,
 )
 from subscriptions import (
@@ -71,7 +73,7 @@ async def autoenroll_stakeholder(email: str) -> None:
         role="user",
         is_register_after_complete=True,
     )
-    await stakeholders_dal.update_metadata(
+    await stakeholders_model.update_metadata(
         email=email,
         metadata=StakeholderMetadataToUpdate(
             notifications_preferences=NotificationsPreferences(

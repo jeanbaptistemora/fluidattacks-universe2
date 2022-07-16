@@ -4,9 +4,6 @@ from .group_stakeholders import (
 from .organization_stakeholders import (
     OrganizationStakeholdersLoader,
 )
-from .stakeholder import (
-    StakeholderTypedLoader,
-)
 from .stakeholder_level_role import (
     StakeholderLevelRoleLoader,
 )
@@ -61,6 +58,9 @@ from db_model.roots.get import (
     RootLoader,
     RootMachineExecutionsLoader,
     RootSecretsLoader,
+)
+from db_model.stakeholders.get import (
+    StakeholderLoader,
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
@@ -153,7 +153,7 @@ class Dataloaders(NamedTuple):
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
-    stakeholder: StakeholderTypedLoader
+    stakeholder: StakeholderLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
@@ -198,7 +198,7 @@ def get_new_context() -> Dataloaders:
         )
     )
 
-    stakeholder_loader = StakeholderTypedLoader()
+    stakeholder_loader = StakeholderLoader()
     group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
     organization_stakeholders_loader = OrganizationStakeholdersLoader(
         stakeholder_loader

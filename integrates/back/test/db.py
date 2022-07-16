@@ -20,6 +20,7 @@ from db_model import (
     groups as groups_model,
     organizations as orgs_model,
     roots as roots_model,
+    stakeholders as stakeholders_model,
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
     vulnerabilities as vulns_model,
@@ -81,9 +82,6 @@ from organizations import (
 from organizations_finding_policies import (
     dal as dal_policies,
 )
-from stakeholders import (
-    dal as dal_stakeholders,
-)
 from typing import (
     Any,
     Awaitable,
@@ -96,7 +94,7 @@ from typing import (
 async def populate_stakeholders(data: List[Any]) -> bool:
     await collect(
         [
-            dal_stakeholders.add(
+            stakeholders_model.add(
                 stakeholder=item["stakeholder"],
             )
             for item in data
@@ -104,7 +102,7 @@ async def populate_stakeholders(data: List[Any]) -> bool:
     )
     await collect(
         [
-            dal_stakeholders.update_metadata(
+            stakeholders_model.update_metadata(
                 email=user["stakeholder"].email,
                 metadata=StakeholderMetadataToUpdate(
                     notifications_preferences=NotificationsPreferences(
