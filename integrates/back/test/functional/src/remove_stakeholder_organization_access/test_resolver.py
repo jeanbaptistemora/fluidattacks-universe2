@@ -13,7 +13,6 @@ from datetime import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -46,7 +45,7 @@ async def test_remove_stakeholder_organization_remaining_access(
     assert result_jwt["data"]["updateAccessToken"]["success"]
 
     session_jwt: str = result_jwt["data"]["updateAccessToken"]["sessionJwt"]
-    first_result_query: Dict[str, Any] = await get_organizations(
+    first_result_query: dict[str, Any] = await get_organizations(
         user=stakeholder_email,
         session_jwt=session_jwt,
     )
@@ -56,7 +55,7 @@ async def test_remove_stakeholder_organization_remaining_access(
         == number_organizations
     )
 
-    result_mutation: Dict[str, Any] = await get_result(
+    result_mutation: dict[str, Any] = await get_result(
         user=email,
         org=org_id,
         stakeholder=stakeholder_email,
@@ -66,7 +65,7 @@ async def test_remove_stakeholder_organization_remaining_access(
         "success"
     ]
 
-    second_result_query: Dict[str, Any] = await get_organizations(
+    second_result_query: dict[str, Any] = await get_organizations(
         user=stakeholder_email,
         session_jwt=session_jwt,
     )
@@ -98,7 +97,7 @@ async def test_remove_stakeholder_organization_access(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, org=org_id, stakeholder=email
     )
     assert "errors" not in result
@@ -120,7 +119,7 @@ async def test_remove_stakeholder_organization_access_fail(
 ) -> None:
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, org=org_id, stakeholder=email
     )
     assert "errors" in result

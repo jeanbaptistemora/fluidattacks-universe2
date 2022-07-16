@@ -66,6 +66,11 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_stakeholder(email: str) -> None:
+    await groups_domain.add_without_group(
+        email=email,
+        role="user",
+        is_register_after_complete=True,
+    )
     await stakeholders_dal.update_metadata(
         email=email,
         metadata=StakeholderMetadataToUpdate(
@@ -93,12 +98,6 @@ async def autoenroll_stakeholder(email: str) -> None:
                 ]
             )
         ),
-    )
-
-    await groups_domain.add_without_group(
-        email=email,
-        role="user",
-        is_register_after_complete=True,
     )
 
     # Enroll new users to Daily Digest by default

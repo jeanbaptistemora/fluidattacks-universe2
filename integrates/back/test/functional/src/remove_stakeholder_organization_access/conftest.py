@@ -34,17 +34,16 @@ from db_model.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder_organization_access")
 @pytest.fixture(autouse=True, scope="session")
-async def populate(generic_data: Dict[str, Any]) -> bool:
+async def populate(generic_data: dict[str, Any]) -> bool:
     new_user: str = "justoneorgacess@test.com"
     organization_id: str = "ed3831e8-14a2-483b-9cff-cc0747829640"
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "organizations": [
             {
                 "organization": Organization(
@@ -81,7 +80,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         "stakeholders": [
             {
                 "stakeholder": Stakeholder(
-                    email="new_user",
+                    email=new_user,
                     first_name="new_user",
                     last_name="new_user",
                     access_token=StakeholderAccessToken(
