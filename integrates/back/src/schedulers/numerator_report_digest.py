@@ -12,6 +12,9 @@ from datetime import (
     date,
     datetime,
 )
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
     FindingVerification,
@@ -75,6 +78,8 @@ def _generate_fields() -> Dict[str, Any]:
         "verified": _generate_count_fields(),
         "loc": _generate_count_fields(),
         "reattacked": _generate_count_fields(),
+        "draft_created": _generate_count_fields(),
+        "draft_rejected": _generate_count_fields(),
         "groups": {},
     }
     return fields
@@ -86,6 +91,8 @@ def _generate_group_fields() -> Dict[str, Any]:
         "enumerated": 0,
         "loc": 0,
         "reattacked": 0,
+        "draft_created": 0,
+        "draft_rejected": 0,
     }
     return fields
 
@@ -146,7 +153,10 @@ async def _generate_numerator_report(
                 GroupToeLinesRequest(group_name=group)
             )
         )
-        findings: tuple[Finding, ...] = await loaders.group_findings.load(
+        findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+            group
+        )
+        group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(
             group
         )
 
@@ -197,6 +207,31 @@ async def _generate_numerator_report(
                         to_add=len(verification.vulnerability_ids),
                         user_email=verification.modified_by,
                     )
+
+        for draft in group_drafts:
+            if draft.state.status == FindingStateStatus.CREATED:
+                content = _generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        draft.state.modified_date
+                    ),
+                    field="draft_created",
+                    group=group,
+                    user_email=draft.state.modified_by,
+                )
+
+            if draft.state.status == FindingStateStatus.REJECTED:
+                content = _generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        draft.state.modified_date
+                    ),
+                    field="draft_rejected",
+                    group=group,
+                    user_email=draft.state.modified_by,
+                )
 
     return content
 

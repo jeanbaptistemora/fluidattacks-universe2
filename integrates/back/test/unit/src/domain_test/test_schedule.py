@@ -86,16 +86,32 @@ def test_validate_date_fail() -> None:
                             "today": 0,
                         }
                     },
+                    "draft_created": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
+                    "draft_rejected": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
                     "groups": {
                         "unittesting": {
                             "verified": 0,
                             "enumerated": 0,
                             "loc": 0,
+                            "draft_created": 0,
+                            "draft_rejected": 0,
                         },
                         "test_group": {
                             "verified": 0,
                             "enumerated": 0,
                             "loc": 0,
+                            "draft_created": 0,
+                            "draft_rejected": 0,
                         },
                     },
                 },
@@ -185,6 +201,18 @@ def test_generate_count_report(
                     }
                 },
                 "reattacked": {
+                    "count": {
+                        "past_day": 0,
+                        "today": 0,
+                    }
+                },
+                "draft_created": {
+                    "count": {
+                        "past_day": 0,
+                        "today": 0,
+                    }
+                },
+                "draft_rejected": {
                     "count": {
                         "past_day": 0,
                         "today": 0,
