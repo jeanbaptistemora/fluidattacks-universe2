@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 """
 This migration aims to delete all the duplicate organizations that were
 created for the organization 'Integrates Community' while the method

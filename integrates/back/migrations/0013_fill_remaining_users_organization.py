@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -.- coding: utf-8 -.-
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 """
 This migration aims to fill the organization field for users that do not have
 company field or that auto-enrolled to the application.
