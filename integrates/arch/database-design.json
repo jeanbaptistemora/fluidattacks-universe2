@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 14, 2022, 04:05 PM",
+    "DateLastModified": "Jul 18, 2022, 09:55 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -897,6 +897,10 @@
         {
           "AttributeName": "city",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "tool",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -3913,9 +3917,9 @@
             "pk_2",
             "sk_2",
             "state",
-            "payment_methods",
             "policies",
-            "billing_customer"
+            "billing_customer",
+            "payment_methods"
           ]
         },
         {
@@ -5653,8 +5657,8 @@
             "context",
             "disambiguation",
             "sprint_duration",
-            "sprint_start_date",
-            "policies"
+            "policies",
+            "sprint_start_date"
           ]
         },
         {
@@ -20024,7 +20028,8 @@
             "pk_4",
             "sk_4",
             "pk_5",
-            "sk_5"
+            "sk_5",
+            "tool"
           ]
         },
         {

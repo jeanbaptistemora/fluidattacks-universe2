@@ -28,7 +28,7 @@ from typing import (
 
 class VulnerabilityTool(NamedTuple):
     name: str
-    impacts: set[VulnerabilityToolImpact]
+    impacts: list[VulnerabilityToolImpact]
 
 
 class VulnerabilityState(NamedTuple):
@@ -92,7 +92,7 @@ class Vulnerability(NamedTuple):
     skims_technique: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
-    tool: Optional[VulnerabilityToolImpact] = None
+    tool: Optional[VulnerabilityTool] = None
     treatment: Optional[VulnerabilityTreatment] = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()
