@@ -20,10 +20,15 @@ from graphql.type.definition import (
 )
 from newutils import (
     token as token_utils,
+    validations,
+)
+from starlette.datastructures import (
+    UploadFile,
 )
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 
@@ -35,6 +40,8 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
+    rut: Optional[UploadFile] = None,
+    tax_id: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
     org: Organization = await info.context.loaders.organization.load(
@@ -42,6 +49,15 @@ async def mutate(
     )
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
+
+    if rut is not None:
+        validations.validate_sanitized_csv_input(
+            rut.filename, rut.content_type
+        )
+    if tax_id is not None:
+        validations.validate_sanitized_csv_input(
+            rut.filename, rut.content_type
+        )
 
     # Create payment method
     result: bool = await billing_domain.create_payment_method(
@@ -57,6 +73,8 @@ async def mutate(
         country=kwargs["country"],
         email=kwargs["email"],
         state=kwargs["state"],
+        rut=rut,
+        tax_id=tax_id,
     )
 
     return SimplePayload(success=result)

@@ -1,3 +1,5 @@
+# pylint: disable=too-many-locals
+
 from billing import (
     dal,
 )
@@ -15,6 +17,8 @@ from custom_exceptions import (
     CouldNotUpdateSubscription,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
+    InvalidFileSize,
+    InvalidFileType,
     NoActiveBillingSubscription,
     PaymentMethodAlreadyExists,
 )
@@ -42,9 +46,14 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
+    files as files_utils,
+    validations,
 )
 from settings import (
     LOGGING,
+)
+from starlette.datastructures import (
+    UploadFile,
 )
 from starlette.requests import (
     Request,
@@ -335,7 +344,53 @@ async def customer_portal(
     )
 
 
-async def create_payment_method(  # pylint: disable=too-many-locals
+async def validate_file(file: UploadFile) -> None:
+    mib = 1048576
+    validations.validate_file_name(file.filename)
+    validations.validate_fields([file.content_type])
+    allowed_mimes = [
+        "image/gif",
+        "image/jpeg",
+        "image/png",
+        "application/pdf",
+    ]
+    if not await files_utils.assert_uploaded_file_mime(file, allowed_mimes):
+        raise InvalidFileType("TAX_ID")
+
+    if not await files_utils.get_file_size(file) < 10 * mib:
+        raise InvalidFileSize()
+
+
+async def create_billing_customer(
+    org: Organization,
+    user_email: str,
+) -> Customer:
+    customer: Optional[Customer] = None
+    billing_customer = org.billing_customer
+    if billing_customer is None:
+        customer = await dal.create_customer(
+            org_id=org.id,
+            org_name=org.name,
+            user_email=user_email,
+        )
+    else:
+        customer = await dal.get_customer(
+            org_billing_customer=billing_customer,
+        )
+
+    return customer
+
+
+async def validate_legal_document(
+    rut: Optional[UploadFile], tax_id: Optional[UploadFile]
+) -> None:
+    if rut:
+        await validate_file(rut)
+    if tax_id:
+        await validate_file(tax_id)
+
+
+async def create_payment_method(
     *,
     org: Organization,
     user_email: str,
@@ -349,20 +404,14 @@ async def create_payment_method(  # pylint: disable=too-many-locals
     country: str,
     email: str,
     state: str,
+    rut: Optional[UploadFile] = None,
+    tax_id: Optional[UploadFile] = None,
 ) -> bool:
     """Create a payment method and associate it to the customer"""
+    validate_legal_document(rut, tax_id)
     # Create customer if it does not exist
-    customer: Optional[Customer] = None
-    if org.billing_customer is None:
-        customer = await dal.create_customer(
-            org_id=org.id,
-            org_name=org.name,
-            user_email=user_email,
-        )
-    else:
-        customer = await dal.get_customer(
-            org_billing_customer=org.billing_customer,
-        )
+    customer = await create_billing_customer(org, user_email)
+
     # create other payment methods
     if card_number == "":
         # get actual payment methods

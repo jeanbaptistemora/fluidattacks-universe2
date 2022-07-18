@@ -337,6 +337,10 @@ type Mutation {
     state: String!
     "City of payment method business"
     city: String!
+    "Rut document file in gif, jpg, pdf or zip"
+    rut: Upload
+    "TaxId document file in gif, jpg, pdf or zip"
+    taxId: Upload
   ): SimplePayload!
 
   "Authenticates an user from the mobile ASM app"
