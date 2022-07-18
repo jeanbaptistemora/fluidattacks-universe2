@@ -1,4 +1,5 @@
 from syntax_graph.syntax_readers.common import (
+    array as common_array,
     call_expression as common_call_expression,
     comment as common_comment,
     identifier as common_identifier,
@@ -26,6 +27,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "array",
+        },
+        syntax_reader=common_array.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "call_expression",
         },
         syntax_reader=common_call_expression.reader,
@@ -39,6 +46,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
+            "property_identifier",
         },
         syntax_reader=common_identifier.reader,
     ),

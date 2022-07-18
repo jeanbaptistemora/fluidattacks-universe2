@@ -1,8 +1,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.array_initializer import (
-    build_array_initializer_node,
+from syntax_graph.syntax_nodes.array import (
+    build_array_node,
 )
 from syntax_graph.types import (
     MissingCaseHandling,
@@ -20,7 +20,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    node_types = {"decimal_integer_literal"}
+    node_types = {"decimal_integer_literal", "string"}
 
     childs = [
         child
@@ -33,4 +33,4 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if len(m_childs) > 2 and not childs:
         raise MissingCaseHandling(f"Bad arguments handling in {args.n_id}")
 
-    return build_array_initializer_node(args, c_ids)
+    return build_array_node(args, c_ids)

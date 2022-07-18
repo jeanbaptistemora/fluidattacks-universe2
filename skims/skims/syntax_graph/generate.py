@@ -27,9 +27,12 @@ def generic(args: SyntaxGraphArgs) -> str:
             if node_type in dispatcher.applicable_types:
                 return dispatcher.syntax_reader(args)
 
+    # when we have a considerable amount of syntax readers we must convert
+    # this to log and return missing node if necessary
     raise MissingSyntaxReader(
         f"Missing syntax reader for {node_type} in {args.language.name}"
     )
+    # return missing_node_reader(args, node_type)
 
 
 def build_syntax_graph(

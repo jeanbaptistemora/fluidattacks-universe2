@@ -9,9 +9,7 @@ from typing import (
 )
 
 
-def build_array_initializer_node(
-    args: SyntaxGraphArgs, c_ids: List[NId]
-) -> NId:
+def build_array_node(args: SyntaxGraphArgs, c_ids: List[NId]) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="ArrayInitializer",
