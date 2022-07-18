@@ -81,7 +81,6 @@ async def autoenroll_stakeholder(email: str) -> None:
                     "ACCESS_GRANTED",
                     "AGENT_TOKEN",
                     "CHARTS_REPORT",
-                    "DAILY_DIGEST",
                     "EVENT_REPORT",
                     "FILE_UPDATE",
                     "GROUP_INFORMATION",
