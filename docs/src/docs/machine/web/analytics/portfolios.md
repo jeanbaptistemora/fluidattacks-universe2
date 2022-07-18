@@ -107,3 +107,12 @@ not been solved yet.
 The above chart shows you how
 many of these are in each of
 your groups.
+
+## Groups availability
+
+![Groups Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159283/docs/web/analytics/portfolios/portfolio_availability.png)
+
+The percentage of time that
+each group of your portfolio
+has unsolved events compared to
+the total existence of the group.

@@ -104,6 +104,15 @@ The percentage of vulnerabilities
 that each group has compared with
 the whole organization.
 
+## Groups availability
+
+![Groups Availability](https://res.cloudinary.com/fluid-attacks/image/upload/v1658159320/docs/web/analytics/organizations/organization_availability.png)
+
+The percentage of time that
+each group in your organization
+has unsolved events compared to
+the total existence of the group.
+
 ## Open vulnerabilities by group
 
 ![Open Vulnerabilities By Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1645807634/docs/web/analytics/organizations/organization_open_vuln_by_group.png)
