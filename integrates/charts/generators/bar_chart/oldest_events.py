@@ -146,7 +146,7 @@ def format_data(
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     x_label_many_groups: str = "Group name"
-    y_label_many_groups: str = "Days since group is failing"
+    y_label_many_groups: str = "Days since the group is failing"
 
     async for group in iterate_groups():
         json_dump(
@@ -156,7 +156,7 @@ async def generate_all() -> None:
                     loaders=loaders,
                 ),
                 x_label="Event ID",
-                y_label="Days since event was reported",
+                y_label="Days since the event was reported",
             ),
             entity="group",
             subject=group,
