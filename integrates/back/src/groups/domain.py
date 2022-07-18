@@ -41,6 +41,7 @@ from datetime import (
 )
 from db_model import (
     groups as groups_model,
+    stakeholders as stakeholders_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
@@ -493,6 +494,7 @@ async def complete_register_for_group_invitation(
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
     except StakeholderNotFound:
         stakeholder = Stakeholder(email=user_email)
+        await stakeholders_model.add(stakeholder=stakeholder)
     if not stakeholder.is_registered:
         await collect(
             [
