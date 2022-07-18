@@ -1,6 +1,6 @@
 {
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
@@ -8,9 +8,10 @@
   pkg = (inputs.flakeAdapter {src = projectPath inputs.observesIndex.etl.dynamo.root;}).defaultNix;
   env = pkg.outputs.packages."${system}".env.bin;
 in
-  makeTemplate {
+  makeScript {
+    entrypoint = "dynamo-etl \"\${@}\"";
     searchPaths = {
       bin = [env];
     };
-    name = "observes-etl-dynamo-etl-conf-env-bin";
+    name = "dynamo-etl";
   }

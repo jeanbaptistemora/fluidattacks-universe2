@@ -9,12 +9,23 @@ from fa_purity.maybe import (
 )
 import logging
 import subprocess
+from typing import (
+    cast,
+    TypeVar,
+)
 
 LOG = logging.getLogger(__name__)
+_T = TypeVar("_T")
 
 
 class CmdFailed(Exception):
     pass
+
+
+def _assert_int(item: _T) -> int:
+    if isinstance(item, int):
+        return item
+    raise Exception(f"Expected int type got {type(item)}")
 
 
 def _action(cmd: FrozenList[str], enable_print: bool) -> None:
@@ -32,7 +43,7 @@ def _action(cmd: FrozenList[str], enable_print: bool) -> None:
             break
         if enable_print:
             print(line, end="")
-    if proc.returncode:
+    if _assert_int(cast(int, proc.returncode)):
         error = CmdFailed(cmd)
         LOG.error("%s: %s", cmd, error)
     return None

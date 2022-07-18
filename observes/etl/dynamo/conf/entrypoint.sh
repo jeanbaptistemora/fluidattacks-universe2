@@ -7,28 +7,8 @@ export DYNAMO_PREPARE=__argSendPrepare__
 
 function execute {
   local selection="${1}"
-  import="from dynamo_etl_conf.jobs import Jobs;"
   echo "[INFO] Executing job: ${selection}"
-  case "${selection}" in
-    FORCES)
-      python -c "${import} Jobs().forces().compute()"
-      ;;
-    CORE)
-      python -c "${import} Jobs().core().compute()"
-      ;;
-    CORE_NO_CACHE)
-      python -c "${import} Jobs().core_no_cache().compute()"
-      ;;
-    CORE_PREPARE)
-      python -c "${import} Jobs().prepare_core().compute()"
-      ;;
-    GROUP)
-      python -c "${import} Jobs().standard_group().compute()"
-      ;;
-    *)
-      echo "[ERROR] Invalid job selection" && return 1
-      ;;
-  esac
+  dynamo-etl run "${selection}"
 }
 
 export_notifier_key \

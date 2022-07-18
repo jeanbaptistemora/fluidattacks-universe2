@@ -11,9 +11,11 @@
 in
   makeScript {
     searchPaths = {
+      bin = [
+        outputs."${inputs.observesIndex.etl.dynamo.bin}"
+      ];
       source = [
         outputs."/observes/common/db-creds"
-        outputs."${inputs.observesIndex.etl.dynamo.env.runtime}"
       ];
     };
     replace = {
