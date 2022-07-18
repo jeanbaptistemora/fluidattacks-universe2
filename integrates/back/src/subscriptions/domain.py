@@ -537,33 +537,6 @@ async def _process_subscription(
         LOGGER.exception(ex, extra={"extra": {"subscription": subscription}})
 
 
-async def trigger_subscriptions_daily_digest() -> None:
-    """Process daily digest. Fixed period by scheduler."""
-    # Daily:   Tuesday to Saturday @ 9:00 UTC (4:00 GMT-5)
-    subscriptions = [
-        subscription
-        for subscription in await get_subscriptions_to_entity_report(
-            audience="user",
-        )
-        if str(subscription["sk"]["entity"]).lower() == "digest"
-    ]
-    LOGGER.info(
-        "- daily digest subscriptions loaded",
-        extra={"extra": {"length": len(subscriptions), "period": "DAILY"}},
-    )
-    digest_stats = await _get_digest_stats(get_new_context(), subscriptions)
-    await collect(
-        [
-            _process_subscription(
-                subscription=subscription,
-                digest_stats=digest_stats,
-            )
-            for subscription in subscriptions
-        ],
-        workers=16,
-    )
-
-
 async def trigger_subscriptions_analytics() -> None:
     """Process subscriptions given a frequency from a related scheduler."""
     # Hourly:  Supported but not in use by any subscription

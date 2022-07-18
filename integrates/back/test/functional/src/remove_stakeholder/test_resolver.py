@@ -64,7 +64,6 @@ async def test_remove_stakeholder(
 
     assert old_stakeholder.email == email
     assert "ACCESS_GRANTED" in old_stakeholder.notifications_preferences.email
-    assert "DAILY_DIGEST" in old_stakeholder.notifications_preferences.email
 
     assert not result_me_query["data"]["me"]["remember"]
     assert result_me_query["data"]["me"]["role"] == role

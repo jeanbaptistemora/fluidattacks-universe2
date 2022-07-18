@@ -110,7 +110,6 @@ async def populate_stakeholders(data: List[Any]) -> bool:
                             "ACCESS_GRANTED",
                             "AGENT_TOKEN",
                             "CHARTS_REPORT",
-                            "DAILY_DIGEST",
                             "EVENT_REPORT",
                             "FILE_UPDATE",
                             "GROUP_INFORMATION",
