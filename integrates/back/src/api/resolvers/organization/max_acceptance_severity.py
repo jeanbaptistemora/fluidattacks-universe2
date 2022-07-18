@@ -16,4 +16,8 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Decimal:
-    return parent.policies.max_acceptance_severity or DEFAULT_MAX_SEVERITY
+    return (
+        parent.policies.max_acceptance_severity
+        if parent.policies.max_acceptance_severity is not None
+        else DEFAULT_MAX_SEVERITY
+    )

@@ -64,13 +64,19 @@ async def get_group_max_acceptance_severity(
     *, loaders: Any, group: Group
 ) -> Decimal:
     if group.policies:
-        return group.policies.max_acceptance_severity or DEFAULT_MAX_SEVERITY
+        return (
+            group.policies.max_acceptance_severity
+            if group.policies.max_acceptance_severity is not None
+            else DEFAULT_MAX_SEVERITY
+        )
 
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
     return (
-        organization.policies.max_acceptance_severity or DEFAULT_MAX_SEVERITY
+        organization.policies.max_acceptance_severity
+        if organization.policies.max_acceptance_severity is not None
+        else DEFAULT_MAX_SEVERITY
     )
 
 
