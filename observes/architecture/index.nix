@@ -43,14 +43,7 @@ in {
     scheduler = new_std "${servicePath}/jobs-scheduler";
   };
   etl = {
-    dynamo =
-      (new_std "${etlsPath}/dynamo_etl_conf")
-      // {
-        env = {
-          runtime = "/observes/etl/dynamo/conf/env/runtime";
-          dev = "/observes/etl/dynamo/conf/env/dev";
-        };
-      };
+    dynamo = new_std "${etlsPath}/dynamo_etl_conf";
     code =
       (new_std "${etlsPath}/code")
       // {
