@@ -8,6 +8,9 @@ from dynamo_etl_conf.core import (
     SEGMENTATION,
     TargetTables,
 )
+from enum import (
+    Enum,
+)
 from fa_purity import (
     Maybe,
 )
@@ -23,13 +26,21 @@ from fa_purity.frozen import (
 import os
 
 
+class Jobs(Enum):
+    FORCES = "FORCES"
+    CORE = "CORE"
+    CORE_NO_CACHE = "CORE_NO_CACHE"
+    CORE_PREPARE = "CORE_PREPARE"
+    GROUP = "GROUP"
+
+
 @dataclass(frozen=True)
-class Jobs:
-    _schema_prefix: str = "dynamodb_"
-    _etl_bin: str = os.environ["DYNAMO_ETL_BIN"]
-    _etl_big_bin: str = os.environ["DYNAMO_ETL_BIG_BIN"]
-    _etl_parrallel: str = os.environ["DYNAMO_PARALLEL"]
-    _etl_prepare: str = os.environ["DYNAMO_PREPARE"]
+class Executor:
+    _schema_prefix: str
+    _etl_bin: str
+    _etl_big_bin: str
+    _etl_parrallel: str
+    _etl_prepare: str
 
     def _run(
         self,
@@ -102,3 +113,26 @@ class Jobs:
             "s3://observes.cache/dynamoEtl/vms_schema",
         ]
         return external_run(tuple(args))
+
+
+def default_executor() -> Executor:
+    return Executor(
+        "dynamodb_",
+        os.environ["DYNAMO_ETL_BIN"],
+        os.environ["DYNAMO_ETL_BIG_BIN"],
+        os.environ["DYNAMO_PARALLEL"],
+        os.environ["DYNAMO_PREPARE"],
+    )
+
+
+def run_job(exe: Executor, job: Jobs) -> Cmd[None]:
+    if job is Jobs.FORCES:
+        return exe.forces()
+    if job is Jobs.CORE:
+        return exe.core()
+    if job is Jobs.CORE_NO_CACHE:
+        return exe.core_no_cache()
+    if job is Jobs.CORE_PREPARE:
+        return exe.prepare_core()
+    if job is Jobs.GROUP:
+        return exe.standard_group()

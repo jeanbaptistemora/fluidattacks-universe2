@@ -5,6 +5,7 @@
   src,
 }: let
   runtime_deps = with python_pkgs; [
+    click
     fa-purity
     redshift-client
   ];
