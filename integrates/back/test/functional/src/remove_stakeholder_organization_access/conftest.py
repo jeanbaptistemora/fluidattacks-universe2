@@ -41,7 +41,7 @@ from typing import (
 @pytest.mark.resolver_test_group("remove_stakeholder_organization_access")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
-    new_user: str = "justoneorgacess@test.com"
+    new_user: str = "justoneorgaccess@test.com"
     organization_id: str = "ed3831e8-14a2-483b-9cff-cc0747829640"
     data: dict[str, Any] = {
         "organizations": [

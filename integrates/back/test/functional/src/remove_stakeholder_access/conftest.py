@@ -40,7 +40,7 @@ from typing import (
 @pytest.mark.resolver_test_group("remove_stakeholder_access")
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
-    new_user: str = "justonegroupacess@gmail.com"
+    new_user: str = "justonegroupaccess@gmail.com"
     data: dict[str, Any] = {
         "organizations": [
             {

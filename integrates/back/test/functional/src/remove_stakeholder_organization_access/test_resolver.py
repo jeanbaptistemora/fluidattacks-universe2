@@ -21,7 +21,7 @@ from typing import (
 @pytest.mark.parametrize(
     ["stakeholder_email", "no_access_remaining", "number_organizations"],
     [
-        ["justoneorgacess@test.com", True, 1],
+        ["justoneorgaccess@test.com", True, 1],
         ["customer_manager@fluidattacks.com", False, 2],
     ],
 )

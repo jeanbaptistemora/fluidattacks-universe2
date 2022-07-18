@@ -18,7 +18,7 @@ from typing import (
 )
 
 
-class OrganizationAcessTypedLoader(DataLoader):
+class OrganizationAccessTypedLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, keys: Iterable[tuple[str, str]]

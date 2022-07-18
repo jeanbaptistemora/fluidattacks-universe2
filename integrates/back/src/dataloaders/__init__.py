@@ -11,7 +11,7 @@ from collections import (
     defaultdict,
 )
 from dataloaders.organization_access import (
-    OrganizationAcessTypedLoader,
+    OrganizationAccessTypedLoader,
 )
 from db_model.credentials.get import (
     CredentialsLoader,
@@ -134,7 +134,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
-    organization_access: OrganizationAcessTypedLoader
+    organization_access: OrganizationAccessTypedLoader
     organization_credentials: OrganizationCredentialsLoader
     me_drafts: MeDraftsLoader
     organization_groups: OrganizationGroupsLoader
@@ -241,7 +241,7 @@ def get_new_context() -> Dataloaders:
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
-        organization_access=OrganizationAcessTypedLoader(),
+        organization_access=OrganizationAccessTypedLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),

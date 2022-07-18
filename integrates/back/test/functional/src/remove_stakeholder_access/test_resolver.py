@@ -72,7 +72,7 @@ async def test_remove_stakeholder_access_fail(
 @pytest.mark.parametrize(
     ["stakeholder_email", "no_access_remaining", "number_organizations"],
     [
-        ["justonegroupacess@gmail.com", True, 1],
+        ["justonegroupaccess@gmail.com", True, 1],
         ["customer_manager@fluidattacks.com", False, 2],
     ],
 )
