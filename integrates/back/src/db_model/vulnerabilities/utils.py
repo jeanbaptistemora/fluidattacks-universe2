@@ -104,7 +104,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
         if "verification" in item
         else None
     )
-    tool = format_tool(item["tool"]) if "tool" in item else None
     zero_risk = (
         format_zero_risk(item["zero_risk"]) if "zero_risk" in item else None
     )
@@ -137,7 +136,6 @@ def format_vulnerability(item: Item) -> Vulnerability:
         state=state,
         stream=item.get("stream", None),
         tags=item.get("tags", None),
-        tool=tool,
         treatment=treatment,
         type=VulnerabilityType[item["type"]],
         unreliable_indicators=unreliable_indicators,
@@ -158,6 +156,7 @@ def format_vulnerability_edge(
 
 
 def format_state(item: Item) -> VulnerabilityState:
+    tool = format_tool(item["tool"]) if "tool" in item else None
     return VulnerabilityState(
         justification=StateRemovalJustification[item["justification"]]
         if item.get("justification", None)
@@ -166,6 +165,7 @@ def format_state(item: Item) -> VulnerabilityState:
         modified_date=item["modified_date"],
         source=Source[item["source"]],
         status=VulnerabilityStateStatus[item["status"]],
+        tool=tool,
     )
 
 

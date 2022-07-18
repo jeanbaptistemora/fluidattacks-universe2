@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 18, 2022, 09:55 AM",
+    "DateLastModified": "Jul 18, 2022, 01:38 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -20028,8 +20028,7 @@
             "pk_4",
             "sk_4",
             "pk_5",
-            "sk_5",
-            "tool"
+            "sk_5"
           ]
         },
         {
@@ -21185,7 +21184,8 @@
             "modified_date",
             "modified_by",
             "source",
-            "justification"
+            "justification",
+            "tool"
           ]
         },
         {

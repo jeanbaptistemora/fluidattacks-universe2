@@ -37,6 +37,7 @@ class VulnerabilityState(NamedTuple):
     source: Source
     status: VulnerabilityStateStatus
     justification: Optional[StateRemovalJustification] = None
+    tool: Optional[VulnerabilityTool] = None
 
 
 class VulnerabilityTreatment(NamedTuple):
@@ -92,7 +93,6 @@ class Vulnerability(NamedTuple):
     skims_technique: Optional[str] = None
     stream: Optional[List[str]] = None
     tags: Optional[List[str]] = None
-    tool: Optional[VulnerabilityTool] = None
     treatment: Optional[VulnerabilityTreatment] = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()
