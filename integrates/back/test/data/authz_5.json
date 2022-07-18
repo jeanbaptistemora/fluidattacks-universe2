@@ -179,6 +179,42 @@
           }
         }
       }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "oneshottest"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "level": {
+            "S": "group"
+          },
+          "subject": {
+            "S": "__adminEmail__"
+          },
+          "object": {
+            "S": "unittesting"
+          },
+          "role": {
+            "S": "admin"
+          }
+        }
+      }
     }
   ]
 }
