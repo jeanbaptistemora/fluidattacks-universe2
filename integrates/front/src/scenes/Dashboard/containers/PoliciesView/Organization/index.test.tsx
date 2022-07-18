@@ -31,7 +31,7 @@ describe("Organization policies view", (): void => {
     organizationId: "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
   };
 
-  const orgPolicyTableRows: number = 6;
+  const orgPolicyFields: number = 8;
 
   it("should return a  function", (): void => {
     expect.hasAssertions();
@@ -77,7 +77,7 @@ describe("Organization policies view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
+      expect(screen.getAllByRole("textbox")).toHaveLength(orgPolicyFields);
     });
 
     expect(
@@ -220,7 +220,7 @@ describe("Organization policies view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
+      expect(screen.getAllByRole("textbox")).toHaveLength(orgPolicyFields);
     });
 
     expect(
@@ -313,7 +313,7 @@ describe("Organization policies view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
+      expect(screen.getAllByRole("textbox")).toHaveLength(orgPolicyFields);
     });
 
     expect(
@@ -525,7 +525,7 @@ describe("Organization policies view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.getAllByRole("row")).toHaveLength(orgPolicyTableRows);
+      expect(screen.getAllByRole("textbox")).toHaveLength(orgPolicyFields);
     });
 
     userEvent.clear(screen.getByRole("textbox", { name: "maxAcceptanceDays" }));
