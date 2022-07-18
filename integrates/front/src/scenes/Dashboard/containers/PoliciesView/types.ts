@@ -12,6 +12,7 @@ interface IPolicies extends IPoliciesData {
   loadingPolicies: boolean;
   permission: string;
   savingPolicies: boolean;
+  tooltipMessage?: string;
 }
 
 export type { IPoliciesData, IPolicies };

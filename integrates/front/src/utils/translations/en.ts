@@ -1718,6 +1718,11 @@ export const enTranslations: ResourceKey = {
             tagsInput: "Tags associated to the policy",
           },
         },
+        group: {
+          tooltip:
+            "Policies inheritance, you can override rules set up in the " +
+            "organization for this group",
+        },
         policies: {
           acceptanceSeverityRange:
             "Temporal acceptance: CVSS 3.1 score range allowed for assignment",

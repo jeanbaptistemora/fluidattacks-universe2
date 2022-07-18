@@ -38,6 +38,7 @@ const Policies: React.FC<IPolicies> = ({
   permission,
   vulnerabilityGracePeriod,
   savingPolicies,
+  tooltipMessage = undefined,
 }: IPolicies): JSX.Element => {
   const { t } = useTranslation();
   const minSeverity: number = 0.0;
@@ -72,7 +73,21 @@ const Policies: React.FC<IPolicies> = ({
     >
       {({ dirty, isSubmitting }): JSX.Element => (
         <Form id={"policies"}>
-          <p className={"f3 fw7 mt4 mb3"}>{t(`${translationStart}title`)}</p>
+          <Text fw={7} mb={3} mt={4} size={5}>
+            {tooltipMessage === undefined ? (
+              <React.StrictMode>
+                {t(`${translationStart}title`)}
+              </React.StrictMode>
+            ) : (
+              <Tooltip
+                disp={"inline-block"}
+                id={"policies.tooltip.id"}
+                tip={tooltipMessage}
+              >
+                {t(`${translationStart}title`)}
+              </Tooltip>
+            )}
+          </Text>
           <Row>
             <Col large={"33"} medium={"50"} small={"100"}>
               <Card>

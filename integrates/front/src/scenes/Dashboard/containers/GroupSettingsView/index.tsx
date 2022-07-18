@@ -14,6 +14,7 @@ import { Files } from "scenes/Dashboard/containers/GroupSettingsView/Files";
 import { GroupInformation } from "scenes/Dashboard/containers/GroupSettingsView/Info";
 import { Portfolio } from "scenes/Dashboard/containers/GroupSettingsView/Portfolio";
 import { Services } from "scenes/Dashboard/containers/GroupSettingsView/Services";
+import { GroupPolicies } from "scenes/Dashboard/containers/PoliciesView/Group/index";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 
@@ -46,6 +47,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
           {t("searchFindings.infoTable.title")}
         </Text>
         <GroupInformation />
+        <GroupPolicies />
         <Hr mv={32} />
         <Row>
           <AccessInfo />
