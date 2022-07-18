@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cpsa
 alt: Logo CPSA
 certification: yes
-certificationid: 28
+certificationid: 30
 ---
 
 [CPSA](https://www.crest-approved.org/examination/practitioner-security-analyst/index.html)
