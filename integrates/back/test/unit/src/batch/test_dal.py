@@ -225,6 +225,8 @@ async def test_get_action() -> None:
 
 
 async def test_requeue_actions() -> None:
+    with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
+        mock_scan.result = scan_actions_result["Items"]
     pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
 
     assert all(
