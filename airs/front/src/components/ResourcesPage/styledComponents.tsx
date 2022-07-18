@@ -144,14 +144,64 @@ const ResourcesContainer = styled.div.attrs({
   `,
 })``;
 
+const FilterButton = styled.button.attrs({
+  className: `
+    f5
+    mh2
+    ph3
+    pv2
+    mv2
+    roboto
+    pointer
+    b--transparent
+  `,
+})<{ isSelected: boolean }>`
+  color: ${({ isSelected }): string => (isSelected ? "#f4f4f6" : "#2e2e38")};
+  background-color: ${({ isSelected }): string =>
+    isSelected ? "#2e2e38" : "#f4f4f6"};
+  border-radius: 2rem;
+
+  :hover {
+    background-color: ${({ isSelected }): string =>
+      isSelected ? "#2e2e38" : "#b0b0bf"};
+  }
+`;
+
+const MenuList = styled.div.attrs({
+  className: `
+      mt3
+      flex
+      flex-wrap
+      justify-center
+    `,
+})``;
+
+const CardsContainer = styled.div.attrs({
+  className: `
+    roboto
+    flex-ns
+    flex-wrap-ns
+    justify-around
+    mw-1366
+    ph-body
+    pv4-l
+    pv3
+    bg-graylight
+    center
+    `,
+})``;
+
 export {
   ButtonContainer,
   CardContainer,
   CardDescription,
+  CardsContainer,
   CardTextContainer,
   CardTitle,
+  FilterButton,
   LittleRegularRedButton,
   MainCardContainer,
+  MenuList,
   ResourcesContainer,
   TextContainer,
   WebinarLanguage,

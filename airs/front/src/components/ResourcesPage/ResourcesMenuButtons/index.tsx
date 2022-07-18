@@ -1,84 +1,59 @@
 /* eslint react/forbid-component-props: 0 */
 import React, { useCallback, useState } from "react";
 
-import {
-  MenuItem,
-  RadioButton,
-  RadioLabel,
-} from "../../../styles/styledComponents";
+import { FilterButton } from "../styledComponents";
 
-const ResourcesMenuElements: React.FC = (): JSX.Element => {
-  const [filter, setFilter] = useState("all");
-  const filterCards = useCallback(
-    ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-      const targetId = (target as HTMLInputElement).id;
-      setFilter(targetId);
-      const cards = document.getElementsByClassName("all-card");
-      const arrayCards = Array.from(cards);
-      arrayCards.forEach((card): void => {
-        const classes = Array.from(card.classList);
-        if (classes.includes(`${targetId}-card`)) {
-          card.classList.remove("dn");
-          card.classList.add("dt-ns");
-        } else {
-          card.classList.remove("dt-ns");
-          card.classList.add("dn");
-        }
-      });
+interface IProps {
+  filterData: (type: string) => void;
+}
+
+const ResourcesMenuElements: React.FC<IProps> = ({
+  filterData,
+}: IProps): JSX.Element => {
+  const resourcesFilters = [
+    {
+      text: "all",
+      type: "all-card",
     },
-    []
+    {
+      text: "ebook",
+      type: "ebook-card",
+    },
+    {
+      text: "report",
+      type: "report-card",
+    },
+    {
+      text: "webinar",
+      type: "webinar-card",
+    },
+  ];
+
+  const [selectedFilter, setSelectedFilter] = useState("all-card");
+
+  const onClick = useCallback(
+    (type: string): VoidFunction => {
+      return (): void => {
+        setSelectedFilter(type);
+        filterData(type);
+      };
+    },
+    [filterData]
   );
 
   return (
     <React.Fragment>
-      <MenuItem>
-        <RadioButton
-          checked={filter === "all"}
-          className={"all"}
-          id={"all"}
-          name={"resourcesMenu"}
-          onChange={filterCards}
-        />
-        <RadioLabel className={"all-tag"} htmlFor={"all"}>
-          {"All"}
-        </RadioLabel>
-      </MenuItem>
-      <MenuItem>
-        <RadioButton
-          checked={filter === "ebook"}
-          className={"ebook"}
-          id={"ebook"}
-          name={"resourcesMenu"}
-          onChange={filterCards}
-        />
-        <RadioLabel className={"ebook-tag"} htmlFor={"ebook"}>
-          {"eBook"}
-        </RadioLabel>
-      </MenuItem>
-      <MenuItem>
-        <RadioButton
-          checked={filter === "report"}
-          className={"report"}
-          id={"report"}
-          name={"resourcesMenu"}
-          onChange={filterCards}
-        />
-        <RadioLabel className={"report-tag"} htmlFor={"report"}>
-          {"Report"}
-        </RadioLabel>
-      </MenuItem>
-      <MenuItem>
-        <RadioButton
-          checked={filter === "webinar"}
-          className={"webinar"}
-          id={"webinar"}
-          name={"resourcesMenu"}
-          onChange={filterCards}
-        />
-        <RadioLabel className={"webinar-tag"} htmlFor={"webinar"}>
-          {"Webinar"}
-        </RadioLabel>
-      </MenuItem>
+      {resourcesFilters.map((resourceFilter): JSX.Element => {
+        return (
+          <FilterButton
+            isSelected={resourceFilter.type === selectedFilter}
+            key={resourceFilter.text}
+            onClick={onClick(resourceFilter.type)}
+          >
+            {resourceFilter.text}
+          </FilterButton>
+        );
+      })}
     </React.Fragment>
   );
 };
