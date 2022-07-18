@@ -63,7 +63,12 @@ async def send_reminder_notification() -> None:
                 )
             ).days
             == INACTIVE_DAYS
-            and stakeholder.role in ["customer_manager", "user_manager"]
+            and await orgs_domain.get_stakeholder_role(
+                email=stakeholder.email,
+                is_registered=stakeholder.is_registered,
+                organization_id=org_id,
+            )
+            in ["customer_manager", "user_manager"]
         )
     ]
 
