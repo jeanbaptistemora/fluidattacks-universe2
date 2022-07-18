@@ -6972,3 +6972,15 @@
       title: Logging and monitoring
       link: https://www2.swift.com/knowledgecentre/products/Customer%20Security%20Programme
   metadata: {}
+"osamm":
+  title: OWASP SAMM
+  en:
+    summary: >
+      __empty__
+  es:
+    summary: __empty__
+  definitions:
+    "TA_3":
+      title: Concretely tie compensating controls to each threat against internal and third-party software
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+  metadata: {}
