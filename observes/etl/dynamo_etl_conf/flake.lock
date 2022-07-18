@@ -15,6 +15,21 @@
         "type": "github"
       }
     },
+    "nix_filter_2": {
+      "locked": {
+        "lastModified": 1645371475,
+        "narHash": "sha256-z2n0y5ME7yQTqzzGWnQTVd1MG5Bp1E+of7ZgA861/9E=",
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "rev": "38bc843f1ce76958a9f6f0a1e4e3455221c8ecf6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-filter",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1644343489,
@@ -38,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655309016,
-        "narHash": "sha256-XXW86D0fmmv6LJ+8n7Awpj++jPv5avYBnSCm7N2gFEo=",
+        "lastModified": 1657571558,
+        "narHash": "sha256-jMFVdXsIm+H/v1zyFh5JlmAUN1ECcOrUmIwWvmygEMY=",
         "owner": "dmurciaatfluid",
         "repo": "purity",
-        "rev": "1816492d1ac416becac6bcdd9ebb9b1be06ffddd",
+        "rev": "cf1a03cbf7869aa2120a1bbe2b5b5c487cb39361",
         "type": "gitlab"
       },
       "original": {
@@ -51,10 +66,35 @@
         "type": "gitlab"
       }
     },
+    "redshift_client": {
+      "inputs": {
+        "nix_filter": "nix_filter_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "purity": [
+          "purity"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657725974,
+        "narHash": "sha256-VwX/HTSF+l8RKkOflon9+MAH82SY2dT4LQYwqPYuDjQ=",
+        "owner": "dmurciaatfluid",
+        "repo": "redshift_client",
+        "rev": "ee4cbf511fcc2faf993da55a54f9740281bff2b3",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "dmurciaatfluid",
+        "repo": "redshift_client",
+        "type": "gitlab"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "purity": "purity"
+        "purity": "purity",
+        "redshift_client": "redshift_client"
       }
     }
   },

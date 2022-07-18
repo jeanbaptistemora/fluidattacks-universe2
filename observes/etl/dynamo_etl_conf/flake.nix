@@ -4,40 +4,30 @@
     nixpkgs.url = "github:nixos/nixpkgs";
     purity.url = "gitlab:dmurciaatfluid/purity";
     purity.inputs.nixpkgs.follows = "nixpkgs";
+    redshift_client.url = "gitlab:dmurciaatfluid/redshift_client";
+    redshift_client.inputs.nixpkgs.follows = "nixpkgs";
+    redshift_client.inputs.purity.follows = "purity";
   };
   outputs = {
     self,
     nixpkgs,
     purity,
+    redshift_client,
   }: let
     system = "x86_64-linux";
-    legacy_pkgs = nixpkgs.legacyPackages."${system}";
-    lib = {
-      buildPythonPackage = legacy_pkgs.python39.pkgs.buildPythonPackage;
-      pytestCheckHook = legacy_pkgs.python39.pkgs.pytestCheckHook;
-      buildEnv = legacy_pkgs.python39.buildEnv;
-    };
-    pythonPkgs =
-      legacy_pkgs.python39Packages
-      // {
-        fa_purity = purity.defaultPackage."${system}";
+    out = python_version:
+      import self {
+        inherit python_version;
+        nixpkgs =
+          nixpkgs.legacyPackages."${system}"
+          // {
+            fa_purity = purity.packages."${system}";
+            redshift_client = redshift_client.packages."${system}";
+          };
+        src = self;
       };
-    src = self;
-    args = {
-      inherit src lib pythonPkgs;
-    };
-    self_pkg = import ./build/pkg/default.nix args;
-    build_env = env:
-      import ./build/env.nix (args
-        // {
-          inherit env;
-        });
   in {
-    packages."${system}" = {
-      pkg = self_pkg.runtime;
-      env.runtime = build_env "runtime";
-      env.dev = build_env "dev";
-    };
+    packages."${system}" = out "python39";
     defaultPackage."${system}" = self.packages."${system}".pkg;
   };
 }

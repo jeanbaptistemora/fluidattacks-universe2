@@ -1,17 +1,27 @@
 {
   lib,
   src,
-  propagatedBuildInputs,
-  nativeBuildInputs,
+  metadata,
+  build_deps,
+  runtime_deps,
+  test_deps,
 }:
 lib.buildPythonPackage rec {
-  pname = "dynamo_etl_conf";
-  version = "0.1.0";
+  pname = metadata.name;
+  version = metadata.version;
   format = "pyproject";
-  checkInputs = [
-    lib.pytestCheckHook
+  type_check = ./check/types.sh;
+  test_check = ./check/tests.sh;
+  checkPhase = [
+    ''
+      source ${type_check} \
+      && source ${test_check}
+    ''
   ];
   doCheck = true;
-  pythonImportsCheck = ["dynamo_etl_conf"];
-  inherit src propagatedBuildInputs nativeBuildInputs;
+  pythonImportsCheck = [pname];
+  buildInputs = build_deps;
+  propagatedBuildInputs = runtime_deps;
+  checkInputs = test_deps;
+  inherit src;
 }

@@ -96,7 +96,7 @@ class Jobs:
         table = TargetTables.CORE
         args = [
             self._etl_parrallel,
-            f"{self._schema_prefix}{table.value}",
+            f"{self._schema_prefix}{table.value}_loading",
             table.value,
             "100",  # total_segments: MUST coincide with batch parallel conf
             "s3://observes.cache/dynamoEtl/vms_schema",
