@@ -788,6 +788,23 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={320}
                 className={"g1"}
+                documentName={"availability"}
+                documentType={"stackedBarChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"stackedBarChart"}
+                infoLink={`${graphInfoLink}${entity}#groups-availability`}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.groupsAvailability")}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
                 documentName={"groupsByTag"}
                 documentType={"heatMapChart"}
                 entity={entity}
