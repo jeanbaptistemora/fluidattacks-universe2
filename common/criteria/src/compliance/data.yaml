@@ -6983,4 +6983,28 @@
     "TA_3":
       title: Concretely tie compensating controls to each threat against internal and third-party software
       link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "SA_2":
+      title: Software design process toward known-secure services and secure-by-default designs
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "SA_3":
+      title: Control the software design process and validate utilization of secure components
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "IR_1":
+      title: Find basic code-level vulnerabilities and other high-risk security issues
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "IR_3":
+      title: Code review process to discover language-level and application-specific risks
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "EH_1":
+      title: Baseline operational environment for applications and software components
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "EH_2":
+      title: Improve confidence in application operations by hardening the operating environment
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "OE_1":
+      title: Enable communications for critical security-relevant data
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
+    "OE_3":
+      title: Mandate communication of security information and validate artifacts
+      link: https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf
   metadata: {}
