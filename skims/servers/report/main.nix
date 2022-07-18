@@ -1,6 +1,5 @@
 {
   makeScript,
-  makePythonVersion,
   outputs,
   projectPath,
   ...
@@ -8,15 +7,12 @@
 makeScript {
   name = "skims-serve-report";
   replace = {
-    __argServer__ = projectPath "/skims/servers/report";
+    __argSkims__ = projectPath "/skims/skims";
   };
   searchPaths = {
-    bin = [
-      (makePythonVersion "3.9")
-    ];
     source = [
-      outputs."/skims/servers/report/env"
       outputs."/common/utils/env"
+      outputs."/skims/config/runtime"
     ];
   };
   entrypoint = ./entrypoint.sh;
