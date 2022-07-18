@@ -3,14 +3,18 @@ from search.client import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
-async def search(*, query: str) -> Optional[dict[str, Any]]:
+async def search(*, query: str) -> tuple[dict[str, Any], ...]:
+    """
+    Searches for items matching the arbitrary user input
+
+    https://opensearch-project.github.io/opensearch-py/api-ref/client.html#opensearchpy.OpenSearch.search
+    """
     client = await get_client()
-    response = await client.search(
+    response: dict[str, Any] = await client.search(
         body={"query": {"multi_match": {"query": query}}}
     )
 
-    return response
+    return tuple(hit["_source"] for hit in response["hits"]["hits"])

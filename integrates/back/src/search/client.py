@@ -13,6 +13,7 @@ from context import (
     FI_AWS_REGION_NAME,
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
+    FI_ENVIRONMENT,
 )
 from contextlib import (
     AsyncExitStack,
@@ -79,9 +80,8 @@ CLIENT_OPTIONS = {
     "connection_class": AsyncAWSConnection,
     "hosts": [FI_AWS_OPENSEARCH_HOST],
     "http_compress": True,
-    "port": 443,
-    "use_ssl": True,
-    "verify_certs": True,
+    "use_ssl": FI_ENVIRONMENT == "production",
+    "verify_certs": FI_ENVIRONMENT == "production",
 }
 CONTEXT_STACK = None
 CLIENT = None
