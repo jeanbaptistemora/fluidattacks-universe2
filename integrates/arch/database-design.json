@@ -2126,13 +2126,13 @@
                 "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#jmesa@fluidattacks.com"
+                "S": "USER#__adminEmail__"
               },
               "pk_2": {
                 "S": "USER#all"
               },
               "pk": {
-                "S": "USER#jmesa@fluidattacks.com"
+                "S": "USER#__adminEmail__"
               },
               "notifications_preferences": {
                 "M": {
@@ -2148,10 +2148,10 @@
                 "S": "Integrates"
               },
               "email": {
-                "S": "jmesa@fluidattacks.com"
+                "S": "__adminEmail__"
               },
               "sk_2": {
-                "S": "USER#jmesa@fluidattacks.com"
+                "S": "USER#__adminEmail__"
               }
             },
             {
@@ -2421,6 +2421,64 @@
               },
               "sk_2": {
                 "S": "USER#integratesuser2@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Internal Manager"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "org_testuser3@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#org_testuser3@gmail.com"
               }
             },
             {

@@ -69,7 +69,8 @@ function main {
       local ilow=$((i * 25)) \
         && local ihigh=$(((i + 1) * 25)) \
         && jq -c "{integrates_vms: .integrates_vms[$ilow:$ihigh]}" \
-          "${out}/database-design" > "${out}/database-design${i}.json" \
+          "${out}/database-design" | sed "s/__adminEmail__/${email}/g" \
+          > "${out}/database-design${i}.json" \
         && ((i++))
     done \
     && echo "[INFO] Admin email for new DB: ${email}" \
