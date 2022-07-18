@@ -1723,9 +1723,13 @@ export const enTranslations: ResourceKey = {
             "Temporal acceptance: CVSS 3.1 score range allowed for assignment",
           maxAcceptanceDays:
             "Temporal acceptance: maximum number of days for assignment",
+          maxAcceptanceSeverity:
+            "Temporal acceptance: maximum CVSS 3.1 score allowed for assignment",
           maxNumberAcceptances:
             "Temporal acceptance: maximum number of assignments for a single " +
             "vulnerability",
+          minAcceptanceSeverity:
+            "Temporal acceptance: minimum CVSS 3.1 score allowed for assignment",
           minBreakingSeverity:
             "DevSecOps: Minimum CVSS 3.1 score from which agent breaks the " +
             "build for open vulnerabilities",
@@ -1737,9 +1741,11 @@ export const enTranslations: ResourceKey = {
         recommended: {
           acceptanceSeverityRange: "Recommended value: 0.0 - 0.0",
           maxAcceptanceDays: "Recommended value: 0.0",
-          maxNumberAcceptances: "Recommended value: 0.0",
+          maxAcceptanceSeverity: "Recommended value: 0.0",
+          maxNumberAcceptances: "Recommended value: 0",
+          minAcceptanceSeverity: "Recommended value: 0.0",
           minBreakingSeverity: "Recommended value: 0.0",
-          vulnerabilityGracePeriod: "Recommended value: 0.0",
+          vulnerabilityGracePeriod: "Recommended value: 0",
         },
         save: "Save",
         success: "Organization policies updated successfully",
@@ -3264,6 +3270,7 @@ export const enTranslations: ResourceKey = {
     assignedVulnerabilities: "Vulnerabilities by assignment",
     assignedVulnerabilitiesStatus: "Status of assigned vulnerabilities",
     findingsGroup: "Types of Vulnerabilities by Group",
+    groupsAvailability: "Groups availability",
     meanRemediate: "Mean (average) days to remediate",
     openFindingsGroup: "Open Types of Vulnerabilities by Group",
     openVulnsGroups: "Open vulnerabilities by group",

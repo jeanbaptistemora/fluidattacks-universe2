@@ -23,9 +23,9 @@ import {
 import type {
   IOrganizationPolicies,
   IOrganizationPoliciesData,
-  IPoliciesFormData,
 } from "scenes/Dashboard/containers/PoliciesView/Organization/types";
 import { VulnerabilityPolicies } from "scenes/Dashboard/containers/PoliciesView/Organization/VulnerabilityPolicies/index";
+import type { IPoliciesData } from "scenes/Dashboard/containers/PoliciesView/types";
 import { ButtonToolbar, Col33L, RowCenter } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { FormikText } from "utils/forms/fields";
@@ -224,7 +224,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   );
 
   const handleFormSubmit = useCallback(
-    async (values: IPoliciesFormData): Promise<void> => {
+    async (values: IPoliciesData): Promise<void> => {
       await savePolicies({
         variables: {
           maxAcceptanceDays: parseInt(values.maxAcceptanceDays, 10),
