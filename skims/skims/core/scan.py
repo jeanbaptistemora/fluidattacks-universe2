@@ -76,15 +76,16 @@ async def _upload_csv_result(
 ) -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
-        notify_findings_as_csv(stores, file_path)
-        with open(file_path, "rb") as reader:
-            session = aioboto3.Session()
-            async with session.client("s3") as s3_client:
-                await s3_client.upload_fileobj(
-                    reader,
-                    "skims.data",
-                    f"results/{CTX.config.execution_id}.csv",
-                )
+        rows = notify_findings_as_csv(stores, file_path)
+        if rows > 1:
+            with open(file_path, "rb") as reader:
+                session = aioboto3.Session()
+                async with session.client("s3") as s3_client:
+                    await s3_client.upload_fileobj(
+                        reader,
+                        "skims.data",
+                        f"results/{CTX.config.execution_id}.csv",
+                    )
 
 
 async def execute_skims(
@@ -142,7 +143,7 @@ def notify_findings_as_snippets(
 def notify_findings_as_csv(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     output: str,
-) -> None:
+) -> int:
     headers = (
         "finding",
         "kind",
@@ -183,6 +184,7 @@ def notify_findings_as_csv(
                 writer.writerow(row)
 
     log_blocking("info", "An output file has been written: %s", output)
+    return len(rows)
 
 
 async def persist_to_integrates(
