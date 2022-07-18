@@ -3,27 +3,23 @@ import type { ApolloError } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { getNewInitialValues, getUserData } from "./helpers";
 
+import { Input, Select } from "components/Input";
+import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
+import { Text } from "components/Text";
 import { GET_STAKEHOLDER } from "scenes/Dashboard/components/AddUserModal/queries";
 import type {
   IAddStakeholderModalProps,
   IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
-import {
-  Col100,
-  ControlLabel,
-  FormGroup,
-  RequiredField,
-  Row,
-} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { validTextField } from "utils/validations";
@@ -136,73 +132,78 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
           validationSchema={addUserModalSchema}
         >
           <Form>
-            <Row>
-              <Col100>
-                <FormGroup>
-                  <ControlLabel>
-                    <RequiredField>{"* "}</RequiredField>
+            <Gap disp={"block"} mv={12}>
+              <Input
+                disabled={action === "edit"}
+                label={
+                  <Fragment>
+                    <Text disp={"inline"} tone={"red"}>
+                      {"* "}
+                    </Text>
                     {t("userModal.emailText")}
-                  </ControlLabel>
+                  </Fragment>
+                }
+                name={"email"}
+                onBlur={loadAutofillData}
+                placeholder={t("userModal.emailPlaceholder")}
+                type={"email"}
+              />
+              <Select
+                label={
+                  <Fragment>
+                    <Text disp={"inline"} tone={"red"}>
+                      {"* "}
+                    </Text>
+                    {t("userModal.role")}
+                  </Fragment>
+                }
+                name={"role"}
+              >
+                <option value={""} />
+                {(groupModal ? groupLevelRoles : []).map(
+                  (role: string): JSX.Element => (
+                    <Can do={`grant_group_level_role:${role}`} key={role}>
+                      <option value={role.toUpperCase()}>
+                        {t(`userModal.roles.${_.camelCase(role)}`)}
+                      </option>
+                    </Can>
+                  )
+                )}
+                {(sidebarModal ? userLevelRoles : []).map(
+                  (role: string): JSX.Element => (
+                    <Can do={`grant_user_level_role:${role}`} key={role}>
+                      <option value={role.toUpperCase()}>
+                        {t(`userModal.roles.${_.camelCase(role)}`)}
+                      </option>
+                    </Can>
+                  )
+                )}
+                {(organizationModal ? organizationLevelRoles : []).map(
+                  (role: string): JSX.Element => (
+                    <option key={role} value={role.toUpperCase()}>
+                      {t(`userModal.roles.${_.camelCase(role)}`)}
+                    </option>
+                  )
+                )}
+              </Select>
+              {groupName === undefined ? undefined : (
+                <Fragment>
+                  <Text mb={1}>
+                    <Text disp={"inline"} tone={"red"}>
+                      {"* "}
+                    </Text>
+                    {t("userModal.responsibility")}
+                  </Text>
                   <Field
                     component={FormikText}
-                    disabled={action === "edit"}
-                    name={"email"}
-                    onBlur={loadAutofillData}
-                    placeholder={t("userModal.emailPlaceholder")}
+                    name={"responsibility"}
+                    placeholder={t("userModal.responsibilityPlaceholder")}
                     type={"text"}
+                    validate={validTextField}
                   />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>
-                    <RequiredField>{"* "}</RequiredField>
-                    {t("userModal.role")}
-                  </ControlLabel>
-                  <Field component={FormikDropdown} name={"role"}>
-                    <option value={""} />
-                    {(groupModal ? groupLevelRoles : []).map(
-                      (role: string): JSX.Element => (
-                        <Can do={`grant_group_level_role:${role}`} key={role}>
-                          <option value={role.toUpperCase()}>
-                            {t(`userModal.roles.${_.camelCase(role)}`)}
-                          </option>
-                        </Can>
-                      )
-                    )}
-                    {(sidebarModal ? userLevelRoles : []).map(
-                      (role: string): JSX.Element => (
-                        <Can do={`grant_user_level_role:${role}`} key={role}>
-                          <option value={role.toUpperCase()}>
-                            {t(`userModal.roles.${_.camelCase(role)}`)}
-                          </option>
-                        </Can>
-                      )
-                    )}
-                    {(organizationModal ? organizationLevelRoles : []).map(
-                      (role: string): JSX.Element => (
-                        <option key={role} value={role.toUpperCase()}>
-                          {t(`userModal.roles.${_.camelCase(role)}`)}
-                        </option>
-                      )
-                    )}
-                  </Field>
-                </FormGroup>
-                {groupName === undefined ? undefined : (
-                  <FormGroup>
-                    <ControlLabel>
-                      <RequiredField>{"* "}</RequiredField>
-                      {t("userModal.responsibility")}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      name={"responsibility"}
-                      placeholder={t("userModal.responsibilityPlaceholder")}
-                      type={"text"}
-                      validate={validTextField}
-                    />
-                  </FormGroup>
-                )}
-              </Col100>
-            </Row>
+                </Fragment>
+              )}
+            </Gap>
             <ModalConfirm onCancel={onClose} />
           </Form>
         </Formik>
