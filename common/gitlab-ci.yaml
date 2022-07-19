@@ -1,5 +1,5 @@
 /common/criteria/test/base:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -21,7 +21,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /common/criteria/test/skims-sync:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -43,7 +43,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /common/criteria/test/unreferenced:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -65,7 +65,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonCi:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -86,7 +86,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonCluster:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -107,7 +107,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonCompute:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -128,7 +128,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonDns:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -149,7 +149,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonFoss:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -170,7 +170,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonOkta:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -191,7 +191,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonStatus:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -212,7 +212,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonUsers:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -233,7 +233,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonVpc:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -254,7 +254,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /deployTerraform/commonVpn:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   resource_group: $CI_JOB_NAME
@@ -275,7 +275,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /docs/generate/criteria:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -297,7 +297,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/commonComputeScheduleParseTerraform:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -319,7 +319,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/commonOktaParse:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -341,7 +341,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonCi:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -363,7 +363,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonCluster:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -385,7 +385,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonCompute:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -407,7 +407,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonDns:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -429,7 +429,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonFoss:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -451,7 +451,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonOkta:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -473,7 +473,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonStatus:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -495,7 +495,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonUsers:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -517,7 +517,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonVpc:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -539,7 +539,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintTerraform/commonVpn:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -561,7 +561,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/common/compute/arch/sizes:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -583,7 +583,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/common/criteria/compliance:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -605,7 +605,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/common/criteria/requirements:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -627,7 +627,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintWithAjv/common/criteria/vulnerabilities:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -649,7 +649,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /pipelineOnGitlab/common:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -671,7 +671,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/commonUsersKeys1:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -689,7 +689,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /taintTerraform/commonUsersKeys2:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -707,7 +707,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonCi:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -729,7 +729,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonCluster:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -751,7 +751,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonCompute:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -773,7 +773,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonDns:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -795,7 +795,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonFoss:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -817,7 +817,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonOkta:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -839,7 +839,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonStatus:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -861,7 +861,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonUsers:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -883,7 +883,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonVpc:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:
@@ -905,7 +905,7 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testTerraform/commonVpn:
-  image: ghcr.io/fluidattacks/makes:22.07
+  image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs: []
   rules:

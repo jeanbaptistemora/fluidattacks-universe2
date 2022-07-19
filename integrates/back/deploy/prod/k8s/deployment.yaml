@@ -23,7 +23,7 @@ spec:
         worker_group: production
       containers:
         - name: integrates
-          image: ghcr.io/fluidattacks/makes:22.07
+          image: ghcr.io/fluidattacks/makes:22.08
           imagePullPolicy: Always
           command: [sh]
           args:
