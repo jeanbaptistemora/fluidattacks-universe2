@@ -3,7 +3,7 @@
   interruptible: true
   needs: []
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -19,3 +19,4 @@
     - autoscaling
   variables:
     GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
