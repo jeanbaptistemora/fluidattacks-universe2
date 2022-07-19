@@ -1,3 +1,9 @@
+from dataloaders import (
+    Dataloaders,
+)
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -10,8 +16,8 @@ from group_access import (
 from newutils import (
     token as token_utils,
 )
-from organizations import (
-    domain as orgs_domain,
+from newutils.organization_access import (
+    format_invitation_state,
 )
 from typing import (
     Optional,
@@ -23,6 +29,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> Optional[str]:
+    loaders: Dataloaders = info.context.loaders
     request_store = token_utils.get_request_store(info.context)
     entity = request_store.get("entity")
 
@@ -34,10 +41,14 @@ async def resolve(
         )
 
     elif entity == "ORGANIZATION":
-        invitation_state = await orgs_domain.get_invitation_state(
-            email=parent.email,
+        org_access: OrganizationAccess = (
+            await loaders.organization_access.load(
+                (request_store["organization_id"], parent.email)
+            )
+        )
+        invitation_state = format_invitation_state(
+            invitation=org_access.invitation,
             is_registered=parent.is_registered,
-            organization_id=request_store["organization_id"],
         )
 
     return invitation_state if invitation_state else None

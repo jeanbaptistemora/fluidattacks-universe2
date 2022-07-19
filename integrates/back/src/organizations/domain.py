@@ -318,18 +318,6 @@ async def get_user_access(organization_id: str, email: str) -> dict[str, Any]:
     return await orgs_dal.get_organization_access(organization_id, email)
 
 
-async def get_invitation_state(
-    email: str,
-    is_registered: bool,
-    organization_id: str,
-) -> str:
-    user_access = await get_user_access(organization_id, email)
-    invitation: Item = user_access.get("invitation", {})
-    return stakeholders_utils.format_invitation_state(
-        invitation, is_registered
-    )
-
-
 async def get_stakeholder_role(
     email: str,
     is_registered: bool,

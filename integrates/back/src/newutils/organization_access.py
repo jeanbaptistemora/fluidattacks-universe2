@@ -2,12 +2,18 @@ from db_model.organization_access.constants import (
     ORGANIZATION_ID_PREFIX,
     STAKEHOLDER_PREFIX,
 )
+from db_model.organization_access.enums import (
+    InvitiationState,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationInvitation,
 )
 from dynamodb.types import (
     Item,
+)
+from typing import (
+    Optional,
 )
 
 
@@ -17,6 +23,16 @@ def remove_org_id_prefix(organization_id: str) -> str:
 
 def remove_stakeholder_prefix(email: str) -> str:
     return email.lstrip(STAKEHOLDER_PREFIX)
+
+
+def format_invitation_state(
+    invitation: Optional[OrganizationInvitation], is_registered: bool
+) -> str:
+    if invitation and not invitation.is_used:
+        return InvitiationState.PENDING
+    if not is_registered:
+        return InvitiationState.UNREGISTERED
+    return InvitiationState.REGISTERED
 
 
 def format_invitation(invitation: Item) -> OrganizationInvitation:
