@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 18, 2022, 01:38 PM",
+    "DateLastModified": "Jul 19, 2022, 09:36 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -16079,6 +16079,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-2"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16168,6 +16182,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-2"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16273,6 +16301,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-2"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16372,6 +16414,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-2"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16455,6 +16511,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-2"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16653,6 +16723,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-3"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16733,6 +16817,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-3"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -16813,6 +16911,20 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-3"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -19558,6 +19670,23 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-1"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "DIRECT"
+                          },
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -19654,6 +19783,23 @@
                   },
                   "status": {
                     "S": "CLOSED"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-1"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "DIRECT"
+                          },
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -19910,6 +20056,23 @@
                   },
                   "status": {
                     "S": "OPEN"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-1"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "DIRECT"
+                          },
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -20002,6 +20165,23 @@
                   },
                   "status": {
                     "S": "CLOSED"
+                  },
+                  "tool": {
+                    "M": {
+                      "name": {
+                        "S": "tool-1"
+                      },
+                      "impacts": {
+                        "L": [
+                          {
+                            "S": "DIRECT"
+                          },
+                          {
+                            "S": "INDIRECT"
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               },
@@ -20114,6 +20294,23 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-1"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "DIRECT"
+                      },
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20134,6 +20331,23 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-1"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "DIRECT"
+                      },
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20154,6 +20368,23 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-1"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "DIRECT"
+                      },
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20174,6 +20405,23 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-1"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "DIRECT"
+                      },
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20194,6 +20442,23 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-1"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "DIRECT"
+                      },
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20234,6 +20499,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-2"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20254,6 +20533,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-2"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20274,6 +20567,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-2"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20294,6 +20601,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-2"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20314,6 +20635,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-2"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20354,6 +20689,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-3"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20374,6 +20723,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-3"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20394,6 +20757,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-3"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20414,6 +20791,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-3"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
@@ -20434,6 +20825,20 @@
               },
               "source": {
                 "S": "ASM"
+              },
+              "tool": {
+                "M": {
+                  "name": {
+                    "S": "tool-3"
+                  },
+                  "impacts": {
+                    "L": [
+                      {
+                        "S": "INDIRECT"
+                      }
+                    ]
+                  }
+                }
               }
             },
             {
