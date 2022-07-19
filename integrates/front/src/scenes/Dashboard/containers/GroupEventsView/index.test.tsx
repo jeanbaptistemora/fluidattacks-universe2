@@ -109,7 +109,7 @@ describe("EventsView", (): void => {
     });
 
     expect(
-      screen.getByRole("cell", { name: "Authorization for special attack" })
+      screen.getByRole("cell", { name: "Authorization for a special attack" })
     ).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "Solved" })).toBeInTheDocument();
   });
