@@ -49,6 +49,7 @@ EXPECTED_MANY_GROUPS_CHARTS: List[str] = [
     "Severity by assignment",
     "Files with open vulnerabilities in the last 20 weeks",
     "Mean (average) days to remediate",
+    "Groups availability",
     "Tags by groups",
 ]
 
