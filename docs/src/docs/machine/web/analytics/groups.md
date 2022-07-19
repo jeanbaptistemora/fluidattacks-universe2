@@ -121,3 +121,11 @@ The percentage of time
 that the group has unsolved
 events compared to the entire
 existence of the group.
+
+## Days since group is failing
+
+![Days since group is failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1658250127/docs/web/analytics/groups/group_oldest_event.png)
+
+Here you can see the
+number of days since
+each event is unsolved.
