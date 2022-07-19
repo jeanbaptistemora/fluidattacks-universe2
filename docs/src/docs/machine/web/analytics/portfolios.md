@@ -116,3 +116,12 @@ The percentage of time that
 each group of your portfolio
 has unsolved events compared to
 the total existence of the group.
+
+## Days since groups are failing
+
+![Days since groups are failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1658250049/docs/web/analytics/portfolios/portfolio_oldest_event.png)
+
+This chart shows the number
+of days of the oldest
+unsolved event in the groups
+of your portfolio.

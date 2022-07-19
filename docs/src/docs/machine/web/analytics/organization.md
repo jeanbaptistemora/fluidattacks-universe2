@@ -120,3 +120,12 @@ the total existence of the group.
 The percentage of open vulnerabilities
 that each group has compared with
 the whole organization.
+
+## Days since groups are failing
+
+![Days since groups are failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1658250090/docs/web/analytics/organizations/organization_oldest_event.png)
+
+This chart shows the number
+of days of the oldest
+unsolved event in the groups
+of your organization.
