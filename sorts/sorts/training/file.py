@@ -1,3 +1,7 @@
+from integrates.dal import (
+    get_toe_lines_sorts,
+    ToeLines,
+)
 from integrates.domain import (
     get_vulnerable_files,
 )
@@ -15,14 +19,12 @@ from sorts.utils.logs import (
 )
 from sorts.utils.repositories import (
     get_bad_repos,
-    get_repository_files,
 )
 from sorts.utils.static import (
     read_allowed_names,
 )
 import time
 from typing import (
-    Dict,
     List,
     Set,
 )
@@ -82,15 +84,26 @@ def get_subscription_file_metadata(subscription_path: str) -> bool:
     return success
 
 
+def get_attacked_files(group: str) -> List[str]:
+    """Gets the filenames of a group that have been completely attacked"""
+    group_toe_lines: List[ToeLines] = get_toe_lines_sorts(group)
+
+    return [
+        f"{file.root_nickname}/{file.filename}"
+        for file in group_toe_lines
+        if file.attacked_lines == file.loc
+    ]
+
+
 def get_safe_files(
     vuln_files: List[str], ignore_repos: List[str], fusion_path: str
 ) -> List[str]:
     """Fetches random files that do not have any vulnerability reported"""
     timer: float = time.time()
     safe_files: Set[str] = set()
-    repo_files: Dict[str, List[str]] = {}
     retries: int = 0
 
+    attacked_files = get_attacked_files(fusion_path.split("/")[-2])
     extensions, composites = read_allowed_names()
     allowed_repos: List[str] = [
         repo for repo in os.listdir(fusion_path) if repo not in ignore_repos
@@ -105,13 +118,8 @@ def get_safe_files(
                 )
                 break
 
-            repo: str = random.choice(allowed_repos)
-            if repo not in repo_files.keys():
-                repo_files[repo] = get_repository_files(
-                    os.path.join(fusion_path, repo)
-                )
-            if repo_files[repo]:
-                file: str = random.choice(repo_files[repo])
+            if attacked_files:
+                file: str = random.choice(attacked_files)
                 file_extension: str = (
                     os.path.splitext(file)[1].strip(".").lower()
                 )

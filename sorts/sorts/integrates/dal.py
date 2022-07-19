@@ -149,7 +149,9 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
                     toeLines(bePresent:true) {
                         edges {
                             node {
+                                attackedLines
                                 filename
+                                loc
                                 root {
                                     nickname
                                 }
@@ -178,7 +180,9 @@ def get_toe_lines_sorts(group_name: str) -> List[ToeLines]:
             group_toe_lines.extend(
                 [
                     ToeLines(
+                        attacked_lines=edge["node"]["attackedLines"],
                         filename=edge["node"]["filename"],
+                        loc=edge["node"]["loc"],
                         root_nickname=edge["node"]["root"]["nickname"],
                         sorts_risk_level=edge["node"]["sortsRiskLevel"],
                     )
