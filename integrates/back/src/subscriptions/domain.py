@@ -46,9 +46,6 @@ from group_access.domain import (
 from groups import (
     domain as groups_domain,
 )
-from itertools import (
-    chain,
-)
 import logging
 import logging.config
 from mailer import (
@@ -440,52 +437,6 @@ async def unsubscribe_user_to_entity_report(
         report_entity=report_entity,
         report_subject=report_subject,
         user_email=user_email,
-    )
-
-
-async def _get_digest_stats(
-    loaders: Dataloaders,
-    subscriptions: list[dict[str, Any]],
-) -> tuple[dict[str, Any], ...]:
-    """Process the digest stats for each group with a subscriber."""
-    digest_suscribers: list[str] = [
-        subscription["pk"]["email"]
-        for subscription in subscriptions
-        if str(subscription["sk"]["entity"]).lower() == "digest"
-    ]
-
-    digest_group_names = await collect(
-        [
-            groups_domain.get_groups_by_user(
-                loaders, user_email, with_cache=False
-            )
-            for user_email in digest_suscribers
-        ],
-        workers=1024,
-    )
-    digest_group_names = tuple(set(chain.from_iterable(digest_group_names)))
-
-    if FI_ENVIRONMENT == "production":
-        all_groups: tuple[Group, ...] = await loaders.group.load_many(
-            digest_group_names
-        )
-        groups_filtered = groups_utils.filter_active_groups(all_groups)
-        digest_group_names = tuple(
-            group.name
-            for group in groups_filtered
-            if group.name not in FI_TEST_PROJECTS.split(",")
-        )
-
-    LOGGER.info(
-        "Digest: get stats for groups",
-        extra={"extra": dict(digest_groups=str(digest_group_names))},
-    )
-    return await collect(
-        [
-            groups_domain.get_group_digest_stats(loaders, group)
-            for group in digest_group_names
-        ],
-        workers=2,
     )
 
 
