@@ -5,3 +5,6 @@ lines:
     state: open
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-9
+      impact: indirect

@@ -5,3 +5,6 @@ lines:
     state: open
     repo_nickname: nonexistent
     source: analyst
+    tool:
+      name: tool-7
+      impact: direct

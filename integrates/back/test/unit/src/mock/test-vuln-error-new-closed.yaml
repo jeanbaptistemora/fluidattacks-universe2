@@ -5,3 +5,6 @@ lines:
     state: closed
     source: analyst
     repo_nickname: universe
+    tool:
+      name: tool-8
+      impact: direct

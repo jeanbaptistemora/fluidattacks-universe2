@@ -5,6 +5,9 @@ inputs:
     stream: home,blog,articulo
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-3
+      impact: direct
 lines:
   - line: "123"
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
@@ -12,18 +15,27 @@ lines:
     state: open
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-2
+      impact: indirect
   - line: "1"
     path: universe/test/1
     repo_nickname: universe
     state: open
     commit_hash: 000000000000000000000000000000000000000f
     source: analyst
+    tool:
+      name: tool-2
+      impact: direct
   - line: "1"
     path: universe/test/1
     repo_nickname: universe
     state: open
     commit_hash: 111111111111111111111111111111111111111f
     source: analyst
+    tool:
+      name: tool-2
+      impact: direct
 
 ports:
   - host: "https://example.com"
@@ -31,23 +43,38 @@ ports:
     state: open
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-1
+      impact: direct
   - host: "192.168.1.44"
     port: "4444"
     state: open
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-1
+      impact: direct
   - host: "192.168.1.45"
     port: "4545"
     state: closed
     repo_nickname: universe
     source: analyst
+    tool:
+      name: tool-1
+      impact: direct
   - host: "192.168.1.46"
     port: "4646"
     state: open
     repo_nickname: universe
     source: "escape"
+    tool:
+      name: tool-1
+      impact: direct
   - host: "192.168.1.47"
     port: "4747"
     source: "analyst"
     state: closed
     repo_nickname: universe
+    tool:
+      name: tool-1
+      impact: direct
