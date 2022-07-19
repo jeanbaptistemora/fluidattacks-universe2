@@ -7,18 +7,18 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React from "react";
 
-export interface ITableProps {
+export interface ITableProps<TData> {
   id: string;
-  data: unknown[];
-  columns: ColumnDef<unknown>[];
+  data: TData[];
+  columns: ColumnDef<TData>[];
 }
 
-export const Tables: React.FC<ITableProps> = (
-  props: ITableProps
+export const Tables = <TData extends Record<string, unknown>>(
+  props: ITableProps<TData>
 ): JSX.Element => {
   const { id, data, columns } = props;
 
-  const table = useReactTable({
+  const table = useReactTable<TData>({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
