@@ -177,6 +177,23 @@ locals {
               "arn:aws:sqs:us-east-1:205810638802:skims-*",
             ]
           },
+          {
+            Sid    = "eksRead"
+            Effect = "Allow"
+            Action = [
+              "eks:Describe*",
+              "eks:Get*",
+            ]
+            Resource = ["*"]
+          },
+          {
+            Sid    = "eksWrite"
+            Effect = "Allow"
+            Action = ["*"]
+            Resource = [
+              "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"
+            ]
+          },
         ]
       }
     }
