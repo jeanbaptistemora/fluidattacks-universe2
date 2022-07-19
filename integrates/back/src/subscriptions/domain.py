@@ -280,7 +280,6 @@ async def _send_analytics_report(
 async def _send_digest_report(
     *,
     user_email: str,
-    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
     loaders: Optional[Dataloaders] = None,
 ) -> None:
     group_names: list[str] = await groups_domain.get_groups_by_user(
@@ -298,13 +297,6 @@ async def _send_digest_report(
             for group in groups_filtered
             if group.name not in FI_TEST_PROJECTS.split(",")
         ]
-
-    if digest_stats:
-        mail_contents = tuple(
-            group_stats
-            for group_stats in digest_stats
-            if group_stats["group"] in group_names
-        )
     elif loaders:
         mail_contents = await collect(
             tuple(
@@ -347,16 +339,11 @@ async def _send_user_to_entity_report(
     report_entity: str,
     report_subject: str,
     user_email: str,
-    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
-    loaders: Optional[Dataloaders] = None,
 ) -> None:
-    if report_entity.lower() == "digest":
-        await _send_digest_report(
-            user_email=user_email,
-            digest_stats=digest_stats,
-            loaders=loaders,
-        )
-    elif report_entity.lower() != "comments":
+    if (
+        report_entity.lower() != "comments"
+        and not report_entity.lower() == "digest"
+    ):
         await _send_analytics_report(
             event_frequency=event_frequency,
             report_entity=report_entity,
@@ -466,7 +453,6 @@ async def _validate_subscription(
 async def _process_subscription(
     *,
     subscription: dict[str, Any],
-    digest_stats: Optional[tuple[dict[str, Any], ...]] = None,
 ) -> None:
     if not await _validate_subscription(subscription):
         LOGGER.warning(
@@ -482,7 +468,6 @@ async def _process_subscription(
             report_entity=subscription["sk"]["entity"],
             report_subject=subscription["sk"]["subject"],
             user_email=subscription["pk"]["email"],
-            digest_stats=digest_stats,
         )
     except UnableToSendMail as ex:
         LOGGER.exception(ex, extra={"extra": {"subscription": subscription}})

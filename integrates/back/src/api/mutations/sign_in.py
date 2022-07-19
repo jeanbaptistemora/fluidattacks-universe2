@@ -101,17 +101,6 @@ async def autoenroll_stakeholder(email: str) -> None:
         ),
     )
 
-    # Enroll new users to Daily Digest by default
-    if await subscriptions_domain.subscribe_user_to_entity_report(
-        event_frequency="DAILY",
-        report_entity="DIGEST",
-        report_subject="ALL_GROUPS",
-        user_email=email,
-    ):
-        LOGGER.info(
-            "New user subscribed to Daily Digest", extra={"extra": email}
-        )
-
     # Enroll new Fluid users to Comments by default
     if (
         "@fluidattacks.com" in email

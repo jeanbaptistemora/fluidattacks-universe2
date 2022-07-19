@@ -55,12 +55,9 @@ async def test_remove_stakeholder() -> None:
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"
     await autoenroll_stakeholder(email)
-    subscriptions = await get_user_subscriptions(user_email=email)
 
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     assert stakeholder.email == email
-    assert len(subscriptions) == 1
-    assert subscriptions[0]["sk"]["entity"] == "DIGEST"
 
     before_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
     assert (
