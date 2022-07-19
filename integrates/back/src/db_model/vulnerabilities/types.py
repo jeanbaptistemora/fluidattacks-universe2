@@ -28,7 +28,7 @@ from typing import (
 
 class VulnerabilityTool(NamedTuple):
     name: str
-    impacts: list[VulnerabilityToolImpact]
+    impact: VulnerabilityToolImpact
 
 
 class VulnerabilityState(NamedTuple):

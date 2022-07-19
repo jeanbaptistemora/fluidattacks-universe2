@@ -215,3 +215,6 @@ SignPostUrlsPayload = NamedTuple(
 class Phone(NamedTuple):
     calling_country_code: str
     national_number: str
+
+
+ToolItem = dict[str, str]

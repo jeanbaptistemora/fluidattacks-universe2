@@ -16085,12 +16085,8 @@
                       "name": {
                         "S": "tool-2"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16188,12 +16184,8 @@
                       "name": {
                         "S": "tool-2"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16307,12 +16299,8 @@
                       "name": {
                         "S": "tool-2"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16420,12 +16408,8 @@
                       "name": {
                         "S": "tool-2"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16517,12 +16501,8 @@
                       "name": {
                         "S": "tool-2"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16729,12 +16709,8 @@
                       "name": {
                         "S": "tool-3"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16823,12 +16799,8 @@
                       "name": {
                         "S": "tool-3"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -16917,12 +16889,8 @@
                       "name": {
                         "S": "tool-3"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "INDIRECT"
-                          }
-                        ]
+                      "impact": {
+                        "S": "INDIRECT"
                       }
                     }
                   }
@@ -19676,16 +19644,11 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "DIRECT"
-                          },
-                          {
+                      "impact":
+                        {
                             "S": "INDIRECT"
                           }
-                        ]
-                      }
+
                     }
                   }
                 }
@@ -19789,16 +19752,11 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "DIRECT"
-                          },
-                          {
+                      "impact":
+                        {
                             "S": "INDIRECT"
                           }
-                        ]
-                      }
+
                     }
                   }
                 }
@@ -20062,16 +20020,11 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "DIRECT"
-                          },
-                          {
+                      "impact":
+                        {
                             "S": "INDIRECT"
                           }
-                        ]
-                      }
+
                     }
                   }
                 }
@@ -20171,16 +20124,11 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impacts": {
-                        "L": [
-                          {
-                            "S": "DIRECT"
-                          },
-                          {
+                      "impact":
+                        {
                             "S": "INDIRECT"
                           }
-                        ]
-                      }
+
                     }
                   }
                 }
@@ -20300,16 +20248,10 @@
                   "name": {
                     "S": "tool-1"
                   },
-                  "impacts": {
-                    "L": [
-                      {
-                        "S": "DIRECT"
-                      },
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
+
                 }
               }
             },
@@ -20337,16 +20279,10 @@
                   "name": {
                     "S": "tool-1"
                   },
-                  "impacts": {
-                    "L": [
-                      {
-                        "S": "DIRECT"
-                      },
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
+
                 }
               }
             },
@@ -20374,16 +20310,10 @@
                   "name": {
                     "S": "tool-1"
                   },
-                  "impacts": {
-                    "L": [
-                      {
-                        "S": "DIRECT"
-                      },
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
+
                 }
               }
             },
@@ -20411,16 +20341,10 @@
                   "name": {
                     "S": "tool-1"
                   },
-                  "impacts": {
-                    "L": [
-                      {
-                        "S": "DIRECT"
-                      },
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
+
                 }
               }
             },
@@ -20448,16 +20372,10 @@
                   "name": {
                     "S": "tool-1"
                   },
-                  "impacts": {
-                    "L": [
-                      {
-                        "S": "DIRECT"
-                      },
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
+
                 }
               }
             },
@@ -20505,13 +20423,9 @@
                   "name": {
                     "S": "tool-2"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20539,13 +20453,9 @@
                   "name": {
                     "S": "tool-2"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20573,13 +20483,9 @@
                   "name": {
                     "S": "tool-2"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20607,13 +20513,9 @@
                   "name": {
                     "S": "tool-2"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20641,13 +20543,9 @@
                   "name": {
                     "S": "tool-2"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20695,13 +20593,9 @@
                   "name": {
                     "S": "tool-3"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20729,13 +20623,9 @@
                   "name": {
                     "S": "tool-3"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20763,13 +20653,9 @@
                   "name": {
                     "S": "tool-3"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20797,13 +20683,9 @@
                   "name": {
                     "S": "tool-3"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },
@@ -20831,13 +20713,9 @@
                   "name": {
                     "S": "tool-3"
                   },
-                  "impacts": {
-                    "L": [
-                      {
+                  "impact": {
                         "S": "INDIRECT"
                       }
-                    ]
-                  }
                 }
               }
             },

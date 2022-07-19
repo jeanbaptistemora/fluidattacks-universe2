@@ -17,6 +17,7 @@ from custom_exceptions import (
 )
 from custom_types import (
     Action,
+    ToolItem,
 )
 from datetime import (
     date as datetype,
@@ -31,6 +32,7 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
+    VulnerabilityToolImpact,
     VulnerabilityTreatmentStatus,
     VulnerabilityType,
     VulnerabilityVerificationStatus,
@@ -39,6 +41,7 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTool,
     VulnerabilityTreatment,
     VulnerabilityVerification,
     VulnerabilityZeroRisk,
@@ -202,10 +205,19 @@ def filter_remediated(
     )
 
 
+def _format_tool_item(
+    tool: VulnerabilityTool,
+) -> ToolItem:
+    return {
+        "name": tool.name,
+        "impact": str(tool.impact.value).lower(),
+    }
+
+
 async def format_vulnerabilities(
     group_name: str, loaders: Any, vulnerabilities: tuple[Vulnerability, ...]
-) -> Dict[str, List[Dict[str, str]]]:
-    finding: Dict[str, List[Dict[str, str]]] = {
+) -> Dict[str, List[Dict[str, Union[str, ToolItem]]]]:
+    finding: Dict[str, List[Dict[str, Union[str, ToolItem]]]] = {
         "ports": [],
         "lines": [],
         "inputs": [],
@@ -230,6 +242,14 @@ async def format_vulnerabilities(
                 ),
                 "state": str(vuln.state.status.value).lower(),
                 "source": format_source,
+                "tool": _format_tool_item(vuln.state.tool)
+                if vuln.state.tool
+                else _format_tool_item(
+                    VulnerabilityTool(
+                        name="none",
+                        impact=VulnerabilityToolImpact.DIRECT,
+                    )
+                ),
             }
         )
         if vuln.commit:

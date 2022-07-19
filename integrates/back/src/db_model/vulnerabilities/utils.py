@@ -171,10 +171,7 @@ def format_state(item: Item) -> VulnerabilityState:
 
 def format_tool(item: Item) -> VulnerabilityTool:
     return VulnerabilityTool(
-        name=item["name"],
-        impacts=list(
-            VulnerabilityToolImpact[impact] for impact in item["impacts"]
-        ),
+        name=item["name"], impact=VulnerabilityToolImpact[item["impact"]]
     )
 
 

@@ -11,6 +11,9 @@ from custom_exceptions import (
     VulnNotFound,
     VulnNotInFinding,
 )
+from custom_types import (
+    ToolItem,
+)
 from db_model import (
     vulnerabilities as vulns_model,
 )
@@ -86,6 +89,7 @@ from typing import (
     Optional,
     Set,
     Tuple,
+    Union,
 )
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
@@ -670,7 +674,7 @@ async def request_vulnerabilities_zero_risk(
 
 
 def get_updated_manager_mail_content(
-    vulnerabilities: Dict[str, List[Dict[str, str]]]
+    vulnerabilities: Dict[str, List[Dict[str, Union[str, ToolItem]]]]
 ) -> str:
     mail_content = ""
     for vuln_type in ["ports", "lines", "inputs"]:
