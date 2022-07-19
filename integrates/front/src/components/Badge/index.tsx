@@ -5,34 +5,33 @@ interface IBadgeProps {
 }
 
 interface IVariant {
-  backgroundColor: string;
+  bgColor: string;
   color: string;
 }
 
 const variants: Record<IBadgeProps["variant"], IVariant> = {
   gray: {
-    backgroundColor: "#e9e9ed",
+    bgColor: "#e9e9ed",
     color: "#2e2e38",
   },
   green: {
-    backgroundColor: "#c2ffd4",
+    bgColor: "#c2ffd4",
     color: "#009245",
   },
   orange: {
-    backgroundColor: "#ffebd6",
+    bgColor: "#ffebd6",
     color: "#ff961e",
   },
   red: {
-    backgroundColor: "#ffd6d6",
-    color: "#ff3435",
+    bgColor: "#ffd6d6",
+    color: "#bf0b1a",
   },
 };
 
 const Badge = styled.span<IBadgeProps>`
-  background-color: ${(props): string =>
-    variants[props.variant].backgroundColor};
+  background-color: ${({ variant }): string => variants[variant].bgColor};
   border-radius: 50px;
-  color: ${(props): string => variants[props.variant].color};
+  color: ${({ variant }): string => variants[variant].color};
   font-weight: 400;
   padding: 4px 12px;
 `;

@@ -59,7 +59,7 @@ const variants: Record<TVariant, IVariant> = {
     bgColorHover: "#f2182a",
     borderColor: "#bf0b1a",
     color: "#fff",
-    colorHover: "white",
+    colorHover: "#fff",
   },
   secondary: {
     bgColor: "#2e2e38",
@@ -70,10 +70,10 @@ const variants: Record<TVariant, IVariant> = {
   },
   tertiary: {
     bgColor: "transparent",
-    bgColorHover: "#ff3435",
-    borderColor: "#ff3435",
-    color: "#ff3435",
-    colorHover: "white",
+    bgColorHover: "#bf0b1a",
+    borderColor: "#bf0b1a",
+    color: "#bf0b1a",
+    colorHover: "#fff",
   },
 };
 

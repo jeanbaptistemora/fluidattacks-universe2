@@ -8,7 +8,7 @@ const ItemContainer = styled.li.attrs({ className: "relative" })`
   ::after {
     background-color: white;
     border-radius: 50%;
-    border: 4px solid #ff3435;
+    border: 4px solid #bf0b1a;
     content: "";
     height: 24px;
     position: absolute;

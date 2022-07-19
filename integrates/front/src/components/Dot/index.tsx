@@ -6,7 +6,7 @@ const Dot = styled.span.attrs({ className: "dib v-top" })`
   border-radius: 50%;
   height: 6px;
   width: 6px;
-  background-color: #ff3435;
+  background-color: #bf0b1a;
 `;
 
 export { Dot };
