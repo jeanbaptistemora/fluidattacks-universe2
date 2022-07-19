@@ -29,7 +29,7 @@ async def add(*, organization: Organization) -> None:
     items = []
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
-    organization_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={
             "id": organization.id,
@@ -39,7 +39,7 @@ async def add(*, organization: Organization) -> None:
 
     item_in_db = await operations.get_item(
         facets=(TABLE.facets["organization_metadata"],),
-        key=organization_key,
+        key=primary_key,
         table=TABLE,
     )
     if item_in_db:
@@ -53,14 +53,14 @@ async def add(*, organization: Organization) -> None:
         },
     )
 
-    organization_item = {
-        key_structure.partition_key: organization_key.partition_key,
-        key_structure.sort_key: organization_key.sort_key,
+    item = {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         **json.loads(json.dumps(organization)),
     }
-    items.append(organization_item)
+    items.append(item)
 
     policies_key = keys.build_key(
         facet=TABLE.facets["organization_historic_policies"],

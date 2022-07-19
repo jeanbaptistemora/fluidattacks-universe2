@@ -130,6 +130,10 @@ class OrganizationAlreadyCreated(_SingleMessageException):
     msg: str = "This organization has already been created"
 
 
+class OrganizationAccessAlreadyCreated(_SingleMessageException):
+    msg: str = "This organization access item has already been created"
+
+
 class PortfolioNotFound(_SingleMessageException):
     msg: str = "Portfolio not found"
 

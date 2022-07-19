@@ -43,22 +43,22 @@ async def update_metadata(
     organization_id: str,
 ) -> None:
     key_structure = TABLE.primary_key
-    group_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={
             "name": group_name,
             "organization_id": remove_org_id_prefix(organization_id),
         },
     )
-    group_item = format_metadata_item(metadata)
-    if group_item:
+    item = format_metadata_item(metadata)
+    if item:
         try:
             await operations.update_item(
                 condition_expression=Attr(
                     key_structure.partition_key
                 ).exists(),
-                item=group_item,
-                key=group_key,
+                item=item,
+                key=primary_key,
                 table=TABLE,
             )
         except ConditionalCheckFailedException as ex:
@@ -80,21 +80,21 @@ async def update_state(
     }
 
     try:
-        group_key = keys.build_key(
+        primary_key = keys.build_key(
             facet=TABLE.facets["group_metadata"],
             values={
                 "name": group_name,
                 "organization_id": remove_org_id_prefix(organization_id),
             },
         )
-        group_item = {"state": state_item}
+        item = {"state": state_item}
         condition_expression = Attr(
             key_structure.partition_key
         ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
         await operations.update_item(
             condition_expression=condition_expression,
-            item=group_item,
-            key=group_key,
+            item=item,
+            key=primary_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
@@ -124,7 +124,7 @@ async def update_unreliable_indicators(
     group_name: str,
     indicators: GroupUnreliableIndicators,
 ) -> None:
-    group_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["group_unreliable_indicators"],
         values={
             "name": group_name,
@@ -133,7 +133,7 @@ async def update_unreliable_indicators(
     unreliable_indicators = format_unreliable_indicators_item(indicators)
     await operations.update_item(
         item=unreliable_indicators,
-        key=group_key,
+        key=primary_key,
         table=TABLE,
     )
 
@@ -150,21 +150,21 @@ async def update_policies(
     policies_item = format_policies_item(modified_by, modified_date, policies)
 
     try:
-        group_key = keys.build_key(
+        primary_key = keys.build_key(
             facet=TABLE.facets["group_metadata"],
             values={
                 "name": group_name,
                 "organization_id": remove_org_id_prefix(organization_id),
             },
         )
-        group_item = {"policies": policies_item}
+        item = {"policies": policies_item}
         condition_expression = Attr(
             key_structure.partition_key
         ).exists() & Attr("state.status").ne(GroupStateStatus.DELETED.value)
         await operations.update_item(
             condition_expression=condition_expression,
-            item=group_item,
-            key=group_key,
+            item=item,
+            key=primary_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:

@@ -41,22 +41,22 @@ async def update_metadata(
     organization_name: str,
 ) -> None:
     key_structure = TABLE.primary_key
-    organization_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={
             "id": remove_org_id_prefix(organization_id),
             "name": organization_name,
         },
     )
-    organization_item = format_metadata_item(metadata)
-    if organization_item:
+    item = format_metadata_item(metadata)
+    if item:
         try:
             await operations.update_item(
                 condition_expression=Attr(
                     key_structure.partition_key
                 ).exists(),
-                item=organization_item,
-                key=organization_key,
+                item=item,
+                key=primary_key,
                 table=TABLE,
             )
         except ConditionalCheckFailedException as ex:
@@ -76,7 +76,7 @@ async def update_policies(
     policies_item = format_policies_item(modified_by, modified_date, policies)
 
     try:
-        organization_key = keys.build_key(
+        primary_key = keys.build_key(
             facet=TABLE.facets["organization_metadata"],
             values={
                 "id": organization_id,
@@ -92,7 +92,7 @@ async def update_policies(
         await operations.update_item(
             condition_expression=condition_expression,
             item=organization_item,
-            key=organization_key,
+            key=primary_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
@@ -133,7 +133,7 @@ async def update_state(
     }
 
     try:
-        organization_key = keys.build_key(
+        primary_key = keys.build_key(
             facet=TABLE.facets["organization_metadata"],
             values={
                 "id": organization_id,
@@ -149,7 +149,7 @@ async def update_state(
         await operations.update_item(
             condition_expression=condition_expression,
             item=organization_item,
-            key=organization_key,
+            key=primary_key,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:

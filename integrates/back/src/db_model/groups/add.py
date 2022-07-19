@@ -28,7 +28,7 @@ async def add(*, group: Group) -> None:
 
     items = []
     key_structure = TABLE.primary_key
-    group_key = keys.build_key(
+    primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={
             "name": group.name,
@@ -38,18 +38,18 @@ async def add(*, group: Group) -> None:
 
     item_in_db = await operations.get_item(
         facets=(TABLE.facets["group_metadata"],),
-        key=group_key,
+        key=primary_key,
         table=TABLE,
     )
     if item_in_db:
         raise GroupAlreadyCreated.new()
 
-    group_item = {
-        key_structure.partition_key: group_key.partition_key,
-        key_structure.sort_key: group_key.sort_key,
+    item = {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
         **json.loads(json.dumps(group, default=serialize_sets)),
     }
-    items.append(group_item)
+    items.append(item)
 
     state_key = keys.build_key(
         facet=TABLE.facets["group_historic_state"],
