@@ -6976,7 +6976,14 @@
   title: OWASP SAMM
   en:
     summary: >
-      __empty__
+      OWASP Software Assurance Maturity Model
+      (SAMM) is an open framework to help
+      organizations formulate and implement a
+      strategy for software security that is
+      tailored to the specific risks
+      facing the organization.
+      The version used in this section
+      is OWASP SAMM v1.0.
   es:
     summary: __empty__
   definitions:
