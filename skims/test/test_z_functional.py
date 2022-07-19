@@ -522,8 +522,8 @@ async def test_reattack_comments_open_and_closed_vulnerability(
     )
 
 
-@pytest.mark.asyncio
-@pytest.mark.skims_test_group("functional")
+@pytest.mark.skip
+@pytest.mark.skims_test_group("functionall")
 @pytest.mark.usefixtures("test_integrates_session")
 async def test_rebase_change_line_2(test_group: str) -> None:
 

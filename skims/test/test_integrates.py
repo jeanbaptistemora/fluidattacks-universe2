@@ -108,6 +108,9 @@ async def test_build_vulnerabilities_stream() -> None:
           source: machine
           state: open
           stream: home,socket-send,socket-response
+          tool:
+            impact: direct
+            name: machine
           url: https://example.com:443 (test)
         lines:
         - commit_hash: {commit_hash}
@@ -119,6 +122,9 @@ async def test_build_vulnerabilities_stream() -> None:
           skims_technique: {sast_technique.value}
           source: machine
           state: open
+          tool:
+            impact: direct
+            name: machine
     """
         )[1:]
     )

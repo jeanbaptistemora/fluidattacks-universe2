@@ -1115,6 +1115,11 @@ class SkimsVulnerabilityMetadata(NamedTuple):
     technique: TechniqueEnum
 
 
+class IntegratesVulnerabilitiesTool(NamedTuple):
+    name: str = "machine"
+    impact: str = "direct"
+
+
 class IntegratesVulnerabilitiesLines(NamedTuple):
     commit_hash: str
     line: str
@@ -1125,6 +1130,7 @@ class IntegratesVulnerabilitiesLines(NamedTuple):
     skims_technique: Optional[str]
     developer: Optional[str]
     source: Optional[str] = "machine"
+    tool: IntegratesVulnerabilitiesTool = IntegratesVulnerabilitiesTool()
 
 
 class IntegratesVulnerabilitiesInputs(NamedTuple):
@@ -1137,6 +1143,7 @@ class IntegratesVulnerabilitiesInputs(NamedTuple):
     skims_technique: Optional[str]
     developer: Optional[str]
     source: Optional[str] = "machine"
+    tool: IntegratesVulnerabilitiesTool = IntegratesVulnerabilitiesTool()
 
 
 class Vulnerability(NamedTuple):
