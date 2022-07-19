@@ -59,11 +59,11 @@ and is divided across many products.
 1. Use the products of your choice:
 
     ```bash
-    $ m gitlab:fluidattacks/universe@master /forces --help
-    $ m gitlab:fluidattacks/universe@master /melts --help
-    $ m gitlab:fluidattacks/universe@master /reviews --help
-    $ m gitlab:fluidattacks/universe@master /skims --help
-    $ m gitlab:fluidattacks/universe@master /sorts --help
+    $ m gitlab:fluidattacks/universe@trunk /forces --help
+    $ m gitlab:fluidattacks/universe@trunk /melts --help
+    $ m gitlab:fluidattacks/universe@trunk /reviews --help
+    $ m gitlab:fluidattacks/universe@trunk /skims --help
+    $ m gitlab:fluidattacks/universe@trunk /sorts --help
     ```
 
 ## Updating

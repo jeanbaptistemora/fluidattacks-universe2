@@ -12,7 +12,7 @@
 
 .docs_in_dev_branch: &docs_in_dev_branch
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "trunk"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -22,10 +22,10 @@
       when: never
     - if: *docs_commit_pattern
 
-.docs_in_master_branch: &docs_in_master_branch
+.docs_in_prod_branch: &docs_in_prod_branch
   resource_group: "${CI_JOB_NAME}"
   rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
+    - if: '$CI_COMMIT_BRANCH != "trunk"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -35,7 +35,7 @@
 
 /deployTerraform/docsInfra:
   <<: *makes4
-  <<: *docs_in_master_branch
+  <<: *docs_in_prod_branch
   stage: deploy-infra
 
 /docs/deploy/dev:
@@ -49,7 +49,7 @@
 
 /docs/deploy/prod:
   <<: *makes4
-  <<: *docs_in_master_branch
+  <<: *docs_in_prod_branch
   stage: deploy-app
   script: m . /docs/deploy prod default
   environment:

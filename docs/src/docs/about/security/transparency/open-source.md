@@ -22,7 +22,7 @@ are the following:
 
 - **Transparency:** The complete history of our source code
   can be found
-  [here](https://gitlab.com/fluidattacks/universe/-/commits/master).
+  [here](https://gitlab.com/fluidattacks/universe/-/commits/trunk).
   By publishing it,
   we let interested parties know exactly
   what we are fixing,

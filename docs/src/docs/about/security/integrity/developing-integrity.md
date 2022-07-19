@@ -171,7 +171,7 @@ they do not share any data with production.
 ## Trunk Based Development
 
 We use [Trunk Based Development](https://trunkbaseddevelopment.com/)
-to keep only one long-term master branch.
+to keep only one long-term trunk branch.
 That branch is the source of truth
 regarding what code is running
 in the production environments.
@@ -211,7 +211,7 @@ they run the CI phase,
 create a merge request,
 and ask for peer review.
 If everything goes well,
-their branch is merged to the master branch,
+their branch is merged to the trunk branch,
 their changes are deployed to production,
 and their short-term branch is deleted.
 

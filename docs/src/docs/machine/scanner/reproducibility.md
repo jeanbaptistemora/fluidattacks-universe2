@@ -69,7 +69,7 @@ we'll need to:
 1. Execute:
 
     ```bash
-    m gitlab:fluidattacks/universe@master /skims scan config.yaml
+    m gitlab:fluidattacks/universe@trunk /skims scan config.yaml
     ```
 
     This will take some time,

@@ -150,7 +150,7 @@ You can track the progress [here](https://gitlab.com/fluidattacks/universe/-/iss
   Please make sure you keep all data
   within that table.
 - Please adhere to our current [design][DESIGN]
-  when modifying the [DynamoDB logic](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/dynamodb);
+  when modifying the [DynamoDB logic](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/dynamodb);
   that way,
   we can keep a consistent architecture.
 - You can open the design
@@ -159,4 +159,4 @@ You can track the progress [here](https://gitlab.com/fluidattacks/universe/-/iss
 [DYNAMODB]: https://aws.amazon.com/dynamodb/
 [ASM]: https://fluidattacks.com/categories/asm/
 [RDBMS]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SQLtoNoSQL.WhyDynamoDB.html
-[DESIGN]: https://gitlab.com/fluidattacks/universe/-/blob/master/integrates/arch/database-design.json
+[DESIGN]: https://gitlab.com/fluidattacks/universe/-/blob/trunk/integrates/arch/database-design.json

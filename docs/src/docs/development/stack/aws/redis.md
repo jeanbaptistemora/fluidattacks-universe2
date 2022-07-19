@@ -123,14 +123,14 @@ We use [Redis][REDIS] for:
     infrastructure must be done via
     [Merge Requests](https://docs.gitlab.com/ee/user/project/merge_requests/)
     by modifying its
-    [Terraform module](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/deploy/cache-db/terraform).
+    [Terraform module](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/deploy/cache-db/terraform).
 1. To learn how to test and apply infrastructure via [Terraform](/development/stack/terraform/),
     visit the
     [Terraform Guidelines](/development/stack/terraform#guidelines).
 1. Please adhere to our current
-    [design](https://gitlab.com/fluidattacks/universe/-/blob/master/integrates/arch/2021-01-27-cache-design.md)
+    [design](https://gitlab.com/fluidattacks/universe/-/blob/trunk/integrates/arch/2021-01-27-cache-design.md)
     when modifying the
-    [Redis logic](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/redis_cluster),
+    [Redis logic](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/redis_cluster),
     that way we can keep
     a consistent architecture.
 1. When working on our [ASM][ASM],

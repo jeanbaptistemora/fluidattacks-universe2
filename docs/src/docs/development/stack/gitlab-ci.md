@@ -23,7 +23,7 @@ By using it, we become capable of:
 
 By having highly automated workflows,
 we become capable of
-[deploying applications many times a day](https://gitlab.com/fluidattacks/universe/-/commits/master)
+[deploying applications many times a day](https://gitlab.com/fluidattacks/universe/-/commits/trunk)
 without sacrificing quality or security.
 
 The main reasons why we chose

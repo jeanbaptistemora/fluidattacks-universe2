@@ -26,7 +26,7 @@ it over other alternatives are:
 
 1. It allows us to
     have a standardized
-    [commit history](https://gitlab.com/fluidattacks/universe/-/commits/master),
+    [commit history](https://gitlab.com/fluidattacks/universe/-/commits/trunk),
     greatly improving documentation
     on what each commit does
     from a high level perspective

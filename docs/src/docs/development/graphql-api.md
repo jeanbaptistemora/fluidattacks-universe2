@@ -35,7 +35,7 @@ Integrates currently uses the
 developed by [Mirumee Labs](https://github.com/mirumee)
 
 All `GraphQL` queries are directed to a
-[single endpoint](https://gitlab.com/fluidattacks/universe/-/blob/master/integrates/backend_new/app/app.py#L127),
+[single endpoint](https://gitlab.com/fluidattacks/universe/-/blob/trunk/integrates/backend_new/app/app.py#L127),
 which is exposed at `/api`.
 
 The `API` layer was inspired by
@@ -81,7 +81,7 @@ You can access it on:
 ### Types
 
 Integrates GraphQL types are defined in
-[api/schema/types](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/api/schema/types)
+[api/schema/types](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/api/schema/types)
 
 There are two approaches
 to defining a `GraphQL` schema:
@@ -123,7 +123,7 @@ Further reading:
 ### Enums
 
 Integrates GraphQL enums are defined in
-[api/schema/enums](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/api/schema/enums)
+[api/schema/enums](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/api/schema/enums)
 
 api/schema/enums/enums.graphql
 
@@ -167,7 +167,7 @@ ENUMS: Tuple[EnumType, ...] = (
 ### Scalars
 
 Integrates GraphQL scalars are defined in
-[api/schema/scalars](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/api/schema/scalars)
+[api/schema/scalars](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/api/schema/scalars)
 
 GraphQL provides some primitive scalars,
 such as String,
@@ -186,7 +186,7 @@ Further reading:
 ### Resolvers
 
 Integrates GraphQL resolvers are defined in
-[api/resolvers](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/api/resolvers)
+[api/resolvers](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/api/resolvers)
 
 A resolver is a function
 that receives two arguments:
@@ -230,7 +230,7 @@ Further reading:
 ### Mutations
 
 Integrates GraphQL mutations are defined in
-[api/mutations](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/api/mutations)
+[api/mutations](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/api/mutations)
 
 Mutations are a kind of GraphQL operation
 explicitly meant to change data.
@@ -334,7 +334,7 @@ The system then validates
 if the user can perform the action
 in a certain authz level
 according to the policies defined in
-[authz/model.py](https://gitlab.com/fluidattacks/universe/-/tree/master/integrates/back/src/authz/model.py)
+[authz/model.py](https://gitlab.com/fluidattacks/universe/-/tree/trunk/integrates/back/src/authz/model.py)
 
 For resolvers or mutations
 that require authorized users,
