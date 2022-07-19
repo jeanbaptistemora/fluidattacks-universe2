@@ -119,6 +119,7 @@ Default.args = {
   disabled: false,
   label: "ExampleLabel",
   placeholder: "Example placeholder",
+  tooltip: "Example tooltip",
   variant: "solid",
 };
 

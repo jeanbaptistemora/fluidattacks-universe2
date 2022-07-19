@@ -25,6 +25,7 @@ const CustomTextArea: FC<TTextAreaProps> = ({
   onKeyDown,
   placeholder,
   rows = 3,
+  tooltip,
   variant,
 }: Readonly<TTextAreaProps>): JSX.Element => {
   const { name, onBlur: onBlurField, onChange, value } = field;
@@ -44,6 +45,7 @@ const CustomTextArea: FC<TTextAreaProps> = ({
       id={id}
       label={label}
       name={name}
+      tooltip={tooltip}
       variant={variant}
     >
       <StyledTextArea

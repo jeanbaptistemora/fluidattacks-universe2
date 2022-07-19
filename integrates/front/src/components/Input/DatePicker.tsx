@@ -15,6 +15,7 @@ const DatePicker: FC<IDatePickerProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  tooltip,
   variant = "solid",
 }: Readonly<IDatePickerProps>): JSX.Element => (
   <Field
@@ -28,6 +29,7 @@ const DatePicker: FC<IDatePickerProps> = ({
     onBlur={onBlur}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    tooltip={tooltip}
     variant={variant}
   />
 );

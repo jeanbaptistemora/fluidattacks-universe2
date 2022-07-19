@@ -14,6 +14,7 @@ const Select: FC<ISelectProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  tooltip,
   variant,
 }: Readonly<ISelectProps>): JSX.Element => (
   <Field
@@ -25,6 +26,7 @@ const Select: FC<ISelectProps> = ({
     onBlur={onBlur}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    tooltip={tooltip}
     type={"text"}
     variant={variant}
   >

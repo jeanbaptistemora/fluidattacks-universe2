@@ -22,6 +22,7 @@ const CustomSelect: FC<TSelectProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  tooltip,
   variant,
 }: Readonly<TSelectProps>): JSX.Element => {
   const { name, onBlur: onBlurField, onChange, value } = field;
@@ -41,6 +42,7 @@ const CustomSelect: FC<TSelectProps> = ({
       id={id}
       label={label}
       name={name}
+      tooltip={tooltip}
       variant={variant}
     >
       <StyledSelect

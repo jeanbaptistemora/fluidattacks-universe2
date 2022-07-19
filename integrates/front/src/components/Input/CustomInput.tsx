@@ -27,6 +27,7 @@ const CustomInput: FC<TInputProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  tooltip,
   type,
   variant = "solid",
 }: Readonly<TInputProps>): JSX.Element => {
@@ -47,6 +48,7 @@ const CustomInput: FC<TInputProps> = ({
       id={id}
       label={label}
       name={name}
+      tooltip={tooltip}
       variant={variant}
     >
       {childLeft}

@@ -16,6 +16,7 @@ const InputNumber: FC<IInputNumberProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  tooltip,
   variant = "solid",
 }: Readonly<IInputNumberProps>): JSX.Element => (
   <Field
@@ -30,6 +31,7 @@ const InputNumber: FC<IInputNumberProps> = ({
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}
+    tooltip={tooltip}
     variant={variant}
   />
 );
