@@ -49,7 +49,7 @@ def format_organization_access(item: Item) -> OrganizationAccess:
         organization_id=remove_org_id_prefix(item["pk"]),
         email=remove_stakeholder_prefix(item["sk"]),
         has_access=bool(item["has_access"])
-        if item.get("has_access")
+        if item.get("has_access") is not None
         else None,
         invitation=format_invitation(item["invitation"])
         if item.get("invitation")

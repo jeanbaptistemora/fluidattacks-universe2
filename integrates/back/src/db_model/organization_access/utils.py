@@ -29,7 +29,7 @@ def format_organization_access(item: Item) -> OrganizationAccess:
         email=item["email"],
         organization_id=remove_org_id_prefix(item["organization_id"]),
         has_access=bool(item["has_access"])
-        if item.get("has_access")
+        if item.get("has_access") is not None
         else None,
         invitation=OrganizationInvitation(
             is_used=bool(item["invitation"]["is_used"]),
