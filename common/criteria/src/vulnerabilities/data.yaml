@@ -7042,7 +7042,7 @@
         load_balancer_arn = aws_lb.front_end.arn
         port              = "443"
         protocol          = "HTTPS"
-        ssl_policy        = "ELBSecurityPolicy-2016-08"
+        ssl_policy        = "ELBSecurityPolicy-TLS13-1-3-2021-06"
         certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
 
         default_action {
@@ -7068,15 +7068,15 @@
           LoadBalancerArn: myLoadBalancer
           Port: 80
           Protocol: "HTTPS"
-          SslPolicy: ELBSecurityPolicy-2016-08
+          SslPolicy: ELBSecurityPolicy-TLS13-1-3-2021-06
       ```
   remediation_time: "60"
   score:
     base:
-      attack_vector: "N"
-      attack_complexity: "L"
+      attack_vector: "A"
+      attack_complexity: "H"
       privileges_required: "N"
-      user_interaction: "N"
+      user_interaction: "R"
       scope: "U"
       confidentiality: "L"
       integrity: "L"
