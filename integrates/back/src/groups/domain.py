@@ -76,6 +76,10 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+    OrganizationAccessMetadataToUpdate,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -512,31 +516,31 @@ async def complete_register_for_group_invitation(
 
 
 async def complete_register_for_organization_invitation(
-    loaders: Any, organization_access: dict[str, Any]
+    loaders: Any, organization_access: OrganizationAccess
 ) -> bool:
     success: bool = False
-    invitation = organization_access["invitation"]
-    if invitation["is_used"]:
+    invitation = organization_access.invitation
+    if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    organization_id = organization_access["pk"]
-    role = invitation["role"]
-    user_email = organization_access["sk"].split("#")[1]
-    updated_invitation = invitation.copy()
-    updated_invitation["is_used"] = True
+    organization_id = organization_access.organization_id
+    user_email = organization_access.email
+    if invitation:
+        role = invitation.role
+        updated_invitation = invitation._replace(is_used=True)
 
     user_added = await orgs_domain.add_user(
         loaders, organization_id, user_email, role
     )
 
-    await orgs_domain.update_user(
+    await orgs_domain.update_organization_access(
         organization_id,
         user_email,
-        {
-            "expiration_time": None,
-            "has_access": True,
-            "invitation": updated_invitation,
-        },
+        OrganizationAccessMetadataToUpdate(
+            expiration_time=None,
+            has_access=True,
+            invitation=updated_invitation,
+        ),
     )
 
     user_created = False

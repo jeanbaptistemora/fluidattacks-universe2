@@ -7,6 +7,7 @@ from db_model.organization_access.enums import (
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
+    OrganizationAccessMetadataToUpdate,
     OrganizationInvitation,
 )
 from dynamodb.types import (
@@ -53,3 +54,24 @@ def format_organization_access(item: Item) -> OrganizationAccess:
         else None,
         expiration_time=item.get("expiration_time", None),
     )
+
+
+def format_metadata_to_update(
+    metadata: OrganizationAccessMetadataToUpdate,
+) -> Item:
+    item: Item = {
+        "has_access": metadata.has_access,
+        "invitation": {
+            "is_used": metadata.invitation.is_used,
+            "role": metadata.invitation.role,
+            "url_token": metadata.invitation.url_token,
+        }
+        if metadata.invitation
+        else None,
+        "expiration_time": metadata.expiration_time,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }

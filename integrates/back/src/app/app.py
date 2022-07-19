@@ -47,10 +47,14 @@ from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
     SecureAccessException,
+    UserNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.organization_access.types import (
+    OrganizationAccess,
 )
 from decorators import (
     authenticate_session,
@@ -229,28 +233,29 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
 
 async def confirm_access_organization(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
+    loaders: Dataloaders = get_new_context()
     if url_token:
-        organization_access = await orgs_domain.get_access_by_url_token(
-            url_token
-        )
-        if organization_access:
-            loaders: Dataloaders = get_new_context()
+        try:
+            organization_access: OrganizationAccess = (
+                await orgs_domain.get_access_by_url_token(loaders, url_token)
+            )
+
             success = await (
                 groups_domain.complete_register_for_organization_invitation(
                     loaders, organization_access
                 )
             )
             if success:
-                response = await templates.valid_invitation(
+                response = await templates.valid_invitation_typed(
                     request, organization_access
                 )
             else:
-                response = templates.invalid_invitation(
+                response = templates.invalid_invitation_typed(
                     request,
                     "Invalid or Expired",
-                    group_access=organization_access,
+                    access=organization_access,
                 )
-        else:
+        except UserNotInOrganization:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -308,30 +313,32 @@ async def reject_access(request: Request) -> HTMLResponse:
 
 async def reject_access_organization(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
+    loaders = get_new_context()
     if url_token:
-        organization_access = await orgs_domain.get_access_by_url_token(
-            url_token
-        )
-        if organization_access:
+        try:
+            organization_access: OrganizationAccess = (
+                await orgs_domain.get_access_by_url_token(loaders, url_token)
+            )
+
             success = await (
                 orgs_domain.reject_register_for_organization_invitation(
-                    get_new_context(), organization_access
+                    loaders, organization_access
                 )
             )
             if success:
-                organization_id: str = organization_access["pk"]
+                organization_id: str = organization_access.organization_id
                 redis_del_by_deps_soon(
                     "reject_access_organization",
                     organization_id=organization_id,
                 )
-                response = await templates.reject_invitation(
+                response = await templates.reject_invitation_typed(
                     request, organization_access
                 )
             else:
-                response = templates.invalid_invitation(
+                response = templates.invalid_invitation_typed(
                     request, "Invalid or Expired", organization_access
                 )
-        else:
+        except UserNotInOrganization:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )

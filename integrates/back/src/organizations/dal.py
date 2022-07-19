@@ -11,6 +11,9 @@ from custom_exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.organization_access.types import (
+    OrganizationAccessMetadataToUpdate,
+)
 from dynamodb.operations_legacy import (
     delete_item as dynamodb_delete_item,
     get_item as dynamodb_get_item,
@@ -20,6 +23,9 @@ from dynamodb.operations_legacy import (
 )
 import logging
 import logging.config
+from newutils.organization_access import (
+    format_metadata_to_update,
+)
 from newutils.organizations import (
     remove_org_id_prefix,
 )
@@ -179,3 +185,10 @@ async def update_user(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_org_access(
+    org_id: str, email: str, org_access: OrganizationAccessMetadataToUpdate
+) -> None:
+    data = format_metadata_to_update(org_access)
+    await update_user(org_id, email, data)

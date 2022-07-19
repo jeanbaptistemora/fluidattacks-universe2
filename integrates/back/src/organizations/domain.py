@@ -46,6 +46,10 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+    OrganizationAccessMetadataToUpdate,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -207,18 +211,18 @@ async def update_state(
 
 
 async def get_access_by_url_token(
+    loaders: Any,
     url_token: str,
-) -> dict[str, Any]:
-    access = {}
+) -> OrganizationAccess:
     try:
         token_content = token_utils.decode_jwt(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
-        access = await orgs_dal.get_organization_access(
-            organization_id, user_email
-        )
     except JWTError:
         InvalidAuthorization()
+    access: OrganizationAccess = await loaders.organization_access.load(
+        (organization_id, user_email)
+    )
     return access
 
 
@@ -517,15 +521,15 @@ async def remove_user(
 
 async def reject_register_for_organization_invitation(
     loaders: Any,
-    organization_access: dict[str, Any],
+    organization_access: OrganizationAccess,
 ) -> bool:
     success: bool = False
-    invitation = organization_access["invitation"]
-    if invitation["is_used"]:
+    invitation = organization_access.invitation
+    if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    organization_id = organization_access["pk"]
-    user_email = organization_access["sk"].split("#")[1]
+    organization_id = organization_access.organization_id
+    user_email = organization_access.email
     success = await remove_user(
         loaders, organization_id, user_email, user_email
     )
@@ -597,6 +601,16 @@ async def update_credentials(
         credential_id=credentials_id,
         organization_id=organization_id,
         state=new_state,
+    )
+
+
+async def update_organization_access(
+    organization_id: str,
+    user_email: str,
+    metadata: OrganizationAccessMetadataToUpdate,
+) -> None:
+    return await orgs_dal.update_org_access(
+        organization_id, user_email, metadata
     )
 
 

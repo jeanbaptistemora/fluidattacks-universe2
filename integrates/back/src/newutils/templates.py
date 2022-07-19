@@ -4,6 +4,9 @@
 from custom_types import (
     GraphicParameters,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 import json
 from newutils.utils import (
     get_key_or_fallback,
@@ -99,6 +102,22 @@ def graphic_view(
     )
 
 
+def invalid_invitation_typed(
+    request: Request,
+    error: str,
+    access: Optional[OrganizationAccess] = None,
+) -> HTMLResponse:
+    entity_name = access.organization_id if access else ""
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="invalid_invitation.html",
+        context={
+            "error": error,
+            "group_name": entity_name,
+            "request": request,
+        },
+    )
+
+
 def invalid_invitation(
     request: Request,
     error: str,
@@ -151,6 +170,19 @@ def unauthorized(request: Request) -> HTMLResponse:
     )
 
 
+async def valid_invitation_typed(
+    request: Request, access: OrganizationAccess
+) -> HTMLResponse:
+    entity_name = access.organization_id
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="valid_invitation.html",
+        context={
+            "group_name": entity_name,
+            "request": request,
+        },
+    )
+
+
 async def valid_invitation(
     request: Request, group_access: Dict[str, Any]
 ) -> HTMLResponse:
@@ -186,6 +218,19 @@ def invalid_confirm_deletion(
         name="invalid_delete_confirmation.html",
         context={
             "error": error,
+            "request": request,
+        },
+    )
+
+
+async def reject_invitation_typed(
+    request: Request, access: OrganizationAccess
+) -> HTMLResponse:
+    entity_name = access.organization_id
+    return TEMPLATING_ENGINE.TemplateResponse(
+        name="reject_invitation.html",
+        context={
+            "group_name": entity_name,
             "request": request,
         },
     )
