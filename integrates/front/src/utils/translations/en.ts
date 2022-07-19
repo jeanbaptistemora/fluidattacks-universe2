@@ -3277,6 +3277,7 @@ export const enTranslations: ResourceKey = {
     findingsGroup: "Types of Vulnerabilities by Group",
     groupsAvailability: "Groups availability",
     meanRemediate: "Mean (average) days to remediate",
+    oldestEvent: "Days since group is failing",
     openFindingsGroup: "Open Types of Vulnerabilities by Group",
     openVulnsGroups: "Open vulnerabilities by group",
     remediatedAcceptedVuln:
