@@ -11,7 +11,7 @@
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingSorts
   ];
-  gitlabOnlyMaster = [
+  gitlabOnlyProd = [
     gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
@@ -20,7 +20,7 @@
 
   gitlabDeployInfra = {
     resource_group = "$CI_JOB_NAME";
-    rules = gitlabOnlyMaster;
+    rules = gitlabOnlyProd;
     stage = "deploy-infra";
     tags = ["autoscaling"];
   };

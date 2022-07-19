@@ -136,7 +136,7 @@
   gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
   gitlabBranchTrunk = gitlabCi.rules.branch "trunk";
   gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|integrates)";
-  gitlabOnlyMaster = [
+  gitlabOnlyProd = [
     gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
@@ -166,20 +166,20 @@
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
-  gitlabDeployAppMaster = {
-    rules = gitlabOnlyMaster;
+  gitlabDeployAppProd = {
+    rules = gitlabOnlyProd;
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
-  gitlabDeployAppMasterResourceGroup = {
+  gitlabDeployAppProdResourceGroup = {
     resource_group = "deploy/$CI_JOB_NAME";
-    rules = gitlabOnlyMaster;
+    rules = gitlabOnlyProd;
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
   gitlabDeployInfra = {
     resource_group = "deploy/$CI_JOB_NAME";
-    rules = gitlabOnlyMaster;
+    rules = gitlabOnlyProd;
     stage = "deploy-infra";
     tags = ["autoscaling"];
   };
@@ -246,7 +246,7 @@ in {
           {
             output = "/integrates/back/deploy/prod";
             gitlabExtra =
-              gitlabDeployAppMasterResourceGroup
+              gitlabDeployAppProdResourceGroup
               // {
                 environment = {
                   name = "production";
@@ -258,7 +258,7 @@ in {
             args = ["even"];
             output = "/integrates/back/deploy/prod";
             gitlabExtra =
-              gitlabDeployAppMaster
+              gitlabDeployAppProd
               // {
                 environment = {
                   name = "production";
@@ -276,7 +276,7 @@ in {
             args = ["odd"];
             output = "/integrates/back/deploy/prod";
             gitlabExtra =
-              gitlabDeployAppMaster
+              gitlabDeployAppProd
               // {
                 environment = {
                   name = "production";
@@ -440,7 +440,7 @@ in {
           }
           {
             output = "/integrates/front/deploy/prod";
-            gitlabExtra = gitlabDeployAppMasterResourceGroup;
+            gitlabExtra = gitlabDeployAppProdResourceGroup;
           }
           {
             output = "/integrates/front/lint";

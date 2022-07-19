@@ -4,7 +4,7 @@
 
   gitlabTitleMatchingAirs = gitlabCi.rules.titleMatching "^(all|airs)";
 
-  gitlabOnlyMaster = [
+  gitlabOnlyProd = [
     gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
@@ -38,7 +38,7 @@ in {
         {
           output = "/airs/prod";
           gitlabExtra = {
-            rules = gitlabOnlyMaster;
+            rules = gitlabOnlyProd;
             stage = "deploy-app";
             tags = ["autoscaling"];
           };
@@ -63,7 +63,7 @@ in {
           output = "/deployTerraform/airsInfra";
           gitlabExtra = {
             resource_group = "$CI_JOB_NAME";
-            rules = gitlabOnlyMaster;
+            rules = gitlabOnlyProd;
             stage = "deploy-infra";
             tags = ["autoscaling"];
           };

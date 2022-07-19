@@ -4,7 +4,7 @@
 
   gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|forces)";
 
-  gitlabOnlyMaster = [
+  gitlabOnlyProd = [
     gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
@@ -19,7 +19,7 @@
   ];
 
   gitlabDeployApp = {
-    rules = gitlabOnlyMaster;
+    rules = gitlabOnlyProd;
     stage = "deploy-app";
     tags = ["autoscaling"];
   };
