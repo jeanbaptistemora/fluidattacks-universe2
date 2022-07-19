@@ -5,7 +5,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/forces/process-groups/break"
     ];
 
@@ -28,7 +28,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/forces/process-groups/pass"
     ];
 
@@ -51,7 +51,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/back/destroy/eph"
     ];
 
@@ -74,7 +74,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.clone_groups_roots.main"
@@ -99,7 +99,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.clone_groups_roots_vpn.main"
@@ -124,7 +124,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.delete_imamura_stakeholders.main"
@@ -149,7 +149,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.delete_obsolete_groups.main"
@@ -174,7 +174,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.delete_obsolete_orgs.main"
@@ -199,7 +199,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.event_report.main"
@@ -224,7 +224,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.numerator_report_digest.main"
@@ -249,7 +249,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.get_remediated_findings.main"
@@ -274,7 +274,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.machine_queue_all.main"
@@ -299,7 +299,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.machine_queue_re_attacks.main"
@@ -324,7 +324,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.refresh_toe_lines.main"
@@ -349,7 +349,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.reminder_notification.main"
@@ -374,7 +374,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.report_squad_usage.main"
@@ -399,7 +399,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.requeue_actions.main"
@@ -424,7 +424,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.reset_expired_accepted_findings.main"
@@ -449,7 +449,7 @@
     enabled = false;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.review_machine_executions.main"
@@ -474,7 +474,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/subscriptions/analytics"
       "prod"
       "daily"
@@ -499,7 +499,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/subscriptions/analytics"
       "prod"
       "monthly"
@@ -524,7 +524,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/subscriptions/analytics"
       "prod"
       "weekly"
@@ -549,7 +549,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.temporal_treatment_report.main"
@@ -574,7 +574,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.update_group_toe_vulns.main"
@@ -599,7 +599,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.update_indicators.main"
@@ -624,7 +624,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/integrates/utils/scheduler"
       "prod"
       "schedulers.update_portfolios.main"
@@ -649,7 +649,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/code/compute-bills"
     ];
 
@@ -672,7 +672,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/dynamo/centralize"
     ];
 
@@ -695,7 +695,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/gitlab/universe/ephemeral"
     ];
 
@@ -718,7 +718,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/mixpanel"
     ];
 
@@ -741,7 +741,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/timedoctor"
     ];
 
@@ -767,7 +767,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/timedoctor/backup"
     ];
 
@@ -793,7 +793,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/job/timedoctor/refresh-token"
     ];
 
@@ -819,7 +819,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/zoho-crm/fluid"
     ];
 
@@ -842,7 +842,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/etl/zoho-crm/fluid/prepare"
     ];
 
@@ -865,7 +865,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/observes/job/scheduler"
     ];
 
@@ -888,7 +888,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/skims/benchmark/owasp/upload"
     ];
 
@@ -911,7 +911,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/sorts/association-rules/bin"
     ];
 
@@ -934,7 +934,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/sorts/association-execute"
       (toString parallel)
     ];
@@ -958,7 +958,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/sorts/execute"
       (toString parallel)
     ];
@@ -982,7 +982,7 @@
     enabled = true;
     command = [
       "m"
-      "f"
+      "gitlab:fluidattacks/universe@trunk"
       "/sorts/training-and-tune"
     ];
 

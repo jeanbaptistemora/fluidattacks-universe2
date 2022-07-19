@@ -14,35 +14,35 @@ in {
       sharedConfiguration
       // {
         attemptDurationSeconds = 43200;
-        command = ["m" "f" "/observes/etl/announcekit"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/announcekit"];
       };
 
     observesBugsnagEtl =
       sharedConfiguration
       // {
         attemptDurationSeconds = 43200;
-        command = ["m" "f" "/observes/etl/bugsnag"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/bugsnag"];
       };
 
     observesChecklyEtl =
       sharedConfiguration
       // {
         attemptDurationSeconds = 43200;
-        command = ["m" "f" "/observes/etl/checkly"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/checkly"];
       };
 
     observesDelightedEtl =
       sharedConfiguration
       // {
         attemptDurationSeconds = 43200;
-        command = ["m" "f" "/observes/etl/delighted"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/delighted"];
       };
 
     observesFormstackEtl =
       sharedConfiguration
       // rec {
         attemptDurationSeconds = 14000;
-        command = ["m" "f" "/observes/etl/formstack"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/formstack"];
         memory = 1800 * vcpus;
         vcpus = 2;
       };
@@ -51,28 +51,28 @@ in {
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/gitlab/challenges"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/challenges"];
       };
 
     observesGitlabEtlDefault =
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/gitlab/default"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/default"];
       };
 
     observesGitlabEtlProduct =
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/gitlab/universe"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/universe"];
       };
 
     observesGitlabEtlServices =
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/gitlab/services"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/gitlab/services"];
       };
 
     observesMailchimpEtl =
@@ -80,7 +80,7 @@ in {
       // {
         attempts = 1;
         attemptDurationSeconds = 864000;
-        command = ["m" "f" "/observes/etl/mailchimp"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/mailchimp"];
       };
 
     observesCodeEtlMirror =
@@ -88,14 +88,14 @@ in {
       // {
         queue = "clone";
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/code/mirror"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/mirror"];
       };
 
     observesCodeEtlUpload =
       sharedConfiguration
       // {
         attemptDurationSeconds = 28800;
-        command = ["m" "f" "/observes/etl/code/upload"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload"];
       };
 
     observesCodeEtlMigration2 =
@@ -103,14 +103,14 @@ in {
       // {
         attempts = 1;
         attemptDurationSeconds = 604800;
-        command = ["m" "f" "/observes/etl/code/upload/migration/fa-hash/v2"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/code/upload/migration/fa-hash/v2"];
       };
 
     observesDynamoV2Etl =
       sharedConfiguration
       // {
         attemptDurationSeconds = 7200;
-        command = ["m" "f" "/observes/etl/dynamo/v2"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
       };
 
     observesDynamoV2EtlBig =
@@ -118,7 +118,7 @@ in {
       // {
         attemptDurationSeconds = 172800;
         attempts = 1;
-        command = ["m" "f" "/observes/etl/dynamo/v2"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v2"];
         vcpus = 4;
         memory = 7600;
         queue = "medium";
@@ -129,7 +129,7 @@ in {
       // {
         attemptDurationSeconds = 36000;
         attempts = 1;
-        command = ["m" "f" "/observes/etl/dynamo/parallel"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
         parallel = 100;
       };
 
@@ -138,7 +138,7 @@ in {
       // {
         attemptDurationSeconds = 1800;
         attempts = 1;
-        command = ["m" "f" "/observes/etl/dynamo/prepare"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/prepare"];
       };
 
     observesDynamoV3EtlBig =
@@ -146,7 +146,7 @@ in {
       // {
         attemptDurationSeconds = 172800;
         attempts = 1;
-        command = ["m" "f" "/observes/etl/dynamo/v3"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
         vcpus = 4;
         memory = 7600;
         queue = "medium";
@@ -157,7 +157,7 @@ in {
       // {
         attempts = 1;
         attemptDurationSeconds = 172800;
-        command = ["m" "f" "/observes/job/migration"];
+        command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/job/migration"];
       };
   };
 }

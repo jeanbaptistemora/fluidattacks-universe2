@@ -622,7 +622,7 @@ async def put_action_to_batch(
                     containerOverrides={
                         "command": [
                             "m",
-                            "f",
+                            "gitlab:fluidattacks/universe@trunk",
                             command_name,
                             "prod",
                             action_dynamo_pk,
