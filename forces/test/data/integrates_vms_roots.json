@@ -27,7 +27,7 @@
                 "S": "2021-01-08T19:41:58+00:00"
               },
               "branch": {
-                "S": "master"
+                "S": "trunk"
               },
               "url": {
                 "S": "ssh://git@gitlab.com:fluidattacks/universe"

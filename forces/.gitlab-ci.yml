@@ -1,6 +1,6 @@
 forces.test-container:
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never

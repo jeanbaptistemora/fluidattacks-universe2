@@ -19,7 +19,7 @@ def test_get_repository_metadata_test() -> None:
     result = get_repository_metadata(repo_path=".")
     assert result["git_repo"] == "universe"
     assert "fluidattacks/universe" in result["git_origin"]
-    assert result["git_branch"] != "master"
+    assert result["git_branch"] != "trunk"
 
 
 @pytest.mark.asyncio

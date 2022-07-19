@@ -52,7 +52,7 @@ workflow:
 
 .common_in_dev_branch: &common_in_dev_branch
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "trunk"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -62,9 +62,9 @@ workflow:
       when: never
     - when: always
 
-.common_rules_in_master_branch: &common_rules_in_master_branch
+.common_rules_in_prod_branch: &common_rules_in_prod_branch
   rules:
-    - if: '$CI_COMMIT_BRANCH != "master"'
+    - if: '$CI_COMMIT_BRANCH != "trunk"'
       when: never
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
@@ -72,13 +72,13 @@ workflow:
       when: never
     - when: always
 
-.common_in_master_branch: &common_in_master_branch
-  <<: *common_rules_in_master_branch
+.common_in_prod_branch: &common_in_prod_branch
+  <<: *common_rules_in_prod_branch
   resource_group: "${CI_JOB_NAME}"
 
 /common/status/check:
   <<: *makes4
-  <<: *common_in_master_branch
+  <<: *common_in_prod_branch
   stage: post-deploy
 
 /formatBash:
@@ -141,7 +141,7 @@ workflow:
     - nix-channel --update
 
 common_forces:
-  <<: *common_in_master_branch
+  <<: *common_in_prod_branch
   stage: post-deploy
   tags: [autoscaling]
   needs: []
@@ -156,7 +156,7 @@ common_forces:
     GIT_DEPTH: 5
 
 common_sonarcloud_check:
-  <<: *common_rules_in_master_branch
+  <<: *common_rules_in_prod_branch
   interruptible: true
   stage: external
   tags: [autoscaling]
