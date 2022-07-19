@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 19, 2022, 09:36 AM",
+    "DateLastModified": "Jul 19, 2022, 10:25 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -901,6 +901,18 @@
         {
           "AttributeName": "tool",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "has_access",
+          "AttributeType": "BOOL"
+        },
+        {
+          "AttributeName": "invitation",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "expiration_time",
+          "AttributeType": "N"
         }
       ],
       "TableFacets": [
@@ -2947,30 +2959,18 @@
           ]
         },
         {
-          "FacetName": "organization_membership",
+          "FacetName": "organization_access",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
-            "SortKeyAlias": "ORG#name"
+            "SortKeyAlias": "ORG#id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "sk": {
-                "S": "ORG#okada"
-              },
-              "role": {
-                "S": "customer_manager"
-              },
-              "subscription_period": {
-                "N": "86400"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "role",
-            "subscription_period"
+            "email",
+            "expiration_time",
+            "has_access",
+            "invitation",
+            "organization_id"
           ]
         },
         {
