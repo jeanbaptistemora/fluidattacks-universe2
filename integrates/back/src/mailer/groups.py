@@ -1,6 +1,5 @@
 from .common import (
     COMMENTS_TAG,
-    DIGEST_TAG,
     GENERAL_TAG,
     send_mails_async,
 )
@@ -69,34 +68,6 @@ async def send_mail_access_granted(
         ),
         "access_granted",
         is_access_granted=True,
-    )
-
-
-async def send_mail_daily_digest(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
-) -> None:
-    report_date = datetime_utils.get_as_str(
-        datetime_utils.get_now(), "%Y/%m/%d"
-    )
-    # Unique number needed to avoid the email client generating unwanted html
-    # code in the template
-    context["hash"] = hash((email_to[0], datetime_utils.get_now().timestamp()))
-    stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(email_to)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders
-        if Notification.DAILY_DIGEST
-        in stakeholder.notifications_preferences.email
-    ]
-    await send_mails_async(
-        loaders,
-        stakeholders_email,
-        context,
-        DIGEST_TAG,
-        f"[ASM] Daily Digest ({report_date})",
-        "daily_digest",
     )
 
 

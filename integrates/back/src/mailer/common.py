@@ -55,7 +55,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 COMMENTS_TAG: List[str] = ["comments"]
-DIGEST_TAG = ["digest"]
 GENERAL_TAG: List[str] = ["general"]
 LOGGER_ERRORS = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
