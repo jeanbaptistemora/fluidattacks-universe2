@@ -66,6 +66,7 @@ function deploy {
   export UUID
 
   aws_login_prod skims \
+    && aws_eks_update_kubeconfig 'common' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_PROD_SKIMS_AWS_ACCESS_KEY_ID="$(b64 "${PROD_SKIMS_AWS_ACCESS_KEY_ID}")" \
