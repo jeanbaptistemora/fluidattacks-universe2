@@ -805,6 +805,23 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               <Graphic
                 bsHeight={320}
                 className={"g1"}
+                documentName={"oldestEvents"}
+                documentType={"barChart"}
+                entity={entity}
+                generatorName={"generic"}
+                generatorType={"c3"}
+                infoLink={`${graphInfoLink}${entity}#days-since-groups-are-failing`}
+                reportMode={reportMode}
+                subject={subject}
+                title={t("tagIndicator.oldestGroupEvent")}
+              />
+            </Col100>
+          </RowCenter>
+          <RowCenter>
+            <Col100>
+              <Graphic
+                bsHeight={320}
+                className={"g1"}
                 documentName={"groupsByTag"}
                 documentType={"heatMapChart"}
                 entity={entity}
