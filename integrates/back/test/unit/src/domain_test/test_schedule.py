@@ -155,10 +155,11 @@ def test_generate_count_report(
     assert content[user_email]["groups"]["unittesting"]["enumerated"] == 1
     assert content[user_email]["groups"]["unittesting"]["verified"] == 2
     assert content[user_email]["groups"]["test_group"]["verified"] == 1
+    past_days = 4 if datetime_utils.get_now().weekday() == 1 else date_days + 1
     content = _generate_count_report(
         content=content,
         date_range=date_days,
-        date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
+        date_report=datetime_utils.get_now_minus_delta(days=past_days),
         field="verified",
         group="test_group",
         user_email=user_email,
@@ -166,7 +167,7 @@ def test_generate_count_report(
     content = _generate_count_report(
         content=content,
         date_range=date_days,
-        date_report=datetime_utils.get_now_minus_delta(days=date_days + 1),
+        date_report=datetime_utils.get_now_minus_delta(days=past_days),
         field="verified",
         group="test_group",
         user_email=user_email,

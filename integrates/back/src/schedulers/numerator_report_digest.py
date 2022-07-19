@@ -27,6 +27,9 @@ from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLinesConnection,
 )
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -127,12 +130,128 @@ def _generate_count_report(
                 int(content[user_email][field]["count"]["today"]) + to_add
             )
         else:
+            if datetime_utils.get_now().weekday() == 1:
+                date_range = 3
             if _validate_date(date_report.date(), date_range + 1, date_range):
                 content[user_email][field]["count"]["past_day"] = (
                     int(content[user_email][field]["count"]["past_day"])
                     + to_add
                 )
 
+    return content
+
+
+async def _draft_content(
+    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+) -> Dict[str, Any]:
+    group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
+
+    for draft in group_drafts:
+        vulns: Tuple[
+            Vulnerability, ...
+        ] = await loaders.finding_vulnerabilities.load(draft.id)
+        for vuln in vulns:
+            if draft.state.status in [
+                FindingStateStatus.CREATED,
+                FindingStateStatus.SUBMITTED,
+            ]:
+                content = _generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        vuln.state.modified_date
+                    ),
+                    field="draft_created",
+                    group=group,
+                    user_email=vuln.state.modified_by,
+                )
+
+            if draft.state.status == FindingStateStatus.REJECTED:
+                content = _generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        vuln.state.modified_date
+                    ),
+                    field="draft_rejected",
+                    group=group,
+                    user_email=vuln.state.modified_by,
+                )
+
+    return content
+
+
+async def _finding_content(
+    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+) -> Dict[str, Any]:
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
+    for finding in findings:
+        historic_verification: Tuple[
+            FindingVerification, ...
+        ] = await loaders.finding_historic_verification.load(finding.id)
+
+        for verification in historic_verification:
+            if verification.vulnerability_ids:
+                content = _generate_count_report(
+                    content=content,
+                    date_range=date_range,
+                    date_report=datetime_utils.get_datetime_from_iso_str(
+                        verification.modified_date
+                    ),
+                    field="reattacked",
+                    group=group,
+                    to_add=len(verification.vulnerability_ids),
+                    user_email=verification.modified_by,
+                )
+
+    return content
+
+
+async def _toe_input_content(
+    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+) -> Dict[str, Any]:
+    group_toe_inputs: ToeInputsConnection = (
+        await loaders.group_toe_inputs.load(
+            GroupToeInputsRequest(group_name=group)
+        )
+    )
+    for toe_inputs in group_toe_inputs.edges:
+        content = _generate_count_report(
+            content=content,
+            date_range=date_range,
+            date_report=toe_inputs.node.seen_at,
+            field="enumerated",
+            group=group,
+            user_email=toe_inputs.node.seen_first_time_by,
+        )
+
+        content = _generate_count_report(
+            content=content,
+            date_range=date_range,
+            date_report=toe_inputs.node.attacked_at,
+            field="verified",
+            group=group,
+            user_email=toe_inputs.node.attacked_by,
+        )
+
+    return content
+
+
+async def _toe_line_content(
+    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+) -> Dict[str, Any]:
+    group_toe_lines: ToeLinesConnection = await loaders.group_toe_lines.load(
+        GroupToeLinesRequest(group_name=group)
+    )
+    for toe_lines in group_toe_lines.edges:
+        content = _generate_count_report(
+            content=content,
+            date_range=date_range,
+            date_report=toe_lines.node.attacked_at,
+            field="loc",
+            group=group,
+            user_email=toe_lines.node.attacked_by,
+        )
     return content
 
 
@@ -143,95 +262,10 @@ async def _generate_numerator_report(
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
     for group in groups_names:
-        group_toe_inputs: ToeInputsConnection = (
-            await loaders.group_toe_inputs.load(
-                GroupToeInputsRequest(group_name=group)
-            )
-        )
-        group_toe_lines: ToeLinesConnection = (
-            await loaders.group_toe_lines.load(
-                GroupToeLinesRequest(group_name=group)
-            )
-        )
-        findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-            group
-        )
-        group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(
-            group
-        )
-
-        for toe_inputs in group_toe_inputs.edges:
-            content = _generate_count_report(
-                content=content,
-                date_range=date_range,
-                date_report=toe_inputs.node.seen_at,
-                field="enumerated",
-                group=group,
-                user_email=toe_inputs.node.seen_first_time_by,
-            )
-
-            content = _generate_count_report(
-                content=content,
-                date_range=date_range,
-                date_report=toe_inputs.node.attacked_at,
-                field="verified",
-                group=group,
-                user_email=toe_inputs.node.attacked_by,
-            )
-
-        for toe_lines in group_toe_lines.edges:
-            content = _generate_count_report(
-                content=content,
-                date_range=date_range,
-                date_report=toe_lines.node.attacked_at,
-                field="loc",
-                group=group,
-                user_email=toe_lines.node.attacked_by,
-            )
-
-        for finding in findings:
-            historic_verification: Tuple[
-                FindingVerification, ...
-            ] = await loaders.finding_historic_verification.load(finding.id)
-
-            for verification in historic_verification:
-                if verification.vulnerability_ids:
-                    content = _generate_count_report(
-                        content=content,
-                        date_range=date_range,
-                        date_report=datetime_utils.get_datetime_from_iso_str(
-                            verification.modified_date
-                        ),
-                        field="reattacked",
-                        group=group,
-                        to_add=len(verification.vulnerability_ids),
-                        user_email=verification.modified_by,
-                    )
-
-        for draft in group_drafts:
-            if draft.state.status == FindingStateStatus.CREATED:
-                content = _generate_count_report(
-                    content=content,
-                    date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        draft.state.modified_date
-                    ),
-                    field="draft_created",
-                    group=group,
-                    user_email=draft.state.modified_by,
-                )
-
-            if draft.state.status == FindingStateStatus.REJECTED:
-                content = _generate_count_report(
-                    content=content,
-                    date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        draft.state.modified_date
-                    ),
-                    field="draft_rejected",
-                    group=group,
-                    user_email=draft.state.modified_by,
-                )
+        content = await _toe_input_content(loaders, group, date_range, content)
+        content = await _toe_line_content(loaders, group, date_range, content)
+        content = await _finding_content(loaders, group, date_range, content)
+        content = await _draft_content(loaders, group, date_range, content)
 
     return content
 
