@@ -133,24 +133,24 @@
       )
       + 1)
   );
-  gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
-  gitlabBranchMaster = gitlabCi.rules.branch "master";
+  gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
+  gitlabBranchTrunk = gitlabCi.rules.branch "trunk";
   gitlabTitleMatchingMakes = gitlabCi.rules.titleMatching "^(all|integrates)";
   gitlabOnlyMaster = [
-    gitlabBranchMaster
+    gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingMakes
   ];
   gitlabOnlyDev = [
-    gitlabBranchNotMaster
+    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingMakes
   ];
   gitlabDeployEphemeralRule = [
-    gitlabBranchNotMaster
+    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers

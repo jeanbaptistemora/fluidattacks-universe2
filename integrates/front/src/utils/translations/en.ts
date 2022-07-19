@@ -2542,7 +2542,7 @@ export const enTranslations: ResourceKey = {
         label: "Branch",
         tooltip: "Target branch",
       },
-      branchPlaceholder: "master",
+      branchPlaceholder: "main",
       cannotRemove: "Cannot remove group, permission denied",
       changeState: "Change state",
       description: "Description",
@@ -3337,7 +3337,7 @@ export const enTranslations: ResourceKey = {
         validForm: "Click “Proceed” to start cloning and analyzing your code. ",
       },
       rootBranch:
-        "Enter the repository branch you want to analyze. For example: master. ",
+        "Enter the repository branch you want to analyze. For example: main. ",
       rootCredentials: {
         content:
           "Enter the credentials that will be used to clone the repository. ",

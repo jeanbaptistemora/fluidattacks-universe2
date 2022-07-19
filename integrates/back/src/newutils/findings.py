@@ -71,7 +71,7 @@ async def get_vulns_file() -> Dict:
     base_url: str = (
         "https://gitlab.com/api/v4/projects/20741933/repository/files"
     )
-    branch_ref: str = "master"
+    branch_ref: str = "trunk"
     vulns_file_id = "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml"
     url: str = f"{base_url}/{vulns_file_id}/raw?ref={branch_ref}"
 

@@ -2,7 +2,7 @@
 
 function hpa_replicas {
   local namespace="production"
-  local name="integrates-master"
+  local name="integrates-trunk"
   local replicas
 
   function hpa_desired_replicas {
@@ -62,7 +62,7 @@ function deploy {
   local endpoint="${2}"
   export NAME="${name}"
   export ENDPOINT="${endpoint}"
-  export CI_COMMIT_REF_NAME='master'
+  export CI_COMMIT_REF_NAME='trunk'
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
   export B64_PROD_INTEGRATES_AWS_ACCESS_KEY_ID
@@ -91,8 +91,8 @@ function deploy {
 }
 
 function main {
-  deploy "master" "app" \
-    && rollout "master" \
+  deploy "trunk" "app" \
+    && rollout "trunk" \
     && report_deployment
 }
 

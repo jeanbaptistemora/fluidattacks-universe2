@@ -78,7 +78,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const criteriaIdSlice: number = 3;
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
-  const branchRef: string = "master";
+  const branchRef: string = "trunk";
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
   const [reqsList, setReqsList] = useState<string[]>([]);

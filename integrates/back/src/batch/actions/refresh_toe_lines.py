@@ -289,7 +289,7 @@ def pull_repositories(
     make_group_dir(tmpdir, group_name)
     call_melts = [
         "CI=true",
-        "CI_COMMIT_REF_NAME=master",
+        "CI_COMMIT_REF_NAME=trunk",
         "PROD_AWS_ACCESS_KEY_ID=$PROD_SERVICES_AWS_ACCESS_KEY_ID",
         "PROD_AWS_SECRET_ACCESS_KEY=$PROD_SERVICES_AWS_SECRET_ACCESS_KEY",
         f"melts drills --pull-repos {group_name}",

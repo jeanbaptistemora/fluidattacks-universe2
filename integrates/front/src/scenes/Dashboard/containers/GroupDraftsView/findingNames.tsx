@@ -144,7 +144,7 @@ async function getFindingNames(
 ): Promise<ISuggestion[]> {
   const baseUrl: string =
     "https://gitlab.com/api/v4/projects/20741933/repository/files";
-  const branchRef: string = "master";
+  const branchRef: string = "trunk";
 
   const vulnsFileId: string =
     "common%2Fcriteria%2Fsrc%2Fvulnerabilities%2Fdata.yaml";

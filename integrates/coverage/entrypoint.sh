@@ -13,7 +13,7 @@ function main {
     && coverage html "${coverage_args[@]}" -d build \
     && coverage xml "${coverage_args[@]}" \
     && sops_export_vars __argSecretsDev__ CODECOV_TOKEN \
-    && __argCodecov__ -C "${CI_COMMIT_SHA}" -B "master" -F integrates \
+    && __argCodecov__ -C "${CI_COMMIT_SHA}" -B "trunk" -F integrates \
     && popd \
     || return 1
 }

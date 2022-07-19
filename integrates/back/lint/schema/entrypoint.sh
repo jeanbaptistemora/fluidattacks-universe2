@@ -10,9 +10,9 @@ function main {
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then
       CI_COMMIT_REF_NAME="$(get_abbrev_rev . HEAD)"
     fi \
-    && git fetch origin master \
+    && git fetch origin trunk \
     && graphql-inspector diff \
-      "git:origin/master:${schema_path}" \
+      "git:origin/trunk:${schema_path}" \
       "git:origin/${CI_COMMIT_REF_NAME}:${schema_path}" \
       --rule suppressRemovalOfDeprecatedField
 }

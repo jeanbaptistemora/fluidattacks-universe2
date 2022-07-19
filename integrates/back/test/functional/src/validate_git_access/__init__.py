@@ -21,7 +21,7 @@ async def get_result(
     query: str = f"""
       mutation {{
         validateGitAccess(
-            branch: "master"
+            branch: "trunk"
             credentials: {{
                 key: "{key}"
                 name: "SSH Key"
