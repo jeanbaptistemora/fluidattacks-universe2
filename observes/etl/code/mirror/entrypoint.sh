@@ -15,7 +15,7 @@ function job_code_mirror {
     && echo "[INFO] Working on ${group}" \
     && echo "[INFO] Cloning ${group} from source Git repository" \
     && export CI='true' \
-    && export CI_COMMIT_REF_NAME='master' \
+    && export CI_COMMIT_REF_NAME='trunk' \
     && export PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
     && export PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
     && { USER=nobody melts resources --clone-from-customer-git "${group}" || true; } \

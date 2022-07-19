@@ -32,7 +32,7 @@ function job_code_upload {
         && use_git_repo_services \
         && echo "[INFO] Cloning ${group}" \
         && if CI=true \
-          CI_COMMIT_REF_NAME='master' \
+          CI_COMMIT_REF_NAME='trunk' \
           PROD_AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
           PROD_AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
           melts drills --pull-repos "${group}"; then

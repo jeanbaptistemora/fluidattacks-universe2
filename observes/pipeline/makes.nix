@@ -3,20 +3,20 @@
   inputs,
   ...
 }: let
-  gitlabBranchMaster = gitlabCi.rules.branch "master";
-  gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
+  gitlabBranchTrunk = gitlabCi.rules.branch "trunk";
+  gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
 
   gitlabTitleMatchingObserves = gitlabCi.rules.titleMatching "^(all|observes)";
 
   gitlabOnlyDev = [
-    gitlabBranchNotMaster
+    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingObserves
   ];
   gitlabOnlyMaster = [
-    gitlabBranchMaster
+    gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingObserves
