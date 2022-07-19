@@ -2,6 +2,7 @@ from syntax_graph.syntax_readers.common import (
     array as common_array,
     call_expression as common_call_expression,
     comment as common_comment,
+    expression_statement as common_expression_statement,
     identifier as common_identifier,
     pair as common_pair,
     program as common_program,
@@ -10,6 +11,7 @@ from syntax_graph.syntax_readers.common import (
 )
 from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
+    arrow_function as javascript_arrow_function,
     lexical_declaration as javascript_lexical_declaration,
     object as javascript_object,
 )
@@ -33,6 +35,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "arrow_function",
+        },
+        syntax_reader=javascript_arrow_function.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "call_expression",
         },
         syntax_reader=common_call_expression.reader,
@@ -42,6 +50,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "comment",
         },
         syntax_reader=common_comment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "expression_statement",
+        },
+        syntax_reader=common_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -1,4 +1,5 @@
 from model.graph_model import (
+    GraphShardMetadataLanguage,
     NId,
 )
 from syntax_graph.types import (
@@ -13,7 +14,9 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, ";")
 
-    if len(match) == 2 and match[";"]:
+    if (
+        len(match) == 2 and match[";"]
+    ) or args.language == GraphShardMetadataLanguage.JAVASCRIPT:
         expression_id = match["__0__"]
         return args.generic(args.fork_n_id(str(expression_id)))
 

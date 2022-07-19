@@ -14,5 +14,10 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    _, *c_ids, _ = adj_ast(graph, args.n_id)  # do not consider { }
+    _, *c_ids, _ = adj_ast(graph, args.n_id)
+    c_ids = [
+        child
+        for child in c_ids
+        if args.ast_graph.nodes[child]["label_type"] != ","
+    ]
     return build_argument_list_node(args, iter(c_ids))
