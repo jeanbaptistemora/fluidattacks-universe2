@@ -23,7 +23,6 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
     { text: translate.t("freeTrial.item3") },
     { text: translate.t("freeTrial.item4") },
     { text: translate.t("freeTrial.item5") },
-    { text: translate.t("freeTrial.item6") },
   ];
 
   return (

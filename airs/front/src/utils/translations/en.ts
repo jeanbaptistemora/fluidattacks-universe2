@@ -184,16 +184,16 @@ const pageTexts: ResourceKey = {
   },
   freeTrial: {
     button: "Start your Machine Plan",
-    item1: "Automatic SAST, DAST, and SCA",
+    item1: "Automatic SAST, DAST and SCA",
     item2: "Continuous vulnerability reporting",
     item3:
       "Vulnerability management in our Attack Surface Manager (+ GraphQL API)",
     item4: "Control and accelerate vulnerability remediation",
     item5: "Integration with your CI/CD for stronger control",
-    item6: "No credit card required",
     subtitle: "Enjoy all Machine Plan benefits for 21 days:",
     title:
-      "Search for vulnerabilities in your application code for FREE (21 days trial).",
+      "Search for vulnerabilities in your application code " +
+      "for FREE (21-day trial). No credit card information required.",
   },
   numbersSection: {
     card1Description:
