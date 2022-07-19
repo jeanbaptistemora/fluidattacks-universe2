@@ -1,4 +1,7 @@
 import confuse
+from ctx import (
+    STATE_FOLDER,
+)
 from model import (
     core_model,
 )
@@ -89,7 +92,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
     try:
         config_apk = config.pop("apk", {})
         config_path = config.pop("path", {})
-        config_dast = config.pop("dast", {})
+        config_dast = config.pop("dast", {}) or {}
 
         if output := config.pop("output", None):
             output = os.path.abspath(output)
@@ -134,7 +137,9 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 lib_root=config_path.pop("lib_root", True),
             ),
             start_dir=os.getcwd(),
-            working_dir=os.path.abspath(config.pop("working_dir", ".")),
+            working_dir=str(
+                os.path.abspath(config.pop("working_dir", "."))
+            ).replace("/home/makes/.skims", STATE_FOLDER),
             execution_id=config.pop("execution_id", None),
         )
     except KeyError as exc:

@@ -52,7 +52,7 @@ async def get_namespace(
     path = await pull_namespace_from_s3(
         group_name, root_nickname, presigned_ulr
     )
-    if delete:
+    if path is not None and delete:
         await delete_out_of_scope_files(group_name, root_nickname)
     return path
 

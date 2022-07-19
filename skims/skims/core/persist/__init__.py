@@ -409,6 +409,7 @@ async def persist(
     *,
     group: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
+    roots: Optional[Tuple[ResultGetGroupRoots, ...]] = None,
 ) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
     """Persist all findings with the data extracted from the store.
 
@@ -425,7 +426,7 @@ async def persist(
         existing_findings: Tuple[
             ResultGetGroupFindings, ...
         ] = await get_group_findings(group=group, client=client)
-        roots = await get_group_roots(group=group, client=client)
+        roots = roots or (await get_group_roots(group=group, client=client))
         result = await collect(
             tuple(
                 _persist_finding(

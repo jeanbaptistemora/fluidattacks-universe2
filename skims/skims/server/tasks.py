@@ -6,11 +6,18 @@ from .resources import (
     get_results,
 )
 import asyncio
+from batch.repositories import (
+    get_namespace,
+)
 from core.persist import (
     persist,
 )
 from ctx import (
     CTX,
+)
+from integrates.dal import (
+    get_group_root_download_url,
+    get_group_roots,
 )
 from integrates.graphql import (
     create_session,
@@ -24,6 +31,9 @@ from state.ephemeral import (
 )
 from typing import (
     Dict,
+)
+from utils.logs import (
+    log_blocking,
 )
 
 
@@ -55,7 +65,21 @@ async def _report_wrapped(task_id: str) -> None:
     for vuln in vulnerabilities:
         stores[vuln.finding].store(vuln)
     create_session(os.environ["INTEGRATES_API_TOKEN"])
-    await persist(group=group, stores=stores)
+    roots = await get_group_roots(group=group)
+    if not vulnerabilities:
+        log_blocking("warning", "Execution no has vulnerabilities")
+        return
+    for root in roots:
+        if root.nickname == CTX.config.namespace:
+            _, download_url = await get_group_root_download_url(
+                group=group, root_id=root.id
+            )
+            if not download_url:
+                log_blocking("warning", "Unable to find presigned url")
+                return
+            await get_namespace(group, root.nickname, download_url)
+            await persist(group=group, stores=stores, roots=roots)
+            break
 
 
 @app.task(serializer="json", name="process-skims-result")
