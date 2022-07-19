@@ -9,10 +9,6 @@ from authz import (
     get_group_level_role,
 )
 import base64
-from context import (
-    FI_ENVIRONMENT,
-    FI_TEST_PROJECTS,
-)
 from custom_exceptions import (
     SnapshotNotFound,
     UnableToProcessSubscription,
@@ -50,11 +46,9 @@ import logging
 import logging.config
 from mailer import (
     analytics as analytics_mail,
-    groups as groups_mail,
 )
 from newutils import (
     datetime as datetime_utils,
-    groups as groups_utils,
     reports,
 )
 from organizations import (
@@ -75,7 +69,6 @@ from tags import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from urllib.parse import (
     quote_plus,
@@ -274,57 +267,6 @@ async def _send_analytics_report(
     LOGGER.info(
         "- analytics email sent to user",
         extra={"extra": dict(user_email=user_email)},
-    )
-
-
-async def _send_digest_report(
-    *,
-    user_email: str,
-    loaders: Optional[Dataloaders] = None,
-) -> None:
-    group_names: list[str] = await groups_domain.get_groups_by_user(
-        loaders if loaders else get_new_context(), user_email, with_cache=False
-    )
-
-    if FI_ENVIRONMENT == "production":
-        loaders = loaders if loaders else get_new_context()
-        user_groups: tuple[Group, ...] = await loaders.group.load_many(
-            group_names
-        )
-        groups_filtered = groups_utils.filter_active_groups(user_groups)
-        group_names = [
-            group.name
-            for group in groups_filtered
-            if group.name not in FI_TEST_PROJECTS.split(",")
-        ]
-    elif loaders:
-        mail_contents = await collect(
-            tuple(
-                groups_domain.get_group_digest_stats(loaders, group)
-                for group in group_names
-            ),
-            workers=2,
-        )
-    else:
-        LOGGER.info(
-            "- digest email NOT sent to user",
-            extra={"extra": dict(user_email=user_email)},
-        )
-        return
-
-    user_stats = groups_domain.process_user_digest_stats(mail_contents)
-    if user_stats["groups_len"] == 0:
-        LOGGER.warning(
-            "- NO available info to user",
-            extra={"extra": dict(user_email=user_email)},
-        )
-        return
-
-    user_loaders = loaders if loaders else get_new_context()
-    await groups_mail.send_mail_daily_digest(
-        user_loaders,
-        [user_email],
-        user_stats,
     )
 
 
