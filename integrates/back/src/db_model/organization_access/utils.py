@@ -4,6 +4,7 @@ from .constants import (
 )
 from .types import (
     OrganizationAccess,
+    OrganizationAccessMetadataToUpdate,
     OrganizationInvitation,
 )
 from dynamodb.types import (
@@ -28,6 +29,9 @@ def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
         email=item["email"],
         organization_id=remove_org_id_prefix(item["organization_id"]),
+        expiration_time=int(item["expiration_time"])
+        if item.get("expiration_time")
+        else None,
         has_access=bool(item["has_access"])
         if item.get("has_access") is not None
         else None,
@@ -38,7 +42,25 @@ def format_organization_access(item: Item) -> OrganizationAccess:
         )
         if item.get("invitation")
         else None,
-        expiration_time=int(item["expiration_time"])
-        if item.get("expiration_time")
-        else None,
     )
+
+
+def format_metadata_item(
+    metadata: OrganizationAccessMetadataToUpdate,
+) -> Item:
+    item: Item = {
+        "expiration_time": metadata.expiration_time,
+        "has_access": metadata.has_access,
+        "invitation": {
+            "is_used": metadata.invitation.is_used,
+            "role": metadata.invitation.role,
+            "url_token": metadata.invitation.url_token,
+        }
+        if metadata.invitation
+        else None,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }

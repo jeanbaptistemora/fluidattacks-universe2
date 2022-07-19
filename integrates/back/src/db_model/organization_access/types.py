@@ -13,12 +13,12 @@ class OrganizationInvitation(NamedTuple):
 class OrganizationAccess(NamedTuple):
     organization_id: str
     email: str
-    has_access: Optional[bool]
-    invitation: Optional[OrganizationInvitation] = None
     expiration_time: Optional[int] = None
+    has_access: Optional[bool] = None
+    invitation: Optional[OrganizationInvitation] = None
 
 
 class OrganizationAccessMetadataToUpdate(NamedTuple):
+    expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
     invitation: Optional[OrganizationInvitation] = None
-    expiration_time: Optional[int] = None
