@@ -53,6 +53,7 @@ in
             __argSrcSkimsToolsSemverMatch__ =
               outputs."/skims/config/runtime/tools/semver-match";
             __argSrcSkimsVendor__ = projectPath "/skims/vendor";
+            __argSkimsDbDesign__ = projectPath "/skims/arch/database-design.json";
           };
           name = "skims-config-context-file";
           template = ''
@@ -69,6 +70,7 @@ in
             export SKIMS_TOOLS_SEMVER_MATCH='__argSrcSkimsToolsSemverMatch__/bin/semver-match'
             export SKIMS_TREE_SITTER_PARSERS='__argSrcTreeSitterParsers__'
             export SKIMS_VENDOR='__argSrcSkimsVendor__'
+            export SKIMS_DB_MODEL_PATH='__argSkimsDbDesign__'
           '';
         })
       ];
