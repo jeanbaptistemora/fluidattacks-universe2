@@ -69,7 +69,6 @@ from group_comments.domain import (
 from groups.domain import (
     add_group,
     get_closed_vulnerabilities,
-    get_group_digest_stats,
     get_groups_by_user,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
@@ -804,52 +803,6 @@ async def test_get_total_comments_date() -> None:
         loaders, findings_ids, group_name, last_day
     )
     assert total_comments == 5
-
-
-@freeze_time("2021-05-12")
-async def test_get_group_digest_stats() -> None:
-    group_name = "unittesting"
-    context = get_new_context()
-    total_stats = await get_group_digest_stats(context, group_name)
-    expected_output = {
-        "group": group_name,
-        "main": {
-            "group_age": 1160,
-            "remediation_rate": 19,
-            "remediation_time": 515,
-            "comments": 0,
-        },
-        "reattacks": {
-            "effective_reattacks": 0,
-            "effective_reattacks_total": 0,
-            "reattacks_requested": 0,
-            "last_requested_date": "2020-02-19 10:41:04",
-            "reattacks_executed": 0,
-            "reattacks_executed_total": 1,
-            "last_executed_date": "2020-02-19 10:41:04",
-            "pending_attacks": 1,
-        },
-        "treatments": {
-            "temporary_applied": 0,
-            "permanent_requested": 0,
-            "permanent_approved": 0,
-            "undefined": 0,
-        },
-        "events": {
-            "unsolved": 4,
-            "new": 1,
-        },
-        "findings": [
-            {
-                "oldest_name": "038. Business information leak",
-                "oldest_age": 620,
-                "severest_name": "014. Insecure functionality",
-                "severity": "6.3",
-            }
-        ],
-        "vulns_len": 36,
-    }
-    assert expected_output == total_stats
 
 
 async def test_get_groups_by_user() -> None:

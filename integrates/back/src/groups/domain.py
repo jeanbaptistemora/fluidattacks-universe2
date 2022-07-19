@@ -115,15 +115,10 @@ from events import (
 from findings import (
     domain as findings_domain,
 )
-from findings.domain import (
-    get_max_open_severity,
-    get_oldest_no_treatment,
-)
 from group_access import (
     domain as group_access_domain,
 )
 from group_comments.domain import (
-    get_total_comments_date,
     mask_comments,
 )
 import logging
@@ -133,7 +128,6 @@ from mailer import (
 )
 from newutils import (
     datetime as datetime_utils,
-    events as events_utils,
     groups as groups_utils,
     resources as resources_utils,
     validations,
@@ -1901,112 +1895,6 @@ async def get_remediation_rate(
             100 * closed_vulns / (open_vulns + closed_vulns)
         )
     return remediation_rate
-
-
-async def get_group_digest_stats(
-    loaders: Any, group_name: str
-) -> dict[str, Any]:
-    content: dict[str, Any] = {
-        "group": group_name,
-        "main": {
-            "group_age": 0,
-            "remediation_rate": 0,
-            "remediation_time": 0,
-            "comments": 0,
-        },
-        "reattacks": {
-            "effective_reattacks": 0,
-            "effective_reattacks_total": 0,
-            "reattacks_requested": 0,
-            "last_requested_date": "",
-            "reattacks_executed": 0,
-            "reattacks_executed_total": 0,
-            "last_executed_date": "",
-            "pending_attacks": 0,
-        },
-        "treatments": {
-            "temporary_applied": 0,
-            "permanent_requested": 0,
-            "permanent_approved": 0,
-            "undefined": 0,
-        },
-        "events": {
-            "unsolved": 0,
-            "new": 0,
-        },
-        "findings": [],
-        "vulns_len": 0,
-    }
-
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-    findings_ids = [finding.id for finding in findings]
-
-    group_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
-        findings_ids
-    )
-
-    if len(group_vulns) == 0:
-        LOGGER.info("NO vulns at %s", group_name)
-        return content
-
-    content["vulns_len"] = len(group_vulns)
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-
-    oldest_finding = await get_oldest_no_treatment(loaders, findings)
-    if oldest_finding:
-        max_severity, severest_finding = await get_max_open_severity(
-            loaders, findings
-        )
-        content["findings"] = [
-            {
-                **oldest_finding,
-                "severest_name": severest_finding.title
-                if severest_finding
-                else "",
-                "severity": str(max_severity),
-            }
-        ]
-    content["main"]["remediation_time"] = int(
-        await get_mean_remediate_non_treated_severity(
-            loaders, group_name, Decimal("0.0"), Decimal("10.0")
-        )
-    )
-    content["main"]["remediation_rate"] = await get_remediation_rate(
-        loaders, group_name
-    )
-
-    group_creation_date = datetime_utils.get_datetime_from_iso_str(
-        await get_creation_date(loaders, group_name)
-    )
-    group_age = (datetime_utils.get_now() - group_creation_date).days
-    content["main"]["group_age"] = group_age
-    treatments = vulns_utils.get_total_treatment_date(group_vulns, last_day)
-    content["treatments"]["temporary_applied"] = treatments.get("accepted", 0)
-    content["treatments"]["permanent_requested"] = treatments.get(
-        "accepted_undefined_submitted", 0
-    )
-    content["treatments"]["permanent_approved"] = treatments.get(
-        "accepted_undefined_approved", 0
-    )
-    content["treatments"]["undefined"] = treatments.get(
-        "undefined_treatment", 0
-    )
-    content["reattacks"] = await vulns_utils.get_total_reattacks_stats(
-        group_vulns, last_day
-    )
-    content["main"]["comments"] = await get_total_comments_date(
-        loaders, findings_ids, group_name, last_day
-    )
-    unsolved = await events_domain.get_unsolved_events(loaders, group_name)
-    new_events = await events_utils.filter_events_date(unsolved, last_day)
-    content["events"]["unsolved"] = len(unsolved)
-    content["events"]["new"] = len(new_events)
-
-    return content
 
 
 def process_user_digest_stats(
