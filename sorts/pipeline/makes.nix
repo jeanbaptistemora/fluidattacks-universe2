@@ -1,18 +1,18 @@
 {gitlabCi, ...}: let
-  gitlabBranchMaster = gitlabCi.rules.branch "master";
-  gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
+  gitlabBranchTrunk = gitlabCi.rules.branch "trunk";
+  gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
 
   gitlabTitleMatchingSorts = gitlabCi.rules.titleMatching "^(all|sorts)";
 
   gitlabOnlyDev = [
-    gitlabBranchNotMaster
+    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingSorts
   ];
   gitlabOnlyMaster = [
-    gitlabBranchMaster
+    gitlabBranchTrunk
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers
     gitlabTitleMatchingSorts
@@ -116,7 +116,7 @@ in {
             interruptible = true;
             allow_failure = true;
             rules = [
-              gitlabBranchNotMaster
+              gitlabBranchNotTrunk
               gitlabCi.rules.notMrs
               gitlabCi.rules.notSchedules
               gitlabCi.rules.notTriggers

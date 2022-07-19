@@ -20,7 +20,7 @@ def guess_environment() -> str:
     if any(
         (
             "product/" in os.path.dirname(__file__),
-            os.environ.get("CI_COMMIT_REF_NAME", "master") != "master",
+            os.environ.get("CI_COMMIT_REF_NAME", "trunk") != "trunk",
         )
     ):
         return "development"
