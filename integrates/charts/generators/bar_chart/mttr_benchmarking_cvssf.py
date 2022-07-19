@@ -32,13 +32,12 @@ from groups.domain import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 
 
 async def _get_historic_verification(
     loaders: Dataloaders, vulnerability: Vulnerability
-) -> Tuple[int, ...]:
+) -> tuple[VulnerabilityVerification, ...]:
     return await loaders.vulnerability_historic_verification.load(
         vulnerability.id
     )
@@ -48,16 +47,16 @@ async def _get_historic_verification(
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype] = None
 ) -> Benchmarking:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
-    historics_verification: Tuple[
-        VulnerabilityVerification, ...
+    historics_verification: tuple[
+        tuple[VulnerabilityVerification, ...], ...
     ] = await collect(
         tuple(
             _get_historic_verification(loaders, vulnerability)

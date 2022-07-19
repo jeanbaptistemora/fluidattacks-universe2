@@ -95,17 +95,17 @@ async def get_data_many_groups(
 
 
 def format_data(
-    *, data: tuple[EventsInfo, ...], x_label: str, y_label: str
+    *, data: tuple[EventsInfo, ...], x_label: str, legend: str
 ) -> dict[str, Any]:
     limited_data = [group for group in data if group.days > 0][:18]
 
     return dict(
         data=dict(
             columns=[
-                [y_label] + [str(group.days) for group in limited_data],
+                [legend] + [str(group.days) for group in limited_data],
             ],
             colors={
-                "Open event days": RISK.neutral,
+                legend: RISK.neutral,
             },
             labels=None,
             type="bar",
@@ -146,7 +146,7 @@ def format_data(
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     x_label_many_groups: str = "Group name"
-    y_label_many_groups: str = "Days since the group is failing"
+    legend_many_groups: str = "Days since the group is failing"
 
     async for group in iterate_groups():
         json_dump(
@@ -156,7 +156,7 @@ async def generate_all() -> None:
                     loaders=loaders,
                 ),
                 x_label="Event ID",
-                y_label="Days since the event was reported",
+                legend="Days since the event was reported",
             ),
             entity="group",
             subject=group,
@@ -169,7 +169,7 @@ async def generate_all() -> None:
                     groups=org_groups, loaders=loaders
                 ),
                 x_label=x_label_many_groups,
-                y_label=y_label_many_groups,
+                legend=legend_many_groups,
             ),
             entity="organization",
             subject=org_id,
@@ -183,7 +183,7 @@ async def generate_all() -> None:
                         groups=tuple(groups), loaders=loaders
                     ),
                     x_label=x_label_many_groups,
-                    y_label=y_label_many_groups,
+                    legend=legend_many_groups,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
