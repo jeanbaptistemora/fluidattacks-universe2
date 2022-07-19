@@ -12,13 +12,13 @@ function main {
       GATSBY_ALGOLIA_APP_ID \
       GATSBY_ALGOLIA_SEARCH_KEY \
       ALGOLIA_ADMIN_KEY \
-    && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"; then
+    && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "trunk"; then
       sed -i "s|pathPrefix: '/front'|pathPrefix: '/${CI_COMMIT_REF_NAME}'|g" gatsby-config.js \
         && sed -i "s|https://fluidattacks.com|https://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}|g" gatsby-config.js
     fi \
     && copy __argAirsNpm__ 'node_modules' \
     && install_scripts \
-    && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "master"; then
+    && if test -n "${CI:-}" && test "${CI_COMMIT_REF_NAME}" != "trunk"; then
       npm run build:eph
     else
       npm run build
