@@ -12,7 +12,7 @@ from custom_exceptions import (
     InvalidOrganization,
     OrganizationNotFound,
     StakeholderNotFound,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     apply_context_attrs,
@@ -196,7 +196,7 @@ async def test_grant_stakeholder_organization_access() -> None:
         )
     }
     result = await _get_result_async(data, "madeupuser@gmail.com")
-    exe = UserNotInOrganization()
+    exe = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 
@@ -230,7 +230,7 @@ async def test_remove_stakeholder_organization_access() -> None:
 
     data = {"query": query.substitute(email="madeupuser@gmail.com")}
     result = await _get_result_async(data)
-    exe = UserNotInOrganization()
+    exe = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 
@@ -266,7 +266,7 @@ async def test_update_organization_policies() -> None:
     assert result["errors"][0]["message"] == "Access denied"
 
     result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
-    exe = UserNotInOrganization()
+    exe = StakeholderNotInOrganization()
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]
 
@@ -368,7 +368,7 @@ async def test_organization() -> None:
     for stakeholder in expected_stakeholders:
         assert stakeholder in stakeholders
 
-    exe = UserNotInOrganization()
+    exe = StakeholderNotInOrganization()
     result = await _get_result_async(data, stakeholder="madeupuser@gmail.com")
     assert "errors" in result
     assert result["errors"][0]["message"] == exe.args[0]

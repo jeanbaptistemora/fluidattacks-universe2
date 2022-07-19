@@ -13,7 +13,7 @@ from custom_exceptions import (
     InvalidAuthorization,
     InvalidPositiveArgument,
     OnlyCorporateEmails,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from db_model.events.types import (
     Event,
@@ -610,7 +610,7 @@ def require_organization_access(func: TVar) -> TVar:
                 f"Security: User {user_email} attempted to access "
                 f"organization {organization_identifier} without permission",
             )
-            raise UserNotInOrganization()
+            raise StakeholderNotInOrganization()
         return await _func(*args, **kwargs)
 
     return cast(TVar, verify_and_call)

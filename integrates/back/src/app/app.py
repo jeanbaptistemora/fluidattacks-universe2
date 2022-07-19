@@ -47,7 +47,7 @@ from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
     SecureAccessException,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -255,7 +255,7 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
                     "Invalid or Expired",
                     access=organization_access,
                 )
-        except UserNotInOrganization:
+        except StakeholderNotInOrganization:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -338,7 +338,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                 response = templates.invalid_invitation_typed(
                     request, "Invalid or Expired", organization_access
                 )
-        except UserNotInOrganization:
+        except StakeholderNotInOrganization:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )

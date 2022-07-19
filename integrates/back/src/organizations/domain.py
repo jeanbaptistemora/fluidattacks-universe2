@@ -22,7 +22,7 @@ from custom_exceptions import (
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from db_model import (
     credentials as credentials_model,
@@ -480,7 +480,7 @@ async def remove_user(
 ) -> bool:
     organization_id = add_org_id_prefix(organization_id)
     if not await has_user_access(organization_id, email):
-        raise UserNotInOrganization()
+        raise StakeholderNotInOrganization()
 
     user_removed, role_removed = await collect(
         (

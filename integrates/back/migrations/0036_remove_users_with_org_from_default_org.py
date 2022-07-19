@@ -14,7 +14,7 @@ from asyncio import (
 )
 import csv
 from custom_exceptions import (
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     get_new_context,
@@ -44,7 +44,7 @@ async def remove_user_from_imamura(user: str, org_id: str) -> bool:
         else:
             print(f"[ERROR] Failed to remove user {user} from imamura")
         return success
-    except UserNotInOrganization:
+    except StakeholderNotInOrganization:
         print(f"[INFO] User {user} already remove from imamura")
         return True
 

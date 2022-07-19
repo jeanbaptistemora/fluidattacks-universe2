@@ -13,7 +13,7 @@ from custom_exceptions import (
     InvalidUserProvided,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -316,7 +316,7 @@ async def test_remove_user() -> None:
     assert await authz.get_group_level_role(user, group) == ""
     assert await authz.get_organization_level_role(user, org_id) == ""
 
-    with pytest.raises(UserNotInOrganization):
+    with pytest.raises(StakeholderNotInOrganization):
         await orgs_domain.remove_user(
             get_new_context(), org_id, "madeupuser@gmail.com", modified_by
         )

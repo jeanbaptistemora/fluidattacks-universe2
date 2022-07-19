@@ -8,7 +8,7 @@ from boto3.dynamodb.conditions import (
     ConditionBase,
 )
 from custom_exceptions import (
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -42,7 +42,7 @@ async def _get_organization_access(
     get_attrs = {"Key": cast(ConditionBase, key)}
     item = await get_item(TABLE_NAME, get_attrs)
     if not item:
-        raise UserNotInOrganization()
+        raise StakeholderNotInOrganization()
     return item
 
 

@@ -33,7 +33,7 @@ from custom_exceptions import (
     InvalidParameter,
     RepeatedValues,
     StakeholderNotFound,
-    UserNotInOrganization,
+    StakeholderNotInOrganization,
 )
 from datetime import (
     date,
@@ -616,7 +616,7 @@ async def add_group(  # pylint: disable=too-many-locals
     )
     organization_id = organization.id
     if not await orgs_domain.has_user_access(organization_id, user_email):
-        raise UserNotInOrganization(organization_id)
+        raise StakeholderNotInOrganization(organization_id)
 
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()

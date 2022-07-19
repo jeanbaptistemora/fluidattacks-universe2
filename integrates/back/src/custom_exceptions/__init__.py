@@ -1138,17 +1138,17 @@ class UserNotFound(CustomBaseException):
         super(UserNotFound, self).__init__(msg)
 
 
-class UserNotInOrganization(CustomBaseException):
+class StakeholderNotInOrganization(CustomBaseException):
     """
-    Exception to control user access to organizations
+    Exception to control stakeholder access to organizations.
     """
 
     def __init__(self, expr: str = "") -> None:
         if expr:
-            msg = "Exception - User is not a member of the target organization"
+            msg = "Exception - Stakeholder is not a member of the organization"
         else:
             msg = "Access denied"
-        super(UserNotInOrganization, self).__init__(msg)
+        super(StakeholderNotInOrganization, self).__init__(msg)
 
 
 class VulnAlreadyClosed(CustomBaseException):

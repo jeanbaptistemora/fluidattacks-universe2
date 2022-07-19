@@ -3,7 +3,6 @@ from .types import (
 )
 from .utils import (
     remove_org_id_prefix,
-    remove_stakeholder_prefix,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -25,8 +24,7 @@ import simplejson as json  # type: ignore
 
 
 async def add(*, organization_access: OrganizationAccess) -> None:
-    org_access_no_prefixes = organization_access._replace(
-        email=remove_stakeholder_prefix(organization_access.email),
+    org_access_no_prefix = organization_access._replace(
         organization_id=remove_org_id_prefix(
             organization_access.organization_id
         ),
@@ -35,14 +33,14 @@ async def add(*, organization_access: OrganizationAccess) -> None:
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
         values={
-            "email": org_access_no_prefixes.email,
-            "id": org_access_no_prefixes.organization_id,
+            "email": org_access_no_prefix.email,
+            "id": org_access_no_prefix.organization_id,
         },
     )
     item = {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
-        **json.loads(json.dumps(org_access_no_prefixes)),
+        **json.loads(json.dumps(org_access_no_prefix)),
     }
 
     condition_expression = Attr(key_structure.partition_key).not_exists()
