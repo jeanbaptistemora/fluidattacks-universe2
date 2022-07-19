@@ -513,38 +513,6 @@ def get_treatment_from_org_finding_policy(
     return treatments
 
 
-def get_total_treatment_date(
-    vulns: Tuple[Vulnerability, ...],
-    min_date: datetime,
-) -> Dict[str, int]:
-    """Get the total treatment of all the vulns filtered by date."""
-    status_count: Counter[VulnerabilityTreatmentStatus] = Counter()
-    acceptance_count: Counter[VulnerabilityAcceptanceStatus] = Counter()
-    treatments = tuple(
-        vuln.treatment
-        for vuln in vulns
-        if vuln.treatment
-        and datetime.fromisoformat(vuln.treatment.modified_date) >= min_date
-    )
-
-    for treatment in treatments:
-        # Check if any of these states occurred in the period
-        status_count.update([treatment.status])
-        if treatment.acceptance_status:
-            acceptance_count.update([treatment.acceptance_status])
-
-    return {
-        "accepted": status_count[VulnerabilityTreatmentStatus.ACCEPTED],
-        "accepted_undefined_submitted": acceptance_count[
-            VulnerabilityAcceptanceStatus.SUBMITTED
-        ],
-        "accepted_undefined_approved": acceptance_count[
-            VulnerabilityAcceptanceStatus.APPROVED
-        ],
-        "undefined_treatment": status_count[VulnerabilityTreatmentStatus.NEW],
-    }
-
-
 def _get_effective_reattacks(
     vulns: Tuple[Vulnerability, ...],
     min_date: datetime,

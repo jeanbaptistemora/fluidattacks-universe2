@@ -1621,21 +1621,6 @@ async def validate_group_tags(
     return [tag for tag in tags if pattern.match(tag)]
 
 
-async def get_remediation_rate(
-    loaders: Any,
-    group_name: str,
-) -> int:
-    """Percentage of closed vulns, ignoring treatments."""
-    remediation_rate: int = 0
-    open_vulns = await get_open_vulnerabilities(loaders, group_name)
-    closed_vulns = await get_closed_vulnerabilities(loaders, group_name)
-    if closed_vulns:
-        remediation_rate = int(
-            100 * closed_vulns / (open_vulns + closed_vulns)
-        )
-    return remediation_rate
-
-
 async def request_upgrade(
     loaders: Any,
     group_names: list[str],
