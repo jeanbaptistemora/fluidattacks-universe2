@@ -51,6 +51,7 @@ def persist_messages(
     schema_name: str,
     state_id: Optional[StateId] = None,
     update_table: bool = False,
+    vacuum: bool = True,
 ) -> None:
     schemas: SchemasMap = {}
     factory = TableFactory(cursor)
@@ -63,7 +64,8 @@ def persist_messages(
     for message in io.TextIOWrapper(sys.stdin.buffer, encoding="utf-8"):
         schemas = handler(message, schemas)
     batcher.flush()
-    batcher.vacuum()
+    if vacuum:
+        batcher.vacuum()
 
 
 def load_data(
@@ -72,6 +74,7 @@ def load_data(
     drop_schema_flag: bool,
     old: bool,
     state_id: Optional[StateId],
+    vacuum: bool,
 ) -> None:
     """Usual entry point."""
 
@@ -116,7 +119,12 @@ def load_data(
                 legacy.persist_messages(batcher, str(loading_schema))
             else:
                 persist_messages(
-                    batcher, client.cursor, str(loading_schema), state_id
+                    batcher,
+                    client.cursor,
+                    str(loading_schema),
+                    state_id,
+                    False,
+                    vacuum,
                 )
             #   DROP backup_schema IF EXISTS
             schema_factory.try_retrieve(backup_schema).map(
@@ -138,7 +146,12 @@ def load_data(
             #     - and dangling/orphan/duplicated records
             batcher = Batcher(dbcur, str(target_schema))
             persist_messages(
-                batcher, client.cursor, str(target_schema), state_id, True
+                batcher,
+                client.cursor,
+                str(target_schema),
+                state_id,
+                True,
+                vacuum,
             )
     finally:
         client.close()

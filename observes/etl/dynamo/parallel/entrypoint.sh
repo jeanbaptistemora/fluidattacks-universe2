@@ -65,6 +65,7 @@ function dynamodb_etl {
     && target-redshift \
       --auth "${db_creds}" \
       --schema-name "${schema}" \
+      --no-vacuum \
       < .singer
 }
 

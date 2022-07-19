@@ -62,12 +62,18 @@ def _extract_s3_id(url: str) -> StateId:
     is_flag=True,
     help="Use old loader version",
 )
+@click.option(
+    "--no-vacuum",
+    is_flag=True,
+    help="Do not vacuum",
+)
 def main(
     auth: IO[str],
     schema_name: str,
     drop_schema: bool,
     old_ver: bool,
     state: Optional[str],
+    no_vacuum: bool,
 ) -> None:
     _state = Maybe.from_optional(state)
     load_data(
@@ -76,4 +82,5 @@ def main(
         drop_schema,
         old_ver,
         _state.map(_extract_s3_id).value_or(None),
+        not no_vacuum,
     )
