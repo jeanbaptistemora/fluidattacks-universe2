@@ -38,7 +38,7 @@ def format_invitation_state(
 
 def format_invitation(invitation: Item) -> OrganizationInvitation:
     return OrganizationInvitation(
-        is_used=invitation["is_used"],
+        is_used=bool(invitation["is_used"]),
         role=invitation["role"],
         url_token=invitation["url_token"],
     )
@@ -48,11 +48,15 @@ def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
         organization_id=remove_org_id_prefix(item["pk"]),
         email=remove_stakeholder_prefix(item["sk"]),
-        has_access=item.get("has_access", None),
+        has_access=bool(item["has_access"])
+        if item.get("has_access")
+        else None,
         invitation=format_invitation(item["invitation"])
         if item.get("invitation")
         else None,
-        expiration_time=item.get("expiration_time", None),
+        expiration_time=int(item["expiration_time"])
+        if item.get("expiration_time")
+        else None,
     )
 
 
