@@ -86,6 +86,9 @@
     "CVE-2021-29442": "<1.4.1",
     "GHSA-qf76-pr7x-h7r4": "<1.2.0"
   },
+  "com.alibaba.oneagent:one-java-agent-plugin": {
+    "CVE-2022-25842": "<0.0.2"
+  },
   "com.alibaba:dubbo": {
     "GHSA-qmfc-6www-fjqw": ">=2.5.0 <2.6.9"
   },
@@ -228,6 +231,9 @@
     "CVE-2020-12642": ">=3.1.0 <4.3.12 || >=5.0.0 <5.1.1",
     "CVE-2021-29620": ">=3.1.0 <5.4.0",
     "GHSA-24wf-7vf2-pv59": ">=3.1.0 <5.4.0"
+  },
+  "com.erudika:para-core": {
+    "CVE-2022-1782": "<1.45.11"
   },
   "com.fasterxml.jackson.core:jackson-core": {
     "SNYK-JAVA-COMFASTERXMLJACKSONCORE-31519": "<2.8.6",
@@ -1190,6 +1196,30 @@
   },
   "io.prestosql:presto-server": {
     "CVE-2020-15087": "<337"
+  },
+  "com.gitblit:gitblit": {
+    "CVE-2022-31268": "<=1.9.3"
+  },
+  "com.hccake:ballcat-codegen": {
+    "GHSA-fv3m-xhqw-9m79": "<=1.0.0.beta.1"
+  },
+  "com.itextpdf:itextpdf": {
+    "CVE-2017-9096": "<5.5.12 || >=7.0.0 <7.0.3"
+  },
+  "com.jflyfox:jflyfox_jfinal": {
+    "CVE-2022-29648": "<=5.1.0"
+  },
+  "com.liferay.portal:com.liferay.portal-kernel": {
+    "CVE-2020-7961": "<=7.2.0"
+  },
+  "com.sun.faces:jsf-api": {
+    "CVE-2008-1285": "<1.2.08"
+  },
+  "com.twelvemonkeys.imageio:imageio-metadata": {
+    "CVE-2021-23792": "<3.7.1"
+  },
+  "com.typesafe.akka:akka-http": {
+    "GHSA-3hw2-h67c-wq66": ">=10.1.0 <=10.2.6"
   },
   "io.projectreactor.netty:reactor-netty": {
     "CVE-2020-5403": ">=0.9.3 <=0.9.4",
