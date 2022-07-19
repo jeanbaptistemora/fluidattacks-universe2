@@ -287,6 +287,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
                 source=source,
                 status=VulnerabilityStateStatus.DELETED,
                 justification=justification,
+                tool=vulnerability.state.tool,
             ),
             finding_id=finding_id,
             vulnerability_id=vulnerability_id,
@@ -826,6 +827,7 @@ async def update_metadata_and_state(
                     source=new_state.source,
                     status=vulnerability.state.status,
                     justification=vulnerability.state.justification,
+                    tool=vulnerability.state.tool,
                 ),
             )
         else:
@@ -911,6 +913,7 @@ async def verify(
                     modified_date=modified_date,
                     source=source,
                     status=VulnerabilityStateStatus.CLOSED,
+                    tool=vuln_to_close.state.tool,
                 ),
             )
             for vuln_to_close, close_item in zip_longest(
