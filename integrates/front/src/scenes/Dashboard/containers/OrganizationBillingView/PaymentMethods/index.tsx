@@ -164,6 +164,8 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         const country = "";
         const state = "";
         const city = "";
+        const rut = undefined;
+        const taxId = undefined;
         await addPaymentMethod({
           variables: {
             businessName,
@@ -176,12 +178,20 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             email,
             makeDefault,
             organizationId,
+            rut,
             state,
+            taxId,
           },
         });
       },
       [addPaymentMethod, organizationId]
     );
+
+    const handleFileListUpload = (
+      file: FileList | undefined
+    ): File | undefined => {
+      return _.isEmpty(file) ? undefined : (file as FileList)[0];
+    };
 
     const handleAddOtherMethodSubmit = useCallback(
       async ({
@@ -189,19 +199,25 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         city,
         country,
         email,
+        rutList,
         state,
+        taxIdList,
       }: {
         businessName: string;
         city: string;
         country: string;
         email: string;
+        rutList: FileList | undefined;
         state: string;
+        taxIdList: FileList | undefined;
       }): Promise<void> => {
         const cardCvc = "";
         const cardExpirationMonth = "";
         const cardExpirationYear = "";
         const cardNumber = "";
         const makeDefault = false;
+        const rut = handleFileListUpload(rutList);
+        const taxId = handleFileListUpload(taxIdList);
         await addPaymentMethod({
           variables: {
             businessName,
@@ -214,7 +230,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             email,
             makeDefault,
             organizationId,
+            rut,
             state,
+            taxId,
           },
         });
       },

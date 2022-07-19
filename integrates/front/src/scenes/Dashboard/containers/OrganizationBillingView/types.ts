@@ -30,6 +30,8 @@ interface IPaymentMethodAttr {
   country: string;
   state: string;
   city: string;
+  rut: File | undefined;
+  taxId: File | undefined;
 }
 
 interface IGetOrganizationBilling {

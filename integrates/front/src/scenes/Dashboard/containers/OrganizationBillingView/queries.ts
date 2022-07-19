@@ -50,6 +50,8 @@ const ADD_PAYMENT_METHOD: DocumentNode = gql`
     $country: String!
     $state: String!
     $city: String!
+    $rut: Upload
+    $taxId: Upload
   ) {
     addPaymentMethod(
       organizationId: $organizationId
@@ -63,6 +65,8 @@ const ADD_PAYMENT_METHOD: DocumentNode = gql`
       country: $country
       state: $state
       city: $city
+      rut: $rut
+      taxId: $taxId
     ) {
       success
     }

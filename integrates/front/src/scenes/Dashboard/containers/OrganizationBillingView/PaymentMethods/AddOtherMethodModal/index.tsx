@@ -22,9 +22,9 @@ interface IAddOtherMethodModalProps {
     city: string;
     country: string;
     email: string;
-    rut: string;
+    rutList: FileList | undefined;
     state: string;
-    taxId: string;
+    taxIdList: FileList | undefined;
   }) => Promise<void>;
   onChangeMethod: React.Dispatch<
     React.SetStateAction<"CREDIT_CARD" | "OTHER_METHOD" | false>
@@ -67,7 +67,7 @@ export const AddOtherMethodModal = ({
       otherwise: string(),
       then: string().email().required(),
     }),
-    rut: mixed().when("country", {
+    rutList: mixed().when("country", {
       is: "Colombia",
       otherwise: mixed(),
       then: mixed().required(),
@@ -83,7 +83,7 @@ export const AddOtherMethodModal = ({
         return states.length === 0 || value !== undefined;
       }
     ),
-    taxId: mixed().when("country", {
+    taxIdList: mixed().when("country", {
       is: "Colombia",
       otherwise: mixed().required(),
       then: mixed(),
@@ -111,9 +111,9 @@ export const AddOtherMethodModal = ({
           city: "",
           country: "",
           email: "",
-          rut: "",
+          rutList: undefined,
           state: "",
-          taxId: "",
+          taxIdList: undefined,
         }}
         name={"addOtherMethods"}
         onSubmit={onSubmit}
@@ -274,8 +274,8 @@ export const AddOtherMethodModal = ({
                         "application/pdf,application/zip,image/gif,image/jpg,image/png"
                       }
                       component={FormikFileInput}
-                      id={"rut"}
-                      name={"rut"}
+                      id={"rutList"}
+                      name={"rutList"}
                     />
                   </div>
                 </React.Fragment>
@@ -293,7 +293,7 @@ export const AddOtherMethodModal = ({
                     }
                     component={FormikFileInput}
                     id={"taxId"}
-                    name={"taxId"}
+                    name={"taxIdList"}
                   />
                 </div>
               )}
