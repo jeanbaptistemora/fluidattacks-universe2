@@ -811,32 +811,33 @@ async def update_metadata_and_state(
     """Update vulnerability metadata and historics."""
     if (
         vulnerability.state.source != new_state.source
-        or vulnerability.state.status != new_state.status
+        and vulnerability.state.status == VulnerabilityStateStatus.CLOSED
     ):
-        if (
-            vulnerability.state.source != new_state.source
-            and vulnerability.state.status == VulnerabilityStateStatus.CLOSED
-        ):
-            await vulns_model.update_historic_entry(
-                current_value=vulnerability,
-                finding_id=vulnerability.finding_id,
-                vulnerability_id=vulnerability.id,
-                entry=VulnerabilityState(
-                    modified_by=vulnerability.state.modified_by,
-                    modified_date=vulnerability.state.modified_date,
-                    source=new_state.source,
-                    status=vulnerability.state.status,
-                    justification=vulnerability.state.justification,
-                    tool=vulnerability.state.tool,
-                ),
-            )
-        else:
-            await vulns_model.update_historic_entry(
-                current_value=vulnerability,
-                finding_id=vulnerability.finding_id,
-                vulnerability_id=vulnerability.id,
-                entry=new_state,
-            )
+        await vulns_model.update_historic_entry(
+            current_value=vulnerability,
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            entry=VulnerabilityState(
+                modified_by=vulnerability.state.modified_by,
+                modified_date=vulnerability.state.modified_date,
+                source=new_state.source,
+                status=vulnerability.state.status,
+                justification=vulnerability.state.justification,
+                tool=vulnerability.state.tool,
+            ),
+        )
+    elif vulnerability.state.status != new_state.status or (
+        vulnerability.state.tool != new_state.tool
+        and vulnerability.state.status == VulnerabilityStateStatus.OPEN
+    ):
+        await vulns_model.update_historic_entry(
+            current_value=vulnerability,
+            finding_id=vulnerability.finding_id,
+            vulnerability_id=vulnerability.id,
+            entry=new_state,
+        )
+
+    if vulnerability.state.status != new_state.status:
         if (
             finding_policy
             and new_state.status == VulnerabilityStateStatus.OPEN
@@ -913,11 +914,13 @@ async def verify(
                     modified_date=modified_date,
                     source=source,
                     status=VulnerabilityStateStatus.CLOSED,
-                    tool=vuln_to_close.state.tool,
+                    tool=close_item.state.tool
+                    if close_item
+                    else vuln_to_close.state.tool,
                 ),
             )
             for vuln_to_close, close_item in zip_longest(
-                list_closed_vulns, vulns_to_close_from_file, fillvalue={}
+                list_closed_vulns, vulns_to_close_from_file, fillvalue=None
             )
         )
     )
