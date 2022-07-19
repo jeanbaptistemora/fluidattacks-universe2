@@ -10,7 +10,9 @@ function main {
     PROD_SKIMS_AWS_SECRET_ACCESS_KEY \
     && AWS_ACCESS_KEY_ID="${PROD_SKIMS_AWS_ACCESS_KEY_ID}" \
     && AWS_SECRET_ACCESS_KEY="${PROD_SKIMS_AWS_SECRET_ACCESS_KEY}" \
-    && python3 -m celery --workdir __argSkims__ -A server worker -l INFO
+    && pushd '__argSkims__' \
+    && python3 -m celery -A server worker -l INFO \
+    && popd || return
 }
 
 main "${@}"
