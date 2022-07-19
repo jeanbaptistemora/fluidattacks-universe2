@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 19, 2022, 10:25 AM",
+    "DateLastModified": "Jul 19, 2022, 04:01 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2964,7 +2964,624 @@
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "ORG#id"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#forces.unittesting@fluidattacks.com"
+              },
+              "email": {
+                "S": "forces.unittesting@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesuser2@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "pk": {
+                "S": "USER#deleteimamura@fluidattacks.com"
+              },
+              "email": {
+                "S": "deleteimamura@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesreattacker@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesreattacker@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#vulnmanager@gmail.com"
+              },
+              "email": {
+                "S": "vulnmanager@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesreviewer@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesreviewer@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesserviceforces@gmail.com"
+              },
+              "email": {
+                "S": "integratesserviceforces@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#customer_manager@fluidattacks.com"
+              },
+              "email": {
+                "S": "customer_manager@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
+              "email": {
+                "S": "__adminEmail__"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
+              "email": {
+                "S": "__adminEmail__"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
+              "email": {
+                "S": "__adminEmail__"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
+              "email": {
+                "S": "__adminEmail__"
+              },
+              "organization_id": {
+                "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesresourcer@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#unittest2@fluidattacks.com"
+              },
+              "email": {
+                "S": "unittest2@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "pk": {
+                "S": "USER#org_testuser5@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser5@gmail.com"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "pk": {
+                "S": "USER#org_testgroupmanager1@gmail.com"
+              },
+              "email": {
+                "S": "org_testgroupmanager1@gmail.com"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "pk": {
+                "S": "USER#org_testuser2@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser2@gmail.com"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integratesuser2@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesuser2@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#integrateshacker@fluidattacks.com"
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#integrateshacker@fluidattacks.com"
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
+              "email": {
+                "S": "continuoushack2@gmail.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
+              },
+              "email": {
+                "S": "continuoushack2@gmail.com"
+              },
+              "organization_id": {
+                "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              },
+              "pk": {
+                "S": "USER#org_testuser6@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser6@gmail.com"
+              },
+              "organization_id": {
+                "S": "33c08ebd-2068-47e7-9673-e1aa03dc9448"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "pk": {
+                "S": "USER#org_testuser4@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser4@gmail.com"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "pk": {
+                "S": "USER#unittest"
+              },
+              "email": {
+                "S": "unittest"
+              },
+              "organization_id": {
+                "S": "c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "pk": {
+                "S": "USER#nodeleteimamura@fluidattacks.com"
+              },
+              "email": {
+                "S": "nodeleteimamura@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              },
+              "pk": {
+                "S": "USER#org_testuser1@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser1@gmail.com"
+              },
+              "organization_id": {
+                "S": "fe80d2d4-ccb7-46d1-8489-67c6360581de"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser3@gmail.com"
+              },
+              "organization_id": {
+                "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "email",
             "expiration_time",
@@ -19644,11 +20261,9 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impact":
-                        {
-                            "S": "INDIRECT"
-                          }
-
+                      "impact": {
+                        "S": "INDIRECT"
+                      }
                     }
                   }
                 }
@@ -19752,11 +20367,9 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impact":
-                        {
-                            "S": "INDIRECT"
-                          }
-
+                      "impact": {
+                        "S": "INDIRECT"
+                      }
                     }
                   }
                 }
@@ -20020,11 +20633,9 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impact":
-                        {
-                            "S": "INDIRECT"
-                          }
-
+                      "impact": {
+                        "S": "INDIRECT"
+                      }
                     }
                   }
                 }
@@ -20124,11 +20735,9 @@
                       "name": {
                         "S": "tool-1"
                       },
-                      "impact":
-                        {
-                            "S": "INDIRECT"
-                          }
-
+                      "impact": {
+                        "S": "INDIRECT"
+                      }
                     }
                   }
                 }
@@ -20249,9 +20858,8 @@
                     "S": "tool-1"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
-
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20280,9 +20888,8 @@
                     "S": "tool-1"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
-
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20311,9 +20918,8 @@
                     "S": "tool-1"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
-
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20342,9 +20948,8 @@
                     "S": "tool-1"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
-
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20373,9 +20978,8 @@
                     "S": "tool-1"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
-
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20424,8 +21028,8 @@
                     "S": "tool-2"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20454,8 +21058,8 @@
                     "S": "tool-2"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20484,8 +21088,8 @@
                     "S": "tool-2"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20514,8 +21118,8 @@
                     "S": "tool-2"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20544,8 +21148,8 @@
                     "S": "tool-2"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20594,8 +21198,8 @@
                     "S": "tool-3"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20624,8 +21228,8 @@
                     "S": "tool-3"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20654,8 +21258,8 @@
                     "S": "tool-3"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20684,8 +21288,8 @@
                     "S": "tool-3"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
@@ -20714,8 +21318,8 @@
                     "S": "tool-3"
                   },
                   "impact": {
-                        "S": "INDIRECT"
-                      }
+                    "S": "INDIRECT"
+                  }
                 }
               }
             },
