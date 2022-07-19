@@ -13,6 +13,6 @@ def guess_environment() -> Union[
 ]:
     return (
         "production"
-        if environ.get("CI_COMMIT_REF_NAME", "master") == "master"
+        if environ.get("CI_COMMIT_REF_NAME", "trunk") == "trunk"
         else "development"
     )
