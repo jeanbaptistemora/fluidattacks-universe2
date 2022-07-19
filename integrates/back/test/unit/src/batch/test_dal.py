@@ -155,16 +155,16 @@ scan_actions_result = {
 
 async def test_get_actions() -> None:
     with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
-        mock_scan.result = scan_actions_result
-    all_actions = await batch_dal.get_actions()
+        mock_scan.return_value = scan_actions_result["Items"]
+        all_actions = await batch_dal.get_actions()
     assert isinstance(all_actions, list)
     assert len(all_actions) == 5
 
 
 async def test_get_action() -> None:
-    def side_effect(table_name: str, key_condition: dict) -> list:
+    def side_effect(table: str, key_condition: dict) -> list:
         for item in scan_actions_result["Items"]:
-            if item["pk"] in key_condition.values() and bool(table_name):
+            if item["pk"] in key_condition.values() and bool(table):
                 return [item]
         return []
 
@@ -226,8 +226,8 @@ async def test_get_action() -> None:
 
 async def test_requeue_actions() -> None:
     with mock.patch("batch.dal.dynamodb_ops.scan") as mock_scan:
-        mock_scan.result = scan_actions_result["Items"]
-    pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
+        mock_scan.return_value = scan_actions_result["Items"]
+        pending_actions: List[BatchProcessing] = await batch_dal.get_actions()
 
     assert all(
         result is None
@@ -253,23 +253,37 @@ async def test_requeue_actions() -> None:
 
 @pytest.mark.changes_db
 async def test_put_action_to_dynamodb() -> None:
-    time = str(get_as_epoch(get_now()))
-    item_1 = dict(
-        action_name="report",
-        entity="oneshottest",
-        subject="integratesmanager@gmail.com",
-        time=time,
-        additional_info="XLS",
-    )
-    key_1 = await batch_dal.put_action_to_dynamodb(**item_1)
-    action_1 = await batch_dal.get_action(action_dynamo_pk=key_1)
-    assert action_1.queue == "small"
-    assert await batch_dal.is_action_by_key(key=action_1.key)
-    assert await batch_dal.delete_action(
-        action_name="report",
-        additional_info="XLS",
-        entity="oneshottest",
-        subject="integratesmanager@gmail.com",
-        time=time,
-    )
-    assert not await batch_dal.is_action_by_key(key=action_1.key)
+    def side_effect(item: dict, table: str) -> bool:
+        if item and table:
+            scan_actions_result["Items"].append(item)
+            return True
+        return False
+
+    with mock.patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
+        mock_put_item.side_effect = side_effect
+        time = str(get_as_epoch(get_now()))
+        item = dict(
+            action_name="report",
+            entity="oneshottest",
+            subject="integratesmanager@gmail.com",
+            time=time,
+            additional_info="XLS",
+        )
+        key = await batch_dal.put_action_to_dynamodb(**item)
+    new_length = len(scan_actions_result["Items"])
+    added_action = scan_actions_result["Items"][new_length - 1]
+    assert new_length == 6
+    assert key == added_action["pk"]
+    assert added_action["queue"] == "small"
+
+
+async def test_delete_action() -> None:
+    with mock.patch("batch.dal.dynamodb_ops.delete_item") as mock_delete_item:
+        mock_delete_item.return_value = True
+        key = (
+            "7e1955e6a576d23fbb4085eae499b8d84279cd214dbc4c87d0f8447b12023156"
+        )
+        assert await batch_dal.delete_action(dynamodb_pk=key)
+    with pytest.raises(Exception) as delete_exception:
+        await batch_dal.delete_action()
+    assert "you must supply the dynamodb pk" in str(delete_exception.value)
