@@ -82,7 +82,7 @@ def main() -> bool:
     """Usual entrypoint."""
     utils.bugs.configure_bugsnag()
     melts(  # pylint: disable=unexpected-keyword-arg
-        prog_name="$ m gitlab:fluidattacks/universe@master /melts",
+        prog_name="$ m gitlab:fluidattacks/universe@trunk /melts",
     )
     return True
 

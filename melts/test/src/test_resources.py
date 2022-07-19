@@ -39,6 +39,6 @@ def test_format_repo_problem(relocate: Any) -> None:
         "nickname": "repo_test",
         "problem": "test",
     }
-    repo_problem = resources.format_repo_problem("repo_test", "master", "test")
+    repo_problem = resources.format_repo_problem("repo_test", "trunk", "test")
     assert repo_problem == expected_repo_problem
     assert repo_problem != expected_repo_problem_bad

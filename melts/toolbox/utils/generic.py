@@ -91,13 +91,13 @@ def is_dev_mode() -> bool:
     return bool(os.environ.get("DEV_MODE"))
 
 
-def is_branch_master() -> bool:
+def is_branch_trunk() -> bool:
     """
-    Check if branch is master or dev.
-    Return True if branch is master.
+    Check if branch is trunk or dev.
+    Return True if branch is trunk.
     Return False if branch is dev.
     """
-    return os.environ.get("CI_COMMIT_REF_NAME") == "master"
+    return os.environ.get("CI_COMMIT_REF_NAME") == "trunk"
 
 
 def is_credential_valid(
@@ -471,12 +471,12 @@ def okta_aws_login(profile: str = "default") -> bool:
 def aws_login(profile: str = "default") -> None:
     """
     Login as either:
-    1. AWS Prod if branch is master in CI
+    1. AWS Prod if branch is trunk in CI
     2. AWS Dev if branch is dev in CI
     3. Okta AWS if local integration
     """
     if is_env_ci():
-        if is_branch_master():
+        if is_branch_trunk():
             os.environ["AWS_ACCESS_KEY_ID"] = os.environ[
                 "PROD_AWS_ACCESS_KEY_ID"
             ]

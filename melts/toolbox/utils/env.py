@@ -10,7 +10,7 @@ def guess_environment() -> str:
     if any(
         (
             "product/" in BASE_DIR,
-            environ.get("CI_COMMIT_REF_NAME", "master") != "master",
+            environ.get("CI_COMMIT_REF_NAME", "trunk") != "trunk",
         )
     ):
         return "development"

@@ -1,10 +1,10 @@
 {gitlabCi, ...}: let
-  gitlabBranchNotMaster = gitlabCi.rules.branchNot "master";
+  gitlabBranchNotTrunk = gitlabCi.rules.branchNot "trunk";
 
   gitlabTitleMatchingMelts = gitlabCi.rules.titleMatching "^(all|melts)";
 
   gitlabOnlyDev = [
-    gitlabBranchNotMaster
+    gitlabBranchNotTrunk
     gitlabCi.rules.notMrs
     gitlabCi.rules.notSchedules
     gitlabCi.rules.notTriggers

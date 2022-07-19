@@ -215,7 +215,7 @@ def main(
             else:
                 passed = False
     if passed and (
-        (generic.is_env_ci() and generic.is_branch_master())
+        (generic.is_env_ci() and generic.is_branch_trunk())
         or not generic.is_env_ci()
     ):
         LOGGER.info("Update sync date in DB")

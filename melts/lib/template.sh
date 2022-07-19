@@ -7,7 +7,7 @@ function clone_services_repository {
 
   aws_login_prod 'services' \
     && CI='true' \
-      CI_COMMIT_REF_NAME='master' \
+      CI_COMMIT_REF_NAME='trunk' \
       PROD_AWS_ACCESS_KEY_ID="${PROD_SERVICES_AWS_ACCESS_KEY_ID}" \
       PROD_AWS_SECRET_ACCESS_KEY="${PROD_SERVICES_AWS_SECRET_ACCESS_KEY}" \
       melts drills --pull-repos "${group}"

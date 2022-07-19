@@ -3,7 +3,7 @@
 function main {
   local group="${1:-}"
   export CI='true'
-  export CI_COMMIT_REF_NAME='master'
+  export CI_COMMIT_REF_NAME='trunk'
   export PROD_AWS_ACCESS_KEY_ID
   export PROD_AWS_SECRET_ACCESS_KEY
 
