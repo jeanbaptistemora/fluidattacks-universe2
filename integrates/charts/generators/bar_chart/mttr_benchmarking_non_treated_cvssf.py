@@ -35,13 +35,12 @@ from newutils.vulnerabilities import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 
 
 async def get_historic_verification(
     loaders: Dataloaders, vulnerability_id: str
-) -> Tuple[int, ...]:
+) -> tuple[VulnerabilityVerification, ...]:
     return await loaders.vulnerability_historic_verification.load(
         vulnerability_id
     )
@@ -51,22 +50,22 @@ async def get_historic_verification(
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype]
 ) -> Benchmarking:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         tuple(finding.id for finding in group_findings)
     )
 
-    vulnerabilities_excluding_permanently_accepted: Tuple[str, ...] = tuple(
+    vulnerabilities_excluding_permanently_accepted: tuple[str, ...] = tuple(
         vulnerability.id
         for vulnerability in vulnerabilities
         if not is_accepted_undefined_vulnerability(vulnerability)
     )
 
-    historics_verification: Tuple[
+    historics_verification: tuple[
         VulnerabilityVerification, ...
     ] = await collect(
         tuple(

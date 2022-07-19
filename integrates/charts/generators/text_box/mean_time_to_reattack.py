@@ -69,6 +69,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
         )
         number_of_hours: Decimal = Decimal("0.0")
         current_date: datetime = get_now()
+        number_of_reattacks: int = 0
         for historic_verification in historic_verifications:
             start: Optional[str] = None
             for verification in historic_verification:
@@ -78,6 +79,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                     and start is None
                 ):
                     start = verification.modified_date
+                    number_of_reattacks += 1
                 if (
                     verification.status
                     == VulnerabilityVerificationStatus.VERIFIED
@@ -99,8 +101,13 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                     (current_date - get_datetime_from_iso_str(start)).seconds
                     / Decimal("3600.0")
                 )
+                number_of_reattacks += 1
 
-        return format_decimal(number_of_hours)
+        return (
+            format_decimal(number_of_hours / number_of_reattacks)
+            if number_of_reattacks > 0
+            else Decimal("0.0")
+        )
 
     return Decimal("0.0")
 
@@ -112,7 +119,11 @@ async def get_many_groups(
         tuple(generate_one(group, loaders) for group in groups), workers=32
     )
 
-    return format_decimal(Decimal(sum(groups_data)))
+    return (
+        format_decimal(Decimal(sum(groups_data)) / len(groups))
+        if len(groups_data)
+        else Decimal("0.0")
+    )
 
 
 def format_data(mean_time: Decimal) -> dict:
