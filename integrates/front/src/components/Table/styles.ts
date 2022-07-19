@@ -11,9 +11,10 @@ const rowSizes: Record<ITableContainerProps["rowSize"], string> = {
 };
 
 const TableContainer = styled.div.attrs({
-  className: "f6 overflow-auto pa3",
+  className: "f6 overflow-auto",
 })<ITableContainerProps>`
   background-color: #f4f4f6;
+  border-radius: 4px;
 
   td,
   th {
@@ -41,6 +42,18 @@ const TableContainer = styled.div.attrs({
     border-spacing: 0;
     table-layout: auto;
     width: 100%;
+  }
+
+  > .react-bootstrap-table {
+    padding: 16px;
+  }
+
+  > .react-bootstrap-table-pagination {
+    background-color: #2e2e38;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
   }
 `;
 

@@ -7,6 +7,7 @@
 import { faSearchMinus, faSearchPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
+import type { FC } from "react";
 import React from "react";
 import type {
   PaginationOptions,
@@ -18,20 +19,19 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { Search } from "react-bootstrap-table2-toolkit";
 import { useTranslation } from "react-i18next";
 
+import { CustomToggleList } from "./customToggleList";
 import { renderExpandIcon, renderHeaderExpandIcon } from "./expandIcon";
+import { ExportCSVButtonWrapper } from "./exportCSVButton";
 import { Filters } from "./Filters";
+import style from "./index.css";
+import { PageListRenderer } from "./PageListRenderer";
+import { PaginationTotalRenderer } from "./PaginationTotalRenderer";
+import { SizePerPageRenderer } from "./SizePerPageRenderer";
 import { TableContainer } from "./styles";
+import type { ITableWrapperProps } from "./types";
 
 import { Button } from "components/Button";
 import { Gap } from "components/Layout";
-import { CustomToggleList } from "components/Table/customToggleList";
-import { ExportCSVButtonWrapper } from "components/Table/exportCSVButton";
-import style from "components/Table/index.css";
-import { SizePerPageRenderer } from "components/Table/sizePerPageRenderer";
-import type {
-  ICustomSearchProps,
-  ITableWrapperProps,
-} from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import {
   ButtonToolbarRow,
@@ -40,17 +40,14 @@ import {
 } from "styles/styledComponents";
 
 // eslint-disable-next-line complexity
-export const TableWrapper: React.FC<ITableWrapperProps> = (
-  props: Readonly<ITableWrapperProps>
-): JSX.Element => {
+const TableWrapper: FC<ITableWrapperProps> = ({
+  dataset,
+  onSizePerPageChange,
+  preferredPageSize,
+  toolkitProps,
+  tableProps,
+}: Readonly<ITableWrapperProps>): JSX.Element => {
   const { SearchBar } = Search;
-  const {
-    dataset,
-    onSizePerPageChange,
-    preferredPageSize,
-    toolkitProps,
-    tableProps,
-  } = props;
   const { columnToggleProps, searchProps, baseProps } = toolkitProps;
   const {
     clearFiltersButton,
@@ -72,7 +69,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
   } = tableProps;
   const {
     customFiltersProps,
-    hideResults,
+    hideResults = false,
     isCustomFilterEnabled,
     onUpdateEnableCustomFilter,
     resultSize,
@@ -81,22 +78,15 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     customSearchDefault,
     isCustomSearchEnabled,
     onUpdateCustomSearch,
-    position,
+    position: searchPosition = "left",
   } = customSearch ?? {};
-  const searchPosition: ICustomSearchProps["position"] =
-    position === undefined || position === "left" ? "left" : "right";
-  const shouldShowResults: boolean = hideResults === undefined || !hideResults;
   const { t } = useTranslation();
 
   function handleUpdateEnableFilter(): void {
-    if (!_.isUndefined(onUpdateEnableFilter)) {
-      onUpdateEnableFilter();
-    }
+    onUpdateEnableFilter?.();
   }
   function handleUpdateEnableCustomFilter(): void {
-    if (!_.isUndefined(onUpdateEnableCustomFilter)) {
-      onUpdateEnableCustomFilter();
-    }
+    onUpdateEnableCustomFilter?.();
   }
 
   function handleNoData(): string {
@@ -110,7 +100,10 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
 
   const paginationOptions: PaginationOptions = {
     onSizePerPageChange,
+    pageListRenderer: PageListRenderer,
     paginationSize: 10,
+    paginationTotalRenderer: PaginationTotalRenderer,
+    showTotal: true,
     sizePerPage: preferredPageSize,
     sizePerPageList: listSizePerPage.slice(
       0,
@@ -118,8 +111,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
         (element): boolean => element >= dataset.length
       ) + 1
     ),
-    sizePerPageRenderer:
-      SizePerPageRenderer as unknown as PaginationOptions["sizePerPageRenderer"],
+    sizePerPageRenderer: SizePerPageRenderer,
   };
 
   return (
@@ -234,7 +226,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
           </TableOptionsColBar>
         )}
       </div>
-      {resultSize && shouldShowResults && (
+      {resultSize && !hideResults ? (
         <Tooltip id={"tableResultTooltip"} tip={t("table.results.tooltip")}>
           <p>
             {t("table.results.text", {
@@ -243,7 +235,7 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
             })}
           </p>
         </Tooltip>
-      )}
+      ) : undefined}
       <TableContainer
         isRowFunctional={rowEvents !== undefined}
         rowSize={rowSize ?? "bold"}
@@ -277,3 +269,5 @@ export const TableWrapper: React.FC<ITableWrapperProps> = (
     </div>
   );
 };
+
+export { TableWrapper };
