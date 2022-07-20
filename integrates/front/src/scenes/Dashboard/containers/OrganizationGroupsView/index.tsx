@@ -310,7 +310,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                         <Button
                           id={"add-group"}
                           onClick={openNewGroupModal}
-                          variant={"tertiary"}
+                          variant={"primary"}
                         >
                           <FontAwesomeIcon icon={faPlus} />
                           &nbsp;
