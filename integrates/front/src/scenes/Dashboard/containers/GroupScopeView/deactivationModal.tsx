@@ -2,7 +2,14 @@ import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import React, { useCallback, useEffect, useState } from "react";
+import type { FC, ReactNode } from "react";
+import React, {
+  Fragment,
+  StrictMode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
@@ -13,21 +20,14 @@ import {
   MOVE_ROOT,
 } from "./queries";
 
+import { Alert } from "components/Alert";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { Input, Select } from "components/Input";
+import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import {
-  Alert,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { Text } from "components/Text";
 import { Can } from "utils/authz/Can";
-import {
-  FormikAutocompleteText,
-  FormikDropdown,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -50,7 +50,7 @@ interface IRootsVulnsData {
   };
 }
 
-export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
+export const DeactivationModal: FC<IDeactivationModalProps> = ({
   groupName,
   rootId,
   onClose,
@@ -217,7 +217,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
   }, [rootId, rootsVulnsData, setDastVulnsToBeClosed, setSastVulnsToBeClosed]);
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <Modal
         onClose={onClose}
         open={true}
@@ -227,7 +227,7 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
           message={t("group.scope.common.deactivation.confirm")}
           title={t("group.scope.common.confirm")}
         >
-          {(confirm): React.ReactNode => {
+          {(confirm): ReactNode => {
             async function confirmAndSubmit(
               values: Record<string, string>
             ): Promise<void> {
@@ -259,64 +259,56 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
               >
                 {({ dirty, isSubmitting, values }): JSX.Element => (
                   <Form>
-                    <Row>
-                      <Col100>
-                        <FormGroup>
-                          <ControlLabel>
-                            {t("group.scope.common.deactivation.reason.label")}
-                          </ControlLabel>
-                          <Field component={FormikDropdown} name={"reason"}>
-                            <option value={""} />
-                            <option value={"REGISTERED_BY_MISTAKE"}>
-                              {t(
-                                "group.scope.common.deactivation.reason.mistake"
-                              )}
-                            </option>
-                            <Can do={"api_mutations_move_root_mutate"}>
-                              <option value={"MOVED_TO_ANOTHER_GROUP"}>
-                                {t(
-                                  "group.scope.common.deactivation.reason.moved"
-                                )}
-                              </option>
-                            </Can>
-                            <option value={"OTHER"}>
-                              {t(
-                                "group.scope.common.deactivation.reason.other"
-                              )}
-                            </option>
-                          </Field>
-                        </FormGroup>
-                        {values.reason === "OTHER" ? (
-                          <FormGroup>
-                            <ControlLabel>
-                              {t("group.scope.common.deactivation.other")}
-                            </ControlLabel>
-                            <Field component={FormikText} name={"other"} />
-                          </FormGroup>
-                        ) : undefined}
-                        {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
-                          <FormGroup>
-                            <ControlLabel>
-                              {t("group.scope.common.deactivation.targetGroup")}
-                            </ControlLabel>
-                            <Field
-                              component={FormikAutocompleteText}
-                              name={"targetGroupName"}
-                              placeholder={t(
-                                "group.scope.common.deactivation.targetPlaceholder"
-                              )}
-                              suggestions={suggestions}
-                            />
-                          </FormGroup>
-                        ) : undefined}
-                        {["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"].includes(
-                          values.reason
-                        ) ? (
-                          <React.Fragment>
-                            <Alert>
-                              {t("group.scope.common.deactivation.warning")}
-                            </Alert>
-                            <Alert>
+                    <Gap disp={"block"} mv={12}>
+                      <Select
+                        label={t(
+                          "group.scope.common.deactivation.reason.label"
+                        )}
+                        name={"reason"}
+                      >
+                        <option value={""} />
+                        <option value={"REGISTERED_BY_MISTAKE"}>
+                          {t("group.scope.common.deactivation.reason.mistake")}
+                        </option>
+                        <Can do={"api_mutations_move_root_mutate"}>
+                          <option value={"MOVED_TO_ANOTHER_GROUP"}>
+                            {t("group.scope.common.deactivation.reason.moved")}
+                          </option>
+                        </Can>
+                        <option value={"OTHER"}>
+                          {t("group.scope.common.deactivation.reason.other")}
+                        </option>
+                      </Select>
+                      {values.reason === "OTHER" ? (
+                        <Input
+                          label={t("group.scope.common.deactivation.other")}
+                          name={"other"}
+                        />
+                      ) : undefined}
+                      {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
+                        <div>
+                          <Text mb={1}>
+                            {t("group.scope.common.deactivation.targetGroup")}
+                          </Text>
+                          <Field
+                            component={FormikAutocompleteText}
+                            name={"targetGroupName"}
+                            placeholder={t(
+                              "group.scope.common.deactivation.targetPlaceholder"
+                            )}
+                            suggestions={suggestions}
+                          />
+                        </div>
+                      ) : undefined}
+                      {["OUT_OF_SCOPE", "REGISTERED_BY_MISTAKE"].includes(
+                        values.reason
+                      ) ? (
+                        <Fragment>
+                          <Alert>
+                            {t("group.scope.common.deactivation.warning")}
+                          </Alert>
+                          <Alert>
+                            <div>
                               {sastVulnsToBeClosed === undefined ? (
                                 t("group.scope.common.deactivation.loading")
                               ) : (
@@ -334,18 +326,18 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
                               {t(
                                 "group.scope.common.deactivation.closedDastVulnsWarning"
                               )}
-                            </Alert>
-                          </React.Fragment>
-                        ) : undefined}
-                        {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
-                          <Alert>{t("group.scope.common.changeWarning")}</Alert>
-                        ) : undefined}
-                      </Col100>
-                    </Row>
-                    <ModalConfirm
-                      disabled={!dirty || isSubmitting}
-                      onCancel={onClose}
-                    />
+                            </div>
+                          </Alert>
+                        </Fragment>
+                      ) : undefined}
+                      {values.reason === "MOVED_TO_ANOTHER_GROUP" ? (
+                        <Alert>{t("group.scope.common.changeWarning")}</Alert>
+                      ) : undefined}
+                      <ModalConfirm
+                        disabled={!dirty || isSubmitting}
+                        onCancel={onClose}
+                      />
+                    </Gap>
                   </Form>
                 )}
               </Formik>
@@ -353,6 +345,6 @@ export const DeactivationModal: React.FC<IDeactivationModalProps> = ({
           }}
         </ConfirmDialog>
       </Modal>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
