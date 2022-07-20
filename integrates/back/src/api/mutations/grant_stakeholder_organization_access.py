@@ -7,9 +7,13 @@ from ariadne.utils import (
 import authz
 from custom_exceptions import (
     StakeholderHasOrganizationAccess,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
+)
+from db_model.organization_access.types import (
+    OrganizationAccess,
 )
 from db_model.organizations.types import (
     Organization,
@@ -36,7 +40,6 @@ from newutils.utils import (
     map_roles,
 )
 from organizations import (
-    dal as orgs_dal,
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
@@ -69,34 +72,37 @@ async def mutate(
     user_email = str(parameters.get("user_email"))
     user_role: str = map_roles(str(parameters.get("role")).lower())
 
-    organization_access = await orgs_dal.get_organization_access(
-        organization_id, user_email
-    )
-    if organization_access:
-        # Stakeholder has already accepted the invitation
-        if organization_access["has_access"]:
+    try:
+        organization_access: OrganizationAccess = (
+            await loaders.organization_access.load(
+                (organization_id, user_email)
+            )
+        )
+        if organization_access.has_access:
             raise StakeholderHasOrganizationAccess()
         # Too soon to send another email invitation to the same stakeholder
-        if "expiration_time" in organization_access:
+        if organization_access.expiration_time:
             validate_new_invitation_time_limit(
-                int(str(organization_access["expiration_time"]))
+                organization_access.expiration_time
             )
 
-    allowed_roles_to_grant = (
-        await authz.get_organization_level_roles_a_user_can_grant(
-            organization_id=organization_id.lower(),
-            requester_email=requester_email,
+    except StakeholderNotInOrganization:
+        allowed_roles_to_grant = (
+            await authz.get_organization_level_roles_a_user_can_grant(
+                organization_id=organization_id.lower(),
+                requester_email=requester_email,
+            )
         )
-    )
 
     if user_role in allowed_roles_to_grant:
-        success = await orgs_domain.invite_to_organization(
+        await orgs_domain.invite_to_organization(
             loaders,
             user_email,
             user_role,
             organization_name,
             requester_email,
         )
+        success = True
     else:
         LOGGER.error(
             "Invalid role provided",

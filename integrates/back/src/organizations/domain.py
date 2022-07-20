@@ -46,9 +46,13 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organization_access.enums import (
+    InvitiationState,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
+    OrganizationInvitation,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -72,9 +76,6 @@ from db_model.types import (
 from decimal import (
     Decimal,
 )
-from dynamodb.types import (
-    Item,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -87,8 +88,10 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
-    stakeholders as stakeholders_utils,
     token as token_utils,
+)
+from newutils.organization_access import (
+    format_invitation_state,
 )
 from newutils.organizations import (
     add_org_id_prefix,
@@ -318,26 +321,24 @@ async def get_or_add(
     return org
 
 
-async def get_user_access(organization_id: str, email: str) -> dict[str, Any]:
-    return await orgs_dal.get_organization_access(organization_id, email)
-
-
 async def get_stakeholder_role(
+    loaders: Any,
     email: str,
     is_registered: bool,
     organization_id: str,
 ) -> str:
-    user_access = await get_user_access(organization_id, email)
-    invitation: Item = user_access.get("invitation", {})
-    invitation_state = stakeholders_utils.format_invitation_state(
-        invitation, is_registered
+    user_access: OrganizationAccess = await loaders.organization_access.load(
+        (organization_id, email)
     )
-    if invitation_state == "PENDING":
-        stakeholder_role = invitation["role"]
-    else:
-        stakeholder_role = await authz.get_organization_level_role(
-            email, organization_id
-        )
+    if user_access.invitation:
+        invitation: OrganizationInvitation = user_access.invitation
+        invitation_state = format_invitation_state(invitation, is_registered)
+        if invitation_state == InvitiationState.PENDING:
+            stakeholder_role = invitation.role
+        else:
+            stakeholder_role = await authz.get_organization_level_role(
+                email, organization_id
+            )
 
     return stakeholder_role
 
@@ -375,8 +376,7 @@ async def invite_to_organization(
     role: str,
     organization_name: str,
     modified_by: str,
-) -> bool:
-    success = False
+) -> None:
     if validate_email_address(email) and validate_role_fluid_reqs(email, role):
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
@@ -391,18 +391,18 @@ async def invite_to_organization(
                 "user_email": email,
             },
         )
-        success = await update_user(
+        await update_organization_access(
             organization_id,
             email,
-            {
-                "expiration_time": expiration_time,
-                "has_access": False,
-                "invitation": {
-                    "is_used": False,
-                    "role": role,
-                    "url_token": url_token,
-                },
-            },
+            OrganizationAccessMetadataToUpdate(
+                expiration_time=expiration_time,
+                has_access=False,
+                invitation=OrganizationInvitation(
+                    is_used=False,
+                    role=role,
+                    url_token=url_token,
+                ),
+            ),
         )
         confirm_access_url = (
             f"{BASE_URL}/confirm_access_organization/{url_token}"
@@ -425,7 +425,6 @@ async def invite_to_organization(
                 loaders, mail_to, email_context
             )
         )
-    return success
 
 
 async def iterate_organizations() -> AsyncIterator[Organization]:
@@ -624,22 +623,17 @@ async def update_user(
 
 async def update_invited_stakeholder(
     email: str,
-    invitation: dict[str, Any],
+    invitation: OrganizationInvitation,
     organization_id: str,
     role: str,
-) -> bool:
-    success = False
-    new_invitation = invitation.copy()
+) -> None:
     if validate_role_fluid_reqs(email, role):
-        new_invitation["role"] = role
-        success = await update_user(
+        invitation = invitation._replace(role=role)
+        await update_organization_access(
             organization_id,
             email,
-            {
-                "invitation": new_invitation,
-            },
+            OrganizationAccessMetadataToUpdate(invitation=invitation),
         )
-    return success
 
 
 async def update_billing_customer(
@@ -738,7 +732,10 @@ async def send_mail_policies(
         stakeholder.email
         for stakeholder in org_stakeholders_loaders
         if await get_stakeholder_role(
-            stakeholder.email, stakeholder.is_registered, organization_id
+            loaders,
+            stakeholder.email,
+            stakeholder.is_registered,
+            organization_id,
         )
         in ["customer_manager", "user_manager"]
     ]

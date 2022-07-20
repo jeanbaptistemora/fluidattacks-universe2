@@ -7,12 +7,16 @@ from authz.validations import (
 )
 from custom_exceptions import (
     StakeholderNotFound,
+    StakeholderNotInOrganization,
 )
 from custom_types import (
     UpdateStakeholderPayload,
 )
 from dataloaders import (
     Dataloaders,
+)
+from db_model.organization_access.types import (
+    OrganizationAccess,
 )
 from db_model.organizations.types import (
     Organization,
@@ -36,7 +40,6 @@ from newutils.utils import (
     map_roles,
 )
 from organizations import (
-    dal as orgs_dal,
     domain as orgs_domain,
 )
 from redis_cluster.operations import (
@@ -73,18 +76,23 @@ async def mutate(
     user_email: str = str(parameters.get("user_email"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
 
-    organization_access = await orgs_dal.get_organization_access(
-        organization_id, user_email
-    )
-    # Validate role requirements before changing anything
-    validate_role_fluid_reqs(user_email, new_role)
-    if organization_access:
-        invitation = organization_access.get("invitation")
-        if invitation:
-            success = await orgs_domain.update_invited_stakeholder(
-                user_email, invitation, organization_id, new_role
+    try:
+        organization_access: OrganizationAccess = (
+            await loaders.organization_access.load(
+                (organization_id, user_email)
             )
-            if invitation["is_used"]:
+        )
+        # Validate role requirements before changing anything
+        validate_role_fluid_reqs(user_email, new_role)
+        if organization_access.invitation:
+
+            await orgs_domain.update_invited_stakeholder(
+                user_email,
+                organization_access.invitation,
+                organization_id,
+                new_role,
+            )
+            if organization_access.invitation.is_used:
                 await authz.grant_organization_level_role(
                     user_email, organization_id, new_role
                 )
@@ -99,8 +107,8 @@ async def mutate(
                     "Couldn't update stakeholder role",
                     extra={"extra": info.context},
                 )
-    else:
-        raise StakeholderNotFound()
+    except StakeholderNotInOrganization as ex:
+        raise StakeholderNotFound() from ex
 
     if success:
         await redis_del_by_deps(
@@ -120,5 +128,5 @@ async def mutate(
             f"{organization_name}",
         )
     return UpdateStakeholderPayload(
-        success=success, modified_stakeholder=dict(email=user_email)
+        success=True, modified_stakeholder=dict(email=user_email)
     )
