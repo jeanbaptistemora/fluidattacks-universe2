@@ -1,5 +1,5 @@
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
 import React from "react";
 
@@ -41,14 +41,16 @@ const InputBase: FC<IInputBaseProps> = ({
         <Text disp={"inline-block"} mb={1} mr={1}>
           {label}
         </Text>
-        <Tooltip
-          disp={"inline-block"}
-          id={`${name}-tooltip`}
-          place={"top"}
-          tip={tooltip}
-        >
-          <FontAwesomeIcon color={"#b0b0bf"} icon={faCircleInfo} size={"sm"} />
-        </Tooltip>
+        {tooltip === undefined ? undefined : (
+          <Tooltip
+            disp={"inline-block"}
+            id={`${name}-tooltip`}
+            place={"top"}
+            tip={tooltip}
+          >
+            <Icon color={"#b0b0bf"} icon={faCircleInfo} size={"sm"} />
+          </Tooltip>
+        )}
       </label>
     )}
     <InputWrapper variant={variant}>{children}</InputWrapper>
