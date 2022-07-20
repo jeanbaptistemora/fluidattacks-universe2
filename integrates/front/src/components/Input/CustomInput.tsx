@@ -27,6 +27,7 @@ const CustomInput: FC<TInputProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  required,
   tooltip,
   type,
   variant = "solid",
@@ -48,6 +49,7 @@ const CustomInput: FC<TInputProps> = ({
       id={id}
       label={label}
       name={name}
+      required={required}
       tooltip={tooltip}
       variant={variant}
     >

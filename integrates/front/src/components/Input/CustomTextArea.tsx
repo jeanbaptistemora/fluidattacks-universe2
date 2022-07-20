@@ -24,6 +24,7 @@ const CustomTextArea: FC<TTextAreaProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  required,
   rows = 3,
   tooltip,
   variant,
@@ -45,6 +46,7 @@ const CustomTextArea: FC<TTextAreaProps> = ({
       id={id}
       label={label}
       name={name}
+      required={required}
       tooltip={tooltip}
       variant={variant}
     >

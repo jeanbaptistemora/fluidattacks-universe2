@@ -37,6 +37,7 @@ const FormikInputNumber: FC<TInputNumberProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  required,
   tooltip,
   variant = "solid",
 }: Readonly<TInputNumberProps>): JSX.Element => {
@@ -99,6 +100,7 @@ const FormikInputNumber: FC<TInputNumberProps> = ({
       id={id}
       label={label}
       name={name}
+      required={required}
       tooltip={tooltip}
       variant={variant}
     >

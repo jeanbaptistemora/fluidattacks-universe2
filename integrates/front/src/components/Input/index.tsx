@@ -20,6 +20,8 @@ const Input: FC<IInputProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  required,
+  tooltip,
   type = "text",
   variant = "solid",
 }: Readonly<IInputProps>): JSX.Element => (
@@ -35,6 +37,8 @@ const Input: FC<IInputProps> = ({
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}
+    required={required}
+    tooltip={tooltip}
     type={type}
     variant={variant}
   />

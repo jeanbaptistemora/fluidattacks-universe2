@@ -1,4 +1,4 @@
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faAsterisk, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import type { FC, FocusEvent, KeyboardEvent, ReactNode } from "react";
 import React from "react";
@@ -18,6 +18,7 @@ interface IInputBase<T = HTMLElement> extends Partial<IStyledInputProps> {
   onBlur?: (event: FocusEvent<T>) => void;
   onFocus?: (event: FocusEvent<T>) => void;
   onKeyDown?: (event: KeyboardEvent<T>) => void;
+  required?: boolean;
   tooltip?: string;
 }
 
@@ -32,13 +33,17 @@ const InputBase: FC<IInputBaseProps> = ({
   id,
   label,
   name,
+  required = false,
   tooltip,
   variant = "solid",
 }: Readonly<IInputBaseProps>): JSX.Element => (
   <InputBox showAlert={alert !== undefined}>
     {label === undefined ? undefined : (
       <label htmlFor={id}>
-        <Text disp={"inline-block"} mb={1} mr={1}>
+        {required ? (
+          <Icon color={"#bf0b1a"} icon={faAsterisk} size={"xs"} />
+        ) : undefined}
+        <Text disp={"inline-block"} mb={1} ml={required ? 1 : 0} mr={1}>
           {label}
         </Text>
         {tooltip === undefined ? undefined : (

@@ -22,6 +22,7 @@ const CustomSelect: FC<TSelectProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  required,
   tooltip,
   variant,
 }: Readonly<TSelectProps>): JSX.Element => {
@@ -42,6 +43,7 @@ const CustomSelect: FC<TSelectProps> = ({
       id={id}
       label={label}
       name={name}
+      required={required}
       tooltip={tooltip}
       variant={variant}
     >

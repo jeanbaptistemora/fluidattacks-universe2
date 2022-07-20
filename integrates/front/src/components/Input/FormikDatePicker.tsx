@@ -25,6 +25,7 @@ const FormikDatePicker: FC<TDatePickerProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  required,
   tooltip,
   variant = "solid",
 }: Readonly<TDatePickerProps>): JSX.Element => {
@@ -45,6 +46,7 @@ const FormikDatePicker: FC<TDatePickerProps> = ({
       id={id}
       label={label}
       name={name}
+      required={required}
       tooltip={tooltip}
       variant={variant}
     >
