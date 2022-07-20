@@ -6,7 +6,8 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import type { FC } from "react";
+import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddEnvironment } from "./addEnvironment";
@@ -35,7 +36,7 @@ interface IEnvironmentUrlItem extends IBasicEnvironmentUrl {
   element: JSX.Element;
 }
 
-const Environments: React.FC<IEnvironmentsProps> = ({
+const Environments: FC<IEnvironmentsProps> = ({
   rootInitialValues,
   groupName,
   onClose,
@@ -125,7 +126,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
   }, [data, handleRemoveClick, t]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Table
         dataset={gitEnvironmentUrls}
         exportCsv={false}
@@ -172,7 +173,7 @@ const Environments: React.FC<IEnvironmentsProps> = ({
         onConfirm={openAddModal}
         txtConfirm={t("group.scope.git.addEnvUrl")}
       />
-    </React.Fragment>
+    </Fragment>
   );
 };
 

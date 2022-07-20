@@ -1,15 +1,18 @@
 import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { FormikProps } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useRef } from "react";
+import type { FC } from "react";
+import React, { Fragment, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
 import { ADD_ENVIRONMENT_URL } from "../../queries";
+import { Input, Select } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { GET_FILES } from "scenes/Dashboard/containers/GroupSettingsView/queries";
 import type {
@@ -17,7 +20,6 @@ import type {
   IGroupFileAttr,
 } from "scenes/Dashboard/containers/GroupSettingsView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -43,7 +45,7 @@ interface IFile {
   uploadDate: string;
 }
 
-const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
+const AddEnvironment: FC<IAddEnvironmentProps> = ({
   groupName,
   rootId,
   closeFunction,
@@ -136,35 +138,43 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
       {({ isValid, dirty, isSubmitting }): JSX.Element => {
         return (
           <Form>
-            <div className={"flex mt3"}>
-              <div className={"w-50"}>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t("group.scope.git.addEnvironment.type")}
-                </ControlLabel>
-                <Field component={FormikDropdown} name={"urlType"}>
+            <Row>
+              <Col>
+                <Select
+                  label={
+                    <Fragment>
+                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                      {t("group.scope.git.addEnvironment.type")}
+                    </Fragment>
+                  }
+                  name={"urlType"}
+                >
                   <option value={""}>{""}</option>
                   <option value={"CLOUD"}>{"Cloud"}</option>
                   <option value={"APK"}>{"APK"}</option>
                   <option value={"URL"}>{"URL"}</option>
-                </Field>
-              </div>
+                </Select>
+              </Col>
               {formRef.current !== null &&
               formRef.current.values.urlType === "CLOUD" ? (
-                <div className={"w-50 ml3"}>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {"Cloud Name"}
-                  </ControlLabel>
-                  <Field component={FormikDropdown} name={"cloudName"}>
+                <Col>
+                  <Select
+                    label={
+                      <Fragment>
+                        <RequiredField>{"*"}&nbsp;</RequiredField>
+                        {"Cloud Name"}
+                      </Fragment>
+                    }
+                    name={"cloudName"}
+                  >
                     <option value={""}>{""}</option>
                     <option value={"AWS"}>{"AWS"}</option>
                     <option value={"GCP"}>{"Google Cloud Platform"}</option>
                     <option value={"AZURE"}>{"Azure"}</option>
-                  </Field>
-                </div>
+                  </Select>
+                </Col>
               ) : undefined}
-            </div>
+            </Row>
             <div className={"mt3"}>
               <ControlLabel>
                 <RequiredField>{"*"}&nbsp;</RequiredField>
@@ -179,7 +189,7 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
               </ControlLabel>
               {formRef.current !== null &&
               formRef.current.values.urlType === "APK" ? (
-                <Field component={FormikDropdown} name={"url"}>
+                <Select name={"url"}>
                   <option value={""}>{""}</option>
                   {filesDataset.map(
                     (file): JSX.Element => (
@@ -188,9 +198,9 @@ const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
                       </option>
                     )
                   )}
-                </Field>
+                </Select>
               ) : (
-                <Field component={FormikText} name={"url"} type={"text"} />
+                <Input name={"url"} />
               )}
             </div>
             <ModalConfirm
