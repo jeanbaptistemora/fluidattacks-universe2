@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 
-import type { IAlertBoxProps } from "./Box";
+import type { IAlertBoxProps, TAlertVariant } from "./Box";
 import { AlertBox } from "./Box";
 
 import { Button } from "components/Button";
@@ -30,7 +30,7 @@ interface IIcons {
   icon: IconDefinition;
 }
 
-const icons: Record<IAlertProps["variant"], IIcons> = {
+const icons: Record<TAlertVariant, IIcons> = {
   error: {
     icon: faCircleExclamation,
   },
@@ -49,11 +49,11 @@ const Alert: FC<IAlertProps> = ({
   autoHide = false,
   children,
   closable = false,
-  show = true,
   icon = false,
-  time = 8,
   onTimeOut: timer,
-  variant,
+  show = true,
+  time = 8,
+  variant = "error",
 }: Readonly<IAlertProps>): JSX.Element | null => {
   const [showBox, setShowBox] = useState(show);
   const handleHide = useCallback((): void => {

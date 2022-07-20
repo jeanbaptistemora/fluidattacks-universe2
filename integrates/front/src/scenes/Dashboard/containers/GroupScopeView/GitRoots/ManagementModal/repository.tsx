@@ -360,9 +360,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                       </div>
                     </div>
                     {isEditing && values.branch !== initialValues.branch ? (
-                      <Alert variant={"error"}>
-                        {t("group.scope.common.changeWarning")}
-                      </Alert>
+                      <Alert>{t("group.scope.common.changeWarning")}</Alert>
                     ) : undefined}
                     <br />
                     {isDuplicated(values.url) || isEditing ? (
@@ -609,7 +607,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                                 ? undefined
                                 : rootChanged(values)}
                               {values.includesHealthCheck ?? false ? (
-                                <Alert variant={"error"}>
+                                <Alert>
                                   <Field
                                     component={FormikCheckbox}
                                     isChecked={isCheckedHealthCheck}
@@ -625,7 +623,7 @@ const Repository: React.FC<IRepositoryProps> = ({
                               ) : undefined}
                               {values.includesHealthCheck ??
                               true ? undefined : (
-                                <Alert variant={"error"}>
+                                <Alert>
                                   <Field
                                     component={FormikCheckbox}
                                     isChecked={isCheckedHealthCheck}

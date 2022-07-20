@@ -44,7 +44,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
   return _.isEmpty(gitignore) ? (
     <div />
   ) : (
-    <Alert variant={"error"}>{t("group.scope.git.filter.warning")}</Alert>
+    <Alert>{t("group.scope.git.filter.warning")}</Alert>
   );
 };
 

@@ -12,7 +12,7 @@ describe("Alert", (): void => {
   it("should render an alert", (): void => {
     expect.hasAssertions();
 
-    render(<Alert variant={"error"}>{"Alert message"}</Alert>);
+    render(<Alert>{"Alert message"}</Alert>);
 
     expect(screen.queryByText("Alert message")).toBeInTheDocument();
   });

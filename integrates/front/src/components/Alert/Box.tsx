@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+type TAlertVariant = "error" | "info" | "success" | "warning";
+
 interface IAlertBoxProps {
   show?: boolean;
-  variant: "error" | "info" | "success" | "warning";
+  variant?: TAlertVariant;
 }
 
 interface IVariant {
@@ -10,7 +12,7 @@ interface IVariant {
   color: string;
 }
 
-const variants: Record<IAlertBoxProps["variant"], IVariant> = {
+const variants: Record<TAlertVariant, IVariant> = {
   error: {
     bgColor: "#f2dede",
     color: "#a94442",
@@ -40,10 +42,10 @@ const AlertBox = styled.div.attrs({
   overflow: hidden;
   transition: all 0.3s ease;
 
-  ${({ show = true, variant }): string => `
+  ${({ show = true, variant = "error" }): string => `
     background-color: ${variants[variant].bgColor};
     color: ${variants[variant].color};
-    height: ${show ? 35 : 0}px;
+    height: ${show ? "auto" : 0};
     padding: ${show ? "10px 16px" : 0};
   `}
 
@@ -55,5 +57,5 @@ const AlertBox = styled.div.attrs({
   }
 `;
 
-export type { IAlertBoxProps };
+export type { IAlertBoxProps, TAlertVariant };
 export { AlertBox };

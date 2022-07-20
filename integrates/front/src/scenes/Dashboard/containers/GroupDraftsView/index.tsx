@@ -338,9 +338,7 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
               <Row>
                 <Col100>
                   {dataHasDraftsRejected.me.hasDraftsRejected ? (
-                    <Alert variant={"error"}>
-                      {t("group.drafts.error.hasDraftsRejected")}
-                    </Alert>
+                    <Alert>{t("group.drafts.error.hasDraftsRejected")}</Alert>
                   ) : (
                     <Field
                       alignField={"horizontal"}
