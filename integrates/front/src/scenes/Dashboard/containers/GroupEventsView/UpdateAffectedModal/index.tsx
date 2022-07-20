@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
@@ -6,9 +6,9 @@ import { array, object, string } from "yup";
 import type { IUpdateAffectedModalProps, IUpdateAffectedValues } from "./types";
 
 import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
+import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
+import { Text } from "components/Text";
 
 export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
   eventsInfo,
@@ -59,27 +59,17 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
       >
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
-            <Row>
-              <FormGroup>
-                <ControlLabel>
-                  {t("group.events.form.affectedReattacks.eventSection")}
-                </ControlLabel>
-                <Field component={FormikDropdown} name={"eventId"}>
-                  <option value={""} />
-                  {eventOptions}
-                </Field>
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>
-                  {t("group.events.form.affectedReattacks.sectionTitle")}
-                </ControlLabel>
-                <br />
-                {t("group.events.form.affectedReattacks.selection")}
-                <br />
-                <br />
-                <AffectedReattackAccordion findings={findings} />
-              </FormGroup>
-            </Row>
+            <Select
+              label={t("group.events.form.affectedReattacks.eventSection")}
+              name={"eventId"}
+            >
+              <option value={""} />
+              {eventOptions}
+            </Select>
+            <Text mb={2} mt={2}>
+              {t("group.events.form.affectedReattacks.selection")}
+            </Text>
+            <AffectedReattackAccordion findings={findings} />
             <ModalConfirm
               disabled={!dirty || isSubmitting}
               onCancel={onClose}
