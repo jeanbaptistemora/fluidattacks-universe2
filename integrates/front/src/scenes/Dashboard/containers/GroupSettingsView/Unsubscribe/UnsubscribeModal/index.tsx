@@ -2,8 +2,9 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { Alert } from "components/Alert";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Alert, ControlLabel, FormGroup } from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
 

@@ -3,9 +3,10 @@ import type { FC } from "react";
 import React, { Fragment, StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Alert } from "components/Alert";
 import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Alert, ControlLabel } from "styles/styledComponents";
+import { ControlLabel } from "styles/styledComponents";
 import { FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
 

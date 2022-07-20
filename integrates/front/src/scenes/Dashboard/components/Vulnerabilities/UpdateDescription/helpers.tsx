@@ -18,8 +18,8 @@ import type {
   IUpdateTreatmentVulnerabilityForm,
   IVulnDataTypeAttr,
 } from "../types";
+import { Alert } from "components/Alert";
 import type { IConfirmFn } from "components/ConfirmDialog";
-import { Alert } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";

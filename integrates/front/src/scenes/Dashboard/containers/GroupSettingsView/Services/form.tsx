@@ -3,6 +3,7 @@ import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { Select } from "components/Input";
@@ -18,7 +19,7 @@ import type {
   IFormData,
   IServicesFormProps,
 } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
-import { Alert, FormGroup } from "styles/styledComponents";
+import { FormGroup } from "styles/styledComponents";
 import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import {

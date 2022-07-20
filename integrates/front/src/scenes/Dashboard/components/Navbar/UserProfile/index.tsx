@@ -27,6 +27,7 @@ import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
 
 import { AddUserModal } from "../../AddUserModal";
+import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Dropdown } from "components/Dropdown";
@@ -34,7 +35,7 @@ import { Hr } from "components/Layout";
 import { Switch } from "components/Switch";
 import { Text } from "components/Text";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
-import { Alert, ControlLabel } from "styles/styledComponents";
+import { ControlLabel } from "styles/styledComponents";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
 import type { IFeaturePreviewContext } from "utils/featurePreview";

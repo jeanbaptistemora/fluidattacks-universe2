@@ -3,13 +3,6 @@ import styled from "styled-components";
 
 import style from "utils/forms/index.css";
 
-const Alert: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
-  {
-    className:
-      "b--salmon bg-salmon br3 burgundy mb3 outline-transparent pb2 pt2 pl3 pr3",
-  }
-)``;
-
 const ButtonGroup: StyledComponent<
   "div",
   Record<string, unknown>
@@ -510,7 +503,6 @@ const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 })``;
 
 export {
-  Alert,
   ButtonGroup,
   ButtonToolbar,
   ButtonToolbarCenter,

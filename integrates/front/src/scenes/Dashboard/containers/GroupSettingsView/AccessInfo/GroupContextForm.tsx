@@ -6,10 +6,10 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
+import { Alert } from "components/Alert";
 import { Text } from "components/Text";
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/GroupSettingsView/AccessInfo/ActionButtons";
-import { Alert } from "styles/styledComponents";
 import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
