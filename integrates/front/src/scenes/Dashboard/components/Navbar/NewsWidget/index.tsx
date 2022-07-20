@@ -1,4 +1,4 @@
-import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnnounceKit from "announcekit-react";
 import React, { useContext } from "react";
@@ -19,7 +19,7 @@ const NewsWidget: React.FC = (): JSX.Element => {
         widgetStyle={{ position: "absolute", top: "25px" }}
       >
         <Text size={4}>
-          <FontAwesomeIcon icon={faNewspaper} />
+          <FontAwesomeIcon icon={faBullhorn} />
         </Text>
       </AnnounceKit>
     </Button>
