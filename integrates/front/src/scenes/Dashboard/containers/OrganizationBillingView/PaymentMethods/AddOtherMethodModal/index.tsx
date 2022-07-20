@@ -1,19 +1,17 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
+import { Input, Select } from "components/Input";
+import { Gap, Hr } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
+import { Text } from "components/Text";
 import { countries } from "utils/countries";
 import type { ICountries } from "utils/countries";
-import {
-  FormikDropdown,
-  FormikFileInput,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikFileInput } from "utils/forms/fields";
 
 interface IAddOtherMethodModalProps {
   onClose: () => void;
@@ -156,163 +154,144 @@ export const AddOtherMethodModal = ({
 
           return (
             <Form>
-              <div>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t(
+              <Gap disp={"block"} mh={0} mv={12}>
+                <Input
+                  label={t(
                     "organization.tabs.billing.paymentMethods.add.otherMethods.businessName"
                   )}
-                </ControlLabel>
-                <Field
-                  component={FormikText}
                   name={"businessName"}
-                  type={"text"}
+                  required={true}
                 />
-              </div>
-              <div>
-                <ControlLabel>
-                  <RequiredField>{"*"}&nbsp;</RequiredField>
-                  {t(
-                    "organization.tabs.billing.paymentMethods.add.otherMethods.country"
-                  )}
-                </ControlLabel>
-              </div>
-              <div
-                onClick={changeCountry}
-                onKeyDown={changeCountry}
-                role={"listitem"}
-              >
-                <Field component={FormikDropdown} name={"country"}>
-                  <option value={""}>{""}</option>
-                  {countriesData === undefined
-                    ? undefined
-                    : countriesData.map(
-                        (country): JSX.Element => (
-                          <option key={country.id} value={country.name}>
-                            {country.name}
-                          </option>
-                        )
-                      )}
-                </Field>
-              </div>
-              {states === undefined
-                ? undefined
-                : states.length > 0 && (
-                    <React.Fragment>
-                      <div>
-                        <ControlLabel>
-                          <RequiredField>{"*"}&nbsp;</RequiredField>
-                          {t(
-                            "organization.tabs.billing.paymentMethods.add.otherMethods.state"
-                          )}
-                        </ControlLabel>
-                      </div>
-                      <div
-                        onClick={changeState}
-                        onKeyDown={changeState}
-                        role={"listitem"}
-                      >
-                        <Field component={FormikDropdown} name={"state"}>
-                          <option value={""}>{""}</option>
-                          {states.map(
-                            (state): JSX.Element => (
-                              <option key={state} value={state}>
-                                {state}
-                              </option>
-                            )
-                          )}
-                        </Field>
-                      </div>
-                    </React.Fragment>
-                  )}
-              {cities === undefined
-                ? undefined
-                : cities.length > 0 && (
-                    <div>
-                      <ControlLabel>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {t(
-                          "organization.tabs.billing.paymentMethods.add.otherMethods.city"
-                        )}
-                      </ControlLabel>
-                      <Field component={FormikDropdown} name={"city"}>
-                        <option value={""}>{""}</option>
-                        {cities.map(
-                          (city): JSX.Element => (
-                            <option key={city} value={city}>
-                              {city}
+                <div
+                  onClick={changeCountry}
+                  onKeyDown={changeCountry}
+                  role={"listitem"}
+                >
+                  <Select
+                    label={t(
+                      "organization.tabs.billing.paymentMethods.add.otherMethods.country"
+                    )}
+                    name={"country"}
+                    required={true}
+                  >
+                    <option value={""}>{""}</option>
+                    {countriesData === undefined
+                      ? undefined
+                      : countriesData.map(
+                          (country): JSX.Element => (
+                            <option key={country.id} value={country.name}>
+                              {country.name}
                             </option>
                           )
                         )}
-                      </Field>
-                    </div>
-                  )}
-              {values.country === "Colombia" ? (
-                <React.Fragment>
-                  <div>
-                    <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
-                      {t(
+                  </Select>
+                </div>
+                {states === undefined || states.length === 0 ? undefined : (
+                  <div
+                    onClick={changeState}
+                    onKeyDown={changeState}
+                    role={"listitem"}
+                  >
+                    <Select
+                      label={t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.state"
+                      )}
+                      name={"state"}
+                      required={true}
+                    >
+                      <option value={""}>{""}</option>
+                      {states.map(
+                        (state): JSX.Element => (
+                          <option key={state} value={state}>
+                            {state}
+                          </option>
+                        )
+                      )}
+                    </Select>
+                  </div>
+                )}
+                {cities === undefined || cities.length === 0 ? undefined : (
+                  <Select
+                    label={t(
+                      "organization.tabs.billing.paymentMethods.add.otherMethods.city"
+                    )}
+                    name={"city"}
+                    required={true}
+                  >
+                    <option value={""}>{""}</option>
+                    {cities.map(
+                      (city): JSX.Element => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      )
+                    )}
+                  </Select>
+                )}
+                {values.country === "Colombia" ? (
+                  <Fragment>
+                    <Input
+                      label={t(
                         "organization.tabs.billing.paymentMethods.add.otherMethods.email"
                       )}
-                    </ControlLabel>
-                    <Field
-                      component={FormikText}
                       name={"email"}
-                      type={"text"}
+                      required={true}
+                      type={"email"}
                     />
-                  </div>
+                    <div>
+                      <Text mb={1}>
+                        <Text disp={"inline-block"} mr={1} tone={"red"}>
+                          {"*"}
+                        </Text>
+                        {t(
+                          "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                        )}
+                      </Text>
+                      <Field
+                        accept={
+                          "application/pdf,application/zip,image/gif,image/jpg,image/png"
+                        }
+                        component={FormikFileInput}
+                        id={"rutList"}
+                        name={"rutList"}
+                      />
+                    </div>
+                  </Fragment>
+                ) : (
                   <div>
-                    <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
+                    <Text mb={1}>
+                      <Text disp={"inline-block"} mr={1} tone={"red"}>
+                        {"*"}
+                      </Text>
                       {t(
-                        "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
                       )}
-                    </ControlLabel>
+                    </Text>
                     <Field
                       accept={
                         "application/pdf,application/zip,image/gif,image/jpg,image/png"
                       }
                       component={FormikFileInput}
-                      id={"rutList"}
-                      name={"rutList"}
+                      id={"taxId"}
+                      name={"taxIdList"}
                     />
                   </div>
-                </React.Fragment>
-              ) : (
-                <div>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {t(
-                      "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
-                    )}
-                  </ControlLabel>
-                  <Field
-                    accept={
-                      "application/pdf,application/zip,image/gif,image/jpg,image/png"
-                    }
-                    component={FormikFileInput}
-                    id={"taxId"}
-                    name={"taxIdList"}
-                  />
-                </div>
-              )}
+                )}
+              </Gap>
               <ModalConfirm
                 disabled={!dirty || isSubmitting}
                 onCancel={onClose}
               />
-              <hr />
-              <div>
-                <Button
-                  id={"other-payment-methods"}
-                  onClick={goToCreditCard}
-                  type={"button"}
-                >
-                  {t(
-                    "organization.tabs.billing.paymentMethods.add.otherMethods.creditCard"
-                  )}
-                </Button>
-              </div>
+              <Hr />
+              <Button
+                id={"other-payment-methods"}
+                onClick={goToCreditCard}
+                type={"button"}
+              >
+                {t(
+                  "organization.tabs.billing.paymentMethods.add.otherMethods.creditCard"
+                )}
+              </Button>
             </Form>
           );
         }}
