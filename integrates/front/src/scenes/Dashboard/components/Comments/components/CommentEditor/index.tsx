@@ -9,7 +9,6 @@ import type { ConfigurableValidator } from "revalidate";
 import { Button } from "components/Button";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
-import { ButtonToolbar, Col100, Row } from "styles/styledComponents";
 import { FormikTextAreaAutosize } from "utils/forms/fields/TextArea";
 import {
   composeValidators,
@@ -80,33 +79,25 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
       onSubmit={clickHandler}
     >
       <Form>
-        <Row>
-          <Field
-            component={FormikTextAreaAutosize}
-            maxRows={8}
-            minRows={2}
-            name={"comment-editor"}
-            onFocus={onFocus}
-            onTextChange={onChange}
-            placeholder={t("comments.editorPlaceholder")}
-            rows={"2"}
-            type={"text"}
-            validate={composeValidators([maxContentLength, validTextField])}
-          />
-        </Row>
-        <div className={"pv2"}>
-          <Row>
-            <Col100>
-              {editorText !== "" && (
-                <ButtonToolbar>
-                  <Button type={"submit"} variant={"primary"}>
-                    {t("comments.send")}
-                  </Button>
-                </ButtonToolbar>
-              )}
-            </Col100>
-          </Row>
-        </div>
+        <Field
+          component={FormikTextAreaAutosize}
+          maxRows={8}
+          minRows={2}
+          name={"comment-editor"}
+          onFocus={onFocus}
+          onTextChange={onChange}
+          placeholder={t("comments.editorPlaceholder")}
+          rows={"2"}
+          type={"text"}
+          validate={composeValidators([maxContentLength, validTextField])}
+        />
+        {editorText !== "" && (
+          <div className={"pv2"}>
+            <Button type={"submit"} variant={"primary"}>
+              {t("comments.send")}
+            </Button>
+          </div>
+        )}
       </Form>
     </Formik>
   );

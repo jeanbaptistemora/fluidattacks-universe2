@@ -15,12 +15,12 @@ import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
 import { Button } from "components/Button";
-import { Col, Row } from "components/Layout";
+import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/GroupFindingsView/queries";
-import { ButtonToolbar, Col100 } from "styles/styledComponents";
+import { Col100 } from "styles/styledComponents";
 import { FormikCheckbox, FormikDate } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -324,19 +324,15 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             )}
                           </Col>
                         </Row>
-                        <hr />
-                        <Row>
-                          <ButtonToolbar>
-                            <Button
-                              id={"report-excel"}
-                              type={"submit"}
-                              variant={"primary"}
-                            >
-                              <FontAwesomeIcon icon={faFileExcel} />
-                              &nbsp;{t("group.findings.report.generateXls")}
-                            </Button>
-                          </ButtonToolbar>
-                        </Row>
+                        <Hr />
+                        <Button
+                          id={"report-excel"}
+                          type={"submit"}
+                          variant={"primary"}
+                        >
+                          <FontAwesomeIcon icon={faFileExcel} />
+                          &nbsp;{t("group.findings.report.generateXls")}
+                        </Button>
                       </Form>
                     );
                   }}

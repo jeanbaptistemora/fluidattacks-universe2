@@ -23,7 +23,6 @@ import {
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
-  ButtonToolbar,
   Col100,
   Col50,
   ControlLabel,
@@ -315,7 +314,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             <div>
               <div>
                 <Row>
-                  <ButtonToolbar>
+                  <div className={"fr"}>
                     {data.event.eventStatus === "SOLVED" ? (
                       <Can
                         do={"api_mutations_update_event_solving_reason_mutate"}
@@ -338,7 +337,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         </Button>
                       </Can>
                     )}
-                  </ButtonToolbar>
+                  </div>
                 </Row>
                 <Row>
                   <Col50>

@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
-import { ButtonToolbar } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 
 interface IFindingActionsProps {
@@ -34,7 +33,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
   const canApprove: boolean = hasVulns && hasSubmission;
 
   return (
-    <ButtonToolbar>
+    <div className={"fr"}>
       {isDraft ? (
         <React.Fragment>
           <Can do={"api_mutations_submit_draft_mutate"}>
@@ -122,7 +121,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
           </Can>
         </React.Fragment>
       ) : undefined}
-    </ButtonToolbar>
+    </div>
   );
 };
 

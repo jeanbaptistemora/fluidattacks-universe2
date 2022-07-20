@@ -23,7 +23,7 @@ import type {
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import { ButtonToolbar, Row } from "styles/styledComponents";
+import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
@@ -301,45 +301,37 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                   defaultSorted={{ dataField: "name", order: "asc" }}
                   exportCsv={false}
                   extraButtons={
-                    <Row>
-                      <Can do={"api_mutations_add_group_mutate"}>
-                        <ButtonToolbar>
-                          <Tooltip
-                            hide={runTour}
-                            id={
-                              "organization.tabs.groups.newGroup.new.tooltip.btn"
-                            }
-                            tip={t(
-                              "organization.tabs.groups.newGroup.new.tooltip"
-                            )}
-                          >
-                            <Button
-                              id={"add-group"}
-                              onClick={openNewGroupModal}
-                              variant={"tertiary"}
-                            >
-                              <FontAwesomeIcon icon={faPlus} />
-                              &nbsp;
-                              {t("organization.tabs.groups.newGroup.new.text")}
-                            </Button>
-                            {runTour ? (
-                              <Tour
-                                run={false}
-                                steps={[
-                                  {
-                                    ...BaseStep,
-                                    content: t("tours.addGroup.addButton"),
-                                    disableBeacon: true,
-                                    hideFooter: true,
-                                    target: "#add-group",
-                                  },
-                                ]}
-                              />
-                            ) : undefined}
-                          </Tooltip>
-                        </ButtonToolbar>
-                      </Can>
-                    </Row>
+                    <Can do={"api_mutations_add_group_mutate"}>
+                      <Tooltip
+                        hide={runTour}
+                        id={"organization.tabs.groups.newGroup.new.tooltip.btn"}
+                        tip={t("organization.tabs.groups.newGroup.new.tooltip")}
+                      >
+                        <Button
+                          id={"add-group"}
+                          onClick={openNewGroupModal}
+                          variant={"tertiary"}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                          &nbsp;
+                          {t("organization.tabs.groups.newGroup.new.text")}
+                        </Button>
+                        {runTour ? (
+                          <Tour
+                            run={false}
+                            steps={[
+                              {
+                                ...BaseStep,
+                                content: t("tours.addGroup.addButton"),
+                                disableBeacon: true,
+                                hideFooter: true,
+                                target: "#add-group",
+                              },
+                            ]}
+                          />
+                        ) : undefined}
+                      </Tooltip>
+                    </Can>
                   }
                   headers={tableHeaders}
                   id={"tblGroups"}

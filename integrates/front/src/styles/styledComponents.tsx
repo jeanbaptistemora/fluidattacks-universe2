@@ -3,20 +3,6 @@ import styled from "styled-components";
 
 import style from "utils/forms/index.css";
 
-const ButtonGroup: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "relative dib",
-})``;
-
-const ButtonToolbar: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "fr",
-})``;
-
 const ButtonToolbarCenter: StyledComponent<
   "div",
   Record<string, unknown>
@@ -265,7 +251,7 @@ const GraphicPanelCollapseHeader: StyledComponent<
   "div",
   Record<string, unknown>
 > = styled.div.attrs({
-  className: "pb3 pl4 pt3 pr4 items-center panel-ch",
+  className: "pa3 items-center panel-ch",
 })``;
 
 const InputGroup: StyledComponent<
@@ -503,8 +489,6 @@ const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 })``;
 
 export {
-  ButtonGroup,
-  ButtonToolbar,
   ButtonToolbarCenter,
   ButtonToolbarLeft,
   ButtonToolbarRow,

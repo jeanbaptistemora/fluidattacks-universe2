@@ -40,8 +40,6 @@ import styles from "graphics/components/Graphic/index.css";
 import { hasIFrameError } from "graphics/components/Graphic/utils";
 import type { IGraphicProps } from "graphics/types";
 import {
-  ButtonGroup,
-  ButtonToolbar,
   GraphicButton,
   GraphicPanelCollapse,
   GraphicPanelCollapseBody,
@@ -390,7 +388,7 @@ export const Graphic: React.FC<IGraphicProps> = (
           <div className={"flex justify-between w-100"}>
             <div className={`${styles.titleBar} w-50`}>{currentTitle}</div>
             <div className={"w-50 pr2"}>
-              <ButtonToolbar className={"f5"}>
+              <div className={"f5 fr"}>
                 <FilterButton
                   changeToAll={changeToAll}
                   changeToAlternative={changeToAlternative}
@@ -464,7 +462,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                     <FontAwesomeIcon icon={faSyncAlt} />
                   </GraphicButton>
                 </Tooltip>
-              </ButtonToolbar>
+              </div>
             </div>
           </div>
         }
@@ -517,7 +515,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   {expanded &&
                     !reportMode &&
                     fullSize.width > minWidthToShowButtons && (
-                      <ButtonGroup className={"fr"}>
+                      <div className={"fr"}>
                         <FilterButton
                           changeToAll={changeToAll}
                           changeToAlternative={changeToAlternative}
@@ -607,7 +605,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                             <FontAwesomeIcon icon={faExpandArrowsAlt} />
                           </GraphicButton>
                         </Tooltip>
-                      </ButtonGroup>
+                      </div>
                     )}
                 </div>
               </div>
