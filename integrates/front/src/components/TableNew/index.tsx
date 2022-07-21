@@ -7,16 +7,19 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
 
+import { ToggleFunction } from "./columnToggle";
+
 export interface ITableProps<TData> {
   id: string;
   data: TData[];
   columns: ColumnDef<TData>[];
+  columnToggle?: boolean;
 }
 
 export const Tables = <TData extends Record<string, unknown>>(
-  props: ITableProps<TData>
+  props: Readonly<ITableProps<TData>>
 ): JSX.Element => {
-  const { id, data, columns } = props;
+  const { id, data, columns, columnToggle = false } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
 
   const table = useReactTable<TData>({
@@ -31,30 +34,7 @@ export const Tables = <TData extends Record<string, unknown>>(
 
   return (
     <div className={"w-100"} id={id}>
-      <div>
-        <label>
-          <input
-            checked={table.getIsAllColumnsVisible()}
-            onChange={table.getToggleAllColumnsVisibilityHandler()}
-            type={"checkbox"}
-          />{" "}
-          {"Toggle All"}
-        </label>
-        {table.getAllLeafColumns().map((column): ReactElement => {
-          return (
-            <div key={column.id}>
-              <label>
-                <input
-                  checked={column.getIsVisible()}
-                  onChange={column.getToggleVisibilityHandler()}
-                  type={"checkbox"}
-                />{" "}
-                {column.id}
-              </label>
-            </div>
-          );
-        })}
-      </div>
+      {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
       <table>
         <thead>
           {table.getHeaderGroups().map(
