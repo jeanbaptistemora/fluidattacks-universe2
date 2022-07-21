@@ -13,6 +13,12 @@ from collections import (
 from dataloaders.organization_access import (
     OrganizationAccessTypedLoader,
 )
+from dataloaders.organization_stakeholders_access import (
+    OrgStakeholdersAccessLoader,
+)
+from dataloaders.stakeholder_organizations_access import (
+    StakeholderOrgsAccessLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -141,6 +147,7 @@ class Dataloaders(NamedTuple):
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
+    organization_stakeholders_access: OrgStakeholdersAccessLoader
     organization: OrganizationLoader
     portfolio: PortfolioLoader
     root: RootLoader
@@ -155,6 +162,7 @@ class Dataloaders(NamedTuple):
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
+    stakeholder_organizations_access: StakeholderOrgsAccessLoader
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -247,6 +255,7 @@ def get_new_context() -> Dataloaders:
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=organization_stakeholders_loader,
+        organization_stakeholders_access=OrgStakeholdersAccessLoader(),
         organization=OrganizationLoader(),
         portfolio=PortfolioLoader(),
         root=RootLoader(),
@@ -259,6 +268,7 @@ def get_new_context() -> Dataloaders:
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
         stakeholder_level_role=StakeholderLevelRoleLoader(),
+        stakeholder_organizations_access=StakeholderOrgsAccessLoader(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials=UserCredentialsLoader(),
