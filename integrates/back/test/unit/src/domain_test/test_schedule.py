@@ -86,6 +86,12 @@ def test_validate_date_fail() -> None:
                             "today": 0,
                         }
                     },
+                    "released": {
+                        "count": {
+                            "past_day": 0,
+                            "today": 0,
+                        }
+                    },
                     "draft_created": {
                         "count": {
                             "past_day": 0,
@@ -103,6 +109,8 @@ def test_validate_date_fail() -> None:
                             "verified": 0,
                             "enumerated": 0,
                             "loc": 0,
+                            "reattacked": 0,
+                            "released": 0,
                             "draft_created": 0,
                             "draft_rejected": 0,
                         },
@@ -110,6 +118,8 @@ def test_validate_date_fail() -> None:
                             "verified": 0,
                             "enumerated": 0,
                             "loc": 0,
+                            "reattacked": 0,
+                            "released": 0,
                             "draft_created": 0,
                             "draft_rejected": 0,
                         },
@@ -132,12 +142,14 @@ def test_generate_count_report(
         "verified",
         "verified",
         "enumerated",
+        "released",
     ]
     groups: List[str] = [
         "unittesting",
         "unittesting",
         "test_group",
         "unittesting",
+        "test_group",
     ]
 
     for group, field in zip(groups, fields):
@@ -152,9 +164,11 @@ def test_generate_count_report(
 
     assert content[user_email]["verified"]["count"]["today"] == 3
     assert content[user_email]["enumerated"]["count"]["today"] == 1
+    assert content[user_email]["released"]["count"]["today"] == 1
     assert content[user_email]["groups"]["unittesting"]["enumerated"] == 1
     assert content[user_email]["groups"]["unittesting"]["verified"] == 2
     assert content[user_email]["groups"]["test_group"]["verified"] == 1
+    assert content[user_email]["groups"]["test_group"]["released"] == 1
     past_days = 4 if datetime_utils.get_now().weekday() == 1 else date_days + 1
     content = _generate_count_report(
         content=content,
@@ -197,14 +211,20 @@ def test_generate_count_report(
                 },
                 "loc": {
                     "count": {
-                        "past_day": 0,
-                        "today": 0,
+                        "past_day": 4,
+                        "today": 5,
                     }
                 },
                 "reattacked": {
                     "count": {
-                        "past_day": 0,
-                        "today": 0,
+                        "past_day": 3,
+                        "today": 2,
+                    }
+                },
+                "released": {
+                    "count": {
+                        "past_day": 1,
+                        "today": 2,
                     }
                 },
                 "draft_created": {

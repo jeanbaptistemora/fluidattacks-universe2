@@ -83,6 +83,7 @@ def _generate_fields() -> Dict[str, Any]:
         "verified": _generate_count_fields(),
         "loc": _generate_count_fields(),
         "reattacked": _generate_count_fields(),
+        "released": _generate_count_fields(),
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
         "groups": {},
@@ -96,6 +97,7 @@ def _generate_group_fields() -> Dict[str, Any]:
         "enumerated": 0,
         "loc": 0,
         "reattacked": 0,
+        "released": 0,
         "draft_created": 0,
         "draft_rejected": 0,
     }

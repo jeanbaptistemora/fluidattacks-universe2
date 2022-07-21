@@ -15,6 +15,7 @@
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.<br />
       Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.<br />
       - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.<br />
+      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.<br />
       Responsible: {{ responsible }}
     </p>
     <p>
@@ -26,7 +27,8 @@
           {{ fields["verified"] }} iv,
           {{ fields["loc"] }} lv,
           {{ fields["reattacked"] }} re,
-          {{ fields["draft_created"] }} df.<br />
+          {{ fields["draft_created"] }} df.
+          {{ fields["released"] }} rd.<br />
         {% endfor %}
       {% endif %}
       <br />
@@ -35,11 +37,12 @@
       {{ count_var_report["verified"]["variation"] }} iv,
       {{ count_var_report["loc"]["variation"] }} lv,
       {{ count_var_report["reattacked"]["variation"] }} re,
-      {{ count_var_report["draft_created"]["variation"] }} df
+      {{ count_var_report["draft_created"]["variation"] }} df,
+      {{ count_var_report["released"]["variation"] }} rd
     </p>
     <p>
       Legend: ie: Inputs enumerated, iv: Input verified, lv: LoC verified,
-      re: reattacked, df: drafts.
+      re: reattacked, df: drafts, rd: released.
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>
