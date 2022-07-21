@@ -370,6 +370,8 @@ vulnerabilities
 
 ## Mean time to reattack
 
+![Mean time to reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1658425016/docs/web/analytics/common/mean_time_to_reattack.png)
+
 This chart shows how long
 reattacks take in number
 of hours. From when a reattack
