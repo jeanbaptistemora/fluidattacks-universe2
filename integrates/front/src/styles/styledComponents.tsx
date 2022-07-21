@@ -53,15 +53,6 @@ const Col100: StyledComponent<
   className: "ph1-5 w-100",
 })``;
 
-const Col25: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 w-25-ns",
-})``;
-
 const Col33: StyledComponent<
   "div",
   Record<string, unknown>
@@ -69,15 +60,6 @@ const Col33: StyledComponent<
   className: string;
 }>({
   className: "ph1-5 w-33-ns",
-})``;
-
-const Col40: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 w-40-ns",
 })``;
 
 const Col45: StyledComponent<
@@ -114,15 +96,6 @@ const Col80: StyledComponent<
   className: string;
 }>({
   className: "ph1-5 w-80",
-})``;
-
-const Col33L: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "w-33-l",
 })``;
 
 const ControlLabel: StyledComponent<
@@ -187,12 +160,6 @@ const Filters = styled.div.attrs({
   className: "flex flex-wrap flex-auto mt2 justify-around",
 })``;
 
-const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "flex flex-wrap",
-})``;
-
 const FlexAutoContainer = styled.div.attrs({
   className: "flex-auto mh1 mv1",
 })``;
@@ -254,44 +221,6 @@ const InputGroup: StyledComponent<
   className: "relative dt",
 })``;
 
-const Label: StyledComponent<
-  "span",
-  Record<string, unknown>
-> = styled.span.attrs({
-  className: "bg-lbl-gray br2 f4 fw7 ml3 nowrap pv1 ph2 tc white",
-})``;
-
-const LastGroupSetting: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "mb10",
-})``;
-
-const MenuItem: StyledComponent<
-  "li",
-  Record<string, unknown>
-> = styled.li.attrs({
-  className: `
-  br0 db overflow-hidden ph3 pointer pv2 relative switch-mh tc w-100
-  `,
-})``;
-
-const Panel: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
-  {
-    className: "b--mid-light-gray ba br2 mb4",
-  }
-)``;
-
-const PanelBody: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "pa1-5",
-})``;
-
 const PanelCollapse: StyledComponent<
   "div",
   Record<string, boolean>
@@ -311,24 +240,6 @@ const PanelCollapseHeader: StyledComponent<
   Record<string, unknown>
 > = styled.div.attrs({
   className: "pb3 pl4 pt3 pr4 items-center tc panel-ch",
-})``;
-
-const GroupScopeText: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 vertical-center w-60-ns fw2 f5",
-})``;
-
-const GroupScopeTextWide: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 vertical-center w-75 fw2 f5",
 })``;
 
 const QuestionButton: StyledComponent<
@@ -475,26 +386,17 @@ const TableOptionsColBar: StyledComponent<
   className: "dib ma0 pa0 w-20",
 })``;
 
-const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "well pa4 mb4",
-})``;
-
 export {
   ButtonToolbarCenter,
   ButtonToolbarRow,
   CheckBox,
   CheckBoxOption,
   Col100,
-  Col25,
   Col33,
-  Col40,
   Col45,
   Col50,
   Col60,
   Col80,
-  Col33L,
   ControlLabel,
   EditableFieldContent,
   EditableFieldNotUrl,
@@ -504,7 +406,6 @@ export {
   EventHeaderLabel,
   EvidenceDescription,
   Filters,
-  Flex,
   FlexAutoContainer,
   FormGroup,
   HintFieldText,
@@ -517,16 +418,9 @@ export {
   GraphicPanelCollapseBody,
   GraphicPanelCollapseHeader,
   InputGroup,
-  Label,
-  LastGroupSetting,
-  MenuItem,
-  Panel,
-  PanelBody,
   PanelCollapse,
   PanelCollapseBody,
   PanelCollapseHeader,
-  GroupScopeText,
-  GroupScopeTextWide,
   QuestionButton,
   Radio,
   RadioLabel,
@@ -543,5 +437,4 @@ export {
   SwitchItem,
   TabContent,
   TableOptionsColBar,
-  Well,
 };
