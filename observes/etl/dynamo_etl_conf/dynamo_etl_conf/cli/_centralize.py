@@ -66,6 +66,29 @@ def dynamo_tables(
     ).compute()
 
 
+@click.command()  # type: ignore[misc]
+@click.option("--schema-prefix", type=str, required=True)  # type: ignore[misc]
+@click.option("--schema", type=str, required=True)  # type: ignore[misc]
+@pass_ctx  # type: ignore[misc]
+def parts(
+    ctx: CmdContext,
+    schema_prefix: str,
+    schema: str,
+) -> NoReturn:
+    conn = connect(
+        ctx.db_id,
+        ctx.creds,
+        False,
+        IsolationLvl.AUTOCOMMIT,
+    )
+    client = conn.bind(lambda c: new_client(c, LOG))
+    client.bind(
+        lambda c: centralize_module.merge_parts(
+            SchemaClient(c), schema_prefix, SchemaId(schema)
+        )
+    ).compute()
+
+
 @click.group()  # type: ignore[misc]
 @click.option(  # type: ignore[misc]
     "--db-name",

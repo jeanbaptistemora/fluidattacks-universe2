@@ -31,7 +31,7 @@ def _exist(client: SchemaClient, schema: SchemaId) -> Cmd[Maybe[SchemaId]]:
     )
 
 
-def _merge_parts(
+def merge_parts(
     client: SchemaClient, schema_part_prefix: str, target: SchemaId
 ) -> Cmd[None]:
     schemas = (
@@ -40,14 +40,6 @@ def _merge_parts(
         .transform(lambda p: until_empty(from_piter(p)))
     )
     return consume(schemas.map(lambda s: client.move(s, target)))
-
-
-def merge_vms_parts(client: SchemaClient) -> Cmd[None]:
-    return _merge_parts(
-        client,
-        "dynamodb_integrates_vms_part_",
-        SchemaId("dynamodb_integrates_vms"),
-    )
 
 
 def merge_dynamo_tables(
