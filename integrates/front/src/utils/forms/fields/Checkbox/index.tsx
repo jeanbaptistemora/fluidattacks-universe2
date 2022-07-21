@@ -9,6 +9,7 @@ import { ValidationError } from "utils/forms/fields/styles";
 
 interface ICheckboxProps extends FieldProps {
   children: React.ReactNode;
+  disabled?: boolean;
   isChecked?: boolean;
   label: string;
 }
@@ -16,7 +17,7 @@ interface ICheckboxProps extends FieldProps {
 export const FormikCheckbox: React.FC<ICheckboxProps> = (
   props: Readonly<ICheckboxProps>
 ): JSX.Element => {
-  const { field, children, isChecked = false, label } = props;
+  const { field, children, disabled = false, isChecked = false, label } = props;
   const { name } = field;
 
   return (
@@ -25,6 +26,7 @@ export const FormikCheckbox: React.FC<ICheckboxProps> = (
         <Checkbox
           aria-label={name}
           checked={true}
+          disabled={disabled}
           // Best way to pass down props.
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...props}
@@ -34,6 +36,7 @@ export const FormikCheckbox: React.FC<ICheckboxProps> = (
       ) : (
         <Checkbox
           aria-label={name}
+          disabled={disabled}
           // Best way to pass down props.
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...field}
