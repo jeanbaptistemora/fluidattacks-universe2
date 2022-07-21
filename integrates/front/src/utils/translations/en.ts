@@ -1623,7 +1623,7 @@ export const enTranslations: ResourceKey = {
           name: "Group name",
           new: {
             group: "New group",
-            text: "New group",
+            text: "New project",
             tooltip: "Create a new group",
           },
           organization: {
