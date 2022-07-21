@@ -514,8 +514,6 @@ enum NotificationsName {
   AGENT_TOKEN
   "charts_report"
   CHARTS_REPORT
-  "daily_digest"
-  DAILY_DIGEST
   "event_report"
   EVENT_REPORT
   "file_update"
@@ -560,8 +558,6 @@ enum NotificationsName {
 enum SubscriptionReportEntity {
   "Comments"
   COMMENTS
-  "Daily digest"
-  DIGEST
   "Group"
   GROUP
   "Organization"

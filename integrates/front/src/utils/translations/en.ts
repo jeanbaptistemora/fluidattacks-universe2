@@ -374,12 +374,6 @@ export const enTranslations: ResourceKey = {
       unsubscribed: "No",
     },
     confirm: "Save",
-    digest: {
-      label: "Daily digest (all your groups):",
-      subscribed: "Yes",
-      tooltip: "Daily stats from the groups you are subscribed to",
-      unsubscribed: "No",
-    },
     errorText: "An error occurred with your configuration",
     title: "Configuration",
   },
@@ -1968,13 +1962,6 @@ export const enTranslations: ResourceKey = {
           "of reported vulnerabilities and your remediation practices.",
       },
       COMMENTS: "Consulting",
-      DAILY_DIGEST: {
-        name: "Daily digest",
-        tooltip:
-          "Get daily updates on noteworthy activity and vulnerabilities " +
-          "in your subscribed groups.",
-      },
-      DIGEST: "Daily digest",
       EVENT_REPORT: {
         name: "Event alert",
         tooltip:

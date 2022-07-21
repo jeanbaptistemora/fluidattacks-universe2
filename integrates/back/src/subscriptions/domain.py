@@ -39,9 +39,6 @@ from decorators import (
 from group_access.domain import (
     get_users_to_notify,
 )
-from groups import (
-    domain as groups_domain,
-)
 import logging
 import logging.config
 from mailer import (
@@ -133,18 +130,6 @@ async def can_subscribe_user_to_entity_report(
             loaders=loaders,
             email=user_email,
             subject=report_subject,
-        )
-    elif (
-        report_entity.lower() == "digest"
-        and report_subject.lower() == "all_groups"
-    ):
-        success = (
-            len(
-                await groups_domain.get_groups_by_user(
-                    loaders, user_email, with_cache=False
-                )
-            )
-            > 0
         )
     elif report_entity.lower() == "comments":
         success = True
