@@ -20,7 +20,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    node_types = {"decimal_integer_literal", "string"}
+    node_types = {"decimal_integer_literal", "string", "identifier"}
 
     childs = [
         child

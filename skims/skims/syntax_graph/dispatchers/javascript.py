@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
     lexical_declaration as javascript_lexical_declaration,
+    member_expression as javascript_member_expression,
     object as javascript_object,
 )
 from syntax_graph.types import (
@@ -63,6 +64,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "property_identifier",
         },
         syntax_reader=common_identifier.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "member_expression",
+        },
+        syntax_reader=javascript_member_expression.reader,
     ),
     Dispatcher(
         applicable_types={
