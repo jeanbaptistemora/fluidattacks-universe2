@@ -7,18 +7,21 @@ const CardContainer: StyledComponent<
 > = styled.div.attrs({
   className: `
     br3
-    bs-btm-h-10
-    hv-card
+    mh2
     mb3
-    relative
     dt-ns
     mt0-ns
     ma-auto
+    hv-card
+    relative
     bg-white
     all-card
+    bs-btm-h-10
   `,
 })`
-  max-width: 480px;
+  @media screen and (min-width: 1200px) {
+    width: 30%;
+  }
 `;
 
 const WebinarLanguage: StyledComponent<
