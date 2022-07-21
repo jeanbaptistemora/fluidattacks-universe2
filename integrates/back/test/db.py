@@ -158,8 +158,8 @@ async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
     await collect(
         dal_organizations.add(
             organization_access=OrganizationAccess(
-                organization_id=item.email,
-                email=item.organization_id,
+                organization_id=item.organization_id,
+                email=item.email,
             )
         )
         for item in data

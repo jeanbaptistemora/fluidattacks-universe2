@@ -17,6 +17,9 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -65,17 +68,21 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "organization_users": [
-            {
-                "id": organization_id,
-                "users": [
-                    generic_data["global_vars"][
-                        "customer_manager_fluid_email"
-                    ],
-                    new_user,
-                    generic_data["global_vars"]["admin_email"],
+        "organization_access": [
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=generic_data["global_vars"][
+                    "customer_manager_fluid_email"
                 ],
-            },
+            ),
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=new_user,
+            ),
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=generic_data["global_vars"]["admin_email"],
+            ),
         ],
         "stakeholders": [
             {
