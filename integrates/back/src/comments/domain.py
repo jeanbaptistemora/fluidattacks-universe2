@@ -5,9 +5,6 @@ import authz
 from comments import (
     dal as comments_dal,
 )
-from datetime import (
-    datetime,
-)
 from db_model.findings.types import (
     FindingVerification,
 )
@@ -217,18 +214,6 @@ async def get_observations(
     else:
         new_observations = list(filter(_is_scope_comment, observations))
     return new_observations
-
-
-def filter_comments_date(
-    comments: List[Dict[str, Any]],
-    min_date: datetime,
-) -> List[Dict[str, Any]]:
-    return [
-        comment
-        for comment in comments
-        if min_date
-        and datetime_utils.get_from_str(str(comment["created"])) >= min_date
-    ]
 
 
 def filter_reattack_comments(

@@ -63,7 +63,6 @@ from group_access.domain import (
 )
 from group_comments.domain import (
     add_comment,
-    get_total_comments_date,
     list_comments,
 )
 from groups.domain import (
@@ -788,21 +787,6 @@ async def test_get_pending_verification_findings() -> None:
     assert findings[0].title == "038. Business information leak"
     assert findings[0].id == "436992569"
     assert findings[0].group_name == "unittesting"
-
-
-@freeze_time("2018-12-27")
-async def test_get_total_comments_date() -> None:
-    group_name = "unittesting"
-    last_day = datetime_utils.get_now_minus_delta(hours=24)
-    loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-    findings_ids = list(map(lambda finding: finding.id, findings))
-    total_comments = await get_total_comments_date(
-        loaders, findings_ids, group_name, last_day
-    )
-    assert total_comments == 5
 
 
 async def test_get_groups_by_user() -> None:

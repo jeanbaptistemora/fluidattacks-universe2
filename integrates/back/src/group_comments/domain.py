@@ -2,20 +2,8 @@ from aioextensions import (
     collect,
 )
 import authz
-from comments.dal import (
-    get_comments_for_ids,
-)
-from comments.domain import (
-    filter_comments_date,
-)
 from custom_exceptions import (
     InvalidCommentParent,
-)
-from datetime import (
-    datetime,
-)
-from db_model.events.types import (
-    Event,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -123,44 +111,3 @@ async def mask_comments(group_name: str) -> bool:
             ]
         )
     )
-
-
-async def get_total_comments_date(
-    loaders: Any,
-    findings_ids: List[str],
-    group_name: str,
-    min_date: datetime,
-) -> int:
-    """Get the total comments in the group"""
-    group_comments_len = len(
-        filter_comments_date(
-            await group_comments_dal.get_comments(group_name), min_date
-        )
-    )
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
-        group_name
-    )
-    events_ids = [event.id for event in events_group]
-    events_comments_len = len(
-        filter_comments_date(
-            await get_comments_for_ids("event", events_ids), min_date
-        )
-    )
-
-    findings_comments_len = len(
-        filter_comments_date(
-            await get_comments_for_ids("comment", findings_ids), min_date
-        )
-    )
-    findings_comments_len += len(
-        filter_comments_date(
-            await get_comments_for_ids("observation", findings_ids), min_date
-        )
-    )
-    findings_comments_len += len(
-        filter_comments_date(
-            await get_comments_for_ids("zero_risk", findings_ids), min_date
-        )
-    )
-
-    return group_comments_len + events_comments_len + findings_comments_len

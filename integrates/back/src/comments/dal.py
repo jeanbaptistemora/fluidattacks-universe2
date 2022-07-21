@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from boto3.dynamodb.conditions import (
     Attr,
     Key,
@@ -13,9 +10,6 @@ from custom_types import (
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
-)
-from itertools import (
-    chain,
 )
 import logging
 import logging.config
@@ -87,21 +81,3 @@ async def get_comments(
         "FilterExpression": filter_exp,
     }
     return await dynamodb_ops.query(TABLE_NAME, query_attrs)
-
-
-async def get_comments_for_ids(
-    comment_type: str,
-    finding_ids: List[str],
-) -> List[Dict[str, Any]]:
-    """Retrieve comments for several ids"""
-    comments = await collect(
-        tuple(
-            get_comments(
-                comment_type,
-                finding_id,
-            )
-            for finding_id in finding_ids
-        ),
-        workers=8,
-    )
-    return list(chain.from_iterable(comments))
