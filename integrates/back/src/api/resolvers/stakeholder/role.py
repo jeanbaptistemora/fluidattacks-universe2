@@ -47,8 +47,10 @@ async def resolve(
 
     elif entity == "ORGANIZATION":
         organization_id = request_store["organization_id"]
-        org_access: OrganizationAccess = loaders.organization_access.load(
-            (organization_id, parent.email)
+        org_access: OrganizationAccess = (
+            await loaders.organization_access.load(
+                (organization_id, parent.email)
+            )
         )
         invitation_state = format_invitation_state(
             invitation=org_access.invitation,
