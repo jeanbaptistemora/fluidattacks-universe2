@@ -115,5 +115,5 @@ Team of  `Fluid Attacks`.
   replied="2022-04-20"
   confirmed="2022-04-20"
   patched=""
-  disclosure="">
+  disclosure="2022-07-19">
 </time-lapse>
