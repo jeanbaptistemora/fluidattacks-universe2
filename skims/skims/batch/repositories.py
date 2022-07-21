@@ -5,6 +5,8 @@ from ctx import (
 from git import (
     Repo,
 )
+from shutil import rmtree
+from contextlib import asynccontextmanager
 from git.exc import (
     GitError,
 )
@@ -41,6 +43,22 @@ def match_file(patterns: List[GitWildMatchPattern], file: str) -> bool:
                 matches.append(True)
 
     return all(matches) if matches else False
+
+
+@asynccontextmanager
+async def use_namespace(
+    group_name: str,
+    root_nickname: str,
+    presigned_ulr: str,
+    delete: bool = True,
+) -> None:
+    try:
+        namespace_path = await get_namespace(
+            group_name, root_nickname, presigned_ulr, delete
+        )
+        yield namespace_path
+    finally:
+        rmtree(namespace_path)
 
 
 async def get_namespace(
