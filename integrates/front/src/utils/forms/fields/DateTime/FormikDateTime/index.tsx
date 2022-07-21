@@ -8,10 +8,14 @@ import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
 import "react-datetime/css/react-datetime.css";
 
-export const FormikDateTime: React.FC<FieldProps> = (
-  props: FieldProps
+interface IDateTimeProps extends FieldProps {
+  disabled?: boolean;
+}
+
+export const FormikDateTime: React.FC<IDateTimeProps> = (
+  props: Readonly<IDateTimeProps>
 ): JSX.Element => {
-  const { field, form } = props;
+  const { field, form, disabled = false } = props;
   const { name } = field;
 
   function handleChange(value: Moment | string): void {
@@ -25,7 +29,7 @@ export const FormikDateTime: React.FC<FieldProps> = (
   return (
     <React.Fragment>
       <Datetime
-        inputProps={{ className: style["form-control"] }}
+        inputProps={{ className: style["form-control"], disabled }}
         utc={false}
         // Best way to pass down props.
         // eslint-disable-next-line react/jsx-props-no-spreading
