@@ -78,16 +78,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1657725974,
-        "narHash": "sha256-VwX/HTSF+l8RKkOflon9+MAH82SY2dT4LQYwqPYuDjQ=",
+        "lastModified": 1658427337,
+        "narHash": "sha256-4l7Rz9u6phPGwd/ow0Y7m2eQ1+EQfarQQSa2hiMDHkI=",
         "owner": "dmurciaatfluid",
         "repo": "redshift_client",
-        "rev": "ee4cbf511fcc2faf993da55a54f9740281bff2b3",
+        "rev": "264c6c0871f34af60c8f17e922730a6ef9f0e5e4",
         "type": "gitlab"
       },
       "original": {
         "owner": "dmurciaatfluid",
-        "ref": "tags/v0.10.0",
+        "ref": "tags/v1.1.0",
         "repo": "redshift_client",
         "type": "gitlab"
       }
