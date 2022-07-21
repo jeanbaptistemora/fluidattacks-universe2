@@ -19,10 +19,13 @@ from dynamodb.operations_legacy import (
     query as dynamodb_query,
     update_item as dynamodb_update_item,
 )
+from dynamodb.types import (
+    Item,
+)
 import logging
 import logging.config
 from newutils.organization_access import (
-    format_metadata_to_update,
+    format_metadata_item,
 )
 from newutils.organizations import (
     remove_org_id_prefix,
@@ -113,26 +116,23 @@ async def has_user_access(organization_id: str, email: str) -> bool:
     return has_access
 
 
-async def remove_user(organization_id: str, email: str) -> bool:
-    """
-    Remove a user from an organization.
-    """
-    success: bool = False
+async def remove(*, email: str, organization_id: str) -> None:
+    """Remove a stakeholder org access."""
     organization_id = remove_org_id_prefix(organization_id)
-    user_item = DynamoDeleteType(
+    item = DynamoDeleteType(
         Key={
             "pk": f"ORG#{organization_id}",
             "sk": f"USER#{email.lower().strip()}",
         }
     )
     try:
-        success = await dynamodb_delete_item(TABLE_NAME, user_item)
+        if not await dynamodb_delete_item(TABLE_NAME, item):
+            raise UnavailabilityError()
     except ClientError as ex:
         raise UnavailabilityError() from ex
-    return success
 
 
-async def update_user(
+async def update_stakeholder(
     organization_id: str, user_email: str, data: dict[str, Any]
 ) -> bool:
     """Update org access attributes."""
@@ -169,8 +169,12 @@ async def update_user(
     return success
 
 
-async def update_org_access(
-    org_id: str, email: str, org_access: OrganizationAccessMetadataToUpdate
+async def update_metadata(
+    *,
+    email: str,
+    metadata: OrganizationAccessMetadataToUpdate,
+    organization_id: str,
 ) -> None:
-    data = format_metadata_to_update(org_access)
-    await update_user(org_id, email, data)
+    data: Item = format_metadata_item(metadata)
+    if not await update_stakeholder(organization_id, email, data):
+        raise UnavailabilityError()

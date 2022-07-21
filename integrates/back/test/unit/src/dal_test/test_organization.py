@@ -29,7 +29,7 @@ async def test_remove_user() -> None:
     assert len(users) > 0
     assert user in users
 
-    await orgs_dal.remove_user(org_id, user)
+    await orgs_dal.remove(email=user, organization_id=org_id)
     updated_users = await orgs_dal.get_users(org_id)
     assert len(updated_users) == len(users) - 1
     assert user not in updated_users

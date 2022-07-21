@@ -481,13 +481,10 @@ async def remove_user(
     if not await has_user_access(organization_id, email):
         raise StakeholderNotInOrganization()
 
-    user_removed, role_removed = await collect(
-        (
-            orgs_dal.remove_user(organization_id, email),
-            authz.revoke_organization_level_role(email, organization_id),
-        )
+    await orgs_dal.remove(email=email, organization_id=organization_id)
+    user_removed = await authz.revoke_organization_level_role(
+        email, organization_id
     )
-
     org_group_names = await get_group_names(loaders, organization_id)
     groups_removed = all(
         await collect(
@@ -515,7 +512,7 @@ async def remove_user(
             for credential in user_credentials
         )
     )
-    return user_removed and role_removed and groups_removed
+    return user_removed and groups_removed
 
 
 async def reject_register_for_organization_invitation(
@@ -605,11 +602,11 @@ async def update_credentials(
 
 async def update_organization_access(
     organization_id: str,
-    user_email: str,
+    email: str,
     metadata: OrganizationAccessMetadataToUpdate,
 ) -> None:
-    return await orgs_dal.update_org_access(
-        organization_id, user_email, metadata
+    return await orgs_dal.update_metadata(
+        email=email, metadata=metadata, organization_id=organization_id
     )
 
 
@@ -618,7 +615,7 @@ async def update_user(
     user_email: str,
     data: dict[str, Any],
 ) -> bool:
-    return await orgs_dal.update_user(organization_id, user_email, data)
+    return await orgs_dal.update_stakeholder(organization_id, user_email, data)
 
 
 async def update_invited_stakeholder(

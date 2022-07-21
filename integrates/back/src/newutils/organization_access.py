@@ -60,7 +60,7 @@ def format_organization_access(item: Item) -> OrganizationAccess:
     )
 
 
-def format_metadata_to_update(
+def format_metadata_item(
     metadata: OrganizationAccessMetadataToUpdate,
 ) -> Item:
     item: Item = {

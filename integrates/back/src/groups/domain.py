@@ -257,18 +257,18 @@ async def complete_register_for_organization_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     organization_id = organization_access.organization_id
-    user_email = organization_access.email
+    email = organization_access.email
     if invitation:
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
     user_added = await orgs_domain.add_user(
-        loaders, organization_id, user_email, role
+        loaders, organization_id, email, role
     )
 
     await orgs_domain.update_organization_access(
         organization_id,
-        user_email,
+        email,
         OrganizationAccessMetadataToUpdate(
             expiration_time=None,
             has_access=True,
@@ -278,13 +278,13 @@ async def complete_register_for_organization_invitation(
 
     user_created = False
     try:
-        await loaders.stakeholder.load(user_email)
+        await loaders.stakeholder.load(email)
         user_exists = True
     except StakeholderNotFound:
         user_exists = False
     if not user_exists:
         user_created = await add_without_group(
-            user_email,
+            email,
             "user",
             is_register_after_complete=True,
         )
