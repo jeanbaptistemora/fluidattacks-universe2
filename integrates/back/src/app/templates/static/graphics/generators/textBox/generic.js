@@ -2,6 +2,14 @@
 
 const half = 0.5;
 
+function formatValue(value) {
+  if (Math.abs(value) === 0) {
+    return 0;
+  }
+
+  return value;
+}
+
 function render(dataDocument, height, width) {
   const fontSize = dataDocument.fontSizeRatio * Math.min(height, width);
   const fontOffset = fontSize * half * half;
@@ -50,7 +58,7 @@ function render(dataDocument, height, width) {
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'middle')
       .attr('transform', `translate(0, ${ fontOffset })`)
-      .text(dataDocument.percentage ? `${ Math.abs(value) === 0 ? 0 : value }%` : dataDocument.text);
+      .text(dataDocument.percentage ? `${ formatValue(value) }%` : dataDocument.text);
   }
 }
 
