@@ -27,6 +27,12 @@ from integrates.domain import (
 from integrates.graphql import (
     create_session,
 )
+from kombu import (
+    Connection,
+)
+from kombu.utils.url import (
+    safequote,
+)
 from lib_apk.analyze import (
     analyze as analyze_apk,
 )
@@ -66,6 +72,7 @@ from utils.logs import (
 from utils.repositories import (
     get_repo_head_hash,
 )
+import uuid
 from zone import (
     t,
 )
@@ -85,6 +92,25 @@ async def _upload_csv_result(
                     "skims.data",
                     f"results/{CTX.config.execution_id}.csv",
                 )
+
+
+async def queue_upload_vulns(execution_id: str) -> None:
+    access_key = os.environ["AWS_ACCESS_KEY_ID"]
+    secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
+
+    broker_url = f"sqs://{safequote(access_key)}:{safequote(secret_key)}@"
+    with Connection(broker_url) as conn:
+        queue = conn.SimpleQueue("skims-report-queue")
+        message = {
+            "id": uuid.uuid4().hex,
+            "task": "process-skims-result",
+            "args": [execution_id],
+            "kwargs": {},
+            "retries": 0,
+            "eta": datetime.now().isoformat(),
+        }
+        queue.put(message)
+        queue.close()
 
 
 async def execute_skims(

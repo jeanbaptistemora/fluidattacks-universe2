@@ -7,7 +7,7 @@ from .resources import (
 )
 import asyncio
 from batch.repositories import (
-    get_namespace,
+    use_namespace,
 )
 from core.persist import (
     persist,
@@ -83,9 +83,9 @@ async def _report_wrapped(task_id: str) -> None:
             if not download_url:
                 log_blocking("warning", "Unable to find presigned url")
                 return
-            await get_namespace(group, root.nickname, download_url)
-            await persist(group=group, stores=stores, roots=roots)
-            break
+            async with use_namespace(group, root.nickname, download_url):
+                await persist(group=group, stores=stores, roots=roots)
+                break
 
 
 @app.task(serializer="json", name="process-skims-result")

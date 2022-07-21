@@ -25,6 +25,7 @@ from shutil import (
 )
 import tempfile
 from typing import (
+    AsyncIterator,
     List,
     Optional,
 )
@@ -55,14 +56,15 @@ async def use_namespace(
     root_nickname: str,
     presigned_ulr: str,
     delete: bool = True,
-) -> None:
+) -> AsyncIterator[Optional[str]]:
     try:
         namespace_path = await get_namespace(
             group_name, root_nickname, presigned_ulr, delete
         )
         yield namespace_path
     finally:
-        rmtree(namespace_path)
+        if namespace_path:
+            rmtree(namespace_path)
 
 
 async def get_namespace(
