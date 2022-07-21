@@ -370,8 +370,8 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
             <Row>
               <Col33>
                 <Graphic
-                  bsHeight={160}
-                  className={"g2"}
+                  bsHeight={80}
+                  className={"g3"}
                   documentName={"meanTimeToReattack"}
                   documentType={"textBox"}
                   entity={entity}
