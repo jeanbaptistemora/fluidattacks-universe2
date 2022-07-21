@@ -3,7 +3,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,10 +16,10 @@ import {
 } from "../../queries";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
+import { Input, TextArea } from "components/Input";
+import { Gap } from "components/Layout";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText, FormikTextArea } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -138,109 +138,83 @@ const AddSecret: React.FC<ISecretsProps> = ({
   }
 
   return (
-    <div>
-      <Formik
-        initialValues={initialValues}
-        name={"gitRootSecret"}
-        onSubmit={handleSecretSubmit}
-        validationSchema={getSecretSchema(isDuplicated, isUpdate)}
-      >
-        {({ isValid, dirty, isSubmitting }): JSX.Element => (
-          <Form>
-            <fieldset className={"bn"}>
-              <legend className={"f3 b"}>
-                {isUpdate
-                  ? t("group.scope.git.repo.credentials.secrets.update")
-                  : t("group.scope.git.repo.credentials.secrets.add")}
-              </legend>
-              <div>
-                <div>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {"Key"}
-                  </ControlLabel>
-                  <Field
-                    component={FormikText}
-                    disabled={isUpdate}
-                    name={"key"}
-                    type={"text"}
-                  />
-                </div>
-                <div className={"mt3"}>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {t("group.scope.git.repo.credentials.secrets.value")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikTextArea}
-                    name={"value"}
-                    type={"text"}
-                  />
-                </div>
-                <div className={"mt3"}>
-                  <ControlLabel>
-                    {t("group.scope.git.repo.credentials.secrets.description")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikTextArea}
-                    name={"description"}
-                    type={"text"}
-                  />
-                </div>
-                <div className={"mt3"}>
-                  <Button
-                    disabled={
-                      !isValid || !dirty || isSubmitting || !canAddSecret
-                    }
-                    id={"git-root-add-secret"}
-                    type={"submit"}
-                    variant={"primary"}
+    <Formik
+      initialValues={initialValues}
+      name={"gitRootSecret"}
+      onSubmit={handleSecretSubmit}
+      validationSchema={getSecretSchema(isDuplicated, isUpdate)}
+    >
+      {({ isValid, dirty, isSubmitting }): JSX.Element => (
+        <Form>
+          <fieldset className={"bn"}>
+            <legend className={"f3 b"}>
+              {isUpdate
+                ? t("group.scope.git.repo.credentials.secrets.update")
+                : t("group.scope.git.repo.credentials.secrets.add")}
+            </legend>
+            <Gap disp={"block"} mh={0} mv={12}>
+              <Input
+                disabled={isUpdate}
+                label={"Key"}
+                name={"key"}
+                required={true}
+              />
+              <TextArea
+                label={t("group.scope.git.repo.credentials.secrets.value")}
+                name={"value"}
+                required={true}
+              />
+              <TextArea
+                label={t(
+                  "group.scope.git.repo.credentials.secrets.description"
+                )}
+                name={"description"}
+              />
+              <Button
+                disabled={!isValid || !dirty || isSubmitting || !canAddSecret}
+                id={"git-root-add-secret"}
+                type={"submit"}
+                variant={"primary"}
+              >
+                {t("components.modal.confirm")}
+              </Button>
+              {isUpdate ? (
+                <Can do={"api_mutations_remove_environment_url_secret_mutate"}>
+                  <ConfirmDialog
+                    title={t("group.scope.git.repo.credentials.secrets.remove")}
                   >
-                    {t("components.modal.confirm")}
-                  </Button>
-                  {isUpdate ? (
-                    <Can
-                      do={"api_mutations_remove_environment_url_secret_mutate"}
-                    >
-                      <ConfirmDialog
-                        title={t(
-                          "group.scope.git.repo.credentials.secrets.remove"
-                        )}
-                      >
-                        {(confirm): JSX.Element => {
-                          function onConfirmDelete(): void {
-                            confirm((): void => {
-                              handleRemoveClick();
-                            });
-                          }
+                    {(confirm): JSX.Element => {
+                      function onConfirmDelete(): void {
+                        confirm((): void => {
+                          handleRemoveClick();
+                        });
+                      }
 
-                          return (
-                            <Button
-                              id={"git-root-remove-secret"}
-                              onClick={onConfirmDelete}
-                              variant={"secondary"}
-                            >
-                              <FontAwesomeIcon icon={faTrashAlt} />
-                            </Button>
-                          );
-                        }}
-                      </ConfirmDialog>
-                    </Can>
-                  ) : undefined}
-                  <Button
-                    id={"git-root-add-secret-cancel"}
-                    onClick={closeModal}
-                    variant={"secondary"}
-                  >
-                    {t("components.modal.cancel")}
-                  </Button>
-                </div>
-              </div>
-            </fieldset>
-          </Form>
-        )}
-      </Formik>
-    </div>
+                      return (
+                        <Button
+                          id={"git-root-remove-secret"}
+                          onClick={onConfirmDelete}
+                          variant={"secondary"}
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </Button>
+                      );
+                    }}
+                  </ConfirmDialog>
+                </Can>
+              ) : undefined}
+              <Button
+                id={"git-root-add-secret-cancel"}
+                onClick={closeModal}
+                variant={"secondary"}
+              >
+                {t("components.modal.cancel")}
+              </Button>
+            </Gap>
+          </fieldset>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
