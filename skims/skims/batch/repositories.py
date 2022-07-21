@@ -1,12 +1,13 @@
 import asyncio
+from contextlib import (
+    asynccontextmanager,
+)
 from ctx import (
     NAMESPACES_FOLDER,
 )
 from git import (
     Repo,
 )
-from shutil import rmtree
-from contextlib import asynccontextmanager
 from git.exc import (
     GitError,
 )
@@ -19,6 +20,9 @@ from pathspec.patterns.gitwildmatch import (
     GitWildMatchPattern,
 )
 import shutil
+from shutil import (
+    rmtree,
+)
 import tempfile
 from typing import (
     List,
