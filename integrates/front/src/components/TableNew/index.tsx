@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-table";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { ReactElement } from "react";
-import React from "react";
+import React, { useState } from "react";
 
 export interface ITableProps<TData> {
   id: string;
@@ -17,15 +17,44 @@ export const Tables = <TData extends Record<string, unknown>>(
   props: ITableProps<TData>
 ): JSX.Element => {
   const { id, data, columns } = props;
+  const [columnVisibility, setColumnVisibility] = useState({});
 
   const table = useReactTable<TData>({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      columnVisibility,
+    },
   });
 
   return (
     <div className={"w-100"} id={id}>
+      <div>
+        <label>
+          <input
+            checked={table.getIsAllColumnsVisible()}
+            onChange={table.getToggleAllColumnsVisibilityHandler()}
+            type={"checkbox"}
+          />{" "}
+          {"Toggle All"}
+        </label>
+        {table.getAllLeafColumns().map((column): ReactElement => {
+          return (
+            <div key={column.id}>
+              <label>
+                <input
+                  checked={column.getIsVisible()}
+                  onChange={column.getToggleVisibilityHandler()}
+                  type={"checkbox"}
+                />{" "}
+                {column.id}
+              </label>
+            </div>
+          );
+        })}
+      </div>
       <table>
         <thead>
           {table.getHeaderGroups().map(
