@@ -217,6 +217,9 @@ export const enTranslations: ResourceKey = {
       forcesUsage: {
         title: "Service usage",
       },
+      meanTimeToReattack: {
+        title: "Mean time to reattack",
+      },
       remediationCreated: {
         title: "Sprint exposure increment",
       },

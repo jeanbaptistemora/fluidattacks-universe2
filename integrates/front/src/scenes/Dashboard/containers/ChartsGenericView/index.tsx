@@ -367,6 +367,23 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
                 />
               </Col33>
             </RowCenter>
+            <Row>
+              <Col33>
+                <Graphic
+                  bsHeight={160}
+                  className={"g2"}
+                  documentName={"meanTimeToReattack"}
+                  documentType={"textBox"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"textBox"}
+                  infoLink={`${graphInfoLink}common#mean-time-to-reattack`}
+                  reportMode={reportMode}
+                  subject={subject}
+                  title={t("analytics.textBox.meanTimeToReattack.title")}
+                />
+              </Col33>
+            </Row>
             <RowCenter>
               <Col50>
                 <Graphic
