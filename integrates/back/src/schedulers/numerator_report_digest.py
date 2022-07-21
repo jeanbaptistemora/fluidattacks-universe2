@@ -14,9 +14,11 @@ from datetime import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingVerificationStatus,
 )
 from db_model.findings.types import (
     Finding,
+    FindingState,
     FindingVerification,
 )
 from db_model.toe_inputs.types import (
@@ -186,12 +188,18 @@ async def _finding_content(
 ) -> Dict[str, Any]:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     for finding in findings:
+        historic_state: Tuple[
+            FindingState, ...
+        ] = await loaders.finding_historic_state.load(finding.id)
         historic_verification: Tuple[
             FindingVerification, ...
         ] = await loaders.finding_historic_verification.load(finding.id)
 
         for verification in historic_verification:
-            if verification.vulnerability_ids:
+            if (
+                verification.vulnerability_ids
+                and verification.status == FindingVerificationStatus.VERIFIED
+            ):
                 content = _generate_count_report(
                     content=content,
                     date_range=date_range,
@@ -203,6 +211,32 @@ async def _finding_content(
                     to_add=len(verification.vulnerability_ids),
                     user_email=verification.modified_by,
                 )
+
+        for finding_state in historic_state:
+            if finding_state.status == FindingStateStatus.APPROVED:
+                vuln_historic_loaders = loaders.vulnerability_historic_state
+                vulns = [
+                    vuln_historic
+                    for vuln in await loaders.finding_vulnerabilities.load(
+                        finding.id
+                    )
+                    for vuln_historic in await vuln_historic_loaders.load(
+                        vuln.id
+                    )
+                    if finding_state.modified_date
+                    == vuln_historic.modified_date
+                ]
+                for vuln in vulns:
+                    content = _generate_count_report(
+                        content=content,
+                        date_range=date_range,
+                        date_report=datetime_utils.get_datetime_from_iso_str(
+                            finding_state.modified_date
+                        ),
+                        field="released",
+                        group=group,
+                        user_email=vuln.modified_by,
+                    )
 
     return content
 
