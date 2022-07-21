@@ -1,18 +1,20 @@
 import styled, { css } from "styled-components";
 
+type TInputVariant = "outline" | "solid";
+
 interface IInputContainerProps {
   showAlert: boolean;
 }
 
 interface IStyledInputProps {
-  variant: "outline" | "solid";
+  variant?: TInputVariant;
 }
 
 interface IVariant {
   bgColor: string;
 }
 
-const variants: Record<IStyledInputProps["variant"], IVariant> = {
+const variants: Record<TInputVariant, IVariant> = {
   outline: {
     bgColor: "transparent",
   },
@@ -51,14 +53,16 @@ const InputBox = styled.div.attrs({
 `;
 
 const InputWrapper = styled.div<IStyledInputProps>`
+  ${({ variant = "solid" }): string => `
   align-items: center;
-  background-color: ${({ variant }): string => variants[variant].bgColor};
+  background-color: ${variants[variant].bgColor};
   border: 1px solid #d2d2da;
   border-radius: 4px;
   color: #b0b0bf;
   display: flex;
   padding: 4px;
   transition: all 0.3s ease;
+  `}
 `;
 
 const StyledInput = styled.input`
