@@ -41,6 +41,9 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -138,14 +141,17 @@ async def populate_stakeholders(data: List[Any]) -> bool:
 async def populate_organization_users(data: list[Any]) -> bool:
     coroutines: List[Awaitable[bool]] = []
     for org in data:
-        for user in org["users"]:
+        for email in org["users"]:
             coroutines.append(
-                dal_organizations.add_user(
-                    f'ORG#{org["id"]}',
-                    user,
+                dal_organizations.add(
+                    organization_access=OrganizationAccess(
+                        email=email,
+                        organization_id=f'ORG#{org["id"]}',
+                    )
                 )
             )
-    return all(await collect(coroutines))
+    await collect(coroutines)
+    return True
 
 
 async def populate_organizations(data: list[Any]) -> bool:

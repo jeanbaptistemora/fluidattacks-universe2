@@ -83,7 +83,9 @@ async def test_add_customer_manager_fail() -> None:
     assert not await orgs_domain.has_user_access(org_id, user)
 
     try:
-        await orgs_domain.add_user(loaders, org_id, user, "customer_manager")
+        await orgs_domain.add_stakeholder(
+            loaders, org_id, user, "customer_manager"
+        )
     except InvalidUserProvided as ex:
         assert (
             str(ex)
@@ -106,7 +108,7 @@ async def test_add_customer_manager_good() -> None:
     user = "org_testgroupmanager2@fluidattacks.com"
     assert not await orgs_domain.has_user_access(org_id, user)
 
-    assert await orgs_domain.add_user(
+    assert await orgs_domain.add_stakeholder(
         loaders, org_id, user, "customer_manager"
     )
     assert (

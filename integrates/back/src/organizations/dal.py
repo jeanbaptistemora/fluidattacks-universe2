@@ -11,6 +11,7 @@ from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
 from db_model.organization_access.types import (
+    OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
 )
 from dynamodb.operations_legacy import (
@@ -44,18 +45,18 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME = "fi_organizations"
 
 
-async def add_user(organization_id: str, email: str) -> bool:
-    organization_id = remove_org_id_prefix(organization_id)
-    success: bool = False
-    new_item = {
+async def add(*, organization_access: OrganizationAccess) -> None:
+    organization_id = remove_org_id_prefix(organization_access.organization_id)
+    email = organization_access.email.lower().strip()
+    item = {
         "pk": f"ORG#{organization_id}",
-        "sk": f"USER#{email.lower().strip()}",
+        "sk": f"USER#{email}",
     }
     try:
-        success = await dynamodb_put_item(TABLE_NAME, new_item)
+        if not await dynamodb_put_item(TABLE_NAME, item):
+            raise UnavailabilityError()
     except ClientError as ex:
         raise UnavailabilityError() from ex
-    return success
 
 
 async def get_ids_for_user(email: str) -> list[str]:

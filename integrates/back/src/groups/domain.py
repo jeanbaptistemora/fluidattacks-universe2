@@ -223,7 +223,9 @@ async def complete_register_for_group_invitation(
     organization_id = group.organization_id
     if not await orgs_domain.has_user_access(organization_id, user_email):
         coroutines.append(
-            orgs_domain.add_user(loaders, organization_id, user_email, "user")
+            orgs_domain.add_stakeholder(
+                loaders, organization_id, user_email, "user"
+            )
         )
     if not all(await collect(coroutines)):
         return False
@@ -262,7 +264,7 @@ async def complete_register_for_organization_invitation(
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
-    user_added = await orgs_domain.add_user(
+    user_added = await orgs_domain.add_stakeholder(
         loaders, organization_id, email, role
     )
 

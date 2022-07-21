@@ -179,15 +179,18 @@ async def add_group_access(organization_id: str, group_name: str) -> bool:
     )
 
 
-async def add_user(
+async def add_stakeholder(
     loaders: Any, organization_id: str, email: str, role: str
 ) -> bool:
     # Check for customer manager granting requirements
     organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
-    success = await orgs_dal.add_user(
-        organization_id, email
-    ) and await authz.grant_organization_level_role(
+    await orgs_dal.add(
+        organization_access=OrganizationAccess(
+            organization_id=organization_id, email=email
+        )
+    )
+    success = await authz.grant_organization_level_role(
         email, organization_id, role
     )
     if success and role == "customer_manager":
@@ -302,7 +305,7 @@ async def add_organization(
     )
     await orgs_model.add(organization=organization)
     if email:
-        await add_user(loaders, organization.id, email, "user_manager")
+        await add_stakeholder(loaders, organization.id, email, "user_manager")
     return organization
 
 
@@ -315,7 +318,7 @@ async def get_or_add(
         has_access = await has_user_access(org_id, email) if email else True
 
         if email and not has_access:
-            await add_user(loaders, org_id, email, "user_manager")
+            await add_stakeholder(loaders, org_id, email, "user_manager")
     else:
         org = await add_organization(loaders, organization_name, email)
     return org

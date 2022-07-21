@@ -1,3 +1,6 @@
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from organizations import (
     dal as orgs_dal,
 )
@@ -15,7 +18,11 @@ async def test_add_user() -> None:
     users = await orgs_dal.get_users(org_id)
 
     email = "org_testuser1@gmail.com"
-    await orgs_dal.add_user(org_id, email)
+    await orgs_dal.add(
+        organization_access=OrganizationAccess(
+            organization_id=org_id, email=email
+        )
+    )
     updated_users = await orgs_dal.get_users(org_id)
     assert len(updated_users) == len(users) + 1
     assert sorted(updated_users) == sorted(users + [email])

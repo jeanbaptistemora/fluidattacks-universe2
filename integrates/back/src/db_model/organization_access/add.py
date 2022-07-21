@@ -25,6 +25,7 @@ import simplejson as json  # type: ignore
 
 async def add(*, organization_access: OrganizationAccess) -> None:
     org_access_no_prefix = organization_access._replace(
+        email=organization_access.email.lower().strip(),
         organization_id=remove_org_id_prefix(
             organization_access.organization_id
         ),
