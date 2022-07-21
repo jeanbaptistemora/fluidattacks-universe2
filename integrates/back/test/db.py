@@ -127,22 +127,6 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
     return True
 
 
-async def populate_organization_users(data: list[Any]) -> bool:
-    coroutines: list[Awaitable[bool]] = []
-    for org in data:
-        for email in org["users"]:
-            coroutines.append(
-                dal_organizations.add(
-                    organization_access=OrganizationAccess(
-                        email=email,
-                        organization_id=f'ORG#{org["id"]}',
-                    )
-                )
-            )
-    await collect(coroutines)
-    return True
-
-
 async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
     await collect(
         dal_organizations.add(

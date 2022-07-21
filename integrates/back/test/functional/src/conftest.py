@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines
+
 import asyncio
 from asyncio import (
     AbstractEventLoop,
@@ -13,6 +15,9 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
     GroupState,
+)
+from db_model.organization_access.types import (
+    OrganizationAccess,
 )
 from db_model.organizations.enums import (
     OrganizationStateStatus,
@@ -36,13 +41,11 @@ import pytest
 from typing import (
     Any,
     AsyncGenerator,
-    Dict,
     Generator,
-    Set,
 )
 
 # Constants
-TEST_GROUPS: Set[str] = {
+TEST_GROUPS: set[str] = {
     "accept_legal",
     "acknowledge_concurrent_session",
     "activate_root",
@@ -164,7 +167,7 @@ TEST_GROUPS: Set[str] = {
 @pytest.fixture(autouse=True, scope="session")
 def generic_data(  # pylint: disable=too-many-locals
     dynamo_resource: bool,  # pylint: disable=redefined-outer-name
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     assert dynamo_resource
     admin_email: str = "admin@gmail.com"
     admin_fluid_email: str = "admin@fluidattacks.com"
@@ -463,33 +466,91 @@ def generic_data(  # pylint: disable=too-many-locals
                     ),
                 },
             ],
-            "organization_users": [
-                {
-                    "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                    "users": [
-                        admin_email,
-                        admin_fluid_email,
-                        architect_email,
-                        architect_fluid_email,
-                        hacker_email,
-                        hacker_fluid_email,
-                        reattacker_email,
-                        reattacker_fluid_email,
-                        user_email,
-                        user_fluid_email,
-                        user_manager_email,
-                        user_manager_fluid_email,
-                        resourcer_email,
-                        resourcer_fluid_email,
-                        reviewer_email,
-                        reviewer_fluid_email,
-                        service_forces_email,
-                        service_forces_fluid_email,
-                        customer_manager_fluid_email,
-                        vuln_manager_email,
-                        vuln_manager_fluid_email,
-                    ],
-                },
+            "organization_access": [
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=admin_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=admin_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=architect_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=architect_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=hacker_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=hacker_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=reattacker_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=reattacker_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=user_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=user_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=user_manager_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=user_manager_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=resourcer_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=resourcer_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=reviewer_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=reviewer_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=service_forces_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=service_forces_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=customer_manager_fluid_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=vuln_manager_email,
+                ),
+                OrganizationAccess(
+                    organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                    email=vuln_manager_fluid_email,
+                ),
             ],
             "groups": [
                 {

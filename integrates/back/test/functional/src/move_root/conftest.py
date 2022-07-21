@@ -25,6 +25,9 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -122,19 +125,15 @@ async def populate() -> bool:
                 ),
             },
         ),
-        "organization_users": [
-            {
-                "id": "40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                "users": [
-                    "test@fluidattacks.com",
-                ],
-            },
-            {
-                "id": "5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
-                "users": [
-                    "test@fluidattacks.com",
-                ],
-            },
+        "organization_access": [
+            OrganizationAccess(
+                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                email="test@fluidattacks.com",
+            ),
+            OrganizationAccess(
+                organization_id="5da92d2e-cb16-4d0f-bb10-bbe2186886e4",
+                email="test@fluidattacks.com",
+            ),
         ],
         "groups": (
             {
