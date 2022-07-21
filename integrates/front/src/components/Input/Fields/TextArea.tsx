@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { ITextAreaProps } from "./CustomTextArea";
-import { CustomTextArea } from "./CustomTextArea";
+import type { ITextAreaProps } from "../Formik";
+import { FormikTextArea } from "../Formik";
 
 const TextArea: FC<ITextAreaProps> = ({
   disabled,
@@ -18,7 +18,7 @@ const TextArea: FC<ITextAreaProps> = ({
   variant,
 }: Readonly<ITextAreaProps>): JSX.Element => (
   <Field
-    component={CustomTextArea}
+    component={FormikTextArea}
     disabled={disabled}
     id={id}
     label={label}

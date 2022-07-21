@@ -2,10 +2,10 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IDatePickerProps } from "./FormikDatePicker";
-import { FormikDatePicker } from "./FormikDatePicker";
+import type { IInputNumberProps } from "../Formik";
+import { FormikNumber } from "../Formik";
 
-const DatePicker: FC<IDatePickerProps> = ({
+const InputNumber: FC<IInputNumberProps> = ({
   disabled = false,
   id,
   label,
@@ -15,12 +15,13 @@ const DatePicker: FC<IDatePickerProps> = ({
   onBlur,
   onFocus,
   onKeyDown,
+  placeholder,
   required,
   tooltip,
   variant = "solid",
-}: Readonly<IDatePickerProps>): JSX.Element => (
+}: Readonly<IInputNumberProps>): JSX.Element => (
   <Field
-    component={FormikDatePicker}
+    component={FormikNumber}
     disabled={disabled}
     id={id}
     label={label}
@@ -30,11 +31,11 @@ const DatePicker: FC<IDatePickerProps> = ({
     onBlur={onBlur}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    placeholder={placeholder}
     required={required}
     tooltip={tooltip}
     variant={variant}
   />
 );
 
-export type { IDatePickerProps };
-export { DatePicker };
+export { InputNumber };

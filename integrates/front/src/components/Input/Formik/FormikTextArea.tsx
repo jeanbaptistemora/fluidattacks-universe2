@@ -1,23 +1,20 @@
 import type { FieldProps } from "formik";
-import type { FC, FocusEvent, ReactNode } from "react";
+import type { FC, FocusEvent } from "react";
 import React, { useCallback } from "react";
 
-import type { IInputBase } from "./InputBase";
-import { InputBase } from "./InputBase";
-import { StyledInput } from "./styles";
+import type { IInputBase } from "../InputBase";
+import { InputBase } from "../InputBase";
+import { StyledTextArea } from "../styles";
 
-interface IInputProps extends IInputBase<HTMLInputElement> {
-  childLeft?: ReactNode;
-  childRight?: ReactNode;
+interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
   placeholder?: string;
-  type?: "email" | "password" | "text";
+  rows?: number;
 }
 
-type TInputProps = FieldProps<string, Record<string, string>> & IInputProps;
+type TTextAreaProps = FieldProps<string, Record<string, string>> &
+  ITextAreaProps;
 
-const CustomInput: FC<TInputProps> = ({
-  childLeft,
-  childRight,
+const FormikTextArea: FC<TTextAreaProps> = ({
   disabled,
   field,
   form,
@@ -28,15 +25,15 @@ const CustomInput: FC<TInputProps> = ({
   onKeyDown,
   placeholder,
   required,
+  rows = 3,
   tooltip,
-  type,
-  variant = "solid",
-}: Readonly<TInputProps>): JSX.Element => {
+  variant,
+}: Readonly<TTextAreaProps>): JSX.Element => {
   const { name, onBlur: onBlurField, onChange, value } = field;
   const alert = form.errors[name];
 
   const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLInputElement>): void => {
+    (ev: FocusEvent<HTMLTextAreaElement>): void => {
       onBlurField(ev);
       onBlur?.(ev);
     },
@@ -53,8 +50,7 @@ const CustomInput: FC<TInputProps> = ({
       tooltip={tooltip}
       variant={variant}
     >
-      {childLeft}
-      <StyledInput
+      <StyledTextArea
         aria-label={name}
         autoComplete={"off"}
         disabled={disabled}
@@ -65,13 +61,12 @@ const CustomInput: FC<TInputProps> = ({
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        type={type}
+        rows={rows}
         value={value}
       />
-      {childRight}
     </InputBase>
   );
 };
 
-export type { IInputProps };
-export { CustomInput };
+export type { ITextAreaProps };
+export { FormikTextArea };

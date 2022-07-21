@@ -2,8 +2,8 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { ISelectProps } from "./CustomSelect";
-import { CustomSelect } from "./CustomSelect";
+import type { ISelectProps } from "../Formik";
+import { FormikSelect } from "../Formik";
 
 const Select: FC<ISelectProps> = ({
   children,
@@ -19,7 +19,7 @@ const Select: FC<ISelectProps> = ({
   variant,
 }: Readonly<ISelectProps>): JSX.Element => (
   <Field
-    component={CustomSelect}
+    component={FormikSelect}
     disabled={disabled}
     id={id}
     label={label}

@@ -6,15 +6,16 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
 
-import type { IInputProps } from "./CustomInput";
-import type { ISelectProps } from "./CustomSelect";
-import type { ITextAreaProps } from "./CustomTextArea";
-import type { IDatePickerProps } from "./DatePicker";
-import type { IInputNumberProps } from "./InputNumber";
-
+import type {
+  IInputDateProps,
+  IInputNumberProps,
+  IInputProps,
+  ISelectProps,
+  ITextAreaProps,
+} from ".";
 import {
-  DatePicker as DatePickerComp,
   Input,
+  InputDate as InputDateComp,
   InputNumber as InputNumberComp,
   Select as SelectComp,
   TextArea as TextAreaComp,
@@ -63,14 +64,14 @@ const StoryDefault: Story<IInputProps> = (props): JSX.Element => (
   </Formik>
 );
 
-const StoryDatePicker: Story<IDatePickerProps> = (props): JSX.Element => (
+const StoryInputDate: Story<IInputDateProps> = (props): JSX.Element => (
   <Formik
     initialValues={{ exampleName: "" }}
     name={"exampleForm"}
     onSubmit={handleSubmit}
   >
     <Form id={"exampleForm"}>
-      <DatePickerComp {...props} id={"ExampleId"} name={"exampleName"} />
+      <InputDateComp {...props} id={"ExampleId"} name={"exampleName"} />
     </Form>
   </Formik>
 );
@@ -123,7 +124,7 @@ Default.args = {
   variant: "solid",
 };
 
-const DatePicker = StoryDatePicker.bind({});
+const InputDate = StoryInputDate.bind({});
 
 const InputNumber = StoryInputNumber.bind({});
 InputNumber.args = {
@@ -176,5 +177,5 @@ TextArea.args = {
   variant: "solid",
 };
 
-export { Default, DatePicker, InputNumber, Search, Select, TextArea };
+export { Default, InputDate, InputNumber, Search, Select, TextArea };
 export default config;

@@ -2,15 +2,15 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IInputNumberProps } from "./FormikInputNumber";
-import { FormikInputNumber } from "./FormikInputNumber";
+import type { IInputProps } from "../Formik";
+import { FormikInput } from "../Formik";
 
-const InputNumber: FC<IInputNumberProps> = ({
+const Input: FC<IInputProps> = ({
+  childLeft,
+  childRight,
   disabled = false,
   id,
   label,
-  max,
-  min,
   name,
   onBlur,
   onFocus,
@@ -18,15 +18,16 @@ const InputNumber: FC<IInputNumberProps> = ({
   placeholder,
   required,
   tooltip,
+  type = "text",
   variant = "solid",
-}: Readonly<IInputNumberProps>): JSX.Element => (
+}: Readonly<IInputProps>): JSX.Element => (
   <Field
-    component={FormikInputNumber}
+    childLeft={childLeft}
+    childRight={childRight}
+    component={FormikInput}
     disabled={disabled}
     id={id}
     label={label}
-    max={max}
-    min={min}
     name={name}
     onBlur={onBlur}
     onFocus={onFocus}
@@ -34,9 +35,9 @@ const InputNumber: FC<IInputNumberProps> = ({
     placeholder={placeholder}
     required={required}
     tooltip={tooltip}
+    type={type}
     variant={variant}
   />
 );
 
-export type { IInputNumberProps };
-export { InputNumber };
+export { Input };

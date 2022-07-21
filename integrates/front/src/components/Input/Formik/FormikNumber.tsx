@@ -10,10 +10,9 @@ import type {
 } from "react";
 import React, { useCallback, useRef } from "react";
 
-import type { IInputBase } from "./InputBase";
-import { InputBase } from "./InputBase";
-import { StyledInput } from "./styles";
-
+import type { IInputBase } from "../InputBase";
+import { InputBase } from "../InputBase";
+import { StyledInput } from "../styles";
 import { Button } from "components/Button";
 
 interface IInputNumberProps extends IInputBase<HTMLInputElement> {
@@ -25,7 +24,7 @@ interface IInputNumberProps extends IInputBase<HTMLInputElement> {
 type TInputNumberProps = FieldProps<string, Record<string, string>> &
   IInputNumberProps;
 
-const FormikInputNumber: FC<TInputNumberProps> = ({
+const FormikNumber: FC<TInputNumberProps> = ({
   disabled,
   field,
   form,
@@ -132,4 +131,4 @@ const FormikInputNumber: FC<TInputNumberProps> = ({
 };
 
 export type { IInputNumberProps };
-export { FormikInputNumber };
+export { FormikNumber };
