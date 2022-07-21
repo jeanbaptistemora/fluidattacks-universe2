@@ -25,12 +25,7 @@ import type {
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/Locations/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import {
-  ButtonToolbarLeft,
-  Col33,
-  FormGroup,
-  RowCenter,
-} from "styles/styledComponents";
+import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
@@ -239,26 +234,24 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
           <br />
           <RowCenter>
             <Col33>
-              <ButtonToolbarLeft>
-                <Tooltip
-                  id={t(
-                    "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
-                  )}
-                  tip={t(
-                    "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
-                  )}
+              <Tooltip
+                id={t(
+                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
+                )}
+                tip={t(
+                  "searchFindings.tabDescription.downloadVulnerabilitiesTooltip"
+                )}
+              >
+                <Button
+                  disabled={loading}
+                  onClick={handleDownloadVulnerability}
+                  variant={"secondary"}
                 >
-                  <Button
-                    disabled={loading}
-                    onClick={handleDownloadVulnerability}
-                    variant={"secondary"}
-                  >
-                    <FluidIcon icon={"export"} />
-                    &nbsp;
-                    {t("searchFindings.tabDescription.downloadVulnerabilities")}
-                  </Button>
-                </Tooltip>
-              </ButtonToolbarLeft>
+                  <FluidIcon icon={"export"} />
+                  &nbsp;
+                  {t("searchFindings.tabDescription.downloadVulnerabilities")}
+                </Button>
+              </Tooltip>
             </Col33>
             <div className={"ph1-5 w-25-ns upload-file"}>
               <FormGroup>
@@ -272,26 +265,24 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
               </FormGroup>
             </div>
             <Col33>
-              <ButtonToolbarLeft>
-                <Tooltip
-                  id={t(
-                    "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
-                  )}
-                  tip={t(
-                    "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
-                  )}
+              <Tooltip
+                id={t(
+                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
+                )}
+                tip={t(
+                  "searchFindings.tabDescription.updateVulnerabilitiesTooltip"
+                )}
+              >
+                <Button
+                  disabled={!dirty || loading}
+                  type={"submit"}
+                  variant={"primary"}
                 >
-                  <Button
-                    disabled={!dirty || loading}
-                    type={"submit"}
-                    variant={"primary"}
-                  >
-                    <FluidIcon icon={"import"} />
-                    &nbsp;
-                    {t("searchFindings.tabDescription.updateVulnerabilities")}
-                  </Button>
-                </Tooltip>
-              </ButtonToolbarLeft>
+                  <FluidIcon icon={"import"} />
+                  &nbsp;
+                  {t("searchFindings.tabDescription.updateVulnerabilities")}
+                </Button>
+              </Tooltip>
             </Col33>
           </RowCenter>
         </Form>

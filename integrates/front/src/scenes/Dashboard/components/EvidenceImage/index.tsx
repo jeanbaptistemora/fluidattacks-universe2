@@ -10,12 +10,7 @@ import type { ConfigurableValidator } from "revalidate";
 import { Button } from "components/Button/index";
 import { Tooltip } from "components/Tooltip";
 import style from "scenes/Dashboard/components/EvidenceImage/index.css";
-import {
-  ButtonToolbarLeft,
-  Col33,
-  EvidenceDescription,
-  Row,
-} from "styles/styledComponents";
+import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
@@ -53,7 +48,7 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
   acceptedMimes,
   description,
   isDescriptionEditable,
-  isRemovable,
+  isRemovable = false,
   name,
   onDelete,
   validate,
@@ -91,18 +86,16 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
       ) : (
         <p>{description}</p>
       )}
-      {isRemovable === true ? (
-        <ButtonToolbarLeft>
-          <Tooltip
-            id={t("searchFindings.tabEvidence.removeTooltip.id")}
-            tip={t("searchFindings.tabEvidence.removeTooltip")}
-          >
-            <Button onClick={onDelete} variant={"secondary"}>
-              <FontAwesomeIcon icon={faTrashAlt} />
-              &nbsp;{t("searchFindings.tabEvidence.remove")}
-            </Button>
-          </Tooltip>
-        </ButtonToolbarLeft>
+      {isRemovable ? (
+        <Tooltip
+          id={t("searchFindings.tabEvidence.removeTooltip.id")}
+          tip={t("searchFindings.tabEvidence.removeTooltip")}
+        >
+          <Button onClick={onDelete} variant={"secondary"}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+            &nbsp;{t("searchFindings.tabEvidence.remove")}
+          </Button>
+        </Tooltip>
       ) : undefined}
     </div>
   );

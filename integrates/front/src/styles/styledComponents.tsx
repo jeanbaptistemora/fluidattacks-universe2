@@ -10,13 +10,6 @@ const ButtonToolbarCenter: StyledComponent<
   className: "flex flex-wrap justify-center pv3 w-100",
 })``;
 
-const ButtonToolbarLeft: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "fl",
-})``;
-
 const ButtonToolbarRow: StyledComponent<
   "div",
   Record<string, unknown>
@@ -490,7 +483,6 @@ const Well: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs<{
 
 export {
   ButtonToolbarCenter,
-  ButtonToolbarLeft,
   ButtonToolbarRow,
   CheckBox,
   CheckBoxOption,
