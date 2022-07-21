@@ -197,9 +197,7 @@ describe("Update access token modal", (): void => {
     userEvent.click(screen.getByText("components.modal.confirm"));
 
     await waitFor((): void => {
-      expect(
-        screen.getByText("updateAccessToken.accessToken")
-      ).toBeInTheDocument();
+      expect(screen.getByText("updateAccessToken.message")).toBeInTheDocument();
     });
 
     expect(msgSuccess).toHaveBeenCalledWith(

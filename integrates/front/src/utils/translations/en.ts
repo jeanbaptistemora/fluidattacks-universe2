@@ -3384,7 +3384,6 @@ export const enTranslations: ResourceKey = {
     },
   },
   updateAccessToken: {
-    accessToken: "Personal Access Token",
     close: "Close",
     copy: {
       copy: "Copy",

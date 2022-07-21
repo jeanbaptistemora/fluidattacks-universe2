@@ -4,11 +4,14 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React from "react";
+import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { TextArea } from "components/Input";
+import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
+import { Text } from "components/Text";
 import {
   useGetAPIToken,
   useInvalidateAPIToken,
@@ -18,14 +21,7 @@ import type {
   IAccessTokenAttr,
   IGetAccessTokenDictAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
-import {
-  ButtonToolbarLeft,
-  Col100,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
-import { FormikDate, FormikTextArea } from "utils/forms/fields";
+import { FormikDate } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
   composeValidators,
@@ -102,78 +98,53 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
         onSubmit={handleUpdateAPIToken}
       >
         <Form>
-          <Row>
-            <Col100>
-              {!hasAPIToken && (
-                <FormGroup>
-                  <ControlLabel>
-                    <b>{t("updateAccessToken.expirationTime")}</b>
-                  </ControlLabel>
-                  <Field
-                    component={FormikDate}
-                    dataTestId={"expiration-time-input"}
-                    name={"expirationTime"}
-                    type={"date"}
-                    validate={composeValidators([
-                      isLowerDate,
-                      isValidDateAccessToken,
-                      required,
-                    ])}
-                  />
-                </FormGroup>
-              )}
-            </Col100>
-          </Row>
-          {!_.isUndefined(mtResponse.data) && (
-            <Row>
-              <Col100>
-                <ControlLabel>
-                  <b>{t("updateAccessToken.message")}</b>
-                </ControlLabel>
-                <ControlLabel>
-                  <b>{t("updateAccessToken.accessToken")}</b>
-                </ControlLabel>
-                <Field
-                  // Allow to block resizing the TextArea
-                  // eslint-disable-next-line react/forbid-component-props
-                  className={"noresize"}
-                  component={FormikTextArea}
-                  disabled={true}
-                  name={"sessionJwt"}
-                  rows={"7"}
-                  type={"text"}
-                />
-                <Button onClick={handleCopy} variant={"secondary"}>
-                  {t("updateAccessToken.copy.copy")}
-                </Button>
-              </Col100>
-            </Row>
+          {hasAPIToken ? undefined : (
+            <Fragment>
+              <Text fw={7} mb={1}>
+                {t("updateAccessToken.expirationTime")}
+              </Text>
+              <Field
+                component={FormikDate}
+                dataTestId={"expiration-time-input"}
+                name={"expirationTime"}
+                type={"date"}
+                validate={composeValidators([
+                  isLowerDate,
+                  isValidDateAccessToken,
+                  required,
+                ])}
+              />
+            </Fragment>
           )}
-          <Row>
-            {_.isUndefined(mtResponse.data) && hasAPIToken && (
-              <Col100>
-                <ControlLabel>
-                  <b>{t("updateAccessToken.tokenCreated")}</b>
+          {mtResponse.data === undefined ? (
+            hasAPIToken ? (
+              <Fragment>
+                <Text mb={1}>
+                  <Text disp={"inline"} fw={7}>
+                    {t("updateAccessToken.tokenCreated")}
+                  </Text>
                   &nbsp;
                   {new Date(Number.parseInt(issuedAt, 10) * msToSec)
                     .toISOString()
                     .substring(0, yyyymmdd)}
-                </ControlLabel>
-              </Col100>
-            )}
-            <Col100>
-              <ButtonToolbarLeft>
-                {_.isUndefined(mtResponse.data) && hasAPIToken && (
-                  <Button
-                    onClick={handleInvalidateAPIToken}
-                    variant={"secondary"}
-                  >
-                    {t("updateAccessToken.invalidate")}
-                  </Button>
-                )}
-              </ButtonToolbarLeft>
-            </Col100>
-          </Row>
+                </Text>
+                <Button
+                  onClick={handleInvalidateAPIToken}
+                  variant={"secondary"}
+                >
+                  {t("updateAccessToken.invalidate")}
+                </Button>
+              </Fragment>
+            ) : undefined
+          ) : (
+            <Gap disp={"block"} mh={0}>
+              <Text fw={7}>{t("updateAccessToken.message")}</Text>
+              <TextArea disabled={true} name={"sessionJwt"} rows={5} />
+              <Button onClick={handleCopy} variant={"secondary"}>
+                {t("updateAccessToken.copy.copy")}
+              </Button>
+            </Gap>
+          )}
           <ModalConfirm disabled={hasAPIToken} onCancel={onClose} />
         </Form>
       </Formik>
