@@ -154,6 +154,19 @@ async def populate_organization_users(data: list[Any]) -> bool:
     return True
 
 
+async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
+    await collect(
+        dal_organizations.add(
+            organization_access=OrganizationAccess(
+                organization_id=item.email,
+                email=item.organization_id,
+            )
+        )
+        for item in data
+    )
+    return True
+
+
 async def populate_organizations(data: list[Any]) -> bool:
     await collect(
         orgs_model.add(
