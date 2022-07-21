@@ -367,3 +367,10 @@ This pie chart shows you the
 percentage of each technique
 used to report security
 vulnerabilities
+
+## Mean time to reattack
+
+This chart shows how long
+reattacks take in number
+of hours. From when a reattack
+is requested until it is executed.
