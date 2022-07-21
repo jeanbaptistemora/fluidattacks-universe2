@@ -37,10 +37,6 @@ function b64 {
   echo -n "${1}" | base64 --wrap=0
 }
 
-function report_deployment {
-  report_deployment_checkly
-}
-
 function rollout {
   local name="${1}"
 
@@ -65,14 +61,17 @@ function deploy {
   export REPLICAS
   export UUID
 
-  aws_login_prod skims \
+  aws_login_prod integrates \
+    && ensure_gitlab_env_vars \
+      PROD_SKIMS_AWS_ACCESS_KEY_ID \
+      PROD_SKIMS_AWS_SECRET_ACCESS_KEY \
     && aws_eks_update_kubeconfig 'common' 'us-east-1' \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_PROD_SKIMS_AWS_ACCESS_KEY_ID="$(b64 "${PROD_SKIMS_AWS_ACCESS_KEY_ID}")" \
     && B64_PROD_SKIMS_AWS_SECRET_ACCESS_KEY="$(b64 "${PROD_SKIMS_AWS_SECRET_ACCESS_KEY}")" \
     && B64_UNIVERSE_API_TOKEN="$(b64 "${UNIVERSE_API_TOKEN}")" \
-    && REPLICAS=3 \
+    && REPLICAS=1 \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
       echo "[INFO] Applying: ${manifest}" \
@@ -83,8 +82,7 @@ function deploy {
 
 function main {
   deploy "server" "skims" \
-    && rollout "server" \
-    && report_deployment
+    && rollout "server"
 }
 
 main "${@}"

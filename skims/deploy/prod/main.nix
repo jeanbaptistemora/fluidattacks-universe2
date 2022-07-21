@@ -21,6 +21,7 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
+      outputs."/common/utils/env"
     ];
   };
   name = "skims-deploy-server";
