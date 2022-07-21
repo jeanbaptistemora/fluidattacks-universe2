@@ -1,7 +1,7 @@
 # Starlette authz-related views/functions
 
 from api.mutations.sign_in import (
-    log_user_in,
+    log_stakeholder_in,
 )
 from app import (
     utils,
@@ -134,4 +134,4 @@ async def handle_user(request: Request, user: Dict[str, str]) -> Request:
     request.session["session_key"] = session_key
 
     await sessions_dal.create_session_web(request)
-    await log_user_in(get_new_context(), user)
+    await log_stakeholder_in(get_new_context(), user)

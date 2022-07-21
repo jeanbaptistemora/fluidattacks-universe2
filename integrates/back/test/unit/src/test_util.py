@@ -1,6 +1,6 @@
 # pylint: disable=protected-access, import-error
 from api.mutations.sign_in import (
-    log_user_in,
+    log_stakeholder_in,
 )
 from back.test.unit.src.utils import (
     create_dummy_session,
@@ -352,7 +352,7 @@ async def test_create_user() -> None:
     )
 
     time.sleep(1)
-    await log_user_in(loaders=loaders, user={"email": email})
+    await log_stakeholder_in(loaders=loaders, stakeholder={"email": email})
     new_loader: Dataloaders = get_new_context()
     new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
     user_last_login_date = datetime_utils.get_datetime_from_iso_str(

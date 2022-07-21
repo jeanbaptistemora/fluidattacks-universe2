@@ -58,8 +58,6 @@ from subscriptions import (
 )
 from typing import (
     Any,
-    cast,
-    Dict,
     Optional,
 )
 
@@ -127,7 +125,7 @@ async def autoenroll_stakeholder(email: str) -> None:
 )
 async def get_provider_user_info(
     provider: str, token: str
-) -> Optional[Dict[str, str]]:
+) -> Optional[dict[str, str]]:
     if provider == "bitbucket":
         userinfo_endpoint = BITBUCKET_ARGS["userinfo_endpoint"]
     elif provider == "google":
@@ -179,7 +177,7 @@ async def get_provider_user_info(
                     user_name.split(" ")[1] if len(user_name) == 2 else ""
                 )
 
-            return cast(Optional[Dict[str, str]], user)
+            return user
 
 
 @convert_kwargs_to_snake_case
@@ -191,7 +189,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user = await get_provider_user_info(provider, auth_token)
     if user:
-        await log_user_in(loaders=loaders, user=user)
+        await log_stakeholder_in(loaders=loaders, stakeholder=user)
         email = user["email"].lower()
         session_jwt = token_helper.new_encoded_jwt(
             {
@@ -212,25 +210,25 @@ async def mutate(
     return SignInPayloadType(session_jwt=session_jwt, success=success)
 
 
-async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
-
-    first_name = user.get("given_name", "")[:29]
-    last_name = user.get("family_name", "")[:29]
-    email = user["email"].lower()
-
-    today = datetime_utils.get_iso_date()
-    stakeholder_data = StakeholderMetadataToUpdate(
-        first_name=first_name,
-        last_login_date=today,
-        last_name=last_name,
-        registration_date=today,
-    )
+async def log_stakeholder_in(
+    loaders: Dataloaders, stakeholder: dict[str, str]
+) -> None:
+    email = stakeholder["email"].lower()
     try:
         db_user: Stakeholder = await loaders.stakeholder.load(email)
         if not db_user.is_registered:
             await stakeholders_domain.register(email)
         await stakeholders_domain.update_last_login(email)
     except StakeholderNotFound:
+        first_name = stakeholder.get("given_name", "")[:29]
+        last_name = stakeholder.get("family_name", "")[:29]
+        today = datetime_utils.get_iso_date()
+        stakeholder_data = StakeholderMetadataToUpdate(
+            first_name=first_name,
+            last_login_date=today,
+            last_name=last_name,
+            registration_date=today,
+        )
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_stakeholder(email)
         await stakeholders_domain.update_attributes(email, stakeholder_data)
