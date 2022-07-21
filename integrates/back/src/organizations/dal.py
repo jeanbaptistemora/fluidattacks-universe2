@@ -102,21 +102,6 @@ async def get_users(organization_id: str) -> list[str]:
     return users
 
 
-async def has_user_access(organization_id: str, email: str) -> bool:
-    organization_id = remove_org_id_prefix(organization_id)
-    has_access: bool = False
-    query_attrs: dict[str, Any] = {
-        "KeyConditionExpression": (
-            Key("pk").eq(f"ORG#{organization_id}")
-            & Key("sk").eq(f"USER#{email.lower().strip()}")
-        )
-    }
-    response_items = await dynamodb_query(TABLE_NAME, query_attrs)
-    if response_items:
-        has_access = True
-    return has_access
-
-
 async def remove(*, email: str, organization_id: str) -> None:
     """Remove a stakeholder org access."""
     organization_id = remove_org_id_prefix(organization_id)

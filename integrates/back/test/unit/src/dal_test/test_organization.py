@@ -80,11 +80,3 @@ async def test_get_users() -> None:
     assert len(users) == 17
     for user in expected:
         assert user in users
-
-
-async def test_has_user_access() -> None:
-    org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    existing_user = "integratesmanager@gmail.com"
-    non_existent_user = "madeupuser@gmail.com"
-    assert await orgs_dal.has_user_access(org_id, existing_user)
-    assert not await orgs_dal.has_user_access(org_id, non_existent_user)
