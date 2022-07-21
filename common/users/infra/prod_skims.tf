@@ -183,6 +183,7 @@ locals {
             Action = [
               "eks:Describe*",
               "eks:Get*",
+              "eks:ListQueues",
             ]
             Resource = ["*"]
           },

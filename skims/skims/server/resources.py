@@ -40,12 +40,10 @@ async def get_results(execution_id: str) -> List[Dict[str, Any]]:
             )
             temp.seek(0)
             lines = temp.read().decode().splitlines()
-            if len(lines) < 2:
-                return []
 
             return list(
                 csv.DictReader(
-                    lines[1:],
+                    lines,
                     [
                         "finding",
                         "kind",

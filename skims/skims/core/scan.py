@@ -142,6 +142,7 @@ async def execute_skims(
             await analyze_dast_aws(credentials=aws_cred, stores=stores)
     if CTX.config.execution_id:
         await _upload_csv_result(stores)
+        await queue_upload_vulns(CTX.config.execution_id)
     if CTX.config.output:
         notify_findings_as_csv(stores, CTX.config.output)
     else:
@@ -351,21 +352,6 @@ async def execute_set_of_configs(
         os.chdir(CTX.config.working_dir)
 
         await execute_skims(stores)
-
-        if integrates_access:
-            persisted_results = await persist_to_integrates(stores)
-            if integrates_access and batch_job_id:
-                await notify_end(batch_job_id, persisted_results)
-            success = success and all(persisted_results.values())
-        else:
-            log_blocking(
-                "info",
-                (
-                    "In case you want to persist results to Integrates "
-                    "please make sure you set the --token and --group flag "
-                    "in the CLI"
-                ),
-            )
 
     reset_ephemeral_state()
     return success
