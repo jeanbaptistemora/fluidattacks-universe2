@@ -3,17 +3,18 @@
 alias migrate-tables="observes-service-migrate-tables-bin"
 
 function dynamodb_centralize {
-  local db_creds
-
-  db_creds="$(mktemp)" \
-    && aws_login_prod 'observes' \
+  aws_login_prod 'observes' \
     && export_notifier_key \
     && echo '[INFO] Generating secret files' \
-    && json_db_creds "${db_creds}" \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
+      'REDSHIFT_DATABASE' \
+      'REDSHIFT_HOST' \
+      'REDSHIFT_PASSWORD' \
+      'REDSHIFT_PORT' \
+      'REDSHIFT_USER' \
     && echo '[INFO] Running centralizer' \
-    && migrate-tables centralize-dynamo-schemas \
-      --db-auth "${db_creds}" \
-      --dymo-tables './observes/conf/awsdynamodb.json' \
+    && dynamo-etl centralize dynamo-tables \
+      --tables './observes/conf/awsdynamodb.json' \
       --schema 'dynamodb'
 }
 

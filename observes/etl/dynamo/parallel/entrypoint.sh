@@ -64,7 +64,8 @@ function dynamodb_etl {
     && cat "${singer_file}" > .singer \
     && target-redshift \
       --auth "${db_creds}" \
-      --schema-name "${schema}" \
+      --schema-name "${schema}_part_${AWS_BATCH_JOB_ARRAY_INDEX}" \
+      --drop-schema \
       --no-vacuum \
       < .singer
 }

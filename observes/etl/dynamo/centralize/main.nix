@@ -1,4 +1,5 @@
 {
+  inputs,
   makeScript,
   outputs,
   ...
@@ -6,7 +7,7 @@
 makeScript {
   searchPaths = {
     bin = [
-      outputs."/observes/service/migrate-tables/bin"
+      outputs."${inputs.observesIndex.etl.dynamo.bin}"
     ];
     source = [
       outputs."/common/utils/aws"
