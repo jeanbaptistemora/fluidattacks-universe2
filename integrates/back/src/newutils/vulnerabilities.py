@@ -594,30 +594,6 @@ def _get_last_reattack_executed_date(
     return max(dates_reattack_executed)
 
 
-async def get_total_reattacks_stats(
-    vulns: Tuple[Vulnerability, ...],
-    min_date: datetime,
-) -> Dict[str, Union[int, str]]:
-    """Get the total reattacks of all the vulns."""
-    default_date: datetime = datetime_utils.get_from_str(
-        datetime_utils.DEFAULT_STR
-    )
-    return {
-        "effective_reattacks": _get_effective_reattacks(vulns, min_date),
-        "effective_reattacks_total": _get_effective_reattacks(
-            vulns, default_date
-        ),
-        "reattacks_requested": _get_reattacks_requested(vulns, min_date),
-        "last_requested_date": _get_last_reattack_requested_date(vulns),
-        "reattacks_executed": _get_reattacks_executed(vulns, min_date),
-        "reattacks_executed_total": _get_reattacks_executed(
-            vulns, default_date
-        ),
-        "last_executed_date": _get_last_reattack_executed_date(vulns),
-        "pending_attacks": _get_reattacks_requested(vulns, default_date),
-    }
-
-
 def _get_vuln_state_action(
     historic_state: Tuple[VulnerabilityState, ...],
 ) -> List[Action]:
