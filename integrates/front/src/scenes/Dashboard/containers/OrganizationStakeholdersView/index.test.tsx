@@ -509,7 +509,17 @@ describe("Organization users view", (): void => {
       screen.getByText("organization.tabs.users.removeButton.text")
     );
     await waitFor((): void => {
-      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(
+        screen.queryByText("organization.tabs.users.removeButton.confirmTitle")
+      ).toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getByText("components.modal.confirm"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "testuser2@gmail.com organization.tabs.users.removeButton.success",
+        "organization.tabs.users.successTitle"
+      );
     });
 
     expect(screen.queryAllByRole("row")).toHaveLength(2);

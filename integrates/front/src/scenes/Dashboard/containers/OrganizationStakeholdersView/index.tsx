@@ -20,6 +20,7 @@ import {
   handleGrantError,
 } from "../GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters";
 import type { IHeaderConfig } from "components/Table/types";
@@ -360,24 +361,42 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                   {t("organization.tabs.users.editButton.text")}
                 </Button>
               </Tooltip>
-              <Tooltip
-                disp={"inline-block"}
-                id={"organization.tabs.users.removeButton.tooltip.btn"}
-                tip={t("organization.tabs.users.removeButton.tooltip")}
+
+              <ConfirmDialog
+                message={`${currentRow.email} ${t(
+                  "organization.tabs.users.removeButton.confirmMessage"
+                )}`}
+                title={t("organization.tabs.users.removeButton.confirmTitle")}
               >
-                <Button
-                  disabled={
-                    _.isEmpty(currentRow) || loadingStakeholders || removing
+                {(confirm): React.ReactNode => {
+                  function handleClick(): void {
+                    confirm(handleRemoveStakeholder);
                   }
-                  id={"removeUser"}
-                  onClick={handleRemoveStakeholder}
-                  variant={"secondary"}
-                >
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                  &nbsp;
-                  {t("organization.tabs.users.removeButton.text")}
-                </Button>
-              </Tooltip>
+
+                  return (
+                    <Tooltip
+                      disp={"inline-block"}
+                      id={"organization.tabs.users.removeButton.tooltip.btn"}
+                      tip={t("organization.tabs.users.removeButton.tooltip")}
+                    >
+                      <Button
+                        disabled={
+                          _.isEmpty(currentRow) ||
+                          loadingStakeholders ||
+                          removing
+                        }
+                        id={"removeUser"}
+                        onClick={handleClick}
+                        variant={"secondary"}
+                      >
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                        &nbsp;
+                        {t("organization.tabs.users.removeButton.text")}
+                      </Button>
+                    </Tooltip>
+                  );
+                }}
+              </ConfirmDialog>
             </React.Fragment>
           }
           headers={tableHeaders}

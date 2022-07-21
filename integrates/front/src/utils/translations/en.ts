@@ -1793,6 +1793,8 @@ export const enTranslations: ResourceKey = {
         modalAddTitle: "Add a new user to this organization",
         modalEditTitle: "Edit stakeholder information",
         removeButton: {
+          confirmMessage: "will be removed from the organization",
+          confirmTitle: "Remove stakeholder?",
           success: "was successfully removed from the organization",
           text: "Remove",
           tooltip: "Remove stakeholder from the organization",
