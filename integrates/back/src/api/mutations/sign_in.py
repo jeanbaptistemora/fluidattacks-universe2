@@ -226,15 +226,11 @@ async def log_user_in(loaders: Dataloaders, user: Dict[str, str]) -> None:
         registration_date=today,
     )
     try:
-        db_user: Optional[Stakeholder] = await loaders.stakeholder.load(email)
-    except StakeholderNotFound:
-        db_user = None
-    if db_user is not None and db_user.first_name:
+        db_user: Stakeholder = await loaders.stakeholder.load(email)
         if not db_user.is_registered:
             await stakeholders_domain.register(email)
-
         await stakeholders_domain.update_last_login(email)
-    else:
+    except StakeholderNotFound:
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_stakeholder(email)
         await stakeholders_domain.update_attributes(email, stakeholder_data)
