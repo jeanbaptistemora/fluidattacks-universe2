@@ -2,7 +2,10 @@ locals {
   environments = {
     small = {
       max_vcpus = 10000
-      instances = ["c5ad.large"]
+      instances = [
+        "c5d.large",
+        "c5ad.large",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -10,7 +13,10 @@ locals {
     }
     medium = {
       max_vcpus = 10000
-      instances = ["c5ad.xlarge"]
+      instances = [
+        "c5d.xlarge",
+        "c5ad.xlarge",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -18,7 +24,10 @@ locals {
     }
     large = {
       max_vcpus = 10000
-      instances = ["c5ad.2xlarge"]
+      instances = [
+        "c5d.2xlarge",
+        "c5ad.2xlarge",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
         data.aws_subnet.batch_main.id,
@@ -26,7 +35,10 @@ locals {
     }
     clone = {
       max_vcpus = 10000
-      instances = ["c5ad.large"]
+      instances = [
+        "c5d.large",
+        "c5ad.large",
+      ]
       subnets = [
         data.aws_subnet.batch_clone.id,
       ]
