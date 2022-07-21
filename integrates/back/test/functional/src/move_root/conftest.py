@@ -74,21 +74,19 @@ async def populate() -> bool:
             },
         ),
         "stakeholders": [
-            {
-                "stakeholder": Stakeholder(
-                    email="test@fluidattacks.com",
-                    first_name="",
-                    last_name="",
-                    phone=StakeholderPhone(
-                        calling_country_code="1",
-                        country_code="US",
-                        national_number="1111111111",
-                    ),
-                    legal_remember=False,
-                    push_tokens=[],
-                    is_registered=True,
+            Stakeholder(
+                email="test@fluidattacks.com",
+                first_name="",
+                last_name="",
+                phone=StakeholderPhone(
+                    calling_country_code="1",
+                    country_code="US",
+                    national_number="1111111111",
                 ),
-            },
+                legal_remember=False,
+                push_tokens=[],
+                is_registered=True,
+            ),
         ],
         "organizations": (
             {

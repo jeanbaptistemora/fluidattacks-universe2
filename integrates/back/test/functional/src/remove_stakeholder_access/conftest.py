@@ -17,6 +17,9 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -41,6 +44,7 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     new_user: str = "justonegroupaccess@gmail.com"
+    organization_id = "e75525d6-70a6-45ba-9f87-66c2dd2678d9"
     data: dict[str, Any] = {
         "organizations": [
             {
@@ -64,29 +68,31 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ),
             },
         ],
-        "organization_users": [
-            {
-                "id": "e75525d6-70a6-45ba-9f87-66c2dd2678d9",
-                "users": [
-                    generic_data["global_vars"][
-                        "customer_manager_fluid_email"
-                    ],
-                    new_user,
-                    generic_data["global_vars"]["admin_email"],
+        "organization_access": [
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=generic_data["global_vars"][
+                    "customer_manager_fluid_email"
                 ],
-            },
+            ),
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=new_user,
+            ),
+            OrganizationAccess(
+                organization_id=organization_id,
+                email=generic_data["global_vars"]["admin_email"],
+            ),
         ],
         "stakeholders": [
-            {
-                "stakeholder": Stakeholder(
-                    email=new_user,
-                    first_name="new_user",
-                    last_name="new_user",
-                    legal_remember=False,
-                    push_tokens=[],
-                    is_registered=True,
-                ),
-            },
+            Stakeholder(
+                email=new_user,
+                first_name="new_user",
+                last_name="new_user",
+                legal_remember=False,
+                push_tokens=[],
+                is_registered=True,
+            ),
         ],
         "groups": [
             {

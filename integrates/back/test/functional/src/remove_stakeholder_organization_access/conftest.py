@@ -85,21 +85,19 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ),
         ],
         "stakeholders": [
-            {
-                "stakeholder": Stakeholder(
-                    email=new_user,
-                    first_name="new_user",
-                    last_name="new_user",
-                    access_token=StakeholderAccessToken(
-                        iat=1634677195,
-                        jti="c8d9d5f058cf200f7435508fc2dba37d07447ec12dcd07",
-                        salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
-                    ),
-                    legal_remember=False,
-                    push_tokens=[],
-                    is_registered=True,
+            Stakeholder(
+                email=new_user,
+                first_name="new_user",
+                last_name="new_user",
+                access_token=StakeholderAccessToken(
+                    iat=1634677195,
+                    jti="c8d9d5f058cf200f7435508fc2dba37d07447ec12dcd07",
+                    salt="27c7f38dd7cc432871c84b63e78cd716739c40055253c",
                 ),
-            },
+                legal_remember=False,
+                push_tokens=[],
+                is_registered=True,
+            ),
         ],
         "groups": [
             {

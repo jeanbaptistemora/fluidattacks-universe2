@@ -1,5 +1,3 @@
-# pylint: disable=too-many-lines
-
 import asyncio
 from asyncio import (
     AbstractEventLoop,
@@ -220,273 +218,231 @@ def generic_data(  # pylint: disable=too-many-locals
         },
         "db_data": {
             "stakeholders": [
-                {
-                    "stakeholder": Stakeholder(
-                        email=admin_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            country_code="US",
-                            calling_country_code="1",
-                            national_number="1111111111",
-                        ),
+                Stakeholder(
+                    email=admin_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        country_code="US",
+                        calling_country_code="1",
+                        national_number="1111111111",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=admin_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="22222222222",
-                        ),
+                ),
+                Stakeholder(
+                    email=admin_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="22222222222",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=architect_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="33333333333",
-                        ),
+                ),
+                Stakeholder(
+                    email=architect_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="33333333333",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=architect_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="4444444444444",
-                        ),
+                ),
+                Stakeholder(
+                    email=architect_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="4444444444444",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=user_email,
-                        first_name="",
-                        last_name="",
-                        registration_date="",
-                        last_login_date="",
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="2029182132",
-                        ),
+                ),
+                Stakeholder(
+                    email=user_email,
+                    first_name="",
+                    last_name="",
+                    registration_date="",
+                    last_login_date="",
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="2029182132",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=user_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="666666666666",
-                        ),
+                ),
+                Stakeholder(
+                    email=user_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="666666666666",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=user_manager_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="77777777777777",
-                        ),
+                ),
+                Stakeholder(
+                    email=user_manager_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="77777777777777",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=user_manager_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="88888888888",
-                        ),
+                ),
+                Stakeholder(
+                    email=user_manager_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="88888888888",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=hacker_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="1",
-                            country_code="US",
-                            national_number="2029182131",
-                        ),
+                ),
+                Stakeholder(
+                    email=hacker_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="1",
+                        country_code="US",
+                        national_number="2029182131",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=hacker_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="222222222222",
-                        ),
+                ),
+                Stakeholder(
+                    email=hacker_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="222222222222",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=resourcer_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="33333333333",
-                        ),
+                ),
+                Stakeholder(
+                    email=resourcer_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="33333333333",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=reattacker_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="4444444444444",
-                        ),
+                ),
+                Stakeholder(
+                    email=reattacker_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="4444444444444",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=reattacker_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="55555555555",
-                        ),
+                ),
+                Stakeholder(
+                    email=reattacker_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="55555555555",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=resourcer_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="66666666666",
-                        ),
+                ),
+                Stakeholder(
+                    email=resourcer_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="66666666666",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=reviewer_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="7777777777",
-                        ),
+                ),
+                Stakeholder(
+                    email=reviewer_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="7777777777",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=reviewer_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="8888888888",
-                        ),
+                ),
+                Stakeholder(
+                    email=reviewer_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="8888888888",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=service_forces_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
+                ),
+                Stakeholder(
+                    email=service_forces_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                ),
+                Stakeholder(
+                    email=service_forces_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                ),
+                Stakeholder(
+                    email=customer_manager_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="57",
+                        country_code="CO",
+                        national_number="9999999999999",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=service_forces_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
+                ),
+                Stakeholder(
+                    email=vuln_manager_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="51",
+                        country_code="PE",
+                        national_number="1111111111111",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=customer_manager_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="57",
-                            country_code="CO",
-                            national_number="9999999999999",
-                        ),
+                ),
+                Stakeholder(
+                    email=vuln_manager_fluid_email,
+                    legal_remember=False,
+                    push_tokens=[],
+                    is_registered=True,
+                    phone=StakeholderPhone(
+                        calling_country_code="51",
+                        country_code="PE",
+                        national_number="222222222222",
                     ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=vuln_manager_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="51",
-                            country_code="PE",
-                            national_number="1111111111111",
-                        ),
-                    ),
-                },
-                {
-                    "stakeholder": Stakeholder(
-                        email=vuln_manager_fluid_email,
-                        legal_remember=False,
-                        push_tokens=[],
-                        is_registered=True,
-                        phone=StakeholderPhone(
-                            calling_country_code="51",
-                            country_code="PE",
-                            national_number="222222222222",
-                        ),
-                    ),
-                },
+                ),
             ],
             "organizations": [
                 {
