@@ -1,14 +1,17 @@
 import { Field, Form, Formik } from "formik";
 import type { FieldValidator } from "formik";
 import _ from "lodash";
-import React from "react";
+import type { FC, ReactNode } from "react";
+import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
+import { Alert } from "components/Alert";
+import { Label } from "components/Input";
+import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
-import { RequiredField } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
@@ -21,7 +24,7 @@ import {
 const MAX_LENGTH: number = 200;
 const maxFileDescriptionLength: ConfigurableValidator = maxLength(MAX_LENGTH);
 
-const AddFilesModal: React.FC<IAddFilesModalProps> = ({
+const AddFilesModal: FC<IAddFilesModalProps> = ({
   isOpen,
   isUploading,
   onClose,
@@ -58,7 +61,7 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
   };
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <Modal
         minWidth={400}
         onClose={onClose}
@@ -72,13 +75,11 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
           onSubmit={onSubmit}
           validationSchema={addFilesModalSchema}
         >
-          {({ dirty }): React.ReactNode => (
+          {({ dirty }): ReactNode => (
             <Form>
-              <div>
+              <Gap disp={"block"} mh={0} mv={12}>
                 <div>
-                  <label>
-                    <RequiredField>{"*"} </RequiredField>
-                  </label>
+                  <Label required={true} />
                   <Field
                     component={FormikFileInput}
                     id={"file"}
@@ -87,10 +88,9 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
                   />
                 </div>
                 <div>
-                  <label>
-                    <RequiredField>{"*"} </RequiredField>
+                  <Label required={true}>
                     {t("searchFindings.tabResources.description")}
-                  </label>
+                  </Label>
                   <Field
                     component={FormikTextArea}
                     name={"description"}
@@ -102,14 +102,12 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
                     ])}
                   />
                 </div>
-              </div>
-              {isUploading ? (
-                <div>
-                  {" "}
-                  <br />
-                  {t("searchFindings.tabResources.uploadingProgress")}
-                </div>
-              ) : undefined}
+                {isUploading ? (
+                  <Alert variant={"info"}>
+                    {t("searchFindings.tabResources.uploadingProgress")}
+                  </Alert>
+                ) : undefined}
+              </Gap>
               <ModalConfirm
                 disabled={!dirty || isUploading}
                 onCancel={onClose}
@@ -118,7 +116,7 @@ const AddFilesModal: React.FC<IAddFilesModalProps> = ({
           )}
         </Formik>
       </Modal>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
 

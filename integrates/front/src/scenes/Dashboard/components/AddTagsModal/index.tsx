@@ -1,9 +1,10 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import type { FC } from "react";
+import React, { Fragment, StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Label } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikArrayField, FormikText } from "utils/forms/fields";
 import { composeValidators, required, validTag } from "utils/validations";
 
@@ -15,22 +16,19 @@ interface IAddTagsModalProps {
 
 function renderTagsFields(fieldName: string): JSX.Element {
   return (
-    <React.Fragment>
-      <ControlLabel>
-        <RequiredField>{"* "}</RequiredField>
-        {"Tag"}
-      </ControlLabel>
+    <Fragment>
+      <Label required={true}>{"Tag"}</Label>
       <Field
         component={FormikText}
         name={fieldName}
         type={"text"}
         validate={composeValidators([required, validTag])}
       />
-    </React.Fragment>
+    </Fragment>
   );
 }
 
-const AddTagsModal: React.FC<IAddTagsModalProps> = ({
+const AddTagsModal: FC<IAddTagsModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
@@ -38,7 +36,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
   const { t } = useTranslation();
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <Modal
         minWidth={400}
         onClose={onClose}
@@ -70,7 +68,7 @@ const AddTagsModal: React.FC<IAddTagsModalProps> = ({
           )}
         </Formik>
       </Modal>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
 

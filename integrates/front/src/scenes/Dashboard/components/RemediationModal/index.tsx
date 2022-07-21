@@ -1,14 +1,12 @@
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
-import React from "react";
+import type { FC } from "react";
+import React, { Fragment, StrictMode } from "react";
 import type { ConfigurableValidator } from "revalidate";
 
+import { Label } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import {
-  ControlLabel,
-  FormGroup,
-  RequiredField,
-} from "styles/styledComponents";
+import { FormGroup } from "styles/styledComponents";
 import { FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
@@ -33,7 +31,7 @@ interface IAddRemediationProps {
 
 const MIN_LENGTH: number = 10;
 const minJustificationLength: ConfigurableValidator = minLength(MIN_LENGTH);
-const RemediationModal: React.FC<IAddRemediationProps> = ({
+const RemediationModal: FC<IAddRemediationProps> = ({
   additionalInfo,
   children,
   isLoading,
@@ -56,7 +54,7 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
   }
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <Modal onClose={onClose} open={isOpen} title={title}>
         <Formik
           initialValues={{
@@ -67,13 +65,10 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
         >
           {({ dirty }): JSX.Element => (
             <Form>
-              <React.Fragment>
+              <Fragment>
                 {children}
                 <FormGroup>
-                  <ControlLabel>
-                    <RequiredField>{"* "}</RequiredField>
-                    {message}
-                  </ControlLabel>
+                  <Label required={true}>{message}</Label>
                   <Field
                     component={FormikTextArea}
                     name={"treatmentJustification"}
@@ -89,12 +84,12 @@ const RemediationModal: React.FC<IAddRemediationProps> = ({
                   id={"remediation-confirm"}
                   onCancel={onClose}
                 />
-              </React.Fragment>
+              </Fragment>
             </Form>
           )}
         </Formik>
       </Modal>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
 
