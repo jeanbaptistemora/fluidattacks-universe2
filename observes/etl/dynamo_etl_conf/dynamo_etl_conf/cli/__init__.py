@@ -1,12 +1,18 @@
+from ._centralize import (
+    centralize,
+)
 import click
 from dynamo_etl_conf.jobs import (
     default_executor,
     Jobs,
     run_job,
 )
+import logging
 from typing import (
     NoReturn,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @click.command()  # type: ignore[misc]
@@ -25,3 +31,4 @@ def main() -> None:
 
 
 main.add_command(run)
+main.add_command(centralize)
