@@ -41,6 +41,10 @@ from typing import (
     Optional,
 )
 
+# Constants
+SECONDS_IN_24_HOURS = Decimal("86400.0")
+SECONDS_IN_1_HOUR = Decimal("3600.0")
+
 
 def format_decimal(value: Decimal) -> Decimal:
     if value >= MAX_WITH_DECIMALS:
@@ -78,6 +82,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                     == VulnerabilityVerificationStatus.REQUESTED
                     and start is None
                 ):
+
                     start = verification.modified_date
                     number_of_reattacks += 1
                 if (
@@ -85,23 +90,21 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                     == VulnerabilityVerificationStatus.VERIFIED
                     and start is not None
                 ):
+                    diff = get_datetime_from_iso_str(
+                        verification.modified_date
+                    ) - get_datetime_from_iso_str(start)
                     number_of_hours += Decimal(
-                        (
-                            get_datetime_from_iso_str(
-                                verification.modified_date
-                            )
-                            - get_datetime_from_iso_str(start)
-                        ).seconds
-                        / Decimal("3600.0")
+                        (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
+                        / SECONDS_IN_1_HOUR
                     )
                     start = None
 
             if start is not None:
+                diff = current_date - get_datetime_from_iso_str(start)
                 number_of_hours += Decimal(
-                    (current_date - get_datetime_from_iso_str(start)).seconds
-                    / Decimal("3600.0")
+                    (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
+                    / SECONDS_IN_1_HOUR
                 )
-                number_of_reattacks += 1
 
         return (
             format_decimal(number_of_hours / number_of_reattacks)
