@@ -46,8 +46,10 @@ DISPATCHERS: Dispatchers = (
         applicable_types={
             "ArrowExpressionClause",
             "Assignment",
+            "CallExpression",
             "ClassBody",
             "Comment",
+            "LexicalDeclaration",
             "MethodInvocation",
             "ThrowStatement",
             "VariableDeclaration",
