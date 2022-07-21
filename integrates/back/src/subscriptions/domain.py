@@ -121,7 +121,8 @@ async def can_subscribe_user_to_entity_report(
             report_subject.lower(),
         )
     elif report_entity.lower() == "organization":
-        success = await orgs_domain.has_user_access(
+        success = await orgs_domain.has_access(
+            loaders=loaders,
             email=user_email,
             organization_id=report_subject,
         )

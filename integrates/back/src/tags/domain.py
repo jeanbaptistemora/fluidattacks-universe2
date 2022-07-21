@@ -69,8 +69,8 @@ async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
         portfolio_groups: list[str] = list(portfolio_info.groups)
         org_access, group_access = await collect(
             (
-                orgs_domain.has_user_access(
-                    email=email, organization_id=org_id
+                orgs_domain.has_access(
+                    loaders=loaders, email=email, organization_id=org_id
                 ),
                 authz.get_group_level_roles(
                     email=email,

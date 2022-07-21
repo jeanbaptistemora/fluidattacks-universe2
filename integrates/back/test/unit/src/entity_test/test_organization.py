@@ -16,6 +16,8 @@ from custom_exceptions import (
 )
 from dataloaders import (
     apply_context_attrs,
+    Dataloaders,
+    get_new_context,
 )
 from decimal import (
     Decimal,
@@ -179,7 +181,8 @@ async def test_grant_stakeholder_organization_access() -> None:
         ]["email"]
         == stakeholder
     )
-    assert await orgs_domain.has_user_access(org_id, stakeholder)
+    loaders: Dataloaders = get_new_context()
+    assert await orgs_domain.has_access(loaders, org_id, stakeholder)
 
     data = {
         "query": query.substitute(

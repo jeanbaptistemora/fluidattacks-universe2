@@ -312,16 +312,17 @@ async def add_organization(
 async def get_or_add(
     loaders: Any, organization_name: str, email: str = ""
 ) -> Organization:
-    if await exists(loaders, organization_name):
-        org: Organization = await loaders.organization.load(organization_name)
-        org_id = remove_org_id_prefix(org.id)
-        has_access = await has_user_access(org_id, email) if email else True
+    if not await exists(loaders, organization_name):
+        return await add_organization(loaders, organization_name, email)
 
-        if email and not has_access:
-            await add_stakeholder(loaders, org_id, email, "user_manager")
-    else:
-        org = await add_organization(loaders, organization_name, email)
-    return org
+    organization: Organization = await loaders.organization.load(
+        organization_name
+    )
+    organization_id = remove_org_id_prefix(organization.id)
+    if email and not await has_access(loaders, organization_id, email):
+        await add_stakeholder(loaders, organization_id, email, "user_manager")
+
+    return organization
 
 
 async def get_stakeholder_role(
@@ -364,13 +365,19 @@ async def has_group(
         return False
 
 
-async def has_user_access(organization_id: str, email: str) -> bool:
-    organization_id = add_org_id_prefix(organization_id)
-    return (
-        await orgs_dal.has_user_access(organization_id, email)
-        or await authz.get_organization_level_role(email, organization_id)
+async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
+    if (
+        await authz.get_organization_level_role(email, organization_id)
         == "admin"
-    )
+    ):
+        return True
+
+    try:
+        organization_id = add_org_id_prefix(organization_id)
+        await loaders.organization_access.load((organization_id, email))
+        return True
+    except StakeholderNotInOrganization:
+        return False
 
 
 async def invite_to_organization(
@@ -481,7 +488,7 @@ async def remove_user(
     loaders: Any, organization_id: str, email: str, modified_by: str
 ) -> bool:
     organization_id = add_org_id_prefix(organization_id)
-    if not await has_user_access(organization_id, email):
+    if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
     await orgs_dal.remove(email=email, organization_id=organization_id)
@@ -611,14 +618,6 @@ async def update_organization_access(
     return await orgs_dal.update_metadata(
         email=email, metadata=metadata, organization_id=organization_id
     )
-
-
-async def update_user(
-    organization_id: str,
-    user_email: str,
-    data: dict[str, Any],
-) -> bool:
-    return await orgs_dal.update_stakeholder(organization_id, user_email, data)
 
 
 async def update_invited_stakeholder(

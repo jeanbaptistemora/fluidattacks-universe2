@@ -134,10 +134,6 @@ class OrganizationAccessAlreadyCreated(_SingleMessageException):
     msg: str = "This organization access item has already been created"
 
 
-class OrganizationAccessNotFound(_SingleMessageException):
-    msg: str = "Stakeholder's organization access not found"
-
-
 class PortfolioNotFound(_SingleMessageException):
     msg: str = "Portfolio not found"
 

@@ -80,7 +80,7 @@ async def test_add_customer_manager_fail() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testgroupmanager2@gmail.com"
-    assert not await orgs_domain.has_user_access(org_id, user)
+    assert not await orgs_domain.has_access(loaders, org_id, user)
 
     try:
         await orgs_domain.add_stakeholder(
@@ -106,7 +106,7 @@ async def test_add_customer_manager_good() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
     user = "org_testgroupmanager2@fluidattacks.com"
-    assert not await orgs_domain.has_user_access(org_id, user)
+    assert not await orgs_domain.has_access(loaders, org_id, user)
 
     assert await orgs_domain.add_stakeholder(
         loaders, org_id, user, "customer_manager"
@@ -136,7 +136,7 @@ async def test_add_organization() -> None:
 
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
-    assert await orgs_domain.has_user_access(org_id, user)
+    assert await orgs_domain.has_access(loaders, org_id, user)
     assert (
         await authz.get_organization_level_role(user, org_id) == "user_manager"
     )
@@ -292,11 +292,12 @@ async def test_has_group() -> None:
 
 
 async def test_has_user_access() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     existing_user = "integratesmanager@gmail.com"
     non_existent_user = "madeupuser@gmail.com"
-    assert await orgs_domain.has_user_access(org_id, existing_user)
-    assert not await orgs_domain.has_user_access(org_id, non_existent_user)
+    assert await orgs_domain.has_access(loaders, org_id, existing_user)
+    assert not await orgs_domain.has_access(loaders, org_id, non_existent_user)
 
 
 @pytest.mark.changes_db

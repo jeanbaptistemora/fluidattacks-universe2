@@ -9,7 +9,7 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
-    OrganizationAccessNotFound,
+    StakeholderNotInOrganization,
 )
 from db_model import (
     TABLE,
@@ -49,4 +49,4 @@ async def update_metadata(
                 table=TABLE,
             )
         except ConditionalCheckFailedException as ex:
-            raise OrganizationAccessNotFound() from ex
+            raise StakeholderNotInOrganization() from ex

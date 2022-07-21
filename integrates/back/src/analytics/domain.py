@@ -167,7 +167,8 @@ async def handle_authz_claims(
         ):
             raise PermissionError("Access denied")
     elif params.entity == "organization":
-        if not await orgs_domain.has_user_access(
+        if not await orgs_domain.has_access(
+            loaders=loaders,
             email=email,
             organization_id=subject,
         ):

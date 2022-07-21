@@ -133,7 +133,7 @@ async def remove(*, email: str, organization_id: str) -> None:
         raise UnavailabilityError() from ex
 
 
-async def update_stakeholder(
+async def _update_stakeholder(
     organization_id: str, user_email: str, data: dict[str, Any]
 ) -> bool:
     """Update org access attributes."""
@@ -177,5 +177,5 @@ async def update_metadata(
     organization_id: str,
 ) -> None:
     data: Item = format_metadata_item(metadata)
-    if not await update_stakeholder(organization_id, email, data):
+    if not await _update_stakeholder(organization_id, email, data):
         raise UnavailabilityError()

@@ -221,7 +221,7 @@ async def complete_register_for_group_invitation(
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    if not await orgs_domain.has_user_access(organization_id, user_email):
+    if not await orgs_domain.has_access(loaders, organization_id, user_email):
         coroutines.append(
             orgs_domain.add_stakeholder(
                 loaders, organization_id, user_email, "user"
@@ -350,7 +350,7 @@ async def add_group(  # pylint: disable=too-many-locals
         organization_name
     )
     organization_id = organization.id
-    if not await orgs_domain.has_user_access(organization_id, user_email):
+    if not await orgs_domain.has_access(loaders, organization_id, user_email):
         raise StakeholderNotInOrganization(organization_id)
 
     if await exists(loaders, group_name):
@@ -1289,7 +1289,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     organization_id = group.organization_id
     has_org_access, user_groups_names = await collect(
         (
-            orgs_domain.has_user_access(organization_id, email),
+            orgs_domain.has_access(loaders, organization_id, email),
             get_groups_by_user(loaders, email),
         )
     )
