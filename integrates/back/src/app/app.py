@@ -82,6 +82,15 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from opentelemetry.instrumentation.aiohttp_client import (
+    AioHttpClientInstrumentor,
+)
+from opentelemetry.instrumentation.redis import (
+    RedisInstrumentor,
+)
+from opentelemetry.instrumentation.starlette import (
+    StarletteInstrumentor,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -455,6 +464,11 @@ STARLETTE_APP = Starlette(
     ],
     exception_handlers=exception_handlers,
 )
+
+# OpenTelemetry instrumentation
+AioHttpClientInstrumentor().instrument()
+RedisInstrumentor().instrument()
+StarletteInstrumentor.instrument_app(STARLETTE_APP)
 
 # ASGI wrappers
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)

@@ -31,8 +31,9 @@ closure:
   cryptography: 3.3.2
   cycler: 0.11.0
   defusedxml: 0.7.1
+  deprecated: 1.2.13
   docopt: 0.6.2
-  ecdsa: 0.17.0
+  ecdsa: 0.18.0
   fpdf: 1.7.2
   frozendict: "1.2"
   frozenlist: 1.3.0
@@ -53,7 +54,7 @@ closure:
   jinja2: 2.11.2
   jmespath: 1.0.1
   jwcrypto: "0.8"
-  kiwisolver: 1.4.3
+  kiwisolver: 1.4.4
   korean-lunar-calendar: 0.2.1
   lxml: 4.7.1
   mailchimp-transactional: 1.0.40
@@ -67,6 +68,17 @@ closure:
   oauth2client: 4.1.3
   oauthlib: 3.2.0
   opensearch-py: 2.0.0
+  opentelemetry-api: 1.12.0rc2
+  opentelemetry-distro: 0.32b0
+  opentelemetry-exporter-jaeger-thrift: 1.12.0rc2
+  opentelemetry-instrumentation: 0.32b0
+  opentelemetry-instrumentation-aiohttp-client: 0.32b0
+  opentelemetry-instrumentation-asgi: 0.32b0
+  opentelemetry-instrumentation-redis: 0.32b0
+  opentelemetry-instrumentation-starlette: 0.32b0
+  opentelemetry-sdk: 1.12.0rc2
+  opentelemetry-semantic-conventions: 0.32b0
+  opentelemetry-util-http: 0.32b0
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.2.0
@@ -94,7 +106,7 @@ closure:
   requests-oauthlib: 1.3.1
   retrying: 1.3.3
   rfc3986: 1.5.0
-  rsa: "4.8"
+  rsa: "4.9"
   ruamel.yaml: 0.17.21
   ruamel.yaml.clib: 0.2.6
   s3transfer: 0.5.2
@@ -106,11 +118,12 @@ closure:
   social-auth-core: 3.3.3
   starlette: 0.17.1
   stripe: 2.63.0
+  thrift: 0.16.0
   twilio: 7.7.0
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
   typing-extensions: 4.3.0
-  urllib3: 1.26.9
+  urllib3: 1.26.10
   uvicorn: 0.17.4
   uvloop: 0.16.0
   watchgod: 0.8.2
@@ -370,15 +383,21 @@ links:
   - name: defusedxml-0.7.1.tar.gz
     sha256: 0s9ym98jrd819v4arv9gmcr6mgljhxd9q866sxi5p4c5n4nh7cqv
     url: https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124974bfe172b4daf3c984ebd9c2a06e2b8a4dc7331c72/defusedxml-0.7.1.tar.gz
+  - name: Deprecated-1.2.13-py2.py3-none-any.whl
+    sha256: 0vf7fvqcmf3swqlqz7v2fnza0chlaljcb4sxg6lyxif82hz6wxb4
+    url: https://files.pythonhosted.org/packages/51/6a/c3a0408646408f7283b7bc550c30a32cc791181ec4618592eec13e066ce3/Deprecated-1.2.13-py2.py3-none-any.whl
+  - name: Deprecated-1.2.13.tar.gz
+    sha256: 13g38k775idw46qds0b9kqzxah8xm4vgb2h2p8j1rhwhv8sm7b23
+    url: https://files.pythonhosted.org/packages/c8/d1/e412abc2a358a6b9334250629565fe12697ca1cdee4826239eddf944ddd0/Deprecated-1.2.13.tar.gz
   - name: docopt-0.6.2.tar.gz
     sha256: 14f4hn6d1j4b99svwbaji8n2zj58qicyz19mm0x6pmhb50jsics9
     url: https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz
-  - name: ecdsa-0.17.0-py2.py3-none-any.whl
-    sha256: 0xpn7rzwpqvya9g56jwrixa9v9j9r0v91698zh6vwfkl6ddivwsw
-    url: https://files.pythonhosted.org/packages/4a/b6/b678b080967b2696e9a201c096dc076ad756fb35c87dca4e1d1a13496ff7/ecdsa-0.17.0-py2.py3-none-any.whl
-  - name: ecdsa-0.17.0.tar.gz
-    sha256: 1ak8xa2r660d85abrlffp0bqvwdadg9ga4066g856hcy8fxh1xdr
-    url: https://files.pythonhosted.org/packages/bf/3d/3d909532ad541651390bf1321e097404cbd39d1d89c2046f42a460220fb3/ecdsa-0.17.0.tar.gz
+  - name: ecdsa-0.18.0-py2.py3-none-any.whl
+    sha256: 1parqpag3zpfxbhdw3x3snd11501sxdjjz0xmawicbzdwxc04q40
+    url: https://files.pythonhosted.org/packages/09/d4/4f05f5d16a4863b30ba96c23b23e942da8889abfa1cdbabf2a0df12a4532/ecdsa-0.18.0-py2.py3-none-any.whl
+  - name: ecdsa-0.18.0.tar.gz
+    sha256: 0j8yxplifl2dp3fkyl0xz2k13jl2a94fwp6nl4i1pqjr2l24h0qr
+    url: https://files.pythonhosted.org/packages/ff/7b/ba6547a76c468a0d22de93e89ae60d9561ec911f59532907e72b0d8bc0f1/ecdsa-0.18.0.tar.gz
   - name: fpdf-1.7.2.tar.gz
     sha256: 0yb73c2clv581sgak5jvlvkj4wy3jav6ms5ia8jx3rw969w40n0j
     url: https://files.pythonhosted.org/packages/37/c6/608a9e6c172bf9124aa687ec8b9f0e8e5d697d59a5f4fad0e2d5ec2a7556/fpdf-1.7.2.tar.gz
@@ -535,33 +554,33 @@ links:
   - name: jwcrypto-0.8.tar.gz
     sha256: 093cy19b9d07w5gnpikih8f1cm5d4szgb4lk752z3zdybdiy5zmp
     url: https://files.pythonhosted.org/packages/00/bb/ee916ab08e0510eb79cb3bfb561de2cd965ee60f0c3046c112e6e03c674a/jwcrypto-0.8.tar.gz
-  - name: kiwisolver-1.4.3-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 0imh953xlryhyjxgagcak9a3n6rq72q753rz49ip4dywvby90wbl
-    url: https://files.pythonhosted.org/packages/c9/0a/ad68f23d8ba38a3300ea91e875004264997c94383f3f1e31c2301c9fbba9/kiwisolver-1.4.3-cp39-cp39-macosx_10_9_universal2.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 0nl0s33cp2lkyh48w4s54ckdi7dj7ngiw6yz7lp1386vzxiqwqpx
-    url: https://files.pythonhosted.org/packages/0e/6c/da6d6cf6448995dea54c1187b56d35206e3b7796beaa0b582f5b7c7ba620/kiwisolver-1.4.3-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 0lghdd0dm6yf4vwf3fz565hqc0gzlyqsfy1ajl7pm0mfmd4bmk12
-    url: https://files.pythonhosted.org/packages/64/d1/a344f5c1d67c7532bd4e70aa5082b086233b16334f14326f6156c124ebd9/kiwisolver-1.4.3-cp39-cp39-macosx_11_0_arm64.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 1mrwvf9hx6y651fn929k7p33dp34jzg2r9582v26kjl348fb495g
-    url: https://files.pythonhosted.org/packages/97/30/f86f6dc89eb8abbfe60c2a8713b363f76b76d716a0df8772c6dc2cf93fe3/kiwisolver-1.4.3-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 0jv9rmghn46ag2jrdv5xjz42cmlk6kj7rs9ddia76ggigkpi2wal
-    url: https://files.pythonhosted.org/packages/9a/83/26180a222333fc90ee931be4ab13a3492d3c3cfce6754e705de973ee1050/kiwisolver-1.4.3-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1xsby655fwzkldb2avpsycn7lrz1b4vggzcyckdw7lypxggmmy44
-    url: https://files.pythonhosted.org/packages/7c/66/c9fd2c9357f2cea6673510cd6ad2357f17544d49bf1d538df6fdc6c8f4d1/kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-    sha256: 1w5y71cdb70wivswkai5wfz35299pypxldiz5chgn6ppbwbczmzz
-    url: https://files.pythonhosted.org/packages/78/0e/0c564a27ba7d6a0b39bf85a63e0b74271eea679524e4542c65f9f64ad663/kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-  - name: kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-    sha256: 03damk6h15sj7i748c2zsm10p3ks9rn9vcg44d6ll6vyrzp3ccbb
-    url: https://files.pythonhosted.org/packages/b5/2c/d3d34e28b97b7401d88685c7b452b0eca8ccf445cc37ccc5dfcf5662f181/kiwisolver-1.4.3-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-  - name: kiwisolver-1.4.3.tar.gz
-    sha256: 11hz6m227yhifj0i470g4ir0g86h8vw98ypp64zdbs0afp11b2mb
-    url: https://files.pythonhosted.org/packages/85/30/28df42dda1abe08eb2ff70a76c4dc04ffc9a0200a7c244300da436709a37/kiwisolver-1.4.3.tar.gz
+  - name: kiwisolver-1.4.4-cp39-cp39-macosx_10_9_universal2.whl
+    sha256: 1n3v5mr34yan77sr1dvipbhwi4rc514vanrd6975s0lar2a8b04c
+    url: https://files.pythonhosted.org/packages/2b/1f/a7cbeae4d9b0af9ffb8f139d4d4c8493716deb125cd23d8fabb6cd20783e/kiwisolver-1.4.4-cp39-cp39-macosx_10_9_universal2.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 15sq5brsjfa506w3nhpb1fj4jbw4h3sc1lf3ibnhsmyxxj2iv9zh
+    url: https://files.pythonhosted.org/packages/f2/e2/7ed98290955aa83598d0e5672d88bbc193192cdcd23d3a9ed7e536cf8e55/kiwisolver-1.4.4-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 092qkmxxirq6hvzvvvqnlmdgxacj2s9dka28q7l36pkqms75acxm
+    url: https://files.pythonhosted.org/packages/26/f3/1daa54509332dff966e1493fe0d5b573e0e11a56d301323ec6c667a53142/kiwisolver-1.4.4-cp39-cp39-macosx_11_0_arm64.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+    sha256: 0acy949hvkm5cxk8ww0gjcn82avliq8ps1mq77vf8q8wrk45znpg
+    url: https://files.pythonhosted.org/packages/15/cd/5b0a188f94b82b46d43023dc47354c5bb21fa4539858cd06df80889451c5/kiwisolver-1.4.4-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+    sha256: 0ps4bacvci04q9x5gvdkcrqivm458c6jicz6jb6j3m3c43hy2hvw
+    url: https://files.pythonhosted.org/packages/a4/36/c414d75be311ce97ef7248edcc4fc05afae2998641bf6b592d43a9dee581/kiwisolver-1.4.4-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1kg7s5kl030y0fb1qkhvl15jgcxw1bi71khnrzgdjb9bqzb3p3dw
+    url: https://files.pythonhosted.org/packages/4d/91/08eaa0f13fe644ae913cb157e9599ce64b64a99620df3beb0b142690e264/kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 1b51k7yi1vriflyhpzc69nz05dv0rsy4dp9p6cz80pagrh69p8sf
+    url: https://files.pythonhosted.org/packages/a5/d2/d55d40e3a65cc9cdf6b311862fba48905c1d59851594eaecc381727e0883/kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+    sha256: 1jdah82s007gswlhvl6jbwwmnkgbdrb3pmi0578mgmvdpzyl93wn
+    url: https://files.pythonhosted.org/packages/b7/f4/12806263b2ef28704319b902c08e7aaf8c6931255a02d76b01c1cac66ab6/kiwisolver-1.4.4-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
+  - name: kiwisolver-1.4.4.tar.gz
+    sha256: 0mg96grl8ixjip1bm09bgfazzw0jphqzx8mldvja396bkx8rf6fl
+    url: https://files.pythonhosted.org/packages/5f/5c/272a7dd49a1914f35cd8d6d9f386defa8b047f6fbd06badd6b77b3ba24e7/kiwisolver-1.4.4.tar.gz
   - name: korean_lunar_calendar-0.2.1-py3-none-any.whl
     sha256: 1mc2sg6i1dmfs61fgcll2rpan3xgkz68ays6cy902a81c64fl6d6
     url: https://files.pythonhosted.org/packages/15/41/aa426a4a9141afd8e7f5c8312bb59d5693274f3f7b34e73bdce4ee48b4c1/korean_lunar_calendar-0.2.1-py3-none-any.whl
@@ -754,6 +773,72 @@ links:
   - name: opensearch-py-2.0.0.tar.gz
     sha256: 0lhwm3c9zkq504iyjy4ayfrksqcg6ffxw16hm8pyfzamahd4ayqv
     url: https://files.pythonhosted.org/packages/1b/0c/0eb55e670d71a3d62820c7870df3430db09c20a9bad0f9603e36f067a61c/opensearch-py-2.0.0.tar.gz
+  - name: opentelemetry_api-1.12.0rc2-py3-none-any.whl
+    sha256: 02lyx86rasbd2yqx4ya4s068zckzn1768vd6hajb7p9g5xqgw5av
+    url: https://files.pythonhosted.org/packages/61/34/a1f7f0aec62ff7ac3c512ed7e7ffa3cf05bf75b9eee906fa04ef5cfbf7e7/opentelemetry_api-1.12.0rc2-py3-none-any.whl
+  - name: opentelemetry-api-1.12.0rc2.tar.gz
+    sha256: 0nycm6lfz0bi3amwnpgvmggnifmi0yq80ziyf0rd3z2pmisrh6rk
+    url: https://files.pythonhosted.org/packages/93/8e/e7cbb77d355f827f3c81e549a039df00df60c5b62728b910cdf92dce6586/opentelemetry-api-1.12.0rc2.tar.gz
+  - name: opentelemetry_distro-0.32b0-py3-none-any.whl
+    sha256: 08pavip6idif42khcpv4z3i1siqh5xz37nvsxni8wxy0zslfzxb9
+    url: https://files.pythonhosted.org/packages/51/5b/9a51521d89b66bf8e4a5ede8017a4446d747921d96b8fbc167816dec02a9/opentelemetry_distro-0.32b0-py3-none-any.whl
+  - name: opentelemetry-distro-0.32b0.tar.gz
+    sha256: 1bgsa5zyhjap5bi98pkj5iz9c9r3d5f6zjzijaa9hp5x2v4bk15b
+    url: https://files.pythonhosted.org/packages/69/72/45cf338425b6e1ec7ba00bd846701b1bae353d3c3c09289d0dddcbddcf6d/opentelemetry-distro-0.32b0.tar.gz
+  - name: opentelemetry_exporter_jaeger_thrift-1.12.0rc2-py3-none-any.whl
+    sha256: 0866i3kndkimdh97n4px32x6aidr3yv7l429y73zcxrw8kd08l2h
+    url: https://files.pythonhosted.org/packages/4e/07/ef9da3b87c55b3f9d259ecc6b8666ce577429ef3dfb54b8302967d90da37/opentelemetry_exporter_jaeger_thrift-1.12.0rc2-py3-none-any.whl
+  - name: opentelemetry-exporter-jaeger-thrift-1.12.0rc2.tar.gz
+    sha256: 0m0sfv8dmxvsnc0983rgksvazmsfvh9ngyczvwi9c48zhmqax8ll
+    url: https://files.pythonhosted.org/packages/a5/6b/a0bb08047f0fcf23bf0c6fcab2c9f91916d6d04341b79aebe88d4749aa01/opentelemetry-exporter-jaeger-thrift-1.12.0rc2.tar.gz
+  - name: opentelemetry_instrumentation-0.32b0-py3-none-any.whl
+    sha256: 0shj99gj65xv0v70yckr4f39w862zv1hpkh5lq4xgrrhkclj0jdp
+    url: https://files.pythonhosted.org/packages/f5/63/f4503aac89be0846ad59702a978371fdc4eac959074e8158d59cb643928d/opentelemetry_instrumentation-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-0.32b0.tar.gz
+    sha256: 0kl3kff5i2gnvxlcy4yliqyvib51x39fmmq7qnjnq820av42i1gb
+    url: https://files.pythonhosted.org/packages/28/2b/5b074dc42a2ad039c94fa4c6858810accf6b016cbe7c6507be05024b05a4/opentelemetry-instrumentation-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_aiohttp_client-0.32b0-py3-none-any.whl
+    sha256: 1fffy2pjnn02z438gbvymaw1fgjzcvcv4890wjgjscm40qca1vps
+    url: https://files.pythonhosted.org/packages/14/7a/e10d79386bdabf26da107fe0602bcc07361b61419ae5e1e5bc7d2581d96c/opentelemetry_instrumentation_aiohttp_client-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-aiohttp-client-0.32b0.tar.gz
+    sha256: 19vn34n3k01chsinx86dpgpvq8jar783dkh9p5g500k5bx3cylca
+    url: https://files.pythonhosted.org/packages/db/64/53e5de94549d278efa2ebf2ff4267cab32214ef61b268c2778f3c73cabbe/opentelemetry-instrumentation-aiohttp-client-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_asgi-0.32b0-py3-none-any.whl
+    sha256: 04l991570n1d5n1rg5r20rppyn36i0dsvd4q76l0ai0xzrdavsvk
+    url: https://files.pythonhosted.org/packages/47/a0/7ab6457a30745bd799e6c9cb27844c636898692f649c34acc4a3433ca597/opentelemetry_instrumentation_asgi-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-asgi-0.32b0.tar.gz
+    sha256: 0xryr82z81qfayvz7n5lk42f2xghi0rabr4vc3nzyd2hvgcbxl5y
+    url: https://files.pythonhosted.org/packages/d3/ef/f41ef4c6aa1a88b98407569ca8b23899ec6ba685158011a7604b6f9b4964/opentelemetry-instrumentation-asgi-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_redis-0.32b0-py3-none-any.whl
+    sha256: 0yxclr75l6pbwxjbzlblj4z69r7cy9s7jzrx5cdgcj6gav026nmk
+    url: https://files.pythonhosted.org/packages/b6/50/653b3d01c67f907504d7c769fe8c0cc7f028134462a7cc28b9ab98df29ad/opentelemetry_instrumentation_redis-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-redis-0.32b0.tar.gz
+    sha256: 020lwjj6rd1f7w9r8bi4x9yqvglv72i3szcb50dpfs5191qrbqnz
+    url: https://files.pythonhosted.org/packages/f2/a6/5ca8da2c91256abe0be4e42e37db3691c002d0cf638e8003b49119aae90f/opentelemetry-instrumentation-redis-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_starlette-0.32b0-py3-none-any.whl
+    sha256: 1phmrbh0w16pfnsjl2rk1nf71zd7hlikqb13f2k5r3mi4c5mv18r
+    url: https://files.pythonhosted.org/packages/95/25/a20b616f61bf73a6c9a79bd1b64e5a1f4b2c73e25f3c6e3dd2fc5935e628/opentelemetry_instrumentation_starlette-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-starlette-0.32b0.tar.gz
+    sha256: 0z0ljkfrhi0zfgqwjdcq8yflg861nw3s72d1lcq55dfzrr0srxmw
+    url: https://files.pythonhosted.org/packages/6a/82/47e7407393791a2b6d2d39e552dfeb4c057f23370957fee401ab1dfe0fe9/opentelemetry-instrumentation-starlette-0.32b0.tar.gz
+  - name: opentelemetry_sdk-1.12.0rc2-py3-none-any.whl
+    sha256: 1hniacrhgqbrwawalbdazhmzhskvmb6zympazbs3lnpclxcw07dm
+    url: https://files.pythonhosted.org/packages/c2/63/71631c2a7305d9744cafd76147d66ca0a1c2914307f10744db9cf0be40e8/opentelemetry_sdk-1.12.0rc2-py3-none-any.whl
+  - name: opentelemetry-sdk-1.12.0rc2.tar.gz
+    sha256: 13zd4240bqpyc4sbmm7fg075fsx0dl8xizs53anp2r273l7fnly1
+    url: https://files.pythonhosted.org/packages/9b/c5/db1555ab3df5d766dc117301a24ed9adc35a4f227e846e6e33c6b7d2e569/opentelemetry-sdk-1.12.0rc2.tar.gz
+  - name: opentelemetry_semantic_conventions-0.32b0-py3-none-any.whl
+    sha256: 1g0sf1h6m63mi7lf2nc9qp8xh61lbm5ys7ayar7jsn4xjj9xaciw
+    url: https://files.pythonhosted.org/packages/b1/a2/4945816e6b2bbb6f63619915e458879869a42c0a4902b0dfcb58155459e3/opentelemetry_semantic_conventions-0.32b0-py3-none-any.whl
+  - name: opentelemetry-semantic-conventions-0.32b0.tar.gz
+    sha256: 1sczsxqxl94xfzzgfa3r7v2lm57j960bnb0m2j9p6wsxda4fm157
+    url: https://files.pythonhosted.org/packages/c4/c0/4ca8f2450080c4612e594e419404e7e8f81834555df3923a0f07ffd04d64/opentelemetry-semantic-conventions-0.32b0.tar.gz
+  - name: opentelemetry_util_http-0.32b0-py3-none-any.whl
+    sha256: 1vnyyvdpi78cvpz4gbc28qzx8b7zhcrwzvw1x570p9k0g6q2yydy
+    url: https://files.pythonhosted.org/packages/7c/3c/c738613012e09279ef9d10b750cf307f644c1581ae25eff20cf513657125/opentelemetry_util_http-0.32b0-py3-none-any.whl
+  - name: opentelemetry-util-http-0.32b0.tar.gz
+    sha256: 0rnci7dkyy9lrk9xxjhr0imdiwl9h3rf08a4xc8ibkisndimxgvv
+    url: https://files.pythonhosted.org/packages/c2/85/b2baa0604e430cd922a90f3fb12d0e3765de4547ba0dc1bcef54dc7f1cfc/opentelemetry-util-http-0.32b0.tar.gz
   - name: packaging-21.3-py3-none-any.whl
     sha256: 08nmbgmf38nnxr99d5nlnacrr2jh1wp4xsi4ms1wgk8ryl2kw47g
     url: https://files.pythonhosted.org/packages/05/8e/8de486cbd03baba4deef4142bd643a3e7bbe954a784dc1bb17142572d127/packaging-21.3-py3-none-any.whl
@@ -928,12 +1013,12 @@ links:
   - name: rfc3986-1.5.0.tar.gz
     sha256: 0d8q89p98vq33vi8qci6nb8f6vmwvprmpik3a04lw3bxv08ay2i7
     url: https://files.pythonhosted.org/packages/79/30/5b1b6c28c105629cc12b33bdcbb0b11b5bb1880c6cfbd955f9e792921aa8/rfc3986-1.5.0.tar.gz
-  - name: rsa-4.8-py3-none-any.whl
-    sha256: 1fshd62fvf7f8cia5hrwcpypi565csjqnhlcf1lywyg8qh0d7icm
-    url: https://files.pythonhosted.org/packages/30/ab/8fd9e88e6fa5ec41afca995938bbefb72195278e0cfc5bd76a4f29b23fb2/rsa-4.8-py3-none-any.whl
-  - name: rsa-4.8.tar.gz
-    sha256: 05vbvxavxk80cbljm764pwmlwrrvia51yqsa63j7yfslgbfdjssw
-    url: https://files.pythonhosted.org/packages/8c/ee/4022542e0fed77dd6ddade38e1e4dea3299f873b7fd4e6d78319953b0f83/rsa-4.8.tar.gz
+  - name: rsa-4.9-py3-none-any.whl
+    sha256: 1xvlc59ipksbkz746bkxibnpwwm8bzvhwk9lcxlph575b280s9lh
+    url: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
+  - name: rsa-4.9.tar.gz
+    sha256: 08gg417lvcqfqmg6gwah9ahy19w72ik2c08v6pqxg1bckjj69173
+    url: https://files.pythonhosted.org/packages/aa/65/7d973b89c4d2351d7fb232c2e452547ddfa243e93131e7cfa766da627b52/rsa-4.9.tar.gz
   - name: ruamel.yaml-0.17.21-py3-none-any.whl
     sha256: 19qwnvwc219sx4j2jknvbzvmvkj88b9b65kdpn0kj0k5sv9kaavl
     url: https://files.pythonhosted.org/packages/9e/cb/938214ac358fbef7058343b3765c79a1b7ed0c366f7f992ce7ff38335652/ruamel.yaml-0.17.21-py3-none-any.whl
@@ -1006,6 +1091,9 @@ links:
   - name: stripe-2.63.0.tar.gz
     sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
     url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
+  - name: thrift-0.16.0.tar.gz
+    sha256: 0224q7gjaglympaxnvg2d87ms6d0ysgkr8ia66fizlnyzj468nrb
+    url: https://files.pythonhosted.org/packages/e4/23/dd951c9883cb49a73b750bdfe91e39d78e8a3f1f7175608634f381a197d5/thrift-0.16.0.tar.gz
   - name: twilio-7.7.0-py2.py3-none-any.whl
     sha256: 0dfqcdwry91n908rl050z267gqfaza9x9cf39c6lsbmiayskvgsp
     url: https://files.pythonhosted.org/packages/58/ab/1b8dc84bf6593e247b18b59ef582d24f3632e5bd43a864342ff29a120cf8/twilio-7.7.0-py2.py3-none-any.whl
@@ -1030,12 +1118,12 @@ links:
   - name: typing_extensions-4.3.0.tar.gz
     sha256: 19n4l57qazwrbvxjrbxw2vvfyd0zbk8ivnwm4zmwfzzl69x6glp6
     url: https://files.pythonhosted.org/packages/9e/1d/d128169ff58c501059330f1ad96ed62b79114a2eb30b8238af63a2e27f70/typing_extensions-4.3.0.tar.gz
-  - name: urllib3-1.26.9-py2.py3-none-any.whl
-    sha256: 051c8x2xchkhcrvagwzw4p4jx6j6ym4cdlcvgik6yw5i7zay9v24
-    url: https://files.pythonhosted.org/packages/ec/03/062e6444ce4baf1eac17a6a0ebfe36bb1ad05e1df0e20b110de59c278498/urllib3-1.26.9-py2.py3-none-any.whl
-  - name: urllib3-1.26.9.tar.gz
-    sha256: 13j4mkk6vgix4bixfqk3fhydsl3r5f61z94ss4fmwsl0fxjg3fma
-    url: https://files.pythonhosted.org/packages/1b/a5/4eab74853625505725cefdf168f48661b2cd04e7843ab836f3f63abf81da/urllib3-1.26.9.tar.gz
+  - name: urllib3-1.26.10-py2.py3-none-any.whl
+    sha256: 1v7phvbqj10fvlff3839f5wmvd7r6g8rf71wq4xhxgirdpaxd642
+    url: https://files.pythonhosted.org/packages/68/47/93d3d28e97c7577f563903907912f4b3804054e4877a5ba6651f7182c53b/urllib3-1.26.10-py2.py3-none-any.whl
+  - name: urllib3-1.26.10.tar.gz
+    sha256: 1mihvfy8ph3pgdcczy6jx0rfl423z7h22cg1kivdjm4nx38s96w7
+    url: https://files.pythonhosted.org/packages/25/36/f056e5f1389004cf886bb7a8514077f24224238a7534497c014a6b9ac770/urllib3-1.26.10.tar.gz
   - name: uvicorn-0.17.4-py3-none-any.whl
     sha256: 1v1arz0848h96s7fgwfqnj7mn1ddgv7p2ajx9k6cqldn9zc74n78
     url: https://files.pythonhosted.org/packages/f1/4c/9f4b2a72512c1f70caf9be3087703f4b7716c253ae69ed7aaeaba6a72627/uvicorn-0.17.4-py3-none-any.whl
