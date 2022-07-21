@@ -171,7 +171,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
                   : previousValue,
               ""
             );
-      if (invitationState === "CONFIRMED") {
+      if (invitationState === "REGISTERED") {
         return t("group.authors.invitationState.confirmed");
       }
       if (invitationState === "PENDING") {
