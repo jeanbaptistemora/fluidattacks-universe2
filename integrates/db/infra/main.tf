@@ -132,6 +132,16 @@ resource "aws_dynamodb_table" "FI_forces" {
     name = "execution_id"
     type = "S"
   }
+  attribute {
+    name = "date"
+    type = "S"
+  }
+  global_secondary_index {
+    hash_key        = "execution_id"
+    name            = "date"
+    projection_type = "ALL"
+    range_key       = "subscription"
+  }
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "subscription"
   name         = "FI_forces"

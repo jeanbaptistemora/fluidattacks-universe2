@@ -682,6 +682,18 @@ resource "aws_dynamodb_table" "forces" {
     type = "S"
   }
 
+  attribute {
+    name = "date"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "date"
+    hash_key        = "subscription"
+    range_key       = "date"
+    projection_type = "ALL"
+  }
+
   point_in_time_recovery {
     enabled = true
   }
