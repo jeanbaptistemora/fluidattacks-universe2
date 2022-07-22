@@ -25,7 +25,7 @@ function main {
     && export MACHINE_QUEUES='__argManifestQueues__' \
     && export MACHINE_FINDINGS='__argManifestFindings__' \
     && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
-    && export INTEGRATES_CHARTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/logo.png' \
+    && export INTEGRATES_REPORTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/background.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
     && export NEW_RELIC_CONFIG_FILE='__argIntegrates__/back/src/context/newrelic.ini' \
     && export NEW_RELIC_ENVIRONMENT="${env}" \

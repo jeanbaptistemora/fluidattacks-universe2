@@ -1,5 +1,5 @@
 from context import (
-    FI_CHARTS_LOGO_PATH,
+    FI_INTEGRATES_REPORTS_LOGO_PATH,
 )
 from decimal import (
     Decimal,
@@ -18,7 +18,7 @@ pytestmark = [
 
 
 def test_image_path() -> None:
-    assert os.path.exists(FI_CHARTS_LOGO_PATH)
+    assert os.path.exists(FI_INTEGRATES_REPORTS_LOGO_PATH)
 
 
 @pytest.mark.changes_db

@@ -11,7 +11,7 @@ base:
   font_color: 2e2e38
   font_family: Roboto
   font_size: 16
-  line_height_length: 20
+  line_height_length: 18
   line_height: $base_line_height_length / $base_font_size
   font_size_large: 20
   font_size_small: 12
@@ -22,7 +22,7 @@ base:
 page:
   background_color: ffffff
   layout: portrait
-  margin: [4cm, 1cm, 2cm, 1cm]
+  margin: [3.8cm, 1cm, 2cm, 1cm]
   size: letter
   background_image: image:background.png[]
 # FIXME vertical_rhythm is weird; we should think in terms of ems
