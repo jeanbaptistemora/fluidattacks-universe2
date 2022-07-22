@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 19, 2022, 04:01 PM",
+    "DateLastModified": "Jul 22, 2022, 03:54 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -978,9 +978,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -1156,9 +1153,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -1323,9 +1317,6 @@
                       },
                       {
                         "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
                       },
                       {
                         "S": "EVENT_REPORT"
@@ -1570,9 +1561,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -1815,9 +1803,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -2047,9 +2032,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -2218,9 +2200,6 @@
                         "S": "CHARTS_REPORT"
                       },
                       {
-                        "S": "DAILY_DIGEST"
-                      },
-                      {
                         "S": "EVENT_REPORT"
                       },
                       {
@@ -2314,9 +2293,6 @@
                       },
                       {
                         "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
                       },
                       {
                         "S": "EVENT_REPORT"
@@ -2630,9 +2606,6 @@
                       },
                       {
                         "S": "CHARTS_REPORT"
-                      },
-                      {
-                        "S": "DAILY_DIGEST"
                       },
                       {
                         "S": "EVENT_REPORT"
