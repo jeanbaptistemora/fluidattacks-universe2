@@ -12,16 +12,19 @@ from typing import (
 def build_variable_declaration_node(
     args: SyntaxGraphArgs,
     variable: Optional[str],
-    variable_type: str,
+    variable_type: Optional[str],
     value_id: Optional[NId],
     declarator_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        variable=variable,
-        variable_type=variable_type,
         label_type="VariableDeclaration",
     )
+
+    if variable_type:
+        args.syntax_graph.nodes[args.n_id]["variable_type"] = variable_type
+    if variable:
+        args.syntax_graph.nodes[args.n_id]["variable"] = variable
 
     if value_id:
         args.syntax_graph.nodes[args.n_id]["value_id"] = value_id

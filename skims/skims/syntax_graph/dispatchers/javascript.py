@@ -4,9 +4,12 @@ from syntax_graph.syntax_readers.common import (
     comment as common_comment,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
+    method_declaration as common_method_declaration,
     pair as common_pair,
     program as common_program,
+    statement_block as common_statement_block,
     string_literal as common_string_literal,
+    variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
 )
 from syntax_graph.syntax_readers.javascript import (
@@ -67,6 +70,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function_declaration",
+        },
+        syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
             "property_identifier",
         },
@@ -104,9 +113,21 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "statement_block",
+        },
+        syntax_reader=common_statement_block.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "string",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "variable_declaration",
+        },
+        syntax_reader=common_variable_declaration.reader,
     ),
     Dispatcher(
         applicable_types={
