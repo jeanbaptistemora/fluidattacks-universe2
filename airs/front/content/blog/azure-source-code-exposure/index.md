@@ -171,3 +171,6 @@ if it's actually supposed to be out there,
 you'll know it's fine.
 Take this step now and
 [contact us](../../contact-us/)\!
+If you're still on the fence,
+read about our
+[secure code review](../../solutions/secure-code-review/) solution.

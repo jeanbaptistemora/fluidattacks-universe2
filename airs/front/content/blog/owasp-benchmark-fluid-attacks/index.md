@@ -193,8 +193,9 @@ OWASP Benchmark, but certainly, it is only one of the sources we use as
 a reference to improve our tool. We keep getting feedback from real
 applications. And while our customers can take advantage of our tool to
 look for vulnerabilities, we always recommend performing comprehensive
-analyses by adding our [ethical
-hackers](../../solutions/ethical-hacking/)' invaluable manual exercise.
+[security testing](../../solutions/security-testing/)
+by adding our [ethical hackers](../../solutions/ethical-hacking/)'
+invaluable manual work.
 
 To conclude, as anyone can use the OWASP Benchmark to evaluate any
 application security testing tool, if you are among the customers or

@@ -194,8 +194,7 @@ are some problems.
 
 What happens if we implement the term 'security' in this context?
 
-We get the much mentioned [DevSecOps](../../solutions/devsecops/)
-concept.
+We get the much mentioned [DevSecOps](../../solutions/devsecops/).
 
 And what does that term mean?
 

@@ -131,7 +131,8 @@ At `Fluid Attacks`, we don’t just stick with SAST and SCA. Here we
 also perform DAST and IAST. Furthermore, it is not that we hand over
 the work to an application or a tool that can be useful for any type of
 technique. At `Fluid Attacks`, we extract the best possible from
-automatic and manual work.
+automatic and manual work,
+accomplishing comprehensive [security testing](../../solutions/security-testing/).
 
 The ethical hacking service at `Fluid Attacks` uses the techniques we
 have mentioned, through a team of experts supported by automated tools.

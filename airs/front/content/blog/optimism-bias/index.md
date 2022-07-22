@@ -152,7 +152,8 @@ revealed to the public? That’s an instance of an interesting problem:
 
 ## What can you do?
 
-You can adopt a healthy skepticism and let outsiders test your systems
+You can adopt a healthy skepticism and let outsiders
+perform [security testing](../../security-testing/) in your systems
 to find potential weaknesses. Also, be open: like a real scientist is
 open to finding his/her theory wrong after running experiments.
 Implement a process by which you can continuously know whether your

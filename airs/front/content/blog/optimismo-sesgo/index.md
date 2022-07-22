@@ -166,7 +166,8 @@ vez más, un escepticismo saludable ayuda aquí.
 ## ¿Qué puedes hacer?
 
 Puedes adoptar un escepticismo saludable y dejar que los terceros
-prueben tus sistemas para encontrar debilidades potenciales. Además, sé
+realicen [pruebas de seguridad](../../security-testing/) en
+tus sistemas para encontrar debilidades potenciales. Además, sé
 abierto: como un verdadero científico está dispuesto a encontrar que su
 teoría es equivocada después de confrontarla con experimentos.
 Implementa un proceso mediante el cual puedas saber continuamente si tus

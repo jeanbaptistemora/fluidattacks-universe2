@@ -205,7 +205,9 @@ touch with us\!](../../contact-us/)
 
 In line with these posts about trends, we predict [continuous
 hacking](../../services/continuous-hacking/) will grow in 2020 as it
-delivers more value to organizations. We have evidence that customers
+delivers more value to organizations
+and enables them to implement [DevSecOps](../../solutions/devsecops/).
+We have evidence that customers
 continuously testing the robustness of their software and IT
 infrastructure do find more weaknesses and achieve a higher rate of
 fixes. To know more about this, check our **"State of Attacks" 2020

@@ -235,7 +235,8 @@ we must continuously read and inform ourselves
 via resources such as [OWASP](../../compliance/owasp/)
 or [CWE](../../compliance/cwe/).
 
-Security tests should always be performed on applications
+[Security testing](../../solutions/security-testing/)
+should always be performed on applications
 to ensure that
 they are able to maintain the confidentiality,
 integrity and availability of information.
