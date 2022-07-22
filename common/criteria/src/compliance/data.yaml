@@ -1690,6 +1690,147 @@
     "7_3_4":
       title: Log protection
       link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_4_1":
+      title: Error handling
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_1_1":
+      title: General data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_1_2":
+      title: General data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_1_3":
+      title: General data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_2_1":
+      title: Client-side data protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_1":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_2":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_3":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_4":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_5":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "8_3_7":
+      title: Sensitive private data
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "9_1_1":
+      title: Client communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "9_1_3":
+      title: Client communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "9_2_1":
+      title: Server communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "9_2_2":
+      title: Server communication security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_1_1":
+      title: Code integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_2_3":
+      title: Malicious code search
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_2_4":
+      title: Malicious code search
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_2_5":
+      title: Malicious code search
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_3_1":
+      title: Application integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_3_2":
+      title: Application integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "10_3_3":
+      title: Application integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "11_1_1":
+      title: Business logic security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_1_1":
+      title: File upload
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_1_3":
+      title: File upload
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_2_1":
+      title: File integrity
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_3_1":
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_3_3":
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_3_6":
+      title: File execution
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_4_1":
+      title: File storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_4_2":
+      title: File storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "12_5_1":
+      title: File download
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "13_1_1":
+      title: Generic web service security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "13_1_3":
+      title: Generic web service security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "13_1_5":
+      title: Generic web service security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "13_4_1":
+      title: GraphQL
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_1_3":
+      title: Build and deploy
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_1_5":
+      title: Build and deploy
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_2_1":
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_2_2":
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_2_4":
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_2_6":
+      title: Dependency
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_3_2":
+      title: Unintended security disclosure
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_3_3":
+      title: Unintended security disclosure
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_4_1":
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_4_4":
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "14_4_6":
+      title: HTTP security headers
+      link: https://owasp.org/www-project-application-security-verification-standard/
   metadata: {}
 "owasp10":
   title: OWASP TOP 10
