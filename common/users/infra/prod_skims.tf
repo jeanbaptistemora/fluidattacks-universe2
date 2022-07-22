@@ -109,6 +109,7 @@ locals {
               "arn:aws:s3:::fluidattacks-terraform-states-prod/skims*",
               "arn:aws:s3:::skims*",
               "arn:aws:dynamodb:us-east-1:205810638802:table/skims*",
+              "arn:aws:dynamodb:us-east-1:205810638802:table/celery",
             ]
           },
           {

@@ -43,7 +43,7 @@ async def get_results(execution_id: str) -> List[Dict[str, Any]]:
 
             return list(
                 csv.DictReader(
-                    lines,
+                    lines[1:],
                     [
                         "finding",
                         "kind",

@@ -49,7 +49,6 @@ async def get_vulnerabilities(execution_id: str) -> core_model.Vulnerabilities:
             namespace=CTX.config.namespace,
         )
         for result in current_results
-        if not result["finding"] is "finding"
     )
 
     return vulnerabilities
