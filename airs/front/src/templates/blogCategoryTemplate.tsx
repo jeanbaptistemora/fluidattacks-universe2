@@ -34,6 +34,13 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
       ),
       title: translate.t("blogListCategories.philosophy.title"),
     },
+    {
+      description: translate.t("blogListCategories.attacks.description"),
+      metaDescription: translate.t(
+        "blogListCategories.attacks.metaDescription"
+      ),
+      title: translate.t("blogListCategories.attacks.title"),
+    },
   ];
 
   const categoryDescription = data.find(

@@ -35,12 +35,22 @@ const pageTexts: ResourceKey = {
     subscribeHeader: "Subscribe to our newsletter",
   },
   blogListCategories: {
+    attacks: {
+      description:
+        "Read the latest news on cybersecurity incidents " +
+        "and software vulnerabilities, " +
+        "as well as entries explaining specific attacks " +
+        "or instructing how to perform them.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Attacks category.",
+      title: "attacks",
+    },
     philosophy: {
       description:
         "Entries where we describe security best practices and approaches, " +
         "tackling basic, as well as trending, cybersecurity concepts.",
       metaDescription:
-        "Read Fluid Attacks's blog posts related to the Philosophy category.",
+        "Read Fluid Attacks' blog posts related to the Philosophy category.",
       title: "philosophy",
     },
   },
