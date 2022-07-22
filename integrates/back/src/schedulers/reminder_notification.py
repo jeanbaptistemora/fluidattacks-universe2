@@ -12,9 +12,6 @@ from db_model.enums import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
-from itertools import (
-    groupby,
-)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -50,10 +47,10 @@ async def send_reminder_notification() -> None:
     groups = await loaders.group.load_many(group_names)
     orgs_ids: set[str] = set(group.organization_id for group in groups)
 
-    stakeholders_emails: list[str] = [
-        stakeholder.email
+    inactive_stakeholders: list[Stakeholder] = [
+        stakeholder
         for org_id in orgs_ids
-        for stakeholder in await loaders.organization_stakeholders.load(org_id)
+        for stakeholder in await orgs_domain.get_stakeholders(loaders, org_id)
         if (
             stakeholder.last_login_date
             and (
@@ -73,25 +70,18 @@ async def send_reminder_notification() -> None:
         )
     ]
 
-    stakeholders_emails_filtered: list[str] = [
-        key for key, _ in groupby(sorted(stakeholders_emails))
-    ]
-
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(stakeholders_emails_filtered)
-    stakeholders_email = [
+    inactive_stakeholders_email = [
         stakeholder.email
-        for stakeholder in stakeholders
+        for stakeholder in inactive_stakeholders
         if Notification.REMINDER_NOTIFICATION
         in stakeholder.notifications_preferences.email
     ]
 
-    if stakeholders_email:
+    if inactive_stakeholders_email:
         await groups_mail.send_mail_reminder(
             loaders=loaders,
             context={},
-            email_to=stakeholders_email,
+            email_to=inactive_stakeholders_email,
         )
     else:
         LOGGER.info("- reminder notification NOT sent")
