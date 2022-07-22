@@ -127,10 +127,10 @@ in {
     observesDynamoParallel =
       sharedConfiguration
       // {
-        attemptDurationSeconds = 36000;
+        attemptDurationSeconds = 259200;
         attempts = 1;
         command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
-        parallel = 50;
+        parallel = 5;
       };
 
     observesDynamoPrepare =

@@ -39,7 +39,7 @@ class Executor:
     _schema_prefix: str
     _etl_bin: str
     _etl_big_bin: str
-    _etl_parrallel: str
+    _etl_parallel: str
     _etl_prepare: str
 
     def _run(
@@ -87,12 +87,15 @@ class Executor:
         )
 
     def core(self) -> Cmd[None]:
-        return self._default_run(
-            TargetTables.CORE,
-            True,
-            Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
-            True,
-        )
+        table = TargetTables.CORE
+        args = [
+            self._etl_parallel,
+            f"{self._schema_prefix}{table.value}",
+            table.value,
+            "5",  # total_segments: MUST coincide with batch parallel conf
+            "s3://observes.cache/dynamoEtl/vms_schema",
+        ]
+        return external_run(tuple(args))
 
     def prepare_core(self) -> Cmd[None]:
         table = TargetTables.CORE
@@ -104,15 +107,12 @@ class Executor:
         return external_run(tuple(args))
 
     def core_no_cache(self) -> Cmd[None]:
-        table = TargetTables.CORE
-        args = [
-            self._etl_parrallel,
-            f"{self._schema_prefix}{table.value}_loading",
-            table.value,
-            "50",  # total_segments: MUST coincide with batch parallel conf
-            "s3://observes.cache/dynamoEtl/vms_schema",
-        ]
-        return external_run(tuple(args))
+        return self._default_run(
+            TargetTables.CORE,
+            True,
+            Maybe.from_value("s3://observes.cache/dynamoEtl/vms_schema"),
+            False,
+        )
 
 
 def default_executor() -> Executor:

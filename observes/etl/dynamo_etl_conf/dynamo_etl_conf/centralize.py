@@ -53,7 +53,11 @@ def merge_parts(
         )
         .transform(lambda p: until_empty(from_piter(p)))
     )
-    return consume(schemas.map(lambda s: client.move(s, target)))
+    return consume(
+        schemas.map(lambda s: _print(s, f"Moving {s} -> {target}")).map(
+            lambda s: client.move(s, target)
+        )
+    )
 
 
 def merge_dynamo_tables(

@@ -15,6 +15,9 @@ function dynamodb_centralize {
     && echo '[INFO] Running centralizer' \
     && dynamo-etl centralize dynamo-tables \
       --tables './observes/conf/awsdynamodb.json' \
+      --schema 'dynamodb' \
+    && dynamo-etl centralize parts \
+      --schema-prefix 'dynamodb_integrates_vms_part_' \
       --schema 'dynamodb'
 }
 

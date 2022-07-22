@@ -133,3 +133,4 @@ def centralize(
 
 
 centralize.add_command(dynamo_tables)
+centralize.add_command(parts)
