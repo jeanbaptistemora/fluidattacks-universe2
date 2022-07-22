@@ -1426,6 +1426,156 @@
     "1_2_1":
       title: Authentication architecture
       link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_2_3":
+      title: Authentication architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_2_4":
+      title: Authentication architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_4_1":
+      title: Access control architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_5_2":
+      title: Input and output architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_5_3":
+      title: Input and output architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_5_4":
+      title: Input and output architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_6_2":
+      title: Cryptographic architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_6_3":
+      title: Cryptographic architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_7_2":
+      title: Errors, logging and auditing architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_8_2":
+      title: Data protection and privacy architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_9_1":
+      title: Communications architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_9_2":
+      title: Communications architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "1_14_5":
+      title: Configuration architecture
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_1_1":
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_1_2":
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_1_6":
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_1_7":
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_1_10":
+      title: Password security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_2_3":
+      title: General authenticator security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_2_4":
+      title: General authenticator security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_2_6":
+      title: General authenticator security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_3_1":
+      title: Authenticator lifecycle
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_4_1":
+      title: Credential storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_4_2":
+      title: Credential storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_4_3":
+      title: Credential storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_4_4":
+      title: Credential storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_4_5":
+      title: Credential storage
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_5_2":
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_5_3":
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_5_5":
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_5_6":
+      title: Credential recovery
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_6_2":
+      title: Look-up secret verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_7_1":
+      title: Out of band verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_7_2":
+      title: Out of band verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_7_3":
+      title: Out of band verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_7_4":
+      title: Out of band verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_7_6":
+      title: Out of band verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_8_1":
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_8_4":
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_8_7":
+      title: One time verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_9_1":
+      title: Cryptographic verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "2_9_3":
+      title: Cryptographic verifier
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_1_1":
+      title: Fundamental session management security
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_2_3":
+      title: Session binding
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_2_4":
+      title: Session binding
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_3_1":
+      title: Session termination
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_3_2":
+      title: Session termination
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_3_4":
+      title: Session termination
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_4_2":
+      title: Cookie-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_4_3":
+      title: Cookie-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
   metadata: {}
 "owasp10":
   title: OWASP TOP 10
