@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 14, 2022, 04:56 PM",
+    "DateLastModified": "Jul 22, 2022, 02:48 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -57,6 +57,32 @@
           "TableData": [],
           "DataAccess": {
             "MySql": {}
+          }
+        }
+      ],
+      "GlobalSecondaryIndexes": [
+        {
+          "IndexName": "gsi_sk",
+          "KeyAttributes": {
+            "PartitionKey": {
+              "AttributeName": "sk",
+              "AttributeType": "S"
+            },
+            "SortKey": {
+              "AttributeName": "pk",
+              "AttributeType": "S"
+            }
+          },
+          "Projection": {
+            "ProjectionType": "INCLUDE",
+            "NonKeyAttributes": [
+              "associated_advisory",
+              "package_name",
+              "package_manager",
+              "vulnerable_version",
+              "severity",
+              "source"
+            ]
           }
         }
       ],
