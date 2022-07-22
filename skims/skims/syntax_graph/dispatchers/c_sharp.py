@@ -303,6 +303,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "integer_literal",
+            "real_literal",
         },
         syntax_reader=common_number_literal.reader,
     ),
@@ -347,12 +348,6 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "property_declaration",
         },
         syntax_reader=c_sharp_property_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "real_literal",
-        },
-        syntax_reader=common_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={

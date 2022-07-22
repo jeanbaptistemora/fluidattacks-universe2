@@ -1,11 +1,14 @@
 from syntax_graph.syntax_readers.common import (
     array as common_array,
+    binary_expression as common_binary_expression,
     call_expression as common_call_expression,
     comment as common_comment,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
     method_declaration as common_method_declaration,
+    number_literal as common_number_literal,
     pair as common_pair,
+    parenthesized_expression as common_parenthesized_expression,
     program as common_program,
     statement_block as common_statement_block,
     string_literal as common_string_literal,
@@ -19,6 +22,7 @@ from syntax_graph.syntax_readers.javascript import (
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     object as javascript_object,
+    try_statement as javascript_try_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -49,6 +53,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "assignment_expression",
         },
         syntax_reader=javascript_assignment_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "binary_expression",
+        },
+        syntax_reader=common_binary_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -83,15 +93,21 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "lexical_declaration",
+        },
+        syntax_reader=javascript_lexical_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "member_expression",
         },
         syntax_reader=javascript_member_expression.reader,
     ),
     Dispatcher(
         applicable_types={
-            "lexical_declaration",
+            "number",
         },
-        syntax_reader=javascript_lexical_declaration.reader,
+        syntax_reader=common_number_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -104,6 +120,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "pair",
         },
         syntax_reader=common_pair.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parenthesized_expression",
+        },
+        syntax_reader=common_parenthesized_expression.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -122,6 +144,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "string",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "try_statement",
+        },
+        syntax_reader=javascript_try_statement.reader,
     ),
     Dispatcher(
         applicable_types={
