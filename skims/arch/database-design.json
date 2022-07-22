@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 22, 2022, 02:48 PM",
+    "DateLastModified": "Jul 22, 2022, 03:24 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -51,7 +51,7 @@
         {
           "FacetName": "advisories",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "PLATFORM#name#PACKAGE#name",
+            "PartitionKeyAlias": "PLATFORM#platform#PACKAGE#pkg_name",
             "SortKeyAlias": "SOURCE#name#ADVISORY#id"
           },
           "TableData": [],
