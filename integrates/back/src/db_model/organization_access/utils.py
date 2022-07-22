@@ -28,7 +28,7 @@ def remove_stakeholder_prefix(email: str) -> str:
 def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
         email=item["email"],
-        organization_id=remove_org_id_prefix(item["organization_id"]),
+        organization_id=add_org_id_prefix(item["organization_id"]),
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
         else None,
