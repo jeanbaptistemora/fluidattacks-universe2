@@ -59,6 +59,33 @@ async def _get_organization_access(
     return format_organization_access(response.items[0])
 
 
+async def _get_organization_stakeholders_access(
+    organization_id: str,
+) -> tuple[OrganizationAccess, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["organization_access"],
+        values={
+            "id": remove_org_id_prefix(organization_id),
+        },
+    )
+
+    index = TABLE.indexes["inverted_index"]
+    key_structure = index.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.sort_key)
+            & Key(key_structure.sort_key).begins_with(
+                primary_key.partition_key
+            )
+        ),
+        facets=(TABLE.facets["organization_access"],),
+        table=TABLE,
+        index=index,
+    )
+
+    return tuple(format_organization_access(item) for item in response.items)
+
+
 class OrganizationAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
@@ -71,4 +98,14 @@ class OrganizationAccessLoader(DataLoader):
                 )
                 for organization_id, email in access_keys
             )
+        )
+
+
+class OrganizationStakeholdersAccessLoader(DataLoader):
+    # pylint: disable=no-self-use,method-hidden
+    async def batch_load_fn(
+        self, organization_ids: Iterable[str]
+    ) -> tuple[tuple[OrganizationAccess, ...], ...]:
+        return await collect(
+            tuple(map(_get_organization_stakeholders_access, organization_ids))
         )

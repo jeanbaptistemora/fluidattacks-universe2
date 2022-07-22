@@ -38,6 +38,7 @@ function main {
     ip_root_historic_state
     ip_root_metadata
     machine_git_root_execution
+    organization_access
     organization_historic_policies
     organization_historic_state
     organization_metadata
