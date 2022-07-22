@@ -306,9 +306,9 @@ async def _generate_numerator_report(
     return content
 
 
-def get_variation(num_a: int, num_b: int) -> str:
+def get_percent(num_a: int, num_b: int) -> str:
     try:
-        variation: float = round((((num_b - num_a) / num_a) * 100), 2)
+        variation: float = round(((num_a / num_b) * 100), 2)
     except TypeError:
         return "N/A"
     except ValueError:
@@ -324,10 +324,16 @@ def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
         if key not in ["groups"]:
             count_and_variation[key] = {
                 "count": value["count"]["today"],
-                "variation": get_variation(
-                    value["count"]["past_day"], value["count"]["today"]
+                "variation": get_percent(
+                    value["count"]["today"] - value["count"]["past_day"],
+                    value["count"]["past_day"],
                 ),
             }
+    count_and_variation["effectiveness"] = get_percent(
+        content["released"]["count"]["today"]
+        - content["draft_rejected"]["count"]["today"],
+        content["released"]["count"]["today"],
+    )
 
     return count_and_variation
 

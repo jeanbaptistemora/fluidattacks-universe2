@@ -12,7 +12,7 @@ from schedulers.numerator_report_digest import (
     _generate_count_report,
     _send_mail_report,
     _validate_date,
-    get_variation,
+    get_percent,
 )
 from typing import (
     Any,
@@ -21,12 +21,12 @@ from typing import (
 )
 
 
-def test_get_variation() -> None:
-    assert get_variation(10, 10) == "0.0%"
-    assert get_variation(0, 10) == "N/A"
-    assert get_variation("0", 10) == "N/A"
-    assert get_variation(10, 0) == "-100.0%"
-    assert get_variation(10, 10.555) == "5.55%"
+def test_get_percent() -> None:
+    assert get_percent(0, 10) == "0.0%"
+    assert get_percent(10, 0) == "N/A"
+    assert get_percent("0", 10) == "N/A"
+    assert get_percent(-10, 10) == "-100.0%"
+    assert get_percent(0.55, 10) == "5.5%"
 
 
 def test_validate_date() -> None:
