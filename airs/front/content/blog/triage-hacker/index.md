@@ -178,3 +178,7 @@ We hope to be able to develop this tool in the next 6 to 8 months, or at
 the very least experiment with the possibilities `ML` provides to
 vulnerability discovery and continue reporting the results here. Stay
 tuned for more.
+
+> **Update, July 22, 2022:**
+> `Fluid Attacks'` [Secure Code Review](../../solutions/secure-code-review/)
+> solution is enhanced with AI prioritization.
