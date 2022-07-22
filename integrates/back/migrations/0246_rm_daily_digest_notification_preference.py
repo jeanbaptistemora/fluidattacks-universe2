@@ -3,6 +3,8 @@
 Remove daily digest notification preference from stakeholders
 https://gitlab.com/fluidattacks/universe/-/issues/6861
 
+Execution Time:    2022-07-22 at 19:33:08 UTC
+Finalization Time: 2022-07-22 at 19:34:19 UTC
 """
 
 
