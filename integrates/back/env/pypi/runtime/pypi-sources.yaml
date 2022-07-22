@@ -74,7 +74,9 @@ closure:
   opentelemetry-instrumentation: 0.32b0
   opentelemetry-instrumentation-aiohttp-client: 0.32b0
   opentelemetry-instrumentation-asgi: 0.32b0
+  opentelemetry-instrumentation-botocore: 0.32b0
   opentelemetry-instrumentation-redis: 0.32b0
+  opentelemetry-instrumentation-requests: 0.32b0
   opentelemetry-instrumentation-starlette: 0.32b0
   opentelemetry-sdk: 1.12.0rc2
   opentelemetry-semantic-conventions: 0.32b0
@@ -809,12 +811,24 @@ links:
   - name: opentelemetry-instrumentation-asgi-0.32b0.tar.gz
     sha256: 0xryr82z81qfayvz7n5lk42f2xghi0rabr4vc3nzyd2hvgcbxl5y
     url: https://files.pythonhosted.org/packages/d3/ef/f41ef4c6aa1a88b98407569ca8b23899ec6ba685158011a7604b6f9b4964/opentelemetry-instrumentation-asgi-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_botocore-0.32b0-py3-none-any.whl
+    sha256: 1rxhwqrgycvs7fhcca6qh4rbf1flb641pyxfi629860jxic3bry8
+    url: https://files.pythonhosted.org/packages/ab/5a/e06dccb40babc27c66d95972306a02805518ff669e8a5fcf024d913e30df/opentelemetry_instrumentation_botocore-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-botocore-0.32b0.tar.gz
+    sha256: 15fpirhyip0k7k34dfpm1qwyf42wrhy7f8fan7r9rkjlfqf8wxav
+    url: https://files.pythonhosted.org/packages/eb/ff/342c90c7a7f3f24405a5fbf92aa8be2a835d27baae163ce4268f71eb1c42/opentelemetry-instrumentation-botocore-0.32b0.tar.gz
   - name: opentelemetry_instrumentation_redis-0.32b0-py3-none-any.whl
     sha256: 0yxclr75l6pbwxjbzlblj4z69r7cy9s7jzrx5cdgcj6gav026nmk
     url: https://files.pythonhosted.org/packages/b6/50/653b3d01c67f907504d7c769fe8c0cc7f028134462a7cc28b9ab98df29ad/opentelemetry_instrumentation_redis-0.32b0-py3-none-any.whl
   - name: opentelemetry-instrumentation-redis-0.32b0.tar.gz
     sha256: 020lwjj6rd1f7w9r8bi4x9yqvglv72i3szcb50dpfs5191qrbqnz
     url: https://files.pythonhosted.org/packages/f2/a6/5ca8da2c91256abe0be4e42e37db3691c002d0cf638e8003b49119aae90f/opentelemetry-instrumentation-redis-0.32b0.tar.gz
+  - name: opentelemetry_instrumentation_requests-0.32b0-py3-none-any.whl
+    sha256: 0zmnjr7vhnfg22pixnd0hpavjhpy34afimm2dlb1cil7xpfv8i44
+    url: https://files.pythonhosted.org/packages/bb/3c/a9adbf10c53f0af6cda086f1a55cfed93bc3ec0b2f762644f18a97c8efe1/opentelemetry_instrumentation_requests-0.32b0-py3-none-any.whl
+  - name: opentelemetry-instrumentation-requests-0.32b0.tar.gz
+    sha256: 09mmj32xqvh8fiskw0gb2z9c2y1iqssaw7cw3hb6ch5kilr65220
+    url: https://files.pythonhosted.org/packages/5f/a8/726552dbab982ee46b35b57b6f350c098823ed654d8d1df8fda72a36152f/opentelemetry-instrumentation-requests-0.32b0.tar.gz
   - name: opentelemetry_instrumentation_starlette-0.32b0-py3-none-any.whl
     sha256: 1phmrbh0w16pfnsjl2rk1nf71zd7hlikqb13f2k5r3mi4c5mv18r
     url: https://files.pythonhosted.org/packages/95/25/a20b616f61bf73a6c9a79bd1b64e5a1f4b2c73e25f3c6e3dd2fc5935e628/opentelemetry_instrumentation_starlette-0.32b0-py3-none-any.whl
