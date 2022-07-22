@@ -90,3 +90,13 @@ async def test_remove_stakeholder() -> None:
         )
         == 0
     )
+
+
+async def test_exists() -> None:
+    loaders: Dataloaders = get_new_context()
+    assert await stakeholders_domain.exists(
+        loaders=loaders, email="integratesuser@gmail.com"
+    )
+    assert not await stakeholders_domain.exists(
+        loaders=loaders, email="madeup_stakeholder@void.com"
+    )

@@ -86,19 +86,17 @@ async def acknowledge_concurrent_session(email: str) -> None:
     )
 
 
-async def add_push_token(
-    loaders: Any, user_email: str, push_token: str
-) -> None:
+async def add_push_token(loaders: Any, email: str, push_token: str) -> None:
     if not re.match(r"^ExponentPushToken\[[a-zA-Z\d_-]+\]$", push_token):
         raise InvalidPushToken()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     tokens: list[str] = stakeholder.push_tokens or []
     if push_token not in tokens:
         await stakeholders_model.update_metadata(
             metadata=StakeholderMetadataToUpdate(
                 push_tokens=tokens + [push_token]
             ),
-            email=user_email,
+            email=email,
         )
 
 
@@ -107,7 +105,7 @@ async def check_session_web_validity(request: Request) -> None:
     session_key: str = request.session["session_key"]
     attr: str = "web"
 
-    # Check if the user has a concurrent session and in case they do
+    # Check if the stakeholder has a concurrent session and in case they do
     # raise the concurrent session modal flag
     if request.session.get("is_concurrent"):
         request.session.pop("is_concurrent")
@@ -118,18 +116,18 @@ async def check_session_web_validity(request: Request) -> None:
             email=email,
         )
     try:
-        # Check if the user has an active session but it's different
+        # Check if the stakeholder has an active session but it's different
         # than the one in the cookie
         if await sessions_dal.get_session_key(email, attr) == session_key:
             # Session and cookie are ok and up to date
             pass
         else:
-            # Session or the cookie are expired, let's logout the user
+            # Session or the cookie are expired, let's logout the stakeholder
             await sessions_dal.remove_session_key(email, attr)
             request.session.clear()
             raise ExpiredToken()
     except RedisKeyNotFound:
-        # User do not even has an active session
+        # Stakeholder do not even has an active session
         raise SecureAccessException() from None
 
 
@@ -177,22 +175,12 @@ async def has_valid_access_token(
     loaders: Any, email: str, context: dict[str, str], jti: str
 ) -> bool:
     """Verify if has active access token and match."""
-    try:
-        stakeholder: Optional[Stakeholder] = await loaders.stakeholder.load(
-            email
-        )
-    except StakeholderNotFound:
-        stakeholder = None
-    access_token: Optional[StakeholderAccessToken] = (
-        stakeholder.access_token if stakeholder else None
-    )
-    resp = False
-    if context and access_token:
-        resp = token_utils.verificate_hash_token(access_token, jti)
-    else:
-        # authorization header not present or user without access_token
-        pass
-    return resp
+    if not exists(loaders, email):
+        return False
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    if context and stakeholder.access_token:
+        return token_utils.verificate_hash_token(stakeholder.access_token, jti)
+    return False
 
 
 def is_fluid_staff(email: str) -> bool:
@@ -258,7 +246,7 @@ async def update_access_token(
 
 
 async def update_legal_remember(email: str, remember: bool) -> None:
-    """Remember legal notice acceptance"""
+    """Remember legal notice acceptance."""
     return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             legal_remember=remember,
@@ -324,7 +312,7 @@ async def update_attributes(
 async def update_mobile(
     email: str, new_phone: StakeholderPhone, verification_code: str
 ) -> None:
-    """Update the user's phone number"""
+    """Update the stakeholder's phone number."""
     validate_phone(new_phone)
     await verify_operations.validate_mobile(
         phone_number=get_international_format_phone_number(new_phone)
@@ -350,7 +338,7 @@ async def update_mobile(
 
 
 async def update_tours(email: str, tours: dict[str, bool]) -> None:
-    """New user workflow acknowledgment"""
+    """New stakeholder workflow acknowledgment."""
     return await stakeholders_model.update_metadata(
         metadata=StakeholderMetadataToUpdate(
             tours=StakeholderTours(
@@ -370,8 +358,8 @@ async def verify(
 ) -> None:
     """Start a verification process using OTP"""
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    user_phone: Optional[StakeholderPhone] = stakeholder.phone
-    phone_to_verify = user_phone if new_phone is None else new_phone
+    stakeholder_phone: Optional[StakeholderPhone] = stakeholder.phone
+    phone_to_verify = stakeholder_phone if new_phone is None else new_phone
     if new_phone:
         validate_phone(new_phone)
 
@@ -379,9 +367,9 @@ async def verify(
         raise RequiredNewPhoneNumber()
 
     if (
-        user_phone is not None
+        stakeholder_phone is not None
         and new_phone is not None
-        and get_international_format_phone_number(user_phone)
+        and get_international_format_phone_number(stakeholder_phone)
         == get_international_format_phone_number(new_phone)
     ):
         raise SamePhoneNumber()
@@ -391,12 +379,14 @@ async def verify(
             phone_number=get_international_format_phone_number(new_phone)
         )
 
-    if phone_to_verify is new_phone and user_phone is not None:
+    if phone_to_verify is new_phone and stakeholder_phone is not None:
         if verification_code is None:
             raise RequiredVerificationCode()
 
         await verify_operations.check_verification(
-            phone_number=get_international_format_phone_number(user_phone),
+            phone_number=get_international_format_phone_number(
+                stakeholder_phone
+            ),
             code=verification_code,
         )
 
@@ -404,3 +394,11 @@ async def verify(
         phone_number=get_international_format_phone_number(phone_to_verify),
         channel=Channel.SMS,
     )
+
+
+async def exists(loaders: Any, email: str) -> bool:
+    try:
+        await loaders.stakeholder.load(email)
+        return True
+    except StakeholderNotFound:
+        return False
