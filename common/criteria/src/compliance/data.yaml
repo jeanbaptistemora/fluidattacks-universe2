@@ -1576,6 +1576,120 @@
     "3_4_3":
       title: Cookie-based session management
       link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_5_2":
+      title: Token-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_5_3":
+      title: Token-based session management
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "3_7_1":
+      title: Defenses against session management exploits
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "4_1_3":
+      title: General access control design
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "4_1_5":
+      title: General access control design
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_1_1":
+      title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_1_3":
+      title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_1_5":
+      title: Input validation
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_2_4":
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_2_5":
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_2_6":
+      title: Sanitization and sandboxing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_1":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_4":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_7":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_8":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_9":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_3_10":
+      title: Output encoding and injection prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_4_1":
+      title: Memory, string, and unmanaged code
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_4_3":
+      title: Memory, string, and unmanaged code
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_5_1":
+      title: Deserialization prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "5_5_2":
+      title: Deserialization prevention
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_6_1":
+      title: Data classification
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_1_2":
+      title: Data classification
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_1_3":
+      title: Data classification
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_2_2":
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_2_3":
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_2_4":
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_2_5":
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_2_6":
+      title: Algorithms
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_3_1":
+      title: Random values
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "6_3_3":
+      title: Random values
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_1_1":
+      title: Log content
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_1_2":
+      title: Log content
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_1_3":
+      title: Log content
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_1_4":
+      title: Log content
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_2_4":
+      title: Log processing
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_3_3":
+      title: Log protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
+    "7_3_4":
+      title: Log protection
+      link: https://owasp.org/www-project-application-security-verification-standard/
   metadata: {}
 "owasp10":
   title: OWASP TOP 10
