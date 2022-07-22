@@ -1639,7 +1639,7 @@
     "5_5_2":
       title: Deserialization prevention
       link: https://owasp.org/www-project-application-security-verification-standard/
-    "6_6_1":
+    "6_1_1":
       title: Data classification
       link: https://owasp.org/www-project-application-security-verification-standard/
     "6_1_2":
