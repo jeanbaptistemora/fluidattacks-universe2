@@ -1,6 +1,9 @@
 from dataloaders import (
     Dataloaders,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -9,9 +12,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     organizations as orgs_utils,
-)
-from organizations import (
-    domain as orgs_domain,
 )
 from typing import (
     Any,
@@ -25,9 +25,12 @@ async def resolve(
 ) -> tuple[Organization, ...]:
     loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
-    organization_ids: list[str] = await orgs_domain.get_user_organizations(
-        user_email
-    )
+    stakeholder_orgs: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.stakeholder_organizations_access.load(user_email)
+    organization_ids: list[str] = [
+        org.organization_id for org in stakeholder_orgs
+    ]
     organizations = await loaders.organization.load_many(organization_ids)
 
     return orgs_utils.filter_active_organizations(organizations)

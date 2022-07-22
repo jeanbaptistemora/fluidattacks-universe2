@@ -1,3 +1,6 @@
+from dataloaders import (
+    get_new_context,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
@@ -43,10 +46,15 @@ async def test_remove_user() -> None:
 
 
 async def test_get_ids_for_user() -> None:
+    loaders = get_new_context()
     existing_user = "integratesmanager@gmail.com"
     non_existent_user = "madeupuser@gmail.com"
-    org_ids_1 = await orgs_dal.get_ids_for_user(existing_user)
-    org_ids_2 = await orgs_dal.get_ids_for_user(non_existent_user)
+    org_1 = await loaders.stakeholder_organizations_access.load(existing_user)
+    org_ids_1 = [org.organization_id for org in org_1]
+    org_2 = await loaders.stakeholder_organizations_access.load(
+        non_existent_user
+    )
+    org_ids_2 = [org.organization_id for org in org_2]
     assert sorted(org_ids_1) == [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac",

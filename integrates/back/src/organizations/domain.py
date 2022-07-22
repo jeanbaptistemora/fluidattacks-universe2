@@ -505,7 +505,7 @@ async def remove_user(
         )
     )
 
-    has_orgs = bool(await get_user_organizations(email))
+    has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
     if not has_orgs:
         await stakeholders_domain.remove(email)
     user_credentials: tuple[

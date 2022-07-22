@@ -15,6 +15,9 @@ from custom_exceptions import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -55,7 +58,6 @@ from newutils.validations import (
     validate_email_address,
 )
 from organizations.domain import (
-    get_user_organizations,
     remove_user,
 )
 from redis_cluster.operations import (
@@ -85,7 +87,13 @@ mail_confirm_deletion = retry_on_exceptions(
 async def remove_stakeholder_all_organizations(
     *, loaders: Any, email: str, modified_by: str
 ) -> None:
-    organizations_ids = await get_user_organizations(email)
+    organizations: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.stakeholder_organizations_access.load(email)
+
+    organizations_ids: list[str] = [
+        org.organization_id for org in organizations
+    ]
     await collect(
         tuple(
             remove_user(loaders, organization_id, email, modified_by)

@@ -237,6 +237,7 @@ async def test_get_or_create() -> None:
 
 
 async def test_get_user_organizations() -> None:
+    loaders = get_new_context()
     user = "integratesmanager@gmail.com"
     expected_orgs = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
@@ -244,12 +245,15 @@ async def test_get_user_organizations() -> None:
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
         "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1",  # NOSONAR
     ]
-    user_orgs = await orgs_domain.get_user_organizations(user)
-    assert sorted(user_orgs) == expected_orgs
+    user_orgs = await loaders.stakeholder_organizations_access.load(user)
+    user_orgs_ids = [org.organization_id for org in user_orgs]
+    assert sorted(user_orgs_ids) == expected_orgs
 
     assert (
-        await orgs_domain.get_user_organizations("madeupuser@gmail.com")
-        == []  # NOSONAR
+        await loaders.stakeholder_organizations_access.load(
+            "madeupuser@gmail.com"
+        )
+        == ()  # NOSONAR
     )
 
 
