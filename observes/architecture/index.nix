@@ -43,7 +43,13 @@ in {
     scheduler = new_std "${servicePath}/jobs-scheduler";
   };
   etl = {
-    dynamo = new_std "${etlsPath}/dynamo_etl_conf";
+    dynamo = let
+      base = new_std "${etlsPath}/dynamo_etl_conf";
+    in
+      base
+      // {
+        check = builtins.removeAttrs base.check ["arch"];
+      };
     code =
       (new_std "${etlsPath}/code")
       // {

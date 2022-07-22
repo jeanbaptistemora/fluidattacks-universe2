@@ -47,6 +47,7 @@
   index = inputs.observesIndex;
   pkgTargets = with index; [
     common.asm_dal
+    etl.dynamo
     service.batch_stability
     service.scheduler
     service.job_last_success
@@ -180,10 +181,6 @@ in {
           }
           {
             output = "/lintPython/module/observesCommonPostgresClientTests";
-            gitlabExtra = gitlabLint;
-          }
-          {
-            output = "/lintPython/module/observesServiceMigrateTables";
             gitlabExtra = gitlabLint;
           }
           {
