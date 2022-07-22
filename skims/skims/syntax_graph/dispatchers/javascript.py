@@ -5,6 +5,7 @@ from syntax_graph.syntax_readers.common import (
     comment as common_comment,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
+    if_statement as common_if_statement,
     method_declaration as common_method_declaration,
     number_literal as common_number_literal,
     pair as common_pair,
@@ -12,6 +13,7 @@ from syntax_graph.syntax_readers.common import (
     program as common_program,
     statement_block as common_statement_block,
     string_literal as common_string_literal,
+    throw_statement as common_throw_statement,
     variable_declaration as common_variable_declaration,
     variable_declarator as common_variable_declarator,
 )
@@ -93,6 +95,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "if_statement",
+        },
+        syntax_reader=common_if_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "lexical_declaration",
         },
         syntax_reader=javascript_lexical_declaration.reader,
@@ -144,6 +152,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "string",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "throw_statement",
+        },
+        syntax_reader=common_throw_statement.reader,
     ),
     Dispatcher(
         applicable_types={
