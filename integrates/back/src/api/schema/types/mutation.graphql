@@ -899,6 +899,18 @@ type Mutation {
     title: String!
   ): SimpleFindingPayload!
 
+  "Updates an Event's description"
+  updateEvent(
+    "Components involved or affected by the event, if applicable"
+    affectedComponents: [AffectedComponents]
+    "The kind of event that happened"
+    eventType: EventType
+    "Identifier of the Event whose evidence will be modified"
+    eventId: String!
+    "Name of the group linked to the event"
+    groupName: String!
+  ): SimplePayload!
+
   "Updates an Event's evidence"
   updateEventEvidence(
     "Identifier of the Event whose evidence will be modified"
@@ -1056,7 +1068,7 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
-"Updates the Group's policies"
+  "Updates the Group's policies"
   updateGroupPolicies(
     "Maximum number of calendar days a finding can be temporarily accepted"
     maxAcceptanceDays: Int

@@ -82,6 +82,7 @@ from api.mutations import (
     unsubscribe_from_group,
     update_access_token,
     update_credentials,
+    update_event,
     update_event_evidence,
     update_event_solving_reason,
     update_evidence,
@@ -251,6 +252,7 @@ MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
 MUTATION.set_field("updateCredentials", update_credentials.mutate)
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
+MUTATION.set_field("updateEvent", update_event.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
 MUTATION.set_field(
     "updateEventSolvingReason", update_event_solving_reason.mutate

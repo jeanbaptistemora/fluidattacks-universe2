@@ -15,10 +15,13 @@ from custom_exceptions import (
     EventHasNotBeenSolved,
     InvalidCommentParent,
     InvalidDate,
+    InvalidField,
     InvalidFileSize,
     InvalidFileType,
     InvalidParameter,
     NoHoldRequested,
+    RequiredAffectedComponents,
+    RequiredFieldToBeUpdate,
     VulnNotFound,
 )
 from custom_types import (
@@ -68,6 +71,9 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from events.types import (
+    EventAttributesToUpdate,
 )
 from findings import (
     domain as findings_domain,
@@ -450,6 +456,46 @@ async def solve_event(  # pylint: disable=too-many-locals
     if has_reattacks:
         return (reattacks_dict, verifications_dict)
     return ({}, {})
+
+
+async def update_event(
+    loaders: Any,
+    event_id: str,
+    group_name: str,
+    attributes: EventAttributesToUpdate,
+) -> None:
+    event: Event = await loaders.event.load(event_id)
+    if all(attribute is None for attribute in attributes):
+        raise RequiredFieldToBeUpdate()
+
+    event_type = attributes.event_type or event.type
+    affected_components = (
+        event.affected_components
+        if attributes.affected_components is None
+        else attributes.affected_components
+    )
+    if event_type is not EventType.INCORRECT_MISSING_SUPPLIES:
+        if attributes.affected_components:
+            raise InvalidField("affectedComponents")
+        affected_components = None
+    if (
+        event_type is EventType.INCORRECT_MISSING_SUPPLIES
+        and not affected_components
+    ):
+        raise RequiredAffectedComponents()
+
+    clean_affected_components = affected_components is None
+    await events_model.update_metadata(
+        event_id=event_id,
+        group_name=group_name,
+        metadata=EventMetadataToUpdate(
+            type=attributes.event_type,
+            affected_components=None
+            if clean_affected_components
+            else affected_components,
+            clean_affected_components=clean_affected_components,
+        ),
+    )
 
 
 async def update_evidence(
