@@ -13,6 +13,7 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
       }
       client
       detail
+      eventType
       eventStatus
       hacker
       id

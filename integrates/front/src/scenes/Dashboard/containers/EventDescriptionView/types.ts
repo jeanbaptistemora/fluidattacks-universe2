@@ -12,6 +12,7 @@ interface IEventDescriptionData {
     hacker: string;
     client: string;
     detail: string;
+    eventType: string;
     eventStatus: string;
     id: string;
     otherSolvingReason: string | null;

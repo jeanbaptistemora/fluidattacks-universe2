@@ -26,6 +26,7 @@ import {
   Col100,
   Col50,
   ControlLabel,
+  EditableFieldTitle50,
   FormGroup,
   Row,
 } from "styles/styledComponents";
@@ -34,7 +35,12 @@ import {
   castAffectedComponents,
   formatAccessibility,
 } from "utils/formatHelpers";
-import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
+import {
+  EditableField,
+  FormikCheckbox,
+  FormikDropdown,
+  FormikText,
+} from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -72,6 +78,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   // State management
   const [isSolvingModalOpen, setIsSolvingModalOpen] = useState(false);
   const [isEditingSolvingReason, setIsEditingSolvingReason] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const openSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(true);
     setIsEditingSolvingReason(false);
@@ -83,6 +90,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const closeSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(false);
   }, []);
+  const toggleEdit: () => void = useCallback((): void => {
+    setIsEditing(!isEditing);
+  }, [isEditing]);
 
   const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
@@ -197,10 +207,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     ]
   );
 
-  const handleDescriptionSubmit: () => void = useCallback(
-    (): void => undefined,
-    []
-  );
+  const handleDescriptionSubmit: () => void = useCallback((): void => {
+    toggleEdit();
+  }, [toggleEdit]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -310,161 +319,279 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           name={"editEvent"}
           onSubmit={handleDescriptionSubmit}
         >
-          <Form id={"editEvent"}>
-            <div>
+          {({ values }): React.ReactNode => (
+            <Form id={"editEvent"}>
               <div>
-                <Row>
-                  <div className={"fr"}>
-                    {data.event.eventStatus === "SOLVED" ? (
-                      <Can
-                        do={"api_mutations_update_event_solving_reason_mutate"}
-                      >
-                        <Button
-                          onClick={openEditReasonModal}
-                          variant={"primary"}
+                <div>
+                  <Row>
+                    <div className={"fr"}>
+                      {data.event.eventStatus === "SOLVED" ? (
+                        <Can
+                          do={
+                            "api_mutations_update_event_solving_reason_mutate"
+                          }
                         >
-                          <FontAwesomeIcon icon={faPen} />
-                          &nbsp;
-                          {t("group.events.description.editSolvingReason")}
-                        </Button>
-                      </Can>
-                    ) : (
-                      <Can do={"api_mutations_solve_event_mutate"}>
-                        <Button onClick={openSolvingModal} variant={"primary"}>
-                          <FontAwesomeIcon icon={faCheck} />
-                          &nbsp;
-                          {t("group.events.description.markAsSolved")}
-                        </Button>
-                      </Can>
-                    )}
-                  </div>
-                </Row>
-                <Row>
-                  <Col50>
-                    <EditableField
-                      alignField={"horizontalWide"}
-                      component={FormikText}
-                      currentValue={data.event.detail}
-                      label={t("searchFindings.tabEvents.description")}
-                      name={"detail"}
-                      renderAsEditable={false}
-                      type={"text"}
-                    />
-                  </Col50>
-                  <Col50>
-                    <EditableField
-                      alignField={"horizontalWide"}
-                      component={FormikText}
-                      currentValue={data.event.client}
-                      label={t("searchFindings.tabEvents.client")}
-                      name={"client"}
-                      renderAsEditable={false}
-                      type={"text"}
-                    />
-                  </Col50>
-                </Row>
-                <Row>
-                  <Col50>
-                    <EditableField
-                      alignField={"horizontalWide"}
-                      component={FormikText}
-                      currentValue={data.event.hacker}
-                      label={t("searchFindings.tabEvents.hacker")}
-                      name={"hacker"}
-                      renderAsEditable={false}
-                      type={"text"}
-                    />
-                  </Col50>
-                  <Col50>
-                    <EditableField
-                      alignField={"horizontalWide"}
-                      component={FormikText}
-                      currentValue={
-                        _.isEmpty(data.event.affectedReattacks)
-                          ? "0"
-                          : String(data.event.affectedReattacks.length)
-                      }
-                      label={t("searchFindings.tabEvents.affectedReattacks")}
-                      name={"affectedReattacks"}
-                      renderAsEditable={false}
-                      type={"text"}
-                    />
-                  </Col50>
-                </Row>
-                <Row>
-                  {_.isEmpty(data.event.affectedComponents) ? undefined : (
+                          <Button
+                            onClick={openEditReasonModal}
+                            variant={"primary"}
+                          >
+                            <FontAwesomeIcon icon={faPen} />
+                            &nbsp;
+                            {t("group.events.description.editSolvingReason")}
+                          </Button>
+                        </Can>
+                      ) : (
+                        <Can do={"api_mutations_solve_event_mutate"}>
+                          <Button
+                            onClick={openSolvingModal}
+                            variant={"primary"}
+                          >
+                            <FontAwesomeIcon icon={faCheck} />
+                            &nbsp;
+                            {t("group.events.description.markAsSolved")}
+                          </Button>
+                        </Can>
+                      )}
+                    </div>
+                  </Row>
+                  <br />
+                  {isEditing ? (
+                    <Row>
+                      <Col50>
+                        <Row>
+                          <EditableFieldTitle50>
+                            <ControlLabel>
+                              <b>{t("searchFindings.tabEvents.type")} </b>
+                            </ControlLabel>
+                          </EditableFieldTitle50>
+                          <Col50>
+                            <Field
+                              component={FormikDropdown}
+                              name={"eventType"}
+                              validate={required}
+                            >
+                              <option value={""} />
+                              <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
+                                {t("group.events.form.type.specialAttack")}
+                              </option>
+                              <option value={"DATA_UPDATE_REQUIRED"}>
+                                {t("group.events.form.type.dataUpdate")}
+                              </option>
+                              <option value={"INCORRECT_MISSING_SUPPLIES"}>
+                                {t("group.events.form.type.missingSupplies")}
+                              </option>
+                              <option value={"TOE_DIFFERS_APPROVED"}>
+                                {t("group.events.form.type.toeDiffers")}
+                              </option>
+                              <option value={"OTHER"}>
+                                {t("group.events.form.other")}
+                              </option>
+                            </Field>
+                          </Col50>
+                        </Row>
+                      </Col50>
+                    </Row>
+                  ) : undefined}
+                  <Row>
                     <Col50>
                       <EditableField
                         alignField={"horizontalWide"}
                         component={FormikText}
-                        currentValue={data.event.affectedComponents
-                          .map((item: string): string =>
-                            translate.t(castAffectedComponents(item))
-                          )
-                          .join(", ")}
-                        label={t("searchFindings.tabEvents.affectedComponents")}
-                        name={"affectedComponents"}
+                        currentValue={data.event.detail}
+                        label={t("searchFindings.tabEvents.description")}
+                        name={"detail"}
                         renderAsEditable={false}
                         type={"text"}
                       />
                     </Col50>
-                  )}
-                  <Col50>
-                    <EditableField
-                      alignField={"horizontalWide"}
-                      component={FormikText}
-                      currentValue={data.event.accessibility
-                        .map((item: string): string =>
-                          translate.t(formatAccessibility(item))
-                        )
-                        .join(", ")}
-                      label={t("searchFindings.tabEvents.eventIn")}
-                      name={"accessibility"}
-                      renderAsEditable={false}
-                      type={"text"}
-                    />
-                  </Col50>
-                </Row>
-                {data.event.eventStatus === "SOLVED" ? (
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={data.event.client}
+                        label={t("searchFindings.tabEvents.client")}
+                        name={"client"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
+                  </Row>
                   <Row>
-                    {data.event.solvingReason === "OTHER" ? (
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={data.event.hacker}
+                        label={t("searchFindings.tabEvents.hacker")}
+                        name={"hacker"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={
+                          _.isEmpty(data.event.affectedReattacks)
+                            ? "0"
+                            : String(data.event.affectedReattacks.length)
+                        }
+                        label={t("searchFindings.tabEvents.affectedReattacks")}
+                        name={"affectedReattacks"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
+                  </Row>
+
+                  <Row>
+                    {isEditing ? (
+                      values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
+                        <Col50>
+                          <Row>
+                            <EditableFieldTitle50>
+                              <ControlLabel>
+                                <b>
+                                  {t("group.events.form.components.title")}{" "}
+                                </b>
+                              </ControlLabel>
+                            </EditableFieldTitle50>
+                            <Col50 />
+                          </Row>
+                          <Row>
+                            <EditableFieldTitle50 />
+                            <Col50>
+                              <FormGroup>
+                                <Field
+                                  component={FormikCheckbox}
+                                  label={t(
+                                    "group.events.form.components.toeCredentials"
+                                  )}
+                                  name={"affectedComponents"}
+                                  type={"checkbox"}
+                                  value={"TOE_CREDENTIALS"}
+                                />
+                                <Field
+                                  component={FormikCheckbox}
+                                  label={t(
+                                    "group.events.form.components.toePrivileges"
+                                  )}
+                                  name={"affectedComponents"}
+                                  type={"checkbox"}
+                                  value={"TOE_PRIVILEGES"}
+                                />
+                                <Field
+                                  component={FormikCheckbox}
+                                  label={t(
+                                    "group.events.form.components.toeUnstability"
+                                  )}
+                                  name={"affectedComponents"}
+                                  type={"checkbox"}
+                                  value={"TOE_UNSTABLE"}
+                                />
+                                <Field
+                                  component={FormikCheckbox}
+                                  label={t(
+                                    "group.events.form.components.toeUnavailable"
+                                  )}
+                                  name={"affectedComponents"}
+                                  type={"checkbox"}
+                                  value={"TOE_UNAVAILABLE"}
+                                />
+                                <Field
+                                  component={FormikCheckbox}
+                                  label={t(
+                                    "group.events.form.components.testData"
+                                  )}
+                                  name={"affectedComponents"}
+                                  type={"checkbox"}
+                                  value={"TEST_DATA"}
+                                />
+                              </FormGroup>
+                            </Col50>
+                          </Row>
+                        </Col50>
+                      ) : (
+                        <Col50 />
+                      )
+                    ) : _.isEmpty(data.event.affectedComponents) ? undefined : (
                       <Col50>
                         <EditableField
                           alignField={"horizontalWide"}
                           component={FormikText}
-                          currentValue={
-                            _.isNil(data.event.otherSolvingReason)
-                              ? "-"
-                              : _.capitalize(data.event.otherSolvingReason)
-                          }
-                          label={t("searchFindings.tabEvents.solvingReason")}
-                          name={"otherSolvingReason"}
-                          renderAsEditable={false}
-                          type={"text"}
-                        />
-                      </Col50>
-                    ) : (
-                      <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
-                          currentValue={
-                            _.isNil(data.event.solvingReason)
-                              ? "-"
-                              : solvingReason[data.event.solvingReason]
-                          }
-                          label={t("searchFindings.tabEvents.solvingReason")}
-                          name={"solvingReason"}
-                          renderAsEditable={false}
+                          currentValue={data.event.affectedComponents
+                            .map((item: string): string =>
+                              translate.t(castAffectedComponents(item))
+                            )
+                            .join(", ")}
+                          label={t(
+                            "searchFindings.tabEvents.affectedComponents"
+                          )}
+                          name={"affectedComponents"}
+                          renderAsEditable={isEditing}
                           type={"text"}
                         />
                       </Col50>
                     )}
+
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={data.event.accessibility
+                          .map((item: string): string =>
+                            translate.t(formatAccessibility(item))
+                          )
+                          .join(", ")}
+                        label={t("searchFindings.tabEvents.eventIn")}
+                        name={"accessibility"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
                   </Row>
-                ) : undefined}
+                  {data.event.eventStatus === "SOLVED" ? (
+                    <Row>
+                      {data.event.solvingReason === "OTHER" ? (
+                        <Col50>
+                          <EditableField
+                            alignField={"horizontalWide"}
+                            component={FormikText}
+                            currentValue={
+                              _.isNil(data.event.otherSolvingReason)
+                                ? "-"
+                                : _.capitalize(data.event.otherSolvingReason)
+                            }
+                            label={t("searchFindings.tabEvents.solvingReason")}
+                            name={"otherSolvingReason"}
+                            renderAsEditable={isEditing}
+                            type={"text"}
+                          />
+                        </Col50>
+                      ) : (
+                        <Col50>
+                          <EditableField
+                            alignField={"horizontalWide"}
+                            component={FormikText}
+                            currentValue={
+                              _.isNil(data.event.solvingReason)
+                                ? "-"
+                                : solvingReason[data.event.solvingReason]
+                            }
+                            label={t("searchFindings.tabEvents.solvingReason")}
+                            name={"solvingReason"}
+                            renderAsEditable={isEditing}
+                            type={"text"}
+                          />
+                        </Col50>
+                      )}
+                    </Row>
+                  ) : undefined}
+                </div>
               </div>
-            </div>
-          </Form>
+            </Form>
+          )}
         </Formik>
       </React.Fragment>
     </React.StrictMode>
