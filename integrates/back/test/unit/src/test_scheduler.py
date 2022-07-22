@@ -435,9 +435,9 @@ async def test_remove_imamura_stakeholders() -> None:
     loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
-    org_stakeholders: list[
-        Stakeholder
-    ] = await loaders.organization_stakeholders.load(org_id)
+    org_stakeholders: tuple[
+        Stakeholder, ...
+    ] = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
         stakeholder.email for stakeholder in org_stakeholders
     ]
@@ -459,8 +459,7 @@ async def test_remove_imamura_stakeholders() -> None:
     await delete_imamura_stakeholders.main()
 
     loaders = get_new_context()
-    org_stakeholders_loader = loaders.organization_stakeholders
-    org_stakeholders = await org_stakeholders_loader.load(org_id)
+    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
         stakeholder.email for stakeholder in org_stakeholders
     ]

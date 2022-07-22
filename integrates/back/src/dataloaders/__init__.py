@@ -1,9 +1,6 @@
 from .group_stakeholders import (
     GroupStakeholdersLoader,
 )
-from .organization_stakeholders import (
-    OrganizationStakeholdersLoader,
-)
 from .stakeholder_level_role import (
     StakeholderLevelRoleLoader,
 )
@@ -146,7 +143,6 @@ class Dataloaders(NamedTuple):
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
-    organization_stakeholders: OrganizationStakeholdersLoader
     organization_stakeholders_access: OrganizationStakeholdersAccessLoader
     organization: OrganizationLoader
     portfolio: PortfolioLoader
@@ -208,9 +204,6 @@ def get_new_context() -> Dataloaders:
 
     stakeholder_loader = StakeholderLoader()
     group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
-    organization_stakeholders_loader = OrganizationStakeholdersLoader(
-        stakeholder_loader
-    )
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -254,7 +247,6 @@ def get_new_context() -> Dataloaders:
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
-        organization_stakeholders=organization_stakeholders_loader,
         organization_stakeholders_access=(
             OrganizationStakeholdersAccessLoader()
         ),

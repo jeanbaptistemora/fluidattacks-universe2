@@ -42,7 +42,6 @@ async def mutate(
     organization: Organization = await loaders.organization.load(
         organization_id
     )
-    organization_name = organization.name
 
     success: bool = await orgs_domain.remove_user(
         info.context.loaders,
@@ -51,7 +50,6 @@ async def mutate(
         requester_email,
     )
     if success:
-        info.context.loaders.organization_stakeholders.clear(organization_id)
         redis_del_by_deps_soon(
             "remove_stakeholder_organization_access",
             organization_id=organization_id,
@@ -59,13 +57,13 @@ async def mutate(
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Stakeholder {requester_email} removed stakeholder"
-            f" {user_email} from organization {organization_name}",
+            f" {user_email} from organization {organization.name}",
         )
     else:
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Stakeholder {requester_email} attempted to remove "
-            f"stakeholder {user_email} from organization {organization_name}",
+            f"stakeholder {user_email} from organization {organization.name}",
         )
 
     return SimplePayload(success=success)

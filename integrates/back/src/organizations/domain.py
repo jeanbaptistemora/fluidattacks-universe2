@@ -736,13 +736,13 @@ async def send_mail_policies(
         "date": datetime_utils.get_datetime_from_iso_str(date),
     }
 
-    org_stakeholders_loaders: list[
-        Stakeholder
-    ] = await loaders.organization_stakeholders.load(organization_id)
+    org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
+        loaders, organization_id
+    )
 
     stakeholders_emails = [
         stakeholder.email
-        for stakeholder in org_stakeholders_loaders
+        for stakeholder in org_stakeholders
         if await get_stakeholder_role(
             loaders,
             stakeholder.email,
