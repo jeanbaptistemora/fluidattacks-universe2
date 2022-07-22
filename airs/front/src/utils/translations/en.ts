@@ -45,6 +45,22 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts related to the Attacks category.",
       title: "attacks",
     },
+    interview: {
+      description:
+        "Cybersecurity experts and other guests answer questions " +
+        "about their work or recently earned certifications.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Interview category.",
+      title: "interview",
+    },
+    opinions: {
+      description:
+        "Read our or other experts' take on cybersecurity topics, " +
+        "such as trends, technology, certifications and ethical hacking.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Opinions category.",
+      title: "opinions",
+    },
     philosophy: {
       description:
         "Entries where we describe security best practices and approaches, " +
@@ -52,6 +68,14 @@ const pageTexts: ResourceKey = {
       metaDescription:
         "Read Fluid Attacks' blog posts related to the Philosophy category.",
       title: "philosophy",
+    },
+    politics: {
+      description:
+        "Entries dedicated to cybersecurity standards " +
+        "and news covering issues of compliance.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Politics category.",
+      title: "politics",
     },
   },
   categories: {

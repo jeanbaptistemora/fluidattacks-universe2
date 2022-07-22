@@ -28,6 +28,27 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListCategories.attacks.description"),
+      metaDescription: translate.t(
+        "blogListCategories.attacks.metaDescription"
+      ),
+      title: translate.t("blogListCategories.attacks.title"),
+    },
+    {
+      description: translate.t("blogListCategories.interview.description"),
+      metaDescription: translate.t(
+        "blogListCategories.interview.metaDescription"
+      ),
+      title: translate.t("blogListCategories.interview.title"),
+    },
+    {
+      description: translate.t("blogListCategories.opinions.description"),
+      metaDescription: translate.t(
+        "blogListCategories.opinions.metaDescription"
+      ),
+      title: translate.t("blogListCategories.opinions.title"),
+    },
+    {
       description: translate.t("blogListCategories.philosophy.description"),
       metaDescription: translate.t(
         "blogListCategories.philosophy.metaDescription"
@@ -35,11 +56,11 @@ const blogCategoryTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListCategories.philosophy.title"),
     },
     {
-      description: translate.t("blogListCategories.attacks.description"),
+      description: translate.t("blogListCategories.politics.description"),
       metaDescription: translate.t(
-        "blogListCategories.attacks.metaDescription"
+        "blogListCategories.politics.metaDescription"
       ),
-      title: translate.t("blogListCategories.attacks.title"),
+      title: translate.t("blogListCategories.politics.title"),
     },
   ];
 
