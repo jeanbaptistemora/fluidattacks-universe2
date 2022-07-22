@@ -23,6 +23,9 @@ from opentelemetry.sdk.trace import (
 from starlette.applications import (
     Starlette,
 )
+from telemetry.aiobotocore import (
+    AioBotocoreInstrumentor,
+)
 
 
 def instrument(app: Starlette) -> None:
@@ -36,6 +39,7 @@ def instrument(app: Starlette) -> None:
     resource = Resource.create(attributes={SERVICE_NAME: "integrates"})
     trace.set_tracer_provider(TracerProvider(resource=resource))
 
+    AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()
     RedisInstrumentor().instrument()
     RequestsInstrumentor().instrument()
