@@ -50,7 +50,7 @@ async def get_users(organization_id: str) -> list[dict[str, Any]]:
     return response_items
 
 
-class OrgStakeholdersAccessLoader(DataLoader):
+class OrganizationStakeholdersAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, keys: Iterable[str]

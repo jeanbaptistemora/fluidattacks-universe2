@@ -16,6 +16,9 @@ from graphql.type.definition import (
 from newutils import (
     token as token_utils,
 )
+from organizations import (
+    domain as orgs_domain,
+)
 
 
 @enforce_organization_level_auth_async
@@ -30,4 +33,4 @@ async def resolve(
     request_store["entity"] = "ORGANIZATION"
     request_store["organization_id"] = parent.id
 
-    return await loaders.organization_stakeholders.load(parent.id)
+    return await orgs_domain.get_stakeholders(loaders, parent.id)

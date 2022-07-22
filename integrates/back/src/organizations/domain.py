@@ -351,6 +351,23 @@ async def get_users(organization_id: str) -> list[str]:
     return await orgs_dal.get_users(organization_id)
 
 
+async def get_stakeholders(
+    loaders: Any, organization_id: str
+) -> tuple[Stakeholder, ...]:
+    stakeholders_access: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.organization_stakeholders_access.load(organization_id)
+    stakeholder_emails = [access.email for access in stakeholders_access]
+    stakeholders = [
+        await loaders.stakeholder.load(email)
+        if await stakeholders_domain.exists(loaders, email)
+        else Stakeholder(email=email, is_registered=False)
+        for email in stakeholder_emails
+    ]
+
+    return tuple(stakeholders)
+
+
 async def has_group(
     loaders: Any, organization_id: str, group_name: str
 ) -> bool:

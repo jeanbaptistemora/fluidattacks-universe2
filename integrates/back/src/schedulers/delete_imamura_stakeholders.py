@@ -19,20 +19,18 @@ from organizations import (
 )
 
 
-async def delete_imamura_stakeholders() -> None:
+async def remove_imamura_stakeholders() -> None:
     """
-    Delete stakeholders if only have access to imamura,
-    and there are no logins in the last 60 days
+    Remove stakeholders if only have access to imamura,
+    and there are no logins in the last 60 days.
     """
     modified_by = "integrates@fluidattacks.com"
     loaders: Dataloaders = get_new_context()
     org_name = "imamura"
     organization: Organization = await loaders.organization.load(org_name)
-    org_id = organization.id
-    organization_stakeholders_loader = loaders.organization_stakeholders
-    org_stakeholders: list[
-        Stakeholder
-    ] = await organization_stakeholders_loader.load(org_id)
+    org_stakeholders: tuple[
+        Stakeholder, ...
+    ] = await orgs_domain.get_stakeholders(loaders, organization.id)
     inactive_stakeholders = [
         stakeholder
         for stakeholder in org_stakeholders
@@ -55,14 +53,10 @@ async def delete_imamura_stakeholders() -> None:
         )
         for inactive_stakeholder in inactive_stakeholders
     ]
-    inactive_stakeholder_orgs_ids = [
-        tuple(org.organization_id for org in orgs)
-        for orgs in inactive_stakeholder_orgs
-    ]
     stakeholders_to_delete = [
         inactive_stakeholder
         for inactive_stakeholder, orgs in zip(
-            inactive_stakeholders, inactive_stakeholder_orgs_ids
+            inactive_stakeholders, inactive_stakeholder_orgs
         )
         if len(orgs) == 1
     ]
@@ -70,7 +64,7 @@ async def delete_imamura_stakeholders() -> None:
         [
             orgs_domain.remove_user(
                 get_new_context(),
-                org_id,
+                organization.id,
                 stakeholder_to_delete.email,
                 modified_by,
             )
@@ -80,4 +74,4 @@ async def delete_imamura_stakeholders() -> None:
 
 
 async def main() -> None:
-    await delete_imamura_stakeholders()
+    await remove_imamura_stakeholders()

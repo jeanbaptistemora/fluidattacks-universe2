@@ -14,7 +14,7 @@ from dataloaders.organization_access import (
     OrganizationAccessTypedLoader,
 )
 from dataloaders.organization_stakeholders_access import (
-    OrgStakeholdersAccessLoader,
+    OrganizationStakeholdersAccessLoader,
 )
 from dataloaders.stakeholder_organizations_access import (
     StakeholderOrgsAccessLoader,
@@ -147,7 +147,7 @@ class Dataloaders(NamedTuple):
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
     organization_stakeholders: OrganizationStakeholdersLoader
-    organization_stakeholders_access: OrgStakeholdersAccessLoader
+    organization_stakeholders_access: OrganizationStakeholdersAccessLoader
     organization: OrganizationLoader
     portfolio: PortfolioLoader
     root: RootLoader
@@ -255,7 +255,9 @@ def get_new_context() -> Dataloaders:
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders=organization_stakeholders_loader,
-        organization_stakeholders_access=OrgStakeholdersAccessLoader(),
+        organization_stakeholders_access=(
+            OrganizationStakeholdersAccessLoader()
+        ),
         organization=OrganizationLoader(),
         portfolio=PortfolioLoader(),
         root=RootLoader(),
