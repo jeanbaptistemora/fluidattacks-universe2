@@ -491,7 +491,19 @@ describe("Group stakeholders view", (): void => {
     );
 
     await waitFor((): void => {
-      expect(msgSuccess).toHaveBeenCalledTimes(1);
+      expect(
+        screen.queryByText(
+          "searchFindings.tabUsers.removeUserButton.confirmTitle"
+        )
+      ).toBeInTheDocument();
+    });
+
+    userEvent.click(screen.getByText("components.modal.confirm"));
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "user@gmail.com searchFindings.tabUsers.successDelete",
+        "searchFindings.tabUsers.titleSuccess"
+      );
     });
 
     expect(screen.getAllByRole("radio", { checked: false })).toHaveLength(1);
@@ -735,6 +747,7 @@ describe("Group stakeholders view", (): void => {
       screen.getByText("searchFindings.tabUsers.removeUserButton.text")
     );
 
+    userEvent.click(screen.getByText("components.modal.confirm"));
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledTimes(1);
     });

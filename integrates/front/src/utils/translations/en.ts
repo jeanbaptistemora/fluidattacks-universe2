@@ -3080,6 +3080,8 @@ export const enTranslations: ResourceKey = {
       editStakeholderTitle: "Edit stakeholder information",
       noSelection: "You must select an email from the table.",
       removeUserButton: {
+        confirmMessage: "will be removed from this group",
+        confirmTitle: "Remove stakeholder?",
         text: "Remove",
         tooltip: "Remove a user from the group, first select one",
       },

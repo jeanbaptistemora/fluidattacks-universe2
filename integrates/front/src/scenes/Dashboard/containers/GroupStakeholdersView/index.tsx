@@ -23,6 +23,7 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
 import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters";
@@ -481,24 +482,47 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                 </Tooltip>
               </Can>
               <Can do={"api_mutations_remove_stakeholder_access_mutate"}>
-                <Tooltip
-                  disp={"inline-block"}
-                  id={"searchFindings.tabUsers.removeUserButton.tooltip.id"}
-                  tip={t("searchFindings.tabUsers.removeUserButton.tooltip")}
+                <ConfirmDialog
+                  message={`${currentRow.email} ${t(
+                    "searchFindings.tabUsers.removeUserButton.confirmMessage"
+                  )}`}
+                  title={t(
+                    "searchFindings.tabUsers.removeUserButton.confirmTitle"
+                  )}
                 >
-                  <Button
-                    disabled={
-                      _.isEmpty(currentRow) || removing || loadingStakeholders
+                  {(confirm): React.ReactNode => {
+                    function handleClick(): void {
+                      confirm(handleRemoveUser);
                     }
-                    id={"removeUser"}
-                    onClick={handleRemoveUser}
-                    variant={"secondary"}
-                  >
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                    &nbsp;
-                    {t("searchFindings.tabUsers.removeUserButton.text")}
-                  </Button>
-                </Tooltip>
+
+                    return (
+                      <Tooltip
+                        disp={"inline-block"}
+                        id={
+                          "searchFindings.tabUsers.removeUserButton.tooltip.id"
+                        }
+                        tip={t(
+                          "searchFindings.tabUsers.removeUserButton.tooltip"
+                        )}
+                      >
+                        <Button
+                          disabled={
+                            _.isEmpty(currentRow) ||
+                            removing ||
+                            loadingStakeholders
+                          }
+                          id={"removeUser"}
+                          onClick={handleClick}
+                          variant={"secondary"}
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                          &nbsp;
+                          {t("searchFindings.tabUsers.removeUserButton.text")}
+                        </Button>
+                      </Tooltip>
+                    );
+                  }}
+                </ConfirmDialog>
               </Can>
             </React.Fragment>
           }
