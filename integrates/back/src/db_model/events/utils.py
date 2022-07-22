@@ -123,10 +123,19 @@ def format_event_item(event: Event) -> Item:
 
 def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
     item = {
+        "affected_components": set(
+            acc_item.value for acc_item in metadata.affected_components
+        )
+        if metadata.affected_components
+        else None,
         "client": metadata.client,
         "description": metadata.description,
+        "type": metadata.type,
     }
-    return {key: value for key, value in item.items() if value is not None}
+    item = {key: value for key, value in item.items() if value is not None}
+    if metadata.clean_affected_components:
+        item["affected_components"] = None
+    return item
 
 
 def format_state(item: Item) -> EventState:

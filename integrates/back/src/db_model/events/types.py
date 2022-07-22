@@ -61,8 +61,11 @@ class Event(NamedTuple):
 
 
 class EventMetadataToUpdate(NamedTuple):
+    affected_components: Optional[set[EventAffectedComponents]] = None
     client: Optional[str] = None
     description: Optional[str] = None
+    type: Optional[EventType] = None
+    clean_affected_components: bool = False
 
 
 class EventUnreliableIndicatorsToUpdate(NamedTuple):
