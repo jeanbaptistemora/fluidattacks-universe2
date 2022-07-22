@@ -45,6 +45,18 @@ const ResourcesPage: React.FC<IProps> = ({
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
       cardType: "report-card",
       description: translate.t(
+        "resources.cardsText.reports.report6Description"
+      ),
+      image: "/resources/resource-card16n",
+      key: "card-16",
+      language: "ENGLISH",
+      title: translate.t("resources.cardsText.reports.report6Title"),
+      urlCard: "https://try.fluidattacks.com/report/state-of-attacks-2022/",
+    },
+    {
+      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
+      cardType: "report-card",
+      description: translate.t(
         "resources.cardsText.reports.report1Description"
       ),
       image: "/resources/resource-card12n",

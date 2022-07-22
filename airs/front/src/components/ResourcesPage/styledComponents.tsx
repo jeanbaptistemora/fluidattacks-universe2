@@ -19,6 +19,8 @@ const CardContainer: StyledComponent<
     bs-btm-h-10
   `,
 })`
+  max-width: 500px;
+
   @media screen and (min-width: 1200px) {
     width: 30%;
   }

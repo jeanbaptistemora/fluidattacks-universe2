@@ -379,6 +379,11 @@ body {
 
 .bs-product-image { filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.1)); }
 
+.resource-home-card {
+  height: 300px;
+  max-width: 200px;
+}
+
 .pagination-container {
   display: flex;
   flex-wrap: wrap;

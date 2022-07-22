@@ -425,6 +425,10 @@ const pageTexts: ResourceKey = {
           "Here you can find information about the OWASP SAMM " +
           "and some recommendations.",
         report5Title: "Fluid Attacks and the OWASP SAMM",
+        report6Description:
+          "Benchmark your security posture against our results " +
+          "from one year of security testing.",
+        report6Title: "State of Attacks, Annual Report 2022",
       },
       webinars: {
         webinar1Description:
