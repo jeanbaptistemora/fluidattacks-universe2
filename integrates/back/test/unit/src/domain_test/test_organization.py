@@ -206,10 +206,7 @@ async def test_get_name_by_id() -> None:
 
     with pytest.raises(OrganizationNotFound):
         new_loader: Dataloaders = get_new_context()
-        new_organization: Organization = await new_loader.organization.load(
-            "ORG#madeup-id"
-        )
-        org_name = new_organization.name
+        await new_loader.organization.load("ORG#madeup-id")
 
 
 async def test_get_id_for_group() -> None:

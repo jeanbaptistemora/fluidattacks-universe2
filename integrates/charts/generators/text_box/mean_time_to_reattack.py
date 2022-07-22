@@ -82,7 +82,6 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                     == VulnerabilityVerificationStatus.REQUESTED
                     and start is None
                 ):
-
                     start = verification.modified_date
                     number_of_reattacks += 1
                 if (
