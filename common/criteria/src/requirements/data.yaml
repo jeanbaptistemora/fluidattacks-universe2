@@ -240,6 +240,7 @@
     - "owaspscp.5"
     - "owaspmasvs.V8_11"
     - "nist800171.1_19"
+    - "asvs.1_8_2"
   metadata: {}
 "027":
   en:
@@ -332,6 +333,7 @@
     - "fedramp.AC-2_5"
     - "wassec.3_1"
     - "owasprisks.P8"
+    - "asvs.3_3_4"
   metadata: {}
 "029":
   en:
@@ -433,6 +435,9 @@
     - "bsafss.SC_3-3"
     - "cwe25.79"
     - "cwe25.352"
+    - "asvs.3_2_3"
+    - "asvs.3_4_2"
+    - "asvs.3_4_3"
   metadata: {}
 "030":
   en:
@@ -528,6 +533,7 @@
     - "owaspscp.4"
     - "owaspmasvs.V4_2"
     - "nist800171.5_5"
+    - "asvs.3_3_1"
   metadata: {}
 "031":
   en:
@@ -1013,6 +1019,7 @@
     - "ptes.6_2_3"
     - "ptes.7_4_4_1"
     - "owaspscp.9"
+    - "asvs.3_1_1"
   metadata: {}
 "039":
   en:
@@ -2590,6 +2597,7 @@
     - "nist800171.5_2"
     - "cwe25.862"
     - "swiftcsc.5_1"
+    - "asvs.1_2_1"
   metadata: {}
 "114":
   en:
@@ -3057,6 +3065,9 @@
     - "cwe25.798"
     - "nist800115.5_1"
     - "swiftcsc.4_1"
+    - "asvs.2_4_1"
+    - "asvs.2_4_3"
+    - "asvs.2_4_4"
   metadata: {}
 "128":
   en:
@@ -3112,6 +3123,7 @@
     - "iec62443.IAC-1_7"
     - "mvsp.2_4"
     - "owaspmasvs.V4_5"
+    - "asvs.2_1_10"
   metadata: {}
 "130":
   en:
@@ -3253,6 +3265,7 @@
     - "owaspscp.3"
     - "nist800115.5_1"
     - "swiftcsc.4_1"
+    - "asvs.2_1_2"
   metadata: {}
 "133":
   en:
@@ -3299,6 +3312,7 @@
     - "nist800171.5_7"
     - "nist800115.5_1"
     - "swiftcsc.4_1"
+    - "asvs.2_1_1"
   metadata: {}
 "134":
   en:
@@ -3333,6 +3347,7 @@
     - "owaspmasvs.V4_5"
     - "nist800171.5_10"
     - "cwe25.798"
+    - "asvs.2_4_1"
   metadata: {}
 "135":
   en:
@@ -3364,6 +3379,8 @@
     - "owaspscp.3"
     - "owaspmasvs.V4_5"
     - "nist800171.5_10"
+    - "asvs.2_4_2"
+    - "asvs.2_4_5"
   metadata: {}
 "136":
   en:
@@ -3519,6 +3536,7 @@
     - "nist800171.5_2"
     - "nist800171.5_9"
     - "cwe25.287"
+    - "asvs.2_3_1"
   metadata: {}
 "139":
   en:
@@ -3564,6 +3582,7 @@
     - "ptes.5_5_3"
     - "nist800115.5_1"
     - "swiftcsc.4_1"
+    - "asvs.2_2_6"
   metadata: {}
 "140":
   en:
@@ -3621,6 +3640,9 @@
     - "iec62443.CR-1_7-RE_2"
     - "nist800171.5_2"
     - "cwe25.287"
+    - "asvs.2_2_6"
+    - "asvs.2_5_6"
+    - "asvs.2_8_1"
   metadata: {}
 "141":
   en:
@@ -3660,6 +3682,8 @@
     - "mvsp.3_3"
     - "owaspscp.4"
     - "owaspscp.5"
+    - "asvs.2_1_6"
+    - "asvs.3_3_2"
   metadata: {}
 "142":
   en:
@@ -3908,6 +3932,8 @@
      - "owaspscp.6"
      - "bsafss.EN_2-3"
      - "bsafss.EN_3-2"
+     - "asvs.1_6_2"
+     - "asvs.2_9_1"
   metadata: {}
 "146":
   en:
@@ -4021,6 +4047,7 @@
     - "bsafss.EN_2-5"
     - "owaspmasvs.V1_8"
     - "nist800171.1_13"
+    - "asvs.1_9_1"
   metadata: {}
 "148":
   en:
@@ -4115,6 +4142,7 @@
     - "issaf.F_5_3"
     - "issaf.H_14_17"
     - "issaf.Q_16_10"
+    - "asvs.2_4_1"
   metadata: {}
 "151":
   en:
@@ -4258,6 +4286,8 @@
     - "owaspmasvs.V5_5"
     - "swiftcsc.2_1"
     - "swiftcsc.2_5"
+    - "asvs.2_2_3"
+    - "asvs.2_7_1"
   metadata: {}
 "154":
   en:
@@ -4560,6 +4590,7 @@
     - "nistssdf.PW_6_1"
     - "cwe25.416"
     - "osamm.IR_3"
+    - "asvs.5_5_2"
   metadata: {}
 "158":
   en:
@@ -4617,6 +4648,7 @@
     - "cwe25.416"
     - "cwe25.119"
     - "osamm.IR_3"
+    - "asvs.5_4_1"
   metadata: {}
 "159":
   en:
@@ -4746,6 +4778,8 @@
     - "owaspscp.13"
     - "bsafss.SC_3-2"
     - "bsafss.LO_2-4"
+    - "asvs.1_5_4"
+    - "asvs.5_3_1"
   metadata: {}
 "161":
   en:
@@ -4924,6 +4958,7 @@
     - "issaf.U_15"
     - "owaspmasvs.V7_8"
     - "osamm.IR_3"
+    - "asvs.5_4_1"
   metadata: {}
 "167":
   en:
@@ -5041,6 +5076,7 @@
     - "ptes.7_4_2_3"
     - "owaspscp.11"
     - "cwe25.89"
+    - "asvs.5_3_4"
   metadata: {}
 "171":
   en:
@@ -5364,6 +5400,13 @@
     - "cwe25.77"
     - "cwe25.918"
     - "cwe25.611"
+    - "asvs.1_5_3"
+    - "asvs.5_2_5"
+    - "asvs.5_2_6"
+    - "asvs.5_3_7"
+    - "asvs.5_3_8"
+    - "asvs.5_3_10"
+    - "asvs.5_4_1"
   metadata: {}
 "174":
   en:
@@ -5603,6 +5646,7 @@
     - "owaspscp.12"
     - "bsafss.SM_3-1"
     - "bsafss.SM_6-1"
+    - "asvs.5_2_5"
   metadata: {}
 "177":
   en:
@@ -5941,6 +5985,7 @@
     - "nist800115.7_4_3"
     - "swiftcsc.2_1"
     - "swiftcsc.2_6"
+    - "asvs.1_9_1"
   metadata: {}
 "183":
   en:
@@ -6160,6 +6205,7 @@
     - "owaspmasvs.V8_10"
     - "cwe25.798"
     - "swiftcsc.5_4"
+    - "asvs.1_8_2"
   metadata: {}
 "186":
   en:
@@ -6263,6 +6309,8 @@
     - "nist800171.1_5"
     - "nist800171.4_6"
     - "swiftcsc.5_1"
+    - "asvs.1_2_1"
+    - "asvs.4_1_3"
   metadata: {}
 "189":
   en:
@@ -6703,6 +6751,8 @@
     - "c2m2.9_5_e"
     - "owaspscp.6"
     - "owaspmasvs.V3_6"
+    - "asvs.2_6_2"
+    - "asvs.2_7_6"
   metadata: {}
 "224":
   en:
@@ -6827,6 +6877,10 @@
     - "owaspmasvs.V3_4"
     - "nist800171.1_13"
     - "swiftcsc.2_1"
+    - "asvs.1_9_1"
+    - "asvs.2_6_2"
+    - "asvs.2_9_3"
+    - "asvs.3_2_4"
   metadata: {}
 "225":
   en:
@@ -7227,6 +7281,7 @@
     - "wasc.W_01"
     - "owaspmasvs.V4_8"
     - "nist800171.5_2"
+    - "asvs.2_8_7"
   metadata: {}
 "232":
   en:
@@ -7477,6 +7532,8 @@
     - "wasc.W_49"
     - "mvsp.2_4"
     - "owaspscp.3"
+    - "asvs.2_5_3"
+    - "asvs.2_5_6"
   metadata: {}
 "247":
   en:
@@ -8258,6 +8315,7 @@
     - "nist800171.1_17"
     - "cwe25.287"
     - "cwe25.362"
+    - "asvs.1_2_3"
   metadata: {}
 "265":
   en:
@@ -8349,6 +8407,9 @@
     - "issaf.V_13"
     - "cwe25.78"
     - "cwe25.306"
+    - "asvs.1_4_1"
+    - "asvs.5_2_5"
+    - "asvs.5_3_8"
   metadata: {}
 "266":
   en:
@@ -8503,6 +8564,8 @@
     - "swiftcsc.3_1"
     - "osamm.SA_2"
     - "osamm.EH_2"
+    - "asvs.5_2_5"
+    - "asvs.5_3_8"
   metadata: {}
 "273":
   en:
@@ -8778,6 +8841,7 @@
     - "c2m2.9_5_h"
     - "owaspscp.3"
     - "bsafss.VN_3-2"
+    - "asvs.2_5_5"
   metadata: {}
 "302":
   en:
@@ -9667,6 +9731,7 @@
     - "owaspscp.5"
     - "bsafss.SI_1-3"
     - "cwe25.287"
+    - "asvs.3_7_1"
   metadata: {}
 "320":
   en:
@@ -9753,6 +9818,7 @@
     - "owaspmasvs.V8_10"
     - "cwe25.22"
     - "nist800115.3_6"
+    - "asvs.1_4_1"
   metadata: {}
 "321":
   en:
@@ -9826,6 +9892,9 @@
     - "owaspscp.1"
     - "owaspmasvs.V6_8"
     - "cwe25.502"
+    - "asvs.1_5_2"
+    - "asvs.1_14_5"
+    - "asvs.5_5_1"
   metadata: {}
 "322":
   en:
@@ -10033,6 +10102,8 @@
     - "owaspscp.1"
     - "owaspscp.12"
     - "cwe25.918"
+    - "asvs.5_1_5"
+    - "asvs.5_2_6"
   metadata: {}
 "325":
   en:
@@ -10280,6 +10351,8 @@
     - "wassec.2_1"
     - "c2m2.4_1_f"
     - "nistssdf.PO_5_1"
+    - "asvs.1_2_4"
+    - "asvs.2_2_4"
   metadata: {}
 "329":
   en:
@@ -10366,6 +10439,7 @@
     - "bsafss.SI_1-4"
     - "owaspmasvs.V2_13"
     - "owaspmasvs.V8_11"
+    - "asvs.1_8_2"
   metadata: {}
 "330":
   en:
@@ -10544,6 +10618,7 @@
     - "owaspmasvs.V4_5"
     - "nist800115.5_1"
     - "swiftcsc.4_1"
+    - "asvs.2_1_7"
   metadata: {}
 "333":
   en:
@@ -10661,6 +10736,7 @@
     - "nistssdf.PW_1_1"
     - "issaf.D_8"
     - "mvsp.2_4"
+    - "asvs.2_5_2"
   metadata: {}
 "335":
   en:
@@ -10739,6 +10815,8 @@
     - "owasprisks.P8"
     - "owaspmasvs.V4_7"
     - "swiftcsc.5_2"
+    - "asvs.2_7_2"
+    - "asvs.2_7_3"
   metadata: {}
 "336":
   en:
@@ -10832,6 +10910,7 @@
     - "owaspscp.9"
     - "owaspmasvs.V5_1"
     - "swiftcsc.2_6"
+    - "asvs.1_9_2"
   metadata: {}
 "337":
   en:
@@ -11001,6 +11080,7 @@
     - "bsafss.VM_3-2"
     - "nist800171.1_13"
     - "osamm.OE_1"
+    - "asvs.2_7_4"
   metadata: {}
 "339":
   en:
@@ -11288,6 +11368,8 @@
     - "owaspscp.1"
     - "cwe25.20"
     - "cwe25.22"
+    - "asvs.5_1_1"
+    - "asvs.5_1_3"
   metadata: {}
 "343":
   en:
@@ -11415,6 +11497,7 @@
     - "owaspscp.14"
     - "cwe25.77"
     - "osamm.IR_3"
+    - "asvs.5_2_4"
   metadata: {}
 "345":
   en:
@@ -11515,6 +11598,7 @@
     - "cwe25.125"
     - "cwe25.190"
     - "osamm.IR_3"
+    - "asvs.5_4_3"
   metadata: {}
 "346":
   en:
@@ -11622,6 +11706,8 @@
     - "owasp10.A7"
     - "pci.6_5_10"
     - "sans25.287"
+    - "asvs.2_2_6"
+    - "asvs.2_8_4"
   metadata: {}
 "348":
   en:
@@ -11704,6 +11790,7 @@
     - "ptes.6_2_1_1"
     - "cwe25.918"
     - "osamm.SA_3"
+    - "asvs.5_3_9"
   metadata: {}
 "349":
   en:
@@ -12100,6 +12187,8 @@
     - "owaspscp.4"
     - "owaspmasvs.V4_3"
     - "swiftcsc.5_2"
+    - "asvs.3_5_2"
+    - "asvs.3_5_3"
   metadata: {}
 "358":
   en:
@@ -12173,6 +12262,7 @@
     - "issaf.U_15"
     - "owaspmasvs.V7_6"
     - "cwe25.476"
+    - "asvs.4_1_5"
   metadata: {}
 "360":
   en:
@@ -12327,6 +12417,7 @@
     - "c2m2.9_5_e"
     - "owaspscp.6"
     - "bsafss.EN_3-2"
+    - "asvs.1_6_3"
   metadata: {}
 "362":
   en:
@@ -12581,6 +12672,7 @@
     - "cmmc.IA_L2-3_5_9"
     - "hitrust.01_d"
     - "owaspscp.3"
+    - "asvs.2_3_1"
   metadata: {}
 "368":
   en:
@@ -12801,6 +12893,7 @@
     - "issaf.S_5_7"
     - "owaspscp.10"
     - "bsafss.SC_4-1"
+    - "asvs.1_14_5"
   metadata: {}
 "375":
   en:
@@ -13017,6 +13110,7 @@
     - "owaspscp.7"
     - "nist800171.3_8"
     - "osamm.OE_3"
+    - "asvs.1_7_2"
   metadata: {}
 "379":
   en:
