@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
+import { Comment } from "./Comment";
+import { CommentEditor } from "./components/CommentEditor";
 import { commentContext } from "./context";
 
-import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
-import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
 import type {
   ICommentStructure,
   ICommentsProps,
@@ -114,7 +114,7 @@ export const Comments: React.FC<ICommentsProps> = ({
           orderComments(rootComments, orderBy).map(
             (comment: ICommentStructure): JSX.Element => (
               <React.Fragment key={comment.id}>
-                <NestedComment
+                <Comment
                   backgroundEnabled={false}
                   comments={comments}
                   id={comment.id}

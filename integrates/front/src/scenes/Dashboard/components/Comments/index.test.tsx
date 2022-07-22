@@ -2,11 +2,12 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import { Comments } from "scenes/Dashboard/components/Comments";
-import { CommentEditor } from "scenes/Dashboard/components/Comments/components/CommentEditor";
-import { NestedComment } from "scenes/Dashboard/components/Comments/components/NestedComment";
-import { commentContext } from "scenes/Dashboard/components/Comments/context";
-import type { ICommentStructure } from "scenes/Dashboard/components/Comments/types";
+import { Comment } from "./Comment";
+import { CommentEditor } from "./components/CommentEditor";
+import { commentContext } from "./context";
+import type { ICommentStructure } from "./types";
+
+import { Comments } from ".";
 
 describe("Comments section", (): void => {
   const onLoadComments: jest.Mock = jest.fn();
@@ -77,7 +78,7 @@ describe("Comments section", (): void => {
 
     const { container } = render(
       <commentContext.Provider value={{ replying: mockComment.id }}>
-        <NestedComment
+        <Comment
           backgroundEnabled={false}
           comments={[mockComment]}
           id={mockComment.id}
@@ -87,13 +88,7 @@ describe("Comments section", (): void => {
       </commentContext.Provider>
     );
 
-    expect(container.querySelectorAll(".comment-nested")).toHaveLength(1);
-    expect(
-      container.querySelectorAll(".comment-content")[0].textContent
-    ).toContain(mockComment.content);
-    expect(
-      container.querySelectorAll(".comment-datetime")[0].textContent
-    ).toContain(mockComment.created);
+    expect(container.querySelectorAll(".comment")).toHaveLength(1);
 
     userEvent.click(screen.getByText("comments.reply"));
     await waitFor((): void => {
