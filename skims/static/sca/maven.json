@@ -2397,6 +2397,9 @@
   "org.apache.shenyu:shenyu-admin": {
     "CVE-2021-37580": "2.3.0 || 2.4.0"
   },
+  "org.apache.shenyu:shenyu-bootstrap": {
+    "CVE-2022-26650": ">=2.4.0 <2.4.3"
+  },
   "org.apache.shenyu:shenyu-common": {
     "GHSA-7rjp-fgwj-47rw": ">=2.4.0 <2.4.2"
   },
@@ -2439,10 +2442,16 @@
   "org.apache.sling:org.apache.sling.engine": {
     "CVE-2020-1949": ">=0 <0.16.0"
   },
+  "org.apache.sling:org.apache.sling.servlets.post": {
+    "CVE-2017-9802": "<=2.3.20"
+  },
   "org.apache.sling:org.apache.sling.xss": {
     "CVE-2016-5394": ">=0 <=1.0.11",
     "CVE-2016-6798": ">=0 <=1.0.10",
     "CVE-2017-15717": "2.0.0 || >=1.0.4 <=1.0.18"
+  },
+  "org.apache.sling:org.apache.sling.xss.compat": {
+    "CVE-2017-15717": "1.1.0"
   },
   "org.apache.solr:solr-core": {
     "CVE-2013-6397": ">=0 <=4.5.1",
@@ -2665,6 +2674,9 @@
     "CVE-2020-1951": ">=1.0 <=1.23",
     "CVE-2021-28657": ">=0 <=1.25"
   },
+  "org.apache.tika:tika-parser-image-module": {
+    "CVE-2022-25169": ">=2.0.0 <2.4.0"
+  },
   "org.apache.tika:tika-parsers": {
     "CVE-2016-6809": ">=0 <=1.13",
     "CVE-2018-11761": ">=0.1 <=1.18",
@@ -2800,6 +2812,12 @@
   },
   "org.apache.uima:uima-ducc-web": {
     "GHSA-vm59-329q-p468": "<=2.2.2"
+  },
+  "org.apache.uima:uimafit-core": {
+    "CVE-2017-15691": "<2.4.0"
+  },
+  "org.apache.uima:uimaj-as-core": {
+    "CVE-2017-15691": "<2.10.2"
   },
   "org.apache.uima:uimaj-core": {
     "CVE-2017-15691": "3.0.0 || >=0 <2.10.2"
@@ -3004,6 +3022,9 @@
     "CVE-2019-17560": ">=0 <=11.2",
     "CVE-2019-17561": ">=0 <=11.2"
   },
+  "org.codehaus.plexus:plexus-archiver": {
+    "CVE-2018-1002200": "<3.6.0"
+  },
   "org.codehaus.plexus:plexus-utils": {
     "CVE-2017-1000487": ">=0 <3.0.16"
   },
@@ -3013,11 +3034,17 @@
   "org.cometd.java:cometd-java-oort": {
     "GHSA-rjmq-6v55-4rjv": "<5.0.11 || >=6.0.0 <6.0.6 || >=7.0.0 <7.0.6"
   },
+  "org.craftercms:crafter-core": {
+    "CVE-2017-15683": ">=3.0.0 <3.0.1"
+  },
   "org.craftercms:crafter-search": {
     "GHSA-2wr2-8qjq-gh55": ">=3.1.0 <3.1.15"
   },
   "org.craftercms:crafter-studio": {
     "GHSA-9fcp-vcq9-9h2h": "<=3.0.18"
+  },
+  "org.craftercms:craftercms": {
+    "CVE-2021-23267": ">=3.1.0 <3.1.18"
   },
   "org.cryptacular:cryptacular": {
     "CVE-2020-7226": ">=0 <1.1.4 || >=1.2.0 <1.2.4"
@@ -3035,6 +3062,9 @@
   },
   "org.datatransferproject:portability-spi-cloud": {
     "CVE-2021-22572": "<0.3.57"
+  },
+  "org.directwebremoting:dwr": {
+    "CVE-2007-0185": "<1.1.4"
   },
   "org.dkpro.core:dkpro-core": {
     "CVE-2019-11082": ">=0 <=1.10.0"
