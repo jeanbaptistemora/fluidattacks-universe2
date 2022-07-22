@@ -16,6 +16,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HealthCheck } from "./HealthCheck";
+import { RepositoryTour } from "./RepositoryTour";
 
 import {
   GET_GROUP_CREDENTIALS,
@@ -30,7 +31,6 @@ import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { ModalConfirm } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
-import { BaseStep, Tour } from "components/Tour";
 import {
   ControlLabel,
   QuestionButton,
@@ -604,136 +604,14 @@ const Repository: React.FC<IRepositoryProps> = ({
                 />
               </Form>
               {runTour ? (
-                <Tour
-                  onFinish={finishTour}
-                  run={runTour}
-                  steps={[
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.intro"),
-                      placement: "center",
-                      target: "#git-root-add-use-vpn",
-                      title: t("group.scope.common.add"),
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.rootUrl"),
-                      hideBackButton: true,
-                      hideFooter: values.url.length === 0,
-                      target: "#git-root-add-repo-url",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.rootBranch"),
-                      hideFooter: values.branch.length === 0,
-                      target: "#git-root-add-repo-branch",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.vpn"),
-                      target: "#git-root-add-use-vpn",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.nickname"),
-                      hideFooter: values.nickname.length === 0,
-                      target: "#git-root-add-nickname",
-                    },
-                    {
-                      ...BaseStep,
-                      content: (
-                        <React.Fragment>
-                          {t("tours.addGitRoot.rootCredentials.content")}
-                          <ul>
-                            {values.credentials.type === "" && (
-                              <li>
-                                {t("tours.addGitRoot.rootCredentials.type")}
-                              </li>
-                            )}
-                            {values.credentials.name === "" && (
-                              <li>
-                                {t("tours.addGitRoot.rootCredentials.name")}
-                              </li>
-                            )}
-                            {values.credentials.type === "HTTPS" &&
-                              isHttpsCredentialsTypeUser &&
-                              (values.credentials.user === "" ||
-                                values.credentials.password === "") && (
-                                <li>
-                                  {t("tours.addGitRoot.rootCredentials.user")}
-                                </li>
-                              )}
-                            {values.credentials.type === "HTTPS" &&
-                              !isHttpsCredentialsTypeUser &&
-                              values.credentials.token === "" && (
-                                <li>
-                                  {t("tours.addGitRoot.rootCredentials.token")}
-                                </li>
-                              )}
-                            {values.credentials.type === "SSH" &&
-                              values.credentials.key === "" && (
-                                <li>
-                                  {t("tours.addGitRoot.rootCredentials.key")}
-                                </li>
-                              )}
-                            {!isGitAccessible && (
-                              <li>
-                                {t("tours.addGitRoot.rootCredentials.invalid")}
-                              </li>
-                            )}
-                          </ul>
-                        </React.Fragment>
-                      ),
-                      hideFooter:
-                        values.credentials.type === "" ||
-                        values.credentials.name.length === 0 ||
-                        (!_.isUndefined(values.credentials.key) &&
-                          !_.isUndefined(values.credentials.token) &&
-                          values.credentials.key.length === 0 &&
-                          ((!isHttpsCredentialsTypeUser &&
-                            values.credentials.token.length === 0) ||
-                            (isHttpsCredentialsTypeUser &&
-                              (values.credentials.user.length === 0 ||
-                                values.credentials.password.length === 0)))),
-                      placement: "left",
-                      target: "#git-root-add-credentials",
-                    },
-                    {
-                      ...BaseStep,
-                      content: t("tours.addGitRoot.rootEnvironment"),
-                      hideFooter: values.environment.length === 0,
-                      target: "#git-root-add-env",
-                    },
-                    {
-                      ...BaseStep,
-                      content: (
-                        <React.Fragment>
-                          {t("tours.addGitRoot.rootHasHealthCheck")}
-                          <ul>
-                            {values.includesHealthCheck !== null &&
-                              errors.healthCheckConfirm !== undefined && (
-                                <li>
-                                  {t("tours.addGitRoot.healthCheckConditions")}
-                                </li>
-                              )}
-                          </ul>
-                        </React.Fragment>
-                      ),
-                      hideFooter:
-                        values.includesHealthCheck === null ||
-                        errors.healthCheckConfirm !== undefined,
-                      placement: "left",
-                      target: "#git-root-add-health-check",
-                    },
-                    {
-                      ...BaseStep,
-                      content:
-                        !isGitAccessible || !dirty
-                          ? t("tours.addGitRoot.proceedButton.invalidForm")
-                          : t("tours.addGitRoot.proceedButton.validForm"),
-                      target: "#git-root-add-confirm",
-                    },
-                  ]}
+                <RepositoryTour
+                  dirty={dirty}
+                  errors={errors}
+                  finishTour={finishTour}
+                  isGitAccessible={isGitAccessible}
+                  isHttpsCredentialsTypeUser={isHttpsCredentialsTypeUser}
+                  runTour={runTour}
+                  values={values}
                 />
               ) : undefined}
             </React.Fragment>
