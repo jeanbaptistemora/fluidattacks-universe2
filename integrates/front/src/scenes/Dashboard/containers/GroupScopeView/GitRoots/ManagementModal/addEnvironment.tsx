@@ -5,13 +5,13 @@ import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { FC } from "react";
-import React, { Fragment, useCallback, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
 import { ADD_ENVIRONMENT_URL } from "../../queries";
-import { Input, Select } from "components/Input";
+import { Input, Label, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { GET_FILES } from "scenes/Dashboard/containers/GroupSettingsView/queries";
@@ -19,7 +19,6 @@ import type {
   IGetFilesQuery,
   IGroupFileAttr,
 } from "scenes/Dashboard/containers/GroupSettingsView/types";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -141,13 +140,9 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
             <Row>
               <Col>
                 <Select
-                  label={
-                    <Fragment>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
-                      {t("group.scope.git.addEnvironment.type")}
-                    </Fragment>
-                  }
+                  label={t("group.scope.git.addEnvironment.type")}
                   name={"urlType"}
+                  required={true}
                 >
                   <option value={""}>{""}</option>
                   <option value={"CLOUD"}>{"Cloud"}</option>
@@ -159,13 +154,9 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
               formRef.current.values.urlType === "CLOUD" ? (
                 <Col>
                   <Select
-                    label={
-                      <Fragment>
-                        <RequiredField>{"*"}&nbsp;</RequiredField>
-                        {"Cloud Name"}
-                      </Fragment>
-                    }
+                    label={"Cloud Name"}
                     name={"cloudName"}
+                    required={true}
                   >
                     <option value={""}>{""}</option>
                     <option value={"AWS"}>{"AWS"}</option>
@@ -176,8 +167,7 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
               ) : undefined}
             </Row>
             <div className={"mt3"}>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
+              <Label required={true}>
                 {formRef.current === null
                   ? t("group.scope.git.addEnvironment.url")
                   : formRef.current.values.urlType === "CLOUD" &&
@@ -186,7 +176,7 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
                   : formRef.current.values.urlType === "APK"
                   ? t("group.scope.git.addEnvironment.apk")
                   : t("group.scope.git.addEnvironment.url")}
-              </ControlLabel>
+              </Label>
               {formRef.current !== null &&
               formRef.current.values.urlType === "APK" ? (
                 <Select name={"url"}>
