@@ -266,6 +266,7 @@ async def persist_finding(  # pylint: disable=too-many-locals
     roots: Tuple[ResultGetGroupRoots, ...],
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> core_model.PersistResult:
     """Persist a finding to Integrates
 
@@ -283,6 +284,7 @@ async def persist_finding(  # pylint: disable=too-many-locals
     store_length: int = store.length()
     has_results: bool = store_length > 0
     diff_store: Optional[EphemeralStore] = None
+    config = config or CTX.config
 
     finding_id, new_finding = await get_closest_finding_id(
         existing_findings=existing_findings,
@@ -309,30 +311,32 @@ async def persist_finding(  # pylint: disable=too-many-locals
         diff_store = await diff_results(
             integrates_store=integrates_store,
             skims_store=store,
-            namespace=CTX.config.namespace,
+            namespace=config.namespace,
             include_path_patterns=[
-                *CTX.config.path.include,
-                *CTX.config.apk.include,
+                *(config.path.include),
+                *(config.apk.include),
             ],
             exclude_path_patterns=[
-                *CTX.config.path.exclude,
-                *CTX.config.apk.exclude,
+                *(config.path.exclude),
+                *(config.apk.exclude),
             ],
-            has_dast=CTX.config.dast is not None,
+            has_dast=config.dast is not None,
         )
 
         # Get vulnerabilities with a reattack requested
         reattacked_store = vulns_with_reattack_requested(integrates_store)
 
         justification = get_vulnerability_justification(
-            reattacked_store=reattacked_store,
-            store=diff_store,
+            reattacked_store=reattacked_store, store=diff_store, config=config
         )
 
         await ensure_toe_inputs(group=group, roots=roots, store=store)
 
         success = await do_build_and_upload_vulnerabilities(
-            finding_id=finding_id, store=diff_store, client=client
+            finding_id=finding_id,
+            store=diff_store,
+            client=client,
+            config=config,
         )
 
         if justification and reattacked_store:
@@ -393,6 +397,7 @@ async def _persist_finding(
     roots: Tuple[ResultGetGroupRoots, ...],
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> Tuple[core_model.FindingEnum, core_model.PersistResult]:
     result = await persist_finding(
         existing_findings=existing_findings,
@@ -401,6 +406,7 @@ async def _persist_finding(
         roots=roots,
         store=store,
         client=client,
+        config=config,
     )
     return (finding, result)
 
@@ -410,6 +416,7 @@ async def persist(
     group: str,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
     roots: Optional[Tuple[ResultGetGroupRoots, ...]] = None,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
     """Persist all findings with the data extracted from the store.
 
@@ -421,6 +428,7 @@ async def persist(
     :rtype: bool
     """
 
+    config = config or CTX.config
     async with graphql_client() as client:
         initial_severity = await get_group_open_severity(group, client=client)
         existing_findings: Tuple[
@@ -436,9 +444,10 @@ async def persist(
                     roots=roots,
                     store=stores[finding],
                     client=client,
+                    config=config,
                 )
                 for finding in core_model.FindingEnum
-                if finding in CTX.config.checks
+                if finding in config.checks
                 and finding in stores
                 and not stores[finding].has_errors
             )

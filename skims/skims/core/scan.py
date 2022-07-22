@@ -142,6 +142,7 @@ async def execute_skims(
             await analyze_dast_aws(credentials=aws_cred, stores=stores)
     if CTX.config.execution_id:
         await _upload_csv_result(stores)
+        await queue_upload_vulns(CTX.config.execution_id)
     if CTX.config.output:
         notify_findings_as_csv(stores, CTX.config.output)
     else:
@@ -215,8 +216,9 @@ def notify_findings_as_csv(
 async def persist_to_integrates(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> Dict[core_model.FindingEnum, core_model.PersistResult]:
-    log_blocking("info", f"Results will be sync to group: {CTX.config.group}")
-    return await persist(group=CTX.config.group, stores=stores)
+    group = CTX.config.group
+    log_blocking("info", f"Results will be sync to group: {group}")
+    return await persist(group=group, stores=stores)
 
 
 async def notify_start(job_id: str) -> None:
@@ -225,7 +227,8 @@ async def notify_start(job_id: str) -> None:
         group_name=CTX.config.group,
         job_id=job_id,
         start_date=datetime.utcnow(),
-        commit_hash=get_repo_head_hash(CTX.config.working_dir),
+        commit_hash=CTX.config.commit
+        or get_repo_head_hash(CTX.config.working_dir),
     )
 
 
@@ -270,10 +273,10 @@ async def main(
         reset_ephemeral_state()
 
         log_blocking("info", f"Namespace: {CTX.config.namespace}")
-        log_blocking(
-            "info",
-            f"HEAD is now at: {get_repo_head_hash(CTX.config.working_dir)}",
+        commit = CTX.config.commit or get_repo_head_hash(
+            CTX.config.working_dir
         )
+        log_blocking("info", f"info HEAD is now at: {commit}")
         log_blocking("info", f"Startup work dir is: {CTX.config.start_dir}")
         log_blocking("info", f"Moving work dir to: {CTX.config.working_dir}")
 
@@ -351,21 +354,6 @@ async def execute_set_of_configs(
         os.chdir(CTX.config.working_dir)
 
         await execute_skims(stores)
-
-        if integrates_access:
-            persisted_results = await persist_to_integrates(stores)
-            if integrates_access and batch_job_id:
-                await notify_end(batch_job_id, persisted_results)
-            success = success and all(persisted_results.values())
-        else:
-            log_blocking(
-                "info",
-                (
-                    "In case you want to persist results to Integrates "
-                    "please make sure you set the --token and --group flag "
-                    "in the CLI"
-                ),
-            )
 
     reset_ephemeral_state()
     return success

@@ -47,7 +47,9 @@ async def test_build_vulnerabilities_stream() -> None:
     dast_method = "analyze_protocol.pfs_disabled"
     dast_technique = core_model.TechniqueEnum.DAST
 
-    commit_hash = get_repo_head_hash(CTX.config.working_dir)
+    commit_hash = CTX.config.commit or get_repo_head_hash(
+        CTX.config.working_dir
+    )
 
     assert (
         await build_vulnerabilities_stream(

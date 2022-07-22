@@ -37,16 +37,18 @@ from utils.logs import (
 )
 
 
-async def get_vulnerabilities(execution_id: str) -> core_model.Vulnerabilities:
+async def get_vulnerabilities(
+    execution_id: str, namespace: str
+) -> core_model.Vulnerabilities:
     current_results = await get_results(execution_id)
     vulnerabilities = tuple(
         core_model.Vulnerability(
             core_model.FindingEnum[result["finding"]],
             kind=core_model.VulnerabilityKindEnum[result["kind"].upper()],
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=result["what"].replace(f"{CTX.config.namespace}/", ""),
+            what=result["what"],
             where=result["where"],
-            namespace=CTX.config.namespace,
+            namespace=namespace,
         )
         for result in current_results
     )
@@ -56,8 +58,9 @@ async def get_vulnerabilities(execution_id: str) -> core_model.Vulnerabilities:
 
 async def _report_wrapped(task_id: str) -> None:
     group = task_id.split("_")[0]
-    CTX.config = await get_config(task_id)
-    vulnerabilities = await get_vulnerabilities(task_id)
+    load_config = await get_config(task_id)
+    CTX.config = load_config
+    vulnerabilities = await get_vulnerabilities(task_id, load_config.namespace)
     vulns_dict: Dict[core_model.FindingEnum, core_model.Vulnerabilities] = {}
     for vuln in vulnerabilities:
         if vuln.finding not in vulns_dict:
@@ -76,15 +79,22 @@ async def _report_wrapped(task_id: str) -> None:
         log_blocking("warning", "Execution no has vulnerabilities")
         return
     for root in roots:
-        if root.nickname == CTX.config.namespace:
+        if root.nickname == load_config.namespace:
             _, download_url = await get_group_root_download_url(
                 group=group, root_id=root.id
             )
             if not download_url:
                 log_blocking("warning", "Unable to find presigned url")
                 return
+            if load_config.commit is not None:
+                await persist(
+                    group=group, stores=stores, roots=roots, config=load_config
+                )
+                break
             async with use_namespace(group, root.nickname, download_url):
-                await persist(group=group, stores=stores, roots=roots)
+                await persist(
+                    group=group, stores=stores, roots=roots, config=load_config
+                )
                 break
 
 

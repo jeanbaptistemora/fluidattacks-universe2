@@ -48,12 +48,14 @@ def vulns_with_reattack_requested(
 def get_vulnerability_justification(  # noqa: MC0001
     reattacked_store: Optional[EphemeralStore],
     store: EphemeralStore,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> List[str]:
 
+    config = config or CTX.config
     today = get_iso_date()
     open_vulns: List[str] = []
     closed_vulns: List[str] = []
-    commit_hash: str = get_repo_head_hash(CTX.config.working_dir)
+    commit_hash: str = config.commit or get_repo_head_hash(config.working_dir)
     line_content: str
     open_justification: str = ""
     closed_justification: str = ""

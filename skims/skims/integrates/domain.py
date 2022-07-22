@@ -69,14 +69,14 @@ VulnStreamType = Dict[
 
 def _build_vulnerabilities_stream(
     results: core_model.Vulnerabilities,
+    config: core_model.SkimsConfig,
 ) -> VulnStreamType:
-    commit_hash: str = get_repo_head_hash(CTX.config.working_dir)
-
+    commit_hash: str = config.commit or get_repo_head_hash(config.working_dir)
     data: VulnStreamType = {
         core_model.VulnerabilityKindEnum.INPUTS: tuple(
             core_model.IntegratesVulnerabilitiesInputs(
                 field=result.where,
-                repo_nickname=CTX.config.namespace,
+                repo_nickname=config.namespace,
                 state=result.state,
                 stream=result.stream,
                 url=result.what_on_integrates,
@@ -99,7 +99,7 @@ def _build_vulnerabilities_stream(
                 commit_hash=commit_hash,
                 line=result.where,
                 path=result.what_on_integrates,
-                repo_nickname=CTX.config.namespace,
+                repo_nickname=config.namespace,
                 state=result.state,
                 skims_method=result.skims_metadata.source_method
                 if result.skims_metadata
@@ -123,8 +123,11 @@ def _build_vulnerabilities_stream(
 async def build_vulnerabilities_stream(
     *,
     results: core_model.Vulnerabilities,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> str:
-    return await yaml_dumps(_build_vulnerabilities_stream(results))
+    return await yaml_dumps(
+        _build_vulnerabilities_stream(results, config or CTX.config)
+    )
 
 
 async def get_closest_finding_ids(
@@ -203,6 +206,7 @@ async def do_build_and_upload_vulnerabilities(
     finding_id: str,
     store: EphemeralStore,
     client: Optional[GraphQLClient] = None,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> bool:
     successes: List[bool] = []
     msg: str = "Uploading vulnerabilities to %s, batch %s of size %s"
@@ -213,7 +217,7 @@ async def do_build_and_upload_vulnerabilities(
             await do_upload_vulnerabilities(
                 finding_id=finding_id,
                 stream=await build_vulnerabilities_stream(
-                    results=tuple(batch),
+                    results=tuple(batch), config=config or CTX.config
                 ),
                 client=client,
             ),
