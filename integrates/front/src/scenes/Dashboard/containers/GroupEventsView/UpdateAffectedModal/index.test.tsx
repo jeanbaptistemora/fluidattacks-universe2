@@ -3,10 +3,10 @@ import { Form, Formik } from "formik";
 import React from "react";
 
 import { UpdateAffectedModal } from ".";
-import type { IEventsDataset } from "..";
 import type { IFinding } from "../AffectedReattackAccordion/types";
+import type { IEventsDataset } from "../types";
 
-describe("Update Affected Modal", (): void => {
+describe("update Affected Modal", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof UpdateAffectedModal).toBe("function");

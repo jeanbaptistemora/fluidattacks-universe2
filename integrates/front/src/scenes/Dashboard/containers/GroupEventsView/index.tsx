@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
@@ -30,12 +32,17 @@ import {
   afectCompsOptions,
   selectOptionType,
 } from "./selectOptions";
+import type { IEventData, IEventsDataset, IFilterSet } from "./types";
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
 import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
 
 import { Button } from "components/Button";
 import { Table } from "components/Table";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
+import type {
+  IFilterProps,
+  IHeaderConfig,
+  ISelectRowProps,
+} from "components/Table/types";
 import {
   filterDateRange,
   filterSearchText,
@@ -51,42 +58,20 @@ import {
 import {
   formatEvents,
   formatReattacks,
+  getEventIndex,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
-import type { IEventConfig } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
-interface IEventsDataset {
-  group: {
-    events: {
-      accessibility: string[];
-      affectedComponents: string[];
-      closingDate: string;
-      detail: string;
-      eventDate: string;
-      eventStatus: string;
-      eventType: string;
-      id: string;
-      groupName: string;
-    }[];
-  };
-}
-
-interface IFilterSet {
-  accessibility: string;
-  afectComps: string;
-  closingDateRange: { max: string; min: string };
-  dateRange: { max: string; min: string };
-  status: string;
-  type: string;
-}
-
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { groupName } = useParams<{ groupName: string }>();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+
   const { url } = useRouteMatch();
   const { t } = useTranslation();
 
@@ -271,13 +256,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   // State Management
   const [affectsReattacks, setAffectsReattacks] = useState(false);
   const [selectedReattacks, setSelectedReattacks] = useState({});
+  const [selectedEvent, setSelectedEvent] = useState<IEventData | undefined>(
+    undefined
+  );
 
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const openNewEventModal: () => void = useCallback((): void => {
-    setIsEventModalOpen(true);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const openAddModal: () => void = useCallback((): void => {
+    setIsAddModalOpen(true);
   }, []);
-  const closeNewEventModal: () => void = useCallback((): void => {
-    setIsEventModalOpen(false);
+  const closeAddModal: () => void = useCallback((): void => {
+    setIsAddModalOpen(false);
   }, []);
 
   const [isUpdateAffectedModalOpen, setIsUpdateAffectedModalOpen] =
@@ -317,7 +305,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const handleCreationResult = async (result: {
     addEvent: { eventId: string; success: boolean };
   }): Promise<void> => {
-    closeNewEventModal();
+    closeAddModal();
 
     if (result.addEvent.success) {
       msgSuccess(
@@ -416,10 +404,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       t,
     ]
   );
-  const dataset = data === undefined ? [] : formatEvents(data.group.events);
+  const allEvents = data === undefined ? [] : data.group.events;
+  const dataset = formatEvents(allEvents);
   const hasOpenEvents = dataset.some(
-    (event: IEventConfig): boolean =>
-      event.eventStatus.toUpperCase() !== "SOLVED"
+    (event: IEventData): boolean => event.eventStatus.toUpperCase() !== "SOLVED"
   );
 
   function onSearchTextChange(
@@ -427,10 +415,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   ): void {
     setSearchTextFilter(event.target.value);
   }
-  const filterSearchTextResult: IEventConfig[] = filterSearchText(
-    dataset,
-    searchTextFilter
-  );
+  const filterSearchTextResult = filterSearchText(dataset, searchTextFilter);
 
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
@@ -441,7 +426,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterStatusResult: IEventConfig[] = filterSelect(
+  const filterStatusResult = filterSelect(
     dataset,
     filterGroupEventsTable.status,
     "eventStatus"
@@ -456,7 +441,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterTypeResult: IEventConfig[] = filterSelect(
+  const filterTypeResult = filterSelect(
     dataset,
     filterGroupEventsTable.type,
     "eventType"
@@ -480,7 +465,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterDateRangeResult: IEventConfig[] = filterDateRange(
+  const filterDateRangeResult = filterDateRange(
     dataset,
     filterGroupEventsTable.dateRange,
     "eventDate"
@@ -514,7 +499,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterClosingDateRangeResult: IEventConfig[] = filterDateRange(
+  const filterClosingDateRangeResult = filterDateRange(
     dataset,
     filterGroupEventsTable.closingDateRange,
     "closingDate"
@@ -531,7 +516,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterAccessibilityResult: IEventConfig[] = filterSelect(
+  const filterAccessibilityResult = filterSelect(
     dataset,
     filterGroupEventsTable.accessibility,
     "accessibility"
@@ -548,7 +533,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       })
     );
   }
-  const filterAfectCompsResult: IEventConfig[] = filterSelect(
+  const filterAfectCompsResult = filterSelect(
     dataset,
     filterGroupEventsTable.afectComps,
     "affectedComponents"
@@ -568,7 +553,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     setSearchTextFilter("");
   }
 
-  const resultDataset: IEventConfig[] = _.intersection(
+  const resultDataset = _.intersection(
     filterSearchTextResult,
     filterStatusResult,
     filterTypeResult,
@@ -577,6 +562,17 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterAccessibilityResult,
     filterAfectCompsResult
   );
+
+  const selectionMode: ISelectRowProps = {
+    clickToSelect: true,
+    hideSelectColumn: permissions.cannot("api_mutations_edit_event_mutate"),
+    mode: "radio",
+    onSelect: setSelectedEvent,
+    selected: getEventIndex(
+      _.isUndefined(selectedEvent) ? [] : [selectedEvent],
+      resultDataset
+    ),
+  };
 
   const customFiltersProps: IFilterProps[] = [
     {
@@ -646,10 +642,10 @@ const GroupEventsView: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      {isEventModalOpen ? (
+      {isAddModalOpen ? (
         <AddModal
           groupName={groupName}
-          onClose={closeNewEventModal}
+          onClose={closeAddModal}
           onSubmit={handleSubmit}
         />
       ) : undefined}
@@ -695,7 +691,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
                   id={"group.events.btn.tooltip.id"}
                   tip={t("group.events.btn.tooltip")}
                 >
-                  <Button onClick={openNewEventModal} variant={"primary"}>
+                  <Button onClick={openAddModal} variant={"primary"}>
                     <FontAwesomeIcon icon={faPlus} />
                     &nbsp;{t("group.events.btn.text")}
                   </Button>
@@ -725,6 +721,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           pageSize={10}
           rowEvents={{ onClick: goToEvent }}
           search={false}
+          selectionMode={selectionMode}
         />
       </Tooltip>
     </React.Fragment>
