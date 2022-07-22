@@ -10,9 +10,6 @@ from opentelemetry.instrumentation.redis import (
 from opentelemetry.instrumentation.requests import (
     RequestsInstrumentor,
 )
-from opentelemetry.instrumentation.starlette import (
-    StarletteInstrumentor,
-)
 from opentelemetry.sdk.resources import (
     Resource,
     SERVICE_NAME,
@@ -20,15 +17,12 @@ from opentelemetry.sdk.resources import (
 from opentelemetry.sdk.trace import (
     TracerProvider,
 )
-from starlette.applications import (
-    Starlette,
-)
 from telemetry.aiobotocore import (
     AioBotocoreInstrumentor,
 )
 
 
-def instrument(app: Starlette) -> None:
+def instrument() -> None:
     """
     Initializes the OpenTelemetry instrumentation
 
@@ -43,4 +37,3 @@ def instrument(app: Starlette) -> None:
     AioHttpClientInstrumentor().instrument()
     RedisInstrumentor().instrument()
     RequestsInstrumentor().instrument()
-    StarletteInstrumentor.instrument_app(app)

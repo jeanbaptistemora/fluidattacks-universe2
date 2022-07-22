@@ -17,6 +17,9 @@ from aioextensions import (
 from api import (
     IntegratesAPI,
 )
+from api.extensions.opentelemetry import (
+    OpenTelemetryExtension,
+)
 from api.schema import (
     SCHEMA,
 )
@@ -383,6 +386,8 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 
 exception_handlers = {404: not_found, 500: server_error}
 
+API_EXTENSIONS = (OpenTelemetryExtension,)
+
 
 def get_validation_rules(
     context_value: Any, _document: DocumentNode, _data: Dict[str, Any]
@@ -406,6 +411,7 @@ STARLETTE_APP = Starlette(
             IntegratesAPI(
                 SCHEMA,
                 debug=DEBUG,
+                extensions=API_EXTENSIONS,
                 validation_rules=get_validation_rules,
             ),
         ),
@@ -460,7 +466,7 @@ STARLETTE_APP = Starlette(
 )
 
 # ASGI wrappers
-instrument(STARLETTE_APP)
+instrument()
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)
 
 APP = BUGSNAG_WRAPPER
