@@ -4,6 +4,13 @@ from api.schema import (
 from api.utils.types import (
     ApiDeprecation,
 )
+from custom_exceptions import (
+    InvalidDateFormat,
+)
+from datetime import (
+    date,
+    datetime,
+)
 from graphql import (
     DirectiveNode,
     DocumentNode,
@@ -13,9 +20,28 @@ from graphql import (
     parse,
     TypeDefinitionNode,
 )
+from re import (
+    search,
+)
 from typing import (
     Optional,
 )
+
+
+def get_due_date(reason: str) -> date:
+    """
+    Searches the deprecation reason for a date in the format `YYYY/MM/DD`.
+    If none is found, raises an error
+    """
+    match = search(r"\d{4}/\d{2}/\d{2}", reason)
+    if match:
+        return datetime.strptime(match.group(), "%Y/%m/%d").date()
+    raise InvalidDateFormat(
+        expr=(
+            "No deprecation date in the format YYYY/MM/DD found in reason: "
+            f"{reason}"
+        )
+    )
 
 
 def _get_deprecation_reason(directives: list[DirectiveNode]) -> Optional[str]:
@@ -52,6 +78,9 @@ def _search_directives(
                     parent=definition.name.value,
                     field=field.name.value,
                     reason=deprecation_reason.replace("\n", " "),
+                    due_date=get_due_date(
+                        deprecation_reason.replace("\n", " ")
+                    ),
                     type=definition.kind,
                 )
             )
@@ -64,6 +93,9 @@ def _search_directives(
                             parent=definition.name.value,
                             field=argument.name.value,
                             reason=arg_deprecation.replace("\n", " "),
+                            due_date=get_due_date(
+                                arg_deprecation.replace("\n", " ")
+                            ),
                             type=definition.kind,
                         )
                     )

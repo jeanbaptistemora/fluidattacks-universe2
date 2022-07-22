@@ -549,11 +549,14 @@ class InvalidDate(CustomBaseException):
 
 class InvalidDateFormat(CustomBaseException):
     """Exception to control the date format inserted in an Accepted
-    vulnerability"""
+    vulnerability and the API deprecation notices"""
 
-    def __init__(self) -> None:
+    def __init__(self, expr: str = "") -> None:
         """Constructor"""
-        msg = "Exception - The date format is invalid"
+        if expr:
+            msg = f"Exception - The date format is invalid: {expr}"
+        else:
+            msg = "Exception - The date format is invalid"
         super(InvalidDateFormat, self).__init__(msg)
 
 
