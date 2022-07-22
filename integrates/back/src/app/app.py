@@ -466,7 +466,7 @@ STARLETTE_APP = Starlette(
 )
 
 # ASGI wrappers
-instrument()
+instrument(STARLETTE_APP)
 BUGSNAG_WRAPPER = BugsnagMiddleware(STARLETTE_APP)
 
 APP = BUGSNAG_WRAPPER

@@ -14,6 +14,7 @@ closure:
   async-timeout: 4.0.2
   attrs: 21.4.0
   authlib: 0.15.4
+  backoff: 2.1.2
   backports.csv: 1.0.7
   binaryornot: 0.4.4
   bleach: 4.1.0
@@ -39,6 +40,7 @@ closure:
   frozenlist: 1.3.0
   gitdb: 4.0.9
   gitpython: 3.1.12
+  googleapis-common-protos: 1.56.4
   graphql-core: 3.1.7
   gunicorn: 20.1.0
   h11: 0.13.0
@@ -70,7 +72,7 @@ closure:
   opensearch-py: 2.0.0
   opentelemetry-api: 1.12.0rc2
   opentelemetry-distro: 0.32b0
-  opentelemetry-exporter-jaeger-thrift: 1.12.0rc2
+  opentelemetry-exporter-otlp-proto-http: 1.12.0rc2
   opentelemetry-instrumentation: 0.32b0
   opentelemetry-instrumentation-aiohttp-client: 0.32b0
   opentelemetry-instrumentation-asgi: 0.32b0
@@ -78,12 +80,14 @@ closure:
   opentelemetry-instrumentation-redis: 0.32b0
   opentelemetry-instrumentation-requests: 0.32b0
   opentelemetry-instrumentation-starlette: 0.32b0
+  opentelemetry-proto: 1.12.0rc2
   opentelemetry-sdk: 1.12.0rc2
   opentelemetry-semantic-conventions: 0.32b0
   opentelemetry-util-http: 0.32b0
   packaging: "21.3"
   pandas: 1.3.4
   pillow: 9.2.0
+  protobuf: 3.20.1
   psycopg2: 2.9.3
   pyasn1: 0.4.8
   pyasn1-modules: 0.2.8
@@ -120,7 +124,6 @@ closure:
   social-auth-core: 3.3.3
   starlette: 0.17.1
   stripe: 2.63.0
-  thrift: 0.16.0
   twilio: 7.7.0
   types-aiofiles: 0.7.0
   types-pytz: 2021.3.1
@@ -253,6 +256,12 @@ links:
   - name: Authlib-0.15.4.tar.gz
     sha256: 0r34n8q46zwl8cjwg3vz99il1bn2z928r1667kdf0vxwahjkmprp
     url: https://files.pythonhosted.org/packages/f2/24/09b67e9cffa426f3df4d6a3e12155ea35d3382549fd723e8e1aa40a56006/Authlib-0.15.4.tar.gz
+  - name: backoff-2.1.2-py3-none-any.whl
+    sha256: 0sqjsgbwylv0hv6wdd3r08xnyv66r0mw6nw9sszs4fsiqzbycddi
+    url: https://files.pythonhosted.org/packages/3b/59/fbcbf9bdce46bc7a3ce6af140dadff9f9c8bd1a641e49ee0f1bfd21f830b/backoff-2.1.2-py3-none-any.whl
+  - name: backoff-2.1.2.tar.gz
+    sha256: 0sb01z9n9qks06svdxq4rxsq9pz5bj9ip0l0i25688r7yb01nzs0
+    url: https://files.pythonhosted.org/packages/3b/22/53182ff2977aa653cb61f30592cbfb5d3e0764368c8eaa8ec096e6899b7a/backoff-2.1.2.tar.gz
   - name: backports.csv-1.0.7-py2.py3-none-any.whl
     sha256: 1kn5m9773nrp06knjvm8c9i64pmnfw1c9nvyhwgnr7jqmfdy1xi1
     url: https://files.pythonhosted.org/packages/8e/26/a6bd68f13e0f38fbb643d6e497fc3462be83a0b6c4d43425c78bb51a7291/backports.csv-1.0.7-py2.py3-none-any.whl
@@ -460,6 +469,12 @@ links:
   - name: GitPython-3.1.12.tar.gz
     sha256: 1b0x9baawd68z7azj5nfp4jp3vyw0cqry1fhdr4nqmz2v7cfzns2
     url: https://files.pythonhosted.org/packages/ec/4d/e6553122c85ec7c4c3e702142cc0f5ed02e5cf1b4d7ecea86a07e45725a0/GitPython-3.1.12.tar.gz
+  - name: googleapis_common_protos-1.56.4-py2.py3-none-any.whl
+    sha256: 156k3cnii263gz64y7fqcycy14g7c2pafli4wciszzk93g4wpclf
+    url: https://files.pythonhosted.org/packages/e2/fd/d9efa2085bd762fba3a637eb3e36d76d72eb6e083d170aeaca65a75f1f9c/googleapis_common_protos-1.56.4-py2.py3-none-any.whl
+  - name: googleapis-common-protos-1.56.4.tar.gz
+    sha256: 05s4dszqd5pjwjh4bdic40v1v447k0a3dynsrgypqf3rfb276n62
+    url: https://files.pythonhosted.org/packages/f0/8e/190b3ac9bc75d6ead661398a07c6d6f013502c364fd6cc3d5c06427b8023/googleapis-common-protos-1.56.4.tar.gz
   - name: graphql_core-3.1.7-py3-none-any.whl
     sha256: 0024iycg7f43v6wpjl0510q00cv980zcyrhp7dzirq0b69h0yilv
     url: https://files.pythonhosted.org/packages/05/c3/bbdf432c196aec04d9ac6a12a88d10ac50fe412115bdb917add4b963d113/graphql_core-3.1.7-py3-none-any.whl
@@ -787,12 +802,12 @@ links:
   - name: opentelemetry-distro-0.32b0.tar.gz
     sha256: 1bgsa5zyhjap5bi98pkj5iz9c9r3d5f6zjzijaa9hp5x2v4bk15b
     url: https://files.pythonhosted.org/packages/69/72/45cf338425b6e1ec7ba00bd846701b1bae353d3c3c09289d0dddcbddcf6d/opentelemetry-distro-0.32b0.tar.gz
-  - name: opentelemetry_exporter_jaeger_thrift-1.12.0rc2-py3-none-any.whl
-    sha256: 0866i3kndkimdh97n4px32x6aidr3yv7l429y73zcxrw8kd08l2h
-    url: https://files.pythonhosted.org/packages/4e/07/ef9da3b87c55b3f9d259ecc6b8666ce577429ef3dfb54b8302967d90da37/opentelemetry_exporter_jaeger_thrift-1.12.0rc2-py3-none-any.whl
-  - name: opentelemetry-exporter-jaeger-thrift-1.12.0rc2.tar.gz
-    sha256: 0m0sfv8dmxvsnc0983rgksvazmsfvh9ngyczvwi9c48zhmqax8ll
-    url: https://files.pythonhosted.org/packages/a5/6b/a0bb08047f0fcf23bf0c6fcab2c9f91916d6d04341b79aebe88d4749aa01/opentelemetry-exporter-jaeger-thrift-1.12.0rc2.tar.gz
+  - name: opentelemetry_exporter_otlp_proto_http-1.12.0rc2-py3-none-any.whl
+    sha256: 1m3xmkxp36b2h8d4iwflr9db05qdbjcc6m3zbc4lvnpqnczvqsw1
+    url: https://files.pythonhosted.org/packages/5e/e4/3fb8b9490a04d43eeea21e3b992a87602abc3e9e3d806302da75a8c64c64/opentelemetry_exporter_otlp_proto_http-1.12.0rc2-py3-none-any.whl
+  - name: opentelemetry-exporter-otlp-proto-http-1.12.0rc2.tar.gz
+    sha256: 04lqpfg2wknb4p8ckzmgfp3qkv704l28749k70n7i6bsgb354iz6
+    url: https://files.pythonhosted.org/packages/db/0d/5f80af6265d6054bf11e05e6e112cdb7804db6c55e0bd9292652790064ce/opentelemetry-exporter-otlp-proto-http-1.12.0rc2.tar.gz
   - name: opentelemetry_instrumentation-0.32b0-py3-none-any.whl
     sha256: 0shj99gj65xv0v70yckr4f39w862zv1hpkh5lq4xgrrhkclj0jdp
     url: https://files.pythonhosted.org/packages/f5/63/f4503aac89be0846ad59702a978371fdc4eac959074e8158d59cb643928d/opentelemetry_instrumentation-0.32b0-py3-none-any.whl
@@ -835,6 +850,12 @@ links:
   - name: opentelemetry-instrumentation-starlette-0.32b0.tar.gz
     sha256: 0z0ljkfrhi0zfgqwjdcq8yflg861nw3s72d1lcq55dfzrr0srxmw
     url: https://files.pythonhosted.org/packages/6a/82/47e7407393791a2b6d2d39e552dfeb4c057f23370957fee401ab1dfe0fe9/opentelemetry-instrumentation-starlette-0.32b0.tar.gz
+  - name: opentelemetry_proto-1.12.0rc2-py3-none-any.whl
+    sha256: 0hyin5a1z38vyvpxp9qn0pk7hcq96292y12p2wglwlj692a1vaab
+    url: https://files.pythonhosted.org/packages/61/ca/9cb6bc31b1e46b4d2724e30829760905da1101c41268415b050c333c24d2/opentelemetry_proto-1.12.0rc2-py3-none-any.whl
+  - name: opentelemetry-proto-1.12.0rc2.tar.gz
+    sha256: 1f3c9d8y0qclv6dn2ir0p31a86125gkdlywkjzws8ayl52bym5mi
+    url: https://files.pythonhosted.org/packages/1f/bc/465da8e6d8add899c722393618fc9073699811a32abfed2550d695772f51/opentelemetry-proto-1.12.0rc2.tar.gz
   - name: opentelemetry_sdk-1.12.0rc2-py3-none-any.whl
     sha256: 1hniacrhgqbrwawalbdazhmzhskvmb6zympazbs3lnpclxcw07dm
     url: https://files.pythonhosted.org/packages/c2/63/71631c2a7305d9744cafd76147d66ca0a1c2914307f10744db9cf0be40e8/opentelemetry_sdk-1.12.0rc2-py3-none-any.whl
@@ -901,6 +922,21 @@ links:
   - name: Pillow-9.2.0.tar.gz
     sha256: 011wgm1mssjchpva9wsi2a07im9czyjvik137xlp5f0g7vykdrkm
     url: https://files.pythonhosted.org/packages/8c/92/2975b464d9926dc667020ed1abfa6276e68c3571dcb77e43347e15ee9eed/Pillow-9.2.0.tar.gz
+  - name: protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1drzm60fzak3xjfg63wj2w7rg80lv4w1cnx8v0jkdlm328an0l3g
+    url: https://files.pythonhosted.org/packages/0b/db/2b07ad1542511b0b2b2c1796c316c5063f9724b86240f5e6accc1fde5e5f/protobuf-3.20.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+    sha256: 13xpqsb6wf326hjjnx61cjaqzfrn78jfnmp9sx17b2bw42k8ckr8
+    url: https://files.pythonhosted.org/packages/9f/b0/bf25cdbab8841d9111f0f13578150d232339a6483383589648592fe84f4b/protobuf-3.20.1-cp39-cp39-manylinux2014_aarch64.whl
+  - name: protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+    sha256: 1yc2i58c1p8ajcx2h0jsi803fmjp28zb52xac40x94h9dlgr80vl
+    url: https://files.pythonhosted.org/packages/98/d9/63b47f719d3cc0f29b36e870ad1d9447b8eef398c2a7b548e67298d9f652/protobuf-3.20.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl
+  - name: protobuf-3.20.1-py2.py3-none-any.whl
+    sha256: 126394l6282qjja9shqm2crarw0qxx79d4y74kym133zkkv6rz5d
+    url: https://files.pythonhosted.org/packages/ef/c8/2e7f7feaf804b7206e6cc8fa3f0f49834a78f7cb127813d2c45e42d5f7bf/protobuf-3.20.1-py2.py3-none-any.whl
+  - name: protobuf-3.20.1.tar.gz
+    sha256: 1ja2vpk9nklllmsirmil2s4l7ni9yfqvbvj47zz5xx17s1k1bhxd
+    url: https://files.pythonhosted.org/packages/19/96/1283259c25bc48a6df98fa096f66fc568b40137b93806ef5ff66a2d166b1/protobuf-3.20.1.tar.gz
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
@@ -1105,9 +1141,6 @@ links:
   - name: stripe-2.63.0.tar.gz
     sha256: 1q8sp0zd5jyl5j43dgd11q0gkg82hwp6cb1nwjlkf9yq65g96v41
     url: https://files.pythonhosted.org/packages/5b/11/29d7575edba08379b21d7ea443049fb802c30cd0660bffed444b6f1fc114/stripe-2.63.0.tar.gz
-  - name: thrift-0.16.0.tar.gz
-    sha256: 0224q7gjaglympaxnvg2d87ms6d0ysgkr8ia66fizlnyzj468nrb
-    url: https://files.pythonhosted.org/packages/e4/23/dd951c9883cb49a73b750bdfe91e39d78e8a3f1f7175608634f381a197d5/thrift-0.16.0.tar.gz
   - name: twilio-7.7.0-py2.py3-none-any.whl
     sha256: 0dfqcdwry91n908rl050z267gqfaza9x9cf39c6lsbmiayskvgsp
     url: https://files.pythonhosted.org/packages/58/ab/1b8dc84bf6593e247b18b59ef582d24f3632e5bd43a864342ff29a120cf8/twilio-7.7.0-py2.py3-none-any.whl
