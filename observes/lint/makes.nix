@@ -21,7 +21,6 @@ in {
                 "/observes/common/utils-logger/src"
                 "/observes/common/postgres-client/src"
                 "/observes/common/purity"
-                "/observes/service/migrate-tables/src"
                 "/observes/service/timedoctor-tokens/src"
                 "/observes/singer/tap-zoho-crm/src"
               ]
