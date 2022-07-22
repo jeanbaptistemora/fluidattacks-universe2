@@ -27,8 +27,8 @@ data "aws_iam_policy_document" "cluster-policy-data" {
       "s3:CreateBucket",
     ]
     resources = [
-      "arn:aws:s3:::observes.etl_data",
-      "arn:aws:s3:::observes.etl_data/*",
+      "arn:aws:s3:::observes.etl-data",
+      "arn:aws:s3:::observes.etl-data/*",
     ]
   }
 }

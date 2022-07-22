@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "etl_data" {
-  bucket = "observes.etl_data"
+  bucket = "observes.etl-data"
 
   tags = {
-    "Name"               = "observes.etl_data"
+    "Name"               = "observes.etl-data"
     "management:area"    = "cost"
     "management:product" = "observes"
     "management:type"    = "product"
