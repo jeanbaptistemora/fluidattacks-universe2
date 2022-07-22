@@ -26,6 +26,7 @@ def create_test_context(
             include=(),
         ),
         checks=set(core_model.FindingEnum),
+        commit=None,
         dast=SkimsDastConfig(
             aws_credentials=[],
             http=core_model.SkimsHttpConfig(

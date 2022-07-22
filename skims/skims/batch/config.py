@@ -49,6 +49,9 @@ from urllib3.util.url import (
     parse_url,
     Url,
 )
+from utils.repositories import (
+    get_repo_head_hash,
+)
 import uuid
 
 PATTERNS: List[Dict[str, Union[str, List[Dict[str, Any]]]]] = [
@@ -388,6 +391,7 @@ async def generate_config(
             if checks
             else set(FindingEnum)
         ),
+        commit=get_repo_head_hash(working_dir),
         dast=dast_config,
         group=group_name,
         language=language,

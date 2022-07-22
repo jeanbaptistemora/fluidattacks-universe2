@@ -1104,6 +1104,7 @@ class SkimsConfig(NamedTuple):
     working_dir: str
     dast: Optional[SkimsDastConfig]
     execution_id: Optional[str]
+    commit: Optional[str]
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
@@ -1176,7 +1177,10 @@ class Vulnerability(NamedTuple):
         if self.kind == VulnerabilityKindEnum.INPUTS:
             what = f"{self.what} ({self.namespace})"
         elif self.kind == VulnerabilityKindEnum.LINES:
-            what = f"{self.namespace}/{self.what}"
+            if self.what.startswith(self.namespace):
+                what = self.what
+            else:
+                what = f"{self.namespace}/{self.what}"
         elif self.kind == VulnerabilityKindEnum.PORTS:
             what = f"{self.what} ({self.namespace})"
         else:

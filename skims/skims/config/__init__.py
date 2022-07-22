@@ -45,6 +45,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                     },
                 ),
                 "checks": confuse.Sequence(confuse.String()),
+                "commit": confuse.String(),
                 "dast": confuse.Template(
                     {
                         "aws_credentials": confuse.Sequence(
@@ -103,6 +104,7 @@ def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
                 include=config_apk.pop("include", ()),
             ),
             checks=load_checks(config),
+            commit=config.pop("commit", None),
             dast=core_model.SkimsDastConfig(
                 aws_credentials=[
                     core_model.AwsCredentials(
@@ -164,6 +166,7 @@ def dump_to_yaml(config: core_model.SkimsConfig) -> str:
                 "include": list(config.apk.include),
             },
             "checks": [check.name for check in config.checks],
+            "commit": config.commit,
             "dast": {
                 "aws_credentials": [
                     {

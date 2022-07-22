@@ -89,6 +89,7 @@ async def test_generate_config(test_group: str) -> None:
                 )
             ),
         ),
+        commit=None,
         group=test_group,
         language=LocalesEnum.EN,
         namespace="static_namespace",
