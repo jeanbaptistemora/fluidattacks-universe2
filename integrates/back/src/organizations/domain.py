@@ -339,16 +339,12 @@ async def get_stakeholder_role(
         invitation_state = format_invitation_state(invitation, is_registered)
         if invitation_state == InvitiationState.PENDING:
             stakeholder_role = invitation.role
-        else:
-            stakeholder_role = await authz.get_organization_level_role(
-                email, organization_id
-            )
+    else:
+        stakeholder_role = await authz.get_organization_level_role(
+            email, organization_id
+        )
 
     return stakeholder_role
-
-
-async def get_user_organizations(email: str) -> list[str]:
-    return await orgs_dal.get_ids_for_user(email)
 
 
 async def get_users(organization_id: str) -> list[str]:

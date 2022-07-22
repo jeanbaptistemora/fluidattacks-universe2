@@ -49,23 +49,30 @@ async def delete_imamura_stakeholders() -> None:
             )
         )
     ]
-    inactive_stakeholder_orgs = await collect(
-        [
-            orgs_domain.get_user_organizations(inactive_stakeholder.email)
-            for inactive_stakeholder in inactive_stakeholders
-        ]
-    )
+    inactive_stakeholder_orgs = [
+        await loaders.stakeholder_organizations_access.load(
+            inactive_stakeholder.email
+        )
+        for inactive_stakeholder in inactive_stakeholders
+    ]
+    inactive_stakeholder_orgs_ids = [
+        tuple(org.organization_id for org in orgs)
+        for orgs in inactive_stakeholder_orgs
+    ]
     stakeholders_to_delete = [
         inactive_stakeholder
         for inactive_stakeholder, orgs in zip(
-            inactive_stakeholders, inactive_stakeholder_orgs
+            inactive_stakeholders, inactive_stakeholder_orgs_ids
         )
         if len(orgs) == 1
     ]
     await collect(
         [
             orgs_domain.remove_user(
-                loaders, org_id, stakeholder_to_delete.email, modified_by
+                get_new_context(),
+                org_id,
+                stakeholder_to_delete.email,
+                modified_by,
             )
             for stakeholder_to_delete in stakeholders_to_delete
         ]
