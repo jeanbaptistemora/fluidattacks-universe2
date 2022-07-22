@@ -188,6 +188,7 @@ async def send_mail_updated_root(
 ) -> None:
     key_format: Dict[str, str] = {
         "branch": "Long Term Branch",
+        "environment": "Pair Environment",
         "gitignore": "Exclusions",
         "url": "URL",
         "includes_health_check": "Health check",
