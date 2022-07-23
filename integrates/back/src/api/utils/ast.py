@@ -38,7 +38,7 @@ def get_due_date(reason: str) -> date:
         return datetime.strptime(match.group(), "%Y/%m/%d").date()
     raise InvalidDateFormat(
         expr=(
-            "No deprecation date in the format YYYY/MM/DD found in reason: "
+            "No deprecation date in the format YYYY/MM/DD found in reason "
             f"{reason}"
         )
     )

@@ -301,7 +301,7 @@ enum InvitationState {
   CONFIRMED
     @deprecated(
       reason: """
-      This field will be removed after 15/01/2023. Use `REGISTERED` instead.
+      This field will be removed after 2023/01/15. Use `REGISTERED` instead.
       """
     )
   "Acceptance pending"
