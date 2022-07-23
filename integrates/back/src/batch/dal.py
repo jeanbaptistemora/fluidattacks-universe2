@@ -24,6 +24,7 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
+    CACHIX_AUTH_TOKEN,
     FI_AWS_ACCESS_KEY_ID,
     FI_AWS_SECRET_ACCESS_KEY,
     FI_AWS_SESSION_TOKEN,
@@ -628,7 +629,14 @@ async def put_action_to_batch(
                             action_dynamo_pk,
                         ],
                         "environment": [
-                            {"name": "CI", "value": "true"},
+                            {
+                                "name": "CACHIX_AUTH_TOKEN",
+                                "value": CACHIX_AUTH_TOKEN,
+                            },
+                            {
+                                "name": "CI",
+                                "value": "true",
+                            },
                             {
                                 "name": "MAKES_AWS_BATCH_COMPAT",
                                 "value": "true",

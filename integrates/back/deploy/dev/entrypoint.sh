@@ -39,6 +39,7 @@ function b64 {
 
 function main {
   local target_product
+  export B64_CACHIX_AUTH_TOKEN
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
   export B64_DEV_AWS_ACCESS_KEY_ID
@@ -50,6 +51,7 @@ function main {
 
   aws_login_dev \
     && aws_eks_update_kubeconfig 'common' 'us-east-1' \
+    && B64_CACHIX_AUTH_TOKEN="$(b64 "${CACHIX_AUTH_TOKEN}")" \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_DEV_AWS_ACCESS_KEY_ID="$(b64 "${DEV_AWS_ACCESS_KEY_ID}")" \

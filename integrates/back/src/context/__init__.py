@@ -4,6 +4,7 @@ from typing import (
 )
 
 try:
+    CACHIX_AUTH_TOKEN = os.environ.get("CACHIX_AUTH_TOKEN")
     CI_COMMIT_REF_NAME = os.environ["CI_COMMIT_REF_NAME"]
     CI_COMMIT_SHA = os.environ["CI_COMMIT_SHA"]
     CI_COMMIT_SHORT_SHA = CI_COMMIT_SHA[0:8]
