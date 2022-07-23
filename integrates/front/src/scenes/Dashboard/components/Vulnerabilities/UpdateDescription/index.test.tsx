@@ -489,7 +489,7 @@ describe("Update Description component", (): void => {
               stakeholders: [
                 {
                   email: "manager_test@test.test",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                 },
               ],
             },

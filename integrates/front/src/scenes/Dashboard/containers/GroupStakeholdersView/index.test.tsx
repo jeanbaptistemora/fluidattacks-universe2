@@ -437,7 +437,7 @@ describe("Group stakeholders view", (): void => {
                 {
                   email: "unittest@test.com",
                   firstLogin: "2017-09-05 15:00:00",
-                  invitationState: "CONFIRMED",
+                  invitationState: "REGISTERED",
                   lastLogin: "2017-10-29 13:40:37",
                   responsibility: "Project Manager",
                   role: "hacker",

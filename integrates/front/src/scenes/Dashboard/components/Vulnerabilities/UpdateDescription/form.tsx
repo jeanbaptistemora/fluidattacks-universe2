@@ -334,7 +334,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
       : data.group.stakeholders
           .filter(
             (stakeholder: IStakeholderAttr): boolean =>
-              stakeholder.invitationState === "CONFIRMED"
+              stakeholder.invitationState === "REGISTERED"
           )
           .map((stakeholder: IStakeholderAttr): string => stakeholder.email);
 
