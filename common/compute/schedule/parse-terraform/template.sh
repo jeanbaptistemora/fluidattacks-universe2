@@ -9,6 +9,7 @@ function main {
   export CI_PROJECT_ID="20741933"
 
   # Secrets
+  export CACHIX_AUTH_TOKEN
   export UNIVERSE_API_TOKEN
 
   DATA="$(cat "__argSchedules__")" \

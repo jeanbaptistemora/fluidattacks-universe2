@@ -15,7 +15,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "forces_process_groups_break";
@@ -38,7 +41,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "forces_process_groups_pass";
@@ -61,7 +67,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_clean_ephemerals";
@@ -86,7 +95,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_clone_groups_roots";
@@ -111,7 +123,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_clone_groups_roots_vpn";
@@ -136,7 +151,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_delete_imamura_stakeholders";
@@ -161,7 +179,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_delete_obsolete_groups";
@@ -186,7 +207,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_delete_obsolete_orgs";
@@ -211,7 +235,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_event_report";
@@ -236,7 +263,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_numerator_report_digest";
@@ -261,7 +291,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_get_remediated_findings";
@@ -286,7 +319,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_machine_queue_all";
@@ -311,7 +347,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_machine_queue_re_attacks";
@@ -336,7 +375,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_refresh_toe_lines";
@@ -361,7 +403,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_reminder_notification";
@@ -386,7 +431,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_report_squad_usage";
@@ -411,7 +459,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_requeue_actions";
@@ -436,7 +487,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_reset_expired_accepted_findings";
@@ -461,7 +515,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_review_machine_executions";
@@ -486,7 +543,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_daily";
@@ -511,7 +571,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_monthly";
@@ -536,7 +599,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_subscriptions_analytics_weekly";
@@ -561,7 +627,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_temporal_treatment_report";
@@ -586,7 +655,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_update_group_toe_vulns";
@@ -611,7 +683,10 @@
     timeout = 129600;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_update_indicators";
@@ -636,7 +711,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "integrates_update_portfolios";
@@ -659,7 +737,10 @@
     timeout = 3600;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_code_compute_bills";
@@ -682,7 +763,10 @@
     timeout = 10800;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_dynamo_centralize";
@@ -705,7 +789,10 @@
     timeout = 10800;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_gitlab_issues";
@@ -728,7 +815,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_mixpanel";
@@ -829,7 +919,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_zoho_crm_fluid";
@@ -852,7 +945,10 @@
     timeout = 3600;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_etl_zoho_crm_fluid_prepare";
@@ -875,7 +971,10 @@
     timeout = 1800;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "observes_job_scheduler";
@@ -898,7 +997,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "skims_benchmark_owasp";
@@ -921,7 +1023,10 @@
     timeout = 86400;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "sorts_association_rules";
@@ -945,7 +1050,10 @@
     timeout = 86400;
     parallel = 15;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "sorts_association_execute";
@@ -969,7 +1077,10 @@
     timeout = 86400;
     parallel = 15;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "sorts_execute";
@@ -992,7 +1103,10 @@
     timeout = 129600;
     parallel = 1;
 
-    environment = ["UNIVERSE_API_TOKEN"];
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
 
     tags = {
       "Name" = "sorts_training_and_tune";
