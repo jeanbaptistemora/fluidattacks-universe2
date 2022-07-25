@@ -44,8 +44,6 @@ async def _test_executions() -> None:
       query {
         forcesExecutions(
             groupName: "unittesting",
-            fromDate: "2020-02-01T00:00:00Z",
-            toDate: "2020-02-28T23:59:59Z"
         ) {
           __typename
           executions {

@@ -2,7 +2,6 @@
 
 
 from boto3.dynamodb.conditions import (
-    Attr,
     Key,
 )
 from botocore.exceptions import (
@@ -10,9 +9,6 @@ from botocore.exceptions import (
 )
 from context import (
     FI_AWS_S3_FORCES_BUCKET,
-)
-from datetime import (
-    datetime,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -122,18 +118,14 @@ async def save_vulns_execution(file_object: object, file_name: str) -> None:
 async def yield_executions(
     group_name: str,
     group_name_key: str,
-    from_date: datetime,
-    to_date: datetime,
 ) -> AsyncIterator[Any]:
     """Lazy iterator over the executions of a group"""
     key_condition_expresion = Key("subscription").eq(group_name)
-    filter_expression = Attr("date").gte(from_date.isoformat()) & Attr(
-        "date"
-    ).lte(to_date.isoformat())
 
     query_params = {
         "KeyConditionExpression": key_condition_expresion,
-        "FilterExpression": filter_expression,
+        "IndexName": "date",
+        "ScanIndexForward": False,
     }
     results = await dynamodb_ops.query(TABLE_NAME, query_params)
     for result in results:

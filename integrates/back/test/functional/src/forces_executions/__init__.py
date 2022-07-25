@@ -20,11 +20,7 @@ async def get_result(
         query {{
             forcesExecutions(
                 groupName: "{group}",
-                fromDate: "2020-02-01T00:00:00Z",
-                toDate: "2020-02-28T23:59:59Z"
             ) {{
-                fromDate
-                toDate
                 executions {{
                     groupName
                     executionId

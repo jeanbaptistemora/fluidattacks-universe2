@@ -75,10 +75,8 @@ async def get_all_time_forces_executions(
     executions = [
         execution
         async for execution in forces_domain.get_executions(
-            from_date=datetime.utcfromtimestamp(1),
             group_name=group_name,
             group_name_key="project_name",
-            to_date=datetime.utcnow(),
         )
     ]
 
