@@ -3988,11 +3988,17 @@
   "org.jenkins-ci.plugins:gitlab-oauth": {
     "CVE-2020-2228": ">=0 <=1.5"
   },
+  "org.jenkins-ci.plugins:gitlab-plugin": {
+    "CVE-2022-30955": "<=1.5.31"
+  },
   "org.jenkins-ci.plugins:global-build-stats": {
     "CVE-2017-1000389": ">=0 <=1.4"
   },
   "org.jenkins-ci.plugins:global-post-script": {
     "CVE-2019-10474": ">=0 <=1.1.4"
+  },
+  "org.jenkins-ci.plugins:global-variable-string-parameter": {
+    "CVE-2022-30962": "<=1.2"
   },
   "org.jenkins-ci.plugins:google-compute-engine": {
     "CVE-2019-16546": ">=0 <4.2.0",
@@ -4030,6 +4036,9 @@
     "CVE-2019-10442": ">=0 <=1.1.5",
     "CVE-2019-10443": ">=0 <=1.1.4"
   },
+  "org.jenkins-ci.plugins:jdk_parameter_plugin": {
+    "CVE-2022-30963": "<=1.0"
+  },
   "org.jenkins-ci.plugins:jenkins-multijob-plugin": {
     "CVE-2017-1000390": ">=0 <=1.25"
   },
@@ -4037,8 +4046,17 @@
     "CVE-2018-1000412": ">=0 <=3.0.1",
     "CVE-2019-16541": ">=0 <=3.0.10"
   },
+  "org.jenkins-ci.plugins:job-dsl": {
+    "CVE-2019-1003034": "<=1.71"
+  },
+  "org.jenkins-ci.plugins:job-import-plugin": {
+    "CVE-2019-1003015": "<=2.1"
+  },
   "org.jenkins-ci.plugins:jsgames": {
     "CVE-2020-2248": ">=0 <=0.2"
+  },
+  "org.jenkins-ci.plugins:junit": {
+    "CVE-2018-1000056": "<=1.23"
   },
   "org.jenkins-ci.plugins:kiuwanjenkinsplugin": {
     "CVE-2021-21666": ">=0 <=1.6.0"
@@ -4071,6 +4089,9 @@
   },
   "org.jenkins-ci.plugins:mantis": {
     "CVE-2019-16569": ">=0 <=0.26"
+  },
+  "org.jenkins-ci.plugins:mask-passwords": {
+    "CVE-2019-10370": "<=2.12.0"
   },
   "org.jenkins-ci.plugins:matrix-auth": {
     "CVE-2020-2226": ">=0 <=2.6.1",
@@ -4177,11 +4198,17 @@
   "org.jenkins-ci.plugins:radiatorviewplugin": {
     "CVE-2020-2263": ">=0 <=1.29"
   },
+  "org.jenkins-ci.plugins:random-string-parameter": {
+    "CVE-2022-30966": "<=1.0"
+  },
   "org.jenkins-ci.plugins:rapiddeploy-jenkins": {
     "CVE-2019-16570": ">=0 <=4.1",
     "CVE-2019-16571": ">=0 <=4.1",
     "CVE-2020-2170": ">=0 <=4.2",
     "CVE-2020-2171": ">=0 <=4.2"
+  },
+  "org.jenkins-ci.plugins:repo": {
+    "CVE-2022-30949": "<=1.14.0"
   },
   "org.jenkins-ci.plugins:resource-disposer": {
     "CVE-2018-1999037": ">=0 <=0.11"
@@ -4278,6 +4305,9 @@
   },
   "org.jenkins-ci.plugins:squashtm-publisher": {
     "CVE-2021-43578": "<=1.0.0"
+  },
+  "org.jenkins-ci.plugins:ssh": {
+    "CVE-2022-30959": "<=2.6.1"
   },
   "org.jenkins-ci.plugins:ssh-agent": {
     "CVE-2018-1999036": ">=0 <=1.15"
