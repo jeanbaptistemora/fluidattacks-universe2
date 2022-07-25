@@ -90,7 +90,7 @@ def validate_file_name(name: str) -> None:
     name_len = len(name.split("."))
     if name_len <= 2:
         is_valid = bool(
-            re.search("^[A-Za-z0-9!_.*'()&$@=;:+,? -]*$", str(name))
+            re.search("^[A-Za-z0-9!_.*/'()&$@=;:+,? -]*$", str(name))
         )
         if not is_valid:
             raise InvalidChar("filename")

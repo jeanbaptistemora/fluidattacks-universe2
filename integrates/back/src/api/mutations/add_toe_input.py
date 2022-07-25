@@ -22,7 +22,7 @@ from graphql.type.definition import (
 from newutils import (
     logs as logs_utils,
     token as token_utils,
-    validations,
+    validations as validations_utils,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -54,7 +54,8 @@ async def mutate(
         loaders: Dataloaders = info.context.loaders
         user_data = await token_utils.get_jwt_content(info.context)
         user_email = user_data["user_email"]
-        validations.validate_sanitized_csv_input(entry_point)
+        validations_utils.validate_sanitized_csv_input(entry_point)
+        validations_utils.validate_fields([component])
         await toe_inputs_domain.add(
             loaders=loaders,
             group_name=group_name,

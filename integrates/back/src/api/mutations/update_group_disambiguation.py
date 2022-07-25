@@ -55,6 +55,7 @@ async def mutate(
             kwargs.get("disambiguation", "")
         )
         validations_utils.validate_field_length(disambiguation, 10000)
+        validations_utils.validate_fields([disambiguation])
         await groups_domain.update_metadata(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(
