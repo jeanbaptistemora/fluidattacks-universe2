@@ -11,7 +11,6 @@ import { Modal } from "components/Modal";
 import { Table } from "components/Table";
 import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
-  filterDateRange,
   filterSearchText,
   filterSelect,
   filterText,
@@ -30,7 +29,6 @@ import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 interface IFilterSet {
-  dateRange: { max: string; min: string };
   repository: string;
   status: string;
   strictness: string;
@@ -81,7 +79,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     useStoredState<IFilterSet>(
       "filterGroupForcesSet",
       {
-        dateRange: { max: "", min: "" },
         repository: "",
         status: "",
         strictness: "",
@@ -249,30 +246,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     searchTextFilter
   );
 
-  function onDateMaxChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        dateRange: { ...value.dateRange, max: event.currentTarget.value },
-      })
-    );
-  }
-  function onDateMinChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterGroupForcesTable(
-      (value): IFilterSet => ({
-        ...value,
-        dateRange: { ...value.dateRange, min: event.currentTarget.value },
-      })
-    );
-  }
-  const filterDateRangeExecutions: IExecution[] = filterDateRange(
-    executions,
-    filterGroupForcesTable.dateRange,
-    "date"
-  );
-
   function onStatusChange(event: React.ChangeEvent<HTMLSelectElement>): void {
     event.persist();
     setFilterGroupForcesTable(
@@ -340,7 +313,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   function clearFilters(): void {
     setFilterGroupForcesTable(
       (): IFilterSet => ({
-        dateRange: { max: "", min: "" },
         repository: "",
         status: "",
         strictness: "",
@@ -352,7 +324,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
 
   const resultExecutions: IExecution[] = _.intersection(
     filterSearchTextExecutions,
-    filterDateRangeExecutions,
     filterStatusExecutions,
     filterStrictnessExecutions,
     filterTypeExecutions,
@@ -360,18 +331,6 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   );
 
   const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: "",
-      placeholder: "Date (range)",
-      rangeProps: {
-        defaultValue: filterGroupForcesTable.dateRange,
-        onChangeMax: onDateMaxChange,
-        onChangeMin: onDateMinChange,
-      },
-      tooltipId: "group.forces.filtersTooltips.date.id",
-      tooltipMessage: "group.forces.filtersTooltips.date",
-      type: "dateRange",
-    },
     {
       defaultValue: filterGroupForcesTable.status,
       onChangeSelect: onStatusChange,
