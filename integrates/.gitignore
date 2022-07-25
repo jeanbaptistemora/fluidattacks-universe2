@@ -10,6 +10,7 @@
 /back/deploy/permissions_matrix/**/*.html
 /charts/collector/**/*.png
 /charts/generators/**/*.json
+/charts/generators/**/*.csv
 /app
 /build
 back/src/reports/tpls/*.tpl

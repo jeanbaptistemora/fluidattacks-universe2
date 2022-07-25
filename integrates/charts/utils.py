@@ -1,5 +1,6 @@
 import asyncio
 import contextlib
+import csv
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -35,16 +36,10 @@ import math
 from newutils.encodings import (
     safe_encode,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from organizations import (
     domain as orgs_domain,
 )
 import os
-from tags import (
-    domain as tags_domain,
-)
 from typing import (
     Any,
     AsyncIterator,
@@ -62,6 +57,11 @@ from urllib.parse import (
 class PortfoliosGroups(NamedTuple):
     portfolio: str
     groups: list[str]
+
+
+class CsvData(NamedTuple):
+    headers: list[str]
+    rows: list[list[str]]
 
 
 TICK_ROTATION = 20  # rotation displayed for group name and vulnerability type
@@ -176,18 +176,30 @@ def json_dump(
     document: object,
     entity: str,
     subject: str,
+    csv_document: Optional[CsvData] = None,
 ) -> None:
     for result_path in map(
         get_result_path,
         [
             # Backwards compatibility
-            f"{entity}-{subject}.json",
+            f"{entity}-{subject}",
             # New format
-            f"{entity}:{safe_encode(subject.lower())}.json",
+            f"{entity}:{safe_encode(subject.lower())}",
         ],
     ):
-        with open(result_path, "w") as file:
-            json.dump(document, file, default=json_encoder, indent=2)
+        with open(f"{result_path}.json", "w") as json_file:
+            json.dump(document, json_file, default=json_encoder, indent=2)
+
+        if csv_document:
+            with open(f"{result_path}.csv", "w") as csv_file:
+                writer = csv.writer(
+                    csv_file,
+                    delimiter=",",
+                    quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL,
+                )
+                writer.writerow(csv_document.headers)
+                writer.writerows(csv_document.rows)
 
 
 # Using Any because this is a generic-input function
