@@ -3,9 +3,10 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, SortingState } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
 
@@ -24,6 +25,7 @@ export const Tables = <TData extends Record<string, unknown>>(
 ): JSX.Element => {
   const { id, data, columns, columnToggle = false } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable<TData>({
     columns,
@@ -31,9 +33,12 @@ export const Tables = <TData extends Record<string, unknown>>(
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
     state: {
       columnVisibility,
+      sorting,
     },
   });
 
@@ -48,12 +53,28 @@ export const Tables = <TData extends Record<string, unknown>>(
                 {headerGroup.headers.map(
                   (header): ReactElement => (
                     <th key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
+                      {header.isPlaceholder ? null : (
+                        <div
+                          className={
+                            header.column.getCanSort()
+                              ? "cursor-pointer select-none"
+                              : ""
+                          }
+                          onClick={header.column.getToggleSortingHandler()}
+                          onKeyPress={header.column.getToggleSortingHandler()}
+                          role={"button"}
+                          tabIndex={0}
+                        >
+                          {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                           )}
+                          {{
+                            asc: " 🔼",
+                            desc: " 🔽",
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      )}
                     </th>
                   )
                 )}
