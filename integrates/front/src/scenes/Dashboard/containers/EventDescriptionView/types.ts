@@ -20,6 +20,17 @@ interface IEventDescriptionData {
   };
 }
 
+interface IDescriptionFormValues {
+  affectedComponents: string[];
+  eventType: string;
+}
+
+interface IUpdateEventAttr {
+  updateEvent: {
+    success: boolean;
+  };
+}
+
 interface IUpdateEventSolvingReasonAttr {
   updateEventSolvingReason: {
     success: boolean;
@@ -29,5 +40,7 @@ interface IUpdateEventSolvingReasonAttr {
 export type {
   IAffectedReattacks,
   IEventDescriptionData,
+  IDescriptionFormValues,
+  IUpdateEventAttr,
   IUpdateEventSolvingReasonAttr,
 };

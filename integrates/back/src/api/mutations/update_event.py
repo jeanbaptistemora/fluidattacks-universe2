@@ -11,6 +11,9 @@ from db_model.events.enums import (
     EventAffectedComponents,
     EventType,
 )
+from db_model.events.types import (
+    Event,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -44,7 +47,6 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     event_id: str,
-    group_name: str,
     **kwargs: Any,
 ) -> SimplePayload:
     try:
@@ -60,22 +62,23 @@ async def mutate(
             if "affected_components" in kwargs
             else None
         )
+        event: Event = await info.context.loaders.event.load(event_id)
         await events_domain.update_event(
             loaders=info.context.loaders,
             event_id=event_id,
-            group_name=group_name,
             attributes=EventAttributesToUpdate(
                 event_type=event_type, affected_components=affected_components
             ),
         )
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Update an event in {group_name} group successfully",
+            f"Security: Update an event in {event.group_name} group"
+            " successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update event in group {group_name}",
+            f"Security: Tried to update event in group {event.group_name}",
         )
         raise
 

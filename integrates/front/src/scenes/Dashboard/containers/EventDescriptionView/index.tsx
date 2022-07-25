@@ -11,7 +11,9 @@ import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
 import type {
+  IDescriptionFormValues,
   IEventDescriptionData,
+  IUpdateEventAttr,
   IUpdateEventSolvingReasonAttr,
 } from "./types";
 
@@ -21,6 +23,7 @@ import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queri
 import {
   GET_EVENT_DESCRIPTION,
   SOLVE_EVENT_MUTATION,
+  UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import {
@@ -142,6 +145,35 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     }
   );
 
+  const [updateEvent] = useMutation(UPDATE_EVENT_MUTATION, {
+    onCompleted: (mtResult: IUpdateEventAttr): void => {
+      if (mtResult.updateEvent.success) {
+        msgSuccess(
+          t("group.events.description.alerts.editEvent.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        toggleEdit();
+      }
+    },
+    onError: (error: ApolloError): void => {
+      error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
+        switch (message) {
+          case "Exception - Event not found":
+            msgError(
+              t(
+                `group.events.description.alerts.editSolvingReason.eventNotFound`
+              )
+            );
+            break;
+          default:
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning("An error occurred updating the event", error);
+        }
+      });
+    },
+    refetchQueries: [GET_EVENT_DESCRIPTION],
+  });
+
   const [updateEventSolvingReason] = useMutation(
     UPDATE_EVENT_SOLVING_REASON_MUTATION,
     {
@@ -208,9 +240,23 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     ]
   );
 
-  const handleDescriptionSubmit: () => void = useCallback((): void => {
-    toggleEdit();
-  }, [toggleEdit]);
+  const handleDescriptionSubmit: (values: IDescriptionFormValues) => void =
+    useCallback(
+      (values: IDescriptionFormValues): void => {
+        const affectedComponents =
+          values.eventType === "INCORRECT_MISSING_SUPPLIES"
+            ? values.affectedComponents
+            : [];
+        void updateEvent({
+          variables: {
+            affectedComponents,
+            eventId,
+            eventType: values.eventType,
+          },
+        });
+      },
+      [eventId, updateEvent]
+    );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;

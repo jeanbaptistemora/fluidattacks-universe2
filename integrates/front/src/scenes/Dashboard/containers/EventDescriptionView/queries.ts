@@ -35,6 +35,22 @@ const SOLVE_EVENT_MUTATION: DocumentNode = gql`
   }
 `;
 
+const UPDATE_EVENT_MUTATION: DocumentNode = gql`
+  mutation UpdateEventMutation(
+    $affectedComponents: [AffectedComponents]
+    $eventId: String!
+    $eventType: EventType
+  ) {
+    updateEvent(
+      affectedComponents: $affectedComponents
+      eventId: $eventId
+      eventType: $eventType
+    ) {
+      success
+    }
+  }
+`;
+
 const UPDATE_EVENT_SOLVING_REASON_MUTATION: DocumentNode = gql`
   mutation UpdateEventSolvingReasonMutation(
     $eventId: String!
@@ -54,5 +70,6 @@ const UPDATE_EVENT_SOLVING_REASON_MUTATION: DocumentNode = gql`
 export {
   GET_EVENT_DESCRIPTION,
   SOLVE_EVENT_MUTATION,
+  UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
 };

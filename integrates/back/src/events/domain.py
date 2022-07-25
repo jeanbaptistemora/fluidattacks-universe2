@@ -461,7 +461,6 @@ async def solve_event(  # pylint: disable=too-many-locals
 async def update_event(
     loaders: Any,
     event_id: str,
-    group_name: str,
     attributes: EventAttributesToUpdate,
 ) -> None:
     event: Event = await loaders.event.load(event_id)
@@ -486,8 +485,8 @@ async def update_event(
 
     clean_affected_components = affected_components is None
     await events_model.update_metadata(
-        event_id=event_id,
-        group_name=group_name,
+        event_id=event.id,
+        group_name=event.group_name,
         metadata=EventMetadataToUpdate(
             type=attributes.event_type,
             affected_components=None

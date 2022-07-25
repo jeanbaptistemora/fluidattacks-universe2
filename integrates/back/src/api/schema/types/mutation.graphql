@@ -907,8 +907,6 @@ type Mutation {
     eventType: EventType
     "Identifier of the Event whose evidence will be modified"
     eventId: String!
-    "Name of the group linked to the event"
-    groupName: String!
   ): SimplePayload!
 
   "Updates an Event's evidence"
