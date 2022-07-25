@@ -10,7 +10,6 @@ from app.app import (
 )
 from ariadne.graphql import (
     parse_query,
-    validate_query,
 )
 from graphql import (
     get_introspection_query,
@@ -183,24 +182,6 @@ def test_should_validate_directives() -> None:
     hook_early_validations()
     with pytest.raises(GraphQLError):
         parse_query(query)
-
-
-def test_should_validate_fragments() -> None:
-    query = """
-        query MaliciousQuery {
-            ...X
-        }
-        fragment X on Query {
-            ...Y
-        }
-        fragment Y on Query {
-            ...X
-        }
-    """
-
-    hook_early_validations()
-    with pytest.raises(GraphQLError):
-        validate_query(SCHEMA, parse_query(query))
 
 
 def test_should_validate_characters() -> None:

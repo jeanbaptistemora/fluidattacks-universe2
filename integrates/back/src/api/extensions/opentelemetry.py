@@ -34,11 +34,11 @@ class FastExtension(Extension):
     async def resolve(
         self,
         next_: Resolver,
-        parent: Any,
+        obj: Any,
         info: GraphQLResolveInfo,
         **kwargs: Any,
     ) -> Any:
-        result = next_(parent, info, **kwargs)
+        result = next_(obj, info, **kwargs)
         if is_awaitable(result):
             result = await result
         return result
@@ -67,7 +67,7 @@ class OpenTelemetryExtension(FastExtension):
     async def resolve(
         self,
         next_: Resolver,
-        parent: Any,
+        obj: Any,
         info: GraphQLResolveInfo,
         **kwargs: Any,
     ) -> Any:
@@ -78,6 +78,6 @@ class OpenTelemetryExtension(FastExtension):
                 if kwargs:
                     resolver_span.set_attributes(kwargs)
 
-                return await super().resolve(next_, parent, info, **kwargs)
+                return await super().resolve(next_, obj, info, **kwargs)
 
-        return await super().resolve(next_, parent, info, **kwargs)
+        return await super().resolve(next_, obj, info, **kwargs)

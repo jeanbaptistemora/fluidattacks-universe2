@@ -8,7 +8,7 @@ closure:
   aioitertools: 0.10.0
   aiosignal: 1.2.0
   anyio: 3.6.1
-  ariadne: 0.14.1
+  ariadne: 0.15.1
   asgiref: 3.5.2
   async-lru: 1.0.2
   async-timeout: 4.0.2
@@ -41,7 +41,7 @@ closure:
   gitdb: 4.0.9
   gitpython: 3.1.12
   googleapis-common-protos: 1.56.4
-  graphql-core: 3.1.7
+  graphql-core: 3.2.1
   gunicorn: 20.1.0
   h11: 0.13.0
   hijri-converter: 2.2.4
@@ -222,12 +222,12 @@ links:
   - name: anyio-3.6.1.tar.gz
     sha256: 02yx5yczk50q133543salrjsg9ds8gpg69d9mr1f91iqz6axyfj1
     url: https://files.pythonhosted.org/packages/67/c4/fd50bbb2fb72532a4b778562e28ba581da15067cfb2537dbd3a2e64689c1/anyio-3.6.1.tar.gz
-  - name: ariadne-0.14.1-py3-none-any.whl
-    sha256: 0wbx8xjbik80giaikqqq5vxg3n4vwpgmcrik2xnxrknz4j2gkb5q
-    url: https://files.pythonhosted.org/packages/9d/86/3091666d4bca8690b56652b8d48c3e88738fa096a5c7511672fa71e57ab1/ariadne-0.14.1-py3-none-any.whl
-  - name: ariadne-0.14.1.tar.gz
-    sha256: 07c3xwiifzn41ahshb2gfblsjwb0r5549gc8fjjxrsnpc2gr3f9q
-    url: https://files.pythonhosted.org/packages/e6/21/dc57a99629e25659637a3c5d43afd089d839950a33950dceba36de164373/ariadne-0.14.1.tar.gz
+  - name: ariadne-0.15.1-py3-none-any.whl
+    sha256: 1k3w3bkag3cv5p7awjgl8fqfjmpfjakb9cha7adwy3xbjpl3ay68
+    url: https://files.pythonhosted.org/packages/c9/32/e242cbf05e4ceab63b4bc29ea2aa6bf6418a7b15faf8ac512dc393d32250/ariadne-0.15.1-py3-none-any.whl
+  - name: ariadne-0.15.1.tar.gz
+    sha256: 1x2ih9zgnl5w9y0zj0xv7qj0awx6m6ggnd8ig5xg5v47d2153237
+    url: https://files.pythonhosted.org/packages/f2/b1/2d61cdad8582eacd78877be57fc186dd09d4143ce58543700a0d52f203f8/ariadne-0.15.1.tar.gz
   - name: asgiref-3.5.2-py3-none-any.whl
     sha256: 1i7sbb887dysd7ymgamjb7lhq44rgcmxpw9nj4l5g1xfjavq0a0x
     url: https://files.pythonhosted.org/packages/af/6d/ea3a5c3027c3f14b0321cd4f7e594c776ebe64e4b927432ca6917512a4f7/asgiref-3.5.2-py3-none-any.whl
@@ -474,12 +474,12 @@ links:
   - name: googleapis-common-protos-1.56.4.tar.gz
     sha256: 05s4dszqd5pjwjh4bdic40v1v447k0a3dynsrgypqf3rfb276n62
     url: https://files.pythonhosted.org/packages/f0/8e/190b3ac9bc75d6ead661398a07c6d6f013502c364fd6cc3d5c06427b8023/googleapis-common-protos-1.56.4.tar.gz
-  - name: graphql_core-3.1.7-py3-none-any.whl
-    sha256: 0024iycg7f43v6wpjl0510q00cv980zcyrhp7dzirq0b69h0yilv
-    url: https://files.pythonhosted.org/packages/05/c3/bbdf432c196aec04d9ac6a12a88d10ac50fe412115bdb917add4b963d113/graphql_core-3.1.7-py3-none-any.whl
-  - name: graphql-core-3.1.7.tar.gz
-    sha256: 037gr3p6v6q982fg2kjrzdlgvldp5vky6ygvijhxkv6ca0hikv32
-    url: https://files.pythonhosted.org/packages/20/48/44502a3d0d39d1b094d84fdddbb49d28003dadfd4427527e14b341e43a38/graphql-core-3.1.7.tar.gz
+  - name: graphql_core-3.2.1-py3-none-any.whl
+    sha256: 08v32nlhxmx4gjxmycf0b807wd6xxpiy78i337nqx6b89676ag7q
+    url: https://files.pythonhosted.org/packages/14/28/c308fc9a5914b9a2333a546f4976d96e0d95230f16593223d727cbc19d52/graphql_core-3.2.1-py3-none-any.whl
+  - name: graphql-core-3.2.1.tar.gz
+    sha256: 00f26g0nhqy5z75crqz2mmhcx4gpklsci1s5jjz58zbv890z26wx
+    url: https://files.pythonhosted.org/packages/61/9e/798c1cfc5b03e98f068a793c2d2f1fd94f76ba50521f3812ff1a4e3c29d2/graphql-core-3.2.1.tar.gz
   - name: gunicorn-20.1.0-py3-none-any.whl
     sha256: 0zl0g83a90j8gdky0hy43j4d3rd0cxban5gvri52ijxivd3lbk4x
     url: https://files.pythonhosted.org/packages/e4/dd/5b190393e6066286773a67dfcc2f9492058e9b57c4867a95f1ba5caf0a83/gunicorn-20.1.0-py3-none-any.whl
