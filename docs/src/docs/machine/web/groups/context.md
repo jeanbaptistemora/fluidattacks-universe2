@@ -1,8 +1,8 @@
 ---
-id: group-context
+id: context
 title: Group context
 sidebar_label: Group context
-slug: /machine/web/groups/group-context
+slug: /machine/web/groups/context
 ---
 
 It is essential to have information
