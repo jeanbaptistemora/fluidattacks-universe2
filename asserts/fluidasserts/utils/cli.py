@@ -1160,8 +1160,6 @@ def exec_lang_package(paths: List[str], enable_multiprocessing: bool):
             java.has_log_injection('__path__')
             java.uses_catch_for_null_pointer_exception('__path__')
             java.uses_des_algorithm('__path__')
-            java.uses_md5_hash('__path__')
-            java.uses_sha1_hash('__path__')
             java.uses_system_exit('__path__')
             java.uses_various_verbs_in_request_mapping('__path__')
             """,

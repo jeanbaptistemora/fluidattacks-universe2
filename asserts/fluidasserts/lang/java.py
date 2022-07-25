@@ -262,31 +262,6 @@ def _uses_insecure_cipher(
     )
 
 
-def _uses_insecure_hash(
-    java_dest: str, algorithm: tuple, exclude: list = None
-) -> bool:
-    """Check if code uses an insecure hashing algorithm."""
-    method = f'MessageDigest.getInstance("{algorithm.upper()}")'
-    tk_mess_dig = CaselessKeyword("messagedigest")
-    tk_get_inst = CaselessKeyword("getinstance")
-    tk_alg = Literal('"') + CaselessKeyword(algorithm.lower()) + Literal('"')
-    tk_params = Literal("(") + tk_alg + Literal(")")
-    grammar = tk_mess_dig + Literal(".") + tk_get_inst + tk_params
-    grammar.ignore(javaStyleComment)
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: f"Code uses {method} method",
-            CLOSED: f"Code does not use {method} method",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(risk=MEDIUM, kind=SAST)
 def uses_insecure_cipher(
     java_dest: str, algorithm: str, exclude: list = None
@@ -303,51 +278,6 @@ def uses_insecure_cipher(
     :rtype: :class:`fluidasserts.Result`
     """
     return _uses_insecure_cipher(java_dest, algorithm, exclude)
-
-
-@api(risk=MEDIUM, kind=SAST)
-def uses_insecure_hash(
-    java_dest: str, algorithm: str, exclude: list = None
-) -> bool:
-    """
-    Check if code uses an insecure hashing algorithm.
-
-    See `REQ.150 <https://fluidattacks.com/products/rules/list/150/>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param algorithm: Insecure algorithm.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _uses_insecure_hash(java_dest, algorithm, exclude)
-
-
-@api(risk=MEDIUM, kind=SAST)
-def uses_md5_hash(java_dest: str, exclude: list = None) -> tuple:
-    """
-    Check if code uses MD5 as hashing algorithm.
-
-    See `REQ.150 <https://fluidattacks.com/products/rules/list/150/>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _uses_insecure_hash(java_dest, "md5", exclude)
-
-
-@api(risk=MEDIUM, kind=SAST)
-def uses_sha1_hash(java_dest: str, exclude: list = None) -> tuple:
-    """
-    Check if code uses MD5 as hashing algorithm.
-
-    See `REQ.150 <https://fluidattacks.com/products/rules/list/150/>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    return _uses_insecure_hash(java_dest, "sha-1", exclude)
 
 
 @api(risk=MEDIUM, kind=SAST)

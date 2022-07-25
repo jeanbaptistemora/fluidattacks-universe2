@@ -94,15 +94,6 @@ def test_exclude_parameter():
         java.uses_insecure_cipher(JAVA, "DES", exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_insecure_hash(JAVA, "MD5", exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_md5_hash(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_sha1_hash(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_des_algorithm(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
@@ -163,15 +154,6 @@ def test_lang_specs_parameter():
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_insecure_cipher(MARKD, "DES")
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_insecure_hash(MARKD, "MD5")
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_md5_hash(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_sha1_hash(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_des_algorithm(MARKD)

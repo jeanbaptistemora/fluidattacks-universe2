@@ -59,27 +59,6 @@ def test_uses_catch_for_null_pointer_exception_open():
     ).is_open()
 
 
-def test_uses_md5_hash_open():
-    """Search MD5 hash algorithm."""
-    assert java.uses_md5_hash(INSECURE_HASH).is_open()
-    assert java.uses_insecure_hash(INSECURE_HASH, "md5").is_open()
-
-
-def test_uses_md5_hash_open_in_dir():
-    """Search MD5 hash algorithm."""
-    assert java.uses_md5_hash(CODE_DIR).is_open()
-
-
-def test_uses_sha1_hash_open():
-    """Search SHA-1 hash algorithm."""
-    assert java.uses_sha1_hash(INSECURE_HASH).is_open()
-
-
-def test_uses_sha1_hash_open_in_dir():
-    """Search SHA-1 hash algorithm."""
-    assert java.uses_sha1_hash(CODE_DIR).is_open()
-
-
 def test_uses_des_algorithm_open():
     """Search DES encryption algorithm."""
     assert java.uses_des_algorithm(INSECURE_CIPHER).is_open()
@@ -149,20 +128,6 @@ def test_uses_catch_for_null_pointer_exception_close():
     assert java.uses_catch_for_null_pointer_exception(
         NON_EXISTANT_CODE
     ).is_unknown()
-
-
-def test_uses_md5_hash_close():
-    """Search MD5 hash algorithm."""
-    assert java.uses_md5_hash(SECURE_HASH).is_closed()
-    assert java.uses_md5_hash(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_md5_hash(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_sha1_hash_close():
-    """Search SHA-1 hash algorithm."""
-    assert java.uses_sha1_hash(SECURE_HASH).is_closed()
-    assert java.uses_sha1_hash(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_sha1_hash(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_uses_des_algorithm_close():
