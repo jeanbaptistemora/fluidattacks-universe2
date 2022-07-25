@@ -8,6 +8,7 @@ import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { array, object } from "yup";
 
 import type {
   IEventDescriptionData,
@@ -215,6 +216,14 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     return <div />;
   }
 
+  const editValidations = object().shape({
+    affectedComponents: array().when("eventType", {
+      is: "INCORRECT_MISSING_SUPPLIES",
+      otherwise: array().notRequired(),
+      then: array().min(1, t("validations.someRequired")),
+    }),
+  });
+
   return (
     <React.StrictMode>
       <React.Fragment>
@@ -318,6 +327,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           initialValues={data.event}
           name={"editEvent"}
           onSubmit={handleDescriptionSubmit}
+          validationSchema={editValidations}
         >
           {({ values }): React.ReactNode => (
             <Form id={"editEvent"}>
