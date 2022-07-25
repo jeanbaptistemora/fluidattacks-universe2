@@ -25,8 +25,8 @@ makeRubyGemsEnvironment {
     }
     {
       name = "asciidoctor-pdf";
-      version = "1.5.0.rc.3";
-      sha256 = "a23affdbb49f94acd9f29a5c33cc9b79095eea9c0f0ecd14cfbe928d1c45ef56";
+      version = "2.2.0";
+      sha256 = "492dbaee9210a6278514551c8d26cef9ce7b00d632af3736cdd3f347b4d9a593";
     }
     {
       name = "concurrent-ruby";
@@ -45,8 +45,8 @@ makeRubyGemsEnvironment {
     }
     {
       name = "pdf-core";
-      version = "0.7.0";
-      sha256 = "c1afdbb79edaf7c9fea69fd4b8d3b2c68eeb7203ce4db0e80be5392e20e394a6";
+      version = "0.9.0";
+      sha256 = "4f368b2f12b57ec979872d4bf4bd1a67e8648e0c81ab89801431d2fc89f4e0bb";
     }
     {
       name = "pdf-reader";
@@ -60,18 +60,18 @@ makeRubyGemsEnvironment {
     }
     {
       name = "prawn";
-      version = "2.2.2";
-      sha256 = "95284b761f0ea99334ef840ab85f577cfe2cc9448f769cc723843a6d7670b2e1";
+      version = "2.4.0";
+      sha256 = "82062744f7126c2d77501da253a154271790254dfa8c309b8e52e79bc5de2abd";
     }
     {
       name = "prawn-icon";
-      version = "2.5.0";
-      sha256 = "dc88129676707c983e914ca2d2f066fb244e946075ed933c8422b996916b73c7";
+      version = "3.0.0";
+      sha256 = "dac8d481dee0f60a769c0cab0fd1baec7351b4806bf9ba959cd6c65f6694b6f5";
     }
     {
       name = "prawn-svg";
-      version = "0.30.0";
-      sha256 = "e7d85c2b7c05427cfe9860c29db99ce9c935bd88158eb340e4b70fcf12a1c335";
+      version = "0.32.0";
+      sha256 = "sha256-ZtGiCpMoJSiiXVrZ4NtCLa1IBKNOCJJWG2TDkw//fVU=";
     }
     {
       name = "prawn-table";
@@ -110,8 +110,18 @@ makeRubyGemsEnvironment {
     }
     {
       name = "ttfunk";
-      version = "1.5.1";
-      sha256 = "8da1c20cc9e010a4b083376e6ae6996c4aa517558420bb23d9a1d8a228b6f9d5";
+      version = "1.7.0";
+      sha256 = "2370ba484b1891c70bdcafd3448cfd82a32dd794802d81d720a64c15d3ef2a96";
+    }
+    {
+      name = "rexml";
+      version = "3.2.5";
+      sha256 = "a33c3bf95fda7983ec7f05054f3a985af41dbc25a0339843bd2479e93cabb123";
+    }
+    {
+      name = "matrix";
+      version = "0.4.2";
+      sha256 = "71083ccbd67a14a43bfa78d3e4dc0f4b503b9cc18e5b4b1d686dc0f9ef7c4cc0";
     }
   ];
 }

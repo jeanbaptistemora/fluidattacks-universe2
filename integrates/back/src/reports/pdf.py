@@ -130,6 +130,7 @@ Context = TypedDict(
         "user": str,
         "date": str,
         "link": str,
+        "imagesdir": str,
     },
 )
 
@@ -370,6 +371,7 @@ class CreatorPdf:
     result_dir: str = "/results/results_pdf/"
     style: str = "fluid"
     style_dir: str = "/resources/themes"
+    images_dir: str = "/resources/themes"
     tpl_dir: str = "/tpls/"
     wordlist: Dict[str, Dict[str, str]] = {}
 
@@ -384,6 +386,7 @@ class CreatorPdf:
         self.result_dir = self.path + self.result_dir
         self.tpl_dir = self.path + self.tpl_dir
         self.style_dir = self.path + self.style_dir
+        self.images_dir = self.path + self.images_dir
         if self.doctype == "tech":
             self.proj_tpl = "templates/pdf/tech.adoc"
 
@@ -394,8 +397,8 @@ class CreatorPdf:
         """Create the SO command to create the PDF with asciidoctor."""
         self.command = (
             "asciidoctor-pdf "
-            f"-a pdf-stylesdir={self.style_dir} "
-            f"-a pdf-style={self.style} "
+            f"-a pdf-themesdir={self.style_dir} "
+            f"-a pdf-theme={self.style} "
             f"-a pdf-fontsdir={self.font_dir} "
             f"-D {self.result_dir} "
             f"-o {self.out_name} "
@@ -486,6 +489,7 @@ class CreatorPdf:
             "user": user,
             "date": time.strftime("%Y-%m-%d at %H:%M"),
             "link": f"{BASE_URL}/groups/{group}/vulns",
+            "imagesdir": self.images_dir,
         }
 
     def lang_support(self) -> None:
