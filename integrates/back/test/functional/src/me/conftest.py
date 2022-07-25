@@ -239,6 +239,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
+                    group_name="group1",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     specific="9999",
                     state=VulnerabilityState(
@@ -269,6 +270,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
+                    group_name="group1",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6a",
                     specific="2320",
                     state=VulnerabilityState(
@@ -300,6 +302,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
+                    group_name="group1",
                     id="6401bc87-8633-4a4a-8d8e-7dae0ca57e6b",
                     specific="2321",
                     state=VulnerabilityState(
@@ -331,6 +334,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="475041521",
+                    group_name="group1",
                     id="de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad",
                     specific="2322",
                     state=VulnerabilityState(
@@ -364,6 +368,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
                     id="48780201-b087-43c5-9882-a5c65dec6efb",
                     specific="9999",
                     state=VulnerabilityState(

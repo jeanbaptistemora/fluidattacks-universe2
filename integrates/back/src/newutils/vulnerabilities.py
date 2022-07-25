@@ -430,6 +430,7 @@ def group_specific(
         grouped_vulns.append(
             Vulnerability(
                 finding_id=group[0].finding_id,
+                group_name=group[0].group_name,
                 id=group[0].id,
                 specific=specific_grouped,
                 state=group[0].state,

@@ -62,6 +62,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityVerification,
+    VulnerabilityZeroRisk,
 )
 from decorators import (
     retry_on_exceptions,
@@ -138,6 +141,7 @@ async def _process_vuln(
     loaders: Dataloaders,
     vuln: Vulnerability,
     target_finding_id: str,
+    target_group_name: str,
     target_root_id: str,
     item_subject: str,
 ) -> str:
@@ -151,20 +155,23 @@ async def _process_vuln(
             }
         },
     )
-    state_loader = loaders.vulnerability_historic_state
-    treatment_loader = loaders.vulnerability_historic_treatment
-    verification_loader = loaders.vulnerability_historic_verification
-    zero_risk_loader = loaders.vulnerability_historic_zero_risk
-    historic_state: tuple[VulnerabilityState] = await state_loader.load(
-        vuln.id
-    )
-    historic_treatment = await treatment_loader.load(vuln.id)
-    historic_verification = await verification_loader.load(vuln.id)
-    historic_zero_risk = await zero_risk_loader.load(vuln.id)
+    historic_state: tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    historic_treatment: tuple[
+        VulnerabilityTreatment, ...
+    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
+    historic_verification: tuple[
+        VulnerabilityVerification, ...
+    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    historic_zero_risk: tuple[
+        VulnerabilityZeroRisk, ...
+    ] = await loaders.vulnerability_historic_zero_risk.load(vuln.id)
     new_id = str(uuid.uuid4())
     await vulns_model.add(
         vulnerability=vuln._replace(
             finding_id=target_finding_id,
+            group_name=target_group_name,
             id=new_id,
             root_id=target_root_id,
             state=vuln.state,
@@ -182,7 +189,7 @@ async def _process_vuln(
     new_vulnerability = await loaders.vulnerability.load(new_id)
     await vulns_model.update_historic(
         current_value=new_vulnerability,
-        historic=historic_state or tuple(vuln.state),
+        historic=historic_state or (vuln.state,),
     )
     if historic_treatment:
         loaders.vulnerability.clear(vuln.id)
@@ -324,6 +331,7 @@ async def _process_finding(
                 loaders=loaders,
                 vuln=vuln,
                 target_finding_id=target_finding_id,
+                target_group_name=target_group_name,
                 target_root_id=target_root_id,
                 item_subject=item_subject,
             )

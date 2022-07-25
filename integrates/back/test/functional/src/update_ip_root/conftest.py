@@ -162,6 +162,7 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="group123",
                     id="64bf8e56-0b3c-432a-bff7-c3eef56c47b7",
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     specific="999",
@@ -183,6 +184,7 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="group123",
                     id="06b0e56b-db07-4420-88f7-f8ad1561a444",
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     specific="909",
@@ -204,6 +206,7 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="group123",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     specific="9999",
                     state=VulnerabilityState(

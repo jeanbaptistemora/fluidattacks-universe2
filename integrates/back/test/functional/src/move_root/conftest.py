@@ -295,6 +295,7 @@ async def populate() -> bool:
             {
                 "vulnerability": Vulnerability(
                     finding_id="918fbc15-2121-4c2a-83a8-dfa8748bcb2e",
+                    group_name="kibi",
                     id="64bf8e56-0b3c-432a-bff7-c3eef56c47b7",
                     root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
                     specific="9999",

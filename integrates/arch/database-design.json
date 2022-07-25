@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 25, 2022, 09:32 AM",
+    "DateLastModified": "Jul 25, 2022, 12:05 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2925,7 +2925,10 @@
             "phone",
             "is_registered",
             "tours"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_access",
@@ -3553,11 +3556,14 @@
           ],
           "NonKeyAttributes": [
             "email",
-            "expiration_time",
+            "organization_id",
             "has_access",
             "invitation",
-            "organization_id"
-          ]
+            "expiration_time"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_access",
@@ -3568,12 +3574,15 @@
           "TableData": [],
           "NonKeyAttributes": [
             "email",
-            "expiration_time",
+            "responsibility",
             "group_name",
             "has_access",
             "invitation",
-            "responsibility"
-          ]
+            "expiration_time"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "portfolio_metadata",
@@ -3878,7 +3887,10 @@
             "unreliable_indicators",
             "organization_name",
             "groups"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_metadata",
@@ -4549,7 +4561,10 @@
             "policies",
             "billing_customer",
             "payment_methods"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "enrollment_metadata",
@@ -4627,7 +4642,10 @@
             "extension_days",
             "start_date",
             "trial"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_historic_policies",
@@ -4941,7 +4959,10 @@
             "min_acceptance_severity",
             "min_breaking_severity",
             "vulnerability_grace_period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "organization_historic_state",
@@ -5158,7 +5179,10 @@
             "modified_date",
             "modified_by",
             "pending_deletion_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_metadata",
@@ -6288,7 +6312,10 @@
             "sprint_duration",
             "policies",
             "sprint_start_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_historic_state",
@@ -6804,7 +6831,10 @@
             "service",
             "tier",
             "managed"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_historic_policies",
@@ -6855,7 +6885,10 @@
             "min_acceptance_severity",
             "min_breaking_severity",
             "vulnerability_grace_period"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_unreliable_indicators",
@@ -8388,7 +8421,10 @@
             "remediated_over_time_year",
             "remediated_over_time_year_cvssf",
             "treatment_summary"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "group_comment",
@@ -8440,7 +8476,10 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "forces_execution",
@@ -8513,7 +8552,10 @@
             "grace_period",
             "severity_threshold",
             "results"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_metadata",
@@ -9052,7 +9094,10 @@
             "event_date",
             "action_after_blocking",
             "action_before_blocking"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_historic_state",
@@ -9372,7 +9417,10 @@
             "status",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "event_comment",
@@ -9404,7 +9452,10 @@
             "modified_by",
             "parent_id",
             "content"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "root_secret",
@@ -9435,7 +9486,10 @@
             "description",
             "key",
             "value"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_environment_secret",
@@ -9467,7 +9521,10 @@
             "created_at",
             "key",
             "value"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_environment_url",
@@ -9524,7 +9581,10 @@
             "cloud_name",
             "url",
             "created_at"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_metadata",
@@ -9709,7 +9769,10 @@
             "state",
             "unreliable_indicators",
             "cloning"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_historic_state",
@@ -9829,7 +9892,10 @@
             "modified_by",
             "nickname",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "git_root_historic_cloning",
@@ -9960,7 +10026,10 @@
             "modified_date",
             "commit",
             "commit_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "ip_root_metadata",
@@ -10054,7 +10123,10 @@
             "sk_2",
             "state",
             "unreliable_indicators"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "ip_root_historic_state",
@@ -10125,7 +10197,10 @@
             "address",
             "port",
             "other"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "url_root_metadata",
@@ -10186,7 +10261,10 @@
             "sk_2",
             "state",
             "unreliable_indicators"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "url_root_historic_state",
@@ -10240,7 +10318,10 @@
             "protocol",
             "other",
             "query"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "credentials_metadata",
@@ -10303,7 +10384,10 @@
             "state",
             "organization_id",
             "owner"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "toe_lines_metadata",
@@ -10503,7 +10587,10 @@
             "last_author",
             "last_commit",
             "sorts_suggestions"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "toe_input_metadata",
@@ -10728,7 +10815,10 @@
             "pk_2",
             "sk_2",
             "has_vulnerabilities"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_metadata",
@@ -10740,7 +10830,10 @@
           "NonKeyAttributes": [
             "name",
             "tags"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_state",
@@ -10753,7 +10846,10 @@
             "status",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "org_finding_policy_historic_state",
@@ -10766,7 +10862,10 @@
             "status",
             "modified_date",
             "modified_by"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_id",
@@ -10911,7 +11010,10 @@
                 "S": "FIN_ID"
               }
             }
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_metadata",
@@ -15499,7 +15601,10 @@
             "creation",
             "approval",
             "submission"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_historic_state",
@@ -16458,7 +16563,10 @@
             "modified_by",
             "source",
             "justification"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "finding_historic_verification",
@@ -16603,7 +16711,10 @@
             "modified_by",
             "comment_id",
             "vulnerability_ids"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_metadata",
@@ -16630,6 +16741,9 @@
               },
               "specific": {
                 "S": "12"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -16729,6 +16843,9 @@
               },
               "specific": {
                 "S": "phone"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -16845,6 +16962,9 @@
               "specific": {
                 "S": "333"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -16954,6 +17074,9 @@
               "specific": {
                 "S": "1111"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17043,6 +17166,9 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -17156,6 +17282,9 @@
               "specific": {
                 "S": "6666"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17255,6 +17384,9 @@
               "specific": {
                 "S": "4444"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17344,6 +17476,9 @@
               },
               "specific": {
                 "S": "5555"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -17435,6 +17570,9 @@
               "specific": {
                 "S": "9999"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17524,6 +17662,9 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -17621,6 +17762,9 @@
               "specific": {
                 "S": "333"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17700,6 +17844,9 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -17781,6 +17928,9 @@
               "specific": {
                 "S": "4444"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -17860,6 +18010,9 @@
               },
               "specific": {
                 "S": "4444"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -17941,6 +18094,9 @@
               "specific": {
                 "S": "333"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18020,6 +18176,9 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18101,6 +18260,9 @@
               "specific": {
                 "S": "8888"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18180,6 +18342,9 @@
               },
               "specific": {
                 "S": "888"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18261,6 +18426,9 @@
               "specific": {
                 "S": "6666"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18340,6 +18508,9 @@
               },
               "specific": {
                 "S": "1111"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18421,6 +18592,9 @@
               "specific": {
                 "S": "2222"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18500,6 +18674,9 @@
               },
               "specific": {
                 "S": "2222"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18581,6 +18758,9 @@
               "specific": {
                 "S": "7777"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18660,6 +18840,9 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18741,6 +18924,9 @@
               "specific": {
                 "S": "5555"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18820,6 +19006,9 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18901,6 +19090,9 @@
               "specific": {
                 "S": "333"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18980,6 +19172,9 @@
               },
               "specific": {
                 "S": "asserts"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19061,6 +19256,9 @@
               "specific": {
                 "S": "1111"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19140,6 +19338,9 @@
               },
               "specific": {
                 "S": "333"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19221,6 +19422,9 @@
               "specific": {
                 "S": "userToken"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19300,6 +19504,9 @@
               },
               "specific": {
                 "S": "6666"
+              },
+              "group_name": {
+                "S": "oneshottest"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19381,6 +19588,9 @@
               "specific": {
                 "S": "3636"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19460,6 +19670,9 @@
               },
               "specific": {
                 "S": "7777"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19553,6 +19766,9 @@
               "specific": {
                 "S": "12"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19645,6 +19861,9 @@
               "specific": {
                 "S": "12456"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19724,6 +19943,9 @@
               },
               "specific": {
                 "S": "345"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19847,6 +20069,9 @@
               "specific": {
                 "S": "564"
               },
+              "group_name": {
+                "S": "unittesting"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19954,6 +20179,9 @@
               },
               "specific": {
                 "S": "123345"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -20065,6 +20293,9 @@
               },
               "specific": {
                 "S": "123"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20190,6 +20421,9 @@
               "specific": {
                 "S": "3636"
               },
+              "group_name": {
+                "S": "oneshottest"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20296,6 +20530,9 @@
               "specific": {
                 "S": "123345"
               },
+              "group_name": {
+                "S": "oneshottest"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20386,6 +20623,9 @@
               "specific": {
                 "S": "564"
               },
+              "group_name": {
+                "S": "oneshottest"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20465,6 +20705,9 @@
               },
               "specific": {
                 "S": "3333"
+              },
+              "group_name": {
+                "S": "lubbock"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20561,6 +20804,9 @@
               },
               "specific": {
                 "S": "8888"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20663,6 +20909,9 @@
               },
               "specific": {
                 "S": "9999"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20777,8 +21026,12 @@
             "pk_4",
             "sk_4",
             "pk_5",
-            "sk_5"
-          ]
+            "sk_5",
+            "group_name"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_state",
@@ -22085,7 +22338,10 @@
             "source",
             "justification",
             "tool"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_treatment",
@@ -22934,7 +23190,10 @@
             "assigned",
             "justification",
             "acceptance_status"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_verification",
@@ -23045,7 +23304,10 @@
           "NonKeyAttributes": [
             "status",
             "modified_date"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "vulnerability_historic_zero_risk",
@@ -23220,7 +23482,10 @@
             "modified_date",
             "modified_by",
             "comment_id"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         },
         {
           "FacetName": "machine_git_root_execution",
@@ -23296,7 +23561,10 @@
             "findings_executed",
             "created_at",
             "queue"
-          ]
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
         }
       ],
       "GlobalSecondaryIndexes": [
