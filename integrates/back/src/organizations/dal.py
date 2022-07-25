@@ -59,27 +59,6 @@ async def add(*, organization_access: OrganizationAccess) -> None:
         raise UnavailabilityError() from ex
 
 
-async def get_ids_for_user(email: str) -> list[str]:
-    """
-    Return the IDs of all the organizations a user belongs to.
-    """
-    organization_ids: list[str] = []
-    query_attrs = {
-        "KeyConditionExpression": (
-            Key("sk").eq(f"USER#{email.lower().strip()}")
-        ),
-        "IndexName": "gsi-1",
-        "ProjectionExpression": "pk",
-    }
-    try:
-        response_items = await dynamodb_query(TABLE_NAME, query_attrs)
-        if response_items:
-            organization_ids = [item["pk"] for item in response_items]
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
-    return organization_ids
-
-
 async def get_users(organization_id: str) -> list[str]:
     """
     Return a list of the emails of all the users that belong to an

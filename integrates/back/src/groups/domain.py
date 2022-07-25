@@ -376,7 +376,7 @@ async def add_group(  # pylint: disable=too-many-locals
             ).isoformat(),
         )
     )
-    await orgs_domain.add_group_access(organization_id, group_name)
+    await orgs_domain.add_group_access(loaders, organization_id, group_name)
 
     success: bool = False
     # Admins are not granted access to the group

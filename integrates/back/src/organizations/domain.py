@@ -162,8 +162,11 @@ async def add_credentials(
     await credentials_model.add(credential=credential)
 
 
-async def add_group_access(organization_id: str, group_name: str) -> bool:
-    users = await get_users(organization_id)
+async def add_group_access(
+    loaders: Any, organization_id: str, group_name: str
+) -> bool:
+    users = await get_stakeholders_emails(loaders, organization_id)
+    print(users)
     users_roles = await collect(
         authz.get_organization_level_role(user, organization_id)
         for user in users
@@ -366,6 +369,16 @@ async def get_stakeholders(
     ]
 
     return tuple(stakeholders)
+
+
+async def get_stakeholders_emails(
+    loaders: Any, organization_id: str
+) -> list[str]:
+    org_access: tuple[Stakeholder, ...] = await get_stakeholders(
+        loaders, organization_id
+    )
+
+    return [stakeholder.email for stakeholder in org_access]
 
 
 async def has_group(

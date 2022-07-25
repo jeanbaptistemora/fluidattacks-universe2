@@ -63,7 +63,7 @@ async def _remove_organization(
     organization_name: str,
     modified_by: str,
 ) -> None:
-    users = await orgs_domain.get_users(organization_id)
+    users = await orgs_domain.get_stakeholders_emails(loaders, organization_id)
     users_removed = await collect(
         orgs_domain.remove_user(loaders, organization_id, user, modified_by)
         for user in users

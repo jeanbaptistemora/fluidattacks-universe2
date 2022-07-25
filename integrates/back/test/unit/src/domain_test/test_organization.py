@@ -67,7 +67,7 @@ async def test_add_group() -> None:
     org_group_names = await orgs_domain.get_group_names(loaders, org_id)
     assert group_name in org_group_names
 
-    await orgs_domain.add_group_access(org_id, group_name)
+    await orgs_domain.add_group_access(loaders, org_id, group_name)
     users = await group_access_domain.get_group_users(group_name)
     assert (
         await authz.get_organization_level_role(users[0], org_id)
