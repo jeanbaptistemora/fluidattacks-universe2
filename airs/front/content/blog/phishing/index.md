@@ -3,7 +3,7 @@ slug: phishing/
 title: Trust Nothing, Verify Everything
 date: 2020-03-20
 subtitle: Sharing at least a modicum about phishing attacks
-category: techniques
+category: attacks
 tags: social-engineering, information, web, software, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330974/blog/phishing/cover_tl6uyf.webp
 alt: Photo by Glen Hooper on Unsplash

@@ -3,7 +3,7 @@ slug: lockbit-ransomware/
 title: Now a Ransomware Seducing Insiders?
 date: 2021-08-27
 subtitle: Find out about LockBit, now in its menacing 2.0 version
-category: techniques
+category: attacks
 tags: software, hacking, cybersecurity, company, risk, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1630079924/blog/lockbit-ransomware/cover_lockbit_xhxdf5.webp
 alt: Photo by Icons8 Team on Unsplash

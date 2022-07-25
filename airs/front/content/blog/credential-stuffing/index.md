@@ -3,7 +3,7 @@ slug: credential-stuffing/
 title: 'My Favorite Password: ''123456'''
 date: 2020-09-25
 subtitle: You could be a victim of Credential Stuffing
-category: techniques
+category: attacks
 tags: credential, password, web, application, cybersecurity, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330841/blog/credential-stuffing/cover_t0zcnj.webp
 alt: Photo by Cookie the Pom on Unsplash

@@ -3,7 +3,7 @@ slug: owasp-benchmark-fluid-attacks/
 title: Fluid Attacks' Perfect Accuracy
 date: 2021-04-14
 subtitle: Our SAST tool scored the highest on the OWASP Benchmark
-category: techniques
+category: politics
 tags: software, vulnerability, testing, application, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330969/blog/owasp-benchmark-fluid-attacks/cover_lm2zfy.webp
 alt: Photo by Silvan Arnet on Unsplash

@@ -3,7 +3,7 @@ slug: trends-2020-ii/
 title: 'Happening Now: Trends 2020'
 date: 2020-04-02
 subtitle: More realistic cybersecurity predictions
-category: techniques
+category: opinions
 tags: cybersecurity, trends, mistake, technology, economics, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331127/blog/trends-2020-ii/cover_eek8mj.webp
 alt: Photo by Matthew Henry on Unsplash

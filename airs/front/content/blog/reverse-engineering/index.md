@@ -3,7 +3,7 @@ slug: reverse-engineering/
 title: Opening the Program's Box
 date: 2020-03-11
 subtitle: General ideas about Software Reverse Engineering
-category: techniques
+category: attacks
 tags: revert, software, engineering, security, vulnerability, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reverse-engineering/cover_nsktcf.webp
 alt: Photo by Erda Estremera on Unsplash

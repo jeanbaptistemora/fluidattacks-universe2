@@ -3,7 +3,7 @@ slug: trends-2020/
 title: Cybersecurity Trends 2020? F*ck...
 date: 2020-03-26
 subtitle: Fear will drive cybersecurity spending. Dear lord...
-category: techniques
+category: opinions
 tags: cybersecurity, trends, mistake, technology, economics, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331126/blog/trends-2020/cover_hrcoli.webp
 alt: Photo by Oleg Laptev on Unsplash

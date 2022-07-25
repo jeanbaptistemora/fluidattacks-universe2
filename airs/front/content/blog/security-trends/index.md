@@ -3,7 +3,7 @@ slug: security-trends/
 title: Security in Trends
 date: 2019-10-03
 subtitle: Cybersecurity risks in technology trends
-category: techniques
+category: opinions
 tags: cybersecurity, business, trends
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
 alt: Photo by Stephen Dawson on Unsplash
