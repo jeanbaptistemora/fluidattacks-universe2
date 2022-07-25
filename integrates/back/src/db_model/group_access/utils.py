@@ -1,5 +1,6 @@
 from .types import (
     GroupAccess,
+    GroupAccessMetadataToUpdate,
     GroupInvitation,
 )
 from dynamodb.types import (
@@ -27,3 +28,26 @@ def format_group_access(item: Item) -> GroupAccess:
         else None,
         responsibility=item.get("responsibility"),
     )
+
+
+def format_metadata_item(
+    metadata: GroupAccessMetadataToUpdate,
+) -> Item:
+    item: Item = {
+        "expiration_time": metadata.expiration_time,
+        "has_access": metadata.has_access,
+        "invitation": {
+            "is_used": metadata.invitation.is_used,
+            "role": metadata.invitation.role,
+            "url_token": metadata.invitation.url_token,
+            "responsibility": metadata.responsibility,
+        }
+        if metadata.invitation
+        else None,
+        "responsibility": metadata.responsibility,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }
