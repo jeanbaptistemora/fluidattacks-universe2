@@ -21,5 +21,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     catch_filter_clause_block = childs.get("catch_filter_clause")
 
     return build_catch_clause_node(
-        args, block_node, catch_declaration_block, catch_filter_clause_block
+        args,
+        block_node,
+        catch_declaration_block,
+        catch_filter_clause_block,
+        None,
     )

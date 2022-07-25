@@ -47,6 +47,7 @@ DISPATCHERS: Dispatchers = (
             "ArrowExpressionClause",
             "Assignment",
             "CallExpression",
+            "CatchDeclaration",
             "ClassBody",
             "Comment",
             "LexicalDeclaration",

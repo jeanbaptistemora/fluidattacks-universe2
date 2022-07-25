@@ -21,6 +21,7 @@ from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
     assignment_expression as javascript_assignment_expression,
+    catch_clause as javascript_catch_clause,
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
     object as javascript_object,
@@ -67,6 +68,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "call_expression",
         },
         syntax_reader=common_call_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "catch_clause",
+        },
+        syntax_reader=javascript_catch_clause.reader,
     ),
     Dispatcher(
         applicable_types={
