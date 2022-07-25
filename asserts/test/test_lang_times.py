@@ -88,9 +88,6 @@ def test_exclude_parameter():
         java.uses_catch_for_null_pointer_exception(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_print_stack_trace(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_insecure_randoms(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
@@ -160,9 +157,6 @@ def test_lang_specs_parameter():
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.uses_catch_for_null_pointer_exception(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_print_stack_trace(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_insecure_randoms(MARKD)

@@ -173,35 +173,6 @@ def uses_catch_for_null_pointer_exception(
 
 
 @api(risk=LOW, kind=SAST)
-def uses_print_stack_trace(java_dest: str, exclude: list = None) -> tuple:
-    """
-    Search for ``printStackTrace`` calls in a path.
-
-    See `CWE-209 <https://cwe.mitre.org/data/definitions/209.html>`_.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    grammar = "." + Keyword("printStackTrace")
-    grammar.ignore(javaStyleComment)
-    grammar.ignore(L_STRING)
-    grammar.ignore(L_CHAR)
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code uses Throwable.printStackTrace() method",
-            CLOSED: "Code does not use Throwable.printStackTrace() method",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(risk=LOW, kind=SAST)
 def has_insecure_randoms(java_dest: str, exclude: list = None) -> tuple:
     r"""
     Check if code uses insecure random generators.
@@ -459,52 +430,6 @@ def uses_system_exit(java_dest: str, exclude: list = None) -> tuple:
     )
 
 
-@api(risk=MEDIUM, kind=SAST)
-def uses_insecure_aes(java_dest: str, exclude: list = None):
-    """
-    Check if code uses an insecure AES mode.
-
-    AES should not be used with ECB or CBC/PKCS5Padding.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    ecb_mode = "/" + CaselessKeyword("ECB")
-    cbc_mode = "/" + CaselessKeyword("CBC")
-    padding_pkc = "/" + CaselessKeyword("PKCS5Padding")
-    padding_all = "/" + Word(alphanums)
-    algorithm = (
-        '"'
-        + CaselessKeyword("AES")
-        + Optional(((ecb_mode + padding_all) | (cbc_mode + padding_pkc)))
-        + '"'
-    )
-
-    grammar = (
-        Suppress(Keyword("Cipher") + "." + Keyword("getInstance"))
-        + nestedExpr()
-    )
-    grammar.ignore(javaStyleComment)
-    grammar.addCondition(
-        # Ensure that at least one token is the AES algorithm
-        lambda tokens: tokens.asList()
-        and any(algorithm.matches(tok) for tok in tokens[0])
-    )
-
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: f"Code uses insecure AES modes",
-            CLOSED: f"Code uses secure AES modes",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
 @api(
     risk=MEDIUM,
     kind=SAST,
@@ -559,62 +484,6 @@ def uses_insecure_rsa(java_dest: str, exclude: list = None) -> tuple:
                 "OAEP padding is required"
             ),
             CLOSED: f"Code uses a secure RSA padding",
-        },
-        spec=LANGUAGE_SPECS,
-        excl=exclude,
-    )
-
-
-@api(
-    risk=MEDIUM,
-    kind=SAST,
-)
-def uses_insecure_ssl_context(java_dest: str, exclude: list = None):
-    """
-    Check if code uses insecure SSL context.
-
-    The secure versions are:
-        - TLS.
-        - DTLS.
-        - TLSv1.2.
-        - DTLSv1.2.
-        - TLSv1.3.
-        - DTLSv1.3.
-
-    :param java_dest: Path to a Java source file or package.
-    :param exclude: Paths that contains any string from this list are ignored.
-    :rtype: :class:`fluidasserts.Result`
-    """
-    secure_versions = MatchFirst(
-        [
-            CaselessKeyword(i)
-            for i in [
-                '"TLS"',
-                '"DTLS"',
-                '"TLSv1.2"',
-                '"DTLSv1.2"',
-                '"TLSv1.3"',
-                '"DTLSv1.3"',
-            ]
-        ]
-    )
-    grammar = (
-        Suppress(Keyword("SSLContext") + "." + Keyword("getInstance"))
-        + nestedExpr()
-    )
-    grammar.ignore(javaStyleComment)
-    grammar.addCondition(
-        # Ensure the matching token is not one of the secure algorithms
-        lambda tokens: tokens.asList()
-        and not any(secure_versions.matches(tok) for tok in tokens[0])
-    )
-    return lang.generic_method(
-        path=java_dest,
-        gmmr=grammar,
-        func=lang.parse,
-        msgs={
-            OPEN: "Code uses insecure SSL context version",
-            CLOSED: "Code uses secure SSL context version",
         },
         spec=LANGUAGE_SPECS,
         excl=exclude,

@@ -42,16 +42,6 @@ LINES_FORMAT = "lines: "
 #
 
 
-def test_uses_print_stack_trace_open():
-    """Search printStackTrace calls."""
-    assert java.uses_print_stack_trace(INSECURE_CODE).is_open()
-
-
-def test_uses_print_stack_trace_in_dir_open():
-    """Search printStackTrace calls."""
-    assert java.uses_print_stack_trace(CODE_DIR).is_open()
-
-
 def test_has_insecure_randoms_open():
     """Search Math.random() calls."""
     assert java.has_insecure_randoms(INSECURE_RANDOM).is_open()
@@ -100,16 +90,6 @@ def test_uses_des_algorithm_open_in_dir():
     assert java.uses_des_algorithm(CODE_DIR).is_open()
 
 
-def test_uses_insecure_aes_open():
-    """Search AES encryption algorithm."""
-    assert java.uses_insecure_aes(INSECURE_CIPHER).is_open()
-
-
-def test_uses_insecure_aes_open_in_dir():
-    """Search AES encryption algorithm."""
-    assert java.uses_insecure_aes(CODE_DIR).is_open()
-
-
 def test_has_log_injection_open():
     """Search log injection."""
     assert java.has_log_injection(INSECURE_CODE).is_open()
@@ -128,16 +108,6 @@ def test_uses_system_exit_open_in_dir():
 def test_uses_system_exit_open():
     """Search System.exit() calls."""
     assert java.uses_system_exit(INSECURE_CODE).is_open()
-
-
-def test_uses_insecure_rsa_open():
-    """Search insecure RSA padding."""
-    assert java.uses_insecure_rsa(INSECURE_CODE).is_open()
-
-
-def test_uses_insecure_ssl_context_open():
-    """Search insecure SSL context."""
-    assert java.uses_insecure_ssl_context(INSECURE_CODE).is_open()
 
 
 def test_uses_various_verbs_in_request_mapping_open():
@@ -159,29 +129,6 @@ def test_uses_various_verbs_in_request_mapping_closed():
     assert java.uses_various_verbs_in_request_mapping(
         NON_EXISTANT_CODE
     ).is_unknown()
-
-
-def test_uses_insecure_ssl_context_closed():
-    """Search insecure SSL context."""
-    assert java.uses_insecure_ssl_context(SECURE_CODE).is_closed()
-    assert java.uses_insecure_ssl_context(
-        CODE_DIR, exclude=["test"]
-    ).is_closed()
-    assert java.uses_insecure_ssl_context(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_insecure_rsa_closed():
-    """Search insecure RSA padding."""
-    assert java.uses_insecure_rsa(SECURE_CODE).is_closed()
-    assert java.uses_insecure_rsa(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_insecure_rsa(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_print_stack_trace_close():
-    """Search printStackTrace calls."""
-    assert java.uses_print_stack_trace(SECURE_CODE).is_closed()
-    assert java.uses_print_stack_trace(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_print_stack_trace(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_insecure_randoms_close():
@@ -223,13 +170,6 @@ def test_uses_des_algorithm_close():
     assert java.uses_des_algorithm(SECURE_CIPHER).is_closed()
     assert java.uses_des_algorithm(CODE_DIR, exclude=["test"]).is_closed()
     assert java.uses_des_algorithm(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_insecure_aes_close():
-    """Search AES encryption algorithm."""
-    assert java.uses_insecure_aes(SECURE_CIPHER).is_closed()
-    assert java.uses_insecure_aes(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_insecure_aes(NON_EXISTANT_CODE).is_unknown()
 
 
 def test_has_log_injection_close():
