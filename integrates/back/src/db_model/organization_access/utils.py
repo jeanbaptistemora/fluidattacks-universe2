@@ -1,6 +1,5 @@
 from .constants import (
     ORGANIZATION_ID_PREFIX,
-    STAKEHOLDER_PREFIX,
 )
 from .types import (
     OrganizationAccess,
@@ -19,10 +18,6 @@ def add_org_id_prefix(organization_id: str) -> str:
 
 def remove_org_id_prefix(organization_id: str) -> str:
     return organization_id.lstrip(ORGANIZATION_ID_PREFIX)
-
-
-def remove_stakeholder_prefix(email: str) -> str:
-    return email.lstrip(STAKEHOLDER_PREFIX)
 
 
 def format_organization_access(item: Item) -> OrganizationAccess:
