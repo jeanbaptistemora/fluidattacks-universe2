@@ -7,27 +7,33 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
 async def get_result(
-    *, user: str, event_id: str, reason: str, other: Optional[str]
+    *,
+    user: str,
+    event_id: str,
+    event_type: str,
+    affected_components: list[str],
 ) -> dict[str, Any]:
     query: str = f"""
-        mutation  UpdateEventSolvingReasonMutation(
-            $other: String
+        mutation  UpdateEventMutation(
+            $affectedComponents: [AffectedComponents]
         ){{
-            updateEventSolvingReason(
+            updateEvent(
                 eventId: "{event_id}"
-                reason: {reason}
-                other: $other
+                affectedComponents: $affectedComponents
+                eventType: {event_type}
             ) {{
                 success
             }}
         }}
     """
-    data: dict[str, Any] = {"query": query, "variables": {"other": other}}
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {"affectedComponents": affected_components},
+    }
     return await get_graphql_result(
         data,
         stakeholder=user,

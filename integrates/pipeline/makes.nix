@@ -89,6 +89,7 @@
     ["unsubscribe_from_group"]
     ["update_access_token"]
     ["update_credentials"]
+    ["update_event"]
     ["update_event_evidence"]
     ["update_event_solving_reason"]
     ["update_evidence_description"]

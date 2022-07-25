@@ -2257,6 +2257,33 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/integrates/back/test/functional__update_event:
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'update_event'
+  stage: test-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /integrates/back/test/functional__update_event_evidence:
   artifacts:
     expire_in: 1 day
@@ -3390,10 +3417,10 @@
     - /integrates/back/test/functional__unsubscribe_from_group
     - /integrates/back/test/functional__update_access_token
     - /integrates/back/test/functional__update_credentials
+    - /integrates/back/test/functional__update_event
     - /integrates/back/test/functional__update_event_evidence
     - /integrates/back/test/functional__update_event_solving_reason
     - /integrates/back/test/functional__update_evidence_description
-    - /integrates/back/test/functional__update_evidence
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
@@ -3421,6 +3448,7 @@
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_evidence
     - /integrates/back/test/functional__update_finding_description
     - /integrates/back/test/functional__update_forces_access_token
     - /integrates/back/test/functional__update_git_environments

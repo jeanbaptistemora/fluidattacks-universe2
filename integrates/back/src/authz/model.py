@@ -58,6 +58,7 @@ GROUP_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_mutations_submit_draft_mutate",
             "api_mutations_sync_git_root_mutate",
             "api_mutations_unsubscribe_from_group_mutate",
+            "api_mutations_update_event_mutate",
             "api_mutations_update_event_evidence_mutate",
             "api_mutations_update_event_solving_reason_mutate",
             "api_mutations_update_evidence_description_mutate",

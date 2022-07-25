@@ -51,7 +51,9 @@ async def mutate(
 ) -> SimplePayload:
     try:
         event_type = (
-            EventType[kwargs["event_type"]] if "event_type" in kwargs else None
+            EventType[kwargs["event_type"]]
+            if kwargs.get("event_type")
+            else None
         )
         affected_components = (
             set(
@@ -59,7 +61,7 @@ async def mutate(
                 for item in kwargs["affected_components"]
                 if item
             )
-            if "affected_components" in kwargs
+            if kwargs.get("affected_components")
             else None
         )
         event: Event = await info.context.loaders.event.load(event_id)
