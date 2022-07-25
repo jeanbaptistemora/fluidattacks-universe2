@@ -3,7 +3,7 @@ slug: trapdoors/
 title: Don't Let the Cat Out!
 date: 2019-01-08
 subtitle: Trapdoor functions and their importance in security
-category: math
+category: development
 tags: encryption, math, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331107/blog/trapdoors/cover_p6rsfq.webp
 alt: Photo by Sepehr on Unsplash

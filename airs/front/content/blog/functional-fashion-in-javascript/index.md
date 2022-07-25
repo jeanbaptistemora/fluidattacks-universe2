@@ -2,7 +2,7 @@
 slug: functional-fashion-in-javascript/
 title: Functional Fashion in JavaScript
 date: 2018-08-08
-category: programming
+category: development
 subtitle: Functional programming in JavaScript
 tags: application, functional, javascript, eslint
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330877/blog/functional-fashion-in-javascript/cover_ixmn8l.webp

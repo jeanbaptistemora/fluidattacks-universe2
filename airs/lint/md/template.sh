@@ -5,13 +5,10 @@ function check_md_blog_categories {
   local valid_categories=(
     attacks
     development
-    documentation
     interview
-    math
     opinions
     philosophy
     politics
-    programming
   )
 
   check_md_tag_exists "${path}" 'category' \

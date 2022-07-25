@@ -2,7 +2,7 @@
 slug: road-to-functional-python/
 title: Road to Functional Python
 date: 2018-07-27
-category: programming
+category: development
 subtitle: Functional coding in Python
 tags: application, functional, python, multiparadigm
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331067/blog/road-to-functional-python/cover_amvdni.webp

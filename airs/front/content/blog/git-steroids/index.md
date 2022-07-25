@@ -3,7 +3,7 @@ slug: git-steroids/
 title: Git on Steroids
 date: 2019-03-04
 subtitle: From messy logs to Data Analytics
-category: documentation
+category: politics
 tags: git, software, documentation, standard, engineering, business, linters
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
 alt: Computer with do what is great sign.

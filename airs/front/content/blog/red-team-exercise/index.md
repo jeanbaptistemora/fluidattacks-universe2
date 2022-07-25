@@ -2,7 +2,7 @@
 slug: red-team-exercise/
 title: Red Team Exercise
 date: 2019-09-18
-category: documentation
+category: philosophy
 subtitle: What is a Red Team exercise?
 tags: security, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/red-team-exercise/cover_kmvlzc.webp

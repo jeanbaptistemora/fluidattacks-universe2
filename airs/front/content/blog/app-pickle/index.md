@@ -3,7 +3,7 @@ slug: app-pickle/
 title: Is Your App in a Pickle?
 date: 2018-02-08
 subtitle: Documenting vulnerabilities with gherkin
-category: documentation
+category: development
 tags: documentation, vector, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/app-pickle/cover_cmww8t.webp
 alt: Cucumber slices

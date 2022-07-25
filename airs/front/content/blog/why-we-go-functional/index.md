@@ -2,7 +2,7 @@
 slug: why-we-go-functional/
 title: Why We Go Functional?
 date: 2018-07-23
-category: programming
+category: development
 subtitle: Functional vs Imperative
 tags: application, functional, imperative, stateless
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp

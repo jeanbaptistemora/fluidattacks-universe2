@@ -2,7 +2,7 @@
 slug: are-you-checking-types/
 title: Are You Checking Types?
 date: 2018-08-03
-category: programming
+category: development
 subtitle: Static type checking with mypy
 tags: application, functional, python, mypy
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/are-you-checking-types/cover_wrwgye.webp

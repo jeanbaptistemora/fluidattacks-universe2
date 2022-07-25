@@ -2,7 +2,7 @@
 slug: secure-infra-code/
 title: Secure Cloud as Code
 date: 2019-05-02
-category: programming
+category: philosophy
 subtitle: The weakest link in security is not the technology.
 tags: protect, information, business, cloud, security, flaw
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secure-infra-code/cover_fmeyzr.webp
