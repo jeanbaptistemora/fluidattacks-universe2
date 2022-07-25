@@ -25,7 +25,7 @@ const ResourcesSection: React.FC = (): JSX.Element => {
     },
     {
       image: "report-2022",
-      url: "https://try.fluidattacks.com/report/state-of-attacks-2022/",
+      url: "https://try.fluidattacks.com/state-of-attacks-2022/",
     },
     {
       image: "resource-4",

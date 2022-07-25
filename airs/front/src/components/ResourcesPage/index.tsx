@@ -51,7 +51,7 @@ const ResourcesPage: React.FC<IProps> = ({
       key: "card-16",
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report6Title"),
-      urlCard: "https://try.fluidattacks.com/report/state-of-attacks-2022/",
+      urlCard: "https://try.fluidattacks.com/state-of-attacks-2022/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
