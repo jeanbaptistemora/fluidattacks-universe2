@@ -3,7 +3,7 @@ slug: big-code/
 title: Big Code
 date: 2019-08-02
 subtitle: Learning from open source
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330671/blog/big-code/cover_gbuzvj.webp
 alt: Git. Photo by Yancy Min on Unsplash, https://unsplash.com/photos/842ofHC6MaI/

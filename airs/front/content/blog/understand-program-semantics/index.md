@@ -3,7 +3,7 @@ slug: understand-program-semantics/
 title: Understanding Program Semantics
 date: 2020-02-14
 subtitle: With symbolic execution
-category: machine-learning
+category: development
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understand-program-semantics/cover_pb9jml.webp
 alt: Photo by Fern M. Lomibao on Unsplash

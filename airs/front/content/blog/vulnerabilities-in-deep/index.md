@@ -2,7 +2,7 @@
 slug: vulnerabilities-in-deep/
 title: Vulnerabilities in Deep Learning
 date: 2019-09-23
-category: machine-learning
+category: development
 subtitle: Deep Learning for vulnerability disclosure
 tags: machine-learning, detect, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnerabilities-in-deep/cover_ihaxpf.webp

@@ -45,6 +45,16 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts related to the Attacks category.",
       title: "attacks",
     },
+    development: {
+      description:
+        "Posts on concepts and methods " +
+        "related to software development and security " +
+        "that may involve areas such as AI, " +
+        "machine learning and mathematics.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Development category.",
+      title: "development",
+    },
     interview: {
       description:
         "Cybersecurity experts and other guests answer questions " +

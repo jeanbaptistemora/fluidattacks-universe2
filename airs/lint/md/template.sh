@@ -4,19 +4,14 @@ function check_md_blog_categories {
   local target="${1}"
   local valid_categories=(
     attacks
-    challenges
+    development
     documentation
-    hacking
-    identity
     interview
-    machine-learning
     math
     opinions
     philosophy
     politics
     programming
-    social-engineering
-    techniques
   )
 
   check_md_tag_exists "${path}" 'category' \

@@ -3,7 +3,7 @@ slug: binary-learning/
 title: Binary Learning
 date: 2019-01-25
 subtitle: Learning to exploit binaries
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330672/blog/binary-learning/cover_ejwzaw.webp
 alt: Binary machine learning. Credits, https://unsplash.com/photos/h3sAF1cVURw

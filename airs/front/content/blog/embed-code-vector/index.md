@@ -3,7 +3,7 @@ slug: embed-code-vector/
 title: Embedding Code Into Vectors
 date: 2020-01-10
 subtitle: Vector representations of code
-category: machine-learning
+category: development
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/embed-code-vector/cover_ah0e4k.webp
 alt: Arrows vector field

@@ -3,7 +3,7 @@ slug: further-code2vec/
 title: Further Down Code2vec
 date: 2020-01-24
 subtitle: Vector representations of code
-category: machine-learning
+category: development
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/further-code2vec/cover_jjbv8j.webp
 alt: Target and darts

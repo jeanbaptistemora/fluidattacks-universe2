@@ -3,7 +3,7 @@ slug: natural-code/
 title: Natural Code
 date: 2019-07-26
 subtitle: Natural language processing for code security
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330956/blog/natural-code/cover_vftkoh.webp
 alt: 'Photo by Andres Urena on Unsplash. Credits: https://unsplash.com/photos/k1osF_h2fzA'

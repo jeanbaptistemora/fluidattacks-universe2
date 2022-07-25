@@ -3,7 +3,7 @@ slug: digression-regression/
 title: Digression to Regression
 date: 2019-10-02
 subtitle: Simple linear regression in scikit
-category: machine-learning
+category: development
 tags: machine-learning, python, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/digression-regression/cover_lmtulx.webp
 alt: Computer showing a graph

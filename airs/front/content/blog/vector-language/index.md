@@ -3,7 +3,7 @@ slug: vector-language/
 title: The Vectors of Language
 date: 2019-12-13
 subtitle: Distributed representations of natural language
-category: machine-learning
+category: development
 tags: machine-learning, security, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331138/blog/vector-language/cover_qccpkg.webp
 alt: Photo by Possessed Photography on Unsplash

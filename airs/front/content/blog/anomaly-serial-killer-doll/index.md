@@ -3,7 +3,7 @@ slug: anomaly-serial-killer-doll/
 title: The Anomaly Serial Killer Doll
 date: 2018-12-05
 subtitle: Hunting missing checks with anomaly detection
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/anomaly-serial-killer-doll/cover_k3xhjm.webp
 alt: The actual serial killer doll

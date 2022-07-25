@@ -3,7 +3,7 @@ slug: fool-machine/
 title: Fool the Machine
 date: 2019-08-13
 subtitle: Trick neural network classifiers
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330876/blog/fool-machine/cover_fbydkm.webp
 alt: 'Photo by KP Bodenstein on Unsplash: https://unsplash.com/photos/ElQI4kGSbiw'

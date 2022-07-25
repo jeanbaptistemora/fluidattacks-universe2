@@ -3,7 +3,7 @@ slug: deep-hacking/
 title: Deep Hacking
 date: 2019-01-25
 subtitle: Deep learning for vulnerability discovery
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330846/blog/deep-hacking/cover_oww6xm.webp
 alt: 'Depiction of a deep neural network. Credits: https://unsplash.com/photos/R84Oy89aNKs'

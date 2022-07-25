@@ -3,7 +3,7 @@ slug: machine-learning-hack/
 title: Machine-Learning to Hack
 date: 2018-11-07
 subtitle: Machine learning for vulnerability discovery
-category: machine-learning
+category: development
 tags: machine-learning, vulnerability, discovery
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/machine-learning-hack/cover_q6ydtc.webp
 alt: Can machines learn to hack?

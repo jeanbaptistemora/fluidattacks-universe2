@@ -3,7 +3,7 @@ slug: crash-course-machine-learning/
 title: Crash Course in Machine Learning
 date: 2018-11-19
 subtitle: A survey of machine learning algorithms
-category: machine-learning
+category: development
 tags: machine-learning, security, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
 alt: Robot playing the piano
