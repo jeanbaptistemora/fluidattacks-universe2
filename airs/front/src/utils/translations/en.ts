@@ -88,6 +88,15 @@ const pageTexts: ResourceKey = {
       title: "politics",
     },
   },
+  blogListTags: {
+    cybersecurity: {
+      description:
+        "Here we have the blog posts that use Cybersecurity as a tag.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts related to the Cybersecurity tag.",
+      title: "cybersecurity",
+    },
+  },
   categories: {
     dast: {
       paragraph:

@@ -1,3 +1,4 @@
+/* eslint react/forbid-component-props: 0 */
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
@@ -6,13 +7,13 @@ import { BlogTagList } from "../components/BlogTagList";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
-import { Title } from "../components/Texts";
+import { Paragraph, Title } from "../components/Texts";
 import {
   BlogPageArticle,
-  FlexCenterItemsContainer,
+  CenteredMaxWidthContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject } from "../utils/utilities";
+import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 
 const blogTagTemplate: React.FC<IQueryData> = ({
   pageContext,
@@ -25,17 +26,41 @@ const blogTagTemplate: React.FC<IQueryData> = ({
   const blogImage: string =
     "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632208/airs/bg-blog_bj0szx.png";
 
+  const data = [
+    {
+      description: translate.t("blogListTags.cybersecurity.description"),
+      metaDescription: translate.t(
+        "blogListTags.cybersecurity.metaDescription"
+      ),
+      title: translate.t("blogListTags.cybersecurity.title"),
+    },
+  ];
+
+  const tagDescription = data.find(
+    (tag): boolean => tag.title === tagName
+  )?.description;
+
+  const metaDescription = data.find(
+    (tag): boolean => tag.title === tagName
+  )?.metaDescription;
+
   return (
     <React.Fragment>
       <Seo
         description={translate.t("blog.description")}
         image={blogImage}
         keywords={translate.t("blog.keywords")}
-        title={`Blogs about ${tagName} | A Pentesting Company | Fluid Attacks`}
+        title={`Blogs about ${capitalizePlainString(
+          tagName
+        )} | A Pentesting Company | Fluid Attacks`}
         url={"https://fluidattacks.com/blog"}
       />
       <BlogSeo
-        description={translate.t("blog.description")}
+        description={
+          metaDescription === undefined
+            ? translate.t("blog.description")
+            : metaDescription
+        }
         image={blogImage}
         title={"Blog | A Pentesting Company | Fluid Attacks"}
         url={"https://fluidattacks.com/blog"}
@@ -51,11 +76,16 @@ const blogTagTemplate: React.FC<IQueryData> = ({
             crumbs={capitalizeObject(crumbs)}
           />
           <BlogPageArticle>
-            <FlexCenterItemsContainer>
+            <CenteredMaxWidthContainer className={"tc"}>
               <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
                 {tagName.charAt(0).toUpperCase() + tagName.slice(1)}
               </Title>
-            </FlexCenterItemsContainer>
+              {tagDescription === undefined ? undefined : (
+                <Paragraph fColor={"#2e2e38"} fSize={"24"}>
+                  {tagDescription}
+                </Paragraph>
+              )}
+            </CenteredMaxWidthContainer>
             <BlogTagList tagName={tagName} />
           </BlogPageArticle>
         </div>
