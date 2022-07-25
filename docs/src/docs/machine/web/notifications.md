@@ -335,6 +335,16 @@ SMS to the User Manager role.
 
 ![Agent Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1658770255/docs/web/notifications/notif_dev_agent_token.png)
 
+### Updated group information
+
+This notification will be generated
+if any information of the group
+is edited or modified.
+The User Manager role will
+be notified by email or SMS.
+
+![Updated Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1658771422/docs/web/notifications/notif_updated_group.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
