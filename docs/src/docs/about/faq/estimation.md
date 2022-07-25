@@ -35,7 +35,9 @@ on the plan you choose.
   1. Application type (i.e., mobile, web or desktop)
   1. Total input fields
   1. Requires authentication
-  1. Testing method (i.e., black, gray or white-box)
+  1. Testing method (i.e.,
+     [black](/about/glossary),
+     gray or [white-box](/about/glossary))
   1. Internet-connected application or
      internal network application
   1. Special installations by the client (e.g., specific

@@ -62,3 +62,20 @@ in the Scope section of a group.
 
 > **NOTE:**
 > This subsection of our documentation is under construction.
+
+## White box
+
+The white box is a service where
+the hacker has all the information
+privileges such as Git roots,
+credentials,
+source code and environments.
+
+## Black box
+
+The black box is a service where
+the hacker does not have access to
+source code or information of the
+IT structure of the project,
+having only access to IP and URL,
+environments being these services deployed.
