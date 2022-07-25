@@ -5,7 +5,7 @@ sidebar_label: Multiple Zones
 slug: /about/security/availability/multiple-zones
 ---
 
-[As cloud provider](development/stack/aws)
+[As cloud provider](/development/stack/aws)
 we benefit of
 [AWS global infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
 using multiple zones
