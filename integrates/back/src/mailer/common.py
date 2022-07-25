@@ -15,7 +15,6 @@ from context import (
     FI_TEST_PROJECTS,
 )
 from custom_exceptions import (
-    StakeholderNotFound,
     UnableToSendMail,
 )
 from db_model.stakeholders.types import (
@@ -44,9 +43,11 @@ from settings import (
 from simplejson.errors import (  # type: ignore
     JSONDecodeError,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 from typing import (
     Any,
-    List,
     Optional,
 )
 
@@ -54,14 +55,14 @@ logging.config.dictConfig(LOGGING)
 
 
 # Constants
-COMMENTS_TAG: List[str] = ["comments"]
-GENERAL_TAG: List[str] = ["general"]
+COMMENTS_TAG: list[str] = ["comments"]
+GENERAL_TAG: list[str] = ["general"]
 LOGGER_ERRORS = logging.getLogger(__name__)
 LOGGER_TRANSACTIONAL = logging.getLogger("transactional")
 TEMPLATES = Environment(
     loader=FileSystemLoader(FI_EMAIL_TEMPLATES), autoescape=True
 )
-VERIFY_TAG: List[str] = ["verify"]
+VERIFY_TAG: list[str] = ["verify"]
 
 
 def get_content(template_name: str, context: dict[str, Any]) -> str:
@@ -75,9 +76,9 @@ async def get_recipient_first_name(
     is_access_granted: bool = False,
 ) -> Optional[str]:
     first_name = email.split("@")[0]
-    try:
+    if await stakeholders_domain.exists(loaders, email):
         stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    except StakeholderNotFound:
+    else:
         stakeholder = Stakeholder(email=email)
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
@@ -108,7 +109,7 @@ async def send_mail_async(
     loaders: Any,
     email_to: str,
     context: dict[str, Any],
-    tags: List[str],
+    tags: list[str],
     subject: str,
     template_name: str,
     is_access_granted: bool = False,
@@ -162,9 +163,9 @@ async def send_mail_async(
 
 async def send_mails_async(  # pylint: disable=too-many-arguments
     loaders: Any,
-    email_to: List[str],
+    email_to: list[str],
     context: dict[str, Any],
-    tags: List[str],
+    tags: list[str],
     subject: str,
     template_name: str,
     is_access_granted: bool = False,
@@ -188,7 +189,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
 
 
 async def send_mail_confirm_deletion(
-    loaders: Any, email_to: List[str], context: dict[str, Any]
+    loaders: Any, email_to: list[str], context: dict[str, Any]
 ) -> None:
     await send_mails_async(
         loaders=loaders,

@@ -32,7 +32,6 @@ from custom_exceptions import (
     InvalidGroupTier,
     InvalidParameter,
     RepeatedValues,
-    StakeholderNotFound,
     StakeholderNotInOrganization,
 )
 from datetime import (
@@ -229,18 +228,18 @@ async def complete_register_for_group_invitation(
         )
     if not all(await collect(coroutines)):
         return False
-    try:
+    if await stakeholders_domain.exists(loaders, user_email):
         stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    except StakeholderNotFound:
+        if not stakeholder.is_registered:
+            await collect(
+                [
+                    stakeholders_domain.register(user_email),
+                    authz.grant_user_level_role(user_email, "user"),
+                ]
+            )
+    else:
         stakeholder = Stakeholder(email=user_email)
         await stakeholders_model.add(stakeholder=stakeholder)
-    if not stakeholder.is_registered:
-        await collect(
-            [
-                stakeholders_domain.register(user_email),
-                authz.grant_user_level_role(user_email, "user"),
-            ]
-        )
 
     redis_del_by_deps_soon(
         "confirm_access",
@@ -264,7 +263,7 @@ async def complete_register_for_organization_invitation(
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
-    user_added = await orgs_domain.add_stakeholder(
+    stakeholder_added = await orgs_domain.add_stakeholder(
         loaders, organization_id, email, role
     )
 
@@ -278,20 +277,18 @@ async def complete_register_for_organization_invitation(
         ),
     )
 
-    user_created = False
-    try:
-        await loaders.stakeholder.load(email)
-        user_exists = True
-    except StakeholderNotFound:
-        user_exists = False
-    if not user_exists:
-        user_created = await add_without_group(
+    stakeholder_created = False
+    stakeholder_exists = await stakeholders_domain.exists(loaders, email)
+    if not stakeholder_exists:
+        stakeholder_created = await add_without_group(
             email,
             "user",
             is_register_after_complete=True,
         )
 
-    success = user_added and any([user_created, user_exists])
+    success = stakeholder_added and any(
+        [stakeholder_created, stakeholder_exists]
+    )
     if success:
         redis_del_by_deps_soon(
             "confirm_access_organization",

@@ -1,12 +1,8 @@
-# None
-
-
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
     InvalidExpirationTime,
-    StakeholderNotFound,
 )
 from custom_types import (
     UpdateAccessTokenPayload,
@@ -34,6 +30,9 @@ from newutils import (
     logs as logs_utils,
     token as token_utils,
 )
+from stakeholders import (
+    domain as stakeholders_domain,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -48,18 +47,17 @@ async def mutate(
     responsible = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
 
-    user_email = forces_domain.format_forces_user_email(group_name)
-    try:
-        await loaders.stakeholder.load(user_email)
-    except StakeholderNotFound:
+    email = forces_domain.format_forces_user_email(group_name)
+    if not await stakeholders_domain.exists(loaders, email):
         logs_utils.cloudwatch_log(
             info.context,
             (
                 f'{user_info["user_email"]} try to update token for a user '
-                f"forces that does not exist {user_email}"
+                f"forces that does not exist {email}"
             ),
         )
         return UpdateAccessTokenPayload(success=False, session_jwt="")
+
     expiration_time = int(
         datetime_utils.get_now_plus_delta(days=180).timestamp()
     )
@@ -67,7 +65,7 @@ async def mutate(
         result = await groups_domain.update_forces_access_token(
             loaders=loaders,
             group_name=group_name,
-            email=user_email,
+            email=email,
             expiration_time=expiration_time,
             responsible=responsible,
         )
@@ -88,10 +86,11 @@ async def mutate(
                 info.context,
                 (
                     f'{user_info["user_email"]} store in secretsmanager '
-                    f"forces token for {user_email}"
+                    f"forces token for {email}"
                 ),
             )
             return UpdateAccessTokenPayload(success=True, session_jwt=result)
+
         logs_utils.cloudwatch_log(
             info.context,
             (
@@ -100,6 +99,7 @@ async def mutate(
             ),
         )
         return UpdateAccessTokenPayload(success=False, session_jwt=result)
+
     except InvalidExpirationTime as exc:
         logs_utils.cloudwatch_log(
             info.context,

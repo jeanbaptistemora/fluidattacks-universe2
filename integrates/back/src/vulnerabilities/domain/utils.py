@@ -2,7 +2,6 @@ import authz
 from custom_exceptions import (
     AcceptanceNotRequested,
     InvalidAssigned,
-    StakeholderNotFound,
 )
 from datetime import (
     datetime,
@@ -25,6 +24,9 @@ from db_model.vulnerabilities.types import (
 import html
 from newutils import (
     datetime as datetime_utils,
+)
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -102,9 +104,9 @@ async def get_valid_assigned(
     if not is_manager:
         assigned = user_email
     enforcer = await authz.get_group_level_enforcer(assigned)
-    try:
+    if await stakeholders_domain.exists(loaders, assigned):
         stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
-    except StakeholderNotFound:
+    else:
         stakeholder = Stakeholder(email=assigned)
     if (
         not enforcer(group_name, "valid_assigned")
