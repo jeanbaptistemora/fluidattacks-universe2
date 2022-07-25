@@ -600,7 +600,7 @@ async def main() -> None:
     if machine_queued:
         logging.info(
             "Machine execution queued for roots:\n\t%s",
-            "\t".join(roots_to_analyze),
+            "\n\t".join(roots_to_analyze),
         )
 
 
