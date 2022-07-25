@@ -91,7 +91,7 @@ from newutils import (
     token as token_utils,
 )
 from newutils.organization_access import (
-    format_invitation_state,
+    format_org_invitation_state,
 )
 from newutils.organizations import (
     add_org_id_prefix,
@@ -338,7 +338,9 @@ async def get_stakeholder_role(
     )
     if user_access.invitation:
         invitation: OrganizationInvitation = user_access.invitation
-        invitation_state = format_invitation_state(invitation, is_registered)
+        invitation_state = format_org_invitation_state(
+            invitation, is_registered
+        )
         if invitation_state == InvitiationState.PENDING:
             stakeholder_role = invitation.role
     else:

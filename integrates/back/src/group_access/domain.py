@@ -223,35 +223,6 @@ def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     return True
 
 
-async def get_invitation_state(
-    email: str,
-    group_name: str,
-    is_registered: bool,
-) -> str:
-    user_access = await get_user_access(email, group_name)
-    invitation: Item = user_access.get("invitation", {})
-    return stakeholders_utils.format_invitation_state(
-        invitation, is_registered
-    )
-
-
-async def get_responsibility(
-    email: str,
-    group_name: str,
-    is_registered: bool,
-) -> str:
-    user_access = await get_user_access(email, group_name)
-    invitation: Item = user_access.get("invitation", {})
-    invitation_state = stakeholders_utils.format_invitation_state(
-        invitation, is_registered
-    )
-    return (
-        invitation["responsibility"]
-        if invitation_state == "PENDING"
-        else user_access.get("responsibility", "")
-    )
-
-
 async def get_stakeholder_role(
     email: str,
     group_name: str,

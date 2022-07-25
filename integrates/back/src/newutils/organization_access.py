@@ -26,7 +26,7 @@ def remove_stakeholder_prefix(email: str) -> str:
     return email.lstrip(STAKEHOLDER_PREFIX)
 
 
-def format_invitation_state(
+def format_org_invitation_state(
     invitation: Optional[OrganizationInvitation], is_registered: bool
 ) -> str:
     if invitation and not invitation.is_used:
