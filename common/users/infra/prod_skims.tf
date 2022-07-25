@@ -157,6 +157,7 @@ locals {
               "sqs:UntagQueue",
               "sqs:AddPermission",
               "sqs:RemovePermission",
+              "sqs:ListQueues",
             ]
             Resource = [
               "*",
@@ -176,6 +177,7 @@ locals {
             ]
             Resource = [
               "arn:aws:sqs:us-east-1:205810638802:skims-*",
+              "arn:aws:sqs:us-east-1:205810638802:celery",
             ]
           },
           {
