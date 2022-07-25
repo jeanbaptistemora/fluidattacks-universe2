@@ -1,8 +1,10 @@
 from comments.dal import (
     delete,
-    get_comments,
 )
 import pytest
+from unittest import (
+    mock,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -11,10 +13,11 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_delete() -> None:
+    def side_effect(table_name: str, delete_attrs: dict) -> bool:
+        return bool(table_name and delete_attrs)
+
     finding_id = "500592001"
     comment_id = "1558048727932"
-    comments = await get_comments("comment", finding_id)
-
-    assert len(comments) >= 1
-    assert await delete(comment_id, finding_id)
-    assert len(await get_comments("comment", finding_id)) == 0
+    with mock.patch("comments.dal.dynamodb_ops.delete_item") as mock_delete:
+        mock_delete.side_effect = side_effect
+        assert await delete(comment_id, finding_id)
