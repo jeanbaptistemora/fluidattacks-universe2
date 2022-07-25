@@ -20,14 +20,11 @@ categorized by group.
 
 This section shows the
 percentages of closed,
-accepted and open
-vulnerabilities by their
-severity for your portfolios
-and how your numbers compare
-to those of the best,
-the average and the worst
-portfolios of all our other
-client organizations.
+accepted and open vulnerabilities.
+And how your numbers are
+compared to  the average
+and the worst portfolios
+of all organizations.
 
 ## Types of Vulnerabilities by Group
 
