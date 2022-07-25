@@ -1,5 +1,5 @@
-from api.schema import (
-    SDL_CONTENT,
+from api.utils.filters import (
+    filter_api_deprecation_dict,
 )
 from api.utils.types import (
     ApiDeprecation,
@@ -8,7 +8,6 @@ from custom_exceptions import (
     InvalidDateFormat,
 )
 from datetime import (
-    date,
     datetime,
 )
 from graphql import (
@@ -28,18 +27,18 @@ from typing import (
 )
 
 
-def get_due_date(reason: str) -> date:
+def get_due_date(reason: str) -> datetime:
     """
     Searches the deprecation reason for a date in the format `YYYY/MM/DD`.
     If none is found, raises an error
     """
     match = search(r"\d{4}/\d{2}/\d{2}", reason)
     if match:
-        return datetime.strptime(match.group(), "%Y/%m/%d").date()
+        return datetime.strptime(match.group(), "%Y/%m/%d")
     raise InvalidDateFormat(
         expr=(
             "No deprecation date in the format YYYY/MM/DD found in reason "
-            f"{reason}"
+            f"'{reason}'"
         )
     )
 
@@ -102,8 +101,12 @@ def _search_directives(
     return deprecations
 
 
-def parse_schema_deprecations() -> None:
-    schema_ast: DocumentNode = parse(SDL_CONTENT)
+def parse_schema_deprecations(
+    sdl_content: str,
+) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
+    """Parses the SDL content and returns a couple of dicts (`enums`,
+    `operations`) with all the deprecations found in the respective schema"""
+    schema_ast: DocumentNode = parse(sdl_content)
     enums: dict[str, list[ApiDeprecation]] = {}
     operations: dict[str, list[ApiDeprecation]] = {}
 
@@ -116,3 +119,15 @@ def parse_schema_deprecations() -> None:
 
         if isinstance(definition, InputObjectTypeDefinitionNode):
             _search_directives(definition, operations, False)
+    return (enums, operations)
+
+
+def get_deprecations_by_period(
+    sdl_content: str, end: datetime, start: Optional[datetime]
+) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
+    """Gets the deprecations found in the schema within a time period"""
+    (enums, operations) = parse_schema_deprecations(sdl_content)
+    return (
+        filter_api_deprecation_dict(enums, end, start),
+        filter_api_deprecation_dict(operations, end, start),
+    )

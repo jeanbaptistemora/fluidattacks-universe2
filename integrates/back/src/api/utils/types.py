@@ -1,5 +1,5 @@
 from datetime import (
-    date,
+    datetime,
 )
 from typing import (
     NamedTuple,
@@ -10,5 +10,5 @@ class ApiDeprecation(NamedTuple):
     parent: str
     field: str
     reason: str
-    due_date: date
+    due_date: datetime
     type: str

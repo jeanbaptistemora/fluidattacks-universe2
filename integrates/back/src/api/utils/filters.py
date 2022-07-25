@@ -2,7 +2,7 @@ from api.utils.types import (
     ApiDeprecation,
 )
 from datetime import (
-    date,
+    datetime,
 )
 from operator import (
     attrgetter,
@@ -12,10 +12,12 @@ from typing import (
 )
 
 
-def sort_and_filter_deprecations(
-    deprecations: list[ApiDeprecation], end: date, start: Optional[date]
+def filter_api_deprecation_list(
+    deprecations: list[ApiDeprecation],
+    end: datetime,
+    start: Optional[datetime],
 ) -> list[ApiDeprecation]:
-    """Filters deprecations between the start and end dates (inclusive)"""
+    """Filters API deprecations between the start and end dates (inclusive)"""
     filtered_deprs: list[ApiDeprecation] = []
     if start:
         filtered_deprs = [
@@ -31,3 +33,21 @@ def sort_and_filter_deprecations(
         ]
 
     return sorted(filtered_deprs, key=attrgetter("parent", "field"))
+
+
+def filter_api_deprecation_dict(
+    depr_dict: dict[str, list[ApiDeprecation]],
+    end: datetime,
+    start: Optional[datetime],
+) -> dict[str, list[ApiDeprecation]]:
+    """Filters API deprecation dicts between the start and end dates
+    (inclusive)"""
+    filtered_deprs = {
+        parent: filter_api_deprecation_list(api_deprecations, end, start)
+        for parent, api_deprecations in sorted(depr_dict.items())
+    }
+    return {
+        parent: filtered_api_deprecations
+        for parent, filtered_api_deprecations in filtered_deprs.items()
+        if filtered_api_deprecations
+    }
