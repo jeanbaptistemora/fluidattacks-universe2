@@ -4,7 +4,7 @@ title: Crash Course in Machine Learning
 date: 2018-11-19
 subtitle: A survey of machine learning algorithms
 category: development
-tags: machine-learning, security, application
+tags: machine-learning, cybersecurity, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330839/blog/crash-course-machine-learning/cover_itk4eg.webp
 alt: Robot playing the piano
 description: In this article, we give a high-level view of each of the most important ML algorithms that have a relevant application in information security.

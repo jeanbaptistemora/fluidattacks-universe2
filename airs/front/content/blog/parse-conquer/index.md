@@ -4,7 +4,7 @@ title: Parse and Conquer
 date: 2019-05-07
 subtitle: Why Asserts uses Parser combinators
 category: attacks
-tags: software, security, code
+tags: software, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/parse-conquer/cover_avf8fy.webp
 alt: Photo by Markus Spiske on Unsplash
 description: 'For this blog post, we rely on the following question: Why does Asserts use parser combinators as its main static code analysis tool?'

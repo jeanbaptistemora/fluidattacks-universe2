@@ -4,7 +4,7 @@ title: State of Cybersecurity 2020-21, II
 date: 2020-11-20
 subtitle: Current trends in prevention
 category: opinions
-tags: security, cybersecurity, trends, security-testing, technology, company
+tags: cybersecurity, trends, security-testing, technology, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-2020-21-ii/cover_xfilrs.webp
 alt: Photo by Jr Korpa on Unsplash
 description: In this second part of the state of cybersecurity 2020-21, we want to share with you some highlights of the current trends in prevention.

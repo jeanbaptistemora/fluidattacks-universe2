@@ -4,7 +4,7 @@ title: Debug Like a Boss
 date: 2019-11-09
 subtitle: Should CEOs discuss software defects?
 category: philosophy
-tags: business, security, company
+tags: business, cybersecurity, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/ceo-bugs/cover_o47lbb.webp
 alt: Broken blue ceramic plate on Unsplash, https://unsplash.com/photos/WdJkXFQ4VHY
 description: Software quality management, including security weaknesses, has become of strategic relevance. Here we discuss an article calling for CEOs' attention to bugs.

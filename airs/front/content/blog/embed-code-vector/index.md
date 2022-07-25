@@ -4,7 +4,7 @@ title: Embedding Code Into Vectors
 date: 2020-01-10
 subtitle: Vector representations of code
 category: development
-tags: machine-learning, security, code
+tags: machine-learning, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330869/blog/embed-code-vector/cover_ah0e4k.webp
 alt: Arrows vector field
 description: Here we discuss code2vec relation with word2vec and autoencoders to grasp better how feasible it is to represent code as vectors, which is our main interest.

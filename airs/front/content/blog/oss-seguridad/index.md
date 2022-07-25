@@ -4,7 +4,7 @@ title: ¿Seguros por estar en una cueva?
 date: 2020-11-05
 subtitle: Seguridad del OSS — Fluid Attacks como claro ejemplo
 category: philosophy
-tags: security, cybersecurity, code, software, company, business
+tags: cybersecurity, code, software, company, business
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330967/blog/oss-seguridad/cover_mpada0.webp
 alt: Photo by Karsten Winegeart on Unsplash
 description: Queremos recordarte que ocultar el código fuente de tus apps a menudo puede proporcionarte una ilusión de seguridad y que el OSS es una valiosa alternativa.

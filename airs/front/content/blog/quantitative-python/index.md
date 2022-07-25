@@ -4,7 +4,7 @@ title: Quantitative Python
 date: 2019-04-09
 subtitle: Risk management with Python
 category: philosophy
-tags: business, security, risk
+tags: business, cybersecurity, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330978/blog/quantitative-python/cover_budpkw.webp
 alt: Photo by M. B. M. on Unsplash
 description: Learn how to implement risk management tools and ideas like the loss exceedance curve and value-at-risk in Python using numerical and data analysis ecosystem.

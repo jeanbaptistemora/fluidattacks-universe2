@@ -4,7 +4,7 @@ title: Storing Passwords Safely
 date: 2017-01-02
 category: attacks
 subtitle: Solving Yashira hash challenge 3
-tags: password, security, challenge
+tags: password, cybersecurity, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331103/blog/storing-password-safely/cover_qrhopx.webp
 alt: Photo by Arget on Unsplash
 description: Hash algorithms can be cracked using huge databases with hashed common words. It's essential to know how to properly secure your data before storing it.

@@ -4,7 +4,7 @@ title: Babuk Locker for the 2021
 date: 2021-01-14
 subtitle: The first ransomware (as a gift) for this new year
 category: attacks
-tags: software, security, vulnerability, hacking, mistake
+tags: software, cybersecurity, vulnerability, hacking, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330676/blog/babuk-locker/cover_dy5uwm.webp
 alt: Photo by Guido Hofmann on Unsplash
 description: Here's a post dedicated to the new form of ransomware, Babuk Locker. I mention its encryption scheme, its injection, operation, and other basic things about it.

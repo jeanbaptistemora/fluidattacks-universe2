@@ -4,7 +4,7 @@ title: Safer, Cheaper and Defter
 date: 2021-07-12
 subtitle: Why must companies comply with GDPR policies?
 category: politics
-tags: policies, company, information, security, software, protect
+tags: policies, company, information, cybersecurity, software, protect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392094/blog/gdpr-compliance/cover-gdpr-compliance_ak5cfl.webp
 alt: Photo by Tushar Mahajan on Unsplash
 description: In this post, we will learn what GDPR is and why it is essential for your company to comply with its policies.

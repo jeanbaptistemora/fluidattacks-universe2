@@ -4,7 +4,7 @@ title: Respond the Name
 date: 2020-03-31
 category: attacks
 subtitle: Attacking a network using Responder
-tags: security, windows, vulnerability, credential
+tags: cybersecurity, windows, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331057/blog/respond-the-name/cover_uuwp7r.webp
 alt: Photo by Bundo Kim on Unsplash
 description: Windows hosts use LLMNR and NBT-NS for name resolution on the local network. These protocols do not verify addresses, and here we detail how to exploit this.

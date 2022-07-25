@@ -4,7 +4,7 @@ title: Bankrupt by Wrong Cybersecurity!
 date: 2020-01-13
 subtitle: How some firms (especially SMBs) can go broke
 category: philosophy
-tags: business, security, company, vulnerability
+tags: business, cybersecurity, company, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331097/blog/smbs-bankruptcy/cover_ug1ssj.webp
 alt: Photo by NeONBRAND on unplash
 description: Do companies go bankrupt by a cybersecurity breach? Some people assure there is no evidence about it. In this blog post, we tried to dig deeper.

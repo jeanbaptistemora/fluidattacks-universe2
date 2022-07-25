@@ -4,7 +4,7 @@ title: Caution! Your Password Can Be Mine
 date: 2020-01-17
 subtitle: A very short introduction to password cracking
 category: attacks
-tags: password, security, vulnerability, hacking, mistake
+tags: password, cybersecurity, vulnerability, hacking, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330973/blog/pass-cracking/cover_wslpjd.webp
 alt: Photo by Arteum.ro on Unsplash
 description: After I wrote this post, I decided to change some of my most important passwords, and after you read it, we think you might want to modify your passwords too.

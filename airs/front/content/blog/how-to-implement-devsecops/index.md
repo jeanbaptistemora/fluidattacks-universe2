@@ -4,7 +4,7 @@ title: How to Implement DevSecOps
 date: 2022-06-28
 subtitle: Learn with Fluid Attacks about adopting this culture
 category: philosophy
-tags: security, cybersecurity, devops, software, trends, security-testing
+tags: cybersecurity, devops, software, trends, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1656436774/blog/how-to-implement-devsecops/cover-devsecops-fluid-attacks.webp
 alt: Photo by Mikhail Vasilyev on Unsplash
 description: Fluid Attacks brings you a complete guide on how to implement DevSecOps, including basic steps, challenges and best techniques.

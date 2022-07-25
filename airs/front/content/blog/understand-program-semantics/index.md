@@ -4,7 +4,7 @@ title: Understanding Program Semantics
 date: 2020-02-14
 subtitle: With symbolic execution
 category: development
-tags: machine-learning, security, code
+tags: machine-learning, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understand-program-semantics/cover_pb9jml.webp
 alt: Photo by Fern M. Lomibao on Unsplash
 description: Here's a reflection on the need to represent code before actually feeding it into neural network based encoders, such as code2vec, word2vec, and code2seq.

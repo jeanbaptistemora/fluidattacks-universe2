@@ -4,7 +4,7 @@ title: Sastisfying App Security
 date: 2019-09-29
 category: development
 subtitle: An introduction to SAST
-tags: security, testing
+tags: cybersecurity, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331073/blog/sastisfying-app-security/cover_pbcyaf.webp
 alt: Photo by Lagos Techie on Unsplash
 description: This blog post is an introduction to SAST. We share the concept, how SAST works, its types, history, and some of the benefits of implementing it in projects.

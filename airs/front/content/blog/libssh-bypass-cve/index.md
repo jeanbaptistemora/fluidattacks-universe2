@@ -4,7 +4,7 @@ title: LibSSH New Vulnerability
 date: 2018-10-18
 category: attacks
 subtitle: New vulnerability on libssh CVE-2018-10933
-tags: security, bug, libssh, pentesting
+tags: cybersecurity, bug, libssh, pentesting
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330935/blog/libssh-bypass-cve/cover_ad5zp7.webp
 alt: Painting a red and blue wall
 description: Here, we will explain a vulnerability that allows a remote attacker to bypass authentication by sending a user-authenticated packet to the server.

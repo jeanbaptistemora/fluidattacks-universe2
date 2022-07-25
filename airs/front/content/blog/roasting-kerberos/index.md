@@ -4,7 +4,7 @@ title: Roasting Kerberos
 date: 2019-08-05
 category: attacks
 subtitle: Attacking a DC using kerberoast
-tags: security, windows, vulnerability, credential
+tags: cybersecurity, windows, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331068/blog/roasting-kerberos/cover_ddb50u.webp
 alt: Photo by hcmorr on Unsplash
 description: Windows Active Directory works using the Kerberos protocol, and in this blog post, we detail how we can exploit its functionality to obtain user hashes.

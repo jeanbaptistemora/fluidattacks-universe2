@@ -4,7 +4,7 @@ title: Symbolic Execution for Mortals
 date: 2017-05-04
 category: attacks
 subtitle: What it is and how it works
-tags: security, test, software
+tags: cybersecurity, test, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/symbolic-execution-mortals/cover_wgcfrh.webp
 alt: Photo by Agence Olloweb on Unsplash
 description: In this article, we intend to explain an approach to symbolic execution, which is very useful when dealing with software assessment.

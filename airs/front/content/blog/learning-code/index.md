@@ -4,7 +4,7 @@ title: Learning How to Code
 date: 2019-08-16
 subtitle: A chat with Ricardo Yepes. Part 2
 category: interview
-tags: devops, training, security
+tags: devops, training, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/learning-code/cover_xsymsp.webp
 alt: Bookshelf with some books
 description: In this post, the second part of our interview with Ricardo Yepes, we address topics such as cybersecurity, academic research, a learning platform, and more.

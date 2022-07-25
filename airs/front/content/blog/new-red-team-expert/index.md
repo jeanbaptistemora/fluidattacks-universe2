@@ -4,7 +4,7 @@ title: A New Red Team Expert
 date: 2020-06-08
 subtitle: A short interview with Daniel Yepes
 category: interview
-tags: interview, red-team, windows, software, cybersecurity, security
+tags: interview, red-team, windows, software, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330961/blog/new-red-team-expert/cover_y5115t.webp
 alt: Photo by Gary Bendig on Unsplash
 description: We talked to Daniel Yepes, a colleague who recently achieved his certificate as a Red Team Expert. He shared his experience and tips to obtain that certificate.

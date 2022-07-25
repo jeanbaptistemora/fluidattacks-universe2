@@ -4,7 +4,7 @@ title: Act Now, Be Thankful Later
 date: 2022-03-31
 subtitle: Do you have an incident response plan already?
 category: philosophy
-tags: cybersecurity, risk, company, training, security
+tags: cybersecurity, risk, company, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1648734184/blog/incident-response-plan/cover_incident.webp
 alt: Photo by Mulyadi on Unsplash
 description: Organizations need to realize that they are always at risk of suffering cyberattacks and it is of utmost importance that they have a plan for when that happens.

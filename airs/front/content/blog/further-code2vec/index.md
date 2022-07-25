@@ -4,7 +4,7 @@ title: Further Down Code2vec
 date: 2020-01-24
 subtitle: Vector representations of code
 category: development
-tags: machine-learning, security, code
+tags: machine-learning, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330878/blog/further-code2vec/cover_jjbv8j.webp
 alt: Target and darts
 description: Here is a tutorial on the usage of code2vec to predict method names, determine the accuracy of the model, and exporting the corresponding vector embeddings.

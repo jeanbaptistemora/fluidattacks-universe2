@@ -4,7 +4,7 @@ title: Alert! "Invisible" Doors Opened
 date: 2021-10-28
 subtitle: Focus on what is being more exploited
 category: attacks
-tags: vulnerability, hacking, software, exploit, risk, security
+tags: vulnerability, hacking, software, exploit, risk, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1635442529/blog/close-invisible-doors/cover_doors.webp
 alt: Photo by Nastya Dulhiier on Unsplash
 description: It is just a matter of updating or changing software. However, unnoticed vulnerable software equals an open door for criminals.

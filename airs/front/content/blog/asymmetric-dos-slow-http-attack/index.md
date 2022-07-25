@@ -4,7 +4,7 @@ title: Asymmetric DoS, Slow HTTP Attack
 date: 2018-11-15
 category: attacks
 subtitle: The story of David and Goliath
-tags: security, vulnerability
+tags: cybersecurity, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330667/blog/asymmetric-dos-slow-http-attack/cover_hdty39.webp
 alt: greek statue with small angels.
 description: Here you'll learn how a slow HTTP attack works, how to inspect HTTP requests and responses, and you'll see how to perform an asymmetric denial of service.

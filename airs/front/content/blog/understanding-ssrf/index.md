@@ -4,7 +4,7 @@ title: Understanding SSRF
 date: 2020-05-06
 category: attacks
 subtitle: Attacking a web server using SSRF
-tags: security, web, vulnerability, ethical-hacking
+tags: cybersecurity, web, vulnerability, ethical-hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331136/blog/understanding-ssrf/cover_srzscf.webp
 alt: Photo by Hannah Gibbs on Unsplash
 description: Here we will see what a Server Side Request Forgery is, how hackers can exploit it, and what are the best ways to protect against this attack.

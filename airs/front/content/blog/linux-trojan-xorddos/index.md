@@ -4,7 +4,7 @@ title: XOR DDoS, Top Threat to Linux Today
 date: 2022-05-26
 subtitle: How does this clever Linux Trojan operate?
 category: attacks
-tags: cybersecurity, risk, password, credential, mistake, security
+tags: cybersecurity, risk, password, credential, mistake
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1653575325/blog/linux-trojan-xorddos/cover_xorddos.webp
 alt: Photo by Jez Timms on Unsplash
 description: Reportedly, the last six months have seen a 254% surge in this Linux Trojan's activity. Read this post to learn what it is and what should be done about it.

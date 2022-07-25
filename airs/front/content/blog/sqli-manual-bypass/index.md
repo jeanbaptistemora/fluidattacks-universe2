@@ -4,7 +4,7 @@ title: Manual SQLi Bypass
 date: 2020-05-20
 category: attacks
 subtitle: Bypassing SQLi filters manually
-tags: security, web, vulnerability, ethical-hacking
+tags: cybersecurity, web, vulnerability, ethical-hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/sqli-manual-bypass/cover_mbogji.webp
 alt: Photo by Kuma Kum on Unsplash
 description: SQL injection can be one of the most dangerous vulnerabilities. Here we will see how to bypass certain controls that developers put in their code.

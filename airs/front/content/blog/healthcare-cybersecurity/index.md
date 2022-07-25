@@ -4,7 +4,7 @@ title: HealthTech Protection
 date: 2019-09-16
 subtitle: How healthcare breakthroughs could help cybersecurity
 category: philosophy
-tags: business, security, healthcare, operations
+tags: business, cybersecurity, healthcare, operations
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330907/blog/healthcare-cybersecurity/cover_v8na5i.webp
 alt: Digital heart beat monitor on Unsplash https://unsplash.com/photos/0lrJo37r6Nk
 description: In this blog post, we explore how simple yet incredibly effective healthcare practices could inform better cybersecurity operations.

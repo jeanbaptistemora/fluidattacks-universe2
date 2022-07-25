@@ -4,7 +4,7 @@ title: Para Bellum
 date: 2019-03-26
 subtitle: Prepare for the worst risk
 category: philosophy
-tags: business, security, risk
+tags: business, cybersecurity, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/para-bellum/cover_gejzbf.webp
 alt: Photo by Tommaso Pecchioli on Unsplash
 description: This blog post is focused on Value at Risk (VaR), a measure of the risk of loss in the context of uncertainty, v.g., for investment.

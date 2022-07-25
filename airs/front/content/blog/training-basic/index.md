@@ -4,7 +4,7 @@ title: We Need More Training in Basics
 date: 2019-08-15
 subtitle: A chat with Ricardo Yepes. Part 1.
 category: interview
-tags: devops, training, security
+tags: devops, training, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/training-basic/cover_adnkzv.webp
 alt: Photo by NeONBRAND on Unsplash
 description: We spoke to the DevOps engineer Ricardo Yepes recently, and he shared his current vision of cybersecurity. Here is the first part of our conversation.

@@ -4,7 +4,7 @@ title: Can Code Be translated?
 date: 2020-01-31
 subtitle: From code to words
 category: development
-tags: machine-learning, security, code
+tags: machine-learning, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/code-translate/cover_wmd0zp.webp
 alt: Book in two languages
 description: Here we talk about Code2seq, which differs in adapting neural machine translation techniques to the task of mapping a snippet of code to a sequence of words.

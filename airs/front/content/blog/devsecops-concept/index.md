@@ -5,7 +5,7 @@ date: 2020-05-14
 modified: 2022-06-13
 subtitle: Best practices and a description of the basics
 category: philosophy
-tags: security, devops, software, training, company, cybersecurity
+tags: cybersecurity, devops, software, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330852/blog/devsecops-concept/cover_c4reuk.webp
 alt: Photo by Sebastian Pena Lambarri on Unsplash
 description: Learn about what DevSecOps is, its importance, how it differs from DevOps, and its advantages on IT security for continuous delivery, testing and deployment.

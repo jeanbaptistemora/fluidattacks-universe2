@@ -4,7 +4,7 @@ title: State of Cybersecurity 2020-21, III
 date: 2020-11-24
 subtitle: Glimpsing the trends for 2021
 category: opinions
-tags: security, cybersecurity, trends, security-testing, technology, company
+tags: cybersecurity, trends, security-testing, technology, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330843/blog/cybersecurity-2020-21-iii/cover_rhdzrv.webp
 alt: Photo by Jr Korpa on Unsplash
 description: In this final part of the state of cybersecurity 2020-21, we want to share with you some predictions and possible trends in cybersecurity for 2021.

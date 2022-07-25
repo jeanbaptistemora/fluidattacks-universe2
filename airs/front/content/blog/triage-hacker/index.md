@@ -4,7 +4,7 @@ title: Triage for Hackers
 date: 2019-10-18
 subtitle: Prioritize code auditing via ML
 category: development
-tags: machine-learning, security, code
+tags: machine-learning, cybersecurity, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331128/blog/triage-hacker/cover_qqfqe2.webp
 alt: Photo by camilo jimenez on Unsplash
 description: This post is a high-level review of our previous discussion concerning machine learning techniques applied to vulnerability discovery and exploitation.

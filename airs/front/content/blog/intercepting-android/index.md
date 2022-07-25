@@ -4,7 +4,7 @@ title: Intercepting Android
 date: 2019-10-23
 category: attacks
 subtitle: Intercept applications in newer Android phones
-tags: security, android, application, pentesting
+tags: cybersecurity, android, application, pentesting
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330925/blog/intercepting-android/cover_d3ec8a.webp
 alt: 'Turned on Android smartphone. Photo by Pathum Danthanarayana on Unsplash: https://unsplash.com/photos/t8TOMKe6xZU'
 description: Android is one of the most suitable targets for hackers. Here we show how to intercept Android apps' web traffic by installing a self-signed certificate.
