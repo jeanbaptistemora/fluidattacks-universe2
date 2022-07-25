@@ -2,7 +2,7 @@
 slug: post-quantum-cryptography-algorithms/
 title: Approved Post-Quantum Cryptography?
 date: 2022-07-22
-subtitle: NIST has chosen four algorithms; let's learn about it
+subtitle: NIST chose four algorithms, and four others are pending
 category: politics
 tags: encryption, standard, protect, information, cybersecurity, technology
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1658499864/blog/post-quantum-cryptography-algorithms/cover_post-quantum-cryptography-algorithms.webp
