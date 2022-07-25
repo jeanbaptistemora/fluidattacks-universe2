@@ -580,6 +580,7 @@ const Machine = [
           'machine/web/analytics/chart-options',
         ],
       },
+      'machine/web/stakeholders',
     ],
   },
   {
