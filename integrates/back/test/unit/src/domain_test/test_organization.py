@@ -50,7 +50,6 @@ from organizations.domain import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 # Run async tests
@@ -236,37 +235,44 @@ async def test_get_or_create() -> None:
     assert not_existent_org
 
 
-async def test_get_user_organizations() -> None:
-    loaders = get_new_context()
-    user = "integratesmanager@gmail.com"
+async def test_get_stakeholder_organizations() -> None:
+    loaders: Dataloaders = get_new_context()
+    stakeholder_email = "integratesmanager@gmail.com"
     expected_orgs = [
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
         "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac",  # NOSONAR
         "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
         "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1",  # NOSONAR
     ]
-    user_orgs = await loaders.stakeholder_organizations_access.load(user)
-    user_orgs_ids = [org.organization_id for org in user_orgs]
-    assert sorted(user_orgs_ids) == expected_orgs
+    stakeholder_orgs_access = (
+        await loaders.stakeholder_organizations_access.load(stakeholder_email)
+    )
+    stakeholder_orgs_ids = [
+        org.organization_id for org in stakeholder_orgs_access
+    ]
+    assert sorted(stakeholder_orgs_ids) == expected_orgs
 
     assert (
         await loaders.stakeholder_organizations_access.load(
-            "madeupuser@gmail.com"
+            "madeupstakeholder@gmail.com"
         )
         == ()  # NOSONAR
     )
 
 
-async def test_get_users() -> None:
+async def test_get_org_stakeholders() -> None:
+    loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    users = await orgs_domain.get_users(org_id)
-    expected = [
+    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
+    org_stakeholders_emails = sorted(
+        [stakeholder.email for stakeholder in org_stakeholders]
+    )
+
+    expected_emails = [
         "continuoushack2@gmail.com",
         "continuoushacking@gmail.com",
         "customer_manager@fluidattacks.com",
         "forces.unittesting@fluidattacks.com",
-        "integratesuser2@fluidattacks.com",
-        "integratesuser2@gmail.com",
         "integrateshacker@fluidattacks.com",
         "integratesmanager@fluidattacks.com",
         "integratesmanager@gmail.com",
@@ -274,13 +280,22 @@ async def test_get_users() -> None:
         "integratesresourcer@fluidattacks.com",
         "integratesreviewer@fluidattacks.com",
         "integratesserviceforces@gmail.com",
+        "integratesuser2@fluidattacks.com",
+        "integratesuser2@gmail.com",
         "integratesuser@gmail.com",
         "unittest2@fluidattacks.com",
         "vulnmanager@gmail.com",
     ]
-    assert len(users) == 17
-    for user in expected:
-        assert user in users
+    assert len(org_stakeholders_emails) == 17
+    for email in expected_emails:
+        assert email in org_stakeholders_emails
+
+    second_stakeholders_emails = sorted(
+        await orgs_domain.get_stakeholders_emails(loaders, org_id)
+    )
+    assert len(second_stakeholders_emails) == 17
+    for email in expected_emails:
+        assert email in second_stakeholders_emails
 
 
 async def test_has_group() -> None:
@@ -478,7 +493,7 @@ async def test_iterate_organizations() -> None:
 
 async def test_iterate_organizations_and_groups() -> None:
     loaders: Dataloaders = get_new_context()
-    expected_organizations_and_groups: Dict[str, Any] = {
+    expected_organizations_and_groups: dict[str, Any] = {
         "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3": {
             "okada": ["oneshottest", "continuoustesting", "unittesting"]
         },

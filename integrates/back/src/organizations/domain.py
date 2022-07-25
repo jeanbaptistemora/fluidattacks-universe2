@@ -166,7 +166,6 @@ async def add_group_access(
     loaders: Any, organization_id: str, group_name: str
 ) -> bool:
     users = await get_stakeholders_emails(loaders, organization_id)
-    print(users)
     users_roles = await collect(
         authz.get_organization_level_role(user, organization_id)
         for user in users
@@ -350,10 +349,6 @@ async def get_stakeholder_role(
     return stakeholder_role
 
 
-async def get_users(organization_id: str) -> list[str]:
-    return await orgs_dal.get_users(organization_id)
-
-
 async def get_stakeholders(
     loaders: Any, organization_id: str
 ) -> tuple[Stakeholder, ...]:
@@ -374,11 +369,11 @@ async def get_stakeholders(
 async def get_stakeholders_emails(
     loaders: Any, organization_id: str
 ) -> list[str]:
-    org_access: tuple[Stakeholder, ...] = await get_stakeholders(
+    org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
         loaders, organization_id
     )
 
-    return [stakeholder.email for stakeholder in org_access]
+    return [stakeholder.email for stakeholder in org_stakeholders]
 
 
 async def has_group(
