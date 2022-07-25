@@ -6,6 +6,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    date,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -96,14 +99,20 @@ async def missing_environment_alert() -> None:
 
     if group_names:
         for group in group_names:
-            if not await has_environment(loaders, group):
-                group_date_delta: int = (
-                    datetime_utils.get_now().date()
-                    - datetime_utils.get_date_from_iso_str(
-                        await get_creation_date(loaders, group)
-                    )
-                ).days // 7
-                await _send_mail_report(loaders, group, group_date_delta)
+            creation_date: date = datetime_utils.get_date_from_iso_str(
+                await get_creation_date(loaders, group)
+            )
+            group_date_delta: int = (
+                datetime_utils.get_now().date() - creation_date
+            ).days
+            if (
+                not await has_environment(loaders, group)
+                and group_date_delta > 0
+                and (group_date_delta % 30 == 0 or group_date_delta == 7)
+            ):
+                await _send_mail_report(
+                    loaders, group, (group_date_delta // 7)
+                )
     else:
         LOGGER.info("- environment alert NOT sent")
         return
