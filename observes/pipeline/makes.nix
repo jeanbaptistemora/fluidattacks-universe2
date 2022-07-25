@@ -45,7 +45,7 @@
   };
   # new standard
   index = inputs.observesIndex;
-  pkgTargets = with index; [
+  std_pkgs = with index; [
     common.asm_dal
     etl.dynamo
     service.batch_stability
@@ -54,6 +54,7 @@
     tap.checkly
     tap.dynamo
     tap.gitlab
+    target.s3
   ];
   _if_exists = attrs: key: gitlabExtra:
     if builtins.hasAttr key attrs
@@ -71,7 +72,7 @@
     run_check = _if_exists pkg.check "runtime" gitlabTestCode;
   in
     arch_check ++ types_check ++ tests_check ++ run_check;
-  pkgsJobs = builtins.concatLists (map genPkgJobs pkgTargets);
+  pkgsJobs = builtins.concatLists (map genPkgJobs std_pkgs);
   # legacy standard
   targets = with index; [
     etl.code

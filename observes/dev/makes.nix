@@ -14,6 +14,7 @@
     observesTapDynamo = tap.dynamo;
     observesTapGitlab = tap.gitlab;
     observesTargetRedshift = target.redshift_2;
+    observesTargetS3 = target.s3;
     observesEtlDynamoConf = etl.dynamo;
   };
   dev_envs =
