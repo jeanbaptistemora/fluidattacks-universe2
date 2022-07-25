@@ -76,37 +76,50 @@ def format_data(days: Decimal) -> dict[str, Any]:
     }
 
 
-async def generate_all() -> None:
+def format_csv_data(days: Decimal) -> utils.CsvData:
+    return utils.CsvData(
+        headers=["Days until zero exposure"],
+        rows=[[str(days.to_integral_exact(rounding=ROUND_CEILING))]],
+    )
 
+
+async def generate_all() -> None:
+    days: Decimal
     loaders: Dataloaders = get_new_context()
     async for group in utils.iterate_groups():
+        days = await get_data_one_group(group, loaders)
         utils.json_dump(
             document=format_data(
-                days=await get_data_one_group(group, loaders),
+                days=days,
             ),
             entity="group",
             subject=group,
+            csv_document=format_csv_data(days=days),
         )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        days = await get_data_many_groups(org_groups, loaders)
         utils.json_dump(
             document=format_data(
-                days=await get_data_many_groups(org_groups, loaders),
+                days=days,
             ),
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(days=days),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            days = await get_data_many_groups(tuple(groups), loaders)
             utils.json_dump(
                 document=format_data(
-                    days=await get_data_many_groups(tuple(groups), loaders),
+                    days=days,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(days=days),
             )
 
 
