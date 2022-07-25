@@ -94,6 +94,7 @@ in {
     zoho_crm = std_data "${singerPath}/tap-zoho-crm";
   };
   target = {
+    s3 = new_std "${singerPath}/target-s3";
     redshift = new_std "${singerPath}/target-redshift";
     redshift_2 =
       new_std "${singerPath}/target-redshift-2"
