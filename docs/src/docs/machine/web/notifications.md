@@ -316,6 +316,15 @@ treatment request and acceptance.
 
 ![Treatment Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1657900877/docs/web/notifications/notif_treatment_report.png)
 
+### User unsubscription
+
+This notification will be
+triggered when any user
+unsubscribes from any ASM group.
+It is enabled for the User Manager role.
+
+![User Unsubscription](https://res.cloudinary.com/fluid-attacks/image/upload/v1658762773/docs/web/notifications/notif_user_unsubscription.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
