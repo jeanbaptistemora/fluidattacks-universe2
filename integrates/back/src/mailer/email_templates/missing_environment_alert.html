@@ -4,12 +4,13 @@
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_group('Consulting') }}
+  {{ banner_group('Environment Alert') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      In the group {{ group }} created {{ group_date }} ago, you have not
+      In the group {{ group }} created {{ group_date }}
+      {% if group_date == 1 %}week{% else %}weeks{% endif %} ago, you have not
       registered any environments yet.
     </p>
     <p>

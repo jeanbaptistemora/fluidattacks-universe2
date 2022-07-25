@@ -662,3 +662,20 @@ async def send_mail_numerator_report(
         context=context,
         template_name="numerator_digest",
     )
+
+
+async def send_mail_missing_environment_alert(
+    *,
+    loaders: Any,
+    context: Dict[str, Any],
+    email_to: List[str],
+) -> None:
+    group_name: str = context["group"]
+    await send_mails_async(
+        loaders=loaders,
+        email_to=email_to,
+        tags=GENERAL_TAG,
+        subject=f"[ASM] Missing {group_name} registered environments",
+        context=context,
+        template_name="missing_environment_alert",
+    )
