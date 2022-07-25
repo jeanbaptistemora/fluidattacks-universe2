@@ -25,6 +25,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class AccessAlreadyCreated(_SingleMessageException):
+    msg: str = "This access item has already been created"
+
+
 class EnrollmentUserExists(_SingleMessageException):
     msg: str = "Enrollment user already exists"
 
@@ -128,10 +132,6 @@ class InvalidVulnWhere(_SingleMessageException):
 
 class OrganizationAlreadyCreated(_SingleMessageException):
     msg: str = "This organization has already been created"
-
-
-class OrganizationAccessAlreadyCreated(_SingleMessageException):
-    msg: str = "This organization access item has already been created"
 
 
 class PortfolioNotFound(_SingleMessageException):
