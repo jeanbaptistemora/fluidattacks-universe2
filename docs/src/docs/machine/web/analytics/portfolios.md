@@ -20,8 +20,8 @@ categorized by group.
 
 This section shows the
 percentages of closed,
-accepted and open vulnerabilities.
-And how your numbers are
+accepted and open vulnerabilities,
+and how your numbers are
 compared to  the average
 and the worst portfolios
 of all organizations.
