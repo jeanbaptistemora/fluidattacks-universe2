@@ -325,6 +325,16 @@ It is enabled for the User Manager role.
 
 ![User Unsubscription](https://res.cloudinary.com/fluid-attacks/image/upload/v1658762773/docs/web/notifications/notif_user_unsubscription.png)
 
+### DevSecOps agent token
+
+You will receive this notification
+when a new token is updated for your
+agent to implement in the pipeline.
+It will be sent by email or
+SMS to the User Manager role.
+
+![Agent Token](https://res.cloudinary.com/fluid-attacks/image/upload/v1658770255/docs/web/notifications/notif_dev_agent_token.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
