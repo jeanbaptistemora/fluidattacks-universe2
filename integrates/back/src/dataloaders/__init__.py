@@ -7,6 +7,9 @@ from .stakeholder_level_role import (
 from collections import (
     defaultdict,
 )
+from dataloaders.group_access_typed import (
+    GroupAccessTypedLoader,
+)
 from dataloaders.organization_access import (
     OrganizationAccessTypedLoader,
 )
@@ -126,6 +129,7 @@ class Dataloaders(NamedTuple):
     )
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
+    group_access: GroupAccessTypedLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_events: GroupEventsLoader
@@ -230,6 +234,7 @@ def get_new_context() -> Dataloaders:
         ),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
+        group_access=GroupAccessTypedLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=GroupEventsLoader(),

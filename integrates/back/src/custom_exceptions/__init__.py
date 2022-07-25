@@ -1154,6 +1154,19 @@ class StakeholderNotInOrganization(CustomBaseException):
         super(StakeholderNotInOrganization, self).__init__(msg)
 
 
+class StakeholderNotInGroup(CustomBaseException):
+    """
+    Exception to control stakeholder access to groups.
+    """
+
+    def __init__(self, expr: str = "") -> None:
+        if expr:
+            msg = "Exception - Stakeholder is not a member of the group"
+        else:
+            msg = "Access denied"
+        super(StakeholderNotInGroup, self).__init__(msg)
+
+
 class VulnAlreadyClosed(CustomBaseException):
     """Exception to control vulnerability updates"""
 
