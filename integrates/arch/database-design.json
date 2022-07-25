@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 22, 2022, 03:54 PM",
+    "DateLastModified": "Jul 25, 2022, 09:32 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -57,10 +57,6 @@
         {
           "AttributeName": "responsibility",
           "AttributeType": "S"
-        },
-        {
-          "AttributeName": "subscription_period",
-          "AttributeType": "N"
         },
         {
           "AttributeName": "settings",
@@ -3564,34 +3560,19 @@
           ]
         },
         {
-          "FacetName": "group_membership",
+          "FacetName": "group_access",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "USER#email",
             "SortKeyAlias": "GROUP#name"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "USER#test@fluidattacks.com"
-              },
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "role": {
-                "S": "customer_manager"
-              },
-              "responsibility": {
-                "S": "Product owner"
-              },
-              "subscription_period": {
-                "N": "86400"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "role",
-            "responsibility",
-            "subscription_period"
+            "email",
+            "expiration_time",
+            "group_name",
+            "has_access",
+            "invitation",
+            "responsibility"
           ]
         },
         {
