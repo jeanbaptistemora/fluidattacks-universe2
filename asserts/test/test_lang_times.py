@@ -91,12 +91,6 @@ def test_exclude_parameter():
         java.has_insecure_randoms(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_insecure_cipher(JAVA, "DES", exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_des_algorithm(JAVA, exclude=[JAVA])
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_log_injection(JAVA, exclude=[JAVA])
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
@@ -151,12 +145,6 @@ def test_lang_specs_parameter():
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_insecure_randoms(MARKD)
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_insecure_cipher(MARKD, "DES")
-
-    with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
-        java.uses_des_algorithm(MARKD)
 
     with assert_times_between(TIME_ZERO, TIME_NOTHING_TESTED):
         java.has_log_injection(MARKD)

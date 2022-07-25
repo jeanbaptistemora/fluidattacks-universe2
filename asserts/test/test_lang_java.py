@@ -59,24 +59,9 @@ def test_uses_catch_for_null_pointer_exception_open():
     ).is_open()
 
 
-def test_uses_des_algorithm_open():
-    """Search DES encryption algorithm."""
-    assert java.uses_des_algorithm(INSECURE_CIPHER).is_open()
-
-
-def test_uses_des_algorithm_open_in_dir():
-    """Search DES encryption algorithm."""
-    assert java.uses_des_algorithm(CODE_DIR).is_open()
-
-
 def test_has_log_injection_open():
     """Search log injection."""
     assert java.has_log_injection(INSECURE_CODE).is_open()
-
-
-def test_uses_insecure_cipher_open():
-    """Search DES encryption algorithm."""
-    assert java.uses_insecure_cipher(INSECURE_CIPHER, "DES").is_open()
 
 
 def test_uses_system_exit_open_in_dir():
@@ -130,27 +115,11 @@ def test_uses_catch_for_null_pointer_exception_close():
     ).is_unknown()
 
 
-def test_uses_des_algorithm_close():
-    """Search DES encryption algorithm."""
-    assert java.uses_des_algorithm(SECURE_CIPHER).is_closed()
-    assert java.uses_des_algorithm(CODE_DIR, exclude=["test"]).is_closed()
-    assert java.uses_des_algorithm(NON_EXISTANT_CODE).is_unknown()
-
-
 def test_has_log_injection_close():
     """Search log injection."""
     assert java.has_log_injection(SECURE_CODE).is_closed()
     assert java.has_log_injection(CODE_DIR, exclude=["test"]).is_closed()
     assert java.has_log_injection(NON_EXISTANT_CODE).is_unknown()
-
-
-def test_uses_insecure_cipher_close():
-    """Search DES encryption algorithm."""
-    assert java.uses_insecure_cipher(SECURE_CIPHER, "DES").is_closed()
-    assert java.uses_insecure_cipher(
-        CODE_DIR, "DES", exclude=["test"]
-    ).is_closed()
-    assert java.uses_insecure_cipher(NON_EXISTANT_CODE, "DES").is_unknown()
 
 
 def test_uses_system_exit_close():
