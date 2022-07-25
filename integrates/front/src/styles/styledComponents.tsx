@@ -17,6 +17,13 @@ const ButtonToolbarRow: StyledComponent<
   className: "flex flex-wrap items-center justify-end",
 })``;
 
+const ButtonToolbarStartRow: StyledComponent<
+  "div",
+  Record<string, unknown>
+> = styled.div.attrs({
+  className: "flex flex-wrap items-center justify-start",
+})``;
+
 const CheckBox: StyledComponent<
   "div",
   Record<string, unknown>
@@ -389,6 +396,7 @@ const TableOptionsColBar: StyledComponent<
 export {
   ButtonToolbarCenter,
   ButtonToolbarRow,
+  ButtonToolbarStartRow,
   CheckBox,
   CheckBoxOption,
   Col100,

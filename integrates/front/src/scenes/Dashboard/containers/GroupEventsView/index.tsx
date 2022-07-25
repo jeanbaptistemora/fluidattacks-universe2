@@ -1,7 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
-import { useAbility } from "@casl/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
@@ -38,11 +36,7 @@ import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
 
 import { Button } from "components/Button";
 import { Table } from "components/Table";
-import type {
-  IFilterProps,
-  IHeaderConfig,
-  ISelectRowProps,
-} from "components/Table/types";
+import type { IFilterProps, IHeaderConfig } from "components/Table/types";
 import {
   filterDateRange,
   filterSearchText,
@@ -58,10 +52,8 @@ import {
 import {
   formatEvents,
   formatReattacks,
-  getEventIndex,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
-import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -70,7 +62,6 @@ import { msgError, msgSuccess } from "utils/notifications";
 const GroupEventsView: React.FC = (): JSX.Element => {
   const { push } = useHistory();
   const { groupName } = useParams<{ groupName: string }>();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const { url } = useRouteMatch();
   const { t } = useTranslation();
@@ -256,9 +247,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   // State Management
   const [affectsReattacks, setAffectsReattacks] = useState(false);
   const [selectedReattacks, setSelectedReattacks] = useState({});
-  const [selectedEvent, setSelectedEvent] = useState<IEventData | undefined>(
-    undefined
-  );
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const openAddModal: () => void = useCallback((): void => {
@@ -563,17 +551,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterAfectCompsResult
   );
 
-  const selectionMode: ISelectRowProps = {
-    clickToSelect: true,
-    hideSelectColumn: permissions.cannot("api_mutations_edit_event_mutate"),
-    mode: "radio",
-    onSelect: setSelectedEvent,
-    selected: getEventIndex(
-      _.isUndefined(selectedEvent) ? [] : [selectedEvent],
-      resultDataset
-    ),
-  };
-
   const customFiltersProps: IFilterProps[] = [
     {
       defaultValue: "",
@@ -721,7 +698,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           pageSize={10}
           rowEvents={{ onClick: goToEvent }}
           search={false}
-          selectionMode={selectionMode}
         />
       </Tooltip>
     </React.Fragment>

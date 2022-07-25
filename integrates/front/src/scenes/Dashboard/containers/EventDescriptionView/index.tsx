@@ -1,7 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faCheck, faPen } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -10,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { array, object } from "yup";
 
+import { ActionButtons } from "./ActionButtons";
 import type {
   IDescriptionFormValues,
   IEventDescriptionData,
@@ -17,7 +16,6 @@ import type {
   IUpdateEventSolvingReasonAttr,
 } from "./types";
 
-import { Button } from "components/Button";
 import { Modal, ModalConfirm } from "components/Modal";
 import { GET_EVENT_HEADER } from "scenes/Dashboard/containers/EventContent/queries";
 import {
@@ -34,7 +32,6 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
-import { Can } from "utils/authz/Can";
 import {
   castAffectedComponents,
   formatAccessibility,
@@ -370,46 +367,24 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           </Formik>
         </Modal>
         <Formik
+          enableReinitialize={true}
           initialValues={data.event}
           name={"editEvent"}
           onSubmit={handleDescriptionSubmit}
           validationSchema={editValidations}
         >
-          {({ values }): React.ReactNode => (
+          {({ values, dirty }): React.ReactNode => (
             <Form id={"editEvent"}>
               <div>
                 <div>
-                  <Row>
-                    <div className={"fr"}>
-                      {data.event.eventStatus === "SOLVED" ? (
-                        <Can
-                          do={
-                            "api_mutations_update_event_solving_reason_mutate"
-                          }
-                        >
-                          <Button
-                            onClick={openEditReasonModal}
-                            variant={"primary"}
-                          >
-                            <FontAwesomeIcon icon={faPen} />
-                            &nbsp;
-                            {t("group.events.description.editSolvingReason")}
-                          </Button>
-                        </Can>
-                      ) : (
-                        <Can do={"api_mutations_solve_event_mutate"}>
-                          <Button
-                            onClick={openSolvingModal}
-                            variant={"primary"}
-                          >
-                            <FontAwesomeIcon icon={faCheck} />
-                            &nbsp;
-                            {t("group.events.description.markAsSolved")}
-                          </Button>
-                        </Can>
-                      )}
-                    </div>
-                  </Row>
+                  <ActionButtons
+                    eventStatus={values.eventStatus}
+                    isDirtyForm={dirty}
+                    isEditing={isEditing}
+                    onEdit={toggleEdit}
+                    openEditReasonModal={openEditReasonModal}
+                    openSolvingModal={openSolvingModal}
+                  />
                   <br />
                   {isEditing ? (
                     <Row>
@@ -426,7 +401,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                               name={"eventType"}
                               validate={required}
                             >
-                              <option value={""} />
                               <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                                 {t("group.events.form.type.specialAttack")}
                               </option>

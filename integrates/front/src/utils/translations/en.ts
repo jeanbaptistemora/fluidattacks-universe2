@@ -464,8 +464,11 @@ export const enTranslations: ResourceKey = {
             success: "Solving reason has been updated",
           },
         },
+        cancel: "Cancel",
+        edit: { text: "Edit", tooltip: "Modify the fields of the event" },
         editSolvingReason: "Edit solving reason",
         markAsSolved: "Mark as solved",
+        save: { text: "Save", tooltip: "Save changes" },
         solved: {
           date: "Resolution date",
           holds:
