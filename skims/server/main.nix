@@ -11,6 +11,7 @@ makeScript {
   };
   searchPaths = {
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/env"
       outputs."/skims/config/runtime"
     ];
