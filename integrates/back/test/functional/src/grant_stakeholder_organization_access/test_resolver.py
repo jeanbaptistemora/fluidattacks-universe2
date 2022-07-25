@@ -4,7 +4,6 @@ from . import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -23,7 +22,7 @@ async def test_grant_stakeholder_organization_access(
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
     stakeholder_role: str = "USER"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         org=org_id,
         role=stakeholder_role,
@@ -58,7 +57,7 @@ async def test_grant_stakeholder_organization_access_fail(
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6dc"
     stakeholder_email: str = "test2@gmail.com"
     stakeholder_role: str = "USER"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         org=org_id,
         role=stakeholder_role,

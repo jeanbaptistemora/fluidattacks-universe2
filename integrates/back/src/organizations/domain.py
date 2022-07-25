@@ -422,10 +422,10 @@ async def invite_to_organization(
                 "user_email": email,
             },
         )
-        await update_organization_access(
-            organization_id,
-            email,
-            OrganizationAccessMetadataToUpdate(
+        await orgs_dal.add(
+            organization_access=OrganizationAccess(
+                email=email,
+                organization_id=organization_id,
                 expiration_time=expiration_time,
                 has_access=False,
                 invitation=OrganizationInvitation(
@@ -433,7 +433,7 @@ async def invite_to_organization(
                     role=role,
                     url_token=url_token,
                 ),
-            ),
+            )
         )
         confirm_access_url = (
             f"{BASE_URL}/confirm_access_organization/{url_token}"
