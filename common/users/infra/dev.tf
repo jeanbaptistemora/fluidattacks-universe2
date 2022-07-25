@@ -124,6 +124,20 @@ locals {
             ]
             Resource = ["arn:aws:dynamodb:us-east-1:205810638802:table/skims*"]
           },
+          {
+            Sid    = "sqsRead"
+            Effect = "Allow"
+            Action = [
+              "sqs:GetQueueUrl",
+              "sqs:GetQueueAttributes",
+              "sqs:ListQueueTags",
+              "sqs:ListQueues",
+            ]
+            Resource = [
+              "arn:aws:sqs:us-east-1:205810638802:skims-*",
+              "arn:aws:sqs:us-east-1:205810638802:celery",
+            ]
+          },
         ]
       }
       cloudflare = {
