@@ -10,7 +10,7 @@ from charts.colors import (
 )
 
 
-async def generate_one(group: str) -> dict:
+async def generate_one(*, group: str) -> dict:
     executions = await utils.get_all_time_forces_executions(group)
 
     executions_in_strict_mode = tuple(
@@ -66,12 +66,22 @@ async def generate_one(group: str) -> dict:
     }
 
 
+def format_csv_data(*, document: dict) -> utils.CsvData:
+    columns: list[list[str]] = document["data"]["columns"]
+    return utils.CsvData(
+        headers=[columns[0][0], columns[1][0]],
+        rows=[[columns[0][1], columns[1][1]]],
+    )
+
+
 async def generate_all() -> None:
     async for group in utils.iterate_groups():
+        document = await generate_one(group=group)
         utils.json_dump(
-            document=await generate_one(group),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
 
