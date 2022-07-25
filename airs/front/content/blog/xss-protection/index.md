@@ -2,7 +2,7 @@
 slug: xss-protection/
 title: Dude, Where's My XSS Protection?
 date: 2017-04-26
-category: challenges
+category: attacks
 subtitle: 'Solving Halls of Valhalla Challenge: XSS4'
 tags: xss, web, protect, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331241/blog/xss-protection/cover_hihzge.webp

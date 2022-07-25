@@ -2,7 +2,7 @@
 slug: storing-password-safely/
 title: Storing Passwords Safely
 date: 2017-01-02
-category: challenges
+category: attacks
 subtitle: Solving Yashira hash challenge 3
 tags: password, security, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331103/blog/storing-password-safely/cover_qrhopx.webp

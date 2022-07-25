@@ -3,7 +3,7 @@ slug: social-engineering/
 title: Beware of Being Played With
 date: 2021-09-20
 subtitle: Discover social engineers' weapons of influence
-category: social-engineering
+category: attacks
 tags: social-engineering, cybersecurity, flaw, training, company, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1632164071/blog/social-engineering/cover_social-engineering.webp
 alt: Photo by Marco Bianchetti on Unsplash

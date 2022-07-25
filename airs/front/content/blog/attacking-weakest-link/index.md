@@ -2,7 +2,7 @@
 slug: attacking-weakest-link/
 title: Attacking the Weakest Link
 date: 2019-06-04
-category: social-engineering
+category: attacks
 subtitle: Attacking without borders
 tags: social, password, information, social-engineering
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330673/blog/attacking-weakest-link/cover_g7rdsd.webp

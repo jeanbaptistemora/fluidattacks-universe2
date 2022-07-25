@@ -2,7 +2,7 @@
 slug: intercepting-android/
 title: Intercepting Android
 date: 2019-10-23
-category: hacking
+category: attacks
 subtitle: Intercept applications in newer Android phones
 tags: security, android, application, pentesting
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330925/blog/intercepting-android/cover_d3ec8a.webp

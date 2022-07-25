@@ -2,7 +2,7 @@
 slug: conserving-identity/
 title: Conserving Your Identity
 date: 2017-05-02
-category: identity
+category: philosophy
 subtitle: Using WS-Security to secure  your web apps
 tags: web, security, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/conserving-identity/cover_cjoev1.webp

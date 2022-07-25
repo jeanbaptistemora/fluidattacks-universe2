@@ -2,7 +2,7 @@
 slug: multiple-credentials-begone/
 title: Multiple Credentials Begone!
 date: 2017-04-28
-category: identity
+category: philosophy
 subtitle: Security issues and solutions of SSO services
 tags: security, credential, saml, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/multiple-credentials-begone/cover_ytxbj5.webp

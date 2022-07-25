@@ -3,7 +3,7 @@ slug: requiem-password/
 title: Requiem for a p455w0rD
 date: 2018-03-07
 subtitle: Why passphrases are better than passwords
-category: identity
+category: philosophy
 tags: password, credential, security
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
 alt: Photo by Ben Lambert on Unsplash

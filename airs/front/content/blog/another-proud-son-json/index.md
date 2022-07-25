@@ -3,7 +3,7 @@ slug: another-proud-son-json/
 title: Another Proud Son of JSON
 date: 2017-05-04
 subtitle: Using JSON Web Token to send data
-category: identity
+category: philosophy
 tags: security, information, jwt
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/cover_udy9xc.webp
 alt: Text editor with code highlighting
