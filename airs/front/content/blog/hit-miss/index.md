@@ -4,7 +4,7 @@ title: Hit or Miss
 date: 2019-03-19
 subtitle: Estimating attack probability
 category: philosophy
-tags: business, cybersecurity, risk
+tags: company, cybersecurity, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330919/blog/hit-miss/cover_af7fay.webp
 alt: 'Baseball hit. Photo by Chris Chow on Unsplash: https://unsplash.com/photos/BhwRQr08PcM'
 description: 'Here we work based on: What is a beta distribution, and how can it help us estimate the probability of suffering an attack given the scarce information?'

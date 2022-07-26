@@ -4,7 +4,7 @@ title: Security in Trends
 date: 2019-10-03
 subtitle: Cybersecurity risks in technology trends
 category: opinions
-tags: cybersecurity, business, trends
+tags: cybersecurity, company, trends
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/security-trends/cover_v2lf0a.webp
 alt: Photo by Stephen Dawson on Unsplash
 description: In this article, we discuss the main cybersecurity trends for 2019, how to keep your company secured, and how Fluid Attacks deals with these kinds of threats.

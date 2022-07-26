@@ -4,7 +4,7 @@ title: Attacking Without Announcing
 date: 2022-06-21
 category: opinions
 subtitle: Five policies to test your organization's security
-tags: protect, information, business, red-team, blue-team, policies
+tags: protect, information, company, red-team, blue-team, policies
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1655830173/blog/attacking-without-announcing/cover_attacking_without_announcing.webp
 alt: Photo by Geran de Klerk on Unsplash
 description: We want to guide you about some management policies that we suggest you could use to answer with high precision how secure your information is.

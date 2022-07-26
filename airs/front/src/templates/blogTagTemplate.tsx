@@ -28,11 +28,33 @@ const blogTagTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListTags.company.description"),
+      metaDescription: translate.t("blogListTags.company.metaDescription"),
+      title: translate.t("blogListTags.company.title"),
+    },
+    {
       description: translate.t("blogListTags.cybersecurity.description"),
       metaDescription: translate.t(
         "blogListTags.cybersecurity.metaDescription"
       ),
       title: translate.t("blogListTags.cybersecurity.title"),
+    },
+    {
+      description: translate.t("blogListTags.risk.description"),
+      metaDescription: translate.t("blogListTags.risk.metaDescription"),
+      title: translate.t("blogListTags.risk.title"),
+    },
+    {
+      description: translate.t("blogListTags.software.description"),
+      metaDescription: translate.t("blogListTags.software.metaDescription"),
+      title: translate.t("blogListTags.software.title"),
+    },
+    {
+      description: translate.t("blogListTags.vulnerability.description"),
+      metaDescription: translate.t(
+        "blogListTags.vulnerability.metaDescription"
+      ),
+      title: translate.t("blogListTags.vulnerability.title"),
     },
   ];
 

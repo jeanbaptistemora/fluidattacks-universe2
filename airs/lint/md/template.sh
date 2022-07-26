@@ -90,7 +90,6 @@ function check_md_blog_tags {
     jwt
     kernel
     libssh
-    linters
     machine-learning
     math
     mistake

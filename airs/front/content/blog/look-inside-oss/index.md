@@ -4,7 +4,7 @@ title: Anyone Can Look Inside!
 date: 2020-04-27
 subtitle: Working with OSS today can be a great advantage
 category: politics
-tags: cybersecurity, code, software, company, business
+tags: cybersecurity, code, software, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330936/blog/look-inside-oss/cover_qrsiga.webp
 alt: Photo by Vinayak Varma on Unsplash
 description: Security can be significantly enhanced when codes are presented publicly. In this post, we talk about OSS and its advantages for companies using it nowadays.

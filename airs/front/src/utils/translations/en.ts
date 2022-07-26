@@ -89,12 +89,32 @@ const pageTexts: ResourceKey = {
     },
   },
   blogListTags: {
+    company: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Company.",
+      title: "company",
+    },
     cybersecurity: {
-      description:
-        "Here we have the blog posts that use Cybersecurity as a tag.",
+      description: "[under construction]",
       metaDescription:
-        "Read Fluid Attacks' blog posts related to the Cybersecurity tag.",
+        "Read Fluid Attacks' blog posts tagged with Cybersecurity.",
       title: "cybersecurity",
+    },
+    risk: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Risk.",
+      title: "risk",
+    },
+    software: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Software.",
+      title: "software",
+    },
+    vulnerability: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Vulnerability.",
+      title: "vulnerability",
     },
   },
   categories: {

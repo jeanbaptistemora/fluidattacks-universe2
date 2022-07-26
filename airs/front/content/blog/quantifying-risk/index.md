@@ -4,7 +4,7 @@ title: Quantifying Risk
 date: 2019-02-19
 subtitle: From color scales to probabilities and ranges
 category: philosophy
-tags: business, ethical-hacking, risk
+tags: company, ethical-hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330977/blog/quantifying-risk/cover_hdxf8q.webp
 alt: Photo by Chris Liverani on Unsplash
 description: Here we discuss a survey of probabilistic methods that can be applied to quantify cybersecurity risk in terms of probabilities, confidence intervals, and money.

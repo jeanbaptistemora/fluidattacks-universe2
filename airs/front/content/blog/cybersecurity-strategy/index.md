@@ -4,7 +4,7 @@ title: Cybersecurity as Strategy
 date: 2020-10-21
 subtitle: Strategize with cybersecurity and avoid losses
 category: philosophy
-tags: cybersecurity, mistake, risk, business, company, hacking
+tags: cybersecurity, mistake, risk, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 alt: Photo by Joanna Kosinska on Unsplash
 description: A recently published article calls to elevate cybersecurity from operational to a strategic asset. Here we discuss some insights from the paper.

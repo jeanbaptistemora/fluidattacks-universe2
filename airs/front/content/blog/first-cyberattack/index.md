@@ -4,7 +4,7 @@ title: What Was the First Cyberattack?
 date: 2022-02-10
 subtitle: The Blanc brothers and the Chappe telegraph network
 category: attacks
-tags: cybersecurity, hacking, web, information, business, economics
+tags: cybersecurity, hacking, web, information, company, economics
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1644545785/blog/first-cyberattack/cover_first_cyberattack.webp
 alt: Photo by Chris Karidis on Unsplash
 description: Have you ever asked yourself that question? Discover in this blog post the old incident that is considered by many as the first cyberattack in history.

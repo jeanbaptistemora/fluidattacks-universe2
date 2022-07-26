@@ -4,7 +4,7 @@ title: Monetizing Vulnerabilities
 date: 2019-02-19
 subtitle: From probabilites to dollars and cents
 category: philosophy
-tags: business, ethical-hacking, risk
+tags: company, ethical-hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330938/blog/monetizing-vulnerabilities/cover_d77gqi.webp
 alt: 'Numbers notes on Unsplash: https://unsplash.com/photos/aG-pvyMsbis'
 description: Here we work using calibrated estimates to run a Monte Carlo simulation to obtain the expected losses and the loss exceedance curve for different scenarios.

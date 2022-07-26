@@ -4,7 +4,7 @@ title: Secure Just by Being in a Cave?
 date: 2020-11-05
 subtitle: Security of OSS — Fluid Attacks as a vivid example
 category: philosophy
-tags: cybersecurity, code, software, company, business
+tags: cybersecurity, code, software, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330966/blog/oss-security/cover_ztzxzn.webp
 alt: Photo by Karsten Winegeart on Unsplash
 description: We want to remind you that hiding your applications' source code can often provide you only an illusion of security and that OSS is a worthwhile alternative.

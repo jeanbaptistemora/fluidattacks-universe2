@@ -4,7 +4,7 @@ title: Do We Need a Purple Team?
 date: 2019-10-04
 category: politics
 subtitle: Understanding Purple Teams
-tags: Cybersecurity, testing
+tags: cybersecurity, testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/purple-team/cover_ohgfsv.webp
 alt: Photo by Efe Kurnaz on Unsplash
 description: In this blog, we discuss the fundamentals of Purple Teams and possible ways to implement them in an organization successfully.

@@ -4,7 +4,7 @@ title: TIBER Advice on Choosing Providers
 date: 2022-05-20
 subtitle: Requirements for threat intelligence and red teaming
 category: philosophy
-tags: cybersecurity, red-team, blue-team, security-testing, company, business
+tags: cybersecurity, red-team, blue-team, security-testing, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1653319371/blog/tiber-eu-providers/cover_tiber_eu_providers.webp
 alt: Photo by Terry Vlisidis on Unsplash
 description: In this blog post, you will learn about the guidelines that TIBER-EU provides to entities to choose threat intelligence and red teaming providers.

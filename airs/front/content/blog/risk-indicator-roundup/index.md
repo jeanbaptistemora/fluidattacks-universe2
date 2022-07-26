@@ -4,7 +4,7 @@ title: Risk Indicator Roundup
 date: 2019-05-15
 subtitle: A matter of taste
 category: philosophy
-tags: business, ethical-hacking, risk
+tags: company, ethical-hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331066/blog/risk-indicator-roundup/cover_azhwyk.webp
 alt: Photo by Nathan Dumlao on Unsplash
 description: Here we compare risk indicators used in quantitative finance, giving their pros and cons. Most of them we have discussed earlier, but here we introduce the ALE.

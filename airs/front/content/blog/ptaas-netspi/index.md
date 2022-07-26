@@ -4,7 +4,7 @@ title: Penetration Testing as a Service
 date: 2020-03-03
 subtitle: 'NetSPI''s ''advice'': better platforms for PTaaS'
 category: opinions
-tags: security-testing, vulnerability, hacking, software, company, business
+tags: security-testing, vulnerability, hacking, software, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330975/blog/ptaas-netspi/cover_jcdtpa.webp
 alt: Photo by Terry Vlisidis on Unsplash
 description: This blog post is based on the webinar 'Scaling Your Security Program with Penetration Testing as a Service' by Jake Reynolds from NetSPI.

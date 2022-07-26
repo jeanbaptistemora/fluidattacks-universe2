@@ -4,7 +4,7 @@ title: Git on Steroids
 date: 2019-03-04
 subtitle: From messy logs to Data Analytics
 category: politics
-tags: git, software, documentation, standard, engineering, business, linters
+tags: git, software, documentation, standard, engineering, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/git-steroids/cover_glgn3d.webp
 alt: Computer with do what is great sign.
 description: Learn here, among other things, how to define a Git commit message syntax and use real-time commit message linters to improve your Git history.

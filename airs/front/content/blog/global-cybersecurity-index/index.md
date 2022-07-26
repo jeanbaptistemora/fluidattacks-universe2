@@ -4,7 +4,7 @@ title: Mortal Fatality!
 date: 2021-07-30
 subtitle: Latin America bombed in the Global Cybersecurity Index
 category: politics
-tags: cybersecurity, company, policies, business, vulnerability, information
+tags: cybersecurity, company, policies, vulnerability, information
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627663508/blog/global-cybersecurity-index/cover-global-cybersecurity-index_bwb3ld.webp
 alt: Photo by Sigmund on Unsplash
 description: In this post, we will review some of the most striking results of the Global Cybersecurity Index. And we will see, particularly, where Latin America failed.
