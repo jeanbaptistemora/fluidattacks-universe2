@@ -4,7 +4,7 @@ title: Effective Vulnerability Triage
 date: 2020-04-21
 subtitle: BDSA and various data points for prioritization
 category: opinions
-tags: cybersecurity, vulnerability, standard, information, software, application
+tags: cybersecurity, vulnerability, standard, software, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331220/blog/vulns-triage-synopsys/cover_iesvfh.webp
 alt: Photo by Jeremy Thomas on Unsplash
 description: This post is based on the webinar 'Effective Vulnerability Remediation Requires More than One Data Point' by Jeff Michael and Chris Fearon from Synopsys.

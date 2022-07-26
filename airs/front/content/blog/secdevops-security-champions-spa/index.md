@@ -4,7 +4,7 @@ title: Hallando Security Champions
 date: 2020-05-21
 subtitle: Seis recomendaciones para SecDevOps de Carnegie Mellon
 category: philosophy
-tags: cybersecurity, devops, software, information, web, cloud
+tags: cybersecurity, devops, software, web, cloud
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secdevops-security-champions/cover_nkri6h.webp
 alt: Photo by Ingo Stiller on Unsplash
 description: Aquí aprenderás sobre los Security Champions. Pero antes, te damos cinco recomendaciones si estás pensando en implementar la seguridad en tu empresa.

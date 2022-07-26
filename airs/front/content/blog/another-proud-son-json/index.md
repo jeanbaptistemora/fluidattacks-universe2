@@ -4,7 +4,7 @@ title: Another Proud Son of JSON
 date: 2017-05-04
 subtitle: Using JSON Web Token to send data
 category: philosophy
-tags: cybersecurity, information, jwt
+tags: cybersecurity, jwt, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330659/blog/another-proud-son-json/cover_udy9xc.webp
 alt: Text editor with code highlighting
 description: Here we introduce JSON Web Token, a simple, quick way to send secure, digitally signed data from one part to another via URL using a base64 algorithm to encode.

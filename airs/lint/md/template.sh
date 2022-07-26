@@ -82,7 +82,6 @@ function check_md_blog_tags {
     hevd
     htb
     imperative
-    information
     injection
     interview
     investment

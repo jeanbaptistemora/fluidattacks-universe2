@@ -4,7 +4,7 @@ title: Liar, Liar, Pants on Fire!
 date: 2021-12-13
 subtitle: Insider attack suspect was arrested this month
 category: attacks
-tags: cybersecurity, cloud, company, credential, information, risk
+tags: cybersecurity, cloud, company, credential, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1639403262/blog/insider-arrested/cover_insider.webp
 alt: Photo by Jametlene Reskp on Unsplash
 description:  An individual was arrested for extorting Ubiquiti, the company where he worked as a developer. In this post, we narrate the key points of his attack.

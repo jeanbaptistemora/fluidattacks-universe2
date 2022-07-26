@@ -4,7 +4,7 @@ title: Thoughtless Vulnerability Reporting
 date: 2021-01-29
 subtitle: The Colombian Foreign Ministry faced a big trouble
 category: opinions
-tags: cybersecurity, vulnerability, information, web, risk, standard
+tags: cybersecurity, vulnerability, web, risk, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331106/blog/thoughtless-reporting/cover_j9r5l2.webp
 alt: Photo by Jono Hirst on Unsplash
 description: Here I give you an overview of the recent Colombian Foreign Ministry's security problem and the inadequate disclosure of such vulnerability in the media.

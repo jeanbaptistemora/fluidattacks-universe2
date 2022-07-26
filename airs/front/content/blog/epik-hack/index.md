@@ -4,7 +4,7 @@ title: A Breach of Epic Proportions
 date: 2021-09-24
 subtitle: Anonymous leaks Epik's database of 15M accounts
 category: attacks
-tags: cybersecurity, vulnerability, flaw, hacking, company, information
+tags: cybersecurity, vulnerability, flaw, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1632518994/blog/epik-hack/cover_epik.webp
 alt: Photo by Meriç Dağlı on Unsplash
 description: Find out about the recent hack that has compromised the personal information of millions of website owners, many of which were not even the victim's customers.

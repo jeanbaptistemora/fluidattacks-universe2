@@ -4,7 +4,7 @@ title: Don't Be Ignorant of ISO/IEC 29147
 date: 2021-02-05
 subtitle: Guidelines for the vulnerability disclosure processes
 category: politics
-tags: cybersecurity, standard, vulnerability, information, company, challenge
+tags: cybersecurity, standard, vulnerability, company, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-29147/cover_l1aadb.webp
 alt: Photo by Keagan Henman on Unsplash
 description: Would you like to get a clearer idea about vulnerability disclosure? Start with reading this post based on ISO/IEC 29147:2018.

@@ -4,7 +4,7 @@ title: Security Breaches Are Your Fault!
 date: 2021-03-05
 subtitle: Confusion with the cloud shared responsibility model
 category: philosophy
-tags: cloud, information, cybersecurity, mistake, company
+tags: cloud, cybersecurity, mistake, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331096/blog/shared-responsibility-model/cover_musv3h.webp
 alt: Photo by Charles Deluvio on Unsplash
 description: Do you know what is happening with those who don't understand the cloud security shared responsibility model? Find out here and get some recommendations.

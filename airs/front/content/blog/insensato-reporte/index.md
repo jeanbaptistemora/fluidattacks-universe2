@@ -4,7 +4,7 @@ title: Insensato reporte de vulnerabilidad
 date: 2021-01-29
 subtitle: La Cancillería colombiana enfrentó un grave problema
 category: opinions
-tags: cybersecurity, vulnerability, information, web, risk, standard
+tags: cybersecurity, vulnerability, web, risk, standard
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330923/blog/insensato-reporte/cover_iye7uf.webp
 alt: Photo by Jono Hirst on Unsplash
 description: Aquí les doy una visión general de la reciente vulnerabilidad de seguridad de la Cancillería colombiana y su inadecuada divulgación en medios de comunicación.

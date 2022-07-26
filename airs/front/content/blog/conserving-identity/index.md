@@ -4,7 +4,7 @@ title: Conserving Your Identity
 date: 2017-05-02
 category: philosophy
 subtitle: Using WS-Security to secure  your web apps
-tags: web, cybersecurity, information
+tags: web, application, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/conserving-identity/cover_cjoev1.webp
 alt: Chess piece different from the others
 description: In this article, we present a secure way to exchange information between different web services using the realms of the Web Service Federation (WSF).

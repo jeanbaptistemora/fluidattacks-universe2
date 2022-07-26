@@ -4,7 +4,7 @@ title: And Don't Forget ISO/IEC 30111
 date: 2021-02-12
 subtitle: Guidelines for the vulnerability handling processes
 category: politics
-tags: cybersecurity, standard, vulnerability, information, company, challenge
+tags: cybersecurity, standard, vulnerability, company, challenge
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330932/blog/iso-iec-30111/cover_i6aiku.webp
 alt: Photo by Cristofer Jeschke on Unsplash
 description: This post is related to vulnerability handling processes (ISO/IEC 30111), complementing the previous writing on vulnerability disclosure (ISO/IEC 29147).
