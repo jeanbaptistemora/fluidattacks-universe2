@@ -26,7 +26,6 @@ from newutils.validations import (
     validate_commit_hash,
     validate_email_address,
     validate_field_length,
-    validate_file_name,
     validate_sanitized_csv_input,
 )
 from roots.validations import (
@@ -74,7 +73,6 @@ async def add(  # pylint: disable=too-many-arguments
         root: Root = await loaders.root.load((group_name, root_id))
         validate_git_root(root)
         validate_active_root(root)
-    validate_file_name(filename)
     attacked_lines = (
         attributes.attacked_lines
         if attributes.attacked_at
