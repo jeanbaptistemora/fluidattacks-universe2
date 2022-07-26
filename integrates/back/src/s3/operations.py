@@ -9,11 +9,10 @@ from botocore.exceptions import (
     ClientError,
 )
 from context import (
-    FI_AWS_ACCESS_KEY_ID,
     FI_AWS_REGION_NAME,
-    FI_AWS_SECRET_ACCESS_KEY,
-    FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
+    FI_MINIO_PASS,
+    FI_MINIO_USER,
 )
 import contextlib
 from custom_exceptions import (
@@ -43,15 +42,13 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 OPTIONS = dict(
-    aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
-    aws_session_token=FI_AWS_SESSION_TOKEN,
     region_name=FI_AWS_REGION_NAME,
     service_name="s3",
 )
 
 if FI_ENVIRONMENT == "development":
-    OPTIONS.pop("aws_session_token", None)
+    OPTIONS["aws_access_key_id"] = FI_MINIO_USER
+    OPTIONS["aws_secret_access_key"] = FI_MINIO_PASS
     OPTIONS["endpoint_url"] = "http://localhost:9000"
 
 

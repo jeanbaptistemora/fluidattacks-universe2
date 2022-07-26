@@ -17,7 +17,7 @@ function main {
         PROD_SERVICES_AWS_SECRET_ACCESS_KEY
     elif test "${env}" == 'dev'; then
       DAEMON=true dynamodb-for-integrates \
-        && DAEMON=true integrates-storage
+        && DAEMON=true integrates-storage dev
     fi \
     && pushd integrates \
     && python3 -m back.src.batch.dispatch "${@:2}" \

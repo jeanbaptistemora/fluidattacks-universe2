@@ -19,7 +19,7 @@ function main {
     && sops_export_vars integrates/secrets/development.yaml \
       TEST_SSH_KEY \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-storage \
+    && DAEMON=true integrates-storage dev \
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \
     && BATCH_BIN="$(command -v integrates-batch)" \
     && echo "[INFO] Running tests for: ${resolver_test_group}" \

@@ -18,7 +18,7 @@ function main {
     INTEGRATES_API_TOKEN \
     && DAEMON=true integrates-back dev \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-storage \
+    && DAEMON=true integrates-storage dev \
     && DAEMON=true POPULATE="${populate_db}" dynamodb-for-integrates \
     && echo "[INFO] Running tests for: ${skims_test_group}" \
     && pushd skims \

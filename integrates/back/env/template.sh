@@ -3,13 +3,13 @@
 function main {
   local env="${1:-}"
 
-  true \
+  : \
     && case "${env}" in
       dev) aws_login_dev ;;
-      eph) aws_login_dev ;;
+      eph) : ;;
       prod) aws_login_prod 'integrates' ;;
       prod-local) aws_login_prod 'integrates' ;;
-      *) abort '[ERROR] First argument must be one of: dev, eph, prod, prod-local' ;;
+      *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && case "${env}" in
       dev) sops_export_vars __argSecretsDev__ "${INTEGRATES_SECRETS_LIST[@]}" ;;
@@ -18,7 +18,7 @@ function main {
       prod-local) sops_export_vars __argSecretsProd__ "${INTEGRATES_SECRETS_LIST[@]}" \
         && export DEBUG=True \
         && export REDIS_SERVER=localhost ;;
-      *) abort '[ERROR] First argument must be one of: dev, eph, prod, prod-local' ;;
+      *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
     && export CI_COMMIT_REF_NAME \
     && export CI_COMMIT_SHA \

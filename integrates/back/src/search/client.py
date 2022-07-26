@@ -1,18 +1,15 @@
+from boto3 import (
+    Session,
+)
 from botocore.auth import (
     SigV4Auth,
 )
 from botocore.awsrequest import (
     AWSRequest,
 )
-from botocore.credentials import (
-    Credentials,
-)
 from context import (
-    FI_AWS_ACCESS_KEY_ID,
     FI_AWS_OPENSEARCH_HOST,
     FI_AWS_REGION_NAME,
-    FI_AWS_SECRET_ACCESS_KEY,
-    FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
 )
 from contextlib import (
@@ -59,12 +56,9 @@ class AsyncAWSConnection(AIOHttpConnection):
             method=method.upper(),
             url="".join([self.url_prefix, self.host, url]),
         )
+        session = Session()
         signer = SigV4Auth(
-            Credentials(
-                FI_AWS_ACCESS_KEY_ID,
-                FI_AWS_SECRET_ACCESS_KEY,
-                FI_AWS_SESSION_TOKEN,
-            ),
+            session.get_credentials(),
             OPENSEARCH_SERVICE,
             FI_AWS_REGION_NAME,
         )

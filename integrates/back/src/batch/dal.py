@@ -25,9 +25,6 @@ from botocore.exceptions import (
 )
 from context import (
     CACHIX_AUTH_TOKEN,
-    FI_AWS_ACCESS_KEY_ID,
-    FI_AWS_SECRET_ACCESS_KEY,
-    FI_AWS_SESSION_TOKEN,
     FI_ENVIRONMENT,
     UNIVERSE_API_TOKEN,
 )
@@ -83,9 +80,6 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 OPTIONS = dict(
     service_name="batch",
-    aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
-    aws_session_token=FI_AWS_SESSION_TOKEN,
 )
 TABLE_NAME: str = "fi_async_processing"
 

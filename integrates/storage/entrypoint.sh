@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 
 function serve {
+  local env="${1}"
   local buckets_by_branch=(
     'fluidintegrates.analytics'
   )
@@ -25,7 +26,13 @@ function serve {
   local state_path='.Storage'
   local bill_date
 
-  aws_login_dev \
+  case "${env}" in
+    dev) aws_login_dev ;;
+    eph) : ;;
+    prod) aws_login_prod 'integrates' ;;
+    prod-local) aws_login_prod 'integrates' ;;
+    *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
+  esac \
     && sops_export_vars __argDevSecrets__ \
       TEST_PROJECTS \
     && mkdir -p "${state_path}" \
@@ -40,11 +47,10 @@ function serve {
     && wait_port 10 "${host}:${port}" \
     && sleep 3 \
     && __argMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
-    && __argMinioCli__ admin user add storage "${AWS_ACCESS_KEY_ID}" "${AWS_SECRET_ACCESS_KEY}" \
-    && __argMinioCli__ admin policy set storage readwrite user="${AWS_ACCESS_KEY_ID}" \
+    && __argMinioCli__ admin user add storage "minio" "miniopassword" \
+    && __argMinioCli__ admin policy set storage readwrite user="minio" \
     && for bucket in "${buckets[@]}"; do
       __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
-        && __argMinioCli__ policy set public "storage/${bucket}" \
         || return 1
     done \
     && if test "${POPULATE}" != 'false'; then

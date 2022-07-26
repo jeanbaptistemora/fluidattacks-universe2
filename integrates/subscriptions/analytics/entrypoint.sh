@@ -10,7 +10,7 @@ function main {
     else
       DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \
-        && DAEMON=true integrates-storage
+        && DAEMON=true integrates-storage dev
     fi \
     && pushd integrates \
     && python3 \

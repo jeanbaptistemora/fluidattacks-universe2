@@ -15,10 +15,7 @@ from bugsnag_client import (
 from context import (
     CI_COMMIT_SHA,
     CI_COMMIT_SHORT_SHA,
-    FI_AWS_ACCESS_KEY_ID,
     FI_AWS_REGION_NAME,
-    FI_AWS_SECRET_ACCESS_KEY,
-    FI_AWS_SESSION_TOKEN,
     FI_BUGSNAG_ACCESS_TOKEN,
     FI_ENVIRONMENT,
     LOG_LEVEL_BUGSNAG,
@@ -46,9 +43,6 @@ from typing import (
 )
 
 BOTO3_SESSION = Session(
-    aws_access_key_id=FI_AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=FI_AWS_SECRET_ACCESS_KEY,
-    aws_session_token=FI_AWS_SESSION_TOKEN,
     region_name=FI_AWS_REGION_NAME,
 )
 

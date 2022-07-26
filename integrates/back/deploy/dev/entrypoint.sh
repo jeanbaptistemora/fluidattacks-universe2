@@ -42,8 +42,6 @@ function main {
   export B64_CACHIX_AUTH_TOKEN
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
-  export B64_DEV_AWS_ACCESS_KEY_ID
-  export B64_DEV_AWS_SECRET_ACCESS_KEY
   export B64_GITLAB_USER_EMAIL
   export REPLICAS
   export UUID
@@ -54,8 +52,6 @@ function main {
     && B64_CACHIX_AUTH_TOKEN="$(b64 "${CACHIX_AUTH_TOKEN}")" \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
-    && B64_DEV_AWS_ACCESS_KEY_ID="$(b64 "${DEV_AWS_ACCESS_KEY_ID}")" \
-    && B64_DEV_AWS_SECRET_ACCESS_KEY="$(b64 "${DEV_AWS_SECRET_ACCESS_KEY}")" \
     && B64_GITLAB_USER_EMAIL="$(b64 "${GITLAB_USER_EMAIL}")" \
     && target_product="$(echo "${CI_COMMIT_TITLE}" | grep -oEi '^(airs|all|asserts|common|docs|forces|integrates|melts|observes|reviews|skims|sorts|teaches)')" \
     && if [ "${target_product}" = "integrates" ]; then

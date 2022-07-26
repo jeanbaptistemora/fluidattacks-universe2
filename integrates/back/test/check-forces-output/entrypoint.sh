@@ -20,7 +20,7 @@ function main {
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
     && DAEMON=true integrates-cache \
-    && DAEMON=true integrates-storage \
+    && DAEMON=true integrates-storage dev \
     && DAEMON=true dynamodb-for-integrates \
     && echo "[INFO] Running DevSecOps agent check..." \
     && mkdir -p "${out}" \
