@@ -10,9 +10,13 @@ from api.utils.types import (
 from datetime import (
     datetime,
 )
+import logging
+import logging.config
 from newutils import (
     datetime as date_utils,
 )
+
+LOGGER = logging.getLogger(__name__)
 
 
 def format_deprecation_output_log(
@@ -32,9 +36,11 @@ def format_deprecation_output_log(
     base_output: str = f"Found overdue deprecated {value.lower()}s:\n\n"
     fields: str = ""
     for key, deprecated_fields in deprecations.items():
-        fields += "\n".join(
-            f"""{value} {field.field} of {parent} {key} was deprecated in
-            {date_utils.get_as_str(field.due_date, date_format)}"""
+        fields += "".join(
+            (
+                f"{value} {field.field} of {parent} {key} was deprecated in "
+                f"{date_utils.get_as_str(field.due_date, date_format)}\n"
+            )
             for field in deprecated_fields
         )
 
@@ -46,11 +52,30 @@ def lint_schema_deprecations() -> None:
     (enums, operations) = get_deprecations_by_period(
         sdl_content=SDL_CONTENT, end=yesterday, start=None
     )
-    if len(enums.keys()) > 0:
-        print(format_deprecation_output_log(enums, True))
-    if len(operations.keys()) > 0:
-        print(format_deprecation_output_log(operations, False))
+    if bool(enums):
+        LOGGER.error(
+            format_deprecation_output_log(enums, True),
+            extra=dict(
+                extra={
+                    "overdue": enums.keys(),
+                }
+            ),
+        )
+    if bool(operations):
+        LOGGER.error(
+            format_deprecation_output_log(operations, False),
+            extra=dict(
+                extra={
+                    "overdue": operations.keys(),
+                }
+            ),
+        )
 
 
 def main() -> None:
     lint_schema_deprecations()
+
+
+if __name__ == "__main__":
+    LOGGER.info("Linting schema deprecations...")
+    main()
