@@ -1,4 +1,5 @@
 import type { FieldProps } from "formik";
+import _ from "lodash";
 import type { FC, FocusEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
@@ -27,7 +28,7 @@ const FormikSelect: FC<TSelectProps> = ({
   variant,
 }: Readonly<TSelectProps>): JSX.Element => {
   const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = form.errors[name];
+  const alert = _.get(form.errors, name, undefined);
 
   const handleBlur = useCallback(
     (ev: FocusEvent<HTMLSelectElement>): void => {

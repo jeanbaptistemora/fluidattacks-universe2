@@ -384,7 +384,7 @@ const Repository: FC<IRepositoryProps> = ({
                       placeholder={t(
                         "group.scope.git.repo.credentials.nameHint"
                       )}
-                      required={true}
+                      required={!isEditing}
                     />
                   </Col>
                   {credExists ? (
