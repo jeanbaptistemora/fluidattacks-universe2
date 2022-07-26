@@ -245,8 +245,8 @@ const pageTexts: ResourceKey = {
     item5: "Integration with your CI/CD for stronger control",
     subtitle: "Enjoy all Machine Plan benefits for 21 days:",
     title:
-      "Search for vulnerabilities in your application code " +
-      "for FREE (21-day trial). No credit card information required.",
+      "Search for vulnerabilities in your application " +
+      "for FREE (21-day trial). No credit card required.",
   },
   numbersSection: {
     card1Description:
