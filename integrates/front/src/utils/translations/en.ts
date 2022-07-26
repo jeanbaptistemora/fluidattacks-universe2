@@ -1053,11 +1053,15 @@ export const enTranslations: ResourceKey = {
       },
       forces: {
         text: "DevSecOps",
-        tooltip: "Check the state of the Forces jobs in your CI/CD",
+        tooltip:
+          "Check the details about all the executions of our DevSecOps " +
+          "agent in your CI/CD pipeline",
       },
       indicators: {
         text: "Analytics",
-        tooltip: "Summary of the group status",
+        tooltip:
+          "See charts and figure on the status and details of reported " +
+          "vulnerabilities and your remediation practices",
       },
       resources: {
         text: "Scope",
