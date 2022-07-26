@@ -29,8 +29,8 @@ TABLE_NAME: str = "FI_project_access"
 
 
 async def _get_group_access(
-    group_name: str,
     user_email: str,
+    group_name: str,
 ) -> dict[str, Any]:
     key = {
         "user_email": f"{user_email}",
@@ -52,10 +52,9 @@ class GroupAccessTypedLoader(DataLoader):
             tuple(
                 (
                     _get_group_access(
-                        group_name=group_name,
-                        user_email=user_email,
+                        user_email=user_email, group_name=group_name
                     )
-                    for group_name, user_email in keys
+                    for user_email, group_name in keys
                 )
             )
         )

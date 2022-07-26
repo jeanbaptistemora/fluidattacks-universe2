@@ -51,7 +51,6 @@ async def _get_result_async(
     return result
 
 
-@pytest.mark.mymark
 @pytest.mark.changes_db
 async def test_add_organization() -> None:
     stakeholder = "admin@fluidattacks.com"

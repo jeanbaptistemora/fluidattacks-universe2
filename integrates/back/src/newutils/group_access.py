@@ -15,7 +15,7 @@ from typing import (
 )
 
 
-def format_group_invitation_state(
+def format_invitation_state(
     invitation: Optional[GroupInvitation], is_registered: bool
 ) -> str:
     if invitation and not invitation.is_used:

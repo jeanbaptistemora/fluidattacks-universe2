@@ -1,15 +1,6 @@
 import authz
-from authz import (
-    get_user_level_role,
-)
-from custom_exceptions import (
-    StakeholderNotInGroup,
-)
 from dataloaders import (
     Dataloaders,
-)
-from db_model.group_access.types import (
-    GroupAccess,
 )
 from db_model.organization_access.enums import (
     InvitiationState,
@@ -23,14 +14,14 @@ from db_model.stakeholders.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 from newutils import (
     token as token_utils,
 )
-from newutils.group_access import (
-    format_group_invitation_state,
-)
 from newutils.organization_access import (
-    format_org_invitation_state,
+    format_invitation_state,
 )
 from typing import (
     Optional,
@@ -43,50 +34,16 @@ async def resolve(
     **_kwargs: None,
 ) -> Optional[str]:
     loaders: Dataloaders = info.context.loaders
-    stakeholder_role: Optional[str] = ""
+    stakeholder_role: str = ""
     request_store = token_utils.get_request_store(info.context)
     entity = request_store.get("entity")
 
     if entity == "GROUP":
-        if await get_user_level_role(parent.email) == "admin":
-            try:
-                group_name = request_store["group_name"]
-                admn_group_access: GroupAccess = (
-                    await loaders.group_access.load((group_name, parent.email))
-                )
-                invitation_state = format_group_invitation_state(
-                    invitation=admn_group_access.invitation,
-                    is_registered=parent.is_registered,
-                )
-                if (
-                    admn_group_access.invitation
-                    and invitation_state == InvitiationState.PENDING
-                ):
-                    stakeholder_role = admn_group_access.invitation.role
-                else:
-                    stakeholder_role = await authz.get_group_level_role(
-                        parent.email, group_name
-                    )
-            except StakeholderNotInGroup:
-                stakeholder_role = "admin"
-        else:
-            group_name = request_store["group_name"]
-            group_access: GroupAccess = await loaders.group_access.load(
-                (group_name, parent.email)
-            )
-            invitation_state = format_group_invitation_state(
-                invitation=group_access.invitation,
-                is_registered=parent.is_registered,
-            )
-            if (
-                group_access.invitation
-                and invitation_state == InvitiationState.PENDING
-            ):
-                stakeholder_role = group_access.invitation.role
-            else:
-                stakeholder_role = await authz.get_group_level_role(
-                    parent.email, group_name
-                )
+        stakeholder_role = await group_access_domain.get_stakeholder_role(
+            email=parent.email,
+            group_name=request_store["group_name"],
+            is_registered=parent.is_registered,
+        )
 
     elif entity == "ORGANIZATION":
         organization_id = request_store["organization_id"]
@@ -95,7 +52,7 @@ async def resolve(
                 (organization_id, parent.email)
             )
         )
-        invitation_state = format_org_invitation_state(
+        invitation_state = format_invitation_state(
             invitation=org_access.invitation,
             is_registered=parent.is_registered,
         )
