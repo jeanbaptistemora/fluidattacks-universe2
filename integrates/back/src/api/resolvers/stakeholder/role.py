@@ -1,4 +1,10 @@
 import authz
+from authz import (
+    get_user_level_role,
+)
+from custom_exceptions import (
+    StakeholderNotInGroup,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -42,23 +48,45 @@ async def resolve(
     entity = request_store.get("entity")
 
     if entity == "GROUP":
-        group_name = request_store["group_name"]
-        group_access: GroupAccess = await loaders.group_access.load(
-            (group_name, parent.email)
-        )
-        invitation_state = format_group_invitation_state(
-            invitation=group_access.invitation,
-            is_registered=parent.is_registered,
-        )
-        if (
-            group_access.invitation
-            and invitation_state == InvitiationState.PENDING
-        ):
-            stakeholder_role = group_access.invitation.role
+        if await get_user_level_role(parent.email) == "admin":
+            try:
+                group_name = request_store["group_name"]
+                admn_group_access: GroupAccess = (
+                    await loaders.group_access.load((group_name, parent.email))
+                )
+                invitation_state = format_group_invitation_state(
+                    invitation=admn_group_access.invitation,
+                    is_registered=parent.is_registered,
+                )
+                if (
+                    admn_group_access.invitation
+                    and invitation_state == InvitiationState.PENDING
+                ):
+                    stakeholder_role = admn_group_access.invitation.role
+                else:
+                    stakeholder_role = await authz.get_group_level_role(
+                        parent.email, group_name
+                    )
+            except StakeholderNotInGroup:
+                stakeholder_role = "admin"
         else:
-            stakeholder_role = await authz.get_group_level_role(
-                parent.email, group_name
+            group_name = request_store["group_name"]
+            group_access: GroupAccess = await loaders.group_access.load(
+                (group_name, parent.email)
             )
+            invitation_state = format_group_invitation_state(
+                invitation=group_access.invitation,
+                is_registered=parent.is_registered,
+            )
+            if (
+                group_access.invitation
+                and invitation_state == InvitiationState.PENDING
+            ):
+                stakeholder_role = group_access.invitation.role
+            else:
+                stakeholder_role = await authz.get_group_level_role(
+                    parent.email, group_name
+                )
 
     elif entity == "ORGANIZATION":
         organization_id = request_store["organization_id"]

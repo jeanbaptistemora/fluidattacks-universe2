@@ -1,5 +1,14 @@
+from authz import (
+    get_user_level_role,
+)
+from custom_exceptions import (
+    StakeholderNotInGroup,
+)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.group_access.enums import (
+    InvitiationState,
 )
 from db_model.group_access.types import (
     GroupAccess,
@@ -36,16 +45,7 @@ async def resolve(
     request_store = token_utils.get_request_store(info.context)
     entity = request_store.get("entity")
 
-    if entity == "GROUP":
-        group_access: GroupAccess = await loaders.group_access.load(
-            (request_store["group_name"], parent.email)
-        )
-        invitation_state = format_group_invitation_state(
-            invitation=group_access.invitation,
-            is_registered=parent.is_registered,
-        )
-
-    elif entity == "ORGANIZATION":
+    if entity == "ORGANIZATION":
         org_access: OrganizationAccess = (
             await loaders.organization_access.load(
                 (request_store["organization_id"], parent.email)
@@ -55,5 +55,29 @@ async def resolve(
             invitation=org_access.invitation,
             is_registered=parent.is_registered,
         )
+
+    if entity == "GROUP":
+        if await get_user_level_role(parent.email) == "admin":
+            try:
+                adm_group_access: GroupAccess = (
+                    await loaders.group_access.load(
+                        (request_store["group_name"], parent.email)
+                    )
+                )
+                invitation_state = format_group_invitation_state(
+                    invitation=adm_group_access.invitation,
+                    is_registered=parent.is_registered,
+                )
+            except StakeholderNotInGroup:
+                invitation_state = InvitiationState.REGISTERED
+
+        else:
+            group_access: GroupAccess = await loaders.group_access.load(
+                (request_store["group_name"], parent.email)
+            )
+            invitation_state = format_group_invitation_state(
+                invitation=group_access.invitation,
+                is_registered=parent.is_registered,
+            )
 
     return invitation_state if invitation_state else None

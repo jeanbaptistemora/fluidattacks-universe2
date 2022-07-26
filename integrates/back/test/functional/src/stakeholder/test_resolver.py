@@ -12,6 +12,7 @@ from typing import (
 @pytest.mark.parametrize(
     ["email"],
     [
+        ["admin@gmail.com"],
         ["user_manager@gmail.com"],
         ["vulnerability_manager@gmail.com"],
         ["reviewer@gmail.com"],

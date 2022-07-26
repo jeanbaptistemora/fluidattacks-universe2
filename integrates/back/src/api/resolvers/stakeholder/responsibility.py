@@ -1,3 +1,9 @@
+from authz import (
+    get_user_level_role,
+)
+from custom_exceptions import (
+    StakeholderNotInGroup,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -35,18 +41,38 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
 
     if entity == "GROUP":
-        group_access: GroupAccess = await loaders.group_access.load(
-            (request_store["group_name"], parent.email)
-        )
-        invitation_state: str = format_group_invitation_state(
-            invitation=group_access.invitation,
-            is_registered=parent.is_registered,
-        )
-        responsibility = (
-            group_access.invitation.responsibility
-            if group_access.invitation
-            and invitation_state == InvitiationState.PENDING
-            else group_access.responsibility
-        )
+        if await get_user_level_role(parent.email) == "admin":
+            try:
+                adm_group_access: GroupAccess = (
+                    await loaders.group_access.load(
+                        (request_store["group_name"], parent.email)
+                    )
+                )
+                invitation_state: str = format_group_invitation_state(
+                    invitation=adm_group_access.invitation,
+                    is_registered=parent.is_registered,
+                )
+                responsibility = (
+                    adm_group_access.invitation.responsibility
+                    if adm_group_access.invitation
+                    and invitation_state == InvitiationState.PENDING
+                    else adm_group_access.responsibility
+                )
+            except StakeholderNotInGroup:
+                responsibility = None
+        else:
+            group_access: GroupAccess = await loaders.group_access.load(
+                (request_store["group_name"], parent.email)
+            )
+            invitation_state = format_group_invitation_state(
+                invitation=group_access.invitation,
+                is_registered=parent.is_registered,
+            )
+            responsibility = (
+                group_access.invitation.responsibility
+                if group_access.invitation
+                and invitation_state == InvitiationState.PENDING
+                else group_access.responsibility
+            )
 
     return responsibility if responsibility else None
