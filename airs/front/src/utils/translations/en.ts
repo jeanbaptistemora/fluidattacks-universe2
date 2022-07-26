@@ -100,6 +100,22 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts tagged with Cybersecurity.",
       title: "cybersecurity",
     },
+    exploit: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Exploit.",
+      title: "exploit",
+    },
+    machineLearning: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Machine Learning.",
+      title: "machine learning",
+    },
+    redTeam: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Red Team.",
+      title: "red team",
+    },
     risk: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Risk.",
@@ -110,11 +126,21 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Software.",
       title: "software",
     },
+    training: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Training.",
+      title: "training",
+    },
     vulnerability: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Vulnerability.",
       title: "vulnerability",
+    },
+    web: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Web.",
+      title: "web",
     },
   },
   categories: {

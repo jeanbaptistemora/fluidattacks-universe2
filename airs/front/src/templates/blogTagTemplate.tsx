@@ -40,6 +40,23 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.cybersecurity.title"),
     },
     {
+      description: translate.t("blogListTags.exploit.description"),
+      metaDescription: translate.t("blogListTags.exploit.metaDescription"),
+      title: translate.t("blogListTags.exploit.title"),
+    },
+    {
+      description: translate.t("blogListTags.machineLearning.description"),
+      metaDescription: translate.t(
+        "blogListTags.machineLearning.metaDescription"
+      ),
+      title: translate.t("blogListTags.machineLearning.title"),
+    },
+    {
+      description: translate.t("blogListTags.redTeam.description"),
+      metaDescription: translate.t("blogListTags.redTeam.metaDescription"),
+      title: translate.t("blogListTags.redTeam.title"),
+    },
+    {
       description: translate.t("blogListTags.risk.description"),
       metaDescription: translate.t("blogListTags.risk.metaDescription"),
       title: translate.t("blogListTags.risk.title"),
@@ -50,11 +67,21 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.software.title"),
     },
     {
+      description: translate.t("blogListTags.training.description"),
+      metaDescription: translate.t("blogListTags.training.metaDescription"),
+      title: translate.t("blogListTags.training.title"),
+    },
+    {
       description: translate.t("blogListTags.vulnerability.description"),
       metaDescription: translate.t(
         "blogListTags.vulnerability.metaDescription"
       ),
       title: translate.t("blogListTags.vulnerability.title"),
+    },
+    {
+      description: translate.t("blogListTags.web.description"),
+      metaDescription: translate.t("blogListTags.web.metaDescription"),
+      title: translate.t("blogListTags.web.title"),
     },
   ];
 
