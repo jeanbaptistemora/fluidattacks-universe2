@@ -3,8 +3,8 @@
 Migrate stakeholder organization access to "integrates_vms" table.
 This info is currently in "fi_organizations".
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-07-26 at 00:58:42 UTC
+Finalization Time: 2022-07-26 at 00:58:52 UTC
 """
 
 from aioextensions import (
@@ -98,7 +98,10 @@ async def main() -> None:
         extra={"extra": {"scanned": len(active_orgs)}},
     )
 
-    await collect(process_organization(org) for org in active_orgs)
+    await collect(
+        tuple(process_organization(org) for org in active_orgs),
+        workers=16,
+    )
 
 
 if __name__ == "__main__":
