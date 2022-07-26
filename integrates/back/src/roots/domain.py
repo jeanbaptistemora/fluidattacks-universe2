@@ -45,6 +45,7 @@ from db_model.enums import (
     Notification,
 )
 from db_model.groups.enums import (
+    GroupStateStatus,
     GroupSubscriptionType,
 )
 from db_model.groups.types import (
@@ -945,6 +946,69 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
             repo_nickname=root.state.nickname,
             group_name=group_name,
             root_id=root_id,
+        )
+
+    if validate_error_message(message):
+        send_mail_root_cloning_failed(
+            loaders=loaders,
+            group_name=group_name,
+            modified_date=modified_date,
+            root=root,
+            status=status,
+        )
+
+
+def validate_error_message(
+    message: str,
+) -> bool:
+    errors_list: List[str] = [
+        "fatal: not a git repository",
+        "fatal: HTTP request failed",
+        "error: branch ‘remotes/origin/ABC’ not found",
+        "fatal: authentication failed",
+        "remote: Invalid username or password",
+        "Permission denied (publickey)",
+    ]
+    for error in errors_list:
+        if message in error:
+            return False
+    return True
+
+
+async def send_mail_root_cloning_failed(
+    *,
+    loaders: Any,
+    group_name: str,
+    modified_date: str,
+    root: Root,
+    status: GitCloningStatus,
+) -> None:
+    if not isinstance(root, GitRoot):
+        raise InvalidParameter()
+
+    loaders.group.clear(group_name)
+    group: Group = await loaders.group.load(group_name)
+    is_failed_status_cloning: bool = await is_failed_cloning(loaders, root.id)
+    is_failed: bool = (
+        status == GitCloningStatus.FAILED and is_failed_status_cloning
+    )
+    is_cloning: bool = (
+        status == GitCloningStatus.OK
+        and root.cloning.status == GitCloningStatus.FAILED
+    )
+    if (
+        not root.state.use_vpn
+        and group.state.status == GroupStateStatus.ACTIVE
+        and (is_cloning or is_failed)
+    ):
+        await send_mail_root_cloning_status(
+            loaders=loaders,
+            group_name=group_name,
+            root_nickname=root.state.nickname,
+            root_id=root.id,
+            modified_by=root.state.modified_by,
+            modified_date=modified_date,
+            is_failed=is_failed,
         )
 
 
