@@ -171,7 +171,7 @@ def test_group_forces(
     assert "Identifier" in driver.page_source
 
 
-def test_group_scope_repositories(
+def test_group_scope_repositories(  # pylint: disable=too-many-locals
     driver: WebDriver,
     credentials: Credentials,
     asm_endpoint: str,
@@ -208,9 +208,29 @@ def test_group_scope_repositories(
         "environment",
         timeout,
     )
+    credential_name = utils.wait_for_name(
+        driver,
+        "credentials.name",
+        timeout,
+    )
+    credential_type = Select(
+        utils.wait_for_name(
+            driver,
+            "credentials.type",
+            timeout,
+        )
+    )
     url.send_keys(repo_url)
     branch.send_keys("master")
     environment.send_keys("production")
+    credential_name.send_keys(utils.rand_name("production-credential"))
+    credential_type.select_by_value("HTTPS")
+    credential_token = utils.wait_for_name(
+        driver,
+        "credentials.token",
+        timeout,
+    )
+    credential_token.send_keys("production-credential")
     reject_health_check = utils.wait_for_id(
         driver,
         "Yes",
@@ -232,7 +252,7 @@ def test_group_scope_repositories(
     assert utils.wait_for_text(
         driver,
         repo_url,
-        timeout,
+        timeout * 2,
     )
 
 

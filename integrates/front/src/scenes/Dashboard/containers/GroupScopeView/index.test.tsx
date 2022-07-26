@@ -143,7 +143,14 @@ describe("GroupScopeView", (): void => {
         query: ADD_GIT_ROOT,
         variables: {
           branch: "master",
-          credentials: undefined,
+          credentials: {
+            key: undefined,
+            name: "credential name",
+            password: "",
+            token: "token-test",
+            type: "HTTPS",
+            user: "",
+          },
           environment: "production",
           gitignore: [],
           groupName: "unittesting",
@@ -267,6 +274,19 @@ describe("GroupScopeView", (): void => {
       screen.getByRole("textbox", { name: "environment" }),
       "production"
     );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "credentials.name" }),
+      "credential name"
+    );
+    userEvent.selectOptions(
+      screen.getByRole("combobox", { name: "credentials.type" }),
+      ["HTTPS"]
+    );
+    userEvent.type(
+      screen.getByRole("textbox", { name: "credentials.token" }),
+      "token-test"
+    );
+
     userEvent.click(screen.getByRole("radio", { name: "No" }));
     const numberOfRejectionCheckbox: number = 4;
     await waitFor((): void => {

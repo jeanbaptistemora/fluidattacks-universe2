@@ -49,6 +49,7 @@ const GitIgnoreAlert: React.FC<IGitIgnoreAlertProps> = (
 };
 
 const gitModalSchema = (
+  isEditing: boolean,
   credExists: boolean,
   hasSquad: boolean,
   initialValues: IFormValues,
@@ -93,11 +94,15 @@ const gitModalSchema = (
                 return regex.test(value);
               }
             ),
-          name: string().when("type", {
-            is: undefined,
-            otherwise: string().required(translate.t("validations.required")),
-            then: string(),
-          }),
+          name: isEditing
+            ? string().when("type", {
+                is: undefined,
+                otherwise: string().required(
+                  translate.t("validations.required")
+                ),
+                then: string(),
+              })
+            : string().required(translate.t("validations.required")),
           password: string()
             .when("type", {
               is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",
@@ -128,7 +133,9 @@ const gitModalSchema = (
                 return isGitAccessible;
               }
             ),
-          type: string(),
+          type: isEditing
+            ? string()
+            : string().required(translate.t("validations.required")),
           user: string()
             .when("type", {
               is: !credExists && isHttpsCredentialsTypeUser ? "HTTPS" : "",

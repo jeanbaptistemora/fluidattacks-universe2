@@ -261,6 +261,7 @@ const Repository: FC<IRepositoryProps> = ({
       name={"gitRoot"}
       onSubmit={onSubmit}
       validationSchema={gitModalSchema(
+        isEditing,
         credExists,
         hasSquad,
         initialValues,
@@ -364,6 +365,7 @@ const Repository: FC<IRepositoryProps> = ({
                       disabled={disabledCredsEdit}
                       label={t("group.scope.git.repo.credentials.type")}
                       name={"credentials.type"}
+                      required={!isEditing}
                     >
                       <option value={""}>{""}</option>
                       <option value={"HTTPS"}>
@@ -382,6 +384,7 @@ const Repository: FC<IRepositoryProps> = ({
                       placeholder={t(
                         "group.scope.git.repo.credentials.nameHint"
                       )}
+                      required={true}
                     />
                   </Col>
                   {credExists ? (
