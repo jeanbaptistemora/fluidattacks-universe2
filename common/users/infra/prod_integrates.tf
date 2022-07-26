@@ -208,6 +208,23 @@ locals {
               "arn:aws:es:${var.region}:${data.aws_caller_identity.current.account_id}:domain/integrates*"
             ]
           },
+          {
+            Sid    = "lambdaRead"
+            Effect = "Allow"
+            Action = [
+              "lambda:Get*",
+              "lambda:List*",
+            ]
+            Resource = ["*"]
+          },
+          {
+            Sid    = "lambdaWrite"
+            Effect = "Allow"
+            Action = ["*"]
+            Resource = [
+              "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:integrates*"
+            ]
+          },
         ]
       }
       cloudflare = {
