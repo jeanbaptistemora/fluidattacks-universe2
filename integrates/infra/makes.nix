@@ -1,4 +1,8 @@
-{outputs, ...}: {
+{
+  outputs,
+  projectPath,
+  ...
+}: {
   deployTerraform = {
     modules = {
       integratesInfra = {
@@ -6,10 +10,16 @@
           outputs."/secretsForAwsFromEnv/prodIntegrates"
           outputs."/secretsForEnvFromSops/integratesInfraProd"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
+          outputs."/envVarsForTerraform/lambda"
         ];
         src = "/integrates/infra/src";
         version = "1.0";
       };
+    };
+  };
+  envVarsForTerraform = {
+    lambda = {
+      lambda_path = projectPath "/integrates/lambda";
     };
   };
   lintTerraform = {
@@ -19,6 +29,7 @@
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
+          outputs."/envVarsForTerraform/lambda"
         ];
         src = "/integrates/infra/src";
         version = "1.0";
@@ -59,6 +70,7 @@
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
+          outputs."/envVarsForTerraform/lambda"
         ];
         src = "/integrates/infra/src";
         version = "1.0";
