@@ -30,10 +30,7 @@ async def _get_advisories(
     key_structure = TABLE.primary_key
     response = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
         ),
         facets=(TABLE.facets["advisories"],),
         table=TABLE,
