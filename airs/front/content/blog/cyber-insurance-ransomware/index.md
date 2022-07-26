@@ -4,7 +4,7 @@ title: Ransomware and Cyber Insurance
 date: 2021-07-29
 subtitle: Why is security always excessive until it's not enough?
 category: attacks
-tags: cybersecurity, company, trends, risk, vulnerability, software
+tags: cybersecurity, company, trend, risk, vulnerability, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627561560/blog/cyber-insurance-ransomware/cover-cyber-insurance-ransomware_lflmzi.webp
 alt: Photo by Chris Curryon on Unsplash
 description: This post will deepen in the relation between cyber insurance and ransomware popularized by the Royal United Services Institute last report.

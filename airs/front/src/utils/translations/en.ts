@@ -94,6 +94,11 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Company.",
       title: "company",
     },
+    credential: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Credential.",
+      title: "credential",
+    },
     cybersecurity: {
       description: "[under construction]",
       metaDescription:
@@ -111,6 +116,11 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts tagged with Machine Learning.",
       title: "machine learning",
     },
+    pentesting: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Pentesting.",
+      title: "pentesting",
+    },
     redTeam: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Red Team.",
@@ -121,6 +131,18 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Risk.",
       title: "risk",
     },
+    securityTesting: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Security Testing.",
+      title: "security testing",
+    },
+    socialEngineering: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Social Engineering.",
+      title: "social engineering",
+    },
     software: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Software.",
@@ -130,6 +152,11 @@ const pageTexts: ResourceKey = {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Training.",
       title: "training",
+    },
+    trend: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Trend.",
+      title: "trend",
     },
     vulnerability: {
       description: "[under construction]",

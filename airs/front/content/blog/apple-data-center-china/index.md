@@ -4,7 +4,7 @@ title: All That Is Gold Does Not Glitter
 date: 2021-06-11
 subtitle: Tips for understanding the Apple–China controversy
 category: politics
-tags: policies, company, trends, technology, cloud
+tags: policies, company, trend, technology, cloud
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627389989/blog/apple-data-center-china/cover-apple-data-center-china_lihdpl.webp
 alt: Photo by Elisabeth Pieringer on Unsplash
 description: In this post, we will understand why the Apple data center inaugurated in Guizhou reopened the controversy over data privacy in China.

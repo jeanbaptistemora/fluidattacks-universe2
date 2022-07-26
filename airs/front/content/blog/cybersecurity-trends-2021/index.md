@@ -4,7 +4,7 @@ title: Cybersecurity Trends 2021
 date: 2021-12-16
 subtitle: Current trends and predictions for the coming years
 category: opinions
-tags: cybersecurity, trends, security-testing, technology, hacking, company
+tags: cybersecurity, trend, security-testing, technology, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1639694789/blog/cybersecurity-trends-2021/cover_trends.webp
 alt: Photo by Lance Anderson on Unsplash
 description:  In this post, we share a digest of 2021's trends in cyberattacks and prevention, as well as some predictions for the coming years.

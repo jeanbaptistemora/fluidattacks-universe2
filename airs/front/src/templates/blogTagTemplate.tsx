@@ -13,7 +13,11 @@ import {
   CenteredMaxWidthContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
+import {
+  capitalizeDashedString,
+  capitalizeObject,
+  capitalizePlainString,
+} from "../utils/utilities";
 
 const blogTagTemplate: React.FC<IQueryData> = ({
   pageContext,
@@ -31,6 +35,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       description: translate.t("blogListTags.company.description"),
       metaDescription: translate.t("blogListTags.company.metaDescription"),
       title: translate.t("blogListTags.company.title"),
+    },
+    {
+      description: translate.t("blogListTags.credential.description"),
+      metaDescription: translate.t("blogListTags.credential.metaDescription"),
+      title: translate.t("blogListTags.credential.title"),
     },
     {
       description: translate.t("blogListTags.cybersecurity.description"),
@@ -52,6 +61,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.machineLearning.title"),
     },
     {
+      description: translate.t("blogListTags.pentesting.description"),
+      metaDescription: translate.t("blogListTags.pentesting.metaDescription"),
+      title: translate.t("blogListTags.pentesting.title"),
+    },
+    {
       description: translate.t("blogListTags.redTeam.description"),
       metaDescription: translate.t("blogListTags.redTeam.metaDescription"),
       title: translate.t("blogListTags.redTeam.title"),
@@ -62,6 +76,20 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.risk.title"),
     },
     {
+      description: translate.t("blogListTags.securityTesting.description"),
+      metaDescription: translate.t(
+        "blogListTags.securityTesting.metaDescription"
+      ),
+      title: translate.t("blogListTags.securityTesting.title"),
+    },
+    {
+      description: translate.t("blogListTags.socialEngineering.description"),
+      metaDescription: translate.t(
+        "blogListTags.socialEngineering.metaDescription"
+      ),
+      title: translate.t("blogListTags.socialEngineering.title"),
+    },
+    {
       description: translate.t("blogListTags.software.description"),
       metaDescription: translate.t("blogListTags.software.metaDescription"),
       title: translate.t("blogListTags.software.title"),
@@ -70,6 +98,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       description: translate.t("blogListTags.training.description"),
       metaDescription: translate.t("blogListTags.training.metaDescription"),
       title: translate.t("blogListTags.training.title"),
+    },
+    {
+      description: translate.t("blogListTags.trend.description"),
+      metaDescription: translate.t("blogListTags.trend.metaDescription"),
+      title: translate.t("blogListTags.trend.title"),
     },
     {
       description: translate.t("blogListTags.vulnerability.description"),
@@ -127,7 +160,7 @@ const blogTagTemplate: React.FC<IQueryData> = ({
           <BlogPageArticle>
             <CenteredMaxWidthContainer className={"tc"}>
               <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {tagName.charAt(0).toUpperCase() + tagName.slice(1)}
+                {capitalizeDashedString(tagName)}
               </Title>
               {tagDescription === undefined ? undefined : (
                 <Paragraph fColor={"#2e2e38"} fSize={"24"}>

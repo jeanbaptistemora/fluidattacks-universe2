@@ -4,7 +4,7 @@ title: 'A Global Attack: JBS Case'
 date: 2021-06-08
 subtitle: '"A cyberattack on one is an attack on us all"'
 category: attacks
-tags: cybersecurity, company, trends, risk, technology, software
+tags: cybersecurity, company, trend, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627389786/blog/jbs-revil-cyberattack/cover-jbs-revil-cyberattack_t9s8bc.webp
 alt: Photo by NASA on Unsplash
 description: FBI stated REvil as a global threat after confirming their attack on the IT architecture of the world's largest meat-producing company, JBS.

@@ -4,7 +4,7 @@ title: 'RaaS: That''s All We Needed!'
 date: 2021-06-02
 subtitle: Why ransomware complaints increased 65% in two years?
 category: attacks
-tags: cybersecurity, company, trends, risk, technology, software
+tags: cybersecurity, company, trend, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1622639187/blog/raas/cover_pt6ovb.webp
 alt: Photo by Raphael Lovaski on Unsplash
 description: DarkSide ransomware attack against Colonial Pipeline lay the cards on the table. Ransomware as a Service is at the forefront and here is what we know about it.

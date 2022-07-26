@@ -120,7 +120,7 @@ function check_md_blog_tags {
     test
     tls
     training
-    trends
+    trend
     vector
     vulnerability
     vulnserver

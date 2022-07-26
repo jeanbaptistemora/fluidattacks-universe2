@@ -4,7 +4,7 @@ title: Timeline of the New Cyberwar
 date: 2022-03-10
 subtitle: Highlights since just before the Russian invasion
 category: attacks
-tags: cybersecurity, social, risk, trends, social-engineering
+tags: cybersecurity, social, risk, trend, social-engineering
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1646947098/blog/timeline-new-cyberwar/cover_timeline_new_cyberwar.webp
 alt: Photo by engin akyurt on Unsplash
 description: This blog post provides you with a timeline of some cybersecurity highlights since shortly before Russia invaded Ukraine up to this point.

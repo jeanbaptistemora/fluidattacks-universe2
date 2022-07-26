@@ -4,7 +4,7 @@ title: Pegasus, Fraught With Peril!
 date: 2021-07-26
 subtitle: The spyware that threatens the world
 category: attacks
-tags: cybersecurity, company, trends, risk, technology, software
+tags: cybersecurity, company, trend, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627305052/blog/pegasus-spyware-cyberthreat/cover-pegasus_blxx6i.webp
 alt: Photo by Roi Dimor on Unsplash
 description: 'In this post, we will look at the software everyone is talking about: Pegasus.'
