@@ -66,7 +66,7 @@ async def remove_default_org_access(
         )
         if groups:
             print(f"User {email} has access to more orgs than the default")
-            return await orgs_domain.remove_user(
+            return await orgs_domain.remove_access(
                 get_new_context(), default_org_id, email
             )
 

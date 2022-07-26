@@ -1304,7 +1304,7 @@ async def remove_user(  # pylint: disable=too-many-locals
         groups_utils.filter_active_groups(user_org_groups)
     )
     if has_org_access and not has_groups_in_org:
-        success = await orgs_domain.remove_user(
+        success = await orgs_domain.remove_access(
             loaders, organization_id, email, modified_by
         )
 

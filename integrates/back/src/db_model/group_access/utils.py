@@ -1,6 +1,7 @@
 from .types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupConfirmDeletion,
     GroupInvitation,
 )
 from dynamodb.types import (
@@ -12,6 +13,12 @@ def format_group_access(item: Item) -> GroupAccess:
     return GroupAccess(
         email=item["email"],
         group_name=item["group_name"],
+        confirm_deletion=GroupConfirmDeletion(
+            is_used=bool(item["confirm_deletion"]["is_used"]),
+            url_token=item["confirm_deletion"]["url_token"],
+        )
+        if item.get("confirm_deletion")
+        else None,
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
         else None,
@@ -34,6 +41,12 @@ def format_metadata_item(
     metadata: GroupAccessMetadataToUpdate,
 ) -> Item:
     item: Item = {
+        "confirm_deletion": {
+            "is_used": metadata.confirm_deletion.is_used,
+            "url_token": metadata.confirm_deletion.url_token,
+        }
+        if metadata.confirm_deletion
+        else None,
         "expiration_time": metadata.expiration_time,
         "has_access": metadata.has_access,
         "invitation": {

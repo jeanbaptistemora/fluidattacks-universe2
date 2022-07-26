@@ -507,7 +507,7 @@ async def remove_credentials(
     )
 
 
-async def remove_user(
+async def remove_access(
     loaders: Any, organization_id: str, email: str, modified_by: str
 ) -> bool:
     organization_id = add_org_id_prefix(organization_id)
@@ -559,7 +559,7 @@ async def reject_register_for_organization_invitation(
 
     organization_id = organization_access.organization_id
     user_email = organization_access.email
-    success = await remove_user(
+    success = await remove_access(
         loaders, organization_id, user_email, user_email
     )
     return success

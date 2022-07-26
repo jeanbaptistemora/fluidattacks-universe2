@@ -62,7 +62,7 @@ async def remove_imamura_stakeholders() -> None:
     ]
     await collect(
         [
-            orgs_domain.remove_user(
+            orgs_domain.remove_access(
                 get_new_context(),
                 organization.id,
                 stakeholder_to_delete.email,

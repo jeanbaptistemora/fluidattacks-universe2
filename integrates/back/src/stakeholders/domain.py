@@ -139,7 +139,6 @@ async def remove(email: str) -> None:
     await authz.revoke_user_level_role(email)
     await stakeholders_model.remove(email=email)
     await redis_del_by_deps("session_logout", session_email=email)
-    return None
 
 
 async def update_information(

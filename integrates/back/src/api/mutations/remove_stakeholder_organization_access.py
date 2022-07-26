@@ -43,7 +43,7 @@ async def mutate(
         organization_id
     )
 
-    success: bool = await orgs_domain.remove_user(
+    success: bool = await orgs_domain.remove_access(
         info.context.loaders,
         organization_id,
         user_email.lower(),

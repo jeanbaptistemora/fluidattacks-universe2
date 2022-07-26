@@ -197,7 +197,7 @@ async def _get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
     return _cast_dict_into_subject_policy(response)
 
 
-async def _get_user_subject_policies(
+async def get_user_subject_policies(
     subject: str,
 ) -> tuple[tuple[str, str, str], ...]:
     policies: tuple[tuple[str, str, str], ...] = tuple(
@@ -246,7 +246,7 @@ async def get_cached_subject_policies(
             )
 
         policies = await redis_get_or_set_entity_attr(
-            partial(_get_user_subject_policies, subject),
+            partial(get_user_subject_policies, subject),
             entity="authz_subject",
             attr="policies",
             id=subject.lower(),
@@ -255,7 +255,7 @@ async def get_cached_subject_policies(
         context_store[context_store_key] = policies
         return policies
     # Let's fetch the data from the database
-    policies = await _get_user_subject_policies(subject)
+    policies = await get_user_subject_policies(subject)
     return policies
 
 

@@ -14,8 +14,8 @@ from aioextensions import (
 )
 from authz.policy import (
     _delete_subject_policy,
-    _get_user_subject_policies,
     get_group_level_role,
+    get_user_subject_policies,
 )
 from custom_exceptions import (
     GroupNotFound,
@@ -93,7 +93,7 @@ async def process_user(
     )
     groups = [
         policy[1]
-        for policy in await _get_user_subject_policies(email)
+        for policy in await get_user_subject_policies(email)
         if policy[2] == "group"
     ]
     user_groups = set(active + inactive + groups)

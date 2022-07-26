@@ -37,7 +37,7 @@ async def remove_user_from_imamura(user: str, org_id: str) -> bool:
     try:
         success: bool = cast(
             bool,
-            await orgs_domain.remove_user(get_new_context(), org_id, user),
+            await orgs_domain.remove_access(get_new_context(), org_id, user),
         )
         if success:
             print(f"[INFO] User {user} removed from imamura")

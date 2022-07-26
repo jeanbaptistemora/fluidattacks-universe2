@@ -65,7 +65,7 @@ async def _remove_organization(
 ) -> None:
     users = await orgs_domain.get_stakeholders_emails(loaders, organization_id)
     users_removed = await collect(
-        orgs_domain.remove_user(loaders, organization_id, user, modified_by)
+        orgs_domain.remove_access(loaders, organization_id, user, modified_by)
         for user in users
     )
     success = all(users_removed) if users else True

@@ -4,6 +4,11 @@ from typing import (
 )
 
 
+class GroupConfirmDeletion(NamedTuple):
+    is_used: bool
+    url_token: str
+
+
 class GroupInvitation(NamedTuple):
     is_used: bool
     role: str
@@ -14,6 +19,7 @@ class GroupInvitation(NamedTuple):
 class GroupAccess(NamedTuple):
     email: str
     group_name: str
+    confirm_deletion: Optional[GroupConfirmDeletion] = None
     expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
     invitation: Optional[GroupInvitation] = None
@@ -21,6 +27,7 @@ class GroupAccess(NamedTuple):
 
 
 class GroupAccessMetadataToUpdate(NamedTuple):
+    confirm_deletion: Optional[GroupConfirmDeletion] = None
     expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
     invitation: Optional[GroupInvitation] = None
