@@ -120,6 +120,7 @@ Default.args = {
   disabled: false,
   label: "ExampleLabel",
   placeholder: "Example placeholder",
+  required: false,
   tooltip: "Example tooltip",
   variant: "solid",
 };

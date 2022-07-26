@@ -26,8 +26,4 @@ const Header = styled.div.attrs({
   className: "flex items-center justify-between mb3",
 })``;
 
-const Title = styled.p.attrs({
-  className: "b f3 ma0",
-})``;
-
-export { Container, Dialog, Header, Title };
+export { Container, Dialog, Header };

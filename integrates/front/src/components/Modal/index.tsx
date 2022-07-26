@@ -1,13 +1,15 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FC, ReactNode } from "react";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 import { ModalConfirm } from "./Confirm";
-import { Container as ContainerModal, Dialog, Header, Title } from "./styles";
+import { Container as ContainerModal, Dialog, Header } from "./styles";
 
 import { Button } from "components/Button";
 import { Container } from "components/Container";
+import { Text } from "components/Text";
 
 interface IModalProps {
   children: React.ReactNode;
@@ -15,10 +17,10 @@ interface IModalProps {
   minWidth?: number;
   onClose?: () => void;
   open: boolean;
-  title: React.ReactNode | string;
+  title: ReactNode | string;
 }
 
-const Modal: React.FC<IModalProps> = ({
+const Modal: FC<IModalProps> = ({
   children,
   id,
   minWidth = 300,
@@ -44,7 +46,9 @@ const Modal: React.FC<IModalProps> = ({
         <ContainerModal id={id}>
           <Dialog>
             <Header>
-              <Title>{title}</Title>
+              <Text fw={7} mr={2} size={4}>
+                {title}
+              </Text>
               {onClose ? (
                 <Button id={"modal-close"} onClick={onClose} size={"sm"}>
                   <FontAwesomeIcon icon={faClose} />

@@ -373,8 +373,11 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   <Button onClick={cancelClick}>
                     {t("components.modal.cancel")}
                   </Button>
-                  <Modal onClose={noClick} open={showCancelModal} title={""}>
-                    <p>{t("autoenrollment.cancelModal.body")}</p>
+                  <Modal
+                    onClose={noClick}
+                    open={showCancelModal}
+                    title={t("autoenrollment.cancelModal.body")}
+                  >
                     <ModalConfirm
                       onCancel={noClick}
                       onConfirm={yesClick}
