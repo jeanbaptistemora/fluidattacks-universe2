@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 22, 2022, 03:24 PM",
+    "DateLastModified": "Jul 26, 2022, 02:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -52,7 +52,7 @@
           "FacetName": "advisories",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "PLATFORM#platform#PACKAGE#pkg_name",
-            "SortKeyAlias": "SOURCE#name#ADVISORY#id"
+            "SortKeyAlias": "SOURCE#src#ADVISORY#id"
           },
           "TableData": [],
           "DataAccess": {
@@ -62,7 +62,7 @@
       ],
       "GlobalSecondaryIndexes": [
         {
-          "IndexName": "gsi_sk",
+          "IndexName": "inverted_index",
           "KeyAttributes": {
             "PartitionKey": {
               "AttributeName": "sk",
