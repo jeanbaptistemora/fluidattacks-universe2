@@ -24,6 +24,6 @@ type PaymentMethod {
   rut: DocumentFile
   "State where the business is located"
   state: String!
-  "taxId document file metadata"
+  "TaxId document file metadata"
   taxId: DocumentFile
 }
