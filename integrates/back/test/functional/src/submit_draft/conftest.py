@@ -1,4 +1,4 @@
-# flake8: noqa
+# pylint: disable=import-error
 from back.test import (
     db,
 )
@@ -85,7 +85,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     requirements="REQ.0132. Passwords (phrase type) "
                     "must be at least 3 words long.",
                     threat="Updated threat",
-                    attack_vector_description="This is an updated attack vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [
                     FindingState(
@@ -116,9 +118,15 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T05:45:00+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-02-24T05:45:00+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T05:45:00+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
