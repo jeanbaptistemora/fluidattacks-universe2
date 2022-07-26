@@ -4,7 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs";
     purity.url = "gitlab:dmurciaatfluid/purity/tags/v1.22.1";
     purity.inputs.nixpkgs.follows = "nixpkgs";
-    redshift_client.url = "gitlab:dmurciaatfluid/redshift_client/tags/v1.1.0";
+    redshift_client.url = "gitlab:dmurciaatfluid/redshift_client/tags/v1.1.1";
     redshift_client.inputs.nixpkgs.follows = "nixpkgs";
     redshift_client.inputs.purity.follows = "purity";
   };

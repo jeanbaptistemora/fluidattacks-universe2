@@ -3,5 +3,5 @@ from ._utils import (
 )
 import logging
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 LOG = get_log(__name__, logging.DEBUG)
