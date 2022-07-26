@@ -9,6 +9,8 @@ type Organization {
   ): GenericScalar
   "Portal URL for managing group tiers"
   billingPortal: String
+  "Credentials associated to the organization"
+  credentials: [Credentials!]
   "Enacted and pending Finding policies within the organization"
   findingPolicies: [FindingPolicy]
   "Groups belonging to the organization"
@@ -23,8 +25,10 @@ type Organization {
   maxNumberAcceptances: Int
   "Minimum CVSS 3.1 score in which a finding can be temporally accepted"
   minAcceptanceSeverity: Float!
-  """Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
-  the build in strict mode"""
+  """
+  Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
+  the build in strict mode
+  """
   minBreakingSeverity: Float!
   "Name of the organization"
   name: String!
@@ -32,19 +36,25 @@ type Organization {
   paymentMethods: [PaymentMethod]
   "Permissions of the current user within the organization"
   permissions(
-    """Identifier of the entity, if left empty it defaults to the
-    Organization identifier"""
+    """
+    Identifier of the entity, if left empty it defaults to the
+    Organization identifier
+    """
     identifier: String
   ): [String]
   "Users who have access to the organization"
   stakeholders: [Stakeholder]
   "Role of the current user within the organization"
   userRole(
-    """Identifier of the entity, if left empty it defaults to the
-    Organization identifier"""
+    """
+    Identifier of the entity, if left empty it defaults to the
+    Organization identifier
+    """
     identifier: String
   ): String
-  """Grace period in days where newly reported vulnerabilities won't break the
-  build (DevSecOps only)"""
+  """
+  Grace period in days where newly reported vulnerabilities won't break the
+  build (DevSecOps only)
+  """
   vulnerabilityGracePeriod: Int!
 }
