@@ -8,6 +8,7 @@ from charts.colors import (
     RISK,
 )
 from charts.utils import (
+    CsvData,
     get_portfolios_groups,
     get_subject_days,
     iterate_groups,
@@ -804,3 +805,11 @@ async def generate_all_top_vulnerabilities(
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
             )
+
+
+def format_csv_data(*, document: dict) -> CsvData:
+    columns: list[list[str]] = document["data"]["columns"]
+    return CsvData(
+        headers=[columns[0][0]],
+        rows=[[str(value)] for value in tuple(columns[0][1:])],
+    )

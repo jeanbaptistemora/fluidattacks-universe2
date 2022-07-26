@@ -14,6 +14,9 @@ from charts.colors import (
 from charts.generators.bar_chart.exposed_by_groups import (
     format_max_value,
 )
+from charts.generators.bar_chart.utils import (
+    format_csv_data,
+)
 from charts.generators.pie_chart.utils import (
     PortfoliosGroupsInfo,
 )
@@ -120,26 +123,28 @@ async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        document = format_data(
+            data=await get_data_many_groups(groups=org_groups, loaders=loaders)
+        )
         utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(
-                    groups=org_groups, loaders=loaders
-                ),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(
-                        groups=tuple(groups), loaders=loaders
-                    ),
+            document = format_data(
+                data=await get_data_many_groups(
+                    groups=tuple(groups), loaders=loaders
                 ),
+            )
+            utils.json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
 
 
