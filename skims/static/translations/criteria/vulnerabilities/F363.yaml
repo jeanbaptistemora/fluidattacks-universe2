@@ -1,3 +1,4 @@
+---
 src.lib_path.f363.insecure_generate_secret_string:
   en: |
     Secret is weak configured
@@ -5,7 +6,7 @@ src.lib_path.f363.insecure_generate_secret_string:
     - It must contain numbers and punctuation
     - Must be more than 14 characters
     - Must not exclude certain characters
-  es: |
+  es: |-
     El secreto está debilmente configurado
     - Debe contener mayusculas y minusculas
     - Debe contener numeros y puntuación

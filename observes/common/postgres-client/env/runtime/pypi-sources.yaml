@@ -1,3 +1,4 @@
+---
 closure:
   deprecated: 1.2.12
   psycopg2: 2.8.6
@@ -29,4 +30,4 @@ links:
   - name: wrapt-1.12.1.tar.gz
     sha256: 1mwpkdnqxf0yxj1a0hsnl06lf287qi5ap7309wm37x45zf0zlbxn
     url: https://files.pythonhosted.org/packages/82/f7/e43cefbe88c5fd371f4cf0cf5eb3feccd07515af9fd6cf7dbf1d1793a797/wrapt-1.12.1.tar.gz
-python: "3.8"
+python: '3.8'

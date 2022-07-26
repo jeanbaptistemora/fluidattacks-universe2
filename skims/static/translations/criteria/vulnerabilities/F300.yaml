@@ -1,3 +1,4 @@
+---
 lib_path.f300.tfm_azure_as_client_certificates_enabled:
   en: Property client_cert_enabled is either missing or misconfigured
   es: Falta la propiedad client_cert_enabled o está mal configuradaesté activada

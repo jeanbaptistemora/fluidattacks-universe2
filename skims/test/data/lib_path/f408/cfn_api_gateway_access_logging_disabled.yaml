@@ -1,3 +1,4 @@
+---
 Resources:
   Prod:
     Type: AWS::ApiGateway::Stage

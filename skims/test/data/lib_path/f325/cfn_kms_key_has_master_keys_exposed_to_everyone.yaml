@@ -1,6 +1,7 @@
+---
 Resources:
   key1:
-    Type: 'AWS::KMS::Key'
+    Type: AWS::KMS::Key
     Properties:
       Description: An example multi-Region primary key
       MultiRegion: true
@@ -13,17 +14,17 @@ Resources:
           - Sid: Enable IAM User Permissions
             Effect: Allow
             Principal:
-              AWS: 'arn:aws:iam::111122223333:root'
-            Action: 'kms:*'
+              AWS: arn:aws:iam::111122223333:root
+            Action: kms:*
             Resource: '*'
           - Sid: Enable IAM User Permissions
             Effect: Allow
             Principal:
               AWS: '*'
-            Action: 'kms:*'
+            Action: kms:*
             Resource: '*'
   key2:
-    Type: 'AWS::KMS::Key'
+    Type: AWS::KMS::Key
     Properties:
       Description: An example multi-Region primary key
       MultiRegion: true
@@ -37,5 +38,5 @@ Resources:
             Effect: Deny
             Principal:
               AWS: '*'
-            Action: 'kms:*'
+            Action: kms:*
             Resource: '*'

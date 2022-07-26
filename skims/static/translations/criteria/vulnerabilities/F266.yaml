@@ -1,5 +1,8 @@
+---
 lib_path.f266.container_whitout_user:
   en: >
-    No command found to create a group or user, make sure the container is running as non-root
-  es: >
-    No se encontro ningún comando comando para la creación de un grupo o usuario, asegúrese de que el contenedor este corriendo como non-root
+    No command found to create a group or user, make sure the container is running
+    as non-root
+  es: >-
+    No se encontro ningún comando comando para la creación de un grupo o usuario,
+    asegúrese de que el contenedor este corriendo como non-root

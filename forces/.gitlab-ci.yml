@@ -1,3 +1,4 @@
+---
 forces.test-container:
   rules:
     - if: $CI_COMMIT_BRANCH == "trunk"
@@ -11,9 +12,9 @@ forces.test-container:
     - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
   stage: post-deploy
   tags: [autoscaling-large]
-  image: "fluidattacks/forces:${CI_COMMIT_REF_NAME}"
+  image: fluidattacks/forces:${CI_COMMIT_REF_NAME}
   variables:
-    API_ENDPOINT: "https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api"
+    API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api
   script:
     - forces --token "${INTEGRATES_FORCES_API_TOKEN}" --lax
   needs:

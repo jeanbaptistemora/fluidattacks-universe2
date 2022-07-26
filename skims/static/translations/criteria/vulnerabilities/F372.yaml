@@ -1,3 +1,4 @@
+---
 lib_path.f372.azure_only_accessible_over_http:
   en: Property https_only is either missing or misconfigured
   es: Falta la propiedad https_only o está mal configuradaesté activada
@@ -6,7 +7,8 @@ src.lib_path.f372.elb2_uses_insecure_protocol:
   es: El TargetGroup debería usar un protocolo seguro (HTTPS)
 src.lib_path.f372.serves_content_over_http:
   en: Property viewer_protocol_policy.allow-all is either missing or misconfigured
-  es: Falta la propiedad viewer_protocol_policy.allow-all o está mal configuradaesté activada
+  es: Falta la propiedad viewer_protocol_policy.allow-all o está mal configuradaesté
+    activada
 lib_path.f372.tfm_azure_storage_account_insecure_transfer:
   en: Property enable_https_traffic_only is either missing or misconfigured
   es: Falta la propiedad enable_https_traffic_only o está mal configuradaesté activada

@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.content_security_policy.missing_frame_ancestors:
   en: Missing frame-ancestors
   es: frame-ancestors ausente
@@ -14,14 +15,14 @@ lib_http.analyze_headers.content_security_policy.mixed_content_deprecated:
   en: block-all-mixed-content is deprecated
   es: block-all-mixed-content esta deprecada
 lib_http.analyze_headers.content_security_policy.script-src.jsonp:
-  en: "{host} hosts JSONP"
-  es: "{host} aloja JSONP"
+  en: '{host} hosts JSONP'
+  es: '{host} aloja JSONP'
 lib_http.analyze_headers.content_security_policy.script-src.unsafeinline:
   en: script-src has unsafe-inline
   es: script-src contiene unsafe-inline
 lib_http.analyze_headers.content_security_policy.wild_uri:
-  en: "Use of {uri} wildcard"
-  es: "Uso de comodín {uri}"
+  en: Use of {uri} wildcard
+  es: Uso de comodín {uri}
 lib_http.analyze_headers.upgrade_insecure_requests.missing:
   en: Could not found upgrade-insecure-requests header or CSP directive
   es: No se encontró la cabecera upgrade-insecure-requests ni la directiva CSP

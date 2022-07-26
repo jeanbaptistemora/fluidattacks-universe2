@@ -10,12 +10,12 @@ Parameters:
 Resources:
 
   rTest:
-    Type: 'AWS::RDS::OptionGroup'
+    Type: AWS::RDS::OptionGroup
     Properties:
       EngineName: mysql
       OptionGroupDescription: !Ref 'AWS::StackName'
       Tags:
         - Key: Name
-          Value: !Join ["", [!Ref 'AWS::StackName' , "-option-group"]]
+          Value: !Join ['', [!Ref 'AWS::StackName', -option-group]]
       X: true
-      Y: null
+      Y:

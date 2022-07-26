@@ -1,3 +1,4 @@
+---
 lib_path.f401.has_not_expiration_date_set:
   en: Property expiration_date is either missing or misconfigured
   es: Falta la propiedad expiration_date o está mal configuradaesté activada

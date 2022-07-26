@@ -1,3 +1,4 @@
+---
 src.lib_root.f016.csharp_weak_protocol:
   en: The application makes use of the {protocol} protocol which is insecure
   es: La aplicación hace uso del protocolo {protocol} el cual es inseguro
@@ -53,7 +54,8 @@ lib_root.f016.insecure_shared_access_protocol:
 lib_root.f016.httpclient_no_revocation_list:
   en: >
     Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList
-    no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
-  es: >
+    no establecida en true permitirá que HttpClient acepte los certificados revocados
+    como válidos.
+  es: >-
     Using System.Net.Http.HttpClient with its CheckCertificateRevocationList property
     not set to true will allow HttpClient to accept revoked certificates as valid.

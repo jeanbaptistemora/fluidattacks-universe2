@@ -1,5 +1,6 @@
+---
 lib_root.f320.authenticated_ldap_connections:
   en: >
     LDAP connections should be authenticated
-  es: >
+  es: >-
     Las conexiones LDAP deben estar autenticadas

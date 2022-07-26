@@ -1,17 +1,18 @@
+---
 checks:
-- F112
-- F004
-- F008
-- F021
-- F034
-- F042
-- F052
-- F063
-- F089
-- F107
+  - F112
+  - F004
+  - F008
+  - F021
+  - F034
+  - F042
+  - F052
+  - F063
+  - F089
+  - F107
 namespace: OWASP
 output: Benchmark_1.2-Fluid-Attacks-v2021.csv
 path:
   include:
-  - .
+    - .
 working_dir: ../owasp_benchmark

@@ -1,3 +1,4 @@
+---
 src.lib_path.f052.java_properties_missing_ssl:
   en: Missing SSL
   es: Ausencia de SSL
@@ -17,15 +18,19 @@ src.lib_path.f052.insecure_pass.description:
   en: Use of insecure password encoder
   es: Uso de codificador de contraseña inseguro
 lib_root.f052.c_sharp_disabled_strong_crypto:
-  en: A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true
-  es: Una llamada al método AppContext.SetSwitch establece Switch.System.Net.DontEnableSchUseStrongCrypto en verdadero
+  en: A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto
+    to true
+  es: Una llamada al método AppContext.SetSwitch establece Switch.System.Net.DontEnableSchUseStrongCrypto
+    en verdadero
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: >
-    server accepts connections with weak cipher method {insecure_cipher}, included in: {v_name}
+    server accepts connections with weak cipher method {insecure_cipher}, included
+    in: {v_name}
   es: >
-    el servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher}, included in: {v_name}
+    el servidor acepta conexiones con el siguiente método de cifrado débil: {insecure_cipher},
+    included in: {v_name}
 lib_root.f052.c_sharp_obsolete_key_derivation:
   en: >
     {expression} is used to generate a weak key derivation
-  es: >
+  es: >-
     {expression} se utiliza para generar una derivación de clave débil

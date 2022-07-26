@@ -1,3 +1,4 @@
+---
 closure:
   atomicwrites: 1.4.0
   attrs: 21.2.0
@@ -5,7 +6,7 @@ closure:
   commonmark: 0.9.1
   coverage: 6.0.2
   more-itertools: 8.10.0
-  packaging: "21.0"
+  packaging: '21.0'
   pluggy: 0.13.1
   py: 1.10.0
   pygments: 2.10.0
@@ -121,4 +122,4 @@ links:
   - name: wcwidth-0.2.5.tar.gz
     sha256: 10vc257v1r9hhmwxyxw0v79kwh81gyz4zanwggdrz4kjk2wlgmn4
     url: https://files.pythonhosted.org/packages/89/38/459b727c381504f361832b9e5ace19966de1a235d73cdbdea91c771a1155/wcwidth-0.2.5.tar.gz
-python: "3.8"
+python: '3.8'

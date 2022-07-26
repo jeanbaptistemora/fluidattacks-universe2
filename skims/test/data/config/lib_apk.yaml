@@ -1,13 +1,14 @@
+---
 apk:
   include:
-  - examples/tests/com.teleca.jamendo_35.apk
-  - examples/tests/lineageos_nexus5_framework-res.apk
-  - ../universe/skims/test/data/lib_apk/has_frida.apk
-  - ../universe/skims/test/data/lib_apk/js_open.apk
-  - ../universe/skims/test/data/lib_apk/unsafe_delete.apk
-  - ../universe/skims/test/data/lib_apk/ssl_open.apk
-  - ../universe/skims/test/data/lib_apk/http_refs.apk
-  - ../universe/skims/test/data/lib_apk/get_insecure.apk
+    - examples/tests/com.teleca.jamendo_35.apk
+    - examples/tests/lineageos_nexus5_framework-res.apk
+    - ../universe/skims/test/data/lib_apk/has_frida.apk
+    - ../universe/skims/test/data/lib_apk/js_open.apk
+    - ../universe/skims/test/data/lib_apk/unsafe_delete.apk
+    - ../universe/skims/test/data/lib_apk/ssl_open.apk
+    - ../universe/skims/test/data/lib_apk/http_refs.apk
+    - ../universe/skims/test/data/lib_apk/get_insecure.apk
 namespace: namespace
 output: skims/test/outputs/lib_apk.csv
 working_dir: ../androguard

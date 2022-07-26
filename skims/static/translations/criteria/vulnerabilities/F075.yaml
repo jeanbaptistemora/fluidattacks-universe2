@@ -1,3 +1,4 @@
+---
 lib_apk.analyze_bytecodes.exported:
   en: application.android:exported enabled
   es: application.android:exported habilitado

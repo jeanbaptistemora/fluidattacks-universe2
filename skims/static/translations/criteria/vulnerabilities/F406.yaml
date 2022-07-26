@@ -1,3 +1,4 @@
+---
 lib_path.f406.aws_efs_unencrypted:
   en: The Encrypted property should be enabled
   es: La propiedad Encrypted debería estar habilitada

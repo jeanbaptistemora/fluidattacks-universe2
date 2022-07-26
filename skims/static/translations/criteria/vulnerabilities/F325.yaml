@@ -1,3 +1,4 @@
+---
 src.lib_path.f325.iam_is_role_over_privileged:
   en: >
     IAM Role is miss configured:
@@ -60,5 +61,5 @@ src.lib_path.f325.iam_has_wildcard_resource_on_write_action:
 src.lib_path.f325.kms_key_has_master_keys_exposed_to_everyone:
   en: >
     Amazon KMS master keys are exposed to everyone
-  es: >
+  es: >-
     Las llaves de Amazon KMS están expuestas a todos

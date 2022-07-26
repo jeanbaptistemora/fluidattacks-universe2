@@ -1,10 +1,11 @@
+---
 closure:
   aioextensions: 20.11.1621472
   certifi: 2021.10.8
   chardet: 4.0.0
   deprecated: 1.2.12
   dill: 0.3.4
-  idna: "2.10"
+  idna: '2.10'
   multiprocess: 0.70.12.2
   pathos: 0.2.8
   pox: 0.3.0
@@ -139,4 +140,4 @@ links:
   - name: wrapt-1.13.2.tar.gz
     sha256: 0ivl1ssp1nyjamn3l4099r8ywd7madvh21w6mb1dfprsjv2nr9fw
     url: https://files.pythonhosted.org/packages/57/f0/b9c4beb5be22485ff0f09427dcc4e483dbf3a34fd5afb4f93cd6c68b2fac/wrapt-1.13.2.tar.gz
-python: "3.8"
+python: '3.8'

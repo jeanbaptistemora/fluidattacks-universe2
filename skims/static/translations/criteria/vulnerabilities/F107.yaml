@@ -1,3 +1,5 @@
+---
 lib_root.f107.ldap_injection:
   en: Potentially untrusted HTTP request input reaches an LDAP statement
-  es: La entrada de una solicitud HTTP potencialmente no confiable llega a una declaración LDAP
+  es: La entrada de una solicitud HTTP potencialmente no confiable llega a una declaración
+    LDAP

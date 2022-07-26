@@ -1,3 +1,4 @@
+---
 Resources:
   distribution1:
     Type: AWS::CloudFront::Distribution
@@ -11,12 +12,12 @@ Resources:
             Cookies:
               Forward: all
         Origins:
-        - CustomOriginConfig:
-            OriginSSLProtocols:
-            - SSLv3
-            - TLSv1
-            - TLSv1.1
-            - TLSv1.2
+          - CustomOriginConfig:
+              OriginSSLProtocols:
+                - SSLv3
+                - TLSv1
+                - TLSv1.1
+                - TLSv1.2
   distribution2:
     Type: AWS::CloudFront::Distribution
     Properties:

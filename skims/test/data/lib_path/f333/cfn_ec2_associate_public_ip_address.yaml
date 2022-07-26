@@ -1,8 +1,9 @@
+---
 Resources:
   myLaunchTemplate:
-    Type: 'AWS::EC2::LaunchTemplate'
+    Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: '${AWS::StackName}-launch-template-for-auto-scaling'
+      LaunchTemplateName: ${AWS::StackName}-launch-template-for-auto-scaling
       LaunchTemplateData:
         NetworkInterfaces:
           - DeviceIndex: 0
@@ -27,21 +28,21 @@ Resources:
     Properties:
       ImageId:
         Fn::FindInMap:
-          - "RegionMap"
-          - Ref: "AWS::Region"
-          - "AMI"
+          - RegionMap
+          - Ref: AWS::Region
+          - AMI
       KeyName:
-        Ref: "KeyName"
+        Ref: KeyName
       NetworkInterfaces:
-        - AssociatePublicIpAddress: "true"
-          DeviceIndex: "0"
+        - AssociatePublicIpAddress: 'true'
+          DeviceIndex: '0'
           GroupSet:
-            - Ref: "myVPCEC2SecurityGroup"
+            - Ref: myVPCEC2SecurityGroup
           SubnetId:
-            Ref: "PublicSubnet"
+            Ref: PublicSubnet
         - AssociatePublicIpAddress: false
-          DeviceIndex: "0"
+          DeviceIndex: '0'
           GroupSet:
-            - Ref: "myVPCEC2SecurityGroup"
+            - Ref: myVPCEC2SecurityGroup
           SubnetId:
-            Ref: "PublicSubnet"
+            Ref: PublicSubnet

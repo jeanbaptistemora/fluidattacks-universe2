@@ -1,3 +1,4 @@
+---
 lib_path.f335.tfm_aws_s3_versioning_disabled:
   en: Property versioning.enabled is either missing or misconfigured
   es: Falta la propiedad versioning.enabled o está mal configuradaesté activada

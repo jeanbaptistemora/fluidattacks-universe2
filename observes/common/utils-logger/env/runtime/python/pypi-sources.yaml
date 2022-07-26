@@ -1,3 +1,4 @@
+---
 closure:
   bugsnag: 4.0.2
   webob: 1.8.7
@@ -14,4 +15,4 @@ links:
   - name: WebOb-1.8.7.tar.gz
     sha256: 08y3y377s370nzv8wsnbxm8h69n28px49w28wjnwyng53cagakmn
     url: https://files.pythonhosted.org/packages/c7/45/ee5f034fb4ebe3236fa49e5a4fcbc54444dd22ecf33079cf56f9606d479d/WebOb-1.8.7.tar.gz
-python: "3.8"
+python: '3.8'

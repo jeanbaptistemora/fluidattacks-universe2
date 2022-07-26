@@ -1,3 +1,4 @@
+---
 lib_http.analyze_content.sub_resource_integrity.missing_integrity:
   en: Third party resource {netloc} without sri
   es: Recurso de terceros {netloc} sin atributo de integridad
@@ -5,6 +6,6 @@ lib_path.f086.sub_resource_integrity.missing_integrity:
   en: >
     The application does not properly check the integrity
     of resources loaded from third-party servers.
-  es: >
+  es: >-
     La aplicación no comprueba correctamente la integridad
     de los recursos cargados desde servidores de terceros.

@@ -1,3 +1,4 @@
+---
 f346._has_dangerous_permissions: android.has_dangerous_permissions
 f011_npm_package_json._check_npm_package_json: npm.npm_package_json
 f011_npm_package_lock_json._check_npm_package_lock_json: npm.npm_package_lock_json

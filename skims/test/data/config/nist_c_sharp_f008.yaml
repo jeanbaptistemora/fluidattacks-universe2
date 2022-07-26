@@ -1,3 +1,4 @@
+---
 checks:
   - F008
 namespace: NIST

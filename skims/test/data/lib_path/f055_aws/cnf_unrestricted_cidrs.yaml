@@ -1,3 +1,4 @@
+---
 Resources:
   securityGroup1:
     Properties:
@@ -10,7 +11,7 @@ Resources:
       SecurityGroupEgress:
         - CidrIp: 34.229.161.227/16
           FromPort: 8080
-          IpProtocol: "tcp"
+          IpProtocol: tcp
           ToPort: 8080
     Type: AWS::EC2::SecurityGroup
   securityGroup2:

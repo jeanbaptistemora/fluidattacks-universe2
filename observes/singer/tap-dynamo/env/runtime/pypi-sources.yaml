@@ -1,3 +1,4 @@
+---
 closure:
   boto3: 1.21.0
   botocore: 1.24.0
@@ -194,4 +195,4 @@ links:
   - name: wrapt-1.13.3.tar.gz
     sha256: 11f13zqgbql26g5bkfkqalckcdlz394g6dhx4y16cvk873a9rshz
     url: https://files.pythonhosted.org/packages/eb/f6/d81ccf43ac2a3c80ddb6647653ac8b53ce2d65796029369923be06b815b8/wrapt-1.13.3.tar.gz
-python: "3.8"
+python: '3.8'

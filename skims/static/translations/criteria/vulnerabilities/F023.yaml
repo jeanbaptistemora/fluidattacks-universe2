@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.location.injection:
   en: Redirection due to Host header injection
   es: Redirección debida a inyección en la cabecera Host

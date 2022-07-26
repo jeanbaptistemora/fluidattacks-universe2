@@ -1,3 +1,4 @@
+---
 Resources:
   BucketPolicy1:
     Type: AWS::S3::BucketPolicy
@@ -7,17 +8,17 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - 's3:GetObject'
+              - s3:GetObject
             Effect: Allow
             Resource:
               - ''
-              - - 'arn:aws:s3:::'
-                - DOC-EXAMPLE-BUCKET
-                - /*
+              -   - 'arn:aws:s3:::'
+                  - DOC-EXAMPLE-BUCKET
+                  - /*
             Principal: '*'
             Condition:
-              "Null":
-                's3:x-amz-server-side-encryption': False
+              'Null':
+                s3:x-amz-server-side-encryption: false
   BucketPolicy2:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -26,19 +27,19 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - "s3:DeleteObject"
-              - "s3:DeleteObjectVersion"
-              - "s3:PutLifecycleConfiguration"
+              - s3:DeleteObject
+              - s3:DeleteObjectVersion
+              - s3:PutLifecycleConfiguration
             Effect: Deny
             Resource:
               - ''
-              - - 'arn:aws:s3:::'
-                - DOC-EXAMPLE-BUCKET
-                - /*
+              -   - 'arn:aws:s3:::'
+                  - DOC-EXAMPLE-BUCKET
+                  - /*
             Principal: '*'
             Condition:
-              "Null":
-                's3:x-amz-server-side-encryption': True
+              'Null':
+                s3:x-amz-server-side-encryption: true
   BucketPolicy3:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -47,37 +48,37 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Action:
-              - "s3:DeleteObject"
-              - "s3:DeleteObjectVersion"
-              - "s3:PutLifecycleConfiguration"
+              - s3:DeleteObject
+              - s3:DeleteObjectVersion
+              - s3:PutLifecycleConfiguration
             Effect: Allow
             Resource:
               - ''
-              - - 'arn:aws:s3:::'
-                - DOC-EXAMPLE-BUCKET
-                - /*
+              -   - 'arn:aws:s3:::'
+                  - DOC-EXAMPLE-BUCKET
+                  - /*
             Principal: '*'
             Condition:
               StringLike:
-                'aws:Referer':
-                  - 'http://www.example.com/*'
-                  - 'http://example.net/*'
+                aws:Referer:
+                  - http://www.example.com/*
+                  - http://example.net/*
               Bool:
-                'aws:SecureTransport': True
-              "Null":
-                's3:x-amz-server-side-encryption': True
+                aws:SecureTransport: true
+              'Null':
+                s3:x-amz-server-side-encryption: true
           - Action:
-              - "s3:RestoreObject"
-              - "s3:WriteGetObjectResponse"
+              - s3:RestoreObject
+              - s3:WriteGetObjectResponse
             Effect: Allow
             Resource:
               - ''
-              - - 'arn:aws:s3:::'
-                - DOC-EXAMPLE-BUCKET
-                - /*
+              -   - 'arn:aws:s3:::'
+                  - DOC-EXAMPLE-BUCKET
+                  - /*
             Principal: '*'
             Condition:
               StringLike:
-                'aws:Referer':
-                  - 'http://www.example.com/*'
-                  - 'http://example.net/*'
+                aws:Referer:
+                  - http://www.example.com/*
+                  - http://example.net/*

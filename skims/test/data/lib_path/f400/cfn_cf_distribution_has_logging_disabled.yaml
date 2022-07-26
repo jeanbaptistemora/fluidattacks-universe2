@@ -1,3 +1,4 @@
+---
 Resources:
   distribution1:
     Type: AWS::CloudFront::Distribution

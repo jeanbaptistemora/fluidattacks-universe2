@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.referrer_policy.missing:
   en: Missing Referrer-Policy
   es: Referrer-Policy ausente

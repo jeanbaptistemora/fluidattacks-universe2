@@ -1,3 +1,4 @@
+---
 inputs:
   - field: phone
     state: open
@@ -18,7 +19,7 @@ inputs:
       name: tool-4
       impact: indirect
 lines:
-  - line: "78"
+  - line: '78'
     commit_hash: 111111111111111111111111111111111111111f
     path: universe/test/test#.config
     state: open
@@ -27,7 +28,7 @@ lines:
     tool:
       name: tool-4
       impact: indirect
-  - line: "78"
+  - line: '78'
     path: universe/test/test#.config
     repo_nickname: universe
     state: open
@@ -36,7 +37,7 @@ lines:
     tool:
       name: tool-4
       impact: indirect
-  - line: "78"
+  - line: '78'
     path: universe/test/test#.config
     repo_nickname: universe
     state: open

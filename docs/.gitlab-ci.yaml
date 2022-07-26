@@ -1,3 +1,4 @@
+---
 .makes4: &makes4
   tags: [autoscaling]
   image: ghcr.io/fluidattacks/makes:22.08
@@ -8,39 +9,37 @@
   variables:
     GIT_DEPTH: 5
 
-.docs_commit_pattern: &docs_commit_pattern "$CI_COMMIT_TITLE =~ /^(all|docs)/"
+.docs_commit_pattern: &docs_commit_pattern $CI_COMMIT_TITLE =~ /^(all|docs)/
 
 .docs_in_dev_branch: &docs_in_dev_branch
   rules:
-    - if: '$CI_COMMIT_BRANCH == "trunk"'
+    - if: $CI_COMMIT_BRANCH == "trunk"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
     - if: *docs_commit_pattern
 
 .docs_in_prod_branch: &docs_in_prod_branch
-  resource_group: "${CI_JOB_NAME}"
+  resource_group: ${CI_JOB_NAME}
   rules:
-    - if: '$CI_COMMIT_BRANCH != "trunk"'
+    - if: $CI_COMMIT_BRANCH != "trunk"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+    - if: $CI_PIPELINE_SOURCE == "trigger"
       when: never
     - if: *docs_commit_pattern
 
 /deployTerraform/docsInfra:
-  <<: *makes4
-  <<: *docs_in_prod_branch
+  <<: [*makes4, *docs_in_prod_branch]
   stage: deploy-infra
 
 /docs/deploy/dev:
-  <<: *makes4
-  <<: *docs_in_dev_branch
+  <<: [*makes4, *docs_in_dev_branch]
   stage: deploy-app
   script: m . /docs/deploy dev "${CI_COMMIT_REF_NAME}"
   environment:
@@ -48,8 +47,7 @@
     url: https://docs-dev.fluidattacks.com/${CI_COMMIT_REF_NAME}/
 
 /docs/deploy/prod:
-  <<: *makes4
-  <<: *docs_in_prod_branch
+  <<: [*makes4, *docs_in_prod_branch]
   stage: deploy-app
   script: m . /docs/deploy prod default
   environment:
@@ -57,21 +55,17 @@
     url: https://docs.fluidattacks.com/
 
 /docs/generate/criteria:
-  <<: *makes4
-  <<: *docs_in_dev_branch
+  <<: [*makes4, *docs_in_dev_branch]
   stage: build
 
 /lintMarkdown/docs:
-  <<: *makes4
-  <<: *docs_in_dev_branch
+  <<: [*makes4, *docs_in_dev_branch]
   stage: lint-code
 
 /lintTerraform/docsInfra:
-  <<: *makes4
-  <<: *docs_in_dev_branch
+  <<: [*makes4, *docs_in_dev_branch]
   stage: test-infra
 
 /testTerraform/docsInfra:
-  <<: *makes4
-  <<: *docs_in_dev_branch
+  <<: [*makes4, *docs_in_dev_branch]
   stage: lint-code

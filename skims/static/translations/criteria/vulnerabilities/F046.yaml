@@ -1,3 +1,4 @@
+---
 lib_apk.analyze_bytecodes.no_obfuscation:
   en: '{desc_class_name} is not obfuscated'
   es: '{desc_class_name} no esta ofuscado'

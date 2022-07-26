@@ -1,16 +1,17 @@
+---
 Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-        GroupDescription: Allow http to client host
-        VpcId:
-          Ref: myVPC
-        SecurityGroupIngress:
+      GroupDescription: Allow http to client host
+      VpcId:
+        Ref: myVPC
+      SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 40
           ToPort: 55
           CidrIp: 0.0.0.0/0
-        SecurityGroupEgress:
+      SecurityGroupEgress:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
@@ -18,15 +19,15 @@ Resources:
   InstanceSecurityGroup2:
     Type: AWS::EC2::SecurityGroup
     Properties:
-        GroupDescription: Allow http to client host
-        VpcId:
-          Ref: myVPC
-        SecurityGroupIngress:
+      GroupDescription: Allow http to client host
+      VpcId:
+        Ref: myVPC
+      SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
           CidrIp: 0.0.0.0/0
-        SecurityGroupEgress:
+      SecurityGroupEgress:
         - IpProtocol: tcp
           FromPort: 50
           ToPort: 60
@@ -40,12 +41,12 @@ Resources:
       CidrIp: 0.0.0.0/0
       DestinationSecurityGroupId:
         Fn::GetAtt:
-        - TargetSG
-        - GroupId
+          - TargetSG
+          - GroupId
       GroupId:
         Fn::GetAtt:
-        - SourceSG
-        - GroupId
+          - SourceSG
+          - GroupId
   OutboundRule2:
     Type: AWS::EC2::SecurityGroupEgress
     Properties:
@@ -54,12 +55,12 @@ Resources:
       ToPort: 500
       DestinationSecurityGroupId:
         Fn::GetAtt:
-        - TargetSG
-        - GroupId
+          - TargetSG
+          - GroupId
       GroupId:
         Fn::GetAtt:
-        - SourceSG
-        - GroupId
+          - SourceSG
+          - GroupId
   InboundRule:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
@@ -68,23 +69,23 @@ Resources:
       ToPort: 56
       SourceSecurityGroupId:
         Fn::GetAtt:
-        - SourceSG
-        - GroupId
+          - SourceSG
+          - GroupId
       GroupId:
         Fn::GetAtt:
-        - TargetSG
-        - GroupId
+          - TargetSG
+          - GroupId
   InboundRule2:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
       IpProtocol: tcp
-      FromPort: "53"
+      FromPort: '53'
       ToPort: 53
       SourceSecurityGroupId:
         Fn::GetAtt:
-        - SourceSG
-        - GroupId
+          - SourceSG
+          - GroupId
       GroupId:
         Fn::GetAtt:
-        - TargetSG
-        - GroupId
+          - TargetSG
+          - GroupId

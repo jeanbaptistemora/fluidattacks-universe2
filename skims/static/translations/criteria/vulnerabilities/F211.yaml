@@ -1,3 +1,4 @@
+---
 lib_root.f211.regex_vulnerable:
   en: >
     Regular expressions should not be vulnerable to Denial of Service attacks
@@ -7,5 +8,6 @@ lib_root.f211.regex_vulnerable:
 lib_root.f211.regex_injection:
   en: >
     Potentially untrusted HTTP request input reaches a regular expression.
-  es: >
-    La entrada de una solicitud HTTP potencialmente no confiable llega a una expresión regular.
+  es: >-
+    La entrada de una solicitud HTTP potencialmente no confiable llega a una expresión
+    regular.

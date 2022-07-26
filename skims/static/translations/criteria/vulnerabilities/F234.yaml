@@ -1,3 +1,4 @@
+---
 src.lib_root.f234.java_info_leak_stacktrace:
   en: error stacktrace can be printed
   es: la traza del error puede ser impresa

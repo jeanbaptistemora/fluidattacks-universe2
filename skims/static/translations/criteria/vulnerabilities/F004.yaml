@@ -1,7 +1,10 @@
+---
 lib_path.f004.remote_command_execution:
   en: >
     The system builds system commands using inputs that can be manipulated externally,
     it does not properly override special elements that could modify the system command.
-  es: >
-    El sistema construye comandos de sistema utilizando entradas que pueden ser manipuladas externamente,
-    no neutraliza correctamente elementos especiales que podrían modificar el comando del sistema.
+  es: >-
+    El sistema construye comandos de sistema utilizando entradas que pueden ser manipuladas
+    externamente,
+    no neutraliza correctamente elementos especiales que podrían modificar el comando
+    del sistema.

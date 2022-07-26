@@ -1,9 +1,14 @@
+---
 lib_path.f333.tfm_ec2_allows_shutdown_command:
-  en: Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured
-  es: Falta la propiedad instance_initiated_shutdown_behavior.terminate o está mal configurada
+  en: Property instance_initiated_shutdown_behavior.terminate is either missing or
+    misconfigured
+  es: Falta la propiedad instance_initiated_shutdown_behavior.terminate o está mal
+    configurada
 lib_path.f333.cfn_ec2_allows_shutdown_command:
-  en: Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing or misconfigured
-  es: Falta la propiedad LaunchTemplateData.InstanceInitiatedShutdownBehavior o está mal configurada
+  en: Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing
+    or misconfigured
+  es: Falta la propiedad LaunchTemplateData.InstanceInitiatedShutdownBehavior o está
+    mal configurada
 lib_path.f333.ec2_public_ip_addresses:
   en: Property associate_public_ip_address is either missing or misconfigured
   es: Falta la propiedad associate_public_ip_address o está mal configurada

@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.set_cookie_samesite.bad_samesite:
-  en: "{cookie_name} does not have SameSite correctly initialized"
-  es: "{cookie_name} no tiene SameSite correctamente inicializado"
+  en: '{cookie_name} does not have SameSite correctly initialized'
+  es: '{cookie_name} no tiene SameSite correctamente inicializado'

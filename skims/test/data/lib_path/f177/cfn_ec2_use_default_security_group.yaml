@@ -1,3 +1,4 @@
+---
 Resources:
   MyLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -22,12 +23,12 @@ Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
+      ImageId: ami-79fd7eee
+      KeyName: testkey
       SecurityGroups:
         - name1
   MyEC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
+      ImageId: ami-79fd7eee
+      KeyName: testkey

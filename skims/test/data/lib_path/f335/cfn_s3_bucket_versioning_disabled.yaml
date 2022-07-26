@@ -1,17 +1,18 @@
+---
 Resources:
   S3Bucket:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     Properties:
       BucketName: b1
       VersioningConfiguration:
         Status: Enabled
   S3Bucket2:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     Properties:
       BucketName: b2
       VersioningConfiguration:
         Status: Suspended
   S3Bucket3:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     Properties:
       BucketName: b3

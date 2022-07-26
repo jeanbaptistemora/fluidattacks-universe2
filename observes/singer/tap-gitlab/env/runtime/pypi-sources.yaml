@@ -1,3 +1,4 @@
+---
 closure:
   aioextensions: 20.8.2087641
   aiohttp: 3.8.1
@@ -14,12 +15,12 @@ closure:
   click: 8.0.1
   colorama: 0.4.4
   frozenlist: 1.2.0
-  idna: "2.10"
+  idna: '2.10'
   jmespath: 0.10.0
   more-itertools: 8.8.0
   multidict: 5.2.0
   python-dateutil: 2.8.1
-  pytz: "2021.1"
+  pytz: '2021.1'
   requests: 2.25.1
   returns: 0.16.0
   s3transfer: 0.4.2
@@ -356,4 +357,4 @@ links:
   - name: yarl-1.7.2.tar.gz
     sha256: 1panip1y3jn0yyr80g2xbzpgq290fmb9isb0lhkk698csr39nfa5
     url: https://files.pythonhosted.org/packages/f6/da/46d1b3d69a9a0835dabf9d59c7eb0f1600599edd421a4c5a15ab09f527e0/yarl-1.7.2.tar.gz
-python: "3.8"
+python: '3.8'

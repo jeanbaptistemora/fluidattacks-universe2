@@ -1,3 +1,4 @@
+---
 font:
   catalog:
     Roboto:
@@ -25,7 +26,7 @@ page:
   size: letter
   background_image: image:background.png[]
 # FIXME vertical_rhythm is weird; we should think in terms of ems
-#vertical_rhythm: $base_line_height_length * 2 / 3
+# vertical_rhythm: $base_line_height_length * 2 / 3
 vertical_rhythm: $base_line_height_length
 horizontal_rhythm: $base_line_height_length
 # QUESTION should vertical_spacing be block_spacing instead?
@@ -75,7 +76,7 @@ caption:
   font_style: italic
   # FIXME perhaps set line_height instead of / in addition to margins?
   margin_inside: $vertical_rhythm / 3
-  #margin_inside: $vertical_rhythm / 4
+  # margin_inside: $vertical_rhythm / 4
   margin_outside: 0
 lead:
   font_size: $base_font_size_large
@@ -95,7 +96,8 @@ quote:
   font_size: $base_font_size_large
   border_color: $base_border_color
   border_width: 5
-  padding: [$vertical_rhythm / 2, $horizontal_rhythm, $vertical_rhythm / -2, $horizontal_rhythm + $blockquote_border_width / 2]
+  padding: [$vertical_rhythm / 2, $horizontal_rhythm, $vertical_rhythm / -2, $horizontal_rhythm
+        + $blockquote_border_width / 2]
   cite_font_size: $base_font_size_small
   cite_font_color: 999999
 # code is used for source blocks (perhaps change to source or listing?)

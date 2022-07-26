@@ -1,3 +1,4 @@
+---
 Strict-Transport-Security: analyze_headers.strict_transport_security
 max-age menor que: analyze_headers.strict_transport_security
 Strict-Transport-Security ausente: analyze_headers.strict_transport_security

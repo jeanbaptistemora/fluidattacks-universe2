@@ -1,3 +1,4 @@
+---
 lib_apk.analyze_bytecodes.no_root_check:
   en: Missing rooted device detection
   es: Detección de dispositivo rooteado ausente

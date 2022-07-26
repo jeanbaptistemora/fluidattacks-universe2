@@ -1,8 +1,9 @@
+---
 closure:
   certifi: 2021.5.30
   charset-normalizer: 2.0.4
   click: 7.1.2
-  idna: "3.2"
+  idna: '3.2'
   mailchimp-marketing: 3.0.40
   python-dateutil: 2.8.2
   ratelimiter: 1.2.0.post0
@@ -81,4 +82,4 @@ links:
   - name: urllib3-1.26.6.tar.gz
     sha256: 0brlisgwwcms6q7p6nd2b5mzn4jm4mdw75rxgq5pd8igqqb4qyzm
     url: https://files.pythonhosted.org/packages/4f/5a/597ef5911cb8919efe4d86206aa8b2658616d676a7088f0825ca08bd7cb8/urllib3-1.26.6.tar.gz
-python: "3.8"
+python: '3.8'

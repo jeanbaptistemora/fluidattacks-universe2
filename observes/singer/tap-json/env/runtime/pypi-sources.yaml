@@ -1,9 +1,10 @@
+---
 closure:
   click: 8.0.1
   colorama: 0.4.4
   dateutils: 0.6.12
   python-dateutil: 2.8.2
-  pytz: "2021.1"
+  pytz: '2021.1'
   returns: 0.16.0
   six: 1.16.0
   typing-extensions: 3.10.0.0
@@ -56,4 +57,4 @@ links:
   - name: typing_extensions-3.10.0.0.tar.gz
     sha256: 0hpkrp39w58f6lc6r0jhn97qhcp95z49vyan0ryj2x4ihibz3djh
     url: https://files.pythonhosted.org/packages/aa/55/62e2d4934c282a60b4243a950c9dbfa01ae7cac0e8d6c0b5315b87432c81/typing_extensions-3.10.0.0.tar.gz
-python: "3.8"
+python: '3.8'

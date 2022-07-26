@@ -1,14 +1,15 @@
+---
 closure:
   boto3: 1.17.20
   botocore: 1.20.20
   certifi: 2021.10.8
   chardet: 4.0.0
-  idna: "2.10"
+  idna: '2.10'
   jmespath: 0.10.0
   numpy: 1.22.1
   pandas: 1.2.4
   python-dateutil: 2.8.2
-  pytz: "2021.3"
+  pytz: '2021.3'
   ratelimiter: 1.2.0
   requests: 2.25.1
   s3transfer: 0.3.7
@@ -123,4 +124,4 @@ links:
   - name: urllib3-1.26.8.tar.gz
     sha256: 0g18xk7gfm88gr4bp3f58vgvsbzwps3sq2kqhv5xyz9ylvck6z0f
     url: https://files.pythonhosted.org/packages/b0/b1/7bbf5181f8e3258efae31702f5eab87d8a74a72a0aa78bc8c08c1466e243/urllib3-1.26.8.tar.gz
-python: "3.8"
+python: '3.8'

@@ -1,18 +1,19 @@
+---
 Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
-      Monitoring: True
+      ImageId: ami-79fd7eee
+      KeyName: testkey
+      Monitoring: true
   MyEC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
-      Monitoring: False
+      ImageId: ami-79fd7eee
+      KeyName: testkey
+      Monitoring: false
   MyEC2Instance3:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
+      ImageId: ami-79fd7eee
+      KeyName: testkey

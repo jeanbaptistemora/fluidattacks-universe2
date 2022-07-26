@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -33,7 +34,7 @@ spec:
               m gitlab:fluidattacks/universe@${CI_COMMIT_SHA} /integrates/back prod
           env:
             - name: MAKES_K8S_COMPAT
-              value: "1"
+              value: '1'
           resources:
             # Ensure your request and limit fits in the node:
             #   kubectl get node --selector=worker_group=production
@@ -64,10 +65,8 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/*
-                  aws_login_prod
-                  prod_integrates
-                  FluidIntegrates http://localhost:8001
+                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/* aws_login_prod
+                  prod_integrates FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1
@@ -78,11 +77,8 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/*
-                  aws_login_prod
-                  prod_integrates
-                  FluidIntegrates http://localhost:8001
-                  https://${ENDPOINT}.fluidattacks.com
+                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/* aws_login_prod
+                  prod_integrates FluidIntegrates http://localhost:8001 https://${ENDPOINT}.fluidattacks.com
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1

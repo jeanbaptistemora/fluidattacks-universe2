@@ -1,3 +1,5 @@
+---
 lib_root.f098.c_sharp_path_injection:
   en: Potentially untrusted HTTP request input reaches the path of a file operation.
-  es: La entrada de una solicitud HTTP potencialmente no confiable llega a la ruta de una operación de archivo.
+  es: La entrada de una solicitud HTTP potencialmente no confiable llega a la ruta
+    de una operación de archivo.

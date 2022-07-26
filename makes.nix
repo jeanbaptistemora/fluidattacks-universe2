@@ -30,6 +30,10 @@
     enable = true;
     targets = ["/"];
   };
+  formatYaml = {
+    enable = true;
+    targets = ["/"];
+  };
   lintBash = {
     enable = true;
     targets = ["/"];

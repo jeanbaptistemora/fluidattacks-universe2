@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.date.un_synced:
   en: Server clock is out of time {minutes} minute{minutes_plural}
   es: Reloj del servidor está desfasado {minutes} minuto{minutes_plural}

@@ -1,14 +1,15 @@
+---
 codecov:
   notify:
-    require_ci_to_pass: no
+    require_ci_to_pass: false
 coverage:
   ignore:
-    - "coverage_results.txt"
+    - coverage_results.txt
   status:
     project:
       default:
         # The build fails if total project coverage drops by more than 6%
         target: auto
-        threshold: "6%"
+        threshold: 6%
     changes: false
     patch: false

@@ -1,3 +1,4 @@
+---
 aioboto3: 9.6.0
 aiobotocore: 2.3.0
 aiodataloader: 0.2.0
@@ -11,14 +12,14 @@ ariadne:
 async-lru: 1.0.2
 Authlib: 0.15.4
 backports.csv: 1.0.7
-binaryornot: "0.4.4"
+binaryornot: 0.4.4
 bleach: 4.1.0
 boto3-type-annotations: 0.3.1
 boto3: 1.21.21
 botocore: 1.24.21
 cryptography: 3.3.2
 fpdf: 1.7.2
-frozendict: "1.2"
+frozendict: '1.2'
 GitPython: 3.1.12
 graphql-core: 3.2.1
 gunicorn: 20.1.0
@@ -26,13 +27,13 @@ holidays: 0.11.3.1
 httplib2: 0.19.0
 httpx: 0.16.1
 hyperlink: 19.0.0
-idna: "2.9"
+idna: '2.9'
 itsdangerous: 1.1.0
 Jinja2: 2.11.2
-jwcrypto: "0.8"
+jwcrypto: '0.8'
 lxml: 4.7.1
 mailchimp-transactional: 1.0.40
-markupsafe: 2.0.1 # https://github.com/pallets/markupsafe/issues/286
+markupsafe: 2.0.1  # https://github.com/pallets/markupsafe/issues/286
 matplotlib: 3.4.3
 mixpanel: 4.9.0
 more_itertools: 8.4.0
@@ -56,7 +57,7 @@ PyPDF4: 1.27.0
 python-jose: 3.1.0
 python-magic: 0.4.18
 python-multipart: 0.0.5
-pytz: "2020.1"
+pytz: '2020.1'
 pyyaml: 5.3.1
 redis-py-cluster: 2.1.0
 redis: 3.5.3

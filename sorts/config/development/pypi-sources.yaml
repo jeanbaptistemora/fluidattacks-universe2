@@ -1,3 +1,4 @@
+---
 closure:
   atomicwrites: 1.4.0
   attrs: 21.4.0
@@ -11,7 +12,7 @@ closure:
   jmespath: 0.10.0
   joblib: 1.1.0
   lightgbm: 3.2.1
-  packaging: "21.3"
+  packaging: '21.3'
   pandas: 1.1.2
   pluggy: 0.13.1
   protobuf: 3.20.0
@@ -23,7 +24,7 @@ closure:
   pytest-cov: 2.10.1
   pytest-rerunfailures: 9.1.1
   python-dateutil: 2.8.2
-  pytz: "2022.1"
+  pytz: '2022.1'
   s3transfer: 0.3.7
   sagemaker: 2.18.0
   scikit-learn: 1.0.2
@@ -308,4 +309,4 @@ links:
   - name: zipp-3.8.0.tar.gz
     sha256: 1ba3py07kh9ps2hyp2q7l9yvdksc6zg16zjp9dndn91wp2nqmgsn
     url: https://files.pythonhosted.org/packages/cc/3c/3e8c69cd493297003da83f26ccf1faea5dd7da7892a0a7c965ac3bcba7bf/zipp-3.8.0.tar.gz
-python: "3.8"
+python: '3.8'

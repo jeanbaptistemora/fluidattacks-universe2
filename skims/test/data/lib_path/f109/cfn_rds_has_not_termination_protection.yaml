@@ -1,3 +1,4 @@
+---
 Resources:
   RDSCluster1:
     Properties:
@@ -5,14 +6,14 @@ Resources:
         Ref: RDSDBClusterParameterGroup
       DBSubnetGroupName:
         Ref: DBSubnetGroup
-      DeletionProtection: True
+      DeletionProtection: true
       Engine: aurora
       MasterUserPassword:
         Ref: password
       MasterUsername:
         Ref: username
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBCluster"
+      StorageEncrypted: true
+    Type: AWS::RDS::DBCluster
   RDSDBInstance1:
     Properties:
       AvailabilityZone:
@@ -26,23 +27,23 @@ Resources:
         Ref: RDSDBParameterGroup
       DBSubnetGroupName:
         Ref: DBSubnetGroup
-      DeletionProtection: True
+      DeletionProtection: true
       Engine: aurora
-      PubliclyAccessible: "true"
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBInstance"
+      PubliclyAccessible: 'true'
+      StorageEncrypted: true
+    Type: AWS::RDS::DBInstance
   RDSCluster2:
     Properties:
       DBClusterParameterGroupName:
         Ref: RDSDBClusterParameterGroup
-      DeletionProtection: True
+      DeletionProtection: true
       Engine: aurora
       MasterUserPassword:
         Ref: password
       MasterUsername:
         Ref: username
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBCluster"
+      StorageEncrypted: true
+    Type: AWS::RDS::DBCluster
   RDSDBInstance2:
     Properties:
       AvailabilityZone:
@@ -54,8 +55,8 @@ Resources:
       DBInstanceClass: db.r3.xlarge
       DBParameterGroupName:
         Ref: RDSDBParameterGroup
-      DeletionProtection: True
+      DeletionProtection: true
       Engine: aurora
-      PubliclyAccessible: False
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBInstance"
+      PubliclyAccessible: false
+      StorageEncrypted: true
+    Type: AWS::RDS::DBInstance

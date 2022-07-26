@@ -1,11 +1,12 @@
+---
 closure:
   atomicwrites: 1.4.0
   attrs: 21.2.0
   colorama: 0.4.4
   iniconfig: 1.1.1
-  mypy: "0.910"
+  mypy: '0.910'
   mypy-extensions: 0.4.3
-  packaging: "21.3"
+  packaging: '21.3'
   pluggy: 0.13.1
   py: 1.11.0
   pyparsing: 3.0.6
@@ -100,4 +101,4 @@ links:
   - name: typing_extensions-4.0.1.tar.gz
     sha256: 03ka3fb2ilxw4d93japj5rlyh8agf6p8vd5gavn4bya9l7g9382c
     url: https://files.pythonhosted.org/packages/0d/4a/60ba3706797b878016f16edc5fbaf1e222109e38d0fa4d7d9312cb53f8dd/typing_extensions-4.0.1.tar.gz
-python: "3.8"
+python: '3.8'

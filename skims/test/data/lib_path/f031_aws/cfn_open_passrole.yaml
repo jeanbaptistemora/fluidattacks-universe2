@@ -1,3 +1,4 @@
+---
 Resources:
   AWS_IAM_Role_1:
     Type: AWS::IAM::Role

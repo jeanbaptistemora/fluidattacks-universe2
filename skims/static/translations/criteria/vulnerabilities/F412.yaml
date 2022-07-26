@@ -1,3 +1,5 @@
+---
 lib_path.f412.azure_key_vault_not_recoverable:
   en: Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured
-  es: Las propiedades soft_delete_enabled, purge_protection_enabled faltan o están mal configurados
+  es: Las propiedades soft_delete_enabled, purge_protection_enabled faltan o están
+    mal configurados

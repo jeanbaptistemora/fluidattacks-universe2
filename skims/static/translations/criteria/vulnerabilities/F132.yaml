@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.x_content_type_options.insecure:
   en: Value is not nosniff
   es: Valor diferente a nosniff

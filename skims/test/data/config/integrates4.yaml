@@ -1,6 +1,7 @@
+---
 checks:
-- F133
-- F117
+  - F133
+  - F117
 namespace: dynamic_namespace_2
 output: skims/test/outputs/integrates4.csv
 path: {}

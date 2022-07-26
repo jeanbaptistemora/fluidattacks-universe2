@@ -1,3 +1,4 @@
+---
 inputs:
   - field: phone
     state: closed

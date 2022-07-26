@@ -1,7 +1,10 @@
+---
 lib_path.f414.disabled_http_header_check:
   en: >
     property EnableHeaderChecking set in false disabled the encoding of the
-    carriage return and newline characters, \r and \n, that are found in response headers.
-  es: >
-    La propiedad EnableHeaderChecking establecida en false deshabilitó la codificación de los caracteres
+    carriage return and newline characters, \r and \n, that are found in response
+    headers.
+  es: >-
+    La propiedad EnableHeaderChecking establecida en false deshabilitó la codificación
+    de los caracteres
     de escape y de nueva línea, \r y \n, que se encuentran en los encabezados de respuesta.

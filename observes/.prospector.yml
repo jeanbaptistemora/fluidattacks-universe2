@@ -1,5 +1,6 @@
+---
 inherits:
-    - strictness_veryhigh
+  - strictness_veryhigh
 
 pylint:
   disable:

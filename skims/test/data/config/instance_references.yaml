@@ -1,12 +1,13 @@
+---
 checks:
-- F034
+  - F034
 namespace: OWASP
 output: skims/test/outputs/instance_references.csv
 path:
   include:
-  - src/App.java
-  - src/User.java
-  - src/Generate.java
+    - src/App.java
+    - src/User.java
+    - src/Generate.java
   lib_path: false
   lib_root: true
 working_dir: skims/test/data/benchmark/instance_references

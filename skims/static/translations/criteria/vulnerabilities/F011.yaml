@@ -1,3 +1,4 @@
+---
 src.lib_path.f011.npm_package_json.description:
   en: Use of {product} at version {version} with {cve}
   es: Uso de {product} en la version {version} con {cve}
@@ -10,8 +11,12 @@ lib_root.f011.csharp_xsl_transform_object:
     las referencias externas potencialmente peligrosas ni evita los scripts.
 lib_root.f011.c_sharp_schema_by_url:
   en: >
-    Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to specify external XML schema
-    in the form of an URI. If the URI String is tainted, it may lead to parsing of a malicious XML schema
-  es: >
-    La sobrecarga de XmlSchemaCollection.Add(String, String) utiliza XmlUrlResolver para especificar un esquema XML
-    externo en forma de URI. Si la cadena URI está contaminada, puede conducir al análisis de un esquema XML malicioso
+    Overload of XmlSchemaCollection.Add(String, String) is using XmlUrlResolver to
+    specify external XML schema
+    in the form of an URI. If the URI String is tainted, it may lead to parsing of
+    a malicious XML schema
+  es: >-
+    La sobrecarga de XmlSchemaCollection.Add(String, String) utiliza XmlUrlResolver
+    para especificar un esquema XML
+    externo en forma de URI. Si la cadena URI está contaminada, puede conducir al
+    análisis de un esquema XML malicioso

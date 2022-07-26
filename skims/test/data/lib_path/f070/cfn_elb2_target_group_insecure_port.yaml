@@ -1,3 +1,4 @@
+---
 Resources:
   MyTargetGroup1:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup

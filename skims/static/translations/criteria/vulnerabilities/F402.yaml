@@ -1,14 +1,20 @@
+---
 lib_path.f402.tfm_azure_storage_logging_disabled:
   en: >
-    Ensure storage logging for queue service has read, write, and delete requests enabled
+    Ensure storage logging for queue service has read, write, and delete requests
+    enabled
   es: >
     Asegúrese de que el storage logging para el servicio de cola
     tenga habilitadas las solicitudes de read, write y delete
 lib_path.f402.tfm_azure_failed_request_tracing_disabled:
-  en: Properties failed_request_tracing_enabled or detailed_error_messages_enabled are missing or misconfigured
-  es: Las propiedades failed_request_tracing_enabled o detailed_error_messages_enabled faltan o están mal configurados
+  en: Properties failed_request_tracing_enabled or detailed_error_messages_enabled
+    are missing or misconfigured
+  es: Las propiedades failed_request_tracing_enabled o detailed_error_messages_enabled
+    faltan o están mal configurados
 lib_path.f402.tfm_azure_sql_server_audit_log_retention:
   en: >
-    Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
-  es: >
-    Asegúrese de que la propiedad extended_auditing_policy.retention_in_days es mayor a 90 dias
+    Ensure property extended_auditing_policy.retention_in_days is greater than 90
+    days
+  es: >-
+    Asegúrese de que la propiedad extended_auditing_policy.retention_in_days es mayor
+    a 90 dias

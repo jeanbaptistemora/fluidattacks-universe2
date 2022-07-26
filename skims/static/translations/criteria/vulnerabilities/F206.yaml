@@ -1,3 +1,4 @@
+---
 lib_apk.analyze_bytecodes.has_frida:
   en: The APK has Frida gadget embedded.
   es: El APK tiene el gadget Frida embebido.

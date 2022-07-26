@@ -1,3 +1,4 @@
+---
 closure:
   aioboto3: 9.6.0
   aiobotocore: 2.3.0
@@ -39,7 +40,7 @@ closure:
   gitdb: 4.0.9
   gitpython: 3.1.15
   hypothesis: 6.52.1
-  idna: "2.10"
+  idna: '2.10'
   ipython: 5.9.0
   jmespath: 0.10.0
   json-parser: 1.2.0
@@ -56,14 +57,14 @@ closure:
   networkx: 2.5.1
   ntplib: 0.4.0
   numpy: 1.23.1
-  oyaml: "1.0"
-  packaging: "21.3"
+  oyaml: '1.0'
+  packaging: '21.3'
   pathspec: 0.8.1
   pexpect: 4.8.0
   pickleshare: 0.7.5
   pillow: 9.0.0
   platformdirs: 2.5.2
-  ply: "3.11"
+  ply: '3.11'
   prompt-toolkit: 1.0.18
   psutil: 5.9.0
   ptyprocess: 0.7.0
@@ -75,11 +76,11 @@ closure:
   python-dateutil: 2.8.1
   python-hcl2: 1.0.0
   python-jose: 3.2.0
-  pytz: "2021.3"
-  pyyaml: "6.0"
+  pytz: '2021.3'
+  pyyaml: '6.0'
   requests: 2.25.1
   requirements-parser: 0.5.0
-  rsa: "4.8"
+  rsa: '4.8'
   ruamel.yaml: 0.17.4
   ruamel.yaml.clib: 0.2.2
   s3transfer: 0.5.2
@@ -103,7 +104,7 @@ closure:
   vine: 5.0.0
   virtualenv: 20.15.0
   watchtower: 2.0.1
-  wcmatch: "8.4"
+  wcmatch: '8.4'
   wcwidth: 0.2.5
   wrapt: 1.14.1
   yarl: 1.7.2
@@ -930,4 +931,4 @@ links:
   - name: yarl-1.7.2.tar.gz
     sha256: 1panip1y3jn0yyr80g2xbzpgq290fmb9isb0lhkk698csr39nfa5
     url: https://files.pythonhosted.org/packages/f6/da/46d1b3d69a9a0835dabf9d59c7eb0f1600599edd421a4c5a15ab09f527e0/yarl-1.7.2.tar.gz
-python: "3.8"
+python: '3.8'

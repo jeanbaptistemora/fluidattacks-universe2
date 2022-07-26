@@ -1,5 +1,6 @@
+---
 src.lib_path.f259.has_not_point_in_time_recovery:
   en: >
     PointInTimeRecoveryEnabled property is not enabled
-  es: >
+  es: >-
     La propiedad PointInTimeRecoveryEnabled no está habilitada

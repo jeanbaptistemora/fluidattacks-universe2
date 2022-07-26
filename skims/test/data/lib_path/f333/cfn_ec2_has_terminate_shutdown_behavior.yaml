@@ -1,3 +1,4 @@
+---
 Resources:
   MyLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -11,37 +12,6 @@ Resources:
         DisableApiTermination: true
         ImageId: ami-04d5cc9b88example
         InstanceInitiatedShutdownBehavior: stop
-        InstanceType: t2.micro
-        KeyName: MyKeyPair
-        SecurityGroupIds:
-          - sg-083cd3bfb8example
-  MyLaunchTemplate:
-    Type: AWS::EC2::LaunchTemplate
-    Properties:
-      LaunchTemplateName: MyLaunchTemplate
-      LaunchTemplateData:
-        IamInstanceProfile:
-          Arn:
-            - MyIamInstanceProfile
-            - Arn
-        DisableApiTermination: true
-        ImageId: ami-04d5cc9b88example
-        InstanceInitiatedShutdownBehavior: terminate
-        InstanceType: t2.micro
-        KeyName: MyKeyPair
-        SecurityGroupIds:
-          - sg-083cd3bfb8example
-  MyLaunchTemplate:
-    Type: AWS::EC2::LaunchTemplate
-    Properties:
-      LaunchTemplateName: MyLaunchTemplate
-      LaunchTemplateData:
-        IamInstanceProfile:
-          Arn:
-            - MyIamInstanceProfile
-            - Arn
-        DisableApiTermination: true
-        ImageId: ami-04d5cc9b88example
         InstanceType: t2.micro
         KeyName: MyKeyPair
         SecurityGroupIds:

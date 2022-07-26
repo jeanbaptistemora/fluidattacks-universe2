@@ -1,3 +1,4 @@
+---
 Resources:
   MyLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
@@ -14,7 +15,7 @@ Resources:
       LaunchTemplateData:
         InstanceType: t2.micro
         KeyName: MyKeyPair
-        DisableApiTermination: False
+        DisableApiTermination: false
   MyLaunchTemplate3:
     Type: AWS::EC2::LaunchTemplate
     Properties:
@@ -29,17 +30,17 @@ Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
-      DisableApiTermination: True
+      ImageId: ami-79fd7eee
+      KeyName: testkey
+      DisableApiTermination: true
   MyEC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
-      DisableApiTermination: False
+      ImageId: ami-79fd7eee
+      KeyName: testkey
+      DisableApiTermination: false
   MyEC2Instance3:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: "ami-79fd7eee"
-      KeyName: "testkey"
+      ImageId: ami-79fd7eee
+      KeyName: testkey

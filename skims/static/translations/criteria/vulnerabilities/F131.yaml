@@ -1,3 +1,4 @@
+---
 lib_http.analyze_headers.strict_transport_security.missing:
   en: Missing Strict-Transport-Security
   es: Strict-Transport-Security ausente

@@ -1,3 +1,4 @@
+---
 src.lib_path.f024.ec2_has_unrestricted_ports:
   en: Avoid SecurityGroup ingress/egress rules with port ranges
   es: Evite las reglas de entrada/salida de SecurityGroup con rangos de puertos
@@ -22,7 +23,8 @@ src.lib_path.f024_aws.allows_anyone_to_admin_ports:
     administrativos a todo el mundo
 src.lib_path.f024_aws.unrestricted_cidrs:
   en: The ingress/egress rules of the SecurityGroup use cidrs open to everyone
-  es: Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo el mundo
+  es: Las reglas ingress/egress de los SecurityGroup usan cidrs abiertos a todo el
+    mundo
 src.lib_path.f024_aws.security_group_without_egress:
   en: Missing egress rules allows all egress traffic, explicitly define egress rules
   es: >
@@ -55,6 +57,6 @@ src.lib_path.f024.ec2_has_unrestricted_dns_access:
   en: >
     Group must restrict access to TCP port and UDP 53 to the
     necessary IP addresses
-  es: >
+  es: >-
     El grupo debe restringir el acceso al puerto TCP y UDP 53 a las
     direcciones IP necesarias

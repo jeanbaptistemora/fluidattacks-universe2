@@ -7,20 +7,20 @@ Resources:
       PolicyDocument:
         Statement:
           - Effect: Allow
-            NotAction: "*"
-            NotResource: "*"
+            NotAction: '*'
+            NotResource: '*'
 
           - Effect: Allow
-            NotAction: "*"
-            NotResource: "something"
-
-          - Effect: Allow
-            NotAction: s3:ListBucket
-            NotResource: "*"
+            NotAction: '*'
+            NotResource: something
 
           - Effect: Allow
             NotAction: s3:ListBucket
-            NotResource: "something"
+            NotResource: '*'
+
+          - Effect: Allow
+            NotAction: s3:ListBucket
+            NotResource: something
 
   AWS_IAM_Role_1:
     Type: AWS::IAM::Role
@@ -35,6 +35,6 @@ Resources:
               - sts:AssumeRole
           - Effect: Allow
             NotAction: s3:ListBucket
-            NotResource: "something"
-
+            NotResource: something
 ---
+...

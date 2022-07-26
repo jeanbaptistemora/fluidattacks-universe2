@@ -1,2 +1,3 @@
-pytest: "6.2.2"
-pytest-freezegun: "0.4.2"
+---
+pytest: 6.2.2
+pytest-freezegun: 0.4.2

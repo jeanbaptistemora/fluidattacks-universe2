@@ -1,3 +1,4 @@
+---
 lib_apk.analyze_bytecodes.allow_user_ca_by_default:
   en: >
     No network security config file found and SDK version

@@ -1,3 +1,4 @@
+---
 inputs:
   - field: phone
     state: open
@@ -9,7 +10,7 @@ inputs:
       name: tool-3
       impact: direct
 lines:
-  - line: "123"
+  - line: '123'
     commit_hash: 5b5c92105b5c92105b5c92105b5c92105b5c9210
     path: universe/path/to/file1.ext
     state: open
@@ -18,7 +19,7 @@ lines:
     tool:
       name: tool-2
       impact: indirect
-  - line: "1"
+  - line: '1'
     path: universe/test/1
     repo_nickname: universe
     state: open
@@ -27,7 +28,7 @@ lines:
     tool:
       name: tool-2
       impact: direct
-  - line: "1"
+  - line: '1'
     path: universe/test/1
     repo_nickname: universe
     state: open
@@ -38,41 +39,41 @@ lines:
       impact: direct
 
 ports:
-  - host: "https://example.com"
-    port: "8080"
+  - host: https://example.com
+    port: '8080'
     state: open
     repo_nickname: universe
     source: analyst
     tool:
       name: tool-1
       impact: direct
-  - host: "192.168.1.44"
-    port: "4444"
+  - host: 192.168.1.44
+    port: '4444'
     state: open
     repo_nickname: universe
     source: analyst
     tool:
       name: tool-1
       impact: direct
-  - host: "192.168.1.45"
-    port: "4545"
+  - host: 192.168.1.45
+    port: '4545'
     state: closed
     repo_nickname: universe
     source: analyst
     tool:
       name: tool-1
       impact: direct
-  - host: "192.168.1.46"
-    port: "4646"
+  - host: 192.168.1.46
+    port: '4646'
     state: open
     repo_nickname: universe
-    source: "escape"
+    source: escape
     tool:
       name: tool-1
       impact: direct
-  - host: "192.168.1.47"
-    port: "4747"
-    source: "analyst"
+  - host: 192.168.1.47
+    port: '4747'
+    source: analyst
     state: closed
     repo_nickname: universe
     tool:

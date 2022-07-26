@@ -1,3 +1,4 @@
+---
 Resources:
   RDSCluster1:
     Properties:
@@ -10,8 +11,8 @@ Resources:
         Ref: password
       MasterUsername:
         Ref: username
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBCluster"
+      StorageEncrypted: true
+    Type: AWS::RDS::DBCluster
   RDSDBInstance1:
     Properties:
       AvailabilityZone:
@@ -26,9 +27,9 @@ Resources:
       DBSubnetGroupName:
         Ref: DBSubnetGroup
       Engine: aurora
-      PubliclyAccessible: "true"
-      StorageEncrypted: True
-    Type: "AWS::RDS::DBInstance"
+      PubliclyAccessible: 'true'
+      StorageEncrypted: true
+    Type: AWS::RDS::DBInstance
   RDSCluster2:
     Properties:
       DBClusterParameterGroupName:
@@ -40,8 +41,8 @@ Resources:
         Ref: password
       MasterUsername:
         Ref: username
-      StorageEncrypted: False
-    Type: "AWS::RDS::DBCluster"
+      StorageEncrypted: false
+    Type: AWS::RDS::DBCluster
   RDSDBInstance2:
     Properties:
       AvailabilityZone:
@@ -56,9 +57,9 @@ Resources:
       DBSubnetGroupName:
         Ref: DBSubnetGroup
       Engine: aurora
-      PubliclyAccessible: False
-      StorageEncrypted: False
-    Type: "AWS::RDS::DBInstance"
+      PubliclyAccessible: false
+      StorageEncrypted: false
+    Type: AWS::RDS::DBInstance
   RDSCluster3:
     Properties:
       DBClusterParameterGroupName:
@@ -70,7 +71,7 @@ Resources:
         Ref: password
       MasterUsername:
         Ref: username
-    Type: "AWS::RDS::DBCluster"
+    Type: AWS::RDS::DBCluster
   RDSDBInstance3:
     Properties:
       AvailabilityZone:
@@ -85,5 +86,4 @@ Resources:
       DBSubnetGroupName:
         Ref: DBSubnetGroup
       Engine: aurora
-    Type: "AWS::RDS::DBInstance"
-
+    Type: AWS::RDS::DBInstance
