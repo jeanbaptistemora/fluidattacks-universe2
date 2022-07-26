@@ -1,23 +1,27 @@
-data "aws_iam_role" "main" {
-  for_each = toset([
-    "dev",
-    "prod_integrates",
-  ])
-
-  name = each.key
+locals {
+  accounts = {
+    dev = {
+      namespace = "development"
+      role      = "dev"
+    }
+    prod-integrates = {
+      namespace = "production"
+      role      = "prod_integrates"
+    }
+  }
 }
 
 resource "kubernetes_service_account" "main" {
-  for_each = data.aws_iam_role.main
+  for_each = local.accounts
 
   automount_service_account_token = true
 
   metadata {
     name      = replace(each.key, "_", "-")
-    namespace = "kube-system"
+    namespace = each.value.namespace
 
     annotations = {
-      "eks.amazonaws.com/role-arn" = each.value.arn
+      "eks.amazonaws.com/role-arn" = "arn:aws:iam::205810638802:role/${each.value.role}"
     }
   }
 }
