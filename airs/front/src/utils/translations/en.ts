@@ -294,6 +294,11 @@ const pageTexts: ResourceKey = {
       "Search for vulnerabilities in your application " +
       "for FREE (21-day trial). No credit card required.",
   },
+  internalForm: {
+    subTitle:
+      "Fill out the form and one of our consultants will be in touch shortly.",
+    title: "Have a question? We're here to help.",
+  },
   numbersSection: {
     card1Description:
       "Remediation rate for critical vulnerabilities " +
