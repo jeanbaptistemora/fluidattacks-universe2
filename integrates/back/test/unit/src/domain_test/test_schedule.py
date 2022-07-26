@@ -8,6 +8,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 import pytest
+from schedulers.missing_environment_alert import (
+    _send_mail_report as send_mail_missing_environment,
+)
 from schedulers.numerator_report_digest import (
     _generate_count_report,
     _send_mail_report,
@@ -263,4 +266,12 @@ async def test_send_mail_numerator_report(
         content=content,
         report_date="2022-07-08T06:00:00+00:00",
         responsible="integratesmanager@gmail.com",
+    )
+
+
+async def test_send_mail_missing_environment() -> None:
+    await send_mail_missing_environment(
+        loaders=get_new_context(),
+        group="unittesting",
+        group_date_delta=3,
     )
