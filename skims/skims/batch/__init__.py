@@ -318,7 +318,7 @@ async def main(  # pylint: disable=too-many-locals)
             log_exception_blocking("exception", exc)
             success = False
 
-    # delete_action(action_dynamo_pk=action_dynamo_pk)
+    delete_action(action_dynamo_pk=action_dynamo_pk)
     if not success:
         sys.exit(1)
     return None
