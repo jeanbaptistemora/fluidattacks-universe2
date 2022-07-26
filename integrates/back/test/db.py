@@ -18,6 +18,7 @@ from db_model import (
     events as events_model,
     findings as findings_model,
     groups as groups_model,
+    organization_access as org_access_model,
     organizations as orgs_model,
     roots as roots_model,
     stakeholders as stakeholders_model,
@@ -80,9 +81,6 @@ from newutils.datetime import (
 from newutils.utils import (
     get_key_or_fallback,
 )
-from organizations import (
-    dal as dal_organizations,
-)
 from organizations_finding_policies import (
     dal as dal_policies,
 )
@@ -129,7 +127,7 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
 
 async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
     await collect(
-        dal_organizations.add(
+        org_access_model.add(
             organization_access=OrganizationAccess(
                 organization_id=item.organization_id,
                 email=item.email,

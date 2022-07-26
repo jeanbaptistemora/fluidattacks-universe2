@@ -10,15 +10,6 @@ from collections import (
 from dataloaders.group_access_typed import (
     GroupAccessTypedLoader,
 )
-from dataloaders.organization_access import (
-    OrganizationAccessTypedLoader,
-)
-from dataloaders.organization_stakeholders_access import (
-    OrganizationStakeholdersAccessLoader,
-)
-from dataloaders.stakeholder_organizations_access import (
-    StakeholderOrgsAccessLoader,
-)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -46,6 +37,11 @@ from db_model.groups.get import (
     GroupLoader,
     GroupUnreliableIndicatorsLoader,
     OrganizationGroupsLoader,
+)
+from db_model.organization_access.get import (
+    OrganizationAccessLoader,
+    OrganizationStakeholdersAccessLoader,
+    StakeholderOrganizationsAccessLoader,
 )
 from db_model.organizations.get import (
     OrganizationLoader,
@@ -141,7 +137,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
-    organization_access: OrganizationAccessTypedLoader
+    organization_access: OrganizationAccessLoader
     organization_credentials: OrganizationCredentialsLoader
     me_drafts: MeDraftsLoader
     organization_groups: OrganizationGroupsLoader
@@ -162,7 +158,7 @@ class Dataloaders(NamedTuple):
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
-    stakeholder_organizations_access: StakeholderOrgsAccessLoader
+    stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -247,7 +243,7 @@ def get_new_context() -> Dataloaders:
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
-        organization_access=OrganizationAccessTypedLoader(),
+        organization_access=OrganizationAccessLoader(),
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),
@@ -267,7 +263,9 @@ def get_new_context() -> Dataloaders:
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
         stakeholder_level_role=StakeholderLevelRoleLoader(),
-        stakeholder_organizations_access=StakeholderOrgsAccessLoader(),
+        stakeholder_organizations_access=(
+            StakeholderOrganizationsAccessLoader()
+        ),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials=UserCredentialsLoader(),

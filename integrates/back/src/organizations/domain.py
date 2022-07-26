@@ -26,6 +26,7 @@ from custom_exceptions import (
 )
 from db_model import (
     credentials as credentials_model,
+    organization_access as org_access_model,
     organizations as orgs_model,
     roots as roots_model,
 )
@@ -101,7 +102,6 @@ from newutils.validations import (
     validate_email_address,
 )
 from organizations import (
-    dal as orgs_dal,
     utils as orgs_utils,
     validations as orgs_validations,
 )
@@ -187,7 +187,7 @@ async def add_stakeholder(
     # Check for customer manager granting requirements
     organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
-    await orgs_dal.add(
+    await org_access_model.add(
         organization_access=OrganizationAccess(
             organization_id=organization_id, email=email
         )
@@ -424,7 +424,7 @@ async def invite_to_organization(
                 "user_email": email,
             },
         )
-        await orgs_dal.add(
+        await org_access_model.add(
             organization_access=OrganizationAccess(
                 email=email,
                 organization_id=organization_id,
@@ -514,7 +514,7 @@ async def remove_user(
     if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
-    await orgs_dal.remove(email=email, organization_id=organization_id)
+    await org_access_model.remove(email=email, organization_id=organization_id)
     user_removed = await authz.revoke_organization_level_role(
         email, organization_id
     )
@@ -638,7 +638,7 @@ async def update_organization_access(
     email: str,
     metadata: OrganizationAccessMetadataToUpdate,
 ) -> None:
-    return await orgs_dal.update_metadata(
+    return await org_access_model.update_metadata(
         email=email, metadata=metadata, organization_id=organization_id
     )
 
