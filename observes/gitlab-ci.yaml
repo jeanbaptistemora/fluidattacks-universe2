@@ -878,6 +878,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/common/asm-dal/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/common/asm-dal/env/dev
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/common/singer-io/test:
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
@@ -988,6 +1010,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/etl/dynamo_etl_conf/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/etl/dynamo_etl_conf/env/dev
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/service/batch-stability/check/arch:
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
@@ -1049,6 +1093,28 @@
   script:
     - m . /observes/service/batch-stability/check/types
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/service/batch-stability/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/service/batch-stability/env/dev
+  stage: build
   tags:
     - autoscaling
   variables:
@@ -1120,6 +1186,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/service/job-last-success/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/service/job-last-success/env/dev
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/service/jobs-scheduler/check/arch:
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
@@ -1181,6 +1269,28 @@
   script:
     - m . /observes/service/jobs-scheduler/check/types
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/service/jobs-scheduler/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/service/jobs-scheduler/env/dev
+  stage: build
   tags:
     - autoscaling
   variables:
@@ -1296,6 +1406,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/singer/tap-checkly/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/singer/tap-checkly/env/dev
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/singer/tap-csv/test:
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
@@ -1384,6 +1516,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/observes/singer/tap-dynamo/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/singer/tap-dynamo/env/dev
+  stage: build
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /observes/singer/tap-gitlab/check/arch:
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: true
@@ -1445,6 +1599,28 @@
   script:
     - m . /observes/singer/tap-gitlab/check/types
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/singer/tap-gitlab/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/singer/tap-gitlab/env/dev
+  stage: build
   tags:
     - autoscaling
   variables:
@@ -1555,6 +1731,28 @@
   script:
     - m . /observes/singer/target-s3/check/types
   stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/observes/singer/target-s3/env/dev:
+  image: ghcr.io/fluidattacks/makes:22.08
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|observes)/
+  script:
+    - m . /observes/singer/target-s3/env/dev
+  stage: build
   tags:
     - autoscaling
   variables:

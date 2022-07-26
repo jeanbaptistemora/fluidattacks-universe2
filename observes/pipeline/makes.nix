@@ -28,6 +28,11 @@
     stage = "deploy-infra";
     tags = ["autoscaling"];
   };
+  gitlabBuild = {
+    rules = gitlabOnlyDev;
+    stage = "build";
+    tags = ["autoscaling"];
+  };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
@@ -70,8 +75,9 @@
     types_check = _if_exists pkg.check "types" gitlabLint;
     tests_check = _if_exists pkg.check "tests" gitlabTestCode;
     run_check = _if_exists pkg.check "runtime" gitlabTestCode;
+    env_dev = _if_exists pkg.env "dev" gitlabBuild;
   in
-    arch_check ++ types_check ++ tests_check ++ run_check;
+    arch_check ++ types_check ++ tests_check ++ run_check ++ env_dev;
   pkgsJobs = builtins.concatLists (map genPkgJobs std_pkgs);
   # legacy standard
   targets = with index; [
