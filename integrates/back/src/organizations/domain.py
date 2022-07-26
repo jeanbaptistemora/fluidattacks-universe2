@@ -595,12 +595,14 @@ async def update_credentials(
             loaders, organization_id, credentials_name
         )
 
+    force_update_owner = False
     secret: Union[HttpsSecret, HttpsPatSecret, SshSecret]
     if (
         credentials_type is CredentialType.HTTPS
         and attributes.token is not None
     ):
         secret = HttpsPatSecret(token=attributes.token)
+        force_update_owner = True
     elif (
         credentials_type is CredentialType.HTTPS
         and attributes.user is not None
@@ -609,10 +611,12 @@ async def update_credentials(
         secret = HttpsSecret(
             user=attributes.user, password=attributes.password
         )
+        force_update_owner = True
     elif credentials_type is CredentialType.SSH and attributes.key is not None:
         secret = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(attributes.key)
         )
+        force_update_owner = True
     else:
         secret = current_credentials.state.secret
 
@@ -628,6 +632,7 @@ async def update_credentials(
         credential_id=credentials_id,
         organization_id=organization_id,
         state=new_state,
+        force_update_owner=force_update_owner,
     )
 
 
