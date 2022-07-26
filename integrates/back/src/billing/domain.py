@@ -437,8 +437,8 @@ async def update_documents(
 ) -> None:
 
     documents = OrganizationDocuments()
+    org_name = org.name
     if rut:
-        org_name = org.name
         rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
         rut_full_name = f"{org_name}/{business_name}/{rut_file_name}"
         validations.validate_sanitized_csv_input(rut_full_name)
@@ -462,7 +462,7 @@ async def update_documents(
         )
         documents = OrganizationDocuments(
             tax_id=DocumentFile(
-                file_name=rut_file_name,
+                file_name=tax_id_file_name,
                 modified_date=datetime_utils.get_iso_date(),
             )
         )

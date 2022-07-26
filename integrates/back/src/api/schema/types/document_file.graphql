@@ -1,0 +1,7 @@
+"Document file metadata definition"
+type DocumentFile {
+  "file name of Document"
+  fileName: String
+  "Date when document was created or updated"
+  modifiedDate: String
+}

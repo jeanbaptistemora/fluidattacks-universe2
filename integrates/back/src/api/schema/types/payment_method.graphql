@@ -4,7 +4,7 @@ type PaymentMethod {
   brand: String!
   "Name of thew business related to this payment method"
   businessName: String!
-  " City where the business is located"
+  "City where the business is located"
   city: String!
   "Country where the business is located"
   country: String!
@@ -20,6 +20,10 @@ type PaymentMethod {
   id: ID!
   "Last four digits"
   lastFourDigits: String!
+  "Rut document file metadata"
+  rut: DocumentFile
   "State where the business is located"
   state: String!
+  "taxId document file metadata"
+  taxId: DocumentFile
 }

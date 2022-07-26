@@ -56,7 +56,7 @@ async def mutate(
         )
     if tax_id is not None:
         validations.validate_sanitized_csv_input(
-            rut.filename, rut.content_type
+            tax_id.filename, tax_id.content_type
         )
 
     # Create payment method
