@@ -10,6 +10,16 @@ from typing import (
 )
 
 
+class DocumentFile(NamedTuple):
+    file_name: str
+    modified_date: str
+
+
+class OrganizationDocuments(NamedTuple):
+    rut: Optional[DocumentFile] = None
+    tax_id: Optional[DocumentFile] = None
+
+
 class OrganizationPaymentMethods(NamedTuple):
     id: str
     business_name: str
@@ -17,6 +27,7 @@ class OrganizationPaymentMethods(NamedTuple):
     country: str
     state: str
     city: str
+    documents: OrganizationDocuments
 
 
 class OrganizationState(NamedTuple):

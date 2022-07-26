@@ -35,7 +35,9 @@ from db_model.groups.enums import (
     GroupTier,
 )
 from db_model.organizations.types import (
+    DocumentFile,
     Organization,
+    OrganizationDocuments,
     OrganizationMetadataToUpdate,
     OrganizationPaymentMethods,
 )
@@ -390,6 +392,82 @@ async def validate_legal_document(
         await validate_file(tax_id)
 
 
+def document_extension(document: UploadFile) -> str:
+    extension = {
+        "image/gif": ".gif",
+        "image/jpeg": ".jpg",
+        "image/png": ".png",
+        "application/pdf": ".pdf",
+        "application/zip": ".zip",
+        "text/csv": ".csv",
+        "text/plain": ".txt",
+    }.get(document.content_type, "")
+
+    return extension
+
+
+# pylint: disable=too-many-arguments
+async def update_documents(
+    org: Organization,
+    payment_method_id: str,
+    card_expiration_month: str,
+    card_expiration_year: str,
+    make_default: bool,
+    business_name: str,
+    city: str,
+    country: str,
+    email: str,
+    state: str,
+    rut: Optional[UploadFile] = None,
+    tax_id: Optional[UploadFile] = None,
+) -> None:
+
+    documents = OrganizationDocuments()
+    if rut:
+        org_name = org.name
+        rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
+        rut_full_name = f"{org_name}/{business_name}/{rut_file_name}"
+        validations.validate_sanitized_csv_input(rut_full_name)
+        validations.validate_sanitized_csv_input(
+            rut.filename, rut.content_type
+        )
+        documents = OrganizationDocuments(
+            rut=DocumentFile(
+                file_name=rut_file_name,
+                modified_date=datetime_utils.get_iso_date(),
+            )
+        )
+    if tax_id:
+        tax_id_file_name = (
+            f"{org_name}-{business_name}{document_extension(tax_id)}"
+        )
+        tax_id_full_name = f"{org_name}/{business_name}/{tax_id_file_name}"
+        validations.validate_sanitized_csv_input(tax_id_full_name)
+        validations.validate_sanitized_csv_input(
+            tax_id.filename, tax_id.content_type
+        )
+        documents = OrganizationDocuments(
+            tax_id=DocumentFile(
+                file_name=rut_file_name,
+                modified_date=datetime_utils.get_iso_date(),
+            )
+        )
+
+    await update_payment_method(
+        org=org,
+        documents=documents,
+        payment_method_id=payment_method_id,
+        card_expiration_month=card_expiration_month,
+        card_expiration_year=card_expiration_year,
+        make_default=make_default,
+        business_name=business_name,
+        city=city,
+        country=country,
+        email=email,
+        state=state,
+    )
+
+
 async def create_payment_method(
     *,
     org: Organization,
@@ -424,13 +502,15 @@ async def create_payment_method(
             for payment_method in other_payment_methods
         ]:
             raise PaymentMethodAlreadyExists()
+        other_payment_id = str(uuid.uuid4())
         other_payment_methods.append(
             OrganizationPaymentMethods(
                 business_name=business_name,
                 city=city,
                 country=country,
+                documents=OrganizationDocuments(),
                 email=email,
-                id=(str(uuid.uuid4())),
+                id=other_payment_id,
                 state=state,
             )
         )
@@ -440,6 +520,20 @@ async def create_payment_method(
             ),
             organization_id=org.id,
             organization_name=org.name,
+        )
+        await update_documents(
+            org=org,
+            payment_method_id=other_payment_id,
+            card_expiration_month=card_expiration_month,
+            card_expiration_year=card_expiration_year,
+            make_default=make_default,
+            business_name=business_name,
+            city=city,
+            country=country,
+            email=email,
+            state=state,
+            rut=rut,
+            tax_id=tax_id,
         )
         return True
 
@@ -489,6 +583,7 @@ async def create_payment_method(
 async def update_payment_method(
     *,
     org: Organization,
+    documents: OrganizationDocuments,
     payment_method_id: str,
     card_expiration_month: str,
     card_expiration_year: str,
@@ -537,6 +632,7 @@ async def update_payment_method(
                 business_name=business_name,
                 city=city,
                 country=country,
+                documents=documents,
                 email=email,
                 id=payment_method_id,
                 state=state,

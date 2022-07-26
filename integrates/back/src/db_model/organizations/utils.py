@@ -2,7 +2,9 @@ from .constants import (
     ORGANIZATION_ID_PREFIX,
 )
 from .types import (
+    DocumentFile,
     Organization,
+    OrganizationDocuments,
     OrganizationMetadataToUpdate,
     OrganizationPaymentMethods,
     OrganizationState,
@@ -17,6 +19,7 @@ from db_model.types import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json  # type: ignore
 
 
 def add_org_id_prefix(organization_id: str) -> str:
@@ -32,7 +35,7 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
     item = {
         "billing_customer": metadata.billing_customer,
         "payment_methods": [
-            payment_method._asdict()
+            json.loads(json.dumps(payment_method))
             for payment_method in metadata.payment_methods
         ]
         if metadata.payment_methods
@@ -50,21 +53,22 @@ def format_organization(item: Item) -> Organization:
         billing_customer=item.get("billing_customer"),
         id=add_org_id_prefix(item["id"]),
         name=item["name"],
-        payment_methods=format_payment_methods(item["payment_methods"])
-        if item.get("payment_methods")
-        else None,
+        payment_methods=format_payment_methods(
+            item.get("payment_methods", [])
+        ),
         policies=format_policies(item["policies"]),
         state=format_state(item["state"]),
     )
 
 
 def format_payment_methods(
-    payment_methods: list[dict[str, str]]
+    payment_methods: list[Item],
 ) -> list[OrganizationPaymentMethods]:
     return [
         OrganizationPaymentMethods(
             id=payment_method.get("id", ""),
             business_name=payment_method.get("business_name", ""),
+            documents=format_documents(payment_method["documents"]),
             email=payment_method.get("email", ""),
             country=payment_method.get("country", ""),
             state=payment_method.get("state", ""),
@@ -118,4 +122,21 @@ def format_state(state: Item) -> OrganizationState:
         modified_by=state["modified_by"],
         modified_date=state["modified_date"],
         pending_deletion_date=state.get("pending_deletion_date"),
+    )
+
+
+def format_documents(documents: Item) -> OrganizationDocuments:
+    return OrganizationDocuments(
+        rut=DocumentFile(
+            file_name=documents["rut"]["file_name"],
+            modified_date=documents["rut"]["modified_date"],
+        )
+        if documents.get("rut")
+        else None,
+        tax_id=DocumentFile(
+            file_name=documents["tax_id"]["file_name"],
+            modified_date=documents["tax_id"]["modified_date"],
+        )
+        if documents.get("tax_id")
+        else None,
     )

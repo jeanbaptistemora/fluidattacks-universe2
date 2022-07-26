@@ -909,6 +909,10 @@
         {
           "AttributeName": "expiration_time",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "documents",
+          "AttributeType": "M"
         }
       ],
       "TableFacets": [
@@ -5543,6 +5547,9 @@
                       },
                       "city": {
                         "S": "Medellín"
+                      },
+                      "documents": {
+                        "M": {}
                       }
                     }
                   }
@@ -5669,7 +5676,8 @@
             "state",
             "policies",
             "billing_customer",
-            "payment_methods"
+            "payment_methods",
+            "documents"
           ],
           "DataAccess": {
             "MySql": {}

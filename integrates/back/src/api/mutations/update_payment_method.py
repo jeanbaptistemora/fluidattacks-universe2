@@ -9,6 +9,7 @@ from custom_types import (
 )
 from db_model.organizations.types import (
     Organization,
+    OrganizationDocuments,
 )
 from decorators import (
     concurrent_decorators,
@@ -40,6 +41,7 @@ async def mutate(
     # Update payment method
     result: bool = await billing_domain.update_payment_method(
         org=org,
+        documents=OrganizationDocuments(),
         payment_method_id=kwargs["payment_method_id"],
         card_expiration_month=kwargs["card_expiration_month"],
         card_expiration_year=kwargs["card_expiration_year"],
