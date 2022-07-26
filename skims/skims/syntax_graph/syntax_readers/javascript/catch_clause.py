@@ -10,7 +10,8 @@ from syntax_graph.types import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    block_node = args.ast_graph.nodes[args.n_id]["label_field_body"]
-    parameters_id = args.ast_graph.nodes[args.n_id]["label_field_parameter"]
+    catch_node = args.ast_graph.nodes[args.n_id]
+    block_node = catch_node["label_field_body"]
+    parameters_id = catch_node.get("label_field_parameter")
 
     return build_catch_clause_node(args, block_node, None, None, parameters_id)

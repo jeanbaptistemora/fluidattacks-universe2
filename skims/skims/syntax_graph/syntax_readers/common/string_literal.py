@@ -20,9 +20,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "interpreted_string_literal",
         "line_string_literal",
         "raw_string_literal",
-        "string_literal",
-        "verbatim_string_literal",
         "string",
+        "string_literal",
+        "template_string",
+        "verbatim_string_literal",
     }:
         raise MissingCaseHandling(
             f"Bad string literal handling in {args.n_id}"

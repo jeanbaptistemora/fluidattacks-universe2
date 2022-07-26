@@ -9,6 +9,7 @@ from syntax_graph.syntax_readers.common import (
     method_declaration as common_method_declaration,
     number_literal as common_number_literal,
     pair as common_pair,
+    parameter_list as common_parameter_list,
     parenthesized_expression as common_parenthesized_expression,
     program as common_program,
     statement_block as common_statement_block,
@@ -89,12 +90,6 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "function_declaration",
-        },
-        syntax_reader=common_method_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "identifier",
             "property_identifier",
         },
@@ -120,6 +115,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function_declaration",
+        },
+        syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "number",
         },
         syntax_reader=common_number_literal.reader,
@@ -135,6 +136,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "pair",
         },
         syntax_reader=common_pair.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameters",
+        },
+        syntax_reader=common_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -155,9 +162,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
         syntax_reader=common_statement_block.reader,
     ),
     Dispatcher(
-        applicable_types={
-            "string",
-        },
+        applicable_types={"string", "template_string"},
         syntax_reader=common_string_literal.reader,
     ),
     Dispatcher(
