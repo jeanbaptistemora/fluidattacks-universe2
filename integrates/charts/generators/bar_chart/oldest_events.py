@@ -11,6 +11,9 @@ from charts.colors import (
 from charts.generators.bar_chart.exposed_by_groups import (
     format_max_value,
 )
+from charts.generators.bar_chart.utils import (
+    format_csv_data,
+)
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
@@ -149,44 +152,47 @@ async def generate_all() -> None:
     legend_many_groups: str = "Days since the group is failing"
 
     async for group in iterate_groups():
+        document = format_data(
+            data=await get_data_one_group(group=group, loaders=loaders),
+            x_label="Event ID",
+            legend="Days since the event was reported",
+        )
         json_dump(
-            document=format_data(
-                data=await get_data_one_group(
-                    group=group,
-                    loaders=loaders,
-                ),
-                x_label="Event ID",
-                legend="Days since the event was reported",
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        json_dump(
-            document=format_data(
-                data=await get_data_many_groups(
-                    groups=org_groups, loaders=loaders
-                ),
-                x_label=x_label_many_groups,
-                legend=legend_many_groups,
+        document = format_data(
+            data=await get_data_many_groups(
+                groups=org_groups, loaders=loaders
             ),
+            x_label=x_label_many_groups,
+            legend=legend_many_groups,
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(
-                        groups=tuple(groups), loaders=loaders
-                    ),
-                    x_label=x_label_many_groups,
-                    legend=legend_many_groups,
+            document = format_data(
+                data=await get_data_many_groups(
+                    groups=tuple(groups), loaders=loaders
                 ),
+                x_label=x_label_many_groups,
+                legend=legend_many_groups,
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
 
 

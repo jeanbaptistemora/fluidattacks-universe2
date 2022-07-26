@@ -12,6 +12,9 @@ from charts.colors import (
     GRAY_JET,
     RISK,
 )
+from charts.generators.gauge.forces_builds_risk import (
+    format_csv_data,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -172,35 +175,40 @@ def format_data(data: Severity) -> dict:
 async def generate_all() -> None:
     loaders = get_new_context()
     async for group in utils.iterate_groups():
+        document = format_data(data=await generate_one(group, loaders))
         utils.json_dump(
-            document=format_data(
-                data=await generate_one(group, loaders),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        document = format_data(
+            data=await get_data_many_groups(list(org_groups), loaders),
+        )
+
         utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(list(org_groups), loaders),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in (
         utils.iterate_organizations_and_groups()
     ):
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            document = format_data(
+                data=await get_data_many_groups(list(groups), loaders),
+            )
             utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(list(groups), loaders),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
 
 
