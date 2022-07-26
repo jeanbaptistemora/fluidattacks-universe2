@@ -6,8 +6,6 @@ from .resources import (
     get_results,
 )
 import asyncio
-import boto3
-import celery
 from core.persist import (
     persist,
 )
@@ -28,25 +26,11 @@ from state.ephemeral import (
     get_ephemeral_store,
 )
 from typing import (
-    Any,
     Dict,
-    Tuple,
 )
 from utils.logs import (
     log_blocking,
 )
-
-
-class PersistTask(celery.Task):  # pylint: disable=abstract-method
-    def on_success(
-        self, retval: None, task_id: str, args: Tuple[str], kwargs: Any
-    ) -> None:
-        (execution_id,) = args
-        client = boto3.client("s3")
-        log_blocking("info", f"Deleting the result {execution_id}")
-        client.delete_object(
-            Bucket="skims.data", Key=f"results/{execution_id}.csv"
-        )
 
 
 async def get_vulnerabilities(
@@ -99,6 +83,6 @@ async def _report_wrapped(task_id: str) -> None:
                 break
 
 
-@app.task(serializer="json", name="process-skims-result", base=PersistTask)
+@app.task(serializer="json", name="process-skims-result")
 def report(task_id: str) -> None:
     asyncio.run(_report_wrapped(task_id))
