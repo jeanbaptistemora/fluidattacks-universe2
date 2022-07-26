@@ -16,6 +16,10 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
+class AdvisoryAlreadyCreated(_SingleMessageException):
+    msg: str = "This advisory has already been created"
+
+
 class UnavailabilityError(_SingleMessageException):
     msg: str = "AWS service unavailable, please retry"
 
