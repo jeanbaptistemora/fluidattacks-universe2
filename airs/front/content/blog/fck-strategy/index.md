@@ -4,7 +4,7 @@ title: The F*CK Strategy
 date: 2019-04-30
 subtitle: The pratfall effect application on business
 category: philosophy
-tags: cybersecurity, mistake, company
+tags: cybersecurity, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330875/blog/fck-strategy/cover_ofs1fa.webp
 alt: 'Broken blue ceramic plate on Unsplash: https://unsplash.com/photos/Odc4dcsjUBw'
 description: Companies should pay attention to how to handle mistakes and think about how to leverage from imperfection. Here, a F*CK statement provides a lesson.

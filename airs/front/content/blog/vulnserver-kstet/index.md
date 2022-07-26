@@ -4,7 +4,7 @@ title: 'KSTET: Multistage Exploiting'
 date: 2020-06-17
 category: attacks
 subtitle: Exploiting in stages
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331152/blog/vulnserver-kstet/cover_raeprd.webp
 alt: Photo by Ganapathy Kumar on Unsplash
 description: This post will show how to exploit the Vulnserver KSTET command using a socket reuse method.

@@ -4,7 +4,7 @@ title: 'KSTET: DLL Side-Loading Exploit'
 date: 2020-07-02
 category: attacks
 subtitle: Sideloading exploiting
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331199/blog/vulnserver-kstet-alternative/cover_rpkuwo.webp
 alt: Photo by Philipp Katzenberger on Unsplash
 description: This post will show how to exploit the Vulnserver KSTET command loading the payload from an external source.

@@ -4,7 +4,7 @@ title: Backdooring PuTTY
 date: 2020-06-25
 category: attacks
 subtitle: Trust no one
-tags: osce, backdoor, training, exploit
+tags: backdoor, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330666/blog/backdooring-putty/cover_sa53hg.webp
 alt: Photo by Dil on Unsplash
 description: This article will show a way of creating a backdoor that will be injected into PuTTY, a widely used software for accessing remote computers.

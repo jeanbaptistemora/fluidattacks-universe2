@@ -4,7 +4,7 @@ title: Ciberseguridad como estrategia
 date: 2020-10-21
 subtitle: Elabora estrategias de ciberseguridad y evita pérdidas
 category: philosophy
-tags: cybersecurity, mistake, risk, company, hacking
+tags: cybersecurity, risk, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330844/blog/cybersecurity-strategy/cover_pxhwlz.webp
 alt: Photo by Joanna Kosinska on Unsplash
 description: Un artículo reciente sugiere elevar a la ciberseguridad de una incorporación operativa a una estratégica. Aquí discutimos algunas ideas de ese artículo.

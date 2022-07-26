@@ -4,7 +4,7 @@ title: 'GMON Exploiting: Harnessing SEH'
 date: 2020-06-16
 category: attacks
 subtitle: Exceptions are good
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331144/blog/vulnserver-gmon/cover_yohcmp.webp
 alt: Photo by Roberto Gomez Angel on Unsplash
 description: This post will show how to exploit the Vulnserver GMON command using Structured Exception Handling (SEH) overwrite.

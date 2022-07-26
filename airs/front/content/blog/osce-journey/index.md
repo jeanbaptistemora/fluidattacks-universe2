@@ -4,7 +4,7 @@ title: A Journey to OSCE
 date: 2020-08-10
 category: attacks
 subtitle: A personal OSCE experience
-tags: osce, training, exploit
+tags: training, vulnerability, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330965/blog/osce-journey/cover_swxqa7.webp
 alt: Photo by Joshua Earle on Unsplash
 description: This post will describe the journey that I took to earn the OSCE certification.

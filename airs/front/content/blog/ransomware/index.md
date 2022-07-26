@@ -4,7 +4,7 @@ title: Your Files Have Been Encrypted!
 date: 2020-02-03
 subtitle: Some pieces of information about ransomware attacks
 category: attacks
-tags: software, cybersecurity, vulnerability, hacking, mistake
+tags: software, cybersecurity, vulnerability, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331045/blog/ransomware/cover_c0iozv.webp
 alt: Photo by Sharon McCutcheon on Unsplash
 description: Everyone could be a target for ransomware attacks. Here we give an introduction to this topic and tips that could help you prevent being a victim.

@@ -91,13 +91,10 @@ function check_md_blog_tags {
     libssh
     machine-learning
     math
-    mistake
     multiparadigm
     mypy
     openssl
     operations
-    osce
-    osee
     password
     pentesting
     policies

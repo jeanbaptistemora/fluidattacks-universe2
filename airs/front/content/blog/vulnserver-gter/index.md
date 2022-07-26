@@ -4,7 +4,7 @@ title: Vulnserver GTER Exploitation
 date: 2020-06-11
 category: attacks
 subtitle: Hunting eggs
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331147/blog/vulnserver-gter/cover_prsww3.webp
 alt: Photo by Annie Spratt on Unsplash
 description: This post will describe the steps taken to exploit the Vulnserver GTER command, using a technique called 'Egghunting.'

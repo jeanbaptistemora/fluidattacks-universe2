@@ -4,7 +4,7 @@ title: 'GTER Exploit: Reusing Socket Stack'
 date: 2020-06-12
 category: attacks
 subtitle: Every byte counts
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331149/blog/vulnserver-gter-no-egghunter/cover_tsjvux.webp
 alt: Photo by Florian Klauer on Unsplash
 description: In this post, we will use an alternative way of exploiting Vulnserver GTER command.

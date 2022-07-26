@@ -4,7 +4,7 @@ title: 'HEVD: Denial of Service'
 date: 2020-09-14
 category: attacks
 subtitle: How to crash Windows
-tags: osee, training, exploit, windows, kernel, hevd
+tags: training, exploit, windows, kernel, hevd
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
 alt: Photo by Chaozzy Lin on Unsplash
 description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service

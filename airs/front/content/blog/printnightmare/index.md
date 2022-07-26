@@ -4,7 +4,7 @@ title: Come To Your Senses Already!
 date: 2021-08-18
 subtitle: And apply the patches to avoid the PrintNightmare
 category: attacks
-tags: windows, vulnerability, exploit, mistake, software, hacking
+tags: windows, vulnerability, exploit, software, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1629328080/blog/printnightmare/cover_printnightmare_nmy9z1.webp
 alt: Photo by Mathew MacQuarrie on Unsplash
 description: You can read this post to learn about the nightmare that started to emerge within Windows months ago, which may affect many of its users, including you.

@@ -4,7 +4,7 @@ title: A Recent OSCE in Our Team
 date: 2020-09-07
 subtitle: A short interview with Andres Roldan
 category: interview
-tags: interview, red-team, osce, training, exploit, software
+tags: interview, red-team, training, exploit, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331047/blog/recent-osce/cover_qrhc7w.webp
 alt: Photo by Clovis WOOD on Unsplash
 description: We spoke with Andres Roldan, our Offensive Team Leader, who recently obtained his OSCE certificate. Here he shares with us a little more about his experience.

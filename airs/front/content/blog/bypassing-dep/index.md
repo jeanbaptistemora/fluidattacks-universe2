@@ -4,7 +4,7 @@ title: Bypassing DEP with ROP
 date: 2020-08-24
 category: attacks
 subtitle: Running instructions by reference
-tags: osee, training, exploit
+tags: training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330681/blog/bypassing-dep/cover_lrfinv.webp
 alt: Photo by Michael Dziedzic on Unsplash
 description: This post will show how bypass the Data Execution Prevention security mechanism using Return-Oriented Programming.

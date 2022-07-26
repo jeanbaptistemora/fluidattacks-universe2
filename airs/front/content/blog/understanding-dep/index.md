@@ -4,7 +4,7 @@ title: Understanding DEP
 date: 2020-08-21
 category: attacks
 subtitle: Let's protect the stack
-tags: osee, training, exploit
+tags: training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/understanding-dep/cover_infp8m.webp
 alt: Photo by Chris Panas on Unsplash
 description: This post will show how the Data Execution Prevention (DEP) security mechanism works and what are the implication for exploit development.

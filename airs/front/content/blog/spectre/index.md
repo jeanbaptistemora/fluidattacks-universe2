@@ -4,7 +4,7 @@ title: What's the Perfect Crime?
 date: 2021-05-27
 subtitle: 'The one that leaves no trace: the Spectre one?'
 category: attacks
-tags: cybersecurity, exploit, mistake, risk, technology, software
+tags: cybersecurity, exploit, risk, technology, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627388863/blog/spectre/cover-spectre_ldoml1.webp
 alt: Photo by Sammy Williams on Unsplash
 description: Spectre has reappeared! It has returned full of surprises and can transform the way processors are made. Here is what we know about it.

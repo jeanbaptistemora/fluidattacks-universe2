@@ -4,7 +4,7 @@ title: '"No, We Won''t Get Hacked!"'
 date: 2020-10-07
 subtitle: And, "of course, I can always protect my company."
 category: philosophy
-tags: cybersecurity, mistake, risk, company, hacking
+tags: cybersecurity, risk, company, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330962/blog/optimism-bias/cover_or7kk2.webp
 alt: Photo by Charles Deluvio on Unsplash
 description: In cybersecurity, optimism bias and overconfidence can have pervasive consequences. I discuss them in this post.

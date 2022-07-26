@@ -4,7 +4,7 @@ title: 'HEVD: kASLR + SMEP Bypass'
 date: 2020-09-18
 category: attacks
 subtitle: Bypassing OS protections
-tags: osee, training, exploit, windows, kernel, hevd
+tags: training, exploit, windows, kernel, hevd
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330914/blog/hevd-smep-bypass/cover_iwwedx.webp
 alt: Photo by Michael Dziedzic on Unsplash
 description: In this article we will defeat some protections using several techniques for exploting HackSys Extremely Vulnerable Driver

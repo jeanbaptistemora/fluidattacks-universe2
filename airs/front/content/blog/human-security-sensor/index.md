@@ -4,7 +4,7 @@ title: Your Ally Is Closer Than You Think
 date: 2021-10-26
 subtitle: Employees as the strongest link in the security chain
 category: philosophy
-tags: cybersecurity, risk, mistake, social-engineering, training, company
+tags: cybersecurity, risk, social-engineering, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1635285831/blog/human-security-sensor/cover_haass.webp
 alt: Photo by Andre Mouton on Unsplash
 description: The human-as-a-security-sensor paradigm asserts that catastrophe can be prevented if employees are trained to report threat events promptly. Learn more here.

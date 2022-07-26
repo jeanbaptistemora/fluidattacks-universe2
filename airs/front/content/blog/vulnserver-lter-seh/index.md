@@ -4,7 +4,7 @@ title: 'LTER: Overcoming Bad Chars'
 date: 2020-06-23
 category: attacks
 subtitle: Bad chars everywhere
-tags: osce, vulnserver, training, exploit
+tags: vulnserver, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331206/blog/vulnserver-lter-seh/cover_basr0i.webp
 alt: Photo by Kevin Ku on Unsplash
 description: This post will show how to exploit the Vulnserver LTER command on where we will need to bypass bad chars restrictions.

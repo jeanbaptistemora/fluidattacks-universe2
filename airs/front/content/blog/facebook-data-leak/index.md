@@ -4,7 +4,7 @@ title: Facebook Data Leak? Again?
 date: 2021-04-09
 subtitle: About 533 million user phone numbers now for 'free'
 category: attacks
-tags: cybersecurity, software, vulnerability, mistake, hacking, application
+tags: cybersecurity, software, vulnerability, hacking, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330872/blog/facebook-data-leak/cover_u38ho9.webp
 alt: Photo by Barefoot Communications on Unsplash
 description: This post outlines the most recent Facebook data leak with approximately 533 million records, including users' phone numbers, now posted for free.
