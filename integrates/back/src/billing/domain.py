@@ -293,6 +293,8 @@ async def customer_payment_methods(
                 country="",
                 email="",
                 state="",
+                rut=None,
+                tax_id=None,
             )
             for payment_method in stripe_payment_methods
         ]
@@ -304,20 +306,32 @@ async def customer_payment_methods(
 
         payment_methods += [
             PaymentMethod(
-                id=payment_method.id,
+                id=other_method.id,
                 fingerprint="",
                 last_four_digits="",
                 expiration_month="",
                 expiration_year="",
                 brand="",
                 default=False,
-                business_name=payment_method.business_name,
-                city=payment_method.city,
-                country=payment_method.country,
-                email=payment_method.email,
-                state=payment_method.state,
+                business_name=other_method.business_name,
+                city=other_method.city,
+                country=other_method.country,
+                email=other_method.email,
+                state=other_method.state,
+                rut=DocumentFile(
+                    file_name=other_method.documents.rut.file_name,
+                    modified_date=other_method.documents.rut.modified_date,
+                )
+                if other_method.documents.rut
+                else None,
+                tax_id=DocumentFile(
+                    file_name=other_method.documents.tax_id.file_name,
+                    modified_date=other_method.documents.tax_id.modified_date,
+                )
+                if other_method.documents.tax_id
+                else None,
             )
-            for payment_method in other_payment_methods
+            for other_method in other_payment_methods
         ]
 
     return payment_methods

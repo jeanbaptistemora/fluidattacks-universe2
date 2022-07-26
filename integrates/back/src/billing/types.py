@@ -1,3 +1,6 @@
+from db_model.organizations.types import (
+    DocumentFile,
+)
 from typing import (
     Dict,
     NamedTuple,
@@ -36,6 +39,8 @@ class PaymentMethod(NamedTuple):
     country: str
     email: str
     state: str
+    rut: Optional[DocumentFile]
+    tax_id: Optional[DocumentFile]
 
 
 class Price(NamedTuple):

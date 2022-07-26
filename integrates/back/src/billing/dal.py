@@ -199,6 +199,8 @@ async def create_payment_method(
         country="",
         email="",
         state="",
+        rut=None,
+        tax_id=None,
     )
 
 
