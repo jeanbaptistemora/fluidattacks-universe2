@@ -8,6 +8,9 @@ from charts.colors import (
     GRAY_JET,
     TREATMENT,
 )
+from charts.generators.gauge.forces_builds_risk import (
+    format_csv_data,
+)
 
 
 async def generate_one(group: str) -> dict:
@@ -59,10 +62,12 @@ async def generate_one(group: str) -> dict:
 
 async def generate_all() -> None:
     async for group in utils.iterate_groups():
+        document = await generate_one(group=group)
         utils.json_dump(
-            document=await generate_one(group),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
 
