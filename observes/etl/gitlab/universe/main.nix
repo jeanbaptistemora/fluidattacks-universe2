@@ -13,6 +13,6 @@ makeScript {
       outputs."/observes/common/db-creds"
     ];
   };
-  name = "observes-etl-gitlab-product";
+  name = "observes-etl-gitlab-universe";
   entrypoint = ./entrypoint.sh;
 }
