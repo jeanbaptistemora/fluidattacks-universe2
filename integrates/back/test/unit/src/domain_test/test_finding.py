@@ -311,7 +311,9 @@ async def test_validate_evidence_records() -> None:
     filename = os.path.join(filename, "../mock/test-file-records.csv")
     mime_type = "text/csv"
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, mime_type)
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, mime_type
+        )
         test_data = await validate_evidence(evidence_id, uploaded_file)
     expected_output = True
     assert isinstance(test_data, bool)
@@ -324,7 +326,9 @@ async def test_validate_evidence_records_invalid_type() -> None:
     filename = os.path.join(filename, "../mock/test-anim.gif")
     mime_type = "image/gif"
     with open(filename, "rb") as test_file:
-        uploaded_file = UploadFile(test_file.name, test_file, mime_type)
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, mime_type
+        )
         with pytest.raises(InvalidFileType):
             await validate_evidence(evidence_id, uploaded_file)
 

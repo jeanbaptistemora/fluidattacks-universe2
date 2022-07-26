@@ -32,7 +32,7 @@ from newutils import (
     files as files_utils,
     findings as finding_utils,
     utils,
-    validations,
+    validations as validations_utils,
 )
 from settings import (
     LOGGING,
@@ -186,8 +186,8 @@ async def update_evidence(
 async def update_evidence_description(
     loaders: Any, finding_id: str, evidence_id: str, description: str
 ) -> None:
-    validations.validate_fields([description])
-    validations.validate_field_length(description, 5000)
+    validations_utils.validate_fields([description])
+    validations_utils.validate_field_length(description, 5000)
     finding_loader = loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     evidence: Optional[FindingEvidence] = getattr(
@@ -210,6 +210,9 @@ async def validate_evidence(evidence_id: str, file: UploadFile) -> bool:
     success = False
     allowed_mimes = []
     max_size = 10
+
+    validations_utils.validate_fields([file.content_type])
+    validations_utils.validate_file_name(file.filename)
 
     if evidence_id in ["animation", "exploitation"]:
         allowed_mimes = ["image/gif", "image/png"]
