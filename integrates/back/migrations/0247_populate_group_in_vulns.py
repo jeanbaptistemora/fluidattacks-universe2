@@ -4,6 +4,9 @@ Sets to group_name attribute to all vulnerabilities
 
 Execution Time:    2022-07-25 at 20:14:23 UTC
 Finalization Time: 2022-07-25 at 20:52:55 UTC
+
+Execution Time:    2022-07-26 at 13:46:09 UTC
+Finalization Time: 2022-07-26 at 13:50:16 UTC
 """
 
 
@@ -107,7 +110,7 @@ async def main() -> None:
         )
         group_findings: tuple[
             Finding, ...
-        ] = await loaders.group_findings.load(group_name)
+        ] = await loaders.group_drafts_and_findings.load(group_name)
         await collect(
             tuple(
                 process_finding(loaders, finding) for finding in group_findings

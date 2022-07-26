@@ -49,6 +49,7 @@ from api.resolvers.group import (
     total_treatment,
     user_deletion,
     user_role,
+    vulnerabilities,
     vulnerability_grace_period,
 )
 from ariadne import (
@@ -114,6 +115,7 @@ GROUP.set_field("toeLines", toe_lines.resolve)
 GROUP.set_field("totalTreatment", total_treatment.resolve)
 GROUP.set_field("userDeletion", user_deletion.resolve)
 GROUP.set_field("userRole", user_role.resolve)
+GROUP.set_field("vulnerabilities", vulnerabilities.resolve)
 GROUP.set_field("vulnerabilityGracePeriod", vulnerability_grace_period.resolve)
 
 # --------------------------- Deprecated fields -------------------------------

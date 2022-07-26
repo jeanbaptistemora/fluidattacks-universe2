@@ -101,8 +101,10 @@ type Group {
   meanRemediateMediumSeverity: Int
   "Minimum CVSS 3.1 score in which a finding can be temporarily accepted"
   minAcceptanceSeverity: Float!
-  """Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
-  the build in strict mode"""
+  """
+  Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
+  the build in strict mode
+  """
   minBreakingSeverity: Float!
   "Name of the group"
   name: String
@@ -174,7 +176,18 @@ type Group {
   userDeletion: String
   "Role of the current user within the group"
   userRole: String
-  """Grace period in days where newly reported vulnerabilities won't break the
-  build (DevSecOps only)"""
+  "Vulnerabilities that have been reported to the group"
+  vulnerabilities(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of vulnerabilities to return"
+    first: Int
+    "Search query for vulnerability attributes"
+    search: String
+  ): VulnerabilitiesConnection!
+  """
+  Grace period in days where newly reported vulnerabilities won't break the
+  build (DevSecOps only)
+  """
   vulnerabilityGracePeriod: Int!
 }

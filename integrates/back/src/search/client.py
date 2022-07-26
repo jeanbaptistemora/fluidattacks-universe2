@@ -35,6 +35,7 @@ class AsyncAWSConnection(AIOHttpConnection):
     """
     Extend base async connection to support AWS credentials
 
+    Pending contribution to upstream
     https://github.com/opensearch-project/opensearch-py/issues/131
     """
 
