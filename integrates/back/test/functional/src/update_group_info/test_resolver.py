@@ -36,7 +36,7 @@ async def test_update_group_info(
     group_name: str = "group1"
     description: str = f"Description test modified by {email}"
     business_id: str = "420938281"
-    business_name: str = "Testing Company & Sons"
+    business_name: str = "Testing Company and Sons"
     sprint_duration: int = 2
     sprint_start_date: str = "2022-05-30T00:00:00"
     result: dict[str, Any] = await get_result(
@@ -88,7 +88,7 @@ async def test_update_group_info_fail(
     assert populate
     group_name: str = "group1"
     business_id: str = "420938282"
-    business_name: str = "Testing Company & Failures"
+    business_name: str = "Testing Company and Failures"
     sprint_duration: int = 1
     result: dict[str, Any] = await get_result(
         business_id=business_id,

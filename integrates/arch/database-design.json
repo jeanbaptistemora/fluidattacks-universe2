@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 25, 2022, 17:04 PM",
+    "DateLastModified": "Jul 26, 2022, 10:34 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -6310,7 +6310,7 @@
           "TableData": [
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -6414,7 +6414,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "agent_token": {
                 "S": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJjaXBoZXJ0ZXh0IjoiTC1iZVRYUTZXYXFZcmFORUZWOEc5NGhMcUtnVWt4U295elN2YVRKeF8tMUQ2bUtjRFRtUDFWaFpIY0hHelc2VS15ZjY2ak5yYkdoZkNQZHZSREtzNnNKQkdobHNPN0Zyb3pVZG9VMXIxTzNzcmtmM1RwWTdsWWxTcVpCNXpmcU1menlHby04aG42dXpadU5IcnVsS05ZTml1V0J6RFk5TFVQaFlGcHhLQnVRRkMzaU9aeTNUbGdCa1ItTkJ2b2VMc1dUbTU4NTNDUndoY2VDVENiWjl6cGw0YThBMFEzYTZwdC1idU1RME1EMGktSl9WV0xEbGN2WFkiLCJlbmNyeXB0ZWRfa2V5IjoiT0pLeEpTZkgyN2U5MEN5QjVXdW5DUG5ra0FKMkktNGxLYllEU0cwUV9yNCIsImhlYWRlciI6eyJpdiI6IlduQXh2TFVfQmtTZzJwdl8iLCJ0YWciOiJBUm1nOUlhdUZKWlF6cEhodTZnd0xRIn0sIml2IjoieXYyMmpIb0MyUUQwWjg4RCIsInByb3RlY3RlZCI6ImV5SmhiR2NpT2lKQk1qVTJSME5OUzFjaUxDSmxibU1pT2lKQk1qVTJSME5OSW4wIiwidGFnIjoiczFIZmlMblByYjJqRjZtYWQ1MkczdyJ9.t9RTji3iySHZ9dTSMHgv_g0pCeJZ8GJgfavdOzQNQPWRK-NKplBNCaWfHjfXtZmOA8p7pEzLc2vIRN1jaENjxw"
@@ -6567,7 +6567,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -6630,7 +6630,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
@@ -6693,7 +6693,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -6802,7 +6802,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -6872,7 +6872,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
@@ -6942,7 +6942,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "fe80d2d4-ccb7-46d1-8489-67c6360581de"
@@ -7012,7 +7012,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "956e9107-fd8d-49bc-b550-5609a7a1f6ac"
@@ -7082,7 +7082,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
@@ -7145,7 +7145,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -7215,7 +7215,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -7281,7 +7281,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
@@ -7351,7 +7351,7 @@
             },
             {
               "business_name": {
-                "S": "Testing Company & Sons"
+                "S": "Testing Company and Sons"
               },
               "organization_id": {
                 "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"

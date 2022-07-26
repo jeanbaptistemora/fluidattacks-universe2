@@ -85,6 +85,7 @@ async def mutate(
             validations_utils.validate_field_length(business_id, 60)
         if business_name is not None:
             validations_utils.validate_field_length(business_name, 60)
+            validations_utils.validate_fields([business_name])
         if sprint_duration is not None:
             validations_utils.validate_int_range(
                 int(sprint_duration), 1, 10, True
@@ -96,6 +97,7 @@ async def mutate(
                 raise InvalidDate()
 
         validations_utils.validate_field_length(description, 200)
+        validations_utils.validate_fields([description])
         validations_utils.validate_group_language(language)
         await groups_domain.update_group_info(
             loaders=loaders,

@@ -30,7 +30,7 @@ describe("Info", (): void => {
         data: {
           group: {
             businessId: "1444",
-            businessName: "Testing Company & Mocks",
+            businessName: "Testing Company and Mocks",
             description: "group description",
             hasMachine: true,
             hasSquad: true,
