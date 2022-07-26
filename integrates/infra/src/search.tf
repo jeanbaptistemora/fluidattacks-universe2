@@ -73,30 +73,3 @@ resource "aws_opensearch_domain" "integrates" {
     "management:type"    = "product"
   }
 }
-
-resource "aws_iam_role" "integrates_opensearch_lambda_role" {
-  name = "integrates_opensearch_lambda_role"
-
-  assume_role_policy = <<-EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Action": "sts:AssumeRole",
-          "Effect": "Allow",
-          "Principal": {
-            "Service": "lambda.amazonaws.com"
-          },
-          "Sid": ""
-        }
-      ]
-    }
-  EOF
-
-  tags = {
-    "Name"               = "integrates-opensearch"
-    "management:area"    = "cost"
-    "management:product" = "integrates"
-    "management:type"    = "product"
-  }
-}
