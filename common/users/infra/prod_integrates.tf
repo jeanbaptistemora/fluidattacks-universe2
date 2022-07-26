@@ -291,7 +291,7 @@ module "prod_integrates_aws" {
               replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
               "sub",
             ]
-          ) : "system:serviceaccount:kube-system:prod-integrates"
+          ) : "system:serviceaccount:production:prod-integrates"
         },
       },
     },

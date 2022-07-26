@@ -223,7 +223,7 @@ module "dev_aws" {
               replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
               "sub",
             ]
-          ) : "system:serviceaccount:kube-system:dev"
+          ) : "system:serviceaccount:development:dev"
         },
       },
     },
