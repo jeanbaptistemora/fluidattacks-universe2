@@ -8,7 +8,12 @@ function main {
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && pushd '__argSkims__' \
-    && python3 -m celery -A server worker -l INFO \
+    && python3 \
+      -m celery \
+      -A server \
+      worker \
+      -l INFO \
+      --autoscale=200,10 \
     && popd || return
 }
 

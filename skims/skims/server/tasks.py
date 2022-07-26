@@ -1,4 +1,4 @@
-from .celery import (
+from . import (
     app,
 )
 from .resources import (
@@ -6,9 +6,8 @@ from .resources import (
     get_results,
 )
 import asyncio
-from batch.repositories import (
-    use_namespace,
-)
+import boto3
+import celery
 from core.persist import (
     persist,
 )
@@ -16,7 +15,6 @@ from ctx import (
     CTX,
 )
 from integrates.dal import (
-    get_group_root_download_url,
     get_group_roots,
 )
 from integrates.graphql import (
@@ -30,11 +28,25 @@ from state.ephemeral import (
     get_ephemeral_store,
 )
 from typing import (
+    Any,
     Dict,
+    Tuple,
 )
 from utils.logs import (
     log_blocking,
 )
+
+
+class PersistTask(celery.Task):  # pylint: disable=abstract-method
+    def on_success(
+        self, retval: None, task_id: str, args: Tuple[str], kwargs: Any
+    ) -> None:
+        (execution_id,) = args
+        client = boto3.client("s3")
+        log_blocking("info", f"Deleting the result {execution_id}")
+        client.delete_object(
+            Bucket="skims.data", Key=f"results/{execution_id}.csv"
+        )
 
 
 async def get_vulnerabilities(
@@ -80,24 +92,13 @@ async def _report_wrapped(task_id: str) -> None:
         return
     for root in roots:
         if root.nickname == load_config.namespace:
-            _, download_url = await get_group_root_download_url(
-                group=group, root_id=root.id
-            )
-            if not download_url:
-                log_blocking("warning", "Unable to find presigned url")
-                return
             if load_config.commit is not None:
                 await persist(
                     group=group, stores=stores, roots=roots, config=load_config
                 )
                 break
-            async with use_namespace(group, root.nickname, download_url):
-                await persist(
-                    group=group, stores=stores, roots=roots, config=load_config
-                )
-                break
 
 
-@app.task(serializer="json", name="process-skims-result")
+@app.task(serializer="json", name="process-skims-result", base=PersistTask)
 def report(task_id: str) -> None:
     asyncio.run(_report_wrapped(task_id))
