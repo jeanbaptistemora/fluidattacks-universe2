@@ -1570,6 +1570,17 @@ export const enTranslations: ResourceKey = {
         text: "Billing",
         tooltip: "Billing and subcriptions for your organization",
       },
+      credentials: {
+        table: {
+          columns: {
+            name: "Name",
+            owner: "Owner",
+            type: "Type",
+          },
+        },
+        text: "Credentials",
+        tooltip: "Credentials for your organization",
+      },
       groups: {
         disabled: "Disabled",
         editGroup: {

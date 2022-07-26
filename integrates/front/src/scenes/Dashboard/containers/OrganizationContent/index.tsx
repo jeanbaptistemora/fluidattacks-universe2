@@ -16,6 +16,7 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
+import { OrganizationCredentials } from "../OrganizationCredentialsView";
 import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { ChartsForOrganizationView } from "scenes/Dashboard/containers/ChartsForOrganizationView";
@@ -190,6 +191,13 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                     {translate.t("organization.tabs.billing.text")}
                   </Tab>
                 </Can>
+                <Tab
+                  id={"credentialsTab"}
+                  link={`${url}/credentials`}
+                  tooltip={translate.t("organization.tabs.credentials.tooltip")}
+                >
+                  {translate.t("organization.tabs.credentials.text")}
+                </Tab>
               </Tabs>
             </div>
             <TabContent>
@@ -226,6 +234,11 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
                 </Route>
                 <Route exact={true} path={`${path}/billing`}>
                   <OrganizationBilling
+                    organizationId={basicData.organizationId.id}
+                  />
+                </Route>
+                <Route exact={true} path={`${path}/credentials`}>
+                  <OrganizationCredentials
                     organizationId={basicData.organizationId.id}
                   />
                 </Route>
