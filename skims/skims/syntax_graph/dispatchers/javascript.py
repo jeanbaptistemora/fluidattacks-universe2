@@ -3,6 +3,7 @@ from syntax_graph.syntax_readers.common import (
     binary_expression as common_binary_expression,
     call_expression as common_call_expression,
     comment as common_comment,
+    else_clause as common_else_clause,
     expression_statement as common_expression_statement,
     identifier as common_identifier,
     if_statement as common_if_statement,
@@ -84,6 +85,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "else_clause",
+        },
+        syntax_reader=common_else_clause.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "expression_statement",
         },
         syntax_reader=common_expression_statement.reader,
@@ -115,6 +122,7 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function",
             "function_declaration",
         },
         syntax_reader=common_method_declaration.reader,

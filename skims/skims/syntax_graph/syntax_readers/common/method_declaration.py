@@ -19,11 +19,14 @@ from utils.graph.text_nodes import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
+    name = None
     method = args.ast_graph.nodes[args.n_id]
-    name_id = method["label_field_name"]
+
+    if name_id := method.get("label_field_name"):
+        name = node_to_str(args.ast_graph, name_id)
+
     parameters_id = method["label_field_parameters"]
     block_id = method.get("label_field_body")
-    name = node_to_str(args.ast_graph, name_id)
 
     if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
         parameters_id = None

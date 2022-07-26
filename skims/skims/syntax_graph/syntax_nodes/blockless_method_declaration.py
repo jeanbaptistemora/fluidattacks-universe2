@@ -11,14 +11,16 @@ from typing import (
 
 def build_blockless_method_declaration_node(
     args: SyntaxGraphArgs,
-    name: str,
+    name: Optional[NId],
     parameters_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
-        name=name,
         label_type="BlocklessMethodDeclaration",
     )
+
+    if name:
+        args.syntax_graph.nodes[args.n_id]["name"] = name
 
     if parameters_id:
         args.syntax_graph.nodes[args.n_id]["parameters_id"] = parameters_id

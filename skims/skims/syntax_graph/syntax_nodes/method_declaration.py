@@ -11,7 +11,7 @@ from typing import (
 
 def build_method_declaration_node(
     args: SyntaxGraphArgs,
-    name: str,
+    name: Optional[NId],
     block_id: NId,
     parameters_id: Optional[NId],
 ) -> NId:
@@ -21,6 +21,9 @@ def build_method_declaration_node(
         block_id=block_id,
         label_type="MethodDeclaration",
     )
+
+    if name:
+        args.syntax_graph.nodes[args.n_id]["name"] = name
 
     if parameters_id:
         args.syntax_graph.nodes[args.n_id]["parameters_id"] = parameters_id
