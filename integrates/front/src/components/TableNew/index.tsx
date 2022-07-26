@@ -9,6 +9,7 @@ import {
 import type { ColumnDef, SortingState } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
+import { CSVLink } from "react-csv";
 
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
@@ -18,14 +19,24 @@ export interface ITableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;
+  exportCsv?: boolean;
+  csvName?: string;
 }
 
 export const Tables = <TData extends Record<string, unknown>>(
   props: Readonly<ITableProps<TData>>
 ): JSX.Element => {
-  const { id, data, columns, columnToggle = false } = props;
+  const {
+    id,
+    data,
+    columns,
+    columnToggle = false,
+    exportCsv = false,
+    csvName = "Report",
+  } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable<TData>({
     columns,
@@ -35,15 +46,22 @@ export const Tables = <TData extends Record<string, unknown>>(
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
     state: {
       columnVisibility,
+      globalFilter,
       sorting,
     },
   });
 
   return (
     <div className={"w-100"} id={id}>
+      {exportCsv && (
+        <CSVLink data={data} filename={csvName}>
+          {"Reporte"}
+        </CSVLink>
+      )}
       {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
       <table>
         <thead>
