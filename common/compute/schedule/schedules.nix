@@ -247,6 +247,34 @@
       "management:type" = "product";
     };
   };
+  integrates_missing_environment_alert = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.missing_environment_alert.main"
+    ];
+
+    schedule_expression = "cron(0 11 ? * * *)";
+    size = "nano";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_missing_environment_alert";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_numerator_report_digest = {
     enabled = true;
     command = [
