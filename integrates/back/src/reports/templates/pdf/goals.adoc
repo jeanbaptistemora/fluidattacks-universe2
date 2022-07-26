@@ -1,0 +1,3 @@
+:page-background-image: image::../resources/themes/background-goals.png[]
+
+{{fluid_tpl['goals_img']}}

@@ -25,8 +25,9 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 
 //Segunda pagina - Objetivos
 <<<
+[%notitle]
 === {{fluid_tpl['goals_title']}}
-{{fluid_tpl['goals_img']}}
+{{goals_pdf}}
 
 //Tercera pagina - Explicacion severity
 <<<

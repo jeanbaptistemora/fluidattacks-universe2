@@ -27,7 +27,9 @@ async def generate_cert_file(
     secure_pdf = SecurePDF()
     report_filename = ""
     with TemporaryDirectory() as tempdir:
-        pdf_maker = CertificateCreator(lang, "cert", tempdir)
+        pdf_maker = CertificateCreator(
+            lang, "cert", tempdir, group_name, user_email
+        )
         await pdf_maker.cert(
             findings_ord,
             group_name,
@@ -37,4 +39,5 @@ async def generate_cert_file(
     report_filename = await secure_pdf.create_full(
         loaders, user_email, pdf_maker.out_name, group_name
     )
+
     return report_filename

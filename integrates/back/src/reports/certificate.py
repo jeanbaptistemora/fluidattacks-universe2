@@ -184,9 +184,11 @@ class CertificateCreator(CreatorPdf):
 
     cert_context: CertContext
 
-    def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
+    def __init__(  # pylint: disable=too-many-arguments
+        self, lang: str, doctype: str, tempdir: str, group: str, user: str
+    ) -> None:
         "Class constructor"
-        super().__init__(lang, doctype, tempdir)
+        super().__init__(lang, doctype, tempdir, group, user)
         self.proj_tpl = f"templates/pdf/certificate_{lang}.adoc"
 
     async def fill_context(  # noqa pylint: disable=too-many-arguments,too-many-locals
@@ -264,5 +266,5 @@ class CertificateCreator(CreatorPdf):
             render_text = template.render(self.cert_context)
             with open(tpl_name, "wb") as tplfile:
                 tplfile.write(render_text.encode("utf-8"))
-            self.create_command(tpl_name)
+            self.create_command(tpl_name, self.out_name)
             subprocess.call(self.command, shell=True)  # nosec

@@ -40,6 +40,9 @@ from pylab import (  # noqa
     pie,
     savefig,
 )
+from reports.secure_pdf import (
+    SecurePDF,
+)
 from settings import (
     LOGGING,
 )
@@ -131,6 +134,7 @@ Context = TypedDict(
         "date": str,
         "link": str,
         "imagesdir": str,
+        "goals_pdf": str,
     },
 )
 
@@ -375,7 +379,9 @@ class CreatorPdf:
     tpl_dir: str = "/tpls/"
     wordlist: Dict[str, Dict[str, str]] = {}
 
-    def __init__(self, lang: str, doctype: str, tempdir: str) -> None:
+    def __init__(  # pylint: disable=too-many-arguments
+        self, lang: str, doctype: str, tempdir: str, group: str, user: str
+    ) -> None:
         """Class constructor."""
         self.path = f"{STARTDIR}/integrates/back/src/reports"
         self.tpl_img_path = tempdir
@@ -387,13 +393,16 @@ class CreatorPdf:
         self.tpl_dir = self.path + self.tpl_dir
         self.style_dir = self.path + self.style_dir
         self.images_dir = self.path + self.images_dir
+        self.out_name_goals = f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        self.group_name = group
+        self.user_email = user
         if self.doctype == "tech":
             self.proj_tpl = "templates/pdf/tech.adoc"
 
         importlib.reload(sys)
         self.lang_support()
 
-    def create_command(self, tpl_name: str) -> None:
+    def create_command(self, tpl_name: str, out_name: str) -> None:
         """Create the SO command to create the PDF with asciidoctor."""
         self.command = (
             "asciidoctor-pdf "
@@ -401,7 +410,7 @@ class CreatorPdf:
             f"-a pdf-theme={self.style} "
             f"-a pdf-fontsdir={self.font_dir} "
             f"-D {self.result_dir} "
-            f"-o {self.out_name} "
+            f"-o {out_name} "
             f"{tpl_name} && chmod 777 {tpl_name}"
         )
 
@@ -490,6 +499,7 @@ class CreatorPdf:
             "date": time.strftime("%Y-%m-%d at %H:%M"),
             "link": f"{BASE_URL}/groups/{group}/vulns",
             "imagesdir": self.images_dir,
+            "goals_pdf": f"image::{self.out_name_goals}[]",
         }
 
     def lang_support(self) -> None:
@@ -567,30 +577,62 @@ class CreatorPdf:
         close("all")
         return pie_filename
 
+    async def get_page(  # pylint: disable=too-many-arguments
+        self,
+        template_env: jinja2.Environment,
+        name: str,
+        template_path: str,
+        loaders: Dataloaders,
+        out_name: str,
+    ) -> None:
+        template = template_env.get_template(template_path)
+        tpl_name = f"{self.tpl_dir}{self.group_name}_{name}_IT.tpl"
+        render_text = template.render(self.context)
+        with open(tpl_name, "wb") as tplfile:
+            tplfile.write(render_text.encode("utf-8"))
+        self.create_command(tpl_name, out_name)
+        subprocess.call(self.command, shell=True)  # nosec
+        page_pdf = SecurePDF()
+
+        await page_pdf.create_full(
+            loaders, self.user_email, out_name, self.group_name
+        )
+
     async def tech(  # noqa pylint: disable=too-many-arguments
         self,
         findings: Tuple[Finding, ...],
         finding_evidences_set: Dict[str, List[Dict[str, str]]],
-        group: str,
         description: str,
-        user: str,
         loaders: Dataloaders,
     ) -> None:
         """Create the template to render and apply the context."""
         await self.fill_group(
-            findings, finding_evidences_set, group, description, user, loaders
+            findings,
+            finding_evidences_set,
+            self.group_name,
+            description,
+            self.user_email,
+            loaders,
         )
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         searchpath = self.path
         template_loader = jinja2.FileSystemLoader(searchpath=searchpath)
-        template_env = jinja2.Environment(
+        template_env: jinja2.Environment = jinja2.Environment(
             loader=template_loader,
             autoescape=select_autoescape(["html", "xml"], default=True),
         )
+        await self.get_page(
+            template_env,
+            "goals",
+            "templates/pdf/goals.adoc",
+            loaders,
+            self.out_name_goals,
+        )
+
         template = template_env.get_template(self.proj_tpl)
-        tpl_name = f"{self.tpl_dir}{group}_IT.tpl"
+        tpl_name = f"{self.tpl_dir}{self.group_name}_IT.tpl"
         render_text = template.render(self.context)
         with open(tpl_name, "wb") as tplfile:
             tplfile.write(render_text.encode("utf-8"))
-        self.create_command(tpl_name)
+        self.create_command(tpl_name, self.out_name)
         subprocess.call(self.command, shell=True)  # nosec

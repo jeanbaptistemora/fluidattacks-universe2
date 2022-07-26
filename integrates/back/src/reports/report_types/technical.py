@@ -148,7 +148,7 @@ async def generate_pdf_file(
     secure_pdf = SecurePDF()
     report_filename = ""
     with TemporaryDirectory() as tempdir:
-        pdf_maker = CreatorPdf(lang, "tech", tempdir)
+        pdf_maker = CreatorPdf(lang, "tech", tempdir, group_name, user_email)
         finding_evidences_set = await download_evidences_for_pdf(
             findings_ord, tempdir
         )
@@ -156,9 +156,7 @@ async def generate_pdf_file(
         await pdf_maker.tech(
             findings_ord,
             finding_evidences_set,
-            group_name,
             description,
-            user_email,
             loaders,
         )
     report_filename = await secure_pdf.create_full(
