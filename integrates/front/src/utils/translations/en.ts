@@ -1571,6 +1571,20 @@ export const enTranslations: ResourceKey = {
         tooltip: "Billing and subcriptions for your organization",
       },
       credentials: {
+        alerts: {
+          addSuccess: "Credentials has been added.",
+          editSuccess: "Credentials has been edited.",
+          removeSuccess: "Credentials has been removed.",
+        },
+        buttons: {
+          remove: {
+            confirmMessage:
+              "{{credentialName}} will be removed from the organization",
+            confirmTitle: "Remove credentials?",
+            text: "Remove",
+            tooltip: "Remove credentials from the organization",
+          },
+        },
         table: {
           columns: {
             name: "Name",
