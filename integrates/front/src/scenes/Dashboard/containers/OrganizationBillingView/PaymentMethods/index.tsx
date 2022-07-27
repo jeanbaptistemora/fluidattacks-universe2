@@ -354,7 +354,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         city,
         country,
         email,
+        rutList,
         state,
+        taxIdList,
       }: {
         cardExpirationMonth: string;
         cardExpirationYear: string;
@@ -363,8 +365,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         city: string;
         country: string;
         email: string;
+        rutList: FileList | undefined;
         state: string;
+        taxIdList: FileList | undefined;
       }): Promise<void> => {
+        const rut = handleFileListUpload(rutList);
+        const taxId = handleFileListUpload(taxIdList);
         await updatePaymentMethod({
           variables: {
             businessName,
@@ -378,7 +384,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             paymentMethodId: currentCreditCardRow.id
               ? currentCreditCardRow.id
               : currentOtherMethodRow.id,
+            rut,
             state,
+            taxId,
           },
         });
       },
@@ -595,9 +603,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               country: currentOtherMethodRow.country,
               email: currentOtherMethodRow.email,
               makeDefault: false,
-              rut: undefined,
+              rutList: undefined,
               state: currentOtherMethodRow.state,
-              taxId: undefined,
+              taxIdList: undefined,
             }}
             onClose={closeUpdateOhterMethodModal}
             onSubmit={handleUpdatePaymentMethodSubmit}

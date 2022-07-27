@@ -17,7 +17,9 @@ interface IUpdateCreditCardModalProps {
     city: string;
     country: string;
     email: string;
+    rutList: FileList | undefined;
     state: string;
+    taxIdList: FileList | undefined;
   }) => Promise<void>;
 }
 
@@ -53,7 +55,9 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
           country: "",
           email: "",
           makeDefault: false,
+          rutList: undefined,
           state: "",
+          taxIdList: undefined,
         }}
         name={"updateCreditCard"}
         onSubmit={onSubmit}

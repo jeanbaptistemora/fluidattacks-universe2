@@ -24,9 +24,9 @@ interface IUpdateOtherMethodModalProps {
     city: string;
     country: string;
     email: string;
-    rut: FileList | undefined;
+    rutList: FileList | undefined;
     state: string;
-    taxId: FileList | undefined;
+    taxIdList: FileList | undefined;
   }) => Promise<void>;
   initialValues: {
     cardExpirationMonth: string;
@@ -36,9 +36,9 @@ interface IUpdateOtherMethodModalProps {
     city: string;
     country: string;
     email: string;
-    rut: FileList | undefined;
+    rutList: FileList | undefined;
     state: string;
-    taxId: FileList | undefined;
+    taxIdList: FileList | undefined;
   };
 }
 
@@ -78,7 +78,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
       then: string().email().required(),
     }),
     makeDefault: boolean(),
-    rut: mixed().when("country", {
+    rutList: mixed().when("country", {
       is: "Colombia",
       otherwise: mixed(),
       then: mixed().required(),
@@ -94,7 +94,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
         return states.length === 0 || value !== undefined;
       }
     ),
-    taxId: mixed().when("country", {
+    taxIdList: mixed().when("country", {
       is: "Colombia",
       otherwise: mixed().required(),
       then: mixed(),
@@ -297,7 +297,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                       }
                       component={FormikFileInput}
                       id={"rut"}
-                      name={"rut"}
+                      name={"rutList"}
                     />
                   </div>
                 </React.Fragment>
@@ -315,7 +315,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                     }
                     component={FormikFileInput}
                     id={"taxId"}
-                    name={"taxId"}
+                    name={"taxIdList"}
                   />
                 </div>
               )}

@@ -252,7 +252,7 @@ export const AddOtherMethodModal = ({
                           "application/pdf,application/zip,image/gif,image/jpg,image/png"
                         }
                         component={FormikFileInput}
-                        id={"rutList"}
+                        id={"rut"}
                         name={"rutList"}
                       />
                     </div>

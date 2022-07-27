@@ -32,6 +32,14 @@ const GET_ORGANIZATION_BILLING: DocumentNode = gql`
         country
         state
         city
+        rut {
+          fileName
+          modifiedDate
+        }
+        taxId {
+          fileName
+          modifiedDate
+        }
       }
     }
   }
@@ -99,6 +107,8 @@ const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
     $country: String!
     $state: String!
     $city: String!
+    $rut: Upload
+    $taxId: Upload
   ) {
     updatePaymentMethod(
       organizationId: $organizationId
@@ -111,6 +121,8 @@ const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
       country: $country
       state: $state
       city: $city
+      rut: $rut
+      taxId: $taxId
     ) {
       success
     }
