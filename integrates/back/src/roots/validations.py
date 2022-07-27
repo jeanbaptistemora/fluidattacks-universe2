@@ -1,6 +1,5 @@
 from custom_exceptions import (
     BranchNotFound,
-    CredentialCanNotBeUsedInGroup,
     InactiveRoot,
     InvalidChar,
     InvalidGitCredentials,
@@ -10,7 +9,7 @@ from custom_exceptions import (
     RepeatedRootNickname,
 )
 from db_model.credentials.types import (
-    Credentials,
+    CredentialsRequest,
 )
 from db_model.enums import (
     CredentialType,
@@ -49,25 +48,17 @@ from urllib.parse import (
 )
 
 
-async def validate_credential_in_group_or_user(
+async def validate_credential_in_organization(
     loaders: Any,
     credential_id: str,
-    group_name: str,
-    user_email: str,
+    organization_id: str,
 ) -> None:
-    group_roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
-    group_credential_ids = {
-        root.state.credential_id
-        for root in group_roots
-        if isinstance(root, GitRoot) and root.state.credential_id
-    }
-    user_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.user_credentials.load(user_email)
-    user_credential_ids = {credential.id for credential in user_credentials}
-    allowed_credential_ids = group_credential_ids | user_credential_ids
-    if credential_id not in allowed_credential_ids:
-        raise CredentialCanNotBeUsedInGroup()
+    await loaders.credentials.load(
+        CredentialsRequest(
+            id=credential_id,
+            organization_id=organization_id,
+        )
+    )
 
 
 def is_exclude_valid(exclude_patterns: List[str], url: str) -> bool:

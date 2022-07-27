@@ -226,11 +226,10 @@ async def add_git_root(  # pylint: disable=too-many-locals
 
     if credentials:
         if (credential_id := credentials.get("id")) and credential_id:
-            await validations.validate_credential_in_group_or_user(
+            await validations.validate_credential_in_organization(
                 loaders,
                 credential_id,
-                group.name,
-                user_email,
+                group.organization_id,
             )
             organization_credential = await loaders.credentials.load(
                 CredentialsRequest(
@@ -615,11 +614,10 @@ async def _update_git_root_credentials(  # noqa: MC0001
         return credential_to_add.id
 
     if credential_id is not None:
-        await validations.validate_credential_in_group_or_user(
+        await validations.validate_credential_in_organization(
             loaders,
             credential_id,
-            group.name,
-            user_email,
+            group.organization_id,
         )
         return credential_id
     return root.state.credential_id
