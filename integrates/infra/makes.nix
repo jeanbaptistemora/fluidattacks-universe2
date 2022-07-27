@@ -7,7 +7,7 @@
 }: let
   searchPaths = makeSearchPaths {
     bin = [
-      inputs.nixpkgs.python39
+      inputs.nixpkgs.python39Packages.pip
     ];
   };
 in {

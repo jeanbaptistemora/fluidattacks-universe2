@@ -29,8 +29,8 @@ resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
 resource "null_resource" "dynamodb_replication_dependencies" {
   provisioner "local-exec" {
     command = <<EOT
-      pip3 install
-        --requirerment ${var.lambda_path}/dynamodb_replication/requirements.txt
+      pip install \
+        --requirerment ${var.lambda_path}/dynamodb_replication/requirements.txt \
         --target ${var.lambda_path}/dynamodb_replication
     EOT
   }
