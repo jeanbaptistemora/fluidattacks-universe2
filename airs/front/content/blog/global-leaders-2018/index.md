@@ -7,7 +7,7 @@ subtitle: Fluid Attacks, a top cybersecurity company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330885/blog/global-leaders-2018/cover_dmr5l4.webp
 alt: Fluid Attacks, Among the Top Global Leaders 2018
 description: Fluid Attacks was recognized as a global leader in the Cybersecurity category by Clutch, as one of the most relevant companies in this industry.
-tags: cybersecurity, company, ethical, web
+tags: cybersecurity, company, ethical-hacking, web
 keywords: Global Leaders 2018, Cybersecurity, Fluid Attacks, Clutch, IT Companies, Business, Pentesting, Ethical Hacking
 author: Mauricio Gómez
 writer: mgomez

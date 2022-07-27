@@ -4,7 +4,7 @@ title: 'Mi contraseña favorita: ''123456'''
 date: 2020-09-25
 subtitle: Podrías ser víctima del relleno de credenciales
 category: attacks
-tags: credential, password, web, application, cybersecurity
+tags: credential, web, application, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331052/blog/relleno-credenciales/cover_cwi8if.webp
 alt: Photo by Cookie the Pom on Unsplash
 description: He escrito este post para dar una visión general del ataque Credential Stuffing y algunas breves recomendaciones para su prevención.

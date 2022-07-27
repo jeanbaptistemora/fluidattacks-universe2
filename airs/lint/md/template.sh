@@ -48,19 +48,14 @@ function check_md_blog_tags {
   local valid_tags=(
     android
     application
-    backdoor
     blue-team
     bug
-    business
-    cbc
     challenge
     cloud
     code
     company
     credential
-    csv
     cybersecurity
-    dependency
     detect
     devops
     discovery
@@ -68,34 +63,24 @@ function check_md_blog_tags {
     economics
     encryption
     engineering
-    eslint
     ethical-hacking
-    experiment
     exploit
     flaw
     functional
     fuzzing
     git
     hacking
-    health
     healthcare
     hevd
     htb
-    imperative
     injection
     interview
-    investment
     javascript
-    jwt
     kernel
-    libssh
     machine-learning
     math
-    multiparadigm
     mypy
-    openssl
     operations
-    password
     pentesting
     policies
     protect
@@ -104,30 +89,20 @@ function check_md_blog_tags {
     red-team
     revert
     risk
-    saml
     scanner
     security-testing
     social-engineering
     software
     sql
-    ssl
     standard
-    stateless
     technology
-    test
-    tls
     training
     trend
     vector
     vulnerability
     vulnserver
     web
-    wep
-    wifi
     windows
-    xml
-    xpath
-    xss
   )
 
   check_md_tag_exists "${path}" 'tags' \

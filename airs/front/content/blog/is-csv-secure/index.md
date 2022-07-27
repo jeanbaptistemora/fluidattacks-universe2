@@ -4,7 +4,7 @@ title: Is that CSV Secure?
 date: 2017-12-22
 category: attacks
 subtitle: Defining CSV injection vulnerabilities
-tags: cybersecurity, csv, code, web
+tags: cybersecurity, vulnerability, code, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330929/blog/is-csv-secure/cover_tteaiz.webp
 alt: Blank CSV document icon
 description: Comma-Separated Values file is a common extension in data files used in several application fields. Here we present a CSV vulnerability most people ignore.

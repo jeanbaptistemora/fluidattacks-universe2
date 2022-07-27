@@ -4,7 +4,7 @@ title: I Saw Your Data on the Dark Web
 date: 2020-12-07
 subtitle: What is the Dark Web and what do we find there?
 category: philosophy
-tags: web, credential, password, cybersecurity
+tags: web, credential, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330845/blog/dark-web/cover_a24zzf.webp
 alt: Photo by eberhard grossgasteiger on Unsplash
 description: I wrote this post to give you an overview of what the Dark Web is, how we get in, and what we can find within it.

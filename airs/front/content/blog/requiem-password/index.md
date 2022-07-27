@@ -4,7 +4,7 @@ title: Requiem for a p455w0rD
 date: 2018-03-07
 subtitle: Why passphrases are better than passwords
 category: philosophy
-tags: password, credential, cybersecurity
+tags: credential, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331056/blog/requiem-password/cover_iz3mck.webp
 alt: Photo by Ben Lambert on Unsplash
 description: In this blog post, we mainly make a comparison between having weak or complicated passwords versus having a single strong passphrase.

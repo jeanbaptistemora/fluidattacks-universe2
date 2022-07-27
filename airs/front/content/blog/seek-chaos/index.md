@@ -4,7 +4,7 @@ title: Seek for Chaos and Dive Into It
 date: 2019-05-06
 subtitle: The Antifragile philosophy
 category: philosophy
-tags: company, cybersecurity, risk, experiment
+tags: company, cybersecurity, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331094/blog/seek-chaos/cover_bvvxp3.webp
 alt: Photo by Daniele Levis Pelusi on Unsplash
 description: In this article, we examine how the Antifragility concept can inform design decisions, change the mindset of cybersecurity teams, and affect your business.

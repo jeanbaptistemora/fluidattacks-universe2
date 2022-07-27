@@ -4,7 +4,7 @@ title: The Treacherous POODLE
 date: 2018-05-02
 subtitle: How does the SSL fallback's works
 category: attacks
-tags: ssl, flaw, cbc
+tags: vulnerability, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331125/blog/treacherous-poodle/cover_x0hhns.webp
 alt: Photo by Luis Villasmil on Unsplash
 description: Here we discuss the exploitation of an SSL/TLS flaw that creates a fallback on TLS usage to SSL 3.0.

@@ -4,7 +4,7 @@ title: Stand on the Shoulders of Giants
 date: 2018-02-14
 category: attacks
 subtitle: About software composition analysis
-tags: testing, dependency, vulnerability
+tags: security-testing, software, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
 alt: Photo by Vincent Riszdorfer on Unsplash
 description: 'Here we mainly develop a discussion on ''A9'' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.'

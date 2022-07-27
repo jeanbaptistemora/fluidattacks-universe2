@@ -4,7 +4,7 @@ title: Road to Functional Python
 date: 2018-07-27
 category: development
 subtitle: Functional coding in Python
-tags: application, functional, python, multiparadigm
+tags: application, functional, python
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331067/blog/road-to-functional-python/cover_amvdni.webp
 alt: Photo by Nick ter Haar on Unsplash
 description: Here is an intro to the essential aspects of functional programming in Python, its benefits, how to start the migration, the most used libraries, and more.

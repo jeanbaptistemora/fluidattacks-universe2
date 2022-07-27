@@ -4,11 +4,11 @@ title: Release the BEAST!
 date: 2018-04-27
 subtitle: Understanding the BEAST
 category: attacks
-tags: tls, cbc, vulnerability
+tags: cybersecurity, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
 alt: Photo by Philipp Pilz on Unsplash
 description: How does a theorized attack become practical after more than 10 years? Find out here.
-keywords: TLS, CBC, Injection, Vulnerabilty, BACPA, CPA, Ethical Hacking, Pentesting
+keywords: TLS, CBC, Injection, Vulnerability, BACPA, CPA, Ethical Hacking, Pentesting
 author: Daniel Yepes
 writer: cestmoi
 name: Daniel Yepes
@@ -171,8 +171,8 @@ As you may see, it’s quite hard to guess the block that came before it,
 specially when the `IV` it’s random. You migth think this made it
 secure, isn’t?
 
-But hey, if things were easy like that, i wouldn’t be writting this
-article. Remeber i mentioned a theorized vulnerabilty that came up in
+But hey, if things were easy like that, I wouldn't be writing this
+article. Remember I mentioned a theorized vulnerabilty that came up in
 2004? There is a variation called **Blockwise-Adaptive Chosen-Plaintext
 Attack (BACPA)**, [<sup>\[4\]</sup>](#r4).
 

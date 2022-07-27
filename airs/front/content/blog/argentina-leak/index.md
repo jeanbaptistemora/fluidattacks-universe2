@@ -4,7 +4,7 @@ title: A Whole Nation Compromised
 date: 2021-11-05
 subtitle: All of Argentina's population IDs stolen and for sale?
 category: attacks
-tags: cybersecurity, vulnerability, password, exploit, credential
+tags: cybersecurity, vulnerability, exploit, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1636118998/blog/argentina-leak/cover_argentina.webp
 alt: Photo by Chaos Soccer Gear on Unsplash
 description: This new leak may compromise more than 45M people. Read this post to learn who the attacker is, how he gained access and his connection with past leaks.
