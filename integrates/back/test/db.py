@@ -39,6 +39,9 @@ from db_model.findings.types import (
     Finding,
     FindingUnreliableIndicators,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -424,32 +427,37 @@ async def populate_comments(data: list[Any]) -> bool:
 
 
 async def populate_policies(data: list[Any]) -> bool:
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            authz_policy.put_subject_policy(
-                authz_policy.SubjectPolicy(
-                    level=policy["level"],
-                    subject=policy["subject"],
-                    object=policy["object"],
-                    role=policy["role"],
-                ),
-            )
-            for policy in data
-        ]
+    success = all(
+        await collect(
+            [
+                authz_policy.put_subject_policy(
+                    authz_policy.SubjectPolicy(
+                        level=policy["level"],
+                        subject=policy["subject"],
+                        object=policy["object"],
+                        role=policy["role"],
+                    ),
+                )
+                for policy in data
+            ]
+        )
     )
-    coroutines.extend(
-        [
-            dal_group_access.update(
-                policy["subject"],
-                policy["object"],
-                {"has_access": True},
-            )
-            for policy in data
-            if policy["level"] == "group"
-        ]
-    )
-    return all(await collect(coroutines))
+    if success:
+        await collect(
+            [
+                dal_group_access.add(
+                    group_access=GroupAccess(
+                        email=policy["subject"],
+                        group_name=policy["object"],
+                        has_access=True,
+                    )
+                )
+                for policy in data
+                if policy["level"] == "group"
+            ]
+        )
+
+    return success
 
 
 async def populate_organization_finding_policies(

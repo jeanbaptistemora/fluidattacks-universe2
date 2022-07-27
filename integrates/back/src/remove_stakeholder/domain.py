@@ -12,6 +12,10 @@ from custom_exceptions import (
     InvalidAuthorization,
     UnableToSendMail,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+    GroupConfirmDeletion,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
@@ -201,7 +205,6 @@ async def confirm_deletion_mail(
     loaders: Any,
     email: str,
 ) -> bool:
-    success = False
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
     url_token = new_encoded_jwt(
         {
@@ -209,16 +212,16 @@ async def confirm_deletion_mail(
         },
     )
     if validate_email_address(email):
-        success = await group_access_dal.update(
-            email,
-            "confirm_deletion",
-            {
-                "expiration_time": expiration_time,
-                "confirm_deletion": {
-                    "is_used": False,
-                    "url_token": url_token,
-                },
-            },
+        await group_access_dal.add(
+            group_access=GroupAccess(
+                email=email,
+                group_name="confirm_deletion",
+                expiration_time=expiration_time,
+                confirm_deletion=GroupConfirmDeletion(
+                    is_used=False,
+                    url_token=url_token,
+                ),
+            )
         )
         confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
         mail_to = [email]
@@ -229,4 +232,6 @@ async def confirm_deletion_mail(
         }
         schedule(mail_confirm_deletion(loaders, mail_to, email_context))
 
-    return success
+        return True
+
+    return False
