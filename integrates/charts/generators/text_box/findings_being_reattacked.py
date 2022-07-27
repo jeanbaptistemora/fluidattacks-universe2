@@ -8,6 +8,9 @@ from async_lru import (
 from charts import (
     utils,
 )
+from charts.generators.text_box.utils import (
+    format_csv_data,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -45,36 +48,44 @@ def format_data(findings_reattack: int) -> dict:
 
 async def generate_all() -> None:
     loaders = get_new_context()
+    text = "Vulnerabilities being re-attacked"
+    findings_reattack: int
     async for group in utils.iterate_groups():
+        findings_reattack = await generate_one(group, loaders)
         utils.json_dump(
-            document=format_data(
-                findings_reattack=await generate_one(group, loaders)
-            ),
+            document=format_data(findings_reattack=findings_reattack),
             entity="group",
             subject=group,
+            csv_document=format_csv_data(
+                header=text, value=str(findings_reattack)
+            ),
         )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        findings_reattack = await get_many_groups(org_groups, loaders)
         utils.json_dump(
-            document=format_data(
-                findings_reattack=await get_many_groups(org_groups, loaders),
-            ),
+            document=format_data(findings_reattack=findings_reattack),
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(
+                header=text, value=str(findings_reattack)
+            ),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
+            findings_reattack = await get_many_groups(tuple(groups), loaders)
             utils.json_dump(
                 document=format_data(
-                    findings_reattack=await get_many_groups(
-                        tuple(groups), loaders
-                    ),
+                    findings_reattack=findings_reattack,
                 ),
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    header=text, value=str(findings_reattack)
+                ),
             )
 
 
