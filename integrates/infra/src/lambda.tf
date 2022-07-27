@@ -30,7 +30,8 @@ resource "null_resource" "dynamodb_replication_dependencies" {
   provisioner "local-exec" {
     command = <<EOT
       pip install \
-        --requirerment ${var.lambda_path}/dynamodb_replication/requirements.txt \
+        --no-compile \
+        --requirement ${var.lambda_path}/dynamodb_replication/requirements.txt \
         --target ${var.lambda_path}/dynamodb_replication
     EOT
   }
@@ -42,6 +43,7 @@ resource "null_resource" "dynamodb_replication_dependencies" {
 
 data "archive_file" "dynamodb_replication_zip" {
   depends_on  = [null_resource.dynamodb_replication_dependencies]
+  excludes    = ["${path.module}/unwanted.zip"]
   output_path = "${var.lambda_path}/dynamodb_replication.zip"
   source_dir  = "${var.lambda_path}/dynamodb_replication"
   type        = "zip"
