@@ -29,7 +29,7 @@ from dynamodb import (
 )
 from group_access.dal import (
     get_user_groups,
-    remove_access,
+    remove,
 )
 import logging
 import logging.config
@@ -73,7 +73,7 @@ async def _process_user(
         await collect(
             [
                 _delete_subject_policy(email, group_name),
-                remove_access(email, group_name),
+                remove(email=email, group_name=group_name),
             ]
         )
 

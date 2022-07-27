@@ -14,7 +14,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from group_access.domain import (
-    exist,
+    exists,
 )
 from newutils import (
     token as token_utils,
@@ -41,7 +41,7 @@ async def resolve(
 
     if entity == "GROUP":
         group_name = request_store["group_name"]
-        if await exist(loaders, group_name, parent.email):
+        if await exists(loaders, group_name, parent.email):
             group_access: GroupAccess = await loaders.group_access.load(
                 (group_name, parent.email)
             )

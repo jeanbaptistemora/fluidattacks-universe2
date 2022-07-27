@@ -130,20 +130,19 @@ async def get_user_groups(user_email: str, active: bool) -> list[str]:
     return groups_filtered
 
 
-async def remove_access(user_email: str, group_name: str) -> bool:
+async def remove(*, email: str, group_name: str) -> None:
     """Remove group access in dynamo."""
+    delete_attrs = DynamoDeleteType(
+        Key={
+            "user_email": email.lower(),
+            "project_name": group_name.lower(),
+        }
+    )
     try:
-        delete_attrs = DynamoDeleteType(
-            Key={
-                "user_email": user_email.lower(),
-                "project_name": group_name.lower(),
-            }
-        )
-        resp = await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs)
-        return resp
+        if not await dynamodb_ops.delete_item(TABLE_NAME, delete_attrs):
+            raise UnavailabilityError()
     except ClientError as ex:
-        LOGGER.exception(ex, extra=dict(extra=locals()))
-        return False
+        raise UnavailabilityError() from ex
 
 
 async def _update(email: str, group_name: str, data: dict[str, Any]) -> bool:

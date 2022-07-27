@@ -56,6 +56,7 @@ from freezegun import (  # type: ignore
     freeze_time,
 )
 from group_access.domain import (
+    exists,
     get_group_users,
     get_managers,
     get_reattackers,
@@ -127,8 +128,13 @@ def test_validate_group_services_config() -> None:
 @pytest.mark.changes_db
 async def test_remove_access() -> None:
     loaders: Dataloaders = get_new_context()
-    assert await remove_access(loaders, "unittest", "unittesting")
-    assert not await remove_access(loaders, "", "")
+    email = "unittest@fluidattacks.com"
+    group_name = "unittesting"
+    assert await exists(loaders, group_name, email)
+    assert await remove_access(loaders, email, group_name)
+
+    loaders = get_new_context()
+    assert not await exists(loaders, group_name, email)
 
 
 async def test_validate_tags() -> None:

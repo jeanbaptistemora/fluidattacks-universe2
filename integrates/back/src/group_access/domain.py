@@ -159,7 +159,7 @@ async def get_users_email_by_preferences(
     return stakeholders_email
 
 
-async def exist(loaders: Any, group_name: str, email: str) -> bool:
+async def exists(loaders: Any, group_name: str, email: str) -> bool:
     try:
         await loaders.group_access.load((group_name, email))
         return True
@@ -170,14 +170,9 @@ async def exist(loaders: Any, group_name: str, email: str) -> bool:
 async def remove_access(
     loaders: Any, user_email: str, group_name: str
 ) -> bool:
-    success: bool = all(
-        await collect(
-            [
-                authz.revoke_group_level_role(user_email, group_name),
-                group_access_dal.remove_access(user_email, group_name),
-            ]
-        )
-    )
+    await group_access_dal.remove(email=user_email, group_name=group_name)
+    success = await authz.revoke_group_level_role(user_email, group_name)
+
     if user_email and group_name:
         me_vulnerabilities: tuple[
             Vulnerability, ...
@@ -257,7 +252,7 @@ async def get_stakeholder_role(
     group_name: str,
     is_registered: bool,
 ) -> str:
-    if not await exist(loaders, group_name, email):
+    if not await exists(loaders, group_name, email):
         group_access = GroupAccess(email=email, group_name=group_name)
     else:
         group_access = await loaders.group_access.load((group_name, email))

@@ -140,17 +140,14 @@ async def remove_stakeholder_all_organizations(
 
 
 async def complete_deletion(*, loaders: Any, user_email: str) -> None:
-    await collect(
-        (
-            remove_stakeholder_all_organizations(
-                loaders=loaders,
-                email=user_email,
-                modified_by=user_email,
-            ),
-            group_access_dal.remove_access(user_email, "confirm_deletion"),
-        )
+    await group_access_dal.remove(
+        email=user_email, group_name="confirm_deletion"
     )
-
+    await remove_stakeholder_all_organizations(
+        loaders=loaders,
+        email=user_email,
+        modified_by=user_email,
+    )
     await collect(
         [
             remove_session_key(user_email, "jti"),

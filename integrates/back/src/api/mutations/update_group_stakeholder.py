@@ -30,7 +30,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from group_access.domain import (
-    exist,
+    exists,
 )
 import logging
 import logging.config
@@ -65,7 +65,7 @@ async def _update_stakeholder(
     modified_role = map_roles(updated_data["role"])
     modified_email = updated_data["email"]
 
-    if not await exist(loaders, group.name, modified_email):
+    if not await exists(loaders, group.name, modified_email):
         raise StakeholderNotFound()
 
     group_access: GroupAccess = await loaders.group_access.load(

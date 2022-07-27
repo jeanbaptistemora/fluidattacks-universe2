@@ -27,7 +27,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from group_access.domain import (
-    exist,
+    exists,
     validate_new_invitation_time_limit,
 )
 from groups import (
@@ -74,7 +74,7 @@ async def mutate(
     new_user_email = kwargs.get("email", "")
     new_user_responsibility = kwargs.get("responsibility", "-")
 
-    if await exist(loaders, group_name, new_user_email):
+    if await exists(loaders, group_name, new_user_email):
         group_access: GroupAccess = await loaders.group_access.load(
             (group_name, new_user_email)
         )
