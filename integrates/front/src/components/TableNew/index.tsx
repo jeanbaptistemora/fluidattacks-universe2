@@ -21,6 +21,7 @@ export interface ITableProps<TData> {
   columnToggle?: boolean;
   exportCsv?: boolean;
   csvName?: string;
+  rowFunction?: () => void;
 }
 
 export const Tables = <TData extends Record<string, unknown>>(
@@ -33,6 +34,7 @@ export const Tables = <TData extends Record<string, unknown>>(
     columnToggle = false,
     exportCsv = false,
     csvName = "Report",
+    rowFunction = undefined,
   } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -103,7 +105,7 @@ export const Tables = <TData extends Record<string, unknown>>(
         <tbody>
           {table.getRowModel().rows.map(
             (row): ReactElement => (
-              <tr key={row.id}>
+              <tr key={row.id} onClick={rowFunction}>
                 {row.getVisibleCells().map(
                   (cell): ReactElement => (
                     <td key={cell.id}>
