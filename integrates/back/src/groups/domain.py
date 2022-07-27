@@ -55,6 +55,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.group_access.types import (
+    GroupAccess,
     GroupAccessMetadataToUpdate,
     GroupInvitation,
 )
@@ -119,6 +120,7 @@ from findings import (
     domain as findings_domain,
 )
 from group_access import (
+    dal as group_access_dal,
     domain as group_access_domain,
 )
 from group_comments.domain import (
@@ -388,6 +390,13 @@ async def add_group(  # pylint: disable=too-many-locals
     # Admins are not granted access to the group
     # they are omnipresent
     if user_role != "admin":
+        await group_access_dal.add(
+            group_access=GroupAccess(
+                email=user_email,
+                group_name=group_name,
+                has_access=True,
+            )
+        )
         # Only Fluid staff can be customer managers
         # Customers are granted the user manager role
         role: str = (
@@ -395,15 +404,8 @@ async def add_group(  # pylint: disable=too-many-locals
             if stakeholders_domain.is_fluid_staff(user_email)
             else "user_manager"
         )
-        success = all(
-            await collect(
-                (
-                    group_access_domain.update_has_access(
-                        user_email, group_name, True
-                    ),
-                    authz.grant_group_level_role(user_email, group_name, role),
-                )
-            )
+        success = await authz.grant_group_level_role(
+            user_email, group_name, role
         )
 
     # Notify us in case the user wants any Fluid Service
