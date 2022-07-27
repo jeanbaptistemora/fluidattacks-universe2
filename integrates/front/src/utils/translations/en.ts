@@ -3524,8 +3524,8 @@ export const enTranslations: ResourceKey = {
     invalidUrlType: "Invalid Url Type",
     invalidValueInField: "The value inserted in one of the fields is not valid",
     lowerDate: "Invalid date",
-    maxLength: "This field requires less than {{count}} characters",
-    minLength: "This field requires at least {{count}} characters",
+    maxLength: "Type {{count}} characters or less",
+    minLength: "Type {{count}} characters or more",
     noFluidAttacksHackersInFluidAttacksService:
       "Groups with any active Fluid Attacks service " +
       "can only have Hackers provided by Fluid Attacks",

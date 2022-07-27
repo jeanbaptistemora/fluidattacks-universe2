@@ -52,9 +52,7 @@ describe("Validations", (): void => {
     const max: number = 10;
     const length: ConfigurableValidator = maxLength(max);
 
-    expect(length("testmaxlength")).toBe(
-      "This field requires less than 10 characters"
-    );
+    expect(length("testmaxlength")).toBe(`Type ${max} characters or less`);
   });
 
   it("should required 4 minimum characters", (): void => {
@@ -63,7 +61,7 @@ describe("Validations", (): void => {
     const min: number = 4;
     const length: ConfigurableValidator = minLength(min);
 
-    expect(length("4")).toBe("This field requires at least 4 characters");
+    expect(length(min.toString())).toBe(`Type ${min} characters or more`);
   });
 
   it("should raise validation", (): void => {

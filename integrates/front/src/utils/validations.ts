@@ -15,6 +15,13 @@ import type { IPhoneData } from "./forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
+const regExps = {
+  alphabetic: /^[a-zA-Z]+$/u,
+  alphanumeric: /^[a-zA-Z0-9]+$/u,
+  numeric: /^[0-9]+$/u,
+  text: /^[\w\-\s,;.¿?¡!]+$/u,
+};
+
 /**
  * Groups single or multiple field-level validations and returns the first error
  *
@@ -578,6 +585,7 @@ const selected: Validator = (value: unknown): string | undefined =>
     : translate.t("validations.required");
 
 export {
+  regExps,
   composeValidators,
   required,
   someRequired,

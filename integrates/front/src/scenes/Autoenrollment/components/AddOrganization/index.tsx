@@ -16,6 +16,7 @@ import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
+import { regExps } from "utils/validations";
 
 const MAX_DESCRIPTION_LENGTH = 200;
 const MAX_GROUP_LENGTH = 20;
@@ -71,19 +72,31 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
 
   const validations = object().shape({
     groupDescription: string()
-      .required()
-      .max(MAX_DESCRIPTION_LENGTH)
-      .matches(/^[\w\-\s,;.¿?¡!]+$/u, t("validations.text")),
+      .required(t("validations.required"))
+      .max(
+        MAX_DESCRIPTION_LENGTH,
+        t("validations.maxLength", { count: MAX_DESCRIPTION_LENGTH })
+      )
+      .matches(regExps.text, t("validations.text")),
     groupName: string()
-      .required()
-      .max(MAX_GROUP_LENGTH)
-      .matches(/^[a-zA-Z0-9]+$/u, t("validations.alphanumeric")),
+      .required(t("validations.required"))
+      .max(
+        MAX_GROUP_LENGTH,
+        t("validations.maxLength", { count: MAX_GROUP_LENGTH })
+      )
+      .matches(regExps.alphanumeric, t("validations.alphanumeric")),
     organizationName: string()
-      .required()
-      .min(MIN_ORG_LENGTH)
-      .max(MAX_ORG_LENGTH)
+      .required(t("validations.required"))
+      .min(
+        MIN_ORG_LENGTH,
+        t("validations.minLength", { count: MIN_ORG_LENGTH })
+      )
+      .max(
+        MAX_ORG_LENGTH,
+        t("validations.maxLength", { count: MAX_ORG_LENGTH })
+      )
       .matches(/^[a-zA-Z]+$/u, t("validations.alphabetic")),
-    reportLanguage: string().required(),
+    reportLanguage: string().required(t("validations.required")),
     terms: array().of(string()).required().length(1, t("validations.required")),
   });
 
