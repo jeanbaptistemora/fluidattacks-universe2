@@ -9,6 +9,9 @@ import asyncio
 from core.persist import (
     persist,
 )
+from core.scan import (
+    notify_end,
+)
 from ctx import (
     CTX,
 )
@@ -68,12 +71,18 @@ async def _report_wrapped(task_id: str) -> None:
         stores[vuln.finding].store(vuln)
     create_session(os.environ["INTEGRATES_API_TOKEN"])
     roots = await get_group_roots(group=group)
+
+    batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
     for root in roots:
         if root.nickname == load_config.namespace:
             if load_config.commit is not None:
-                await persist(
+                persisted_results = await persist(
                     group=group, stores=stores, roots=roots, config=load_config
                 )
+                if batch_job_id:
+                    await notify_end(
+                        batch_job_id, persisted_results, load_config
+                    )
                 break
 
 

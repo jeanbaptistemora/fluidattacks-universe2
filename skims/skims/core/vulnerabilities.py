@@ -80,7 +80,8 @@ def get_vulnerability_justification(  # noqa: MC0001
 
                 if line_content:
                     if (
-                        vuln.skims_metadata.technique
+                        vuln.skims_metadata
+                        and vuln.skims_metadata.technique
                         != core_model.TechniqueEnum.DAST
                     ):
                         open_vulns.append(

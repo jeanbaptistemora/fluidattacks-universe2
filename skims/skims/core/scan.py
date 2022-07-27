@@ -198,7 +198,11 @@ def notify_findings_as_csv(
         )
         for store in stores.values()
         for result in store.iterate()
-        for snippet in [result.skims_metadata.snippet.replace("\x00", "")]
+        for snippet in [
+            result.skims_metadata.snippet.replace("\x00", "")
+            if result.skims_metadata
+            else ""
+        ]
         if result.skims_metadata
     ]
 
@@ -235,10 +239,12 @@ async def notify_start(job_id: str) -> None:
 async def notify_end(
     job_id: str,
     persisted_results: Dict[core_model.FindingEnum, core_model.PersistResult],
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> None:
+    config = config or CTX.config
     await do_finish_skims_execution(
-        root=CTX.config.namespace,
-        group_name=CTX.config.group,
+        root=config.namespace,
+        group_name=config.group or "",
         job_id=job_id,
         end_date=datetime.utcnow(),
         findings_executed=tuple(
@@ -254,7 +260,7 @@ async def notify_end(
                 ),
             }
             for finding in core_model.FindingEnum
-            if finding in CTX.config.checks
+            if finding in config.checks
         ),
     )
 
