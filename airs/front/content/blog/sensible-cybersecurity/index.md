@@ -4,7 +4,7 @@ title: Sensible About Cybersecurity
 date: 2019-07-07
 subtitle: An interview with Nicolás A. CISO at Corona. Part II.
 category: interview
-tags: interview, risk, company
+tags: risk, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331095/blog/sensible-cybersecurity/cover_uej0zj.webp
 alt: Photo by Jeff Hardi on Unsplash
 description: In the second part of our interview with Nicolás Acosta, he shared his perspective on risk management, setbacks, and truths and falsehoods about cybersecurity.

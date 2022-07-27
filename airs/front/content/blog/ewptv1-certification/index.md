@@ -4,7 +4,7 @@ title: Oops!... We Did It Again!
 date: 2021-07-01
 subtitle: Interview with Roldan on his eWPTv1 certification
 category: interview
-tags: cybersecurity, red-team, interview, training, software, exploit
+tags: cybersecurity, red-team, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627391011/blog/ewptv1-certification/cover-ewptv1-certification_huw2bl.webp
 alt: Photo by Honey Yanibel Minaya Cruz on Unsplash
 description: Andres Roldan obtained the eLearnSecurity Web application Penetration Tester (eWPTv1) certification. Here we talk to him about this achievement.

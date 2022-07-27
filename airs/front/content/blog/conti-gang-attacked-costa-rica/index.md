@@ -4,7 +4,7 @@ title: Wave of Attacks Against Costa Rica!
 date: 2022-04-27
 subtitle: Conti gang relentlessly lashes their vulnerable systems
 category: attacks
-tags: cybersecurity, social, risk, vulnerability, hacking, web
+tags: cybersecurity, risk, vulnerability, hacking, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1651093427/blog/conti-gang-attacked-costa-rica/cover_conti_costa_rica.webp
 alt: Photo by Alexander Aguero on Unsplash
 description: It's been almost two weeks since the beginning of the Conti gang's new wave of cyberattacks against Costa Rican organizations. Find out here what has happened.

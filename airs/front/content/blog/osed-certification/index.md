@@ -4,7 +4,7 @@ title: Congrats on the OSED Certificate!
 date: 2021-06-24
 subtitle: A short interview with Óscar Uribe
 category: interview
-tags: cybersecurity, red-team, interview, training, software, exploit
+tags: cybersecurity, red-team, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627390773/blog/osed-certification/cover-osed-certification_hspd3l.webp
 alt: Photo by Austin Park on Unsplash
 description: Óscar Uribe obtained the Offensive Security Exploit Developer (OSED) certification on June 15th. Here we talk to him about this achievement.

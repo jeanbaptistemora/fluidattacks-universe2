@@ -4,7 +4,7 @@ title: Google Cookie Banner Unlawful in EU
 date: 2022-04-27
 subtitle: Google is forced to give EU users a 'Reject all' option
 category: politics
-tags: policies, cybersecurity, web, social, company
+tags: policies, cybersecurity, web, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1651084575/blog/google-cookie-banner-unlawful/cover_cookie.webp
 alt: Photo by Umberto on Unsplash
 description: Users in France can now reject all cookies in Google Search and YouTube more easily after these services' banners were found to break EU data privacy laws.

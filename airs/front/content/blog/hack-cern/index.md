@@ -4,7 +4,7 @@ title: Preventing Hacks at CERN
 date: 2019-05-13
 subtitle: A chat with Andrés Gómez
 category: interview
-tags: cybersecurity, machine-learning, testing
+tags: cybersecurity, machine-learning, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330889/blog/hack-cern/cover_fqngm1.webp
 alt: Photo by Aurélien Clément Ducret on Unsplash
 description: For this post, we spoke with Andrés Gómez, a former Fluid Attacks' member, who is researching to protect a computer grid supporting experiments at the LHC.

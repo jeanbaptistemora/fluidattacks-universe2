@@ -32,6 +32,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListTags.blueTeam.description"),
+      metaDescription: translate.t("blogListTags.blueTeam.metaDescription"),
+      title: translate.t("blogListTags.blueTeam.title"),
+    },
+    {
       description: translate.t("blogListTags.cloud.description"),
       metaDescription: translate.t("blogListTags.cloud.metaDescription"),
       title: translate.t("blogListTags.cloud.title"),

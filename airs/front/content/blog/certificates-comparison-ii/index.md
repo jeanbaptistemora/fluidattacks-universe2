@@ -4,7 +4,7 @@ title: What's the Best Certification? II
 date: 2021-07-21
 subtitle: Brief reviews on advanced certifications
 category: opinions
-tags: cybersecurity, red-team, interview, training, software, exploit
+tags: cybersecurity, red-team, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1627392956/blog/certificates-comparison-ii/cover-certificates-comparison-ii_pkyxto.webp
 alt: Photo by Giammarco Cruz on Unsplash
 description: This is the second post reviewing the leading certifications in the red team field. Here, we will look at our intermediate and advanced certificates.

@@ -4,7 +4,7 @@ title: Seek Protection Without Delay!
 date: 2022-03-28
 subtitle: Recommendations from the U.S. government
 category: philosophy
-tags: cybersecurity, social, risk, trend, company, protect
+tags: cybersecurity, risk, trend, company, protect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1648516421/blog/protection-recommendation-us/cover_protection_recommendation_us.webp
 alt: Photo by René DeAnda on Unsplash
 description: In recent months, the U.S. government has been sending out warnings and suggestions for action for organizations that could fall victim to Russian cyberattacks.

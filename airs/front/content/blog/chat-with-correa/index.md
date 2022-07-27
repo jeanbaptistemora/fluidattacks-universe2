@@ -4,7 +4,7 @@ title: A Perspective in Cybersecurity
 date: 2020-03-30
 subtitle: A chat with Daniel Correa
 category: interview
-tags: machine-learning, cybersecurity, interview, risk, software, malware
+tags: machine-learning, cybersecurity, risk, software, malware
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330831/blog/chat-with-correa/cover_htrl0g.webp
 alt: Photo by Liam Tucker on Unsplash
 description: We had the pleasure of chatting with Daniel Correa, a Security Expert who shared his views on current threats, human factors in cybersecurity, and technology.

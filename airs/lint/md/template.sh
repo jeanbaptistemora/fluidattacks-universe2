@@ -50,7 +50,6 @@ function check_md_blog_tags {
     application
     blue-team
     bug
-    challenge
     cloud
     code
     company
@@ -73,7 +72,6 @@ function check_md_blog_tags {
     hevd
     htb
     injection
-    interview
     javascript
     kernel
     machine-learning

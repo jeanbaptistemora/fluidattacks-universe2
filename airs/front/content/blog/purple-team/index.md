@@ -4,11 +4,11 @@ title: Do We Need a Purple Team?
 date: 2019-10-04
 category: politics
 subtitle: Understanding Purple Teams
-tags: cybersecurity, testing
+tags: cybersecurity, red-team, pentesting, blue-team, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330976/blog/purple-team/cover_ohgfsv.webp
 alt: Photo by Efe Kurnaz on Unsplash
 description: In this blog, we discuss the fundamentals of Purple Teams and possible ways to implement them in an organization successfully.
-keywords: Purpleteam, Pentesting, Communication, Cooperation, Hacking, Organization, Ethical Hacking, Pentesting
+keywords: Purpleteam, Communication, Cooperation, Hacking, Organization, Ethical Hacking, Pentesting
 author: Alejandro Herrera
 writer: alejandrohg7
 name: Alejandro Herrera

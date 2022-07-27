@@ -4,7 +4,7 @@ title: Reversing for Mortals
 date: 2017-04-25
 category: attacks
 subtitle: Solving Yoire crackme average challenge
-tags: revert, challenge, engineering
+tags: revert, engineering, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331059/blog/reversing-mortals/cover_reckpt.webp
 alt: Photo by Ryoji Iwata on Unsplash
 description: In this article, we provide a first approach to reverse engineering by solving a simple but educational cracking challenge using OllyDBG.

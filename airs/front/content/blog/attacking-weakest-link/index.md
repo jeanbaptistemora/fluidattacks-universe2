@@ -4,7 +4,7 @@ title: Attacking the Weakest Link
 date: 2019-06-04
 category: attacks
 subtitle: Attacking without borders
-tags: social, credential, social-engineering, vulnerability
+tags: credential, social-engineering, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330673/blog/attacking-weakest-link/cover_g7rdsd.webp
 alt: People manipulation
 description: Humans are and always will be the weakest link in security. Learn how to deal with these kinds of holes and how to patch them.

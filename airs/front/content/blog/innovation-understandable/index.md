@@ -4,7 +4,7 @@ title: Innovation More Understandable
 date: 2019-06-18
 subtitle: '"We make innovation more understandable, more worldly."'
 category: interview
-tags: interview, machine-learning
+tags: machine-learning, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/innovation-understandable/cover_vfweh5.webp
 alt: Nicolás Acosta, CISO at Corona
 description: Nicolás Acosta, CISO of Corona, shared his perspective on topics like artificial intelligence, machine learning, innovation, setbacks as CISO, among others.

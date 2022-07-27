@@ -4,7 +4,7 @@ title: Interview With Safety Detectives
 date: 2020-11-25
 subtitle: Mauricio Gomez talking about Fluid Attacks
 category: interview
-tags: cybersecurity, interview, red-team, vulnerability, ethical-hacking
+tags: cybersecurity, red-team, vulnerability, ethical-hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330925/blog/interview-safety-detectives/cover_plbj7m.webp
 alt: Photo by Daniel McCullough on Unsplash
 description: Mauricio Gomez, a co-founder of Fluid Attacks, recently had an interview with Aviva Zacks of Safety Detectives. You can access it here.

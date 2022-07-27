@@ -89,6 +89,11 @@ const pageTexts: ResourceKey = {
     },
   },
   blogListTags: {
+    blueTeam: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Blue Team.",
+      title: "blue-team",
+    },
     cloud: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Cloud.",

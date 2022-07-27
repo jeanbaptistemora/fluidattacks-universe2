@@ -4,7 +4,7 @@ title: Stupid Neighbors Using WEP
 date: 2017-04-24
 category: attacks
 subtitle: Solving Yashira WEP Security challenge
-tags: encryption, challenge, ethical-hacking
+tags: encryption, ethical-hacking, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331104/blog/stupid-neighbors-using-wep/cover_zfucpe.webp
 alt: Photo by Bernard Hermant on Unsplash
 description: In this article, we explain how to crack a Wired Equivalent Privacy (WEP) algorithm by analyzing its traffic.

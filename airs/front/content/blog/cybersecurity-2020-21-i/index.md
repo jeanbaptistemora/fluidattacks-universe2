@@ -4,7 +4,7 @@ title: State of Cybersecurity 2020-21, I
 date: 2020-11-19
 subtitle: Current trends of cybercriminals
 category: opinions
-tags: cybersecurity, trend, hacking, social, company
+tags: cybersecurity, trend, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330842/blog/cybersecurity-2020-21-i/cover_kb8vag.webp
 alt: Photo by Jr Korpa on Unsplash
 description: In this first part of the state of cybersecurity 2020-21, we want to share with you some highlights of the current trends of cybercriminals.
