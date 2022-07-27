@@ -95,15 +95,6 @@ resource "cloudflare_record" "community" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "roadmap" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "roadmap.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "cname.prodcamp.com"
-  proxied = false
-  ttl     = 1
-}
-
 resource "cloudflare_record" "landing" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "landing.${cloudflare_zone.fluidattacks_com.zone}"
