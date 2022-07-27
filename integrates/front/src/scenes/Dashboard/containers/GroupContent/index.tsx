@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 import React, { useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -18,6 +19,7 @@ import { groupContext } from "./context";
 import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupScopeView } from "../GroupScopeView";
 import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
+import type { IGetOrganizationId } from "../OrganizationContent/types";
 import { ToeContent } from "../ToeContent";
 import { Dot } from "components/Dot";
 import { Tab, Tabs } from "components/Tabs";
@@ -32,6 +34,7 @@ import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/ind
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
 import { GroupForcesView } from "scenes/Dashboard/containers/GroupForcesView";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
+import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -55,6 +58,7 @@ const GroupContent: React.FC = (): JSX.Element => {
   const canGetToeInputs: boolean = permissions.can(
     "api_resolvers_group_toe_inputs_resolve"
   );
+
   const { data } = useQuery<IGetEventStatus>(GET_GROUP_EVENT_STATUS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -64,6 +68,21 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
+  const { data: organizationData } = useQuery<IGetOrganizationId>(
+    GET_ORGANIZATION_ID,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred fetching organization ID", error);
+        });
+      },
+      variables: {
+        organizationName: organizationName.toLowerCase(),
+      },
+    }
+  );
   const events = useMemo(
     (): IGetEventStatus["group"]["events"] =>
       data === undefined ? [] : data.group.events,
@@ -75,6 +94,11 @@ const GroupContent: React.FC = (): JSX.Element => {
 
   // Side effects
   useTabTracking("Group");
+
+  if (_.isUndefined(organizationData)) {
+    return <div />;
+  }
+  const organizationId = organizationData.organizationId.id;
 
   return (
     <React.StrictMode>
@@ -169,7 +193,7 @@ const GroupContent: React.FC = (): JSX.Element => {
         </Tab>
       </Tabs>
       <TabContent>
-        <groupContext.Provider value={{ path, url }}>
+        <groupContext.Provider value={{ organizationId, path, url }}>
           <Switch>
             <Route
               component={GroupAuthorsView}

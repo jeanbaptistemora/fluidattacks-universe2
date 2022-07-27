@@ -5,6 +5,7 @@ import { GraphQLError } from "graphql";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
+import { GET_ORGANIZATION_ID } from "../OrganizationContent/queries";
 import { GroupRoute } from "scenes/Dashboard/containers/GroupRoute";
 import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupRoute/queries";
 import { GET_GROUP_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
@@ -19,46 +20,7 @@ jest.mock("../../../../utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("GroupRoute", (): void => {
-  const groupMock: MockedResponse[] = [
-    {
-      request: {
-        query: GET_GROUP_DATA,
-        variables: {
-          groupName: "test",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            deletionDate: "",
-            name: "test",
-            organization: "okada",
-            serviceAttributes: ["has_asm"],
-            userDeletion: "",
-          },
-        },
-      },
-    },
-    {
-      request: {
-        query: GET_GROUP_LEVEL_PERMISSIONS,
-        variables: {
-          identifier: "test",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            name: "test",
-            permissions: [],
-            userRole: "user",
-          },
-        },
-      },
-    },
-  ];
-
+describe("groupRoute", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupRoute).toBe("function");
@@ -67,10 +29,65 @@ describe("GroupRoute", (): void => {
   it("should render a component", async (): Promise<void> => {
     expect.hasAssertions();
 
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_GROUP_DATA,
+          variables: {
+            groupName: "test",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              deletionDate: "",
+              name: "test",
+              organization: "okada",
+              serviceAttributes: ["has_asm"],
+              userDeletion: "",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_GROUP_LEVEL_PERMISSIONS,
+          variables: {
+            identifier: "test",
+          },
+        },
+        result: {
+          data: {
+            group: {
+              name: "test",
+              permissions: [],
+              userRole: "user",
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: GET_ORGANIZATION_ID,
+          variables: {
+            organizationName: "okada",
+          },
+        },
+        result: {
+          data: {
+            organizationId: {
+              id: "ORG#f0c74b3e-bce4-4946-ba63-cb7e113ee817",
+              name: "okada",
+            },
+          },
+        },
+      },
+    ];
+
     const setUserRoleCallback: jest.Mock = jest.fn();
     render(
       <MemoryRouter initialEntries={["/orgs/okada/groups/test"]}>
-        <MockedProvider addTypename={false} mocks={groupMock}>
+        <MockedProvider addTypename={false} mocks={mockedQueries}>
           <Route path={"/orgs/:organizationName/groups/:groupName"}>
             <GroupRoute setUserRole={setUserRoleCallback} />
           </Route>

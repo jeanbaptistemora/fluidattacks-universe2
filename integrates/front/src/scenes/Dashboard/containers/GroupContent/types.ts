@@ -8,6 +8,7 @@ interface IGetEventStatus {
 }
 
 interface IGroupContext {
+  organizationId: string;
   path: string;
   url: string;
 }

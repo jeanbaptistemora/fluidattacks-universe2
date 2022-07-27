@@ -13,7 +13,7 @@ const ADD_CREDENTIALS: DocumentNode = gql`
 `;
 
 const GET_ORGANIZATION_CREDENTIALS: DocumentNode = gql`
-  query GetOrganizationStakeholders($organizationId: String!) {
+  query GetOrganizationCredentials($organizationId: String!) {
     organization(organizationId: $organizationId) {
       __typename
       name
