@@ -1,10 +1,7 @@
-import type { Table } from "@tanstack/react-table";
 import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 
-export interface IPagMenuProps<TData> {
-  table: Table<TData>;
-}
+import type { IPagMenuProps } from "./types";
 
 export const PagMenu = <TData extends Record<string, unknown>>(
   props: IPagMenuProps<TData>

@@ -6,23 +6,14 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { ColumnDef, SortingState } from "@tanstack/react-table";
+import type { SortingState } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
 import { CSVLink } from "react-csv";
 
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
-
-export interface ITableProps<TData> {
-  id: string;
-  data: TData[];
-  columns: ColumnDef<TData>[];
-  columnToggle?: boolean;
-  exportCsv?: boolean;
-  csvName?: string;
-  rowFunction?: () => void;
-}
+import type { ITableProps } from "./types";
 
 export const Tables = <TData extends Record<string, unknown>>(
   props: Readonly<ITableProps<TData>>

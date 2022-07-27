@@ -1,11 +1,7 @@
-import type { Table } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React from "react";
 
-export interface IToggleProps<TData> {
-  id: string;
-  table: Table<TData>;
-}
+import type { IToggleProps } from "./types";
 
 export const ToggleFunction = <TData extends Record<string, unknown>>(
   props: IToggleProps<TData>
