@@ -9,7 +9,6 @@ from custom_types import (
 )
 from db_model.organizations.types import (
     Organization,
-    OrganizationDocuments,
 )
 from decorators import (
     concurrent_decorators,
@@ -19,8 +18,15 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from newutils import (
+    validations,
+)
+from starlette.datastructures import (
+    UploadFile,
+)
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -32,16 +38,26 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
+    rut: Optional[UploadFile] = None,
+    tax_id: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
     org: Organization = await info.context.loaders.organization.load(
         kwargs["organization_id"]
     )
 
+    if rut is not None:
+        validations.validate_sanitized_csv_input(
+            rut.filename, rut.content_type
+        )
+    if tax_id is not None:
+        validations.validate_sanitized_csv_input(
+            tax_id.filename, tax_id.content_type
+        )
+
     # Update payment method
-    result: bool = await billing_domain.update_payment_method(
+    result: bool = await billing_domain.update_documents(
         org=org,
-        documents=OrganizationDocuments(),
         payment_method_id=kwargs["payment_method_id"],
         card_expiration_month=kwargs["card_expiration_month"],
         card_expiration_year=kwargs["card_expiration_year"],
@@ -51,6 +67,8 @@ async def mutate(
         country=kwargs["country"],
         email=kwargs["email"],
         state=kwargs["state"],
+        rut=rut,
+        tax_id=tax_id,
     )
 
     return SimplePayload(success=result)

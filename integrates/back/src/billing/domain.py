@@ -434,7 +434,7 @@ async def update_documents(
     state: str,
     rut: Optional[UploadFile] = None,
     tax_id: Optional[UploadFile] = None,
-) -> None:
+) -> bool:
 
     documents = OrganizationDocuments()
     org_name = org.name
@@ -467,7 +467,7 @@ async def update_documents(
             )
         )
 
-    await update_payment_method(
+    return await update_payment_method(
         org=org,
         documents=documents,
         payment_method_id=payment_method_id,
@@ -535,7 +535,7 @@ async def create_payment_method(
             organization_id=org.id,
             organization_name=org.name,
         )
-        await update_documents(
+        return await update_documents(
             org=org,
             payment_method_id=other_payment_id,
             card_expiration_month=card_expiration_month,
@@ -549,7 +549,6 @@ async def create_payment_method(
             rut=rut,
             tax_id=tax_id,
         )
-        return True
 
     # create credit card payment method
     result: bool = False
