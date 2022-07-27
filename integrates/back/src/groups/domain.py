@@ -983,8 +983,7 @@ async def invite_to_group(
     role: str,
     group_name: str,
     modified_by: str,
-) -> bool:
-    success = False
+) -> None:
     group: Group = await loaders.group.load(group_name)
     if (
         validate_field_length(responsibility, 50)
@@ -999,19 +998,19 @@ async def invite_to_group(
             datetime_utils.get_now_plus_delta(weeks=1)
         )
         url_token = secrets.token_urlsafe(64)
-        success = await group_access_domain.update(
-            email,
-            group_name,
-            {
-                "expiration_time": expiration_time,
-                "has_access": False,
-                "invitation": {
-                    "is_used": False,
-                    "responsibility": responsibility,
-                    "role": role,
-                    "url_token": url_token,
-                },
-            },
+        await group_access_domain.update_typed(
+            email=email,
+            group_name=group_name,
+            metadata=GroupAccessMetadataToUpdate(
+                expiration_time=expiration_time,
+                has_access=False,
+                invitation=GroupInvitation(
+                    is_used=False,
+                    responsibility=responsibility,
+                    role=role,
+                    url_token=url_token,
+                ),
+            ),
         )
         confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
         reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
@@ -1031,7 +1030,6 @@ async def invite_to_group(
                 loaders, mail_to, email_context
             )
         )
-    return success
 
 
 async def exists(

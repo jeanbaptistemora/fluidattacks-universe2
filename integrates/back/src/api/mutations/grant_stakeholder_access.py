@@ -68,7 +68,6 @@ async def mutate(
 ) -> GrantStakeholderAccessPayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
-    success = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     new_user_role = map_roles(role)
@@ -94,7 +93,7 @@ async def mutate(
     )
 
     if new_user_role in allowed_roles_to_grant:
-        success = await groups_domain.invite_to_group(
+        await groups_domain.invite_to_group(
             loaders=loaders,
             email=new_user_email,
             responsibility=new_user_responsibility,
@@ -114,28 +113,18 @@ async def mutate(
             },
         )
 
-    if success:
-        await redis_del_by_deps(
-            "grant_stakeholder_access",
-            group_name=group_name,
-        )
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Given grant access to {new_user_email} "
-            f"in {group_name} group",
-        )
-    else:
-        LOGGER.error(
-            "Couldn't grant access to group", extra={"extra": info.context}
-        )
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to grant access to {new_user_email} "
-            f"in {group_name} group",
-        )
+    await redis_del_by_deps(
+        "grant_stakeholder_access",
+        group_name=group_name,
+    )
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Given grant access to {new_user_email} "
+        f"in {group_name} group",
+    )
 
     return GrantStakeholderAccessPayload(
-        success=success,
+        success=True,
         granted_stakeholder=Stakeholder(
             email=new_user_email,
         ),

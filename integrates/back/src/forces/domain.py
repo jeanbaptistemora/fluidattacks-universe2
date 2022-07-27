@@ -93,7 +93,7 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     user_email = format_forces_user_email(group_name)
     user_data = await token_utils.get_jwt_content(info.context)
     modified_by = user_data["user_email"]
-    success = await groups_domain.invite_to_group(
+    await groups_domain.invite_to_group(
         loaders=info.context.loaders,
         email=user_email,
         responsibility="Forces service user",
@@ -107,13 +107,11 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
     group_access: GroupAccess = await loaders.group_access.load(
         (group_name, user_email)
     )
-    success = (
-        success
-        and await groups_domain.complete_register_for_group_invitation(
-            loaders=info.context.loaders,
-            group_access=group_access,
-        )
+    success = await groups_domain.complete_register_for_group_invitation(
+        loaders=info.context.loaders,
+        group_access=group_access,
     )
+
     if not success:
         LOGGER.error(
             "Couldn't grant access to group",

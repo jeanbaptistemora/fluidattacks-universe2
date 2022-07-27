@@ -5,6 +5,10 @@ from dataloaders import (
     apply_context_attrs,
     get_new_context,
 )
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+    GroupConfirmDeletion,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -47,28 +51,24 @@ async def confirm_deletion_mail(
     *,
     email: str,
 ) -> str:
-    success = False
     expiration_time = get_as_epoch(get_now_plus_delta(weeks=1))
     url_token = new_encoded_jwt(
         {
             "user_email": email,
         },
     )
-    success = await group_access_domain.update(
-        email,
-        "confirm_deletion",
-        {
-            "expiration_time": expiration_time,
-            "confirm_deletion": {
-                "is_used": False,
-                "url_token": url_token,
-            },
-        },
+    await group_access_domain.update_typed(
+        email=email,
+        group_name="confirm_deletion",
+        metadata=GroupAccessMetadataToUpdate(
+            confirm_deletion=GroupConfirmDeletion(
+                is_used=False, url_token=url_token
+            ),
+            expiration_time=expiration_time,
+        ),
     )
-    if success:
-        return url_token
 
-    return ""
+    return url_token
 
 
 def create_dummy_simple_session(
