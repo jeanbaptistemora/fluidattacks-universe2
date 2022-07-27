@@ -101,6 +101,7 @@ const About = [
           'about/security/availability/distributed-applications',
           'about/security/availability/distributed-firewall',
           'about/security/availability/everything-backed-up',
+          'about/security/availability/recovery-objective',
           'about/security/availability/multiple-zones',
         ],
       },
