@@ -21,6 +21,10 @@ from datetime import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+    GroupInvitation,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -265,14 +269,12 @@ async def update_last_login(email: str) -> None:
 
 async def update_invited_stakeholder(
     updated_data: dict[str, str],
-    invitation: dict[str, Any],
+    invitation: GroupInvitation,
     group: Group,
-) -> bool:
-    success = False
+) -> None:
     email = updated_data["email"]
     responsibility = updated_data["responsibility"]
     role = updated_data["role"]
-    new_invitation = invitation.copy()
     if (
         validate_field_length(responsibility, 50)
         and validate_alphanumeric_field(responsibility)
@@ -282,16 +284,16 @@ async def update_invited_stakeholder(
             group, email, role
         )
     ):
-        new_invitation["responsibility"] = responsibility
-        new_invitation["role"] = role
-        success = await group_access_domain.update(
+        new_invitation = invitation._replace(
+            responsibility=responsibility, role=role
+        )
+        await group_access_domain.update_typed(
             email,
             group.name,
-            {
-                "invitation": new_invitation,
-            },
+            GroupAccessMetadataToUpdate(
+                invitation=new_invitation,
+            ),
         )
-    return success
 
 
 async def update_attributes(

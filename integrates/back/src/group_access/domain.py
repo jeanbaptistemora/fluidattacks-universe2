@@ -4,6 +4,7 @@ from aioextensions import (
 import authz
 from custom_exceptions import (
     RequestedInvitationTooSoon,
+    StakeholderNotInGroup,
 )
 from datetime import (
     datetime,
@@ -136,6 +137,14 @@ async def get_users_email_by_preferences(
         if notification in stakeholder.notifications_preferences.email
     ]
     return stakeholders_email
+
+
+async def exist(loaders: Any, group_name: str, email: str) -> bool:
+    try:
+        await loaders.group_access.load((group_name, email))
+        return True
+    except StakeholderNotInGroup:
+        return False
 
 
 async def remove_access(

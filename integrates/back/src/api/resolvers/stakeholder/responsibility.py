@@ -1,6 +1,3 @@
-from custom_exceptions import (
-    StakeholderNotInGroup,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +12,9 @@ from db_model.stakeholders.types import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from group_access.domain import (
+    exist,
 )
 from newutils import (
     token as token_utils,
@@ -37,7 +37,7 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
 
     if entity == "GROUP":
-        try:
+        if await exist(loaders, request_store["group_name"], parent.email):
             group_access: GroupAccess = await loaders.group_access.load(
                 (request_store["group_name"], parent.email)
             )
@@ -51,7 +51,7 @@ async def resolve(
                 and invitation_state == GroupInvitiationState.PENDING
                 else group_access.responsibility
             )
-        except StakeholderNotInGroup:
-            return None
+
+        return None
 
     return None

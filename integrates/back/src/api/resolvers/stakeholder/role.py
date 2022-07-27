@@ -1,7 +1,4 @@
 import authz
-from custom_exceptions import (
-    StakeholderNotInGroup,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -22,6 +19,9 @@ from db_model.stakeholders.types import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from group_access.domain import (
+    exist,
 )
 from newutils import (
     token as token_utils,
@@ -49,13 +49,13 @@ async def resolve(
 
     if entity == "GROUP":
         group_name = request_store["group_name"]
-        try:
-            group_access: GroupAccess = await loaders.group_access.load(
-                (group_name, parent.email)
-            )
-        except StakeholderNotInGroup:
+        if not await exist(loaders, group_name, parent.email):
             group_access = GroupAccess(
                 email=parent.email, group_name=group_name
+            )
+        else:
+            group_access = await loaders.group_access.load(
+                (group_name, parent.email)
             )
         group_invitation_state = format_group_invitation_state(
             invitation=group_access.invitation,

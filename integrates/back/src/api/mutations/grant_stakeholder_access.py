@@ -11,6 +11,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -23,10 +26,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 from group_access.domain import (
+    exist,
     validate_new_invitation_time_limit,
 )
 from groups import (
@@ -74,18 +75,16 @@ async def mutate(
     new_user_email = kwargs.get("email", "")
     new_user_responsibility = kwargs.get("responsibility", "-")
 
-    group_access = await group_access_domain.get_user_access(
-        new_user_email, group_name
-    )
-    if group_access:
+    if await exist(loaders, group_name, new_user_email):
+        group_access: GroupAccess = await loaders.group_access.load(
+            (group_name, new_user_email)
+        )
         # Stakeholder has already accepted the invitation
-        if group_access["has_access"]:
+        if group_access.has_access:
             raise StakeholderHasGroupAccess()
         # Too soon to send another email invitation to the same stakeholder
-        if "expiration_time" in group_access:
-            validate_new_invitation_time_limit(
-                int(str(group_access["expiration_time"]))
-            )
+        if group_access.expiration_time:
+            validate_new_invitation_time_limit(group_access.expiration_time)
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(

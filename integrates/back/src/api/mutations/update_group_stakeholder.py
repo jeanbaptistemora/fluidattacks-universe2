@@ -14,6 +14,9 @@ from custom_types import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -26,8 +29,8 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
+from group_access.domain import (
+    exist,
 )
 import logging
 import logging.config
@@ -58,20 +61,24 @@ async def _update_stakeholder(
     updated_data: Dict[str, str],
     group: Group,
 ) -> bool:
+    loaders: Dataloaders = info.context.loaders
     success = False
     modified_role = map_roles(updated_data["role"])
     modified_email = updated_data["email"]
-    group_access = await group_access_domain.get_user_access(
-        modified_email, group.name
-    )
-    # Validate role requirements before changing anything
-    validate_role_fluid_reqs(modified_email, modified_role)
-    if group_access:
-        invitation = group_access.get("invitation")
-        if invitation and not invitation["is_used"]:
-            success = await stakeholders_domain.update_invited_stakeholder(
+
+    if await exist(loaders, group.name, modified_email):
+        group_access: GroupAccess = await loaders.group_access.load(
+            (group.name, modified_email)
+        )
+        # Validate role requirements before changing anything
+        validate_role_fluid_reqs(modified_email, modified_role)
+
+        invitation = group_access.invitation
+        if invitation and not invitation.is_used:
+            await stakeholders_domain.update_invited_stakeholder(
                 updated_data, invitation, group
             )
+            success = True
         else:
             if await authz.grant_group_level_role(
                 modified_email, group.name, modified_role
