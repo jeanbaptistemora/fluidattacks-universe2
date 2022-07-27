@@ -625,10 +625,11 @@ const pageTexts: ResourceKey = {
       rules: {
         rulesButton: "Go to Criteria",
         rulesDescription1:
-          "We are compiled our knowledge about cybersecurity for you",
+          "We have compiled our knowledge about cybersecurity for you",
         rulesDescription2:
-          "It allows you to parametrize a pentest according to your organization's risk appetite",
-        rulesTitle: "Criteria is a set of security requirements",
+          "See the rules you can set to parametrize a pentest according " +
+          "to your organization's risk appetite",
+        rulesTitle: "Criteria includes a set of security requirements",
       },
     },
     home: {
