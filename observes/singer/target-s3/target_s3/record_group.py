@@ -38,19 +38,19 @@ class RecordGroup:
 
     @staticmethod
     def filter(stream: str, records: PureIter[PlainRecord]) -> RecordGroup:
-        items = records.filter(lambda r: r.record.stream == stream)
+        items = records.filter(lambda r: r.stream == stream)
         return RecordGroup(_RecordGroup(stream, items))
 
     @staticmethod
     def new(stream: str, records: PureIter[PlainRecord]) -> RecordGroup:
         items = records.map(
             lambda r: Result.success(r, PlainRecord)
-            if r.record.stream == stream
+            if r.stream == stream
             else Result.failure(r, PlainRecord)
         ).map(
             lambda r: r.alt(
                 lambda x: ValueError(
-                    f"A record does not belong to the RecordGroup. Expected stream `{stream}` but got `{x.record.stream}`"
+                    f"A record does not belong to the RecordGroup. Expected stream `{stream}` but got `{x.stream}`"
                 )
             ).unwrap()
         )

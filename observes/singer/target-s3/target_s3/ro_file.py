@@ -21,6 +21,8 @@ from tempfile import (
     NamedTemporaryFile,
 )
 from typing import (
+    Callable,
+    IO,
     Iterable,
 )
 
@@ -53,6 +55,22 @@ class TempReadOnlyFile:
             return TempReadOnlyFile(_TempReadOnlyFile(file.name))
 
         return Cmd.from_cmd(_action)
+
+    @staticmethod
+    def from_cmd(
+        write_cmd: Callable[[IO[str]], Cmd[None]]
+    ) -> Cmd[TempReadOnlyFile]:
+        """
+        `write_cmd` initializes the file content. It has write-only access to file
+        """
+
+        def _action(act: CmdUnwrapper) -> TempReadOnlyFile:
+            file = NamedTemporaryFile("w", delete=False)
+            act.unwrap(write_cmd(file))
+            file.close()
+            return TempReadOnlyFile(_TempReadOnlyFile(file.name))
+
+        return new_cmd(_action)
 
     @staticmethod
     def save(content: Stream[str]) -> Cmd[TempReadOnlyFile]:

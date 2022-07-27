@@ -28,25 +28,21 @@ from fa_singer_io.singer import (
 
 @dataclass(frozen=True)
 class _PlainRecord:
-    data: FrozenDict[str, Primitive]
-    record: SingerRecord
+    stream: str
+    record: FrozenDict[str, Primitive]
 
 
 @dataclass(frozen=True)
 class PlainRecord:
-    """
-    `SingerRecord` that has data on the form of `FrozenDict[str, Primitive]`
-    """
-
     _inner: _PlainRecord
 
     @property
-    def record(self) -> SingerRecord:
-        return self._inner.record
+    def stream(self) -> str:
+        return self._inner.stream
 
     @property
-    def data(self) -> FrozenDict[str, Primitive]:
-        return self._inner.data
+    def record(self) -> FrozenDict[str, Primitive]:
+        return self._inner.record
 
     @staticmethod
     def new(record: SingerRecord) -> ResultE[PlainRecord]:
@@ -63,4 +59,4 @@ class PlainRecord:
             .bind(lambda x: all_ok(x))
             .map(lambda x: FrozenDict(dict(x)))
         )
-        return items.map(lambda d: PlainRecord(_PlainRecord(d, record)))
+        return items.map(lambda d: PlainRecord(_PlainRecord(record.stream, d)))
