@@ -54,7 +54,7 @@ class GroupAccessTypedLoader(DataLoader):
                     _get_group_access(
                         user_email=user_email, group_name=group_name
                     )
-                    for user_email, group_name in keys
+                    for group_name, user_email in keys
                 )
             )
         )

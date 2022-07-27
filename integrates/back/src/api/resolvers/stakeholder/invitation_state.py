@@ -1,5 +1,14 @@
+from custom_exceptions import (
+    StakeholderNotInGroup,
+)
 from dataloaders import (
     Dataloaders,
+)
+from db_model.group_access.enums import (
+    GroupInvitiationState,
+)
+from db_model.group_access.types import (
+    GroupAccess,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -10,14 +19,14 @@ from db_model.stakeholders.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 from newutils import (
     token as token_utils,
 )
+from newutils.group_access import (
+    format_invitation_state as format_group_invitation_state,
+)
 from newutils.organization_access import (
-    format_invitation_state,
+    format_invitation_state as format_org_invitation_state,
 )
 from typing import (
     Optional,
@@ -34,11 +43,17 @@ async def resolve(
     entity = request_store.get("entity")
 
     if entity == "GROUP":
-        invitation_state: str = await group_access_domain.get_invitation_state(
-            email=parent.email,
-            group_name=request_store["group_name"],
-            is_registered=parent.is_registered,
-        )
+        try:
+            group_access: GroupAccess = await loaders.group_access.load(
+                (request_store["group_name"], parent.email)
+            )
+            group_invitation_state = format_group_invitation_state(
+                invitation=group_access.invitation,
+                is_registered=parent.is_registered,
+            )
+            return group_invitation_state.value
+        except StakeholderNotInGroup:
+            return GroupInvitiationState.REGISTERED.value
 
     elif entity == "ORGANIZATION":
         org_access: OrganizationAccess = (
@@ -46,9 +61,10 @@ async def resolve(
                 (request_store["organization_id"], parent.email)
             )
         )
-        invitation_state = format_invitation_state(
+        org_invitation_state = format_org_invitation_state(
             invitation=org_access.invitation,
             is_registered=parent.is_registered,
         )
+        return org_invitation_state.value
 
-    return invitation_state if invitation_state else None
+    return None

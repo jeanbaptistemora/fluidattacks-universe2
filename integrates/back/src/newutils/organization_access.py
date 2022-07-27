@@ -1,5 +1,5 @@
 from db_model.organization_access.enums import (
-    InvitiationState,
+    OrganizationInvitiationState,
 )
 from db_model.organization_access.types import (
     OrganizationInvitation,
@@ -11,9 +11,9 @@ from typing import (
 
 def format_invitation_state(
     invitation: Optional[OrganizationInvitation], is_registered: bool
-) -> str:
+) -> OrganizationInvitiationState:
     if invitation and not invitation.is_used:
-        return InvitiationState.PENDING
+        return OrganizationInvitiationState.PENDING
     if not is_registered:
-        return InvitiationState.UNREGISTERED
-    return InvitiationState.REGISTERED
+        return OrganizationInvitiationState.UNREGISTERED
+    return OrganizationInvitiationState.REGISTERED

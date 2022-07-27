@@ -1,5 +1,5 @@
 from db_model.group_access.enums import (
-    InvitiationState,
+    GroupInvitiationState,
 )
 from db_model.group_access.types import (
     GroupAccess,
@@ -17,12 +17,12 @@ from typing import (
 
 def format_invitation_state(
     invitation: Optional[GroupInvitation], is_registered: bool
-) -> str:
+) -> GroupInvitiationState:
     if invitation and not invitation.is_used:
-        return InvitiationState.PENDING
+        return GroupInvitiationState.PENDING
     if not is_registered:
-        return InvitiationState.UNREGISTERED
-    return InvitiationState.REGISTERED
+        return GroupInvitiationState.UNREGISTERED
+    return GroupInvitiationState.REGISTERED
 
 
 def format_invitation(invitation: Item) -> GroupInvitation:
@@ -55,9 +55,7 @@ def format_group_access(item: Item) -> GroupAccess:
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
         else None,
-        responsibility=str(item["responsibility"])
-        if item.get("responsibility") is not None
-        else None,
+        responsibility=item.get("responsibility"),
     )
 
 

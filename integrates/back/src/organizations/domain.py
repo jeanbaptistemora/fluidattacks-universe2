@@ -48,7 +48,7 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.organization_access.enums import (
-    InvitiationState,
+    OrganizationInvitiationState,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -339,7 +339,7 @@ async def get_stakeholder_role(
     if user_access.invitation:
         invitation: OrganizationInvitation = user_access.invitation
         invitation_state = format_invitation_state(invitation, is_registered)
-        if invitation_state == InvitiationState.PENDING:
+        if invitation_state == OrganizationInvitiationState.PENDING:
             stakeholder_role = invitation.role
     else:
         stakeholder_role = await authz.get_organization_level_role(
