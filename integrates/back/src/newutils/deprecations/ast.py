@@ -1,9 +1,3 @@
-from api.utils.filters import (
-    filter_api_deprecation_dict,
-)
-from api.utils.types import (
-    ApiDeprecation,
-)
 from custom_exceptions import (
     InvalidDateFormat,
 )
@@ -21,6 +15,12 @@ from graphql import (
 )
 from newutils import (
     datetime as date_utils,
+)
+from newutils.deprecations.filters import (
+    filter_api_deprecation_dict,
+)
+from newutils.deprecations.types import (
+    ApiDeprecation,
 )
 from re import (
     search,
@@ -128,7 +128,11 @@ def parse_schema_deprecations(
 def get_deprecations_by_period(
     sdl_content: str, end: datetime, start: Optional[datetime]
 ) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
-    """Gets the deprecations found in the schema within a time period"""
+    """
+    Gets the deprecations found in the schema within a time period. The first
+    member of the tuple corresponding to `enum` deprecations and the latter to
+    `operations` e.g. mutation, queries, args, inputs etc...
+    """
     (enums, operations) = parse_schema_deprecations(sdl_content)
     return (
         filter_api_deprecation_dict(enums, end, start),

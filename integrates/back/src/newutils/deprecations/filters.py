@@ -1,8 +1,8 @@
-from api.utils.types import (
-    ApiDeprecation,
-)
 from datetime import (
     datetime,
+)
+from newutils.deprecations.types import (
+    ApiDeprecation,
 )
 from operator import (
     attrgetter,

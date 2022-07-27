@@ -5,13 +5,16 @@ from .common import (
 from newutils.datetime import (
     get_now_plus_delta,
 )
+from newutils.deprecations.types import (
+    ApiDeprecation,
+)
 from typing import (
     Any,
 )
 
 
 def _format_deprecation_for_mail(
-    deprecations: dict[str, list[Any]]
+    deprecations: dict[str, list[ApiDeprecation]]
 ) -> dict[str, str]:
     """
     Translates the deprecation dict values to a more readable mail format
@@ -28,7 +31,7 @@ def _format_deprecation_for_mail(
 async def send_mail_deprecation_notice(
     *,
     loaders: Any,
-    deprecations: dict[str, list[Any]],
+    deprecations: dict[str, list[ApiDeprecation]],
     email_to: list[str],
 ) -> None:
     # These mails are meant to anticipate next month's deprecations

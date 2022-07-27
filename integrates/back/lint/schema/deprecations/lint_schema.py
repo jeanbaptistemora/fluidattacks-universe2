@@ -1,12 +1,6 @@
 from api.schema import (
     SDL_CONTENT,
 )
-from api.utils.ast import (
-    get_deprecations_by_period,
-)
-from api.utils.types import (
-    ApiDeprecation,
-)
 from datetime import (
     datetime,
 )
@@ -14,6 +8,12 @@ import logging
 import logging.config
 from newutils import (
     datetime as date_utils,
+)
+from newutils.deprecations.ast import (
+    get_deprecations_by_period,
+)
+from newutils.deprecations.types import (
+    ApiDeprecation,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -47,12 +47,14 @@ def format_deprecation_output_log(
     return base_output + fields
 
 
-def lint_schema_deprecations() -> None:
+def lint_schema_deprecations() -> int:
     yesterday: datetime = date_utils.get_now_minus_delta(days=1)
     (enums, operations) = get_deprecations_by_period(
         sdl_content=SDL_CONTENT, end=yesterday, start=None
     )
+    return_code: int = 0
     if bool(enums):
+        return_code = 1
         LOGGER.error(
             format_deprecation_output_log(enums, True),
             extra=dict(
@@ -62,6 +64,7 @@ def lint_schema_deprecations() -> None:
             ),
         )
     if bool(operations):
+        return_code = 1
         LOGGER.error(
             format_deprecation_output_log(operations, False),
             extra=dict(
@@ -70,9 +73,12 @@ def lint_schema_deprecations() -> None:
                 }
             ),
         )
+    if return_code == 0:
+        LOGGER.info("All clear!")
+    return return_code
 
 
-def main() -> None:
+def main() -> int:
     lint_schema_deprecations()
 
 
