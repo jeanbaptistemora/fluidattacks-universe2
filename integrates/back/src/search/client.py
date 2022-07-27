@@ -7,6 +7,9 @@ from botocore.auth import (
 from botocore.awsrequest import (
     AWSRequest,
 )
+from botocore.credentials import (
+    Credentials,
+)
 from context import (
     FI_AWS_OPENSEARCH_HOST,
     FI_AWS_REGION_NAME,
@@ -36,6 +39,18 @@ class AsyncAWSConnection(AIOHttpConnection):
     https://github.com/opensearch-project/opensearch-py/issues/131
     """
 
+    def __init__(
+        self, aws_credentials: Credentials, aws_region: str, **kwargs: Any
+    ) -> None:
+        super().__init__(**kwargs)
+        self.aws_credentials = aws_credentials
+        self.aws_region = aws_region
+        self.signer = SigV4Auth(
+            self.aws_credentials,
+            OPENSEARCH_SERVICE,
+            self.aws_region,
+        )
+
     async def perform_request(  # pylint: disable=too-many-arguments
         self,
         method: str,
@@ -56,13 +71,8 @@ class AsyncAWSConnection(AIOHttpConnection):
             method=method.upper(),
             url="".join([self.url_prefix, self.host, url]),
         )
-        session = Session()
-        signer = SigV4Auth(
-            session.get_credentials(),
-            OPENSEARCH_SERVICE,
-            FI_AWS_REGION_NAME,
-        )
-        signer.add_auth(aws_request)
+
+        self.signer.add_auth(aws_request)
         signed_headers = dict(aws_request.headers.items())
         all_headers = {**headers_, **signed_headers}
 
@@ -71,7 +81,10 @@ class AsyncAWSConnection(AIOHttpConnection):
         )
 
 
+SESSION = Session()
 CLIENT_OPTIONS = {
+    "aws_credentials": SESSION.get_credentials(),
+    "aws_region": FI_AWS_REGION_NAME,
     "connection_class": AsyncAWSConnection,
     "hosts": [FI_AWS_OPENSEARCH_HOST],
     "http_compress": True,

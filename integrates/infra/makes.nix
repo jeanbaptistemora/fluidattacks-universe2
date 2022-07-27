@@ -1,12 +1,21 @@
 {
+  inputs,
+  makeSearchPaths,
   outputs,
   projectPath,
   ...
-}: {
+}: let
+  searchPaths = makeSearchPaths {
+    bin = [
+      inputs.nixpkgs.python39
+    ];
+  };
+in {
   deployTerraform = {
     modules = {
       integratesInfra = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/prodIntegrates"
           outputs."/secretsForEnvFromSops/integratesInfraProd"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
@@ -26,6 +35,7 @@
     modules = {
       integratesInfra = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"
@@ -67,6 +77,7 @@
     modules = {
       integratesInfra = {
         setup = [
+          searchPaths
           outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/integratesInfraDev"
           outputs."/secretsForTerraformFromEnv/integratesInfra"

@@ -26,19 +26,34 @@ resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
   }
 }
 
+resource "null_resource" "dynamodb_replication_dependencies" {
+  provisioner "local-exec" {
+    command = <<EOT
+      pip3 install
+        --requirerment ${var.lambda_path}/dynamodb_replication/requirements.txt
+        --target ${var.lambda_path}/dynamodb_replication
+    EOT
+  }
+
+  triggers = {
+    dependencies = filemd5("${var.lambda_path}/dynamodb_replication/requirements.txt")
+  }
+}
+
 data "archive_file" "dynamodb_replication_zip" {
+  depends_on  = [null_resource.dynamodb_replication_dependencies]
   output_path = "${var.lambda_path}/dynamodb_replication.zip"
   source_dir  = "${var.lambda_path}/dynamodb_replication"
   type        = "zip"
 }
 
 resource "aws_lambda_function" "dynamodb_replication" {
-  filename         = "${var.lambda_path}/dynamodb_replication.zip"
+  filename         = data.archive_file.dynamodb_replication_zip.output_path
   function_name    = "integrates-dynamodb-replication-lambda"
   handler          = "handler.handle"
   role             = aws_iam_role.integrates_dynamodb_replication_lambda_role.arn
   runtime          = "python3.9"
-  source_code_hash = filebase64sha256("${var.lambda_path}/dynamodb_replication.zip")
+  source_code_hash = data.archive_file.dynamodb_replication_zip.output_base64sha256
 
   tags = {
     "Name"               = "integrates-lambda"
