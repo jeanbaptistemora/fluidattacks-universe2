@@ -38,7 +38,6 @@ from operator import (
 )
 from typing import (
     Any,
-    Dict,
     List,
 )
 
@@ -79,7 +78,7 @@ async def get_data_many_groups(
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
 
-def format_data(data: List[PortfoliosGroupsInfo]) -> Dict[str, Any]:
+def format_data(data: List[PortfoliosGroupsInfo]) -> dict[str, Any]:
     limited_data = [group for group in data if group.value > 0]
 
     return dict(

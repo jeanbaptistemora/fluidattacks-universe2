@@ -807,9 +807,13 @@ async def generate_all_top_vulnerabilities(
             )
 
 
-def format_csv_data(*, document: dict) -> CsvData:
+def format_csv_data(*, document: dict, header: str = "Group name") -> CsvData:
     columns: list[list[str]] = document["data"]["columns"]
+    categories: list[str] = document["axis"]["x"]["categories"]
     return CsvData(
-        headers=[columns[0][0]],
-        rows=[[str(value)] for value in tuple(columns[0][1:])],
+        headers=[header, columns[0][0]],
+        rows=[
+            [category, str(value)]
+            for category, value in zip(categories, tuple(columns[0][1:]))
+        ],
     )

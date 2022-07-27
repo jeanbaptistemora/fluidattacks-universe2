@@ -161,7 +161,7 @@ async def generate_all() -> None:
             document=document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header="Event ID"),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():

@@ -39,7 +39,6 @@ from itertools import (
 from typing import (
     Any,
     Counter,
-    Dict,
     List,
     Tuple,
     Union,
@@ -75,7 +74,7 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
     return sum(groups_data, Counter())
 
 
-def format_data(counters: Counter[str]) -> Dict[str, Any]:
+def format_data(counters: Counter[str]) -> dict[str, Any]:
     data: List[Tuple[str, int]] = [
         (title, open_age)
         for title, open_age in counters.most_common()
@@ -143,6 +142,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
 
 
 async def generate_all() -> None:
+    header: str = "Type"
     async for org_id, _, org_groups in iterate_organizations_and_groups():
         document = format_data(
             counters=await get_data_many_groups(list(org_groups)),
@@ -151,7 +151,7 @@ async def generate_all() -> None:
             document=document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
@@ -163,7 +163,7 @@ async def generate_all() -> None:
                 document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document),
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 
