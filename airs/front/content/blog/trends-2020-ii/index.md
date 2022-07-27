@@ -4,7 +4,7 @@ title: 'Happening Now: Trends 2020'
 date: 2020-04-02
 subtitle: More realistic cybersecurity predictions
 category: opinions
-tags: cybersecurity, trend, technology, economics
+tags: cybersecurity, trend, technology, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331127/blog/trends-2020-ii/cover_eek8mj.webp
 alt: Photo by Matthew Henry on Unsplash
 description: Earlier, we criticized some 'trends' in cybersecurity. Now, we discuss why some cybersecurity predictions for 2020 seem plausible and others undeniably real.

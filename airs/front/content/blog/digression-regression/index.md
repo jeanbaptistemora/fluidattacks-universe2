@@ -4,7 +4,7 @@ title: Digression to Regression
 date: 2019-10-02
 subtitle: Simple linear regression in scikit
 category: development
-tags: machine-learning, python, code
+tags: machine-learning, software, code
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330868/blog/digression-regression/cover_lmtulx.webp
 alt: Computer showing a graph
 description: In this post, we begin to tackle why vectors are the most appropriate representation for data as input to machine learning algorithms.

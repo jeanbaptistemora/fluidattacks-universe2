@@ -4,7 +4,7 @@ title: Evolution of Cybercrime Costs (I)
 date: 2020-01-28
 subtitle: Impact of cybercrime today portrays a new landscape
 category: attacks
-tags: cybersecurity, risk, vulnerability, company, policies, economics
+tags: cybersecurity, risk, vulnerability, company, policies
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330836/blog/cost-cybercrime-i/cover_z8o7li.webp
 alt: Photo by Andre Benz on Unsplash
 description: In 2012, the study ‘Measuring the cost of cybercrime’ was presented at the WEIS. Here we highlight the findings of that updated paper discussed last year.

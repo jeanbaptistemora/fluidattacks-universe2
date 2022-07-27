@@ -4,7 +4,7 @@ title: Are You Checking Types?
 date: 2018-08-03
 category: development
 subtitle: Static type checking with mypy
-tags: application, functional, python
+tags: application, functional, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330665/blog/are-you-checking-types/cover_wrwgye.webp
 alt: Snake checking a code
 description: What are the potential problems of untyped objects in Python? Here we work on the importance of checking types before running the code and how mypy can help.

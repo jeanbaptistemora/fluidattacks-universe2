@@ -4,7 +4,7 @@ title: AMSI Bypass Using Python
 date: 2022-05-28
 category: attacks
 subtitle: Cross-process memory patching with Python
-tags: vulnerability, hacking, exploit, python
+tags: vulnerability, hacking, exploit, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1654008461/blog/amsi-bypass-python/cover_amsi.webp
 alt: Photo by Lenny Kuhne on Unsplash
 description: We will take AMSI bypass to another level by using cross-process memory injection.

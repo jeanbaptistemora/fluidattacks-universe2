@@ -4,7 +4,7 @@ title: Gherkin on Steroids
 date: 2018-03-13
 subtitle: How to document detailed attack vectors
 category: development
-tags: documentation, vector, software
+tags: vulnerability, exploit, vector, software, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330882/blog/gherkin-steroids/cover_iwilpg.webp
 alt: Cucumber lot
 description: In this post, we work on how to use Gherkin to document attack vectors in vulnerable applications, employing more advanced keywords from the Gherkin syntax.

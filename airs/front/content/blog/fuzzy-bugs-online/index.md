@@ -4,7 +4,7 @@ title: Fuzzy Bugs Online
 date: 2018-02-09
 category: attacks
 subtitle: Fuzz techniques for attacking web applications
-tags: sql, fuzzing, injection
+tags: vulnerability, security-testing, web, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330883/blog/fuzzy-bugs-online/cover_rsdc0v.webp
 alt: Fuzzy caterpillar
 description: How to make basic fuzz attacks on web apps? We fuzz over SQL injections on a vulnerable DB search site from bWAPP, using OWASP ZAProxy, obtaining mixed results.

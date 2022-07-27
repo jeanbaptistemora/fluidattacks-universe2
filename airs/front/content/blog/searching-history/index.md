@@ -4,7 +4,7 @@ title: Search the History
 date: 2020-04-29
 category: attacks
 subtitle: Searching for credentials in a repository
-tags: cybersecurity, git, vulnerability, credential
+tags: cybersecurity, software, vulnerability, credential
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331090/blog/searching-history/cover_qkuncf.webp
 alt: Photo by Mick Haupt on Unsplash
 description: As everyone knows in our context, production credentials should be protected. In this post, we explain how to extract old credentials and how to protect them.

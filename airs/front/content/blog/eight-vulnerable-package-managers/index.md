@@ -4,7 +4,7 @@ title: Eight Is Bad News
 date: 2022-03-18
 subtitle: Buggy package managers, some only on Windows
 category: attacks
-tags: cybersecurity, application, social-engineering, vulnerability, windows, injection
+tags: cybersecurity, application, social-engineering, vulnerability, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1647610000/blog/eight-vulnerable-package-managers/cover_managers.webp
 alt: Photo by Timothy Dykes on Unsplash
 description: Researchers found vulnerabilities in some versions of eight popular package managers. We review how an attacker could exploit them and urge everyone to upgrade.

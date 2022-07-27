@@ -4,7 +4,7 @@ title: My Heart Bleeds (But Not for You)
 date: 2018-04-25
 subtitle: Understanding the flaw behind Heartbleed
 category: attacks
-tags: vulnerability, bug, software, web
+tags: vulnerability, software, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330940/blog/my-heart-bleeds/cover_qf1nze.webp
 alt: Computer showing a pirate flag
 description: Here we talk about Heartbleed, the result of a buggy implementation of the TLS protocol on OpenSSL, which was tempted to be a severe threat to private data.

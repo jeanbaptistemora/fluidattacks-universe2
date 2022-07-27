@@ -49,7 +49,6 @@ function check_md_blog_tags {
     android
     application
     blue-team
-    bug
     cloud
     code
     company
@@ -57,21 +56,16 @@ function check_md_blog_tags {
     cybersecurity
     detect
     devops
-    documentation
-    economics
     encryption
     engineering
     ethical-hacking
     exploit
     flaw
     functional
-    fuzzing
-    git
     hacking
     healthcare
     hevd
     htb
-    injection
     javascript
     kernel
     machine-learning
@@ -82,7 +76,6 @@ function check_md_blog_tags {
     policies
     protect
     pwn
-    python
     red-team
     revert
     risk
@@ -90,7 +83,6 @@ function check_md_blog_tags {
     security-testing
     social-engineering
     software
-    sql
     standard
     technology
     training

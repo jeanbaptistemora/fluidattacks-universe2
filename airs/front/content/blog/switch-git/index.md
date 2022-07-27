@@ -4,7 +4,7 @@ title: Git Moving!
 date: 2022-01-21
 subtitle: You should switch to Git right now
 category: opinions
-tags: git, software, code, company, devops, cybersecurity
+tags: software, code, company, devops, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1642780554/blog/switch-git/cover_git.webp
 alt: Photo by Liam Pozz on Unsplash
 description: Switching to Git will boost your productivity and allow you to go fast. It will also open up your possibility of achieving DevSecOps with us.
