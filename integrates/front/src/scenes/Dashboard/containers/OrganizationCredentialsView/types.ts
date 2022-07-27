@@ -4,14 +4,14 @@ interface IAddCredentialsResultAttr {
   };
 }
 
-interface ICredentialAttr {
+interface ICredentialsAttr {
   id: string;
   name: string;
   owner: string;
   type: string;
 }
 
-interface ICredentialData {
+interface ICredentialsData {
   id: string;
   name: string;
   owner: string;
@@ -41,8 +41,8 @@ interface IUpdateCredentialsResultAttr {
 
 export type {
   IAddCredentialsResultAttr,
-  ICredentialAttr,
-  ICredentialData,
+  ICredentialsAttr,
+  ICredentialsData,
   IOrganizationAttr,
   IOrganizationCredentialsProps,
   IRemoveCredentialsResultAttr,
