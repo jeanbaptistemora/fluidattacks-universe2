@@ -137,14 +137,43 @@ async def send_report(
         )
 
 
+def get_filter_message(
+    *,
+    report_type: str,
+    states: set[VulnerabilityStateStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
+    verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
+) -> str:
+    if report_type == "XLS":
+        message: str = ""
+        if list(sorted(states)) != list(
+            sorted(
+                set(
+                    [
+                        VulnerabilityStateStatus["CLOSED"],
+                        VulnerabilityStateStatus["OPEN"],
+                    ]
+                )
+            )
+        ):
+            message += f" States: {states}."
+        if sorted(list(treatments)) != sorted(
+            list(set(VulnerabilityTreatmentStatus))
+        ):
+            message += f" Treatments: {treatments}."
+        if verifications:
+            message += f" Verifications: {verifications}."
+        if closing_date:
+            message += f" Closing date: {closing_date}."
+        if message:
+            return f"With the following filters:{message}"
+    return ""
+
+
 async def report(*, item: BatchProcessing) -> None:
     additional_info: Dict[str, Any] = json.loads(item.additional_info)
     report_type: str = additional_info["report_type"]
-    message = (
-        f"Processing {report_type} report requested by "
-        f"{item.subject} for group {item.entity}"
-    )
-    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
     treatments = {
         VulnerabilityTreatmentStatus[treatment]
         for treatment in additional_info["treatments"]
@@ -163,6 +192,18 @@ async def report(*, item: BatchProcessing) -> None:
         if additional_info["closing_date"]
         else None
     )
+    message = (
+        f"Processing {report_type} report requested by "
+        + f"{item.subject} for group {item.entity}."
+        + get_filter_message(
+            report_type=report_type,
+            treatments=treatments,
+            states=states,
+            verifications=verifications,
+            closing_date=closing_date,
+        )
+    )
+    LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
     report_url = await get_report(
         item=item,
         report_type=report_type,
