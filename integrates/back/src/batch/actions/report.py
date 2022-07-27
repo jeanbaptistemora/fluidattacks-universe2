@@ -106,6 +106,10 @@ async def send_report(
     item: BatchProcessing,
     report_type: str,
     report_url: str,
+    states: set[VulnerabilityStateStatus],
+    treatments: set[VulnerabilityTreatmentStatus],
+    verifications: set[VulnerabilityVerificationStatus],
+    closing_date: Optional[datetime],
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -118,7 +122,14 @@ async def send_report(
     if is_in_db:
         message = (
             f"Send {report_type} report requested by "
-            f"{item.subject} for group {item.entity}"
+            + f"{item.subject} for group {item.entity}"
+            + get_filter_message(
+                report_type=report_type,
+                treatments=treatments,
+                states=states,
+                verifications=verifications,
+                closing_date=closing_date,
+            )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
         await notifications_domain.new_password_protected_report(
@@ -146,6 +157,20 @@ def get_filter_message(
     closing_date: Optional[datetime],
 ) -> str:
     if report_type == "XLS":
+        if closing_date:
+            states = set(
+                [
+                    VulnerabilityStateStatus["CLOSED"],
+                ]
+            )
+            treatments = set(VulnerabilityTreatmentStatus)
+            if verifications != set(
+                [
+                    VulnerabilityVerificationStatus["VERIFIED"],
+                ]
+            ):
+                verifications = set()
+
         message: str = ""
         if list(sorted(states)) != list(
             sorted(
@@ -167,7 +192,7 @@ def get_filter_message(
         if closing_date:
             message += f" Closing date: {closing_date}."
         if message:
-            return f"With the following filters:{message}"
+            return f". With the following filters:{message}"
     return ""
 
 
@@ -194,7 +219,7 @@ async def report(*, item: BatchProcessing) -> None:
     )
     message = (
         f"Processing {report_type} report requested by "
-        + f"{item.subject} for group {item.entity}."
+        + f"{item.subject} for group {item.entity}"
         + get_filter_message(
             report_type=report_type,
             treatments=treatments,
@@ -217,4 +242,8 @@ async def report(*, item: BatchProcessing) -> None:
             item=item,
             report_type=report_type,
             report_url=report_url,
+            treatments=treatments,
+            states=states,
+            verifications=verifications,
+            closing_date=closing_date,
         )
