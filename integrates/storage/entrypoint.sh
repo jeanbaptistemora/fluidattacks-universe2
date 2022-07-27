@@ -33,6 +33,8 @@ function serve {
   esac \
     && sops_export_vars __argDevSecrets__ \
       TEST_PROJECTS \
+      MINIO_PASS \
+      MINIO_USER \
     && mkdir -p "${state_path}" \
     && echo -e "${TEST_PROJECTS//,/\\n}" > "${state_path}/projects" \
     && mapfile -t TEST_PROJECTS < "${state_path}/projects" \
@@ -45,8 +47,8 @@ function serve {
     && wait_port 10 "${host}:${port}" \
     && sleep 3 \
     && __argMinioCli__ alias set storage "http://${host}:${port}" 'test' 'testtest' \
-    && __argMinioCli__ admin user add storage "minio" "miniopassword" \
-    && __argMinioCli__ admin policy set storage readwrite user="minio" \
+    && __argMinioCli__ admin user add storage "${MINIO_USER}" "${MINIO_PASS}" \
+    && __argMinioCli__ admin policy set storage readwrite user="${MINIO_USER}" \
     && for bucket in "${buckets[@]}"; do
       __argMinioCli__ mb --ignore-existing "storage/${bucket}" \
         || return 1
