@@ -54,41 +54,6 @@ const GET_ROOTS: DocumentNode = gql`
     }
   }
 `;
-const BASIC_CREDENTIAL_FRAGMENT: DocumentNode = gql`
-  fragment credentialFields on Credentials {
-    __typename
-    id
-    name
-    type
-    organization {
-      name
-    }
-  }
-`;
-const GET_GROUP_CREDENTIALS: DocumentNode = gql`
-  query GetGroupCredentials($groupName: String!) {
-    group(groupName: $groupName) {
-      name
-      credentials {
-        ...credentialFields
-      }
-    }
-  }
-  ${BASIC_CREDENTIAL_FRAGMENT}
-`;
-
-const GET_STAKEHOLDER_BASIC_CREDENTIALS: DocumentNode = gql`
-  query GetStakeholderBasicCredentials {
-    me(callerOrigin: "FRONT") {
-      __typename
-      credentials {
-        ...credentialFields
-      }
-      userEmail
-    }
-  }
-  ${BASIC_CREDENTIAL_FRAGMENT}
-`;
 
 const GET_ROOT: DocumentNode = gql`
   query GetRoot($groupName: String!, $rootId: ID!) {
@@ -162,6 +127,22 @@ const GET_GIT_ROOT_DETAILS = gql`
         lastStateStatusUpdate
         nickname
         useVpn
+      }
+    }
+  }
+`;
+
+const GET_ORGANIZATION_CREDENTIALS: DocumentNode = gql`
+  query GetOrganizationCredentials($organizationId: String!) {
+    organization(organizationId: $organizationId) {
+      __typename
+      name
+      credentials {
+        __typename
+        id
+        name
+        owner
+        type
       }
     }
   }
@@ -537,7 +518,7 @@ export {
   GET_ROOT,
   GET_ROOTS,
   GET_GROUP_ORGANIZATION,
-  GET_STAKEHOLDER_BASIC_CREDENTIALS,
+  GET_ORGANIZATION_CREDENTIALS,
   MOVE_ROOT,
   REMOVE_SECRET,
   SYNC_GIT_ROOT,
@@ -548,6 +529,5 @@ export {
   VALIDATE_GIT_ACCESS,
   REMOVE_ENVIRONMENT_URL,
   REMOVE_ENVIRONMENT_URL_SECRET,
-  GET_GROUP_CREDENTIALS,
   GET_ROOT_ENVIRONMENT_URLS,
 };

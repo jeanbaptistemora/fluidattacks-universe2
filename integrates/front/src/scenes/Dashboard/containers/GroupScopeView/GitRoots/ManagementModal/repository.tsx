@@ -13,16 +13,20 @@ import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import type { ChangeEvent, FC } from "react";
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { HealthCheck } from "./HealthCheck";
 import { RepositoryTour } from "./RepositoryTour";
 
 import {
-  GET_GROUP_CREDENTIALS,
-  GET_GROUP_ORGANIZATION,
-  GET_STAKEHOLDER_BASIC_CREDENTIALS,
+  GET_ORGANIZATION_CREDENTIALS,
   VALIDATE_GIT_ACCESS,
 } from "../../queries";
 import type { ICredentialsAttr, IFormValues } from "../../types";
@@ -34,6 +38,8 @@ import { Input, Label, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
+import { groupContext } from "scenes/Dashboard/containers/GroupContent/context";
+import type { IGroupContext } from "scenes/Dashboard/containers/GroupContent/types";
 import { QuestionButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import {
@@ -75,36 +81,20 @@ const Repository: FC<IRepositoryProps> = ({
   finishTour,
 }: IRepositoryProps): JSX.Element => {
   const { t } = useTranslation();
+  const { organizationId }: IGroupContext = useContext(groupContext);
 
   // GraphQL operations
-  const { data } = useQuery<{
-    group: { credentials: ICredentialsAttr[] };
-  }>(GET_GROUP_CREDENTIALS, {
+  const { data: organizationCredentialsData } = useQuery<{
+    organization: { credentials: ICredentialsAttr[] };
+  }>(GET_ORGANIZATION_CREDENTIALS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group credentials", error);
+        Logger.error("Couldn't load organization credentials", error);
       });
     },
-    variables: { groupName },
-  });
-  const { data: stakeholderCredentialsData } = useQuery<{
-    me: { credentials: ICredentialsAttr[] };
-  }>(GET_STAKEHOLDER_BASIC_CREDENTIALS, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load stakeholder basic credentials", error);
-      });
+    variables: {
+      organizationId,
     },
-  });
-  const { data: groupOrganizationData } = useQuery<{
-    group: { organization: string };
-  }>(GET_GROUP_ORGANIZATION, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load group organization", error);
-      });
-    },
-    variables: { groupName },
   });
 
   const isDuplicated = (field: string): boolean => {
@@ -180,25 +170,16 @@ const Repository: FC<IRepositoryProps> = ({
 
   const formRef = useRef<FormikProps<IFormValues>>(null);
 
-  const groupAndStakeholderCredentials =
-    !_.isUndefined(data) &&
-    !_.isUndefined(stakeholderCredentialsData) &&
-    !_.isUndefined(groupOrganizationData)
-      ? data.group.credentials
-          .concat(stakeholderCredentialsData.me.credentials)
-          .filter(
-            (credential: ICredentialsAttr): boolean =>
-              credential.organization.name.toLowerCase() ===
-              groupOrganizationData.group.organization.toLowerCase()
-          )
-      : [];
-
+  const organizationCredentials = _.isUndefined(organizationCredentialsData)
+    ? []
+    : organizationCredentialsData.organization.credentials;
   const groupedExistingCreds =
-    groupAndStakeholderCredentials.length > 0
+    organizationCredentials.length > 0
       ? Object.fromEntries(
-          groupAndStakeholderCredentials.map(
-            (cred): [string, ICredentialsAttr] => [cred.id, cred]
-          )
+          organizationCredentials.map((cred): [string, ICredentialsAttr] => [
+            cred.id,
+            cred,
+          ])
         )
       : {};
 

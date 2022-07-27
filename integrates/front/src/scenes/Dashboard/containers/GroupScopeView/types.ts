@@ -30,9 +30,6 @@ interface ICredentialsAttr {
   id: string;
   name: string;
   type: "" | "HTTPS" | "SSH";
-  organization: {
-    name: string;
-  };
 }
 interface IGitRootAttr {
   __typename: "GitRoot";
