@@ -156,7 +156,7 @@ def test_generate_count_report(
     ]
 
     for group, field in zip(groups, fields):
-        content = _generate_count_report(
+        _generate_count_report(
             content=content,
             date_range=date_days,
             date_report=datetime_utils.get_now_minus_delta(days=date_days),
@@ -173,7 +173,7 @@ def test_generate_count_report(
     assert content[user_email]["groups"]["test_group"]["verified"] == 1
     assert content[user_email]["groups"]["test_group"]["released"] == 1
     past_days = 4 if datetime_utils.get_now().weekday() == 1 else date_days + 1
-    content = _generate_count_report(
+    _generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),
@@ -181,7 +181,7 @@ def test_generate_count_report(
         group="test_group",
         user_email=user_email,
     )
-    content = _generate_count_report(
+    _generate_count_report(
         content=content,
         date_range=date_days,
         date_report=datetime_utils.get_now_minus_delta(days=past_days),

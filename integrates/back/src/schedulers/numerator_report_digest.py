@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from context import (
     FI_ENVIRONMENT,
     FI_MAIL_COS,
@@ -113,7 +116,7 @@ def _generate_count_report(
     group: str,
     to_add: int = 1,
     user_email: str,
-) -> Dict[str, Any]:
+) -> None:
     if user_email and date_report:
         is_valid_date = _validate_date(
             date_report.date(), date_range, date_range - 1
@@ -142,12 +145,10 @@ def _generate_count_report(
                     + to_add
                 )
 
-    return content
-
 
 async def _draft_content(
     loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
-) -> Dict[str, Any]:
+) -> None:
     group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
 
     for draft in group_drafts:
@@ -159,7 +160,7 @@ async def _draft_content(
                 FindingStateStatus.CREATED,
                 FindingStateStatus.SUBMITTED,
             ]:
-                content = _generate_count_report(
+                _generate_count_report(
                     content=content,
                     date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
@@ -171,7 +172,7 @@ async def _draft_content(
                 )
 
             if draft.state.status == FindingStateStatus.REJECTED:
-                content = _generate_count_report(
+                _generate_count_report(
                     content=content,
                     date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
@@ -182,12 +183,10 @@ async def _draft_content(
                     user_email=vuln.state.modified_by,
                 )
 
-    return content
-
 
 async def _finding_content(
     loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
-) -> Dict[str, Any]:
+) -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     for finding in findings:
         historic_state: Tuple[
@@ -202,7 +201,7 @@ async def _finding_content(
                 verification.vulnerability_ids
                 and verification.status == FindingVerificationStatus.VERIFIED
             ):
-                content = _generate_count_report(
+                _generate_count_report(
                     content=content,
                     date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
@@ -229,7 +228,7 @@ async def _finding_content(
                     == vuln_historic.modified_date
                 ]
                 for vuln in vulns:
-                    content = _generate_count_report(
+                    _generate_count_report(
                         content=content,
                         date_range=date_range,
                         date_report=datetime_utils.get_datetime_from_iso_str(
@@ -240,19 +239,17 @@ async def _finding_content(
                         user_email=vuln.modified_by,
                     )
 
-    return content
-
 
 async def _toe_input_content(
     loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
-) -> Dict[str, Any]:
+) -> None:
     group_toe_inputs: ToeInputsConnection = (
         await loaders.group_toe_inputs.load(
             GroupToeInputsRequest(group_name=group)
         )
     )
     for toe_inputs in group_toe_inputs.edges:
-        content = _generate_count_report(
+        _generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.seen_at,
@@ -261,7 +258,7 @@ async def _toe_input_content(
             user_email=toe_inputs.node.seen_first_time_by,
         )
 
-        content = _generate_count_report(
+        _generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_inputs.node.attacked_at,
@@ -270,17 +267,15 @@ async def _toe_input_content(
             user_email=toe_inputs.node.attacked_by,
         )
 
-    return content
-
 
 async def _toe_line_content(
     loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
-) -> Dict[str, Any]:
+) -> None:
     group_toe_lines: ToeLinesConnection = await loaders.group_toe_lines.load(
         GroupToeLinesRequest(group_name=group)
     )
     for toe_lines in group_toe_lines.edges:
-        content = _generate_count_report(
+        _generate_count_report(
             content=content,
             date_range=date_range,
             date_report=toe_lines.node.attacked_at,
@@ -288,7 +283,6 @@ async def _toe_line_content(
             group=group,
             user_email=toe_lines.node.attacked_by,
         )
-    return content
 
 
 async def _generate_numerator_report(
@@ -298,10 +292,14 @@ async def _generate_numerator_report(
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
 
     for group in groups_names:
-        content = await _toe_input_content(loaders, group, date_range, content)
-        content = await _toe_line_content(loaders, group, date_range, content)
-        content = await _finding_content(loaders, group, date_range, content)
-        content = await _draft_content(loaders, group, date_range, content)
+        await collect(
+            [
+                _toe_input_content(loaders, group, date_range, content),
+                _toe_line_content(loaders, group, date_range, content),
+                _finding_content(loaders, group, date_range, content),
+                _draft_content(loaders, group, date_range, content),
+            ]
+        )
 
     return content
 
