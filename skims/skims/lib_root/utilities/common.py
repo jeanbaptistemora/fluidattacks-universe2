@@ -42,7 +42,12 @@ def get_method_param_by_obj(
 def get_method_name(graph: Graph, n_id: str) -> str:
     node_cfg = lookup_first_cfg_parent(graph, n_id)
     while graph.nodes[node_cfg].get("label_type") != "method_declaration":
-        node_cfg = pred_cfg(graph, node_cfg, depth=1)[0]
+        get_nodes = pred_cfg(graph, node_cfg, depth=1)
+        if get_nodes:
+            node_cfg = get_nodes[0]
+        else:
+            return "no_method_found"
+
     method_name = get_ast_childs(graph, node_cfg, "identifier")[0]
     return graph.nodes[method_name].get("label_text")
 
