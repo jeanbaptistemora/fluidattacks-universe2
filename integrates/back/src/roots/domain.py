@@ -970,9 +970,9 @@ def validate_error_message(
         "Permission denied (publickey)",
     ]
     for error in errors_list:
-        if message in error:
-            return False
-    return True
+        if error in message:
+            return True
+    return False
 
 
 async def send_mail_root_cloning_failed(
