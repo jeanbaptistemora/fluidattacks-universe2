@@ -16,6 +16,8 @@ from syntax_graph.syntax_readers.common import (
     statement_block as common_statement_block,
     string_literal as common_string_literal,
     switch_body as common_switch_body,
+    switch_case as common_switch_case,
+    switch_default as common_switch_default,
     switch_statement as common_switch_statement,
     throw_statement as common_throw_statement,
     variable_declaration as common_variable_declaration,
@@ -183,6 +185,18 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "switch_body",
         },
         syntax_reader=common_switch_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_case",
+        },
+        syntax_reader=common_switch_case.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_default",
+        },
+        syntax_reader=common_switch_default.reader,
     ),
     Dispatcher(
         applicable_types={
