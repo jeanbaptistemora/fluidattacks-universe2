@@ -3,10 +3,7 @@ import { Buffer } from "buffer";
 
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import {
-  faQuestionCircle,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
@@ -253,21 +250,9 @@ const Repository: FC<IRepositoryProps> = ({
         nicknames
       )}
     >
-      {({
-        dirty,
-        errors,
-        isSubmitting,
-        values,
-        setFieldValue,
-      }): JSX.Element => {
+      {({ dirty, errors, isSubmitting, values }): JSX.Element => {
         if (isSubmitting) {
           setShowSubmitAlert(false);
-        }
-
-        function deleteCredential(): void {
-          setFieldValue("credentials", "");
-          setCredExists(false);
-          setDisabledCredsEdit(false);
         }
 
         return (
@@ -368,15 +353,6 @@ const Repository: FC<IRepositoryProps> = ({
                       required={!isEditing}
                     />
                   </Col>
-                  {credExists ? (
-                    <Button
-                      id={"git-root-add"}
-                      onClick={deleteCredential}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </Button>
-                  ) : undefined}
                   {values.credentials.type === "SSH" && !credExists ? (
                     <TextArea
                       label={t("group.scope.git.repo.credentials.sshKey")}
