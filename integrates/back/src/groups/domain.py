@@ -54,6 +54,10 @@ from db_model.events.types import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+    GroupInvitation,
+)
 from db_model.groups.constants import (
     MASKED,
 )
@@ -200,23 +204,9 @@ async def complete_register_for_group_invitation(
     responsibility = invitation["responsibility"]
     role = str(invitation["role"])
     user_email = str(group_access["user_email"])
-    updated_invitation = invitation.copy()
-    updated_invitation["is_used"] = True
 
-    coroutines.extend(
-        [
-            group_access_domain.update(
-                user_email,
-                group_name,
-                {
-                    "expiration_time": None,
-                    "has_access": True,
-                    "invitation": updated_invitation,
-                    "responsibility": responsibility,
-                },
-            ),
-            authz.grant_group_level_role(user_email, group_name, role),
-        ]
+    coroutines.append(
+        authz.grant_group_level_role(user_email, group_name, role),
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
@@ -226,6 +216,22 @@ async def complete_register_for_group_invitation(
                 loaders, organization_id, user_email, "user"
             )
         )
+
+    await group_access_domain.update_typed(
+        email=user_email,
+        group_name=group_name,
+        metadata=GroupAccessMetadataToUpdate(
+            expiration_time=0,
+            has_access=True,
+            invitation=GroupInvitation(
+                is_used=True,
+                role=role,
+                url_token=invitation["url_token"],
+                responsibility=responsibility,
+            ),
+            responsibility=responsibility,
+        ),
+    )
     if not all(await collect(coroutines)):
         return False
     if await stakeholders_domain.exists(loaders, user_email):

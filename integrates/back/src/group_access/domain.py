@@ -21,6 +21,9 @@ from db_model.findings.update import (
 from db_model.findings.utils import (
     filter_non_state_status_findings,
 )
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -46,8 +49,6 @@ from newutils.datetime import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -57,14 +58,14 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
     ) and await authz.grant_group_level_role(email, group, role)
 
 
-async def get_access_by_url_token(url_token: str) -> Dict[str, Any]:
-    access: List[
-        Dict[str, Any]
+async def get_access_by_url_token(url_token: str) -> dict[str, Any]:
+    access: list[
+        dict[str, Any]
     ] = await group_access_dal.get_access_by_url_token(url_token)
     return access[0] if access else {}
 
 
-async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
+async def get_reattackers(group_name: str, active: bool = True) -> list[str]:
     users = await get_group_users(group_name, active)
     user_roles = await collect(
         authz.get_group_level_role(user, group_name) for user in users
@@ -76,11 +77,11 @@ async def get_reattackers(group_name: str, active: bool = True) -> List[str]:
     ]
 
 
-async def get_group_users(group: str, active: bool = True) -> List[str]:
+async def get_group_users(group: str, active: bool = True) -> list[str]:
     return await group_access_dal.get_group_users(group, active)
 
 
-async def get_managers(group_name: str) -> List[str]:
+async def get_managers(group_name: str) -> list[str]:
     users = await get_group_users(group_name, active=True)
     users_roles = await collect(
         [authz.get_group_level_role(user, group_name) for user in users]
@@ -92,20 +93,20 @@ async def get_managers(group_name: str) -> List[str]:
     ]
 
 
-async def get_user_access(user_email: str, group_name: str) -> Dict[str, Any]:
-    access: List[Dict[str, Any]] = await group_access_dal.get_user_access(
+async def get_user_access(user_email: str, group_name: str) -> dict[str, Any]:
+    access: list[dict[str, Any]] = await group_access_dal.get_user_access(
         user_email, group_name
     )
     return access[0] if access else {}
 
 
-async def get_user_groups(user_email: str, active: bool) -> List[str]:
+async def get_user_groups(user_email: str, active: bool) -> list[str]:
     return await group_access_dal.get_user_groups(user_email, active)
 
 
 async def get_users_to_notify(
     group_name: str, active: bool = True
-) -> List[str]:
+) -> list[str]:
     users = await get_group_users(group_name, active)
     return users
 
@@ -116,7 +117,7 @@ async def get_users_email_by_preferences(
     group_name: str,
     notification: str,
     roles: set[str],
-) -> List[str]:
+) -> list[str]:
     users = await get_group_users(group_name, active=True)
     user_roles = await collect(
         tuple(authz.get_group_level_role(user, group_name) for user in users)
@@ -201,9 +202,19 @@ async def remove_access(
 
 
 async def update(
-    user_email: str, group_name: str, data: Dict[str, Any]
+    user_email: str, group_name: str, data: dict[str, Any]
 ) -> bool:
     return await group_access_dal.update(user_email, group_name, data)
+
+
+async def update_typed(
+    email: str,
+    group_name: str,
+    metadata: GroupAccessMetadataToUpdate,
+) -> None:
+    await group_access_dal.update_metadata(
+        email=email, group_name=group_name, metadata=metadata
+    )
 
 
 async def update_has_access(

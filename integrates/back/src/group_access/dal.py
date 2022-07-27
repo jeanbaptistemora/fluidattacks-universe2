@@ -5,8 +5,15 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
+from custom_exceptions import (
+    UnavailabilityError,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
+)
+from db_model.group_access.types import (
+    GroupAccess,
+    GroupAccessMetadataToUpdate,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -15,6 +22,7 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
+    group_access as group_access_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -24,8 +32,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -35,10 +41,19 @@ LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_project_access"
 
 
+async def add(*, group_access: GroupAccess) -> None:
+    item = group_access_utils.format_group_access_item(group_access)
+    try:
+        if not await dynamodb_ops.put_item(TABLE_NAME, item):
+            raise UnavailabilityError()
+    except ClientError as ex:
+        raise UnavailabilityError() from ex
+
+
 async def get_access_by_url_token(
     url_token: str,
     attr: str = "invitation",
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """Get user access of a group by the url token"""
     filter_exp = Attr(attr).exists() & Attr(f"{attr}.url_token").eq(url_token)
     scan_attrs = {"FilterExpression": filter_exp}
@@ -46,7 +61,7 @@ async def get_access_by_url_token(
     return items
 
 
-async def get_group_users(group: str, active: bool = True) -> List[str]:
+async def get_group_users(group: str, active: bool = True) -> list[str]:
     """Get users of a group."""
     group_name = group.lower()
     key_condition = Key("project_name").eq(group_name)
@@ -81,7 +96,7 @@ async def get_group_users(group: str, active: bool = True) -> List[str]:
 
 async def get_user_access(
     user_email: str, group_name: str
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """Get user access of a group"""
     user_email = user_email.lower()
     group_name = group_name.lower()
@@ -95,7 +110,7 @@ async def get_user_access(
     return items
 
 
-async def get_user_groups(user_email: str, active: bool) -> List[str]:
+async def get_user_groups(user_email: str, active: bool) -> list[str]:
     """Get groups of a user"""
     filtering_exp = Key("user_email").eq(user_email.lower())
     query_attrs = {"KeyConditionExpression": filtering_exp}
@@ -132,7 +147,7 @@ async def remove_access(user_email: str, group_name: str) -> bool:
 
 
 async def update(
-    user_email: str, group_name: str, data: Dict[str, Any]
+    user_email: str, group_name: str, data: dict[str, Any]
 ) -> bool:
     """Update group access attributes."""
     success = False
@@ -165,3 +180,14 @@ async def update(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def update_metadata(
+    *,
+    email: str,
+    group_name: str,
+    metadata: GroupAccessMetadataToUpdate,
+) -> None:
+    item = group_access_utils.format_metadata_item(metadata)
+    if not await update(user_email=email, group_name=group_name, data=item):
+        raise UnavailabilityError()
