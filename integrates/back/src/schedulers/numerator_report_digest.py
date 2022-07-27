@@ -24,6 +24,12 @@ from db_model.findings.types import (
     FindingState,
     FindingVerification,
 )
+from db_model.groups.enums import (
+    GroupSubscriptionType,
+)
+from db_model.groups.types import (
+    Group,
+)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInputsConnection,
@@ -360,18 +366,28 @@ async def _send_mail_report(
 
 async def send_numerator_report() -> None:
     loaders: Dataloaders = get_new_context()
-    groups_names = await orgs_domain.get_all_active_group_names(loaders)
+    groups: Tuple[Group, ...] = await orgs_domain.get_all_active_groups(
+        loaders
+    )
+    group_names = tuple(
+        group.name
+        for group in groups
+        if (
+            group.state.has_squad
+            and group.state.type == GroupSubscriptionType.CONTINUOUS
+        )
+    )
     report_date = datetime_utils.get_now().date()
 
     if FI_ENVIRONMENT == "production":
-        groups_names = tuple(
+        group_names = tuple(
             group
-            for group in groups_names
+            for group in group_names
             if group not in FI_TEST_PROJECTS.split(",")
         )
 
     content: Dict[str, Any] = await _generate_numerator_report(
-        loaders, groups_names
+        loaders, group_names
     )
 
     if content:
