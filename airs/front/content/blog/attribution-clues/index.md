@@ -4,7 +4,7 @@ title: Jigsaw Falling Into Place
 date: 2021-12-07
 subtitle: Clues in the investigation of cyberattacks
 category: attacks
-tags: cybersecurity, software, vulnerability, company, exploit, training
+tags: cybersecurity, software, malware, company, exploit, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1638883041/blog/attribution-clues/cover_attribution.webp
 alt: Photo by Clark Van Der Beken on Unsplash
 description: We describe the kinds of technical traces left in the phases of a cyberattack and talk about how they may help the attribution process.

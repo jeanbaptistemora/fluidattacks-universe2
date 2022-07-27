@@ -4,7 +4,7 @@ title: Deep Hacking
 date: 2019-01-25
 subtitle: Deep learning for vulnerability discovery
 category: development
-tags: machine-learning, vulnerability, discovery
+tags: machine-learning, vulnerability, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330846/blog/deep-hacking/cover_oww6xm.webp
 alt: 'Depiction of a deep neural network. Credits: https://unsplash.com/photos/R84Oy89aNKs'
 description: Here we describe the first systematic framework for using deep learning to detect vulnerabilities in source code by cutting the program into slices.

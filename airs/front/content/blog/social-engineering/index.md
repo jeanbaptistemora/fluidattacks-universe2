@@ -4,7 +4,7 @@ title: Beware of Being Played With
 date: 2021-09-20
 subtitle: Discover social engineers' weapons of influence
 category: attacks
-tags: social-engineering, cybersecurity, flaw, training, company
+tags: social-engineering, cybersecurity, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1632164071/blog/social-engineering/cover_social-engineering.webp
 alt: Photo by Marco Bianchetti on Unsplash
 description: Read this post to learn the psychological tactics used in cyberattacks and what personality traits make targets more (or less) susceptible to fall for them.

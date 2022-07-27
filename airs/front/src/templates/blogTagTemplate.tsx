@@ -32,6 +32,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListTags.cloud.description"),
+      metaDescription: translate.t("blogListTags.cloud.metaDescription"),
+      title: translate.t("blogListTags.cloud.title"),
+    },
+    {
       description: translate.t("blogListTags.company.description"),
       metaDescription: translate.t("blogListTags.company.metaDescription"),
       title: translate.t("blogListTags.company.title"),
@@ -59,6 +64,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
         "blogListTags.machineLearning.metaDescription"
       ),
       title: translate.t("blogListTags.machineLearning.title"),
+    },
+    {
+      description: translate.t("blogListTags.malware.description"),
+      metaDescription: translate.t("blogListTags.malware.metaDescription"),
+      title: translate.t("blogListTags.malware.title"),
     },
     {
       description: translate.t("blogListTags.pentesting.description"),
@@ -93,6 +103,11 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       description: translate.t("blogListTags.software.description"),
       metaDescription: translate.t("blogListTags.software.metaDescription"),
       title: translate.t("blogListTags.software.title"),
+    },
+    {
+      description: translate.t("blogListTags.standard.description"),
+      metaDescription: translate.t("blogListTags.standard.metaDescription"),
+      title: translate.t("blogListTags.standard.title"),
     },
     {
       description: translate.t("blogListTags.training.description"),

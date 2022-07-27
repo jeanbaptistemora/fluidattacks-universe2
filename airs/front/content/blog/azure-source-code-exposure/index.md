@@ -4,7 +4,7 @@ title: Your Source Code Out in the Wild
 date: 2022-01-07
 subtitle: What was Azure's four-year-old vulnerability?
 category: attacks
-tags: cybersecurity, cloud, flaw, git, code, web
+tags: cybersecurity, cloud, vulnerability, git, code, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1641563215/blog/azure-source-code-exposure/cover_azure.webp
 alt: Photo by Vincent van Zalinge on Unsplash
 description: A recently discovered four-year-old vulnerability in Microsoft's Azure App Service has been keeping the source codes of customer applications public.

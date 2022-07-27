@@ -3,8 +3,8 @@ slug: secure-infra-code/
 title: Secure Cloud as Code
 date: 2019-05-02
 category: philosophy
-subtitle: The weakest link in security is not the technology.
-tags: protect, company, cloud, cybersecurity, flaw
+subtitle: The weakest link in security is not the technology
+tags: protect, company, cloud, cybersecurity, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331091/blog/secure-infra-code/cover_fmeyzr.webp
 alt: Photo by Kushagra Kevat on Unsplash
 description: Here we want to help you secure your deployments and avoid common mistakes. Infrastructure as code is one of the easiest ways to leverage cloud computing.

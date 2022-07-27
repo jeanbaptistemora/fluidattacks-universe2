@@ -4,7 +4,7 @@ title: Sudo Heap Overflow CVE-2021-3156
 date: 2021-02-01
 category: attacks
 subtitle: Replicating CVE-2021-3156 with AFL
-tags: fuzzing, vulnerability, hacking, exploit, discovery
+tags: fuzzing, vulnerability, hacking, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330881/blog/fuzzing-sudo/cover_g2rbr6.webp
 alt: Photo by Shannon Litt on Unsplash
 description: In this article we will be able to reproduce the bug described on CVE-2021-3156 using fuzzing.

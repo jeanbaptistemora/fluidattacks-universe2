@@ -89,6 +89,11 @@ const pageTexts: ResourceKey = {
     },
   },
   blogListTags: {
+    cloud: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Cloud.",
+      title: "cloud",
+    },
     company: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Company.",
@@ -114,7 +119,12 @@ const pageTexts: ResourceKey = {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Machine Learning.",
-      title: "machine learning",
+      title: "machine-learning",
+    },
+    malware: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Malware.",
+      title: "malware",
     },
     pentesting: {
       description: "[under construction]",
@@ -124,7 +134,7 @@ const pageTexts: ResourceKey = {
     redTeam: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Red Team.",
-      title: "red team",
+      title: "red-team",
     },
     risk: {
       description: "[under construction]",
@@ -135,18 +145,23 @@ const pageTexts: ResourceKey = {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Security Testing.",
-      title: "security testing",
+      title: "security-testing",
     },
     socialEngineering: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Social Engineering.",
-      title: "social engineering",
+      title: "social-engineering",
     },
     software: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Software.",
       title: "software",
+    },
+    standard: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Standard.",
+      title: "standard",
     },
     training: {
       description: "[under construction]",

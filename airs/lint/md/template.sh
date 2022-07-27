@@ -58,7 +58,6 @@ function check_md_blog_tags {
     cybersecurity
     detect
     devops
-    discovery
     documentation
     economics
     encryption
@@ -78,8 +77,8 @@ function check_md_blog_tags {
     javascript
     kernel
     machine-learning
+    malware
     math
-    mypy
     operations
     pentesting
     policies

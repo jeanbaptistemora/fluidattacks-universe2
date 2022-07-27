@@ -4,7 +4,7 @@ title: SolarWinds Supply Chain Attack
 date: 2021-01-21
 subtitle: A concise summary of the SolarWinds security fiasco
 category: attacks
-tags: cybersecurity, software, vulnerability, hacking, application, discovery
+tags: cybersecurity, software, malware, hacking, application
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/solarwinds-attack/cover_bvibqb.webp
 alt: Photo by Daniel Joshua on Unsplash
 description: This post outlines the SolarWinds supply chain attack that has affected multiple companies and federal agencies in recent months.

@@ -4,7 +4,7 @@ title: AMSI Bypass Using Memory Patching
 date: 2021-07-09
 category: attacks
 subtitle: Dynamic in-memory AMSI bypass
-tags: vulnerability, hacking, exploit, discovery
+tags: hacking, exploit, vulnerability, malware
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1625837523/blog/amsi-bypass/cover-amsi-bypass_sa9bdi.webp
 alt: Photo by Calvin Ma on Unsplash
 description: In this article we will be able to bypass AMSI using memory patching.

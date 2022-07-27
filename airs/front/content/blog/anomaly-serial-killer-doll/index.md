@@ -4,7 +4,7 @@ title: The Anomaly Serial Killer Doll
 date: 2018-12-05
 subtitle: Hunting missing checks with anomaly detection
 category: development
-tags: machine-learning, vulnerability, discovery
+tags: machine-learning, vulnerability, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330658/blog/anomaly-serial-killer-doll/cover_k3xhjm.webp
 alt: The actual serial killer doll
 description: Here we describe the system Chucky, which applies machine learning and natural language processing techniques to find missing-check related vulnerabilities.

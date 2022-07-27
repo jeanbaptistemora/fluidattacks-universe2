@@ -4,7 +4,7 @@ title: Tainted Love
 date: 2019-08-30
 subtitle: It's all about sanitization
 category: attacks
-tags: vulnerability, code, discovery
+tags: vulnerability, code, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331105/blog/tainted-love/cover_pkrmla.webp
 alt: Photo by Sara Kurfeß on Unsplash
 description: This blog post provides a brief description of static and dynamic taint analysis or taint checking.
