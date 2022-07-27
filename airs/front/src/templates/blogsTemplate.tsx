@@ -18,6 +18,7 @@ import React from "react";
 
 import { BlogFooter } from "../components/BlogFooter";
 import { BlogSeo } from "../components/BlogSeo";
+import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -148,6 +149,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
                 <BlogFooter author={author} slug={slug} writer={writer} />
               </BlogArticleContainer>
             </InternalContainer>
+            <InternalForm />
           </PageArticle>
         </div>
       </Layout>

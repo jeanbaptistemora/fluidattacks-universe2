@@ -15,6 +15,7 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
+import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
@@ -84,6 +85,7 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
                 }}
               />
             </BigPageContainer>
+            <InternalForm />
           </PageArticle>
         </div>
       </Layout>
