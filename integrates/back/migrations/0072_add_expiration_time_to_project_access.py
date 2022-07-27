@@ -51,7 +51,7 @@ async def add_expiration_time_to_project_access(
 
     success = cast(
         bool,
-        await group_access_domain.update(
+        await group_access_domain.update_legacy(
             user_email, group_name, {"expiration_time": expiration_time}
         ),
     )

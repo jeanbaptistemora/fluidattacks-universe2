@@ -49,7 +49,7 @@ async def add_phone_number_to_group_invitation(
 
     success = cast(
         bool,
-        await group_access_domain.update(
+        await group_access_domain.update_legacy(
             user_email, group_name, {"invitation": new_invitation}
         ),
     )

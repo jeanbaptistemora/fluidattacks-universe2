@@ -4,9 +4,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.group_access.enums import (
-    GroupInvitiationState,
-)
 from db_model.group_access.types import (
     GroupAccess,
 )
@@ -43,19 +40,22 @@ async def resolve(
     entity = request_store.get("entity")
 
     if entity == "GROUP":
+        group_name = request_store["group_name"]
         try:
             group_access: GroupAccess = await loaders.group_access.load(
-                (request_store["group_name"], parent.email)
+                (group_name, parent.email)
             )
-            group_invitation_state = format_group_invitation_state(
-                invitation=group_access.invitation,
-                is_registered=parent.is_registered,
-            )
-            return group_invitation_state.value
         except StakeholderNotInGroup:
-            return GroupInvitiationState.REGISTERED.value
+            group_access = GroupAccess(
+                email=parent.email, group_name=group_name
+            )
+        group_invitation_state = format_group_invitation_state(
+            invitation=group_access.invitation,
+            is_registered=parent.is_registered,
+        )
+        return group_invitation_state.value
 
-    elif entity == "ORGANIZATION":
+    if entity == "ORGANIZATION":
         org_access: OrganizationAccess = (
             await loaders.organization_access.load(
                 (request_store["organization_id"], parent.email)

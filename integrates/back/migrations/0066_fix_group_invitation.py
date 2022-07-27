@@ -46,7 +46,7 @@ async def fix_invitation(project_access: ProjectAccessType) -> bool:
         new_invitation["is_used"] = True
         success = cast(
             bool,
-            await groups_access_domain.update(
+            await groups_access_domain.update_legacy(
                 user_email, group_name, {"invitation": new_invitation}
             ),
         )
@@ -61,7 +61,7 @@ async def fix_invitation(project_access: ProjectAccessType) -> bool:
     ):
         success = cast(
             bool,
-            await groups_access_domain.update(
+            await groups_access_domain.update_legacy(
                 user_email, group_name, {"invitation": None}
             ),
         )
