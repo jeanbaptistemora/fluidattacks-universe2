@@ -2,8 +2,6 @@ import { Buffer } from "buffer";
 
 import { useMutation } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -15,10 +13,9 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
-import { Input, Select, TextArea } from "components/Input";
+import { Input, Label, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Tooltip } from "components/Tooltip";
 import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
   handleValidationError,
@@ -193,25 +190,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
               <Row justify={"flex-start"}>
                 <Col large={"50"} medium={"50"} small={"100"}>
                   <Input
-                    label={
-                      <Fragment>
-                        {t("autoenrollment.addRoot.url.label")}
-                        <Tooltip
-                          disp={"inline-block"}
-                          id={"urlTooltip"}
-                          place={"top"}
-                          tip={t("autoenrollment.addRoot.url.tooltip")}
-                        >
-                          <FontAwesomeIcon
-                            color={"#b0b0bf"}
-                            icon={faCircleInfo}
-                            size={"sm"}
-                          />
-                        </Tooltip>
-                      </Fragment>
-                    }
+                    label={t("autoenrollment.addRoot.url.label")}
                     name={"url"}
                     placeholder={t("autoenrollment.addRoot.url.placeholder")}
+                    tooltip={t("autoenrollment.addRoot.url.tooltip")}
                     type={"text"}
                   />
                 </Col>
@@ -309,19 +291,11 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   />
                 </Col>
                 <Col>
-                  {t("autoenrollment.addRoot.exclusions.label")}
-                  <Tooltip
-                    disp={"inline-block"}
-                    id={"urlTooltip"}
-                    place={"top"}
-                    tip={t("autoenrollment.addRoot.exclusions.tooltip")}
+                  <Label
+                    tooltip={t("autoenrollment.addRoot.exclusions.tooltip")}
                   >
-                    <FontAwesomeIcon
-                      color={"#b0b0bf"}
-                      icon={faCircleInfo}
-                      size={"sm"}
-                    />
-                  </Tooltip>
+                    {t("autoenrollment.addRoot.exclusions.label")}
+                  </Label>
                 </Col>
                 <Col large={"100"} medium={"100"} small={"100"}>
                   <FormikArrayField

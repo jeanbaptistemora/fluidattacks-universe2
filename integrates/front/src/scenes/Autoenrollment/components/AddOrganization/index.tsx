@@ -1,10 +1,8 @@
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
@@ -17,7 +15,6 @@ import { Input, Select, TextArea } from "components/Input";
 import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
-import { Tooltip } from "components/Tooltip";
 import type { IOrgAttr } from "scenes/Autoenrollment/types";
 
 const MAX_DESCRIPTION_LENGTH = 200;
@@ -103,77 +100,32 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             <Col large={"100"} medium={"100"} small={"100"}>
               <Input
                 disabled={successMutation.organization}
-                label={
-                  <Fragment>
-                    {t("autoenrollment.addOrganization.organizationName.label")}
-                    <Tooltip
-                      disp={"inline-block"}
-                      id={"addGroupTooltip"}
-                      place={"top"}
-                      tip={t("sidebar.newOrganization.modal.nameTooltip")}
-                    >
-                      <FontAwesomeIcon
-                        color={"#b0b0bf"}
-                        icon={faCircleInfo}
-                        size={"sm"}
-                      />
-                    </Tooltip>
-                  </Fragment>
-                }
+                label={t(
+                  "autoenrollment.addOrganization.organizationName.label"
+                )}
                 name={"organizationName"}
                 placeholder={t(
                   "autoenrollment.addOrganization.organizationName.placeholder"
                 )}
+                tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
               />
             </Col>
             <Col large={"100"} medium={"100"} small={"100"}>
               <Input
                 disabled={successMutation.group}
-                label={
-                  <Fragment>
-                    {t("autoenrollment.addOrganization.groupName.label")}
-                    <Tooltip
-                      disp={"inline-block"}
-                      id={"addGroupTooltip"}
-                      place={"top"}
-                      tip={t("sidebar.newOrganization.modal.nameTooltip")}
-                    >
-                      <FontAwesomeIcon
-                        color={"#b0b0bf"}
-                        icon={faCircleInfo}
-                        size={"sm"}
-                      />
-                    </Tooltip>
-                  </Fragment>
-                }
+                label={t("autoenrollment.addOrganization.groupName.label")}
                 name={"groupName"}
                 placeholder={t(
                   "autoenrollment.addOrganization.groupName.placeholder"
                 )}
+                tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
               />
             </Col>
             <Col large={"100"} medium={"100"} small={"100"}>
               <Select
-                label={
-                  <Fragment>
-                    {t("autoenrollment.addOrganization.reportLanguage")}
-                    <Tooltip
-                      disp={"inline-block"}
-                      id={"addGroupTooltip"}
-                      place={"top"}
-                      tip={t(
-                        "autoenrollment.addOrganization.reportLanguageTip"
-                      )}
-                    >
-                      <FontAwesomeIcon
-                        color={"#b0b0bf"}
-                        icon={faCircleInfo}
-                        size={"sm"}
-                      />
-                    </Tooltip>
-                  </Fragment>
-                }
+                label={t("autoenrollment.addOrganization.reportLanguage")}
                 name={"reportLanguage"}
+                tooltip={t("autoenrollment.addOrganization.reportLanguageTip")}
               >
                 <option value={""}>{""}</option>
                 <option value={"EN"}>
