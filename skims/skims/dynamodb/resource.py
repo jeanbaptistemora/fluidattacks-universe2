@@ -67,7 +67,7 @@ async def dynamo_startup() -> None:
     RESOURCE = await CONTEXT_STACK.enter_async_context(
         SESSION.resource(**RESOURCE_OPTIONS)
     )
-    TABLE_RESOURCES["integrates_vms"] = await RESOURCE.Table("integrates_vms")
+    TABLE_RESOURCES["skims_sca"] = await RESOURCE.Table("skims_sca")
 
 
 async def dynamo_shutdown() -> None:
