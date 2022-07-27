@@ -20,7 +20,7 @@ spec:
       nodeSelector:
         worker_group: development
       containers:
-        - name: integrates
+        - name: back
           image: ghcr.io/fluidattacks/makes:22.08
           imagePullPolicy: Always
           command: [sh]

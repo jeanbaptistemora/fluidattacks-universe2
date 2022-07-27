@@ -20,10 +20,11 @@ spec:
         # This ensures that the resource is updated on every apply
         uuid: ${UUID}
     spec:
+      serviceAccountName: prod-integrates
       nodeSelector:
         worker_group: production
       containers:
-        - name: integrates
+        - name: back
           image: ghcr.io/fluidattacks/makes:22.08
           imagePullPolicy: Always
           command: [sh]

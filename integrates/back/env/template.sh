@@ -7,7 +7,7 @@ function main {
     && case "${env}" in
       dev) aws_login_dev ;;
       eph) : ;;
-      prod) aws_login_prod 'integrates' ;;
+      prod) : ;;
       prod-local) aws_login_prod 'integrates' ;;
       *) error 'First argument must be one of: dev, eph, prod, prod-local' ;;
     esac \
