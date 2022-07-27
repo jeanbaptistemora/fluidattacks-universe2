@@ -27,7 +27,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def resolve(
     parent: Group,
-    _info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
     query: str = kwargs.get("search", "")
@@ -35,22 +35,18 @@ async def resolve(
         exact_filters={"group_name": parent.name},
         query=query,
     )
+    loaders = info.context.loaders
+    draft_ids = tuple(
+        draft.id for draft in await loaders.group_drafts.load(parent.name)
+    )
     edges = tuple(
         VulnerabilityEdge(
             cursor="",
             node=format_vulnerability(result),
         )
         for result in results
-        if result["group_name"] == parent.name
+        if result["finding_id"] not in draft_ids
     )
-
-    # Hopefully not needed, but we must ensure security with a new piece of
-    # the stack
-    if len(edges) != len(results):
-        LOGGER.critical(
-            "Exact filters mismatch",
-            extra={"extra": {"group_name": parent.name, "query": query}},
-        )
 
     return VulnerabilitiesConnection(
         edges=edges,

@@ -12,8 +12,10 @@ async def search(
     query: str,
 ) -> tuple[dict[str, Any], ...]:
     """
-    Searches for items matching the arbitrary user input
+    Searches for items matching both the user input (full-text)
+    and the provided filters (exact matches)
 
+    https://opensearch.org/docs/1.2/opensearch/query-dsl/index/
     https://opensearch-project.github.io/opensearch-py/api-ref/client.html#opensearchpy.OpenSearch.search
     """
     client = await get_client()
