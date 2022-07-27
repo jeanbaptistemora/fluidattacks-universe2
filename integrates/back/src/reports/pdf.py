@@ -135,6 +135,7 @@ Context = TypedDict(
         "link": str,
         "imagesdir": str,
         "goals_pdf": str,
+        "finding_table_pdf": str,
     },
 )
 
@@ -394,6 +395,9 @@ class CreatorPdf:
         self.style_dir = self.path + self.style_dir
         self.images_dir = self.path + self.images_dir
         self.out_name_goals = f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        self.out_name_finding_table = (
+            f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        )
         self.group_name = group
         self.user_email = user
         if self.doctype == "tech":
@@ -500,6 +504,9 @@ class CreatorPdf:
             "link": f"{BASE_URL}/groups/{group}/vulns",
             "imagesdir": self.images_dir,
             "goals_pdf": f"image::{self.out_name_goals}[]",
+            "finding_table_pdf": (
+                f"image::{self.out_name_finding_table}[pages=1..100]"
+            ),
         }
 
     def lang_support(self) -> None:
@@ -627,6 +634,14 @@ class CreatorPdf:
             "templates/pdf/goals.adoc",
             loaders,
             self.out_name_goals,
+        )
+
+        await self.get_page(
+            template_env,
+            "finding_table",
+            "templates/pdf/finding_table.adoc",
+            loaders,
+            self.out_name_finding_table,
         )
 
         template = template_env.get_template(self.proj_tpl)
