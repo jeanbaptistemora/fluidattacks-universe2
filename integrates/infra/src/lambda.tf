@@ -43,7 +43,6 @@ resource "null_resource" "dynamodb_replication_dependencies" {
 
 data "archive_file" "dynamodb_replication_zip" {
   depends_on  = [null_resource.dynamodb_replication_dependencies]
-  excludes    = ["${path.module}/unwanted.zip"]
   output_path = "${var.lambda_path}/dynamodb_replication.zip"
   source_dir  = "${var.lambda_path}/dynamodb_replication"
   type        = "zip"
