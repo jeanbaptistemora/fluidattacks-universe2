@@ -1,69 +1,63 @@
 import styled from "styled-components";
 
-import { TimelineItem } from "./Item";
-
-const Timeline = styled.ol.attrs({
-  className: "flex flex-column list pa0 relative",
+const Timeline = styled.div.attrs({
+  className: "comp-timeline",
 })`
-  li:nth-child(odd) {
-    align-self: flex-start;
-  }
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-  li:nth-child(odd)::after {
-    right: -16px;
-  }
-
-  li:nth-child(odd)::before {
-    border-color: transparent transparent transparent white;
-    border-width: 10px 0 10px 10px;
-    right: 31px;
-  }
-
-  li:nth-child(even) {
-    align-self: flex-end;
-  }
-
-  li:nth-child(even)::after {
-    left: -16px;
-  }
-
-  li:nth-child(even)::before {
-    border-color: transparent white transparent transparent;
-    border-width: 10px 10px 10px 0;
-    left: 31px;
-  }
-
-  ::after {
-    background-color: white;
-    content: "";
+  ::before {
+    background-color: #d2d2da;
+    border-radius: 4px;
     height: 100%;
-    left: calc(50% - 3px);
-    position: absolute;
     width: 6px;
   }
 
+  > * {
+    max-width: 45%;
+    max-width: calc(50% - 24px);
+    min-width: 40%;
+    :nth-child(even) {
+      align-self: end;
+    }
+    :nth-child(odd) {
+      align-self: start;
+    }
+
+    ::before {
+      background-color: #bf0b1a;
+      border-radius: 50%;
+      height: 16px;
+      width: 16px;
+      z-index: 1;
+    }
+  }
+
+  ::before,
+  > *::before {
+    content: "";
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
   @media (max-width: 768px) {
-    li:nth-child(odd) {
-      align-self: flex-end;
+    ::before,
+    > *::before {
+      left: 8px;
     }
 
-    li:nth-child(odd)::after,
-    li:nth-child(even)::after {
-      left: 18px;
-    }
-
-    li:nth-child(odd)::before,
-    li:nth-child(even)::before {
-      border-color: transparent white transparent transparent;
-      border-width: 10px 10px 10px 0;
-      left: 60px;
-      right: unset;
-    }
-
-    ::after {
-      left: 31px;
+    > * {
+      margin: 12px 0;
+      max-width: 95%;
+      max-width: calc(100% - 32px);
+      min-width: 85%;
+      :nth-child(odd) {
+        align-self: end;
+      }
     }
   }
 `;
 
-export { Timeline, TimelineItem };
+export { Timeline };

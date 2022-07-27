@@ -11,9 +11,6 @@ import { formatDropdownField } from "utils/formatHelpers";
 
 describe("TrackingTreatment", (): void => {
   const vulnId: string = "af7a48b8-d8fc-41da-9282-d424fff563f0";
-  const newNumberOfFields: number = 0;
-  const normalNumberOfFields: number = 2;
-  const permanentlyNumberOfFields: number = 3;
   const historicTreatment: IHistoricTreatment[] = [
     {
       acceptanceDate: "",
@@ -139,16 +136,6 @@ describe("TrackingTreatment", (): void => {
         screen.getByText("searchFindings.tabDescription.treatment.inProgress")
       ).toBeInTheDocument();
     });
-
-    expect(
-      screen.getAllByRole("listitem")[0].querySelectorAll("span")
-    ).toHaveLength(normalNumberOfFields);
-    expect(
-      screen.getAllByRole("listitem")[1].querySelectorAll("span")
-    ).toHaveLength(normalNumberOfFields);
-    expect(
-      screen.getAllByRole("listitem")[2].querySelectorAll("span")
-    ).toHaveLength(permanentlyNumberOfFields);
   });
 
   it("should render in treatment tracking 2", async (): Promise<void> => {
@@ -168,16 +155,6 @@ describe("TrackingTreatment", (): void => {
       ).toHaveLength(2);
     });
 
-    expect(
-      screen.getAllByRole("listitem")[0].querySelectorAll("span")
-    ).toHaveLength(newNumberOfFields);
-    expect(
-      screen.getAllByRole("listitem")[1].querySelectorAll("span")
-    ).toHaveLength(normalNumberOfFields);
-
-    expect(
-      screen.getAllByRole("listitem")[1].querySelectorAll("span")
-    ).toHaveLength(normalNumberOfFields);
     expect(
       screen.getByText(
         `${formatDropdownField(

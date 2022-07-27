@@ -5,8 +5,9 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
-import { Timeline, TimelineItem } from "components/Timeline";
+import { Timeline } from "components/Timeline";
 import { GET_VULN_TREATMENT } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/queries";
 import type { IGetVulnTreatmentAttr } from "scenes/Dashboard/components/Vulnerabilities/TrackingTreatment/types";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
@@ -111,8 +112,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
                 : treatment.assigned;
 
               return (
-                <TimelineItem key={treatment.date}>
-                  <h2>{treatment.date}</h2>
+                <Card key={treatment.date} title={treatment.date}>
                   <h3>
                     {t(formatDropdownField(treatment.treatment))}
                     {pendingApproval
@@ -151,7 +151,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
                       </span>
                     ) : undefined}
                   </p>
-                </TimelineItem>
+                </Card>
               );
             })}
           </Timeline>

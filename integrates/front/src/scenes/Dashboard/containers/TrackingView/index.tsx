@@ -6,8 +6,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { Card } from "components/Card";
 import { Col, Row } from "components/Layout";
-import { Timeline, TimelineItem } from "components/Timeline";
+import { Timeline } from "components/Timeline";
 import { GET_FINDING_TRACKING } from "scenes/Dashboard/containers/TrackingView/queries";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -62,8 +63,7 @@ const TrackingView: React.FC = (): JSX.Element => {
           <Timeline>
             {tracking.map((closing: ITracking): JSX.Element => {
               return (
-                <TimelineItem key={closing.cycle}>
-                  <h2>{closing.date}</h2>
+                <Card key={closing.cycle} title={closing.date}>
                   <h3>
                     {closing.cycle > 0 ? (
                       <span>
@@ -115,7 +115,7 @@ const TrackingView: React.FC = (): JSX.Element => {
                       </span>
                     )}
                   </p>
-                </TimelineItem>
+                </Card>
               );
             })}
           </Timeline>

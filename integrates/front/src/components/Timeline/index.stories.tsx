@@ -1,41 +1,32 @@
-/* eslint-disable fp/no-mutation, import/no-default-export, react/jsx-props-no-spreading, react/no-multi-comp */
+/* eslint-disable import/no-default-export */
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
 
-import { Timeline, TimelineItem } from ".";
+import { Timeline } from ".";
+import { Card } from "components/Card";
+import { Text } from "components/Text";
 
 const config: Meta = {
   component: Timeline,
-  subcomponents: { TimelineItem },
   title: "components/Timeline",
 };
 
-const Default: Story = (): JSX.Element => {
-  return (
-    <Timeline>
-      <TimelineItem>
-        <h2>{"2020-06-17"}</h2>
-        <h3>{"Lorem ipsum"}</h3>
-        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
-      </TimelineItem>
-      <TimelineItem>
-        <h2>{"2020-06-18"}</h2>
-        <h3>{"Lorem ipsum"}</h3>
-        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
-      </TimelineItem>
-      <TimelineItem>
-        <h2>{"2020-06-19"}</h2>
-        <h3>{"Lorem ipsum"}</h3>
-        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
-      </TimelineItem>
-      <TimelineItem>
-        <h2>{"2020-06-20"}</h2>
-        <h3>{"Lorem ipsum"}</h3>
-        <p>{"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}</p>
-      </TimelineItem>
-    </Timeline>
-  );
-};
+const Default: Story = (): JSX.Element => (
+  <Timeline>
+    {[23, 24, 25, 26].map(
+      (el: number): JSX.Element => (
+        <Card elevated={true} key={el} title={`2022-07-${el}`}>
+          <Text fw={7} mb={1} size={3}>
+            {"Lorem ipsum"}
+          </Text>
+          <Text>
+            {"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+          </Text>
+        </Card>
+      )
+    )}
+  </Timeline>
+);
 
 export { Default };
 export default config;

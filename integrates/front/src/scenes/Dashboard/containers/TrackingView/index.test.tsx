@@ -74,37 +74,4 @@ describe("TrackingView", (): void => {
       ).toBeInTheDocument();
     });
   });
-
-  it("should render timeline", async (): Promise<void> => {
-    expect.hasAssertions();
-
-    render(
-      <MemoryRouter
-        initialEntries={["/orgs/aorg/groups/agroup/vulns/422286126/tracking"]}
-      >
-        <MockedProvider addTypename={false} mocks={[mocks]}>
-          <Route
-            component={TrackingView}
-            path={
-              "/orgs/:organizationName/groups/:groupName/vulns/:findingId/tracking"
-            }
-          />
-        </MockedProvider>
-      </MemoryRouter>
-    );
-    await waitFor((): void => {
-      expect(
-        screen.queryByText(/searchFindings.tabTracking.cycle/u)
-      ).toBeInTheDocument();
-    });
-    const numberOfCycles: number = 2;
-
-    expect(screen.getAllByRole("listitem")).toHaveLength(numberOfCycles);
-    expect(screen.getAllByRole("listitem")[0].textContent).toContain(
-      testJustification
-    );
-    expect(screen.getAllByRole("listitem")[1].textContent).not.toContain(
-      testJustification
-    );
-  });
 });
