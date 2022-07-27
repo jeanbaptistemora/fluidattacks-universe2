@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 import authz
 from authz.validations import (
     validate_role_fluid_reqs,
@@ -69,7 +66,6 @@ from starlette.requests import (
 )
 from typing import (
     Any,
-    Awaitable,
     Optional,
 )
 from verify import (
@@ -147,20 +143,20 @@ async def remove(email: str) -> None:
 
 async def update_information(
     context: Any, modified_data: dict[str, str], group_name: str
-) -> bool:
-    coroutines: list[Awaitable[bool]] = []
+) -> None:
     email = modified_data["email"]
     responsibility = modified_data["responsibility"]
-    success: bool = False
 
     if responsibility:
         if validate_field_length(
             responsibility, 50
         ) and validate_alphanumeric_field(responsibility):
-            coroutines.append(
-                group_access_domain.update(
-                    email, group_name, {"responsibility": responsibility}
-                )
+            await group_access_domain.update(
+                email=email,
+                group_name=group_name,
+                metadata=GroupAccessMetadataToUpdate(
+                    responsibility=responsibility
+                ),
             )
         else:
             logs_utils.cloudwatch_log(
@@ -168,10 +164,6 @@ async def update_information(
                 f"Security: {email} Attempted to add responsibility to "
                 f"group {group_name} bypassing validation",
             )
-
-    if coroutines:
-        success = all(await collect(coroutines))
-    return success
 
 
 async def has_valid_access_token(
@@ -287,10 +279,10 @@ async def update_invited_stakeholder(
         new_invitation = invitation._replace(
             responsibility=responsibility, role=role
         )
-        await group_access_domain.update_typed(
-            email,
-            group.name,
-            GroupAccessMetadataToUpdate(
+        await group_access_domain.update(
+            email=email,
+            group_name=group.name,
+            metadata=GroupAccessMetadataToUpdate(
                 invitation=new_invitation,
             ),
         )

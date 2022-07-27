@@ -231,12 +231,6 @@ async def remove_access(
 
 
 async def update(
-    user_email: str, group_name: str, data: dict[str, Any]
-) -> bool:
-    return await group_access_dal.update(user_email, group_name, data)
-
-
-async def update_typed(
     email: str,
     group_name: str,
     metadata: GroupAccessMetadataToUpdate,

@@ -146,9 +146,7 @@ async def remove_access(user_email: str, group_name: str) -> bool:
         return False
 
 
-async def update(
-    user_email: str, group_name: str, data: dict[str, Any]
-) -> bool:
+async def _update(email: str, group_name: str, data: dict[str, Any]) -> bool:
     """Update group access attributes."""
     success = False
     set_expression = ""
@@ -168,7 +166,7 @@ async def update(
 
     update_attrs = {
         "Key": {
-            "user_email": user_email.lower(),
+            "user_email": email.lower(),
             "project_name": group_name.lower(),
         },
         "UpdateExpression": f"{set_expression} {remove_expression}".strip(),
@@ -189,5 +187,5 @@ async def update_metadata(
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
     item = group_access_utils.format_metadata_item(metadata)
-    if not await update(user_email=email, group_name=group_name, data=item):
+    if not await _update(email=email, group_name=group_name, data=item):
         raise UnavailabilityError()

@@ -57,7 +57,7 @@ async def confirm_deletion_mail(
             "user_email": email,
         },
     )
-    await group_access_domain.update_typed(
+    await group_access_domain.update(
         email=email,
         group_name="confirm_deletion",
         metadata=GroupAccessMetadataToUpdate(

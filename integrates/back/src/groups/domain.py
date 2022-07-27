@@ -218,7 +218,7 @@ async def complete_register_for_group_invitation(
             )
         )
 
-    await group_access_domain.update_typed(
+    await group_access_domain.update(
         email=user_email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
@@ -998,7 +998,7 @@ async def invite_to_group(
             datetime_utils.get_now_plus_delta(weeks=1)
         )
         url_token = secrets.token_urlsafe(64)
-        await group_access_domain.update_typed(
+        await group_access_domain.update(
             email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
