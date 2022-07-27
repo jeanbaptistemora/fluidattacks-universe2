@@ -64,10 +64,13 @@ from typing import (
 )
 
 
-async def add_user_access(email: str, group: str, role: str) -> bool:
-    return await update_has_access(
-        email, group, True
-    ) and await authz.grant_group_level_role(email, group, role)
+async def add_user_access(email: str, group_name: str, role: str) -> bool:
+    await group_access_dal.add(
+        group_access=GroupAccess(
+            email=email, group_name=group_name, has_access=True
+        )
+    )
+    return await authz.grant_group_level_role(email, group_name, role)
 
 
 async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
@@ -241,12 +244,6 @@ async def update_typed(
     await group_access_dal.update_metadata(
         email=email, group_name=group_name, metadata=metadata
     )
-
-
-async def update_has_access(
-    user_email: str, group_name: str, access: bool
-) -> bool:
-    return await update(user_email, group_name, {"has_access": access})
 
 
 def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:

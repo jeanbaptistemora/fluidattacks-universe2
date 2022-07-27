@@ -62,7 +62,7 @@ def format_group_access(item: Item) -> GroupAccess:
 def format_group_access_item(
     group_access: GroupAccess,
 ) -> Item:
-    return {
+    item: Item = {
         "confirm_deletion": {
             "is_used": group_access.confirm_deletion.is_used,
             "url_token": group_access.confirm_deletion.url_token,
@@ -82,6 +82,11 @@ def format_group_access_item(
         "project_name": group_access.group_name,
         "responsibility": group_access.responsibility,
         "user_email": group_access.email,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
     }
 
 

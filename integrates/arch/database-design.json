@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jul 26, 2022, 10:34 AM",
+    "DateLastModified": "Jul 27, 2022, 03:07 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -912,6 +912,10 @@
         },
         {
           "AttributeName": "documents",
+          "AttributeType": "M"
+        },
+        {
+          "AttributeName": "confirm_deletion",
           "AttributeType": "M"
         }
       ],
@@ -4686,12 +4690,13 @@
             }
           ],
           "NonKeyAttributes": [
+            "confirm_deletion",
             "email",
-            "responsibility",
+            "expiration_time",
             "group_name",
             "has_access",
             "invitation",
-            "expiration_time"
+            "responsibility"
           ],
           "DataAccess": {
             "MySql": {}

@@ -165,18 +165,20 @@ async def add_credentials(
 async def add_group_access(
     loaders: Any, organization_id: str, group_name: str
 ) -> bool:
-    users = await get_stakeholders_emails(loaders, organization_id)
-    users_roles = await collect(
-        authz.get_organization_level_role(user, organization_id)
-        for user in users
+    stakeholders = await get_stakeholders_emails(loaders, organization_id)
+    stakeholders_roles = await collect(
+        authz.get_organization_level_role(stakeholder, organization_id)
+        for stakeholder in stakeholders
     )
     return all(
         await collect(
             group_access_domain.add_user_access(
-                user, group_name, "customer_manager"
+                stakeholder, group_name, "customer_manager"
             )
-            for user, user_role in zip(users, users_roles)
-            if user_role == "customer_manager"
+            for stakeholder, stakeholder_role in zip(
+                stakeholders, stakeholders_roles
+            )
+            if stakeholder_role == "customer_manager"
         )
     )
 
