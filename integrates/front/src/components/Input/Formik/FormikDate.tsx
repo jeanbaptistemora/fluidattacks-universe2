@@ -1,8 +1,7 @@
-import type { FieldProps } from "formik";
 import type { FC, FocusEvent } from "react";
 import React, { useCallback } from "react";
 
-import type { IInputBase } from "../InputBase";
+import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledInput } from "../styles";
 
@@ -11,12 +10,11 @@ interface IInputDateProps extends IInputBase<HTMLInputElement> {
   min?: Date;
 }
 
-type TInputDateProps = FieldProps<string, Record<string, string>> &
-  IInputDateProps;
+type TInputDateProps = IInputDateProps & TFieldProps;
 
 const FormikDate: FC<TInputDateProps> = ({
   disabled,
-  field,
+  field: { name, onBlur: onBlurField, onChange, value },
   form,
   id,
   label,
@@ -29,9 +27,6 @@ const FormikDate: FC<TInputDateProps> = ({
   tooltip,
   variant = "solid",
 }: Readonly<TInputDateProps>): JSX.Element => {
-  const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = form.errors[name];
-
   const handleBlur = useCallback(
     (ev: FocusEvent<HTMLInputElement>): void => {
       onBlurField(ev);
@@ -42,7 +37,7 @@ const FormikDate: FC<TInputDateProps> = ({
 
   return (
     <InputBase
-      alert={alert}
+      form={form}
       id={id}
       label={label}
       name={name}

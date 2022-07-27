@@ -16,7 +16,7 @@ type TTextAreaProps = FieldProps<string, Record<string, string>> &
 
 const FormikTextArea: FC<TTextAreaProps> = ({
   disabled,
-  field,
+  field: { name, onBlur: onBlurField, onChange, value },
   form,
   id,
   label,
@@ -29,9 +29,6 @@ const FormikTextArea: FC<TTextAreaProps> = ({
   tooltip,
   variant,
 }: Readonly<TTextAreaProps>): JSX.Element => {
-  const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = form.errors[name];
-
   const handleBlur = useCallback(
     (ev: FocusEvent<HTMLTextAreaElement>): void => {
       onBlurField(ev);
@@ -42,7 +39,7 @@ const FormikTextArea: FC<TTextAreaProps> = ({
 
   return (
     <InputBase
-      alert={alert}
+      form={form}
       id={id}
       label={label}
       name={name}

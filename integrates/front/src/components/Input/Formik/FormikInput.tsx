@@ -1,9 +1,7 @@
-import type { FieldProps } from "formik";
-import _ from "lodash";
 import type { FC, FocusEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
-import type { IInputBase } from "../InputBase";
+import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledInput } from "../styles";
 
@@ -14,13 +12,13 @@ interface IInputProps extends IInputBase<HTMLInputElement> {
   type?: "email" | "password" | "text";
 }
 
-type TInputProps = FieldProps<string, Record<string, string>> & IInputProps;
+type TInputProps = IInputProps & TFieldProps;
 
 const FormikInput: FC<TInputProps> = ({
   childLeft,
   childRight,
   disabled,
-  field,
+  field: { name, onBlur: onBlurField, onChange, value },
   form,
   id,
   label,
@@ -33,9 +31,6 @@ const FormikInput: FC<TInputProps> = ({
   type,
   variant = "solid",
 }: Readonly<TInputProps>): JSX.Element => {
-  const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = _.get(form.errors, name, undefined);
-
   const handleBlur = useCallback(
     (ev: FocusEvent<HTMLInputElement>): void => {
       onBlurField(ev);
@@ -46,7 +41,7 @@ const FormikInput: FC<TInputProps> = ({
 
   return (
     <InputBase
-      alert={alert}
+      form={form}
       id={id}
       label={label}
       name={name}

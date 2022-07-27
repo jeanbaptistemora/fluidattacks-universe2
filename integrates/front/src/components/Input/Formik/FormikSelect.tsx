@@ -1,9 +1,7 @@
-import type { FieldProps } from "formik";
-import _ from "lodash";
 import type { FC, FocusEvent, ReactNode } from "react";
 import React, { useCallback } from "react";
 
-import type { IInputBase } from "../InputBase";
+import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledSelect } from "../styles";
 
@@ -11,12 +9,12 @@ interface ISelectProps extends IInputBase<HTMLSelectElement> {
   children?: ReactNode;
 }
 
-type TSelectProps = FieldProps<string, Record<string, string>> & ISelectProps;
+type TSelectProps = ISelectProps & TFieldProps;
 
 const FormikSelect: FC<TSelectProps> = ({
   children,
   disabled,
-  field,
+  field: { name, onBlur: onBlurField, onChange, value },
   form,
   id,
   label,
@@ -27,9 +25,6 @@ const FormikSelect: FC<TSelectProps> = ({
   tooltip,
   variant,
 }: Readonly<TSelectProps>): JSX.Element => {
-  const { name, onBlur: onBlurField, onChange, value } = field;
-  const alert = _.get(form.errors, name, undefined);
-
   const handleBlur = useCallback(
     (ev: FocusEvent<HTMLSelectElement>): void => {
       onBlurField(ev);
@@ -40,7 +35,7 @@ const FormikSelect: FC<TSelectProps> = ({
 
   return (
     <InputBase
-      alert={alert}
+      form={form}
       id={id}
       label={label}
       name={name}

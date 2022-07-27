@@ -26,7 +26,7 @@ type TInputNumberProps = FieldProps<string, Record<string, string>> &
 
 const FormikNumber: FC<TInputNumberProps> = ({
   disabled,
-  field,
+  field: { name, onBlur: onBlurField, value },
   form,
   id,
   label,
@@ -40,9 +40,6 @@ const FormikNumber: FC<TInputNumberProps> = ({
   tooltip,
   variant = "solid",
 }: Readonly<TInputNumberProps>): JSX.Element => {
-  const { name, onBlur: onBlurField, value } = field;
-  const alert = form.errors[name];
-
   const ref: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const { setFieldValue } = form;
 
@@ -95,7 +92,7 @@ const FormikNumber: FC<TInputNumberProps> = ({
 
   return (
     <InputBase
-      alert={alert}
+      form={form}
       id={id}
       label={label}
       name={name}
