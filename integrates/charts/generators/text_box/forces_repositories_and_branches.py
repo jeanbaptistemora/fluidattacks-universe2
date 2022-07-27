@@ -6,6 +6,7 @@ from charts import (
 )
 from charts.generators.text_box.utils import (
     ForcesReport,
+    format_csv_data,
 )
 
 
@@ -20,11 +21,16 @@ async def generate_one(group: str) -> ForcesReport:
 
 
 async def generate_all() -> None:
+    document: ForcesReport
     async for group in utils.iterate_groups():
+        document = await generate_one(group)
         utils.json_dump(
-            document=await generate_one(group),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(
+                header="Repositories and branches", value=document["text"]
+            ),
         )
 
 

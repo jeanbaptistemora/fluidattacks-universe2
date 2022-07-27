@@ -8,6 +8,9 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils import (
+    format_csv_data,
+)
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
@@ -141,22 +144,26 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
 
 async def generate_all() -> None:
     async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_data(
+            counters=await get_data_many_groups(list(org_groups)),
+        )
         json_dump(
-            document=format_data(
-                counters=await get_data_many_groups(list(org_groups)),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_data(
+                counters=await get_data_many_groups(groups),
+            )
             json_dump(
-                document=format_data(
-                    counters=await get_data_many_groups(groups),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
 
 
