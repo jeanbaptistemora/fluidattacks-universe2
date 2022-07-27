@@ -49,6 +49,7 @@ in {
   secretsForEnvFromSops = {
     integratesInfraDev = {
       vars = [
+        "AWS_OPENSEARCH_HOST"
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_TOKEN"
         "TWILIO_ACCOUNT_SID"
@@ -58,6 +59,7 @@ in {
     };
     integratesInfraProd = {
       vars = [
+        "AWS_OPENSEARCH_HOST"
         "CLOUDFLARE_ACCOUNT_ID"
         "CLOUDFLARE_API_TOKEN"
         "TWILIO_ACCOUNT_SID"
@@ -68,6 +70,7 @@ in {
   };
   secretsForTerraformFromEnv = {
     integratesInfra = {
+      aws_opensearch_host = "AWS_OPENSEARCH_HOST";
       cloudflare_api_token = "CLOUDFLARE_API_TOKEN";
       twilio_account_sid = "TWILIO_ACCOUNT_SID";
       twilio_auth_token = "TWILIO_AUTH_TOKEN";

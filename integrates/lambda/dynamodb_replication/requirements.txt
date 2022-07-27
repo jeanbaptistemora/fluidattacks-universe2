@@ -1,1 +1,2 @@
+boto3==1.21.21
 opensearch-py==2.0.0

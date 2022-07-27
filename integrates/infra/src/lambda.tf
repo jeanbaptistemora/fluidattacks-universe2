@@ -1,3 +1,4 @@
+variable "aws_opensearch_host" {}
 variable "lambda_path" {}
 
 data "aws_iam_policy_document" "lambda" {
@@ -55,6 +56,12 @@ resource "aws_lambda_function" "dynamodb_replication" {
   role             = aws_iam_role.integrates_dynamodb_replication_lambda_role.arn
   runtime          = "python3.9"
   source_code_hash = data.archive_file.dynamodb_replication_zip.output_base64sha256
+
+  environment {
+    variables = {
+      AWS_OPENSEARCH_HOST = var.aws_opensearch_host
+    }
+  }
 
   tags = {
     "Name"               = "integrates-lambda"
