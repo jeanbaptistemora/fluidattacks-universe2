@@ -74,6 +74,7 @@ async def main() -> None:
         item
         for item in group_access_scanned
         if item["project_name"] in active_group_names
+        or item["project_name"] == "confirm_deletion"
     ]
     LOGGER_CONSOLE.info(
         "Group access items",
