@@ -1,10 +1,13 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPen,
+  faRotateRight,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Gap } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
@@ -41,7 +44,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               onClick={onUpdate}
               variant={"secondary"}
             >
-              <FluidIcon icon={"loading"} />
+              <FontAwesomeIcon icon={faRotateRight} />
               &nbsp;
               {t("searchFindings.tabDescription.save.text")}
             </Button>
@@ -64,7 +67,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon={"edit"} />
+                <FontAwesomeIcon icon={faPen} />
                 &nbsp;
                 {t("searchFindings.tabDescription.editable.text")}
               </React.Fragment>

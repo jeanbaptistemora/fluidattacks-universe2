@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import {
   faCloudUploadAlt,
   faList,
+  faPen,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +18,6 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import {
@@ -145,7 +145,7 @@ const RecordsView: React.FC = (): JSX.Element => {
                   tip={t("searchFindings.tabRecords.editableTooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
-                    <FluidIcon icon={"edit"} />
+                    <FontAwesomeIcon icon={faPen} />
                     &nbsp;{t("searchFindings.tabRecords.editable")}
                   </Button>
                 </Tooltip>

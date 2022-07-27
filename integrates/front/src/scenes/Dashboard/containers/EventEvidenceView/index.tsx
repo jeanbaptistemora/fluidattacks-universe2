@@ -1,6 +1,11 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFile,
+  faImage,
+  faPen,
+  faRotateRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import type { FieldValidator } from "formik";
@@ -18,7 +23,6 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
@@ -157,7 +161,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                 onClick={handleEditClick}
                 variant={"secondary"}
               >
-                <FluidIcon icon={"edit"} />
+                <FontAwesomeIcon icon={faPen} />
                 &nbsp;{t("group.events.evidence.edit")}
               </Button>
             </Tooltip>
@@ -191,7 +195,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       type={"submit"}
                       variant={"primary"}
                     >
-                      <FluidIcon icon={"loading"} />
+                      <FontAwesomeIcon icon={faRotateRight} />
                       &nbsp;{t("searchFindings.tabEvidence.update")}
                     </Button>
                   </Tooltip>

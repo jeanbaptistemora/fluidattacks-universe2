@@ -1,10 +1,11 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faPen, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -63,12 +64,12 @@ const EditButton: React.FC<IEditButtonProps> = ({
           >
             {isEditing ? (
               <React.Fragment>
-                <FluidIcon icon={"loading"} />
+                <FontAwesomeIcon icon={faRotateRight} />
                 &nbsp;{t("searchFindings.tabDescription.save.text")}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <FluidIcon icon={"edit"} />
+                <FontAwesomeIcon icon={faPen} />
                 &nbsp;{t("searchFindings.tabVuln.buttons.edit")}
               </React.Fragment>
             )}

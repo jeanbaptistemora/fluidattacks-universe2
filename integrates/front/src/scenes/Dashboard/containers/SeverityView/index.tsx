@@ -2,6 +2,8 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faPen, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -16,7 +18,6 @@ import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
 import {
@@ -174,7 +175,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                   tip={t("searchFindings.tabSeverity.editable.tooltip")}
                 >
                   <Button onClick={handleEditClick} variant={"secondary"}>
-                    <FluidIcon icon={"edit"} />
+                    <FontAwesomeIcon icon={faPen} />
                     &nbsp;
                     {t("searchFindings.tabSeverity.editable.label")}
                   </Button>
@@ -206,7 +207,7 @@ const SeverityView: React.FC = (): JSX.Element => {
                             type={"submit"}
                             variant={"primary"}
                           >
-                            <FluidIcon icon={"loading"} />
+                            <FontAwesomeIcon icon={faRotateRight} />
                             {t("searchFindings.tabSeverity.update")}
                           </Button>
                         </ButtonToolbarRow>

@@ -1,12 +1,13 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IHandleAcceptanceButtonProps } from "./types";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -52,7 +53,7 @@ const HandleAcceptanceButton: React.FC<IHandleAcceptanceButtonProps> = ({
             variant={"secondary"}
           >
             <React.Fragment>
-              <FluidIcon icon={"verified"} />
+              <FontAwesomeIcon icon={faCheck} />
               &nbsp;
               {t("searchFindings.tabVuln.buttons.handleAcceptance")}
             </React.Fragment>

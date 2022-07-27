@@ -2,6 +2,8 @@ import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
+import { faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -12,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import { errorMessageHelper } from "./helpers";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import {
   DOWNLOAD_VULNERABILITIES,
@@ -247,7 +248,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   onClick={handleDownloadVulnerability}
                   variant={"secondary"}
                 >
-                  <FluidIcon icon={"export"} />
+                  <FontAwesomeIcon icon={faDownload} />
                   &nbsp;
                   {t("searchFindings.tabDescription.downloadVulnerabilities")}
                 </Button>
@@ -278,7 +279,7 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   type={"submit"}
                   variant={"primary"}
                 >
-                  <FluidIcon icon={"import"} />
+                  <FontAwesomeIcon icon={faUpload} />
                   &nbsp;
                   {t("searchFindings.tabDescription.updateVulnerabilities")}
                 </Button>

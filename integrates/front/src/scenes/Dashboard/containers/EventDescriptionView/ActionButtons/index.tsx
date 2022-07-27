@@ -1,10 +1,14 @@
-import { faCheck, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faPen,
+  faRotateRight,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { FluidIcon } from "components/FluidIcon";
 import { Tooltip } from "components/Tooltip";
 import { ButtonToolbarStartRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
@@ -67,7 +71,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
                   type={"submit"}
                   variant={"primary"}
                 >
-                  <FluidIcon icon={"loading"} />
+                  <FontAwesomeIcon icon={faRotateRight} />
                   &nbsp;
                   {t("group.events.description.save.text")}
                 </Button>
@@ -79,11 +83,9 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               tip={t("group.events.description.edit.tooltip")}
             >
               <Button onClick={onToggleEdit} variant={"secondary"}>
-                <React.Fragment>
-                  <FluidIcon icon={"edit"} />
-                  &nbsp;
-                  {t("group.events.description.edit.text")}
-                </React.Fragment>
+                <FontAwesomeIcon icon={faPen} />
+                &nbsp;
+                {t("group.events.description.edit.text")}
               </Button>
             </Tooltip>
           )}
