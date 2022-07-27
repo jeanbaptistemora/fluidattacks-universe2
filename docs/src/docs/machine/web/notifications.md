@@ -345,6 +345,18 @@ be notified by email or SMS.
 
 ![Updated Group](https://res.cloudinary.com/fluid-attacks/image/upload/v1658771422/docs/web/notifications/notif_updated_group.png)
 
+### Updated services
+
+If you are a User Manager,
+you will receive this
+notification via email or
+SMS called Services Updated,
+which will be generated when
+any of the Services fields
+in the Scope tab are modified.
+
+![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1658957064/docs/web/notifications/notif_services_updated.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
