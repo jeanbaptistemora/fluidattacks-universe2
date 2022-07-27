@@ -262,6 +262,27 @@ the root will be deactivated in the
 current group and created in
 the selected group.
 
+## Status in Git Root
+
+The status help us to see how our
+repository is in the cloning process.
+We manage a total of 5 status.
+
+- **Cloning:**
+  The repository is being cloned.
+- **Ok:**
+  The cloning was successful.
+- **Failed:**
+  Something went wrong with the cloning.
+- **N/A:**
+  The root is inactive.
+- **Unknown:**
+  Is the initial state
+  when creating a root,
+  meaning it has not yet
+  been cloned or is glued
+  for this action.
+
 ## Secrets
 
 This section allows
