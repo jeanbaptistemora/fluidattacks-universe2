@@ -331,6 +331,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         onCompleted: (): void => {
           onUpdate();
           closeUpdateCreditCardModal();
+          closeUpdateOhterMethodModal();
           msgSuccess(
             t("organization.tabs.billing.paymentMethods.update.success.body"),
             t("organization.tabs.billing.paymentMethods.update.success.title")
@@ -580,7 +581,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         )}
         {isUpdatingCreditCard === false ? undefined : (
           <UpdateCreditCardModal
-            onClose={closeUpdateOhterMethodModal}
+            onClose={closeUpdateCreditCardModal}
             onSubmit={handleUpdatePaymentMethodSubmit}
           />
         )}
@@ -594,9 +595,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               country: currentOtherMethodRow.country,
               email: currentOtherMethodRow.email,
               makeDefault: false,
-              rut: currentOtherMethodRow.rut,
+              rut: undefined,
               state: currentOtherMethodRow.state,
-              taxId: currentOtherMethodRow.taxid,
+              taxId: undefined,
             }}
             onClose={closeUpdateOhterMethodModal}
             onSubmit={handleUpdatePaymentMethodSubmit}

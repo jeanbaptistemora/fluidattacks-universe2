@@ -24,9 +24,9 @@ interface IUpdateOtherMethodModalProps {
     city: string;
     country: string;
     email: string;
-    rut: string;
+    rut: FileList | undefined;
     state: string;
-    taxId: string;
+    taxId: FileList | undefined;
   }) => Promise<void>;
   initialValues: {
     cardExpirationMonth: string;
@@ -36,9 +36,9 @@ interface IUpdateOtherMethodModalProps {
     city: string;
     country: string;
     email: string;
-    rut: string;
+    rut: FileList | undefined;
     state: string;
-    taxId: string;
+    taxId: FileList | undefined;
   };
 }
 
@@ -108,7 +108,26 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
     getData().catch((): void => {
       setCountriesData(undefined);
     });
-  }, [setCountriesData]);
+    if (countriesData) {
+      setStates(
+        countriesData
+          .filter(
+            (country): boolean => country.name === initialValues.country
+          )[0]
+          .states.map((state): string => state.name)
+      );
+      setCities(
+        countriesData
+          .filter(
+            (country): boolean => country.name === initialValues.country
+          )[0]
+          .states.filter(
+            (state): boolean => state.name === initialValues.state
+          )[0]
+          .cities.map((city): string => city.name)
+      );
+    }
+  }, [countriesData, initialValues, setCities, setCountriesData, setStates]);
 
   return (
     <Modal
