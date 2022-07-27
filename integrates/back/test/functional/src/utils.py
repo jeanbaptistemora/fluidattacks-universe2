@@ -19,8 +19,8 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from group_access import (
-    domain as group_access_domain,
+from db_model.group_access.types import (
+    GroupAccess,
 )
 from groups import (
     domain as groups_domain,
@@ -45,7 +45,9 @@ async def complete_register(
     group_name: str,
 ) -> bool:
     loaders: Dataloaders = get_new_context()
-    group_access = await group_access_domain.get_user_access(email, group_name)
+    group_access: GroupAccess = await loaders.group_access.load(
+        (group_name, email)
+    )
     success = await groups_domain.complete_register_for_group_invitation(
         loaders, group_access
     )
@@ -73,7 +75,8 @@ async def reject_register(
     email: str,
     group_name: str,
 ) -> bool:
-    group_access = await group_access_domain.get_user_access(email, group_name)
+    loaders = get_new_context()
+    group_access = await loaders.group_access.load((group_name, email))
     redis_del_by_deps_soon(
         "reject_access",
         group_name=group_name,

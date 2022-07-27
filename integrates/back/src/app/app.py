@@ -50,11 +50,15 @@ from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
     SecureAccessException,
+    StakeholderNotInGroup,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from db_model.group_access.types import (
+    GroupAccess,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -81,9 +85,6 @@ import logging.config
 from newutils import (
     analytics,
     templates,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from organizations import (
     domain as orgs_domain,
@@ -169,28 +170,28 @@ async def app(request: Request) -> HTMLResponse:
 
 async def confirm_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
+    loaders: Dataloaders = get_new_context()
     if url_token:
-        group_access = await group_access_domain.get_access_by_url_token(
-            url_token
-        )
-        if group_access:
-            loaders: Dataloaders = get_new_context()
+        try:
+            group_access = await group_access_domain.get_access_by_url_token(
+                loaders, url_token
+            )
             success = (
                 await groups_domain.complete_register_for_group_invitation(
                     loaders, group_access
                 )
             )
             if success:
-                response = await templates.valid_invitation(
+                response = await templates.valid_invitation_typed(
                     request, group_access
                 )
             else:
                 response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access=group_access,
+                    group_access,
                 )
-        else:
+        except StakeholderNotInGroup:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -256,7 +257,7 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
                     request, organization_access
                 )
             else:
-                response = templates.invalid_invitation_typed(
+                response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
                     access=organization_access,
@@ -275,37 +276,41 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
 
 async def reject_access(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
+    loaders: Dataloaders = get_new_context()
     if url_token:
-        group_access = await group_access_domain.get_access_by_url_token(
-            url_token
-        )
-        if group_access:
-            invitation = group_access["invitation"]
-            if invitation["is_used"]:
+        try:
+            group_access: GroupAccess = (
+                await group_access_domain.get_access_by_url_token(
+                    loaders, url_token
+                )
+            )
+
+            invitation = group_access.invitation
+            if invitation and invitation.is_used:
                 return templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access=group_access,
+                    group_access,
                 )
             success = await groups_domain.reject_register_for_group_invitation(
-                get_new_context(), group_access
+                loaders, group_access
             )
             if success:
-                group_name: str = str(get_key_or_fallback(group_access))
+                group_name = group_access.group_name
                 redis_del_by_deps_soon(
                     "reject_access",
                     group_name=group_name,
                 )
-                response = await templates.reject_invitation(
+                response = await templates.reject_invitation_typed(
                     request, group_access
                 )
             else:
                 response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access=group_access,
+                    group_access,
                 )
-        else:
+        except StakeholderNotInGroup:
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -341,7 +346,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                     request, organization_access
                 )
             else:
-                response = templates.invalid_invitation_typed(
+                response = templates.invalid_invitation(
                     request, "Invalid or Expired", organization_access
                 )
         except StakeholderNotInOrganization:

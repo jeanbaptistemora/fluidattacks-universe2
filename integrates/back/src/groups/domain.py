@@ -138,9 +138,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from newutils.validations import (
     validate_alphanumeric_field,
     validate_email_address,
@@ -195,17 +192,19 @@ async def _has_repeated_tags(
 
 async def complete_register_for_group_invitation(
     loaders: Any,
-    group_access: dict[str, Any],
+    group_access: GroupAccess,
 ) -> bool:
     coroutines: list[Awaitable[bool]] = []
-    invitation = group_access["invitation"]
-    if invitation["is_used"]:
+    invitation = group_access.invitation
+    if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = get_key_or_fallback(group_access)
-    responsibility = invitation["responsibility"]
-    role = str(invitation["role"])
-    user_email = str(group_access["user_email"])
+    group_name = group_access.group_name
+    user_email = group_access.email
+    if invitation:
+        responsibility = invitation.responsibility
+        role = invitation.role
+        url_token = invitation.url_token
 
     coroutines.append(
         authz.grant_group_level_role(user_email, group_name, role),
@@ -228,7 +227,7 @@ async def complete_register_for_group_invitation(
             invitation=GroupInvitation(
                 is_used=True,
                 role=role,
-                url_token=invitation["url_token"],
+                url_token=url_token,
                 responsibility=responsibility,
             ),
             responsibility=responsibility,
@@ -307,15 +306,15 @@ async def complete_register_for_organization_invitation(
 
 async def reject_register_for_group_invitation(
     loaders: Any,
-    group_access: dict[str, Any],
+    group_access: GroupAccess,
 ) -> bool:
     success: bool = False
-    invitation = group_access["invitation"]
-    if invitation["is_used"]:
+    invitation = group_access.invitation
+    if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
-    group_name = get_key_or_fallback(group_access)
-    user_email = str(group_access["user_email"])
+    group_name = group_access.group_name
+    user_email = group_access.email
     success = await group_access_domain.remove_access(
         loaders, user_email, group_name
     )

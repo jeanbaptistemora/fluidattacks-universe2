@@ -1,3 +1,6 @@
+from db_model.group_access.types import (
+    GroupAccess,
+)
 from db_model.groups.types import (
     GroupMetadataToUpdate,
 )
@@ -9,9 +12,6 @@ from functools import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 from groups import (
     domain as groups_domain,
@@ -101,10 +101,11 @@ async def add_forces_user(info: GraphQLResolveInfo, group_name: str) -> bool:
         group_name=group_name,
         modified_by=modified_by,
     )
+    loaders = info.context.loaders
 
     # Give permissions directly, no confirmation required
-    group_access = await group_access_domain.get_user_access(
-        user_email, group_name
+    group_access: GroupAccess = await loaders.group_access.load(
+        (group_name, user_email)
     )
     success = (
         success

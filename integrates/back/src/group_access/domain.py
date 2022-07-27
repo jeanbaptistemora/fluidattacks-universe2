@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    InvalidAuthorization,
     RequestedInvitationTooSoon,
     StakeholderNotInGroup,
 )
@@ -23,6 +24,7 @@ from db_model.findings.utils import (
     filter_non_state_status_findings,
 )
 from db_model.group_access.types import (
+    GroupAccess,
     GroupAccessMetadataToUpdate,
 )
 from db_model.stakeholders.types import (
@@ -40,6 +42,9 @@ from dynamodb.types import (
 from group_access import (
     dal as group_access_dal,
 )
+from jose import (
+    JWTError,
+)
 from newutils import (
     stakeholders as stakeholders_utils,
 )
@@ -47,6 +52,12 @@ from newutils.datetime import (
     get_from_epoch,
     get_minus_delta,
     get_now,
+)
+from newutils.token import (
+    decode_jwt,
+)
+from newutils.utils import (
+    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -59,11 +70,17 @@ async def add_user_access(email: str, group: str, role: str) -> bool:
     ) and await authz.grant_group_level_role(email, group, role)
 
 
-async def get_access_by_url_token(url_token: str) -> dict[str, Any]:
-    access: list[
-        dict[str, Any]
-    ] = await group_access_dal.get_access_by_url_token(url_token)
-    return access[0] if access else {}
+async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
+    try:
+        token_content = decode_jwt(url_token)
+        group_name = str(get_key_or_fallback(token_content))
+        user_email: str = token_content["user_email"]
+    except JWTError:
+        InvalidAuthorization()
+    access: GroupAccess = await loaders.group_access.load(
+        (group_name, user_email)
+    )
+    return access
 
 
 async def get_reattackers(group_name: str, active: bool = True) -> list[str]:

@@ -4,6 +4,9 @@
 from custom_types import (
     GraphicParameters,
 )
+from db_model.group_access.types import (
+    GroupAccess,
+)
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
@@ -30,6 +33,7 @@ from typing import (
     Any,
     Dict,
     Optional,
+    Union,
 )
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
@@ -102,35 +106,27 @@ def graphic_view(
     )
 
 
-def invalid_invitation_typed(
+def invalid_invitation(
     request: Request,
     error: str,
-    access: Optional[OrganizationAccess] = None,
+    access: Union[Optional[OrganizationAccess], Optional[GroupAccess]] = None,
 ) -> HTMLResponse:
-    entity_name = access.organization_id if access else ""
+    if isinstance(access, OrganizationAccess):
+        entity_name = access.organization_id if access else ""
+        return TEMPLATING_ENGINE.TemplateResponse(
+            name="invalid_invitation.html",
+            context={
+                "error": error,
+                "group_name": entity_name,
+                "request": request,
+            },
+        )
+    entity_name = access.group_name if access else ""
     return TEMPLATING_ENGINE.TemplateResponse(
         name="invalid_invitation.html",
         context={
             "error": error,
             "group_name": entity_name,
-            "request": request,
-        },
-    )
-
-
-def invalid_invitation(
-    request: Request,
-    error: str,
-    group_access: Optional[Dict[str, Any]] = None,
-) -> HTMLResponse:
-    group_name = (
-        get_key_or_fallback(group_access, fallback="") if group_access else ""
-    )
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="invalid_invitation.html",
-        context={
-            "error": error,
-            "group_name": group_name,
             "request": request,
         },
     )
@@ -171,28 +167,22 @@ def unauthorized(request: Request) -> HTMLResponse:
 
 
 async def valid_invitation_typed(
-    request: Request, access: OrganizationAccess
+    request: Request, access: Union[OrganizationAccess, GroupAccess]
 ) -> HTMLResponse:
-    entity_name = access.organization_id
+    if isinstance(access, OrganizationAccess):
+        entity_name = access.organization_id
+        return TEMPLATING_ENGINE.TemplateResponse(
+            name="valid_invitation.html",
+            context={
+                "group_name": entity_name,
+                "request": request,
+            },
+        )
+    entity_name = access.group_name
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_invitation.html",
         context={
             "group_name": entity_name,
-            "request": request,
-        },
-    )
-
-
-async def valid_invitation(
-    request: Request, group_access: Dict[str, Any]
-) -> HTMLResponse:
-    group_name = (
-        get_key_or_fallback(group_access, fallback="") if group_access else ""
-    )
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="valid_invitation.html",
-        context={
-            "group_name": group_name,
             "request": request,
         },
     )
@@ -224,9 +214,18 @@ def invalid_confirm_deletion(
 
 
 async def reject_invitation_typed(
-    request: Request, access: OrganizationAccess
+    request: Request, access: Union[OrganizationAccess, GroupAccess]
 ) -> HTMLResponse:
-    entity_name = access.organization_id
+    if isinstance(access, OrganizationAccess):
+        entity_name = access.organization_id
+        return TEMPLATING_ENGINE.TemplateResponse(
+            name="reject_invitation.html",
+            context={
+                "group_name": entity_name,
+                "request": request,
+            },
+        )
+    entity_name = access.group_name
     return TEMPLATING_ENGINE.TemplateResponse(
         name="reject_invitation.html",
         context={
