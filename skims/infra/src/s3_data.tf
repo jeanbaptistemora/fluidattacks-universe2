@@ -57,15 +57,15 @@ resource "aws_s3_bucket_lifecycle_configuration" "skims_data" {
     }
 
     abort_incomplete_multipart_upload {
-      days_after_initiation = 15
+      days_after_initiation = 7
     }
 
     noncurrent_version_expiration {
-      noncurrent_days = 15
+      noncurrent_days = 7
     }
 
     expiration {
-      days = 15
+      days = 7
     }
   }
   rule {
@@ -77,15 +77,15 @@ resource "aws_s3_bucket_lifecycle_configuration" "skims_data" {
     }
 
     abort_incomplete_multipart_upload {
-      days_after_initiation = 15
+      days_after_initiation = 7
     }
 
     noncurrent_version_expiration {
-      noncurrent_days = 15
+      noncurrent_days = 7
     }
 
     expiration {
-      days = 15
+      days = 7
     }
   }
 }
