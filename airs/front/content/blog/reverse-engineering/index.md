@@ -4,7 +4,7 @@ title: Opening the Program's Box
 date: 2020-03-11
 subtitle: General ideas about Software Reverse Engineering
 category: attacks
-tags: revert, software, engineering, cybersecurity, vulnerability, hacking
+tags: ethical-hacking, software, cybersecurity, vulnerability, hacking, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331058/blog/reverse-engineering/cover_nsktcf.webp
 alt: Photo by Erda Estremera on Unsplash
 description: Here we review some basic concepts of reverse engineering within information technology and through what tools it can be used for ethical and malicious hacking.

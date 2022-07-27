@@ -4,7 +4,7 @@ title: A New Milestone for the Industry
 date: 2022-03-04
 subtitle: The new version of ISO 27002 is now published
 category: politics
-tags: standard, cybersecurity, operations, company, protect
+tags: standard, cybersecurity, company, protect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1646424220/blog/iso-iec-27002-2022/cover_iso27002.webp
 alt: Photo by Stephanie McCabe on Unsplash
 description: This standard, used by organizations to select security controls that suit their needs, got a long-awaited update. Read this post to find out what changed.

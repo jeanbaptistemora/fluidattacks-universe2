@@ -4,7 +4,7 @@ title: Your Phone Is All Eyes and Ears
 date: 2021-10-11
 subtitle: Android devices are catching FluBot and TangleBot
 category: attacks
-tags: android, cybersecurity, credential, malware, social-engineering, risk
+tags: cybersecurity, credential, malware, social-engineering, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1633991486/blog/android-flubot-tanglebot/cover_android.webp
 alt: Photo by Markus Winkler on Unsplash
 description: Read this post to learn about two Android malware campaigns. FluBot fools its victims using clever lures and TangleBot can be used to spy on the victims.

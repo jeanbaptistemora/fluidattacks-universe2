@@ -4,7 +4,7 @@ title: Pars Orationis Non Est Secura
 date: 2018-03-22
 subtitle: Using parser combinators to detect flaws
 category: attacks
-tags: detect, vulnerability, software, scanner, security-testing
+tags: vulnerability, software, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330971/blog/pars-orationis-secura/cover_gvmczz.webp
 alt: Person holding sticky note
 description: Learn here how to use Python and pyparsing to parse application code in order to find SQL injections in bWAPP.

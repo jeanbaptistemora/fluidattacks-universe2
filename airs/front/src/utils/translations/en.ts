@@ -120,6 +120,16 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Exploit.",
       title: "exploit",
     },
+    hevd: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with HEVD.",
+      title: "hevd",
+    },
+    kernel: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Kernel.",
+      title: "kernel",
+    },
     machineLearning: {
       description: "[under construction]",
       metaDescription:
@@ -184,10 +194,20 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts tagged with Vulnerability.",
       title: "vulnerability",
     },
+    vulnserver: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Vulnserver.",
+      title: "vulnserver",
+    },
     web: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Web.",
       title: "web",
+    },
+    windows: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Windows.",
+      title: "windows",
     },
   },
   categories: {

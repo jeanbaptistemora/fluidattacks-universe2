@@ -4,7 +4,7 @@ title: Always 100% Ready for Remote Work
 date: 2020-04-07
 subtitle: The product of a valuable effort over ten years ago
 category: opinions
-tags: cybersecurity, company, protect, healthcare
+tags: cybersecurity, company, protect
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/remote-work/cover_sszd41.webp
 alt: Photo by Charles Deluvio on Unsplash
 description: Here is an overview of what our technological architecture and our way of operation are, which allow us to have the capacity to work 100% remotely and safely.

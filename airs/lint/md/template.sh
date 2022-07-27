@@ -46,7 +46,6 @@ function check_md_blog_patterns {
 function check_md_blog_tags {
   local target="${1}"
   local valid_tags=(
-    android
     application
     blue-team
     cloud
@@ -54,32 +53,19 @@ function check_md_blog_tags {
     company
     credential
     cybersecurity
-    detect
     devops
-    encryption
-    engineering
     ethical-hacking
     exploit
-    flaw
-    functional
     hacking
-    healthcare
     hevd
-    htb
-    javascript
     kernel
     machine-learning
     malware
-    math
-    operations
     pentesting
     policies
     protect
-    pwn
     red-team
-    revert
     risk
-    scanner
     security-testing
     social-engineering
     software
@@ -87,7 +73,6 @@ function check_md_blog_tags {
     technology
     training
     trend
-    vector
     vulnerability
     vulnserver
     web

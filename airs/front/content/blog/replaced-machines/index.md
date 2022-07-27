@@ -4,7 +4,7 @@ title: Will Machines Replace Us?
 date: 2018-02-13
 category: philosophy
 subtitle: Automatic detection vs. manual detection
-tags: application, detect, vulnerability, scanner
+tags: application, security-testing, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331053/blog/replaced-machines/cover_yfml2t.webp
 alt: Data has a better idea sign
 description: Vulnerability detection by an automated tool is not enough to conclude that an app is secure. The knowledge and experience of a person are still necessary.

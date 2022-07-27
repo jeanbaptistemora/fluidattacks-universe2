@@ -4,7 +4,7 @@ title: Is Your App in a Pickle?
 date: 2018-02-08
 subtitle: Documenting vulnerabilities with gherkin
 category: development
-tags: vulnerability, exploit, vector, software, web
+tags: vulnerability, exploit, software, web
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330662/blog/app-pickle/cover_cmww8t.webp
 alt: Cucumber slices
 description: Gherkin can be used for documentation and automated testing. Here we focus on its basics and how we can use it to show how a given website can be attacked.

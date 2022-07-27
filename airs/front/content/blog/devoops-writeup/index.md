@@ -4,7 +4,7 @@ title: DevOops Writeup
 date: 2018-10-16
 category: attacks
 subtitle: How to resolve HTB DevOops
-tags: cybersecurity, htb, pwn, web
+tags: cybersecurity, exploit, vulnerability, web, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330849/blog/devoops-writeup/cover_sebbts.webp
 alt: Developers programming in an office
 description: In this article, we present how to exploit the vulnerabilities of DevOops, a Linux Hack the Box machine, and how to gain access and obtain the root flag.

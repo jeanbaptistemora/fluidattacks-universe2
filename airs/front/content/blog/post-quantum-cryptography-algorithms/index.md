@@ -4,7 +4,7 @@ title: Approved Post-Quantum Cryptography?
 date: 2022-07-22
 subtitle: NIST chose four algorithms, and four others are pending
 category: politics
-tags: encryption, standard, protect, cybersecurity, technology
+tags: standard, protect, cybersecurity, technology
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1658499864/blog/post-quantum-cryptography-algorithms/cover_post-quantum-cryptography-algorithms.webp
 alt: Photo by Billy Huynh on Unsplash
 description: NIST chose the first four quantum-resistant cryptography algorithms. Here you'll learn about it with an intro to public key cryptography and quantum computing.

@@ -4,7 +4,7 @@ title: Querier Writeup
 date: 2019-06-28
 category: attacks
 subtitle: How to solve HTB Querier
-tags: cybersecurity, htb, pwn, web, windows
+tags: cybersecurity, pentesting, vulnerability, web, training, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331039/blog/querier-writeup/cover_tthq17.webp
 alt: New York City Skyline
 description: Here we explain how to use Querier's insecure configurations to gain system access, and how to escalate to administrator privileges with pentesting tools.

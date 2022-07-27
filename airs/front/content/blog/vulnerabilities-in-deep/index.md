@@ -4,7 +4,7 @@ title: Vulnerabilities in Deep Learning
 date: 2019-09-23
 category: development
 subtitle: Deep Learning for vulnerability disclosure
-tags: machine-learning, detect, software
+tags: machine-learning, security-testing, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331140/blog/vulnerabilities-in-deep/cover_ihaxpf.webp
 alt: Photo by Franki Chamaki on Unsplash
 description: In this blog post, we discuss an article from Boston University that presents new applications of Artificial Intelligence in the security field.

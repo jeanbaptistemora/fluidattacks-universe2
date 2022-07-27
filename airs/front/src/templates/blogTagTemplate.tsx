@@ -64,6 +64,16 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.exploit.title"),
     },
     {
+      description: translate.t("blogListTags.hevd.description"),
+      metaDescription: translate.t("blogListTags.hevd.metaDescription"),
+      title: translate.t("blogListTags.hevd.title"),
+    },
+    {
+      description: translate.t("blogListTags.kernel.description"),
+      metaDescription: translate.t("blogListTags.kernel.metaDescription"),
+      title: translate.t("blogListTags.kernel.title"),
+    },
+    {
       description: translate.t("blogListTags.machineLearning.description"),
       metaDescription: translate.t(
         "blogListTags.machineLearning.metaDescription"
@@ -132,9 +142,19 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.vulnerability.title"),
     },
     {
+      description: translate.t("blogListTags.vulnserver.description"),
+      metaDescription: translate.t("blogListTags.vulnserver.metaDescription"),
+      title: translate.t("blogListTags.vulnserver.title"),
+    },
+    {
       description: translate.t("blogListTags.web.description"),
       metaDescription: translate.t("blogListTags.web.metaDescription"),
       title: translate.t("blogListTags.web.title"),
+    },
+    {
+      description: translate.t("blogListTags.windows.description"),
+      metaDescription: translate.t("blogListTags.windows.metaDescription"),
+      title: translate.t("blogListTags.windows.title"),
     },
   ];
 
