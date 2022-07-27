@@ -79,7 +79,10 @@ async def send_users_weekly_report() -> None:
         ] = await loaders.group_stakeholders.load(group_name)
         for stakeholder in group_stakeholders:
             stakeholder_role = await group_access_domain.get_stakeholder_role(
-                stakeholder.email, group_name, stakeholder.is_registered
+                loaders,
+                stakeholder.email,
+                group_name,
+                stakeholder.is_registered,
             )
             if stakeholder_role in ["customer_manager", "user_manager"]:
                 if users[stakeholder.email]:

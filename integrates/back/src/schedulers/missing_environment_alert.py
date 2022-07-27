@@ -71,7 +71,7 @@ async def _send_mail_report(
         stakeholder.email
         for stakeholder in group_stakeholders
         if await group_access_domain.get_stakeholder_role(
-            stakeholder.email, group, stakeholder.is_registered
+            loaders, stakeholder.email, group, stakeholder.is_registered
         )
         in ["customer_manager", "user_manager", "vulnerability_manager"]
     ]

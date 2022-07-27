@@ -23,6 +23,9 @@ from db_model.findings.update import (
 from db_model.findings.utils import (
     filter_non_state_status_findings,
 )
+from db_model.group_access.enums import (
+    GroupInvitiationState,
+)
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
@@ -36,22 +39,19 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
-from dynamodb.types import (
-    Item,
-)
 from group_access import (
     dal as group_access_dal,
 )
 from jose import (
     JWTError,
 )
-from newutils import (
-    stakeholders as stakeholders_utils,
-)
 from newutils.datetime import (
     get_from_epoch,
     get_minus_delta,
     get_now,
+)
+from newutils.group_access import (
+    format_invitation_state,
 )
 from newutils.token import (
     decode_jwt,
@@ -251,47 +251,23 @@ def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     return True
 
 
-async def get_invitation_state(
-    email: str,
-    group_name: str,
-    is_registered: bool,
-) -> str:
-    user_access = await get_user_access(email, group_name)
-    invitation: Item = user_access.get("invitation", {})
-    return stakeholders_utils.format_invitation_state(
-        invitation, is_registered
-    )
-
-
-async def get_responsibility(
-    email: str,
-    group_name: str,
-    is_registered: bool,
-) -> str:
-    user_access = await get_user_access(email, group_name)
-    invitation: Item = user_access.get("invitation", {})
-    invitation_state = stakeholders_utils.format_invitation_state(
-        invitation, is_registered
-    )
-    return (
-        invitation["responsibility"]
-        if invitation_state == "PENDING"
-        else user_access.get("responsibility", "")
-    )
-
-
 async def get_stakeholder_role(
+    loaders: Any,
     email: str,
     group_name: str,
     is_registered: bool,
 ) -> str:
-    user_access = await get_user_access(email, group_name)
-    invitation: Item = user_access.get("invitation", {})
-    invitation_state = stakeholders_utils.format_invitation_state(
-        invitation, is_registered
+    if not await exist(loaders, group_name, email):
+        group_access = GroupAccess(email=email, group_name=group_name)
+    else:
+        group_access = await loaders.group_access.load((group_name, email))
+    group_invitation_state = format_invitation_state(
+        invitation=group_access.invitation,
+        is_registered=is_registered,
     )
     return (
-        invitation["role"]
-        if invitation_state == "PENDING"
+        group_access.invitation.role
+        if group_access.invitation
+        and group_invitation_state == GroupInvitiationState.PENDING
         else await authz.get_group_level_role(email, group_name)
     )

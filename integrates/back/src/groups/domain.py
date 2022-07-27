@@ -1850,7 +1850,7 @@ async def send_mail_policies(
         stakeholder.email
         for stakeholder in group_stakeholders
         if await group_access_domain.get_stakeholder_role(
-            stakeholder.email, group_name, stakeholder.is_registered
+            loaders, stakeholder.email, group_name, stakeholder.is_registered
         )
         in ["customer_manager", "user_manager"]
     ]
