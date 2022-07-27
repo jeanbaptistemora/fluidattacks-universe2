@@ -1,21 +1,21 @@
 import styled from "styled-components";
 
 interface ICardBoxProps {
-  elevated?: boolean;
+  float?: boolean;
   onClick?: () => void;
 }
 
 const CardBox = styled.div.attrs({
   className: "comp-card",
 })<ICardBoxProps>`
-  ${({ elevated = false, onClick }): string => `
+  ${({ float = false, onClick }): string => `
   background-color: #f4f4f6;
   border-radius: 4px;
   padding: 20px;
   transition: all 0.3s ease;
 
   ${
-    elevated
+    float
       ? `box-shadow: 0 2px 5px 0 #b0b0bf;
     ${
       onClick === undefined

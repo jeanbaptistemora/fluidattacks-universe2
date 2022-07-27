@@ -112,7 +112,7 @@ export const TreatmentTracking: React.FC<ITreatmentTrackingAttr> = ({
                 : treatment.assigned;
 
               return (
-                <Card key={treatment.date} title={treatment.date}>
+                <Card float={true} key={treatment.date} title={treatment.date}>
                   <h3>
                     {t(formatDropdownField(treatment.treatment))}
                     {pendingApproval

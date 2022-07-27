@@ -15,7 +15,7 @@ const Default: Story = (): JSX.Element => (
   <Timeline>
     {[23, 24, 25, 26].map(
       (el: number): JSX.Element => (
-        <Card elevated={true} key={el} title={`2022-07-${el}`}>
+        <Card float={true} key={el} title={`2022-07-${el}`}>
           <Text fw={7} mb={1} size={3}>
             {"Lorem ipsum"}
           </Text>

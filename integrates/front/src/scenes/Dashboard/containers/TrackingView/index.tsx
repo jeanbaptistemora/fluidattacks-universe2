@@ -63,7 +63,7 @@ const TrackingView: React.FC = (): JSX.Element => {
           <Timeline>
             {tracking.map((closing: ITracking): JSX.Element => {
               return (
-                <Card key={closing.cycle} title={closing.date}>
+                <Card float={true} key={closing.cycle} title={closing.date}>
                   <h3>
                     {closing.cycle > 0 ? (
                       <span>
