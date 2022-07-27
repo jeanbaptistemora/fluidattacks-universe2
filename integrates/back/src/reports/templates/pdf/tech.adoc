@@ -42,18 +42,10 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 
 //Quinta pagina - Vista general
 <<<
+[%notitle]
 === {{resume_page_title}}
-{{main_pie_filename}}
-.{{resume_ttab_title}}
-[cols="^,^,^,^", options="header"]
-|===
-|{{severity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
-{% for row in main_tables['resume'] %}
-  {% for col in row %}
-    {{"| "+col|string}}
-  {%- endfor %}
-{%- endfor %}
-|===
+{{general_view_pdf}}
+
 //Sexta pagina - Vista general
 <<<
 .{{resume_top_title}}

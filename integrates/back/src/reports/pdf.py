@@ -99,6 +99,7 @@ Context = TypedDict(
         "accessVector": Optional[str],
         "finding_title": str,
         "finding_section_title": str,
+        "general_view_pdf": str,
         "where_title": str,
         "description_title": str,
         "resume_vuln_title": str,
@@ -400,6 +401,9 @@ class CreatorPdf:
         )
         self.group_name = group
         self.user_email = user
+        self.out_name_general_view = (
+            f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        )
         if self.doctype == "tech":
             self.proj_tpl = "templates/pdf/tech.adoc"
 
@@ -465,6 +469,7 @@ class CreatorPdf:
             "main_tables": main_tables,
             "findings": context_findings,
             "accessVector": access_vector,
+            "general_view_pdf": f"image::{self.out_name_general_view}[]",
             # Titulos segun lenguaje
             "finding_title": words["finding_title"],
             "finding_section_title": words["finding_section_title"],
@@ -642,6 +647,14 @@ class CreatorPdf:
             "templates/pdf/finding_table.adoc",
             loaders,
             self.out_name_finding_table,
+        )
+
+        await self.get_page(
+            template_env,
+            "general_view",
+            "templates/pdf/general_view.adoc",
+            loaders,
+            self.out_name_general_view,
         )
 
         template = template_env.get_template(self.proj_tpl)

@@ -1,0 +1,13 @@
+:page-background-image: image::../resources/themes/background-general-view.png[]
+
+{{main_pie_filename}}
+.{{resume_ttab_title}}
+[cols="^,^,^,^", options="header"]
+|===
+|{{severity_title}}|{{finding_title}}s|{{resume_perc_title}}|{{resume_vuln_title}}
+{% for row in main_tables['resume'] %}
+  {% for col in row %}
+    {{"| "+col|string}}
+  {%- endfor %}
+{%- endfor %}
+|===
