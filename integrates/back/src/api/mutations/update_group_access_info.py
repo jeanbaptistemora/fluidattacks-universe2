@@ -55,7 +55,6 @@ async def mutate(
             kwargs.get("group_context", "")
         )
         validations_utils.validate_field_length(group_context, 20000)
-        validations_utils.validate_fields([group_context])
         await groups_domain.update_metadata(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(
