@@ -45,7 +45,7 @@ class PlainRecord:
         return self._inner.record
 
     @staticmethod
-    def new(record: SingerRecord) -> ResultE[PlainRecord]:
+    def from_singer(record: SingerRecord) -> ResultE[PlainRecord]:
         items = (
             Unfolder(JsonValue(record.record))
             .to_unfolder_dict()
@@ -60,3 +60,7 @@ class PlainRecord:
             .map(lambda x: FrozenDict(dict(x)))
         )
         return items.map(lambda d: PlainRecord(_PlainRecord(record.stream, d)))
+
+    @staticmethod
+    def new(stream: str, record: FrozenDict[str, Primitive]) -> PlainRecord:
+        return PlainRecord(_PlainRecord(stream, record))
