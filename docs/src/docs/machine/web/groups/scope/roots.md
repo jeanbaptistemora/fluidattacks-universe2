@@ -313,7 +313,7 @@ of mistakes when adding a root,
 but if you just
 need to update the URL,
 branch or any other root attributes,
-refer to [Editing git roots](#editing-git-roots)
+refer to [Editing git roots](#editing-git-roots).
 
 ### Moved to another group
 
@@ -354,6 +354,60 @@ We manage a total of 5 status.
   meaning it has not yet
   been cloned or is glued
   for this action.
+
+## Git Roots table
+
+The Git Roots table gives us
+summary information of the
+repositories I want to be analyzed.
+
+![Roots Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1659029031/docs/web/groups/scope/git_roots_table.png)
+
+This table shows the
+following information:
+
+- **URL:**
+  Refers to the URL of the
+  repository where the code
+  to be cloned is located.
+- **Branch:**
+  The branch I am going to clone.
+  Remember we assess only one
+  repository branch per group.
+  For more information click
+  [here](/machine/web/groups/scope/roots#single-root-assessment).
+- **State:**
+  There are two states:
+  **Active** and **Inactive**.
+  **Active** means that the root
+  is being tested and **Inactive**
+  means that the root is no longer being tested.
+- **Status:**
+  There are five:
+  Cloning,
+  OK,
+  Failed,
+  N/A and Unknown.
+  For more information click
+  [here](/machine/web/groups/scope/roots/#status-in-git-root).
+- **HCK:**
+  If **Health Check**
+  is included in that repository.
+- **Sync:**
+  Request to clone that
+  repository once again since
+  changes have been generated
+  and it is required to
+  have it updated.
+
+There is also a downward-facing arrow
+on the left of the Type column,
+which,
+upon click,
+will unfold the description
+for each repository.
+
+![Description Repository](https://res.cloudinary.com/fluid-attacks/image/upload/v1659029031/docs/web/groups/scope/git_root_table_repo.png)
 
 ## Secrets
 
