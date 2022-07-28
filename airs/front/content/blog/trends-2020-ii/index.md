@@ -182,6 +182,13 @@ essential to maintaining a good security posture,*” says
 [Netsparker](https://www.netsparker.com/blog/web-security/top-10-cybersecurity-trends-to-look-out-for-in-2020/).
 Others are not that sure about it, as there needs to be a skilled talent
 to operate and fully leverage these solutions.
+Besides,
+in our view,
+[vulnerability management](../../solutions/vulnerability-management/)
+should include ethical hackers' manual techniques
+for identifying,
+classifying
+and prioritizing the security issues in information systems.
 
 Companies should invest in training for promising talent, rather than
 betting only to recruit skilled talent as the shortage is definite.

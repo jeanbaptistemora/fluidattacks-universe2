@@ -187,3 +187,7 @@ The second part of this conversation will be published shortly. We hope
 you have enjoyed this post and we look forward to hearing from
 customers, partners, and friends. Do you want to share your thoughts?
 [Do get in touch with us\!](../../contact-us/)
+Also,
+read about our [DevSecOps solution](../../solutions/devsecops/),
+which helps teams implement security
+from the beginning of software development.

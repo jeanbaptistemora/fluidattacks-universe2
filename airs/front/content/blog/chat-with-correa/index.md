@@ -77,7 +77,8 @@ face?**
     Maersk](https://www.forbes.com/sites/leemathews/2017/08/16/notpetya-ransomware-attack-cost-shipping-giant-maersk-over-200-million/#5aa1017f4f9a),
     the Danish shipping company.
 
-At `Fluid Attacks`, we blend automation with the best talent in hacking
+At `Fluid Attacks`, we blend automation with the best talent in
+[ethical hacking](../what-is-ethical-hacking/)
 to find weaknesses in our customer’s systems by means of our
 [Continuous](../../services/continuous-hacking/) and [One-shot
 Hacking](../../services/one-shot-hacking/) services. As Daniel says,
@@ -103,7 +104,7 @@ organizations and people?**
 
 1. [*Phishing*](../phishing/). [It still makes it to the
     ranks](https://www.thesslstore.com/blog/the-top-9-cyber-security-threats-that-will-ruin-your-day/).
-    Even with `ML`-based recognition on email providers, browsers
+    Even with `ML`-based recognition on email providers, browser
     extensions, and endpoint software protections against this threat,
     nothing reduces to a great deal the odds of falling to well crafted
     phishing communications. Human psychology at play.
@@ -229,7 +230,8 @@ Eddins Jr.](https://media.defense.gov/2018/Mar/14/2001890169/-1/-1/0/180221-F-SK
 
 <!-- end list -->
 
-1. Second, use a red teaming approach. Diversity of perspective adds
+1. Second, use a [red teaming](../../solutions/red-teaming/) approach.
+    Diversity of perspective adds
     value. One or two security analysts —a typical setting— could do a
     good job, but a more diverse approach to attacking could mean
     exceptional performance.

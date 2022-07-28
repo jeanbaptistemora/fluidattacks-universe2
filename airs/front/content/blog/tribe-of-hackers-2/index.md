@@ -75,10 +75,15 @@ frameworks and hacking tools. The ways in which the attackers can gain
 and leverage access are then reported to the client. Accordingly,
 Benjamin comments: "If you want to join one of these teams, you need to
 be focusing on training on breach simulation because that’s what their
-world is all about." Besides, he says that you don’t usually need lots
+world is all about."
+Indeed,
+at `Fluid Attacks`
+[breach and attack simulation](../../solutions/attack-simulation/)
+is part of our job.
+Moreover, Ben says that you don’t usually need lots
 of certificates for a job like this, and you don’t even have to possess
 college degrees if you have enough skills and make yourself known. Such
-is the case for working at `Fluid Attacks` as an [ethical hacker or
+is the case for working with us as an [ethical hacker or
 pentester](../../careers/openings/), for example.
 
 Ben refers to the second group as "the security engineering-type team."

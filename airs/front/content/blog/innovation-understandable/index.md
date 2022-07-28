@@ -158,13 +158,18 @@ innovation.**
     cybersecurity anomalies in 1.5 hours or 2. Before, we knew about
     breaches two days after incidents. We can now contain attacks when
     they are occurring. For example, for the first time, we could detect
-    **Fluid Attacks** in our most recent ethical hacking project.
+    **Fluid Attacks** in our most recent ethical hacking project."
 
-2. We will post the second part soon, in which we discuss risk
-    management,setbacks and lessons, truths and lies in cybersecurity,
-    and user behaviors.
+Check out the [second part](../sensible-cybersecurity/) of this interview,
+in which we discuss risk
+management, setbacks and lessons,
+truths and lies in cybersecurity,
+and user behaviors.
 
-Interested in our approach? Take a look at our [Continuous
+Interested in our approach?
+We offer [ethical hacking](../../solutions/ethical-hacking/)
+in combination with automatic scans.
+Take a look at our [Continuous
 Hacking](../../services/continuous-hacking/) and
 [One-shot](../../services/one-shot-hacking/) Hacking services.
 

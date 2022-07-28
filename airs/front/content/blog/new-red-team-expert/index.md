@@ -200,7 +200,8 @@ certification?**
 We are grateful to Daniel for sharing this information with us, and
 again we congratulate him on his new achievement.
 It is an honor to have accomplished experts like him on our [red team](../../solutions/red-teaming/).
-We hope to bring you more interviews with them in the future.
+We hope to bring you more interviews with them in the future,
+as well as information related to certifications in [pentesting](../../solutions/penetration-testing/).
 By the way, we
 constantly publish content on attacks. So, if you are interested in
 learning how to perform some techniques, don’t hesitate to subscribe to

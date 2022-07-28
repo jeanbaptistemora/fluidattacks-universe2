@@ -197,5 +197,9 @@ Figure 4. an example of (Base and Temporal) metrics in Integrates
 
 </div>
 
-If you want to know more about it, we invite you to [contact
-us](../../contact-us/).
+If you want to know more about it,
+and how we check vulnerabilities
+in your software's open-source dependencies
+while you develop,
+helping you implement DevSecOps,
+we invite you to [contact us](../../contact-us/).
