@@ -14,4 +14,4 @@ Follow the the product [guide](https://gitlab.com/fluidattacks/universe).
 
 ## Usage
 
-Make sure you own an integrates API token. Follow this [guide](https://community.fluidattacks.com/t/integrates-api-access/540/1) to generate it. Set the `INTEGRATES_API_TOKEN` variable in your shell's profile file.
+Make sure you own an ASM API token. Follow this [guide](https://docs.fluidattacks.com/machine/api#using-the-asm-api-token) to generate it. Set the `INTEGRATES_API_TOKEN` variable in your shell's profile file.
