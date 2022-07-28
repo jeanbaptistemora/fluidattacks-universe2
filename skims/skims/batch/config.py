@@ -405,7 +405,12 @@ async def generate_config(
         ),
         start_dir=os.getcwd(),
         working_dir=os.path.abspath(working_dir),
-        execution_id=f"{group_name}_{uuid.uuid4().hex}",
+        execution_id=(
+            f"{group_name}"
+            f'_{os.environ.get("AWS_BATCH_JOB_ID", uuid.uuid4().hex)}'
+            f"_{namespace}"
+            f"_{uuid.uuid4().hex[:8]}"
+        ),
     )
 
 
