@@ -7,9 +7,6 @@ from .utils import (
 from aiodataloader import (
     DataLoader,
 )
-from aioextensions import (
-    collect,
-)
 from boto3.dynamodb.conditions import (
     Key,
 )
@@ -27,8 +24,12 @@ from dynamodb import (
     keys,
     operations,
 )
+from dynamodb.types import (
+    Item,
+)
 from typing import (
     Iterable,
+    Optional,
 )
 
 
@@ -55,20 +56,55 @@ async def get_all_stakeholders() -> tuple[Stakeholder, ...]:
     return tuple(format_stakeholder(item) for item in response.items)
 
 
-async def _get_stakeholder(*, email: str) -> Stakeholder:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["stakeholder_metadata"],
-        values={"email": email},
+async def _get_stakeholder_items(
+    *, emails: tuple[str, ...]
+) -> tuple[Item, ...]:
+    primary_keys = tuple(
+        keys.build_key(
+            facet=TABLE.facets["stakeholder_metadata"],
+            values={"email": email},
+        )
+        for email in emails
     )
-    item = await operations.get_item(
-        facets=(TABLE.facets["stakeholder_metadata"],),
-        key=primary_key,
-        table=TABLE,
-    )
-    if not item:
-        raise StakeholderNotFound()
 
-    return format_stakeholder(item)
+    return await operations.batch_get_item(keys=primary_keys, table=TABLE)
+
+
+async def _get_stakeholders_no_fallback(
+    *, emails: tuple[str, ...]
+) -> tuple[Stakeholder, ...]:
+    items = await _get_stakeholder_items(emails=emails)
+
+    if len(items) == len(emails):
+        return tuple(format_stakeholder(item) for item in items)
+
+    raise StakeholderNotFound()
+
+
+async def _get_stakeholders_with_fallback(
+    *,
+    stakeholder_dataloader: DataLoader,
+    emails: tuple[str, ...],
+) -> tuple[Stakeholder, ...]:
+    items = await _get_stakeholder_items(emails=emails)
+
+    stakeholders: list[Stakeholder] = []
+    for email in emails:
+        stakeholder: Optional[Stakeholder] = next(
+            (
+                format_stakeholder(item)
+                for item in items
+                if item.get("email") == email
+            ),
+            None,
+        )
+        if stakeholder:
+            stakeholder_dataloader.prime(email, stakeholder)
+        else:
+            stakeholder = Stakeholder(email=email)
+        stakeholders.append(stakeholder)
+
+    return tuple(stakeholders)
 
 
 class StakeholderLoader(DataLoader):
@@ -76,6 +112,18 @@ class StakeholderLoader(DataLoader):
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[Stakeholder, ...]:
-        return await collect(
-            tuple(_get_stakeholder(email=email) for email in emails)
+        return await _get_stakeholders_no_fallback(emails=tuple(emails))
+
+
+class StakeholderWithFallbackLoader(DataLoader):
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, emails: Iterable[str]
+    ) -> tuple[Stakeholder, ...]:
+        return await _get_stakeholders_with_fallback(
+            stakeholder_dataloader=self.dataloader, emails=tuple(emails)
         )

@@ -351,31 +351,22 @@ async def get_stakeholder_role(
     return stakeholder_role
 
 
-async def get_stakeholders(
-    loaders: Any, organization_id: str
-) -> tuple[Stakeholder, ...]:
-    stakeholders_access: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.organization_stakeholders_access.load(organization_id)
-    stakeholder_emails = [access.email for access in stakeholders_access]
-    stakeholders = [
-        await loaders.stakeholder.load(email)
-        if await stakeholders_domain.exists(loaders, email)
-        else Stakeholder(email=email, is_registered=False)
-        for email in stakeholder_emails
-    ]
-
-    return tuple(stakeholders)
-
-
 async def get_stakeholders_emails(
     loaders: Any, organization_id: str
 ) -> list[str]:
-    org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
-        loaders, organization_id
-    )
+    stakeholders_access: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.organization_stakeholders_access.load(organization_id)
 
-    return [stakeholder.email for stakeholder in org_stakeholders]
+    return [access.email for access in stakeholders_access]
+
+
+async def get_stakeholders(
+    loaders: Any, organization_id: str
+) -> tuple[Stakeholder, ...]:
+    emails = await get_stakeholders_emails(loaders, organization_id)
+
+    return await loaders.stakeholder_with_fallback.load_many(emails)
 
 
 async def has_group(

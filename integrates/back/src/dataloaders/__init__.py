@@ -66,6 +66,7 @@ from db_model.roots.get import (
 )
 from db_model.stakeholders.get import (
     StakeholderLoader,
+    StakeholderWithFallbackLoader,
 )
 from db_model.toe_inputs.get import (
     GroupToeInputsLoader,
@@ -160,6 +161,7 @@ class Dataloaders(NamedTuple):
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderLoader
+    stakeholder_with_fallback: StakeholderWithFallbackLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
     stakeholders_group_access: StakeholdersGroupAccess
@@ -207,6 +209,9 @@ def get_new_context() -> Dataloaders:
     )
 
     stakeholder_loader = StakeholderLoader()
+    stakeholder_with_fallback = StakeholderWithFallbackLoader(
+        stakeholder_loader
+    )
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -265,6 +270,7 @@ def get_new_context() -> Dataloaders:
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
+        stakeholder_with_fallback=stakeholder_with_fallback,
         stakeholder_level_role=StakeholderLevelRoleLoader(),
         stakeholder_organizations_access=(
             StakeholderOrganizationsAccessLoader()
