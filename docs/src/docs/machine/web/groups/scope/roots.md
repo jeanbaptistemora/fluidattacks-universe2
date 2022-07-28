@@ -186,6 +186,23 @@ Remember to click on the
 or validation if the credential
 gives access to clone the repository.
 
+### Managing git root environments
+
+In the edit modal, authorized users will also find the **Environment URLs**
+tab:
+
+![Manage environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1659021837/docs/web/groups/scope/manage_envs_ywyggq.png)
+
+You can click on the **plus(+)** button
+to add the environment URLs
+corresponding to the selected git Root,
+and also delete them
+by clicking on the trash button
+to the right of the URL field.
+To discard or apply the changes
+you can click on **Cancel**
+or **Proceed** respectively.
+
 ## Editing Git roots
 
 If you want to edit the
