@@ -28,9 +28,6 @@ from state.ephemeral import (
 from typing import (
     Dict,
 )
-from utils.logs import (
-    log_blocking,
-)
 
 
 async def get_vulnerabilities(
@@ -71,9 +68,6 @@ async def _report_wrapped(task_id: str) -> None:
         stores[vuln.finding].store(vuln)
     create_session(os.environ["INTEGRATES_API_TOKEN"])
     roots = await get_group_roots(group=group)
-    if not vulnerabilities:
-        log_blocking("warning", "Execution no has vulnerabilities")
-        return
     for root in roots:
         if root.nickname == load_config.namespace:
             if load_config.commit is not None:
