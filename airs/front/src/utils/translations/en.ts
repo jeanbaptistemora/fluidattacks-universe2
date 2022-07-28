@@ -39,66 +39,66 @@ const pageTexts: ResourceKey = {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Alejandro Herrera.",
-      title: "alejandro-herrera",
+      title: "Alejandro Herrera",
     },
     andersonTaguada: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Anderson Taguada.",
-      title: "anderson-taguada",
+      title: "Anderson Taguada",
     },
     andresCuberos: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andres Cuberos.",
-      title: "andres-cuberos",
+      title: "Andres Cuberos",
     },
     andresRoldan: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andres Roldan.",
-      title: "andres-roldan",
+      title: "Andres Roldan",
     },
     andresTirado: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andrés Tirado.",
-      title: "andres-tirado",
+      title: "Andrés Tirado",
     },
     danielSalazar: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Daniel Salazar.",
-      title: "daniel-salazar",
+      title: "Daniel Salazar",
     },
     danielYepes: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Daniel Yepes.",
-      title: "daniel-yepes",
+      title: "Daniel Yepes",
     },
     diegoAlvarez: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Diego Alvarez.",
-      title: "diego-alvarez",
+      title: "Diego Alvarez",
     },
     felipeGomez: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Felipe Gómez.",
-      title: "felipe-gomez",
+      title: "Felipe Gómez",
     },
     felipeRuiz: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts written by Felipe Ruiz.",
-      title: "felipe-ruiz",
+      title: "Felipe Ruiz",
     },
     felipeZarate: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Felipe Zárate.",
-      title: "felipe-zarate",
+      title: "Felipe Zárate",
     },
     jasonChavarria: {
       description: "[under construction]",
@@ -110,76 +110,76 @@ const pageTexts: ResourceKey = {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Jonathan Armas.",
-      title: "jonathan-armas",
+      title: "Jonathan Armas",
     },
     juanAguirre: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Juan Aguirre.",
-      title: "juan-aguirre",
+      title: "Juan Aguirre",
     },
     julianArango: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Julian Arango.",
-      title: "jason-chavarria",
+      title: "Julian Arango",
     },
     kevinAmado: {
       description: "Former member of Fluid Attacks.",
       metaDescription: "Read Fluid Attacks' blog posts written by Kevin Amado.",
-      title: "kevin-amado",
+      title: "Kevin Amado",
     },
     kevinCardona: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Kevin Cardona.",
-      title: "kevin-cardona",
+      title: "Kevin Cardona",
     },
     mateoGutierrez: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Mateo Gutiérrez.",
-      title: "mateo-gutierrez",
+      title: "Mateo Gutiérrez",
     },
     mauricioGomez: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Mauricio Gómez.",
-      title: "mauricio-gomez",
+      title: "Mauricio Gómez",
     },
     oscarPrado: {
       description: "Former member of Fluid Attacks.",
       metaDescription: "Read Fluid Attacks' blog posts written by Oscar Prado.",
-      title: "oscar-prado",
+      title: "Oscar Prado",
     },
     oscarUribe: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts written by Oscar Uribe.",
-      title: "oscar-uribe",
+      title: "Oscar Uribe",
     },
     oswaldoParada: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Oswaldo Parada.",
-      title: "oswaldo-parada",
+      title: "Oswaldo Parada",
     },
     rafaelAlvarez: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Rafael Alvarez.",
-      title: "rafael-alvarez",
+      title: "Rafael Alvarez",
     },
     rafaelBallestas: {
       description: "Former member of Fluid Attacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Rafael Ballestas.",
-      title: "rafael-alvarez",
+      title: "Rafael Ballestas",
     },
     sebastianVillalobos: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Sebastian Villalobos.",
-      title: "sebastian-villalobos",
+      title: "Sebastian Villalobos",
     },
   },
   blogListCategories: {
