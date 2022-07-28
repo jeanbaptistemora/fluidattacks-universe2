@@ -12,8 +12,9 @@ const validateSchema = (): InferType<TypedSchema> =>
       object({
         auth: string(),
         key: string()
-          .when("type", {
-            is: "SSH",
+          .when(["newSecrets", "type"], {
+            is: (newSecrets: boolean, type: string): boolean =>
+              newSecrets && type === "SSH",
             otherwise: string(),
             then: string().required(translate.t("validations.required")),
           })
@@ -36,19 +37,22 @@ const validateSchema = (): InferType<TypedSchema> =>
           otherwise: string().required(translate.t("validations.required")),
           then: string(),
         }),
-        password: string().when("type", {
-          is: values.auth === "USER" ? "HTTPS" : "",
+        password: string().when(["newSecrets", "type"], {
+          is: (newSecrets: boolean, type: string): boolean =>
+            newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
           otherwise: string(),
           then: string().required(translate.t("validations.required")),
         }),
-        token: string().when("type", {
-          is: values.auth === "TOKEN" ? "HTTPS" : "",
+        token: string().when(["newSecrets", "type"], {
+          is: (newSecrets: boolean, type: string): boolean =>
+            newSecrets && type === (values.auth === "TOKEN" ? "HTTPS" : ""),
           otherwise: string(),
           then: string().required(translate.t("validations.required")),
         }),
         type: string().required(translate.t("validations.required")),
-        user: string().when("type", {
-          is: values.auth === "USER" ? "HTTPS" : "",
+        user: string().when(["newSecrets", "type"], {
+          is: (newSecrets: boolean, type: string): boolean =>
+            newSecrets && type === (values.auth === "USER" ? "HTTPS" : ""),
           otherwise: string(),
           then: string().required(translate.t("validations.required")),
         }),

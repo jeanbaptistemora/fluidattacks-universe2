@@ -8,14 +8,14 @@ interface ICredentialsAttr {
   id: string;
   name: string;
   owner: string;
-  type: string;
+  type: "HTTPS" | "SSH";
 }
 
 interface ICredentialsData {
   id: string;
   name: string;
   owner: string;
-  type: string;
+  type: "HTTPS" | "SSH";
 }
 
 interface IOrganizationAttr {

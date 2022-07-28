@@ -1,5 +1,6 @@
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -12,14 +13,16 @@ import { Can } from "utils/authz/Can";
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   isAdding,
+  isEditing,
   isRemoving,
   onAdd,
+  onEdit,
   onRemove,
   selectedCredentials,
 }: IActionButtonsProps): JSX.Element | null => {
   const { t } = useTranslation();
 
-  const disabled = isAdding || isRemoving;
+  const disabled = isAdding || isEditing || isRemoving;
 
   return (
     <React.StrictMode>
@@ -42,6 +45,28 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
             <FontAwesomeIcon icon={faPlus} />
             &nbsp;
             {t("organization.tabs.credentials.actionButtons.addButton.text")}
+          </Button>
+        </Tooltip>
+      </Can>
+      <Can do={"api_mutations_update_credentials_mutate"}>
+        <Tooltip
+          disp={"inline-block"}
+          id={
+            "organization.tabs.credentials.actionButtons.editButton.tooltip.id"
+          }
+          tip={t(
+            "organization.tabs.credentials.actionButtons.editButton.tooltip"
+          )}
+        >
+          <Button
+            disabled={disabled || _.isUndefined(selectedCredentials)}
+            id={"editCredentials"}
+            onClick={onEdit}
+            variant={"secondary"}
+          >
+            <FontAwesomeIcon icon={faPen} />
+            &nbsp;
+            {t("organization.tabs.credentials.actionButtons.editButton.text")}
           </Button>
         </Tooltip>
       </Can>
@@ -71,7 +96,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
                 )}
               >
                 <Button
-                  disabled={disabled}
+                  disabled={disabled || _.isUndefined(selectedCredentials)}
                   id={"removeCredentials"}
                   onClick={handleClick}
                   variant={"secondary"}

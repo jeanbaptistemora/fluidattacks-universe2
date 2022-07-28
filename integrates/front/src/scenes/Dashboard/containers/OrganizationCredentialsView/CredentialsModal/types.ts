@@ -1,24 +1,14 @@
-interface IAddCredentialsResultAttr {
-  addCredentials: {
-    success: boolean;
-  };
-}
+import type { ICredentialsData } from "../types";
 
-interface ICredentialModalProps {
+interface ICredentialsModalProps {
   isAdding: boolean;
   isEditing: boolean;
   organizationId: string;
   onClose: () => void;
+  selectedCredentials: ICredentialsData | undefined;
+  setSelectedCredentials: (
+    selectedCredentials: ICredentialsData | undefined
+  ) => void;
 }
 
-interface IUpdateCredentialsResultAttr {
-  updateCredentials: {
-    success: boolean;
-  };
-}
-
-export type {
-  IAddCredentialsResultAttr,
-  ICredentialModalProps,
-  IUpdateCredentialsResultAttr,
-};
+export type { ICredentialsModalProps };

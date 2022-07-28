@@ -1,39 +1,41 @@
 import { Buffer } from "buffer";
 
-import type { ApolloError, FetchResult } from "@apollo/client";
+import type { ApolloError } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import type { FormikHelpers } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { CredentialsForm } from "./CredentialsForm";
 import type { IFormValues } from "./CredentialsForm/types";
-import type {
-  IAddCredentialsResultAttr,
-  ICredentialModalProps as ICredentialsModalProps,
-  IUpdateCredentialsResultAttr,
-} from "./types";
+import type { ICredentialsModalProps } from "./types";
 
 import {
   ADD_CREDENTIALS,
   GET_ORGANIZATION_CREDENTIALS,
   UPDATE_CREDENTIALS,
 } from "../queries";
+import type {
+  IAddCredentialsResultAttr,
+  IUpdateCredentialsResultAttr,
+} from "../types";
 import { Modal } from "components/Modal";
-import { getErrors } from "utils/helpers";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
 const CredentialsModal: React.FC<ICredentialsModalProps> = (
   props: ICredentialsModalProps
 ): JSX.Element => {
-  const { isAdding, isEditing, organizationId, onClose } = props;
+  const {
+    isAdding,
+    isEditing,
+    organizationId,
+    onClose,
+    selectedCredentials,
+    setSelectedCredentials,
+  } = props;
   const { t } = useTranslation();
-
-  // States
-  const [newSecrets, setNewSecrets] = useState(false);
 
   // GraphQl mutations
   const [handleAddCredentials] = useMutation<IAddCredentialsResultAttr>(
@@ -45,6 +47,8 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             t("organization.tabs.credentials.alerts.addSuccess"),
             t("groupAlerts.titleSuccess")
           );
+          onClose();
+          setSelectedCredentials(undefined);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -65,6 +69,16 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   const [handleUpdateCredentials] = useMutation<IUpdateCredentialsResultAttr>(
     UPDATE_CREDENTIALS,
     {
+      onCompleted: (data: IUpdateCredentialsResultAttr): void => {
+        if (data.updateCredentials.success) {
+          msgSuccess(
+            t("organization.tabs.credentials.alerts.editSuccess"),
+            t("groupAlerts.titleSuccess")
+          );
+          onClose();
+          setSelectedCredentials(undefined);
+        }
+      },
       onError: (errors: ApolloError): void => {
         errors.graphQLErrors.forEach((error: GraphQLError): void => {
           switch (error.message) {
@@ -77,29 +91,12 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
+      refetchQueries: [GET_ORGANIZATION_CREDENTIALS],
     }
   );
 
-  // Handle responses
-  const handleOnEditCompleted = (
-    result: FetchResult<IUpdateCredentialsResultAttr>,
-    resetForm: () => void
-  ): void => {
-    if (!_.isNil(result.data) && result.data.updateCredentials.success) {
-      msgSuccess(
-        t("organization.tabs.credentials.alerts.editSuccess"),
-        t("groupAlerts.titleSuccess")
-      );
-      resetForm();
-      onClose();
-    }
-  };
-
   // Handle actions
-  async function handleSubmit(
-    values: IFormValues,
-    { resetForm }: FormikHelpers<IFormValues>
-  ): Promise<void> {
+  async function handleSubmit(values: IFormValues): Promise<void> {
     const secrets =
       values.type === "HTTPS"
         ? values.auth === "USER"
@@ -117,7 +114,7 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           };
 
     if (isAdding) {
-      const addingResult = await handleAddCredentials({
+      await handleAddCredentials({
         variables: {
           credentials: {
             name: values.name,
@@ -126,19 +123,12 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           organizationId,
         },
       });
-      if (
-        !_.isNil(addingResult.data) &&
-        addingResult.data.addCredentials.success
-      ) {
-        resetForm();
-        onClose();
-      }
     }
 
-    if (isEditing) {
-      const editingResult = await handleUpdateCredentials({
+    if (isEditing && !_.isUndefined(selectedCredentials)) {
+      await handleUpdateCredentials({
         variables: {
-          credentials: newSecrets
+          credentials: values.newSecrets
             ? {
                 name: values.name,
                 ...secrets,
@@ -146,15 +136,10 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
             : {
                 name: values.name,
               },
-          // CredentialsId: credentialsToEditId,
-          organizationId: values,
+          credentialsId: selectedCredentials.id,
+          organizationId,
         },
       });
-      const errors = getErrors<IUpdateCredentialsResultAttr>([editingResult]);
-
-      if (_.isEmpty(errors)) {
-        handleOnEditCompleted(editingResult, resetForm);
-      }
     }
   }
 
@@ -166,12 +151,24 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
       title={t("profile.credentialsModal.title")}
     >
       <CredentialsForm
-        initialValues={undefined}
+        initialValues={
+          isEditing && !_.isUndefined(selectedCredentials)
+            ? {
+                auth: "TOKEN",
+                key: undefined,
+                name: selectedCredentials.name,
+                newSecrets: false,
+                password: undefined,
+                token: undefined,
+                type: selectedCredentials.type,
+                user: undefined,
+              }
+            : undefined
+        }
         isAdding={isAdding}
-        newSecrets={newSecrets}
+        isEditing={isEditing}
         onCancel={onClose}
         onSubmit={handleSubmit}
-        setNewSecrets={setNewSecrets}
       />
     </Modal>
   );

@@ -11,17 +11,19 @@ import { Select } from "components/Input/Fields/Select";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { ModalConfirm } from "components/Modal";
+import { Switch } from "components/Switch";
 
 const CredentialsForm: React.FC<ICredentialsFormProps> = (
   props: ICredentialsFormProps
 ): JSX.Element => {
-  const { initialValues, isAdding, onCancel, onSubmit } = props;
+  const { initialValues, isAdding, isEditing, onCancel, onSubmit } = props;
   const { t } = useTranslation();
 
   const defaultInitialValues: IFormValues = {
     auth: "TOKEN",
     key: undefined,
     name: undefined,
+    newSecrets: true,
     password: undefined,
     token: undefined,
     type: "SSH",
@@ -38,7 +40,12 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
       onSubmit={onSubmit}
       validationSchema={validateSchema()}
     >
-      {({ values, isValid, dirty }): JSX.Element => {
+      {({ values, isSubmitting, dirty, setFieldValue }): JSX.Element => {
+        // Handle actions
+        function toggleNewSecrets(): void {
+          setFieldValue("newSecrets", !values.newSecrets);
+        }
+
         return (
           <Form id={"credentials"}>
             <Row justify={"flex-start"}>
@@ -72,66 +79,85 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                   )}
                 />
               </Col>
-              {values.type === "SSH" && (
-                <Col large={"100"} medium={"100"} small={"100"}>
-                  <TextArea
-                    label={t("group.scope.git.repo.credentials.sshKey")}
-                    name={"key"}
-                    placeholder={t("group.scope.git.repo.credentials.sshHint")}
-                  />
-                </Col>
-              )}
-              {values.type === "HTTPS" && (
-                <Col large={"100"} medium={"100"} small={"100"}>
-                  <Select name={"auth"}>
-                    <option value={"TOKEN"}>
-                      {t(
-                        "organization.tabs.credentials.credentialsModal.form.auth.token"
-                      )}
-                    </option>
-                    <option value={"USER"}>
-                      {t(
-                        "organization.tabs.credentials.credentialsModal.form.auth.user"
-                      )}
-                    </option>
-                  </Select>
-                </Col>
-              )}
-              {values.type === "HTTPS" && values.auth === "TOKEN" && (
-                <Col large={"100"} medium={"100"} small={"100"}>
-                  <Input
-                    label={t(
-                      "organization.tabs.credentials.credentialsModal.form.token"
-                    )}
-                    name={"token"}
-                  />
-                </Col>
-              )}
-              {values.type === "HTTPS" && values.auth === "USER" && (
+              {isAdding || values.newSecrets ? (
                 <Fragment>
-                  <Col large={"50"} medium={"50"} small={"100"}>
-                    <Input
-                      label={t(
-                        "organization.tabs.credentials.credentialsModal.form.user"
-                      )}
-                      name={"user"}
-                    />
-                  </Col>
-                  <Col large={"50"} medium={"50"} small={"100"}>
-                    <Input
-                      label={t(
-                        "organization.tabs.credentials.credentialsModal.form.password"
-                      )}
-                      name={"password"}
-                      type={"password"}
-                    />
-                  </Col>
+                  {values.type === "SSH" && (
+                    <Col large={"100"} medium={"100"} small={"100"}>
+                      <TextArea
+                        label={t("group.scope.git.repo.credentials.sshKey")}
+                        name={"key"}
+                        placeholder={t(
+                          "group.scope.git.repo.credentials.sshHint"
+                        )}
+                      />
+                    </Col>
+                  )}
+                  {values.type === "HTTPS" && (
+                    <Col large={"100"} medium={"100"} small={"100"}>
+                      <Select name={"auth"}>
+                        <option value={"TOKEN"}>
+                          {t(
+                            "organization.tabs.credentials.credentialsModal.form.auth.token"
+                          )}
+                        </option>
+                        <option value={"USER"}>
+                          {t(
+                            "organization.tabs.credentials.credentialsModal.form.auth.user"
+                          )}
+                        </option>
+                      </Select>
+                    </Col>
+                  )}
+                  {values.type === "HTTPS" && values.auth === "TOKEN" && (
+                    <Col large={"100"} medium={"100"} small={"100"}>
+                      <Input
+                        label={t(
+                          "organization.tabs.credentials.credentialsModal.form.token"
+                        )}
+                        name={"token"}
+                      />
+                    </Col>
+                  )}
+                  {values.type === "HTTPS" && values.auth === "USER" && (
+                    <Fragment>
+                      <Col large={"50"} medium={"50"} small={"100"}>
+                        <Input
+                          label={t(
+                            "organization.tabs.credentials.credentialsModal.form.user"
+                          )}
+                          name={"user"}
+                        />
+                      </Col>
+                      <Col large={"50"} medium={"50"} small={"100"}>
+                        <Input
+                          label={t(
+                            "organization.tabs.credentials.credentialsModal.form.password"
+                          )}
+                          name={"password"}
+                          type={"password"}
+                        />
+                      </Col>
+                    </Fragment>
+                  )}
                 </Fragment>
-              )}
+              ) : undefined}
             </Row>
+            {isEditing ? (
+              <Row>
+                <Col large={"100"} medium={"100"} small={"100"}>
+                  {t("profile.credentialsModal.form.newSecrets")}
+                  &nbsp;
+                  <Switch
+                    checked={values.newSecrets}
+                    name={"newSecrets"}
+                    onChange={toggleNewSecrets}
+                  />
+                </Col>
+              </Row>
+            ) : undefined}
             <br />
             <ModalConfirm
-              disabled={!isValid || !dirty}
+              disabled={isSubmitting || !dirty}
               onCancel={onCancel}
               txtConfirm={t(
                 `organization.tabs.credentials.credentialsModal.form.${

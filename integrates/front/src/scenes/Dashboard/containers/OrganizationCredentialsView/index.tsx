@@ -53,6 +53,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
             t("organization.tabs.credentials.alerts.removeSuccess"),
             t("groupAlerts.titleSuccess")
           );
+          setSelectedCredentials(undefined);
         }
       },
       onError: (errors: ApolloError): void => {
@@ -96,12 +97,15 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     setIsCredentialsModalOpen(true);
     setIsAdding(true);
   }, []);
+  const openCredentialsModalToEdit = useCallback((): void => {
+    setIsCredentialsModalOpen(true);
+    setIsEditing(true);
+  }, []);
   const closeCredentialsModal = useCallback((): void => {
     setIsCredentialsModalOpen(false);
     setIsAdding(false);
     setIsEditing(false);
   }, []);
-
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -163,9 +167,11 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           hideActions ? undefined : (
             <ActionButtons
-              isAdding={isRemoving}
+              isAdding={isAdding}
+              isEditing={isEditing}
               isRemoving={isRemoving}
               onAdd={openCredentialsModalToAdd}
+              onEdit={openCredentialsModalToEdit}
               onRemove={removeCredentials}
               selectedCredentials={selectedCredentials}
             />
@@ -193,6 +199,8 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
           isEditing={isEditing}
           onClose={closeCredentialsModal}
           organizationId={organizationId}
+          selectedCredentials={selectedCredentials}
+          setSelectedCredentials={setSelectedCredentials}
         />
       ) : undefined}
     </React.StrictMode>

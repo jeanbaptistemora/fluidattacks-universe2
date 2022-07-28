@@ -4,6 +4,7 @@ interface IFormValues {
   auth: "TOKEN" | "USER";
   key: string | undefined;
   name: string | undefined;
+  newSecrets: boolean;
   password: string | undefined;
   token: string | undefined;
   type: "HTTPS" | "SSH";
@@ -13,13 +14,12 @@ interface IFormValues {
 interface ICredentialsFormProps {
   initialValues?: IFormValues;
   isAdding: boolean;
-  newSecrets: boolean;
+  isEditing: boolean;
   onCancel: () => void;
   onSubmit: (
     values: IFormValues,
     formikHelpers: FormikHelpers<IFormValues>
   ) => void;
-  setNewSecrets: (newSecrets: boolean) => void;
 }
 
 export type { IFormValues, ICredentialsFormProps };

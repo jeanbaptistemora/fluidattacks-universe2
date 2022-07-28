@@ -1576,6 +1576,10 @@ export const enTranslations: ResourceKey = {
             text: "Add",
             tooltip: "Add organization credentials",
           },
+          editButton: {
+            text: "Edit",
+            tooltip: "Edit credentials of the organization",
+          },
           removeButton: {
             confirmMessage:
               "{{credentialName}} will be removed from the organization",
