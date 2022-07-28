@@ -39,8 +39,8 @@ def format_deprecation_output_log(
     for key, deprecated_fields in deprecations.items():
         fields += "".join(
             (
-                f"{value} {field.field} of {parent} {key} was deprecated in "
-                f"{date_utils.get_as_str(field.due_date, date_format)}\n"
+                f"{value} {field.field} of {parent} {key} was to be removed "
+                f"in {date_utils.get_as_str(field.due_date, date_format)}\n"
             )
             for field in deprecated_fields
         )
@@ -48,10 +48,14 @@ def format_deprecation_output_log(
     return base_output + fields
 
 
-def lint_schema_deprecations() -> None:
+def lint_schema_deprecations(sdl_content: str) -> bool:
+    """
+    Parses the schema into an AST and returns `True` if it finds a field/value
+    that should have been removed already, `False` otherwise.
+    """
     yesterday: datetime = date_utils.get_now_minus_delta(days=1)
     (enums, operations) = get_deprecations_by_period(
-        sdl_content=SDL_CONTENT, end=yesterday, start=None
+        sdl_content=sdl_content, end=yesterday, start=None
     )
     if bool(enums):
         LOGGER.error(
@@ -72,14 +76,15 @@ def lint_schema_deprecations() -> None:
             ),
         )
 
-    if bool(enums) or bool(operations):
-        LOGGER.error("Failed check :(")
-        sys.exit(1)
-    LOGGER.info("All clear!")
+    return bool(enums) or bool(operations)
 
 
 def main() -> None:
-    lint_schema_deprecations()
+    failed_check: bool = lint_schema_deprecations(SDL_CONTENT)
+    if failed_check:
+        LOGGER.error("Failed check :(")
+        sys.exit(1)
+    LOGGER.info("No overdue deprecations found!")
 
 
 if __name__ == "__main__":

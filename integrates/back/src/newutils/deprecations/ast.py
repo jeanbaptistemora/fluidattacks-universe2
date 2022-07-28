@@ -134,7 +134,7 @@ def get_deprecations_by_period(
 ) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
     """
     Gets the deprecations found in the schema within a time period. The first
-    member of the tuple corresponding to `enum` deprecations and the latter to
+    member of the tuple corresponds to `enum` deprecations and the latter to
     `operations` e.g. mutation, queries, args, inputs etc...
     """
     (enums, operations) = parse_schema_deprecations(sdl_content)
