@@ -1571,18 +1571,45 @@ export const enTranslations: ResourceKey = {
         tooltip: "Billing and subcriptions for your organization",
       },
       credentials: {
-        alerts: {
-          addSuccess: "Credentials has been added.",
-          editSuccess: "Credentials has been edited.",
-          removeSuccess: "Credentials has been removed.",
-        },
-        buttons: {
-          remove: {
+        actionButtons: {
+          addButton: {
+            text: "Add",
+            tooltip: "Add organization credentials",
+          },
+          removeButton: {
             confirmMessage:
               "{{credentialName}} will be removed from the organization",
             confirmTitle: "Remove credentials?",
             text: "Remove",
             tooltip: "Remove credentials from the organization",
+          },
+        },
+        alerts: {
+          addSuccess: "Credentials has been added.",
+          editSuccess: "Credentials has been edited.",
+          removeSuccess: "Credentials has been removed.",
+        },
+        credentialsModal: {
+          form: {
+            add: "Add",
+            auth: {
+              token: "Access Token",
+              user: "User and Password",
+            },
+            edit: "Edit",
+            name: {
+              label: "Credential name",
+              placeholder: "Test credential",
+            },
+            password: "Repository password",
+            sshKey: "Private SSH Key",
+            token: "Repository access token",
+            type: {
+              https: "HTTPS",
+              label: "Credential type",
+              ssh: "SSH",
+            },
+            user: "Repository user",
           },
         },
         table: {

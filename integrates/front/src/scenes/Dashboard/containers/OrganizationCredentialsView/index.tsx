@@ -1,7 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -9,6 +7,8 @@ import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { ActionButtons } from "./ActionButtons";
+import { CredentialsModal } from "./CredentialsModal";
 import { GET_ORGANIZATION_CREDENTIALS, REMOVE_CREDENTIALS } from "./queries";
 import type {
   ICredentialsAttr,
@@ -19,12 +19,9 @@ import type {
 import { getCredentialsIndex, getNonSelectableCredentialsIndex } from "./utils";
 
 import { GET_ROOTS } from "../GroupScopeView/queries";
-import { Button } from "components/Button";
-import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import { Tooltip } from "components/Tooltip";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Logger } from "utils/logger";
@@ -43,9 +40,12 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   const [selectedCredentials, setSelectedCredentials] = useState<
     ICredentialsAttr | undefined
   >();
+  const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // GraphQl mutations
-  const [handleRemoveCredentials, { loading: removing }] =
+  const [handleRemoveCredentials, { loading: isRemoving }] =
     useMutation<IRemoveCredentialsResultAttr>(REMOVE_CREDENTIALS, {
       onCompleted: (result: IRemoveCredentialsResultAttr): void => {
         if (result.removeCredentials.success) {
@@ -92,6 +92,16 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   );
 
   // Handle actions
+  const openCredentialsModalToAdd = useCallback((): void => {
+    setIsCredentialsModalOpen(true);
+    setIsAdding(true);
+  }, []);
+  const closeCredentialsModal = useCallback((): void => {
+    setIsCredentialsModalOpen(false);
+    setIsAdding(false);
+    setIsEditing(false);
+  }, []);
+
   function onSearchTextChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
@@ -152,44 +162,13 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
         extraButtons={
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           hideActions ? undefined : (
-            <ConfirmDialog
-              message={t(
-                "organization.tabs.credentials.buttons.remove.confirmMessage",
-                { credentialName: selectedCredentials?.name }
-              )}
-              title={t(
-                "organization.tabs.credentials.buttons.remove.confirmTitle"
-              )}
-            >
-              {(confirm): React.ReactNode => {
-                function handleClick(): void {
-                  confirm(removeCredentials);
-                }
-
-                return (
-                  <Tooltip
-                    disp={"inline-block"}
-                    id={
-                      "organization.tabs.credentials.buttons.remove.tooltip.btn"
-                    }
-                    tip={t(
-                      "organization.tabs.credentials.buttons.remove.tooltip"
-                    )}
-                  >
-                    <Button
-                      disabled={_.isUndefined(selectedCredentials) || removing}
-                      id={"removeCredentials"}
-                      onClick={handleClick}
-                      variant={"secondary"}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                      &nbsp;
-                      {t("organization.tabs.credentials.buttons.remove.text")}
-                    </Button>
-                  </Tooltip>
-                );
-              }}
-            </ConfirmDialog>
+            <ActionButtons
+              isAdding={isRemoving}
+              isRemoving={isRemoving}
+              onAdd={openCredentialsModalToAdd}
+              onRemove={removeCredentials}
+              selectedCredentials={selectedCredentials}
+            />
           )
         }
         headers={tableHeaders}
@@ -208,6 +187,14 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
           ),
         }}
       />
+      {isCredentialsModalOpen ? (
+        <CredentialsModal
+          isAdding={isAdding}
+          isEditing={isEditing}
+          onClose={closeCredentialsModal}
+          organizationId={organizationId}
+        />
+      ) : undefined}
     </React.StrictMode>
   );
 };
