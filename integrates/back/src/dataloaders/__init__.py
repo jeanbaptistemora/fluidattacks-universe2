@@ -10,6 +10,9 @@ from collections import (
 from dataloaders.group_access_typed import (
     GroupAccessTypedLoader,
 )
+from dataloaders.groups_stakeholder_access import (
+    GroupsStakeholderAccessLoader,
+)
 from db_model.credentials.get import (
     CredentialsLoader,
     OrganizationCredentialsLoader,
@@ -136,6 +139,7 @@ class Dataloaders(NamedTuple):
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
+    groups_stakeholder_access: GroupsStakeholderAccessLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_access: OrganizationAccessLoader
     organization_credentials: OrganizationCredentialsLoader
@@ -241,6 +245,7 @@ def get_new_context() -> Dataloaders:
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
+        groups_stakeholder_access=GroupsStakeholderAccessLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
         organization_access=OrganizationAccessLoader(),

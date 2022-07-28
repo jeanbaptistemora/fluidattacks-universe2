@@ -721,7 +721,9 @@ async def get_groups_by_user(
     organization_id: str = "",
     with_cache: bool = True,
 ) -> list[str]:
-    group_names = await group_access_domain.get_user_groups(user_email, active)
+    group_names = await group_access_domain.get_user_groups_names(
+        loaders, user_email, active
+    )
     if not organization_id:
         group_names = list(
             await filter_groups_with_org(loaders, tuple(group_names))

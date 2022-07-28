@@ -123,8 +123,12 @@ async def remove_stakeholder_all_organizations(
 
     active, inactive = await collect(
         [
-            group_access_dal.get_user_groups(email, active=True),
-            group_access_dal.get_user_groups(email, active=False),
+            group_access_domain.get_user_groups_names(
+                loaders, email, active=True
+            ),
+            group_access_domain.get_user_groups_names(
+                loaders, email, active=False
+            ),
         ]
     )
     authz_groups = [

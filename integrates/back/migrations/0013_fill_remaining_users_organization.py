@@ -20,11 +20,14 @@ import bugsnag
 from context import (
     FI_COMMUNITY_PROJECTS,
 )
+from dataloaders import (
+    get_new_context,
+)
 from dynamodb.operations_legacy import (
     RESOURCE_OPTIONS,
 )
 from group_access.domain import (
-    get_user_groups,
+    get_user_groups_names,
 )
 from groups.domain import (
     get_attributes as get_group_attributes,
@@ -106,7 +109,9 @@ async def main() -> None:
     users_without_org: List[str] = await get_users_without_organization()
     autoenrolled_users: List[str] = await get_autoenrolled_users()
     for user in users_without_org + autoenrolled_users:
-        projects: List[str] = await get_user_groups(user, True)
+        projects: List[str] = await get_user_groups_names(
+            get_new_context(), user, True
+        )
         projects = list(
             filter(
                 lambda project: project not in FI_COMMUNITY_PROJECTS, projects

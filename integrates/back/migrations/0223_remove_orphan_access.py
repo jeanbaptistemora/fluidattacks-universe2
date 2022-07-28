@@ -27,14 +27,16 @@ from dataloaders import (
 from dynamodb import (
     operations_legacy,
 )
-from group_access.dal import (
-    get_user_groups,
-    remove,
+from group_access.domain import (
+    get_user_groups_names,
 )
 import logging
 import logging.config
 from settings import (
     LOGGING,
+)
+from stakeholders.domain import (
+    remove,
 )
 import time
 
@@ -73,7 +75,7 @@ async def _process_user(
         await collect(
             [
                 _delete_subject_policy(email, group_name),
-                remove(email=email, group_name=group_name),
+                remove(email=email),
             ]
         )
 
@@ -87,8 +89,8 @@ async def process_user(
 ) -> None:
     active, inactive = await collect(
         (
-            get_user_groups(email, active=True),
-            get_user_groups(email, active=False),
+            get_user_groups_names(loaders, email, active=True),
+            get_user_groups_names(loaders, email, active=False),
         )
     )
     groups = [
