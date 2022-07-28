@@ -9,6 +9,9 @@ from billing.types import (
     Price,
     Subscription,
 )
+from context import (
+    FI_AWS_S3_BILLING_BUCKET,
+)
 from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
     BillingCustomerHasNoPaymentMethod,
@@ -51,6 +54,9 @@ from newutils import (
     files as files_utils,
     validations,
 )
+from s3 import (
+    operations as s3_ops,
+)
 from settings import (
     LOGGING,
 )
@@ -78,6 +84,40 @@ import uuid
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 TRIAL_DAYS: int = 14
+
+
+async def save_file(file_object: object, file_name: str) -> None:
+    await s3_ops.upload_memory_file(
+        FI_AWS_S3_BILLING_BUCKET,
+        file_object,
+        file_name,
+    )
+
+
+async def search_file(file_name: str) -> list[str]:
+    return await s3_ops.list_files(FI_AWS_S3_BILLING_BUCKET, file_name)
+
+
+async def remove_file(file_name: str) -> None:
+    await s3_ops.remove_file(FI_AWS_S3_BILLING_BUCKET, file_name)
+
+
+async def get_document_link(
+    org: Organization, payment_id: str, file_name: str
+) -> str:
+    org_name = org.name
+    payment_method: list[OrganizationPaymentMethods] = []
+    file_url = ""
+    if org.payment_methods:
+        payment_method = list(
+            filter(lambda method: method.id == payment_id, org.payment_methods)
+        )
+        if len(payment_method) == 0:
+            raise InvalidBillingPaymentMethod()
+        business_name = payment_method[0].business_name
+        file_url = f"{org_name}/{business_name}/{file_name}"
+
+    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BILLING_BUCKET)
 
 
 async def _customer_has_payment_method(
@@ -445,6 +485,7 @@ async def update_documents(
         validations.validate_sanitized_csv_input(
             rut.filename, rut.content_type
         )
+        await save_file(rut, rut_full_name)
         documents = OrganizationDocuments(
             rut=DocumentFile(
                 file_name=rut_file_name,
@@ -460,6 +501,7 @@ async def update_documents(
         validations.validate_sanitized_csv_input(
             tax_id.filename, tax_id.content_type
         )
+        await save_file(tax_id, tax_id_full_name)
         documents = OrganizationDocuments(
             tax_id=DocumentFile(
                 file_name=tax_id_file_name,
