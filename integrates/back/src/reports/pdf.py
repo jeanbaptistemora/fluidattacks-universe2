@@ -3,6 +3,9 @@ from .typing import (
     PDFWordlistEn,
     PDFWordlistEs,
 )
+from PyPDF4 import (
+    PdfFileReader,
+)
 from aioextensions import (
     collect,
 )
@@ -97,6 +100,9 @@ Context = TypedDict(
         "main_tables": VulnTable,
         "findings": Tuple[PdfFindingInfo, ...],
         "accessVector": Optional[str],
+        "finding_summary_background": str,
+        "finding_summary_pdf": str,
+        "finding_summary_title_pdf": str,
         "finding_title": str,
         "finding_section_title": str,
         "general_view_pdf": str,
@@ -138,6 +144,7 @@ Context = TypedDict(
         "goals_pdf": str,
         "finding_table_pdf": str,
     },
+    total=False,
 )
 
 
@@ -394,6 +401,12 @@ class CreatorPdf:
         self.result_dir = self.path + self.result_dir
         self.tpl_dir = self.path + self.tpl_dir
         self.style_dir = self.path + self.style_dir
+        self.out_name_finding_summary_title = (
+            f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        )
+        self.out_name_finding_summary = (
+            f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        )
         self.images_dir = self.path + self.images_dir
         self.out_name_goals = f"{self.result_dir}{str(uuid.uuid4())}.pdf"
         self.out_name_finding_table = (
@@ -473,6 +486,15 @@ class CreatorPdf:
             # Titulos segun lenguaje
             "finding_title": words["finding_title"],
             "finding_section_title": words["finding_section_title"],
+            "finding_summary_title_pdf": (
+                f"image::{self.out_name_finding_summary_title}[]"
+            ),
+            "finding_summary_pdf": (
+                f"image::{self.out_name_finding_summary}[]"
+            ),
+            "finding_summary_background": (
+                "image::../resources/themes/background-finding-summary.png[]"
+            ),
             "where_title": words["where_title"],
             "description_title": words["description_title"],
             "resume_vuln_title": words["resume_vuln_title"],
@@ -633,6 +655,15 @@ class CreatorPdf:
             loader=template_loader,
             autoescape=select_autoescape(["html", "xml"], default=True),
         )
+
+        await self.get_page(
+            template_env,
+            "finding_summary_title",
+            "templates/pdf/finding_summary.adoc",
+            loaders,
+            self.out_name_finding_summary_title,
+        )
+
         await self.get_page(
             template_env,
             "goals",
@@ -655,6 +686,28 @@ class CreatorPdf:
             "templates/pdf/general_view.adoc",
             loaders,
             self.out_name_general_view,
+        )
+        if self.context:
+            with open(
+                self.out_name_finding_summary_title,
+                "rb",
+            ) as pdf_file:
+                output_file = PdfFileReader(pdf_file)
+
+                self.context[
+                    "finding_summary_background"
+                ] = "image::../resources/themes/background.png[]"
+                self.context["finding_summary_pdf"] = (
+                    f"image::{self.out_name_finding_summary}"
+                    f"[pages=2..{output_file.getNumPages() + 1}]"
+                )
+
+        await self.get_page(
+            template_env,
+            "finding_summary",
+            "templates/pdf/finding_summary.adoc",
+            loaders,
+            self.out_name_finding_summary,
         )
 
         template = template_env.get_template(self.proj_tpl)
