@@ -130,6 +130,7 @@ const InputDate = StoryInputDate.bind({});
 const InputNumber = StoryInputNumber.bind({});
 InputNumber.args = {
   disabled: false,
+  initValue: 5,
   label: "ExampleLabel",
   max: 10,
   min: -10,

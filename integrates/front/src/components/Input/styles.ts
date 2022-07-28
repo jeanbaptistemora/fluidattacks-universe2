@@ -48,6 +48,7 @@ const InputBox = styled.div.attrs({
   width: 100%;
 
   > .comp-alert {
+    font-size: 14px;
     margin-top: ${({ showAlert }): number => (showAlert ? 4 : 0)}px;
   }
 `;

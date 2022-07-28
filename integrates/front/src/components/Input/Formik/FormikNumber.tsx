@@ -8,7 +8,7 @@ import type {
   MouseEvent,
   MutableRefObject,
 } from "react";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import type { IInputBase } from "../InputBase";
 import { InputBase } from "../InputBase";
@@ -16,6 +16,7 @@ import { StyledInput } from "../styles";
 import { Button } from "components/Button";
 
 interface IInputNumberProps extends IInputBase<HTMLInputElement> {
+  initValue?: number;
   max?: number;
   min?: number;
   placeholder?: string;
@@ -26,9 +27,10 @@ type TInputNumberProps = FieldProps<string, Record<string, string>> &
 
 const FormikNumber: FC<TInputNumberProps> = ({
   disabled,
-  field: { name, onBlur: onBlurField, value },
+  field: { name, onBlur: onBlurField },
   form,
   id,
+  initValue,
   label,
   max = 10,
   min = 0,
@@ -41,7 +43,7 @@ const FormikNumber: FC<TInputNumberProps> = ({
   variant = "solid",
 }: Readonly<TInputNumberProps>): JSX.Element => {
   const ref: MutableRefObject<HTMLInputElement | null> = useRef(null);
-  const { setFieldValue } = form;
+  const [value, setValue] = useState((initValue ?? "").toString());
 
   const getValue = useCallback(
     (val: string = value): number => (val.length === 0 ? 0 : parseInt(val, 10)),
@@ -52,11 +54,11 @@ const FormikNumber: FC<TInputNumberProps> = ({
     (val: number): void => {
       const newVal = Math.min(Math.max(val, min), max).toString();
       if (newVal !== value) {
-        setFieldValue(name, newVal);
+        setValue(newVal);
       }
       ref.current?.focus();
     },
-    [max, min, name, setFieldValue, value]
+    [max, min, value]
   );
 
   const handleBlur = useCallback(
@@ -69,9 +71,9 @@ const FormikNumber: FC<TInputNumberProps> = ({
 
   const handleChange = useCallback(
     (ev: ChangeEvent<HTMLInputElement>): void => {
-      setFieldValue(name, ev.target.value);
+      setValue(ev.target.value);
     },
-    [name, setFieldValue]
+    [setValue]
   );
 
   const handleClickMinus = useCallback(
