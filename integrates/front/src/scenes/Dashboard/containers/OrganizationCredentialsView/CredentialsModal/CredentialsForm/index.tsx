@@ -58,6 +58,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                   placeholder={t(
                     "organization.tabs.credentials.credentialsModal.form.name.placeholder"
                   )}
+                  required={true}
                 />
               </Col>
               {isAdding || values.newSecrets ? (
@@ -68,6 +69,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                         "organization.tabs.credentials.credentialsModal.form.type.label"
                       )}
                       name={"type"}
+                      required={true}
                     >
                       <option value={"HTTPS"}>
                         {t(
@@ -89,12 +91,13 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                         placeholder={t(
                           "group.scope.git.repo.credentials.sshHint"
                         )}
+                        required={true}
                       />
                     </Col>
                   )}
                   {values.type === "HTTPS" && (
                     <Col large={"100"} medium={"100"} small={"100"}>
-                      <Select name={"auth"}>
+                      <Select name={"auth"} required={true}>
                         <option value={"TOKEN"}>
                           {t(
                             "organization.tabs.credentials.credentialsModal.form.auth.token"
@@ -115,6 +118,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                           "organization.tabs.credentials.credentialsModal.form.token"
                         )}
                         name={"token"}
+                        required={true}
                       />
                     </Col>
                   )}
@@ -126,6 +130,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                             "organization.tabs.credentials.credentialsModal.form.user"
                           )}
                           name={"user"}
+                          required={true}
                         />
                       </Col>
                       <Col large={"50"} medium={"50"} small={"100"}>
@@ -134,6 +139,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                             "organization.tabs.credentials.credentialsModal.form.password"
                           )}
                           name={"password"}
+                          required={true}
                         />
                       </Col>
                     </Fragment>

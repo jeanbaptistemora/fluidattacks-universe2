@@ -14,6 +14,7 @@ const TextArea: FC<ITextAreaProps> = ({
   onFocus,
   onKeyDown,
   placeholder,
+  required,
   rows,
   variant,
 }: Readonly<ITextAreaProps>): JSX.Element => (
@@ -27,6 +28,7 @@ const TextArea: FC<ITextAreaProps> = ({
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     placeholder={placeholder}
+    required={required}
     rows={rows}
     variant={variant}
   />
