@@ -17,6 +17,9 @@ function deploy {
   local bucket_name="integrates.front.${env}.fluidattacks.com"
   local base_url="${bucket_name}/${branch}"
   local cached_urls=(
+    "https://${base_url}/static/dashboard/runtime-bundle.min.js"
+    "https://${base_url}/static/dashboard/vendors-bundle.min.js"
+    "https://${base_url}/static/dashboard/vendors-style.min.css"
     "https://${base_url}/static/dashboard/app-bundle.min.js"
     "https://${base_url}/static/dashboard/app-style.min.css"
   )

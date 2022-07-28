@@ -62,6 +62,18 @@ export const commonConfig: Configuration = {
       },
     ],
   },
+  optimization: {
+    runtimeChunk: "single",
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          chunks: "all",
+          name: "vendors",
+          test: /[\\/]node_modules[\\/]/u,
+        },
+      },
+    },
+  },
   output: {
     clean: true,
     filename: "[name]-bundle.min.js",

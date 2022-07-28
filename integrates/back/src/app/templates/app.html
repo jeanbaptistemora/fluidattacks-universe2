@@ -21,8 +21,10 @@
       integrity="sha384-Cr5RPHxcHREJ6WiTIhm5VCkJJ54ufz4UVsVOXvazwLKSMiTQ/47Zn/LqT7EiWinZ"
       crossorigin="anonymous">
     {% if '127.0.0.1' in request.client.host and debug %}
+      <link rel="stylesheet" href="https://localhost:3000/dashboard/vendors-style.min.css" type="text/css">
       <link rel="stylesheet" href="https://localhost:3000/dashboard/app-style.min.css" type="text/css">
     {% else %}
+      <link rel="stylesheet" href="{{ css_vendors }}" type="text/css">
       <link rel="stylesheet" href="{{ css }}" type="text/css">
     {% endif %}
     {% if 'https' in url_for('static', path='/imgs/favicon.ico') %}
@@ -49,8 +51,12 @@
   <body>
     <div id="root"></div>
     {% if '127.0.0.1' in request.client.host and debug %}
+      <script src="https://localhost:3000/dashboard/runtime-bundle.min.js" type="text/javascript"></script>
+      <script src="https://localhost:3000/dashboard/vendors-bundle.min.js" type="text/javascript"></script>
       <script src="https://localhost:3000/dashboard/app-bundle.min.js" type="text/javascript"></script>
     {% else %}
+      <script src="{{ js_runtime }}" type="text/javascript"></script>
+      <script src="{{ js_vendors }}" type="text/javascript"></script>
       <script src="{{ js }}" type="text/javascript"></script>
     {% endif %}
     <script

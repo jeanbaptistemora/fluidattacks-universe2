@@ -11,6 +11,7 @@ const prodConfig: Configuration = {
   devtool: "source-map",
   mode: "production",
   optimization: {
+    ...commonConfig.optimization,
     minimize: true,
     minimizer: [
       new TerserPlugin({
