@@ -54,6 +54,7 @@ async def get_vulnerabilities(
 
 async def _report_wrapped(task_id: str) -> None:
     group = task_id.split("_")[0]
+    batch_job_id = task_id.split("_")[1]
     load_config = await get_config(task_id)
     CTX.config = load_config
     vulnerabilities = await get_vulnerabilities(task_id, load_config.namespace)
@@ -72,7 +73,6 @@ async def _report_wrapped(task_id: str) -> None:
     create_session(os.environ["INTEGRATES_API_TOKEN"])
     roots = await get_group_roots(group=group)
 
-    batch_job_id = os.environ.get("AWS_BATCH_JOB_ID")
     for root in roots:
         if root.nickname == load_config.namespace:
             if load_config.commit is not None:
