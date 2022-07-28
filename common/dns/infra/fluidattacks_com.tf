@@ -257,15 +257,6 @@ resource "cloudflare_record" "stripe_bounce" {
   ttl     = 1
 }
 
-resource "cloudflare_record" "mailing_fluidattacks" {
-  zone_id = cloudflare_zone.fluidattacks_com.id
-  name    = "email.${cloudflare_zone.fluidattacks_com.zone}"
-  type    = "CNAME"
-  value   = "fluidattacks.activehosted.com"
-  proxied = false
-  ttl     = 1
-}
-
 resource "cloudflare_record" "makes" {
   zone_id = cloudflare_zone.fluidattacks_com.id
   name    = "makes.${cloudflare_zone.fluidattacks_com.zone}"
