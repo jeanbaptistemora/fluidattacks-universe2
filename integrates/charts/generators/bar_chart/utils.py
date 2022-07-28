@@ -15,6 +15,9 @@ from charts.utils import (
     iterate_organizations_and_groups,
     json_dump,
 )
+from custom_exceptions import (
+    UnsanitizedInputFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -41,6 +44,9 @@ from findings.domain.core import (
 from newutils.datetime import (
     get_date_from_iso_str,
     get_now_minus_delta,
+)
+from newutils.validations import (
+    validate_sanitized_csv_input,
 )
 from organizations import (
     domain as orgs_domain,
@@ -807,13 +813,20 @@ async def generate_all_top_vulnerabilities(
             )
 
 
-def format_csv_data(*, document: dict, header: str = "Group name") -> CsvData:
+def format_csv_data(
+    *, document: dict, header: str = "Group name", alternative: str = ""
+) -> CsvData:
     columns: list[list[str]] = document["data"]["columns"]
     categories: list[str] = document["axis"]["x"]["categories"]
+    rows: list[list[str]] = []
+    for category, value in zip(categories, tuple(columns[0][1:])):
+        try:
+            validate_sanitized_csv_input(category)
+            rows.append([category, str(value)])
+        except UnsanitizedInputFound:
+            rows.append(["", ""])
+
     return CsvData(
-        headers=[header, columns[0][0]],
-        rows=[
-            [category, str(value)]
-            for category, value in zip(categories, tuple(columns[0][1:]))
-        ],
+        headers=[header, alternative if alternative else columns[0][0]],
+        rows=rows,
     )

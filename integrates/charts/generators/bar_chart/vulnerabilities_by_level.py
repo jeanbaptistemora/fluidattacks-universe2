@@ -57,6 +57,7 @@ async def get_data_many_groups(groups: List[str]) -> Counter[str]:
 
 async def generate_all() -> None:
     column: str = "Level"
+    header: str = "Occurrences"
     number_of_categories: int = 12
     async for group in utils.iterate_groups():
         document = format_vulnerabilities_by_data(
@@ -69,7 +70,9 @@ async def generate_all() -> None:
             document=document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document, header=column),
+            csv_document=format_csv_data(
+                document=document, header=column, alternative=header
+            ),
         )
 
     async for org_id, _, org_groups in (
@@ -85,7 +88,9 @@ async def generate_all() -> None:
             document=document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document, header=column),
+            csv_document=format_csv_data(
+                document=document, header=column, alternative=header
+            ),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
@@ -100,7 +105,9 @@ async def generate_all() -> None:
                 document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document, header=column),
+                csv_document=format_csv_data(
+                    document=document, header=column, alternative=header
+                ),
             )
 
 
