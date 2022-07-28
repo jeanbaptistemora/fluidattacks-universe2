@@ -28,11 +28,46 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListAuthors.alejandroHerrera.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.alejandroHerrera.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.alejandroHerrera.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.andersonTaguada.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.andersonTaguada.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.andersonTaguada.title"),
+    },
+    {
       description: translate.t("blogListAuthors.andresRoldan.description"),
       metaDescription: translate.t(
         "blogListAuthors.andresRoldan.metaDescription"
       ),
       title: translate.t("blogListAuthors.andresRoldan.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.andresTirado.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.andresTirado.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.andresTirado.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.danielSalazar.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.danielSalazar.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.danielSalazar.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.diegoAlvarez.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.diegoAlvarez.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.diegoAlvarez.title"),
     },
     {
       description: translate.t("blogListAuthors.felipeRuiz.description"),
@@ -70,11 +105,25 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListAuthors.julianArango.title"),
     },
     {
+      description: translate.t("blogListAuthors.kevinCardona.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.kevinCardona.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.kevinCardona.title"),
+    },
+    {
       description: translate.t("blogListAuthors.oscarPrado.description"),
       metaDescription: translate.t(
         "blogListAuthors.oscarPrado.metaDescription"
       ),
       title: translate.t("blogListAuthors.oscarPrado.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.oscarUribe.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.oscarUribe.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.oscarUribe.title"),
     },
     {
       description: translate.t("blogListAuthors.rafaelBallestas.description"),
@@ -89,6 +138,15 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
         "blogListAuthors.rafaelAlvarez.metaDescription"
       ),
       title: translate.t("blogListAuthors.rafaelAlvarez.title"),
+    },
+    {
+      description: translate.t(
+        "blogListAuthors.sebastianVillalobos.description"
+      ),
+      metaDescription: translate.t(
+        "blogListAuthors.sebastianVillalobos.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.sebastianVillalobos.title"),
     },
   ];
 

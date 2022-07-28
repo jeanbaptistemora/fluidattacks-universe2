@@ -35,11 +35,41 @@ const pageTexts: ResourceKey = {
     subscribeHeader: "Subscribe to our newsletter",
   },
   blogListAuthors: {
+    alejandroHerrera: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Alejandro Herrera.",
+      title: "alejandro-herrera",
+    },
+    andersonTaguada: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Anderson Taguada.",
+      title: "anderson-taguada",
+    },
     andresRoldan: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andres Roldan.",
       title: "andres-roldan",
+    },
+    andresTirado: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Andrés Tirado.",
+      title: "andres-tirado",
+    },
+    danielSalazar: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Daniel Salazar.",
+      title: "daniel-salazar",
+    },
+    diegoAlvarez: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Diego Alvarez.",
+      title: "diego-alvarez",
     },
     felipeRuiz: {
       description: "[under construction]",
@@ -70,10 +100,21 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts written by Julian Arango.",
       title: "jason-chavarria",
     },
+    kevinCardona: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Kevin Cardona.",
+      title: "kevin-cardona",
+    },
     oscarPrado: {
       description: "Former member of Fluid Attacks.",
       metaDescription: "Read Fluid Attacks' blog posts written by Oscar Prado.",
       title: "oscar-prado",
+    },
+    oscarUribe: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts written by Oscar Uribe.",
+      title: "oscar-uribe",
     },
     rafaelAlvarez: {
       description: "[under construction]",
@@ -86,6 +127,12 @@ const pageTexts: ResourceKey = {
       metaDescription:
         "Read Fluid Attacks' blog posts written by Rafael Ballestas.",
       title: "rafael-alvarez",
+    },
+    sebastianVillalobos: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Sebastian Villalobos.",
+      title: "sebastian-villalobos",
     },
   },
   blogListCategories: {
