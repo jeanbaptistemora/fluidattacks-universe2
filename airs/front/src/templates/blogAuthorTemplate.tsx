@@ -13,7 +13,11 @@ import {
   CenteredMaxWidthContainer,
 } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
-import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";
+import {
+  capitalizeDashedString,
+  capitalizeObject,
+  stringToUri,
+} from "../utils/utilities";
 
 const blogAuthorTemplate: React.FC<IQueryData> = ({
   pageContext,
@@ -206,12 +210,16 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
     },
   ];
 
+  const authorTitle = data.find(
+    (tag): boolean => stringToUri(tag.title) === authorName
+  )?.title;
+
   const authorDescription = data.find(
-    (tag): boolean => tag.title === authorName
+    (tag): boolean => stringToUri(tag.title) === authorName
   )?.description;
 
   const metaDescription = data.find(
-    (tag): boolean => tag.title === authorName
+    (tag): boolean => stringToUri(tag.title) === authorName
   )?.metaDescription;
 
   return (
@@ -248,7 +256,9 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
           <BlogPageArticle>
             <CenteredMaxWidthContainer className={"tc"}>
               <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {capitalizeDashedString(authorName)}
+                {authorTitle === undefined
+                  ? capitalizeDashedString(authorName)
+                  : authorTitle}
               </Title>
               {authorDescription === undefined ? undefined : (
                 <Paragraph fColor={"#2e2e38"} fSize={"24"}>

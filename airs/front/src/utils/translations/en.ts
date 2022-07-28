@@ -104,7 +104,7 @@ const pageTexts: ResourceKey = {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Jason Chavarría.",
-      title: "jason-chavarria",
+      title: "Jason Chavarría",
     },
     jonathanArmas: {
       description: "Former member of Fluid Attacks.",
