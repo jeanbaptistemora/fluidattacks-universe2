@@ -59,17 +59,22 @@ pytestmark = [
 
 
 async def test_add_group() -> None:
-    loaders: Dataloaders = get_new_context()
     group_name = "kurome"
-    group_users = await group_access_domain.get_group_users(group_name)
+    group_users = await group_access_domain.get_group_stakeholders_emails(
+        get_new_context(), group_name
+    )
     assert len(group_users) == 0
 
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"  # NOSONAR
-    org_group_names = await orgs_domain.get_group_names(loaders, org_id)
+    org_group_names = await orgs_domain.get_group_names(
+        get_new_context(), org_id
+    )
     assert group_name in org_group_names
-    await orgs_domain.add_group_access(loaders, org_id, group_name)
+    await orgs_domain.add_group_access(get_new_context(), org_id, group_name)
 
-    group_users = await group_access_domain.get_group_users(group_name)
+    group_users = await group_access_domain.get_group_stakeholders_emails(
+        get_new_context(), group_name
+    )
     assert len(group_users) == 1
     assert (
         await authz.get_organization_level_role(group_users[0], org_id)
@@ -98,7 +103,8 @@ async def test_add_customer_manager_fail() -> None:
     loaders = get_new_context()
     group_names = await orgs_domain.get_group_names(loaders, org_id)
     groups_users = await collect(
-        group_access_domain.get_group_users(group) for group in group_names
+        group_access_domain.get_group_stakeholders_emails(loaders, group)
+        for group in group_names
     )
     assert all(user not in group_users for group_users in groups_users)
 
@@ -121,7 +127,8 @@ async def test_add_customer_manager_good() -> None:
     loaders = get_new_context()
     group_names = await orgs_domain.get_group_names(loaders, org_id)
     groups_users = await collect(
-        group_access_domain.get_group_users(group) for group in group_names
+        group_access_domain.get_group_stakeholders_emails(loaders, group)
+        for group in group_names
     )
     assert all(user in group_users for group_users in groups_users)
 
@@ -325,15 +332,20 @@ async def test_remove_user() -> None:
     modified_by = "org_testadmin@gmail.com"
     group = "sheele"
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    group_users = await group_access_domain.get_group_users(group)
+    loaders = get_new_context()
+    group_users = await group_access_domain.get_group_stakeholders_emails(
+        loaders, group
+    )
     assert user in group_users
     assert await authz.get_group_level_role(user, group) == "user"
     assert await authz.get_organization_level_role(user, org_id) == "user"
 
-    assert await orgs_domain.remove_access(
-        get_new_context(), org_id, user, modified_by
+    assert await orgs_domain.remove_access(loaders, org_id, user, modified_by)
+    updated_group_users = (
+        await group_access_domain.get_group_stakeholders_emails(
+            get_new_context(), group
+        )
     )
-    updated_group_users = await group_access_domain.get_group_users(group)
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ""
     assert await authz.get_organization_level_role(user, org_id) == ""

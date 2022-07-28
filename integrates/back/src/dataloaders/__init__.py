@@ -1,6 +1,3 @@
-from .group_stakeholders import (
-    GroupStakeholdersLoader,
-)
 from .stakeholder_level_role import (
     StakeholderLevelRoleLoader,
 )
@@ -12,6 +9,9 @@ from dataloaders.group_access_typed import (
 )
 from dataloaders.groups_stakeholder_access import (
     GroupsStakeholderAccessLoader,
+)
+from dataloaders.stakeholders_group_access import (
+    StakeholdersGroupAccess,
 )
 from db_model.credentials.get import (
     CredentialsLoader,
@@ -135,7 +135,6 @@ class Dataloaders(NamedTuple):
     group_findings: GroupFindingsLoader
     group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
-    group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
@@ -163,6 +162,7 @@ class Dataloaders(NamedTuple):
     stakeholder: StakeholderLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
+    stakeholders_group_access: StakeholdersGroupAccess
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -207,7 +207,6 @@ def get_new_context() -> Dataloaders:
     )
 
     stakeholder_loader = StakeholderLoader()
-    group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -241,7 +240,6 @@ def get_new_context() -> Dataloaders:
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
-        group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
@@ -271,6 +269,7 @@ def get_new_context() -> Dataloaders:
         stakeholder_organizations_access=(
             StakeholderOrganizationsAccessLoader()
         ),
+        stakeholders_group_access=StakeholdersGroupAccess(),
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials=UserCredentialsLoader(),

@@ -14,6 +14,9 @@ from aioextensions import (
     collect,
     run,
 )
+from dataloaders import (
+    get_new_context,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -35,7 +38,9 @@ async def main() -> None:
     active_users = set(
         chain.from_iterable(
             await collect(
-                group_access_domain.get_users_to_notify(group)
+                group_access_domain.get_users_to_notify(
+                    get_new_context(), group
+                )
                 for group in groups
             )
         )

@@ -221,7 +221,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     justification: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    recipients = await group_access_domain.get_reattackers(group_name)
+    recipients = await group_access_domain.get_reattackers(loaders, group_name)
     stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)
@@ -266,13 +266,14 @@ async def send_mail_vulnerability_report(
 ) -> None:
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
-    group_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group_name)
-    recipients = [stakeholder.email for stakeholder in group_stakeholders]
+    group_stakeholders_emails: list[
+        str
+    ] = await group_access_domain.get_group_stakeholders_emails(
+        loaders, group_name
+    )
     stakeholders: tuple[
         Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
+    ] = await loaders.stakeholder.load_many(group_stakeholders_emails)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

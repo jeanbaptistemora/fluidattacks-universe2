@@ -63,10 +63,13 @@ async def _send_mail_report(
     group: str,
     group_date_delta: int,
 ) -> None:
-    group_stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group)
+    group_stakeholders_emails: list[
+        str
+    ] = await group_access_domain.get_group_stakeholders_emails(loaders, group)
 
+    group_stakeholders: tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(group_stakeholders_emails)
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in group_stakeholders

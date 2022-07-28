@@ -1219,8 +1219,12 @@ async def remove_all_users(
     """Remove user access to group."""
     user_active, user_suspended = await collect(
         [
-            group_access_domain.get_group_users(group_name, True),
-            group_access_domain.get_group_users(group_name, False),
+            group_access_domain.get_group_stakeholders_emails(
+                loaders, group_name, True
+            ),
+            group_access_domain.get_group_stakeholders_emails(
+                loaders, group_name, False
+            ),
         ]
     )
     all_users = user_active + user_suspended
@@ -1844,9 +1848,14 @@ async def send_mail_policies(
         "responsible": responsible,
         "date": datetime_utils.get_datetime_from_iso_str(modified_date),
     }
+    stakeholders_emails: list[
+        str
+    ] = await group_access_domain.get_group_stakeholders_emails(
+        loaders, group_name
+    )
     group_stakeholders: tuple[
         Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group_name)
+    ] = await loaders.stakeholder.load_many(stakeholders_emails)
 
     stakeholders_emails = [
         stakeholder.email

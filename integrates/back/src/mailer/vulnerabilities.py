@@ -43,7 +43,7 @@ async def send_mail_updated_treatment(
     modified_by: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    managers = await group_access_domain.get_managers(group_name)
+    managers = await group_access_domain.get_managers(loaders, group_name)
     stakeholders: Tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(managers)
