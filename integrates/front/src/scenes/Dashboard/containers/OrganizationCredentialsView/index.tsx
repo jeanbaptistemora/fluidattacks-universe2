@@ -150,8 +150,6 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     user.userEmail,
     filteredCredentials
   );
-  const hideActions =
-    nonSelectableCredentialsIndex.length === filteredCredentials.length;
 
   return (
     <React.StrictMode>
@@ -165,18 +163,15 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
         dataset={filteredCredentials}
         exportCsv={false}
         extraButtons={
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          hideActions ? undefined : (
-            <ActionButtons
-              isAdding={isAdding}
-              isEditing={isEditing}
-              isRemoving={isRemoving}
-              onAdd={openCredentialsModalToAdd}
-              onEdit={openCredentialsModalToEdit}
-              onRemove={removeCredentials}
-              selectedCredentials={selectedCredentials}
-            />
-          )
+          <ActionButtons
+            isAdding={isAdding}
+            isEditing={isEditing}
+            isRemoving={isRemoving}
+            onAdd={openCredentialsModalToAdd}
+            onEdit={openCredentialsModalToEdit}
+            onRemove={removeCredentials}
+            selectedCredentials={selectedCredentials}
+          />
         }
         headers={tableHeaders}
         id={"tblOrganizationCredentials"}
@@ -184,7 +179,6 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
         search={false}
         selectionMode={{
           clickToSelect: true,
-          hideSelectColumn: hideActions,
           mode: "radio",
           nonSelectable: nonSelectableCredentialsIndex,
           onSelect: setSelectedCredentials,

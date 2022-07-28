@@ -134,7 +134,6 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                             "organization.tabs.credentials.credentialsModal.form.password"
                           )}
                           name={"password"}
-                          type={"password"}
                         />
                       </Col>
                     </Fragment>
