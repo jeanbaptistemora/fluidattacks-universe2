@@ -63,10 +63,6 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Discord',
-              href: 'https://community.fluidattacks.com',
-            },
-            {
               label: 'Help',
               href: 'https://help.fluidattacks.com',
             },
