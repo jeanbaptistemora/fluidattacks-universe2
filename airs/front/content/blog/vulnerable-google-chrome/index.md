@@ -218,7 +218,9 @@ Thanks to our [Continuous Hacking](../../services/continuous-hacking/)
 service,
 with our [highly certified](../../about-us/certifications/)
 [red team](../../solutions/red-teaming/),
-you can prevent your organization
+you can enhance your [vulnerability management](../../solutions/vulnerability-management/)
+program
+and prevent your organization
 from receiving highly harmful impacts from cyberattacks.
 For more information,
 do not hesitate to [contact us](../../contact-us/).

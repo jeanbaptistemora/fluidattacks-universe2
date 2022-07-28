@@ -28,7 +28,7 @@ incorporated into Rules.
 
 Let’s clear this up:
 
-Rules was born there in **2009** (inspired by [Common
+Rules was born in **2009** (inspired by [Common
 Criteria](https://www.commoncriteriaportal.org/)) from the combination
 of knowledge and "*experience in the field of computer security with
 various international standards related to this topic*," according to
@@ -46,7 +46,7 @@ are linked to what is verifiable through a technical process in a system.
 They are those that can be evaluated with [DAST](../../categories/dast/),
 [SAST](../../categories/sast/) or [SCA](../../categories/sca/).
 
-The out-of-scope security requirements, which can focus, for example, on
+The out-of-scope security requirements, which may focus, for example, on
 security training and documentation, in contrast, can only be verified
 by audits. And although they are not technical, as Oscar says, "*they
 play a key role in a security test. For example, the lack of training of
@@ -56,12 +56,13 @@ Even some of them may later become technical requirements.
 The requirements that we have in Rules
 have kept a consistent and simple language,
 easy to understand.
-They allow to delimit a [pentesting](../../solutions/penetration-testing/)
+They allow clients to delimit a [pentesting](../../solutions/penetration-testing/)
 or an [ethical hacking](../../solutions/ethical-hacking/) process.
 The delimitation will depend on what each client wants to test
-and on the concepts of risk and vulnerability that he handles.
+and on the concepts of risk and vulnerability that they handle.
 The requirements that are chosen determine the stringency
-and extent of pentesting.
+and extent of pentesting,
+thus establishing conditions for [vulnerability management](../../solutions/vulnerability-management/).
 
 Hackers have in Rules, as Paula Vélez, Security Architect at `Fluid
 Attacks` suggests, "*a performance guide, because if a requirement is

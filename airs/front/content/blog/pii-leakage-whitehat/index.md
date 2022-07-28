@@ -112,7 +112,7 @@ Protection Regulation](../../compliance/gdpr/)), privacy by design is an
 essential requirement, so the applications we develop must maintain,
 process, and share with external sources the *necessary* user data. But
 what information is classified as *necessary*, and who defines that?
-—Something to consult later.
+—That’s something to consider carefully.
 
 On the other hand, it is crucial to establish how long it is *necessary*
 (this concept again) to store the data and in which places this storage
@@ -153,7 +153,10 @@ as an option,
 so that the application in question is attacked,
 and vulnerabilities that give access to external people or systems to
 the private information of the mobile application user are identified.
-Again, this is something to be done periodically; at least it is what we
+Again, this is something to be done periodically,
+as part of an effective [vulnerability management](../../solutions/vulnerability-management/)
+strategy.
+At least it is what we
 recommend.
 
 It would indeed be prudent to stop collecting so much information to

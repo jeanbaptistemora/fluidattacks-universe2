@@ -180,7 +180,9 @@ At `Fluid Attacks`
 we're prepared to overcome this challenge.
 Our clients using any of our [Plans](../../plans/)
 can immediately find out if they use Log4j in their software.
-In our [Attack Surface Manager](../../categories/asm/),
+On our [Attack Surface Manager](../../categories/asm/),
+the platform that makes [vulnerability management](../../solutions/vulnerability-management/)
+smoother,
 they can look for the vulnerability type
 "011. Use of software with known vulnerabilities,"
 under which any of Log4j's high to critical vulnerabilities should appear.

@@ -119,7 +119,7 @@ how to fix them." According to her, remediation recommendations from
 automated tools are often not in line with business plans and,
 therefore, not applicable. It is for this reason that detailed and
 contextualized ideas from security professionals can be much more
-valuable.
+valuable for [vulnerability management](../../solutions/vulnerability-management/).
 
 Immediately afterward, what Georgia remarks connects perfectly with what
 we at `Fluid Attacks` do through our Attack Surface Manager. "For me
