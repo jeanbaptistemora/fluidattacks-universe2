@@ -467,6 +467,10 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/integrates/back/lint/schema/deprecations";
+            gitlabExtra = gitlabLint;
+          }
+          {
             output = "/integrates/back/lint/charts";
             gitlabExtra = gitlabLint;
           }

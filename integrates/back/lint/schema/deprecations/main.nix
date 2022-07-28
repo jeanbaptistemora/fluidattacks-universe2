@@ -1,14 +1,10 @@
 {
-  inputs,
-  makeDerivation,
-  projectPath,
+  makeScript,
+  outputs,
   ...
 }:
-makeDerivation {
-  searchPaths.bin = [
-    inputs.nixpkgs.python39
-  ];
-  builder = ./builder.sh;
-  env.envSrc = projectPath "/integrates/back/lint/schema/deprecations/";
+makeScript {
+  entrypoint = ./entrypoint.sh;
   name = "integrates-back-lint-schema-deprecations";
+  replace.__argIntegratesBackEnv__ = outputs."/integrates/back/env";
 }

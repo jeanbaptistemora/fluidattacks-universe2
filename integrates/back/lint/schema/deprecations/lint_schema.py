@@ -47,14 +47,12 @@ def format_deprecation_output_log(
     return base_output + fields
 
 
-def lint_schema_deprecations() -> int:
+def lint_schema_deprecations() -> None:
     yesterday: datetime = date_utils.get_now_minus_delta(days=1)
     (enums, operations) = get_deprecations_by_period(
         sdl_content=SDL_CONTENT, end=yesterday, start=None
     )
-    return_code: int = 0
     if bool(enums):
-        return_code = 1
         LOGGER.error(
             format_deprecation_output_log(enums, True),
             extra=dict(
@@ -64,7 +62,6 @@ def lint_schema_deprecations() -> int:
             ),
         )
     if bool(operations):
-        return_code = 1
         LOGGER.error(
             format_deprecation_output_log(operations, False),
             extra=dict(
@@ -73,12 +70,9 @@ def lint_schema_deprecations() -> int:
                 }
             ),
         )
-    if return_code == 0:
-        LOGGER.info("All clear!")
-    return return_code
 
 
-def main() -> int:
+def main() -> None:
     lint_schema_deprecations()
 
 
