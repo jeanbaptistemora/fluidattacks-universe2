@@ -28,9 +28,6 @@ import os
 from state.ephemeral import (
     get_ephemeral_store,
 )
-from typing import (
-    Dict,
-)
 
 
 async def get_vulnerabilities(
@@ -57,17 +54,9 @@ async def _report_wrapped(task_id: str) -> None:
     batch_job_id = task_id.split("_")[1]
     load_config = await get_config(task_id)
     CTX.config = load_config
+
     vulnerabilities = await get_vulnerabilities(task_id, load_config.namespace)
-    vulns_dict: Dict[core_model.FindingEnum, core_model.Vulnerabilities] = {}
-    for vuln in vulnerabilities:
-        if vuln.finding not in vulns_dict:
-            vulns_dict[vuln.finding] = (vuln,)
-        else:
-            vulns_dict[vuln.finding] = (
-                *vulns_dict[vuln.finding],
-                vuln,
-            )
-    stores = {finding: get_ephemeral_store() for finding in vulns_dict}
+    stores = {finding: get_ephemeral_store() for finding in load_config.checks}
     for vuln in vulnerabilities:
         stores[vuln.finding].store(vuln)
     create_session(os.environ["INTEGRATES_API_TOKEN"])
