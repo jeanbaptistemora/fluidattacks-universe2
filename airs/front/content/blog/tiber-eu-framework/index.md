@@ -4,7 +4,7 @@ title: Have You Heard About the TIBER-EU?
 date: 2022-05-09
 subtitle: An exemplary initiative to evaluate and protect systems
 category: philosophy
-tags: cybersecurity, red-team, blue-team, security-testing, company, protect
+tags: cybersecurity, red-team, blue-team, security-testing, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1652118259/blog/tiber-eu-framework/cover_tiber_eu_framework.webp
 alt: Photo by Immo Wegmann on Unsplash
 description: In this post, you will learn about TIBER-EU, an initiative of the European Central Bank that assesses European entities' cyber resilience.

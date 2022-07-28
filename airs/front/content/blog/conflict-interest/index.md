@@ -4,7 +4,7 @@ title: A Conflict of Interest?
 date: 2019-07-22
 subtitle: You probably don’t see it.
 category: attacks
-tags: company, ethical-hacking, pentesting, cybersecurity
+tags: company, hacking, pentesting, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330835/blog/conflict-interest/cover_wn6toq.webp
 alt: handshake
 description: In cybersecurity, there's plenty of opportunities for Conflicts of Interest to emerge. Here we discuss understanding, consequences, and ways to deal with them.

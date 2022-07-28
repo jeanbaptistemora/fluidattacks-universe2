@@ -4,7 +4,7 @@ title: Now a Ransomware Seducing Insiders?
 date: 2021-08-27
 subtitle: Find out about LockBit, now in its menacing 2.0 version
 category: attacks
-tags: software, hacking, malware, cybersecurity, company, risk
+tags: hacking, malware, cybersecurity, company, risk, cryptography
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1630079924/blog/lockbit-ransomware/cover_lockbit_xhxdf5.webp
 alt: Photo by Icons8 Team on Unsplash
 description: In this post, you'll learn in general terms what LockBit ransomware is, what its characteristics are and why it can pose a significant threat to your business.

@@ -4,7 +4,7 @@ title: Tribe of Hackers Red Team 1.0
 date: 2020-07-17
 subtitle: Learning from the Red Team Expert Marcus J. Carey
 category: opinions
-tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
+tags: cybersecurity, red-team, hacking, pentesting, blue-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331129/blog/tribe-of-hackers-1/cover_yosoni.webp
 alt: Photo by Lucas Benjamin on Unsplash
 description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share an introduction and some of the highlights of the first interview.

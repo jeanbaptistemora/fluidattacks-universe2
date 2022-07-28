@@ -4,7 +4,7 @@ title: Evolution of Cybercrime Costs (II)
 date: 2020-02-19
 subtitle: Uber cuts $120 million after discovering ad fraud...
 category: attacks
-tags: cybersecurity, risk, vulnerability, company, policies
+tags: cybersecurity, risk, vulnerability, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330837/blog/cost-cybercrime-ii/cover_vnfqpv.webp
 alt: Photo by Jp Valery on Unsplash
 description: Here we conclude our review of 'Measuring the cost of cybercrime' by focusing, among other things, on ad fraud, which appears to be a bit underrated.

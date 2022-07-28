@@ -4,7 +4,7 @@ title: Battle Tendency
 date: 2019-10-25
 subtitle: Most relevant IT investments in 2019
 category: opinions
-tags: technology, company, trend
+tags: company, trend, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blog/battle-tendency/cover_j9zo74.webp
 alt: Mobile showing statistics. Photo by Austin Distel on Unsplash, https://unsplash.com/photos/EMPZ7yRZoGw
 description: In this article, we discuss our research into the most relevant investments and budgets related to information technology in 2019 and upcoming years.

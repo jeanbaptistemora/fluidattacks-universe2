@@ -4,7 +4,7 @@ title: What Does a DevSecOps Engineer Do?
 date: 2022-06-07
 subtitle: Learn with Fluid Attacks about this professional path
 category: philosophy
-tags: cybersecurity, devops, security-testing, training, company
+tags: cybersecurity, devsecops, security-testing, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1654612014/blog/what-does-a-devsecops-engineer-do/cover_engineers.webp
 alt: Photo by Jeff Lemond on Unsplash
 description: Ever wondered what a DevSecOps engineer does? Learn all about their skills and functions with Fluid Attacks.

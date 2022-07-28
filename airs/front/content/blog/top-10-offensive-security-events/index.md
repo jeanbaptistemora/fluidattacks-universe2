@@ -4,7 +4,7 @@ title: The World's Best Events for Hackers
 date: 2022-07-11
 subtitle: Top 10 offensive security international conferences
 category: opinions
-tags: cybersecurity, hacking, training, software, exploit, social
+tags: cybersecurity, hacking, training, software, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1657548989/blog/top-10-offensive-security-events/cover_conferences.webp
 alt: Photo by Alex Kotliarskyi on Unsplash
 description: Want to know which are the best conferences for hackers? We share our selection of the top 10 international events focusing on offensive security.

@@ -4,7 +4,7 @@ title: Two New Laws for U.S. Cybersecurity
 date: 2022-07-01
 subtitle: Enhancing cybersecurity across government entities
 category: politics
-tags: policies, cybersecurity, risk, training
+tags: compliance, cybersecurity, risk, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1656703233/blog/two-new-us-cybersecurity-laws/cover_laws.webp
 alt: Photo by Mathew Schwartz on Unsplash
 description: Learn about the Federal Rotational Cyber Workforce Program Act of 2021 and the State and Local Government Cybersecurity Act of 2021, which were signed into law.

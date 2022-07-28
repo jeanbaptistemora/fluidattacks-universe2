@@ -4,7 +4,7 @@ title: A U.S.-EU Council Discusses Funding
 date: 2022-06-16
 subtitle: Plans to fund cybersecurity in Latin America and Africa
 category: politics
-tags: policies, cybersecurity, risk, technology
+tags: cybersecurity, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1655409747/blog/us-europe-funding-latam-africa/cover_funding.webp
 alt: Photo by Ibrahim Boran on Unsplash
 description: The U.S. and EU are to fund protection of critical infrastructure in foreign countries, lest China does it first.

@@ -4,7 +4,7 @@ title: Breaking Down DevOps
 date: 2020-05-05
 subtitle: The central components of a DevOps definition
 category: philosophy
-tags: devops, software, web, cloud, company
+tags: devsecops, software, web, cloud, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330851/blog/devops-concept/cover_gyaf3f.webp
 alt: Photo by Michael Fenton on Unsplash
 description: Here we introduce DevOps, a working methodology whose principles are communication, collaboration, automation, continuous release, and quick reaction.

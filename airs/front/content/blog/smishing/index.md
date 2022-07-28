@@ -4,7 +4,7 @@ title: You Just Won a Car! Claim It Here!
 date: 2021-04-30
 subtitle: But before doing it you must know what smishing is
 category: attacks
-tags: cybersecurity, social-engineering, risk, technology, software
+tags: cybersecurity, social-engineering, risk, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331098/blog/smishing/cover_zpfdiv.webp
 alt: Photo by Ian Tuck on Unsplash
 description: In this blog, you will learn how and why is smishing growing as one of the most popular forms of cyber-scam.

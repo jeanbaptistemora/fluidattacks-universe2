@@ -4,7 +4,7 @@ title: Microsoft Exchange Server Hack
 date: 2021-03-12
 subtitle: Hafnium exploits four zero-day vulnerabilities
 category: attacks
-tags: cybersecurity, software, vulnerability, hacking, application
+tags: cybersecurity, software, vulnerability, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330870/blog/exchange-server-hack/cover_ep44jq.webp
 alt: Photo by Alejandro Luengo on Unsplash
 description: This post describes the Microsoft Exchange Server hack that has affected multiple companies and government agencies recently.

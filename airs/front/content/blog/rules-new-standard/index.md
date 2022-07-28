@@ -4,7 +4,7 @@ title: We've Reached a New Standard
 date: 2020-04-17
 subtitle: More requirements in Rules are firmly supported
 category: philosophy
-tags: cybersecurity, standard, ethical-hacking
+tags: cybersecurity, hacking, compliance
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331070/blog/rules-new-standard/cover_ch6n0s.webp
 alt: Photo by Bradley Feller on Unsplash
 description: Here we briefly outline Rules, Fluid Attacks's set of security requirements, along with the world-renowned standards that have served as a reference for us.

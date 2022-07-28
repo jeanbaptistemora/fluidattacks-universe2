@@ -4,7 +4,7 @@ title: Such as Microbes Getting Into You?
 date: 2021-08-09
 subtitle: Don't leave the relentless SQL Injection in oblivion
 category: attacks
-tags: vulnerability, hacking, web, application, cybersecurity
+tags: vulnerability, hacking, web, software, cybersecurity
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1628541914/blog/sql-injection/cover_sql_rpw56v.webp
 alt: Photo by National Cancer Institute on Unsplash
 description: Thanks to this post, you'll understand the injection attacks in general terms, especially the SQL Injection. You'll also have some prevention ideas at hand.

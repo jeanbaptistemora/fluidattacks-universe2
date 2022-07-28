@@ -4,7 +4,7 @@ title: Updating your beliefs
 date: 2019-03-5
 subtitle: How Bayes Rule affects risk
 category: philosophy
-tags: company, ethical-hacking, risk
+tags: company, hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331139/blog/updating-belief/cover_yassyb.webp
 alt: Photo by Michał Parzuchowski on Unsplash
 description: Here you can find how to use Bayes rule and basic probability theory to reduce uncertainty, refining initial estimates through evidence.

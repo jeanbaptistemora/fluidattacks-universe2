@@ -4,7 +4,7 @@ title: Tribe of Hackers Red Team 5.0
 date: 2021-03-31
 subtitle: Learning from the red team expert Carlos Perez
 category: opinions
-tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
+tags: cybersecurity, red-team, hacking, pentesting, blue-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331133/blog/tribe-of-hackers-5/cover_lgtcjo.webp
 alt: Photo by Jonathan Petersson on Unsplash
 description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Carlos Perez.

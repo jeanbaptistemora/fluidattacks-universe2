@@ -99,15 +99,31 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Cloud.",
       title: "cloud",
     },
+    code: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Code.",
+      title: "code",
+    },
     company: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Company.",
       title: "company",
     },
+    compliance: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Compliance.",
+      title: "compliance",
+    },
     credential: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Credential.",
       title: "credential",
+    },
+    cryptography: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts tagged with Cryptography.",
+      title: "cryptography",
     },
     cybersecurity: {
       description: "[under construction]",
@@ -115,10 +131,20 @@ const pageTexts: ResourceKey = {
         "Read Fluid Attacks' blog posts tagged with Cybersecurity.",
       title: "cybersecurity",
     },
+    devsecops: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with DevSecOps.",
+      title: "devsecops",
+    },
     exploit: {
       description: "[under construction]",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Exploit.",
       title: "exploit",
+    },
+    hacking: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts tagged with Hacking.",
+      title: "hacking",
     },
     hevd: {
       description: "[under construction]",

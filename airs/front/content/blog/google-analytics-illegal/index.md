@@ -4,7 +4,7 @@ title: Google Analytics, Illegal in the EU
 date: 2022-02-24
 subtitle: At least France and Austria have already decreed it
 category: politics
-tags: policies, cybersecurity, company
+tags: compliance, cybersecurity, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1645733246/blog/google-analytics-illegal/cover_google_analytics_illegal.webp
 alt: Photo by Антон Дмитриев on Unsplash
 description: Nearly two years after the EU-US Privacy Shield was invalidated, two European nations responded to complaints of violation of GDPR by Google Analytics.

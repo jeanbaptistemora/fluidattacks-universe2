@@ -4,7 +4,7 @@ title: What Is Ethical Hacking?
 date: 2022-04-11
 subtitle: A very brief introduction
 category: philosophy
-tags: cybersecurity, ethical-hacking, pentesting, red-team, security-testing, vulnerability
+tags: cybersecurity, hacking, pentesting, red-team, security-testing, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1649710011/blog/what-is-ethical-hacking/cover_ethical_hacking.webp
 alt: Photo by Bruno Kelzer on Unsplash
 description: Our blog needed a basic post about ethical hacking. It can be helpful as an introduction for those who don't know and want to learn about it.

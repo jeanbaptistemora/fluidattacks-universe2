@@ -4,7 +4,7 @@ title: Don't Let the Cat Out!
 date: 2019-01-08
 subtitle: Trapdoor functions and their importance in security
 category: development
-tags: cybersecurity
+tags: cybersecurity, cryptography
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331107/blog/trapdoors/cover_p6rsfq.webp
 alt: Photo by Sepehr on Unsplash
 description: This blog post is an overview of the mathematical concept 'Trapdoor,' the basis of information security.

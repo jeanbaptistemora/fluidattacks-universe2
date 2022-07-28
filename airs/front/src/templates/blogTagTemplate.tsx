@@ -42,14 +42,29 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.cloud.title"),
     },
     {
+      description: translate.t("blogListTags.code.description"),
+      metaDescription: translate.t("blogListTags.code.metaDescription"),
+      title: translate.t("blogListTags.code.title"),
+    },
+    {
       description: translate.t("blogListTags.company.description"),
       metaDescription: translate.t("blogListTags.company.metaDescription"),
       title: translate.t("blogListTags.company.title"),
     },
     {
+      description: translate.t("blogListTags.compliance.description"),
+      metaDescription: translate.t("blogListTags.compliance.metaDescription"),
+      title: translate.t("blogListTags.compliance.title"),
+    },
+    {
       description: translate.t("blogListTags.credential.description"),
       metaDescription: translate.t("blogListTags.credential.metaDescription"),
       title: translate.t("blogListTags.credential.title"),
+    },
+    {
+      description: translate.t("blogListTags.cryptography.description"),
+      metaDescription: translate.t("blogListTags.cryptography.metaDescription"),
+      title: translate.t("blogListTags.cryptography.title"),
     },
     {
       description: translate.t("blogListTags.cybersecurity.description"),
@@ -59,9 +74,19 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.cybersecurity.title"),
     },
     {
+      description: translate.t("blogListTags.devsecops.description"),
+      metaDescription: translate.t("blogListTags.devsecops.metaDescription"),
+      title: translate.t("blogListTags.devsecops.title"),
+    },
+    {
       description: translate.t("blogListTags.exploit.description"),
       metaDescription: translate.t("blogListTags.exploit.metaDescription"),
       title: translate.t("blogListTags.exploit.title"),
+    },
+    {
+      description: translate.t("blogListTags.hacking.description"),
+      metaDescription: translate.t("blogListTags.hacking.metaDescription"),
+      title: translate.t("blogListTags.hacking.title"),
     },
     {
       description: translate.t("blogListTags.hevd.description"),
@@ -200,7 +225,7 @@ const blogTagTemplate: React.FC<IQueryData> = ({
           <BlogPageArticle>
             <CenteredMaxWidthContainer className={"tc"}>
               <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
-                {capitalizeDashedString(tagName)}
+                {tagName === "hevd" ? "HEVD" : capitalizeDashedString(tagName)}
               </Title>
               {tagDescription === undefined ? undefined : (
                 <Paragraph fColor={"#2e2e38"} fSize={"24"}>

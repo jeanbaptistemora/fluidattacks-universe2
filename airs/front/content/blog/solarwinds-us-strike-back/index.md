@@ -4,7 +4,7 @@ title: Time for the U.S. to Strike Back?
 date: 2021-02-22
 subtitle: SolarWinds could be the start of a U.S.-Russia cyberwar
 category: attacks
-tags: cybersecurity, software, malware, hacking, application, risk
+tags: cybersecurity, software, malware, hacking, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331099/blog/solarwinds-us-strike-back/cover_dl2om5.webp
 alt: Photo by Christopher Skor on Unsplash
 description: Here you can find experts' opinions about the SolarWinds attack and some suggestions that could mean cyberwar between the U.S. and Russia if implemented.

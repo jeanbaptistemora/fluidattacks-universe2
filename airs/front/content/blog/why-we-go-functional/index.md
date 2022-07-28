@@ -4,7 +4,7 @@ title: Why We Go Functional?
 date: 2018-07-23
 category: development
 subtitle: Functional vs Imperative
-tags: application, software, company
+tags: software, code, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331222/blog/why-we-go-functional/cover_zdvaaw.webp
 alt: Photo by Shahadat Rahman on Unsplash
 description: In this blog post, we show an analysis of why it is necessary to go functional even with non-functional languages.

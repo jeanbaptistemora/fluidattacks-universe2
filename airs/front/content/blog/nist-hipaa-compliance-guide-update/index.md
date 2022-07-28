@@ -4,7 +4,7 @@ title: NIST Updates Its HIPAA Guidance
 date: 2022-07-27
 subtitle: Advice for firms to comply with the HIPAA Security Rule
 category: politics
-tags: cybersecurity, standard, risk
+tags: cybersecurity, compliance, risk
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1658935999/blog/nist-hipaa-compliance-guide-update/cover_hipaa.webp
 alt: Photo by Sander Sammy on Unsplash
 description: NIST published the second revision draft to its SP 800-66. Learn about the most significant changes that are being introduced.

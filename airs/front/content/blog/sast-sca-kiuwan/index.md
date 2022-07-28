@@ -4,7 +4,7 @@ title: Are SAST and SCA Enough for You?
 date: 2020-04-13
 subtitle: An automatic process that could prove to be limited
 category: opinions
-tags: cybersecurity, application, software, security-testing, cloud, ethical-hacking
+tags: cybersecurity, software, security-testing, cloud, hacking
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331072/blog/sast-sca-kiuwan/cover_tuhbnl.webp
 alt: Photo by Geran de Klerk on Unsplash
 description: This blog post is based on the webinar 'Audit your App with Kiuwan Local Analyzer' by Sebastian Revuelta, Customer Manager at Kiuwan.

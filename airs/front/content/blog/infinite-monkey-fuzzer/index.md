@@ -4,7 +4,7 @@ title: The Infinite Monkey Fuzzer
 date: 2018-02-12
 category: attacks
 subtitle: Fuzz testing using American Fuzzy Lop
-tags: application, hacking, security-testing
+tags: software, hacking, security-testing
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330921/blog/infinite-monkey-fuzzer/cover_a1u7uj.webp
 alt: Photo by su fu on Unsplash
 description: In this blog post, we are focused on how to perform basic fuzz attacks on desktop Linux C applications using American Fuzzy Lop.

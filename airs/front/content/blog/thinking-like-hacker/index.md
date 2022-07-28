@@ -4,7 +4,7 @@ title: Think Like a Hacker!
 date: 2021-09-10
 subtitle: And succeed in dealing with threat actors
 category: philosophy
-tags: hacking, ethical-hacking, cybersecurity, exploit, red-team, company
+tags: hacking, cybersecurity, exploit, red-team, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1631323179/blog/thinking-like-hacker/cover_hacker.webp
 alt: Photo by Giorgio Trovato on Unsplash
 description: This blog post is based primarily on a study of hackers' attitudes and behaviors. These insights may help a bit in preventing attacks by threat actors.

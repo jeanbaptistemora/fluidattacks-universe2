@@ -4,7 +4,7 @@ title: The Oracle of Code
 date: 2018-03-02
 subtitle: About code as data
 category: attacks
-tags: security-testing, application
+tags: security-testing, code, software
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330963/blog/oracle-code/cover_fqvnfc.webp
 alt: Code on a screen
 description: This blog post is a description of the code-as-data approach to source code analysis.

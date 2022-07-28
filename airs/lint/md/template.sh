@@ -46,15 +46,15 @@ function check_md_blog_patterns {
 function check_md_blog_tags {
   local target="${1}"
   local valid_tags=(
-    application
     blue-team
     cloud
     code
     company
+    compliance
     credential
+    cryptography
     cybersecurity
-    devops
-    ethical-hacking
+    devsecops
     exploit
     hacking
     hevd
@@ -62,15 +62,11 @@ function check_md_blog_tags {
     machine-learning
     malware
     pentesting
-    policies
-    protect
     red-team
     risk
     security-testing
     social-engineering
     software
-    standard
-    technology
     training
     trend
     vulnerability

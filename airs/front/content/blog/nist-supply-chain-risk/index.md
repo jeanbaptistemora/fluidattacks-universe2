@@ -4,7 +4,7 @@ title: Advice From the NIST SP 800-161
 date: 2022-05-16
 subtitle: Key practices for managing cyber supply chain risk
 category: politics
-tags: standard, cybersecurity, risk, company, protect
+tags: compliance, cybersecurity, risk, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1652708289/blog/nist-supply-chain-risk/cover_nist.webp
 alt: Photo by Jonathan Cosens Photography on Unsplash
 description: In this blog post, we summarize some of the NIST's suggested key practices to manage cybersecurity supply chain risk.

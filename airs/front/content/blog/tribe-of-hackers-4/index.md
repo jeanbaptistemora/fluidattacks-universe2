@@ -4,7 +4,7 @@ title: Tribe of Hackers Red Team 4.0
 date: 2021-01-08
 subtitle: Learning from the red team expert 'Tinker Secor'
 category: opinions
-tags: cybersecurity, red-team, hacking, pentesting, ethical-hacking, blue-team
+tags: cybersecurity, red-team, hacking, pentesting, blue-team
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331134/blog/tribe-of-hackers-4/cover_ip5dcd.webp
 alt: Photo by Chase Moyer on Unsplash
 description: This post is based on the book 'Tribe of Hackers Red Team' by Carey and Jin. Here we share content from the interview with Tinker Secor.

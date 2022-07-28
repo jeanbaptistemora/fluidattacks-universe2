@@ -4,7 +4,7 @@ title: Release the BEAST!
 date: 2018-04-27
 subtitle: Understanding the BEAST
 category: attacks
-tags: cybersecurity, vulnerability
+tags: cybersecurity, vulnerability, cryptography
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331051/blog/release-the-beast/cover_lcrn2e.webp
 alt: Photo by Philipp Pilz on Unsplash
 description: How does a theorized attack become practical after more than 10 years? Find out here.

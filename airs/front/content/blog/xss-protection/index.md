@@ -4,7 +4,7 @@ title: Dude, Where's My XSS Protection?
 date: 2017-04-26
 category: attacks
 subtitle: 'Solving Halls of Valhalla Challenge: XSS4'
-tags: web, vulnerability, protect, training
+tags: web, cybersecurity, vulnerability, training
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331241/blog/xss-protection/cover_hihzge.webp
 alt: Photo by Thom Milkovic on Unsplash
 description: 'Web security nowadays is a matter of concern. In this article, we explain how to avoid one of the most common attacks: Cross Site Scripting (XSS).'

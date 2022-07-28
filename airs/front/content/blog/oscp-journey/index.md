@@ -4,7 +4,7 @@ title: How to Pass the OSCP
 date: 2019-12-04
 category: opinions
 subtitle: The meaning of Try Harder
-tags: ethical-hacking, pentesting, cybersecurity, training, exploit
+tags: pentesting, hacking, cybersecurity, training, exploit
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330964/blog/oscp-journey/cover_dcbd71.webp
 alt: Photo by Clint Patterson on Unsplash
 description: The OSCP exam is one of the hardest certifications out there for pentesters. Here we show you how you can prepare yourself to do your best on it.
