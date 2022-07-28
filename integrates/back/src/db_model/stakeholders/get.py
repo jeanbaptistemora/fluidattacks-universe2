@@ -75,10 +75,17 @@ async def _get_stakeholders_no_fallback(
 ) -> tuple[Stakeholder, ...]:
     items = await _get_stakeholder_items(emails=emails)
 
-    if len(items) == len(emails):
-        return tuple(format_stakeholder(item) for item in items)
+    if len(items) != len(emails):
+        raise StakeholderNotFound()
 
-    raise StakeholderNotFound()
+    return tuple(
+        next(
+            format_stakeholder(item)
+            for item in items
+            if item["email"] == email
+        )
+        for email in emails
+    )
 
 
 async def _get_stakeholders_with_fallback(
