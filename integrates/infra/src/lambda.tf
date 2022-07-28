@@ -50,12 +50,13 @@ data "archive_file" "dynamodb_replication_zip" {
 }
 
 resource "aws_lambda_function" "dynamodb_replication" {
+  depends_on       = [data.archive_file.dynamodb_replication_zip]
   filename         = data.archive_file.dynamodb_replication_zip.output_path
   function_name    = "integrates-dynamodb-replication-lambda"
   handler          = "handler.handle"
   role             = aws_iam_role.integrates_dynamodb_replication_lambda_role.arn
   runtime          = "python3.9"
-  source_code_hash = filebase64sha256(data.archive_file.dynamodb_replication_zip.output_path)
+  source_code_hash = data.archive_file.dynamodb_replication_zip.output_base64sha256
 
   environment {
     variables = {
