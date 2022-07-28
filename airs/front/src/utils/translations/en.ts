@@ -34,6 +34,14 @@ const pageTexts: ResourceKey = {
     subscribeButton: "Subscribe",
     subscribeHeader: "Subscribe to our newsletter",
   },
+  blogListAuthors: {
+    jasonChavarria: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Jason Chavarría.",
+      title: "jason-chavarria",
+    },
+  },
   blogListCategories: {
     attacks: {
       description:
