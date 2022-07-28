@@ -12,13 +12,6 @@ type ToeLines {
   bePresentUntil: DateTime
   "ToE comment"
   comments: String!
-  "Author of the commit"
-  commitAuthor: String! @deprecated(
-    reason: """
-      This field will be removed after 2022/06/04.
-      Use `lastAuthor` instead.
-    """
-  )
   "ToE Filename"
   filename: String!
   "First attack moment in iso format"
@@ -34,13 +27,6 @@ type ToeLines {
   lastCommit: String!
   "Lines of code"
   loc: Int!
-  "SHA-1 commit hash in short form"
-  modifiedCommit: String! @deprecated(
-    reason: """
-      This field will be removed after 2022/06/04.
-      Use `lastCommit` instead.
-    """
-  )
   "Modified date in iso format"
   modifiedDate: DateTime!
   "Toe lines Git Root"
