@@ -435,6 +435,12 @@ def transform_glob(pattern: str) -> str:
     return pattern
 
 
+def _path_in_pattern(path: str, pattern: str) -> bool:
+    if pattern == ".":
+        return True
+    return w_glob.globmatch(path, transform_glob(pattern))
+
+
 def path_is_include(
     path: str,
     include_patterns: Optional[List[str]] = None,
@@ -444,11 +450,11 @@ def path_is_include(
     if not include_patterns and not exclude_patterns:
         return True
     for include_pattern in include_patterns or []:
-        if w_glob.globmatch(path, transform_glob(include_pattern)):
+        if _path_in_pattern(path, include_pattern):
             is_include = True
             break
     for exclude_path in exclude_patterns or []:
-        if w_glob.globmatch(path, transform_glob(exclude_path)):
+        if _path_in_pattern(path, exclude_path):
             is_include = False
             break
 

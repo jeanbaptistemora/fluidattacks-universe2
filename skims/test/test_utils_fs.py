@@ -76,5 +76,5 @@ def test_path_is_include() -> None:
             "templates/error.html",
             include_patterns=["."],
         )
-        is False
+        is True
     )
