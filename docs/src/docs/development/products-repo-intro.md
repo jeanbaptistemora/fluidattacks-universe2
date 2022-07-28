@@ -27,7 +27,7 @@ and is divided across many products.
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=security_rating)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=sqale_index)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
-[![Code Grade](https://www.code-inspector.com/project/19186/score/svg)](https://www.code-inspector.com)
+[![Code Grade](https://api.codiga.io/project/34008/score/svg)](https://www.code-inspector.com)
 
 ## Installing
 
