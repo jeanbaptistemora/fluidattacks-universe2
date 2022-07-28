@@ -6,9 +6,25 @@ slug: /machine/web/groups/scope/roots
 ---
 
 In this section of the Scope tab,
-you can add and edit
-the repositories and environments
-to be included in the testing service
+you can add and edit the repositories
+and environments to be included
+in the testing service.
+If you want to know more
+about these service types,
+click [here](/machine/web/groups/services).
+
+## Git Roots
+
+Here we put any Git repositories
+composed of code to clone and
+start the analysis of these.
+In Git Roots,
+you can add,
+edit,
+enable or disable the root.
+You can also export and filter
+the information of all your
+Roots that compose the table.
 
 ## IP roots
 
