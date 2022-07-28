@@ -49,26 +49,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
         return (
           <Form id={"credentials"}>
             <Row justify={"flex-start"}>
-              <Col large={"50"} medium={"50"} small={"100"}>
-                <Select
-                  label={t(
-                    "organization.tabs.credentials.credentialsModal.form.type.label"
-                  )}
-                  name={"type"}
-                >
-                  <option value={"HTTPS"}>
-                    {t(
-                      "organization.tabs.credentials.credentialsModal.form.type.https"
-                    )}
-                  </option>
-                  <option value={"SSH"}>
-                    {t(
-                      "organization.tabs.credentials.credentialsModal.form.type.ssh"
-                    )}
-                  </option>
-                </Select>
-              </Col>
-              <Col large={"50"} medium={"50"} small={"100"}>
+              <Col large={"100"} medium={"100"} small={"100"}>
                 <Input
                   label={t(
                     "organization.tabs.credentials.credentialsModal.form.name.label"
@@ -81,6 +62,25 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
               </Col>
               {isAdding || values.newSecrets ? (
                 <Fragment>
+                  <Col large={"100"} medium={"100"} small={"100"}>
+                    <Select
+                      label={t(
+                        "organization.tabs.credentials.credentialsModal.form.type.label"
+                      )}
+                      name={"type"}
+                    >
+                      <option value={"HTTPS"}>
+                        {t(
+                          "organization.tabs.credentials.credentialsModal.form.type.https"
+                        )}
+                      </option>
+                      <option value={"SSH"}>
+                        {t(
+                          "organization.tabs.credentials.credentialsModal.form.type.ssh"
+                        )}
+                      </option>
+                    </Select>
+                  </Col>
                   {values.type === "SSH" && (
                     <Col large={"100"} medium={"100"} small={"100"}>
                       <TextArea
