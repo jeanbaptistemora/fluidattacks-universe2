@@ -120,6 +120,19 @@ workflow:
   <<: [*makes4, *common_in_dev_branch]
   stage: lint-code
 
+sorts_extension:
+  <<: *common_in_dev_branch
+  allow_failure: true
+  image: ghcr.io/fluidattacks/sorts-extension:latest
+  interruptible: true
+  needs: []
+  script: sorts $PWD False 90
+  stage: lint-code
+  tags:
+    - autoscaling
+  variables:
+    GIT_DEPTH: 20
+
 /reviews:
   <<: [*makes4, *common_in_mrs]
   stage: merge-request

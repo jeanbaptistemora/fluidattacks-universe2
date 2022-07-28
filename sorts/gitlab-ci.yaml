@@ -235,25 +235,3 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-sorts_extension:
-  allow_failure: true
-  image: ghcr.io/fluidattacks/sorts-extension:latest
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_BRANCH == "trunk"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|sorts)/
-  script: sorts $PWD False 90
-  stage: lint-code
-  tags:
-    - autoscaling
-  variables:
-    GIT_DEPTH: 20
-    MAKES_GIT_DEPTH: 1

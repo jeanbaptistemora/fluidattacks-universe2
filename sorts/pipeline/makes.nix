@@ -109,27 +109,6 @@ in {
           output = "/testTerraform/sorts";
           gitlabExtra = gitlabTestInfra;
         }
-        {
-          output = "sorts_extension";
-          gitlabExtra = {
-            image = "ghcr.io/fluidattacks/sorts-extension:latest";
-            interruptible = true;
-            allow_failure = true;
-            rules = [
-              gitlabBranchNotTrunk
-              gitlabCi.rules.notMrs
-              gitlabCi.rules.notSchedules
-              gitlabCi.rules.notTriggers
-              gitlabTitleMatchingSorts
-            ];
-            script = "sorts $PWD False 90";
-            stage = "lint-code";
-            tags = ["autoscaling"];
-            variables = {
-              GIT_DEPTH = 20;
-            };
-          };
-        }
       ];
     };
   };
