@@ -15,6 +15,7 @@ from newutils.deprecations.ast import (
 from newutils.deprecations.types import (
     ApiDeprecation,
 )
+import sys
 
 LOGGER = logging.getLogger(__name__)
 
@@ -71,11 +72,15 @@ def lint_schema_deprecations() -> None:
             ),
         )
 
+    if bool(enums) or bool(operations):
+        LOGGER.error("Failed check :(")
+        sys.exit(1)
+    LOGGER.info("All clear!")
+
 
 def main() -> None:
     lint_schema_deprecations()
 
 
 if __name__ == "__main__":
-    LOGGER.info("Linting schema deprecations...")
     main()
