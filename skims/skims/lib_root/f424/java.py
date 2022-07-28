@@ -1,3 +1,6 @@
+from lib_root.utilities.common import (
+    get_method_name,
+)
 from lib_sast.types import (
     ShardDb,
 )
@@ -15,6 +18,9 @@ from sast.query import (
 from utils import (
     graph as g,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def uses_exit_method(
@@ -22,6 +28,11 @@ def uses_exit_method(
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JAVA_LEAK_STACKTRACE
+    exit_methods = {
+        "System.exit(0)",
+        "Runtime.getRuntime().exit(0)",
+        "Runtime.getRuntime().halt(0)",
+    }
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
@@ -38,8 +49,16 @@ def uses_exit_method(
                     member,
                     "method_invocation",
                 )
-                if match["method_invocation"]:
-                    yield shard, member
+
+                if member_expression_id := match["method_invocation"]:
+                    method_name = node_to_str(graph, member_expression_id)
+                    node_cfg = g.pred_ast(graph, member, depth=1)[0]
+
+                    if (
+                        get_method_name(graph, node_cfg) != "main"
+                        and method_name in exit_methods
+                    ):
+                        yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f066.js_uses_console_log",
