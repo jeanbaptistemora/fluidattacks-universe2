@@ -43,7 +43,7 @@ async def mutate(
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    validations_utils.validate_file_name(files_data)
+    validations_utils.validate_file_name(files_data[0]["file_name"])
     signed_url = await resources_utils.upload_file(
         files_data[0]["file_name"], group_name
     )
