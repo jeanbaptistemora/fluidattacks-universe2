@@ -1,6 +1,7 @@
 from syntax_graph.syntax_readers.common import (
     array as common_array,
     binary_expression as common_binary_expression,
+    boolean_literal as common_boolean_literal,
     call_expression as common_call_expression,
     comment as common_comment,
     else_clause as common_else_clause,
@@ -8,6 +9,7 @@ from syntax_graph.syntax_readers.common import (
     identifier as common_identifier,
     if_statement as common_if_statement,
     method_declaration as common_method_declaration,
+    new_expression as common_new_expression,
     number_literal as common_number_literal,
     pair as common_pair,
     parameter_list as common_parameter_list,
@@ -27,6 +29,7 @@ from syntax_graph.syntax_readers.javascript import (
     arguments as javascript_arguments,
     arrow_function as javascript_arrow_function,
     assignment_expression as javascript_assignment_expression,
+    await_expression as javascript_await_expression,
     catch_clause as javascript_catch_clause,
     lexical_declaration as javascript_lexical_declaration,
     member_expression as javascript_member_expression,
@@ -65,9 +68,22 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "await_expression",
+        },
+        syntax_reader=javascript_await_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "binary_expression",
         },
         syntax_reader=common_binary_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "false",
+            "true",
+        },
+        syntax_reader=common_boolean_literal.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -130,6 +146,12 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
             "function_declaration",
         },
         syntax_reader=common_method_declaration.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "new_expression",
+        },
+        syntax_reader=common_new_expression.reader,
     ),
     Dispatcher(
         applicable_types={

@@ -15,10 +15,11 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
 
-    expression = match_ast_d(args.ast_graph, args.n_id, "expression_statement")
-    if not expression:
-        raise MissingCaseHandling(
-            f"Bad switch default handling in {args.n_id}"
+    if (
+        expression := match_ast_d(
+            args.ast_graph, args.n_id, "expression_statement"
         )
+    ) or match_ast_d(args.ast_graph, args.n_id, "break_statement"):
+        return build_switch_default_node(args, expression)
 
-    return build_switch_default_node(args, expression)
+    raise MissingCaseHandling(f"Bad switch default handling in {args.n_id}")

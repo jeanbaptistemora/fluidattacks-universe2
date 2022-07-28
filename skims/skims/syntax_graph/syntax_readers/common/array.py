@@ -20,7 +20,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    node_types = {"decimal_integer_literal", "string", "identifier"}
+    node_types = {"decimal_integer_literal", "string", "identifier", "object"}
 
     childs = [
         child
@@ -31,6 +31,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = list(filter(None, childs))
 
     if len(m_childs) > 2 and not childs:
-        raise MissingCaseHandling(f"Bad arguments handling in {args.n_id}")
+        raise MissingCaseHandling(f"Bad array handling in {args.n_id}")
 
     return build_array_node(args, c_ids)
