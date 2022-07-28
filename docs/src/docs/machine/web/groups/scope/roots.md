@@ -196,6 +196,45 @@ you will have to add a new root
 with the URL and branch you need
 to include in the security tests.
 
+## Deactivate a Git Root
+
+It may be that over time we
+no longer require the use
+of some repositories,
+or we want to move it
+to another group.
+We have the flexibility to
+inactivate or move repositories
+quickly and easily by going
+to the State column.
+
+![Deactivate Git Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_git_root.png)
+
+First, you must find the branch
+you want to disable or move to.
+Once you know which one it is,
+go to the state column and click
+on the toggle of the branch
+that is currently active.
+Here,
+you will get pop-up window
+asking why you want to
+disable the root.
+
+![Deactivate Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659017040/docs/web/groups/scope/deactivate_root_windw.png)
+
+When you click on the drop-down menu,
+you will get three options:
+Registered by mistake,
+move to another group,
+and other.
+Remember that each action you
+select must take into account
+the alert warnings.
+For more information,
+click
+[here](/machine/web/groups/scope/roots#deactivating-roots).
+
 ## Deactivating roots
 
 :::caution
