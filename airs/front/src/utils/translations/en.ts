@@ -35,11 +35,57 @@ const pageTexts: ResourceKey = {
     subscribeHeader: "Subscribe to our newsletter",
   },
   blogListAuthors: {
+    andresRoldan: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Andres Roldan.",
+      title: "andres-roldan",
+    },
+    felipeRuiz: {
+      description: "[under construction]",
+      metaDescription: "Read Fluid Attacks' blog posts written by Felipe Ruiz.",
+      title: "felipe-ruiz",
+    },
+    felipeZarate: {
+      description: "Former member of Fluid Attacks.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Felipe Zárate.",
+      title: "felipe-zarate",
+    },
     jasonChavarria: {
       description: "[under construction]",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Jason Chavarría.",
       title: "jason-chavarria",
+    },
+    jonathanArmas: {
+      description: "Former member of Fluid Attacks.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Jonathan Armas.",
+      title: "jonathan-armas",
+    },
+    julianArango: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Julian Arango.",
+      title: "jason-chavarria",
+    },
+    oscarPrado: {
+      description: "Former member of Fluid Attacks.",
+      metaDescription: "Read Fluid Attacks' blog posts written by Oscar Prado.",
+      title: "oscar-prado",
+    },
+    rafaelAlvarez: {
+      description: "[under construction]",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Rafael Alvarez.",
+      title: "rafael-alvarez",
+    },
+    rafaelBallestas: {
+      description: "Former member of Fluid Attacks.",
+      metaDescription:
+        "Read Fluid Attacks' blog posts written by Rafael Ballestas.",
+      title: "rafael-alvarez",
     },
   },
   blogListCategories: {

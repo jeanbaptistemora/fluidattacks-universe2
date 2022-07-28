@@ -28,11 +28,67 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
 
   const data = [
     {
+      description: translate.t("blogListAuthors.andresRoldan.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.andresRoldan.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.andresRoldan.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.felipeRuiz.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.felipeRuiz.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.felipeRuiz.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.felipeZarate.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.felipeZarate.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.felipeZarate.title"),
+    },
+    {
       description: translate.t("blogListAuthors.jasonChavarria.description"),
       metaDescription: translate.t(
         "blogListAuthors.jasonChavarria.metaDescription"
       ),
       title: translate.t("blogListAuthors.jasonChavarria.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.jonathanArmas.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.jonathanArmas.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.jonathanArmas.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.julianArango.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.julianArango.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.julianArango.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.oscarPrado.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.oscarPrado.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.oscarPrado.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.rafaelBallestas.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.rafaelBallestas.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.rafaelBallestas.title"),
+    },
+    {
+      description: translate.t("blogListAuthors.rafaelAlvarez.description"),
+      metaDescription: translate.t(
+        "blogListAuthors.rafaelAlvarez.metaDescription"
+      ),
+      title: translate.t("blogListAuthors.rafaelAlvarez.title"),
     },
   ];
 
