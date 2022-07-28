@@ -41,22 +41,15 @@ async def _get_organization_access(
             "id": remove_org_id_prefix(organization_id),
         },
     )
-
-    key_structure = TABLE.primary_key
-    response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.partition_key)
-            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
-        ),
+    item = await operations.get_item(
         facets=(TABLE.facets["organization_access"],),
-        limit=1,
+        key=primary_key,
         table=TABLE,
     )
-
-    if not response.items:
+    if not item:
         raise StakeholderNotInOrganization()
 
-    return format_organization_access(response.items[0])
+    return format_organization_access(item)
 
 
 async def _get_organization_stakeholders_access(
