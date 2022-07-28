@@ -30,7 +30,7 @@ from typing import (
 )
 
 
-def get_due_date(reason: str) -> datetime:
+def get_due_date(definition: str, field: str, reason: str) -> datetime:
     """
     Searches the deprecation reason for a date in the format `YYYY/MM/DD`.
     If none is found, raises an error
@@ -41,7 +41,7 @@ def get_due_date(reason: str) -> datetime:
     raise InvalidDateFormat(
         expr=(
             "No deprecation date in the format YYYY/MM/DD found in reason "
-            f"'{reason}'"
+            f"'{reason}' of field {field} from definition {definition}"
         )
     )
 
@@ -81,7 +81,9 @@ def _search_directives(
                     field=field.name.value,
                     reason=deprecation_reason.replace("\n", " "),
                     due_date=get_due_date(
-                        deprecation_reason.replace("\n", " ")
+                        definition=definition.name.value,
+                        field=field.name.value,
+                        reason=deprecation_reason.replace("\n", " "),
                     ),
                     type=definition.kind,
                 )
@@ -96,7 +98,9 @@ def _search_directives(
                             field=argument.name.value,
                             reason=arg_deprecation.replace("\n", " "),
                             due_date=get_due_date(
-                                arg_deprecation.replace("\n", " ")
+                                definition=definition.name.value,
+                                field=field.name.value,
+                                reason=arg_deprecation.replace("\n", " "),
                             ),
                             type=definition.kind,
                         )
