@@ -6,7 +6,6 @@ import {
   faSignOutAlt,
   faUserCircle,
   faUserCog,
-  faUserLock,
   faUserPlus,
   faUserTimes,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 
 import { APITokenModal } from "./APITokenModal";
-import { CredentialsModal } from "./CredentialsModal";
 import { MobileModal } from "./MobileModal";
 import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveStakeholderAttr } from "./types";
@@ -65,15 +63,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     });
   }, [setFeaturePreview]);
 
-  const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
-  const openCredentialsModal = useCallback((): void => {
-    setIsCredentialsModalOpen(true);
-  }, []);
-  const closeCredentialsModal = useCallback((): void => {
-    setIsCredentialsModalOpen(false);
-  }, []);
   const openMobileModal = useCallback((): void => {
     setIsMobileModalOpen(true);
   }, []);
@@ -189,13 +180,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
             </Text>
           </Link>
         </Button>
-        <Button onClick={openCredentialsModal}>
-          <Text bright={8}>
-            <FontAwesomeIcon icon={faUserLock} />
-            &nbsp;
-            {t("navbar.credentials")}
-          </Text>
-        </Button>
         <Button onClick={openMobileModal}>
           <Text bright={8}>
             <FontAwesomeIcon icon={faMobileAlt} />
@@ -277,9 +261,6 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       </div>
       {isTokenModalOpen ? (
         <APITokenModal onClose={closeTokenModal} open={true} />
-      ) : undefined}
-      {isCredentialsModalOpen ? (
-        <CredentialsModal onClose={closeCredentialsModal} />
       ) : undefined}
       {isMobileModalOpen ? (
         <MobileModal onClose={closeMobileModal} />
