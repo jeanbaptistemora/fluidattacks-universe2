@@ -150,7 +150,8 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     user.userEmail,
     filteredCredentials
   );
-  const hideActions = true;
+  const hideActions =
+    nonSelectableCredentialsIndex.length === filteredCredentials.length;
 
   return (
     <React.StrictMode>

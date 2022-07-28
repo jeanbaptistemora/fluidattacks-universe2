@@ -6,7 +6,11 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import { ADD_CREDENTIALS, GET_ORGANIZATION_CREDENTIALS } from "./queries";
+import {
+  ADD_CREDENTIALS,
+  GET_ORGANIZATION_CREDENTIALS,
+  REMOVE_CREDENTIALS,
+} from "./queries";
 
 import { OrganizationCredentials } from ".";
 import { authContext } from "utils/auth";
@@ -168,9 +172,97 @@ describe("organization credentials view", (): void => {
       })
     );
     await waitFor((): void => {
-      expect(msgSuccess).toHaveBeenCalledTimes(1);
       expect(msgSuccess).toHaveBeenLastCalledWith(
         "organization.tabs.credentials.alerts.addSuccess",
+        "groupAlerts.titleSuccess"
+      );
+    });
+  });
+
+  it("should remove credentials", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ORGANIZATION_CREDENTIALS,
+          variables: {
+            organizationId: "ORG#15eebe68-e9ce-4611-96f5-13d6562687e1",
+          },
+        },
+        result: {
+          data: {
+            organization: {
+              __typename: "Organization",
+              credentials: [
+                {
+                  __typename: "Credentials",
+                  id: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+                  name: "Credentials test",
+                  owner: "owner@test.com",
+                  type: "HTTPS",
+                },
+              ],
+              name: "org-test",
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: readonly MockedResponse[] = [
+      {
+        request: {
+          query: REMOVE_CREDENTIALS,
+          variables: {
+            credentialsId: "6e52c11c-abf7-4ca3-b7d0-635e394f41c1",
+            organizationId: "ORG#15eebe68-e9ce-4611-96f5-13d6562687e1",
+          },
+        },
+        result: { data: { removeCredentials: { success: true } } },
+      },
+    ];
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_remove_credentials_mutate" },
+    ]);
+    const mockedAuth = {
+      tours: {
+        newGroup: false,
+        newRoot: false,
+      },
+      userEmail: "owner@test.com",
+      userName: "owner",
+    };
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[...mockedQueries, ...mockedMutations]}
+      >
+        <authzPermissionsContext.Provider value={mockedPermissions}>
+          <authContext.Provider value={mockedAuth}>
+            <OrganizationCredentials
+              organizationId={"ORG#15eebe68-e9ce-4611-96f5-13d6562687e1"}
+            />
+          </authContext.Provider>
+        </authzPermissionsContext.Provider>
+      </MockedProvider>
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("owner@test.com")).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByRole("radio"));
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "organization.tabs.credentials.actionButtons.removeButton.text",
+      })
+    );
+    userEvent.click(
+      screen.getByRole("button", {
+        name: "components.modal.confirm",
+      })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenLastCalledWith(
+        "organization.tabs.credentials.alerts.removeSuccess",
         "groupAlerts.titleSuccess"
       );
     });
