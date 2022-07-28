@@ -203,7 +203,7 @@ evolving. Bear in mind that it’s always crucial to have robust
 authentication mechanisms and manage a definite restriction of access to
 critical data and systems. Likewise, keep threat models up to date and
 deploy continuous monitoring for configuration errors and
-vulnerabilities. ([`Fluid Attacks` red
+vulnerabilities. ([`Fluid Attacks'` red
 team](../../services/continuous-hacking/) can help you with that.)
 Finally, don’t forget that if you don’t understand and address cloud
 security in your company’s digital transformation, the next

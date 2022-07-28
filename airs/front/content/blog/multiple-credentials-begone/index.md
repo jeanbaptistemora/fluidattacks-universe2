@@ -46,7 +46,7 @@ domain or Intranet. It is only logical to use this information to log
 users in to other applications such as web-based application. This SSO
 login standard has two main advantages over authentication with more
 traditional methods like user name/password. 1. No need to type in
-credentials 2. No need to remember and renew passwords (Onelogin, 2016)
+credentials 2. No need to remember and renew passwords (Onelogin, 2016).
 
 <div class="imgblock">
 
@@ -138,7 +138,7 @@ original one, hence becoming the item 0.
 To solve this problem we have something called secure validation of SAML
 assertions. This consist of two steps. 1. Parsing the XML document and
 validating the structure based on a provided schema 2. Digital signature
-validation, which verifies authenticity and integrity
+validation, which verifies authenticity and integrity.
 
 The first step helps prevent wrapping. The second prevents forgery.
 (Krawczyk, 2012)
@@ -166,6 +166,11 @@ put it back together if you have screws leftover, you know it’s
 definitely coming apart, that desk is breaking, maybe not immediately
 but definitely at sometime. The same with SAML you can’t have any screws
 left over when you configure the service.
+
+At `Fluid Attacks`,
+we review our clients' [source codes](../../solutions/secure-code-review/)
+to make sure
+that their authentication mechanisms are not open to attacks.
 
 ## References
 

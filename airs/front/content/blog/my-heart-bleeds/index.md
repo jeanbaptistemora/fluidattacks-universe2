@@ -303,6 +303,12 @@ against `HeartBleed`, since there are plenty reports from 2017 showing
 that at least 200,000 services are still
 [affected](https://www.theregister.co.uk/2017/01/23/heartbleed_2017/).
 
+We at `Fluid Attacks`
+offer [Software Composition Analysis](../../categories/sca/)
+to find vulnerable software components in our clients' systems.
+Our clients can then [manage these vulnerabilities](../../solutions/vulnerability-management/)
+in our attack surface management platform.
+
 ## References
 
 1. [Synopsys (2014).](https://heartbleed.com)

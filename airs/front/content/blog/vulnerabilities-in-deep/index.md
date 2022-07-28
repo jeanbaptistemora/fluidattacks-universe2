@@ -24,7 +24,8 @@ medicine, data mining, robotics, etc.
 
 Some researches have been exploring how Artificial Intelligence can be
 used in cybersecurity. For example, how we can use Artificial
-Intelligence for vulnerability detection inside source code.
+Intelligence
+for vulnerability detection [inside source code](../../solutions/secure-code-review/).
 
 Most vulnerabilities are a result of using bad practices at the time of
 programming. When these vulnerabilities are not detected in a timely
@@ -32,10 +33,12 @@ manner, they can later be discovered and exploited by attackers. So, it
 is important to detect vulnerabilities in the early stages of a system’s
 development.
 
-There are tools that can perform static analysis of the source code.
+There are tools that can perform [static analysis](../../categories/sast/)
+of the source code.
 These tools check the source code for problems without the need for
-compiling and executing it. There are also dynamic analysis tools that
-send information to the system inputs with presets or random values in
+compiling and executing it.
+There are also [dynamic analysis](../../categories/dast/) tools
+that send information to the system inputs with presets or random values in
 order to check for failures or improper exceptions handling.
 
 ## Initial Thoughts

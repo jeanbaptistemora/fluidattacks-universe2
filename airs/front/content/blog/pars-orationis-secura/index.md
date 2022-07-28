@@ -289,8 +289,8 @@ for injectable_variable in injectable_variables:
 Remember we need to detect lines with `SQL` queries that contain
 dangerously concatenated variables, but also 'where' those variables are
 taken from user input and whether they are protected. But since we
-already have the `` `injectable variable''
-as a regular `string ``, we can create 'yet another' parser on-the-fly
+already have the `injectable variable`
+as a regular string, we can create 'yet another' parser on-the-fly
 to find the lines where that variable is mentioned. This one is simple:
 
 ``` python
@@ -342,6 +342,11 @@ with a statistically sound 95% confidence, that our `pyparsing` parser
 reports
 
 > zero false positives.
+
+At `Fluid Attacks`,
+our ethical hackers review code with [manual techniques](../../solutions/penetration-testing/),
+yielding results with very low false positive
+and false negative rates.
 
 ## References
 

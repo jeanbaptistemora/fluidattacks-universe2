@@ -17,7 +17,7 @@ source: https://unsplash.com/photos/K9nejptN9i8
 ---
 
 A few days ago, [we had mentioned](../vulns-triage-synopsys/) the recent
-increase in the use of Open Source Software (`OSS`) by development teams
+increase in the use of Open Source Software (OSS) by development teams
 to support or shape their applications. As shared by [Oram &
 Bhorat](https://d1.awsstatic.com/Open%20Source/enterprise-oss-book.pdf),
 "every business and government involved with digital transformation or
@@ -34,7 +34,7 @@ Linux, and WordPress are now [quite
 successful](https://www.iot-now.com/2015/12/14/39527-open-source-security-through-transparency/)
 in the consumer area.
 
-But what exactly is `OSS`?
+But what exactly is OSS?
 
 ## OSS definition and origin
 
@@ -42,11 +42,11 @@ When we talk about 'open source,' [we mean the free
 availability](https://www.mautic.org/blog/community/open-source-and-transparency-not-the-same-thing)
 of the software involved. We assume that anyone can [freely
 access](https://www.investintech.com/resources/blog/archives/7975-pros-cons-open-source-business.html),
-copy, share, and modify the `OSS`, including every line of its source
+copy, share, and modify the OSS, including every line of its source
 code. The source code, which constitutes the software and to which many
 users do not pay attention, is what programmers or developers manipulate
 to generate changes in [the way the software
-works](https://opensource.com/resources/what-open-source). Unlike `OSS`,
+works](https://opensource.com/resources/what-open-source). Unlike OSS,
 we have 'proprietary software' or '[closed source
 software](https://opensource.com/resources/what-open-source),' which
 doesn’t have its full source code available to the public. [Its
@@ -76,21 +76,21 @@ the software and the code. However, "[most free open source software is
 indeed free in
 price](https://opensource.com/education/12/7/clearing-open-source-misconceptions)."
 Therefore, it is often requested that the copyright be attributed to the
-creator(s) and that `OSS` quality be preserved when distributed.
+creator(s) and that OSS quality be preserved when distributed.
 
 In fact, many organizations have achieved success selling consulting,
 [support](https://opensource.com/resources/what-open-source), and
 [training](https://www.iot-now.com/2015/12/14/39527-open-source-security-through-transparency/)
-services related to the use of their `OSS`. [Some
+services related to the use of their OSS. [Some
 companies](https://opensource.com/education/12/7/clearing-open-source-misconceptions)
 have chosen to sell exemptions to the terms of their licenses. In other
 cases, some products recommend other complementary products or services.
-Other times, `OSS` creators rely only on donations.
+Other times, OSS creators rely only on donations.
 
 ## OSS licenses and security
 
 On the legal side, licenses are not only provided for proprietary
-software; they also apply to `OSS`. The rights to examine, copy, alter,
+software; they also apply to OSS. The rights to examine, copy, alter,
 and distribute are [stipulated in those
 licenses](https://www.campussource.de/org/opensource/docs/schwed.studie.pdf).
 [Licenses](https://opensource.com/resources/what-open-source) determine
@@ -110,7 +110,7 @@ present in both open and closed source software. According to a post by
 Vlad](https://rubygarage.org/blog/open-source-software-security),
 regarding security, many times when we pay for software, we are left
 only with the confidence in the seller. However, when we have many eyes
-watching an `OSS` and the code, flaws, bugs, [errors, or
+watching an OSS and the code, flaws, bugs, [errors, or
 omissions](https://opensource.com/resources/what-open-source) in the
 program can be more easily detected and quickly fixed. Furthermore, the
 security of some companies using open source, without teams of
@@ -121,9 +121,9 @@ from malicious hackers who can take advantage of it.
 ## OSS in business strategies
 
 Many organizations, regardless of their size and field of action, [are
-recommended to include `OSS` in their
+recommended to include OSS in their
 strategies](https://d1.awsstatic.com/Open%20Source/enterprise-oss-book.pdf).
-For a company using `OSS`, an online community discussing its software
+For a company using OSS, an online community discussing its software
 can be a huge benefit. As
 [Bromhead](https://opensource.com/article/17/8/enterprise-open-source-advantages)
 pointed out: "The output tends to be extremely robust, tried, and tested
@@ -165,7 +165,7 @@ hierarchical, management-driven cultures of most companies today" ([Oram
 Bhorat](https://d1.awsstatic.com/Open%20Source/enterprise-oss-book.pdf)).
 [Great
 talents](https://angel.co/blog/want-to-recruit-better-engineers-open-source-your-code)
-can then become part of a company they worked with on an `OSS` and
+can then become part of a company they worked with on an OSS and
 contribute to other projects.
 
 The accessibility of the code is a valuable strategy to avoid giving the
@@ -192,10 +192,16 @@ immaculate business practice.
 
 The code created and used by `Fluid Attacks` is public, and we believe
 that strengthens us and reflects transparency. In the words of Rafael
-Alvarez, our `CTO`: "Public repositories are a bet on transparency that
+Alvarez, our CTO: "Public repositories are a bet on transparency that
 all actors should make in the long term." Take a look at our
 repositories following this link:
 [gitlab.com/fluidattacks](https://gitlab.com/fluidattacks)
+
+Furthermore,
+we help our clients write [secure code](../../solutions/secure-code-review/)
+throughout the entire software development lifecycle,
+so that it may remain in the open,
+continuously secured against cyberattacks.
 
 Do you have any questions or ideas to share? Don’t forget to [contact
 us\!](../../contact-us/)

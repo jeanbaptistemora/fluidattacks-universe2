@@ -32,7 +32,7 @@ add, and remove information from a database. But introducing this kind
 of feature demands great care in how you set up and access that
 database.
 
-Let’s look at `bWAPP`, which has a movie database, and allows us to
+Let’s look at bWAPP, which has a movie database, and allows us to
 search for a given title:
 
 <div class="imgblock">
@@ -41,7 +41,7 @@ search for a given title:
 
 <div class="title">
 
-Figure 1. `bWAPP’s movie search site
+Figure 1. bWAPP’s movie search site
 
 </div>
 
@@ -50,10 +50,10 @@ Figure 1. `bWAPP’s movie search site
 It looks like the site takes the user’s input as a `POST` request, then
 searches the database for that request, and finally prints back the
 result in table form. We can tell it’s a `POST` request since there is
-nothing in the `URL` that hints `GET` (consider that the huge `POST`
+nothing in the URL that hints `GET` (consider that the huge `POST`
 title wouldn’t be there in a real app).
 
-Let’s check that using the `OWASP ZAP` proxy. Indeed, we can see and
+Let’s check that using the OWASP ZAP proxy. Indeed, we can see and
 confirm that the request is `POST`:
 
 **`POST` request when you search for a movie.**
@@ -69,7 +69,7 @@ Content-Length: 24
 title=the\&action=search
 ```
 
-Now we can intercept this request using `ZAP` and edit the `title=the`
+Now we can intercept this request using ZAP and edit the `title=the`
 bit above, changing `the` by some `SQL`. For example, if we change it
 to:
 
@@ -90,11 +90,11 @@ that corresponds to your MySQL server version for the right
 syntax to use near '%'' at line 1
 ```
 
-Well, at least now we know for sure they are using `MySQL`, because we
+Well, at least now we know for sure they are using MySQL, because we
 can see it in the error message.
 
 There are infinitely many strings (sequences of characters) we could try
-to use in order to complete the unknown `SQL` query the server is asking
+to use in order to complete the unknown SQL query the server is asking
 from the database.
 
 What if we could try a bunch of them, at the same time, automatically?
@@ -109,7 +109,7 @@ inputs, etc.), protocol fuzzing, file format fuzzing, and
 more.[<sup>\[1\]</sup>](#r1%20)
 
 In this article we will focus only on web application fuzzing which is
-the semi-automated, pseudo-random manipulation of `URLs`, forms,
+the semi-automated, pseudo-random manipulation of URLs, forms,
 user-generated content[<sup>\[1\]</sup>](#r1%20), requests, etc. We may
 tackle other kinds of fuzzing in future articles.
 
@@ -117,13 +117,13 @@ For a given fuzzing attack, the most comprehensive and sure-fire way to
 succeed would be to try every possible input. For example, if we’re
 fuzzing an input string, we should try every possible string, beginning
 with the empty string. This is due to the fact that sometimes programs
-have unexpected reactions to odd input, like the bug found in `Mac OS`
+have unexpected reactions to odd input, like the bug found in Mac OS
 last year, where you could log in as root by pressing the login button
 enough times (see
 [CVE-2017-13872](https://nvd.nist.gov/vuln/detail/CVE-2017-13872#vulnDescriptionTitle)
 for more info).
 
-But this `` `try everything'' approach is not really feasible or
+But this "try everything" approach is not really feasible or
 practical:
 the space complexity of such an attempt
 would be enormous.
@@ -135,8 +135,8 @@ that have a statistically higher probability
 of triggering a bug.
 These are known as 'fuzz vectors'.
 In our case,
-they would be `SQL `` queries. Some examples from
-`OWASP`:[<sup>\[2\]</sup>](#r2%20)
+they would be SQL queries. Some examples from
+OWASP:[<sup>\[2\]</sup>](#r2%20)
 
 ``` sql
 ' OR 1=1;--
@@ -151,7 +151,7 @@ GRANT CONNECT TO name; GRANT RESOURCE TO name;
 ```
 
 Your fuzzer of choice will probably provide a healthy dose of fuzz
-vectors, as does ours, the `OWASP ZAP Fuzzer`. All we need to do is
+vectors, as does ours, the OWASP ZAP Fuzzer. All we need to do is
 
 1. select the string we want to fuzz,
 
@@ -161,7 +161,7 @@ vectors, as does ours, the `OWASP ZAP Fuzzer`. All we need to do is
 
 4. run the fuzzer.
 
-`ZAP` includes several of those by default; we will use the `SQL`
+ZAP includes several of those by default; we will use the SQL
 injection vector from `jbrofuzz`:
 
 <div class="imgblock">
@@ -170,14 +170,14 @@ injection vector from `jbrofuzz`:
 
 <div class="title">
 
-Figure 2. How to run `ZAP` fuzzer
+Figure 2. How to run ZAP fuzzer
 
 </div>
 
 </div>
 
-Successfully injected `SQL` queries are marked with the state
-\`\`reflected'' in the list:
+Successfully injected SQL queries are marked with the state
+"Reflected" in the list:
 
 <div class="imgblock">
 
@@ -185,7 +185,7 @@ Successfully injected `SQL` queries are marked with the state
 
 <div class="title">
 
-Figure 3. Reflected `SQL` injections in fuzz attacks
+Figure 3. Reflected SQL injections in fuzz attacks
 
 </div>
 
@@ -203,7 +203,7 @@ which simply show all entries in the table `movies`.
 
 When fuzzing, this is both a blessing and a curse. Usually, they don’t,
 but occasionally the simplest injections reveal unexpected outcomes, and
-when they do, they are real surprises such as the `Apple` bug mentioned
+when they do, they are real surprises such as the Apple bug mentioned
 above.
 
 ## Comparison with manual injection
@@ -246,7 +246,7 @@ be [recovered](../storing-password-safely/)).
 
 <div class="title">
 
-Figure 4. Succesful manual `SQL` injection
+Figure 4. Succesful manual SQL injection
 
 </div>
 
@@ -254,10 +254,18 @@ Figure 4. Succesful manual `SQL` injection
 
 ---
 By itself fuzz testing cannot replace human expertise in the equation
-but it adds an important additional point of view. As seen in the `Mac
-OS` example, its greatest weakness can be a potential source of great
+but it adds an important additional point of view. As seen in the Mac
+OS example, its greatest weakness can be a potential source of great
 surprises. We have merely glimpsed the tip of the iceberg here, but hope
 you find this short introduction helpful.
+
+At `Fluid Attacks`,
+we help our clients [manage their vulnerabilities](../../solutions/vulnerability-management/)
+in [web applications](../../systems/web-apps/),
+so that they are continuously secured against SQL injections
+and [other kinds of risks](../../compliance/owasp/).
+To learn more,
+[contact us](../../contact-us/)
 
 ## References
 

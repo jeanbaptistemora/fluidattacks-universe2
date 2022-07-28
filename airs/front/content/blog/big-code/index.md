@@ -17,10 +17,11 @@ about2: with an itch for CS
 source: https://unsplash.com/photos/842ofHC6MaI/
 ---
 
-In our [Machine Learning (`ML`) for secure code
+In our [Machine Learning (ML) for secure code
 series](../tags/machine-learning) the *mantra* has always been the same:
-to figure out how to leverage the power of `ML` to detect security
-vulnerabilities in source code, regardless of the
+to figure out how to leverage the power of ML to
+detect security vulnerabilities [in source code](../../solutions/secure-code-review/),
+regardless of the
 [technique](../crash-course-machine-learning), be it [deep
 learning](../deep-hacking), [graph mining](../exploit-code-graph),
 [natural language processing](../natural-code), or [anomaly
@@ -28,7 +29,7 @@ detection](../anomaly-serial-killer-doll).
 
 In this article we present a new player in the field,
 [DeepCode](https://www.deepcode.ai/), a system that has exactly this
-purpose, combining `ML` with data flow analysis, namely in the form of
+purpose, combining ML with data flow analysis, namely in the form of
 taint analysis.
 
 Taint analysis can come in dynamic and static forms and can be performed
@@ -63,8 +64,8 @@ positive rates, as is the case with
 [Pyt](https://github.com/python-security/pyt) (see some critique
 [here](https://smarketshq.com/avoiding-injection-with-taint-analysis-1e55429e207b)).
 
-`DeepCode’s` purpose is to remove minor difficulties these taint
-analysis tools may have. `DeepCode` does this by learning from the vast
+DeepCode’s purpose is to remove minor difficulties these taint
+analysis tools may have. DeepCode does this by learning from the vast
 quantity of freely-available, high-quality code in open repositories
 such as [Github](https://github.com/), a circumstance then dubbed "Big
 Code". The tool is easy and free to use. This provides the added
@@ -74,13 +75,13 @@ them, etc).
 
 Another problem with taint analysis is that sources, sinks, and
 sanitizers need to be specified by hand, which is extremely impractical
-for large-scale projects. This is another area where `ML` helps
-`DeepCode`, but how is that done?
+for large-scale projects. This is another area where ML helps
+DeepCode, but how is that done?
 
-`DeepCode` has been called [Grammarly](https://app.grammarly.com/) for
+DeepCode has been called [Grammarly](https://app.grammarly.com/) for
 code. It claims to be 90% accurate, and that it understands the *intent*
 behind the code. It also claims to find twice as many issues as other
-tools, even some critical ones (`XSS`, `SQL` injection and path
+tools, even some critical ones (XSS, SQL injection and path
 traversal, etc.) which is something typical static analysis tools do
 not. Moreover, it claims to be easy to use, requiring no configuration.
 
@@ -103,11 +104,11 @@ demo](https://www.deepcode.ai/app/gh/eclipse/che/5be0e29f11fdef73ed4a3da5fe61e3c
 </div>
 
 Here we see three instances of a possible path traversal vulnerability.
-In the full dashboard, we also see how they report an insecure `HTTPS`
-channel, a Server Side Request Forgery (`SSRF`), a Cross Site Scripting
-(`XSS`) vulnerability, and a header that leaks technical information
-(`X-Powered-By`). And that’s only the issues tagged as "security". There
-are also `API` misuse issues, v.g. using `Thread.run()` instead of
+In the full dashboard, we also see how they report an insecure HTTPS
+channel, a Server Side Request Forgery (SSRF), a Cross Site Scripting
+(XSS) vulnerability, and a header that leaks technical information
+(X-Powered-By). And that’s only the issues tagged as "security". There
+are also API misuse issues, v.g. using `Thread.run()` instead of
 `Thread.start()`, general bugs or defects, and now they even throw lint
 tools results, which deal with formatting and presentation issues. Oh,
 yes, and every issue comes with a possible fix you might implement right
@@ -120,20 +121,20 @@ that all? Are these *all* the security vulnerabilities in a project with
 more than [300,000](https://api.codetabs.com/v1/loc?github=eclipse/che)
 lines of code?
 
-Let us take one of the many Vulnerable by Design (`VbD`) applications we
+Let us take one of the many Vulnerable by Design (VbD) applications we
 use for training purposes in our [challenges
 site](https://autonomicmind.com/challenges/sites-ranking-vbd/), and see
-how many vulnerabilities come up by running `DeepCode` on them. By the
-way, they currently support `Javascript`, `TypeScript` and `Java`,
-besides the original `Python`. That leaves us with two apps to try: the
-[Damn Vulnerable `NodeJS` Application](https://github.com/appsecco/dvna)
-(`DVNA`) and [Damn Small Vulnerable
-Web](https://github.com/stamparm/DSVW) (`DSVW`), since most `VbD` apps
-are built with `PHP`.
+how many vulnerabilities come up by running DeepCode on them. By the
+way, they currently support Javascript, TypeScript and Java,
+besides the original Python. That leaves us with two apps to try: the
+[Damn Vulnerable NodeJS Application](https://github.com/appsecco/dvna)
+(DVNA) and [Damn Small Vulnerable
+Web](https://github.com/stamparm/DSVW) (DSVW), since most VbD apps
+are built with PHP.
 
-I forked both of these on `Github`, signed up for a `DeepCode` account,
-and let it run. For `DSVW`, which is a single `Python` file under 100
-lines of code, but still ridden with vulnerabilities, `DeepCode` reports
+I forked both of these on Github, signed up for a DeepCode account,
+and let it run. For DSVW, which is a single Python file under 100
+lines of code, but still ridden with vulnerabilities, DeepCode reports
 zero issues. Perhaps it does not work as well on such tiny projects.
 
 <div class="imgblock">
@@ -148,18 +149,18 @@ Figure 3. Zero issues in DSVW.
 
 </div>
 
-This is, to say the least, disappointing, since that `DSVW` has no less
-than 26 different *kinds* of vulnerabilities, as per its `README`. In
+This is, to say the least, disappointing, since that DSVW has no less
+than 26 different *kinds* of vulnerabilities, as per its README. In
 [Writeups](https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dsvw/),
 three of those have been manually explored and exploited.
 
 Maybe it’s a problem with having so few lines of code, maybe it’s a
-`Python` thing, so let’s try the other one: `DVNA`, built with `NodeJS`
-with the specific purpose of demonstrating the [`OWASP` Top 10
+Python thing, so let’s try the other one: DVNA, built with NodeJS
+with the specific purpose of demonstrating the [OWASP Top 10
 vulnerabilities](https://www.owasp.org/index.php/Top_10-2017_Top_10).
 
-This time around, `DeepCode` found 9 issues. Of those, take out the 3
-which come from `ESLint`, and let’s consider the other 6; 2 are `API`
+This time around, DeepCode found 9 issues. Of those, take out the 3
+which come from `ESLint`, and let’s consider the other 6; 2 are API
 misuses, which are basically "use arrows instead of functions" and 4 are
 security vulnerabilities, and pretty serious ones at that:
 
@@ -168,7 +169,7 @@ security vulnerabilities, and pretty serious ones at that:
   [Writeups](https://gitlab.com/fluidattacks/writeups/tree/master/vbd/dvna/)
   This should be researched further.
 
-- `SQL` injection. As per [security
+- SQL injection. As per [security
   guide](https://github.com/appsecco/dvna/blob/master/docs/solution/a1-injection.md)
   and
   [Writeups](https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0564-sql-injection/jicardona.feature).
@@ -178,26 +179,26 @@ security vulnerabilities, and pretty serious ones at that:
   and
   [Writeups](https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/0601-unvalidated-redirects/simongomez95.feature).
 
-- Technical information leakage via the `X-Powered-By` header, as in
+- Technical information leakage via the X-Powered-By header, as in
   `Che`.
 
-So, altogether, 3 noteworthy security vulnerabilities, in a `NodeJS`
+So, altogether, 3 noteworthy security vulnerabilities, in a NodeJS
 application with more than 7,500 lines of code. In
 [Writeups](https://gitlab.com/fluidattacks/writeups), at least 29
-different vulnerabilities have been reported in `DVNA`. You can see a
+different vulnerabilities have been reported in DVNA. You can see a
 [report](https://gitlab.com/fluidattacks/writeups/blob/master/vbd/dvna/results-toe.md)
-on manual testing vs the `LGTM` [code-as-data](../oracle-code) tool in
+on manual testing vs the LGTM [code-as-data](../oracle-code) tool in
 there, too, where it is quite clear that tool misses most of the
 vulnerabilities as well.
 
-Now for a more realistic test, let’s try running `DeepCode` on some of
+Now for a more realistic test, let’s try running DeepCode on some of
 our own repos, namely, Integrates, our platform for vulnerability
 centralization and management and
 [asserts](https://fluidattacks.gitlab.io/asserts/), our vulnerability
 automation framework. Both are
-[open-source](https://gitlab.com/fluidattacks), written in `Python`, and
+[open-source](https://gitlab.com/fluidattacks), written in Python, and
 actively developed. As before, the vast majority of issues found by
-`DeepCode` are of the `lint` and `API` usage kind.
+DeepCode are of the lint and API usage kind.
 
 <div class="imgblock">
 
@@ -211,7 +212,9 @@ Figure 4. Integrates Dashboard
 
 </div>
 
-In `Integrates` we see a possible command injection in the spreadsheet
+In Integrates,
+the platform that our clients use for [vulnerability management](../../solutions/vulnerability-management/),
+we see a possible command injection in the spreadsheet
 report generation function. However, this input is not controllable by
 the user, so this does not pose a real threat at the moment:
 
@@ -224,12 +227,12 @@ the user, so this does not pose a real threat at the moment:
 </div>
 
 However, the suggestion to sanitize the input via `subprocess.call()` is
-not bad. Who knows if `Integrates` will later have user-configurable
+not bad. Who knows if Integrates will later have user-configurable
 passwords for reports, or a *different* vulnerability enables an
 attacker to change this parameter.
 
-The other security issue is in the `PDF` report generation, this time
-identified as `Path traversal`. Again, probably difficult to exploit,
+The other security issue is in the PDF report generation, this time
+identified as Path traversal. Again, probably difficult to exploit,
 but should be sanitized anyway.
 
 <div class="imgblock">
@@ -239,26 +242,26 @@ Dashboard](https://res.cloudinary.com/fluid-attacks/image/upload/v1620330669/blo
 
 </div>
 
-In [`Asserts`](https://fluidattacks.gitlab.io/asserts/), however, the 15
-issues found by `DeepCode` are less worrisome, for two reasons:
+In [Asserts](https://fluidattacks.gitlab.io/asserts/), however, the 15
+issues found by DeepCode are less worrisome, for two reasons:
 
-- [`Asserts`](https://fluidattacks.gitlab.io/asserts/) is not a
-  client-server application, but an `API` that runs locally.
+- [Asserts](https://fluidattacks.gitlab.io/asserts/) is not a
+  client-server application, but an API that runs locally.
 
-- Most of the 15 issues are several instances of `SSRF`, when
-  [`Asserts`](https://fluidattacks.gitlab.io/asserts/) makes `HTTP`
+- Most of the 15 issues are several instances of SSRF, when
+  [Asserts](https://fluidattacks.gitlab.io/asserts/) makes HTTP
   requests via [Requests](https://2.python-requests.org/en/master/),
-  generally to client’s `ToEs` as one would in a browser.
+  generally to client’s ToEs as one would in a browser.
 
-Of course, all the issues detected by `DeepCode` will be taken care of.
+Of course, all the issues detected by DeepCode will be taken care of.
 
 ---
 Once again, this confirms our other *mantra* we have held in this
-[Machine Learning (`ML`) series](../tags/machine-learning) and also
+[Machine Learning (ML) series](../tags/machine-learning) and also
 [elsewhere](../replaced-machines/) [on
 our](../../about-us/differentiators/#method)
 [website](../importance-pentesting/). While automated tools, even
-`ML`-powered ones, may have the potential to do what a human could not
+ML-powered ones, may have the potential to do what a human could not
 do in terms of repetitions and scalability, as of yet, they do not have
 the malice or creativity which humans have in finding critical and
 interesting security vulnerabilities.

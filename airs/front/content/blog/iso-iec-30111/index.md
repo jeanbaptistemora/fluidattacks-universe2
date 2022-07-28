@@ -185,6 +185,7 @@ it's hoped,
 should go hand in hand with a confidential treatment of vulnerability info
 and individuals' and organizations' sensitive data.
 
+Remember to check for security issues [constantly](../../services/continuous-hacking/).
 Would you like to know
 how `Fluid Attacks` can help you
 in your [vulnerability handling](../../solutions/vulnerability-management/)

@@ -75,7 +75,7 @@ aware that if you define requirements to be met in your company, which
 can be re-evaluated, the idea is that they should be obligatory. If at
 any point they haven’t been met, then any workflow before the software
 deployment must be stopped. Later, you should ask questions such as: Did
-the developer not understand something? Does he need training? Is it a
+the developer not understand something? Do they need training? Is it a
 false positive by the tool? Is this an appropriate tool? Also, ensure
 that reports of non-compliance reach each interested audience in a
 language suitable for their understanding.
@@ -86,11 +86,11 @@ Maintaining secure infrastructures and products is a challenge,
 especially when there are constant changes in their architecture.
 Therefore,
 [security testing](../../solutions/security-testing/)
-must also be continuous.
+must also be [continuous](../../services/continuous-hacking/).
 Automation in processes such as [SAST](../../categories/sast/)
 and [DAST](../../categories/dast/)
 will depend on some tools;
-you must be careful concerning them.
+you must be careful with your use of them.
 It’s not a question of acquiring tools because they’re offered as new,
 or because the competition uses this and that,
 or because they are supposed to be useful in your security testing
@@ -142,7 +142,7 @@ extensive security knowledge within a development team. The SC is
 responsible for identifying and solving security problems early in the
 SDLC so as not to slow down processes. The SC assists with verification
 that security requirements are met during the development process.
-Additionally, he translates technical information from the DevOps group
+Additionally, they translate technical information from the DevOps group
 to the security and business management groups, and vice versa.
 Therefore, the SC interacts closely with these groups, gets along with
 the experts on each side, and builds a bridge between them.
@@ -170,7 +170,7 @@ deployment of secure software. This person should know about threat
 identification and mitigation, risk analysis, and attack path analysis.
 Also, this individual should know the multiplicity of existing
 vulnerabilities, the lists that group them, and how they’re classified
-(quite exciting topics that we hope to review soon). He should have
+(quite exciting topics that we hope to review soon). They should have
 skills in the discussion and presentation of information. And finally,
 the SC should be able to resolve conflicts, motivate people, and be kind
 and attentive to others.

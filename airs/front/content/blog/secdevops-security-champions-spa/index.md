@@ -85,7 +85,8 @@ interesado en un lenguaje adecuado para su comprensión.
 
 Mantener infraestructuras y productos seguros es un reto, especialmente
 cuando hay cambios constantes en su arquitectura. Por lo tanto, las
-pruebas de seguridad también deberían ser continuas. La automatización
+pruebas de seguridad también deberían ser [continuas](../../services/continuous-hacking/).
+La automatización
 en procesos como SAST y DAST dependerá de algunas herramientas; debes
 ser bastante cuidadoso respecto a ellas. No se trata de adquirirlas
 porque son ofrecidas como novedosas, o porque la competencia utiliza

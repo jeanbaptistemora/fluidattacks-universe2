@@ -186,13 +186,16 @@ Pegasus. It’s too powerful to be stopped by tricks of that nature.
 Perhaps the only thing that could mitigate the opportunity for them to
 enter your device is to have no device at all.
 
-Don’t you think that’s good advice?\
+Don’t you think that’s good advice?
 Okay then…​ Here’s a genuine recommendation: **always keep your system
-up to date**. Just as happened with the Mail vulnerability in iOS or
+up to date**. Just like what happened with the Mail vulnerability in iOS or
 with that of the graphics card of Android systems, the related companies
 were given the task of patch vulnerabilities spotted. That doesn’t
 guarantee they won’t attack you, but it could minimize the risks.
 
-We hope you have enjoyed this post!\
-At `Fluid Attacks`, we look forward to hearing from you.\
-[Contact us](../../contact-us/)!
+We hope you have enjoyed this post!
+At `Fluid Attacks`,
+we boost your vulnerability management we look forward to hearing from you.
+We specialize in [Continuous Hacking](../../services/continuous-hacking/).
+To learn more about it,
+[contact us](../../contact-us/)!

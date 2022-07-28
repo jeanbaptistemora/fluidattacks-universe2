@@ -21,8 +21,10 @@ To date the [most](../libssh-bypass-cve/)
 [important](../treacherous-poodle/) [security](../release-the-beast/)
 [vulnerabilities](../my-heart-bleeds/) have been found
 via laborius [code auditing](../../solutions/secure-code-review/).
-Also, this is the only way vulnerabilities can be found and
-fixed during development. However, as software production rates
+Also, this is the only way vulnerabilities can be
+[found and fixed](/../../solutions/vulnerability-management/)
+[during development](../../solutions/devsecops/).
+However, as software production rates
 increase, so does the need for a reliable, automated method for checking
 or classifiying this code in order to prioritize and organize human
 efforts in manual checks. We’re living in an age where machine learning
