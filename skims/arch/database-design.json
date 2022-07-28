@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "",
     "DateCreated": "Jul 14, 2022, 02:09 PM",
-    "DateLastModified": "Jul 26, 2022, 02:21 PM",
+    "DateLastModified": "Jul 27, 2022, 04:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -55,6 +55,14 @@
             "SortKeyAlias": "SOURCE#src#ADVISORY#id"
           },
           "TableData": [],
+          "NonKeyAttributes": [
+            "associated_advisory",
+            "package_name",
+            "package_manager",
+            "vulnerable_version",
+            "severity",
+            "source"
+          ],
           "DataAccess": {
             "MySql": {}
           }
