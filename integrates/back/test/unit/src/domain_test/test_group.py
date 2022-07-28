@@ -57,7 +57,7 @@ from freezegun import (  # type: ignore
 )
 from group_access.domain import (
     exists,
-    get_group_stakeholders_emails,
+    get_group_users,
     get_managers,
     get_reattackers,
     remove_access,
@@ -454,13 +454,12 @@ async def test_get_managers() -> None:
         "continuoushacking@gmail.com",
         "continuoushack2@gmail.com",
     ]
-    assert expected_output == await get_managers(get_new_context(), group_name)
+    assert expected_output == await get_managers(group_name)
 
 
 async def test_get_users() -> None:
     group_name = "unittesting"
-    loaders = get_new_context()
-    users = await get_group_stakeholders_emails(loaders, group_name)
+    users = await get_group_users(group_name)
     expected = [
         "integratesserviceforces@gmail.com",
         "integratesmanager@gmail.com",
@@ -485,7 +484,7 @@ async def test_get_users() -> None:
 
 
 async def test_get_reattackers() -> None:
-    reattackers = await get_reattackers(get_new_context(), "oneshottest")
+    reattackers = await get_reattackers("oneshottest")
     assert reattackers == ["integrateshacker@fluidattacks.com"]
 
 

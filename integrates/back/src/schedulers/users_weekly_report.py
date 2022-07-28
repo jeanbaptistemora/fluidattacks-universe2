@@ -74,14 +74,9 @@ async def send_users_weekly_report() -> None:
     users: dict[str, list[str]] = {}
 
     for group_name in group_names:
-        group_stakeholders_emails = (
-            await group_access_domain.get_group_stakeholders_emails(
-                loaders, group_name
-            )
-        )
         group_stakeholders: tuple[
             Stakeholder, ...
-        ] = await loaders.stakeholder.load_many(group_stakeholders_emails)
+        ] = await loaders.group_stakeholders.load(group_name)
         for stakeholder in group_stakeholders:
             stakeholder_role = await group_access_domain.get_stakeholder_role(
                 loaders,

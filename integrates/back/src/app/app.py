@@ -174,7 +174,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
     if url_token:
         try:
             group_access = await group_access_domain.get_access_by_url_token(
-                loaders, url_token
+                url_token
             )
             success = (
                 await groups_domain.complete_register_for_group_invitation(
@@ -280,9 +280,7 @@ async def reject_access(request: Request) -> HTMLResponse:
     if url_token:
         try:
             group_access: GroupAccess = (
-                await group_access_domain.get_access_by_url_token(
-                    loaders, url_token
-                )
+                await group_access_domain.get_access_by_url_token(url_token)
             )
 
             invitation = group_access.invitation

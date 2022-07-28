@@ -484,7 +484,7 @@ async def send_treatment_report_mail(
         notification=Notification.UPDATED_TREATMENT,
         roles=roles,
     )
-    managers_email = await get_managers_by_size(loaders, finding.group_name, 3)
+    managers_email = await get_managers_by_size(finding.group_name, 3)
     await vulns_mailer.send_mail_treatment_report(
         loaders=loaders,
         finding_id=old_vuln_values.finding_id,
@@ -500,15 +500,10 @@ async def send_treatment_report_mail(
     )
 
 
-async def get_managers_by_size(
-    loaders: Any, group_name: str, list_size: int
-) -> List[str]:
+async def get_managers_by_size(group_name: str, list_size: int) -> List[str]:
     """Returns a list of managers with an specific length for the array"""
     managers = list(
-        islice(
-            await group_access_domain.get_managers(loaders, group_name),
-            list_size,
-        )
+        islice(await group_access_domain.get_managers(group_name), list_size)
     )
     return managers
 

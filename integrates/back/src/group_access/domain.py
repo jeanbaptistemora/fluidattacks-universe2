@@ -3,7 +3,6 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
-    InvalidAuthorization,
     RequestedInvitationTooSoon,
     StakeholderNotInGroup,
 )
@@ -42,22 +41,14 @@ from db_model.vulnerabilities.update import (
 from group_access import (
     dal as group_access_dal,
 )
-from jose import (
-    JWTError,
-)
 from newutils.datetime import (
     get_from_epoch,
     get_minus_delta,
     get_now,
 )
 from newutils.group_access import (
+    format_group_access,
     format_invitation_state,
-)
-from newutils.token import (
-    decode_jwt,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from typing import (
     Any,
@@ -73,23 +64,17 @@ async def add_user_access(email: str, group_name: str, role: str) -> bool:
     return await authz.grant_group_level_role(email, group_name, role)
 
 
-async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
-    try:
-        token_content = decode_jwt(url_token)
-        group_name = str(get_key_or_fallback(token_content))
-        user_email: str = token_content["user_email"]
-    except JWTError:
-        InvalidAuthorization()
-    access: GroupAccess = await loaders.group_access.load(
-        (group_name, user_email)
-    )
-    return access
+async def get_access_by_url_token(url_token: str) -> GroupAccess:
+    access: list[
+        dict[str, Any]
+    ] = await group_access_dal.get_access_by_url_token(url_token)
+    if access:
+        return format_group_access(access[0])
+    raise StakeholderNotInGroup
 
 
-async def get_reattackers(
-    loaders: Any, group_name: str, active: bool = True
-) -> list[str]:
-    users = await get_group_stakeholders_emails(loaders, group_name, active)
+async def get_reattackers(group_name: str, active: bool = True) -> list[str]:
+    users = await get_group_users(group_name, active)
     user_roles = await collect(
         authz.get_group_level_role(user, group_name) for user in users
     )
@@ -100,19 +85,12 @@ async def get_reattackers(
     ]
 
 
-async def get_group_stakeholders_emails(
-    loaders: Any, group: str, active: bool = True
-) -> list[str]:
-    stakeholders: tuple[
-        GroupAccess
-    ] = await loaders.stakeholders_group_access.load((group, active))
-    return [stakeholder.email for stakeholder in stakeholders]
+async def get_group_users(group: str, active: bool = True) -> list[str]:
+    return await group_access_dal.get_group_users(group, active)
 
 
-async def get_managers(loaders: Any, group_name: str) -> list[str]:
-    users = await get_group_stakeholders_emails(
-        loaders, group_name, active=True
-    )
+async def get_managers(group_name: str) -> list[str]:
+    users = await get_group_users(group_name, active=True)
     users_roles = await collect(
         [authz.get_group_level_role(user, group_name) for user in users]
     )
@@ -133,9 +111,9 @@ async def get_user_groups_names(
 
 
 async def get_users_to_notify(
-    loaders: Any, group_name: str, active: bool = True
+    group_name: str, active: bool = True
 ) -> list[str]:
-    users = await get_group_stakeholders_emails(loaders, group_name, active)
+    users = await get_group_users(group_name, active)
     return users
 
 
@@ -146,9 +124,7 @@ async def get_users_email_by_preferences(
     notification: str,
     roles: set[str],
 ) -> list[str]:
-    users = await get_group_stakeholders_emails(
-        loaders, group_name, active=True
-    )
+    users = await get_group_users(group_name, active=True)
     user_roles = await collect(
         tuple(authz.get_group_level_role(user, group_name) for user in users)
     )

@@ -12,9 +12,6 @@ once everything is well placed.
 """
 import authz
 import bugsnag
-from dataloaders import (
-    get_new_context,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -36,12 +33,9 @@ def log(message: str) -> None:
 
 
 def guess_owner(group: str) -> str:
-    loaders = get_new_context()
-    all_users = group_access_domain.get_group_stakeholders_emails(
-        loaders, group, active=True
-    ) + group_access_domain.get_group_stakeholders_emails(
-        loaders, group, active=False
-    )
+    all_users = group_access_domain.get_group_users(
+        group, active=True
+    ) + group_access_domain.get_group_users(group, active=False)
 
     possible_owner: str = "unknown"
 

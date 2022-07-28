@@ -435,12 +435,11 @@ async def trigger_subscriptions_analytics() -> None:
 
 async def get_users_subscribed_to_consult(
     *,
-    loaders: Any,
     group_name: str,
     comment_type: str,
     is_finding_released: bool = True,
 ) -> list[str]:
-    users = await get_users_to_notify(loaders, group_name)
+    users = await get_users_to_notify(group_name)
     if comment_type.lower() == "observation" or not is_finding_released:
         roles: list[str] = await collect(
             tuple(get_group_level_role(email, group_name) for email in users),

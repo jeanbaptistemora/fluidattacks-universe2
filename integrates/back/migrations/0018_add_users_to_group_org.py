@@ -18,9 +18,6 @@ from context import (
     FI_COMMUNITY_PROJECTS,
     FI_TEST_PROJECTS,
 )
-from dataloaders import (
-    get_new_context,
-)
 from group_access import (
     domain as group_access_doamin,
 )
@@ -60,9 +57,7 @@ async def main() -> None:
             group_org_id = group_org_id["organization"]
             group_org_name = await orgs_domain.get_name_by_id(group_org_id)
             group_users = await in_thread(
-                group_access_doamin.get_group_stakeholders_emails(
-                    get_new_context(), group
-                )
+                group_access_doamin.get_group_users(group)
             )
             user_orgs = await collect(
                 stakeholders_domain.get_attributes(user, ["organization"])

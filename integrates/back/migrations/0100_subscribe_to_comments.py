@@ -11,9 +11,6 @@ from aioextensions import (
     collect,
     run,
 )
-from dataloaders import (
-    get_new_context,
-)
 from group_access.domain import (
     get_users_to_notify,
 )
@@ -47,10 +44,7 @@ async def main() -> None:
     groups = await get_active_groups()
     active_users = set(
         chain.from_iterable(
-            await collect(
-                get_users_to_notify(get_new_context(), group)
-                for group in groups
-            )
+            await collect(get_users_to_notify(group) for group in groups)
         )
     )
     print(f"Active: {len(active_users)} users")
