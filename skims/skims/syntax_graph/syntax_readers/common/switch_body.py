@@ -16,6 +16,6 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     case_ids = match_ast_group_d(graph, args.n_id, "switch_case")
-    default_id = str(match_ast_d(graph, args.n_id, "switch_default"))
+    default_id = match_ast_d(graph, args.n_id, "switch_default")
 
     return build_switch_body_node(args, case_ids, default_id)

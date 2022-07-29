@@ -6,13 +6,14 @@ from syntax_graph.types import (
 )
 from typing import (
     List,
+    Optional,
 )
 
 
 def build_switch_body_node(
     args: SyntaxGraphArgs,
     case_ids: List[NId],
-    default_id: NId,
+    default_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
