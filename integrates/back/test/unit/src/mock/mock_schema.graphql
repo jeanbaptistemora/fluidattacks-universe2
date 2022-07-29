@@ -1,0 +1,28 @@
+"ARGUMENT_DEFINITION"
+directive @withDeprecatedArgs(
+  deprecatedArg: String @deprecated(
+      reason: "Deprecated in 2020/01/01. Use `newArg`"
+  ),
+  newArg: String
+) on FIELD
+
+type MyType {
+  "ARGUMENT_DEFINITION (alternate example on a field's args)"
+  fieldWithDeprecatedArgs(
+      deprecatedName: String! @deprecated(reason: "Deprecated in 2020/01/01.")
+  ): String
+  "FIELD_DEFINITION"
+  deprecatedField: String @deprecated(reason: "Deprecated in 2020/01/01.")
+}
+
+enum MyEnum {
+  "ENUM_VALUE"
+  OLD_VALUE @deprecated(reason: "Deprecated in 2020/01/01. Use `NEW_VALUE`.")
+  NEW_VALUE
+}
+
+input SomeInputType {
+  nonDeprecated: String
+  "INPUT_FIELD_DEFINITION"
+  deprecatedInput: String @deprecated(reason: "Deprecated in 2020/01/01.")
+}
