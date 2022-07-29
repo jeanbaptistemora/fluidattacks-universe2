@@ -24,9 +24,9 @@ The source code of the technologies used
 is versioned in this repository
 and is divided across many products.
 
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=security_rating)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_product&metric=sqale_index)](https://sonarcloud.io/dashboard?id=fluidattacks_product)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=fluidattacks_universe&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=fluidattacks_universe)
 [![Code Grade](https://api.codiga.io/project/34008/score/svg)](https://www.code-inspector.com)
 
 ## Installing
