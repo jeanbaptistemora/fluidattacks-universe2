@@ -21,24 +21,4 @@ const getCredentialsIndex = (
   );
 };
 
-const getNonSelectableCredentialsIndex: (
-  stakeholderEmail: string,
-  allCredentials: ICredentialsData[]
-) => number[] = (
-  stakeholderEmail: string,
-  allCredentials: ICredentialsData[]
-): number[] => {
-  return allCredentials.reduce(
-    (
-      selectedCredentialsIndex: number[],
-      currentCredentials: ICredentialsData,
-      currentCredentialsIndex: number
-    ): number[] =>
-      currentCredentials.owner === stakeholderEmail
-        ? selectedCredentialsIndex
-        : [...selectedCredentialsIndex, currentCredentialsIndex],
-    []
-  );
-};
-
-export { getCredentialsIndex, getNonSelectableCredentialsIndex };
+export { getCredentialsIndex };

@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ActionButtons } from "./ActionButtons";
@@ -16,14 +18,13 @@ import type {
   IOrganizationCredentialsProps,
   IRemoveCredentialsResultAttr,
 } from "./types";
-import { getCredentialsIndex, getNonSelectableCredentialsIndex } from "./utils";
+import { getCredentialsIndex } from "./utils";
 
 import { GET_ROOTS } from "../GroupScopeView/queries";
 import { Table } from "components/Table";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
-import type { IAuthContext } from "utils/auth";
-import { authContext } from "utils/auth";
+import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -31,8 +32,14 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   organizationId,
 }: IOrganizationCredentialsProps): JSX.Element => {
   const { t } = useTranslation();
-  const user: Required<IAuthContext> = useContext(
-    authContext as React.Context<Required<IAuthContext>>
+
+  // Permissions
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canRemove: boolean = permissions.can(
+    "api_mutations_remove_credentials_mutate"
+  );
+  const canUpadate: boolean = permissions.can(
+    "api_mutations_update_credentials_mutate"
   );
 
   // States
@@ -146,10 +153,6 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
       wrapped: true,
     },
   ];
-  const nonSelectableCredentialsIndex = getNonSelectableCredentialsIndex(
-    user.userEmail,
-    filteredCredentials
-  );
 
   return (
     <React.StrictMode>
@@ -179,8 +182,8 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
         search={false}
         selectionMode={{
           clickToSelect: true,
+          hideSelectColumn: !(canRemove || canUpadate),
           mode: "radio",
-          nonSelectable: nonSelectableCredentialsIndex,
           onSelect: setSelectedCredentials,
           selected: getCredentialsIndex(
             _.isUndefined(selectedCredentials) ? [] : [selectedCredentials],
