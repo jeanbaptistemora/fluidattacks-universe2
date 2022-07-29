@@ -536,6 +536,7 @@ const Machine = [
           },
           'machine/web/groups/delete',
           'machine/web/groups/context',
+          'machine/web/groups/policies',
           'machine/web/groups/agent',
           'machine/web/groups/services',
           'machine/web/groups/unsubscribe',
