@@ -26,7 +26,10 @@ import { groupContext } from "./context";
 import { GroupInternalContent } from "../GroupInternalContent";
 import { GroupScopeView } from "../GroupScopeView";
 import { GroupVulnerabilitiesView } from "../GroupVulnerabilitiesView";
-import type { IGetOrganizationId } from "../OrganizationContent/types";
+import type {
+  IGetOrganizationId,
+  IOrganizationPermission,
+} from "../OrganizationContent/types";
 import { ToeContent } from "../ToeContent";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -40,10 +43,7 @@ import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupVi
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
 import { GET_GROUP_EVENT_STATUS } from "scenes/Dashboard/containers/GroupContent/queries";
-import type {
-  IGetEventStatus,
-  IGroupPermissions,
-} from "scenes/Dashboard/containers/GroupContent/types";
+import type { IGetEventStatus } from "scenes/Dashboard/containers/GroupContent/types";
 import { GroupDraftsView } from "scenes/Dashboard/containers/GroupDraftsView";
 import { GroupEventsView } from "scenes/Dashboard/containers/GroupEventsView/index";
 import { GroupFindingsView } from "scenes/Dashboard/containers/GroupFindingsView/index";
@@ -52,7 +52,7 @@ import { GET_GROUP_DATA } from "scenes/Dashboard/containers/GroupSettingsView/qu
 import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/Services/types";
 import { GroupStakeholdersView } from "scenes/Dashboard/containers/GroupStakeholdersView/index";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/OrganizationContent/queries";
-import { GET_GROUP_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
+import { GET_ORG_LEVEL_PERMISSIONS } from "scenes/Dashboard/queries";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -68,7 +68,6 @@ const GroupContent: React.FC = (): JSX.Element => {
     useParams<{ groupName: string; organizationName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
   const [denyAccess, setDenyAccess] = useState(false);
-  const [userRole, setUserRole] = useState<string>();
   const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -83,6 +82,19 @@ const GroupContent: React.FC = (): JSX.Element => {
     setDenyAccess(false);
   }, [setDenyAccess]);
 
+  // GraphQL Operations
+  const { data: orgData } = useQuery<IGetOrganizationId>(GET_ORGANIZATION_ID, {
+    fetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred fetching organization ID", error);
+      });
+    },
+    variables: {
+      organizationName: organizationName.toLowerCase(),
+    },
+  });
   void useQuery<IGroupData>(GET_GROUP_DATA, {
     onCompleted: ({ group: { managed } }): void => {
       setDenyAccess(managed === "UNDER_REVIEW");
@@ -95,20 +107,23 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
-  void useQuery<{ group: IGroupPermissions }>(GET_GROUP_LEVEL_PERMISSIONS, {
-    onCompleted: ({ group: { userRole: role } }): void => {
-      setUserRole(role);
-    },
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((permissionsError: GraphQLError): void => {
-        Logger.error("Couldn't load group-level permissions", permissionsError);
-      });
-    },
-    variables: {
-      identifier: groupName.toLowerCase(),
-    },
-  });
-
+  const { data: orgPerms } = useQuery<IOrganizationPermission>(
+    GET_ORG_LEVEL_PERMISSIONS,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((permissionsError: GraphQLError): void => {
+          Logger.error(
+            "Couldn't load group-level permissions",
+            permissionsError
+          );
+        });
+      },
+      skip: orgData === undefined,
+      variables: {
+        identifier: orgData?.organizationId.id,
+      },
+    }
+  );
   const { data } = useQuery<IGetEventStatus>(GET_GROUP_EVENT_STATUS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -118,21 +133,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     },
     variables: { groupName },
   });
-  const { data: organizationData } = useQuery<IGetOrganizationId>(
-    GET_ORGANIZATION_ID,
-    {
-      fetchPolicy: "cache-first",
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning("An error occurred fetching organization ID", error);
-        });
-      },
-      variables: {
-        organizationName: organizationName.toLowerCase(),
-      },
-    }
-  );
+
   const events = useMemo(
     (): IGetEventStatus["group"]["events"] =>
       data === undefined ? [] : data.group.events,
@@ -145,10 +146,10 @@ const GroupContent: React.FC = (): JSX.Element => {
   // Side effects
   useTabTracking("Group");
 
-  if (_.isUndefined(organizationData)) {
+  if (_.isUndefined(orgData)) {
     return <div />;
   }
-  const organizationId = organizationData.organizationId.id;
+  const organizationId = orgData.organizationId.id;
 
   return (
     <StrictMode>
@@ -166,7 +167,7 @@ const GroupContent: React.FC = (): JSX.Element => {
             <Text mb={3} ta={"center"}>
               {t("group.accessDenied.text")}
             </Text>
-            {userRole === "admin" ? (
+            {orgPerms?.organization.userRole === "customer_manager" ? (
               <div className={"flex justify-center"}>
                 <Button onClick={continueAccess} variant={"primary"}>
                   {t("group.accessDenied.btn")}
