@@ -88,7 +88,7 @@ async def test_remove_stakeholder(
     assert "errors" not in result
     assert result["data"]["removeStakeholder"]["success"]
 
-    await confirm_deletion(email=email)
+    await confirm_deletion(loaders=get_new_context(), email=email)
 
     result_me_query = await get_result_me_query(
         user=email, organization_id=organization_id

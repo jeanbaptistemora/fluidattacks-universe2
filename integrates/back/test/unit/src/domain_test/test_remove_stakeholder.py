@@ -104,11 +104,15 @@ async def test_confirm_deletion_mail() -> None:
     email: str = "unittest1@test.test"
 
     assert await confirm_deletion_mail(email=email)
-    assert bool(await get_confirm_deletion(email=email))
+    assert bool(
+        await get_confirm_deletion(loaders=get_new_context(), email=email)
+    )
 
     await complete_deletion(loaders=get_new_context(), user_email=email)
 
-    assert not bool(await get_confirm_deletion(email=email))
+    assert not bool(
+        await get_confirm_deletion(loaders=get_new_context(), email=email)
+    )
 
 
 @pytest.mark.changes_db

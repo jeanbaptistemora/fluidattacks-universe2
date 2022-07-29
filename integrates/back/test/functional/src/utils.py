@@ -57,12 +57,14 @@ async def complete_register(
 
 async def confirm_deletion(
     *,
+    loaders: Dataloaders,
     email: str,
 ) -> bool:
-    deletion = await get_confirm_deletion(email=email)
-    user_email: str = await get_email_from_url_token(
-        url_token=deletion["confirm_deletion"]["url_token"]
-    )
+    deletion = await get_confirm_deletion(loaders=loaders, email=email)
+    if deletion and deletion.confirm_deletion:
+        user_email: str = await get_email_from_url_token(
+            url_token=deletion.confirm_deletion.url_token
+        )
     if user_email == email:
         return await complete_deletion(
             loaders=get_new_context(), user_email=user_email

@@ -70,6 +70,7 @@ from subscriptions.domain import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 mail_confirm_deletion = retry_on_exceptions(
@@ -192,13 +193,16 @@ async def get_email_from_url_token(
 
 async def get_confirm_deletion(
     *,
+    loaders: Any,
     email: str,
-) -> dict[str, Any]:
-    confirm_deletion = await group_access_dal.get_user_access(
-        email, "confirm_deletion"
-    )
+) -> Optional[GroupAccess]:
+    if await group_access_domain.exists(loaders, "confirm_deletion", email):
+        confirm_deletion = await loaders.group_access.load(
+            ("confirm_deletion", email)
+        )
 
-    return confirm_deletion[0] if confirm_deletion else {}
+        return confirm_deletion
+    return None
 
 
 async def confirm_deletion_mail(

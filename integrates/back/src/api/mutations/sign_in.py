@@ -25,9 +25,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups import (
-    domain as groups_domain,
-)
 from httpx import (
     ConnectTimeout,
 )
@@ -38,6 +35,9 @@ from newutils import (
     analytics,
     datetime as datetime_utils,
     token as token_helper,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from settings import (
     MOBILE_SESSION_AGE,
@@ -63,7 +63,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def autoenroll_stakeholder(email: str) -> None:
-    await groups_domain.add_without_group(
+    await orgs_domain.add_without_group(
         email=email,
         role="user",
         is_register_after_complete=True,

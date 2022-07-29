@@ -110,6 +110,9 @@ from organizations.types import (
     CredentialAttributesToUpdate,
 )
 import re
+from redis_cluster.operations import (
+    redis_del_by_deps_soon,
+)
 from stakeholders import (
     domain as stakeholders_domain,
 )
@@ -208,6 +211,23 @@ async def add_stakeholder(
     return success
 
 
+async def add_without_group(
+    email: str,
+    role: str,
+    is_register_after_complete: bool = False,
+) -> bool:
+    success = False
+    if validate_email_address(email):
+        success = await authz.grant_user_level_role(email, role)
+        await stakeholders_domain.add(
+            Stakeholder(
+                email=email,
+                is_registered=is_register_after_complete,
+            )
+        )
+    return success
+
+
 async def update_state(
     organization_id: str,
     organization_name: str,
@@ -218,6 +238,54 @@ async def update_state(
         organization_name=organization_name,
         state=state,
     )
+
+
+async def complete_register_for_organization_invitation(
+    loaders: Any, organization_access: OrganizationAccess
+) -> bool:
+    success: bool = False
+    invitation = organization_access.invitation
+    if invitation and invitation.is_used:
+        bugsnag.notify(Exception("Token already used"), severity="warning")
+
+    organization_id = organization_access.organization_id
+    email = organization_access.email
+    if invitation:
+        role = invitation.role
+        updated_invitation = invitation._replace(is_used=True)
+
+    stakeholder_added = await add_stakeholder(
+        loaders, organization_id, email, role
+    )
+
+    await update_organization_access(
+        organization_id,
+        email,
+        OrganizationAccessMetadataToUpdate(
+            expiration_time=None,
+            has_access=True,
+            invitation=updated_invitation,
+        ),
+    )
+
+    stakeholder_created = False
+    stakeholder_exists = await stakeholders_domain.exists(loaders, email)
+    if not stakeholder_exists:
+        stakeholder_created = await add_without_group(
+            email,
+            "user",
+            is_register_after_complete=True,
+        )
+
+    success = stakeholder_added and any(
+        [stakeholder_created, stakeholder_exists]
+    )
+    if success:
+        redis_del_by_deps_soon(
+            "confirm_access_organization",
+            organization_id=organization_id,
+        )
+    return success
 
 
 async def get_access_by_url_token(

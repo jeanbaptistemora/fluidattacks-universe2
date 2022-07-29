@@ -1,6 +1,5 @@
 from boto3.dynamodb.conditions import (
     Attr,
-    Key,
 )
 from botocore.exceptions import (
     ClientError,
@@ -21,11 +20,7 @@ from dynamodb import (
 import logging
 import logging.config
 from newutils import (
-    datetime as datetime_utils,
     group_access as group_access_utils,
-)
-from newutils.utils import (
-    get_key_or_fallback,
 )
 from settings import (
     LOGGING,
@@ -59,75 +54,6 @@ async def get_access_by_url_token(
     scan_attrs = {"FilterExpression": filter_exp}
     items = await dynamodb_ops.scan(TABLE_NAME, scan_attrs)
     return items
-
-
-async def get_group_users(group: str, active: bool = True) -> list[str]:
-    """Get users of a group."""
-    group_name = group.lower()
-    key_condition = Key("project_name").eq(group_name)
-    projection_expression = (
-        "user_email, has_access, project_name, responsibility"
-    )
-    now_epoch = datetime_utils.get_as_epoch(datetime_utils.get_now())
-    filter_exp = Attr("expiration_time").not_exists() | Attr(
-        "expiration_time"
-    ).gt(now_epoch)
-    query_attrs = {
-        "IndexName": "project_access_users",
-        "KeyConditionExpression": key_condition,
-        "ProjectionExpression": projection_expression,
-        "FilterExpression": filter_exp,
-    }
-    users = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-    if active:
-        users_filtered = [
-            user.get("user_email")
-            for user in users
-            if user.get("has_access", "")
-        ]
-    else:
-        users_filtered = [
-            user.get("user_email")
-            for user in users
-            if not user.get("has_access", "")
-        ]
-    return users_filtered
-
-
-async def get_user_access(
-    user_email: str, group_name: str
-) -> list[dict[str, Any]]:
-    """Get user access of a group"""
-    user_email = user_email.lower()
-    group_name = group_name.lower()
-    filter_key = "user_email"
-    filter_sort = "project_name"
-    filtering_exp = Key(filter_key).eq(user_email) & Key(filter_sort).eq(
-        group_name
-    )
-    query_attrs = {"KeyConditionExpression": filtering_exp}
-    items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-    return items
-
-
-async def get_user_groups(user_email: str, active: bool) -> list[str]:
-    """Get groups of a user"""
-    filtering_exp = Key("user_email").eq(user_email.lower())
-    query_attrs = {"KeyConditionExpression": filtering_exp}
-    groups = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-    if active:
-        groups_filtered = [
-            get_key_or_fallback(group)
-            for group in groups
-            if group.get("has_access", "")
-        ]
-    else:
-        groups_filtered = [
-            get_key_or_fallback(group)
-            for group in groups
-            if not group.get("has_access", "")
-        ]
-    return groups_filtered
 
 
 async def remove(*, email: str, group_name: str) -> None:

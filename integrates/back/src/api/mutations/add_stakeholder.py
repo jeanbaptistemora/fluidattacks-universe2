@@ -16,9 +16,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from groups import (
-    domain as groups_domain,
-)
 import logging
 import logging.config
 from newutils import (
@@ -27,6 +24,9 @@ from newutils import (
 )
 from newutils.utils import (
     map_roles,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ async def mutate(
     )
 
     if role in allowed_roles_to_grant:
-        new_user = await groups_domain.add_without_group(
+        new_user = await orgs_domain.add_without_group(
             email=email,
             role=role,
         )

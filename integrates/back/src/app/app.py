@@ -248,7 +248,7 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
             )
 
             success = await (
-                groups_domain.complete_register_for_organization_invitation(
+                orgs_domain.complete_register_for_organization_invitation(
                     loaders, organization_access
                 )
             )

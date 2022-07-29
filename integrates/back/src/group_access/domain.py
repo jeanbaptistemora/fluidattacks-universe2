@@ -126,10 +126,6 @@ async def get_group_stakeholders(
     )
 
 
-async def get_group_users(group: str, active: bool = True) -> list[str]:
-    return await group_access_dal.get_group_users(group, active)
-
-
 async def get_group_stakeholders_emails(
     loaders: Any, group: str, active: bool = True
 ) -> list[str]:
