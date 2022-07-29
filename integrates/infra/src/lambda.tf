@@ -36,21 +36,15 @@ resource "null_resource" "dynamodb_replication_dependencies" {
         --target ${var.lambda_path}/dynamodb_replication
     EOT
   }
-
-  triggers = {
-    dependencies = filemd5("${var.lambda_path}/dynamodb_replication/requirements.txt")
-  }
 }
 
 data "archive_file" "dynamodb_replication_zip" {
-  depends_on  = [null_resource.dynamodb_replication_dependencies]
   output_path = "${var.lambda_path}/dynamodb_replication.zip"
   source_dir  = "${var.lambda_path}/dynamodb_replication"
   type        = "zip"
 }
 
 resource "aws_lambda_function" "dynamodb_replication" {
-  depends_on       = [data.archive_file.dynamodb_replication_zip]
   filename         = data.archive_file.dynamodb_replication_zip.output_path
   function_name    = "integrates-dynamodb-replication-lambda"
   handler          = "handler.handle"
@@ -69,5 +63,24 @@ resource "aws_lambda_function" "dynamodb_replication" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+  }
+}
+
+resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
+  event_source_arn  = aws_dynamodb_table.integrates_vms.stream_arn
+  function_name     = aws_lambda_function.dynamodb_replication.arn
+  starting_position = "LATEST"
+
+  filter_criteria {
+    filter {
+      pattern = jsonencode({
+        dynamodb = {
+          "Keys" : {
+            "pk" : [{ "prefix" : "VULN#" }],
+            "sk" : [{ "prefix" : "FIN#" }]
+          }
+        }
+      })
+    }
   }
 }
