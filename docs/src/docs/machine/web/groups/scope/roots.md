@@ -26,6 +26,43 @@ You can also export and filter
 the information of all your
 Roots that compose the table.
 
+### Functionalities​
+
+In this section,
+you will find the
+following buttons: export,
+columns filter and filters.
+
+#### Export button
+
+Clicking on the **Export**
+button will download a file
+with CSV (comma-separated
+values) extension,
+which contains the information
+in the Git Root table.
+
+#### Columns filter
+
+Columns filter helps us to
+show or hide which columns I
+want to see in the Git Roots table.
+By clicking on the toggling
+on/off button in front
+of each column name,
+you can manipulate the
+information to display
+in the table.
+
+![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1659101998/docs/web/groups/scope/git_columns.png)
+
+#### Filters
+
+We have five different filters
+in the Git Roots section,
+helping us filter the information
+that is of interest quickly and safely.
+
 ## IP roots
 
 An IP address is the unique
