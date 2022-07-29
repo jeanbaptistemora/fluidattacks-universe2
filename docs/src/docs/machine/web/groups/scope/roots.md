@@ -264,7 +264,7 @@ Remember to click on the
 or validation if the credential
 gives access to clone the repository.
 
-### Managing git root environments
+## Managing git root environments
 
 Authorized users will also find the
 **Environment URLs** tab in the edit modal.
@@ -289,6 +289,24 @@ any environment by clicking on
 the trash button.
 
 ![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
+
+## Environment URLs table
+
+In the environments table,
+you can see the environments
+added in Git Roots.
+
+![Environment URL Table](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_table.png)
+
+There is also a downward-facing
+arrow on the left,
+which,
+upon click,
+it shows you the creation date
+and the Git Root corresponding
+to that registered environment.
+
+![Environment Registered](https://res.cloudinary.com/fluid-attacks/image/upload/v1659123650/docs/web/groups/scope/env_url_registered.png)
 
 ## Editing Git roots
 
