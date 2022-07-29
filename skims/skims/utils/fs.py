@@ -438,7 +438,9 @@ def transform_glob(pattern: str) -> str:
 def _path_in_pattern(path: str, pattern: str) -> bool:
     if pattern == ".":
         return True
-    return w_glob.globmatch(path, transform_glob(pattern))
+    return path.startswith(pattern) or w_glob.globmatch(
+        path, transform_glob(pattern)
+    )
 
 
 def path_is_include(
