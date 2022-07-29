@@ -24,6 +24,9 @@ from fa_purity import (
     Result,
     ResultE,
 )
+from fa_purity.cmd.transform import (
+    serial_merge,
+)
 from fa_purity.json.factory import (
     loads,
 )
@@ -132,8 +135,10 @@ def _process(input: TempReadOnlyFile) -> ResultE[Cmd[None]]:
     extraction = _extract(input)
     return extraction.map(
         lambda t: _group(frozenset(v for _, v in t[0].items()), t[1])
-        .transform(lambda p: save(p))
-        .bind(lambda p: _print(str(tuple(p))))
+        .transform(lambda p: p.map(lambda x: save(x)))
+        .transform(
+            lambda p: serial_merge(p.to_list()).bind(lambda x: _print(str(x)))
+        )
     )
 
 

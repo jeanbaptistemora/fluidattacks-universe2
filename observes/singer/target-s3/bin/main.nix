@@ -1,19 +1,20 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
-  root = projectPath inputs.observesIndex.target.redshift_2.root;
+  root = projectPath inputs.observesIndex.target.s3.root;
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-singer-target-redshift-env-bin";
+  makeScript {
+    name = "target-s3";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = ./entrypoint.sh;
   }

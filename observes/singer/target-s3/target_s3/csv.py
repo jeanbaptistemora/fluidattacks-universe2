@@ -7,12 +7,6 @@ from fa_purity import (
 from fa_purity.json.primitive.core import (
     Primitive,
 )
-from fa_purity.pure_iter.factory import (
-    from_flist,
-)
-from fa_purity.stream.factory import (
-    from_piter,
-)
 from target_s3.complete_record import (
     CompletePlainRecord,
 )
@@ -50,10 +44,7 @@ def _ordered_data(record: CompletePlainRecord) -> FrozenList[Primitive]:
     return tuple(i[1] for i in ordered)
 
 
-def save(records: PureIter[RecordGroup]) -> Cmd[PureIter[TempReadOnlyFile]]:
-    files = (
-        records.map(lambda g: g.records.map(_ordered_data).transform(_save))
-        .transform(lambda x: from_piter(x))
-        .to_list()
-    )
-    return files.map(lambda f: from_flist(f))
+def save(
+    group: RecordGroup,
+) -> Cmd[TempReadOnlyFile]:
+    return group.records.map(_ordered_data).transform(lambda x: _save(x))

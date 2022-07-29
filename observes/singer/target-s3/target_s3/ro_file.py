@@ -24,6 +24,7 @@ from typing import (
     Callable,
     IO,
     Iterable,
+    TypeVar,
 )
 
 
@@ -32,17 +33,27 @@ class _TempReadOnlyFile:
     file_path: str
 
 
+_T = TypeVar("_T")
+
+
 @dataclass(frozen=True)
 class TempReadOnlyFile:
     _inner: _TempReadOnlyFile
+
+    def over_binary(self, cmd_fx: Callable[[IO[bytes]], Cmd[_T]]) -> Cmd[_T]:
+        def _action(act: CmdUnwrapper) -> _T:
+            with open(self._inner.file_path, "rb") as file:
+                return act.unwrap(cmd_fx(file))
+
+        return new_cmd(_action)
 
     def read(self) -> PureIter[str]:
         def _new_iter() -> Iterable[str]:
             with open(self._inner.file_path, "r") as file:
                 line = file.readline()
                 while line:
-                    line = file.readline()
                     yield line
+                    line = file.readline()
 
         return unsafe_from_cmd(Cmd.from_cmd(_new_iter))
 
