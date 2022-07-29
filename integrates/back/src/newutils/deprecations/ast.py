@@ -5,6 +5,7 @@ from datetime import (
     datetime,
 )
 from graphql import (
+    DirectiveDefinitionNode,
     DirectiveNode,
     DocumentNode,
     EnumTypeDefinitionNode,
@@ -27,6 +28,7 @@ from re import (
 )
 from typing import (
     Optional,
+    Union,
 )
 
 
@@ -58,7 +60,7 @@ def _get_deprecation_reason(directives: list[DirectiveNode]) -> Optional[str]:
 
 
 def _search_directives(
-    definition: TypeDefinitionNode,
+    definition: Union[TypeDefinitionNode, DirectiveDefinitionNode],
     deprecations: dict[str, list[ApiDeprecation]],
     has_arguments: bool,
 ) -> dict[str, list[ApiDeprecation]]:
@@ -69,6 +71,10 @@ def _search_directives(
         fields = definition.fields
     elif isinstance(definition, InputObjectTypeDefinitionNode):
         fields = definition.fields
+    # Custom directives do not have fields, but they have arguments
+    # Might be a good idea to rethink the control flow a little
+    elif isinstance(definition, DirectiveDefinitionNode):
+        fields = definition.arguments
     else:
         fields = []
 
@@ -121,11 +127,17 @@ def parse_schema_deprecations(
         if isinstance(definition, EnumTypeDefinitionNode):
             _search_directives(definition, enums, False)
 
-        if has_arguments := isinstance(definition, ObjectTypeDefinitionNode):
+        elif isinstance(definition, DirectiveDefinitionNode):
+            _search_directives(definition, operations, False)
+
+        elif isinstance(definition, InputObjectTypeDefinitionNode):
+            _search_directives(definition, operations, False)
+
+        elif has_arguments := isinstance(definition, ObjectTypeDefinitionNode):
             _search_directives(definition, operations, has_arguments)
 
-        if isinstance(definition, InputObjectTypeDefinitionNode):
-            _search_directives(definition, operations, False)
+        else:
+            pass
     return (enums, operations)
 
 
