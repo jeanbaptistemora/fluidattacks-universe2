@@ -94,7 +94,9 @@ const Comment: FC<ICommentProps> = ({
           </div>
           <Text mb={2}>
             <Linkify componentDecorator={formatLinks}>
-              <pre className={"sans-serif"}>{_.trim(rootComment.content)}</pre>
+              <pre className={"sans-serif ws-normal"}>
+                {_.trim(rootComment.content)}
+              </pre>
             </Linkify>
           </Text>
           <Button onClick={replyHandler} variant={"primary"}>
