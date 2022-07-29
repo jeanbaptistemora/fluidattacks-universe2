@@ -23,7 +23,9 @@ def format_csv_data(*, header: str, value: str) -> CsvData:
         validate_sanitized_csv_input(header)
         headers_row = [header]
 
-    return CsvData(
-        headers=headers_row,
-        rows=[[value]],
-    )
+    rows: list[list[str]] = [[""]]
+    with suppress(UnsanitizedInputFound):
+        validate_sanitized_csv_input(value)
+        rows = [[value]]
+
+    return CsvData(headers=headers_row, rows=rows)

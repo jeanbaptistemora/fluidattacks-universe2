@@ -5,6 +5,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.text_box.utils import (
+    format_csv_data,
+)
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
@@ -137,30 +140,43 @@ def format_data(mean_time: Decimal) -> dict:
 
 async def generate_all() -> None:
     loaders = get_new_context()
+    text: str = "Mean time to reattack"
     async for group in iterate_groups():
+        document = format_data(mean_time=await generate_one(group, loaders))
         json_dump(
-            document=format_data(mean_time=await generate_one(group, loaders)),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(
+                header=text, value=str(document["text"])
+            ),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_data(
+            mean_time=await get_many_groups(org_groups, loaders),
+        )
         json_dump(
-            document=format_data(
-                mean_time=await get_many_groups(org_groups, loaders),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(
+                header=text, value=str(document["text"])
+            ),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_data(
+                mean_time=await get_many_groups(tuple(groups), loaders),
+            )
             json_dump(
-                document=format_data(
-                    mean_time=await get_many_groups(tuple(groups), loaders),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    header=text, value=str(document["text"])
+                ),
             )
 
 
