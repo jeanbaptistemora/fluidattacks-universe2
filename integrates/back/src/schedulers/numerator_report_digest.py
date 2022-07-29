@@ -23,9 +23,6 @@ from db_model.findings.types import (
     Finding,
     FindingVerification,
 )
-from db_model.groups.enums import (
-    GroupSubscriptionType,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -256,6 +253,7 @@ async def _toe_line_content(
             field="loc",
             group=group,
             user_email=toe_lines.node.attacked_by,
+            to_add=toe_lines.node.attacked_lines,
         )
 
 
@@ -322,7 +320,8 @@ async def _send_mail_report(
     await groups_mail.send_mail_numerator_report(
         loaders=loaders,
         context=context,
-        email_to=[FI_MAIL_COS, FI_MAIL_CTO, responsible],
+        email_to=[responsible],
+        email_cc=[FI_MAIL_COS, FI_MAIL_CTO],
         report_date=report_date,
     )
 
@@ -333,12 +332,7 @@ async def send_numerator_report() -> None:
         loaders
     )
     group_names = tuple(
-        group.name
-        for group in groups
-        if (
-            group.state.has_squad
-            and group.state.type == GroupSubscriptionType.CONTINUOUS
-        )
+        group.name for group in groups if group.state.has_squad
     )
     report_date = datetime_utils.get_now().date()
 

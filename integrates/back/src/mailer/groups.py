@@ -651,12 +651,14 @@ async def send_mail_numerator_report(
     loaders: Any,
     context: dict[str, Any],
     email_to: List[str],
+    email_cc: List[str],
     report_date: date,
 ) -> None:
     user_login = str(context["responsible"]).split("@", maxsplit=1)[0]
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
+        email_cc=email_cc,
         tags=GENERAL_TAG,
         subject=f"[ASM] Progress Report {user_login} [{report_date}]",
         context=context,
