@@ -238,7 +238,10 @@ const pageTexts: ResourceKey = {
   },
   blogListTags: {
     blueTeam: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag bring up system defense teams " +
+        "and their practices, " +
+        "usually in relation to red teams.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Blue Team.",
       title: "blue-team",
     },
@@ -248,49 +251,73 @@ const pageTexts: ResourceKey = {
       title: "cloud",
     },
     code: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag discuss the security of source code " +
+        "or different approaches to writing or analyzing it.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Code.",
       title: "code",
     },
     company: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag address organizational security breach events " +
+        "and news that may be valuable for business cybersecurity.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Company.",
       title: "company",
     },
     compliance: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag address cybersecurity standards and policies " +
+        "and cases where organizations fail or succeed in meeting them.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Compliance.",
       title: "compliance",
     },
     credential: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag address situations " +
+        "in which credentials or passwords were or may be compromised " +
+        "and what the best practices are for managing them.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Credential.",
       title: "credential",
     },
     cryptography: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag cover techniques and practices " +
+        "to secure information and communication, " +
+        "especially encryption, the process of encoding digital data.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Cryptography.",
       title: "cryptography",
     },
     cybersecurity: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag cover practices and technologies " +
+        "used to protect the computer systems and sensitive data " +
+        "of organizations and their users from cyberattacks.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Cybersecurity.",
       title: "cybersecurity",
     },
     devsecops: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag touch on the DevOps methodology " +
+        "or address the culture " +
+        "in which security is thoroughly included in this approach.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with DevSecOps.",
       title: "devsecops",
     },
     exploit: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag " +
+        "talk about cases of vulnerability exploitation " +
+        "or address the creation and use of code strings known as exploits.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Exploit.",
       title: "exploit",
     },
     hacking: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag address the activity of malicious " +
+        "or ethical hackers to identify weaknesses, " +
+        "breach defenses and exploit vulnerabilities in systems.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Hacking.",
       title: "hacking",
     },
@@ -311,39 +338,58 @@ const pageTexts: ResourceKey = {
       title: "machine-learning",
     },
     malware: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag mention the discovery " +
+        "and describe the behavior of specific malicious programs.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Malware.",
       title: "malware",
     },
     pentesting: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag explore the characteristics of pentesting " +
+        "or guide you through its processes, " +
+        "which may include exploiting vulnerabilities and bypassing defenses.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Pentesting.",
       title: "pentesting",
     },
     redTeam: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag talk about ethical hacking teams, " +
+        "their members " +
+        "and their simulation of cyberattacks to identify security issues.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Red Team.",
       title: "red-team",
     },
     risk: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag address the possibility of exposure, " +
+        "damage or loss of assets in organizations " +
+        "due to security weaknesses and cyber threats.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Risk.",
       title: "risk",
     },
     securityTesting: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag mention different methods and activities " +
+        "to assess software and detect vulnerabilities " +
+        "or other security issues.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Security Testing.",
       title: "security-testing",
     },
     socialEngineering: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag talk about tactics or incidents " +
+        "where attackers manipulate people to breach system security.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Social Engineering.",
       title: "social-engineering",
     },
     software: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag mention programs useful for " +
+        "or related to security, as well as " +
+        "applications with vulnerabilities or attacked by threat actors.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Software.",
       title: "software",
     },
@@ -353,17 +399,26 @@ const pageTexts: ResourceKey = {
       title: "standard",
     },
     training: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag cover offensive-security certifications, " +
+        "tasks involved in earning them, " +
+        "ethical-hacking challenges and other training activities.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Training.",
       title: "training",
     },
     trend: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag talk about tendencies " +
+        "or widely publicized situations " +
+        "related to cybersecurity around the world.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Trend.",
       title: "trend",
     },
     vulnerability: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag address the finding, " +
+        "existence or (sometimes controlled) exploitation " +
+        "of specific security flaws or misconfigurations in systems.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Vulnerability.",
       title: "vulnerability",
@@ -374,12 +429,17 @@ const pageTexts: ResourceKey = {
       title: "vulnserver",
     },
     web: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag mention the security of web applications " +
+        "or their use to practice attacks.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Web.",
       title: "web",
     },
     windows: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag bring up security issues " +
+        "found in Microsoft's graphical operating system " +
+        "or the use of programs on it to practice ethical hacking.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Windows.",
       title: "windows",
     },
