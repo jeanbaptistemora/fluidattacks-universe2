@@ -1,6 +1,6 @@
 resource "cloudflare_rate_limit" "integrates_production" {
   zone_id             = cloudflare_zone.fluidattacks_com.id
-  threshold           = 600
+  threshold           = 400
   period              = 60
   disabled            = false
   description         = "Integrates production"
@@ -36,7 +36,7 @@ resource "cloudflare_rate_limit" "integrates_production" {
 
 resource "cloudflare_rate_limit" "integrates_production_api" {
   zone_id             = cloudflare_zone.fluidattacks_com.id
-  threshold           = 300
+  threshold           = 200
   period              = 60
   disabled            = false
   description         = "Integrates production API"
