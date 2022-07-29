@@ -221,7 +221,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     justification: str,
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
-    recipients = await group_access_domain.get_reattackers(group_name)
+    recipients = await group_access_domain.get_reattackers(loaders, group_name)
     stakeholders: tuple[
         Stakeholder, ...
     ] = await loaders.stakeholder.load_many(recipients)

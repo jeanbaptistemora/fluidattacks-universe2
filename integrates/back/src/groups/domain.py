@@ -1219,8 +1219,12 @@ async def remove_all_users(
     """Remove user access to group."""
     user_active, user_suspended = await collect(
         [
-            group_access_domain.get_group_users(group_name, True),
-            group_access_domain.get_group_users(group_name, False),
+            group_access_domain.get_group_stakeholders_emails(
+                loaders, group_name, True
+            ),
+            group_access_domain.get_group_stakeholders_emails(
+                loaders, group_name, False
+            ),
         ]
     )
     all_users = user_active + user_suspended

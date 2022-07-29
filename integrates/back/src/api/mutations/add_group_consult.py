@@ -54,7 +54,9 @@ async def send_group_consult_mail(
         comment_data=comment_data,
         user_mail=user_email,
         recipients=await get_users_subscribed_to_consult(
-            group_name=group_name, comment_type="group"
+            loaders=info.context.loaders,
+            group_name=group_name,
+            comment_type="group",
         ),
         group_name=group_name,
     )

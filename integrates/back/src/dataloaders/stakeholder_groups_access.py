@@ -42,7 +42,7 @@ async def get_user_groups(user_email: str, active: bool) -> list[Item]:
     return groups_filtered
 
 
-class GroupsStakeholderAccessLoader(DataLoader):
+class StakeholderGroupsAcessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, keys: Iterable[tuple[str, bool]]

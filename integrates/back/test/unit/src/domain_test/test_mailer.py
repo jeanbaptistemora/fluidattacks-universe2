@@ -13,7 +13,7 @@ from datetime import (
     datetime,
 )
 from group_access.domain import (
-    get_group_users,
+    get_group_stakeholders_emails,
 )
 from groups.domain import (
     invite_to_group,
@@ -61,8 +61,12 @@ async def test_get_recipient_first_name() -> None:
         group_name="oneshottest",
         modified_by="integratesmanager@gmail.com",
     )
-    inactive_users = await get_group_users("oneshottest", active=False)
-    active_users = await get_group_users("oneshottest", active=True)
+    inactive_users = await get_group_stakeholders_emails(
+        get_new_context(), "oneshottest", active=False
+    )
+    active_users = await get_group_stakeholders_emails(
+        get_new_context(), "oneshottest", active=True
+    )
     users = inactive_users + active_users
     recipients = await collect(
         tuple(get_recipient_first_name(loaders, email) for email in users)

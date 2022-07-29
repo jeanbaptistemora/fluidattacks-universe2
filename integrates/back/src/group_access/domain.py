@@ -73,8 +73,10 @@ async def get_access_by_url_token(url_token: str) -> GroupAccess:
     raise StakeholderNotInGroup
 
 
-async def get_reattackers(group_name: str, active: bool = True) -> list[str]:
-    users = await get_group_users(group_name, active)
+async def get_reattackers(
+    loaders: Any, group_name: str, active: bool = True
+) -> list[str]:
+    users = await get_group_stakeholders_emails(loaders, group_name, active)
     user_roles = await collect(
         authz.get_group_level_role(user, group_name) for user in users
     )
@@ -89,8 +91,19 @@ async def get_group_users(group: str, active: bool = True) -> list[str]:
     return await group_access_dal.get_group_users(group, active)
 
 
-async def get_managers(group_name: str) -> list[str]:
-    users = await get_group_users(group_name, active=True)
+async def get_group_stakeholders_emails(
+    loaders: Any, group: str, active: bool = True
+) -> list[str]:
+    stakeholders: tuple[
+        GroupAccess
+    ] = await loaders.group_stakeholders_access.load((group, active))
+    return [stakeholder.email for stakeholder in stakeholders]
+
+
+async def get_managers(loaders: Any, group_name: str) -> list[str]:
+    users = await get_group_stakeholders_emails(
+        loaders, group_name, active=True
+    )
     users_roles = await collect(
         [authz.get_group_level_role(user, group_name) for user in users]
     )
@@ -106,14 +119,14 @@ async def get_user_groups_names(
 ) -> list[str]:
     groups_access: tuple[
         GroupAccess
-    ] = await loaders.groups_stakeholder_access.load((user_email, active))
+    ] = await loaders.stakeholder_groups_access.load((user_email, active))
     return [group.group_name for group in groups_access]
 
 
 async def get_users_to_notify(
-    group_name: str, active: bool = True
+    loaders: Any, group_name: str, active: bool = True
 ) -> list[str]:
-    users = await get_group_users(group_name, active)
+    users = await get_group_stakeholders_emails(loaders, group_name, active)
     return users
 
 
@@ -124,7 +137,9 @@ async def get_users_email_by_preferences(
     notification: str,
     roles: set[str],
 ) -> list[str]:
-    users = await get_group_users(group_name, active=True)
+    users = await get_group_stakeholders_emails(
+        loaders, group_name, active=True
+    )
     user_roles = await collect(
         tuple(authz.get_group_level_role(user, group_name) for user in users)
     )

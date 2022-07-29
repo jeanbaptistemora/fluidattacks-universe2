@@ -59,6 +59,7 @@ async def send_event_consult_mail(
         comment_data=comment_data,
         event_id=event_id,
         recipients=await get_users_subscribed_to_consult(
+            loaders=info.context.loaders,
             group_name=group_name,
             comment_type=str(comment_data["comment_type"]),
         ),
