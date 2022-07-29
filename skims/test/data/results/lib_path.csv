@@ -9784,6 +9784,25 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    89 |       },
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
+F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
+ in namespace/skims/test/data/lib_path/f037/webVuln.config","
+   1 | <configuration>
+   2 |     <system.web>
+   3 |         <compilation
+   4 |             defaultLanguage=""c#""
+   5 |             debug=""true""
+   6 |         />
+   7 |     <customErrors mode=""Off""/>
+   8 |     </system.web>
+   9 |     <system.webServer>
+  10 |         <httpProtocol>
+  11 |             <customHeaders>
+  12 |             </customHeaders>
+  13 |         </httpProtocol>
+  14 |     </system.webServer>
+  15 | </configuration>
+     ^ Col 0
+",dotnetconfig.dotnetconfig_not_suppress_vuln_header
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,12,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html","
    1 | <html>

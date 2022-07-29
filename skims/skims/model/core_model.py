@@ -281,7 +281,7 @@ class FindingEnum(Enum):
         requirements=[26],
     )
     F037: FindingMetadata = FindingMetadata.new(
-        auto_approve=True,
+        auto_approve=False,
         code="F037",
         cwe=200,
         execution_queue=ExecutionQueue.leak,

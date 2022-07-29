@@ -24,16 +24,19 @@ def not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
         """
         soup = BeautifulSoup(content, features="xml")
         has_remove_banner: bool = False
+        for configuration in soup("system.webServer"):
+            for custom_headers in configuration("customHeaders"):
+                for tag in custom_headers.contents:
+                    if isinstance(tag, Tag):
+                        tag_name = tag.name
+                        tag_value = tag.attrs.get("name")
+                        if (
+                            tag_name == "remove"
+                            and tag_value == "X-Powered-By"
+                        ):
+                            has_remove_banner = True
 
-        for custom_headers in soup("customHeaders"):
-            for tag in custom_headers.contents:
-                if isinstance(tag, Tag):
-                    tag_name = tag.name
-                    tag_value = tag.attrs.get("name")
-                    if tag_name == "remove" and tag_value == "X-Powered-By":
-                        has_remove_banner = True
-
-        if not has_remove_banner:
+        if soup("system.webServer") and not has_remove_banner:
             line_no: int = 0
             col_no: int = 0
             yield line_no, col_no
