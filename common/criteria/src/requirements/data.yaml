@@ -84,7 +84,6 @@
     - fedramp.SC-10
     - iec62443.UC-2_6
     - wassec.6_2_2_3
-    - c2m2.4_1_c
     - wasc.W_47
     - issaf.T_19_1
     - owasprisks.P8
@@ -419,7 +418,6 @@
     - wassec.6_2_2_5
     - wassec.6_2_3_2
     - wassec.6_2_3_5
-    - c2m2.9_2_f
     - wasc.A_08
     - wasc.A_09
     - issaf.T_13_2
@@ -792,8 +790,6 @@
     - fedramp.AC-6_3
     - iso27002.8_3
     - osstmm3.11_15_3
-    - c2m2.9_2_k
-    - c2m2.9_3_c
     - issaf.S_5_1
     - nist800115.3_5
     - swiftcsc.1_2
@@ -1396,7 +1392,6 @@
     - padss.5_2_1
     - sans25.94
     - iso27002.8_26
-    - c2m2.9_3_f
     - nistssdf.PW_6_1
   metadata: {}
 '051':
@@ -1425,7 +1420,6 @@
     - nydfs.500_16
     - hitrust.10_j
     - iso27002.8_25
-    - c2m2.9_1_e
     - nistssdf.PS_1_1
   metadata: {}
 '062':
@@ -1529,11 +1523,6 @@
     - osstmm3.11_7_3
     - osstmm3.11_7_4
     - osstmm3.11_9_1
-    - c2m2.1_3_a
-    - c2m2.9_1_e
-    - c2m2.9_3_e
-    - c2m2.9_4_c
-    - c2m2.9_5_a
     - wasc.A_26
     - wasc.W_15
     - wasc.W_14
@@ -1615,7 +1604,6 @@
     - sans25.400
     - hitrust.01_u
     - iec62443.RA-7_1
-    - c2m2.9_1_e
     - wasc.A_07
     - wasc.A_10
     - issaf.E_22
@@ -1746,11 +1734,6 @@
     - iec62443.UC-2_8
     - osstmm3.9_17_2
     - osstmm3.10_3_1
-    - c2m2.1_4_f
-    - c2m2.4_2_i
-    - c2m2.5_1_e
-    - c2m2.5_2_b
-    - c2m2.5_2_h
     - issaf.H_14_7
     - issaf.H_16_5
     - issaf.S_5_4
@@ -1830,7 +1813,6 @@
     - iso27002.8_8
     - iso27002.8_26
     - wassec.6_2_5_2
-    - c2m2.9_3_f
     - issaf.T_6_6
     - issaf.T_16_1
     - issaf.T_16_3
@@ -1932,7 +1914,6 @@
     - fedramp.AU-8
     - fedramp.CA-7
     - iec62443.UC-2_11
-    - c2m2.5_2_c
     - owaspscp.7
     - bsafss.LO_1-3
     - nist800171.3_7
@@ -2007,7 +1988,6 @@
     - iso27002.8_15
     - iec62443.SI-3_9
     - osstmm3.11_17_2
-    - c2m2.9_5_h
     - issaf.H_14_7
     - issaf.S_5_4
     - ptes.7_4_2_12
@@ -2082,8 +2062,6 @@
     - hitrust.09_h
     - hitrust.09_ab
     - wassec.6_2_5_2
-    - c2m2.5_1_e
-    - c2m2.5_2_b
     - ptes.5_3_2
     - owaspscp.7
     - bsafss.LO_2-3
@@ -2489,10 +2467,6 @@
     - lgpd.46
     - osstmm3.10_15_2
     - osstmm3.11_9_2
-    - c2m2.2_3_e
-    - c2m2.3_5_e
-    - c2m2.8_1_b
-    - c2m2.8_1_c
     - ferpa.D_35_a_2
     - mvsp.4_2
     - owaspscp.5
@@ -2597,7 +2571,6 @@
     - iec62443.UC-2_1
     - wassec.6_2_1_2
     - osstmm3.9_15_2
-    - c2m2.8_1_c
     - wasc.A_12
     - wasc.W_17
     - wasc.W_02
@@ -2658,7 +2631,6 @@
     - lgpd.46
     - iec62443.UC-2_1
     - wassec.2_1
-    - c2m2.4_1_c
     - wasc.W_02
     - nistssdf.PW_1_1
     - owasprisks.P8
@@ -2696,7 +2668,6 @@
     - fedramp.CA-2_2
     - iec62443.SI-3_2
     - osstmm3.11_3_1
-    - c2m2.9_2_f
     - issaf.J_6_4
     - ptes.5_4_2_5
   metadata: {}
@@ -2793,7 +2764,6 @@
     - mitre.M1049
     - fedramp.RA-5
     - iso27002.8_7
-    - c2m2.9_2_f
     - issaf.J_4
     - issaf.J_6_4
     - asvs.12_4_2
@@ -2853,7 +2823,6 @@
     oneshot: true
   references:
     - nist80053.IA-2
-    - c2m2.9_2_f
     - ptes.3_4_1_5_2
   metadata: {}
 '122':
@@ -2959,7 +2928,6 @@
   references:
     - nyshield.5575_B_4
     - cmmc.AC_L1-3_1_22
-    - c2m2.9_2_f
     - issaf.T_19_1
   metadata: {}
 '126':
@@ -3494,7 +3462,6 @@
     - hitrust.09_g
     - fedramp.IA-5_3
     - fedramp.PS-7
-    - c2m2.7_2_h
     - owaspmasvs.V4_5
     - nist800171.5_9
   metadata: {}
@@ -3770,7 +3737,6 @@
     - hitrust.09_f
     - osstmm3.10_5_3
     - osstmm3.11_9_2
-    - c2m2.7_2_h
     - wasc.W_15
     - nistssdf.PW_9_1
     - issaf.G_9_8
@@ -3811,7 +3777,6 @@
     - iso27002.5_16
     - iso27002.7_2
     - iec62443.IAC-1_2
-    - c2m2.4_1_b
     - issaf.U_9
     - owaspmasvs.V2_1
     - nist800171.5_1
@@ -3846,8 +3811,6 @@
     - cmmc.AC_L2-3_1_10
     - cmmc.IA_L2-3_5_6
     - fedramp.AC-2_3
-    - c2m2.4_1_c
-    - c2m2.4_1_e
     - issaf.Q_16_20
     - issaf.U_9
     - owasprisks.P6
@@ -3938,8 +3901,6 @@
     - fedramp.SC-13
     - iso27002.8_24
     - iec62443.DC-4_3
-    - c2m2.9_5_e
-    - c2m2.9_5_f
     - ptes.7_4_4_1
     - ptes.7_7
     - owaspscp.6
@@ -3981,7 +3942,6 @@
     - hitrust.10_g
     - fedramp.SC-13
     - iso27002.8_24
-    - c2m2.9_5_e
     - owaspscp.6
     - bsafss.EN_3-1
   metadata: {}
@@ -4053,7 +4013,6 @@
     - iec62443.SI-3_1
     - osstmm3.10_7_2
     - osstmm3.11_7_2
-    - c2m2.9_5_c
     - nistssdf.PS_1_1
     - ptes.4_5_3
     - mvsp.2_9
@@ -4091,7 +4050,6 @@
     - hitrust.10_g
     - iso27002.8_24
     - iec62443.DC-4_3
-    - c2m2.9_5_e
     - issaf.E_21
     - issaf.F_5_3
     - issaf.H_14_17
@@ -4127,7 +4085,6 @@
     - fedramp.SC-12_2
     - iso27002.8_24
     - iec62443.DC-4_3
-    - c2m2.9_5_e
     - issaf.H_14_17
     - bsafss.EN_2-4
     - owaspmasvs.V3_1
@@ -4190,7 +4147,6 @@
     - hitrust.10_g
     - fedramp.CM-3_6
     - iso27002.8_24
-    - c2m2.9_5_e
     - owaspscp.6
   metadata: {}
 '152':
@@ -4294,7 +4250,6 @@
     - fedramp.CA-3_3
     - fedramp.MP-5
     - osstmm3.9_5_4
-    - c2m2.9_2_j
     - issaf.G_12
     - issaf.G_14
     - issaf.G_15
@@ -4477,7 +4432,6 @@
     - iso27002.8_26
     - iec62443.SI-3_2
     - osstmm3.10_9_3
-    - c2m2.7_2_h
     - owasprisks.P1
     - mvsp.2_5
     - owaspscp.14
@@ -4554,7 +4508,6 @@
     - mitre.M1013
     - cmmc.AT_L2-3_2_1
     - iso27002.8_28
-    - c2m2.9_4_d
     - nistssdf.PW_1_1
     - nistssdf.PW_5_1
     - issaf.T_6_10
@@ -4898,8 +4851,6 @@
     - fedramp.CA-2_3
     - iso27002.8_26
     - iso27002.8_28
-    - c2m2.9_3_f
-    - c2m2.9_4_d
     - wasc.W_15
     - nistssdf.PW_1_3
     - nistssdf.PW_9_2
@@ -5365,7 +5316,6 @@
     - wassec.6_2_4_8
     - wassec.6_2_4_9
     - wassec.6_2_5_3
-    - c2m2.9_3_f
     - wasc.A_07
     - wasc.A_12
     - wasc.A_18
@@ -5526,7 +5476,6 @@
     - mitre.M1013
     - mitre.M1021
     - cmmc.CA_L2-3_12_2
-    - c2m2.9_2_f
     - wasc.A_18
     - mvsp.2_3
   metadata: {}
@@ -5644,7 +5593,6 @@
     - wassec.6_2_4_9
     - osstmm3.11_11_1
     - osstmm3.11_11_2
-    - c2m2.9_5_a
     - wasc.A_12
     - wasc.W_16
     - wasc.W_17
@@ -5805,7 +5753,6 @@
     - hitrust.06_d
     - hitrust.10_d
     - iec62443.DC-4_1
-    - c2m2.9_5_d
     - nistssdf.PS_1_1
     - issaf.H_14_3
     - owaspscp.14
@@ -5883,8 +5830,6 @@
     - hitrust.10_i
     - iso27002.8_25
     - iso27002.8_31
-    - c2m2.9_4_d
-    - c2m2.9_5_b
     - nistssdf.PW_1_1
   metadata: {}
 '181':
@@ -5986,8 +5931,6 @@
     - iec62443.CR-3_1-RE_1
     - wassec.1_1
     - osstmm3.9_2_2
-    - c2m2.9_2_j
-    - c2m2.9_5_c
     - wasc.A_30
     - wasc.W_04
     - issaf.F_5_2
@@ -6089,7 +6032,6 @@
     - iso27002.8_10
     - lgpd.16
     - lgpd.60
-    - c2m2.1_2_i
     - ferpa.D_35_b_2
     - owaspscp.8
     - nist800115.7_4_4
@@ -6122,8 +6064,6 @@
     - sans25.200
     - iso27002.8_26
     - osstmm3.11_7_2
-    - c2m2.9_3_f
-    - c2m2.9_5_b
     - nistssdf.PW_6_2
     - ptes.6_2_1_1
     - owasprisks.P1
@@ -6219,7 +6159,6 @@
     - iec62443.DC-4_1
     - osstmm3.11_7_3
     - osstmm3.11_11_1
-    - c2m2.9_5_d
     - ferpa.D_35_b_1
     - nistssdf.PW_1_1
     - issaf.K_9_1
@@ -6325,10 +6264,6 @@
     - hitrust.09_c
     - fedramp.CM-5_5
     - iec62443.RA-7_7
-    - c2m2.4_2_d
-    - c2m2.9_2_c
-    - c2m2.9_3_c
-    - c2m2.9_3_d
     - wasc.W_17
     - owasprisks.P2
     - owaspscp.5
@@ -6464,7 +6399,6 @@
     - iso27002.8_1
     - iec62443.UC-2_3
     - iec62443.UC-2_4
-    - c2m2.4_1_a
     - owaspmasvs.V2_11
     - nist800171.1_18
     - swiftcsc.3_1
@@ -6617,7 +6551,6 @@
     - cmmc.MP_L2-3_8_7
     - hitrust.08_g
     - iso27002.7_9
-    - c2m2.9_5_f
     - nist800171.1_18
   metadata: {}
 '214':
@@ -6651,8 +6584,6 @@
     - fedramp.MP-6
     - iso27002.7_10
     - iec62443.UC-2_3
-    - c2m2.1_2_i
-    - c2m2.9_5_f
   metadata: {}
 '221':
   en:
@@ -6687,7 +6618,6 @@
     - cmmc.MP_L2-3_8_7
     - hitrust.01_h
     - osstmm3.11_9_3
-    - c2m2.9_3_g
   metadata: {}
 '222':
   en:
@@ -6778,7 +6708,6 @@
     - hitrust.10_g
     - iso27002.8_24
     - wassec.6_2_2_5
-    - c2m2.9_5_e
     - owaspscp.6
     - owaspmasvs.V3_6
     - asvs.2_6_2
@@ -6898,7 +6827,6 @@
     - osstmm3.10_7_2
     - osstmm3.11_7_2
     - osstmm3.11_7_4
-    - c2m2.9_5_d
     - nistssdf.PS_2_1
     - ptes.7_7
     - owasprisks.P2
@@ -7357,7 +7285,6 @@
     - hitrust.08_b
     - iso27002.5_37
     - osstmm3.8_7_4
-    - c2m2.4_1_a
     - ptes.7_4_4_1
     - swiftcsc.3_1
   metadata: {}
@@ -7488,7 +7415,6 @@
     - iec62443.IAC-1_1
     - wassec.4_1
     - osstmm3.9_9_1
-    - c2m2.9_3_j
     - wasc.A_11
     - wasc.A_34
     - wasc.W_21
@@ -7667,7 +7593,6 @@
     - iso27002.8_21
     - osstmm3.9_4_1
     - osstmm3.11_13_1
-    - c2m2.9_2_d
     - issaf.K_9_1
     - ptes.6_7_6_2
     - ptes.7_4_5_2
@@ -7716,7 +7641,6 @@
     - iec62443.UC-2_2
     - osstmm3.9_5_5
     - osstmm3.9_7_3
-    - c2m2.9_2_d
     - issaf.L_4_3
     - ptes.5_2_2_1
   metadata: {}
@@ -7745,7 +7669,6 @@
     - padss.6_1
     - hitrust.09_m
     - iso27002.8_20
-    - c2m2.9_2_d
     - ptes.6_7_6_2
     - ptes.7_4_5_2
   metadata: {}
@@ -7786,7 +7709,6 @@
     - hitrust.09_m
     - iso27002.8_20
     - osstmm3.9_7_4
-    - c2m2.9_2_d
     - issaf.L_8
     - ptes.3_7_1
     - ptes.6_7_6_1
@@ -7832,7 +7754,6 @@
     - iso27002.8_21
     - iec62443.IAC-1_6
     - iec62443.UC-2_2
-    - c2m2.9_2_d
     - issaf.G_14
     - issaf.L_3_1
     - nist800171.1_16
@@ -7916,11 +7837,6 @@
     - iso27002.8_21
     - iec62443.RA-7_7
     - osstmm3.9_7_3
-    - c2m2.9_2_e
-    - c2m2.9_2_h
-    - c2m2.9_2_k
-    - c2m2.9_3_d
-    - c2m2.9_3_f
     - issaf.E_13
     - issaf.L_4_3
     - ptes.5_2_2_1
@@ -7974,8 +7890,6 @@
     - iso27002.7_3
     - iso27002.8_21
     - osstmm3.8_5_2
-    - c2m2.9_2_e
-    - c2m2.9_2_k
   metadata: {}
 '258':
   en:
@@ -8009,7 +7923,6 @@
     - iec62443.RDF-5_2
     - iec62443.RDF-5_3
     - osstmm3.11_3_1
-    - c2m2.9_2_f
     - wasc.A_42
     - issaf.G_14
     - ptes.7_3_1_5
@@ -8053,7 +7966,6 @@
     - iso27002.8_8
     - iso27002.8_23
     - iec62443.RDF-5_1
-    - c2m2.9_2_b
     - nistssdf.PO_5_1
   metadata: {}
 '260':
@@ -8243,10 +8155,6 @@
     - osstmm3.10_2_1
     - osstmm3.10_3_1
     - osstmm3.10_5_2
-    - c2m2.7_1_a
-    - c2m2.7_1_b
-    - c2m2.7_1_e
-    - c2m2.9_4_e
     - nistssdf.PO_1_3
     - nistssdf.PW_4_1
     - nistssdf.PW_4_4
@@ -8343,7 +8251,6 @@
     - wassec.2_1
     - wassec.6_2_1_2
     - osstmm3.10_5_3
-    - c2m2.4_1_b
     - wasc.W_17
     - wasc.W_01
     - ferpa.D_31_c
@@ -8552,7 +8459,6 @@
     - wassec.6_2_4_8
     - wassec.6_2_5_5
     - osstmm3.9_3_1
-    - c2m2.9_1_e
     - wasc.A_42
     - wasc.A_26
     - wasc.A_30
@@ -8667,9 +8573,6 @@
     - iso27002.8_27
     - wassec.6_2_3_1
     - osstmm3.10_5_2
-    - c2m2.2_1_d
-    - c2m2.9_1_e
-    - c2m2.9_2_e
     - nistssdf.RV_2_2
     - issaf.E_1
     - issaf.G_13_4
@@ -8711,7 +8614,6 @@
     - mitre.M1022
     - sans25.22
     - hitrust.01_v
-    - c2m2.9_1_e
   metadata: {}
 '284':
   en:
@@ -8812,7 +8714,6 @@
     - wassec.6_2_5_2
     - osstmm3.11_7_3
     - osstmm3.11_13_1
-    - c2m2.9_5_b
     - wasc.W_13
     - nistssdf.PW_1_1
     - ptes.7_2_1
@@ -8885,7 +8786,6 @@
     - fedramp.SI-5
     - lgpd.9_VII-2
     - iec62443.IAC-1_12
-    - c2m2.9_5_h
     - owaspscp.3
     - bsafss.VN_3-2
     - asvs.2_5_5
@@ -8975,8 +8875,6 @@
     - hitrust.05_k
     - hitrust.09_f
     - iso27002.8_28
-    - c2m2.2_2_h
-    - c2m2.7_2_h
     - nistssdf.PS_1_1
     - nistssdf.PW_4_1
     - nistssdf.PW_5_1
@@ -9014,7 +8912,6 @@
     - iec62443.CR-1_1-RE_1
     - wassec.3_1
     - osstmm3.11_15_3
-    - c2m2.9_5_f
     - owaspscp.4
     - swiftcsc.5_2
   metadata: {}
@@ -9385,7 +9282,6 @@
     - lgpd.14-2
     - lgpd.18_I
     - lgpd.19
-    - c2m2.7_2_h
     - owasprisks.P12
     - owasprisks.P15
   metadata: {}
@@ -9505,7 +9401,6 @@
     - lgpd.9
     - lgpd.14-2
     - lgpd.23_I
-    - c2m2.7_2_h
     - owasprisks.P5
     - owasprisks.P6
     - owasprisks.P10
@@ -9575,7 +9470,6 @@
     - hitrust.13_n
     - lgpd.18_III
     - lgpd.20
-    - c2m2.7_2_h
     - owasprisks.P9
   metadata: {}
 '317':
@@ -9641,8 +9535,6 @@
     - lgpd.16
     - lgpd.18_VI
     - lgpd.60
-    - c2m2.1_2_i
-    - c2m2.7_2_h
     - owasprisks.P6
     - owasprisks.P9
     - asvs.8_3_2
@@ -9722,7 +9614,6 @@
     - fedramp.SI-5
     - lgpd.8-6
     - lgpd.9_VII-2
-    - c2m2.7_2_h
     - owasprisks.P7
   metadata: {}
 '319':
@@ -9852,8 +9743,6 @@
     - hitrust.01_o
     - wassec.6_2_5_3
     - osstmm3.9_4_1
-    - c2m2.9_1_e
-    - c2m2.9_5_h
     - wasc.A_12
     - wasc.A_33
     - wasc.W_17
@@ -10020,7 +9909,6 @@
     - lgpd.18_IV
     - iec62443.UC-2_9
     - osstmm3.11_9_3
-    - c2m2.5_1_e
     - nist800171.3_6
     - nist800115.3_2
     - asvs.7_1_4
@@ -10279,7 +10167,6 @@
     - fedramp.CM-7_5
     - iso27002.7_9
     - iso27002.8_26
-    - c2m2.3_1_b
     - issaf.S_5_8
   metadata: {}
 '327':
@@ -10358,7 +10245,6 @@
     - iec62443.RA-7_1
     - wassec.6_2_1_1
     - osstmm3.9_9_1
-    - c2m2.9_1_e
     - wasc.A_11
     - wasc.A_10
     - wasc.A_34
@@ -10403,7 +10289,6 @@
     - cmmc.IA_L2-3_5_3
     - cmmc.MA_L2-3_7_5
     - wassec.2_1
-    - c2m2.4_1_f
     - nistssdf.PO_5_1
     - asvs.1_2_4
     - asvs.2_2_4
@@ -10484,8 +10369,6 @@
     - fedramp.SC-28
     - iec62443.DC-4_1
     - osstmm3.11_11_1
-    - c2m2.9_5_b
-    - c2m2.9_5_g
     - issaf.K_9_1
     - issaf.T_14_3
     - owaspscp.8
@@ -10550,7 +10433,6 @@
     - hitrust.01_j
     - hitrust.10_c
     - osstmm3.10_7_4
-    - c2m2.7_2_a
     - nistssdf.PO_1_3
     - nistssdf.PS_2_1
     - owaspscp.14
@@ -10954,8 +10836,6 @@
     - osstmm3.9_7_4
     - osstmm3.10_7_3
     - osstmm3.11_7_3
-    - c2m2.9_2_j
-    - c2m2.9_5_c
     - wasc.W_04
     - issaf.H_14_17
     - issaf.T_14_1
@@ -11127,7 +11007,6 @@
     - fedramp.SC-8
     - osstmm3.10_7_3
     - osstmm3.11_7_3
-    - c2m2.9_5_c
     - issaf.A_2_7
     - ptes.2_17_1
     - ptes.4_5_3
@@ -11193,7 +11072,6 @@
     - pdpa.6_24
     - cmmc.SI_L1-3_14_5
     - osstmm3.11_11_1
-    - c2m2.9_2_d
     - nistssdf.PS_3_1
     - issaf.K_9_1
     - issaf.T_19_2
@@ -11275,7 +11153,6 @@
     - iec62443.IAC-1_13
     - iec62443.SI-3_2
     - iec62443.RDF-5_3
-    - c2m2.3_1_b
     - owaspscp.12
     - asvs.12_2_1
     - asvs.12_3_6
@@ -11487,7 +11364,6 @@
     - gdpr.R39
     - gdpr.R40
     - iso27001.18_1_4
-    - c2m2.9_2_f
   metadata: {}
 '344':
   en:
@@ -11553,8 +11429,6 @@
     - padss.5_2_7
     - fedramp.CM-7_5
     - iso27002.8_28
-    - c2m2.3_1_b
-    - c2m2.9_3_j
     - nistssdf.PW_6_1
     - owaspscp.7
     - owaspscp.14
@@ -11849,8 +11723,6 @@
     - iso27002.8_28
     - iec62443.IAC-1_13
     - wassec.5_3
-    - c2m2.9_1_e
-    - c2m2.9_5_g
     - nistssdf.PW_4_1
     - ptes.6_2_1_1
     - cwe25.918
@@ -12002,7 +11874,6 @@
     - hitrust.01_k
     - hitrust.01_x
     - fedramp.MP-2
-    - c2m2.9_5_e
     - ptes.7_7
     - mvsp.2_9
     - owaspscp.6
@@ -12045,9 +11916,6 @@
     - fedramp.CM-7_5
     - iso27002.8_19
     - iec62443.UC-2_4
-    - c2m2.3_1_b
-    - c2m2.9_3_j
-    - c2m2.9_4_d
     - nistssdf.PW_6_1
   metadata: {}
 '353':
@@ -12085,12 +11953,6 @@
     - iso27002.8_19
     - iec62443.RA-7_7
     - osstmm3.10_5_2
-    - c2m2.2_2_h
-    - c2m2.3_3_g
-    - c2m2.7_1_e
-    - c2m2.7_2_a
-    - c2m2.9_2_e
-    - c2m2.9_3_i
     - nistssdf.PW_4_1
     - issaf.J_7_2
     - issaf.L_4_3
@@ -12125,8 +11987,6 @@
     - nist.PR_DS-6
     - agile.3
     - mitre.M1033
-    - c2m2.9_3_i
-    - c2m2.9_5_h
     - nist800171.1_18
   metadata: {}
 '355':
@@ -12182,7 +12042,6 @@
     - cwe.200
     - cwe.213
     - agile.11
-    - c2m2.9_1_e
     - issaf.T_6_5
   metadata: {}
 '356':
@@ -12415,9 +12274,6 @@
     - lgpd.16
     - lgpd.18_IV
     - lgpd.60
-    - c2m2.1_1_i
-    - c2m2.1_2_i
-    - c2m2.4_1_e
     - ferpa.D_35_b_2
     - owasprisks.P6
     - owaspscp.8
@@ -12487,7 +12343,6 @@
     - hitrust.10_g
     - fedramp.SC-13
     - iso27002.8_24
-    - c2m2.9_5_e
     - owaspscp.6
     - bsafss.EN_3-2
     - asvs.1_6_3
@@ -12558,7 +12413,6 @@
     - fedramp.IA-2_11
     - fedramp.PE-3
     - iec62443.CR-1_1-RE_2
-    - c2m2.4_1_b
     - owasprisks.P2
     - nist800171.5_3
     - cwe25.287
@@ -12631,7 +12485,6 @@
     - hitrust.09_af
     - fedramp.AU-8_1
     - iso27002.8_17
-    - c2m2.9_1_e
   metadata: {}
 '364':
   en:
@@ -12930,7 +12783,6 @@
     - iso27002.8_26
     - iec62443.IAC-1_9
     - iec62443.UC-2_3
-    - c2m2.9_3_f
     - ptes.7_4_2_7
   metadata: {}
 '374':
@@ -12962,7 +12814,6 @@
     - hitrust.09_d
     - iso27002.8_7
     - iso27002.8_26
-    - c2m2.9_1_e
     - nistssdf.PO_5_1
     - issaf.S_5_7
     - owaspscp.10
@@ -13016,7 +12867,6 @@
     - hitrust.09_p
     - iso27002.8_26
     - osstmm3.11_9_1
-    - c2m2.9_5_g
     - issaf.T_19_1
     - bsafss.SI_1-4
     - owaspmasvs.V2_2
@@ -13064,9 +12914,6 @@
     - fedramp.CA-7
     - iso27002.8_16
     - osstmm3.11_17_2
-    - c2m2.2_1_l
-    - c2m2.5_2_d
-    - c2m2.5_2_h
     - nistssdf.PO_5_1
     - issaf.F_5_1
     - issaf.T_19_2
@@ -13130,8 +12977,6 @@
     - iec62443.SI-3_9
     - osstmm3.9_17_2
     - osstmm3.11_17_2
-    - c2m2.5_2_d
-    - c2m2.6_1_c
     - issaf.G_12
     - nist800115.3_2
     - asvs.7_1_2
@@ -13181,7 +13026,6 @@
     - iso27002.5_35
     - iec62443.TRE-6_1
     - osstmm3.9_3_1
-    - c2m2.2_1_j
     - ptes.7_4_2_12
     - owaspscp.7
     - nist800171.3_8

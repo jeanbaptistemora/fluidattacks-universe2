@@ -5032,214 +5032,175 @@ c2m2:
       assets and the environments in
       which they operate.
       The version used in this section
-      is C2M2 v2.0.
+      is C2M2 v2.01, June 2022.
   es:
     summary: __empty__
   definitions:
-    1_1_i:
-      title: ASSET - Manage IT and OT asset inventory (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    1_2_i:
-      title: ASSET - Manage IT and OT asset inventory (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    1_3_a:
-      title: ASSET - Manage asset configuration (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    1_4_f:
-      title: ASSET - Manage changes to assets (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+    1_1_h:
+      title: Manage IT and OT asset inventory
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    1_2_h:
+      title: Manage IT and OT asset inventory
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    1_4_e:
+      title: Manage changes to IT and OT assets
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    1_4_i:
+      title: Manage changes to IT and OT assets
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     2_1_d:
-      title: THREAT - Reduce cybersecurity vulnerabilities (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Reduce cybersecurity vulnerabilities
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     2_1_j:
-      title: THREAT - Reduce cybersecurity vulnerabilities (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    2_1_l:
-      title: THREAT - Reduce cybersecurity vulnerabilities (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    2_2_h:
-      title: THREAT - Respond to threats and share threat information (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    2_3_e:
-      title: THREAT - Management activities (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    3_1_b:
-      title: RISK - Establish and maintain cyber risk management strategy (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    3_3_g:
-      title: RISK - Analyze cyber risk (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    3_5_e:
-      title: RISK - Management activities (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Reduce cybersecurity vulnerabilities
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    2_3_d:
+      title: Management activities for the THREAT domain
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    3_2_k:
+      title: Identify cyber risk
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    3_5_d:
+      title: Management activities for the RISK domain
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     4_1_a:
-      title: ACCESS - Establish and maintain identities (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     4_1_b:
-      title: ACCESS - Establish and maintain identities (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     4_1_c:
-      title: ACCESS - Establish and maintain identities (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    4_1_e:
-      title: ACCESS - Establish and maintain identities (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    4_1_d:
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     4_1_f:
-      title: ACCESS - Establish and maintain identities (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    4_2_d:
-      title: ACCESS - Control logical access (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    4_1_g:
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    4_1_h:
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    4_1_i:
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    4_1_j:
+      title: Establish identities and manage authentication
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     4_2_i:
-      title: ACCESS - Control logical access (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    5_1_e:
-      title: SITUATION - Perform logging (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    5_2_b:
-      title: SITUATION - Perform monitoring (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Control logical access
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     5_2_c:
-      title: SITUATION - Perform monitoring (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Perform monitoring
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     5_2_d:
-      title: SITUATION - Perform monitoring (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    5_2_h:
-      title: SITUATION - Perform monitoring (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Perform monitoring
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    5_2_e:
+      title: Perform monitoring
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     6_1_c:
-      title: RESPONSE - Detect cybersecurity events (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    7_1_a:
-      title: THIRD-PARTIES - Identify and prioritize third parties (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    7_1_b:
-      title: THIRD-PARTIES - Identify and prioritize third parties (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    7_1_e:
-      title: THIRD-PARTIES - Identify and prioritize third parties (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Detect cybersecurity events
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    6_1_f:
+      title: Detect cybersecurity events
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    7_1_c:
+      title: Identify and prioritize third parties
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     7_2_a:
-      title: THIRD-PARTIES - Manage third-party risk (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    7_2_h:
-      title: THIRD-PARTIES - Manage third-party risk (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    8_1_b:
-      title: WORKFORCE - Assign cybersecurity responsibilities (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    8_1_c:
-      title: WORKFORCE - Assign cybersecurity responsibilities (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_1_e:
-      title: Establish and maintain cybersecurity architecture strategy and program
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Manage third-party risk
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    7_2_b:
+      title: Manage third-party risk
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    7_2_c:
+      title: Manage third-party risk
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    8_3_c:
+      title: Assign cybersecurity responsibilities
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    8_3_e:
+      title: Assign cybersecurity responsibilities
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_2_b:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_2_c:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_2_d:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_2_e:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_2_f:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_2_h:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_2_j:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_2_g:
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_2_k:
-      title: Implement network protections as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_2_l:
+      title: Implement network protections for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_3_b:
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_3_c:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_3_d:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_3_e:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_3_f:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_3_g:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_3_i:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_3_j:
-      title: Implement IT and OT asset security as an element of the cybersecurity
-        architecture (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_3_l:
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_3_m:
+      title: Implement IT and OT asset security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_4_a:
+      title: Implement software security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_4_b:
+      title: Implement software security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_4_c:
-      title: Implement software security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement software security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_4_d:
-      title: Implement software security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_4_e:
-      title: Implement software security as an element of the cybersecurity architecture
-        (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement software security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
+    9_4_g:
+      title: Implement software security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_a:
-      title: Implement data security as an element of the cybersecurity architecture
-        (1)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_b:
-      title: Implement data security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_c:
-      title: Implement data security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_d:
-      title: Implement data security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_e:
-      title: Implement data security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_5_f:
-      title: Implement data security as an element of the cybersecurity architecture
-        (2)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
-    9_5_g:
-      title: Implement data security as an element of the cybersecurity architecture
-        (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
     9_5_h:
-      title: Implement data security as an element of the cybersecurity architecture
-        (3)
-      link: https://www.energy.gov/sites/default/files/2021-07/C2M2%20Version%202.0%20July%202021_508.pdf
+      title: Implement data security for cybersecurity architecture
+      link: https://c2m2.doe.gov/C2M2%20Version%202.1%20June%202022.pdf
   metadata: {}
 wasc:
   title: WASC
