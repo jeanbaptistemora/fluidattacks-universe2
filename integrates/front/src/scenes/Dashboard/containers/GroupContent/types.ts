@@ -13,4 +13,10 @@ interface IGroupContext {
   url: string;
 }
 
-export type { IGetEventStatus, IGroupContext };
+interface IGroupPermissions {
+  name: string;
+  permissions: string[];
+  userRole: string;
+}
+
+export type { IGetEventStatus, IGroupContext, IGroupPermissions };
