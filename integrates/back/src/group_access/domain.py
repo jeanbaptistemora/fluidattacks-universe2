@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    InvalidAuthorization,
     RequestedInvitationTooSoon,
     StakeholderNotFound,
     StakeholderNotInGroup,
@@ -45,13 +46,18 @@ from group_access import (
 from itertools import (
     chain,
 )
+from jose import (
+    JWTError,
+)
+from newutils import (
+    token as token_utils,
+)
 from newutils.datetime import (
     get_from_epoch,
     get_minus_delta,
     get_now,
 )
 from newutils.group_access import (
-    format_group_access,
     format_invitation_state,
 )
 from typing import (
@@ -68,13 +74,14 @@ async def add_user_access(email: str, group_name: str, role: str) -> bool:
     return await authz.grant_group_level_role(email, group_name, role)
 
 
-async def get_access_by_url_token(url_token: str) -> GroupAccess:
-    access: list[
-        dict[str, Any]
-    ] = await group_access_dal.get_access_by_url_token(url_token)
-    if access:
-        return format_group_access(access[0])
-    raise StakeholderNotInGroup
+async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
+    try:
+        token_content = token_utils.decode_jwt(url_token)
+        group_name: str = token_content["group_name"]
+        user_email: str = token_content["user_email"]
+    except JWTError:
+        InvalidAuthorization()
+    return await loaders.group_access.load((group_name, user_email))
 
 
 async def get_reattackers(
