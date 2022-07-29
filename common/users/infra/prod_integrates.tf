@@ -225,6 +225,14 @@ locals {
               "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:integrates*"
             ]
           },
+          {
+            Sid    = "lambdaGlobalWrite"
+            Effect = "Allow"
+            Action = [
+              "lambda:CreateEventSourceMapping"
+            ]
+            Resource = ["*"]
+          },
         ]
       }
       cloudflare = {
