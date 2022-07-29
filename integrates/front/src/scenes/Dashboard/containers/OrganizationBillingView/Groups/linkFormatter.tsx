@@ -4,10 +4,9 @@ import React from "react";
 import { LinkRow } from "./lintRow";
 
 import type { IHeaderConfig } from "components/Table/types";
-import { translate } from "utils/translations/translate";
 
 export const linkFormatter = (
-  value: boolean | string | undefined,
+  value: string | undefined,
   row: Readonly<Record<string, string>>,
   _rowIndex: number,
   key: Readonly<IHeaderConfig>
@@ -18,13 +17,7 @@ export const linkFormatter = (
     }
   }
 
-  const valueDefined: boolean | string = value ?? "";
-  const formatedValueDefined: string =
-    typeof valueDefined === "string"
-      ? valueDefined.replace("_", " ")
-      : valueDefined
-      ? translate.t("organization.tabs.billing.groups.managed.yes")
-      : translate.t("organization.tabs.billing.groups.managed.no");
+  const formatedValueDefined: string = (value ?? "").replace("_", " ");
 
   return (
     <LinkRow

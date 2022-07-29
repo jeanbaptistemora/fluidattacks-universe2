@@ -394,14 +394,14 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         )}
                         name={"managed"}
                       >
-                        <option value={"MANUALLY"}>
+                        <option value={"MANAGED"}>
                           {t(
-                            "organization.tabs.groups.newGroup.managed.manually"
+                            "organization.tabs.groups.newGroup.managed.managed"
                           )}
                         </option>
-                        <option value={"NOT_MANUALLY"}>
+                        <option value={"NOT_MANAGED"}>
                           {t(
-                            "organization.tabs.groups.newGroup.managed.notManually"
+                            "organization.tabs.groups.newGroup.managed.notManaged"
                           )}
                         </option>
                         <option value={"UNDER_REVIEW"}>

@@ -1475,8 +1475,8 @@ export const enTranslations: ResourceKey = {
       billing: {
         groups: {
           managed: {
-            manually: "Manually",
-            notManually: "Not manually",
+            managed: "Managed",
+            notManaged: "Not managed",
             title: "Managed",
             tooltip: "If the payment method is managed manually",
             trial: "Trial",
@@ -1683,8 +1683,8 @@ export const enTranslations: ResourceKey = {
               "Vulnerability detection tool that scans and reports security issues in your source code",
           },
           managed: {
-            manually: "Manually",
-            notManually: "Not manually",
+            managed: "Managed",
+            notManaged: "Not managed",
             text: "Managed",
             tooltip: "Enable manually managed group",
             trial: "Trial",

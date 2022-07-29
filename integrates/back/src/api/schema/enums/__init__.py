@@ -172,8 +172,8 @@ ENUMS: Tuple[EnumType, ...] = (
     EnumType(
         "ManagedType",
         {
-            "MANUALLY": "MANUALLY",
-            "NOT_MANUALLY": "NOT_MANUALLY",
+            "MANAGED": "MANAGED",
+            "NOT_MANAGED": "NOT_MANAGED",
             "UNDER_REVIEW": "UNDER_REVIEW",
             "TRIAL": "TRIAL",
         },
