@@ -1,6 +1,3 @@
-from .group_stakeholders import (
-    GroupStakeholdersLoader,
-)
 from .stakeholder_level_role import (
     StakeholderLevelRoleLoader,
 )
@@ -139,7 +136,6 @@ class Dataloaders(NamedTuple):
     group_findings: GroupFindingsLoader
     group_historic_state: GroupHistoricStateLoader
     group_roots: GroupRootsLoader
-    group_stakeholders: GroupStakeholdersLoader
     group_toe_inputs: GroupToeInputsLoader
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
@@ -216,7 +212,6 @@ def get_new_context() -> Dataloaders:
     stakeholder_with_fallback = StakeholderWithFallbackLoader(
         stakeholder_loader
     )
-    group_stakeholders_loader = GroupStakeholdersLoader(stakeholder_loader)
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -250,7 +245,6 @@ def get_new_context() -> Dataloaders:
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
-        group_stakeholders=group_stakeholders_loader,
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),

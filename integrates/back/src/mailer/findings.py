@@ -268,7 +268,7 @@ async def send_mail_vulnerability_report(
     org_name = await get_organization_name(loaders, group_name)
     group_stakeholders: tuple[
         Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group_name)
+    ] = await group_access_domain.get_group_stakeholders(loaders, group_name)
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
     stakeholders: tuple[
         Stakeholder, ...

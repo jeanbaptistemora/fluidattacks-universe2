@@ -1850,7 +1850,7 @@ async def send_mail_policies(
     }
     group_stakeholders: tuple[
         Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group_name)
+    ] = await group_access_domain.get_group_stakeholders(loaders, group_name)
 
     stakeholders_emails = [
         stakeholder.email

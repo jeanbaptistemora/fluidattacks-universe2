@@ -4,6 +4,7 @@ from aioextensions import (
 import authz
 from custom_exceptions import (
     RequestedInvitationTooSoon,
+    StakeholderNotFound,
     StakeholderNotInGroup,
 )
 from datetime import (
@@ -40,6 +41,9 @@ from db_model.vulnerabilities.update import (
 )
 from group_access import (
     dal as group_access_dal,
+)
+from itertools import (
+    chain,
 )
 from newutils.datetime import (
     get_from_epoch,
@@ -85,6 +89,41 @@ async def get_reattackers(
         for user, user_role in zip(users, user_roles)
         if user_role == "reattacker"
     ]
+
+
+async def _get_stakeholder(loaders: Any, email: str) -> Stakeholder:
+    try:
+        return await loaders.stakeholder.load(email)
+    except StakeholderNotFound:
+        return Stakeholder(
+            email=email,
+            is_registered=False,
+        )
+
+
+async def get_group_stakeholders(
+    loaders: Any,
+    group_name: str,
+) -> tuple[Stakeholder, ...]:
+    stakeholders_emails: list[str] = list(
+        chain.from_iterable(
+            await collect(
+                [
+                    get_group_stakeholders_emails(
+                        loaders, group=group_name, active=True
+                    ),
+                    get_group_stakeholders_emails(
+                        loaders, group=group_name, active=False
+                    ),
+                ]
+            )
+        )
+    )
+    return await collect(
+        tuple(
+            _get_stakeholder(loaders, email) for email in stakeholders_emails
+        )
+    )
 
 
 async def get_group_users(group: str, active: bool = True) -> list[str]:

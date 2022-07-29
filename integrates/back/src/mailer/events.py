@@ -23,6 +23,9 @@ from db_model.roots.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from group_access.domain import (
+    get_group_stakeholders,
+)
 from mailer.utils import (
     get_organization_name,
 )
@@ -113,9 +116,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     event_age: int = (datetime_utils.get_now().date() - report_date).days
     org_name = await get_organization_name(loaders, group_name)
 
-    group_stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group_name)
+    group_stakeholders: Tuple[Stakeholder, ...] = await get_group_stakeholders(
+        loaders, group_name
+    )
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
     stakeholders: Tuple[
         Stakeholder, ...

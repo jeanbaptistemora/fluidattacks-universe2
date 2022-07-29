@@ -65,7 +65,7 @@ async def _send_mail_report(
 ) -> None:
     group_stakeholders: Tuple[
         Stakeholder, ...
-    ] = await loaders.group_stakeholders.load(group)
+    ] = await group_access_domain.get_group_stakeholders(loaders, group)
 
     stakeholders_emails = [
         stakeholder.email
