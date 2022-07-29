@@ -56,16 +56,17 @@ interface ITextProps {
   tone?: TColor;
   fw?: Nums1To9;
   ta?: "center" | "end" | "start";
+  ws?: "break-spaces" | "normal" | "nowrap" | "pre-line" | "pre-wrap" | "pre";
 }
 
 const Text = styled.p.attrs(
   ({
+    fw = 4,
     mb = 0,
     ml = 0,
     mr = 0,
     mt = 0,
     size = 2,
-    fw = 4,
   }: ITextProps): {
     className: string;
   } => ({
@@ -76,16 +77,17 @@ const Text = styled.p.attrs(
     bright = 1,
     disp = "block",
     tone = "dark",
+    ta = "start",
+    ws = "pre-line",
     hoverBright = bright,
     hoverTone = tone,
-    ta = "start",
   }): string => `
     color: #${colors[tone][bright]};
     display: ${disp};
     text-align: ${ta};
     transition: all 0.3s ease;
+    white-space: ${ws};
     width: ${disp === "block" ? "100%" : "auto"};
-
     :hover {
       color: #${colors[hoverTone][hoverBright]};
     }
