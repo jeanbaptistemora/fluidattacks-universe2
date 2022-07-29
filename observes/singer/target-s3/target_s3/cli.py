@@ -1,7 +1,7 @@
-from . import (
+import click
+from target_s3 import (
     loader,
 )
-import click
 from typing import (
     NoReturn,
 )

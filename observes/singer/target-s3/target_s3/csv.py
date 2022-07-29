@@ -7,13 +7,9 @@ from fa_purity import (
 from fa_purity.json.primitive.core import (
     Primitive,
 )
-from target_s3.complete_record import (
+from target_s3.core import (
     CompletePlainRecord,
-)
-from target_s3.record_group import (
     RecordGroup,
-)
-from target_s3.ro_file import (
     TempReadOnlyFile,
 )
 from typing import (

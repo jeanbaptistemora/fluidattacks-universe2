@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._complete_record import (
+    CompletePlainRecord,
+)
 from dataclasses import (
     dataclass,
 )
@@ -18,9 +21,6 @@ from fa_purity.result.transform import (
 )
 from fa_singer_io.singer import (
     SingerSchema,
-)
-from target_s3.complete_record import (
-    CompletePlainRecord,
 )
 
 

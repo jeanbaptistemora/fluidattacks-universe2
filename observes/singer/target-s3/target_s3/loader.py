@@ -1,21 +1,3 @@
-from .complete_record import (
-    CompletePlainRecord,
-)
-from .csv import (
-    save,
-)
-from .in_buffer import (
-    stdin_buffer,
-)
-from .plain_record import (
-    PlainRecord,
-)
-from .record_group import (
-    RecordGroup,
-)
-from .ro_file import (
-    TempReadOnlyFile,
-)
 from fa_purity import (
     Cmd,
     FrozenDict,
@@ -48,6 +30,18 @@ from fa_singer_io.singer import (
 )
 from fa_singer_io.singer.deserializer import (
     deserialize,
+)
+from target_s3.core import (
+    CompletePlainRecord,
+    PlainRecord,
+    RecordGroup,
+    TempReadOnlyFile,
+)
+from target_s3.csv import (
+    save,
+)
+from target_s3.in_buffer import (
+    stdin_buffer,
 )
 from typing import (
     FrozenSet,

@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._plain_record import (
+    PlainRecord,
+)
 from dataclasses import (
     dataclass,
 )
@@ -16,9 +19,6 @@ from fa_purity.json.value.transform import (
 )
 from fa_singer_io.singer import (
     SingerSchema,
-)
-from target_s3.plain_record import (
-    PlainRecord,
 )
 
 
