@@ -4,6 +4,7 @@ freezegun: 0.3.15
 moto:
   version: 1.3.16
   extras: [secretsmanager]
+mypy-boto3-dynamodb: 1.24.36.post1
 pytest-asyncio: 0.12.0
 pytest-cov: 2.9.0
 pytest: 5.4.1

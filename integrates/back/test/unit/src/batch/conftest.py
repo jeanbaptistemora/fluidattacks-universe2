@@ -2,11 +2,11 @@ import boto3
 from moto.dynamodb2 import (
     mock_dynamodb2,
 )
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
+)
 import os
 import pytest
-from typing import (
-    Generator,
-)
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -18,7 +18,7 @@ def aws_credentials() -> None:
 
 
 @pytest.fixture(scope="module")
-def dynamodb() -> Generator:
+def dynamodb() -> ServiceResource:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")
