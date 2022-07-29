@@ -26,6 +26,45 @@ You can also export and filter
 the information of all your
 Roots that compose the table.
 
+### Add new root
+
+To add a new Root,
+you must click on the
+box **add new root**.
+There you will get a pop-up
+window where you will have to
+enter the information of the
+new repository you want to add.
+
+![Add New Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1659113179/docs/web/groups/scope/git_add_new_root.png)
+
+The information you have to fill in is as follows:
+
+- **URL:**
+  The URL where the
+  repository is located.
+- **Branch:**
+  The branch that is inside
+  the repository that I want
+  to be validated.
+- **Nickname:**
+  The nickname of the root
+  to remember it easily.
+- **Existing credentials:**
+  Existing credentials can be reused.
+  For more information,
+  click
+  [here](/machine/web/groups/scope/roots#existing-credentials).
+- **Credential Type:**
+  To have access to the repository,
+  we have to have access to
+  the credentials,
+  which are two types:
+  HTTPS and SSH.
+  Here,
+  you select which type of
+  credential you want to add.
+
 ### Functionalities​
 
 In this section,
