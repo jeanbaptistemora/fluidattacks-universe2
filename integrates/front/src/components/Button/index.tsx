@@ -33,13 +33,8 @@ const Button: FC<IButtonProps> = ({
   tooltip,
   value,
   variant,
-}: Readonly<IButtonProps>): JSX.Element => (
-  <Tooltip
-    disp={disp}
-    hide={id === undefined || tooltip === undefined}
-    id={`${id ?? "btn"}-tooltip`}
-    tip={tooltip}
-  >
+}: Readonly<IButtonProps>): JSX.Element => {
+  const Btn = (
     <StyledButton
       disabled={disabled}
       disp={disp}
@@ -53,8 +48,16 @@ const Button: FC<IButtonProps> = ({
     >
       {children}
     </StyledButton>
-  </Tooltip>
-);
+  );
+
+  return id === undefined || tooltip === undefined ? (
+    Btn
+  ) : (
+    <Tooltip disp={disp} id={`${id}-tooltip`} tip={tooltip}>
+      {Btn}
+    </Tooltip>
+  );
+};
 
 export type { IButtonProps };
 export { Button, ButtonGroup };
