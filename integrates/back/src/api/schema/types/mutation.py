@@ -34,6 +34,7 @@ from api.mutations import (
     confirm_vulnerabilities_zero_risk,
     deactivate_organization_finding_policy,
     deactivate_root,
+    download_billing_file,
     download_event_file,
     download_file,
     download_vulnerability_file,
@@ -168,6 +169,7 @@ MUTATION.set_field(
     deactivate_organization_finding_policy.mutate,
 )
 MUTATION.set_field("deactivateRoot", deactivate_root.mutate)
+MUTATION.set_field("downloadBillingFile", download_billing_file.mutate)
 MUTATION.set_field("downloadEventFile", download_event_file.mutate)
 MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field(

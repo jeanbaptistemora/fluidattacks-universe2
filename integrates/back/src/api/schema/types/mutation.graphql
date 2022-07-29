@@ -450,6 +450,16 @@ type Mutation {
   ): SimplePayload!
 
   "Downloads an evidence file associated with an Event"
+  downloadBillingFile(
+    "Identifier of the Organization"
+    organizationId: String!
+    "Identifier of the Payment Method"
+    paymentMethodId: String!
+    "Filename of the billing document to download"
+    fileName: String!
+  ): DownloadFilePayload!
+
+  "Downloads an evidence file associated with an Event"
   downloadEventFile(
     "Identifier of the Event containing the evidence"
     eventId: String!
@@ -1156,9 +1166,9 @@ type Mutation {
 
   "Update a payment method from an organization"
   updatePaymentMethod(
-    "Organization id"
+    "Identifier of the Organization"
     organizationId: String!
-    "Payment Method id"
+    "Identifier of the Payment Method"
     paymentMethodId: String!
     "Card expiration month"
     cardExpirationMonth: String!
