@@ -1,4 +1,4 @@
-:page-background-image: image::../resources/themes/background-finding-table.png[]
+:page-background-image: {{finding_table_background}}
 
 .{{resume_table_title}}
 |===

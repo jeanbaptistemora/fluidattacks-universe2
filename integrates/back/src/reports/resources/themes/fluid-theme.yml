@@ -7,7 +7,7 @@ font:
       italic: roboto/Roboto-Italic.ttf
       bold_italic: roboto/Roboto-BoldItalic.ttf
 base:
-  align: justify
+  align: left
   font_color: 2e2e38
   font_family: Roboto
   font_size: 16

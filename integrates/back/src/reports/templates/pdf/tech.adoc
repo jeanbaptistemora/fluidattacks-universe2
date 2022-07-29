@@ -38,6 +38,8 @@ If you are reading this report and you are not {{user}}, you are not authorized 
 <<<
 [%notitle]
 === {{resume_table_title}}
+{{finding_table_title_pdf}}
+<<<
 {{finding_table_pdf}}
 
 //Quinta pagina - Vista general

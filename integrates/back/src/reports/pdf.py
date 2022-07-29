@@ -142,7 +142,9 @@ Context = TypedDict(
         "link": str,
         "imagesdir": str,
         "goals_pdf": str,
+        "finding_table_background": str,
         "finding_table_pdf": str,
+        "finding_table_title_pdf": str,
     },
     total=False,
 )
@@ -412,6 +414,9 @@ class CreatorPdf:
         self.out_name_finding_table = (
             f"{self.result_dir}{str(uuid.uuid4())}.pdf"
         )
+        self.out_name_finding_table_title = (
+            f"{self.result_dir}{str(uuid.uuid4())}.pdf"
+        )
         self.group_name = group
         self.user_email = user
         self.out_name_general_view = (
@@ -531,8 +536,12 @@ class CreatorPdf:
             "link": f"{BASE_URL}/groups/{group}/vulns",
             "imagesdir": self.images_dir,
             "goals_pdf": f"image::{self.out_name_goals}[]",
-            "finding_table_pdf": (
-                f"image::{self.out_name_finding_table}[pages=1..100]"
+            "finding_table_background": (
+                "image::../resources/themes/background-finding-table.png[]"
+            ),
+            "finding_table_pdf": f"image::{self.out_name_finding_table}[]",
+            "finding_table_title_pdf": (
+                f"image::{self.out_name_finding_table_title}[]"
             ),
         }
 
@@ -674,10 +683,10 @@ class CreatorPdf:
 
         await self.get_page(
             template_env,
-            "finding_table",
+            "finding_table_title",
             "templates/pdf/finding_table.adoc",
             loaders,
-            self.out_name_finding_table,
+            self.out_name_finding_table_title,
         )
 
         await self.get_page(
@@ -702,12 +711,34 @@ class CreatorPdf:
                     f"[pages=2..{output_file.getNumPages() + 1}]"
                 )
 
+            with open(
+                self.out_name_finding_table_title,
+                "rb",
+            ) as pdf_file:
+                output_table_file = PdfFileReader(pdf_file)
+
+                self.context[
+                    "finding_table_background"
+                ] = "image::../resources/themes/background.png[]"
+                self.context["finding_table_pdf"] = (
+                    f"image::{self.out_name_finding_table}"
+                    f"[pages=2..{output_table_file.getNumPages() + 1}]"
+                )
+
         await self.get_page(
             template_env,
             "finding_summary",
             "templates/pdf/finding_summary.adoc",
             loaders,
             self.out_name_finding_summary,
+        )
+
+        await self.get_page(
+            template_env,
+            "finding_table",
+            "templates/pdf/finding_table.adoc",
+            loaders,
+            self.out_name_finding_table,
         )
 
         template = template_env.get_template(self.proj_tpl)
