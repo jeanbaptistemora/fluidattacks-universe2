@@ -63,6 +63,8 @@ in the Git Roots section,
 helping us filter the information
 that is of interest quickly and safely.
 
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1659104871/docs/web/groups/scope/git_filters.png)
+
 ## IP roots
 
 An IP address is the unique
