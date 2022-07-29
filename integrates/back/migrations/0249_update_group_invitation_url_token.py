@@ -5,8 +5,8 @@ just a random string.
 
 Also resend invitation emails.
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-07-29 at 20:42:14 UTC
+Finalization Time: 2022-07-29 at 20:50:47 UTC
 """
 
 from aioextensions import (
@@ -109,6 +109,16 @@ async def process_invitation(loaders: Dataloaders, item: Item) -> None:
         "user_role": updated_invitation.role.replace("_", " "),
     }
     await groups_mail.send_mail_access_granted(loaders, mail_to, email_context)
+
+    LOGGER_CONSOLE.info(
+        "Processed",
+        extra={
+            "extra": {
+                "email": group_access.email,
+                "group_name": group_access.group_name,
+            }
+        },
+    )
 
 
 async def main() -> None:
