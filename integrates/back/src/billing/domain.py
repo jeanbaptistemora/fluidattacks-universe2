@@ -10,7 +10,7 @@ from billing.types import (
     Subscription,
 )
 from context import (
-    FI_AWS_S3_BILLING_BUCKET,
+    FI_AWS_S3_RESOURCES_BUCKET,
 )
 from custom_exceptions import (
     BillingCustomerHasActiveSubscription,
@@ -88,24 +88,24 @@ TRIAL_DAYS: int = 14
 
 async def save_file(file_object: object, file_name: str) -> None:
     await s3_ops.upload_memory_file(
-        FI_AWS_S3_BILLING_BUCKET,
+        FI_AWS_S3_RESOURCES_BUCKET,
         file_object,
         file_name,
     )
 
 
 async def search_file(file_name: str) -> list[str]:
-    return await s3_ops.list_files(FI_AWS_S3_BILLING_BUCKET, file_name)
+    return await s3_ops.list_files(FI_AWS_S3_RESOURCES_BUCKET, file_name)
 
 
 async def remove_file(file_name: str) -> None:
-    await s3_ops.remove_file(FI_AWS_S3_BILLING_BUCKET, file_name)
+    await s3_ops.remove_file(FI_AWS_S3_RESOURCES_BUCKET, file_name)
 
 
 async def get_document_link(
     org: Organization, payment_id: str, file_name: str
 ) -> str:
-    org_name = org.name
+    org_name = org.name.lower()
     payment_method: list[OrganizationPaymentMethods] = []
     file_url = ""
     if org.payment_methods:
@@ -114,10 +114,10 @@ async def get_document_link(
         )
         if len(payment_method) == 0:
             raise InvalidBillingPaymentMethod()
-        business_name = payment_method[0].business_name
-        file_url = f"{org_name}/{business_name}/{file_name}"
+        business_name = payment_method[0].business_name.lower()
+        file_url = f"billing/{org_name}/{business_name}/{file_name}"
 
-    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_BILLING_BUCKET)
+    return await s3_ops.sign_url(file_url, 10, FI_AWS_S3_RESOURCES_BUCKET)
 
 
 async def _customer_has_payment_method(
@@ -477,10 +477,11 @@ async def update_documents(
 ) -> bool:
 
     documents = OrganizationDocuments()
-    org_name = org.name
+    org_name = org.name.lower()
+    business_name = business_name.lower()
     if rut:
         rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
-        rut_full_name = f"{org_name}/{business_name}/{rut_file_name}"
+        rut_full_name = f"billing/{org_name}/{business_name}/{rut_file_name}"
         validations.validate_sanitized_csv_input(rut_full_name)
         validations.validate_sanitized_csv_input(
             rut.filename, rut.content_type
@@ -496,7 +497,9 @@ async def update_documents(
         tax_id_file_name = (
             f"{org_name}-{business_name}{document_extension(tax_id)}"
         )
-        tax_id_full_name = f"{org_name}/{business_name}/{tax_id_file_name}"
+        tax_id_full_name = (
+            f"billing/{org_name}/{business_name}/{tax_id_file_name}"
+        )
         validations.validate_sanitized_csv_input(tax_id_full_name)
         validations.validate_sanitized_csv_input(
             tax_id.filename, tax_id.content_type
