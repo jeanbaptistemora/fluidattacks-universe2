@@ -4,14 +4,14 @@
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_group('Enumeration Digest') }}
+  {{ banner_group('Progress Report') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      enumerated: {{ count_var_report["enumerated"]["count"] }} <br />
+      Enumerated: {{ count_var_report["enumerated"]["count"] }} <br />
       Verified: {{ count_var_report["verified"]["count"] }} fields,
-      {{ count_var_report["loc"]["count"] }} LoC. <br />
+      {{ count_var_report["loc"]["count"] }} lines. <br />
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.<br />
       Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.<br />
       - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.<br />
@@ -22,11 +22,11 @@
       {% if groups %}
         {% for group, fields in groups.items() %}
           <strong>{{ group }}</strong>:
-          {{ fields["enumerated"] }} ie,
-          {{ fields["verified"] }} iv,
-          {{ fields["loc"] }} lv,
-          {{ fields["reattacked"] }} re,
-          {{ fields["draft_created"] }} df.<br />
+          {{ fields["enumerated"] }} inputs enumerated,
+          {{ fields["verified"] }} inputs verified,
+          {{ fields["loc"] }} lines verified,
+          {{ fields["reattacked"] }} reattacked,
+          {{ fields["draft_created"] }} drafts.<br />
         {% endfor %}
       {% endif %}
       <br />
@@ -36,10 +36,6 @@
       {{ count_var_report["loc"]["variation"] }} lv,
       {{ count_var_report["reattacked"]["variation"] }} re,
       {{ count_var_report["draft_created"]["variation"] }} df
-    </p>
-    <p>
-      Legend: ie: Inputs enumerated, iv: Input verified, lv: LoC verified,
-      re: reattacked, df: drafts.
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>
