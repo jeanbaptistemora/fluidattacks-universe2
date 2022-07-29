@@ -1,0 +1,8 @@
+---
+lib_path.dotnetconfig.not_suppress_vuln_header:
+  en: >
+    Ensure that your Web.config source file or package
+    suppress 'X-Powered-By' headers.
+  es: >-
+    Asegúrese de que su paquete o archivo fuente de Web.config
+    elimine los encabezados 'X-Powered-By'.

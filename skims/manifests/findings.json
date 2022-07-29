@@ -151,6 +151,14 @@
       "title": "036. ViewState not encrypted"
     }
   },
+  "F037": {
+    "EN": {
+      "title": "037. Technical information leak"
+    },
+    "ES": {
+      "title": "037. Technical information leak"
+    }
+  },
   "F042": {
     "EN": {
       "title": "042. Insecurely generated cookies"

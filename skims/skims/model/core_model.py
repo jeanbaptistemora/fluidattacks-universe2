@@ -280,6 +280,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.http,
         requirements=[26],
     )
+    F037: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F037",
+        cwe=200,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[77, 176],
+    )
     F042: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F042",
@@ -2073,6 +2080,14 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F036,
         developer=DeveloperEnum.JUAN_RESTREPO,
         technique=TechniqueEnum.DAST,
+    )
+    DOTNETCONFIG_NOT_SUPPRESS_VULN_HEADER = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_not_suppress_vuln_header",
+        module="lib_path",
+        finding=FindingEnum.F037,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
     )
     CS_INSEC_COOKIES = MethodInfo(
         file_name="c_sharp",
