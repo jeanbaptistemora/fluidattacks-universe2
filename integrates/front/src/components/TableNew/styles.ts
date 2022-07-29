@@ -45,7 +45,7 @@ const TableContainer = styled.div.attrs({
     border-spacing: 0;
     table-layout: auto;
     width: 100%;
-    margin: 16px;
+    padding: 16px;
   }
 `;
 

@@ -1,4 +1,4 @@
-import type { ColumnDef, Table } from "@tanstack/react-table";
+import type { ColumnDef, Row, Table } from "@tanstack/react-table";
 
 interface IPagMenuProps<TData> {
   table: Table<TData>;
@@ -11,7 +11,8 @@ interface ITableProps<TData> {
   columnToggle?: boolean;
   exportCsv?: boolean;
   csvName?: string;
-  rowFunction?: () => void;
+  rowFunction?: (row: Row<TData>) => (event: unknown) => void;
+  showPagination?: boolean;
 }
 
 interface IToggleProps<TData> {

@@ -27,11 +27,11 @@ export const Tables = <TData extends object>(
     exportCsv = false,
     csvName = "Report",
     rowFunction = undefined,
+    showPagination = data.length >= 8,
   } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const showPagination = data.length >= 8;
 
   const table = useReactTable<TData>({
     columns,
@@ -102,7 +102,7 @@ export const Tables = <TData extends object>(
           <tbody>
             {table.getRowModel().rows.map(
               (row): ReactElement => (
-                <tr key={row.id} onClick={rowFunction}>
+                <tr key={row.id} onClick={rowFunction?.(row)}>
                   {row.getVisibleCells().map(
                     (cell): ReactElement => (
                       <td key={cell.id}>
