@@ -71,7 +71,6 @@ locals {
       tags = {
         "kubernetes.io/cluster/common" = "shared"
         "kubernetes.io/role/elb"       = "1"
-        "karpenter.sh/discovery"       = "common"
       }
     },
     {
@@ -82,7 +81,6 @@ locals {
       tags = {
         "kubernetes.io/cluster/common" = "shared"
         "kubernetes.io/role/elb"       = "1"
-        "karpenter.sh/discovery"       = "common"
       }
     },
     {
@@ -93,7 +91,6 @@ locals {
       tags = {
         "kubernetes.io/cluster/common" = "shared"
         "kubernetes.io/role/elb"       = "1"
-        "karpenter.sh/discovery"       = "common"
       }
     },
   ]
