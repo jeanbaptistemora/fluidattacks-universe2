@@ -266,20 +266,29 @@ gives access to clone the repository.
 
 ### Managing git root environments
 
-In the edit modal, authorized users will also find the **Environment URLs**
-tab:
+Authorized users will also find the
+**Environment URLs** tab in the edit modal.
+You can add environments corresponding
+to the selected git Root by clicking
+on the **Add Environment URL** button.
 
-![Manage environments](https://res.cloudinary.com/fluid-attacks/image/upload/v1659021837/docs/web/groups/scope/manage_envs_ywyggq.png)
+![Environment URLs Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_tab.png)
 
-You can click on the **plus(+)** button
-to add the environment URLs
-corresponding to the selected git Root,
-and also delete them
-by clicking on the trash button
-to the right of the URL field.
-To discard or apply the changes
-you can click on **Cancel**
-or **Proceed** respectively.
+Here you will get a popup window
+where you will have to select which
+environment URL type you want to
+add and the URL of this one,
+followed by clicking Confirm.
+
+![Add Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_environment_select.png)
+
+You will get the added
+environment successfully.
+Remember that you can also delete
+any environment by clicking on
+the trash button.
+
+![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
 
 ## Editing Git roots
 
@@ -292,7 +301,7 @@ three tabs: **Git repository**,
 **Environment URLs**
 and **Secrets**.
 
-![Edir Git Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1654884640/docs/web/groups/scope/root_editing_git_roots.png)
+![Edit Git Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1654884640/docs/web/groups/scope/root_editing_git_roots.png)
 
 The Git repository tab allows
 you to change details of your
