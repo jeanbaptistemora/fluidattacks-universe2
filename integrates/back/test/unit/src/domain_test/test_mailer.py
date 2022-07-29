@@ -20,6 +20,7 @@ from groups.domain import (
 )
 from mailer.common import (
     get_recipient_first_name,
+    get_recipients,
 )
 from mailer.events import (
     send_mail_event_report,
@@ -75,6 +76,51 @@ async def test_get_recipient_first_name() -> None:
     assert len([recipient for recipient in recipients if recipient]) < len(
         users
     )
+
+
+@pytest.mark.asyncio
+async def test_get_recipients() -> None:
+    loaders: Dataloaders = get_new_context()
+    assert await get_recipients(
+        loaders=loaders,
+        email_to="integratesmanager@gmail.com",
+        email_cc=["nonexisting@nonexisting.com"],
+        first_name="Integrates",
+        is_access_granted=False,
+    ) == [
+        {
+            "email": "integratesmanager@gmail.com",
+            "name": "Integrates",
+            "type": "to",
+        }
+    ]
+    assert await get_recipients(
+        loaders=loaders,
+        email_to="integratesmanager@gmail.com",
+        email_cc=["unittest@fluidattacks.com"],
+        first_name="Integrates",
+        is_access_granted=False,
+    ) == [
+        {
+            "email": "integratesmanager@gmail.com",
+            "name": "Integrates",
+            "type": "to",
+        },
+        {"email": "unittest@fluidattacks.com", "name": "Miguel", "type": "cc"},
+    ]
+    assert await get_recipients(
+        loaders=loaders,
+        email_to="integratesmanager@gmail.com",
+        email_cc=None,
+        first_name="Integrates",
+        is_access_granted=False,
+    ) == [
+        {
+            "email": "integratesmanager@gmail.com",
+            "name": "Integrates",
+            "type": "to",
+        }
+    ]
 
 
 @pytest.mark.asyncio

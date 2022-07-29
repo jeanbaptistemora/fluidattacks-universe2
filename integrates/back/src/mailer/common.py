@@ -100,14 +100,33 @@ async def get_recipient_first_name(
     return None
 
 
+async def get_recipients(
+    *,
+    loaders: Any,
+    email_to: str,
+    email_cc: Optional[list[str]],
+    first_name: str,
+    is_access_granted: bool,
+) -> list[dict[str, Any]]:
+    email_list = [{"email": email_to, "name": first_name, "type": "to"}]
+    if email_cc:
+        for email in email_cc:
+            if name := await get_recipient_first_name(
+                loaders, email, is_access_granted
+            ):
+                email_list.append({"email": email, "name": name, "type": "cc"})
+    return email_list
+
+
 async def log(msg: str, **kwargs: Any) -> None:
     await in_thread(LOGGER_TRANSACTIONAL.info, msg, **kwargs)
 
 
-async def send_mail_async(
+async def send_mail_async(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
     email_to: str,
+    email_cc: Optional[list[str]] = None,
     context: dict[str, Any],
     tags: list[str],
     subject: str,
@@ -124,13 +143,21 @@ async def send_mail_async(
     context["name"] = first_name
     context["year"] = year
     content = get_content(template_name, context)
+    to_list: list[dict[str, Any]] = await get_recipients(
+        loaders=loaders,
+        email_to=email_to,
+        first_name=first_name,
+        email_cc=email_cc,
+        is_access_granted=is_access_granted,
+    )
     message = {
         "from_email": "noreply@fluidattacks.com",
         "from_name": "Fluid Attacks",
         "html": content,
         "subject": subject,
         "tags": tags,
-        "to": [{"email": email_to, "name": first_name, "type": "to"}],
+        "to": to_list,
+        "preserve_recipients": True,
     }
     try:
         response = mandrill_client.messages.send({"message": message})
@@ -169,6 +196,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
     subject: str,
     template_name: str,
     is_access_granted: bool = False,
+    email_cc: Optional[list[str]] = None,
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",")
     await collect(
@@ -176,6 +204,7 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
             send_mail_async(
                 loaders=loaders,
                 email_to=email,
+                email_cc=email_cc,
                 context=context,
                 tags=tags,
                 subject=subject,
