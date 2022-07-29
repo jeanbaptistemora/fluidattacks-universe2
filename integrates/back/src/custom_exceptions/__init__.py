@@ -1546,12 +1546,6 @@ class RepeatedCredential(CustomBaseException):
         super(RepeatedCredential, self).__init__(msg)
 
 
-class StakeholderIsNotCredentialsOwner(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - Stakeholder is not the credentials owner"
-        super(StakeholderIsNotCredentialsOwner, self).__init__(msg)
-
-
 class InvalidBase64SshKey(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The ssh key must be in base64"

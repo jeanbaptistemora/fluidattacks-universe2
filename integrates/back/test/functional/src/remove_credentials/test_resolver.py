@@ -27,7 +27,7 @@ from typing import (
     ["email", "organization_id", "credentials_id"],
     [
         [
-            "user@gmail.com",
+            "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
         ],
@@ -111,7 +111,4 @@ async def test_remove_credentials_fails(
         credentials_id=credentials_id,
     )
     assert "errors" in result
-    assert (
-        result["errors"][0]["message"]
-        == "Exception - Stakeholder is not the credentials owner"
-    )
+    assert result["errors"][0]["message"] == "Access denied"

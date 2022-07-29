@@ -24,12 +24,12 @@ from typing import (
     ["email", "organization_id", "credentials"],
     [
         [
-            "admin@gmail.com",
+            "admin@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(name="cred1", type="HTTPS", token="token test"),
         ],
         [
-            "user@gmail.com",
+            "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(
                 name="cred2", type="HTTPS", user="user test", password="test"
@@ -95,7 +95,7 @@ async def test_add_credentials(
     ["email", "organization_id", "credentials"],
     [
         [
-            "admin@gmail.com",
+            "admin@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             dict(name="cred4", type="SSH", key="YWJ"),
         ],
@@ -116,3 +116,29 @@ async def test_add_credentials_fail(
         result["errors"][0]["message"]
         == "Exception - The ssh key must be in base64"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_credentials")
+@pytest.mark.parametrize(
+    ["email", "organization_id", "credentials"],
+    [
+        [
+            "user@gmail.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            dict(name="cred4", type="SSH", key="YWJ"),
+        ],
+    ],
+)
+async def test_add_credentials_fail_2(
+    populate: bool,
+    email: str,
+    organization_id: str,
+    credentials: dict[str, str],
+) -> None:
+    assert populate
+    result: Dict[str, Any] = await get_result(
+        user=email, organization_id=organization_id, credentials=credentials
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == "Access denied"

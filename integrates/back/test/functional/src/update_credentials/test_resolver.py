@@ -24,13 +24,13 @@ from typing import (
     ["email", "organization_id", "credentials_id", "edited_credentials"],
     [
         [
-            "user_manager@fluidattacks.com",
+            "user_manager@gmail.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "261bf518-f8f4-4f82-b996-3d034df44a27",
             dict(name="cred1", type="HTTPS", token="token test"),
         ],
         [
-            "user@gmail.com",
+            "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
             dict(
@@ -38,7 +38,7 @@ from typing import (
             ),
         ],
         [
-            "user@gmail.com",
+            "user@fluidattacks.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "42143c0c-a12c-4774-9d02-285b94e698e4",
             dict(
@@ -111,7 +111,7 @@ async def test_update_credentials(
             dict(name="cred1", type="HTTPS", token="token test"),
         ],
         [
-            "user_manager@fluidattacks.com",
+            "customer_manager@gmail.com",
             "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
             "42143c0c-a12c-4774-9d02-285b94e698e4",
             dict(
@@ -137,7 +137,4 @@ async def test_update_credentials_fail(
         credentials=edited_credentials,
     )
     assert "errors" in result
-    assert (
-        result["errors"][0]["message"]
-        == "Exception - Stakeholder is not the credentials owner"
-    )
+    assert result["errors"][0]["message"] == "Access denied"

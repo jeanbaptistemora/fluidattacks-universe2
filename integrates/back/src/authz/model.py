@@ -970,13 +970,10 @@ GROUP_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[str, Dict[str, Set[str]]] = dict(
 ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     admin=dict(
         actions={
-            "api_mutations_add_credentials_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
-            "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
-            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_policies_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_stakeholders_resolve",
@@ -988,12 +985,9 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     user=dict(
         actions={
-            "api_mutations_add_credentials_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
-            "api_mutations_remove_credentials_mutate",
             "api_mutations_submit_organization_finding_policy_mutate",
             "api_resolvers_organization_analytics_resolve",
-            "api_mutations_update_credentials_mutate",
         },
         tags=set(),
     ),
@@ -1010,12 +1004,12 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "mutate",
             "api_mutations_handle_organization_finding_policy_acceptance_"
             "mutate",
-            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
             "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
             "api_mutations_submit_organization_finding_policy_mutate",
+            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_policies_mutate",
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_stakeholders_resolve",
@@ -1027,7 +1021,6 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     ),
     customer_manager=dict(
         actions={
-            "api_mutations_add_credentials_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
@@ -1037,10 +1030,8 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "mutate",
             "api_mutations_handle_organization_finding_policy_acceptance_"
             "mutate",
-            "api_mutations_update_credentials_mutate",
             "api_mutations_update_organization_stakeholder_mutate",
             "api_mutations_grant_stakeholder_organization_access_mutate",
-            "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_stakeholder_organization_access_mutate",
             "api_mutations_submit_organization_finding_policy_mutate",
             "api_resolvers_organization_analytics_resolve",
@@ -1059,8 +1050,11 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     admin=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["admin"]["actions"],
+            "api_mutations_add_credentials_mutate",
             "api_mutations_add_payment_method_mutate",
+            "api_mutations_remove_credentials_mutate",
             "api_mutations_remove_payment_method_mutate",
+            "api_mutations_update_credentials_mutate",
             "api_mutations_update_payment_method_mutate",
             "api_resolvers_billing_prices_resolve",
             "api_resolvers_query_billing_resolve",
@@ -1075,7 +1069,10 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     user=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["user"]["actions"],
+            "api_mutations_add_credentials_mutate",
             "api_mutations_add_group_mutate",
+            "api_mutations_remove_credentials_mutate",
+            "api_mutations_update_credentials_mutate",
         },
         tags={
             *ORGANIZATION_LEVEL_ROLES["user"]["tags"],
@@ -1084,6 +1081,9 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     user_manager=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["user_manager"]["actions"],
+            "api_mutations_add_credentials_mutate",
+            "api_mutations_remove_credentials_mutate",
+            "api_mutations_update_credentials_mutate",
         },
         tags={
             *ORGANIZATION_LEVEL_ROLES["user_manager"]["tags"],
@@ -1092,7 +1092,10 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
     customer_manager=dict(
         actions={
             *ORGANIZATION_LEVEL_ROLES["customer_manager"]["actions"],
+            "api_mutations_add_credentials_mutate",
             "api_mutations_add_group_mutate",
+            "api_mutations_remove_credentials_mutate",
+            "api_mutations_update_credentials_mutate",
             "grant_organization_level_role:customer_manager",
         },
         tags={

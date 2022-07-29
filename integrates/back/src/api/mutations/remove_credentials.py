@@ -21,7 +21,6 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
-    validations as orgs_validations,
 )
 from typing import (
     Any,
@@ -42,12 +41,6 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
-    await orgs_validations.validate_stakeholder_is_credentials_owner(
-        loaders=loaders,
-        credentials_id=credentials_id,
-        organization_id=organization_id,
-        stakeholder=user_email,
-    )
     await orgs_domain.remove_credentials(
         loaders=loaders,
         organization_id=organization_id,
