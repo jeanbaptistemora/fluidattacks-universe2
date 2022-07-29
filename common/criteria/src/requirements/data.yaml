@@ -921,6 +921,7 @@
     - bsafss.AA_2-1
     - cwe25.862
     - swiftcsc.5_1
+    - c2m2.9_5_h
   metadata: {}
 '036':
   en:
@@ -1553,6 +1554,11 @@
     - asvs.14_4_1
     - asvs.14_4_4
     - asvs.14_4_6
+    - c2m2.2_1_d
+    - c2m2.9_3_b
+    - c2m2.9_3_e
+    - c2m2.9_4_c
+    - c2m2.9_5_b
   metadata: {}
 '072':
   en:
@@ -1748,6 +1754,10 @@
     - osamm.OE_1
     - asvs.7_1_3
     - asvs.7_4_1
+    - c2m2.1_4_i
+    - c2m2.4_2_i
+    - c2m2.5_2_e
+    - c2m2.6_1_f
   metadata: {}
 '077':
   en:
@@ -1919,6 +1929,7 @@
     - nist800171.3_7
     - swiftcsc.6_4
     - asvs.7_3_4
+    - c2m2.5_2_c
   metadata: {}
 '080':
   en:
@@ -2475,6 +2486,10 @@
     - nist800171.1_7
     - cwe25.862
     - swiftcsc.1_2
+    - c2m2.2_3_d
+    - c2m2.3_5_d
+    - c2m2.4_1_h
+    - c2m2.9_5_h
   metadata: {}
 '096':
   en:
@@ -2589,6 +2604,8 @@
     - cwe25.862
     - swiftcsc.5_1
     - asvs.1_2_1
+    - c2m2.4_1_g
+    - c2m2.8_3_c
   metadata: {}
 '114':
   en:
@@ -2985,6 +3002,7 @@
     - wasc.W_49
     - owaspscp.3
     - cwe25.798
+    - c2m2.4_1_d
   metadata: {}
 '127':
   en:
@@ -3049,6 +3067,7 @@
     - asvs.2_4_1
     - asvs.2_4_3
     - asvs.2_4_4
+    - c2m2.4_1_d
   metadata: {}
 '128':
   en:
@@ -3146,6 +3165,7 @@
     - cwe25.287
     - nist800115.5_1
     - swiftcsc.4_1
+    - c2m2.4_1_d
   metadata: {}
 '131':
   en:
@@ -3294,6 +3314,7 @@
     - nist800115.5_1
     - swiftcsc.4_1
     - asvs.2_1_1
+    - c2m2.4_1_d
   metadata: {}
 '134':
   en:
@@ -3329,6 +3350,7 @@
     - nist800171.5_10
     - cwe25.798
     - asvs.2_4_1
+    - c2m2.4_1_d
   metadata: {}
 '135':
   en:
@@ -3815,6 +3837,9 @@
     - issaf.U_9
     - owasprisks.P6
     - owaspscp.5
+    - c2m2.4_1_c
+    - c2m2.4_1_f
+    - c2m2.4_1_j
   metadata: {}
 '145':
   en:
@@ -3908,6 +3933,7 @@
     - bsafss.EN_3-2
     - asvs.1_6_2
     - asvs.2_9_1
+    - c2m2.9_5_e
   metadata: {}
 '146':
   en:
@@ -3944,6 +3970,7 @@
     - iso27002.8_24
     - owaspscp.6
     - bsafss.EN_3-1
+    - c2m2.9_5_e
   metadata: {}
 '147':
   en:
@@ -4022,6 +4049,7 @@
     - asvs.1_9_1
     - asvs.6_2_2
     - asvs.8_3_7
+    - c2m2.9_5_d
   metadata: {}
 '148':
   en:
@@ -4148,6 +4176,7 @@
     - fedramp.CM-3_6
     - iso27002.8_24
     - owaspscp.6
+    - c2m2.9_5_e
   metadata: {}
 '152':
   en:
@@ -4349,6 +4378,7 @@
     - osamm.IR_3
     - osamm.EH_1
     - asvs.10_2_3
+    - c2m2.9_4_d
   metadata: {}
 '155':
   en:
@@ -4441,6 +4471,7 @@
     - osamm.IR_1
     - osamm.IR_3
     - asvs.10_1_1
+    - c2m2.9_4_d
   metadata: {}
 '156':
   en:
@@ -4621,6 +4652,7 @@
     - cwe25.119
     - osamm.IR_3
     - asvs.5_4_1
+    - c2m2.9_4_d
   metadata: {}
 '159':
   en:
@@ -4864,6 +4896,7 @@
     - cwe25.476
     - cwe25.276
     - osamm.SA_2
+    - c2m2.7_2_c
   metadata: {}
 '162':
   en:
@@ -4929,6 +4962,7 @@
     - owaspmasvs.V7_8
     - osamm.IR_3
     - asvs.5_4_1
+    - c2m2.9_4_d
   metadata: {}
 '167':
   en:
@@ -4995,6 +5029,7 @@
     - iso27002.8_28
     - nistssdf.PW_5_1
     - osamm.IR_3
+    - c2m2.9_4_d
   metadata: {}
 '169':
   en:
@@ -5080,6 +5115,7 @@
     - wassec.6_2_5_2
     - owaspscp.8
     - osamm.IR_3
+    - c2m2.9_4_d
   metadata: {}
 '172':
   en:
@@ -5378,6 +5414,7 @@
     - asvs.5_4_1
     - asvs.8_1_3
     - asvs.12_3_1
+    - c2m2.9_4_d
   metadata: {}
 '174':
   en:
@@ -5617,6 +5654,8 @@
     - bsafss.SM_6-1
     - asvs.5_2_5
     - asvs.13_4_1
+    - c2m2.9_5_a
+    - c2m2.9_5_b
   metadata: {}
 '177':
   en:
@@ -5955,6 +5994,7 @@
     - swiftcsc.2_6
     - asvs.1_9_1
     - asvs.9_2_2
+    - c2m2.9_5_c
   metadata: {}
 '183':
   en:
@@ -6035,6 +6075,7 @@
     - ferpa.D_35_b_2
     - owaspscp.8
     - nist800115.7_4_4
+    - c2m2.1_1_h
   metadata: {}
 '184':
   en:
@@ -6174,6 +6215,7 @@
     - asvs.6_1_1
     - asvs.6_1_2
     - asvs.6_1_3
+    - c2m2.9_5_d
   metadata: {}
 '186':
   en:
@@ -6275,6 +6317,8 @@
     - swiftcsc.5_1
     - asvs.1_2_1
     - asvs.4_1_3
+    - c2m2.9_2_e
+    - c2m2.9_3_c
   metadata: {}
 '189':
   en:
@@ -6618,6 +6662,7 @@
     - cmmc.MP_L2-3_8_7
     - hitrust.01_h
     - osstmm3.11_9_3
+    - c2m2.9_3_d
   metadata: {}
 '222':
   en:
@@ -6843,6 +6888,7 @@
     - asvs.2_9_3
     - asvs.3_2_4
     - asvs.6_3_3
+    - c2m2.9_5_d
   metadata: {}
 '225':
   en:
@@ -7164,6 +7210,7 @@
     - nist800171.5_2
     - cwe25.287
     - asvs.14_1_5
+    - c2m2.4_1_b
   metadata: {}
 '231':
   en:
@@ -7598,6 +7645,7 @@
     - ptes.7_4_5_2
     - nist800115.4_4
     - swiftcsc.1_4
+    - c2m2.9_2_c
   metadata: {}
 '250':
   en:
@@ -7643,6 +7691,7 @@
     - osstmm3.9_7_3
     - issaf.L_4_3
     - ptes.5_2_2_1
+    - c2m2.9_2_c
   metadata: {}
 '251':
   en:
@@ -7671,6 +7720,7 @@
     - iso27002.8_20
     - ptes.6_7_6_2
     - ptes.7_4_5_2
+    - c2m2.9_2_c
   metadata: {}
 '252':
   en:
@@ -7712,6 +7762,7 @@
     - issaf.L_8
     - ptes.3_7_1
     - ptes.6_7_6_1
+    - c2m2.9_5_e
   metadata: {}
 '253':
   en:
@@ -7758,6 +7809,7 @@
     - issaf.L_3_1
     - nist800171.1_16
     - nist800115.4_4_1
+    - c2m2.9_2_c
   metadata: {}
 '254':
   en:
@@ -7844,6 +7896,8 @@
     - ptes.7_3_1
     - nist800171.4_7
     - nist800115.3_5
+    - c2m2.9_2_c
+    - c2m2.9_3_d
   metadata: {}
 '257':
   en:
@@ -7890,6 +7944,7 @@
     - iso27002.7_3
     - iso27002.8_21
     - osstmm3.8_5_2
+    - c2m2.9_2_k
   metadata: {}
 '258':
   en:
@@ -7926,6 +7981,7 @@
     - wasc.A_42
     - issaf.G_14
     - ptes.7_3_1_5
+    - c2m2.9_2_g
   metadata: {}
 '259':
   en:
@@ -7967,6 +8023,7 @@
     - iso27002.8_23
     - iec62443.RDF-5_1
     - nistssdf.PO_5_1
+    - c2m2.9_2_b
   metadata: {}
 '260':
   en:
@@ -8174,6 +8231,10 @@
     - asvs.10_2_4
     - asvs.10_2_5
     - asvs.10_3_2
+    - c2m2.3_2_k
+    - c2m2.7_1_c
+    - c2m2.7_2_a
+    - c2m2.7_2_b
   metadata: {}
 '264':
   en:
@@ -8265,6 +8326,7 @@
     - cwe25.362
     - asvs.1_2_3
     - asvs.14_1_5
+    - c2m2.4_1_a
   metadata: {}
 '265':
   en:
@@ -8519,6 +8581,8 @@
     - asvs.12_3_6
     - asvs.14_1_3
     - asvs.14_4_1
+    - c2m2.9_4_a
+    - c2m2.9_4_c
   metadata: {}
 '273':
   en:
@@ -8585,6 +8649,8 @@
     - mvsp.3_3
     - nist800171.1_18
     - swiftcsc.3_1
+    - c2m2.9_2_f
+    - c2m2.9_3_f
   metadata: {}
 '280':
   en:
@@ -8646,6 +8712,7 @@
     - issaf.S_5_1
     - ptes.7_7
     - nist800171.1_20
+    - c2m2.9_3_d
   metadata: {}
 '300':
   en:
@@ -8789,6 +8856,7 @@
     - owaspscp.3
     - bsafss.VN_3-2
     - asvs.2_5_5
+    - c2m2.8_3_e
   metadata: {}
 '302':
   en:
@@ -8880,6 +8948,7 @@
     - nistssdf.PW_5_1
     - mvsp.2_5
     - asvs.14_2_1
+    - c2m2.9_4_d
   metadata: {}
 '305':
   en:
@@ -10378,6 +10447,7 @@
     - owaspmasvs.V8_11
     - asvs.1_8_2
     - asvs.8_2_1
+    - c2m2.9_5_b
   metadata: {}
 '330':
   en:
@@ -10439,6 +10509,8 @@
     - swiftcsc.6_2
     - swiftcsc.6_3
     - asvs.10_3_2
+    - c2m2.9_4_b
+    - c2m2.9_4_g
   metadata: {}
 '331':
   en:
@@ -11019,6 +11091,7 @@
     - nist800171.1_13
     - osamm.OE_1
     - asvs.2_7_4
+    - c2m2.9_5_c
   metadata: {}
 '339':
   en:
@@ -11435,6 +11508,7 @@
     - cwe25.77
     - osamm.IR_3
     - asvs.5_2_4
+    - c2m2.9_3_m
   metadata: {}
 '345':
   en:
@@ -11879,6 +11953,7 @@
     - owaspscp.6
     - owaspmasvs.V3_5
     - nist800171.5_1
+    - c2m2.9_5_e
   metadata: {}
 '352':
   en:
@@ -11960,6 +12035,8 @@
     - nist800171.1_18
     - swiftcsc.2_2
     - osamm.EH_1
+    - c2m2.1_4_e
+    - c2m2.9_3_l
   metadata: {}
 '354':
   en:
@@ -11988,6 +12065,7 @@
     - agile.3
     - mitre.M1033
     - nist800171.1_18
+    - c2m2.9_3_l
   metadata: {}
 '355':
   en:
@@ -12076,6 +12154,7 @@
   references:
     - cwe.350
     - iso27002.8_20
+    - c2m2.9_2_g
   metadata: {}
 '357':
   en:
@@ -12280,6 +12359,7 @@
     - owaspmasvs.V2_10
     - nist800115.7_4_4
     - asvs.14_2_2
+    - c2m2.1_2_h
   metadata: {}
 '361':
   en:
@@ -12346,6 +12426,7 @@
     - owaspscp.6
     - bsafss.EN_3-2
     - asvs.1_6_3
+    - c2m2.9_5_e
   metadata: {}
 '362':
   en:
@@ -12419,6 +12500,8 @@
     - swiftcsc.4_2
     - swiftcsc.5_2
     - asvs.14_2_4
+    - c2m2.4_1_h
+    - c2m2.4_1_i
   metadata: {}
 '363':
   en:
@@ -12784,6 +12867,7 @@
     - iec62443.IAC-1_9
     - iec62443.UC-2_3
     - ptes.7_4_2_7
+    - c2m2.9_3_b
   metadata: {}
 '374':
   en:
@@ -12820,6 +12904,7 @@
     - bsafss.SC_4-1
     - asvs.1_14_5
     - asvs.14_2_6
+    - c2m2.9_2_l
   metadata: {}
 '375':
   en:
@@ -12924,6 +13009,8 @@
     - nist800171.4_3
     - nist800115.3_2
     - swiftcsc.6_4
+    - c2m2.2_1_j
+    - c2m2.5_2_d
   metadata: {}
 '377':
   en:
@@ -12980,6 +13067,7 @@
     - issaf.G_12
     - nist800115.3_2
     - asvs.7_1_2
+    - c2m2.6_1_c
   metadata: {}
 '378':
   en:
