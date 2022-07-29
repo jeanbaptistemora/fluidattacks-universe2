@@ -821,8 +821,8 @@ def format_csv_data(
     rows: list[list[str]] = []
     for category, value in zip(categories, tuple(columns[0][1:])):
         try:
-            validate_sanitized_csv_input(category)
-            rows.append([category, str(value)])
+            validate_sanitized_csv_input(str(category))
+            rows.append([str(category), str(value)])
         except UnsanitizedInputFound:
             rows.append(["", ""])
 
