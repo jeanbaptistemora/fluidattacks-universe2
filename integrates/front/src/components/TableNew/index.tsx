@@ -13,9 +13,10 @@ import { CSVLink } from "react-csv";
 
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
+import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
-export const Tables = <TData extends Record<string, unknown>>(
+export const Tables = <TData extends object>(
   props: Readonly<ITableProps<TData>>
 ): JSX.Element => {
   const {
@@ -30,6 +31,7 @@ export const Tables = <TData extends Record<string, unknown>>(
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const showPagination = data.length >= 8;
 
   const table = useReactTable<TData>({
     columns,
@@ -56,63 +58,68 @@ export const Tables = <TData extends Record<string, unknown>>(
         </CSVLink>
       )}
       {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
-      <table>
-        <thead>
-          {table.getHeaderGroups().map(
-            (headerGroup): ReactElement => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(
-                  (header): ReactElement => (
-                    <th key={header.id}>
-                      {header.isPlaceholder ? null : (
-                        <div
-                          className={
-                            header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : ""
-                          }
-                          onClick={header.column.getToggleSortingHandler()}
-                          onKeyPress={header.column.getToggleSortingHandler()}
-                          role={"button"}
-                          tabIndex={0}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
-                      )}
-                    </th>
-                  )
-                )}
-              </tr>
-            )
-          )}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(
-            (row): ReactElement => (
-              <tr key={row.id} onClick={rowFunction}>
-                {row.getVisibleCells().map(
-                  (cell): ReactElement => (
-                    <td key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  )
-                )}
-              </tr>
-            )
-          )}
-        </tbody>
-      </table>
-      <PagMenu table={table} />
+      <TableContainer
+        isRowFunctional={rowFunction !== undefined}
+        rowSize={"bold"}
+      >
+        <table>
+          <thead>
+            {table.getHeaderGroups().map(
+              (headerGroup): ReactElement => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map(
+                    (header): ReactElement => (
+                      <th key={header.id}>
+                        {header.isPlaceholder ? null : (
+                          <div
+                            className={
+                              header.column.getCanSort()
+                                ? "cursor-pointer select-none"
+                                : ""
+                            }
+                            onClick={header.column.getToggleSortingHandler()}
+                            onKeyPress={header.column.getToggleSortingHandler()}
+                            role={"button"}
+                            tabIndex={0}
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                            {{
+                              asc: " 🔼",
+                              desc: " 🔽",
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
+                        )}
+                      </th>
+                    )
+                  )}
+                </tr>
+              )
+            )}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(
+              (row): ReactElement => (
+                <tr key={row.id} onClick={rowFunction}>
+                  {row.getVisibleCells().map(
+                    (cell): ReactElement => (
+                      <td key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    )
+                  )}
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      </TableContainer>
+      {showPagination && <PagMenu table={table} />}
     </div>
   );
 };

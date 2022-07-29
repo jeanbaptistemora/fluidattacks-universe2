@@ -3,7 +3,7 @@ import React from "react";
 
 import type { IPagMenuProps } from "./types";
 
-export const PagMenu = <TData extends Record<string, unknown>>(
+export const PagMenu = <TData extends object>(
   props: IPagMenuProps<TData>
 ): JSX.Element => {
   const { table } = props;

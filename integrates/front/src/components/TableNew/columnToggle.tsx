@@ -12,7 +12,7 @@ import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Switch } from "components/Switch";
 
-export const ToggleFunction = <TData extends Record<string, unknown>>(
+export const ToggleFunction = <TData extends object>(
   props: IToggleProps<TData>
 ): JSX.Element => {
   const { id, table } = props;
