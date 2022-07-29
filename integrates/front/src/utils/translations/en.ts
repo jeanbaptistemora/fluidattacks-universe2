@@ -390,6 +390,10 @@ export const enTranslations: ResourceKey = {
     progress: "Progress",
   },
   group: {
+    accessDenied: {
+      text: "Your group is suspended.\nPlease update the status of your group.",
+      title: "Access denied",
+    },
     authors: {
       actor: "Author",
       commit: "Commit",
