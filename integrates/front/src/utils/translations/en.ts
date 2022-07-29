@@ -1787,6 +1787,7 @@ export const enTranslations: ResourceKey = {
           },
         },
         group: {
+          success: "Group policies updated successfully",
           tooltip:
             "Policies inheritance, you can override rules set up in the " +
             "organization for this group",

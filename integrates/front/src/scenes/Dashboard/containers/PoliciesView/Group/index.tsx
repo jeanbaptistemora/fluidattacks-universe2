@@ -45,7 +45,7 @@ const GroupPolicies: React.FC = (): JSX.Element => {
       onCompleted: async (): Promise<void> => {
         mixpanel.track("UpdateGroupPolicies");
         msgSuccess(
-          t(`${translationStart}success`),
+          t("organization.tabs.policies.group.success"),
           t(`${translationStart}successTitle`)
         );
         await refetchPolicies();
