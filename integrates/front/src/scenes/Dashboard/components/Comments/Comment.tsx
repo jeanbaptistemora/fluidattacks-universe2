@@ -31,6 +31,11 @@ const CommentChildren = styled.div`
   padding-left: 32px;
 `;
 
+const CommentContent = styled.pre`
+  font-family: "Roboto", sans-serif;
+  white-space: pre-wrap;
+`;
+
 const Comment: FC<ICommentProps> = ({
   id,
   comments,
@@ -94,9 +99,7 @@ const Comment: FC<ICommentProps> = ({
           </div>
           <Text mb={2}>
             <Linkify componentDecorator={formatLinks}>
-              <pre className={"sans-serif ws-normal"}>
-                {_.trim(rootComment.content)}
-              </pre>
+              <CommentContent>{_.trim(rootComment.content)}</CommentContent>
             </Linkify>
           </Text>
           <Button onClick={replyHandler} variant={"primary"}>
