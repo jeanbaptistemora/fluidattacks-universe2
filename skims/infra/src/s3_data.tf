@@ -88,6 +88,26 @@ resource "aws_s3_bucket_lifecycle_configuration" "skims_data" {
       days = 7
     }
   }
+  rule {
+    id     = "skims_celery_results_backend"
+    status = "Enabled"
+
+    filter {
+      prefix = "celery_result_backend/"
+    }
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+
+    noncurrent_version_expiration {
+      noncurrent_days = 7
+    }
+
+    expiration {
+      days = 7
+    }
+  }
 }
 
 resource "aws_s3_bucket_versioning" "skims_data" {

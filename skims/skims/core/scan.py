@@ -72,7 +72,6 @@ from utils.logs import (
 from utils.repositories import (
     get_repo_head_hash,
 )
-import uuid
 from zone import (
     t,
 )
@@ -102,7 +101,7 @@ async def queue_upload_vulns(execution_id: str) -> None:
     with Connection(broker_url) as conn:
         queue = conn.SimpleQueue("skims-report-queue")
         message = {
-            "id": uuid.uuid4().hex,
+            "id": execution_id,
             "task": "process-skims-result",
             "args": [execution_id],
             "kwargs": {},

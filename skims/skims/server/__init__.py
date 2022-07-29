@@ -36,6 +36,12 @@ app = Celery(
     ),
     include=["server.tasks"],
     broker_transport_options=BROKER_TRANSPORT_OPTIONS,
+    s3_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+    s3_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+    s3_bucket="skims.data",
+    s3_base_path="celery_result_backend/",
+    s3_region="us-east-1",
+    backend="s3",
 )
 
 if __name__ == "__main__":
