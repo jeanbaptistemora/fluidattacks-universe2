@@ -29,7 +29,6 @@ import type { IGroupData } from "scenes/Dashboard/containers/GroupSettingsView/S
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatIsoDate } from "utils/date";
 import { FormikDate, FormikText } from "utils/forms/fields";
-import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -82,20 +81,19 @@ const GroupInformation: React.FC = (): JSX.Element => {
   const formatDataSet = (
     attributes: {
       attribute: string;
-      value: boolean | string;
+      value: string;
     }[]
-  ): Record<string, boolean | string> => {
+  ): Record<string, string> => {
     return attributes.reduce(
       (
-        acc: Record<string, boolean | string>,
+        acc: Record<string, string>,
         cur: {
           attribute: string;
-          value: boolean | string;
+          value: string;
         }
-      ): Record<string, boolean | string> => ({
+      ): Record<string, string> => ({
         ...acc,
-        [attributeMapper(cur.attribute)]:
-          cur.attribute === "Managed" ? cur.value === "Manually" : cur.value,
+        [attributeMapper(cur.attribute)]: cur.value,
       }),
       {}
     );
@@ -130,7 +128,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
   });
 
   const handleFormSubmit = useCallback(
-    async (values: Record<string, boolean | string>): Promise<void> => {
+    async (values: Record<string, string>): Promise<void> => {
       await editGroupInfo({
         variables: {
           businessId: values.businessId,
@@ -139,11 +137,9 @@ const GroupInformation: React.FC = (): JSX.Element => {
           description: values.description,
           groupName,
           language: values.language,
-          managed: values.managed === true ? "MANUALLY" : "NOT_MANUALLY",
+          managed: values.managed,
           sprintDuration: Number(values.sprintDuration),
-          sprintStartDate: moment(
-            values.sprintStartDate as string
-          ).toISOString(),
+          sprintStartDate: moment(values.sprintStartDate).toISOString(),
         },
       });
     },
@@ -175,10 +171,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
     },
     {
       attribute: "Managed",
-      value:
-        data.group.managed === "MANUALLY"
-          ? t("organization.tabs.groups.newGroup.managed.manually")
-          : t("organization.tabs.groups.newGroup.managed.notManually"),
+      value: data.group.managed,
     },
     {
       attribute: "Sprint Length",
@@ -198,11 +191,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
         name={"editGroupInformation"}
         onSubmit={handleFormSubmit}
       >
-        {({ dirty, isSubmitting, setFieldValue }): JSX.Element => {
-          function managedOnChange(managed: boolean): void {
-            setFieldValue("managed", managed);
-          }
-
+        {({ dirty, isSubmitting }): JSX.Element => {
           return (
             <Form>
               <Row>
@@ -399,21 +388,31 @@ const GroupInformation: React.FC = (): JSX.Element => {
                         "organization.tabs.groups.newGroup.managed.tooltip"
                       )}
                     >
-                      <Field
-                        component={FormikSwitchButton}
+                      <Select
                         disabled={permissions.cannot(
                           "api_mutations_update_group_stakeholder_mutate"
                         )}
                         name={"managed"}
-                        offlabel={t(
-                          "organization.tabs.groups.newGroup.managed.notManually"
-                        )}
-                        onChange={managedOnChange}
-                        onlabel={t(
-                          "organization.tabs.groups.newGroup.managed.manually"
-                        )}
-                        type={"checkbox"}
-                      />
+                      >
+                        <option value={"MANUALLY"}>
+                          {t(
+                            "organization.tabs.groups.newGroup.managed.manually"
+                          )}
+                        </option>
+                        <option value={"NOT_MANUALLY"}>
+                          {t(
+                            "organization.tabs.groups.newGroup.managed.notManually"
+                          )}
+                        </option>
+                        <option value={"UNDER_REVIEW"}>
+                          {t(
+                            "organization.tabs.groups.newGroup.managed.underReview"
+                          )}
+                        </option>
+                        <option value={"TRIAL"}>
+                          {t("organization.tabs.groups.newGroup.managed.trial")}
+                        </option>
+                      </Select>
                     </Tooltip>
                   </Card>
                 </Col>

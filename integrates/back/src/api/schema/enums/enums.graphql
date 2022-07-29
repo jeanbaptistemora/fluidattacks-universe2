@@ -348,6 +348,8 @@ enum ManagedType {
   MANUALLY
   "Not manually"
   NOT_MANUALLY
+  "Trial"
+  TRIAL
   "Under review"
   UNDER_REVIEW
 }

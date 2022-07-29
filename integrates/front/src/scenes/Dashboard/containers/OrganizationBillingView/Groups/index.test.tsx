@@ -121,7 +121,7 @@ describe("Organization billing groups view", (): void => {
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.selectOptions(screen.getByRole("combobox", { name: "managed" }), [
-      "organization.tabs.billing.groups.managed.no",
+      "organization.tabs.billing.groups.managed.notManually",
     ]);
 
     await waitFor((): void => {

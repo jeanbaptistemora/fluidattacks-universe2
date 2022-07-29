@@ -1470,10 +1470,12 @@ export const enTranslations: ResourceKey = {
       billing: {
         groups: {
           managed: {
-            no: "Not manually",
+            manually: "Manually",
+            notManually: "Not manually",
             title: "Managed",
             tooltip: "If the payment method is managed manually",
-            yes: "Manually",
+            trial: "Trial",
+            underReview: "Under review",
           },
           name: "Group name",
           title: "Groups",
@@ -1680,6 +1682,8 @@ export const enTranslations: ResourceKey = {
             notManually: "Not manually",
             text: "Managed",
             tooltip: "Enable manually managed group",
+            trial: "Trial",
+            underReview: "Under review",
           },
           name: "Group name",
           new: {

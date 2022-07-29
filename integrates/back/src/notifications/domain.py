@@ -281,6 +281,7 @@ async def managed_manually(
         "MANUALLY": "Manually",
         "NOT_MANUALLY": "Not Manually",
         "UNDER_REVIEW": "Under Review",
+        "TRIAL": "Trial",
     }
 
     return cast(

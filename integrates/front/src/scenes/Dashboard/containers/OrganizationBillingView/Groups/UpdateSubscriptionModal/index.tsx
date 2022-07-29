@@ -72,10 +72,16 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
               </ControlLabel>
               <Field component={FormikDropdown} name={"managed"}>
                 <option value={"MANUALLY"}>
-                  {t("organization.tabs.billing.groups.managed.yes")}
+                  {t("organization.tabs.billing.groups.managed.manually")}
                 </option>
                 <option value={"NOT_MANUALLY"}>
-                  {t("organization.tabs.billing.groups.managed.no")}
+                  {t("organization.tabs.billing.groups.managed.notManually")}
+                </option>
+                <option value={"UNDER_REVIEW"}>
+                  {t("organization.tabs.billing.groups.managed.underReview")}
+                </option>
+                <option value={"TRIAL"}>
+                  {t("organization.tabs.billing.groups.managed.trial")}
                 </option>
               </Field>
             </div>

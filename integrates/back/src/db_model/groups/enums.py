@@ -12,6 +12,7 @@ class GroupManaged(str, Enum):
     MANUALLY: str = "MANUALLY"
     NOT_MANUALLY: str = "NOT_MANUALLY"
     UNDER_REVIEW: str = "UNDER_REVIEW"
+    TRIAL: str = "TRIAL"
 
 
 class GroupService(str, Enum):
