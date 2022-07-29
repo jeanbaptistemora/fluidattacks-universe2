@@ -1,9 +1,9 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import Lottie from "react-lottie-player";
 
 import { Button } from "components/Button";
+import { Lottie } from "components/Icon";
 import { Col, Row } from "components/Layout";
 import scan from "resources/scan.json";
 
@@ -27,16 +27,9 @@ const Standby: React.FC<IStandbyProps> = (
             </Button>
           </Col>
         </Row>
-        <Row align={"center"} justify={"center"}>
-          <Col>
-            <Lottie
-              animationData={scan}
-              play={true}
-              // eslint-disable-next-line react/forbid-component-props
-              style={{ height: 150, margin: "auto", width: 150 }}
-            />
-          </Col>
-        </Row>
+        <div className={"flex justify-center"}>
+          <Lottie animationData={scan} size={150} />
+        </div>
         <Row justify={"center"}>
           <Col>{children}</Col>
         </Row>

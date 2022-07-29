@@ -2,8 +2,6 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, {
@@ -33,8 +31,10 @@ import { ToeContent } from "../ToeContent";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { Dot } from "components/Dot";
+import { Lottie } from "components/Icon";
 import { Tab, Tabs } from "components/Tabs";
 import { Text } from "components/Text";
+import { lotCircleXMark } from "resources";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
@@ -155,8 +155,10 @@ const GroupContent: React.FC = (): JSX.Element => {
       {denyAccess ? (
         <div className={"flex justify-center mt5"}>
           <Card>
-            <Text bright={0} mb={3} mt={3} ta={"center"} tone={"red"}>
-              <FontAwesomeIcon icon={faCircleXmark} size={"5x"} />
+            <Text bright={0} mb={3} mt={3} tone={"red"}>
+              <div className={"flex justify-center"}>
+                <Lottie animationData={lotCircleXMark} size={100} />
+              </div>
             </Text>
             <Text fw={7} mb={3} size={4} ta={"center"}>
               {t("group.accessDenied.title")}
