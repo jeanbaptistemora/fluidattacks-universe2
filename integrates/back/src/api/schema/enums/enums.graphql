@@ -344,10 +344,10 @@ enum Language {
 
 "Group managed state"
 enum ManagedType {
-  "Managed"
-  MANAGED
-  "Not managed"
-  NOT_MANAGED
+  "Manually"
+  MANUALLY
+  "Not manually"
+  NOT_MANUALLY
   "Trial"
   TRIAL
   "Under review"

@@ -62,7 +62,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     hasMachine: false,
     hasSquad: false,
     machine: "",
-    managed: "NOT_MANAGED",
+    managed: "NOT_MANUALLY",
     name: "",
     permissions: [],
     service: "",

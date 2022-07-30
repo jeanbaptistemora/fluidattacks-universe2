@@ -90,7 +90,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GroupState(
                         has_machine=False,
                         has_squad=False,
-                        managed=GroupManaged["MANAGED"],
+                        managed=GroupManaged["MANUALLY"],
                         modified_by="admin@gmail.com",
                         modified_date="2020-05-20T22:00:00+00:00",
                         service=GroupService.WHITE,

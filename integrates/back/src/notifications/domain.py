@@ -278,8 +278,8 @@ async def managed_manually(
     requester_email: str,
 ) -> bool:
     translations: Dict[str, str] = {
-        "MANAGED": "Managed",
-        "NOT_MANAGED": "Not Managed",
+        "MANUALLY": "Manually",
+        "NOT_MANUALLY": "Not Manually",
         "UNDER_REVIEW": "Under Review",
         "TRIAL": "Trial",
     }

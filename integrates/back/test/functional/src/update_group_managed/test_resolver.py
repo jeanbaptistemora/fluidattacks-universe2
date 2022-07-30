@@ -31,12 +31,12 @@ async def test_update_group_managed(populate: bool, email: str) -> None:
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
     assert group.state.has_squad is True
-    assert group.state.managed is GroupManaged["MANAGED"]
+    assert group.state.managed is GroupManaged["MANUALLY"]
 
     result: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
-        managed=GroupManaged["NOT_MANAGED"],
+        managed=GroupManaged["NOT_MANUALLY"],
         comments="Change to not managed manually",
     )
     assert "errors" not in result
@@ -46,7 +46,7 @@ async def test_update_group_managed(populate: bool, email: str) -> None:
     loaders.group.clear(group_name)
     group_updated: Group = await loaders.group.load(group_name)
     assert group_updated.state.has_squad is True
-    assert group_updated.state.managed is GroupManaged["NOT_MANAGED"]
+    assert group_updated.state.managed is GroupManaged["NOT_MANUALLY"]
 
 
 @pytest.mark.asyncio
@@ -69,7 +69,7 @@ async def test_update_group_managed_fail(populate: bool, email: str) -> None:
     result: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
-        managed=GroupManaged["NOT_MANAGED"],
+        managed=GroupManaged["NOT_MANUALLY"],
         comments="",
     )
     assert "errors" in result

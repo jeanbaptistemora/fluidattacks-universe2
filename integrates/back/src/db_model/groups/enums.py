@@ -9,8 +9,8 @@ class GroupLanguage(str, Enum):
 
 
 class GroupManaged(str, Enum):
-    MANAGED: str = "MANAGED"
-    NOT_MANAGED: str = "NOT_MANAGED"
+    MANUALLY: str = "MANUALLY"
+    NOT_MANUALLY: str = "NOT_MANUALLY"
     UNDER_REVIEW: str = "UNDER_REVIEW"
     TRIAL: str = "TRIAL"
 

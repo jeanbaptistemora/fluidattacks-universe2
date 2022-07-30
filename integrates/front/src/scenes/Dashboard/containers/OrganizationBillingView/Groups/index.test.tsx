@@ -39,7 +39,7 @@ describe("Organization billing groups view", (): void => {
           groupName: "unittesting",
           isManagedChanged: true,
           isSubscriptionChanged: false,
-          managed: "NOT_MANAGED",
+          managed: "NOT_MANUALLY",
           subscription: "SQUAD",
         },
       },
@@ -76,7 +76,7 @@ describe("Organization billing groups view", (): void => {
                     hasMachine: true,
                     hasSquad: true,
                     machine: "",
-                    managed: "MANAGED",
+                    managed: "MANUALLY",
                     name: "unittesting",
                     permissions: [
                       "api_mutations_update_subscription_mutate",
@@ -101,14 +101,14 @@ describe("Organization billing groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
     expect(screen.getAllByRole("button")).toHaveLength(2);
-    expect(screen.getAllByText("Managed")).toHaveLength(2);
+    expect(screen.queryByText("Manually")).toBeInTheDocument();
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
       )
     ).not.toBeInTheDocument();
 
-    userEvent.click(screen.getAllByText("Managed")[1]);
+    userEvent.click(screen.getByText("Manually"));
 
     await waitFor((): void => {
       expect(
@@ -121,7 +121,7 @@ describe("Organization billing groups view", (): void => {
     expect(screen.getByText(btnConfirm)).toBeDisabled();
 
     userEvent.selectOptions(screen.getByRole("combobox", { name: "managed" }), [
-      "organization.tabs.billing.groups.managed.notManaged",
+      "organization.tabs.billing.groups.managed.notManually",
     ]);
 
     await waitFor((): void => {
