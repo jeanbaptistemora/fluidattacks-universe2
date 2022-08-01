@@ -572,28 +572,6 @@ async def test_add_git_root_black() -> None:
     assert result["errors"][0]["message"] == "Access denied"  # NOSONAR
 
 
-@pytest.mark.changes_db
-async def test_add_git_root_white() -> None:
-    query = """
-      mutation {
-        addGitRoot(
-          branch: "master"
-          environment: "production"
-          gitignore: []
-          groupName: "unittesting"
-          includesHealthCheck: true
-          url: "https://gitlab.com/fluidattacks/integrates-2"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert result["data"]["addGitRoot"]["success"]
-
-
 async def test_add_git_root_invalid_branch() -> None:
     query = """
       mutation {
@@ -634,33 +612,6 @@ async def test_add_git_root_invalid_url() -> None:
 
     assert "errors" in result
     assert "value is not valid" in result["errors"][0]["message"]
-
-
-@pytest.mark.changes_db
-async def test_add_git_root_uniqueness() -> None:
-    query = """
-      mutation {
-        addGitRoot(
-          branch: "unique"
-          environment: "unique"
-          gitignore: []
-          groupName: "unittesting"
-          includesHealthCheck: false
-          url: "https://gitlab.com/fluidattacks/unique.git"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert result["data"]["addGitRoot"]["success"]
-
-    result = await _get_result_async({"query": query})
-
-    assert "errors" in result
-    assert "same Nickname already exists" in result["errors"][0]["message"]
 
 
 @pytest.mark.changes_db

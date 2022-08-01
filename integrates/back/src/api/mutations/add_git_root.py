@@ -72,7 +72,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     root: GitRoot = await roots_domain.add_git_root(
-        loaders, user_email, **kwargs
+        loaders, user_email, required_credentials=True, **kwargs
     )
     group_name = root.group_name
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}

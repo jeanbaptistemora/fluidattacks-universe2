@@ -16,6 +16,7 @@ from custom_exceptions import (
     InvalidRootExclusion,
     PermissionDenied,
     RepeatedRoot,
+    RequiredCredentials,
     RootEnvironmentUrlNotFound,
     RootNotFound,
 )
@@ -30,9 +31,6 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsRequest,
     CredentialsState,
-    HttpsPatSecret,
-    HttpsSecret,
-    SshSecret,
 )
 from db_model.enums import (
     CredentialType,
@@ -101,6 +99,7 @@ from organizations import (
 import pytz  # type: ignore
 import re
 from roots import (
+    utils as roots_utils,
     validations,
 )
 from s3 import (
@@ -126,7 +125,6 @@ from urllib3.util.url import (
 )
 from urllib.parse import (
     ParseResult,
-    unquote,
     urlparse,
 )
 from uuid import (
@@ -153,31 +151,69 @@ async def _notify_health_check(
         )
 
 
-def format_git_repo_url(raw_url: str) -> str:
-    is_ssh: bool = raw_url.startswith("ssh://") or bool(
-        re.match(r"^\w+@.*", raw_url)
-    )
-    if not is_ssh:
-        raw_url = str(parse_url(raw_url)._replace(auth=None))
-    url = (
-        f"ssh://{raw_url}"
-        if is_ssh and not raw_url.startswith("ssh://")
-        else raw_url
-    )
-    return unquote(url).rstrip(" /")
+async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
+    loaders: Any,
+    organization: Organization,
+    group: Group,
+    url: str,
+    branch: str,
+    credentials: Optional[Dict[str, str]],
+    required_credentials: bool,
+    user_email: str,
+    use_vpn: bool,
+) -> Optional[Credentials]:
+    organization_credential: Optional[Credentials] = None
+    if required_credentials and not credentials:
+        raise RequiredCredentials()
+
+    if credentials:
+        if (credential_id := credentials.get("id")) and credential_id:
+            await validations.validate_credential_in_organization(
+                loaders,
+                credential_id,
+                group.organization_id,
+            )
+            organization_credential = await loaders.credentials.load(
+                CredentialsRequest(
+                    id=credential_id,
+                    organization_id=group.organization_id,
+                )
+            )
+            if not use_vpn and required_credentials:
+                await validations.working_credentials(
+                    url, branch, organization_credential
+                )
+        else:
+            organization_credential = _format_root_credential_new(
+                credentials, organization.id, user_email
+            )
+            await orgs_validations.validate_credentials_name_in_organization(
+                loaders,
+                organization_credential.organization_id,
+                organization_credential.state.name,
+            )
+            if not use_vpn and required_credentials:
+                await validations.working_credentials(
+                    url, branch, organization_credential
+                )
+            await creds_model.add(credential=organization_credential)
+
+    return organization_credential
 
 
 async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Any,
     user_email: str,
     ensure_org_uniqueness: bool = True,
+    required_credentials: bool = False,
     **kwargs: Any,
 ) -> GitRoot:
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group.load(group_name)
-    url: str = format_git_repo_url(kwargs["url"])
+    url: str = roots_utils.format_git_repo_url(kwargs["url"])
     branch: str = kwargs["branch"].rstrip()
     nickname: str = _format_root_nickname(kwargs.get("nickname", ""), url)
+    use_vpn: bool = kwargs.get("use_vpn", False)
 
     loaders.group_roots.clear(group_name)
     if not (
@@ -221,36 +257,21 @@ async def add_git_root(  # pylint: disable=too-many-locals
     ):
         raise RepeatedRoot()
 
+    root_id = str(uuid4())
     credentials: Optional[Dict[str, str]] = cast(
         Optional[Dict[str, str]], kwargs.get("credentials")
     )
-    organization_credential: Optional[Credentials] = None
-    root_id = str(uuid4())
-
-    if credentials:
-        if (credential_id := credentials.get("id")) and credential_id:
-            await validations.validate_credential_in_organization(
-                loaders,
-                credential_id,
-                group.organization_id,
-            )
-            organization_credential = await loaders.credentials.load(
-                CredentialsRequest(
-                    id=credential_id,
-                    organization_id=group.organization_id,
-                )
-            )
-        else:
-            organization_credential = _format_root_credential_new(
-                credentials, organization.id, user_email
-            )
-            await orgs_validations.validate_credentials_name_in_organization(
-                loaders,
-                organization_credential.organization_id,
-                organization_credential.state.name,
-            )
-            await creds_model.add(credential=organization_credential)
-
+    organization_credential = await _get_credentials_type_to_add(
+        loaders=loaders,
+        organization=organization,
+        group=group,
+        branch=branch,
+        url=url,
+        credentials=credentials,
+        required_credentials=required_credentials,
+        user_email=user_email,
+        use_vpn=use_vpn,
+    )
     modified_date = datetime_utils.get_iso_date()
     root = GitRoot(
         cloning=GitRootCloning(
@@ -278,7 +299,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             reason=None,
             status=RootStatus.ACTIVE,
             url=url,
-            use_vpn=kwargs.get("use_vpn", False),
+            use_vpn=use_vpn,
         ),
         type=RootType.GIT,
         unreliable_indicators=RootUnreliableIndicators(
@@ -473,18 +494,7 @@ def _format_root_credential_new(
     if not credential_name:
         raise InvalidParameter()
 
-    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret] = (
-        SshSecret(
-            key=orgs_utils.format_credentials_ssh_key(credentials["key"])
-        )
-        if credential_type is CredentialType.SSH
-        else HttpsPatSecret(token=credentials["token"])
-        if "token" in credentials
-        else HttpsSecret(
-            user=credentials["user"],
-            password=credentials["password"],
-        )
-    )
+    secret = orgs_utils.format_credentials_secret_type(credentials)
 
     return Credentials(
         id=str(uuid4()),
@@ -1740,17 +1750,4 @@ async def start_machine_execution(
         job_id,
         started_at=datetime_utils.get_as_str(started_at),
         git_commit=kwargs.pop("git_commit", None),
-    )
-
-
-async def validate_git_access(**kwargs: Any) -> None:
-    url: str = format_git_repo_url(kwargs["url"])
-    branch: str = kwargs["branch"]
-    cred_type: CredentialType = CredentialType(kwargs["credentials"]["type"])
-    if key := kwargs["credentials"].get("key"):
-        kwargs["credentials"]["key"] = orgs_utils.format_credentials_ssh_key(
-            key
-        )
-    await validations.validate_git_credentials(
-        url, branch, cred_type, kwargs["credentials"]
     )

@@ -7309,7 +7309,7 @@
               "state": {
                 "M": {
                   "has_squad": {
-                    "BOOL": false
+                    "BOOL": true
                   },
                   "tier": {
                     "S": "MACHINE"

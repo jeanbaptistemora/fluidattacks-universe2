@@ -181,8 +181,8 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
     utils.login(driver, asm_endpoint, credentials)
 
     # Add repo
-    repo_url: str = utils.rand_name("https://gitlab.com/fluidattacks/test")
-    driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/scope")
+    repo_url: str = "https://gitlab.com/fluidattacks/universe"
+    driver.get(f"{asm_endpoint}/orgs/makimachi/groups/metropolis/scope")
     add_repo = utils.wait_for_id(
         driver,
         "git-root-add",
@@ -221,7 +221,7 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
         )
     )
     url.send_keys(repo_url)
-    branch.send_keys("master")
+    branch.send_keys("trunk")
     environment.send_keys("production")
     credential_name.send_keys(utils.rand_name("production-credential"))
     credential_type.select_by_value("HTTPS")
@@ -252,7 +252,7 @@ def test_group_scope_repositories(  # pylint: disable=too-many-locals
     assert utils.wait_for_text(
         driver,
         repo_url,
-        timeout * 2,
+        timeout,
     )
 
 

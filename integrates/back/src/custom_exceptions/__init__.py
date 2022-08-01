@@ -1528,6 +1528,12 @@ class CredentialAlreadyExists(CustomBaseException):
         super(CredentialAlreadyExists, self).__init__(msg)
 
 
+class RequiredCredentials(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Credentials is required"
+        super(RequiredCredentials, self).__init__(msg)
+
+
 class OnlyCorporateEmails(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - Only corporate emails are allowed"

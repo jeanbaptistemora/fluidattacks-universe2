@@ -7,12 +7,14 @@ from custom_exceptions import (
     InvalidRootComponent,
     InvalidUrl,
     RepeatedRootNickname,
+    RequiredCredentials,
 )
 from db_model.credentials.types import (
+    Credentials,
     CredentialsRequest,
-)
-from db_model.enums import (
-    CredentialType,
+    HttpsPatSecret,
+    HttpsSecret,
+    SshSecret,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -32,20 +34,39 @@ from ipaddress import (
     ip_address,
 )
 import newutils.git
+from organizations import (
+    utils as orgs_utils,
+)
 import os
 import re
+from roots import (
+    utils as roots_utils,
+)
 from typing import (
     Any,
-    Dict,
     List,
     Optional,
     Tuple,
+    Union,
 )
 from urllib.parse import (
     ParseResult,
     unquote_plus,
     urlparse,
 )
+
+
+async def validate_git_access(
+    url: str,
+    branch: str,
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret],
+) -> None:
+    url = roots_utils.format_git_repo_url(url)
+    if isinstance(secret, SshSecret):
+        secret = SshSecret(
+            key=orgs_utils.format_credentials_ssh_key(secret.key)
+        )
+    await validate_git_credentials(url, branch, secret)
 
 
 async def validate_credential_in_organization(
@@ -58,6 +79,19 @@ async def validate_credential_in_organization(
             id=credential_id,
             organization_id=organization_id,
         )
+    )
+
+
+async def working_credentials(
+    url: str,
+    branch: str,
+    credentials: Optional[Credentials],
+) -> None:
+    if not credentials:
+        raise RequiredCredentials()
+
+    await validate_git_access(
+        url=url, branch=branch, secret=credentials.state.secret
     )
 
 
@@ -316,18 +350,23 @@ async def _validate_git_credentials_https(
 async def validate_git_credentials(
     repo_url: str,
     branch: str,
-    credential_type: CredentialType,
-    credentials: Dict[str, str],
+    secret: Union[HttpsSecret, HttpsPatSecret, SshSecret],
 ) -> None:
-    if (credential_type.value == "SSH") and (
-        credential_key := credentials.get("key")
-    ):
-        await _validate_git_credentials_ssh(repo_url, branch, credential_key)
-    elif credential_type.value == "HTTPS":
+    if isinstance(secret, SshSecret):
+        await _validate_git_credentials_ssh(repo_url, branch, secret.key)
+    elif isinstance(secret, HttpsPatSecret):
         await _validate_git_credentials_https(
             repo_url,
             branch=branch,
-            token=credentials.get("token"),
-            user=credentials.get("user"),
-            password=credentials.get("password"),
+            token=secret.token,
+            user=None,
+            password=None,
+        )
+    elif isinstance(secret, HttpsSecret):
+        await _validate_git_credentials_https(
+            repo_url,
+            branch=branch,
+            token=None,
+            user=secret.user,
+            password=secret.password,
         )
