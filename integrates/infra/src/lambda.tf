@@ -108,6 +108,7 @@ resource "aws_lambda_function" "dynamodb_replication" {
   role             = aws_iam_role.integrates_dynamodb_replication_lambda_role.arn
   runtime          = "python3.9"
   source_code_hash = data.archive_file.dynamodb_replication_zip.output_base64sha256
+  timeout          = 60
 
   environment {
     variables = {
@@ -124,7 +125,7 @@ resource "aws_lambda_function" "dynamodb_replication" {
 }
 
 resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
-  batch_size        = 10
+  batch_size        = 50
   event_source_arn  = aws_dynamodb_table.integrates_vms.stream_arn
   function_name     = aws_lambda_function.dynamodb_replication.arn
   starting_position = "LATEST"
