@@ -349,13 +349,9 @@ async def send_numerator_report() -> None:
 
     if content:
         for user_email, user_content in content.items():
-            if (
-                int(user_content["enumerated"]["count"]["today"]) > 0
-                or int(user_content["verified"]["count"]["today"]) > 0
-            ):
-                await _send_mail_report(
-                    loaders, user_content, report_date, user_email
-                )
+            await _send_mail_report(
+                loaders, user_content, report_date, user_email
+            )
     else:
         LOGGER.info("- numerator report NOT sent")
         return
