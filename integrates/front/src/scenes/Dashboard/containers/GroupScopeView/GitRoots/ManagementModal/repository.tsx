@@ -153,6 +153,12 @@ const Repository: FC<IRepositoryProps> = ({
               type: "error",
             });
             break;
+          case "Exception - The URL is not reachable":
+            setValidateGitMsg({
+              message: t("group.scope.git.errors.ulrIsNotReachable"),
+              type: "error",
+            });
+            break;
           default:
             setValidateGitMsg({
               message: t("groupAlerts.errorTextsad"),

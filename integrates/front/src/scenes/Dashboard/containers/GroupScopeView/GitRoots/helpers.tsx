@@ -302,6 +302,12 @@ const handleCreationError = (
           type: "error",
         });
         break;
+      case "Exception - The URL is not reachable":
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.ulrIsNotReachable"),
+          type: "error",
+        });
+        break;
       default:
         setModalMessages({
           message: translate.t("groupAlerts.errorTextsad"),
@@ -350,6 +356,12 @@ const handleUpdateError = (
       case "Exception - Unsanitized input found":
         setModalMessages({
           message: translate.t("validations.unsanitizedInputFound"),
+          type: "error",
+        });
+        break;
+      case "Exception - The URL is not reachable":
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.ulrIsNotReachable"),
           type: "error",
         });
         break;

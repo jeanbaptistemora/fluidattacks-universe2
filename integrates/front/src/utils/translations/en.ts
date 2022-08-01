@@ -883,6 +883,7 @@ export const enTranslations: ResourceKey = {
             "Git repository was not accessible with given credentials",
           rootInGitignore:
             "Root name should not be included in gitignore pattern",
+          ulrIsNotReachable: "The URL was not found",
         },
         filter: {
           exclude: "Exclusions",
