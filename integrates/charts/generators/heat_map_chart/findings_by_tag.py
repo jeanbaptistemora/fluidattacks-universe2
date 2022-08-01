@@ -5,6 +5,9 @@ from aioextensions import (
 from charts import (
     utils,
 )
+from charts.generators.heat_map_chart import (
+    format_csv_data,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -122,11 +125,20 @@ def format_data(data: FindingsTags) -> dict:
 
 
 async def generate_all() -> None:
+    data: FindingsTags
     async for group in utils.iterate_groups():
+        data = await get_data(group)
+        document = format_data(data=data)
         utils.json_dump(
-            document=format_data(data=await get_data(group)),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(
+                categories=document["x"],
+                values=document["y"],
+                counters=data.counter_finding,
+                header="Type code",
+            ),
         )
 
 
