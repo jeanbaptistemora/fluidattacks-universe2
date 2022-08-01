@@ -57,6 +57,9 @@ from syntax_graph.syntax_readers.common import (
     parenthesized_expression as common_parenthesized_expression,
     return_statement as common_return_statement,
     string_literal as common_string_literal,
+    switch_body as common_switch_body,
+    switch_section as common_switch_section,
+    switch_statement as common_switch_statement,
     throw_statement as common_throw_statement,
     try_statement as common_try_statement,
 )
@@ -362,6 +365,24 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "verbatim_string_literal",
         },
         syntax_reader=common_string_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_body",
+        },
+        syntax_reader=common_switch_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_statement",
+        },
+        syntax_reader=common_switch_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "switch_section",
+        },
+        syntax_reader=common_switch_section.reader,
     ),
     Dispatcher(
         applicable_types={

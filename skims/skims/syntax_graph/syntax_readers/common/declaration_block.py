@@ -18,4 +18,12 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)  # do not consider { }
-    return build_declaration_block_node(args, cast(Iterator[str], c_ids))
+    # Do not consider nodes with preprocessor_call label
+    filtered_ids = (
+        _id
+        for _id in c_ids
+        if args.ast_graph.nodes[_id]["label_type"] != "preprocessor_call"
+    )
+    return build_declaration_block_node(
+        args, cast(Iterator[str], filtered_ids)
+    )
