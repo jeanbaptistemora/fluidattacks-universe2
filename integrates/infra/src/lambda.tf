@@ -172,23 +172,3 @@ resource "aws_lambda_function" "dynamodb_replication" {
     "management:type"    = "product"
   }
 }
-
-resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
-  batch_size        = 100
-  event_source_arn  = aws_dynamodb_table.integrates_vms.stream_arn
-  function_name     = aws_lambda_function.dynamodb_replication.arn
-  starting_position = "LATEST"
-
-  filter_criteria {
-    filter {
-      pattern = jsonencode({
-        dynamodb = {
-          "Keys" : {
-            "pk" : { "S" : [{ "prefix" : "VULN#" }] },
-            "sk" : { "S" : [{ "prefix" : "FIN#" }] },
-          }
-        }
-      })
-    }
-  }
-}
