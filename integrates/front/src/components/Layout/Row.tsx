@@ -1,39 +1,46 @@
 import styled from "styled-components";
 
+type TAlign = "center" | "end" | "start" | "stretch";
+type TJustify = "around" | "between" | "center" | "end" | "evenly" | "start";
+
 interface IRowProps {
-  align?: "center" | "flex-end" | "flex-start" | "stretch";
-  justify?:
-    | "center"
-    | "flex-end"
-    | "flex-start"
-    | "space-around"
-    | "space-between"
-    | "space-evenly";
+  align?: TAlign;
+  justify?: TJustify;
 }
 
-const getAlignItems = (align: IRowProps["align"]): string => align ?? "stretch";
+const aligns: Record<TAlign, string> = {
+  center: "center",
+  end: "flex-end",
+  start: "flex-start",
+  stretch: "stretch",
+};
 
-const getJustifyContent = (justify: IRowProps["justify"]): string =>
-  justify ?? "flex-start";
+const justifies: Record<TJustify, string> = {
+  around: "space-around",
+  between: "space-between",
+  center: "center",
+  end: "flex-end",
+  evenly: "space-evenly",
+  start: "flex-start",
+};
 
-const getTextAlign = (justify: IRowProps["justify"]): string => {
-  if (justify === "center") {
-    return "center";
-  } else if (justify === "flex-end") {
-    return "end";
-  } else if (justify === "flex-start") {
-    return "start";
-  }
-
-  return "unset";
+const textAligns: Record<TJustify, string> = {
+  around: "unset",
+  between: "unset",
+  center: "center",
+  end: "end",
+  evenly: "unset",
+  start: "start",
 };
 
 const Row = styled.div.attrs({
   className: "comp-row flex flex-row flex-wrap",
 })<IRowProps>`
-  align-items: ${({ align }): string => getAlignItems(align)};
-  justify-content: ${({ justify }): string => getJustifyContent(justify)};
-  text-align: ${({ justify }): string => getTextAlign(justify)};
+  ${({ align = "stretch", justify = "start" }): string => `
+    align-items: ${aligns[align]};
+    justify-content: ${justifies[justify]};
+    text-align: ${textAligns[justify]};
+  `}
 
   margin: -6px;
 

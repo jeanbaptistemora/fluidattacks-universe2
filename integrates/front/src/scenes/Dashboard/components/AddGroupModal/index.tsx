@@ -217,10 +217,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
               <Fragment>
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
-                  <Row
-                    id={"add-group-description-tour"}
-                    justify={"space-between"}
-                  >
+                  <Row id={"add-group-description-tour"} justify={"between"}>
                     <Col large={"33"} medium={"33"} small={"33"}>
                       <Text mb={1}>
                         {t(
@@ -297,7 +294,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       </Tooltip>
                     </Col>
                   </Row>
-                  <Row justify={"space-between"}>
+                  <Row justify={"between"}>
                     <Col
                       id={"add-group-service-type"}
                       large={"33"}

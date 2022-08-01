@@ -28,7 +28,7 @@ const SearchBar: React.FC<ISearchBarProps> = ({
 
           return (
             <Form>
-              <Row justify={"flex-start"} role={"searchbox"}>
+              <Row justify={"start"} role={"searchbox"}>
                 <Col large={"30"} medium={"40"} small={"60"}>
                   <Input name={"search"} placeholder={placeholder} />
                 </Col>

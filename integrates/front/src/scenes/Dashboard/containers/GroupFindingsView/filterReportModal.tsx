@@ -184,7 +184,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                         <p className={"mb0"}>
                           {t("group.findings.report.filterReportDescription")}
                         </p>
-                        <Row align={"flex-start"} justify={"flex-start"}>
+                        <Row align={"start"} justify={"start"}>
                           <Col large={"90"} medium={"90"} small={"90"}>
                             <Col large={"50"} medium={"50"} small={"50"}>
                               <p className={"mb2"}>

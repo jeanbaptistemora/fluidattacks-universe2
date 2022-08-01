@@ -48,7 +48,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
 
         return (
           <Form id={"credentials"}>
-            <Row justify={"flex-start"}>
+            <Row justify={"start"}>
               <Col large={"100"} medium={"100"} small={"100"}>
                 <Input
                   label={t(

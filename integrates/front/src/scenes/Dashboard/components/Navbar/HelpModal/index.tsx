@@ -130,7 +130,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
         open={isModalOpen}
         title={<span className={"f4"}>{t("navbar.help.support")}</span>}
       >
-        <Row justify={"space-between"}>
+        <Row justify={"between"}>
           <Col>
             <Message>
               <Button onClick={toggleZendesk}>

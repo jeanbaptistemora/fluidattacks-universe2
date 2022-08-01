@@ -109,7 +109,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
         validationSchema={validations}
       >
         <Form>
-          <Row justify={"flex-start"}>
+          <Row justify={"start"}>
             <Col large={"100"} medium={"100"} small={"100"}>
               <Input
                 disabled={successMutation.organization}

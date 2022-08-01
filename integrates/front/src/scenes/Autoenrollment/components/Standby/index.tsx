@@ -20,7 +20,7 @@ const Standby: React.FC<IStandbyProps> = (
   return (
     <Row>
       <Col>
-        <Row justify={"flex-end"}>
+        <Row justify={"end"}>
           <Col>
             <Button id={"close-standby"} onClick={onClose} size={"sm"}>
               <FontAwesomeIcon icon={faClose} />

@@ -187,7 +187,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
           return (
             <Form>
-              <Row justify={"flex-start"}>
+              <Row justify={"start"}>
                 <Col large={"50"} medium={"50"} small={"100"}>
                   <Input
                     label={t("autoenrollment.addRoot.url.label")}

@@ -19,7 +19,7 @@ const Alignment: Story = (): JSX.Element => {
   return (
     <React.Fragment>
       <h1>{"Alignment"}</h1>
-      <p>{"flex-start (default)"}</p>
+      <p>{"start (default)"}</p>
       <Row>
         <Col large={"50"} medium={"50"} small={"50"}>
           <LargeBox />
@@ -37,8 +37,8 @@ const Alignment: Story = (): JSX.Element => {
           <Box />
         </Col>
       </Row>
-      <p>{"flex-end"}</p>
-      <Row align={"flex-end"}>
+      <p>{"end"}</p>
+      <Row align={"end"}>
         <Col large={"50"} medium={"50"} small={"50"}>
           <LargeBox />
         </Col>
@@ -76,8 +76,8 @@ const AutoWidth: Story = (): JSX.Element => {
 const Distribution: Story = (): JSX.Element => {
   return (
     <React.Fragment>
-      <p>{"space-around"}</p>
-      <Row justify={"space-around"}>
+      <p>{"around"}</p>
+      <Row justify={"around"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -88,8 +88,8 @@ const Distribution: Story = (): JSX.Element => {
           <Box />
         </Col>
       </Row>
-      <p>{"space-between"}</p>
-      <Row justify={"space-between"}>
+      <p>{"between"}</p>
+      <Row justify={"between"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -100,8 +100,8 @@ const Distribution: Story = (): JSX.Element => {
           <Box />
         </Col>
       </Row>
-      <p>{"space-evenly"}</p>
-      <Row justify={"space-evenly"}>
+      <p>{"evenly"}</p>
+      <Row justify={"evenly"}>
         <Col large={"20"} medium={"20"} small={"20"}>
           <Box />
         </Col>
@@ -119,7 +119,7 @@ const Distribution: Story = (): JSX.Element => {
 const Justification: Story = (): JSX.Element => {
   return (
     <React.Fragment>
-      <p>{"flex-start (default)"}</p>
+      <p>{"start (default)"}</p>
       <Row>
         <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
@@ -131,8 +131,8 @@ const Justification: Story = (): JSX.Element => {
           <Box />
         </Col>
       </Row>
-      <p>{"flex-end"}</p>
-      <Row justify={"flex-end"}>
+      <p>{"end"}</p>
+      <Row justify={"end"}>
         <Col large={"50"} medium={"50"} small={"50"}>
           <Box />
         </Col>
