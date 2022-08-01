@@ -109,6 +109,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "dev" {
   }
 }
 
+resource "aws_s3_bucket_cors_configuration" "dev" {
+  bucket = aws_s3_bucket.bucket_dev.id
+
+  cors_rule {
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = [
+      "https://res.cloudinary.com/",
+      "https://www.codiga.io/",
+      "https://sonarcloud.io/"
+    ]
+    max_age_seconds = 3600
+  }
+}
+
 data "aws_iam_policy_document" "bucket_dev_policy" {
   statement {
     sid    = "CloudFlare"
