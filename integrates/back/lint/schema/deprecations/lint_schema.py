@@ -9,11 +9,9 @@ import logging.config
 from newutils import (
     datetime as date_utils,
 )
-from newutils.deprecations.ast import (
-    get_deprecations_by_period,
-)
-from newutils.deprecations.types import (
+from newutils.deprecations import (
     ApiDeprecation,
+    get_deprecations_by_period,
 )
 import sys
 

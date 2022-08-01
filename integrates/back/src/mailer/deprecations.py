@@ -5,7 +5,7 @@ from .common import (
 from newutils.datetime import (
     get_now_plus_delta,
 )
-from newutils.deprecations.types import (
+from newutils.deprecations import (
     ApiDeprecation,
 )
 from typing import (
