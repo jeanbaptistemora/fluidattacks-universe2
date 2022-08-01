@@ -103,6 +103,9 @@ import re
 from roots import (
     validations,
 )
+from s3 import (
+    operations as s3_operations,
+)
 from settings.various import (
     TIME_ZONE,
 )
@@ -1704,6 +1707,18 @@ async def finish_machine_execution(
         stopped_at=datetime_utils.get_as_str(stop_date),
         findings_executed=kwargs.pop("findings_executed", []),
         status=kwargs.pop("status", "SUCCESS"),
+    )
+
+
+async def is_in_s3(group_name: str, root_nickname: str) -> tuple[str, bool]:
+    return (
+        root_nickname,
+        bool(
+            await s3_operations.list_files(
+                bucket="continuous-repositories",
+                name=f"{group_name}/{root_nickname}.tar.gz",
+            )
+        ),
     )
 
 

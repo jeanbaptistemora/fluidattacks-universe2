@@ -15,7 +15,6 @@ import tarfile
 import tempfile
 from typing import (
     Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -81,19 +80,3 @@ async def upload_cloned_repo_to_s3_tar(
 
     os.remove(zip_output_path)
     return success
-
-
-async def is_in_s3(group_name: str, root_nickname: str) -> Tuple[str, bool]:
-    async with SESSION.client(service_name="s3") as client:
-        return (
-            root_nickname,
-            any(
-                object["Key"].startswith(f"{group_name}/{root_nickname}/.git/")
-                for object in (
-                    await client.list_objects(
-                        Bucket="continuous-repositories",
-                        Prefix=f"{group_name}/{root_nickname}/",
-                    )
-                ).get("Contents", [])
-            ),
-        )

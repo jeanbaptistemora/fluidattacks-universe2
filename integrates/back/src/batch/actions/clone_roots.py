@@ -19,9 +19,6 @@ from batch.types import (
 from batch.utils.git_self import (
     clone_root,
 )
-from batch.utils.s3 import (
-    is_in_s3,
-)
 from custom_exceptions import (
     CredentialNotFound,
     InactiveRoot,
@@ -400,7 +397,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     is_in_s3_dict = dict(
         await (
             collect(
-                is_in_s3(group_name, root.state.nickname)
+                roots_domain.is_in_s3(group_name, root.state.nickname)
                 for root in roots
                 if root.id in credentials_for_roots
             )
