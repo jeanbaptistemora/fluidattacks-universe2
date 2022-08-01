@@ -9,6 +9,9 @@ import type { IAlertMessages, IRootAttr } from "./types";
 
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
+import { regExps } from "utils/validations";
+
+const { t } = translate;
 
 const handleGroupCreateError = (
   graphQLErrors: readonly GraphQLError[],
@@ -18,21 +21,19 @@ const handleGroupCreateError = (
     switch (error.message) {
       case "Exception - Error invalid group name":
         setMessages({
-          message: translate.t("organization.tabs.groups.newGroup.invalidName"),
+          message: t("organization.tabs.groups.newGroup.invalidName"),
           type: "error",
         });
         break;
       case "Exception - User is not a member of the target organization":
         setMessages({
-          message: translate.t(
-            "organization.tabs.groups.newGroup.userNotInOrganization"
-          ),
+          message: t("organization.tabs.groups.newGroup.userNotInOrganization"),
           type: "error",
         });
         break;
       default:
         setMessages({
-          message: translate.t("groupAlerts.errorTextsad"),
+          message: t("groupAlerts.errorTextsad"),
           type: "error",
         });
         Logger.warning("An error occurred adding a group", error);
@@ -48,37 +49,37 @@ const handleRootCreateError = (
     switch (error.message) {
       case "Exception - Error empty value is not valid":
         setMessages({
-          message: translate.t("group.scope.git.errors.invalid"),
+          message: t("group.scope.git.errors.invalid"),
           type: "error",
         });
         break;
       case "Exception - Active root with the same Nickname already exists":
         setMessages({
-          message: translate.t("group.scope.common.errors.duplicateNickname"),
+          message: t("group.scope.common.errors.duplicateNickname"),
           type: "error",
         });
         break;
       case "Exception - Active root with the same URL/branch already exists":
         setMessages({
-          message: translate.t("group.scope.common.errors.duplicateUrl"),
+          message: t("group.scope.common.errors.duplicateUrl"),
           type: "error",
         });
         break;
       case "Exception - Root name should not be included in the exception pattern":
         setMessages({
-          message: translate.t("group.scope.git.errors.rootInGitignore"),
+          message: t("group.scope.git.errors.rootInGitignore"),
           type: "error",
         });
         break;
       case "Exception - Invalid characters":
         setMessages({
-          message: translate.t("validations.invalidChar"),
+          message: t("validations.invalidChar"),
           type: "error",
         });
         break;
       default:
         setMessages({
-          message: translate.t("groupAlerts.errorTextsad"),
+          message: t("groupAlerts.errorTextsad"),
           type: "error",
         });
         Logger.error("Couldn't add git roots", error);
@@ -93,16 +94,14 @@ const handleEnrollmentCreateError = (
   graphQLErrors.forEach((error: GraphQLError): void => {
     if (error.message === "Enrollment user already exists") {
       setMessages({
-        message: translate.t(
+        message: t(
           "autoenrollment.addOrganization.messages.error.enrollmentUser"
         ),
         type: "error",
       });
     } else {
       setMessages({
-        message: translate.t(
-          "autoenrollment.addOrganization.messages.error.enrollment"
-        ),
+        message: t("autoenrollment.addOrganization.messages.error.enrollment"),
         type: "error",
       });
       Logger.error("Couldn't add enrollment user data", error);
@@ -118,25 +117,25 @@ const handleValidationError = (
     switch (error.message) {
       case "Exception - Git repository was not accessible with given credentials":
         setMessages({
-          message: translate.t("group.scope.git.errors.invalidGitCredentials"),
+          message: t("group.scope.git.errors.invalidGitCredentials"),
           type: "error",
         });
         break;
       case "Exception - Branch not found":
         setMessages({
-          message: translate.t("group.scope.git.errors.invalidBranch"),
+          message: t("group.scope.git.errors.invalidBranch"),
           type: "error",
         });
         break;
       case "Exception - The URL is not reachable":
         setMessages({
-          message: translate.t("group.scope.git.errors.ulrIsNotReachable"),
+          message: t("group.scope.git.errors.ulrIsNotReachable"),
           type: "error",
         });
         break;
       default:
         setMessages({
-          message: translate.t("groupAlerts.errorTextsad"),
+          message: t("groupAlerts.errorTextsad"),
           type: "error",
         });
         Logger.error("Couldn't activate root", error);
@@ -151,18 +150,20 @@ const rootSchema = (
   lazy(
     (values: IRootAttr): BaseSchema =>
       object().shape({
-        branch: string().required(translate.t("validations.required")),
+        branch: string()
+          .required(t("validations.required"))
+          .matches(regExps.alphanumeric, t("validations.alphanumeric")),
         credentials: object({
           auth: string(),
           key: string()
             .when("type", {
               is: "SSH",
               otherwise: string(),
-              then: string().required(translate.t("validations.required")),
+              then: string().required(t("validations.required")),
             })
             .test(
               "hasSshFormat",
-              translate.t("validations.invalidSshFormat"),
+              t("validations.invalidSshFormat"),
               (value): boolean => {
                 const regex =
                   /^-{5}BEGIN OPENSSH PRIVATE KEY-{5}\n(?:[a-zA-Z0-9+/=]+\n)+-{5}END OPENSSH PRIVATE KEY-{5}\n?$/u;
@@ -176,9 +177,7 @@ const rootSchema = (
             )
             .test(
               "isGitAccesible",
-              translate.t(
-                "group.scope.git.repo.credentials.checkAccess.noAccess"
-              ),
+              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
               (value): boolean => {
                 if (
                   isDirty ||
@@ -193,20 +192,18 @@ const rootSchema = (
             ),
           name: string().when("type", {
             is: undefined,
-            otherwise: string().required(translate.t("validations.required")),
+            otherwise: string().required(t("validations.required")),
             then: string(),
           }),
           password: string()
             .when("type", {
               is: values.credentials.auth === "USER" ? "HTTPS" : "",
               otherwise: string(),
-              then: string().required(translate.t("validations.required")),
+              then: string().required(t("validations.required")),
             })
             .test(
               "isGitAccesible",
-              translate.t(
-                "group.scope.git.repo.credentials.checkAccess.noAccess"
-              ),
+              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
               (value): boolean => {
                 if (
                   isDirty ||
@@ -223,13 +220,11 @@ const rootSchema = (
             .when("type", {
               is: values.credentials.auth === "TOKEN" ? "HTTPS" : "",
               otherwise: string(),
-              then: string().required(translate.t("validations.required")),
+              then: string().required(t("validations.required")),
             })
             .test(
               "isGitAccesible",
-              translate.t(
-                "group.scope.git.repo.credentials.checkAccess.noAccess"
-              ),
+              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
               (value): boolean => {
                 if (
                   isDirty ||
@@ -242,18 +237,16 @@ const rootSchema = (
                 return isGitAccessible;
               }
             ),
-          type: string().required(translate.t("validations.required")),
+          type: string().required(t("validations.required")),
           user: string()
             .when("type", {
               is: values.credentials.auth === "USER" ? "HTTPS" : "",
               otherwise: string(),
-              then: string().required(translate.t("validations.required")),
+              then: string().required(t("validations.required")),
             })
             .test(
               "isGitAccesible",
-              translate.t(
-                "group.scope.git.repo.credentials.checkAccess.noAccess"
-              ),
+              t("group.scope.git.repo.credentials.checkAccess.noAccess"),
               (value): boolean => {
                 if (
                   isDirty ||
@@ -267,13 +260,13 @@ const rootSchema = (
               }
             ),
         }),
-        env: string().required(translate.t("validations.required")),
+        env: string().required(t("validations.required")),
         exclusions: array().of(
           string()
-            .required(translate.t("validations.required"))
+            .required(t("validations.required"))
             .test(
               "excludeFormat",
-              translate.t("validations.excludeFormat"),
+              t("validations.excludeFormat"),
               (value): boolean => {
                 const repoUrl = values.url;
 
@@ -295,7 +288,7 @@ const rootSchema = (
               }
             )
         ),
-        url: string().required(translate.t("validations.required")),
+        url: string().required(t("validations.required")),
       })
   );
 
