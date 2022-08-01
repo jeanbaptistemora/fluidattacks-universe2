@@ -1,5 +1,6 @@
 from typing import (
     NamedTuple,
+    Optional,
 )
 
 
@@ -8,6 +9,6 @@ class GroupComment(NamedTuple):
     id: str
     parent_id: str
     creation_date: str
-    full_name: str
     content: str
     email: str
+    full_name: Optional[str] = None

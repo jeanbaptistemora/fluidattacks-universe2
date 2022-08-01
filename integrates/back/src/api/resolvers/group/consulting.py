@@ -1,3 +1,6 @@
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -18,6 +21,9 @@ from group_comments import (
 )
 from newutils import (
     token as token_utils,
+)
+from newutils.group_comments import (
+    format_group_consulting_resolve,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -53,5 +59,12 @@ async def resolve_no_cache(
     group_name: str = parent.name
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
-
-    return await group_comments_domain.list_comments(group_name, user_email)
+    loaders = info.context.loaders
+    group_comments: list[
+        GroupComment
+    ] = await group_comments_domain.list_comments(
+        loaders, group_name, user_email
+    )
+    return [
+        format_group_consulting_resolve(comment) for comment in group_comments
+    ]

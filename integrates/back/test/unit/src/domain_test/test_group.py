@@ -26,6 +26,9 @@ from db_model.events.types import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.enums import (
     GroupService,
     GroupStateUpdationJustification,
@@ -93,6 +96,9 @@ from newutils import (
 from newutils.datetime import (
     convert_from_iso_str,
     is_valid_format,
+)
+from newutils.group_comments import (
+    format_group_consulting_resolve,
 )
 from newutils.groups import (
     filter_active_groups,
@@ -389,17 +395,31 @@ async def test_get_treatment_summary() -> None:
 
 async def test_list_comments() -> None:
     group_name = "unittesting"
-    test_data = await list_comments(group_name, "admin")
-    expected_output = {
+    test_data = await list_comments(get_new_context(), group_name, "admin")
+    expected_output = GroupComment(
+        group_name="unittesting",
+        content="Now we can post comments on groups",
+        parent_id="0",
+        creation_date="2018-12-27T21:30:28+00:00",
+        id="1545946228675",
+        full_name="Miguel de Orellana",
+        email="unittest@fluidattacks.com",
+    )
+    expected_output_to_resolve = {
         "content": "Now we can post comments on groups",
-        "parent": 0,
+        "parent": "0",
         "created": "2018/12/27 16:30:28",
-        "id": 1545946228675,
+        "id": "1545946228675",
         "fullname": "Miguel de Orellana at Fluid Attacks",
         "email": "unittest@fluidattacks.com",
         "modified": "2018/12/27 16:30:28",
     }
     assert test_data[0] == expected_output
+
+    assert (
+        format_group_consulting_resolve(test_data[0])
+        == expected_output_to_resolve
+    )
 
 
 @pytest.mark.changes_db

@@ -5,14 +5,14 @@ import authz
 from custom_exceptions import (
     InvalidCommentParent,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from group_comments import (
     dal as group_comments_dal,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 from newutils.utils import (
     get_key_or_fallback,
@@ -27,32 +27,8 @@ from typing import (
 )
 
 
-async def _get_fullname(objective_data: Dict[str, Any]) -> str:
-    objective_email = str(objective_data["email"])
-    objective_possible_fullname = str(objective_data.get("fullname", ""))
-    real_name = objective_possible_fullname or objective_email
-
-    if "@fluidattacks.com" in objective_email:
-        return f"{real_name} at Fluid Attacks"
-
-    return real_name
-
-
-async def _fill_comment_data(data: Dict[str, Any]) -> Dict[str, Any]:
-    fullname = await _get_fullname(objective_data=data)
-    return {
-        "content": data["content"],
-        "created": datetime_utils.format_comment_date(str(data["created"])),
-        "email": data["email"],
-        "fullname": fullname if fullname else data["email"],
-        "id": int(str(data["user_id"])),
-        "modified": datetime_utils.format_comment_date(str(data["modified"])),
-        "parent": int(str(data["parent"])),
-    }
-
-
-def _is_scope_comment(comment: Dict[str, Any]) -> bool:
-    return str(comment["content"]).strip() not in {"#external", "#internal"}
+def _is_scope_comment(comment: GroupComment) -> bool:
+    return comment.content.strip() not in {"#external", "#internal"}
 
 
 async def add_comment(
@@ -83,15 +59,10 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
 
 
 async def list_comments(
-    group_name: str, user_email: str
-) -> List[Dict[str, Any]]:
+    loaders: Any, group_name: str, user_email: str
+) -> List[GroupComment]:
     enforcer = await authz.get_group_level_enforcer(user_email)
-    comments = await collect(
-        [
-            _fill_comment_data(comment)
-            for comment in await group_comments_dal.get_comments(group_name)
-        ]
-    )
+    comments = await loaders.group_comments.load(group_name)
 
     if enforcer(group_name, "handle_comment_scope"):
         return comments

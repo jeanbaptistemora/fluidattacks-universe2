@@ -1,8 +1,8 @@
-from decimal import (
-    Decimal,
+from db_model.group_comments.types import (
+    GroupComment,
 )
-from group_comments import (
-    domain as group_comments_domain,
+from newutils.group_comments import (
+    format_group_consulting_resolve,
 )
 import pytest
 
@@ -12,24 +12,17 @@ pytestmark = [
 
 
 async def test_fill_comment_data() -> None:
-    test_data = {
-        "content": "test content",
-        "created": "2018-12-27 16:30:28",
-        "email": "unittesting@test.com",
-        "user_id": Decimal("1582646735480"),
-        "modified": "2020-02-25 11:05:35",
-        "parent": Decimal("0"),
-    }
-    # pylint: disable=protected-access
-    res_data_no_fullname = await group_comments_domain._fill_comment_data(
-        test_data
+    test_data = GroupComment(
+        group_name="unittesting",
+        content="test content",
+        creation_date="2018-12-27 16:30:28",
+        email="unittesting@test.com",
+        id="1582646735480",
+        parent_id="0",
     )
+    res_data_no_fullname = format_group_consulting_resolve(test_data)
     assert res_data_no_fullname["fullname"] == "unittesting@test.com"
 
-    test_data["fullname"] = ""
-    # pylint: disable=protected-access
-    res_data_empty_fullname = await group_comments_domain._fill_comment_data(
-        test_data
-    )
-
+    test_data = test_data._replace(full_name="")
+    res_data_empty_fullname = format_group_consulting_resolve(test_data)
     assert res_data_empty_fullname["fullname"] == "unittesting@test.com"
