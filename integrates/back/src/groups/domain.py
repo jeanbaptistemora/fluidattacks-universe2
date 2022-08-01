@@ -919,54 +919,66 @@ async def invite_to_group(
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     if (
-        validate_field_length(responsibility, 50)
-        and validate_alphanumeric_field(responsibility)
-        and validate_email_address(email)
-        and validate_role_fluid_reqs(email, role)
-        and await authz.validate_fluidattacks_staff_on_group(
+        not validate_field_length(responsibility, 50)
+        or not validate_alphanumeric_field(responsibility)
+        or not validate_email_address(email)
+        or not validate_role_fluid_reqs(email, role)
+        or not await authz.validate_fluidattacks_staff_on_group(
             group, email, role
         )
     ):
-        expiration_time = datetime_utils.get_as_epoch(
-            datetime_utils.get_now_plus_delta(weeks=1)
-        )
-        url_token = token_utils.new_encoded_jwt(
-            {
-                "group_name": group_name,
-                "user_email": email,
-            },
-        )
+        return
+
+    expiration_time = datetime_utils.get_as_epoch(
+        datetime_utils.get_now_plus_delta(weeks=1)
+    )
+    url_token = token_utils.new_encoded_jwt(
+        {
+            "group_name": group_name,
+            "user_email": email,
+        },
+    )
+    invitation = GroupInvitation(
+        is_used=False,
+        responsibility=responsibility,
+        role=role,
+        url_token=url_token,
+    )
+    if await group_access_domain.exists(loaders, group_name, email):
         await group_access_domain.update(
             email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
                 expiration_time=expiration_time,
                 has_access=False,
-                invitation=GroupInvitation(
-                    is_used=False,
-                    responsibility=responsibility,
-                    role=role,
-                    url_token=url_token,
-                ),
+                invitation=invitation,
             ),
         )
-        confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
-        reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
-        mail_to = [email]
-        email_context: dict[str, Any] = {
-            "admin": email,
-            "group": group_name,
-            "responsible": modified_by,
-            "group_description": group.description,
-            "confirm_access_url": confirm_access_url,
-            "reject_access_url": reject_access_url,
-            "user_role": role.replace("_", " "),
-        }
-        schedule(
-            groups_mail.send_mail_access_granted(
-                loaders, mail_to, email_context
+    else:
+        await group_access_dal.add(
+            group_access=GroupAccess(
+                email=email,
+                group_name=group_name,
+                expiration_time=expiration_time,
+                has_access=False,
+                invitation=invitation,
             )
         )
+    confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
+    reject_access_url = f"{BASE_URL}/reject_access/{url_token}"
+    mail_to = [email]
+    email_context: dict[str, Any] = {
+        "admin": email,
+        "group": group_name,
+        "responsible": modified_by,
+        "group_description": group.description,
+        "confirm_access_url": confirm_access_url,
+        "reject_access_url": reject_access_url,
+        "user_role": role.replace("_", " "),
+    }
+    schedule(
+        groups_mail.send_mail_access_granted(loaders, mail_to, email_context)
+    )
 
 
 async def exists(
