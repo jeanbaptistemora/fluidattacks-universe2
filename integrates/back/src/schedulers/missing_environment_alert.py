@@ -53,7 +53,10 @@ async def has_environment(
 ) -> bool:
     roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
     for root in roots:
-        if isinstance(root, GitRoot) and root.state.git_environment_urls != []:
+        if isinstance(root, GitRoot) and (
+            root.state.git_environment_urls != []
+            or root.state.environment_urls != []
+        ):
             return True
     return False
 
