@@ -1,6 +1,32 @@
 variable "aws_opensearch_host" {}
 variable "lambda_path" {}
 
+resource "aws_security_group" "integrates-lambda" {
+  name   = "integrates-opensearch"
+  vpc_id = data.aws_vpc.main.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = [data.aws_vpc.main.cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = [data.aws_vpc.main.cidr_block]
+  }
+
+  tags = {
+    "Name"               = "integrates-lambda"
+    "management:area"    = "cost"
+    "management:product" = "integrates"
+    "management:type"    = "product"
+  }
+}
+
 data "aws_iam_policy_document" "integrates_lambda_policy" {
   statement {
     actions = [
@@ -88,7 +114,7 @@ resource "null_resource" "dynamodb_replication_dependencies" {
   }
 
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 }
 
@@ -116,6 +142,16 @@ resource "aws_lambda_function" "dynamodb_replication" {
     }
   }
 
+  vpc_config {
+    security_group_ids = [
+      aws_security_group.integrates-lambda.id,
+    ]
+
+    subnet_ids = [
+      for subnet in data.aws_subnet.main : subnet.id
+    ]
+  }
+
   tags = {
     "Name"               = "integrates-lambda"
     "management:area"    = "cost"
@@ -125,7 +161,7 @@ resource "aws_lambda_function" "dynamodb_replication" {
 }
 
 resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
-  batch_size        = 50
+  batch_size        = 100
   event_source_arn  = aws_dynamodb_table.integrates_vms.stream_arn
   function_name     = aws_lambda_function.dynamodb_replication.arn
   starting_position = "LATEST"
