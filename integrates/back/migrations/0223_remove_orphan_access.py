@@ -28,7 +28,7 @@ from dynamodb import (
     operations_legacy,
 )
 from group_access.domain import (
-    get_user_groups_names,
+    get_stakeholder_groups_names,
 )
 import logging
 import logging.config
@@ -89,8 +89,8 @@ async def process_user(
 ) -> None:
     active, inactive = await collect(
         (
-            get_user_groups_names(loaders, email, active=True),
-            get_user_groups_names(loaders, email, active=False),
+            get_stakeholder_groups_names(loaders, email, active=True),
+            get_stakeholder_groups_names(loaders, email, active=False),
         )
     )
     groups = [

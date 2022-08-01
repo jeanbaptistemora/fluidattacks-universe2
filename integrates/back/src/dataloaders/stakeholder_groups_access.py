@@ -26,36 +26,17 @@ from typing import (
 TABLE_NAME: str = "FI_project_access"
 
 
-async def get_user_groups(user_email: str, active: bool) -> list[Item]:
-    """Get groups of a user"""
-    filtering_exp = Key("user_email").eq(user_email.lower())
+async def _get_stakeholder_groups(email: str) -> tuple[GroupAccess, ...]:
+    filtering_exp = Key("user_email").eq(email.lower())
     query_attrs = {"KeyConditionExpression": filtering_exp}
-    groups: list[Item] = await query(TABLE_NAME, query_attrs)
-    if active:
-        groups_filtered = [
-            group for group in groups if group.get("has_access", "")
-        ]
-    else:
-        groups_filtered = [
-            group for group in groups if not group.get("has_access", "")
-        ]
-    return groups_filtered
+    items: list[Item] = await query(TABLE_NAME, query_attrs)
+
+    return tuple(format_group_access(item) for item in items)
 
 
 class StakeholderGroupsAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, keys: Iterable[tuple[str, bool]]
+        self, emails: Iterable[str]
     ) -> tuple[tuple[GroupAccess, ...], ...]:
-        items = await collect(
-            tuple(
-                (
-                    get_user_groups(user_email=user_email, active=active)
-                    for user_email, active in keys
-                )
-            )
-        )
-        return tuple(
-            tuple(format_group_access(item=item) for item in lst)
-            for lst in items
-        )
+        return await collect(tuple(map(_get_stakeholder_groups, emails)))

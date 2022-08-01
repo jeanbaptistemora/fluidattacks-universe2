@@ -173,13 +173,17 @@ async def get_managers(loaders: Any, group_name: str) -> list[str]:
     ]
 
 
-async def get_user_groups_names(
-    loaders: Any, user_email: str, active: bool
+async def get_stakeholder_groups_names(
+    loaders: Any, email: str, active: bool
 ) -> list[str]:
     groups_access: tuple[
-        GroupAccess
-    ] = await loaders.stakeholder_groups_access.load((user_email, active))
-    return [group.group_name for group in groups_access]
+        GroupAccess, ...
+    ] = await loaders.stakeholder_groups_access.load(email)
+    return [
+        group_access.group_name
+        for group_access in groups_access
+        if group_access.has_access == active
+    ]
 
 
 async def get_users_to_notify(
