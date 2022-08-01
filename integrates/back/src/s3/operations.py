@@ -134,9 +134,13 @@ async def sing_upload_url(
             ["content-length-range", 1, 5368709120],
         ]
     }
-    async with aio_client() as client:
+
+    async with aioboto3.Session().client(
+        **OPTIONS,
+        config=Config(signature_version="s3v4"),
+    ) as s3_client:
         try:
-            return await client.generate_presigned_post(
+            return await s3_client.generate_presigned_post(
                 bucket,
                 file_name,
                 Fields=None,

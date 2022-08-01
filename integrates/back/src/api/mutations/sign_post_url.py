@@ -77,7 +77,11 @@ async def mutate(
             **signed_url,
             "fields": {
                 **signed_url["fields"],
-                "awsaccesskeyid": signed_url["fields"]["AWSAccessKeyId"],
+                "credential": signed_url["fields"]["x-amz-credential"],
+                "signature": signed_url["fields"]["x-amz-signature"],
+                "algorithm": signed_url["fields"]["x-amz-algorithm"],
+                "date": signed_url["fields"]["x-amz-date"],
+                "securitytoken": signed_url["fields"]["x-amz-security-token"],
             },
         },
     )

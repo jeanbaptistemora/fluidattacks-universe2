@@ -125,9 +125,12 @@ describe("Files", (): void => {
               success: true,
               url: {
                 fields: {
-                  awsaccesskeyid: "",
+                  algorithm: "",
+                  credential: "",
+                  date: "",
                   key: "",
                   policy: "",
+                  securitytoken: "",
                   signature: "",
                 },
                 url: "https://mocked.test",
@@ -399,9 +402,12 @@ describe("Files", (): void => {
               success: true,
               url: {
                 fields: {
-                  awsaccesskeyid: "",
+                  algorithm: "",
+                  credential: "",
+                  date: "",
                   key: "",
                   policy: "",
+                  securitytoken: "",
                   signature: "",
                 },
                 url: "https://mocked.test",

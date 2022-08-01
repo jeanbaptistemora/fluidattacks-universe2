@@ -99,9 +99,12 @@ const SIGN_POST_URL_MUTATION: DocumentNode = gql`
       url {
         url
         fields {
+          algorithm
+          credential
+          date
           key
-          awsaccesskeyid
           policy
+          securitytoken
           signature
         }
       }

@@ -175,9 +175,12 @@ const Files: React.FC<IFilesProps> = ({
       url: {
         url: string;
         fields: {
-          awsaccesskeyid: string;
+          algorithm: string;
+          credential: string;
+          date: string;
           key: string;
           policy: string;
+          securitytoken: string;
           signature: string;
         };
       };
@@ -230,14 +233,25 @@ const Files: React.FC<IFilesProps> = ({
 
       const { signPostUrl }: IAddFiles = results.data;
       const { url } = signPostUrl;
-      const { awsaccesskeyid, key, policy, signature } = url.fields;
+      const {
+        algorithm,
+        credential,
+        date,
+        key,
+        policy,
+        securitytoken,
+        signature,
+      } = url.fields;
 
       const formData = new FormData();
       formData.append("acl", "private");
-      formData.append("AWSAccessKeyId", awsaccesskeyid);
       formData.append("key", key);
+      formData.append("X-Amz-Algorithm", algorithm);
+      formData.append("X-Amz-Credential", credential);
+      formData.append("X-Amz-Date", date);
       formData.append("policy", policy);
-      formData.append("signature", signature);
+      formData.append("X-Amz-Signature", signature);
+      formData.append("X-Amz-Security-Token", securitytoken);
       formData.append("file", values.file[0], values.file[0].name);
 
       const response = await fetch(url.url, {
