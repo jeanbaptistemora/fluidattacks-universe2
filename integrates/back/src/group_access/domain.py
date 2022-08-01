@@ -50,6 +50,7 @@ from jose import (
     JWTError,
 )
 from newutils import (
+    datetime as datetime_utils,
     token as token_utils,
 )
 from newutils.datetime import (
@@ -123,10 +124,10 @@ async def get_group_stakeholders(
             await collect(
                 [
                     get_group_stakeholders_emails(
-                        loaders, group=group_name, active=True
+                        loaders, group_name=group_name, active=True
                     ),
                     get_group_stakeholders_emails(
-                        loaders, group=group_name, active=False
+                        loaders, group_name=group_name, active=False
                     ),
                 ]
             )
@@ -140,12 +141,22 @@ async def get_group_stakeholders(
 
 
 async def get_group_stakeholders_emails(
-    loaders: Any, group: str, active: bool = True
+    loaders: Any, group_name: str, active: bool = True
 ) -> list[str]:
-    stakeholders: tuple[
+    stakeholders_access: tuple[
         GroupAccess
-    ] = await loaders.group_stakeholders_access.load((group, active))
-    return [stakeholder.email for stakeholder in stakeholders]
+    ] = await loaders.group_stakeholders_access.load(group_name)
+    now_epoch = datetime_utils.get_as_epoch(datetime_utils.get_now())
+    not_expired_stakeholders_access = tuple(
+        access
+        for access in stakeholders_access
+        if not access.expiration_time or access.expiration_time > now_epoch
+    )
+    return [
+        access.email
+        for access in not_expired_stakeholders_access
+        if access.has_access == active
+    ]
 
 
 async def get_managers(loaders: Any, group_name: str) -> list[str]:
