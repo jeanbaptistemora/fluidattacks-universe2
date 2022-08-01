@@ -118,9 +118,8 @@ def _generate_count_report(
     user_email: str,
 ) -> None:
     if user_email and date_report:
-        is_valid_date = _validate_date(
-            date_report.date(), date_range, date_range - 1
-        )
+        date_format: date = datetime_utils.as_zone(date_report).date()
+        is_valid_date = _validate_date(date_format, date_range, date_range - 1)
 
         if not content.get(user_email):
             content[user_email] = _generate_fields()
@@ -139,7 +138,7 @@ def _generate_count_report(
         else:
             if datetime_utils.get_now().weekday() == 1:
                 date_range = 3
-            if _validate_date(date_report.date(), date_range + 1, date_range):
+            if _validate_date(date_format, date_range + 1, date_range):
                 content[user_email][field]["count"]["past_day"] = (
                     int(content[user_email][field]["count"]["past_day"])
                     + to_add
