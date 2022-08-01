@@ -4,11 +4,11 @@ title: 'Windows Kernel Exploitation: Lab'
 date: 2020-09-09
 category: attacks
 subtitle: Getting in the deeps of the OS
-tags: training, exploit, windows, kernel, hevd
+tags: training, exploit, vulnerability, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331228/blog/windows-kernel-debugging/cover_jflria.webp
 alt: Photo by Wesley Caribe on Unsplash
 description: This post will guide you to setup a lab environment for start exploiting Windows Kernel drivers.
-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+keywords: Business, Protection, Hacking, Exploit, Kernel, Hevd, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

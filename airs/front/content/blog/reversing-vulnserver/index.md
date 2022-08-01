@@ -4,7 +4,7 @@ title: Vulnserver Reverse Engineering
 date: 2020-07-06
 category: attacks
 subtitle: The devil is in the details
-tags: vulnserver, training, vulnerability, exploit
+tags: vulnserver, training, vulnerability, exploit, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331065/blog/reversing-vulnserver/cover_u4n10o.webp
 alt: Photo by Pierre Binet on Unsplash
 description: This post will show how use reverse engineering techniques and tools to find vulnerabilities on Vulnserver.

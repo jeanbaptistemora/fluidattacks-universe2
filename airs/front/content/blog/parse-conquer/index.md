@@ -20,7 +20,7 @@ source: https://unsplash.com/photos/qjnAnF0jIGk
 As you might have noticed at `Fluid Attacks` we like [parser
 combinators](../pars-orationis-secura/), [functional
 programming](../why-we-go-functional), and of course,
-[Python](../tags/python/). In the parser article, we showed you the
+Python. In the parser article, we showed you the
 essentials of `Pyparsing` and we also showed how to leverage its power
 to find `SQL` injections in a `PHP` application. Here we will extend
 those essentials to show you how we used parser combinators in Asserts,

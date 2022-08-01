@@ -4,7 +4,7 @@ title: Vulnserver TRUN Exploitation
 date: 2020-06-10
 category: attacks
 subtitle: From zero to shell
-tags: vulnserver, training, exploit
+tags: vulnserver, training, exploit, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331211/blog/vulnserver-trun/cover_squjnn.webp
 alt: Photo by David Rangel on Unsplash
 description: This post will describe the steps taken to exploit the Vulnserver TRUN command using a direct EIP overwrite strategy.

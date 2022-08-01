@@ -4,11 +4,11 @@ title: 'HEVD: Denial of Service'
 date: 2020-09-14
 category: attacks
 subtitle: How to crash Windows
-tags: training, exploit, windows, kernel, hevd
+tags: training, exploit, vulnerability, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330909/blog/hevd-dos/cover_cnggzc.webp
 alt: Photo by Chaozzy Lin on Unsplash
 description: This article will be the first approach to start exploting HackSys Extremely Vulnerable Driver with a Denial of Service
-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+keywords: Business, Protection, Hacking, Exploit, Kernel, Hevd, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan
@@ -377,7 +377,7 @@ target machine is completely unusable and our `DoS` attack was
 successful.
 
 Also, as we could evidence in our previous [exploitation
-posts](../tags/osce/), we control the execution flow when we control
+posts](../tags/training/), we control the execution flow when we control
 `EIP`.
 
 ## Conclusions

@@ -57,8 +57,6 @@ function check_md_blog_tags {
     devsecops
     exploit
     hacking
-    hevd
-    kernel
     machine-learning
     malware
     pentesting

@@ -89,16 +89,6 @@ const blogTagTemplate: React.FC<IQueryData> = ({
       title: translate.t("blogListTags.hacking.title"),
     },
     {
-      description: translate.t("blogListTags.hevd.description"),
-      metaDescription: translate.t("blogListTags.hevd.metaDescription"),
-      title: translate.t("blogListTags.hevd.title"),
-    },
-    {
-      description: translate.t("blogListTags.kernel.description"),
-      metaDescription: translate.t("blogListTags.kernel.metaDescription"),
-      title: translate.t("blogListTags.kernel.title"),
-    },
-    {
       description: translate.t("blogListTags.machineLearning.description"),
       metaDescription: translate.t(
         "blogListTags.machineLearning.metaDescription"

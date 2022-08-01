@@ -4,11 +4,11 @@ title: 'HEVD: Local Privilege Escalation'
 date: 2020-09-24
 category: attacks
 subtitle: Local Privilege Escalation
-tags: training, exploit, windows, kernel, hevd
+tags: training, exploit, vulnerability, windows
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620330911/blog/hevd-privilege-escalation/cover_hrrhjs.webp
 alt: Photo by Christina @ wocintechchat.com on Unsplash
 description: In this article we will be able to perform a Local Privilege Escalation using an exploit to HEVD.
-keywords: Business, Information, Security, Protection, Hacking, Exploit, OSEE, Ethical Hacking, Pentesting
+keywords: Business, Protection, Hacking, Exploit, Kernel, Hevd, OSEE, Ethical Hacking, Pentesting
 author: Andres Roldan
 writer: aroldan
 name: Andres Roldan

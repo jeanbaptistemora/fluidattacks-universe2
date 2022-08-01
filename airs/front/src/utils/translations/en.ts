@@ -246,7 +246,10 @@ const pageTexts: ResourceKey = {
       title: "blue-team",
     },
     cloud: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag address the benefits of cloud computing " +
+        "and the security risks or issues " +
+        "in these vast networks of remote servers.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Cloud.",
       title: "cloud",
     },
@@ -321,18 +324,12 @@ const pageTexts: ResourceKey = {
       metaDescription: "Read Fluid Attacks' blog posts tagged with Hacking.",
       title: "hacking",
     },
-    hevd: {
-      description: "[under construction]",
-      metaDescription: "Read Fluid Attacks' blog posts tagged with HEVD.",
-      title: "hevd",
-    },
-    kernel: {
-      description: "[under construction]",
-      metaDescription: "Read Fluid Attacks' blog posts tagged with Kernel.",
-      title: "kernel",
-    },
     machineLearning: {
-      description: "[under construction]",
+      description:
+        "Posts with this tag talk about the branch " +
+        "of artificial intelligence known as machine learning " +
+        "and cover several of its functions or uses " +
+        "within the field of cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts tagged with Machine Learning.",
       title: "machine-learning",
@@ -424,7 +421,10 @@ const pageTexts: ResourceKey = {
       title: "vulnerability",
     },
     vulnserver: {
-      description: "[under construction]",
+      description:
+        "Entries with this tag show you the process " +
+        "of exploiting different commands " +
+        "and finding vulnerabilities in Vulnserver.",
       metaDescription: "Read Fluid Attacks' blog posts tagged with Vulnserver.",
       title: "vulnserver",
     },
