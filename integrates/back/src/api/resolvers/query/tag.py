@@ -44,9 +44,9 @@ async def resolve(
     tag_name: str = kwargs["tag"].lower()
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
-    user_group_names: list[str] = await groups_domain.get_groups_by_user(
-        loaders, user_email
-    )
+    user_group_names: list[
+        str
+    ] = await groups_domain.get_groups_by_stakeholder(loaders, user_email)
     are_valid_groups = await collect(
         tuple(
             groups_domain.is_valid(loaders, group_name)

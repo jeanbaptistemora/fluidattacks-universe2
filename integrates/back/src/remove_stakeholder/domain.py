@@ -27,7 +27,7 @@ from group_access import (
     domain as group_access_domain,
 )
 from groups.domain import (
-    get_groups_by_user,
+    get_groups_by_stakeholder,
 )
 from jose import (
     JWTError,
@@ -135,34 +135,30 @@ async def remove_stakeholder_all_organizations(
     authz_groups = [
         policy[1] for policy in await get_user_subject_policies(email)
     ]
-    user_groups = set(active + inactive + authz_groups)
+    stakeholder_groups = set(active + inactive + authz_groups)
     await collect(
         tuple(
             group_access_domain.remove_access(loaders, email, group)
-            for group in user_groups
+            for group in stakeholder_groups
         )
     )
 
 
-async def complete_deletion(*, loaders: Any, user_email: str) -> None:
-    await group_access_dal.remove(
-        email=user_email, group_name="confirm_deletion"
-    )
+async def complete_deletion(*, loaders: Any, email: str) -> None:
+    await group_access_dal.remove(email=email, group_name="confirm_deletion")
     await remove_stakeholder_all_organizations(
         loaders=loaders,
-        email=user_email,
-        modified_by=user_email,
+        email=email,
+        modified_by=email,
     )
     await collect(
         [
-            remove_session_key(user_email, "jti"),
-            remove_session_key(user_email, "web"),
-            remove_session_key(user_email, "jwt"),
+            remove_session_key(email, "jti"),
+            remove_session_key(email, "web"),
+            remove_session_key(email, "jwt"),
         ]
     )
-
-    stakeholder_groups = await get_groups_by_user(loaders, user_email)
-
+    stakeholder_groups = await get_groups_by_stakeholder(loaders, email)
     await collect(
         tuple(
             redis_del_by_deps(

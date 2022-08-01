@@ -209,11 +209,13 @@ async def send_mail_services(
     requester_email: str,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.SERVICE_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.SERVICE_UPDATE,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_updated_services(

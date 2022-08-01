@@ -175,7 +175,7 @@ async def add_group_access(
     )
     return all(
         await collect(
-            group_access_domain.add_user_access(
+            group_access_domain.add_access(
                 stakeholder, group_name, "customer_manager"
             )
             for stakeholder, stakeholder_role in zip(
@@ -204,7 +204,7 @@ async def add_stakeholder(
         org_groups = await get_group_names(loaders, organization_id)
         success = success and all(
             await collect(
-                group_access_domain.add_user_access(email, group, role)
+                group_access_domain.add_access(email, group, role)
                 for group in org_groups
             )
         )

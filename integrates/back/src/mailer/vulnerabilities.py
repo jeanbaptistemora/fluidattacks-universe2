@@ -140,11 +140,13 @@ async def send_mail_temporal_treatment_report(
         "user_manager",
         "vulnerability_manager",
     }
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.UPDATED_TREATMENT,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.UPDATED_TREATMENT,
+            roles=roles,
+        )
     )
     org_name = await get_organization_name(loaders, group_name)
     email_context: dict[str, Any] = {

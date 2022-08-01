@@ -15,7 +15,7 @@ from dataloaders import (
     get_new_context,
 )
 from group_access.domain import (
-    get_users_to_notify,
+    get_stakeholders_to_notify,
 )
 from groups.dal import (  # pylint: disable=import-error
     get_active_groups,
@@ -48,7 +48,7 @@ async def main() -> None:
     active_users = set(
         chain.from_iterable(
             await collect(
-                get_users_to_notify(get_new_context(), group)
+                get_stakeholders_to_notify(get_new_context(), group)
                 for group in groups
             )
         )

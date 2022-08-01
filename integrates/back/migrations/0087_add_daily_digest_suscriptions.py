@@ -38,7 +38,7 @@ async def main() -> None:
     active_users = set(
         chain.from_iterable(
             await collect(
-                group_access_domain.get_users_to_notify(
+                group_access_domain.get_stakeholders_to_notify(
                     get_new_context(), group
                 )
                 for group in groups

@@ -41,8 +41,8 @@ async def resolve(
     user_email: str = kwargs["user_email"]
     active, inactive = await collect(
         [
-            groups_domain.get_groups_by_user(loaders, user_email),
-            groups_domain.get_groups_by_user(
+            groups_domain.get_groups_by_stakeholder(loaders, user_email),
+            groups_domain.get_groups_by_stakeholder(
                 loaders, user_email, active=False
             ),
         ]

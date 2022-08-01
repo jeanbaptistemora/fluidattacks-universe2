@@ -27,7 +27,9 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    user_group_names: list[str] = await groups_domain.get_groups_by_user(
+    user_group_names: list[
+        str
+    ] = await groups_domain.get_groups_by_stakeholder(
         loaders, user_email, organization_id=parent.id
     )
     user_groups: tuple[Group, ...] = await loaders.group.load_many(

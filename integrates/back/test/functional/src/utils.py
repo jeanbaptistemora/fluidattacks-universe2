@@ -69,7 +69,7 @@ async def confirm_deletion(
         )
     if user_email == email:
         return await complete_deletion(
-            loaders=get_new_context(), user_email=user_email
+            loaders=get_new_context(), email=user_email
         )
 
     return False

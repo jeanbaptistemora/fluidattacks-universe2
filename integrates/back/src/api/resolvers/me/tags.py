@@ -47,7 +47,7 @@ async def resolve(
     org_tags: tuple[Portfolio, ...] = await organization_tags_loader.load(
         organization.name
     )
-    user_groups = await groups_domain.get_groups_by_user(
+    user_groups = await groups_domain.get_groups_by_stakeholder(
         loaders, user_email, organization_id=organization_id
     )
     are_valid_groups = await collect(

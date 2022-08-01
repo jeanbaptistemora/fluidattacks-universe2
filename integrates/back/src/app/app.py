@@ -210,7 +210,7 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
             )
             if user_email:
                 await remove_stakeholder_domain.complete_deletion(
-                    loaders=loaders, user_email=user_email
+                    loaders=loaders, email=user_email
                 )
                 response = await templates.confirm_deletion(request=request)
             else:

@@ -478,11 +478,13 @@ async def send_treatment_report_mail(
         "user_manager",
         "vulnerability_manager",
     }
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=finding.group_name,
-        notification=Notification.UPDATED_TREATMENT,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=finding.group_name,
+            notification=Notification.UPDATED_TREATMENT,
+            roles=roles,
+        )
     )
     managers_email = await get_managers_by_size(loaders, finding.group_name, 3)
     await vulns_mailer.send_mail_treatment_report(

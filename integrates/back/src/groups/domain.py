@@ -645,22 +645,22 @@ async def get_closed_vulnerabilities(loaders: Any, group_name: str) -> int:
     return last_approved_status.count(VulnerabilityStateStatus.CLOSED)
 
 
-async def get_groups_by_user(
+async def get_groups_by_stakeholder(
     loaders: Any,
-    user_email: str,
+    email: str,
     active: bool = True,
     organization_id: str = "",
     with_cache: bool = True,
 ) -> list[str]:
     group_names = await group_access_domain.get_stakeholder_groups_names(
-        loaders, user_email, active
+        loaders, email, active
     )
     if not organization_id:
         group_names = list(
             await filter_groups_with_org(loaders, tuple(group_names))
         )
     group_level_roles = await authz.get_group_level_roles(
-        user_email, group_names, with_cache=with_cache
+        email, group_names, with_cache=with_cache
     )
     if organization_id:
         org_groups = await loaders.organization_groups.load(organization_id)
@@ -1137,11 +1137,13 @@ async def send_mail_file_report(
         "user_manager",
         "hacker",
     }
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.FILE_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.FILE_UPDATE,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_file_report(
@@ -1245,7 +1247,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     has_org_access, user_groups_names = await collect(
         (
             orgs_domain.has_access(loaders, organization_id, email),
-            get_groups_by_user(loaders, email),
+            get_groups_by_stakeholder(loaders, email),
         )
     )
     org_groups_names = set(
@@ -1308,11 +1310,13 @@ async def send_mail_unsubscribed(
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.UNSUBSCRIPTION_ALERT,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.UNSUBSCRIPTION_ALERT,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_user_unsubscribed(
@@ -1347,11 +1351,13 @@ async def update_group_info(
     group: Group = await loaders.group.load(group_name)
 
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.GROUP_INFORMATION,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.GROUP_INFORMATION,
+            roles=roles,
+        )
     )
 
     await update_metadata(
@@ -1405,11 +1411,13 @@ async def send_mail_devsecops_agent(
 ) -> None:
     report_date: str = datetime_utils.get_iso_date()
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.AGENT_TOKEN,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.AGENT_TOKEN,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_devsecops_agent_token(
@@ -1534,11 +1542,13 @@ async def send_mail_portfolio_report(
     modified_date: str,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.PORTFOLIO_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.PORTFOLIO_UPDATE,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_portfolio_report(

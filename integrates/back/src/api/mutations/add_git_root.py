@@ -76,11 +76,13 @@ async def mutate(
     )
     group_name = root.group_name
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.ROOT_UPDATE,
+            roles=roles,
+        )
     )
     if (
         kwargs.get("credentials")

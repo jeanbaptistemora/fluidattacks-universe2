@@ -53,9 +53,9 @@ async def remove_default_org_access(
             chain.from_iterable(
                 await collect(
                     [
-                        groups_domain.get_groups_by_user(
+                        groups_domain.get_groups_by_stakeholder(
                             get_new_context(),
-                            user_email=email,
+                            email=email,
                             organization_id=org_id,
                         )
                         for org_id in orgs_ids

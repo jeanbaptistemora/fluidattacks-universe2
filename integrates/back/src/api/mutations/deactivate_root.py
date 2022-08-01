@@ -189,7 +189,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     )
     root_age = (datetime_utils.get_now() - historic_state_date).days
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
+    emails = await group_access_domain.get_stakeholders_email_by_preferences(
         loaders=loaders,
         group_name=group_name,
         notification=Notification.ROOT_UPDATE,
@@ -198,7 +198,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     await groups_mail.send_mail_deactivated_root(
         loaders=loaders,
         activated_by=activated_by,
-        email_to=users_email,
+        email_to=emails,
         group_name=group_name,
         last_clone_date=last_clone_date,
         last_root_state=last_root_state,

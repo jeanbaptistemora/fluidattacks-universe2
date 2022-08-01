@@ -66,7 +66,7 @@ from typing import (
 )
 
 
-async def add_user_access(email: str, group_name: str, role: str) -> bool:
+async def add_access(email: str, group_name: str, role: str) -> bool:
     await group_access_dal.add(
         group_access=GroupAccess(
             email=email, group_name=group_name, has_access=True
@@ -79,11 +79,11 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
     try:
         token_content = token_utils.decode_jwt(url_token)
         group_name: str = token_content["group_name"]
-        user_email: str = token_content["user_email"]
+        email: str = token_content["user_email"]
     except (JWTError, KeyError) as ex:
         raise InvalidAuthorization() from ex
 
-    return await loaders.group_access.load((group_name, user_email))
+    return await loaders.group_access.load((group_name, email))
 
 
 async def get_reattackers(
@@ -160,15 +160,18 @@ async def get_group_stakeholders_emails(
 
 
 async def get_managers(loaders: Any, group_name: str) -> list[str]:
-    users = await get_group_stakeholders_emails(
+    stakeholders = await get_group_stakeholders_emails(
         loaders, group_name, active=True
     )
-    users_roles = await collect(
-        [authz.get_group_level_role(user, group_name) for user in users]
+    stakeholders_roles = await collect(
+        [
+            authz.get_group_level_role(stakeholder, group_name)
+            for stakeholder in stakeholders
+        ]
     )
     return [
-        user_email
-        for user_email, role in zip(users, users_roles)
+        email
+        for email, role in zip(stakeholders, stakeholders_roles)
         if role in {"user_manager", "vulnerability_manager"}
     ]
 
@@ -186,30 +189,34 @@ async def get_stakeholder_groups_names(
     ]
 
 
-async def get_users_to_notify(
+async def get_stakeholders_to_notify(
     loaders: Any, group_name: str, active: bool = True
 ) -> list[str]:
-    users = await get_group_stakeholders_emails(loaders, group_name, active)
-    return users
+    return await get_group_stakeholders_emails(loaders, group_name, active)
 
 
-async def get_users_email_by_preferences(
+async def get_stakeholders_email_by_preferences(
     *,
     loaders: Any,
     group_name: str,
     notification: str,
     roles: set[str],
 ) -> list[str]:
-    users = await get_group_stakeholders_emails(
+    stakeholders = await get_group_stakeholders_emails(
         loaders, group_name, active=True
     )
-    user_roles = await collect(
-        tuple(authz.get_group_level_role(user, group_name) for user in users)
+    stakeholder_roles = await collect(
+        tuple(
+            authz.get_group_level_role(stakeholder, group_name)
+            for stakeholder in stakeholders
+        )
     )
     email_list = [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role in roles
+        str(stakeholder)
+        for stakeholder, stakeholder_role in zip(
+            stakeholders, stakeholder_roles
+        )
+        if stakeholder_role in roles
     ]
     stakeholders_data: tuple[
         Stakeholder, ...
@@ -230,19 +237,15 @@ async def exists(loaders: Any, group_name: str, email: str) -> bool:
         return False
 
 
-async def remove_access(
-    loaders: Any, user_email: str, group_name: str
-) -> bool:
-    await group_access_dal.remove(email=user_email, group_name=group_name)
-    success = await authz.revoke_group_level_role(user_email, group_name)
+async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
+    await group_access_dal.remove(email=email, group_name=group_name)
+    success = await authz.revoke_group_level_role(email, group_name)
 
-    if user_email and group_name:
+    if email and group_name:
         me_vulnerabilities: tuple[
             Vulnerability, ...
-        ] = await loaders.me_vulnerabilities.load(user_email)
-        me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(
-            user_email
-        )
+        ] = await loaders.me_vulnerabilities.load(email)
+        me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
         all_findings: tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load(group_name)

@@ -34,8 +34,10 @@ async def resolve(
     email = parent.email
     active, inactive = await collect(
         [
-            groups_domain.get_groups_by_user(loaders, email),
-            groups_domain.get_groups_by_user(loaders, email, active=False),
+            groups_domain.get_groups_by_stakeholder(loaders, email),
+            groups_domain.get_groups_by_stakeholder(
+                loaders, email, active=False
+            ),
         ]
     )
     user_groups: List[str] = active + inactive

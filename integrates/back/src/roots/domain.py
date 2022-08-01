@@ -865,11 +865,13 @@ async def send_mail_updated_root(
     user_email: str,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.ROOT_UPDATE,
+            roles=roles,
+        )
     )
 
     old_state: Dict[str, Any] = root.state._asdict()
@@ -1019,11 +1021,13 @@ async def send_mail_root_cloning_status(
     is_failed: bool,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.ROOT_UPDATE,
+            roles=roles,
+        )
     )
     creation_date = await get_first_cloning_date(loaders, root_id)
     last_cloning_successful = await get_last_cloning_successful(
@@ -1646,11 +1650,13 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     reason: Optional[str] = None,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = await group_access_domain.get_users_email_by_preferences(
-        loaders=loaders,
-        group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+    users_email = (
+        await group_access_domain.get_stakeholders_email_by_preferences(
+            loaders=loaders,
+            group_name=group_name,
+            notification=Notification.ROOT_UPDATE,
+            roles=roles,
+        )
     )
 
     await groups_mail.send_mail_environment_report(

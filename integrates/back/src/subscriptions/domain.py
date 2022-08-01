@@ -37,7 +37,7 @@ from decorators import (
     retry_on_exceptions,
 )
 from group_access.domain import (
-    get_users_to_notify,
+    get_stakeholders_to_notify,
 )
 import logging
 import logging.config
@@ -440,7 +440,7 @@ async def get_users_subscribed_to_consult(
     comment_type: str,
     is_finding_released: bool = True,
 ) -> list[str]:
-    users = await get_users_to_notify(loaders, group_name)
+    users = await get_stakeholders_to_notify(loaders, group_name)
     if comment_type.lower() == "observation" or not is_finding_released:
         roles: list[str] = await collect(
             tuple(get_group_level_role(email, group_name) for email in users),

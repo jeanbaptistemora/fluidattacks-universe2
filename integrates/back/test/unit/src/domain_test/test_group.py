@@ -69,7 +69,7 @@ from group_comments.domain import (
 from groups.domain import (
     add_group,
     get_closed_vulnerabilities,
-    get_groups_by_user,
+    get_groups_by_stakeholder,
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
@@ -809,7 +809,7 @@ async def test_get_groups_by_user() -> None:
         "monteria",
         "unittesting",
     ]
-    user_groups_names = await get_groups_by_user(
+    user_groups_names = await get_groups_by_stakeholder(
         loaders, "integratesmanager@gmail.com"
     )
     groups: tuple[Group, ...] = await loaders.group.load_many(
@@ -822,7 +822,7 @@ async def test_get_groups_by_user() -> None:
 
     expected_org_groups = ["oneshottest", "unittesting"]
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-    user_org_groups_names = await get_groups_by_user(
+    user_org_groups_names = await get_groups_by_stakeholder(
         loaders, "integratesmanager@gmail.com", organization_id=org_id
     )
     groups = await loaders.group.load_many(user_org_groups_names)
