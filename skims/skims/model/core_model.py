@@ -2089,6 +2089,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DOTNETCONFIG_HAS_SSL_DISABLED = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_has_ssl_disabled",
+        module="lib_path",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INSEC_COOKIES = MethodInfo(
         file_name="c_sharp",
         name="csharp_insecurely_generated_cookies",

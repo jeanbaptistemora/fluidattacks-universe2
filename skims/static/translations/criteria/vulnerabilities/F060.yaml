@@ -5,3 +5,8 @@ src.lib_path.f060.insecure_exceptions.description:
 lib_apk.analyze_bytecodes.not_verifies_ssl_hostname:
   en: The given APK doesn't verify the SSLSocket hostname.
   es: El APK dado no verifica el hostname del SSLSocket.
+lib_path.dotnetconfig.has_ssl_disabled:
+  en: SSL is disabled in ApplicationHost.config, check the sslFlags attribute.
+  es: >-
+    SSl esta desabilitad en ApplicationHost.config,
+    revisa el atributo sslFlags.
