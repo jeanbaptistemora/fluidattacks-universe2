@@ -1,8 +1,28 @@
 import styled from "styled-components";
 
 type TColor = "dark" | "light" | "red";
+type TDecor = "over" | "through" | "under";
+type TStyle = "i" | "no";
 type Nums1To7 = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 type Nums1To9 = Nums1To7 | 8 | 9;
+
+interface ITextProps {
+  bright?: Nums1To9 | 0;
+  decor?: TDecor[];
+  disp?: "block" | "inline-block" | "inline";
+  hoverBright?: Nums1To9 | 0;
+  hoverTone?: TColor;
+  mb?: Nums1To7 | 0;
+  ml?: Nums1To7 | 0;
+  mr?: Nums1To7 | 0;
+  mt?: Nums1To7 | 0;
+  size?: Nums1To7;
+  tone?: TColor;
+  fs?: TStyle;
+  fw?: Nums1To9;
+  ta?: "center" | "end" | "start";
+  ws?: "break-spaces" | "normal" | "nowrap" | "pre-line" | "pre-wrap" | "pre";
+}
 
 const colors: Record<TColor, string[]> = {
   dark: [
@@ -43,25 +63,19 @@ const colors: Record<TColor, string[]> = {
   ],
 };
 
-interface ITextProps {
-  bright?: Nums1To9 | 0;
-  disp?: "block" | "inline-block" | "inline";
-  hoverBright?: Nums1To9 | 0;
-  hoverTone?: TColor;
-  mb?: Nums1To7 | 0;
-  ml?: Nums1To7 | 0;
-  mr?: Nums1To7 | 0;
-  mt?: Nums1To7 | 0;
-  size?: Nums1To7;
-  tone?: TColor;
-  fw?: Nums1To9;
-  ta?: "center" | "end" | "start";
-  ws?: "break-spaces" | "normal" | "nowrap" | "pre-line" | "pre-wrap" | "pre";
-}
+const decors: Record<TDecor, string> = {
+  over: "overline",
+  through: "line-through",
+  under: "underline",
+};
+
+const styles: Record<TStyle, string> = {
+  i: "italic",
+  no: "normal",
+};
 
 const Text = styled.p.attrs(
   ({
-    fw = 4,
     mb = 0,
     ml = 0,
     mr = 0,
@@ -70,12 +84,15 @@ const Text = styled.p.attrs(
   }: ITextProps): {
     className: string;
   } => ({
-    className: `comp-text f${8 - size} fw${fw} mb${mb} ml${ml} mr${mr} mt${mt}`,
+    className: `comp-text f${8 - size} mb${mb} ml${ml} mr${mr} mt${mt}`,
   })
 )<ITextProps>`
   ${({
     bright = 1,
+    decor = [],
     disp = "block",
+    fs = "no",
+    fw = 4,
     tone = "dark",
     ta = "start",
     ws = "pre-line",
@@ -84,7 +101,10 @@ const Text = styled.p.attrs(
   }): string => `
     color: #${colors[tone][bright]};
     display: ${disp};
+    font-style: ${styles[fs]};
+    font-weight: ${fw * 100};
     text-align: ${ta};
+    text-decoration: ${decor.map((el): string => decors[el]).join(" ")};
     transition: all 0.3s ease;
     white-space: ${ws};
     width: ${disp === "block" ? "100%" : "auto"};
