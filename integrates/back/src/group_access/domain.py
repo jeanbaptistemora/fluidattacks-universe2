@@ -88,14 +88,19 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
 async def get_reattackers(
     loaders: Any, group_name: str, active: bool = True
 ) -> list[str]:
-    users = await get_group_stakeholders_emails(loaders, group_name, active)
-    user_roles = await collect(
-        authz.get_group_level_role(user, group_name) for user in users
+    stakeholders = await get_group_stakeholders_emails(
+        loaders, group_name, active
+    )
+    stakeholder_roles = await collect(
+        authz.get_group_level_role(stakeholder, group_name)
+        for stakeholder in stakeholders
     )
     return [
-        str(user)
-        for user, user_role in zip(users, user_roles)
-        if user_role == "reattacker"
+        str(stakeholder)
+        for stakeholder, stakeholder_role in zip(
+            stakeholders, stakeholder_roles
+        )
+        if stakeholder_role == "reattacker"
     ]
 
 

@@ -43,7 +43,7 @@ async def _get_group_access(
     return item
 
 
-class GroupAccessTypedLoader(DataLoader):
+class GroupAccessLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, keys: Iterable[tuple[str, str]]

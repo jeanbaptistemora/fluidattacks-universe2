@@ -176,17 +176,28 @@ async def complete_deletion(*, loaders: Any, user_email: str) -> None:
 
 async def get_email_from_url_token(
     *,
+    loaders: Any,
     url_token: str,
 ) -> str:
     try:
         token_content = decode_jwt(url_token)
-        user_email: str = token_content["user_email"]
-        if await group_access_dal.get_access_by_url_token(
-            url_token, attr="confirm_deletion"
-        ):
-            return user_email
     except (JWTError, JWException) as ex:
         raise InvalidAuthorization() from ex
+
+    email: str = token_content["user_email"]
+    if not await group_access_domain.exists(
+        loaders=loaders, group_name="confirm_deletion", email=email
+    ):
+        return ""
+
+    access_with_deletion: GroupAccess = await loaders.group_access.load(
+        ("confirm_deletion", email)
+    )
+    if (
+        access_with_deletion.confirm_deletion
+        and access_with_deletion.confirm_deletion.url_token == url_token
+    ):
+        return email
 
     return ""
 

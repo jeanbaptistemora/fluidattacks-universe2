@@ -200,16 +200,17 @@ async def confirm_access(request: Request) -> HTMLResponse:
 
 async def confirm_deletion(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
+    loaders: Dataloaders = get_new_context()
     if url_token:
         try:
             user_email: str = (
                 await remove_stakeholder_domain.get_email_from_url_token(
-                    url_token=url_token
+                    loaders=loaders, url_token=url_token
                 )
             )
             if user_email:
                 await remove_stakeholder_domain.complete_deletion(
-                    loaders=get_new_context(), user_email=user_email
+                    loaders=loaders, user_email=user_email
                 )
                 response = await templates.confirm_deletion(request=request)
             else:
@@ -316,7 +317,7 @@ async def reject_access(request: Request) -> HTMLResponse:
 
 async def reject_access_organization(request: Request) -> HTMLResponse:
     url_token = request.path_params.get("url_token")
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     if url_token:
         try:
             organization_access: OrganizationAccess = (

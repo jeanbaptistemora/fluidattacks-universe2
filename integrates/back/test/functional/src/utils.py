@@ -35,7 +35,6 @@ from remove_stakeholder.domain import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
 )
 
@@ -60,10 +59,13 @@ async def confirm_deletion(
     loaders: Dataloaders,
     email: str,
 ) -> bool:
-    deletion = await get_confirm_deletion(loaders=loaders, email=email)
-    if deletion and deletion.confirm_deletion:
+    access_with_deletion = await get_confirm_deletion(
+        loaders=loaders, email=email
+    )
+    if access_with_deletion and access_with_deletion.confirm_deletion:
         user_email: str = await get_email_from_url_token(
-            url_token=deletion.confirm_deletion.url_token
+            loaders=loaders,
+            url_token=access_with_deletion.confirm_deletion.url_token,
         )
     if user_email == email:
         return await complete_deletion(
@@ -102,11 +104,11 @@ async def get_batch_job(*, action_name: str, entity: str) -> BatchProcessing:
 
 
 async def get_graphql_result(
-    data: Dict[str, Any],
+    data: dict[str, Any],
     stakeholder: str,
     session_jwt: Optional[str] = None,
     context: Optional[Dataloaders] = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Get graphql result."""
     request = await create_dummy_session(stakeholder, session_jwt)
     request = apply_context_attrs(

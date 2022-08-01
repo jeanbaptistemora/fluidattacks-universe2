@@ -4,14 +4,14 @@ from .stakeholder_level_role import (
 from collections import (
     defaultdict,
 )
-from dataloaders.group_access_typed import (
-    GroupAccessTypedLoader,
+from dataloaders.group_access import (
+    GroupAccessLoader,
 )
 from dataloaders.group_stakeholders_access import (
     GroupStakeholdersAccessLoader,
 )
 from dataloaders.stakeholder_groups_access import (
-    StakeholderGroupsAcessLoader,
+    StakeholderGroupsAccessLoader,
 )
 from db_model.credentials.get import (
     CredentialsLoader,
@@ -129,7 +129,7 @@ class Dataloaders(NamedTuple):
     )
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
-    group_access: GroupAccessTypedLoader
+    group_access: GroupAccessLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_events: GroupEventsLoader
@@ -140,7 +140,7 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     group_stakeholders_access: GroupStakeholdersAccessLoader
-    stakeholder_groups_access: StakeholderGroupsAcessLoader
+    stakeholder_groups_access: StakeholderGroupsAccessLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_access: OrganizationAccessLoader
     organization_credentials: OrganizationCredentialsLoader
@@ -238,7 +238,7 @@ def get_new_context() -> Dataloaders:
         ),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
-        group_access=GroupAccessTypedLoader(),
+        group_access=GroupAccessLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=GroupEventsLoader(),
@@ -249,7 +249,7 @@ def get_new_context() -> Dataloaders:
         group_toe_lines=GroupToeLinesLoader(),
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
         group_stakeholders_access=GroupStakeholdersAccessLoader(),
-        stakeholder_groups_access=StakeholderGroupsAcessLoader(),
+        stakeholder_groups_access=StakeholderGroupsAccessLoader(),
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
         organization_access=OrganizationAccessLoader(),
