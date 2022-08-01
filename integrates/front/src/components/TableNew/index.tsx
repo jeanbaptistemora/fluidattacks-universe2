@@ -22,7 +22,11 @@ import { PagMenu } from "./paginationMenu";
 import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
-import { InputText } from "styles/styledComponents";
+import {
+  ButtonToolbarRow,
+  InputText,
+  TableOptionsColBar,
+} from "styles/styledComponents";
 
 export const Tables = <TData extends object>(
   props: Readonly<ITableProps<TData>>
@@ -34,7 +38,7 @@ export const Tables = <TData extends object>(
     columnToggle = false,
     exportCsv = false,
     csvName = "Report",
-    rowFunction = undefined,
+    onRowClick = undefined,
     showPagination = data.length >= 8,
   } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -77,13 +81,15 @@ export const Tables = <TData extends object>(
 
   return (
     <div className={"w-100"} id={id}>
-      <div className={"w-25"}>
-        <InputText
-          onChange={globalFilterHandler}
-          placeholder={"Search..."}
-          value={globalFilter}
-        />
-      </div>
+      <TableOptionsColBar>
+        <ButtonToolbarRow>
+          <InputText
+            onChange={globalFilterHandler}
+            placeholder={"Search..."}
+            value={globalFilter}
+          />
+        </ButtonToolbarRow>
+      </TableOptionsColBar>
       {exportCsv && (
         <CSVLink data={data} filename={csvName}>
           {"Reporte"}
@@ -91,7 +97,7 @@ export const Tables = <TData extends object>(
       )}
       {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
       <TableContainer
-        isRowFunctional={rowFunction !== undefined}
+        isRowFunctional={onRowClick !== undefined}
         rowSize={"bold"}
       >
         <table>
@@ -134,7 +140,7 @@ export const Tables = <TData extends object>(
           <tbody>
             {table.getRowModel().rows.map(
               (row): ReactElement => (
-                <tr key={row.id} onClick={rowFunction?.(row)}>
+                <tr key={row.id} onClick={onRowClick?.(row)}>
                   {row.getVisibleCells().map(
                     (cell): ReactElement => (
                       <td key={cell.id}>

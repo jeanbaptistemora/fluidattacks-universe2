@@ -1,4 +1,5 @@
 import type { ColumnDef, Row, Table } from "@tanstack/react-table";
+import type { FormEvent } from "react";
 
 interface IPagMenuProps<TData> {
   table: Table<TData>;
@@ -11,8 +12,8 @@ interface ITableProps<TData> {
   columnToggle?: boolean;
   exportCsv?: boolean;
   csvName?: string;
-  rowFunction?: (row: Row<TData>) => (event: unknown) => void;
   showPagination?: boolean;
+  onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
 }
 
 interface IToggleProps<TData> {

@@ -1,10 +1,10 @@
+import type { ColumnDef, Row as tanRow } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useState } from "react";
+import type { FormEvent } from "react";
+import React from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { Table } from "components/Table/index";
-import type { IHeaderConfig } from "components/Table/types";
-import { filterSearchText } from "components/Table/utils";
+import { Tables } from "components/TableNew";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,
@@ -20,14 +20,6 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   const { url } = useRouteMatch();
   const { push } = useHistory();
 
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-
-  // Auxiliary Opertaions
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
   const formatPortfolioDescription: (groups: { name: string }[]) => string = (
     groups: { name: string }[]
   ): string => {
@@ -66,42 +58,29 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
     push(`${url}/${portfolioName.toLowerCase()}/`);
   };
 
-  const handleRowClick: (
-    event: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { portfolio: string }
-  ) => void = (
-    _0: React.FormEvent<HTMLButtonElement>,
-    rowInfo: { portfolio: string }
-  ): void => {
-    goToPortfolio(rowInfo.portfolio);
-  };
+  function handleRowClick(
+    rowInfo: tanRow<IPortfoliosTable>
+  ): (event: FormEvent) => void {
+    return (event: FormEvent): void => {
+      goToPortfolio(rowInfo.getValue("portfolio"));
+      event.preventDefault();
+    };
+  }
 
-  // Render Elements
-  const tableHeaders: IHeaderConfig[] = [
+  const tableHeaders: ColumnDef<IPortfoliosTable>[] = [
     {
-      dataField: "portfolio",
+      accessorKey: "portfolio",
       header: translate.t("organization.tabs.portfolios.table.portfolio"),
-      width: "20%",
-      wrapped: true,
     },
     {
-      dataField: "nGroups",
+      accessorKey: "nGroups",
       header: translate.t("organization.tabs.portfolios.table.nGroups"),
-      width: "10%",
-      wrapped: true,
     },
     {
-      dataField: "groups",
+      accessorKey: "groups",
       header: translate.t("organization.tabs.portfolios.table.groups"),
-      width: "70%",
-      wrapped: true,
     },
   ];
-
-  const filterSearchTextDataset: IPortfoliosTable[] = filterSearchText(
-    formatPortfolioTableData(portfolios),
-    searchTextFilter
-  );
 
   return (
     <React.StrictMode>
@@ -112,20 +91,11 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
           <div>
             <div>
               <Row>
-                <Table
-                  customSearch={{
-                    customSearchDefault: searchTextFilter,
-                    isCustomSearchEnabled: true,
-                    onUpdateCustomSearch: onSearchTextChange,
-                    position: "right",
-                  }}
-                  dataset={filterSearchTextDataset}
-                  exportCsv={false}
-                  headers={tableHeaders}
+                <Tables
+                  columns={tableHeaders}
+                  data={formatPortfolioTableData(portfolios)}
                   id={"tblGroups"}
-                  pageSize={10}
-                  rowEvents={{ onClick: handleRowClick }}
-                  search={false}
+                  onRowClick={handleRowClick}
                 />
               </Row>
             </div>
