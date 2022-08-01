@@ -290,6 +290,18 @@ const handleCreationError = (
           type: "error",
         });
         break;
+      case "Exception - Git repository was not accessible with given credentials":
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.invalidGitCredentials"),
+          type: "error",
+        });
+        break;
+      case "Exception - Branch not found":
+        setModalMessages({
+          message: translate.t("group.scope.git.errors.invalidBranch"),
+          type: "error",
+        });
+        break;
       default:
         setModalMessages({
           message: translate.t("groupAlerts.errorTextsad"),

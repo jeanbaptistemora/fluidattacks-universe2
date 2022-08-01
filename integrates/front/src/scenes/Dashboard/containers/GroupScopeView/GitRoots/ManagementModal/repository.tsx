@@ -470,7 +470,9 @@ const Repository: FC<IRepositoryProps> = ({
                 </Alert>
               ) : undefined}
               <ModalConfirm
-                disabled={!isGitAccessible || !dirty || isSubmitting}
+                disabled={
+                  (!isGitAccessible && !values.useVpn) || !dirty || isSubmitting
+                }
                 id={"git-root-add-confirm"}
                 onCancel={onClose}
               />
