@@ -6,4 +6,4 @@ from charts.generators.text_box.utils_vulnerabilities_remediation import (
 )
 
 if __name__ == "__main__":
-    run(generate_all("solved"))
+    run(generate_all("solved", "Sprint exposure decrement"))

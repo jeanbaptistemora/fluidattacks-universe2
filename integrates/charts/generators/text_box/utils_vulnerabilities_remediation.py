@@ -8,12 +8,19 @@ from charts.colors import (
     RISK,
 )
 from charts.utils import (
+    CsvData,
     get_cvssf,
     get_portfolios_groups,
     iterate_groups,
     iterate_organizations_and_groups,
     json_dump,
     retry_on_exceptions,
+)
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    UnsanitizedInputFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -50,6 +57,9 @@ from findings.domain.core import (
 )
 from more_itertools import (
     chunked,
+)
+from newutils.validations import (
+    validate_sanitized_csv_input,
 )
 from pandas import (
     date_range,
@@ -350,6 +360,15 @@ def format_data(count: Decimal, state: str) -> dict:
     )
 
 
+def format_csv_data(*, header: str, value: str) -> CsvData:
+    headers_row: list[str] = [""]
+    with suppress(UnsanitizedInputFound):
+        validate_sanitized_csv_input(header)
+        headers_row = [header]
+
+    return CsvData(headers=headers_row, rows=[[value]])
+
+
 def format_count(count: FormatSprint) -> dict[str, Decimal]:
     return {
         "created": count.created.quantize(Decimal("0.01")),
@@ -363,49 +382,61 @@ def format_count(count: FormatSprint) -> dict[str, Decimal]:
     exceptions=(UnavailabilityError,),
     retry_times=5,
 )
-async def generate_all(state: str) -> None:
+async def generate_all(state: str, title: str) -> None:
     loaders: Dataloaders = get_new_context()
     async for group_name in iterate_groups():
+        document = format_data(
+            count=format_count(
+                count=await generate_one(
+                    loaders=loaders, group_name=group_name
+                ),
+            )[state],
+            state=state,
+        )
         json_dump(
-            document=format_data(
-                count=format_count(
-                    count=await generate_one(
-                        loaders=loaders, group_name=group_name
-                    ),
-                )[state],
-                state=state,
-            ),
+            document=document,
             entity="group",
             subject=group_name,
+            csv_document=format_csv_data(
+                header=title, value=f"{str(document['text'])}%"
+            ),
         )
 
     async for org_id, _, org_group_names in (
         iterate_organizations_and_groups()
     ):
+        document = format_data(
+            count=format_count(
+                count=await get_many_groups(
+                    loaders=loaders, group_names=org_group_names
+                ),
+            )[state],
+            state=state,
+        )
         json_dump(
-            document=format_data(
-                count=format_count(
-                    count=await get_many_groups(
-                        loaders=loaders, group_names=org_group_names
-                    ),
-                )[state],
-                state=state,
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(
+                header=title, value=f"{str(document['text'])}%"
+            ),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, group_names in await get_portfolios_groups(org_name):
+            document = format_data(
+                count=format_count(
+                    count=await get_many_groups(
+                        loaders=loaders, group_names=tuple(group_names)
+                    ),
+                )[state],
+                state=state,
+            )
             json_dump(
-                document=format_data(
-                    count=format_count(
-                        count=await get_many_groups(
-                            loaders=loaders, group_names=tuple(group_names)
-                        ),
-                    )[state],
-                    state=state,
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    header=title, value=f"{str(document['text'])}%"
+                ),
             )
