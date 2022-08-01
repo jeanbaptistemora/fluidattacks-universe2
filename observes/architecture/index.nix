@@ -31,6 +31,11 @@ let
     };
   };
   override_attrs = old: override: old // override old;
+  no_arch_job = base:
+    base
+    // {
+      check = builtins.removeAttrs base.check ["arch"];
+    };
 in {
   service = {
     batch_stability = new_std "${servicePath}/batch-stability";
@@ -43,13 +48,7 @@ in {
     scheduler = new_std "${servicePath}/jobs-scheduler";
   };
   etl = {
-    dynamo = let
-      base = new_std "${etlsPath}/dynamo_etl_conf";
-    in
-      base
-      // {
-        check = builtins.removeAttrs base.check ["arch"];
-      };
+    dynamo = no_arch_job (new_std "${etlsPath}/dynamo_etl_conf");
     code =
       (new_std "${etlsPath}/code")
       // {
@@ -94,7 +93,7 @@ in {
     zoho_crm = std_data "${singerPath}/tap-zoho-crm";
   };
   target = {
-    s3 = new_std "${singerPath}/target-s3";
+    s3 = no_arch_job (new_std "${singerPath}/target-s3");
     redshift = new_std "${singerPath}/target-redshift";
     redshift_2 =
       new_std "${singerPath}/target-redshift-2"
