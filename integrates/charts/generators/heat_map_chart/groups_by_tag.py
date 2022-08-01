@@ -5,8 +5,14 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
+from charts.generators.heat_map_chart import (
+    format_csv_data,
+)
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_organizations_and_groups,
+    json_dump,
+    TICK_ROTATION,
 )
 from dataloaders import (
     get_new_context,
@@ -19,10 +25,7 @@ from itertools import (
 )
 from typing import (
     Counter,
-    List,
     NamedTuple,
-    Set,
-    Tuple,
 )
 
 GroupsTags = NamedTuple(
@@ -30,8 +33,8 @@ GroupsTags = NamedTuple(
     [
         ("counter", Counter[str]),
         ("counter_group", Counter[str]),
-        ("groups", List[str]),
-        ("tags", Set[str]),
+        ("groups", list[str]),
+        ("tags", set[str]),
     ],
 )
 
@@ -40,7 +43,7 @@ GroupsTags = NamedTuple(
 async def get_data_one_group(group: str) -> GroupsTags:
     context = get_new_context()
     group_findings_loader = context.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
@@ -51,7 +54,7 @@ async def get_data_one_group(group: str) -> GroupsTags:
         )
     )
 
-    tags: List[str] = list(
+    tags: list[str] = list(
         filter(
             None,
             chain.from_iterable(map(lambda x: x.tags or [], vulnerabilities)),
@@ -66,7 +69,7 @@ async def get_data_one_group(group: str) -> GroupsTags:
     )
 
 
-async def get_data_many_groups(groups: List[str]) -> GroupsTags:
+async def get_data_many_groups(groups: list[str]) -> GroupsTags:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
     all_tags = [group_data.tags for group_data in groups_data]
 
@@ -87,9 +90,9 @@ async def get_data_many_groups(groups: List[str]) -> GroupsTags:
 
 
 def format_data(data: GroupsTags) -> dict:
-    max_value: List[Tuple[str, int]] = data.counter_group.most_common(1)
-    tags: Set[str] = {tag for tag, _ in data.counter.most_common()[:10]}
-    groups: Set[str] = {
+    max_value: list[tuple[str, int]] = data.counter_group.most_common(1)
+    tags: set[str] = {tag for tag, _ in data.counter.most_common()[:10]}
+    groups: set[str] = {
         group
         for group in data.groups
         for tag in tags
@@ -109,28 +112,42 @@ def format_data(data: GroupsTags) -> dict:
         ],
         y=tags,
         max_value=max_value[0][1] if max_value else 1,
-        tick_rotate=utils.TICK_ROTATION,
+        tick_rotate=TICK_ROTATION,
     )
 
 
 async def generate_all() -> None:
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(list(org_groups)),
-            ),
+    data: GroupsTags
+    header: str = "Group name"
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
+        data = await get_data_many_groups(list(org_groups))
+        document = format_data(data=data)
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(
+                categories=document["x"],
+                values=document["y"],
+                counters=data.counter_group,
+                header=header,
+            ),
         )
 
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(data=await get_data_many_groups(groups)),
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, groups in await get_portfolios_groups(org_name):
+            data = await get_data_many_groups(groups)
+            document = format_data(data=data)
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    categories=document["x"],
+                    values=document["y"],
+                    counters=data.counter_group,
+                    header=header,
+                ),
             )
 
 
