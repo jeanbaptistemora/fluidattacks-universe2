@@ -86,6 +86,10 @@ resource "null_resource" "dynamodb_replication_dependencies" {
         --target ${var.lambda_path}/dynamodb_replication
     EOT
   }
+
+  triggers = {
+    dependencies = filemd5("${var.lambda_path}/dynamodb_replication/requirements.txt")
+  }
 }
 
 data "archive_file" "dynamodb_replication_zip" {

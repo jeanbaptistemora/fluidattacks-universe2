@@ -229,7 +229,9 @@ locals {
             Sid    = "lambdaGlobalWrite"
             Effect = "Allow"
             Action = [
-              "lambda:CreateEventSourceMapping"
+              "lambda:CreateEventSourceMapping",
+              "lambda:DeleteEventSourceMapping",
+              "lambda:UpdateEventSourceMapping"
             ]
             Resource = ["*"]
           },
