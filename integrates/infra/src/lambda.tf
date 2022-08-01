@@ -117,6 +117,7 @@ resource "aws_lambda_function" "dynamodb_replication" {
 }
 
 resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
+  batch_size        = 10
   event_source_arn  = aws_dynamodb_table.integrates_vms.stream_arn
   function_name     = aws_lambda_function.dynamodb_replication.arn
   starting_position = "LATEST"
