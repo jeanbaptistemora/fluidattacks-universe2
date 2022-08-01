@@ -127,12 +127,6 @@ const handleValidationError = (
           type: "error",
         });
         break;
-      case "Exception - The URL is not reachable":
-        setMessages({
-          message: t("group.scope.git.errors.ulrIsNotReachable"),
-          type: "error",
-        });
-        break;
       default:
         setMessages({
           message: t("groupAlerts.errorTextsad"),

@@ -876,10 +876,9 @@ export const enTranslations: ResourceKey = {
           invalid: "Repository URL or branch are not valid",
           invalidBranch: "The branch was not found in the repository",
           invalidGitCredentials:
-            "Git repository was not accessible with given credentials",
+            "Git repository was not accessible with the given URL and credentials",
           rootInGitignore:
             "Root name should not be included in gitignore pattern",
-          ulrIsNotReachable: "The URL was not found",
         },
         filter: {
           exclude: "Exclusions",

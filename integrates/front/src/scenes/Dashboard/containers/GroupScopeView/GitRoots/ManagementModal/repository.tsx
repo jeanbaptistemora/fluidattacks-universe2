@@ -153,12 +153,6 @@ const Repository: FC<IRepositoryProps> = ({
               type: "error",
             });
             break;
-          case "Exception - The URL is not reachable":
-            setValidateGitMsg({
-              message: t("group.scope.git.errors.ulrIsNotReachable"),
-              type: "error",
-            });
-            break;
           default:
             setValidateGitMsg({
               message: t("groupAlerts.errorTextsad"),
@@ -211,14 +205,16 @@ const Repository: FC<IRepositoryProps> = ({
   }
 
   const submittableCredentials = (values: IFormValues): boolean => {
-    return values.credentials.type === "SSH"
+    return values.useVpn
+      ? true
+      : values.credentials.type === "SSH"
       ? !values.credentials.name ||
-          !values.credentials.key ||
-          hasSshFormat(values.credentials.key) !== undefined
+        !values.credentials.key ||
+        hasSshFormat(values.credentials.key) !== undefined
       : !values.credentials.name ||
-          (isHttpsCredentialsTypeUser
-            ? !values.credentials.user || !values.credentials.password
-            : !values.credentials.token);
+        (isHttpsCredentialsTypeUser
+          ? !values.credentials.user || !values.credentials.password
+          : !values.credentials.token);
   };
 
   function onChangeExits(event: ChangeEvent<HTMLInputElement>): void {
