@@ -88,23 +88,26 @@ resource "null_resource" "dynamodb_replication_dependencies" {
   }
 
   triggers = {
-    dependencies = filemd5("${var.lambda_path}/dynamodb_replication/requirements.txt")
+    always_run = "${timestamp()}"
   }
 }
 
 data "archive_file" "dynamodb_replication_zip" {
-  output_path = "${var.lambda_path}/dynamodb_replication.zip"
-  source_dir  = "${var.lambda_path}/dynamodb_replication"
-  type        = "zip"
+  depends_on       = [null_resource.dynamodb_replication_dependencies]
+  output_file_mode = "0666"
+  output_path      = "${var.lambda_path}/dynamodb_replication.zip"
+  source_dir       = "${var.lambda_path}/dynamodb_replication"
+  type             = "zip"
 }
 
 resource "aws_lambda_function" "dynamodb_replication" {
+  depends_on       = [data.archive_file.dynamodb_replication_zip]
   filename         = data.archive_file.dynamodb_replication_zip.output_path
   function_name    = "integrates-dynamodb-replication-lambda"
   handler          = "handler.handle"
   role             = aws_iam_role.integrates_dynamodb_replication_lambda_role.arn
   runtime          = "python3.9"
-  source_code_hash = filebase64sha256(data.archive_file.dynamodb_replication_zip.output_path)
+  source_code_hash = data.archive_file.dynamodb_replication_zip.output_base64sha256
 
   environment {
     variables = {
@@ -131,8 +134,8 @@ resource "aws_lambda_event_source_mapping" "dynamodb_replication" {
       pattern = jsonencode({
         dynamodb = {
           "Keys" : {
-            "pk" : [{ "prefix" : "VULN#" }],
-            "sk" : [{ "prefix" : "FIN#" }]
+            "pk" : { "S" : [{ "prefix" : "VULN#" }] },
+            "sk" : { "S" : [{ "prefix" : "FIN#" }] },
           }
         }
       })
