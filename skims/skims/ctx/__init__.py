@@ -43,6 +43,17 @@ TOOLS_SEMVER_MATCH = _get_artifact("SKIMS_TOOLS_SEMVER_MATCH")
 TREE_SITTER_PARSERS = _get_artifact("SKIMS_TREE_SITTER_PARSERS")
 VENDOR = _get_artifact("SKIMS_VENDOR")
 
+FI_AWS_ACCESS_KEY_ID = _get_artifact("AWS_ACCESS_KEY_ID")
+FI_AWS_SECRET_ACCESS_KEY = _get_artifact("AWS_SECRET_ACCESS_KEY")
+FI_AWS_SESSION_TOKEN = environ.get("AWS_SESSION_TOKEN")
+FI_DB_MODEL_PATH = _get_artifact("SKIMS_DB_MODEL_PATH")
+FI_DYNAMODB_HOST = _get_artifact("DYNAMODB_HOST")
+FI_DYNAMODB_PORT = _get_artifact("DYNAMODB_PORT")
+FI_ENVIRONMENT = _get_artifact("ENVIRONMENT")
+# not secrets but must be environment vars
+FI_AWS_REGION_NAME = "us-east-1"
+
+
 makedirs(STATE_FOLDER, mode=0o700, exist_ok=True)
 makedirs(STATE_FOLDER_DEBUG, mode=0o700, exist_ok=True)
 makedirs(NAMESPACES_FOLDER, mode=0o700, exist_ok=True)

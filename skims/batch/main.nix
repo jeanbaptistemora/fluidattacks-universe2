@@ -6,6 +6,9 @@
   ...
 }:
 makeScript {
+  replace = {
+    __argSecretsProd__ = projectPath "/skims/secrets/dev.yaml";
+  };
   name = "skims-batch";
   searchPaths = {
     pythonPackage = [
@@ -18,6 +21,7 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/env"
+      outputs."/common/utils/sops"
       outputs."/skims/config/runtime"
     ];
   };

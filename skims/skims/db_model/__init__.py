@@ -1,4 +1,4 @@
-from context import (
+from ctx import (
     FI_DB_MODEL_PATH,
 )
 from dynamodb.tables import (

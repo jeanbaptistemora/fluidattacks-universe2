@@ -5,7 +5,10 @@ from aioboto3.dynamodb.table import (
 from aiobotocore.config import (
     AioConfig,
 )
-from context import (
+from contextlib import (
+    AsyncExitStack,
+)
+from ctx import (
     FI_AWS_ACCESS_KEY_ID,
     FI_AWS_REGION_NAME,
     FI_AWS_SECRET_ACCESS_KEY,
@@ -13,9 +16,6 @@ from context import (
     FI_DYNAMODB_HOST,
     FI_DYNAMODB_PORT,
     FI_ENVIRONMENT,
-)
-from contextlib import (
-    AsyncExitStack,
 )
 from dynamodb.types import (
     Table,
