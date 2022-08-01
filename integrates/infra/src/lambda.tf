@@ -1,7 +1,7 @@
 variable "aws_opensearch_host" {}
 variable "lambda_path" {}
 
-data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
+data "aws_iam_policy_document" "integrates_lambda_policy" {
   statement {
     actions = [
       "sts:AssumeRole"
@@ -14,7 +14,9 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
       identifiers = ["lambda.amazonaws.com"]
     }
   }
+}
 
+data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
   statement {
     actions = [
       "dynamodb:ListStreams",
@@ -38,10 +40,16 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
   }
 }
 
-resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
-  name = "integrates_dynamodb_replication_lambda_role"
+resource "aws_iam_policy" "integrates_dynamodb_replication_lambda_policy" {
+  description = "Policy for dynamodb replication"
+  name        = "integrates_dynamodb_replication_lambda_policy"
+  path        = "/"
+  policy      = data.aws_iam_policy_document.integrates_dynamodb_replication_lambda_policy.json
+}
 
-  assume_role_policy = data.aws_iam_policy_document.integrates_dynamodb_replication_lambda_policy.json
+resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
+  assume_role_policy = data.aws_iam_policy_document.integrates_lambda_policy.json
+  name               = "integrates_dynamodb_replication_lambda_role"
 
   tags = {
     "Name"               = "integrates-lambda"
@@ -49,6 +57,11 @@ resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
     "management:product" = "integrates"
     "management:type"    = "product"
   }
+}
+
+resource "aws_iam_role_policy_attachment" "integrates_dynamodb_replication_lambda_role" {
+  role       = aws_iam_role.integrates_dynamodb_replication_lambda_role.name
+  policy_arn = aws_iam_policy.integrates_dynamodb_replication_lambda_policy.arn
 }
 
 resource "null_resource" "dynamodb_replication_dependencies" {
