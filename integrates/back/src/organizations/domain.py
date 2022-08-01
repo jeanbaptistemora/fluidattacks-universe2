@@ -296,12 +296,12 @@ async def get_access_by_url_token(
         token_content = token_utils.decode_jwt(url_token)
         organization_id: str = token_content["organization_id"]
         user_email: str = token_content["user_email"]
-    except JWTError:
-        InvalidAuthorization()
-    access: OrganizationAccess = await loaders.organization_access.load(
+    except (JWTError, KeyError) as ex:
+        raise InvalidAuthorization() from ex
+
+    return await loaders.organization_access.load(
         (organization_id, user_email)
     )
-    return access
 
 
 async def get_all_active_groups(
@@ -403,20 +403,19 @@ async def get_stakeholder_role(
     is_registered: bool,
     organization_id: str,
 ) -> str:
-    user_access: OrganizationAccess = await loaders.organization_access.load(
+    org_access: OrganizationAccess = await loaders.organization_access.load(
         (organization_id, email)
     )
-    if user_access.invitation:
-        invitation: OrganizationInvitation = user_access.invitation
-        invitation_state = format_invitation_state(invitation, is_registered)
-        if invitation_state == OrganizationInvitiationState.PENDING:
-            stakeholder_role = invitation.role
-    else:
-        stakeholder_role = await authz.get_organization_level_role(
-            email, organization_id
-        )
+    invitation_state = format_invitation_state(
+        org_access.invitation, is_registered
+    )
 
-    return stakeholder_role
+    return (
+        org_access.invitation.role
+        if org_access.invitation
+        and invitation_state == OrganizationInvitiationState.PENDING
+        else await authz.get_organization_level_role(email, organization_id)
+    )
 
 
 async def get_stakeholders_emails(

@@ -79,8 +79,9 @@ async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:
         token_content = token_utils.decode_jwt(url_token)
         group_name: str = token_content["group_name"]
         user_email: str = token_content["user_email"]
-    except JWTError:
-        InvalidAuthorization()
+    except (JWTError, KeyError) as ex:
+        raise InvalidAuthorization() from ex
+
     return await loaders.group_access.load((group_name, user_email))
 
 
@@ -279,7 +280,7 @@ async def update(
 
 def validate_new_invitation_time_limit(inv_expiration_time: int) -> bool:
     """Validates that new invitations to the same user in the same group/org
-    are spaced out by at least one minute to avoid email flooding"""
+    are spaced out by at least one minute to avoid email flooding."""
     expiration_date: datetime = get_from_epoch(inv_expiration_time)
     creation_date: datetime = get_minus_delta(date=expiration_date, weeks=1)
     current_date: datetime = get_now()
@@ -302,6 +303,7 @@ async def get_stakeholder_role(
         invitation=group_access.invitation,
         is_registered=is_registered,
     )
+
     return (
         group_access.invitation.role
         if group_access.invitation

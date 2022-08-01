@@ -137,8 +137,6 @@ from telemetry.instrumentation import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -389,8 +387,8 @@ API_EXTENSIONS = (OpenTelemetryExtension,)
 
 
 def get_validation_rules(
-    context_value: Any, _document: DocumentNode, _data: Dict[str, Any]
-) -> Tuple[ValidationRule, ...]:
+    context_value: Any, _document: DocumentNode, _data: dict[str, Any]
+) -> tuple[ValidationRule, ...]:
     return (
         QueryBreadthValidation,
         QueryDepthValidation,
