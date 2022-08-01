@@ -1,3 +1,4 @@
+import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
   getCoreRowModel,
@@ -6,8 +7,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { SortingState } from "@tanstack/react-table";
-import type { ReactElement } from "react";
+import type {
+  FilterFn,
+  FilterMeta,
+  Row,
+  SortingState,
+} from "@tanstack/react-table";
+import type { ChangeEvent, ReactElement } from "react";
 import React, { useState } from "react";
 import { CSVLink } from "react-csv";
 
@@ -15,6 +21,8 @@ import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
 import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
+
+import { InputText } from "styles/styledComponents";
 
 export const Tables = <TData extends object>(
   props: Readonly<ITableProps<TData>>
@@ -33,6 +41,22 @@ export const Tables = <TData extends object>(
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
+    setGlobalFilter(event.target.value);
+  }
+
+  const filterFun: FilterFn<TData> = (
+    row: Row<TData>,
+    columnId: string,
+    value: string,
+    addMeta: (meta: FilterMeta) => void
+  ): boolean => {
+    const itemRank = rankItem(row.getValue(columnId), value);
+    addMeta({ itemRank });
+
+    return itemRank.passed;
+  };
+
   const table = useReactTable<TData>({
     columns,
     data,
@@ -40,6 +64,7 @@ export const Tables = <TData extends object>(
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    globalFilterFn: filterFun,
     onColumnVisibilityChange: setColumnVisibility,
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
@@ -52,6 +77,13 @@ export const Tables = <TData extends object>(
 
   return (
     <div className={"w-100"} id={id}>
+      <div className={"w-25"}>
+        <InputText
+          onChange={globalFilterHandler}
+          placeholder={"Search..."}
+          value={globalFilter}
+        />
+      </div>
       {exportCsv && (
         <CSVLink data={data} filename={csvName}>
           {"Reporte"}
