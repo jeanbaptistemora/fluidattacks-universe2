@@ -27,6 +27,8 @@ def has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
         """
         soup = BeautifulSoup(content, features="html.parser")
         vulnerable: bool = True
+        line_no: int = 0
+        col_no: int = 0
 
         for custom_headers in soup("security"):
             for tag in custom_headers.contents:
@@ -36,13 +38,10 @@ def has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
                     if tag_name == "access" and tag_value != "None":
                         vulnerable = False
                     elif tag_name == "access" and tag_value == "None":
-                        line_no: int = tag.sourceline
-                        col_no: int = tag.sourcepos
-                        yield line_no, col_no
+                        line_no = tag.sourceline
+                        col_no = tag.sourcepos
 
         if vulnerable and soup("security"):
-            line_no = 0
-            col_no = 0
             yield line_no, col_no
 
     return get_vulnerabilities_from_iterator_blocking(

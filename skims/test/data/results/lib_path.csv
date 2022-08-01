@@ -23757,6 +23757,18 @@ F160,lines,namespace/skims/test/data/lib_path/f160/Test.java,6,378,skims,160. Ex
   16 |  */
      ^ Col 0
 ",java.java_file_create_temp_file
+F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skims,060. Insecure service configuration - Host verification,"SSL is disabled in ApplicationHost.config, check the sslFlags attribute. in namespace/skims/test/data/lib_path/f060/apphostVuln.config","
+  1 | <?xml version=""1.0"" encoding=""UTF-8""?>
+  2 | <configuration>
+  3 |     <system.webServer>
+  4 |         <security>
+> 5 |             <access sslFlags=""None"" />
+  6 |             <!-- <access sslFlags=""Ssl"" /> -->
+  7 |         </security>
+  8 |     </system.webServer>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_has_ssl_disabled
 F211,lines,namespace/skims/test/data/lib_root/f211/regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
  in namespace/skims/test/data/lib_root/f211/regex_injection.cs","
    1 | using System;
