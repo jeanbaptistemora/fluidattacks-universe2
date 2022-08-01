@@ -20,6 +20,7 @@ CLIENT = OpenSearch(
     use_ssl=True,
     verify_certs=True,
 )
+INDEX = "vulnerabilities"
 
 
 def handle(event: dict[str, Any], _context: Any) -> None:
@@ -29,7 +30,7 @@ def handle(event: dict[str, Any], _context: Any) -> None:
         item_id = "#".join([pk, sk])
 
         if record["eventName"] == "REMOVE":
-            CLIENT.delete(id=item_id, index="vulnerabilities")
+            CLIENT.delete(id=item_id, index=INDEX)
         else:
             item = record["dynamodb"]["NewImage"]
-            CLIENT.index(body=item, id=item_id, index="vulnerabilities")
+            CLIENT.index(body=item, id=item_id, index=INDEX)

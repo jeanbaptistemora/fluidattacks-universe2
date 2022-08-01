@@ -38,6 +38,19 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
     ]
     sid = "lambdaDynamodbStreamAccess"
   }
+
+  statement {
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    effect = "Allow"
+    resources = [
+      "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:*"
+    ]
+    sid = "lambdaCloudwatchAccess"
+  }
 }
 
 resource "aws_iam_policy" "integrates_dynamodb_replication_lambda_policy" {
