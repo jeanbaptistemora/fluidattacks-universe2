@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
     ]
     effect    = "Allow"
     resources = ["*"]
-    sid       = "lambdaDynamodbGlobalAccess"
+    sid       = "lambdaDynamoDBGlobalAccess"
   }
 
   statement {
@@ -62,7 +62,7 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
     resources = [
       "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/*/stream/*"
     ]
-    sid = "lambdaDynamodbStreamAccess"
+    sid = "lambdaDynamoDBStreamAccess"
   }
 
   statement {
@@ -75,7 +75,20 @@ data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
     resources = [
       "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:*"
     ]
-    sid = "lambdaCloudwatchAccess"
+    sid = "lambdaCloudWatchAccess"
+  }
+
+  statement {
+    actions = [
+      "ec2:AssignPrivateIpAddresses",
+      "ec2:CreateNetworkInterface",
+      "ec2:DeleteNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:UnassignPrivateIpAddresses"
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+    sid       = "lambdaEC2GlobalAccess"
   }
 }
 
