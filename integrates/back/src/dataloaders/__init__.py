@@ -7,6 +7,9 @@ from collections import (
 from dataloaders.group_access import (
     GroupAccessLoader,
 )
+from dataloaders.group_comments.group_comments import (
+    GroupCommentsLoader,
+)
 from dataloaders.group_stakeholders_access import (
     GroupStakeholdersAccessLoader,
 )
@@ -130,6 +133,7 @@ class Dataloaders(NamedTuple):
     git_environment_urls: GitEnvironmentUrlsLoader
     group: GroupLoader
     group_access: GroupAccessLoader
+    group_comments: GroupCommentsLoader
     group_drafts: GroupDraftsLoader
     group_drafts_and_findings: GroupDraftsAndFindingsLoader
     group_events: GroupEventsLoader
@@ -239,6 +243,7 @@ def get_new_context() -> Dataloaders:
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
         group_access=GroupAccessLoader(),
+        group_comments=GroupCommentsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
         group_events=GroupEventsLoader(),
