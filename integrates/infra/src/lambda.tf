@@ -1,23 +1,47 @@
 variable "aws_opensearch_host" {}
 variable "lambda_path" {}
 
-data "aws_iam_policy_document" "lambda" {
+data "aws_iam_policy_document" "integrates_dynamodb_replication_lambda_policy" {
   statement {
-    effect = "Allow"
     actions = [
       "sts:AssumeRole"
     ]
+    effect = "Allow"
+    sid    = "lambdaAccess"
+
     principals {
       type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
+  }
+
+  statement {
+    actions = [
+      "dynamodb:ListStreams",
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+    sid       = "lambdaDynamodbGlobalAccess"
+  }
+
+  statement {
+    actions = [
+      "dynamodb:DescribeStream",
+      "dynamodb:GetRecords",
+      "dynamodb:GetShardIterator",
+    ]
+    effect = "Allow"
+    resources = [
+      "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/*/stream/*"
+    ]
+    sid = "lambdaDynamodbStreamAccess"
   }
 }
 
 resource "aws_iam_role" "integrates_dynamodb_replication_lambda_role" {
   name = "integrates_dynamodb_replication_lambda_role"
 
-  assume_role_policy = data.aws_iam_policy_document.lambda.json
+  assume_role_policy = data.aws_iam_policy_document.integrates_dynamodb_replication_lambda_policy.json
 
   tags = {
     "Name"               = "integrates-lambda"
