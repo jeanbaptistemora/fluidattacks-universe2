@@ -2,7 +2,7 @@ variable "aws_opensearch_host" {}
 variable "lambda_path" {}
 
 resource "aws_security_group" "integrates-lambda" {
-  name   = "integrates-opensearch"
+  name   = "integrates-lambda"
   vpc_id = data.aws_vpc.main.id
 
   ingress {
