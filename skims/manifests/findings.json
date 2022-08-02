@@ -519,6 +519,14 @@
       "title": "177. Insecure service configuration - Security Groups"
     }
   },
+  "F183": {
+    "EN": {
+      "title": "183. Debugging enabled in production"
+    },
+    "ES": {
+      "title": "183. Debugging enabled in production"
+    }
+  },
   "F200": {
     "EN": {
       "title": "200. Traceability loss"

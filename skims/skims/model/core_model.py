@@ -630,6 +630,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[266],
     )
+    F183: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F183",
+        cwe=489,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[77, 78],
+    )
     F200: FindingMetadata = FindingMetadata.new(
         auto_approve=False,
         code="F200",
@@ -2094,6 +2101,14 @@ class MethodsEnum(Enum):
         name="dotnetconfig_has_ssl_disabled",
         module="lib_path",
         finding=FindingEnum.F060,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    DOTNETCONFIG_HAS_DEBUG_ENABLED = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_has_debug_enabled",
+        module="lib_path",
+        finding=FindingEnum.F183,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
