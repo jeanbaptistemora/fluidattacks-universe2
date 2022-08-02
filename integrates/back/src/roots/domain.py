@@ -1638,11 +1638,11 @@ async def add_git_environment_url(  # pylint: disable=too-many-arguments
         root_id, url=environment
     )
     if not result_environment:
-        return result_environment
+        return False
 
     if cloud_type and cloud_type == GitEnvironmentCloud.AWS:
         await _add_secrets_aws(environment.id)
-    return result_environment
+    return True
 
 
 async def remove_environment_url(root_id: str, url: str) -> None:
