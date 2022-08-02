@@ -10356,6 +10356,26 @@ F066,lines,namespace/skims/test/data/lib_path/f066/ConsoleLogOpen.js,66,200,skim
    76 |         //console.log(a+b)
       ^ Col 0
 ",javascript.js_uses_console_log
+F239,lines,namespace/skims/test/data/lib_path/f183/webVuln.config,7,200,skims,239. Technical information leak - Errors,customErrors flag is set to off in Web.config. in namespace/skims/test/data/lib_path/f183/webVuln.config,"
+  1 | <configuration xmlns:xdt=""http://schemas.microsoft.com/XML-Document-Transform"">
+  2 |     <system.web>
+  3 |         <compilation
+  4 |             defaultLanguage=""c#""
+  5 |             debug=""true""
+  6 |         />
+> 7 |     <customErrors mode=""Off""/>
+  8 |     </system.web>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_not_custom_errors
+F239,lines,namespace/skims/test/data/lib_path/f239/webVuln.config,3,200,skims,239. Technical information leak - Errors,customErrors flag is set to off in Web.config. in namespace/skims/test/data/lib_path/f239/webVuln.config,"
+  1 | <configuration xmlns:xdt=""http://schemas.microsoft.com/XML-Document-Transform"">
+  2 |     <system.web>
+> 3 |         <customErrors mode=""Off""/>
+  4 |     </system.web>
+  5 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_not_custom_errors
 F234,lines,namespace/skims/test/data/lib_path/f037/Test.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_path/f037/Test.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
