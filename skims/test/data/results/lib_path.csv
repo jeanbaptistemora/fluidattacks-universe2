@@ -9786,22 +9786,15 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
 ",cloudformation.cfn_unrestricted_cidrs
 F037,lines,namespace/skims/test/data/lib_path/f037/webVuln.config,0,200,skims,037. Technical information leak,"Ensure that your Web.config source file or package suppress 'X-Powered-By' headers.
  in namespace/skims/test/data/lib_path/f037/webVuln.config","
-   1 | <configuration>
-   2 |     <system.web>
-   3 |         <compilation
-   4 |             defaultLanguage=""c#""
-   5 |             debug=""true""
-   6 |         />
-   7 |     <customErrors mode=""Off""/>
-   8 |     </system.web>
-   9 |     <system.webServer>
-  10 |         <httpProtocol>
-  11 |             <customHeaders>
-  12 |             </customHeaders>
-  13 |         </httpProtocol>
-  14 |     </system.webServer>
-  15 | </configuration>
-     ^ Col 0
+  1 | <configuration>
+  2 |     <system.webServer>
+  3 |         <httpProtocol>
+  4 |             <customHeaders>
+  5 |             </customHeaders>
+  6 |         </httpProtocol>
+  7 |     </system.webServer>
+  8 | </configuration>
+    ^ Col 0
 ",dotnetconfig.dotnetconfig_not_suppress_vuln_header
 F065,lines,namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html,12,200,skims,065. Cached form fields,"The application does not disable caching of input fields, thus the information will be stored in the browser's cache.
  in namespace/skims/test/data/lib_path/f065/html/vulnerable-incomplete.html","
@@ -25896,6 +25889,18 @@ F073,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
    53 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",cloudformation.cfn_rds_is_publicly_accessible
+F183,lines,namespace/skims/test/data/lib_path/f183/webVuln.config,3,489,skims,183. Debugging enabled in production,Debug flag is enabled in Web.config. in namespace/skims/test/data/lib_path/f183/webVuln.config,"
+  1 | <configuration xmlns:xdt=""http://schemas.microsoft.com/XML-Document-Transform"">
+  2 |     <system.web>
+> 3 |         <compilation
+  4 |             defaultLanguage=""c#""
+  5 |             debug=""true""
+  6 |         />
+  7 |     <customErrors mode=""Off""/>
+  8 |     </system.web>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_has_debug_enabled
 F058,inputs,skims/test/data/lib_path/f058/AndroidManifest.xml (namespace),application.android:debuggable enabled,489,"home,apk,bytecodes",058. Debugging enabled in production - APK,application.android:debuggable enabled,"
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
