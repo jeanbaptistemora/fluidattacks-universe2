@@ -67,6 +67,8 @@ type Event {
   id: String
   "Description for other solving reason"
   otherSolvingReason: String
+  "Root of the Event"
+  root: Root
   "Reason of solving the Event"
   solvingReason: SolveEventReason
   "Type of hacking subscription"

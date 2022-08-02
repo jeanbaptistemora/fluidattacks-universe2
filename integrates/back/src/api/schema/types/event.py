@@ -18,6 +18,7 @@ from api.resolvers.event import (
     hacker,
     historic_state,
     other_solving_reason,
+    root,
     solving_reason,
     suscription,
 )
@@ -45,5 +46,6 @@ EVENT.set_field("id", event_id.resolve)
 EVENT.set_field("affectedReattacks", affected_reattacks.resolve)
 EVENT.set_field("consulting", consulting.resolve)
 EVENT.set_field("otherSolvingReason", other_solving_reason.resolve)
+EVENT.set_field("root", root.resolve)
 EVENT.set_field("solvingReason", solving_reason.resolve)
 EVENT.set_field("subscription", suscription.resolve)
