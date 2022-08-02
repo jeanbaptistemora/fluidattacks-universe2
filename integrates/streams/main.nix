@@ -1,19 +1,26 @@
 {
   inputs,
+  makePythonPypiEnvironment,
   makeScript,
   outputs,
   ...
-}:
-makeScript {
-  name = "integrates-streams";
-  searchPaths = {
-    bin = [
-      inputs.nixpkgs.python39
-    ];
-    source = [
-      outputs."/common/utils/aws"
-      outputs."/common/utils/sops"
-    ];
+}: let
+  pythonEnvironment = makePythonPypiEnvironment {
+    name = "integrates-streams-runtime";
+    sourcesYaml = ./sources.yaml;
   };
-  entrypoint = ./entrypoint.sh;
-}
+in
+  makeScript {
+    name = "integrates-streams";
+    searchPaths = {
+      bin = [
+        inputs.nixpkgs.python39
+      ];
+      source = [
+        pythonEnvironment
+        outputs."/common/utils/aws"
+        outputs."/common/utils/sops"
+      ];
+    };
+    entrypoint = ./entrypoint.sh;
+  }

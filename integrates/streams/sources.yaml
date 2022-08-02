@@ -1,0 +1,88 @@
+---
+closure:
+  boto3: 1.24.44
+  botocore: 1.27.44
+  certifi: 2022.6.15
+  charset-normalizer: 2.1.0
+  idna: '3.3'
+  jmespath: 1.0.1
+  opensearch-py: 2.0.0
+  python-dateutil: 2.8.2
+  requests: 2.28.1
+  s3transfer: 0.6.0
+  six: 1.16.0
+  urllib3: 1.26.11
+links:
+  - name: boto3-1.24.44-py3-none-any.whl
+    sha256: 0fs1731swbnhy9lybsbxhz4f5l6mljwh04zn0zd0k8mwd23m22k1
+    url: https://files.pythonhosted.org/packages/f4/07/4f0b7398a2c3b66206eaa83e229ba5582a32055ea163c8eac9aef9e18fb5/boto3-1.24.44-py3-none-any.whl
+  - name: boto3-1.24.44.tar.gz
+    sha256: 13m0h9wwkbx23r7gmiyvfxqqk7y9nfaiwfn17dc3x6bih8pnvl0r
+    url: https://files.pythonhosted.org/packages/2e/6d/cf85550a36487f4f572f463c9ea663d909baf73f0bb36ebe638e1a643b37/boto3-1.24.44.tar.gz
+  - name: botocore-1.27.44-py3-none-any.whl
+    sha256: 0qfnary67mfxl6kvmlyyv9v2ivhj9rrcfy21qcsfll5w7fr76jxf
+    url: https://files.pythonhosted.org/packages/14/3d/5c3c17d4b595688db9820beff93275748d1a0b3987e559b10188b32d89e5/botocore-1.27.44-py3-none-any.whl
+  - name: botocore-1.27.44.tar.gz
+    sha256: 0zp1zarxmlqnzhvrxdvdmrkgiaszgnl0l2i7nb0sflw8qp5ryqw3
+    url: https://files.pythonhosted.org/packages/ac/79/91066c4cfe4db9b16901ec40543841279e5ccc6b048b46d1e41de563d342/botocore-1.27.44.tar.gz
+  - name: certifi-2022.6.15-py3-none-any.whl
+    sha256: 04l46xlyyyg7cwdvk2h7s93kbb1qci7l2scbbzbijiz8amfl31py
+    url: https://files.pythonhosted.org/packages/e9/06/d3d367b7af6305b16f0d28ae2aaeb86154fa91f144f036c2d5002a5a202b/certifi-2022.6.15-py3-none-any.whl
+  - name: certifi-2022.6.15.tar.gz
+    sha256: 03c2l11lgljx0kz17cvdc4hlc3p1594ajdih9zq0a4dig285mj44
+    url: https://files.pythonhosted.org/packages/cc/85/319a8a684e8ac6d87a1193090e06b6bbb302717496380e225ee10487c888/certifi-2022.6.15.tar.gz
+  - name: charset_normalizer-2.1.0-py3-none-any.whl
+    sha256: 19gq6mx3qhvqx695mvw86xnv8idwl3chhsjvyckp95815grbd2ai
+    url: https://files.pythonhosted.org/packages/94/69/64b11e8c2fb21f08634468caef885112e682b0ebe2908e74d3616eb1c113/charset_normalizer-2.1.0-py3-none-any.whl
+  - name: charset-normalizer-2.1.0.tar.gz
+    sha256: 04zlajr77f6c7ai59l46as1idi0jjgbvj72lh4v5wfpz2s070pjp
+    url: https://files.pythonhosted.org/packages/93/1d/d9392056df6670ae2a29fcb04cfa5cee9f6fbde7311a1bb511d4115e9b7a/charset-normalizer-2.1.0.tar.gz
+  - name: idna-3.3-py3-none-any.whl
+    sha256: 1zrm4xnjas13byafi11ma2q8h5rr1fmjwvi41xp5k07sgw2dvnc4
+    url: https://files.pythonhosted.org/packages/04/a2/d918dcd22354d8958fe113e1a3630137e0fc8b44859ade3063982eacd2a4/idna-3.3-py3-none-any.whl
+  - name: idna-3.3.tar.gz
+    sha256: 0v8f6qjfi5i7qc5icsbv2pi24qy6k6m8wjqjvdf2sxjvlpq3yr4x
+    url: https://files.pythonhosted.org/packages/62/08/e3fc7c8161090f742f504f40b1bccbfc544d4a4e09eb774bf40aafce5436/idna-3.3.tar.gz
+  - name: jmespath-1.0.1-py3-none-any.whl
+    sha256: 10194nk0641vz2kpy442dsgdv44ia43zksrf6f4apg5mf76f9qh2
+    url: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
+  - name: jmespath-1.0.1.tar.gz
+    sha256: 1gpdc1f0q5c9scmbw1l9g40jjfk3pxwg91ayvn7xbvvddlh1n9lh
+    url: https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz
+  - name: opensearch_py-2.0.0-py2.py3-none-any.whl
+    sha256: 16hrnpk998wkcssl93lfsjypdxy3p8lzyaybz806qa6sbrap3rd3
+    url: https://files.pythonhosted.org/packages/13/97/128668e1e4456c2f1c2f65930f2336146f9145bbe00ee3f0fe8c63437259/opensearch_py-2.0.0-py2.py3-none-any.whl
+  - name: opensearch-py-2.0.0.tar.gz
+    sha256: 0lhwm3c9zkq504iyjy4ayfrksqcg6ffxw16hm8pyfzamahd4ayqv
+    url: https://files.pythonhosted.org/packages/1b/0c/0eb55e670d71a3d62820c7870df3430db09c20a9bad0f9603e36f067a61c/opensearch-py-2.0.0.tar.gz
+  - name: python_dateutil-2.8.2-py2.py3-none-any.whl
+    sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
+    url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl
+  - name: python-dateutil-2.8.2.tar.gz
+    sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
+    url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
+  - name: requests-2.28.1-py3-none-any.whl
+    sha256: 0jakwryf077k46wbs525hrkxlyg4prpq6hdc199ganrnl6hs5vwg
+    url: https://files.pythonhosted.org/packages/ca/91/6d9b8ccacd0412c08820f72cebaa4f0c0441b5cda699c90f618b6f8a1b42/requests-2.28.1-py3-none-any.whl
+  - name: requests-2.28.1.tar.gz
+    sha256: 10vrr7bijzrypvms3g2sgz8vya7f9ymmcv423ikampgy0aqrjmbw
+    url: https://files.pythonhosted.org/packages/a5/61/a867851fd5ab77277495a8709ddda0861b28163c4613b011bc00228cc724/requests-2.28.1.tar.gz
+  - name: s3transfer-0.6.0-py3-none-any.whl
+    sha256: 1kayip95pym87m33l4s7fq5h8aa4kb11ynpjnkqn2px1yds6n5q6
+    url: https://files.pythonhosted.org/packages/5e/c6/af903b5fab3f9b5b1e883f49a770066314c6dcceb589cf938d48c89556c1/s3transfer-0.6.0-py3-none-any.whl
+  - name: s3transfer-0.6.0.tar.gz
+    sha256: 0iy98b51l33b0dpqgmvx24drh9sqag2hz87l3dbcq8zmcqw7vl1f
+    url: https://files.pythonhosted.org/packages/e1/eb/e57c93d5cd5edf8c1d124c831ef916601540db70acd96fa21fe60cef1365/s3transfer-0.6.0.tar.gz
+  - name: six-1.16.0-py2.py3-none-any.whl
+    sha256: 0m02dsi8lvrjf4bi20ab6lm7rr6krz7pg6lzk3xjs2l9hqfjzfwa
+    url: https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl
+  - name: six-1.16.0.tar.gz
+    sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
+    url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
+  - name: urllib3-1.26.11-py2.py3-none-any.whl
+    sha256: 1g694a3s6wyqfzmys3ds6f2b4cjzsabkmhk48w99d5c17jiwng63
+    url: https://files.pythonhosted.org/packages/d1/cb/4783c8f1a90f89e260dbf72ebbcf25931f3a28f8f80e2e90f8a589941b19/urllib3-1.26.11-py2.py3-none-any.whl
+  - name: urllib3-1.26.11.tar.gz
+    sha256: 02mchdcf40akw2387g08i2i66v121680rdlkmc7rb7di22r8yvpa
+    url: https://files.pythonhosted.org/packages/6d/d5/e8258b334c9eb8eb78e31be92ea0d5da83ddd9385dc967dd92737604d239/urllib3-1.26.11.tar.gz
+python: '3.9'
