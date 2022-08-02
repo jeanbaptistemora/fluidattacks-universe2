@@ -18,6 +18,11 @@ interface IGroupAttr {
   tier: string;
 }
 
+interface IFileMetadata {
+  fileName: string;
+  modifiedDate: string;
+}
+
 interface IPaymentMethodAttr {
   id: string;
   brand: string;
@@ -26,12 +31,13 @@ interface IPaymentMethodAttr {
   expirationMonth: string;
   expirationYear: string;
   businessName: string;
+  download: string;
   email: string;
   country: string;
   state: string;
   city: string;
-  rut: File | undefined;
-  taxId: File | undefined;
+  rut: IFileMetadata | undefined;
+  taxId: IFileMetadata | undefined;
 }
 
 interface IGetOrganizationBilling {
@@ -42,4 +48,9 @@ interface IGetOrganizationBilling {
   };
 }
 
-export type { IGetOrganizationBilling, IGroupAttr, IPaymentMethodAttr };
+export type {
+  IFileMetadata,
+  IGetOrganizationBilling,
+  IGroupAttr,
+  IPaymentMethodAttr,
+};

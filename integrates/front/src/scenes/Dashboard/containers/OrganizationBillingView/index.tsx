@@ -57,6 +57,10 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
   const paymentMethods: IPaymentMethodAttr[] =
     data === undefined ? [] : data.organization.paymentMethods;
 
+  if (data === undefined) {
+    return <div />;
+  }
+
   return (
     <React.Fragment>
       <OrganizationGroups

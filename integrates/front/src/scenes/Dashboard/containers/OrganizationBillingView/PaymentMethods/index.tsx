@@ -2,6 +2,7 @@ import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import {
+  faDownload,
   faPlus,
   faTrashAlt,
   faUserEdit,
@@ -19,6 +20,7 @@ import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
 import {
   ADD_PAYMENT_METHOD,
+  DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
   UPDATE_PAYMENT_METHOD,
 } from "../queries";
@@ -28,10 +30,12 @@ import { Table } from "components/Table/index";
 import type { IHeaderConfig } from "components/Table/types";
 import { filterSearchText } from "components/Table/utils";
 import { Text } from "components/Text";
+import { GraphicButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
+import { openUrl } from "utils/resourceHelpers";
 
 interface IOrganizationPaymentMethodsProps {
   organizationId: string;
@@ -104,6 +108,15 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const filterSearchTextOtherMethod: IPaymentMethodAttr[] = filterSearchText(
       otherMethodData,
       searchFilterOtherMethod
+    );
+
+    const otherMetodData = filterSearchTextOtherMethod.map(
+      (method): IPaymentMethodAttr => {
+        return {
+          ...method,
+          download: method.id,
+        };
+      }
     );
 
     // Add payment method
@@ -398,6 +411,44 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       ]
     );
 
+    // Download legal document file
+    const [downloadFile] = useMutation(DOWNLOAD_FILE_MUTATION, {
+      onCompleted: (downloadData: {
+        downloadBillingFile: { url: string };
+      }): void => {
+        openUrl(downloadData.downloadBillingFile.url);
+      },
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred downloading billing file", error);
+        });
+      },
+    });
+
+    const handleDownload = useCallback(
+      async (paymentMethodId: string): Promise<void> => {
+        const [paymentMethod] = paymentMethods.filter((method): boolean => {
+          return method.id === paymentMethodId;
+        });
+        if (paymentMethod.rut) {
+          const { fileName } = paymentMethod.rut;
+          await downloadFile({
+            variables: { fileName, organizationId, paymentMethodId },
+          });
+        } else if (paymentMethod.taxId) {
+          const { fileName } = paymentMethod.taxId;
+          await downloadFile({
+            variables: { fileName, organizationId, paymentMethodId },
+          });
+        } else {
+          msgError("Not Found a downloadable file");
+        }
+      },
+      [downloadFile, organizationId, paymentMethods]
+    );
+
+    // Table header
     const creditCardTableHeaders: IHeaderConfig[] = [
       {
         dataField: "brand",
@@ -417,6 +468,23 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
     ];
 
+    const downloadFormatter = (
+      value: string,
+      _row: Readonly<Record<string, string>>,
+      _rowIndex: number,
+      _key: Readonly<IHeaderConfig>
+    ): JSX.Element => {
+      async function onClick(): Promise<void> {
+        await handleDownload(value);
+      }
+
+      return (
+        <GraphicButton onClick={onClick}>
+          <FontAwesomeIcon icon={faDownload} />
+        </GraphicButton>
+      );
+    };
+
     const otherMethodsTableHeaders: IHeaderConfig[] = [
       {
         dataField: "businessName",
@@ -429,6 +497,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       {
         dataField: "country",
         header: "Country",
+      },
+      {
+        dataField: "download",
+        formatter: downloadFormatter,
+        header: "Document",
       },
     ];
 
@@ -516,7 +589,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             onUpdateCustomSearch: onSearchOtherMethodChange,
             position: "right",
           }}
-          dataset={filterSearchTextOtherMethod}
+          dataset={otherMetodData}
           defaultSorted={{ dataField: "businessName", order: "asc" }}
           exportCsv={false}
           extraButtons={

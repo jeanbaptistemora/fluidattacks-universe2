@@ -1,6 +1,23 @@
 import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
+const DOWNLOAD_FILE_MUTATION: DocumentNode = gql`
+  mutation DownloadBillingFileMutation(
+    $organizationId: String!
+    $paymentMethodId: String!
+    $fileName: String!
+  ) {
+    downloadBillingFile(
+      organizationId: $organizationId
+      paymentMethodId: $paymentMethodId
+      fileName: $fileName
+    ) {
+      success
+      url
+    }
+  }
+`;
+
 const GET_ORGANIZATION_BILLING: DocumentNode = gql`
   query GetOrganizationBilling($organizationId: String!) {
     organization(organizationId: $organizationId) {
@@ -165,6 +182,7 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
 
 export {
   ADD_PAYMENT_METHOD,
+  DOWNLOAD_FILE_MUTATION,
   GET_ORGANIZATION_BILLING,
   REMOVE_PAYMENT_METHOD,
   UPDATE_GROUP_MUTATION,
