@@ -55,6 +55,7 @@ class FileTooLarge(Exception):
 
 language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
     GraphShardMetadataLanguage.CSHARP: [".cs"],
+    GraphShardMetadataLanguage.DART: [".dart"],
     GraphShardMetadataLanguage.GO: [".go"],
     GraphShardMetadataLanguage.JAVA: [".java"],
     GraphShardMetadataLanguage.JAVASCRIPT: [".js", ".jsx"],

@@ -126,6 +126,22 @@ def _is_final_node(node: Node, language: GraphShardMetadataLanguage) -> bool:
             }
         )
         or (
+            language == GraphShardMetadataLanguage.DART
+            and node.type
+            in {
+                "decimal_floating_point_literal",
+                "decimal_integer_literal",
+                "false",
+                "hex_integer_literal",
+                "list_literal",
+                "null_literal",
+                "set_or_map_literal",
+                "string_literal",
+                "symbol_literal",
+                "true",
+            }
+        )
+        or (
             language == GraphShardMetadataLanguage.GO
             and node.type
             in {

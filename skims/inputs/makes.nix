@@ -47,8 +47,8 @@
     skimsTreeSitterDart = fetchGithub {
       owner = "UserNobody14";
       repo = "tree-sitter-dart";
-      rev = "6a25376685d1d47968c2cef06d4db8d84a70025e";
-      sha256 = "0z06sphmgjggx5j2rjfy3f85fh1m9s79sql8a7d4kvsamz9rwakl";
+      rev = "c667fd401c736e208c73b7bb9267557b67b23491";
+      sha256 = "11ib2Vm4t+JfzaH9Lz2N7sm6aK7YSzoUy87+jsRHnEc=";
     };
     skimsTreeSitterGo = fetchGithub {
       owner = "tree-sitter";

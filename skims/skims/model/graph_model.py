@@ -377,6 +377,7 @@ class GraphShardMetadataGo(NamedTuple):
 
 class GraphShardMetadataLanguage(Enum):
     CSHARP: str = "c_sharp"
+    DART: str = "dart"
     GO: str = "go"
     JAVA: str = "java"
     JAVASCRIPT: str = "javascript"
