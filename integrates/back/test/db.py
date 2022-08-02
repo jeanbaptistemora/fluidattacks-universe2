@@ -47,6 +47,7 @@ from db_model.groups.types import (
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
+    OrganizationAccessMetadataToUpdate,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -130,11 +131,10 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
 
 async def populate_organization_access(data: list[OrganizationAccess]) -> bool:
     await collect(
-        org_access_model.add(
-            organization_access=OrganizationAccess(
-                organization_id=item.organization_id,
-                email=item.email,
-            )
+        org_access_model.update_metadata(
+            email=item.email,
+            organization_id=item.organization_id,
+            metadata=OrganizationAccessMetadataToUpdate(),
         )
         for item in data
     )

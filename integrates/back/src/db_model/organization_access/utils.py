@@ -22,10 +22,8 @@ def remove_org_id_prefix(organization_id: str) -> str:
 
 def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
-        email=item["email"] or str(item["pk"]).split("#")[1],
-        organization_id=add_org_id_prefix(
-            item["organization_id"] or item["sk"]
-        ),
+        email=item["email"],
+        organization_id=add_org_id_prefix(item["organization_id"]),
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
         else None,

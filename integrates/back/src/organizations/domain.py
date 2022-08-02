@@ -192,10 +192,10 @@ async def add_stakeholder(
     # Check for customer manager granting requirements
     organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
-    await org_access_model.add(
-        organization_access=OrganizationAccess(
-            organization_id=organization_id, email=email
-        )
+    await org_access_model.update_metadata(
+        organization_id=organization_id,
+        email=email,
+        metadata=OrganizationAccessMetadataToUpdate(),
     )
     success = await authz.grant_organization_level_role(
         email, organization_id, role
@@ -482,10 +482,10 @@ async def invite_to_organization(
                 "user_email": email,
             },
         )
-        await org_access_model.add(
-            organization_access=OrganizationAccess(
-                email=email,
-                organization_id=organization_id,
+        await org_access_model.update_metadata(
+            email=email,
+            organization_id=organization_id,
+            metadata=OrganizationAccessMetadataToUpdate(
                 expiration_time=expiration_time,
                 has_access=False,
                 invitation=OrganizationInvitation(
@@ -493,7 +493,7 @@ async def invite_to_organization(
                     role=role,
                     url_token=url_token,
                 ),
-            )
+            ),
         )
         confirm_access_url = (
             f"{BASE_URL}/confirm_access_organization/{url_token}"
