@@ -24,6 +24,7 @@ Content-Type: text/x-shellscript; charset="us-ascii"
   echo ECS_IMAGE_PULL_INACTIVITY_TIMEOUT=1h
   echo ECS_NUM_IMAGES_DELETE_PER_CYCLE=10000
   echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1s
+  echo ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true
 
 }  >> /etc/ecs/ecs.config
 
