@@ -145,7 +145,7 @@ module "prod_common_aws" {
       Principal = {
         Service = [
           "batch.amazonaws.com",
-          "ec2.amazonaws.com",
+          "ecs-tasks.amazonaws.com",
           "events.amazonaws.com",
           "spotfleet.amazonaws.com",
         ],
