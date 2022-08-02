@@ -1,7 +1,9 @@
 {
   inputs,
   makeScript,
+  makeTemplate,
   outputs,
+  projectPath,
   ...
 }:
 makeScript {
@@ -21,6 +23,16 @@ makeScript {
       outputs."/integrates/back/charts/pypi"
       outputs."/common/utils/aws"
       outputs."/common/utils/common"
+      (makeTemplate {
+        replace = {
+          __argCriteriaVulnerabilities__ =
+            projectPath "/common/criteria/src/vulnerabilities/data.yaml";
+        };
+        name = "charts-config-context-file";
+        template = ''
+          export CHARTS_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__'
+        '';
+      })
     ];
   };
   entrypoint = ./entrypoint.sh;

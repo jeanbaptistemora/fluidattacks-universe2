@@ -1,34 +1,30 @@
 ---
 closure:
-  numpy: 1.21.2
+  numpy: 1.23.1
   pandas: 1.3.4
   python-dateutil: 2.8.2
-  pytz: '2021.3'
+  pytz: '2022.1'
+  ruamel.yaml: 0.17.21
+  ruamel.yaml.clib: 0.2.6
   selenium: 3.141.0
   six: 1.16.0
-  urllib3: 1.26.7
+  urllib3: 1.26.11
 links:
-  - name: numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 0f6cnafmi20pi4gjc2zga7pnwra5m9ddf0w5w49qs1hhs98kc3nx
-    url: https://files.pythonhosted.org/packages/cf/96/4a0eed13a185da6f7e48f76739de86c21661fe6c2738f4630a628d5dcbcf/numpy-1.21.2-cp39-cp39-macosx_10_9_universal2.whl
-  - name: numpy-1.21.2-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 038jlkzanh347slziims7v86fd56fpq9lyh7p7arsy87ic9ap84j
-    url: https://files.pythonhosted.org/packages/24/ad/b1fc85dda2d40af2b28c70f741df80ee0e243502b61b33baf7fa150760f8/numpy-1.21.2-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: numpy-1.21.2-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 06943ylnl62dh982qzck5gqaihmz6w6wr7hsdz4mp03xsri01rgx
-    url: https://files.pythonhosted.org/packages/e8/66/380373a412dda1f321773b3872dd0d1fcb4ceac7b8c62baf436a31ce4638/numpy-1.21.2-cp39-cp39-macosx_11_0_arm64.whl
-  - name: numpy-1.21.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 08rpvb8li31vjg9m3k617dy61f75wb66qyr3bjaz4937sp7iq334
-    url: https://files.pythonhosted.org/packages/fe/78/3a18a4a8a24a3fa5ca34ff3b0e855c19503dc6fb625b75a83bc17e4817e3/numpy-1.21.2-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: numpy-1.21.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 0dzpm6dgglcjibvhg0id9jaiz3rf77dmcdg9djvm0fkz2d84krjx
-    url: https://files.pythonhosted.org/packages/7a/4c/dd00ce768b0f0f7de5c486cbd9f5b922bc3af2f3a5da30121d7f7dc03130/numpy-1.21.2-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: numpy-1.21.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 03sqhci19zcj2jpnddcmmhy9a36md9lp55picnkrq2bxci70chmk
-    url: https://files.pythonhosted.org/packages/01/c5/3ac36428af637b48236a389aca0e39896dd66477d759f6831a593d56d248/numpy-1.21.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.21.2.zip
-    sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
-    url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
+  - name: numpy-1.23.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 0yz7864ywqm2gclkam5dwilha2pj6j58khznmnpl3lqm3f92hgqp
+    url: https://files.pythonhosted.org/packages/e5/43/b1b80cbcea9f2d0e6adadd27a8da2c71b751d5670a846b444087fab408a1/numpy-1.23.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: numpy-1.23.1-cp39-cp39-macosx_11_0_arm64.whl
+    sha256: 08kb4dw3dbgh3dgsrc962ggq84mmhsick5vswasbqkvk17g60vw7
+    url: https://files.pythonhosted.org/packages/52/7c/716ab0f3b92b44a3e55d2e51cf66a8a8d403548d2ca82961129fa2c775fe/numpy-1.23.1-cp39-cp39-macosx_11_0_arm64.whl
+  - name: numpy-1.23.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1zfkgsp8cmk11balf31rf9wggr6if9mbnc9j5drwkwf06ff0nn9m
+    url: https://files.pythonhosted.org/packages/93/76/9e53d1e5b94e67df8fc86554cac49fd9ead0bf163383776c153c34670a19/numpy-1.23.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.23.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1fwnavw7bwd7wpcp7ys6ik5d33jvy301yhpis3j9yrfavxj4wp53
+    url: https://files.pythonhosted.org/packages/8d/d6/cc2330e512936a904a4db1629b71d697fb309115f6d2ede94d183cdfe185/numpy-1.23.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.23.1.tar.gz
+    sha256: 095nv17vm8hvj8cj0d76syl9xh99bbnkgnjr9ccy3wpykcsfyj6p
+    url: https://files.pythonhosted.org/packages/13/b1/0c22aa7ca1deda4915cdec9562f839546bb252eecf6ad596eaec0592bd35/numpy-1.23.1.tar.gz
   - name: pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 1yddvd92vw412gfjxzvng4ki8wv21pkinir3hifvbrny0z7m0xyl
     url: https://files.pythonhosted.org/packages/3b/52/d5475578dc252c13e0823b9a715c2e17002dcdaee9defba0d2b2659112df/pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
@@ -50,12 +46,27 @@ links:
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: pytz-2021.3-py2.py3-none-any.whl
-    sha256: 0z5qylvysr2zy9n2ylaiwkd0paympz1s3dxa4av5fd25qf5hawin
-    url: https://files.pythonhosted.org/packages/d3/e3/d9f046b5d1c94a3aeab15f1f867aa414f8ee9d196fae6865f1d6a0ee1a0b/pytz-2021.3-py2.py3-none-any.whl
-  - name: pytz-2021.3.tar.gz
-    sha256: 09hk9zpxr26d7xgjfbq6ai1i1naybhlfkln9wka0gbx1425jvbdc
-    url: https://files.pythonhosted.org/packages/e3/8e/1cde9d002f48a940b9d9d38820aaf444b229450c0854bdf15305ce4a3d1a/pytz-2021.3.tar.gz
+  - name: pytz-2022.1-py2.py3-none-any.whl
+    sha256: 0p3amik3hqpyi9y1x22a552n490614xikcqyi1madncnaac8b2g6
+    url: https://files.pythonhosted.org/packages/60/2e/dec1cc18c51b8df33c7c4d0a321b084cf38e1733b98f9d15018880fb4970/pytz-2022.1-py2.py3-none-any.whl
+  - name: pytz-2022.1.tar.gz
+    sha256: 19ya5sh7if819flgmszz585glailhi7rr8frng03n5m8wqphwxhy
+    url: https://files.pythonhosted.org/packages/2f/5f/a0f653311adff905bbcaa6d3dfaf97edcf4d26138393c6ccd37a484851fb/pytz-2022.1.tar.gz
+  - name: ruamel.yaml-0.17.21-py3-none-any.whl
+    sha256: 19qwnvwc219sx4j2jknvbzvmvkj88b9b65kdpn0kj0k5sv9kaavl
+    url: https://files.pythonhosted.org/packages/9e/cb/938214ac358fbef7058343b3765c79a1b7ed0c366f7f992ce7ff38335652/ruamel.yaml-0.17.21-py3-none-any.whl
+  - name: ruamel.yaml-0.17.21.tar.gz
+    sha256: 1bxp4dfkzzsndf9f8fspr4jc85nwf5243b616lm7a4pjlabycz4b
+    url: https://files.pythonhosted.org/packages/46/a9/6ed24832095b692a8cecc323230ce2ec3480015fbfa4b79941bd41b23a3c/ruamel.yaml-0.17.21.tar.gz
+  - name: ruamel.yaml.clib-0.2.6-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 1v9bhjqjjrg1ymjbkhriaha2c5990qyl6k919ahzbvkldhyn2snw
+    url: https://files.pythonhosted.org/packages/ba/2c/076d00f31f9476ccad3a6a5446ee30c5f0921012d714c76f3111e29b06ab/ruamel.yaml.clib-0.2.6-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: ruamel.yaml.clib-0.2.6-cp39-cp39-manylinux1_x86_64.whl
+    sha256: 1w2n11r4q3q2a9mcikg3biy0b03dlnn0vh2w999bj0sa50ncyrhq
+    url: https://files.pythonhosted.org/packages/3e/36/f1e3b5a0507662a66f156518457ffaf530c818f204467a5c532fc44056f9/ruamel.yaml.clib-0.2.6-cp39-cp39-manylinux1_x86_64.whl
+  - name: ruamel.yaml.clib-0.2.6.tar.gz
+    sha256: 1gdchmdngbni9mv6f62xb7ii1kjr8wvkqq859xwj1fws8g709xjg
+    url: https://files.pythonhosted.org/packages/8b/25/08e5ad2431a028d0723ca5540b3af6a32f58f25e83c6dda4d0fcef7288a3/ruamel.yaml.clib-0.2.6.tar.gz
   - name: selenium-3.141.0.tar.gz
     sha256: 039hf9knvl4s3hp21bzwsp1g5ri9gxsh504dp48lc6nr1av35byy
     url: https://files.pythonhosted.org/packages/ed/9c/9030520bf6ff0b4c98988448a93c04fcbd5b13cd9520074d8ed53569ccfe/selenium-3.141.0.tar.gz
@@ -65,10 +76,10 @@ links:
   - name: six-1.16.0.tar.gz
     sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
     url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
-  - name: urllib3-1.26.7-py2.py3-none-any.whl
-    sha256: 0i68pdi0mfnfjphp6ycsf1rzibjdzv4ipq1p6r1fbdh5jq0z9zf4
-    url: https://files.pythonhosted.org/packages/af/f4/524415c0744552cce7d8bf3669af78e8a069514405ea4fcbd0cc44733744/urllib3-1.26.7-py2.py3-none-any.whl
-  - name: urllib3-1.26.7.tar.gz
-    sha256: 1kkf6gi8a1fs0dqkf6kpmdpsy97iirvliz8q1krxp8ppaiawd1s9
-    url: https://files.pythonhosted.org/packages/80/be/3ee43b6c5757cabea19e75b8f46eaf05a2f5144107d7db48c7cf3a864f73/urllib3-1.26.7.tar.gz
+  - name: urllib3-1.26.11-py2.py3-none-any.whl
+    sha256: 1g694a3s6wyqfzmys3ds6f2b4cjzsabkmhk48w99d5c17jiwng63
+    url: https://files.pythonhosted.org/packages/d1/cb/4783c8f1a90f89e260dbf72ebbcf25931f3a28f8f80e2e90f8a589941b19/urllib3-1.26.11-py2.py3-none-any.whl
+  - name: urllib3-1.26.11.tar.gz
+    sha256: 02mchdcf40akw2387g08i2i66v121680rdlkmc7rb7di22r8yvpa
+    url: https://files.pythonhosted.org/packages/6d/d5/e8258b334c9eb8eb78e31be92ea0d5da83ddd9385dc967dd92737604d239/urllib3-1.26.11.tar.gz
 python: '3.9'
