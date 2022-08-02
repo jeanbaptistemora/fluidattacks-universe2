@@ -36,9 +36,9 @@ the best and the worst organization
 and averaged across organizations
 excluding yours.
 
-## Open severity by groups
+## Open exposure by groups
 
-![Remediation Benchmarking](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
+![Open Exposure by Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1643925877/docs/web/analytics/organizations/organization_severity_groups.png)
 
 For each of your groups, you can find out
 the severity (CVSSF) of open vulnerabilities.

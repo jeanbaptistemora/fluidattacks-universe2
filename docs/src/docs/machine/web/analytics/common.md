@@ -33,9 +33,9 @@ Number of vulnerabilities without
 a remediation plan specified by
 one of your managers.
 
-## Severity over time
+## Exposure over time
 
-![Severity Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
+![Exposure Over Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928304/docs/web/analytics/common/common_severity_otime.png)
 
 In the ASM,
 you can track the evolution of your systems
@@ -142,9 +142,9 @@ for your vulnerabiities,
 for more information
 [click here](/machine/web/vulnerabilities/management/treatments/).
 
-## Severity by assignment
+## Exposure by assignment
 
-![Severity By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
+![Exposure By Assignment](https://res.cloudinary.com/fluid-attacks/image/upload/v1654545004/docs/web/analytics/common/severity_by_assignment.png)
 
 This bar chart in an organization,
 group or portfolio has
@@ -257,9 +257,9 @@ closed, accepted and open vulnerabilities
 over time, based on our standard
 [CVSSF](/about/faq/#severity-vs-vulnerabilities).
 
-## Open severity by type
+## Open exposure by type
 
-![Severity By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
+![Exposure By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
 
 This section shows what vulnerability
 types are open and their severity

@@ -84,9 +84,9 @@ and the amount of each one
 that belong to each group
 of your portfolio.
 
-## Open severity by groups
+## Open exposure by groups
 
-![Severity By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1645821564/docs/web/analytics/portfolios/open_severity_by_groups.png)
+![Exposure By Groups](https://res.cloudinary.com/fluid-attacks/image/upload/v1645821564/docs/web/analytics/portfolios/open_severity_by_groups.png)
 
 For each of your groups, you can find out the severity (CVSSF) of open vulnerabilities.
 
