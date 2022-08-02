@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface ITableContainerProps {
@@ -15,6 +16,7 @@ const TableContainer = styled.div.attrs({
 })<ITableContainerProps>`
   background-color: #f4f4f6;
   border-radius: 4px;
+  margin-top: 16px;
 
   td,
   th {
@@ -49,6 +51,16 @@ const TableContainer = styled.div.attrs({
   }
 `;
 
+const TableLink = styled(Link)`
+  border: none;
+  color: #5c5c70;
+  border-bottom: solid 1px;
+
+  :hover {
+    color: #2e2e38;
+  }
+`;
+
 const ToggleContainer = styled.div``;
 
-export { ToggleContainer, TableContainer };
+export { TableLink, ToggleContainer, TableContainer };

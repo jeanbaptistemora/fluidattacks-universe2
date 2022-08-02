@@ -16,6 +16,7 @@ import type {
 import type { ChangeEvent, ReactElement } from "react";
 import React, { useState } from "react";
 import { CSVLink } from "react-csv";
+import { useTranslation } from "react-i18next";
 
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
@@ -37,6 +38,7 @@ export const Tables = <TData extends object>(
     columns,
     columnToggle = false,
     exportCsv = false,
+    extraButtons = undefined,
     csvName = "Report",
     onRowClick = undefined,
     showPagination = data.length >= 8,
@@ -44,6 +46,7 @@ export const Tables = <TData extends object>(
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
     setGlobalFilter(event.target.value);
@@ -81,18 +84,19 @@ export const Tables = <TData extends object>(
 
   return (
     <div className={"w-100"} id={id}>
+      {extraButtons !== undefined && extraButtons}
       <TableOptionsColBar>
         <ButtonToolbarRow>
           <InputText
             onChange={globalFilterHandler}
-            placeholder={"Search..."}
+            placeholder={t("table.search")}
             value={globalFilter}
           />
         </ButtonToolbarRow>
       </TableOptionsColBar>
       {exportCsv && (
         <CSVLink data={data} filename={csvName}>
-          {"Reporte"}
+          {t("group.findings.exportCsv.text")}
         </CSVLink>
       )}
       {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
