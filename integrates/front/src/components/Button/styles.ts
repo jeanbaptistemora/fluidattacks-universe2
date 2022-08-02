@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 import styled from "styled-components";
 
-type TSize = "lg" | "md" | "sm" | "xl";
+type TSize = "lg" | "md" | "sm" | "xl" | "xs";
 type TVariant = "ghost" | "primary" | "secondary" | "tertiary";
 
 interface IStyledButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -44,6 +44,11 @@ const sizes: Record<TSize, ISize> = {
     fontSize: 4,
     ph: 21,
     pv: 14,
+  },
+  xs: {
+    fontSize: 7,
+    ph: 9,
+    pv: 6,
   },
 };
 
