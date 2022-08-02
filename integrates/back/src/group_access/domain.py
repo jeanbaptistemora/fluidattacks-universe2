@@ -202,6 +202,28 @@ async def get_stakeholders_email_by_preferences(
     notification: str,
     roles: set[str],
 ) -> list[str]:
+    email_list = await get_stakeholders_email_by_roles(
+        loaders=loaders,
+        group_name=group_name,
+        roles=roles,
+    )
+    stakeholders_data: tuple[
+        Stakeholder, ...
+    ] = await loaders.stakeholder.load_many(email_list)
+    stakeholders_email = [
+        stakeholder.email
+        for stakeholder in stakeholders_data
+        if notification in stakeholder.notifications_preferences.email
+    ]
+    return stakeholders_email
+
+
+async def get_stakeholders_email_by_roles(
+    *,
+    loaders: Any,
+    group_name: str,
+    roles: set[str],
+) -> list[str]:
     stakeholders = await get_group_stakeholders_emails(
         loaders, group_name, active=True
     )
@@ -218,15 +240,7 @@ async def get_stakeholders_email_by_preferences(
         )
         if stakeholder_role in roles
     ]
-    stakeholders_data: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(email_list)
-    stakeholders_email = [
-        stakeholder.email
-        for stakeholder in stakeholders_data
-        if notification in stakeholder.notifications_preferences.email
-    ]
-    return stakeholders_email
+    return email_list
 
 
 async def exists(loaders: Any, group_name: str, email: str) -> bool:
