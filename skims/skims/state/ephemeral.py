@@ -7,6 +7,9 @@ from concurrent.futures.thread import (
 from ctx import (
     STATE_FOLDER,
 )
+from model.core_model import (
+    Vulnerability,
+)
 from os import (
     cpu_count,
     makedirs,
@@ -47,7 +50,7 @@ ClearFunction = Callable[[], Awaitable[None]]
 GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
 StoreFunction = Callable[[Any], None]
 LengthFunction = Callable[[], int]
-IteratorFunction = Callable[[], Iterator[Any]]
+IteratorFunction = Callable[[], Iterator[Vulnerability]]
 
 # Side effects
 makedirs(EPHEMERAL, mode=0o700, exist_ok=True)

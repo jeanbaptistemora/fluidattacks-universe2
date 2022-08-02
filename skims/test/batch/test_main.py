@@ -194,9 +194,17 @@ async def test_rebase_change_line(
     vulns_before_length = len(vulns_before_rebase)
     for item in vulns_before_rebase.iterate():
         if item.where == "2":
-            vuln_1_id = item.integrates_metadata.uuid
+            vuln_1_id = (
+                item.integrates_metadata.uuid
+                if item.integrates_metadata
+                else None
+            )
         elif item.where == "17":
-            vuln_2_id = item.integrates_metadata.uuid
+            vuln_2_id = (
+                item.integrates_metadata.uuid
+                if item.integrates_metadata
+                else None
+            )
 
     assert vuln_1_id is not None and vuln_2_id is not None
 
@@ -210,9 +218,15 @@ async def test_rebase_change_line(
     assert len(vulns_after_rebase) == vulns_before_length
 
     for item in vulns_after_rebase.iterate():
-        if item.integrates_metadata.uuid == vuln_1_id:
+        if (
+            item.integrates_metadata
+            and item.integrates_metadata.uuid == vuln_1_id
+        ):
             final_where_1 = item.where
-        elif item.integrates_metadata.uuid == vuln_2_id:
+        elif (
+            item.integrates_metadata
+            and item.integrates_metadata.uuid == vuln_2_id
+        ):
             final_where_2 = item.where
 
     assert final_where_1 == "11" and final_where_2 == "26"

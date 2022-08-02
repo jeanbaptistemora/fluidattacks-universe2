@@ -9,6 +9,9 @@ from core.persist import (
     persist,
     verify_permissions,
 )
+from core.result import (
+    get_sarif,
+)
 import csv
 from ctx import (
     CTX,
@@ -27,6 +30,7 @@ from integrates.domain import (
 from integrates.graphql import (
     create_session,
 )
+import json
 from kombu import (
     Connection,
 )
@@ -93,6 +97,25 @@ async def _upload_csv_result(
                 )
 
 
+async def upload_sarif_result(
+    config: core_model.SkimsConfig,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+) -> None:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
+        result = get_sarif(config, stores)
+        with open(file_path, "w", encoding="utf-8") as writer:
+            json.dump(result, writer)
+        with open(file_path, "rb") as reader:
+            session = aioboto3.Session()
+            async with session.client("s3") as s3_client:
+                await s3_client.upload_fileobj(
+                    reader,
+                    "skims.data",
+                    f"results/{CTX.config.execution_id}.sarif",
+                )
+
+
 async def queue_upload_vulns(execution_id: str) -> None:
     access_key = os.environ["AWS_ACCESS_KEY_ID"]
     secret_key = os.environ["AWS_SECRET_ACCESS_KEY"]
@@ -113,7 +136,8 @@ async def queue_upload_vulns(execution_id: str) -> None:
 
 
 async def execute_skims(
-    stores: Optional[Dict[core_model.FindingEnum, EphemeralStore]] = None
+    stores: Optional[Dict[core_model.FindingEnum, EphemeralStore]] = None,
+    config: Optional[core_model.SkimsConfig] = None,
 ) -> Dict[core_model.FindingEnum, EphemeralStore]:
     """
     Execute skims according to the provided config.
@@ -126,23 +150,25 @@ async def execute_skims(
     stores = stores or {
         finding: get_ephemeral_store() for finding in core_model.FindingEnum
     }
-
-    if CTX.config.apk.include:
+    config = config or CTX.config
+    if config.apk.include:
         analyze_apk(stores=stores)
-    if CTX.config.path.include:
+    if config.path.include:
         analyze_sast(stores=stores)
 
-    if CTX.config.dast:
-        if CTX.config.dast.ssl.include:
+    if config.dast:
+        if config.dast.ssl.include:
             await analyze_ssl(stores=stores)
-        if CTX.config.dast.http.include:
+        if config.dast.http.include:
             await analyze_http(stores=stores)
-        for aws_cred in CTX.config.dast.aws_credentials:
-            await analyze_dast_aws(credentials=aws_cred, stores=stores)
-    if CTX.config.execution_id:
+        for aws_cred in config.dast.aws_credentials:
+            if aws_cred:
+                await analyze_dast_aws(credentials=aws_cred, stores=stores)
+    if config.execution_id:
         await _upload_csv_result(stores)
-        await queue_upload_vulns(CTX.config.execution_id)
-    if CTX.config.output:
+        await upload_sarif_result(config, stores)
+        await queue_upload_vulns(config.execution_id)
+    if config.output:
         notify_findings_as_csv(stores, CTX.config.output)
     else:
         notify_findings_as_snippets(stores)

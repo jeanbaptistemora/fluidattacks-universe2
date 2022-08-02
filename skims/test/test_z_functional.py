@@ -549,7 +549,11 @@ async def test_rebase_change_line_2(test_group: str) -> None:
         get_zr=True,
     )
     assert any(
-        vuln.integrates_metadata.uuid == "226fe320-8986-4c94-8305-76d773bbeded"
+        (
+            vuln.integrates_metadata
+            and vuln.integrates_metadata.uuid
+            == "226fe320-8986-4c94-8305-76d773bbeded"
+        )
         for vuln in vulns_before_rebase_zr.iterate()
     )
     assert (
@@ -559,7 +563,8 @@ async def test_rebase_change_line_2(test_group: str) -> None:
 
     for item in vulns_before_rebase_zr.iterate():
         if (
-            item.integrates_metadata.uuid
+            item.integrates_metadata
+            and item.integrates_metadata.uuid
             == "226fe320-8986-4c94-8305-76d773bbeded"
         ):
             assert item.where == "1"
@@ -620,13 +625,18 @@ async def test_rebase_change_line_3(
         and vulns_after_rebase_zr.length() == 2
     )
     assert any(
-        vuln.integrates_metadata.uuid == "226fe320-8986-4c94-8305-76d773bbeded"
+        (
+            vuln.integrates_metadata
+            and vuln.integrates_metadata.uuid
+            == "226fe320-8986-4c94-8305-76d773bbeded"
+        )
         for vuln in vulns_after_rebase_zr.iterate()
     )
 
     for item in vulns_after_rebase_zr.iterate():
         if (
-            item.integrates_metadata.uuid
+            item.integrates_metadata
+            and item.integrates_metadata.uuid
             == "226fe320-8986-4c94-8305-76d773bbeded"
         ):
             assert item.where == "10"

@@ -315,10 +315,16 @@ async def test_reattacked_store() -> None:
     assert reattacked_store is not None
     assert False not in [
         bool(
-            vuln.integrates_metadata.source
-            == core_model.VulnerabilitySourceEnum.SKIMS
-            and vuln.integrates_metadata.verification.state
-            == core_model.VulnerabilityVerificationStateEnum.REQUESTED
+            (
+                vuln.integrates_metadata
+                and vuln.integrates_metadata.source
+                == core_model.VulnerabilitySourceEnum.SKIMS
+            )
+            and (
+                vuln.integrates_metadata.verification
+                and vuln.integrates_metadata.verification.state
+                == core_model.VulnerabilityVerificationStateEnum.REQUESTED
+            )
         )
         for vuln in reattacked_store.iterate()
     ]
