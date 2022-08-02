@@ -36,6 +36,7 @@ from syntax_graph.syntax_readers.c_sharp import (
 from syntax_graph.syntax_readers.common import (
     binary_expression as common_binary_expression,
     boolean_literal as common_boolean_literal,
+    break_statement as common_break_statement,
     catch_clause as common_catch_clause,
     catch_declaration as common_catch_declaration,
     class_declaration as common_class_declaration,
@@ -116,6 +117,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
             "bracketed_argument_list",
         },
         syntax_reader=c_sharp_bracketed_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "break_statement",
+        },
+        syntax_reader=common_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={
