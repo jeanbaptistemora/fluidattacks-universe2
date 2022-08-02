@@ -9,6 +9,9 @@ from asyncio.tasks import (
     sleep,
 )
 import authz
+from context import (
+    FI_AWS_REGION_NAME,
+)
 from custom_exceptions import (
     HasVulns,
     InvalidField,
@@ -1526,6 +1529,7 @@ async def add_machine_execution(
 ) -> bool:
     tzn = pytz.timezone(TIME_ZONE)
     options = dict(
+        region_name=FI_AWS_REGION_NAME,
         service_name="batch",
     )
     async with aioboto3.Session().client(**options) as client:
