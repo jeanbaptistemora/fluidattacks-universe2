@@ -4,7 +4,7 @@ from utils_logger.v2 import (
     set_main_log,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 _conf = BugsnagConf(
     "target", __version__, "./observes/singer/target_s3", False

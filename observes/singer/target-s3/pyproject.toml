@@ -21,7 +21,7 @@ description = "Singer target redshift"
 dynamic = ["version"]
 
 [project.scripts]
-target-s3 = "target_s3.cli:main"
+target-s3 = "target_s3._cli:main"
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

@@ -18,7 +18,7 @@ from typing import (
 
 @click.command()  # type: ignore[misc]
 @click.option(  # type: ignore[misc]
-    "--bucket", required=True, type=str, help="s3 bucket URI"
+    "--bucket", required=True, type=str, help="s3 bucket name"
 )
 @click.option(  # type: ignore[misc]
     "--prefix", required=True, type=str, help="Prefix for uploaded s3 files"

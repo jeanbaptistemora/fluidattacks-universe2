@@ -51,4 +51,4 @@ def _check_dag(graph: Any, module: str) -> None:
 def test_dag() -> None:
     root = "target_s3"
     graph = grimp.build_graph(root)
-    map_over_children(graph, root, lambda _, m: _check_dag(graph, m))
+    _check_dag(graph, root)

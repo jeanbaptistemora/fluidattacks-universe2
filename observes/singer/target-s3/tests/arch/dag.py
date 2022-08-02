@@ -8,11 +8,13 @@ from typing import (
 
 _DAG: Dict[str, FrozenList[str]] = {
     "target_s3": (
-        "cli",
+        "_cli",
         "loader",
         "csv",
+        "upload",
         "core",
         "in_buffer",
+        "_utils",
     ),
     "target_s3.core": (
         "_record_group",
