@@ -1,17 +1,9 @@
-import aioboto3
 from aioextensions import (
     in_thread,
 )
 from botocore.exceptions import (
     ClientError,
 )
-from context import (
-    FI_AWS_REGION_NAME,
-    FI_ENVIRONMENT,
-    FI_MINIO_PASS,
-    FI_MINIO_USER,
-)
-import contextlib
 from custom_exceptions import (
     ErrorUploadingFileS3,
     UnavailabilityError,
@@ -41,21 +33,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
-OPTIONS = dict(
-    region_name=FI_AWS_REGION_NAME,
-    service_name="s3",
-)
-
-if FI_ENVIRONMENT == "development":
-    OPTIONS["aws_access_key_id"] = FI_MINIO_USER
-    OPTIONS["aws_secret_access_key"] = FI_MINIO_PASS
-    OPTIONS["endpoint_url"] = "http://localhost:9000"
-
-
-@contextlib.asynccontextmanager
-async def aio_client() -> aioboto3.session.Session.client:
-    async with aioboto3.Session().client(**OPTIONS) as client:
-        yield client
 
 
 async def download_file(bucket: str, file_name: str, file_path: str) -> None:
