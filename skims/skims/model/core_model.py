@@ -2112,6 +2112,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DOTNETCONFIG_NOT_CUSTOM_ERRORS = MethodInfo(
+        file_name="dotnetconfig",
+        name="dotnetconfig_not_custom_errors",
+        module="lib_path",
+        finding=FindingEnum.F239,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INSEC_COOKIES = MethodInfo(
         file_name="c_sharp",
         name="csharp_insecurely_generated_cookies",

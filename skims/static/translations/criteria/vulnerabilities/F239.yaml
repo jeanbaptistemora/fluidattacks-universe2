@@ -4,3 +4,6 @@ src.lib_root.f239.csharp_info_leak_errors:
     information of its processes through the UseSetting method.
   es: La configuración de manejo de errores del servidor permite visualización de
     información detallada de los procesos del mismo por medio del metodo UseSetting
+lib_path.f239.dotnetconfig_not_custom_errors:
+  en: customErrors flag is set to off in Web.config.
+  es: customErrors está desactivado en Web.config.
