@@ -22,6 +22,9 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.events.constants import (
+    GSI_2_FACET,
+)
 from dynamodb import (
     keys,
     operations,
@@ -57,20 +60,34 @@ async def _get_event(*, event_id: str) -> Event:
 async def _get_group_events(
     request: GroupEventsRequest,
 ) -> tuple[Event, ...]:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["event_metadata"],
-        values={"name": request.group_name},
-    )
+    if request.is_solved is None:
+        facet = TABLE.facets["event_metadata"]
+        primary_key = keys.build_key(
+            facet=facet,
+            values={"name": request.group_name},
+        )
+        index = TABLE.indexes["inverted_index"]
+        key_structure = index.primary_key
+        condition_expression = Key(key_structure.partition_key).eq(
+            primary_key.sort_key
+        ) & Key(key_structure.sort_key).begins_with(primary_key.partition_key)
+    else:
+        facet = GSI_2_FACET
+        primary_key = keys.build_key(
+            facet=facet,
+            values={
+                "group_name": request.group_name,
+                "is_solved": str(request.is_solved).lower(),
+            },
+        )
+        index = TABLE.indexes["gsi_2"]
+        key_structure = index.primary_key
+        condition_expression = Key(key_structure.partition_key).eq(
+            primary_key.partition_key
+        ) & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
 
-    index = TABLE.indexes["inverted_index"]
-    key_structure = index.primary_key
     response = await operations.query(
-        condition_expression=(
-            Key(key_structure.partition_key).eq(primary_key.sort_key)
-            & Key(key_structure.sort_key).begins_with(
-                primary_key.partition_key
-            )
-        ),
+        condition_expression=condition_expression,
         facets=(TABLE.facets["event_metadata"],),
         table=TABLE,
         index=index,
