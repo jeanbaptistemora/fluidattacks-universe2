@@ -3,6 +3,7 @@
   makePythonPypiEnvironment,
   makeScript,
   outputs,
+  projectPath,
   ...
 }: let
   pythonEnvironment = makePythonPypiEnvironment {
@@ -11,7 +12,11 @@
   };
 in
   makeScript {
+    entrypoint = ./entrypoint.sh;
     name = "integrates-streams";
+    replace = {
+      __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
+    };
     searchPaths = {
       bin = [
         inputs.nixpkgs.python39
@@ -22,5 +27,4 @@ in
         outputs."/common/utils/sops"
       ];
     };
-    entrypoint = ./entrypoint.sh;
   }
