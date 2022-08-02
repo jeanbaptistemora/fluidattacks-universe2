@@ -42,7 +42,9 @@ const pageTexts: ResourceKey = {
       title: "Alejandro Herrera",
     },
     andersonTaguada: {
-      description: "[under construction]",
+      description:
+        "Anderson was security analyst at Fluid Attacks " +
+        "from August 2019 until December 2021.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Anderson Taguada.",
       title: "Anderson Taguada",
@@ -54,7 +56,10 @@ const pageTexts: ResourceKey = {
       title: "Andres Cuberos",
     },
     andresRoldan: {
-      description: "[under construction]",
+      description:
+        "Andres is red team leader at Fluid Attacks " +
+        "with more than 20 years of experience in cybersecurity. " +
+        "He holds over 20 certifications in offensive security.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andres Roldan.",
       title: "Andres Roldan",
@@ -72,13 +77,17 @@ const pageTexts: ResourceKey = {
       title: "Daniel Salazar",
     },
     danielYepes: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Daniel was security analyst at Fluid Attacks " +
+        "from March 2018 until November 2020.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Daniel Yepes.",
       title: "Daniel Yepes",
     },
     diegoAlvarez: {
-      description: "[under construction]",
+      description:
+        "Diego was security analyst and developer at Fluid Attacks " +
+        "from September 2019 until March 2020.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Diego Alvarez.",
       title: "Diego Alvarez",
@@ -95,7 +104,9 @@ const pageTexts: ResourceKey = {
       title: "Felipe Ruiz",
     },
     felipeZarate: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Felipe was cybersecurity editor at Fluid Attacks " +
+        "from April until July 2021.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Felipe Zárate.",
       title: "Felipe Zárate",
@@ -107,25 +118,34 @@ const pageTexts: ResourceKey = {
       title: "Jason Chavarría",
     },
     jonathanArmas: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Jonathan was security analyst at Fluid Attacks " +
+        "from March 2017 until October 2021.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Jonathan Armas.",
       title: "Jonathan Armas",
     },
     juanAguirre: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Juan was security analyst at Fluid Attacks " +
+        "from March 2017 until August 2018.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Juan Aguirre.",
       title: "Juan Aguirre",
     },
     julianArango: {
-      description: "[under construction]",
+      description:
+        "Julian is chief experience officer at Fluid Attacks. " +
+        "He has a background in behavioral science " +
+        "and more than six years of experience in cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Julian Arango.",
       title: "Julian Arango",
     },
     kevinAmado: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Kevin was security analyst and developer at Fluid Attacks " +
+        "from October 2018 until January 2022.",
       metaDescription: "Read Fluid Attacks' blog posts written by Kevin Amado.",
       title: "Kevin Amado",
     },
@@ -136,7 +156,9 @@ const pageTexts: ResourceKey = {
       title: "Kevin Cardona",
     },
     mateoGutierrez: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Mateo was security analyst at Fluid Attacks " +
+        "from June 2019 until September 2021.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Mateo Gutiérrez.",
       title: "Mateo Gutiérrez",
@@ -148,7 +170,9 @@ const pageTexts: ResourceKey = {
       title: "Mauricio Gómez",
     },
     oscarPrado: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Oscar was security analyst at Fluid Attacks " +
+        "from September 2018 until May 2022.",
       metaDescription: "Read Fluid Attacks' blog posts written by Oscar Prado.",
       title: "Oscar Prado",
     },
@@ -158,25 +182,34 @@ const pageTexts: ResourceKey = {
       title: "Oscar Uribe",
     },
     oswaldoParada: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Oswaldo was security developer at Fluid Attacks " +
+        "from November 2017 until April 2019.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Oswaldo Parada.",
       title: "Oswaldo Parada",
     },
     rafaelAlvarez: {
-      description: "[under construction]",
+      description:
+        "Rafael is chief technology officer and co-founder of Fluid Attacks. " +
+        "He is a computer engineer " +
+        "with more than 20 years of experience in cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Rafael Alvarez.",
       title: "Rafael Alvarez",
     },
     rafaelBallestas: {
-      description: "Former member of Fluid Attacks.",
+      description:
+        "Rafael was security analyst at Fluid Attacks " +
+        "from January 2018 until May 2020.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Rafael Ballestas.",
       title: "Rafael Ballestas",
     },
     sebastianVillalobos: {
-      description: "[under construction]",
+      description:
+        "Sebastian was security analyst and developer at Fluid Attacks " +
+        "from January until April 2019.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Sebastian Villalobos.",
       title: "Sebastian Villalobos",

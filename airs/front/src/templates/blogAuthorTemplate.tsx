@@ -258,7 +258,7 @@ const blogAuthorTemplate: React.FC<IQueryData> = ({
               <Title fColor={"#2e2e38"} fSize={"48"} marginBottom={"2"}>
                 {authorTitle === undefined
                   ? capitalizeDashedString(authorName)
-                  : authorTitle}
+                  : `Posts by ${authorTitle}`}
               </Title>
               {authorDescription === undefined ? undefined : (
                 <Paragraph fColor={"#2e2e38"} fSize={"24"}>
