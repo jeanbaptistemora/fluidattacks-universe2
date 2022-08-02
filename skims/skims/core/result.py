@@ -2,10 +2,21 @@ from ctx import (
     CRITERIA_REQUIREMENTS,
     CRITERIA_VULNERABILITIES,
 )
+from model import (
+    core_model,
+)
 import sarif_om
+from state.ephemeral import (
+    EphemeralStore,
+)
 from typing import (
     Any,
     Dict,
+)
+from utils.repositories import (
+    get_repo_branch,
+    get_repo_head_hash,
+    get_repo_remote,
 )
 import yaml  # type: ignore
 
@@ -102,3 +113,108 @@ def _format_what(what: str) -> str:
     if " " in what:
         return what.split(" ")[0]
     return what
+
+
+def _get_sarif(
+    config: core_model.SkimsConfig,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+) -> sarif_om.SarifLog:
+    base = sarif_om.SarifLog(
+        version="2.1.0",
+        schema_uri=(
+            "https://schemastore.azurewebsites.net/schemas/"
+            "json/sarif-2.1.0-rtm.4.json"
+        ),
+        runs=[
+            sarif_om.Run(
+                tool=sarif_om.Tool(
+                    driver=sarif_om.ToolComponent(
+                        name="skims",
+                        rules=[],
+                    )
+                ),
+                results=[],
+                version_control_provenance=[
+                    sarif_om.VersionControlDetails(
+                        repository_uri=get_repo_remote(config.working_dir),
+                        revision_id=get_repo_head_hash(config.working_dir),
+                        branch=get_repo_branch(config.working_dir),
+                    )
+                ],
+                taxonomies=[
+                    sarif_om.ToolComponent(
+                        name="criteria",
+                        version="1",
+                        information_uri=(
+                            "https://docs.fluidattacks.com/"
+                            "criteria/requirements/"
+                        ),
+                        organization="Fluidattcks",
+                        short_description=sarif_om.MultiformatMessageString(
+                            text="The fluidattcks security requirements"
+                        ),
+                        taxa=[],
+                        is_comprehensive=False,
+                    )
+                ],
+            ),
+        ],
+    )
+
+    for store in stores.values():
+        for vulnerability in store.iterate():
+            # remove F from findings
+            rule_id = vulnerability.finding.name.replace("F", "")
+            result = sarif_om.Result(
+                rule_id=rule_id,
+                level="error",
+                kind="open",
+                message=sarif_om.MultiformatMessageString(
+                    text=vulnerability.skims_metadata.description
+                    if vulnerability.skims_metadata
+                    else ""
+                ),
+                locations=[
+                    sarif_om.PhysicalLocation(
+                        artifact_location=sarif_om.ArtifactLocation(
+                            uri=_format_what(vulnerability.what)
+                        ),
+                        region=sarif_om.Region(
+                            start_line=int(vulnerability.where),
+                            snippet=sarif_om.MultiformatMessageString(
+                                text=vulnerability.skims_metadata.snippet
+                                if vulnerability.skims_metadata
+                                else ""
+                            ),
+                        ),
+                    )
+                ],
+                taxa=[],
+            )
+
+            # append rule if not is present
+            if not _rule_is_present(base, rule_id):
+                base.runs[0].tool.driver.rules.append(_get_rule(rule_id))
+
+            # append requirement if not is present
+            for taxa_id in CRITERIA_VULNS[rule_id]["requirements"]:
+                if not _taxa_is_present(base, taxa_id):
+                    base.runs[0].taxonomies[0].taxa.append(_get_taxa(taxa_id))
+                result.taxa.append(
+                    sarif_om.ReportingDescriptorReference(
+                        id=taxa_id,
+                        tool_component=sarif_om.ToolComponentReference(
+                            name="criteria"
+                        ),
+                    )
+                )
+            base.runs[0].results.append(result)
+
+    return base
+
+
+def get_sarif(
+    config: core_model.SkimsConfig,
+    stores: Dict[core_model.FindingEnum, EphemeralStore],
+) -> Dict[str, Any]:
+    return _simplify(_get_sarif(config, stores))
