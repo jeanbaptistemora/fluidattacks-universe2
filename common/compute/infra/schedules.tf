@@ -14,8 +14,9 @@ resource "aws_batch_job_definition" "schedule" {
 
   container_properties = jsonencode(
     {
-      image   = "ghcr.io/fluidattacks/makes:22.08"
-      command = each.value.command
+      image            = "ghcr.io/fluidattacks/makes:22.08"
+      command          = each.value.command
+      executionRoleArn = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${each.value.awsRole}"
 
       resourceRequirements = [
         {

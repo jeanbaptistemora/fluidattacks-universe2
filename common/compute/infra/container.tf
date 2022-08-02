@@ -3,12 +3,13 @@ resource "aws_batch_job_definition" "makes" {
   type = "container"
   container_properties = jsonencode(
     {
-      image = "ghcr.io/fluidattacks/makes:22.08"
+      image            = "ghcr.io/fluidattacks/makes:22.08"
+      executionRoleArn = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/prod_common"
 
       # Will be overridden on job submission
       resourceRequirements = [
         { type = "VCPU", value = "1" },
-        { type = "MEMORY", value = "1800" },
+        { type = "MEMORY", value = "1900" },
       ]
     }
   )

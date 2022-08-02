@@ -11,6 +11,7 @@
 
     schedule_expression = "cron(0 9 */2 * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -37,6 +38,7 @@
 
     schedule_expression = "cron(0 12 * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -63,6 +65,7 @@
 
     schedule_expression = "cron(0 9 * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -91,6 +94,7 @@
 
     schedule_expression = "cron(0 5,8,11,14,17,21 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -119,6 +123,7 @@
 
     schedule_expression = "cron(30 6,11,16 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -147,6 +152,7 @@
 
     schedule_expression = "cron(0 1 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -175,6 +181,7 @@
 
     schedule_expression = "cron(0 2 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -203,6 +210,7 @@
 
     schedule_expression = "cron(0 9 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -231,6 +239,7 @@
 
     schedule_expression = "cron(0 14 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -259,6 +268,7 @@
 
     schedule_expression = "cron(0 11 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -287,6 +297,7 @@
 
     schedule_expression = "cron(0 11 ? * 2-6 *)";
     size = "small";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 129600;
     parallel = 1;
@@ -315,6 +326,7 @@
 
     schedule_expression = "cron(30 5,16 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -343,6 +355,7 @@
 
     schedule_expression = "cron(0 5 ? * 5 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -371,6 +384,7 @@
 
     schedule_expression = "cron(0 12,19 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -399,6 +413,7 @@
 
     schedule_expression = "cron(0 20 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -427,6 +442,7 @@
 
     schedule_expression = "cron(0 19 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -455,6 +471,7 @@
 
     schedule_expression = "cron(0 18,00 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -483,6 +500,7 @@
 
     schedule_expression = "cron(15 * ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -511,6 +529,7 @@
 
     schedule_expression = "cron(0 0 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -539,6 +558,7 @@
 
     schedule_expression = "cron(30 * ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -567,6 +587,7 @@
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -595,6 +616,7 @@
 
     schedule_expression = "cron(0 10 1 * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -623,6 +645,7 @@
 
     schedule_expression = "cron(0 10 ? * 2 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -651,6 +674,7 @@
 
     schedule_expression = "cron(0 15 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -679,6 +703,7 @@
 
     schedule_expression = "cron(0 10 ? * * *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -707,6 +732,7 @@
 
     schedule_expression = "cron(0 9,18 ? * 2-6 *)";
     size = "small";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 129600;
     parallel = 1;
@@ -735,6 +761,7 @@
 
     schedule_expression = "cron(0 7,14 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -761,6 +788,7 @@
 
     schedule_expression = "cron(0 2,17 * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 2;
     timeout = 3600;
     parallel = 1;
@@ -787,6 +815,7 @@
 
     schedule_expression = "cron(0 12-23/3 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 10800;
     parallel = 1;
@@ -813,6 +842,7 @@
 
     schedule_expression = "cron(0 11 ? * 1-5 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 10800;
     parallel = 1;
@@ -839,6 +869,7 @@
 
     schedule_expression = "cron(0 11 * * ? *)";
     size = "small";
+    awsRole = "prod_common";
     attempts = 2;
     timeout = 86400;
     parallel = 1;
@@ -865,6 +896,7 @@
 
     schedule_expression = "cron(0 9 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 2;
     timeout = 18000;
     parallel = 1;
@@ -891,6 +923,7 @@
 
     schedule_expression = "cron(0 4 1,15 * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 4;
     timeout = 18000;
     parallel = 1;
@@ -917,6 +950,7 @@
 
     schedule_expression = "cron(0 * * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 3600;
     parallel = 1;
@@ -943,6 +977,7 @@
 
     schedule_expression = "cron(0 12 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 2;
     timeout = 86400;
     parallel = 1;
@@ -969,6 +1004,7 @@
 
     schedule_expression = "cron(0 10 ? * 2-6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 3600;
     parallel = 1;
@@ -995,6 +1031,7 @@
 
     schedule_expression = "cron(0 * * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 1800;
     parallel = 1;
@@ -1021,6 +1058,7 @@
 
     schedule_expression = "cron(0 11-23/2 * * ? *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 1;
@@ -1047,6 +1085,7 @@
 
     schedule_expression = "cron(0 0 1 1-12/3 ? *)";
     size = "large";
+    awsRole = "prod_common";
     attempts = 1;
     timeout = 86400;
     parallel = 1;
@@ -1074,6 +1113,7 @@
 
     schedule_expression = "cron(0 23 ? * 7 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 15;
@@ -1101,6 +1141,7 @@
 
     schedule_expression = "cron(0 23 ? * 7 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 86400;
     parallel = 15;
@@ -1127,6 +1168,7 @@
 
     schedule_expression = "cron(0 5 ? * 6 *)";
     size = "nano";
+    awsRole = "prod_common";
     attempts = 3;
     timeout = 129600;
     parallel = 1;

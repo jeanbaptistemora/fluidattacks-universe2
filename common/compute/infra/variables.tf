@@ -1,4 +1,4 @@
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "main" {}
 variable "region" {
   default = "us-east-1"
 }
