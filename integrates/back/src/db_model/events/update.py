@@ -15,8 +15,12 @@ from custom_exceptions import (
 from db_model import (
     TABLE,
 )
+from db_model.events.constants import (
+    GSI_2_FACET,
+)
 from db_model.events.enums import (
     EventEvidenceType,
+    EventStateStatus,
 )
 from db_model.events.utils import (
     format_metadata_item,
@@ -97,6 +101,7 @@ async def update_state(
 ) -> None:
     key_structure = TABLE.primary_key
     state_item = json.loads(json.dumps(state))
+    gsi_2_index = TABLE.indexes["gsi_2"]
 
     try:
         primary_key = keys.build_key(
@@ -106,7 +111,20 @@ async def update_state(
                 "name": group_name,
             },
         )
-        item = {"state": state_item}
+        gsi_2_key = keys.build_key(
+            facet=GSI_2_FACET,
+            values={
+                "is_solved": str(
+                    state.status is EventStateStatus.SOLVED
+                ).lower(),
+                "group_name": group_name,
+            },
+        )
+        item = {
+            "state": state_item,
+            gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+            gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        }
         condition_expression = Attr(
             key_structure.partition_key
         ).exists() & Attr("state.modified_date").eq(
