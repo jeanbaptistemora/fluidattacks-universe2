@@ -33,6 +33,6 @@ def test_others_dashboard(
     driver.get(f"{asm_endpoint}/orgs/okada/analytics")
     assert utils.wait_for_text(
         driver,
-        "Severity over time",
+        "Exposure over time",
         timeout,
     )

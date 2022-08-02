@@ -4,7 +4,7 @@ export const enTranslations: ResourceKey = {
   analytics: {
     barChart: {
       eventualities: "Unsolved events by groups",
-      exposureByGroups: "Open Severity by groups",
+      exposureByGroups: "Open Exposure by groups",
       meanTimeToRemediate: {
         tooltip: {
           alt: {
@@ -24,17 +24,17 @@ export const enTranslations: ResourceKey = {
       },
       topVulnerabilities: {
         altTitle: {
-          app: "App Open Severity (CVSSF)",
-          code: "Code Open Severity (CVSSF)",
-          infra: "Infra Open Severity (CVSSF)",
+          app: "App Open Exposure (CVSSF)",
+          code: "Code Open Exposure (CVSSF)",
+          infra: "Infra Open Exposure (CVSSF)",
           vulnerabilities: "Top vulnerabilities",
         },
-        title: "Open Severity by type",
+        title: "Open Exposure by type",
         tooltip: {
-          app: "Source of severity of type App",
-          code: "Source of severity of type Code",
-          cvssf: "Severity",
-          infra: "Source of severity of type Infra",
+          app: "Source of exposure of type App",
+          code: "Source of exposure of type Code",
+          cvssf: "Exposure",
+          infra: "Source of exposure of type Infra",
           vulnerabilities: "Vulnerabilities",
         },
       },
@@ -148,9 +148,9 @@ export const enTranslations: ResourceKey = {
     stackedBarChart: {
       assignedVulnerabilities: {
         altTitle: "Vulnerabilities by assignment",
-        title: "Severity by assignment",
+        title: "Exposure by assignment",
         tooltip: {
-          cvssf: "Severity",
+          cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",
         },
       },
@@ -160,7 +160,7 @@ export const enTranslations: ResourceKey = {
       distributionOverTimeCvssf: {
         title: "Distribution over time",
         tooltip: {
-          cvssf: "Severity",
+          cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",
         },
       },
@@ -169,9 +169,9 @@ export const enTranslations: ResourceKey = {
       },
       riskOverTime: {
         altTitle: "Vulnerabilities over time",
-        title: "Severity over time",
+        title: "Exposure over time",
         tooltip: {
-          cvssf: "Severity",
+          cvssf: "Exposure",
           vulnerabilities: "Vulnerabilities",
         },
       },

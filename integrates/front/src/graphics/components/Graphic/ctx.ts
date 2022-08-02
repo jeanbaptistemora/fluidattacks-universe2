@@ -39,14 +39,14 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     ],
     default: {
       documentName: "assignedVulnerabilitiesCvssf",
-      label: "Severity",
+      label: "Exposure",
       title: translate.t(
         "analytics.stackedBarChart.assignedVulnerabilities.title"
       ),
       tooltip: translate.t(
         "analytics.stackedBarChart.assignedVulnerabilities.tooltip.cvssf"
       ),
-      url: "#severity-by-assignment",
+      url: "#exposure-by-assignment",
     },
     documentType: "stackedBarChart",
   },
@@ -66,7 +66,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     ],
     default: {
       documentName: "distributionOverTimeCvssf",
-      label: "Severity",
+      label: "Exposure",
       title: translate.t(
         "analytics.stackedBarChart.distributionOverTimeCvssf.title"
       ),
@@ -153,12 +153,12 @@ const mergedDocuments: Record<string, IMergedCharts> = {
     ],
     default: {
       documentName: "riskOverTimeCvssf",
-      label: "Severity",
+      label: "Exposure",
       title: translate.t("analytics.stackedBarChart.riskOverTime.title"),
       tooltip: translate.t(
         "analytics.stackedBarChart.riskOverTime.tooltip.cvssf"
       ),
-      url: "#severity-over-time",
+      url: "#exposure-over-time",
     },
     documentType: "stackedBarChart",
   },
@@ -184,7 +184,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.code"
         ),
-        url: "#open-severity-by-type",
+        url: "#open-exposure-by-type",
       },
       {
         documentName: "topVulnerabilitiesBySourceInfra",
@@ -195,7 +195,7 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.infra"
         ),
-        url: "#open-severity-by-type",
+        url: "#open-exposure-by-type",
       },
       {
         documentName: "topVulnerabilitiesBySourceApp",
@@ -206,17 +206,17 @@ const mergedDocuments: Record<string, IMergedCharts> = {
         tooltip: translate.t(
           "analytics.barChart.topVulnerabilities.tooltip.app"
         ),
-        url: "#open-severity-by-type",
+        url: "#open-exposure-by-type",
       },
     ],
     default: {
       documentName: "topVulnerabilitiesCvssf",
-      label: "Severity",
+      label: "Exposure",
       title: translate.t("analytics.barChart.topVulnerabilities.title"),
       tooltip: translate.t(
         "analytics.barChart.topVulnerabilities.tooltip.cvssf"
       ),
-      url: "#open-severity-by-type",
+      url: "#open-exposure-by-type",
     },
     documentType: "barChart",
   },
