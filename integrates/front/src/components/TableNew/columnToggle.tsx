@@ -41,10 +41,10 @@ export const ToggleFunction = <TData extends object>(
           {table.getAllLeafColumns().map((column): ReactElement => {
             return (
               <Row align={"center"} key={column.id}>
-                <Col large={"70"} medium={"70"} small={"70"}>
+                <Col lg={70} md={70} sm={70}>
                   {column.columnDef.header}
                 </Col>
-                <Col large={"30"} medium={"30"} small={"30"}>
+                <Col lg={30} md={30} sm={30}>
                   <Switch
                     checked={column.getIsVisible()}
                     onChange={column.getToggleVisibilityHandler()}

@@ -195,7 +195,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           return (
             <Form>
               <Row>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.businessId.text")}
@@ -225,7 +225,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.businessName.text")}
@@ -255,7 +255,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.description.text")}
@@ -286,7 +286,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t("organization.tabs.groups.newGroup.language.text")}
@@ -314,7 +314,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t(
@@ -349,7 +349,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text mb={2}>
                       {t(
@@ -376,7 +376,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     </Tooltip>
                   </Card>
                 </Col>
-                <Col large={"33"} medium={"50"} small={"100"}>
+                <Col lg={33} md={50} sm={100}>
                   <Card>
                     <Text fw={7} mb={2}>
                       {t("organization.tabs.groups.newGroup.managed.text")}

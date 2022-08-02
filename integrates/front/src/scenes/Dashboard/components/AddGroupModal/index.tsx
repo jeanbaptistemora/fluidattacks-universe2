@@ -218,7 +218,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
                   <Row id={"add-group-description-tour"} justify={"between"}>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col lg={33} md={33} sm={33}>
                       <Text mb={1}>
                         {t(
                           "organization.tabs.groups.newGroup.organization.text"
@@ -247,7 +247,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         />
                       </Tooltip>
                     </Col>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col lg={33} md={33} sm={33}>
                       <Text mb={1}>
                         {t("organization.tabs.groups.newGroup.name")}
                       </Text>
@@ -264,7 +264,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         ])}
                       />
                     </Col>
-                    <Col large={"33"} medium={"33"} small={"33"}>
+                    <Col lg={33} md={33} sm={33}>
                       <Text mb={1}>
                         {t(
                           "organization.tabs.groups.newGroup.description.text"
@@ -295,12 +295,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </Col>
                   </Row>
                   <Row justify={"between"}>
-                    <Col
-                      id={"add-group-service-type"}
-                      large={"33"}
-                      medium={"33"}
-                      small={"33"}
-                    >
+                    <Col id={"add-group-service-type"} lg={33} md={33} sm={33}>
                       <Tooltip
                         hide={runTour}
                         id={"organization.tabs.groups.newGroup.type.tooltip"}
@@ -328,12 +323,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         </Select>
                       </Tooltip>
                     </Col>
-                    <Col
-                      id={"add-group-testing-type"}
-                      large={"33"}
-                      medium={"33"}
-                      small={"33"}
-                    >
+                    <Col id={"add-group-testing-type"} lg={33} md={33} sm={33}>
                       <Select
                         label={t(
                           "organization.tabs.groups.newGroup.service.title"
@@ -350,9 +340,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     </Col>
                     <Col
                       id={"add-group-report-language"}
-                      large={"33"}
-                      medium={"33"}
-                      small={"33"}
+                      lg={33}
+                      md={33}
+                      sm={33}
                     >
                       <Tooltip
                         hide={runTour}

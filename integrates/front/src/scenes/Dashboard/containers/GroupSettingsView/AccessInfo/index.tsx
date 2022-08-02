@@ -139,7 +139,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Col large={"50"} medium={"100"} small={"100"}>
+      <Col lg={50} md={100} sm={100}>
         <Card title={t("searchFindings.groupAccessInfoSection.groupContext")}>
           <Formik
             enableReinitialize={true}
@@ -155,7 +155,7 @@ const AccessInfo: React.FC = (): JSX.Element => {
           </Formik>
         </Card>
       </Col>
-      <Col large={"50"} medium={"100"} small={"100"}>
+      <Col lg={50} md={100} sm={100}>
         <Card title={t("searchFindings.groupAccessInfoSection.disambiguation")}>
           <Can do={"api_resolvers_group_disambiguation_resolve"}>
             <Formik

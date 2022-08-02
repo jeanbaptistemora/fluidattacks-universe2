@@ -145,7 +145,7 @@ const NotificationsView: React.FC = (): JSX.Element => {
       <Row>
         {subscriptionsFiltered.map(
           (item: ISubscriptionName): JSX.Element => (
-            <Col key={item.name} large={"25"} medium={"50"} small={"100"}>
+            <Col key={item.name} lg={25} md={50} sm={100}>
               <Tooltip
                 id={`${item.name.toUpperCase().replace(" ", "")}Tooltip`}
                 tip={item.tooltip}

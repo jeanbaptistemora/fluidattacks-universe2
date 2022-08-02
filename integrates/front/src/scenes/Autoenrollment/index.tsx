@@ -385,14 +385,14 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
         <DashboardContent id={"dashboard"}>
           <Switch>
             <Route exact={true} path={"/autoenrollment/organization"}>
-              <Col large={"100"} medium={"100"} small={"100"}>
+              <Col lg={100} md={100} sm={100}>
                 <Row justify={"center"}>
                   <Col>
                     <h2>{t("autoenrollment.addOrganization.title")}</h2>
                   </Col>
                 </Row>
                 <Row justify={"center"}>
-                  <Col large={"40"} medium={"60"} small={"90"}>
+                  <Col lg={40} md={60} sm={90}>
                     <FormContent>
                       <AddOrganization
                         isSubmitting={isSubmitting}
@@ -409,7 +409,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
               </Col>
             </Route>
             <Route exact={true} path={"/autoenrollment/repository"}>
-              <Col large={"100"} medium={"100"} small={"100"}>
+              <Col lg={100} md={100} sm={100}>
                 <Row justify={"center"}>
                   <Col>
                     <h2>{t("autoenrollment.addRoot.title")}</h2>
@@ -417,7 +417,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
                   </Col>
                 </Row>
                 <Row justify={"center"}>
-                  <Col large={"40"} medium={"60"} small={"90"}>
+                  <Col lg={40} md={60} sm={90}>
                     <FormContent>
                       <AddRoot
                         initialValues={repository}
@@ -432,9 +432,9 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
               </Col>
             </Route>
             <Route exact={true} path={"/autoenrollment/standby"}>
-              <Col large={"100"} medium={"100"} small={"100"}>
+              <Col lg={100} md={100} sm={100}>
                 <Row justify={"center"}>
-                  <Col large={"30"} medium={"50"} small={"70"}>
+                  <Col lg={30} md={50} sm={70}>
                     <FormContent>
                       <Standby onClose={asmRedirect}>
                         <h2>{t("autoenrollment.standby.title")}</h2>

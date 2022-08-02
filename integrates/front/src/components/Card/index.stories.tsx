@@ -18,7 +18,7 @@ const Template: Story<React.PropsWithChildren<ICardProps>> = (
   <Row>
     {[...Array(5).keys()].map(
       (el): JSX.Element => (
-        <Col key={el} large={"50"} medium={"50"} small={"50"}>
+        <Col key={el} lg={50} md={50} sm={50}>
           <Card {...props} />
         </Col>
       )

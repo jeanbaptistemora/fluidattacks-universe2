@@ -185,8 +185,8 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           {t("group.findings.report.filterReportDescription")}
                         </p>
                         <Row align={"start"} justify={"start"}>
-                          <Col large={"90"} medium={"90"} small={"90"}>
-                            <Col large={"50"} medium={"50"} small={"50"}>
+                          <Col lg={90} md={90} sm={90}>
+                            <Col lg={50} md={50} sm={50}>
                               <p className={"mb2"}>
                                 <span className={"fw8"}>
                                   {t("group.findings.report.closingDate.text")}
@@ -209,7 +209,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             </Col>
                           </Col>
                           {_.isEmpty(values.closingDate) ? (
-                            <Col large={"50"} medium={"50"} small={"50"}>
+                            <Col lg={50} md={50} sm={50}>
                               <p className={"mb2"}>
                                 <span className={"fw8"}>
                                   {t("group.findings.report.treatment")}
@@ -239,7 +239,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               )}
                             </Col>
                           ) : undefined}
-                          <Col large={"30"} medium={"30"} small={"30"}>
+                          <Col lg={30} md={30} sm={30}>
                             <p className={"mb2"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.reattack.title")}
@@ -281,7 +281,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                               </React.Fragment>
                             )}
                           </Col>
-                          <Col large={"20"} medium={"20"} small={"20"}>
+                          <Col lg={20} md={20} sm={20}>
                             <p className={"mb2"}>
                               <span className={"fw8"}>
                                 {t("group.findings.report.state")}

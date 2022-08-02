@@ -53,7 +53,7 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
           <AccessInfo />
           <Can do={"api_resolvers_group_forces_token_resolve"}>
             <Have I={"has_forces"}>
-              <Col large={"33"} medium={"50"} small={"100"}>
+              <Col lg={33} md={50} sm={100}>
                 <Card title={t("searchFindings.agentTokenSection.title")}>
                   <AgentToken groupName={groupName} />
                 </Card>
@@ -61,14 +61,14 @@ const GroupSettingsView: React.FC = (): JSX.Element => {
             </Have>
           </Can>
           <Can do={"api_mutations_unsubscribe_from_group_mutate"}>
-            <Col large={"34"} medium={"50"} small={"100"}>
+            <Col lg={34} md={50} sm={100}>
               <Card title={t("searchFindings.servicesTable.unsubscribe.title")}>
                 <Unsubscribe />
               </Card>
             </Col>
           </Can>
           <Can do={"api_mutations_remove_group_mutate"}>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card
                 title={t(
                   "searchFindings.servicesTable.deleteGroup.deleteGroup"

@@ -59,7 +59,7 @@ const TrackingView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <Row justify={"center"}>
-        <Col large={"90"} medium={"100"} small={"100"}>
+        <Col lg={90} md={100} sm={100}>
           <Timeline>
             {tracking.map((closing: ITracking): JSX.Element => {
               return (

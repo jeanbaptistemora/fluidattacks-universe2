@@ -1,51 +1,36 @@
 import styled from "styled-components";
 
-/**
- * Inspired by tachyons widths
- * @link http://tachyons.io/docs/layout/widths/
- */
-type Width =
-  | "10"
-  | "20"
-  | "25"
-  | "30"
-  | "33"
-  | "34"
-  | "40"
-  | "50"
-  | "60"
-  | "70"
-  | "75"
-  | "80"
-  | "90"
-  | "100";
-
 interface IColProps {
-  large?: Width;
-  medium?: Width;
-  small?: Width;
+  lg?: number;
+  md?: number;
+  sm?: number;
 }
 
-const getAttrs = (width?: Width): string => `
-  flex-grow: ${width === undefined ? "1" : "unset"};
-  width: ${width === undefined ? "unset" : `${width}%`};
-`;
+const getAttrs = (cols?: number): string =>
+  cols === undefined
+    ? "flex-grow: 1;"
+    : `width: calc(${cols}00% / var(--cols));`;
 
+/**
+ * @param lg Amount of cols taken from nearest Row in large screens
+ * @param md Amount of cols taken from nearest Row in medium screens
+ * @param sm Amount of cols taken from nearest Row in small screens
+ */
 const Col = styled.div.attrs({
   className: "comp-col",
 })<IColProps>`
   word-break: break-word;
 
   @media (max-width: 768px) {
-    ${({ small }): string => getAttrs(small)}
+    ${({ sm }): string => getAttrs(sm)}
   }
 
   @media (min-width: 768px) and (max-width: 992px) {
-    ${({ medium }): string => getAttrs(medium)}
+    ${({ md }): string => getAttrs(md)}
   }
 
   @media (min-width: 992px) {
-    ${({ large }): string => getAttrs(large)}
+    ${({ lg }): string => getAttrs(lg)}
   }
 
   > .comp-card {

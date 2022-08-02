@@ -89,7 +89,7 @@ const Policies: React.FC<IPolicies> = ({
             )}
           </Text>
           <Row>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.maxAcceptanceDays`)}
@@ -119,7 +119,7 @@ const Policies: React.FC<IPolicies> = ({
                 </Tooltip>
               </Card>
             </Col>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.maxNumberAcceptances`)}
@@ -151,7 +151,7 @@ const Policies: React.FC<IPolicies> = ({
                 </Tooltip>
               </Card>
             </Col>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
@@ -187,7 +187,7 @@ const Policies: React.FC<IPolicies> = ({
             </Col>
           </Row>
           <Row>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.minAcceptanceSeverity`)}
@@ -222,7 +222,7 @@ const Policies: React.FC<IPolicies> = ({
                 </Tooltip>
               </Card>
             </Col>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.maxAcceptanceSeverity`)}
@@ -257,7 +257,7 @@ const Policies: React.FC<IPolicies> = ({
                 </Tooltip>
               </Card>
             </Col>
-            <Col large={"33"} medium={"50"} small={"100"}>
+            <Col lg={33} md={50} sm={100}>
               <Card>
                 <Text mb={2}>
                   {t(`${translationStart}policies.minBreakingSeverity`)}

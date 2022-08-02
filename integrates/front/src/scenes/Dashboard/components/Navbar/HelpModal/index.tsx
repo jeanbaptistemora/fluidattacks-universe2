@@ -161,7 +161,7 @@ export const HelpModal: React.FC<IHelpModal> = ({
             </Message>
           </Col>
           <DisplayHelpExpert />
-          <Col>
+          <Col md={100} sm={100}>
             <Message>
               <ExternalLink href={"mailto:help@fluidattacks.com"}>
                 <Button onClick={undefined}>

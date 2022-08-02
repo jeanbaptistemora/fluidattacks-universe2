@@ -82,7 +82,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   return (
     <React.StrictMode>
       <Row>
-        <Col large={"50"} medium={"50"} small={"50"}>
+        <Col lg={50} md={50} sm={50}>
           <Row>
             <Col>
               <h4>{t("searchFindings.tabVuln.vulnTable.location")}</h4>
@@ -204,7 +204,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
             </Col>
           </Row>
         </Col>
-        <Col large={"50"} medium={"50"} small={"50"}>
+        <Col lg={50} md={50} sm={50}>
           <Row>
             <Col>
               <h4>{t("searchFindings.tabVuln.vulnTable.treatments")}</h4>

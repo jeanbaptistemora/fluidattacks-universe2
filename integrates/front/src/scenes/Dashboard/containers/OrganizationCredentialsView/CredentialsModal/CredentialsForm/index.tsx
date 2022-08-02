@@ -49,7 +49,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
         return (
           <Form id={"credentials"}>
             <Row justify={"start"}>
-              <Col large={"100"} medium={"100"} small={"100"}>
+              <Col lg={100} md={100} sm={100}>
                 <Input
                   label={t(
                     "organization.tabs.credentials.credentialsModal.form.name.label"
@@ -63,7 +63,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
               </Col>
               {isAdding || values.newSecrets ? (
                 <Fragment>
-                  <Col large={"100"} medium={"100"} small={"100"}>
+                  <Col lg={100} md={100} sm={100}>
                     <Select
                       label={t(
                         "organization.tabs.credentials.credentialsModal.form.type.label"
@@ -84,7 +84,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                     </Select>
                   </Col>
                   {values.type === "SSH" && (
-                    <Col large={"100"} medium={"100"} small={"100"}>
+                    <Col lg={100} md={100} sm={100}>
                       <TextArea
                         label={t("group.scope.git.repo.credentials.sshKey")}
                         name={"key"}
@@ -96,7 +96,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                     </Col>
                   )}
                   {values.type === "HTTPS" && (
-                    <Col large={"100"} medium={"100"} small={"100"}>
+                    <Col lg={100} md={100} sm={100}>
                       <Select name={"auth"} required={true}>
                         <option value={"TOKEN"}>
                           {t(
@@ -112,7 +112,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                     </Col>
                   )}
                   {values.type === "HTTPS" && values.auth === "TOKEN" && (
-                    <Col large={"100"} medium={"100"} small={"100"}>
+                    <Col lg={100} md={100} sm={100}>
                       <Input
                         label={t(
                           "organization.tabs.credentials.credentialsModal.form.token"
@@ -124,7 +124,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                   )}
                   {values.type === "HTTPS" && values.auth === "USER" && (
                     <Fragment>
-                      <Col large={"50"} medium={"50"} small={"100"}>
+                      <Col lg={50} md={50} sm={100}>
                         <Input
                           label={t(
                             "organization.tabs.credentials.credentialsModal.form.user"
@@ -133,7 +133,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
                           required={true}
                         />
                       </Col>
-                      <Col large={"50"} medium={"50"} small={"100"}>
+                      <Col lg={50} md={50} sm={100}>
                         <Input
                           label={t(
                             "organization.tabs.credentials.credentialsModal.form.password"
@@ -149,7 +149,7 @@ const CredentialsForm: React.FC<ICredentialsFormProps> = (
             </Row>
             {isEditing ? (
               <Row>
-                <Col large={"100"} medium={"100"} small={"100"}>
+                <Col lg={100} md={100} sm={100}>
                   {t("profile.credentialsModal.form.newSecrets")}
                   &nbsp;
                   <Switch

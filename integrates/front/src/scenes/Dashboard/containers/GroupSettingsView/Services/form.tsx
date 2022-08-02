@@ -89,7 +89,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
   return (
     <Form id={"editGroup"}>
       <Row>
-        <Col large={"30"} medium={"50"} small={"50"}>
+        <Col lg={30} md={50} sm={50}>
           <Card>
             <Select
               label={t("searchFindings.servicesTable.type")}
@@ -104,7 +104,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             </Select>
           </Card>
         </Col>
-        <Col large={"30"} medium={"50"} small={"50"}>
+        <Col lg={30} md={50} sm={50}>
           <Card>
             <Select
               label={t("searchFindings.servicesTable.service")}
@@ -119,7 +119,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             </Select>
           </Card>
         </Col>
-        <Col large={"20"} medium={"50"} small={"50"}>
+        <Col lg={20} md={50} sm={50}>
           <Card>
             <Text mb={2}>{t("searchFindings.servicesTable.machine")}</Text>
             <Field
@@ -133,7 +133,7 @@ const ServicesForm: React.FC<IServicesFormProps> = (
             />
           </Card>
         </Col>
-        <Col large={"20"} medium={"50"} small={"50"}>
+        <Col lg={20} md={50} sm={50}>
           <Card>
             <Text mb={2}>{t("searchFindings.servicesTable.squad")}</Text>
             <Field

@@ -35,12 +35,12 @@ const SortsSuggestionsModal: React.FC<ISortsSuggestionsModal> = ({
     (item: ISortsSuggestionAttr): JSX.Element => {
       return (
         <Row key={item.findingTitle}>
-          <Col large={"80"} medium={"80"} small={"80"}>
+          <Col lg={80} md={80} sm={80}>
             <Field>
               <Label>{item.findingTitle}</Label>
             </Field>
           </Col>
-          <Col large={"20"} medium={"20"} small={"20"}>
+          <Col lg={20} md={20} sm={20}>
             <Value>{`${item.probability} %`}</Value>
           </Col>
         </Row>

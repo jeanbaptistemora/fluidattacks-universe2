@@ -110,7 +110,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       >
         <Form>
           <Row justify={"start"}>
-            <Col large={"100"} medium={"100"} small={"100"}>
+            <Col lg={100} md={100} sm={100}>
               <Input
                 disabled={successMutation.organization}
                 label={t(
@@ -123,7 +123,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
               />
             </Col>
-            <Col large={"100"} medium={"100"} small={"100"}>
+            <Col lg={100} md={100} sm={100}>
               <Input
                 disabled={successMutation.group}
                 label={t("autoenrollment.addOrganization.groupName.label")}
@@ -134,7 +134,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
               />
             </Col>
-            <Col large={"100"} medium={"100"} small={"100"}>
+            <Col lg={100} md={100} sm={100}>
               <Select
                 label={t("autoenrollment.addOrganization.reportLanguage")}
                 name={"reportLanguage"}
@@ -149,7 +149,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 </option>
               </Select>
             </Col>
-            <Col large={"100"} medium={"100"} small={"100"}>
+            <Col lg={100} md={100} sm={100}>
               <TextArea
                 label={t(
                   "autoenrollment.addOrganization.groupDescription.label"
@@ -160,7 +160,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 )}
               />
             </Col>
-            <Col large={"100"} medium={"100"} small={"100"}>
+            <Col lg={100} md={100} sm={100}>
               <Checkbox
                 label={
                   <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
