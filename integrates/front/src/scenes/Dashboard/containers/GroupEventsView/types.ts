@@ -1,3 +1,8 @@
+interface IRootAttr {
+  id: string;
+  nickname: string;
+}
+
 interface IEventAttr {
   accessibility: string[];
   affectedComponents: string[];
@@ -8,6 +13,7 @@ interface IEventAttr {
   eventType: string;
   id: string;
   groupName: string;
+  root: IRootAttr | null;
 }
 
 interface IEventData {
@@ -20,6 +26,7 @@ interface IEventData {
   eventType: string;
   id: string;
   groupName: string;
+  root: IRootAttr | null;
 }
 
 interface IEventsDataset {

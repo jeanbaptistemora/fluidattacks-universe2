@@ -36,6 +36,7 @@ describe("update Affected Modal", (): void => {
             eventType: "DATA_UPDATE_REQUIRED",
             groupName: "unittesting",
             id: "463457733",
+            root: null,
           },
         ],
       },

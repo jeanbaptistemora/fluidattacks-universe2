@@ -2532,6 +2532,7 @@ export const enTranslations: ResourceKey = {
       hacker: "Hacker",
       id: "ID",
       resume: "Resume",
+      root: "Root",
       solvingReason: "Solving reason",
       status: "Status",
       statusValues: {

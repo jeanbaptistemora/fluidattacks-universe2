@@ -14,6 +14,21 @@ const GET_EVENTS: DocumentNode = gql`
         eventStatus
         eventType
         closingDate
+        root {
+          ... on GitRoot {
+            id
+            nickname
+          }
+
+          ... on URLRoot {
+            id
+            nickname
+          }
+          ... on IPRoot {
+            id
+            nickname
+          }
+        }
       }
       name
     }

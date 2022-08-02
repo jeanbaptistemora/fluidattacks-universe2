@@ -97,6 +97,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       eventStatus: true,
       eventType: true,
       id: true,
+      "root.nickname": true,
     },
     localStorage
   );
@@ -142,7 +143,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.id"),
       onSort: onSortState,
       visible: columnItems.id,
-      width: "8%",
+      wrapped: true,
+    },
+    {
+      dataField: "root.nickname",
+      header: t("searchFindings.tabEvents.root"),
+      onSort: onSortState,
+      visible: columnItems["root.nickname"],
       wrapped: true,
     },
     {
@@ -150,7 +157,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.date"),
       onSort: onSortState,
       visible: columnItems.eventDate,
-      width: "10%",
       wrapped: true,
     },
     {
@@ -158,7 +164,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.description"),
       onSort: onSortState,
       visible: columnItems.detail,
-      width: "50%",
       wrapped: true,
     },
     {
@@ -166,7 +171,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.accessibility"),
       onSort: onSortState,
       visible: columnItems.accessibility,
-      width: "50%",
       wrapped: true,
     },
     {
@@ -174,7 +178,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.affectedComponents"),
       onSort: onSortState,
       visible: columnItems.affectedComponents,
-      width: "50%",
       wrapped: true,
     },
     {
@@ -182,7 +185,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.type"),
       onSort: onSortState,
       visible: columnItems.eventType,
-      width: "20%",
       wrapped: true,
     },
     {
@@ -191,15 +193,13 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.status"),
       onSort: onSortState,
       visible: columnItems.eventStatus,
-      width: "90px",
       wrapped: true,
     },
     {
       dataField: "closingDate",
       header: t("searchFindings.tabEvents.dateClosed"),
       onSort: onSortState,
-      visible: columnItems.dateClosed,
-      width: "13%",
+      visible: columnItems.closingDate,
       wrapped: true,
     },
   ];
