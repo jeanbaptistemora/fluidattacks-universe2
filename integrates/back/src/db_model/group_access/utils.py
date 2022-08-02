@@ -38,6 +38,8 @@ def format_group_access(item: Item) -> GroupAccess:
 
 
 def format_metadata_item(
+    email: str,
+    group_name: str,
     metadata: GroupAccessMetadataToUpdate,
 ) -> Item:
     item: Item = {
@@ -47,7 +49,9 @@ def format_metadata_item(
         }
         if metadata.confirm_deletion
         else None,
+        "email": email,
         "expiration_time": metadata.expiration_time,
+        "group_name": group_name,
         "has_access": metadata.has_access,
         "invitation": {
             "is_used": metadata.invitation.is_used,
