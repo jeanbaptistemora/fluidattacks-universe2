@@ -70,3 +70,8 @@ class EventMetadataToUpdate(NamedTuple):
 
 class EventUnreliableIndicatorsToUpdate(NamedTuple):
     unreliable_solving_date: Optional[str] = None
+
+
+class GroupEventsRequest(NamedTuple):
+    group_name: str
+    is_solved: Optional[bool] = None

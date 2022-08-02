@@ -29,6 +29,7 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from decimal import (
     Decimal,
@@ -46,7 +47,9 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    events_group: tuple[Event, ...] = await loaders.group_events.load(group)
+    events_group: tuple[Event, ...] = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group)
+    )
 
     return PortfoliosGroupsInfo(
         group_name=group.lower(),

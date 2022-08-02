@@ -21,6 +21,7 @@ from db_model.enums import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from db_model.findings.types import (
     Finding,
@@ -441,7 +442,7 @@ async def test_list_events() -> None:
     ]
     loaders: Dataloaders = get_new_context()
     events_group: tuple[Event, ...] = await loaders.group_events.load(
-        group_name
+        GroupEventsRequest(group_name=group_name)
     )
     assert expected_output == sorted([event.id for event in events_group])
 

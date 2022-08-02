@@ -3,6 +3,7 @@ from dataloaders import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from db_model.groups.types import (
     Group,
@@ -27,7 +28,8 @@ async def resolve(
     **_kwargs: None,
 ) -> tuple[Event, ...]:
     loaders: Dataloaders = info.context.loaders
-    group_name: str = parent.name
-    events_group = await loaders.group_events.load(group_name)
+    events_group = await loaders.group_events.load(
+        GroupEventsRequest(group_name=parent.name)
+    )
 
     return events_group

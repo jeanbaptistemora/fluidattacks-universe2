@@ -3,6 +3,7 @@ from ariadne.utils import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -33,7 +34,7 @@ async def resolve(
     # Compatibility with old API
     group_name: str = get_key_or_fallback(kwargs).lower()
     event_groups = await info.context.loaders.group_events.load(
-        group_name.lower()
+        GroupEventsRequest(group_name=group_name)
     )
 
     return event_groups

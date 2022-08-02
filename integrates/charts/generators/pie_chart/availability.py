@@ -23,6 +23,7 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from groups.domain import (
     get_creation_date,
@@ -54,7 +55,7 @@ async def get_data_one_group(
         await get_creation_date(loaders=loaders, group_name=group_name)
     )
     events_group: tuple[Event, ...] = await loaders.group_events.load(
-        group_name
+        GroupEventsRequest(group_name=group_name)
     )
     sorted_events: tuple[Event, ...] = tuple(
         sorted(events_group, key=attrgetter("event_date"))

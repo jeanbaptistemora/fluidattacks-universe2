@@ -50,6 +50,7 @@ from db_model.enums import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from db_model.findings.types import (
     Finding,
@@ -1204,7 +1205,7 @@ async def remove_resources(
         )
     )
     events_group: tuple[Event, ...] = await loaders.group_events.load(
-        group_name
+        GroupEventsRequest(group_name=group_name)
     )
     are_events_masked = all(
         await collect(

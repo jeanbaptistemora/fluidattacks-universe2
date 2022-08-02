@@ -14,6 +14,7 @@ from db_model.events.enums import (
 from db_model.events.types import (
     Event,
     EventEvidences,
+    GroupEventsRequest,
 )
 import pytest
 from typing import (
@@ -40,7 +41,7 @@ async def test_add_event(
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
     group_events: tuple[Event, ...] = await loaders.group_events.load(
-        group_name
+        GroupEventsRequest(group_name=group_name)
     )
     assert len(group_events) == events_in_db
 
@@ -52,7 +53,9 @@ async def test_add_event(
     assert result["data"]["addEvent"]
 
     loaders = get_new_context()
-    group_events = await loaders.group_events.load(group_name)
+    group_events = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group_name)
+    )
     assert len(group_events) == events_in_db + 1
     event: Event = next(
         event for event in group_events if event.hacker == email

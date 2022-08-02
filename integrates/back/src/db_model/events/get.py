@@ -1,6 +1,7 @@
 from .types import (
     Event,
     EventState,
+    GroupEventsRequest,
 )
 from .utils import (
     format_event,
@@ -54,11 +55,11 @@ async def _get_event(*, event_id: str) -> Event:
 
 
 async def _get_group_events(
-    group_name: str,
+    request: GroupEventsRequest,
 ) -> tuple[Event, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_metadata"],
-        values={"name": group_name},
+        values={"name": request.group_name},
     )
 
     index = TABLE.indexes["inverted_index"]
@@ -125,6 +126,6 @@ class EventLoader(DataLoader):
 class GroupEventsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
+        self, requests: Iterable[GroupEventsRequest]
     ) -> tuple[tuple[Event, ...], ...]:
-        return await collect(tuple(map(_get_group_events, group_names)))
+        return await collect(tuple(map(_get_group_events, requests)))

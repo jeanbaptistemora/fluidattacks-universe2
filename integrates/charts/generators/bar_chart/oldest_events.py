@@ -30,6 +30,7 @@ from db_model.events.enums import (
 )
 from db_model.events.types import (
     Event,
+    GroupEventsRequest,
 )
 from newutils.datetime import (
     get_date_from_iso_str,
@@ -53,7 +54,9 @@ class EventsInfo(NamedTuple):
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> tuple[EventsInfo, ...]:
-    events_group: tuple[Event, ...] = await loaders.group_events.load(group)
+    events_group: tuple[Event, ...] = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group)
+    )
 
     return tuple(
         sorted(
