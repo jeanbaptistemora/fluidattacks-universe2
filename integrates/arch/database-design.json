@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 02, 2022, 08:19 AM",
+    "DateLastModified": "Aug 02, 2022, 12:25 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -9705,6 +9705,12 @@
               "pk": {
                 "S": "EVENT#463578352"
               },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#true"
+              },
               "id": {
                 "S": "463578352"
               },
@@ -9788,6 +9794,12 @@
               "pk": {
                 "S": "EVENT#540462628"
               },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
+              },
               "id": {
                 "S": "540462628"
               },
@@ -9832,6 +9844,12 @@
               },
               "pk": {
                 "S": "EVENT#418900971"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
               },
               "id": {
                 "S": "418900971"
@@ -9886,6 +9904,12 @@
               "pk": {
                 "S": "EVENT#540462638"
               },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
+              },
               "id": {
                 "S": "540462638"
               },
@@ -9939,6 +9963,12 @@
               "pk": {
                 "S": "EVENT#538745942"
               },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
+              },
               "id": {
                 "S": "538745942"
               },
@@ -9986,6 +10016,12 @@
               },
               "pk": {
                 "S": "EVENT#418900979"
+              },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#true"
               },
               "id": {
                 "S": "418900979"
@@ -10039,6 +10075,12 @@
               "pk": {
                 "S": "EVENT#418900978"
               },
+              "pk_2": {
+                "S": "GROUP#oneshottest"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#false"
+              },
               "id": {
                 "S": "418900978"
               },
@@ -10091,6 +10133,12 @@
               },
               "pk": {
                 "S": "EVENT#484763304"
+              },
+              "pk_2": {
+                "S": "GROUP#unittesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#true"
               },
               "id": {
                 "S": "484763304"
@@ -10164,6 +10212,12 @@
               },
               "pk": {
                 "S": "EVENT#418900923"
+              },
+              "pk_2": {
+                "S": "GROUP#continuoustesting"
+              },
+              "sk_2": {
+                "S": "EVENT#SOLVED#true"
               },
               "id": {
                 "S": "418900923"
