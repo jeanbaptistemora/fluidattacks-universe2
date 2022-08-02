@@ -291,10 +291,9 @@ async def _toe_line_content(
 
 
 async def _generate_numerator_report(
-    loaders: Dataloaders, groups_names: Tuple[str, ...]
+    loaders: Dataloaders, groups_names: Tuple[str, ...], date_range: int
 ) -> Dict[str, Any]:
     content: Dict[str, Any] = {}
-    date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
     allowed_roles: set[str] = {
         "architect",
         "hacker",
@@ -389,7 +388,8 @@ async def send_numerator_report() -> None:
     group_names = tuple(
         group.name for group in groups if group.state.has_squad
     )
-    report_date = datetime_utils.get_now().date()
+    date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
+    report_date = datetime_utils.get_now_minus_delta(days=date_range).date()
 
     if FI_ENVIRONMENT == "production":
         group_names = tuple(
@@ -399,7 +399,7 @@ async def send_numerator_report() -> None:
         )
 
     content: Dict[str, Any] = await _generate_numerator_report(
-        loaders, group_names
+        loaders, group_names, date_range
     )
 
     if content:
