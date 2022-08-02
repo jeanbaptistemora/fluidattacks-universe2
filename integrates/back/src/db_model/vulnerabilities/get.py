@@ -493,6 +493,12 @@ class VulnerabilityLoader(DataLoader):
 
 
 class VulnerabilityHistoricStateLoader(DataLoader):
+    async def load_many_chained(
+        self, ids: List[str]
+    ) -> Tuple[VulnerabilityState, ...]:
+        unchained_data = await self.load_many(ids)
+        return tuple(chain.from_iterable(unchained_data))
+
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, ids: Tuple[str, ...]
