@@ -12,6 +12,7 @@ from charts.colors import (
     RISK,
 )
 from charts.generators.bar_chart.utils import (
+    format_csv_data,
     generate_all_top_vulnerabilities,
 )
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
@@ -139,11 +140,16 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     )
 
 
+def format_csv(document: dict) -> utils.CsvData:
+    return format_csv_data(document=document, header="Type")
+
+
 if __name__ == "__main__":
     run(
         generate_all_top_vulnerabilities(
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
             format_data=format_data,
+            format_csv=format_csv,
         )
     )

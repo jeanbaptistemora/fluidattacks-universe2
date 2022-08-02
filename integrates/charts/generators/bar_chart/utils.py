@@ -782,34 +782,41 @@ async def generate_all_top_vulnerabilities(
         [List[str], Dataloaders], Awaitable[Counter[str]]
     ],
     format_data: Callable[[Counter[str]], Dict[str, Any]],
+    format_csv: Callable[[dict], CsvData],
 ) -> None:
     loaders = get_new_context()
     async for group in iterate_groups():
+        document = format_data(
+            await get_data_one_group(group, loaders),
+        )
         json_dump(
-            document=format_data(
-                await get_data_one_group(group, loaders),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv(document),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_data(
+            await get_data_many_groups(list(org_groups), loaders),
+        )
         json_dump(
-            document=format_data(
-                await get_data_many_groups(list(org_groups), loaders),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv(document),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_data(
+                await get_data_many_groups(list(groups), loaders),
+            )
             json_dump(
-                document=format_data(
-                    await get_data_many_groups(list(groups), loaders),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv(document),
             )
 
 

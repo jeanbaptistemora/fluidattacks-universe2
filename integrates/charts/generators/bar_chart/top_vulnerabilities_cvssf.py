@@ -17,6 +17,9 @@ from charts.generators.bar_chart.utils import (
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from custom_exceptions import (
+    UnsanitizedInputFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -37,6 +40,9 @@ from findings import (
 )
 from itertools import (
     groupby,
+)
+from newutils.validations import (
+    validate_sanitized_csv_input,
 )
 from typing import (
     Any,
@@ -119,7 +125,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
         data=dict(
             columns=[
                 [
-                    "Open Severity",
+                    "Open Exposure",
                     *[
                         utils.format_cvssf_log(Decimal(value))
                         for _, value in merged_data
@@ -127,7 +133,7 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
                 ],
             ],
             colors={
-                "Open Severity": RISK.more_agressive,
+                "Open Exposure": RISK.more_agressive,
             },
             labels=None,
             type="bar",
@@ -182,11 +188,29 @@ def format_data(counters: Counter[str]) -> Dict[str, Any]:
     )
 
 
+def format_csv_data(document: dict) -> utils.CsvData:
+    columns: list[list[str]] = document["originalValues"]
+    categories: list[str] = document["axis"]["x"]["categories"]
+    rows: list[list[str]] = []
+    for category, value in zip(categories, tuple(columns)):
+        try:
+            validate_sanitized_csv_input(str(category))
+            rows.append([str(category), str(value)])
+        except UnsanitizedInputFound:
+            rows.append(["", ""])
+
+    return utils.CsvData(
+        headers=["Type", document["data"]["columns"][0][0]],
+        rows=rows,
+    )
+
+
 if __name__ == "__main__":
     run(
         generate_all_top_vulnerabilities(
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
             format_data=format_data,
+            format_csv=format_csv_data,
         )
     )
