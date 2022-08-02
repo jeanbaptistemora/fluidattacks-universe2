@@ -5,6 +5,8 @@ from lib_root.utilities.c_sharp import (
     check_member_acces_expression,
     yield_shard_member_access,
     yield_shard_object_creation,
+    yield_syntax_graph_member_access,
+    yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
     ShardDb,
@@ -258,9 +260,12 @@ def c_sharp_insecure_cipher(
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
             for member in [
-                *yield_shard_member_access(shard, insecure_ciphers),
-                *yield_shard_object_creation(shard, insecure_ciphers),
+                *yield_syntax_graph_member_access(graph, insecure_ciphers),
+                *yield_syntax_graph_object_creation(graph, insecure_ciphers),
             ]:
                 yield shard, member
 

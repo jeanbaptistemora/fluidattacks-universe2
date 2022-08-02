@@ -2,6 +2,7 @@ from model import (
     graph_model,
 )
 from model.graph_model import (
+    Graph,
     GraphDB,
     GraphShard,
     GraphShardMetadataLanguage,
@@ -198,3 +199,27 @@ def check_member_acces_expression(
     if expr and shard.graph.nodes[expr]["label_text"] == express:
         return True
     return False
+
+
+def yield_syntax_graph_member_access(
+    graph: Graph, members: Set[str]
+) -> Iterator[NId]:
+    for nid in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="MemberAccess"),
+    ):
+        if graph.nodes[nid].get("expression") in members:
+            yield nid
+
+
+def yield_syntax_graph_object_creation(
+    graph: Graph, members: Set[str]
+) -> Iterator[NId]:
+    for nid in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="ObjectCreation"),
+    ):
+        if graph.nodes[nid].get("name") in members:
+            yield nid

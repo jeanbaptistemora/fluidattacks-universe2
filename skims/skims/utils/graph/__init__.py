@@ -96,7 +96,7 @@ def adj_lazy(
     """Return adjacent nodes to `n_id`, following just edges with given attrs.
 
     - Parameter `depth` may be -1 to indicate infinite depth.
-    - Parameter `strcit` indicates that the edges must have only the indicated
+    - Parameter `strict` indicates that the edges must have only the indicated
       attributes
 
     - Search is done breadth first.
