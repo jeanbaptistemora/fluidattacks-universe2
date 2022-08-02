@@ -54,13 +54,18 @@ def format_group_consulting_resolve(group_comment: GroupComment) -> Item:
 
 
 def format_group_comment_item(group_comment: GroupComment) -> Item:
-    return {
+    item = {
         "project_name": group_comment.group_name,
-        "user_id": group_comment.id,
+        "user_id": int(group_comment.id),
         "parent": group_comment.parent_id,
         "created": convert_from_iso_str(group_comment.creation_date),
         "fullname": group_comment.full_name,
         "content": group_comment.content,
         "email": group_comment.email,
         "modified": convert_from_iso_str(group_comment.creation_date),
+    }
+    return {
+        key: None if not value else value
+        for key, value in item.items()
+        if value is not None
     }

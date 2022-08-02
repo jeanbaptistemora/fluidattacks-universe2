@@ -16,6 +16,9 @@ from datetime import (
 from db_model.enums import (
     Notification,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
@@ -87,7 +90,7 @@ async def send_mail_group_report(
 async def send_mail_comment(
     *,
     loaders: Any,
-    comment_data: Dict[str, Any],
+    comment_data: GroupComment,
     user_mail: str,
     recipients: List[str],
     group_name: str = "",
@@ -98,12 +101,12 @@ async def send_mail_comment(
     has_squad: bool = group.state.has_squad
 
     email_context: dict[str, Any] = {
-        "comment": str(comment_data["content"]).splitlines(),
+        "comment": str(comment_data.content).splitlines(),
         "comment_type": "group",
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/consulting"
         ),
-        "parent": str(comment_data["parent"]),
+        "parent": str(comment_data.parent_id),
         "group": group_name,
         "has_machine": has_machine,
         "has_squad": has_squad,

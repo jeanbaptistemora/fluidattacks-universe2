@@ -7,6 +7,9 @@ from ariadne import (
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -38,14 +41,13 @@ from subscriptions.domain import (
 import time
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def send_group_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Dict[str, Any],
+    comment_data: GroupComment,
     user_email: str,
     group_name: str,
 ) -> None:
@@ -79,19 +81,21 @@ async def mutate(
     current_time = datetime_utils.get_as_str(datetime_utils.get_now())
     comment_id = int(round(time.time() * 1000))
     content = parameters["content"]
-    comment_data = {
-        "user_id": comment_id,
-        "content": content,
-        "created": current_time,
-        "fullname": str.join(
+    comment_data = GroupComment(
+        group_name=group_name,
+        id=str(comment_id),
+        content=content,
+        creation_date=current_time,
+        full_name=str.join(
             " ", [user_info["first_name"], user_info["last_name"]]
         ),
-        "modified": current_time,
-        "parent": parameters.get("parent_comment"),
-    }
-    success = await group_comments_domain.add_comment(
+        parent_id=str(parameters.get("parent_comment")),
+        email=user_email,
+    )
+    await group_comments_domain.add_comment(
         info, group_name, user_email, comment_data
     )
+    success = True
     if success:
         redis_del_by_deps_soon("add_group_consult", group_name=group_name)
         if content.strip() not in {"#external", "#internal"}:

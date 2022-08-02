@@ -22,8 +22,6 @@ from newutils.validations import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -35,23 +33,24 @@ async def add_comment(
     info: GraphQLResolveInfo,
     group_name: str,
     email: str,
-    comment_data: Dict[str, Any],
-) -> bool:
+    comment_data: GroupComment,
+) -> None:
     """Add comment in a group."""
-    parent_comment = str(comment_data["parent"])
-    content = str(comment_data["content"])
+    loaders = info.context.loaders
+    parent_comment = comment_data.parent_id
+    content = comment_data.content
     validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
         content, email, group_name, parent_comment, info.context.store
     )
     if parent_comment != "0":
-        comments = await group_comments_dal.get_comments(group_name)
-        group_comments = [str(comment.get("user_id")) for comment in comments]
+        comments: list[GroupComment] = await loaders.group_comments.load(
+            group_name
+        )
+        group_comments = [comment.id for comment in comments]
         if parent_comment not in group_comments:
             raise InvalidCommentParent()
-    return await group_comments_dal.add_comment(
-        group_name, email, comment_data
-    )
+    await group_comments_dal.add_comment_typed(comment_data)
 
 
 async def delete_comment(group_name: str, user_id: str) -> bool:
@@ -60,7 +59,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
 
 async def list_comments(
     loaders: Any, group_name: str, user_email: str
-) -> List[GroupComment]:
+) -> list[GroupComment]:
     enforcer = await authz.get_group_level_enforcer(user_email)
     comments = await loaders.group_comments.load(group_name)
 

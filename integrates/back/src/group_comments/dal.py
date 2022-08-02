@@ -7,11 +7,17 @@ from botocore.exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
+from newutils.group_comments import (
+    format_group_comment_item,
+)
 from settings import (
     LOGGING,
 )
@@ -41,6 +47,16 @@ async def add_comment(
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
+
+
+async def add_comment_typed(comment_data: GroupComment) -> None:
+    """Add a comment in a group."""
+    comment_item = format_group_comment_item(comment_data)
+    await add_comment(
+        group_name=comment_data.group_name,
+        email=comment_data.email,
+        comment_data=comment_item,
+    )
 
 
 async def delete_comment(group_name: str, user_id: str) -> bool:

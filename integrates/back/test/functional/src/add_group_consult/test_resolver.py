@@ -8,6 +8,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -80,16 +83,15 @@ async def test_add_group_consult_with_suppress(
     assert result["data"]["addGroupConsult"]["success"]
 
     user: Stakeholder = await loaders.stakeholder.load(email)
-    comment_data: dict[str, Any] = {
-        "user_id": comment_id,
-        "content": "Test consult",
-        "created": current_time,
-        "fullname": str.join(
-            " ", [user.first_name or "", user.last_name or ""]
-        ),
-        "modified": current_time,
-        "parent": "0",
-    }
+    comment_data = GroupComment(
+        group_name=group_name,
+        id=comment_id,
+        content="Test consult",
+        creation_date=current_time,
+        full_name=str.join(" ", [user.first_name or "", user.last_name or ""]),
+        parent_id="0",
+        email=user.email,
+    )
 
     with pytest.raises(StakeholderNotFound):
         await send_mail_comment(

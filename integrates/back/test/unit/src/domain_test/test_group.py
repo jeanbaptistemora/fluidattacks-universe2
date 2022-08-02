@@ -429,25 +429,25 @@ async def test_add_comment() -> None:
     comment_id = int(round(time.time() * 1000))
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
-    comment_data = {
-        "user_id": comment_id,
-        "content": "Test comment",
-        "created": current_time,
-        "fullname": "unittesting",
-        "modified": current_time,
-        "parent": "0",
-    }
-    assert await add_comment(
+    comment_data = GroupComment(
+        id=str(comment_id),
+        content="Test comment",
+        creation_date=current_time,
+        full_name="unittesting",
+        parent_id="0",
+        email="unittest@fluidattacks.com",
+        group_name=group_name,
+    )
+    await add_comment(
         info, group_name, "unittest@fluidattacks.com", comment_data
     )
-
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    comment_data["created"] = current_time
-    comment_data["modified"] = current_time
-    comment_data["parent"] = str(comment_id)
-    assert await add_comment(
-        info, group_name, "unittest@fluidattacks.com", comment_data
+    loaders = get_new_context()
+    group_comments: list[GroupComment] = await loaders.group_comments.load(
+        group_name
     )
+    assert group_comments[-1].content == "Test comment"
+    assert group_comments[-1].id == comment_data.id
+    assert group_comments[-1].full_name == comment_data.full_name
 
 
 async def test_list_events() -> None:
