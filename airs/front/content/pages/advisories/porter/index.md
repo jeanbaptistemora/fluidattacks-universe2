@@ -1,6 +1,6 @@
 ---
 slug: advisories/porter/
-title: CyberArk Identity 22.1 Vulnerability
+title: CyberArk Identity 22.1 - User Enumeration
 authors: Andres Roldan
 writer: aroldan
 codename: porter
