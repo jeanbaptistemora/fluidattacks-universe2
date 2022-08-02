@@ -31,8 +31,8 @@ from organizations import (
     domain as orgs_domain,
 )
 import os
-from s3.operations import (
-    aio_client,
+from s3.resource import (
+    get_s3_resource,
 )
 from settings import (
     LOGGING,
@@ -63,10 +63,10 @@ async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
     buffer = io.BytesIO()
 
     key: str = os.path.join("bills", year, month, f"{group}.csv")
+    client = await get_s3_resource()
 
     try:
-        async with aio_client() as client:
-            await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
+        await client.download_fileobj(SERVICES_DATA_BUCKET, key, buffer)
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     else:

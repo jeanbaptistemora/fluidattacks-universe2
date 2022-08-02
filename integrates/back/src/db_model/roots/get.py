@@ -45,8 +45,10 @@ from dynamodb import (
     operations,
 )
 from s3.operations import (
-    aio_client,
     list_files,
+)
+from s3.resource import (
+    get_s3_resource,
 )
 from typing import (
     Dict,
@@ -340,6 +342,7 @@ async def get_download_url(
     group_name: str, root_nickname: str
 ) -> Optional[str]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
+    client = await get_s3_resource()
     file_exits = bool(
         await list_files(
             bucket=FI_AWS_S3_MIRRORS_BUCKET,
@@ -348,34 +351,36 @@ async def get_download_url(
     )
     if not file_exits:
         return None
-    async with aio_client() as client:
-        return await client.generate_presigned_url(
-            ClientMethod="get_object",
-            Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
-            ExpiresIn=1800,
-        )
+
+    return await client.generate_presigned_url(
+        ClientMethod="get_object",
+        Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+        ExpiresIn=1800,
+    )
 
 
 async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
-    async with aio_client() as client:
-        return await client.generate_presigned_url(
-            ClientMethod="put_object",
-            Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
-            ExpiresIn=1800,
-        )
+    client = await get_s3_resource()
+
+    return await client.generate_presigned_url(
+        ClientMethod="put_object",
+        Params={"Bucket": FI_AWS_S3_MIRRORS_BUCKET, "Key": object_name},
+        ExpiresIn=1800,
+    )
 
 
 async def get_upload_url_post(
     group_name: str, root_nickname: str
 ) -> Dict[str, Dict[str, str]]:
     object_name = f"{group_name}/{root_nickname}.tar.gz"
-    async with aio_client() as client:
-        return await client.generate_presigned_post(
-            FI_AWS_S3_MIRRORS_BUCKET,
-            object_name,
-            ExpiresIn=1800,
-        )
+    client = await get_s3_resource()
+
+    return await client.generate_presigned_post(
+        FI_AWS_S3_MIRRORS_BUCKET,
+        object_name,
+        ExpiresIn=1800,
+    )
 
 
 async def get_secrets(

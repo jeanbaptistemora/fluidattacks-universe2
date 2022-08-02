@@ -15,8 +15,8 @@ from custom_exceptions import (
 import io
 import logging
 import logging.config
-from s3.operations import (
-    aio_client,
+from s3.resource import (
+    get_s3_resource,
 )
 from settings import (
     LOGGING,
@@ -30,15 +30,15 @@ LOGGER = logging.getLogger(__name__)
 
 async def get_document(key: str) -> str:
     key = f"{CI_COMMIT_REF_NAME}/documents/{key}"
+    client = await get_s3_resource()
 
     with io.BytesIO() as stream:
 
         # Stream the download to an in-memory buffer
-        async with aio_client() as client:
-            try:
-                await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
-            except ClientError as ex:
-                raise DocumentNotFound() from ex
+        try:
+            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+        except ClientError as ex:
+            raise DocumentNotFound() from ex
 
         # Return pointer to begin-of-file
         stream.seek(0)
@@ -49,16 +49,16 @@ async def get_document(key: str) -> str:
 
 async def get_snapshot(key: str) -> bytes:
     key = f"{CI_COMMIT_REF_NAME}/snapshots/{key}"
+    client = await get_s3_resource()
 
     with io.BytesIO() as stream:
 
         # Stream the download to an in-memory buffer
-        async with aio_client() as client:
-            try:
-                await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
-            except (ClientError, ClientPayloadError) as ex:
-                LOGGER.exception(ex, extra=dict(extra=locals()))
-                raise SnapshotNotFound() from ex
+        try:
+            await client.download_fileobj(BUCKET_ANALYTICS, key, stream)
+        except (ClientError, ClientPayloadError) as ex:
+            LOGGER.exception(ex, extra=dict(extra=locals()))
+            raise SnapshotNotFound() from ex
 
         # Return pointer to begin-of-file
         stream.seek(0)

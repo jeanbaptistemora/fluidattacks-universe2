@@ -30,8 +30,8 @@ from groups.domain import (
 from newutils import (
     datetime as datetime_utils,
 )
-from s3.operations import (
-    aio_client,
+from s3.resource import (
+    get_s3_resource,
 )
 
 
@@ -43,12 +43,12 @@ async def add_missing_upload_date(event: Event) -> None:
     date_list = []
     coroutines = []
     event_prefix = f"{group_name}/{event_id}/"
-    async with aio_client() as client:
-        resp = await client.list_objects_v2(
-            Bucket=FI_AWS_S3_BUCKET, Prefix=event_prefix
-        )
-        key_list = [item["Key"] for item in resp.get("Contents", [])]
-        date_list = [item["LastModified"] for item in resp.get("Contents", [])]
+    client = await get_s3_resource()
+    resp = await client.list_objects_v2(
+        Bucket=FI_AWS_S3_BUCKET, Prefix=event_prefix
+    )
+    key_list = [item["Key"] for item in resp.get("Contents", [])]
+    date_list = [item["LastModified"] for item in resp.get("Contents", [])]
 
     for evidence in event_evidences:
         if evidence in event and f"{evidence}_date" not in event:

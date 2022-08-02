@@ -32,10 +32,12 @@ from magic import (
 )
 import os
 from s3.operations import (
-    aio_client,
     download_file,
     list_files,
     remove_file,
+)
+from s3.resource import (
+    get_s3_resource,
 )
 import tempfile
 import time
@@ -54,16 +56,17 @@ async def upload_file(
     bucket: str, file_object: object, file_name: str
 ) -> bool:
     success = False
-    async with aio_client() as client:
-        try:
-            await client.upload_fileobj(
-                file_object,
-                bucket,
-                file_name,
-            )
-            success = True
-        except ClientError as ex:
-            print(f"Error occurred uploading file: {ex}")
+    client = await get_s3_resource()
+    try:
+        await client.upload_fileobj(
+            file_object,
+            bucket,
+            file_name,
+        )
+        success = True
+    except ClientError as ex:
+        print(f"Error occurred uploading file: {ex}")
+
     return success
 
 

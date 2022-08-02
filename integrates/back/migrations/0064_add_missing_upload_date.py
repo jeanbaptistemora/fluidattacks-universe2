@@ -36,8 +36,8 @@ from newutils import (
     datetime as datetime_utils,
 )
 import os
-from s3.operations import (
-    aio_client,
+from s3.resource import (
+    get_s3_resource,
 )
 from typing import (
     Dict,
@@ -54,12 +54,12 @@ async def add_missing_upload_date(finding: Dict[str, Finding]) -> None:
     date_list = []
     coroutines = []
     finding_prefix = f"{group_name}/{finding_id}/"
-    async with aio_client() as client:
-        resp = await client.list_objects_v2(
-            Bucket=FI_AWS_S3_BUCKET, Prefix=finding_prefix
-        )
-        key_list = [item["Key"] for item in resp.get("Contents", [])]
-        date_list = [item["LastModified"] for item in resp.get("Contents", [])]
+    client = await get_s3_resource()
+    resp = await client.list_objects_v2(
+        Bucket=FI_AWS_S3_BUCKET, Prefix=finding_prefix
+    )
+    key_list = [item["Key"] for item in resp.get("Contents", [])]
+    date_list = [item["LastModified"] for item in resp.get("Contents", [])]
 
     for index, evidence in enumerate(finding.get("files", [])):
         if "upload_date" not in evidence and evidence.get("file_url"):
