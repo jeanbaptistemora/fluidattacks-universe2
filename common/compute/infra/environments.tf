@@ -46,11 +46,6 @@ locals {
   }
 }
 
-resource "aws_iam_instance_profile" "main" {
-  name = "compute"
-  role = data.aws_iam_role.prod_common.name
-}
-
 resource "aws_security_group" "main" {
   name   = "compute"
   vpc_id = data.aws_vpc.main.id
@@ -116,7 +111,7 @@ resource "aws_batch_compute_environment" "main" {
 
   compute_environment_name_prefix = "${each.key}_"
 
-  service_role = data.aws_iam_role.prod_common.arn
+  service_role = data.aws_iam_role.main["prod_common"].arn
   state        = "ENABLED"
   type         = "MANAGED"
 
@@ -128,8 +123,8 @@ resource "aws_batch_compute_environment" "main" {
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
 
-    instance_role       = aws_iam_instance_profile.main.arn
-    spot_iam_fleet_role = data.aws_iam_role.prod_common.arn
+    instance_role       = data.aws_iam_instance_profile.main["ecsInstanceRole"].arn
+    spot_iam_fleet_role = data.aws_iam_role.main["prod_common"].arn
 
     instance_type      = each.value.instances
     security_group_ids = [aws_security_group.main.id]

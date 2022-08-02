@@ -8,6 +8,20 @@ variable "terraform_state_lock_arn" {
 
 # Reused infrastructure
 
+data "aws_iam_role" "main" {
+  for_each = toset([
+    "prod_common",
+  ])
+
+  name = each.key
+}
+data "aws_iam_instance_profile" "main" {
+  for_each = toset([
+    "ecsInstanceRole",
+  ])
+
+  name = each.key
+}
 data "aws_vpc" "main" {
   filter {
     name   = "tag:Name"
@@ -27,7 +41,4 @@ data "aws_subnet" "batch_main" {
     name   = "tag:Name"
     values = ["batch_main"]
   }
-}
-data "aws_iam_role" "prod_common" {
-  name = "prod_common"
 }
