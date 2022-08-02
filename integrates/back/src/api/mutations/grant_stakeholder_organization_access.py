@@ -5,7 +5,11 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
+    InvalidRoleProvided,
     StakeholderHasOrganizationAccess,
     StakeholderNotInOrganization,
 )
@@ -45,9 +49,6 @@ from organizations import (
 from redis_cluster.operations import (
     redis_del_by_deps,
 )
-from typing import (
-    Dict,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -56,12 +57,10 @@ LOGGER = logging.getLogger(__name__)
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **parameters: Dict
+    _parent: None, info: GraphQLResolveInfo, **parameters: dict
 ) -> GrantStakeholderAccessPayload:
-    success: bool = False
-
-    organization_id = str(parameters.get("organization_id"))
     loaders: Dataloaders = info.context.loaders
+    organization_id = str(parameters.get("organization_id"))
     organization: Organization = await loaders.organization.load(
         organization_id
     )
@@ -69,13 +68,13 @@ async def mutate(
     requester_data = await token_utils.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]
 
-    user_email = str(parameters.get("user_email"))
-    user_role: str = map_roles(str(parameters.get("role")).lower())
+    stakeholder_email = str(parameters.get("user_email"))
+    stakeholder_role: str = map_roles(str(parameters.get("role")).lower())
 
-    try:
+    with suppress(StakeholderNotInOrganization):
         organization_access: OrganizationAccess = (
             await loaders.organization_access.load(
-                (organization_id, user_email)
+                (organization_id, stakeholder_email)
             )
         )
         if organization_access.has_access:
@@ -86,56 +85,47 @@ async def mutate(
                 organization_access.expiration_time
             )
 
-    except StakeholderNotInOrganization:
-        allowed_roles_to_grant = (
-            await authz.get_organization_level_roles_a_user_can_grant(
-                organization_id=organization_id.lower(),
-                requester_email=requester_email,
-            )
+    allowed_roles_to_grant = (
+        await authz.get_organization_level_roles_a_user_can_grant(
+            organization_id=organization_id.lower(),
+            requester_email=requester_email,
         )
-
-    if user_role in allowed_roles_to_grant:
+    )
+    if stakeholder_role in allowed_roles_to_grant:
         await orgs_domain.invite_to_organization(
             loaders,
-            user_email,
-            user_role,
+            stakeholder_email,
+            stakeholder_role,
             organization_name,
             requester_email,
         )
-        success = True
     else:
         LOGGER.error(
             "Invalid role provided",
             extra={
                 "extra": {
-                    "new_user_role": user_role,
+                    "new_stakeholder_role": stakeholder_role,
                     "organization_name": organization_name,
-                    "requester_email": user_email,
+                    "requester_email": stakeholder_email,
                 }
             },
         )
+        raise InvalidRoleProvided(role=stakeholder_role)
 
-    if success:
-        await redis_del_by_deps(
-            "grant_stakeholder_organization_access",
-            organization_id=organization_id,
-        )
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {user_email} was granted access "
-            f"to organization {organization_name} with role {user_role} "
-            f"by stakeholder {requester_email}",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} attempted to "
-            f"grant stakeholder {user_email} {user_role} access to "
-            f"organization {organization_name}",
-        )
+    await redis_del_by_deps(
+        "grant_stakeholder_organization_access",
+        organization_id=organization_id,
+    )
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Stakeholder {stakeholder_email} was granted access "
+        f"to organization {organization_name} with role {stakeholder_role} "
+        f"by stakeholder {requester_email}",
+    )
+
     return GrantStakeholderAccessPayload(
-        success=success,
+        success=True,
         granted_stakeholder=Stakeholder(
-            email=user_email,
+            email=stakeholder_email,
         ),
     )
