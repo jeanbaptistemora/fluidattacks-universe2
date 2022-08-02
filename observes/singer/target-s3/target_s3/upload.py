@@ -2,6 +2,7 @@ from .core import (
     RecordGroup,
     TempReadOnlyFile,
 )
+import boto3
 from dataclasses import (
     dataclass,
 )
@@ -29,3 +30,7 @@ class S3FileUploader:
                 )
             )
         )
+
+
+def new_client() -> Cmd[S3Client]:
+    return Cmd.from_cmd(lambda: boto3.client("s3"))

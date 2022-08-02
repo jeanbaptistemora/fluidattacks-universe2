@@ -5,9 +5,7 @@ from fa_purity import (
     PureIter,
     Result,
     ResultE,
-)
-from fa_purity.cmd.transform import (
-    serial_merge,
+    Stream,
 )
 from fa_purity.json.factory import (
     loads,
@@ -16,6 +14,7 @@ from fa_purity.pure_iter.factory import (
     from_flist,
 )
 from fa_purity.pure_iter.transform import (
+    consume,
     filter_opt,
 )
 from fa_purity.result.transform import (
@@ -42,6 +41,10 @@ from target_s3.csv import (
 )
 from target_s3.in_buffer import (
     stdin_buffer,
+)
+from target_s3.upload import (
+    new_client,
+    S3FileUploader,
 )
 from typing import (
     FrozenSet,
@@ -118,31 +121,26 @@ def _group(
     )
 
 
-def _print(msg: str) -> Cmd[None]:
-    def _action() -> None:
-        print(msg)
-
-    return Cmd.from_cmd(_action)
-
-
-def _process(input: TempReadOnlyFile) -> ResultE[Cmd[None]]:
-    extraction = _extract(input)
+def _process(
+    uploader: S3FileUploader, data: TempReadOnlyFile
+) -> ResultE[Cmd[None]]:
+    extraction = _extract(data)
     return extraction.map(
         lambda t: _group(frozenset(v for _, v in t[0].items()), t[1])
-        .transform(lambda p: p.map(lambda x: save(x)))
         .transform(
-            lambda p: serial_merge(p.to_list()).bind(lambda x: _print(str(x)))
+            lambda p: p.map(
+                lambda g: save(g).bind(lambda t: uploader.upload_to_s3(g, t))
+            )
         )
+        .transform(lambda p: consume(p))
     )
 
 
-def main() -> Cmd[None]:
-    return stdin_buffer().bind(
-        lambda r: r.map(
-            lambda input: TempReadOnlyFile.save(input).bind(
-                lambda x: _process(x).alt(raise_exception).unwrap()
-            )
-        )
-        .alt(raise_exception)
-        .unwrap()
+def main(
+    bucket: str, prefix: str, data: Stream[str]
+) -> Cmd[ResultE[Cmd[None]]]:
+    client = new_client()
+    uploader = client.map(lambda c: S3FileUploader(c, bucket, prefix))
+    return TempReadOnlyFile.save(data).bind(
+        lambda x: uploader.map(lambda u: _process(u, x))
     )
