@@ -4,6 +4,9 @@ from aioextensions import (
     schedule,
 )
 import authz
+from collections import (
+    defaultdict,
+)
 from comments import (
     domain as comments_domain,
 )
@@ -110,6 +113,7 @@ from time import (
 )
 from typing import (
     Any,
+    DefaultDict,
     Optional,
     Union,
 )
@@ -666,3 +670,21 @@ async def request_vulnerabilities_hold(
     if not success:
         LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()
+
+
+async def get_unsolved_events_by_root(
+    loaders: Any, group_name: str
+) -> dict[str, tuple[Event, ...]]:
+    unsolved_events_by_root: DefaultDict[
+        Optional[str], list[Event]
+    ] = defaultdict(list[Event])
+    unsolved_events: tuple[Event, ...] = await loaders.group_events.load(
+        GroupEventsRequest(group_name=group_name, is_solved=False)
+    )
+    for event in unsolved_events:
+        unsolved_events_by_root[event.root_id].append(event)
+    return {
+        root_id: tuple(events)
+        for root_id, events in unsolved_events_by_root.items()
+        if root_id
+    }
