@@ -91,9 +91,9 @@ async def test_add_event_file_image() -> None:
         "root_id": "4039d098-ffc5-4984-8ed3-eb17bca98e19",
     }
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     imagename = os.path.dirname(os.path.abspath(__file__))
-    imagename = os.path.join(imagename, "../mock/test-anim.gif")
+    imagename = os.path.join(imagename, "./mock/test-anim.gif")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
@@ -194,7 +194,7 @@ async def test_update_evidence() -> None:
     event_id = "418900978"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
@@ -220,7 +220,7 @@ async def test_update_evidence_invalid_id() -> None:
     event_id = "=malicious-code-here"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
@@ -240,7 +240,7 @@ async def test_update_evidence_invalid_filename() -> None:
     event_id = "418900978"
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "malicious;-code,-here.csv", test_file, "text/csv"
@@ -258,7 +258,7 @@ async def test_update_evidence_invalid_filename() -> None:
 async def test_validate_evidence_invalid_image_type() -> None:
     evidence_type = EventEvidenceType.IMAGE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"
@@ -270,7 +270,7 @@ async def test_validate_evidence_invalid_image_type() -> None:
 async def test_validate_evidence_invalid_file_size() -> None:
     evidence_type = EventEvidenceType.IMAGE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-big-image.jpg")
+    filename = os.path.join(filename, "./mock/test-big-image.jpg")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-big-image.jpg", test_file, "image/jpg"
@@ -302,7 +302,7 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     )
     evidence_type = EventEvidenceType.FILE
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"

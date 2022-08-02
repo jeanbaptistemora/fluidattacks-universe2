@@ -306,7 +306,7 @@ async def test_update_evidence() -> None:
       }
     """
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-anim.gif")
+    filename = os.path.join(filename, "./mock/test-anim.gif")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile("test-anim.gif", test_file, "image/gif")
         variables = {
@@ -353,7 +353,7 @@ async def test_update_evidence_records_append() -> None:
       }
     """
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, "text/csv"

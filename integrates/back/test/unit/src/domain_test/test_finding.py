@@ -308,7 +308,7 @@ async def test_mask_finding() -> None:
 async def test_validate_evidence_records() -> None:
     evidence_id = "fileRecords"
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-file-records.csv")
+    filename = os.path.join(filename, "./mock/test-file-records.csv")
     mime_type = "text/csv"
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
@@ -323,7 +323,7 @@ async def test_validate_evidence_records() -> None:
 async def test_validate_evidence_records_invalid_type() -> None:
     evidence_id = "fileRecords"
     filename = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.join(filename, "../mock/test-anim.gif")
+    filename = os.path.join(filename, "./mock/test-anim.gif")
     mime_type = "image/gif"
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
