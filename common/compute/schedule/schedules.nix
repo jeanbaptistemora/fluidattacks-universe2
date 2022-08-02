@@ -287,7 +287,7 @@
 
     schedule_expression = "cron(0 11 ? * 2-6 *)";
     size = "small";
-    attempts = 3;
+    attempts = 1;
     timeout = 129600;
     parallel = 1;
 

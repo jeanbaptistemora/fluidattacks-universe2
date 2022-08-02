@@ -15,6 +15,9 @@ from datetime import (
     date,
     datetime,
 )
+from db_model.enums import (
+    StateRemovalJustification,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -37,6 +40,9 @@ from db_model.toe_lines.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from group_access import (
+    domain as group_access_domain,
+)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -53,6 +59,7 @@ from settings import (
 from typing import (
     Any,
     Dict,
+    List,
     Optional,
     Tuple,
 )
@@ -116,8 +123,9 @@ def _generate_count_report(
     group: str,
     to_add: int = 1,
     user_email: str,
+    allowed_users: List[str],
 ) -> None:
-    if user_email and date_report:
+    if user_email and user_email in allowed_users and date_report:
         date_format: date = datetime_utils.as_zone(date_report).date()
         is_valid_date = _validate_date(date_format, date_range, date_range - 1)
 
@@ -146,7 +154,11 @@ def _generate_count_report(
 
 
 async def _draft_content(
-    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
 ) -> None:
     group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
 
@@ -168,9 +180,14 @@ async def _draft_content(
                     field="draft_created",
                     group=group,
                     user_email=vuln.state.modified_by,
+                    allowed_users=users_email,
                 )
 
-            if draft.state.status == FindingStateStatus.REJECTED:
+            if (
+                draft.state.status == FindingStateStatus.REJECTED
+                and vuln.state.justification
+                != StateRemovalJustification.EXCLUSION
+            ):
                 _generate_count_report(
                     content=content,
                     date_range=date_range,
@@ -180,11 +197,16 @@ async def _draft_content(
                     field="draft_rejected",
                     group=group,
                     user_email=vuln.state.modified_by,
+                    allowed_users=users_email,
                 )
 
 
 async def _finding_content(
-    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
 ) -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
     for finding in findings:
@@ -207,11 +229,16 @@ async def _finding_content(
                     group=group,
                     to_add=len(verification.vulnerability_ids),
                     user_email=verification.modified_by,
+                    allowed_users=users_email,
                 )
 
 
 async def _toe_input_content(
-    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
 ) -> None:
     group_toe_inputs: ToeInputsConnection = (
         await loaders.group_toe_inputs.load(
@@ -226,6 +253,7 @@ async def _toe_input_content(
             field="enumerated",
             group=group,
             user_email=toe_inputs.node.seen_first_time_by,
+            allowed_users=users_email,
         )
 
         _generate_count_report(
@@ -235,11 +263,16 @@ async def _toe_input_content(
             field="verified",
             group=group,
             user_email=toe_inputs.node.attacked_by,
+            allowed_users=users_email,
         )
 
 
 async def _toe_line_content(
-    loaders: Dataloaders, group: str, date_range: int, content: Dict[str, Any]
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
 ) -> None:
     group_toe_lines: ToeLinesConnection = await loaders.group_toe_lines.load(
         GroupToeLinesRequest(group_name=group)
@@ -253,6 +286,7 @@ async def _toe_line_content(
             group=group,
             user_email=toe_lines.node.attacked_by,
             to_add=toe_lines.node.attacked_lines,
+            allowed_users=users_email,
         )
 
 
@@ -261,14 +295,36 @@ async def _generate_numerator_report(
 ) -> Dict[str, Any]:
     content: Dict[str, Any] = {}
     date_range = 3 if datetime_utils.get_now().weekday() == 0 else 1
+    allowed_roles: set[str] = {
+        "architect",
+        "hacker",
+        "reattacker",
+        "resourcer",
+        "reviewer",
+    }
 
     for group in groups_names:
+        users_email: list[
+            str
+        ] = await group_access_domain.get_stakeholders_email_by_roles(
+            loaders=loaders,
+            group_name=group,
+            roles=allowed_roles,
+        )
         await collect(
             [
-                _toe_input_content(loaders, group, date_range, content),
-                _toe_line_content(loaders, group, date_range, content),
-                _finding_content(loaders, group, date_range, content),
-                _draft_content(loaders, group, date_range, content),
+                _toe_input_content(
+                    loaders, group, date_range, content, users_email
+                ),
+                _toe_line_content(
+                    loaders, group, date_range, content, users_email
+                ),
+                _finding_content(
+                    loaders, group, date_range, content, users_email
+                ),
+                _draft_content(
+                    loaders, group, date_range, content, users_email
+                ),
             ]
         )
 
@@ -348,9 +404,16 @@ async def send_numerator_report() -> None:
 
     if content:
         for user_email, user_content in content.items():
-            await _send_mail_report(
-                loaders, user_content, report_date, user_email
-            )
+            try:
+                await _send_mail_report(
+                    loaders, user_content, report_date, user_email
+                )
+            except KeyError:
+                LOGGER.info(
+                    "- key error, email not sent",
+                    extra={"extra": {"email": user_email}},
+                )
+                continue
     else:
         LOGGER.info("- numerator report NOT sent")
         return

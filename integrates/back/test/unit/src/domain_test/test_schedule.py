@@ -163,6 +163,7 @@ def test_generate_count_report(
             field=field,
             group=group,
             user_email=user_email,
+            allowed_users=["test@test.com"],
         )
 
     assert content[user_email]["verified"]["count"]["today"] == 3
@@ -180,6 +181,7 @@ def test_generate_count_report(
         field="verified",
         group="test_group",
         user_email=user_email,
+        allowed_users=["test@test.com"],
     )
     _generate_count_report(
         content=content,
@@ -188,6 +190,7 @@ def test_generate_count_report(
         field="verified",
         group="test_group",
         user_email=user_email,
+        allowed_users=["test@test.com"],
     )
     assert content[user_email]["verified"]["count"]["past_day"] == 2
 
