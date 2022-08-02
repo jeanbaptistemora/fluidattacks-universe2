@@ -22,8 +22,10 @@ def remove_org_id_prefix(organization_id: str) -> str:
 
 def format_organization_access(item: Item) -> OrganizationAccess:
     return OrganizationAccess(
-        email=item["email"],
-        organization_id=add_org_id_prefix(item["organization_id"]),
+        email=item["email"] or str(item["pk"]).split("#")[1],
+        organization_id=add_org_id_prefix(
+            item["organization_id"] or item["sk"]
+        ),
         expiration_time=int(item["expiration_time"])
         if item.get("expiration_time")
         else None,
@@ -41,9 +43,12 @@ def format_organization_access(item: Item) -> OrganizationAccess:
 
 
 def format_metadata_item(
+    email: str,
     metadata: OrganizationAccessMetadataToUpdate,
+    organization_id: str,
 ) -> Item:
     item: Item = {
+        "email": email,
         "expiration_time": metadata.expiration_time,
         "has_access": metadata.has_access,
         "invitation": {
@@ -53,6 +58,7 @@ def format_metadata_item(
         }
         if metadata.invitation
         else None,
+        "organization_id": remove_org_id_prefix(organization_id),
     }
     return {
         key: None if not value and value is not False else value
