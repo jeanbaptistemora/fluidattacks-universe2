@@ -4,21 +4,27 @@
 {% block layout %}
 <div class="container">
   {% include 'layouts/components/logo_header.html' %}
-  {{ banner_news('Deprecation Notice') }}
+  {{ banner_news('API Deprecation Notice') }}
 
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      As part of the continuous evolution of the ASM API the following elements
-      will be phased out and <strong>removed</strong> next month:
+      As part of the continuous evolution of the ASM platform the following
+      elements will be <strong>removed</strong> from the API next month:
     </p>
     {% for key, val in deprecations.items() %}
-    {{ key }}: {{ val }} <br>
+    In <strong>{{ key }}</strong>: {{ val }} <br>
     {% endfor %}
+    <br>
     <p>
       If you're using any of the aforementioned elements in your queries we
-      encourage you to adjust them before the planned <strong>removal</strong>
-      takes effect next month.
+      encourage you to adjust them before the planned removal takes effect
+      <strong>next month</strong>. For more information you can check the ASM
+      <a href="https://app.fluidattacks.com/api"
+         target="_blank" rel="noopener noreferrer"
+         style="color: #ff3435;">
+         API docs
+      </a>.
     </p>
     <p></p>
     <p>Regards,<br>
