@@ -39,7 +39,7 @@ def test_path_is_include() -> None:
             include_patterns=["assets/"],
             exclude_patterns=["images/"],
         )
-        is False
+        is True
     )
     assert (
         path_is_include(

@@ -44,6 +44,33 @@ def get_repo_head_hash(path: str) -> str:
     return DEFAULT_COMMIT
 
 
+def get_repo_branch(path: str) -> Optional[str]:
+    try:
+        repo: Repo = get_repo(path)
+        return repo.active_branch.name
+    except GitError as exc:
+        log_blocking("error", "Computing active branch: %s ", exc)
+    except IndexError:
+        return None
+
+    return None
+
+
+def get_repo_remote(path: str) -> Optional[str]:
+    url: Optional[str] = None
+    try:
+        repo: Repo = get_repo(path)
+        remotes = repo.remotes
+        if remotes:
+            url = remotes[0].url
+            if url and not url.startswith("http"):
+                url = f"ssh://{url}"
+    except GitError as exc:
+        log_blocking("error", "Computing active branch: %s ", exc)
+
+    return url
+
+
 def get_diff(
     repo: Repo,
     *,

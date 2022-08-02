@@ -39,7 +39,7 @@ closure:
   future: 0.18.2
   gitdb: 4.0.9
   gitpython: 3.1.15
-  hypothesis: 6.52.1
+  hypothesis: 6.53.0
   idna: '2.10'
   ipython: 5.9.0
   jmespath: 0.10.0
@@ -60,6 +60,7 @@ closure:
   oyaml: '1.0'
   packaging: '21.3'
   pathspec: 0.8.1
+  pbr: 5.9.0
   pexpect: 4.8.0
   pickleshare: 0.7.5
   pillow: 9.0.0
@@ -80,10 +81,11 @@ closure:
   pyyaml: '6.0'
   requests: 2.25.1
   requirements-parser: 0.5.0
-  rsa: '4.8'
+  rsa: '4.9'
   ruamel.yaml: 0.17.4
   ruamel.yaml.clib: 0.2.2
   s3transfer: 0.5.2
+  sarif-om: 1.0.4
   semver: 2.13.0
   setuptools-scm: 7.0.5
   simplegeneric: 0.8.1
@@ -95,10 +97,10 @@ closure:
   tomli: 2.0.1
   traitlets: 5.3.0
   tree-sitter: 0.19.0
-  types-setuptools: 63.2.0
+  types-setuptools: 63.2.1
   typing-extensions: 4.3.0
   unidiff: 0.6.0
-  urllib3: 1.26.10
+  urllib3: 1.26.11
   uvloop: 0.15.2
   viewstate: 0.4.3
   vine: 5.0.0
@@ -343,12 +345,12 @@ links:
   - name: GitPython-3.1.15.tar.gz
     sha256: 0vmv93pcvjr0caq1al1qw97krkzqmrrrna5gn3sa7k558w7ibbq5
     url: https://files.pythonhosted.org/packages/4a/8a/1519359949ce416eb059966c483fe340547a6fb5efb9f1dbcc0b33483146/GitPython-3.1.15.tar.gz
-  - name: hypothesis-6.52.1-py3-none-any.whl
-    sha256: 1hby5dzm6vd5sybc71r39j221kh5gbwyb0n6f7yn0pd6f5wp1cd9
-    url: https://files.pythonhosted.org/packages/6d/2f/604677569933d29783850e70905d993e5fc13e2a3b621a5d358cbc9f7cce/hypothesis-6.52.1-py3-none-any.whl
-  - name: hypothesis-6.52.1.tar.gz
-    sha256: 0l5i22nygvjzd9bs31agiznip4wv214jh4jjikbaz56r3w85krvj
-    url: https://files.pythonhosted.org/packages/a6/a2/ebf446237fafffd23afc1d749ea4e974e87cf7be7ada293b898a1a47620c/hypothesis-6.52.1.tar.gz
+  - name: hypothesis-6.53.0-py3-none-any.whl
+    sha256: 04klacfbkl9l8r2ky5vdizzgc1wmiyyp23h6rw5w030164vhfaww
+    url: https://files.pythonhosted.org/packages/dd/d5/d2ffcc07c93b18cafa41e334e66c33d4cf86809d3998787fb421816b90fb/hypothesis-6.53.0-py3-none-any.whl
+  - name: hypothesis-6.53.0.tar.gz
+    sha256: 1h38jbqf0m9gv1skyx6lrwp4yhgvlb43k663b554izi81i9jbwir
+    url: https://files.pythonhosted.org/packages/04/dd/0d1662a163ef9494ae4c9f23c2689cb5ec72128c8664aaf00280312d4117/hypothesis-6.53.0.tar.gz
   - name: idna-2.10-py2.py3-none-any.whl
     sha256: 1h280sli58v5dapmf79rnnqdrrk0xjn8vi3pxppknllv3r5q0zdr
     url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
@@ -562,6 +564,12 @@ links:
   - name: pathspec-0.8.1.tar.gz
     sha256: 1zb8rg2ysyffr49xcxmvjgmrsim3lfqn8zkipax1cn6phrmrsdw6
     url: https://files.pythonhosted.org/packages/b7/64/e097eea8dcd2b2f7df6e4425fc98e7494e37b1a6e149603c31d327080a05/pathspec-0.8.1.tar.gz
+  - name: pbr-5.9.0-py2.py3-none-any.whl
+    sha256: 02ngbhyvl9xkwbxry8wl5n684qqz227bwhzddn2m5h5w81ci4iz5
+    url: https://files.pythonhosted.org/packages/1b/ef/0621aa0e422dda72dc89b61972e5a28d5a947c22fdff83a5d69fdbc1949a/pbr-5.9.0-py2.py3-none-any.whl
+  - name: pbr-5.9.0.tar.gz
+    sha256: 02233in0xf3dc8qqkfvc2hiz1kjn5bsnjfc1b3pysq1mnksa5p78
+    url: https://files.pythonhosted.org/packages/96/9f/f4bc832eeb4ae723b86372277da56a5643b0ad472a95314e8f516a571bb0/pbr-5.9.0.tar.gz
   - name: pexpect-4.8.0-py2.py3-none-any.whl
     sha256: 0dq9f7irmml1nm9a2rx8dd6m2dqmzjj1x40mk0rg619wrdfsaj0b
     url: https://files.pythonhosted.org/packages/39/7b/88dbb785881c28a102619d46423cb853b46dbccc70d3ac362d99773a78ce/pexpect-4.8.0-py2.py3-none-any.whl
@@ -700,12 +708,12 @@ links:
   - name: requirements-parser-0.5.0.tar.gz
     sha256: 0sa0j0dcmlp56zv8g1v8j7gklvira905wnc81wznvq13msiz6dik
     url: https://files.pythonhosted.org/packages/c2/f9/76106e710015f0f8da37bff8db378ced99ae2553cc4b1cffb0aef87dc4ac/requirements-parser-0.5.0.tar.gz
-  - name: rsa-4.8-py3-none-any.whl
-    sha256: 1fshd62fvf7f8cia5hrwcpypi565csjqnhlcf1lywyg8qh0d7icm
-    url: https://files.pythonhosted.org/packages/30/ab/8fd9e88e6fa5ec41afca995938bbefb72195278e0cfc5bd76a4f29b23fb2/rsa-4.8-py3-none-any.whl
-  - name: rsa-4.8.tar.gz
-    sha256: 05vbvxavxk80cbljm764pwmlwrrvia51yqsa63j7yfslgbfdjssw
-    url: https://files.pythonhosted.org/packages/8c/ee/4022542e0fed77dd6ddade38e1e4dea3299f873b7fd4e6d78319953b0f83/rsa-4.8.tar.gz
+  - name: rsa-4.9-py3-none-any.whl
+    sha256: 1xvlc59ipksbkz746bkxibnpwwm8bzvhwk9lcxlph575b280s9lh
+    url: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
+  - name: rsa-4.9.tar.gz
+    sha256: 08gg417lvcqfqmg6gwah9ahy19w72ik2c08v6pqxg1bckjj69173
+    url: https://files.pythonhosted.org/packages/aa/65/7d973b89c4d2351d7fb232c2e452547ddfa243e93131e7cfa766da627b52/rsa-4.9.tar.gz
   - name: ruamel.yaml-0.17.4-py3-none-any.whl
     sha256: 08js86lbczjwxsy7vcwywkfzbhyjhqi8lfy5s6g8wvj7yljznydc
     url: https://files.pythonhosted.org/packages/29/4e/c3105bbbbc662f6a671a505f00ec771e93b5254f09fbb06002af9087071a/ruamel.yaml-0.17.4-py3-none-any.whl
@@ -730,6 +738,12 @@ links:
   - name: s3transfer-0.5.2.tar.gz
     sha256: 1vcqvghiyxxqibcqqqpdia40ij3896l617hbzgsaamz69hcqricm
     url: https://files.pythonhosted.org/packages/7e/19/f82e4af435a19b28bdbfba63f338ea20a264f4df4beaf8f2ab9bfa34072b/s3transfer-0.5.2.tar.gz
+  - name: sarif_om-1.0.4-py3-none-any.whl
+    sha256: 048rfz288jbgwigrkbxaq1fyj9bl8n9av213a34b2a93crxg97jk
+    url: https://files.pythonhosted.org/packages/82/7c/1d3d0467565aa8b3e77ab8712042a09dd1158056826f45783f3d2b34adf1/sarif_om-1.0.4-py3-none-any.whl
+  - name: sarif_om-1.0.4.tar.gz
+    sha256: 167gb8xjm0310km3w1s12bqldbv7zyklkr4j5900vq4361ml2pyd
+    url: https://files.pythonhosted.org/packages/ba/de/bbdd93fe456d4011500784657c5e4a31e3f4fcbb276255d4db1213aed78c/sarif_om-1.0.4.tar.gz
   - name: semver-2.13.0-py2.py3-none-any.whl
     sha256: 1m2qfkkjj3p77347ly6rjf3ij56s4fjvz2hvghq388djrqyv5n6f
     url: https://files.pythonhosted.org/packages/0b/70/b84f9944a03964a88031ef6ac219b6c91e8ba2f373362329d8770ef36f02/semver-2.13.0-py2.py3-none-any.whl
@@ -790,12 +804,12 @@ links:
   - name: tree_sitter-0.19.0.tar.gz
     sha256: 169lsdnrwx0sbg009wc1ifz3lbrz82y28cdrz1sxszwmkzrzq6l6
     url: https://files.pythonhosted.org/packages/ac/46/da153b968bf088a8c1656e8e17cf2b8ac5ca5ca16bfe6bf2381fe1db2ca0/tree_sitter-0.19.0.tar.gz
-  - name: types_setuptools-63.2.0-py3-none-any.whl
-    sha256: 04m8dpmfsn097rfv5x1y7zfx8dvqzfij0hx0ipbwli6k7m2d1l7r
-    url: https://files.pythonhosted.org/packages/7d/2e/9065c47ed07667aae84835cfd53700831c4cf6569c8ec7f747854a619796/types_setuptools-63.2.0-py3-none-any.whl
-  - name: types-setuptools-63.2.0.tar.gz
-    sha256: 1961k6m54vxm10ymjpd3a961fhl3fj9si715ggsx1653fr3nr6pw
-    url: https://files.pythonhosted.org/packages/58/98/669c6f7069f19c1a4d940926dc66ca840a28bf969e52cfbc5dd239a53a19/types-setuptools-63.2.0.tar.gz
+  - name: types_setuptools-63.2.1-py3-none-any.whl
+    sha256: 0qydag49wwii1qs6cc25dw88gg4ckkydr9vlf71hwpmiipfwp9zc
+    url: https://files.pythonhosted.org/packages/14/67/c285df2dd0c04dca647c4ff1c894d52888303ca193bfebf07eafb167ab3f/types_setuptools-63.2.1-py3-none-any.whl
+  - name: types-setuptools-63.2.1.tar.gz
+    sha256: 0c91lk7d2zr50a7a0rkfih4pjlysxylqdlyqbw9cg9gwvl5a8mr9
+    url: https://files.pythonhosted.org/packages/7e/cd/522df6f907d1c4dd4f9342650f2e26bc9cf231f6eafb59fe4a0f8f24bae5/types-setuptools-63.2.1.tar.gz
   - name: typing_extensions-4.3.0-py3-none-any.whl
     sha256: 00napxpwhjn40q2hxh3z8rfpwvg0n5mdvp4ylid0m4j9c2ajqr15
     url: https://files.pythonhosted.org/packages/ed/d6/2afc375a8d55b8be879d6b4986d4f69f01115e795e36827fd3a40166028b/typing_extensions-4.3.0-py3-none-any.whl
@@ -808,12 +822,12 @@ links:
   - name: unidiff-0.6.0.tar.gz
     sha256: 07wqva9lxsh5jhnp6ajr00z8wqq6fzkr37g1zsrg8zrmk9723ich
     url: https://files.pythonhosted.org/packages/03/d7/fd62a2090ed067b90a5f83354729d0fff1aff27ec718796d2fadb1afa3ae/unidiff-0.6.0.tar.gz
-  - name: urllib3-1.26.10-py2.py3-none-any.whl
-    sha256: 1v7phvbqj10fvlff3839f5wmvd7r6g8rf71wq4xhxgirdpaxd642
-    url: https://files.pythonhosted.org/packages/68/47/93d3d28e97c7577f563903907912f4b3804054e4877a5ba6651f7182c53b/urllib3-1.26.10-py2.py3-none-any.whl
-  - name: urllib3-1.26.10.tar.gz
-    sha256: 1mihvfy8ph3pgdcczy6jx0rfl423z7h22cg1kivdjm4nx38s96w7
-    url: https://files.pythonhosted.org/packages/25/36/f056e5f1389004cf886bb7a8514077f24224238a7534497c014a6b9ac770/urllib3-1.26.10.tar.gz
+  - name: urllib3-1.26.11-py2.py3-none-any.whl
+    sha256: 1g694a3s6wyqfzmys3ds6f2b4cjzsabkmhk48w99d5c17jiwng63
+    url: https://files.pythonhosted.org/packages/d1/cb/4783c8f1a90f89e260dbf72ebbcf25931f3a28f8f80e2e90f8a589941b19/urllib3-1.26.11-py2.py3-none-any.whl
+  - name: urllib3-1.26.11.tar.gz
+    sha256: 02mchdcf40akw2387g08i2i66v121680rdlkmc7rb7di22r8yvpa
+    url: https://files.pythonhosted.org/packages/6d/d5/e8258b334c9eb8eb78e31be92ea0d5da83ddd9385dc967dd92737604d239/urllib3-1.26.11.tar.gz
   - name: uvloop-0.15.2-cp38-cp38-macosx_10_14_x86_64.whl
     sha256: 0z5gyxbda0jd9pjzih162azsg3rmvi0qr80rmljv8hayflbnzrch
     url: https://files.pythonhosted.org/packages/03/e1/94fc3d54e61eef1a802dbeb88a444203b26a84a7f21ceb4f76ce2a5f180c/uvloop-0.15.2-cp38-cp38-macosx_10_14_x86_64.whl
