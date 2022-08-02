@@ -2,9 +2,6 @@ import aioboto3
 from aioextensions import (
     in_thread,
 )
-from botocore.client import (
-    Config,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -22,6 +19,9 @@ from custom_exceptions import (
 import io
 import logging
 import logging.config
+from s3.resource import (
+    get_s3_resource,
+)
 from settings import (
     LOGGING,
 )
@@ -59,45 +59,43 @@ async def aio_client() -> aioboto3.session.Session.client:
 
 
 async def download_file(bucket: str, file_name: str, file_path: str) -> None:
-    async with aio_client() as client:
-        await client.download_file(bucket, file_name, file_path)
+    client = await get_s3_resource()
+    await client.download_file(bucket, file_name, file_path)
 
 
 async def list_files(bucket: str, name: Optional[str] = None) -> List[str]:
-    async with aio_client() as client:
-        resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
-        return [item["Key"] for item in resp.get("Contents", [])]
+    client = await get_s3_resource()
+    resp = await client.list_objects_v2(Bucket=bucket, Prefix=name)
+
+    return [item["Key"] for item in resp.get("Contents", [])]
 
 
 async def remove_file(bucket: str, name: str) -> None:
-    async with aio_client() as client:
-        try:
-            response = await client.delete_object(Bucket=bucket, Key=name)
-            status_code = response["ResponseMetadata"]["HTTPStatusCode"]
-            if status_code not in [200, 204]:
-                raise UnavailabilityError()
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError() from ex
+    client = await get_s3_resource()
+    try:
+        response = await client.delete_object(Bucket=bucket, Key=name)
+        status_code = response["ResponseMetadata"]["HTTPStatusCode"]
+        if status_code not in [200, 204]:
+            raise UnavailabilityError()
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+        raise UnavailabilityError() from ex
 
 
 async def sign_url(file_name: str, expire_mins: float, bucket: str) -> str:
-    async with aioboto3.Session().client(
-        **OPTIONS,
-        config=Config(signature_version="s3v4"),
-    ) as s3_client:
-        try:
-            return str(
-                await s3_client.generate_presigned_url(
-                    ClientMethod="get_object",
-                    Params={"Bucket": bucket, "Key": file_name},
-                    ExpiresIn=expire_mins,
-                    HttpMethod="GET",
-                )
+    client = await get_s3_resource()
+    try:
+        return str(
+            await client.generate_presigned_url(
+                ClientMethod="get_object",
+                Params={"Bucket": bucket, "Key": file_name},
+                ExpiresIn=expire_mins,
+                HttpMethod="GET",
             )
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError() from ex
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+        raise UnavailabilityError() from ex
 
 
 async def upload_memory_file(
@@ -111,16 +109,16 @@ async def upload_memory_file(
         raise ErrorUploadingFileS3()
 
     bytes_object = io.BytesIO(await in_thread(file_object.file.read))
-    async with aio_client() as client:
-        try:
-            await client.upload_fileobj(
-                bytes_object,
-                bucket,
-                file_name.lstrip("/"),
-            )
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError() from ex
+    client = await get_s3_resource()
+    try:
+        await client.upload_fileobj(
+            bytes_object,
+            bucket,
+            file_name.lstrip("/"),
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+        raise UnavailabilityError() from ex
 
 
 async def sing_upload_url(
@@ -135,18 +133,15 @@ async def sing_upload_url(
         ]
     }
 
-    async with aioboto3.Session().client(
-        **OPTIONS,
-        config=Config(signature_version="s3v4"),
-    ) as s3_client:
-        try:
-            return await s3_client.generate_presigned_post(
-                bucket,
-                file_name,
-                Fields=None,
-                Conditions=params["conditions"],
-                ExpiresIn=expire_mins,
-            )
-        except ClientError as ex:
-            LOGGER.exception(ex, extra={"extra": locals()})
-            raise UnavailabilityError() from ex
+    client = await get_s3_resource()
+    try:
+        return await client.generate_presigned_post(
+            bucket,
+            file_name,
+            Fields=None,
+            Conditions=params["conditions"],
+            ExpiresIn=expire_mins,
+        )
+    except ClientError as ex:
+        LOGGER.exception(ex, extra={"extra": locals()})
+        raise UnavailabilityError() from ex
