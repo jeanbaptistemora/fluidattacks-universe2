@@ -1,7 +1,5 @@
 from fa_purity import (
     Cmd,
-    Maybe,
-    ResultE,
     Stream,
 )
 from fa_purity.stream.factory import (
@@ -13,27 +11,24 @@ from io import (
 import sys
 from typing import (
     Iterable,
+    TextIO,
 )
 
 
-class CannotReopenStdinBuffer(Exception):
-    pass
+def text_buffer(text: TextIO) -> Stream[str]:
+    def _is_closed() -> Cmd[bool]:
+        return Cmd.from_cmd(lambda: text.buffer.closed)
 
-
-def stdin_buffer() -> Cmd[ResultE[Stream[str]]]:
     def _iter_lines() -> Iterable[str]:
-        with TextIOWrapper(sys.stdin.buffer, encoding="utf-8") as file:
+        with TextIOWrapper(text.buffer, encoding="utf-8") as file:
             line = file.readline()
             while line:
                 yield line
                 line = file.readline()
 
-    def _is_closed() -> Cmd[bool]:
-        return Cmd.from_cmd(lambda: sys.stdin.buffer.closed)
+    iterable = _is_closed().map(lambda b: _iter_lines() if b else iter([]))
+    return unsafe_from_cmd(iterable)
 
-    stream = unsafe_from_cmd(Cmd.from_cmd(lambda: iter(_iter_lines())))
-    return _is_closed().map(
-        lambda b: Maybe.from_optional(stream if not b else None)
-        .to_result()
-        .alt(lambda _: CannotReopenStdinBuffer())
-    )
+
+def stdin_buffer() -> Stream[str]:
+    return text_buffer(sys.stdin)
