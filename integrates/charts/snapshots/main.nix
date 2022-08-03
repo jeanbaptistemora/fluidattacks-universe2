@@ -2,6 +2,7 @@
   inputs,
   makePythonPypiEnvironment,
   makeScript,
+  makeTemplate,
   outputs,
   projectPath,
   ...
@@ -29,6 +30,16 @@ makeScript {
         sourcesYaml = ./pypi-sources.yaml;
       })
       outputs."/common/utils/aws"
+      (makeTemplate {
+        replace = {
+          __argCriteriaVulnerabilities__ =
+            projectPath "/common/criteria/src/vulnerabilities/data.yaml";
+        };
+        name = "charts-config-context-file";
+        template = ''
+          export CHARTS_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__'
+        '';
+      })
     ];
   };
   entrypoint = projectPath "/integrates/charts/snapshots/entrypoint.sh";
