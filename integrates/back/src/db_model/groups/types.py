@@ -38,6 +38,7 @@ class GroupState(NamedTuple):
     type: GroupSubscriptionType
     comments: Optional[str] = None
     justification: Optional[GroupStatusJustification] = None
+    payment_id: Optional[str] = None
     pending_deletion_date: Optional[str] = None
     service: Optional[GroupService] = None
 

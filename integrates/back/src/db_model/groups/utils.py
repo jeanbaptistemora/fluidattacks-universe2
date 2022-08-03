@@ -252,6 +252,7 @@ def format_state(state: Item) -> GroupState:
         justification=format_state_justification(state.get("justification")),
         modified_by=state["modified_by"],
         modified_date=state["modified_date"],
+        payment_id=state["payment_id"] if state.get("payment_id") else None,
         pending_deletion_date=state.get("pending_deletion_date"),
         service=GroupService[state["service"]]
         if state.get("service")
