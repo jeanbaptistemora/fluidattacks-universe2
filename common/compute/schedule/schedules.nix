@@ -140,6 +140,34 @@
       "management:type" = "product";
     };
   };
+  integrates_consume_dynamodb_stream = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/streams"
+      "dynamodb"
+    ];
+
+    schedule_expression = "cron(0/30 * * * ? *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 1200;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_consume_dynamodb_stream";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_delete_imamura_stakeholders = {
     enabled = true;
     command = [
