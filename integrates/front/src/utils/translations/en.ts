@@ -3592,6 +3592,8 @@ export const enTranslations: ResourceKey = {
     someRequired: "Select at least one value",
     stakeholderHasGroupAccess:
       "The stakeholder has been granted access to the group previously",
+    stakeholderHasOrganizationAccess:
+      "The stakeholder has been granted access to the organization previously",
     tags: "This field can only contain alphanumeric characters and dashes",
     text: "Only alphanumerics, spaces and punctuations",
     unsanitizedInputFound:

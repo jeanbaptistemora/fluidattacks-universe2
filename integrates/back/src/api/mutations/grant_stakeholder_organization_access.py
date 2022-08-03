@@ -11,10 +11,14 @@ from contextlib import (
 from custom_exceptions import (
     InvalidRoleProvided,
     StakeholderHasOrganizationAccess,
+    StakeholderNotFound,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
+)
+from db_model.organization_access.enums import (
+    OrganizationInvitiationState,
 )
 from db_model.organization_access.types import (
     OrganizationAccess,
@@ -38,6 +42,7 @@ import logging
 import logging.config
 from newutils import (
     logs as logs_utils,
+    organization_access as org_access_utils,
     token as token_utils,
 )
 from newutils.utils import (
@@ -79,6 +84,16 @@ async def mutate(
         )
         if organization_access.has_access:
             raise StakeholderHasOrganizationAccess()
+        with suppress(StakeholderNotFound):
+            stakeholder: Stakeholder = await loaders.stakeholder.load(
+                stakeholder_email
+            )
+            invitation_state = org_access_utils.format_invitation_state(
+                invitation=organization_access.invitation,
+                is_registered=stakeholder.is_registered,
+            )
+            if invitation_state == OrganizationInvitiationState.REGISTERED:
+                raise StakeholderHasOrganizationAccess()
         # Too soon to send another email invitation to the same stakeholder
         if organization_access.expiration_time:
             validate_new_invitation_time_limit(

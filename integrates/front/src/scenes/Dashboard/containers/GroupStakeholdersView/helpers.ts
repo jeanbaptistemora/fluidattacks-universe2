@@ -43,6 +43,9 @@ const handleGrantError = (grantError: ApolloError): void => {
       case "Exception - The stakeholder has been granted access to the group previously":
         msgError(translate.t("validations.stakeholderHasGroupAccess"));
         break;
+      case "Exception - The stakeholder has been granted access to the organization previously":
+        msgError(translate.t("validations.stakeholderHasOrganizationAccess"));
+        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.warning(
