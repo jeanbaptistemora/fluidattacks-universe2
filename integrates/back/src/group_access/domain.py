@@ -67,10 +67,12 @@ from typing import (
 
 
 async def add_access(email: str, group_name: str, role: str) -> bool:
-    await group_access_dal.add(
-        group_access=GroupAccess(
-            email=email, group_name=group_name, has_access=True
-        )
+    await group_access_dal.update_metadata(
+        email=email,
+        group_name=group_name,
+        metadata=GroupAccessMetadataToUpdate(
+            has_access=True,
+        ),
     )
     return await authz.grant_group_level_role(email, group_name, role)
 

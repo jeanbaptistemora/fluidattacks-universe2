@@ -338,12 +338,12 @@ async def add_group(  # pylint: disable=too-many-locals
     # Admins are not granted access to the group
     # they are omnipresent
     if user_role != "admin":
-        await group_access_dal.add(
-            group_access=GroupAccess(
-                email=user_email,
-                group_name=group_name,
+        await group_access_dal.update_metadata(
+            email=user_email,
+            group_name=group_name,
+            metadata=GroupAccessMetadataToUpdate(
                 has_access=True,
-            )
+            ),
         )
         # Only Fluid staff can be customer managers
         # Customers are granted the user manager role
@@ -956,14 +956,14 @@ async def invite_to_group(
             ),
         )
     else:
-        await group_access_dal.add(
-            group_access=GroupAccess(
-                email=email,
-                group_name=group_name,
+        await group_access_dal.update_metadata(
+            email=email,
+            group_name=group_name,
+            metadata=GroupAccessMetadataToUpdate(
                 expiration_time=expiration_time,
                 has_access=False,
                 invitation=invitation,
-            )
+            ),
         )
     confirm_access_url = f"{BASE_URL}/confirm_access/{url_token}"
     reject_access_url = f"{BASE_URL}/reject_access/{url_token}"

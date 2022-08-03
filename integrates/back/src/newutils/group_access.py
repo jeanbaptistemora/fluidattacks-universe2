@@ -59,37 +59,6 @@ def format_group_access(item: Item) -> GroupAccess:
     )
 
 
-def format_group_access_item(
-    group_access: GroupAccess,
-) -> Item:
-    item: Item = {
-        "confirm_deletion": {
-            "is_used": group_access.confirm_deletion.is_used,
-            "url_token": group_access.confirm_deletion.url_token,
-        }
-        if group_access.confirm_deletion
-        else None,
-        "expiration_time": group_access.expiration_time,
-        "has_access": group_access.has_access,
-        "invitation": {
-            "is_used": group_access.invitation.is_used,
-            "role": group_access.invitation.role,
-            "url_token": group_access.invitation.url_token,
-            "responsibility": group_access.invitation.responsibility,
-        }
-        if group_access.invitation
-        else None,
-        "project_name": group_access.group_name,
-        "responsibility": group_access.responsibility,
-        "user_email": group_access.email,
-    }
-    return {
-        key: None if not value and value is not False else value
-        for key, value in item.items()
-        if value is not None
-    }
-
-
 def format_metadata_item(
     metadata: GroupAccessMetadataToUpdate,
 ) -> Item:

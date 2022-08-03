@@ -40,7 +40,7 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
 )
 from db_model.group_access.types import (
-    GroupAccess,
+    GroupAccessMetadataToUpdate,
 )
 from db_model.groups.types import (
     Group,
@@ -445,12 +445,12 @@ async def populate_policies(data: list[Any]) -> bool:
     if success:
         await collect(
             [
-                dal_group_access.add(
-                    group_access=GroupAccess(
-                        email=policy["subject"],
-                        group_name=policy["object"],
+                dal_group_access.update_metadata(
+                    email=policy["subject"],
+                    group_name=policy["object"],
+                    metadata=GroupAccessMetadataToUpdate(
                         has_access=True,
-                    )
+                    ),
                 )
                 for policy in data
                 if policy["level"] == "group"

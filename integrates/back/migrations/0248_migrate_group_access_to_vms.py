@@ -18,6 +18,9 @@ from dataloaders import (
 from db_model import (
     group_access as group_access_model,
 )
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+)
 from dynamodb import (
     operations_legacy as ops_legacy,
 )
@@ -46,7 +49,17 @@ PROJECT_ACCESS_TABLE = "FI_project_access"
 
 async def process_group_access_item(item: Item) -> None:
     group_access = group_access_utils.format_group_access(item)
-    await group_access_model.add(group_access=group_access)
+    await group_access_model.update_metadata(
+        email=group_access.email,
+        group_name=group_access.group_name,
+        metadata=GroupAccessMetadataToUpdate(
+            confirm_deletion=group_access.confirm_deletion,
+            expiration_time=group_access.expiration_time,
+            has_access=group_access.has_access,
+            invitation=group_access.invitation,
+            responsibility=group_access.responsibility,
+        ),
+    )
 
     LOGGER_CONSOLE.info(
         "Processed",

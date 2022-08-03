@@ -25,10 +25,6 @@ class _SingleMessageException(CustomBaseException):
         return cls(cls.msg)
 
 
-class AccessAlreadyCreated(_SingleMessageException):
-    msg: str = "This access item has already been created"
-
-
 class EnrollmentUserExists(_SingleMessageException):
     msg: str = "Enrollment user already exists"
 

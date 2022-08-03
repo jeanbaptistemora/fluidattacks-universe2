@@ -11,7 +11,6 @@ from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
 from db_model.group_access.types import (
-    GroupAccess,
     GroupAccessMetadataToUpdate,
 )
 from dynamodb import (
@@ -34,15 +33,6 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 TABLE_NAME: str = "FI_project_access"
-
-
-async def add(*, group_access: GroupAccess) -> None:
-    item = group_access_utils.format_group_access_item(group_access)
-    try:
-        if not await dynamodb_ops.put_item(TABLE_NAME, item):
-            raise UnavailabilityError()
-    except ClientError as ex:
-        raise UnavailabilityError() from ex
 
 
 async def get_access_by_url_token(

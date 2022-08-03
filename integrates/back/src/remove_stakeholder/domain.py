@@ -14,6 +14,7 @@ from custom_exceptions import (
 )
 from db_model.group_access.types import (
     GroupAccess,
+    GroupAccessMetadataToUpdate,
     GroupConfirmDeletion,
 )
 from db_model.organization_access.types import (
@@ -224,16 +225,16 @@ async def confirm_deletion_mail(
         },
     )
     if validate_email_address(email):
-        await group_access_dal.add(
-            group_access=GroupAccess(
-                email=email,
-                group_name="confirm_deletion",
+        await group_access_dal.update_metadata(
+            email=email,
+            group_name="confirm_deletion",
+            metadata=GroupAccessMetadataToUpdate(
                 expiration_time=expiration_time,
                 confirm_deletion=GroupConfirmDeletion(
                     is_used=False,
                     url_token=url_token,
                 ),
-            )
+            ),
         )
         confirm_access_url = f"{BASE_URL}/confirm_deletion/{url_token}"
         mail_to = [email]
