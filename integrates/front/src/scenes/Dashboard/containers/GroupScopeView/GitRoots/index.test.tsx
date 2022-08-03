@@ -38,7 +38,6 @@ describe("GitRoots", (): void => {
           user: "",
         },
         environment: "",
-        environmentUrls: ["https://app.fluidattacks.com"],
         gitEnvironmentUrls: [
           {
             cloudName: undefined,

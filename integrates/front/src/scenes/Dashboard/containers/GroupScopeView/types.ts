@@ -40,6 +40,27 @@ interface IGitRootAttr {
   };
   credentials: ICredentials | null;
   environment: string;
+  gitEnvironmentUrls: IEnvironmentUrl[];
+  gitignore: string[];
+  healthCheckConfirm: string[] | undefined;
+  includesHealthCheck: boolean | null;
+  id: string;
+  nickname: string;
+  secrets: ISecret[];
+  state: "ACTIVE" | "INACTIVE";
+  url: string;
+  useVpn: boolean;
+}
+
+interface IGitRootData {
+  __typename: "GitRoot";
+  branch: string;
+  cloningStatus: {
+    message: string;
+    status: "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";
+  };
+  credentials: ICredentials | null;
+  environment: string;
   environmentUrls: string[];
   gitEnvironmentUrls: IEnvironmentUrl[];
   gitignore: string[];
@@ -106,6 +127,7 @@ export type {
   Root,
   IBasicEnvironmentUrl,
   IGitRootAttr,
+  IGitRootData,
   IIPRootAttr,
   IURLRootAttr,
   IEnvironmentUrl,

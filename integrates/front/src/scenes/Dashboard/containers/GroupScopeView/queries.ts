@@ -18,7 +18,6 @@ const GET_ROOTS: DocumentNode = gql`
             type
           }
           environment
-          environmentUrls
           gitEnvironmentUrls {
             url
             id

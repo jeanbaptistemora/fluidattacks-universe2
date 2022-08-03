@@ -31,7 +31,12 @@ import {
   SYNC_GIT_ROOT,
   UPDATE_GIT_ROOT,
 } from "../queries";
-import type { IEnvironmentUrl, IFormValues, IGitRootAttr } from "../types";
+import type {
+  IEnvironmentUrl,
+  IFormValues,
+  IGitRootAttr,
+  IGitRootData,
+} from "../types";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ConfirmDialog } from "components/ConfirmDialog";
@@ -77,7 +82,7 @@ interface IFilterSet {
 export const GitRoots: React.FC<IGitRootsProps> = ({
   groupName,
   onUpdate,
-  roots,
+  roots: rootsAttr,
 }: IGitRootsProps): JSX.Element => {
   // Constants
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -92,6 +97,14 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   );
   const canUpdateRootState: boolean = permissions.can(
     "api_mutations_activate_root_mutate"
+  );
+  const roots = rootsAttr.map(
+    (root: IGitRootAttr): IGitRootData => ({
+      ...root,
+      environmentUrls: root.gitEnvironmentUrls.map(
+        (gitEnvironmentUrl: IEnvironmentUrl): string => gitEnvironmentUrl.url
+      ),
+    })
   );
   const nicknames: string[] = roots
     .filter((root): boolean => root.state === "ACTIVE")
@@ -132,7 +145,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     setRootModalMessages({ message: "", type: "success" });
   }, [enableTour, user, setRootModalMessages]);
 
-  const [currentRow, setCurrentRow] = useState<IGitRootAttr | undefined>(
+  const [currentRow, setCurrentRow] = useState<IGitRootData | undefined>(
     undefined
   );
   const [currentRowUrl, setCurrentRowUrl] = useState<
@@ -260,7 +273,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   };
 
   const handleRowClick = useCallback(
-    (_0: React.SyntheticEvent, row: IGitRootAttr): void => {
+    (_0: React.SyntheticEvent, row: IGitRootData): void => {
       if (row.state === "ACTIVE") {
         setCurrentRow(row);
         setIsManagingRoot({ mode: "EDIT" });
