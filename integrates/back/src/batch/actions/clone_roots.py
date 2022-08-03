@@ -48,6 +48,9 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     GitRoot,
 )
+from events import (
+    domain as events_domain,
+)
 import json
 from json import (
     JSONDecodeError,
@@ -292,6 +295,14 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
 ) -> Optional[PutActionResult]:
     group: Group = await loaders.group.load(group_name)
     roots_in_current_actions: Set[str] = set()
+
+    # Validate the repositories are active
+    if roots and any(
+        root.state.status is RootStatus.INACTIVE for root in roots
+    ):
+        raise InactiveRoot()
+
+    # Set repositories to be processed
     roots = roots or tuple(
         root
         for root in await loaders.group_roots.load(group_name)
@@ -304,15 +315,38 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         and isinstance(root, GitRoot)
         and (root.state.use_vpn if queue_with_vpn else True)
     )
-    for root in roots:
-        if root.state.credential_id is None:
-            raise CredentialNotFound()
 
-    roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
+    # Validate that all roots has credentials
+    if any(root.state.credential_id is None for root in roots):
+        raise CredentialNotFound()
 
+    # Filter repositories with unsolved events
+    unsolved_events_by_root = await events_domain.get_unsolved_events_by_root(
+        loaders, group_name
+    )
+    unsolved_events_roots = tuple(
+        root for root in roots if unsolved_events_by_root.get(root.id)
+    )
+    await collect(
+        [
+            roots_domain.update_root_cloning_status(
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root.id,
+                status=GitCloningStatus.FAILED,
+                message="Git root has unsolved events",
+            )
+            for root in unsolved_events_roots
+        ]
+    )
+    roots = tuple(
+        root for root in roots if not unsolved_events_by_root.get(root.id)
+    )
     if not roots:
-        raise InactiveRoot()
+        return None
 
+    # Get repository credentials
+    roots_dict: Dict[str, GitRoot] = {root.id: root for root in roots}
     root_credentials = cast(
         tuple[Credentials, ...],
         await loaders.credentials.load_many(
@@ -338,15 +372,14 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         if root.state.credential_id is not None
     }
 
+    # Check batch jobs
     current_action: Optional[BatchProcessing] = None
     roots_in_current_actions = await cancel_current_jobs(group_name=group_name)
-
     if current_actions := sorted(
         await get_actions_by_name("clone_roots", group_name),
         key=lambda x: x.time,
     ):
         current_action = current_actions[0]
-
     if (
         check_existing_jobs
         and current_action
@@ -366,6 +399,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     ):
         raise RootAlreadyCloning()
 
+    # Get last commit for every repository
     last_commits_dict: Dict[str, Optional[str]] = dict(
         await collect(
             _ls_remote_root(
@@ -375,6 +409,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         )
     )
 
+    # Set the repositories to be cloned
     await collect(
         [
             roots_domain.update_root_cloning_status(
@@ -393,7 +428,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             )
         ]
     )
-
     is_in_s3_dict = dict(
         await (
             collect(
@@ -403,7 +437,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
             )
         )
     )
-
     roots_to_clone = set(
         root_id
         for root_id in (

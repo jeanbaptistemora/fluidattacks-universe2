@@ -267,6 +267,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
             for root in git_roots
             if isinstance(root, GitRoot)
             and root.state.status == RootStatus.ACTIVE
+            and root.state.credential_id is not None
         )
 
     if not roots:

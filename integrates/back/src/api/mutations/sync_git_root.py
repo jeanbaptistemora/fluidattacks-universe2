@@ -4,6 +4,9 @@ from ariadne.utils import (
 from batch.actions import (
     clone_roots,
 )
+from custom_exceptions import (
+    GirRootHasUnsolvedEvents,
+)
 from custom_types import (
     SimplePayload,
 )
@@ -18,6 +21,9 @@ from decorators import (
     enforce_group_level_auth_async,
     require_login,
     require_service_white,
+)
+from events import (
+    domain as events_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -46,6 +52,11 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
     root: GitRoot = await loaders.root.load((group_name, kwargs["root_id"]))
+    unsolved_events_by_root = await events_domain.get_unsolved_events_by_root(
+        loaders, group_name
+    )
+    if unsolved_events_by_root.get(root.id):
+        raise GirRootHasUnsolvedEvents()
     await clone_roots.queue_sync_git_roots(
         loaders=loaders,
         roots=(root,),
