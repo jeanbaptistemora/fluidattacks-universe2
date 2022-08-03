@@ -13,7 +13,6 @@ function main {
       -A server \
       worker \
       -l INFO \
-      --autoscale=8,10 \
     && popd || return
 }
 
