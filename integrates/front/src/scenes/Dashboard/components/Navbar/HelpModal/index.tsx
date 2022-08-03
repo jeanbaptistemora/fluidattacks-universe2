@@ -4,50 +4,45 @@ import {
   faEnvelope,
   faExternalLinkAlt,
   faHeadset,
-  faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback, useContext, useState } from "react";
+import type { FC } from "react";
+import React, { StrictMode, useCallback, useContext, useState } from "react";
 import { openPopupWidget } from "react-calendly";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
-import { Button, ExtraMessage, Message } from "./styles";
 import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
-import { Button as Btn } from "components/Button";
+import { Button } from "components/Button";
+import { Card } from "components/Card";
 import { ExternalLink } from "components/ExternalLink";
 import { Col, Row } from "components/Layout";
+import type { IModalProps } from "components/Modal";
 import { Modal } from "components/Modal";
 import { Text } from "components/Text";
-import { Tooltip } from "components/Tooltip";
 import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
 import { toggleZendesk } from "utils/widgets";
 
-interface IHelpModal {
+interface IHelpModal extends Pick<IModalProps, "onClose" | "open"> {
   groups: IOrganizationGroups["groups"];
 }
 
-export const HelpModal: React.FC<IHelpModal> = ({
+export const HelpModal: FC<IHelpModal> = ({
   groups,
+  onClose,
+  open,
 }: IHelpModal): JSX.Element => {
   const match = useRouteMatch<{ orgName: string; groupName: string }>(
     "/orgs/:orgName/groups/:groupName"
   );
   const { t } = useTranslation();
   const { userEmail, userName } = useContext(authContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
 
   const closeUpgradeModal = useCallback((): void => {
     setIsUpgradeOpen(false);
-  }, []);
-  const toggleModal = useCallback((): void => {
-    setIsModalOpen((currentValue): boolean => !currentValue);
-  }, []);
-  const onClose = useCallback((): void => {
-    setIsModalOpen(false);
   }, []);
 
   const openCalendly = useCallback((): void => {
@@ -77,128 +72,99 @@ export const HelpModal: React.FC<IHelpModal> = ({
     }
   }, [groups, match, userEmail, userName]);
 
-  const DisplayHelpExpert = useCallback((): JSX.Element => {
-    if (match) {
-      return (
-        <Col>
-          <Message>
-            <Button onClick={openCalendly}>
-              <FontAwesomeIcon className={"f4 dark-gray"} icon={faHeadset} />
-              &nbsp;
-              <span className={"dark-gray f4"}>{t("navbar.help.expert")}</span>
-            </Button>
-            {isUpgradeOpen ? (
-              <UpgradeGroupsModal groups={groups} onClose={closeUpgradeModal} />
-            ) : undefined}
-            <ExtraMessage>
-              {t("navbar.help.extra.expert")}
-              &nbsp;
-              <Tooltip
-                disp={"inline-block"}
-                id={"talkExpertTooltip"}
-                tip={t("navbar.help.tooltip")}
-              >
+  return (
+    <StrictMode>
+      <Modal onClose={onClose} open={open} title={t("navbar.help.support")}>
+        <Row cols={3}>
+          <Col>
+            <Card>
+              <Button onClick={toggleZendesk} size={"lg"}>
+                <FontAwesomeIcon icon={faComment} />
+                &nbsp;
+                {t("navbar.help.chat")}
+              </Button>
+              <Text>
+                {t("navbar.help.extra.chat")}
                 <ExternalLink
                   href={
-                    "https://docs.fluidattacks.com/squad/support/talk-expert"
+                    "https://docs.fluidattacks.com/machine/web/support/live-chat"
                   }
                 >
-                  <FontAwesomeIcon
-                    className={"mid-gray"}
-                    icon={faExternalLinkAlt}
-                  />
+                  <Button
+                    id={"liveChat"}
+                    size={"xs"}
+                    tooltip={t("navbar.help.tooltip")}
+                  >
+                    <FontAwesomeIcon icon={faExternalLinkAlt} />
+                  </Button>
                 </ExternalLink>
-              </Tooltip>
-            </ExtraMessage>
-          </Message>
-        </Col>
-      );
-    }
-
-    return <React.StrictMode />;
-  }, [closeUpgradeModal, groups, isUpgradeOpen, match, openCalendly, t]);
-
-  return (
-    <React.StrictMode>
-      <Btn onClick={toggleModal} size={"sm"}>
-        <Text size={4}>
-          <FontAwesomeIcon icon={faQuestionCircle} />
-        </Text>
-      </Btn>
-      <Modal
-        onClose={onClose}
-        open={isModalOpen}
-        title={<span className={"f4"}>{t("navbar.help.support")}</span>}
-      >
-        <Row justify={"between"}>
-          <Col>
-            <Message>
-              <Button onClick={toggleZendesk}>
-                <FontAwesomeIcon className={"f4 dark-gray"} icon={faComment} />
-                &nbsp;
-                <span className={"dark-gray f4"}>{t("navbar.help.chat")}</span>
-              </Button>
-              <ExtraMessage>
-                {t("navbar.help.extra.chat")}
-                &nbsp;
-                <Tooltip
-                  disp={"inline-block"}
-                  id={"liveChatTooltip"}
-                  tip={t("navbar.help.tooltip")}
-                >
+              </Text>
+            </Card>
+          </Col>
+          {match === null ? (
+            <StrictMode />
+          ) : (
+            <Col>
+              <Card>
+                <Button onClick={openCalendly} size={"lg"}>
+                  <FontAwesomeIcon icon={faHeadset} />
+                  &nbsp;
+                  {t("navbar.help.expert")}
+                </Button>
+                {isUpgradeOpen ? (
+                  <UpgradeGroupsModal
+                    groups={groups}
+                    onClose={closeUpgradeModal}
+                  />
+                ) : undefined}
+                <Text>
+                  {t("navbar.help.extra.expert")}
                   <ExternalLink
                     href={
-                      "https://docs.fluidattacks.com/machine/web/support/live-chat"
+                      "https://docs.fluidattacks.com/squad/support/talk-expert"
                     }
                   >
-                    <FontAwesomeIcon
-                      className={"mid-gray"}
-                      icon={faExternalLinkAlt}
-                    />
+                    <Button
+                      id={"talkExpert"}
+                      size={"xs"}
+                      tooltip={t("navbar.help.tooltip")}
+                    >
+                      <FontAwesomeIcon icon={faExternalLinkAlt} />
+                    </Button>
                   </ExternalLink>
-                </Tooltip>
-              </ExtraMessage>
-            </Message>
-          </Col>
-          <DisplayHelpExpert />
-          <Col md={100} sm={100}>
-            <Message>
+                </Text>
+              </Card>
+            </Col>
+          )}
+          <Col lg={3} md={3} sm={3}>
+            <Card>
               <ExternalLink href={"mailto:help@fluidattacks.com"}>
-                <Button onClick={undefined}>
-                  <FontAwesomeIcon
-                    className={"f4 dark-gray"}
-                    icon={faEnvelope}
-                  />
+                <Button size={"lg"}>
+                  <FontAwesomeIcon icon={faEnvelope} />
                   &nbsp;
-                  <span className={"dark-gray f4"}>
-                    {"help@fluidattacks.com"}
-                  </span>
+                  {"help@fluidattacks.com"}
                 </Button>
               </ExternalLink>
-              <ExtraMessage>
+              <Text>
                 {t("navbar.help.extra.mail")}
-                &nbsp;
-                <Tooltip
-                  disp={"inline-block"}
-                  id={"helpChannelTooltip"}
-                  tip={t("navbar.help.tooltip")}
+                <ExternalLink
+                  href={
+                    "https://docs.fluidattacks.com/about/security/transparency/help-channel"
+                  }
                 >
-                  <ExternalLink
-                    href={
-                      "https://docs.fluidattacks.com/about/security/transparency/help-channel"
-                    }
+                  <Button
+                    id={"helpChannel"}
+                    size={"xs"}
+                    tooltip={t("navbar.help.tooltip")}
                   >
-                    <FontAwesomeIcon
-                      className={"mid-gray"}
-                      icon={faExternalLinkAlt}
-                    />
-                  </ExternalLink>
-                </Tooltip>
-              </ExtraMessage>
-            </Message>
+                    <FontAwesomeIcon icon={faExternalLinkAlt} />
+                  </Button>
+                </ExternalLink>
+              </Text>
+            </Card>
           </Col>
         </Row>
       </Modal>
-    </React.StrictMode>
+    </StrictMode>
   );
 };

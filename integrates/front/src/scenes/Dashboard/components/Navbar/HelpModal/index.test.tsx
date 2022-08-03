@@ -43,26 +43,15 @@ describe("HelpModal", (): void => {
             }}
           >
             <Route path={"/orgs/:orgName/groups"}>
-              <HelpModal groups={groups} />
+              <HelpModal groups={groups} open={true} />
             </Route>
           </authContext.Provider>
         </MemoryRouter>
       </authzPermissionsContext.Provider>
     );
-    await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(1);
-    });
-
-    userEvent.click(screen.getAllByRole("button")[0]);
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("button")).toHaveLength(4);
-    });
-
-    userEvent.type(screen.getByText("navbar.help.support"), "{esc}");
-
-    await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(1);
     });
   });
 
@@ -87,7 +76,7 @@ describe("HelpModal", (): void => {
             }}
           >
             <Route path={"/orgs/:orgName/groups/:groupName/events"}>
-              <HelpModal groups={groups} />
+              <HelpModal groups={groups} open={true} />
             </Route>
           </authContext.Provider>
         </MemoryRouter>
@@ -95,13 +84,7 @@ describe("HelpModal", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(1);
-    });
-
-    userEvent.click(screen.getAllByRole("button")[0]);
-
-    await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(5);
+      expect(screen.queryAllByRole("button")).toHaveLength(6);
     });
     userEvent.click(screen.getAllByRole("button")[3]);
 
@@ -139,7 +122,7 @@ describe("HelpModal", (): void => {
               }}
             >
               <Route path={"/orgs/:orgName/groups/:groupName/events"}>
-                <HelpModal groups={nonValidGroups} />
+                <HelpModal groups={nonValidGroups} open={true} />
               </Route>
             </authContext.Provider>
           </MockedProvider>
@@ -148,16 +131,10 @@ describe("HelpModal", (): void => {
     );
 
     await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(1);
+      expect(screen.queryAllByRole("button")).toHaveLength(6);
     });
 
-    userEvent.click(screen.getAllByRole("button")[0]);
-
-    await waitFor((): void => {
-      expect(screen.queryAllByRole("button")).toHaveLength(5);
-    });
-
-    userEvent.click(screen.getAllByRole("button")[3]);
+    userEvent.click(screen.getAllByRole("button")[2]);
 
     await waitFor((): void => {
       expect(screen.queryByText("upgrade.title")).toBeInTheDocument();

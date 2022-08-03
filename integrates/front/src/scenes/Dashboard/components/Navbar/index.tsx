@@ -1,3 +1,5 @@
+import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,6 +12,9 @@ import { TaskInfo } from "./Tasks";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
+import { Button } from "components/Button";
+import { useShow } from "components/Modal";
+import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import type {
   IGetMeVulnerabilitiesAssigned,
@@ -30,6 +35,7 @@ export const Navbar: React.FC<INavbarProps> = ({
   meVulnerabilitiesAssigned,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
+  const [show, open, close] = useShow();
   const groups =
     userData === undefined
       ? []
@@ -65,7 +71,12 @@ export const Navbar: React.FC<INavbarProps> = ({
             <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
           </li>
           <li>
-            <HelpModal groups={groups} />
+            <Button onClick={open} size={"sm"}>
+              <Text size={4}>
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </Text>
+            </Button>
+            <HelpModal groups={groups} onClose={close} open={show} />
           </li>
           <li>
             <TechnicalInfo />
