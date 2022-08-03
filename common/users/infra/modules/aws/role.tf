@@ -1,37 +1,9 @@
 data "aws_caller_identity" "main" {}
-data "aws_eks_cluster" "common" {
-  name = "common"
-}
 locals {
   assume_role_policy = {
     Version = "2012-10-17",
     Statement = concat(
       [
-        {
-          Sid    = "commonClusterAssumePolicy",
-          Effect = "Allow",
-          Principal = {
-            Federated = join(
-              "/",
-              [
-                "arn:aws:iam::${data.aws_caller_identity.main.account_id}:oidc-provider",
-                replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-              ]
-            )
-          },
-          Action = "sts:AssumeRoleWithWebIdentity",
-          Condition = {
-            StringEquals = {
-              join(
-                ":",
-                [
-                  replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-                  "sub",
-                ]
-              ) : "system:serviceaccount:development:dev"
-            },
-          },
-        },
         {
           Sid    = "ecsTaskAccess",
           Effect = "Allow",

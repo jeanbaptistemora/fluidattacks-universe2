@@ -201,6 +201,34 @@ module "dev_aws" {
   name   = "dev"
   policy = local.dev.policies.aws
 
+  extra_assume_role_policies = [
+    {
+      Sid    = "commonClusterAssumePolicy",
+      Effect = "Allow",
+      Principal = {
+        Federated = join(
+          "/",
+          [
+            "arn:aws:iam::205810638802:oidc-provider",
+            replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
+          ]
+        )
+      },
+      Action = "sts:AssumeRoleWithWebIdentity",
+      Condition = {
+        StringEquals = {
+          join(
+            ":",
+            [
+              replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
+              "sub",
+            ]
+          ) : "system:serviceaccount:development:dev"
+        },
+      },
+    },
+  ]
+
   tags = {
     "Name"               = "dev"
     "management:area"    = "innovation"

@@ -1,5 +1,8 @@
 data "aws_caller_identity" "main" {}
 data "cloudflare_api_token_permission_groups" "all" {}
+data "aws_eks_cluster" "common" {
+  name = "common"
+}
 variable "gitlab_token" {}
 variable "gitlab_token_services" {}
 variable "region" {}
