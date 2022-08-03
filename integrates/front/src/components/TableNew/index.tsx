@@ -25,7 +25,7 @@ import type { ITableProps } from "./types";
 
 import {
   ButtonToolbarRow,
-  InputText,
+  SearchText,
   TableOptionsColBar,
 } from "styles/styledComponents";
 
@@ -84,10 +84,10 @@ export const Tables = <TData extends object>(
 
   return (
     <div className={"w-100"} id={id}>
-      {extraButtons !== undefined && extraButtons}
       <TableOptionsColBar>
+        {extraButtons !== undefined && extraButtons}
         <ButtonToolbarRow>
-          <InputText
+          <SearchText
             onChange={globalFilterHandler}
             placeholder={t("table.search")}
             value={globalFilter}

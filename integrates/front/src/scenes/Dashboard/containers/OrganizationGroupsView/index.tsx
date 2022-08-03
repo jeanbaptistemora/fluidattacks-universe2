@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useContext, useState } from "react";
@@ -9,11 +10,9 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { linkFormatter } from "components/Table/formatters";
-import { tooltipFormatter } from "components/Table/headerFormatters/tooltipFormatter";
-import { Table } from "components/Table/index";
-import type { IFilterProps, IHeaderConfig } from "components/Table/types";
-import { filterSearchText, filterText } from "components/Table/utils";
+import { Tables } from "components/TableNew";
+import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
+import type { ICellHelper } from "components/TableNew/types";
 import { Tooltip } from "components/Tooltip/index";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
@@ -27,14 +26,8 @@ import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
-import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
-
-interface IFilterSet {
-  groupName: string;
-  plan: string;
-}
 
 const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   props: IOrganizationGroupsProps
@@ -136,140 +129,46 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       };
     });
 
-  const [isCustomFilterEnabled, setCustomFilterEnabled] =
-    useStoredState<boolean>("organizationGroupsCustomFilters", false);
-
-  const [searchTextFilter, setSearchTextFilter] = useState("");
-  const [filterOrganizationGroupsTable, setFilterOrganizationGroupsTable] =
-    useStoredState(
-      "filterOrganizationGroupset",
-      {
-        groupName: "",
-        plan: "",
-      },
-      localStorage
-    );
-
-  const handleUpdateCustomFilter: () => void = useCallback((): void => {
-    setCustomFilterEnabled(!isCustomFilterEnabled);
-  }, [isCustomFilterEnabled, setCustomFilterEnabled]);
-
-  const tableHeaders: IHeaderConfig[] = [
+  const tableHeaders: ColumnDef<IGroupData>[] = [
     {
-      dataField: "name",
-      formatter: linkFormatter<IGroupData>(
-        (cell): string => `groups/${cell.toLowerCase()}/vulns`
-      ),
+      accessorKey: "name",
+      cell: (cell: ICellHelper<IGroupData>): JSX.Element => {
+        const link: string = `${String(cell.getValue())}/vulns`;
+        const text: string = cell.getValue();
+
+        return formatLinkHandler(link, text);
+      },
       header: t("organization.tabs.groups.newGroup.name"),
     },
     {
-      dataField: "description",
+      accessorKey: "description",
       header: t("organization.tabs.groups.newGroup.description.text"),
     },
-    { dataField: "plan", header: t("organization.tabs.groups.plan") },
+    { accessorKey: "plan", header: t("organization.tabs.groups.plan") },
     {
-      dataField: "userRole",
-      formatter: (value: string): string =>
-        t(`userModal.roles.${_.camelCase(value)}`, {
+      accessorKey: "userRole",
+      cell: (cell: ICellHelper<IGroupData>): string => {
+        return t(`userModal.roles.${_.camelCase(cell.getValue())}`, {
           defaultValue: "-",
-        }),
+        });
+      },
       header: t("organization.tabs.groups.role"),
     },
     {
-      dataField: "eventFormat",
-      formatter: linkFormatter<IGroupData>(
-        (_cell, row): string => `groups/${row.name.toLowerCase()}/events`
-      ),
+      accessorKey: "eventFormat",
+      cell: (cell: ICellHelper<IGroupData>): JSX.Element => {
+        const link: string = `${String(cell.row.getValue("name"))}/events`;
+        const text: string = cell.getValue();
+
+        return formatLinkHandler(link, text);
+      },
       header: t("organization.tabs.groups.newGroup.events.text"),
-      headerFormatter: tooltipFormatter,
-      tooltipDataField: t("organization.tabs.groups.newGroup.events.tooltip"),
-      wrapped: true,
     },
   ];
 
   const dataset: IGroupData[] = data
     ? formatGroupData(data.organization.groups)
     : [];
-
-  function onSearchTextChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    setSearchTextFilter(event.target.value);
-  }
-  const filterSearchTextDataset: IGroupData[] = filterSearchText(
-    dataset,
-    searchTextFilter
-  );
-
-  function onGroupNameChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        groupName: event.target.value,
-      })
-    );
-  }
-  const filterGroupNameDataset: IGroupData[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.groupName,
-    "name"
-  );
-
-  function onPlanChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-    event.persist();
-    setFilterOrganizationGroupsTable(
-      (value): IFilterSet => ({
-        ...value,
-        plan: event.target.value,
-      })
-    );
-  }
-
-  const filterPlanDataset: IGroupData[] = filterText(
-    dataset,
-    filterOrganizationGroupsTable.plan,
-    "plan"
-  );
-  function clearFilters(): void {
-    setFilterOrganizationGroupsTable(
-      (): IFilterSet => ({
-        groupName: "",
-        plan: "",
-      })
-    );
-    setSearchTextFilter("");
-  }
-
-  const resultDataset: IGroupData[] = _.intersection(
-    filterSearchTextDataset,
-    filterGroupNameDataset,
-    filterPlanDataset
-  );
-
-  const customFiltersProps: IFilterProps[] = [
-    {
-      defaultValue: filterOrganizationGroupsTable.groupName,
-      onChangeInput: onGroupNameChange,
-      placeholder: "Group Name",
-      tooltipId: "organization.tabs.groups.filtersTooltips.groupName.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.groupName",
-      type: "text",
-    },
-    {
-      defaultValue: filterOrganizationGroupsTable.plan,
-      onChangeSelect: onPlanChange,
-      placeholder: t("organization.tabs.groups.plan"),
-      selectOptions: {
-        Machine: "Machine",
-        Oneshot: "Oneshot",
-        Squad: "Squad",
-      },
-      tooltipId: "organization.tabs.groups.filtersTooltips.plan.id",
-      tooltipMessage: "organization.tabs.groups.filtersTooltips.plan",
-      type: "select",
-    },
-  ];
 
   return (
     <React.StrictMode>
@@ -280,26 +179,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
           <div>
             <div>
               <Row>
-                <Table
-                  clearFiltersButton={clearFilters}
-                  customFilters={{
-                    customFiltersProps,
-                    isCustomFilterEnabled,
-                    onUpdateEnableCustomFilter: handleUpdateCustomFilter,
-                    resultSize: {
-                      current: resultDataset.length,
-                      total: dataset.length,
-                    },
-                  }}
-                  customSearch={{
-                    customSearchDefault: searchTextFilter,
-                    isCustomSearchEnabled: true,
-                    onUpdateCustomSearch: onSearchTextChange,
-                    position: "right",
-                  }}
-                  dataset={resultDataset}
-                  defaultSorted={{ dataField: "name", order: "asc" }}
-                  exportCsv={false}
+                <Tables
+                  columns={tableHeaders}
+                  data={dataset}
                   extraButtons={
                     <Can do={"api_mutations_add_group_mutate"}>
                       <Tooltip
@@ -333,10 +215,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                       </Tooltip>
                     </Can>
                   }
-                  headers={tableHeaders}
-                  id={"tblGroups"}
-                  pageSize={10}
-                  search={false}
+                  id={"test"}
                 />
               </Row>
             </div>

@@ -108,20 +108,20 @@ describe("Organization groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(4);
 
-    const UNIT_TESTING_ROW_AT = 3;
+    const UNIT_TESTING_ROW_AT = 1;
 
     expect(screen.getAllByRole("button")[0].textContent).toMatch(
       /organization.tabs.groups.newGroup.new.text/u
     );
-    expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshottest");
-    expect(screen.getAllByRole("row")[1].textContent).toContain("Oneshot");
-    expect(screen.getAllByRole("row")[1].textContent).toContain(
+    expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshottest");
+    expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshot");
+    expect(screen.getAllByRole("row")[2].textContent).toContain(
       "userModal.roles.userManager"
     );
 
-    expect(screen.getAllByRole("row")[2].textContent).toContain("Pendinggroup");
-    expect(screen.getAllByRole("row")[2].textContent).toContain("Machine");
-    expect(screen.getAllByRole("row")[2].textContent).toContain(
+    expect(screen.getAllByRole("row")[3].textContent).toContain("Pendinggroup");
+    expect(screen.getAllByRole("row")[3].textContent).toContain("Machine");
+    expect(screen.getAllByRole("row")[3].textContent).toContain(
       "userModal.roles.customerManager"
     );
 

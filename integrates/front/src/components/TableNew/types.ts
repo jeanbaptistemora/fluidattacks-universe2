@@ -1,5 +1,20 @@
-import type { ColumnDef, Row, Table } from "@tanstack/react-table";
+import type {
+  Cell,
+  Column,
+  ColumnDef,
+  Row,
+  Table,
+} from "@tanstack/react-table";
 import type { FormEvent } from "react";
+
+interface ICellHelper<TData> {
+  table: Table<TData>;
+  column: Column<TData, unknown>;
+  row: Row<TData>;
+  cell: Cell<TData, unknown>;
+  getValue: <TTValue = unknown>() => TTValue;
+  renderValue: <TTValue = unknown>() => TTValue | null;
+}
 
 interface IPagMenuProps<TData> {
   table: Table<TData>;
@@ -22,4 +37,4 @@ interface IToggleProps<TData> {
   table: Table<TData>;
 }
 
-export type { IPagMenuProps, ITableProps, IToggleProps };
+export type { ICellHelper, IPagMenuProps, ITableProps, IToggleProps };
