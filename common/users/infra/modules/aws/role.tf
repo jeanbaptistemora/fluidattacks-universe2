@@ -5,6 +5,16 @@ locals {
     Statement = concat(
       [
         {
+          Sid    = "EcsTaskAccess",
+          Effect = "Allow",
+          Principal = {
+            Service = [
+              "ecs-tasks.amazonaws.com",
+            ],
+          },
+          Action = "sts:AssumeRole",
+        },
+        {
           Sid    = "OktaSAMLAccess",
           Effect = "Allow",
           Principal = {
