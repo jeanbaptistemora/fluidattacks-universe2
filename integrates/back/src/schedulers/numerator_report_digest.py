@@ -24,6 +24,7 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
+    FindingState,
     FindingVerification,
 )
 from db_model.groups.types import (
@@ -39,6 +40,7 @@ from db_model.toe_lines.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityState,
 )
 from group_access import (
     domain as group_access_domain,
@@ -95,6 +97,7 @@ def _generate_fields() -> Dict[str, Any]:
         "verified": _generate_count_fields(),
         "loc": _generate_count_fields(),
         "reattacked": _generate_count_fields(),
+        "released": _generate_count_fields(),
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
         "groups": {},
@@ -108,6 +111,7 @@ def _generate_group_fields() -> Dict[str, Any]:
         "enumerated": 0,
         "loc": 0,
         "reattacked": 0,
+        "released": 0,
         "draft_created": 0,
         "draft_rejected": 0,
     }
@@ -209,28 +213,61 @@ async def _finding_content(
     users_email: List[str],
 ) -> None:
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    for finding in findings:
-        historic_verification: Tuple[
-            FindingVerification, ...
-        ] = await loaders.finding_historic_verification.load(finding.id)
+    finding_ids = tuple(finding.id for finding in findings)
+    historic_verification: Tuple[
+        FindingVerification, ...
+    ] = await loaders.finding_historic_verification.load_many_chained(
+        finding_ids
+    )
+    historic_state: Tuple[
+        FindingState, ...
+    ] = await loaders.finding_historic_state.load_many_chained(finding_ids)
 
-        for verification in historic_verification:
-            if (
-                verification.vulnerability_ids
-                and verification.status == FindingVerificationStatus.VERIFIED
-            ):
-                _generate_count_report(
-                    content=content,
-                    date_range=date_range,
-                    date_report=datetime_utils.get_datetime_from_iso_str(
-                        verification.modified_date
-                    ),
-                    field="reattacked",
-                    group=group,
-                    to_add=len(verification.vulnerability_ids),
-                    user_email=verification.modified_by,
-                    allowed_users=users_email,
-                )
+    for verification in historic_verification:
+        if (
+            verification.vulnerability_ids
+            and verification.status == FindingVerificationStatus.VERIFIED
+        ):
+            _generate_count_report(
+                content=content,
+                date_range=date_range,
+                date_report=datetime_utils.get_datetime_from_iso_str(
+                    verification.modified_date
+                ),
+                field="reattacked",
+                group=group,
+                to_add=len(verification.vulnerability_ids),
+                user_email=verification.modified_by,
+                allowed_users=users_email,
+            )
+
+    vulnerabilities: Tuple[
+        Vulnerability, ...
+    ] = await loaders.finding_vulnerabilities.load_many_chained(
+        list(finding_ids)
+    )
+
+    vuln_historic_states: tuple[
+        VulnerabilityState, ...
+    ] = await loaders.vulnerability_historic_state.load_many_chained(
+        [vulnerability.id for vulnerability in vulnerabilities]
+    )
+
+    for finding_state in historic_state:
+        if finding_state.status == FindingStateStatus.APPROVED:
+            for vuln in vuln_historic_states:
+                if finding_state.modified_date == vuln.modified_date:
+                    _generate_count_report(
+                        content=content,
+                        date_range=date_range,
+                        date_report=datetime_utils.get_datetime_from_iso_str(
+                            finding_state.modified_date
+                        ),
+                        field="released",
+                        group=group,
+                        user_email=vuln.modified_by,
+                        allowed_users=users_email,
+                    )
 
 
 async def _toe_input_content(
@@ -353,6 +390,11 @@ def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
                     value["count"]["past_day"],
                 ),
             }
+    count_and_variation["effectiveness"] = get_percent(
+        content["released"]["count"]["today"]
+        - content["draft_rejected"]["count"]["today"],
+        content["released"]["count"]["today"],
+    )
 
     return count_and_variation
 

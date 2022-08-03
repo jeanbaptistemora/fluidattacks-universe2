@@ -14,7 +14,9 @@
       {{ count_var_report["loc"]["count"] }} lines. <br />
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.<br />
       Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.<br />
-      - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.
+      - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.<br />
+      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.<br />
+      - {{ count_var_report["effectiveness"] }} effectiveness.
     </p>
     <p>
       Group details:<br />
@@ -25,16 +27,18 @@
           {{ fields["verified"] }} inputs verified,
           {{ fields["loc"] }} lines verified,
           {{ fields["reattacked"] }} reattacked,
-          {{ fields["draft_created"] }} drafts.<br />
+          {{ fields["draft_created"] }} drafts,
+          {{ fields["released"] }} released.<br />
         {% endfor %}
       {% endif %}
       <br />
       Variation from yesterday:<br />
-      - {{ count_var_report["enumerated"]["variation"] }}  ie,
-      {{ count_var_report["verified"]["variation"] }} iv,
-      {{ count_var_report["loc"]["variation"] }} lv,
-      {{ count_var_report["reattacked"]["variation"] }} re,
-      {{ count_var_report["draft_created"]["variation"] }} df
+      - {{ count_var_report["enumerated"]["variation"] }}  inputs enumerated,
+      {{ count_var_report["verified"]["variation"] }} inputs verified,
+      {{ count_var_report["loc"]["variation"] }} lines verified,
+      {{ count_var_report["reattacked"]["variation"] }} reattacked,
+      {{ count_var_report["draft_created"]["variation"] }} drafts,
+      {{ count_var_report["released"]["variation"] }} released
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>
