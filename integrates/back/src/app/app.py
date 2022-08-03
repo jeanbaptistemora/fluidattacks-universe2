@@ -60,6 +60,9 @@ from dataloaders import (
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from decorators import (
     authenticate_session,
 )
@@ -181,14 +184,14 @@ async def confirm_access(request: Request) -> HTMLResponse:
                 )
             )
             if success:
-                response = await templates.valid_invitation_typed(
-                    request, group_access
+                response = await templates.valid_invitation(
+                    request, group_access.group_name
                 )
             else:
                 response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access,
+                    group_access.group_name,
                 )
         except StakeholderNotInGroup:
             await in_thread(
@@ -252,15 +255,18 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
                     loaders, organization_access
                 )
             )
+            organization: Organization = await loaders.organization.load(
+                organization_access.organization_id
+            )
             if success:
-                response = await templates.valid_invitation_typed(
-                    request, organization_access
+                response = await templates.valid_invitation(
+                    request, organization.name
                 )
             else:
                 response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    access=organization_access,
+                    organization.name,
                 )
         except StakeholderNotInOrganization:
             await in_thread(
@@ -287,7 +293,7 @@ async def reject_access(request: Request) -> HTMLResponse:
                 return templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access,
+                    group_access.group_name,
                 )
             success = await groups_domain.reject_register_for_group_invitation(
                 loaders, group_access
@@ -305,7 +311,7 @@ async def reject_access(request: Request) -> HTMLResponse:
                 response = templates.invalid_invitation(
                     request,
                     "Invalid or Expired",
-                    group_access,
+                    group_access.group_name,
                 )
         except StakeholderNotInGroup:
             await in_thread(
@@ -343,8 +349,11 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                     request, organization_access
                 )
             else:
+                organization: Organization = await loaders.organization.load(
+                    organization_access.organization_id
+                )
                 response = templates.invalid_invitation(
-                    request, "Invalid or Expired", organization_access
+                    request, "Invalid or Expired", organization.name
                 )
         except StakeholderNotInOrganization:
             await in_thread(

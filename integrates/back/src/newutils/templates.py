@@ -31,8 +31,6 @@ from starlette.templating import (
 import traceback
 from typing import (
     Any,
-    Dict,
-    Optional,
     Union,
 )
 
@@ -110,26 +108,13 @@ def graphic_view(
 
 
 def invalid_invitation(
-    request: Request,
-    error: str,
-    access: Union[Optional[OrganizationAccess], Optional[GroupAccess]] = None,
+    request: Request, error: str, entity_name: str = ""
 ) -> HTMLResponse:
-    if isinstance(access, OrganizationAccess):
-        entity_name = access.organization_id if access else ""
-        return TEMPLATING_ENGINE.TemplateResponse(
-            name="invalid_invitation.html",
-            context={
-                "error": error,
-                "group_name": entity_name,
-                "request": request,
-            },
-        )
-    entity_name = access.group_name if access else ""
     return TEMPLATING_ENGINE.TemplateResponse(
         name="invalid_invitation.html",
         context={
             "error": error,
-            "group_name": entity_name,
+            "entity_name": entity_name,
             "request": request,
         },
     )
@@ -175,23 +160,11 @@ def unauthorized(request: Request) -> HTMLResponse:
     )
 
 
-async def valid_invitation_typed(
-    request: Request, access: Union[OrganizationAccess, GroupAccess]
-) -> HTMLResponse:
-    if isinstance(access, OrganizationAccess):
-        entity_name = access.organization_id
-        return TEMPLATING_ENGINE.TemplateResponse(
-            name="valid_invitation.html",
-            context={
-                "group_name": entity_name,
-                "request": request,
-            },
-        )
-    entity_name = access.group_name
+async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_invitation.html",
         context={
-            "group_name": entity_name,
+            "entity_name": entity_name,
             "request": request,
         },
     )
@@ -245,7 +218,7 @@ async def reject_invitation_typed(
 
 
 async def reject_invitation(
-    request: Request, group_access: Dict[str, Any]
+    request: Request, group_access: dict[str, Any]
 ) -> HTMLResponse:
     group_name = (
         get_key_or_fallback(group_access, fallback="") if group_access else ""
