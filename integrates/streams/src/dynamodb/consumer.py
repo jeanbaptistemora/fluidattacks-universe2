@@ -105,6 +105,8 @@ def _get_shard_records(
         if current_iterator is None or processed_records > MAX_ITEM_COUNT:
             break
 
+    print("Processed", processed_records, "records")
+
 
 def consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
     shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
@@ -120,10 +122,7 @@ def consume() -> None:
     for shards in _get_stream_shards(stream_arn):
         for shard in shards:
             worker = Thread(
-                args=(
-                    shard,
-                    stream_arn,
-                ),
+                args=(shard, stream_arn),
                 daemon=True,
                 target=consume_shard_records,
             )
