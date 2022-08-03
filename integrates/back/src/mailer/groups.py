@@ -680,7 +680,9 @@ async def send_mail_missing_environment_alert(
         loaders=loaders,
         email_to=email_to,
         tags=GENERAL_TAG,
-        subject=f"[ASM] ACTION NEEDED: Your group {group_name} is incomplete",
+        subject=(
+            f"[ASM] ACTION NEEDED: Your group [{group_name}] is incomplete"
+        ),
         context=context,
         template_name="missing_environment_alert",
     )
