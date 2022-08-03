@@ -88,15 +88,9 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
   // State management
   const [isSolvingModalOpen, setIsSolvingModalOpen] = useState(false);
-  const [isEditingSolvingReason, setIsEditingSolvingReason] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const openSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(true);
-    setIsEditingSolvingReason(false);
-  }, []);
-  const openEditReasonModal: () => void = useCallback((): void => {
-    setIsSolvingModalOpen(true);
-    setIsEditingSolvingReason(true);
   }, []);
   const closeSolvingModal: () => void = useCallback((): void => {
     setIsSolvingModalOpen(false);
@@ -219,33 +213,16 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const handleSubmit: (values: Record<string, unknown>) => void = useCallback(
     (values: Record<string, unknown>): void => {
       const otherReason = values.reason === "OTHER" ? values.other : undefined;
-      if (isEditingSolvingReason) {
-        void updateEventSolvingReason({
-          variables: {
-            eventId,
-            other: otherReason,
-            reason: values.reason,
-          },
-        });
-      } else {
-        void solveEvent({
-          variables: {
-            eventId,
-            other: otherReason,
-            reason: values.reason,
-          },
-        });
-      }
-
+      void solveEvent({
+        variables: {
+          eventId,
+          other: otherReason,
+          reason: values.reason,
+        },
+      });
       closeSolvingModal();
     },
-    [
-      eventId,
-      closeSolvingModal,
-      isEditingSolvingReason,
-      solveEvent,
-      updateEventSolvingReason,
-    ]
+    [eventId, closeSolvingModal, solveEvent]
   );
 
   const handleDescriptionSubmit: (values: IDescriptionFormValues) => void =
@@ -310,6 +287,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       otherwise: string().nullable(),
       then: string().nullable().required(t("validations.required")),
     }),
+    solvingReason: string().when("eventStatus", {
+      is: "SOLVED",
+      otherwise: string().nullable(),
+      then: string().nullable().required(t("validations.required")),
+    }),
   });
 
   return (
@@ -318,22 +300,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
         <Modal
           onClose={closeSolvingModal}
           open={isSolvingModalOpen}
-          title={
-            isEditingSolvingReason
-              ? t("group.events.description.editSolvingReason")
-              : t("group.events.description.markAsSolved")
-          }
+          title={t("group.events.description.markAsSolved")}
         >
           <Formik
             enableReinitialize={true}
-            initialValues={
-              isEditingSolvingReason
-                ? {
-                    other: data.event.otherSolvingReason,
-                    reason: data.event.solvingReason,
-                  }
-                : { other: "", reason: "" }
-            }
+            initialValues={{ other: "", reason: "" }}
             name={"solvingReason"}
             onSubmit={handleSubmit}
           >
@@ -393,8 +364,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     ) : undefined}
                   </Col100>
                 </Row>
-                {_.isEmpty(data.event.affectedReattacks) ||
-                isEditingSolvingReason ? undefined : (
+                {_.isEmpty(data.event.affectedReattacks) ? undefined : (
                   <Row>
                     <Col100>
                       {t("group.events.description.solved.holds", {
@@ -427,7 +397,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     isDirtyForm={dirty}
                     isEditing={isEditing}
                     onEdit={toggleEdit}
-                    openEditReasonModal={openEditReasonModal}
                     openSolvingModal={openSolvingModal}
                   />
                   <br />
@@ -646,6 +615,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                   name={"solvingReason"}
                                   validate={composeValidators([required])}
                                 >
+                                  <option value={""} />
                                   <option value={"PERMISSION_GRANTED"}>
                                     {solvingReason.PERMISSION_GRANTED}
                                   </option>

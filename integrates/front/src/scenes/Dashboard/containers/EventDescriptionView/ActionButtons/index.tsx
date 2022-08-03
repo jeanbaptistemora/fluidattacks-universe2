@@ -21,7 +21,6 @@ interface IActionButtonsProps {
   isEditing: boolean;
   eventStatus: string;
   onEdit: () => void;
-  openEditReasonModal: () => void;
   openSolvingModal: () => void;
 }
 
@@ -30,7 +29,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   isEditing,
   eventStatus,
   onEdit: onToggleEdit,
-  openEditReasonModal,
   openSolvingModal,
 }: IActionButtonsProps): JSX.Element => {
   const { t } = useTranslation();
@@ -45,15 +43,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   return (
     <Row>
       <ButtonToolbarStartRow>
-        {isEditing ? undefined : eventStatus === "SOLVED" ? (
-          <Can do={"api_mutations_update_event_solving_reason_mutate"}>
-            <Button onClick={openEditReasonModal} variant={"primary"}>
-              <FontAwesomeIcon icon={faPen} />
-              &nbsp;
-              {t("group.events.description.editSolvingReason")}
-            </Button>
-          </Can>
-        ) : (
+        {isEditing ? undefined : eventStatus === "SOLVED" ? undefined : (
           <Can do={"api_mutations_solve_event_mutate"}>
             <Button onClick={openSolvingModal} variant={"primary"}>
               <FontAwesomeIcon icon={faCheck} />
