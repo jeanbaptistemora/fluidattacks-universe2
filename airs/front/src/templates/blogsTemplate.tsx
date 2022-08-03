@@ -9,18 +9,23 @@
 /* eslint @typescript-eslint/no-invalid-void-type:0 */
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0*/
+/* eslint @typescript-eslint/no-unsafe-call: 0*/
+/* eslint @typescript-eslint/no-explicit-any: 0*/
 import { Link, graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
 import { utc } from "moment";
-import React from "react";
+import React, { createElement } from "react";
+import rehypeReact from "rehype-react";
 
 import { BlogFooter } from "../components/BlogFooter";
 import { BlogSeo } from "../components/BlogSeo";
 import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
+import { NoFollowLink } from "../components/NoFollowLink";
 import { Seo } from "../components/Seo";
 import {
   BlogArticleBannerContainer,
@@ -45,6 +50,15 @@ const BlogsIndex: React.FC<IQueryData> = ({
   const {
     breadcrumb: { crumbs },
   } = pageContext;
+
+  const renderAst = new (rehypeReact as any)({
+    components: {
+      a: NoFollowLink,
+    },
+    createElement,
+  }).Compiler;
+
+  const { htmlAst } = data.markdownRemark;
 
   const {
     alt,
@@ -122,12 +136,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
                     </Link>
                   </p>
                 </div>
-                <div
-                  className={"lh-2"}
-                  dangerouslySetInnerHTML={{
-                    __html: data.markdownRemark.html,
-                  }}
-                />
+                <div className={"lh-2"}>{renderAst(htmlAst)}</div>
                 <div className={"pt3"}>
                   <p className={"f5"}>
                     <Link to={"/blog/tags/"}>{"Tags:"}</Link>
@@ -162,7 +171,7 @@ export default BlogsIndex;
 export const query: StaticQueryDocument = graphql`
   query BlogsPages($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
+      htmlAst
       fields {
         slug
       }
