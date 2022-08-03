@@ -21,18 +21,22 @@ from utils.repositories import (
 import yaml  # type: ignore
 
 
-def _simplify(obj: Any) -> Any:
+def simplify_sarif(obj: Any) -> Any:
     simplified_obj: Any
     if hasattr(obj, "__attrs_attrs__"):
         simplified_obj = {
-            attribute.metadata["schema_property_name"]: _simplify(
+            attribute.metadata["schema_property_name"]: simplify_sarif(
                 obj.__dict__[attribute.name]
             )
             for attribute in obj.__attrs_attrs__
             if obj.__dict__[attribute.name] != attribute.default
         }
+    elif isinstance(obj, dict):
+        simplified_obj = simplified_obj = {
+            key: simplify_sarif(value) for key, value in obj.items()
+        }
     elif isinstance(obj, (list, tuple, set)):
-        simplified_obj = [_simplify(item) for item in obj]
+        simplified_obj = [simplify_sarif(item) for item in obj]
     else:
         simplified_obj = obj
     return simplified_obj
@@ -157,6 +161,9 @@ def _get_sarif(
                         is_comprehensive=False,
                     )
                 ],
+                original_uri_base_ids={
+                    "SRCROOT": sarif_om.ArtifactLocation(uri=config.namespace)
+                },
             ),
         ],
     )
@@ -175,21 +182,32 @@ def _get_sarif(
                     else ""
                 ),
                 locations=[
-                    sarif_om.PhysicalLocation(
-                        artifact_location=sarif_om.ArtifactLocation(
-                            uri=_format_what(vulnerability.what)
-                        ),
-                        region=sarif_om.Region(
-                            start_line=int(vulnerability.where),
-                            snippet=sarif_om.MultiformatMessageString(
-                                text=vulnerability.skims_metadata.snippet
-                                if vulnerability.skims_metadata
-                                else ""
+                    sarif_om.Location(
+                        physical_location=sarif_om.PhysicalLocation(
+                            artifact_location=sarif_om.ArtifactLocation(
+                                uri=_format_what(vulnerability.what)
                             ),
-                        ),
-                    )
+                            region=sarif_om.Region(
+                                start_line=int(vulnerability.where),
+                                snippet=sarif_om.MultiformatMessageString(
+                                    text=vulnerability.skims_metadata.snippet
+                                    if vulnerability.skims_metadata
+                                    else ""
+                                ),
+                            ),
+                        )
+                    ),
                 ],
                 taxa=[],
+                properties={
+                    "kind": vulnerability.kind.value,
+                    "source_method": (
+                        vulnerability.skims_metadata.source_method
+                        if vulnerability.skims_metadata
+                        else ""
+                    ),
+                    "stream": vulnerability.stream,
+                },
             )
 
             # append rule if not is present
@@ -217,4 +235,4 @@ def get_sarif(
     config: core_model.SkimsConfig,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> Dict[str, Any]:
-    return _simplify(_get_sarif(config, stores))
+    return simplify_sarif(_get_sarif(config, stores))

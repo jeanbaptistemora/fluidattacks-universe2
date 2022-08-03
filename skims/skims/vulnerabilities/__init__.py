@@ -8,6 +8,16 @@ from model.core_model import (
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
+from typing import (
+    Optional,
+)
+
+
+def search_method(method_path: str) -> Optional[MethodsEnum]:
+    for method in MethodsEnum:
+        if f"{method.value.file_name}.{method.value. name}" == method_path:
+            return method
+    return None
 
 
 def build_metadata(

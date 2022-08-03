@@ -28,6 +28,13 @@ import os
 from state.ephemeral import (
     get_ephemeral_store,
 )
+from typing import (
+    cast,
+)
+from vulnerabilities import (
+    build_metadata,
+    search_method,
+)
 
 
 async def get_vulnerabilities(
@@ -42,6 +49,13 @@ async def get_vulnerabilities(
             what=result["what"],
             where=result["where"],
             namespace=namespace,
+            skims_metadata=build_metadata(
+                method=cast(
+                    core_model.MethodsEnum, search_method(result["method"])
+                ),
+                description=result["description"],
+                snippet=result["snippet"][1:-2],
+            ),
         )
         for result in current_results
     )
