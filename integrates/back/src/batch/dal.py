@@ -615,7 +615,7 @@ async def put_action_to_batch(
                 await batch.submit_job(
                     jobName=f"{product_name}-{action_name}-{entity}",
                     jobQueue=queue,
-                    jobDefinition="makes",
+                    jobDefinition="prod_integrates",
                     containerOverrides={
                         "command": [
                             "m",
