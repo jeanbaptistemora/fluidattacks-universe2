@@ -10,7 +10,17 @@ variable "terraform_state_lock_arn" {
 
 data "aws_iam_role" "main" {
   for_each = toset([
+    "dev",
+    "prod_airs",
     "prod_common",
+    "prod_docs",
+    "prod_forces",
+    "prod_integrates",
+    "prod_melts",
+    "prod_observes",
+    "prod_services",
+    "prod_skims",
+    "prod_sorts",
   ])
 
   name = each.key

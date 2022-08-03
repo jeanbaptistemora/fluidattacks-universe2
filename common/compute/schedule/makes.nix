@@ -19,7 +19,7 @@
       attempts = value.attempts;
       attemptDurationSeconds = value.timeout;
       command = value.command;
-      definition = "makes";
+      definition = value.awsRole;
       environment = value.environment;
       includePositionalArgsInName = false;
       memory = sizes.${value.size}.memory;
