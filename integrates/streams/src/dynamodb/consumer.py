@@ -2,6 +2,9 @@ import boto3
 from dynamodb.replicator import (
     replicate,
 )
+from threading import (
+    Thread,
+)
 from typing import (
     Any,
     Iterator,
@@ -22,7 +25,11 @@ def _get_stream_arn(table_name: str) -> str:
 def _describe_stream(
     exclusive_start_shard_id: Optional[str], stream_arn: str
 ) -> dict[str, Any]:
-    """Returns information about a stream"""
+    """
+    Returns information about a stream
+
+    Workaround needed as boto doesn't allow ExclusiveStartShardId to be None
+    """
     if exclusive_start_shard_id is None:
         args = {"StreamArn": stream_arn}
     else:
@@ -34,27 +41,27 @@ def _describe_stream(
     return CLIENT.describe_stream(**args)
 
 
-def _get_stream_shards(stream_arn: str) -> tuple[str, ...]:
-    """Returns the shards for the requested stream"""
-    open_shards = []
+def _get_stream_shards(
+    stream_arn: str,
+) -> Iterator[tuple[dict[str, Any], ...]]:
+    """Yields the open shards for the requested stream"""
     current_shard_id = None
 
     while True:
         response = _describe_stream(current_shard_id, stream_arn)
         description = response["StreamDescription"]
-        open_shards.extend(
-            [
-                shard
-                for shard in description["Shards"]
-                if "EndingSequenceNumber" not in shard["SequenceNumberRange"]
-            ]
+        open_shards = tuple(
+            shard
+            for shard in description["Shards"]
+            if "EndingSequenceNumber" not in shard["SequenceNumberRange"]
         )
+
+        yield open_shards
+
         current_shard_id = description.get("LastEvaluatedShardId")
 
         if current_shard_id is None:
             break
-
-    return tuple(open_shards)
 
 
 def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
@@ -81,12 +88,16 @@ def _get_shard_records(
     processed_records = 0
 
     while True:
-        response = CLIENT.get_records(ShardIterator=shard_iterator)
-        records = response["Records"]
+        try:
+            response = CLIENT.get_records(ShardIterator=shard_iterator)
+        except CLIENT.exceptions.ExpiredIteratorException:
+            print("Iterator expired, moving on")
+            break
+
+        records = tuple(response["Records"])
 
         if records:
             processed_records += len(records)
-
             yield records
 
         current_iterator = response.get("NextShardIterator")
@@ -94,17 +105,34 @@ def _get_shard_records(
         if current_iterator is None or processed_records > MAX_ITEM_COUNT:
             break
 
-    return tuple(records)
+
+def consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
+    shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
+    for records in _get_shard_records(shard_iterator):
+        replicate(records)
 
 
 def consume() -> None:
     """Consumes the stream and triggers replication"""
     stream_arn = _get_stream_arn(TABLE_NAME)
-    stream_shards = _get_stream_shards(stream_arn)
+    workers: list[Thread] = []
 
-    for index, shard in enumerate(stream_shards):
-        print(f"Working on shard {index + 1}/{len(stream_shards)}")
-        shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
+    for shards in _get_stream_shards(stream_arn):
+        for shard in shards:
+            worker = Thread(
+                args=(
+                    shard,
+                    stream_arn,
+                ),
+                daemon=True,
+                target=consume_shard_records,
+            )
+            workers.append(worker)
+            worker.start()
 
-        for records in _get_shard_records(shard_iterator):
-            replicate(records)
+    print("Running with", len(workers), "workers")
+
+    for worker in workers:
+        worker.join()
+
+    print("Stream consumption completed.")

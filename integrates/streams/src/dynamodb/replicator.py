@@ -22,5 +22,10 @@ CLIENT = OpenSearch(
 )
 
 
-def replicate(_records: tuple[dict[str, Any], ...]) -> None:
-    pass
+def replicate(records: tuple[dict[str, Any], ...]) -> None:
+    for record in records:
+        event_name: str = record["eventName"]
+        pk: str = record["dynamodb"]["Keys"]["pk"]["S"]
+        sk: str = record["dynamodb"]["Keys"]["sk"]["S"]
+
+        print(event_name, pk, sk)
