@@ -172,7 +172,7 @@ resource "cloudflare_record" "news" {
   name    = "news.${cloudflare_zone.fluidattacks_com.zone}"
   type    = "CNAME"
   value   = "cname.announcekit.app"
-  proxied = false
+  proxied = true
   ttl     = 1
 }
 
