@@ -8,6 +8,15 @@ from charts.colors import (
     GRAY_JET,
     RISK,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    UnsanitizedInputFound,
+)
+from newutils.validations import (
+    validate_sanitized_csv_input,
+)
 
 
 async def generate_one(*, group: str) -> dict:
@@ -67,10 +76,20 @@ async def generate_one(*, group: str) -> dict:
 
 
 def format_csv_data(*, document: dict) -> utils.CsvData:
+    headers: list[str] = ["", ""]
     columns: list[list[str]] = document["data"]["columns"]
+    with suppress(UnsanitizedInputFound):
+        validate_sanitized_csv_input(columns[0][0], columns[1][0])
+        headers = [columns[0][0], columns[1][0]]
+
+    rows: list[list[str]] = [["", ""]]
+    with suppress(UnsanitizedInputFound):
+        validate_sanitized_csv_input(str(columns[0][1]), str(columns[1][1]))
+        rows = [[str(columns[0][1]), str(columns[1][1])]]
+
     return utils.CsvData(
-        headers=[columns[0][0], columns[1][0]],
-        rows=[[columns[0][1], columns[1][1]]],
+        headers=headers,
+        rows=rows,
     )
 
 

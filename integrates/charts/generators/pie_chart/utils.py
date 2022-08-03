@@ -1,6 +1,9 @@
 from charts.colors import (
     RISK,
 )
+from charts.generators.gauge.forces_builds_risk import (
+    format_csv_data,
+)
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
@@ -80,29 +83,35 @@ async def generate_all(
     format_document: Callable[[Any], Dict[str, Any]],
 ) -> None:
     async for group in iterate_groups():
+        document = format_document(
+            await get_data_one_group(group),
+        )
         json_dump(
-            document=format_document(
-                await get_data_one_group(group),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_document(
+            await get_data_many_groups(org_groups),
+        )
         json_dump(
-            document=format_document(
-                await get_data_many_groups(org_groups),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_document(
+                await get_data_many_groups(tuple(groups)),
+            )
             json_dump(
-                document=format_document(
-                    await get_data_many_groups(tuple(groups)),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
