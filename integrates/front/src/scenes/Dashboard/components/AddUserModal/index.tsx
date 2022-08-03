@@ -58,12 +58,12 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
   const { t } = useTranslation();
   const newTitle: string = action === "add" ? title : editTitle;
   const groupModal: boolean = groupName !== undefined;
-  const organizationModal: boolean = type === "organization";
+  const isOrganizationTypeModal: boolean = type === "organization";
   const sidebarModal: boolean = type === "user" && groupName === undefined;
   const newInitialValues: Record<string, string> = getNewInitialValues(
     initialValues,
     action,
-    organizationModal
+    isOrganizationTypeModal
   );
 
   const [getUser, { data }] = useLazyQuery<IStakeholderAttrs>(GET_STAKEHOLDER, {
@@ -85,7 +85,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
     if (!_.isEmpty(userEmail)) {
       getUser({
         variables: {
-          entity: organizationModal ? "ORGANIZATION" : "GROUP",
+          entity: isOrganizationTypeModal ? "ORGANIZATION" : "GROUP",
           groupName: groupName ?? "-",
           organizationId: organizationId ?? "-",
           userEmail,
@@ -144,7 +144,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                   </Fragment>
                 }
                 name={"email"}
-                onBlur={loadAutofillData}
+                onBlur={isOrganizationTypeModal ? undefined : loadAutofillData}
                 placeholder={t("userModal.emailPlaceholder")}
                 type={"email"}
               />
@@ -178,7 +178,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                     </Can>
                   )
                 )}
-                {(organizationModal ? organizationLevelRoles : []).map(
+                {(isOrganizationTypeModal ? organizationLevelRoles : []).map(
                   (role: string): JSX.Element => (
                     <option key={role} value={role.toUpperCase()}>
                       {t(`userModal.roles.${_.camelCase(role)}`)}
