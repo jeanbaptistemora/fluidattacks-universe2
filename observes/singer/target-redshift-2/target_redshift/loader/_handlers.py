@@ -130,17 +130,21 @@ class SingerHandler:
     client: TableClient
     options: SingerHandlerOptions
 
-    def schema_handler(
-        self, table_map: StreamTables, schema: SingerSchema
-    ) -> Tuple[StreamTables, Cmd[None]]:
+    def create_table(self, schema: SingerSchema) -> Cmd[None]:
         table_id = TableId(self.schema, schema.stream)
         table = extract_table(schema).unwrap()
-        new_table_map = (
+        return self.client.new(table_id, table)
+
+    def update_stream_tables(
+        self, table_map: StreamTables, schema: SingerSchema
+    ) -> StreamTables:
+        table_id = TableId(self.schema, schema.stream)
+        table = extract_table(schema).unwrap()
+        return (
             FrozenDict(dict(table_map) | {schema.stream: (table_id, table)})
             if schema.stream not in table_map
             else table_map
         )
-        return (new_table_map, self.client.new(table_id, table))
 
     def _upload_records(self, tar: _TableAndRecords) -> Cmd[None]:
         chunks = tar.records.map(
@@ -183,12 +187,9 @@ class SingerHandler:
     ) -> Cmd[None]:
         if isinstance(item, SingerSchema):
             _item = item  # dummy var for fixing mypy error
-
-            def _handler(result: Tuple[StreamTables, Cmd[None]]) -> Cmd[None]:
-                return result[1] + state.update(result[0])
-
             return state.freeze().bind(
-                lambda t: _handler(self.schema_handler(t, _item))
+                lambda t: self.create_table(_item)
+                + state.update(self.update_stream_tables(t, _item))
             )
         if isinstance(item, SingerState):
             raise NotImplementedError()

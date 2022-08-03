@@ -6,6 +6,9 @@ from ._handlers import (
     SingerHandler,
     SingerHandlerOptions,
 )
+from ._s3_loader import (
+    S3Handler,
+)
 from fa_purity import (
     Cmd,
     Stream,
@@ -18,6 +21,7 @@ from fa_purity.stream.transform import (
 )
 from fa_singer_io.singer import (
     SingerMessage,
+    SingerSchema,
 )
 from fa_singer_io.singer.deserializer import (
     from_file,
@@ -55,6 +59,22 @@ def main(
         lambda p: handler.handle(schemas, p)
     )
     return consume(cmds)
+
+
+def from_s3(
+    schema: SchemaId, client: TableClient, s3_handler: S3Handler
+) -> Cmd[None]:
+    data: Stream[SingerMessage] = unsafe_from_cmd(
+        _stdin_buffer().map(from_file).map(lambda x: iter(x))
+    )
+    mock_options = SingerHandlerOptions(True, 1, 1)
+    handler = SingerHandler(schema, client, mock_options)
+    nothing = Cmd.from_cmd(lambda: None)
+    return data.map(
+        lambda s: handler.create_table(s) + s3_handler.handle_schema(s)
+        if isinstance(s, SingerSchema)
+        else nothing
+    ).transform(consume)
 
 
 __all__ = [
