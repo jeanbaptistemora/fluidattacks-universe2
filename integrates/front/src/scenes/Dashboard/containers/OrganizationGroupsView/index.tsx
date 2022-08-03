@@ -215,7 +215,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
                       </Tooltip>
                     </Can>
                   }
-                  id={"test"}
+                  id={"tblGroups"}
                 />
               </Row>
             </div>
