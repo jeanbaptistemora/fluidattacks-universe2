@@ -4,6 +4,9 @@ from .stakeholder_level_role import (
 from collections import (
     defaultdict,
 )
+from dataloaders.event_comments.event_comments import (
+    EventCommentsLoader,
+)
 from dataloaders.group_access import (
     GroupAccessLoader,
 )
@@ -113,6 +116,7 @@ class Dataloaders(NamedTuple):
     environment_secrets: GitEnvironmentSecretsLoader
     event_historic_state: EventsHistoricStateLoader
     event: EventLoader
+    event_comments: EventCommentsLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
     finding_historic_state: FindingHistoricStateLoader
@@ -223,6 +227,7 @@ def get_new_context() -> Dataloaders:
         environment_secrets=GitEnvironmentSecretsLoader(),
         event_historic_state=EventsHistoricStateLoader(),
         event=EventLoader(),
+        event_comments=EventCommentsLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
