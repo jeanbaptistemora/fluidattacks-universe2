@@ -47,6 +47,9 @@ async def test_get_group_access() -> None:
 async def test_vulns_generator(test_token: str, test_group: str) -> None:
     vulns = [
         vuln
-        async for vuln in vulns_generator(test_group, api_token=test_token)
+        # Exception: WF(AsyncGenerator is subtype of iterator)
+        async for vuln in vulns_generator(  # NOSONAR
+            test_group, api_token=test_token
+        )
     ]
     assert len(vulns) == 9
