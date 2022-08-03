@@ -1,7 +1,7 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC, ReactNode } from "react";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { ModalConfirm } from "./Confirm";
@@ -27,7 +27,7 @@ const Modal: FC<IModalProps> = ({
   title,
   onClose,
   open,
-}: IModalProps): JSX.Element | null => {
+}: Readonly<IModalProps>): JSX.Element | null => {
   useEffect((): (() => void) => {
     const handleKeydown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
@@ -65,5 +65,22 @@ const Modal: FC<IModalProps> = ({
     : null;
 };
 
+const useShow = (val = false): [boolean, () => void, () => void] => {
+  const [show, setShow] = useState(val);
+
+  useEffect((): void => {
+    setShow(val);
+  }, [setShow, val]);
+
+  const open = useCallback((): void => {
+    setShow(true);
+  }, [setShow]);
+  const close = useCallback((): void => {
+    setShow(false);
+  }, [setShow]);
+
+  return [show, open, close];
+};
+
 export type { IModalProps };
-export { Modal, ModalConfirm };
+export { Modal, ModalConfirm, useShow };
