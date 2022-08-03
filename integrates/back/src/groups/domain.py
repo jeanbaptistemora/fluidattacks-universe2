@@ -39,6 +39,7 @@ from datetime import (
     datetime,
 )
 from db_model import (
+    group_access as group_access_model,
     groups as groups_model,
     stakeholders as stakeholders_model,
 )
@@ -117,7 +118,6 @@ from findings import (
     domain as findings_domain,
 )
 from group_access import (
-    dal as group_access_dal,
     domain as group_access_domain,
 )
 from group_comments.domain import (
@@ -338,7 +338,7 @@ async def add_group(  # pylint: disable=too-many-locals
     # Admins are not granted access to the group
     # they are omnipresent
     if user_role != "admin":
-        await group_access_dal.update_metadata(
+        await group_access_model.update_metadata(
             email=user_email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(
@@ -989,7 +989,7 @@ async def invite_to_group(
             ),
         )
     else:
-        await group_access_dal.update_metadata(
+        await group_access_model.update_metadata(
             email=email,
             group_name=group_name,
             metadata=GroupAccessMetadataToUpdate(

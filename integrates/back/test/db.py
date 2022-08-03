@@ -17,6 +17,7 @@ from db_model import (
     credentials as creds_model,
     events as events_model,
     findings as findings_model,
+    group_access as group_access_model,
     groups as groups_model,
     organization_access as org_access_model,
     organizations as orgs_model,
@@ -72,9 +73,6 @@ from dynamodb.types import (
 )
 from forces import (
     dal as dal_forces,
-)
-from group_access import (
-    dal as dal_group_access,
 )
 from group_comments import (
     dal as dal_group_comments,
@@ -437,7 +435,7 @@ async def populate_policies(data: list[Any]) -> bool:
     if success:
         await collect(
             [
-                dal_group_access.update_metadata(
+                group_access_model.update_metadata(
                     email=policy["subject"],
                     group_name=policy["object"],
                     metadata=GroupAccessMetadataToUpdate(

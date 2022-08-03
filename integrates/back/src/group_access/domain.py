@@ -12,6 +12,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model import (
+    group_access as group_access_model,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -40,9 +43,6 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
-from group_access import (
-    dal as group_access_dal,
-)
 from itertools import (
     chain,
 )
@@ -67,7 +67,7 @@ from typing import (
 
 
 async def add_access(email: str, group_name: str, role: str) -> bool:
-    await group_access_dal.update_metadata(
+    await group_access_model.update_metadata(
         email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
@@ -254,7 +254,7 @@ async def exists(loaders: Any, group_name: str, email: str) -> bool:
 
 
 async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
-    await group_access_dal.remove(email=email, group_name=group_name)
+    await group_access_model.remove(email=email, group_name=group_name)
     success = await authz.revoke_group_level_role(email, group_name)
 
     if email and group_name:
@@ -312,7 +312,7 @@ async def update(
     group_name: str,
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
-    await group_access_dal.update_metadata(
+    await group_access_model.update_metadata(
         email=email, group_name=group_name, metadata=metadata
     )
 

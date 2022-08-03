@@ -470,12 +470,14 @@ async def test_list_events() -> None:
 async def test_get_managers() -> None:
     group_name = "unittesting"
     expected_output = [
+        "continuoushack2@gmail.com",
+        "continuoushacking@gmail.com",
         "integratesuser@gmail.com",
         "vulnmanager@gmail.com",
-        "continuoushacking@gmail.com",
-        "continuoushack2@gmail.com",
     ]
-    assert expected_output == await get_managers(get_new_context(), group_name)
+    assert expected_output == sorted(
+        await get_managers(get_new_context(), group_name)
+    )
 
 
 async def test_get_users() -> None:
@@ -483,22 +485,22 @@ async def test_get_users() -> None:
     loaders = get_new_context()
     users = await get_group_stakeholders_emails(loaders, group_name)
     expected = [
-        "integratesserviceforces@gmail.com",
-        "integratesmanager@gmail.com",
-        "unittest@fluidattacks.com",
-        "integrateshacker@fluidattacks.com",
-        "integratesreattacker@fluidattacks.com",
-        "unittest2@fluidattacks.com",
+        "continuoushack2@gmail.com",
+        "continuoushacking@gmail.com",
         "customer_manager@fluidattacks.com",
-        "integratesuser2@fluidattacks.com",
+        "forces.unittesting@fluidattacks.com",
+        "integrateshacker@fluidattacks.com",
+        "integratesmanager@fluidattacks.com",
+        "integratesmanager@gmail.com",
+        "integratesreattacker@fluidattacks.com",
         "integratesresourcer@fluidattacks.com",
+        "integratesreviewer@fluidattacks.com",
+        "integratesserviceforces@gmail.com",
+        "integratesuser2@fluidattacks.com",
         "integratesuser2@gmail.com",
         "integratesuser@gmail.com",
-        "continuoushacking@gmail.com",
-        "integratesmanager@fluidattacks.com",
-        "forces.unittesting@fluidattacks.com",
-        "continuoushack2@gmail.com",
-        "integratesreviewer@fluidattacks.com",
+        "unittest2@fluidattacks.com",
+        "unittest@fluidattacks.com",
         "vulnmanager@gmail.com",
     ]
     for user in expected:

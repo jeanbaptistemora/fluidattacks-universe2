@@ -7,17 +7,8 @@ from collections import (
 from dataloaders.event_comments.event_comments import (
     EventCommentsLoader,
 )
-from dataloaders.group_access import (
-    GroupAccessLoader,
-)
 from dataloaders.group_comments.group_comments import (
     GroupCommentsLoader,
-)
-from dataloaders.group_stakeholders_access import (
-    GroupStakeholdersAccessLoader,
-)
-from dataloaders.stakeholder_groups_access import (
-    StakeholderGroupsAccessLoader,
 )
 from db_model.credentials.get import (
     CredentialsLoader,
@@ -40,6 +31,11 @@ from db_model.findings.get import (
     GroupDraftsLoader,
     GroupFindingsLoader,
     MeDraftsLoader,
+)
+from db_model.group_access.get import (
+    GroupAccessLoader,
+    GroupStakeholdersAccessLoader,
+    StakeholderGroupsAccessLoader,
 )
 from db_model.groups.get import (
     GroupHistoricStateLoader,

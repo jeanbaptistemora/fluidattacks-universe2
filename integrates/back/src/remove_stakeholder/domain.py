@@ -12,6 +12,9 @@ from custom_exceptions import (
     InvalidAuthorization,
     UnableToSendMail,
 )
+from db_model import (
+    group_access as group_access_model,
+)
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
@@ -24,7 +27,6 @@ from decorators import (
     retry_on_exceptions,
 )
 from group_access import (
-    dal as group_access_dal,
     domain as group_access_domain,
 )
 from groups.domain import (
@@ -146,7 +148,7 @@ async def remove_stakeholder_all_organizations(
 
 
 async def complete_deletion(*, loaders: Any, email: str) -> None:
-    await group_access_dal.remove(email=email, group_name="confirm_deletion")
+    await group_access_model.remove(email=email, group_name="confirm_deletion")
     await remove_stakeholder_all_organizations(
         loaders=loaders,
         email=email,
@@ -225,7 +227,7 @@ async def confirm_deletion_mail(
         },
     )
     if validate_email_address(email):
-        await group_access_dal.update_metadata(
+        await group_access_model.update_metadata(
             email=email,
             group_name="confirm_deletion",
             metadata=GroupAccessMetadataToUpdate(

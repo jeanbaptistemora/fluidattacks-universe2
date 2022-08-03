@@ -1,11 +1,11 @@
 from dataloaders import (
     get_new_context,
 )
+from db_model.group_access import (
+    update_metadata,
+)
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
-)
-from group_access.dal import (
-    update_metadata,
 )
 from group_access.domain import (
     get_group_stakeholders_emails,

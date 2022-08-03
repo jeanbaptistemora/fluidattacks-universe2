@@ -195,7 +195,9 @@ async def add_stakeholder(
     await org_access_model.update_metadata(
         organization_id=organization_id,
         email=email,
-        metadata=OrganizationAccessMetadataToUpdate(),
+        metadata=OrganizationAccessMetadataToUpdate(
+            has_access=True,
+        ),
     )
     success = await authz.grant_organization_level_role(
         email, organization_id, role
