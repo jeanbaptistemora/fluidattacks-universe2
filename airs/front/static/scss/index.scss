@@ -942,6 +942,7 @@ body {
     color: $fluid-black;
     font-weight: 400;
     text-decoration: none;
+    word-wrap: break-word;
   }
 
   .sub-btn {
@@ -1276,14 +1277,6 @@ body {
     color: #5c5c70;
     padding: 1rem 2rem !important;
   }
-}
-
-.basic-link {
-  border-bottom: 1px solid $fluid-gray;
-  color: $fluid-black;
-  font-weight: 400;
-  text-decoration: none;
-  word-wrap: break-word;
 }
 
 .solution-benefits {

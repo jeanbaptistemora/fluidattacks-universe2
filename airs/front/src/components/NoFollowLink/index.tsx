@@ -12,18 +12,11 @@ const NoFollowLink: React.FC<IProps> = ({
   href,
 }: IProps): JSX.Element =>
   href.startsWith("https://") || href.startsWith("http://") ? (
-    <a
-      className={"basic-link"}
-      href={href}
-      rel={"nofollow noopener noreferrer"}
-      target={"_blank"}
-    >
+    <a href={href} rel={"nofollow noopener noreferrer"} target={"_blank"}>
       {children}
     </a>
   ) : (
-    <Link className={"basic-link"} to={href}>
-      {children}
-    </Link>
+    <Link to={href}>{children}</Link>
   );
 
 export { NoFollowLink };
