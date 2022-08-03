@@ -7,9 +7,6 @@ import authz
 from collections import (
     defaultdict,
 )
-from comments import (
-    domain as comments_domain,
-)
 from context import (
     FI_AWS_S3_BUCKET,
 )
@@ -78,6 +75,9 @@ from db_model.vulnerabilities.types import (
 )
 from events.types import (
     EventAttributesToUpdate,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 from findings import (
     domain as findings_domain,

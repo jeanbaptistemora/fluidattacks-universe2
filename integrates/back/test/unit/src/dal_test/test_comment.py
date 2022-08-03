@@ -1,4 +1,4 @@
-from comments.dal import (
+from finding_comments.dal import (
     delete,
 )
 import pytest
@@ -51,7 +51,9 @@ async def test_delete() -> None:
     comment_id_1 = "1558048727932"
     finding_id_2 = "500592001"
     comment_id_2 = "1558048727931"
-    with mock.patch("comments.dal.dynamodb_ops.delete_item") as mock_delete:
+    with mock.patch(
+        "finding_comments.dal.dynamodb_ops.delete_item"
+    ) as mock_delete:
         mock_delete.side_effect = side_effect
         assert await delete(comment_id_1, finding_id_1)
         assert not await delete(comment_id_2, finding_id_2)

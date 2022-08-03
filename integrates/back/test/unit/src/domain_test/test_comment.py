@@ -3,7 +3,7 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
-from comments import (
+from finding_comments import (
     domain as comments_domain,
 )
 import pytest

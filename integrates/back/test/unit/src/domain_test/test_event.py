@@ -6,9 +6,6 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
-from comments import (
-    domain as comments_domain,
-)
 from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
@@ -34,6 +31,9 @@ from db_model.events.types import (
 )
 from events import (
     domain as events_domain,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 from newutils import (
     datetime as datetime_utils,

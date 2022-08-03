@@ -2,9 +2,6 @@ from aioextensions import (
     collect,
 )
 import authz
-from comments import (
-    dal as comments_dal,
-)
 from db_model.findings.types import (
     FindingVerification,
 )
@@ -13,6 +10,9 @@ from db_model.stakeholders.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+)
+from finding_comments import (
+    dal as comments_dal,
 )
 from itertools import (
     filterfalse,
@@ -186,20 +186,6 @@ async def get_comments(
     if enforcer(group_name, "handle_comment_scope"):
         return tuple(comments)
     return tuple(filter(_is_scope_comment, comments))
-
-
-async def get_event_comments(
-    group_name: str, finding_id: str, user_email: str
-) -> List[Dict[str, Any]]:
-    comments = await _get_comments("event", finding_id)
-
-    new_comments: List[Dict[str, Any]] = []
-    enforcer = await authz.get_group_level_enforcer(user_email)
-    if enforcer(group_name, "handle_comment_scope"):
-        new_comments = comments
-    else:
-        new_comments = list(filter(_is_scope_comment, comments))
-    return new_comments
 
 
 async def get_observations(

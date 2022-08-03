@@ -16,9 +16,6 @@ from aioextensions import (
 from collections import (
     defaultdict,
 )
-from comments import (
-    dal as comments_dal,
-)
 from custom_types import (
     Comment as CommentType,
 )
@@ -29,6 +26,9 @@ from datetime import (
     datetime,
 )
 import django  # noqa
+from finding_comments import (
+    dal as comments_dal,
+)
 from findings import (
     dal as findings_dal,
     domain as findings_domain,

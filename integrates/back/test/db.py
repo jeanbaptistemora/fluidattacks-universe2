@@ -7,9 +7,6 @@ from authz import (
 from batch.dal import (
     put_action_to_dynamodb,
 )
-from comments import (
-    dal as dal_comment,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -70,6 +67,9 @@ from db_model.types import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
+)
+from finding_comments import (
+    dal as dal_comment,
 )
 from forces import (
     dal as dal_forces,

@@ -1,11 +1,11 @@
-from comments import (
-    domain as comments_domain,
-)
 from db_model.findings.types import (
     Finding,
 )
 from decorators import (
     enforce_group_level_auth_async,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 from functools import (
     partial,

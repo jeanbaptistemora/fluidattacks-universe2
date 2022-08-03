@@ -3,9 +3,6 @@ from aioextensions import (
     collect,
     schedule,
 )
-from comments import (
-    domain as comments_domain,
-)
 from custom_exceptions import (
     InvalidRemovalVulnState,
     VulnNotFound,
@@ -55,6 +52,9 @@ from db_model.vulnerabilities.update import (
 )
 from dynamodb.types import (
     OrgFindingPolicyItem,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 from itertools import (
     zip_longest,

@@ -9,9 +9,6 @@ import authz
 from botocore.exceptions import (
     ClientError,
 )
-from comments import (
-    domain as comments_domain,
-)
 from context import (
     FI_ENVIRONMENT,
 )
@@ -66,6 +63,9 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 from findings import (
     storage as findings_storage,

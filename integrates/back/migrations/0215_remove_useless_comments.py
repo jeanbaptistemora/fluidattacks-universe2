@@ -8,14 +8,14 @@ Finalization Time: 2022-05-17 at 21:01:58 UTCUTC
 from aioextensions import (
     run,
 )
-from comments import (
-    domain as comments_domain,
-)
 from dataloaders import (
     get_new_context,
 )
 from db_model.findings.types import (
     Finding,
+)
+from finding_comments import (
+    domain as comments_domain,
 )
 import logging
 import logging.config

@@ -54,7 +54,7 @@ def format_event_consulting_resolve(event_comment: EventComment) -> Item:
     }
 
 
-def format_group_comment_item(event_comment: EventComment) -> Item:
+def format_event_comment_item(event_comment: EventComment) -> Item:
     item = {
         "event_id": event_comment.event_id,
         "comment_id": int(event_comment.id),
