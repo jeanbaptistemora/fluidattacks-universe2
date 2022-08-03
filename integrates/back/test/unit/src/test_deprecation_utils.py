@@ -34,7 +34,7 @@ MOCK_SDL_CONTENT: str = load_schema_from_path(MOCK_SCHEMA_PATH)
 
 def test_get_deprecations_by_period() -> None:
     # Without a start date
-    enums, operations = get_deprecations_by_period(
+    deprecations = get_deprecations_by_period(
         sdl_content=MOCK_SDL_CONTENT, end=get_now(), start=None
     )
     expected_fields: list[str] = [
@@ -44,25 +44,20 @@ def test_get_deprecations_by_period() -> None:
         "deprecatedInput",
         "deprecatedArg",
     ]
-    enum_values: list[str] = [
+    deprecation_values: list[str] = [
         deprecation.field
-        for deprecations in enums.values()
-        for deprecation in deprecations
+        for deprecated_fields in deprecations.values()
+        for deprecation in deprecated_fields
     ]
-    operation_values: list[str] = [
-        deprecation.field
-        for deprecations in operations.values()
-        for deprecation in deprecations
-    ]
-    assert Counter(enum_values + operation_values) == Counter(expected_fields)
+    assert Counter(deprecation_values) == Counter(expected_fields)
 
     # With a start date not very close to the deprecation dates
-    no_enums, no_operations = get_deprecations_by_period(
+    no_deprecations = get_deprecations_by_period(
         sdl_content=MOCK_SDL_CONTENT,
         end=get_now(),
         start=get_now_minus_delta(days=30),
     )
-    assert no_enums == no_operations == {}
+    assert no_deprecations == {}
 
 
 def test_get_due_date() -> None:

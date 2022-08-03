@@ -19,7 +19,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def format_deprecation_output_log(
-    deprecations: dict[str, list[ApiDeprecation]], is_enum: bool
+    deprecations: dict[str, list[ApiDeprecation]]
 ) -> str:
     """
     Translates the deprecation dicts to a more readable logging format that
@@ -29,16 +29,17 @@ def format_deprecation_output_log(
 
     `Field isDeprecated of parent importantQuery was deprecated in 1999/01/01`
     """
-    date_format: str = "%Y/%m/%d"
-    value: str = "Value" if is_enum else "Field"
-    parent: str = "enum" if is_enum else "parent"
-    base_output: str = f"Found overdue deprecated {value.lower()}s:\n\n"
+    enum_type: str = "enum_type_definition"
+    base_output: str = "Found overdue deprecated fields:\n\n"
     fields: str = ""
     for key, deprecated_fields in deprecations.items():
         fields += "".join(
             (
-                f"{value} {field.field} of {parent} {key} was to be removed "
-                f"in {date_utils.get_as_str(field.due_date, date_format)}\n"
+                f"{'Value' if field.type == enum_type else 'Field'} "
+                f"{field.field} of "
+                f"{'enum' if field.type == enum_type else 'parent'} "
+                f"{key} was to be removed in "
+                f"{date_utils.get_as_str(field.due_date, '%Y/%m/%d')}\n"
             )
             for field in deprecated_fields
         )
@@ -52,29 +53,20 @@ def lint_schema_deprecations(sdl_content: str) -> bool:
     that should have been removed already, `False` otherwise.
     """
     yesterday: datetime = date_utils.get_now_minus_delta(days=1)
-    (enums, operations) = get_deprecations_by_period(
+    deprecations: dict[str, list[ApiDeprecation]] = get_deprecations_by_period(
         sdl_content=sdl_content, end=yesterday, start=None
     )
-    if bool(enums):
+    if has_deprecations := bool(deprecations):
         LOGGER.error(
-            format_deprecation_output_log(enums, True),
+            format_deprecation_output_log(deprecations),
             extra=dict(
                 extra={
-                    "overdue": enums.keys(),
-                }
-            ),
-        )
-    if bool(operations):
-        LOGGER.error(
-            format_deprecation_output_log(operations, False),
-            extra=dict(
-                extra={
-                    "overdue": operations.keys(),
+                    "overdue": deprecations.keys(),
                 }
             ),
         )
 
-    return bool(enums) or bool(operations)
+    return has_deprecations
 
 
 def main() -> None:

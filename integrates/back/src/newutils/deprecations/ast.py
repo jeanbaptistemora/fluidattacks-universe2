@@ -114,43 +114,37 @@ def _search_directives(
     return deprecations
 
 
-def parse_schema_deprecations(
+def _parse_schema_deprecations(
     sdl_content: str,
-) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
+) -> dict[str, list[ApiDeprecation]]:
     """Parses the SDL content and returns a couple of dicts (`enums`,
     `operations`) with all the deprecations found in the respective schema"""
     schema_ast: DocumentNode = parse(sdl_content)
-    enums: dict[str, list[ApiDeprecation]] = {}
-    operations: dict[str, list[ApiDeprecation]] = {}
+    deprecations: dict[str, list[ApiDeprecation]] = {}
 
     for definition in schema_ast.definitions:
         if isinstance(definition, EnumTypeDefinitionNode):
-            _search_directives(definition, enums, False)
+            _search_directives(definition, deprecations, False)
 
         elif isinstance(definition, DirectiveDefinitionNode):
-            _search_directives(definition, operations, False)
+            _search_directives(definition, deprecations, False)
 
         elif isinstance(definition, InputObjectTypeDefinitionNode):
-            _search_directives(definition, operations, False)
+            _search_directives(definition, deprecations, False)
 
         elif has_arguments := isinstance(definition, ObjectTypeDefinitionNode):
-            _search_directives(definition, operations, has_arguments)
+            _search_directives(definition, deprecations, has_arguments)
 
         else:
             pass
-    return (enums, operations)
+    return deprecations
 
 
 def get_deprecations_by_period(
     sdl_content: str, end: datetime, start: Optional[datetime]
-) -> tuple[dict[str, list[ApiDeprecation]], dict[str, list[ApiDeprecation]]]:
+) -> dict[str, list[ApiDeprecation]]:
     """
-    Gets the deprecations found in the schema within a time period. The first
-    member of the tuple corresponds to `enum` deprecations and the latter to
-    `operations` e.g. mutation, queries, args, inputs etc...
+    Gets the deprecations found in the schema within a time period
     """
-    (enums, operations) = parse_schema_deprecations(sdl_content)
-    return (
-        filter_api_deprecation_dict(enums, end, start),
-        filter_api_deprecation_dict(operations, end, start),
-    )
+    all_deprecations = _parse_schema_deprecations(sdl_content)
+    return filter_api_deprecation_dict(all_deprecations, end, start)
