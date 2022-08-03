@@ -9,21 +9,33 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      As part of the continuous evolution of the ASM platform the following
-      elements will be <strong>removed</strong> from the API next month:
+      As part of the ASM's continuous evolution, the following deprecated
+      elements are nearing the end of their six month phase-out window, and
+      therefore will be <strong>removed</strong> from our API next month:
     </p>
-    {% for key, val in deprecations.items() %}
-    In <strong>{{ key }}</strong>: {{ val }} <br>
-    {% endfor %}
+    <table aria-label="Deprecated Table" style="width: 75%; margin: auto;">
+      <tr>
+        <th scope="col">
+          Object
+        </th>
+        <th scope="col">
+          Field/Values to be removed soon
+        </th>
+      </tr>
+      {% for object, fields in deprecations.items() %}
+      <tr> <td><strong>{{ object }}</strong></td> <td>{{ fields }}</td> </tr>
+      {% endfor %}
+    </table>
     <br>
     <p>
-      If you're using any of the aforementioned elements in your queries we
-      encourage you to adjust them before the planned removal takes effect
-      <strong>next month</strong>. For more information you can check the ASM
+      If your product is consuming any of the aforementioned API elements in
+      its queries, we encourage you to update them before the planned removal
+      takes effect <strong>next month</strong>.
+      For more information, you can check the
       <a href="https://app.fluidattacks.com/api"
          target="_blank" rel="noopener noreferrer"
          style="color: #ff3435;">
-         API docs
+         ASM API docs
       </a>.
     </p>
     <p></p>
