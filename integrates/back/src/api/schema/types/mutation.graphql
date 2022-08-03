@@ -1076,6 +1076,16 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
+  "Update group payment id information"
+  updateGroupPaymentId(
+    "Observation about the group update"
+    comments: String!
+    "Id of payment method selected for the group"
+    paymentId: String!
+    "Name of the group to be updated"
+    groupName: String!
+  ): SimplePayload!
+
   "Updates the Group's policies"
   updateGroupPolicies(
     "Maximum number of calendar days a finding can be temporarily accepted"

@@ -500,6 +500,39 @@ async def update_group_managed(
             )
 
 
+async def update_group_payment_id(
+    *,
+    loaders: Any,
+    comments: str,
+    group_name: str,
+    payment_id: str,
+    user_email: str,
+) -> None:
+    validate_fields([comments])
+    validate_string_length_between(comments, 0, 250)
+    group: Group = await loaders.group.load(group_name)
+
+    if payment_id != group.state.payment_id:
+        await update_state(
+            group_name=group_name,
+            organization_id=group.organization_id,
+            state=GroupState(
+                comments=comments,
+                modified_date=datetime_utils.get_iso_date(),
+                has_machine=group.state.has_machine,
+                has_squad=group.state.has_squad,
+                managed=group.state.managed,
+                justification=GroupStateUpdationJustification["NONE"],
+                modified_by=user_email,
+                payment_id=payment_id,
+                service=group.state.service,
+                status=GroupStateStatus.ACTIVE,
+                tier=group.state.tier,
+                type=group.state.type,
+            ),
+        )
+
+
 async def update_group(
     *,
     loaders: Any,
