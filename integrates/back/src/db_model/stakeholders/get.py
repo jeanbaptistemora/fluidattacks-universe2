@@ -82,7 +82,7 @@ async def _get_stakeholders_no_fallback(
         next(
             format_stakeholder(item)
             for item in items
-            if item["email"] == email
+            if (item.get("email") or str(item["pk"]).split("#")[1]) == email
         )
         for email in emails
     )
