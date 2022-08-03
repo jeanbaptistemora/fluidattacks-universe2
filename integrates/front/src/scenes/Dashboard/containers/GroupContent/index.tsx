@@ -35,10 +35,12 @@ import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { Dot } from "components/Dot";
 import { Lottie } from "components/Icon";
+import { useShow } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
 import { Text } from "components/Text";
 import { lotCircleXMark } from "resources";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
+import { HelpModal } from "scenes/Dashboard/components/Navbar/HelpModal";
 import { ChartsForGroupView } from "scenes/Dashboard/containers/ChartsForGroupView";
 import { GroupAuthorsView } from "scenes/Dashboard/containers/GroupAuthorsView";
 import { GroupConsultingView } from "scenes/Dashboard/containers/GroupConsultingView/index";
@@ -68,6 +70,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     useParams<{ groupName: string; organizationName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
   const [denyAccess, setDenyAccess] = useState(false);
+  const [show, open, close] = useShow();
   const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -166,6 +169,10 @@ const GroupContent: React.FC = (): JSX.Element => {
             </Text>
             <Text mb={3} ta={"center"}>
               {t("group.accessDenied.text")}
+              <Button onClick={open} size={"xs"}>
+                <Text decor={["under"]}>{t("group.accessDenied.contact")}</Text>
+              </Button>
+              {t("group.accessDenied.moreInfo")}
             </Text>
             {orgPerms?.organization.userRole === "customer_manager" ? (
               <div className={"flex justify-center"}>
@@ -175,6 +182,7 @@ const GroupContent: React.FC = (): JSX.Element => {
               </div>
             ) : undefined}
           </Card>
+          <HelpModal groups={[]} onClose={close} open={show} />
         </div>
       ) : (
         <Fragment>

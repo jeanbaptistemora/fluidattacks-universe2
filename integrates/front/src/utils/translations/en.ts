@@ -388,7 +388,9 @@ export const enTranslations: ResourceKey = {
   group: {
     accessDenied: {
       btn: "Update group",
-      text: "Your group is suspended.\nPlease update the status of your group.",
+      contact: "contact our team",
+      moreInfo: "for\nmore information.",
+      text: "Your group is suspended. Please add a\npayment method or",
       title: "Access denied",
     },
     authors: {
