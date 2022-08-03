@@ -6,6 +6,7 @@
 
     <!-- Local Styles -->
     {% if '127.0.0.1' in request.client.host and debug %}
+      <link rel="stylesheet" href="https://localhost:3000/dashboard/vendors-style.min.css" type="text/css">
       <link rel="stylesheet" href="https://localhost:3000/dashboard/graphicsFor{{ entity }}-style.min.css" type="text/css">
     {% else %}
       <link rel="stylesheet" href="{{ css_vendors }}" type="text/css">
@@ -34,9 +35,11 @@
 
     <!-- Scripts -->
     {% if '127.0.0.1' in request.client.host and debug %}
+      <script src="https://localhost:3000/dashboard/runtime-bundle.min.js" type="text/javascript"></script>
       <script src="https://localhost:3000/dashboard/vendors-bundle.min.js" type="text/javascript"></script>
       <script src="https://localhost:3000/dashboard/graphicsFor{{ entity }}-bundle.min.js" type="text/javascript"></script>
     {% else %}
+      <script src="{{ js_runtime }}" type="text/javascript"></script>
       <script src="{{ js_vendors }}" type="text/javascript"></script>
       <script src="{{ js }}" type="text/javascript"></script>
     {% endif %}

@@ -70,8 +70,9 @@ def graphics_for_entity_view(request: Request, entity: str) -> HTMLResponse:
             request=request,
             debug=DEBUG,
             entity=entity_title,
-            js_vendors=(f"{STATIC_URL}/dashboard/" "vendors-bundle.min.js"),
-            css_vendors=(f"{STATIC_URL}/dashboard/" "vendors-style.min.css"),
+            js_runtime=f"{STATIC_URL}/dashboard/runtime-bundle.min.js",
+            js_vendors=f"{STATIC_URL}/dashboard/vendors-bundle.min.js",
+            css_vendors=f"{STATIC_URL}/dashboard/vendors-style.min.css",
             js=(
                 f"{STATIC_URL}/dashboard/"
                 f"graphicsFor{entity_title}-bundle.min.js"
