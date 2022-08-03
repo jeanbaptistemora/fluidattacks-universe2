@@ -43,21 +43,30 @@ async def get_vulnerabilities(
     current_results = await get_results(execution_id)
     vulnerabilities = tuple(
         core_model.Vulnerability(
-            core_model.FindingEnum[result["finding"]],
-            kind=core_model.VulnerabilityKindEnum[result["kind"].upper()],
+            core_model.FindingEnum[f"F{vuln['ruleId']}"],
+            kind=core_model.VulnerabilityKindEnum[
+                vuln["properties"]["kind"].upper()
+            ],
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=result["what"],
-            where=result["where"],
+            what=vuln["locations"][0]["physicalLocation"]["artifactLocation"][
+                "uri"
+            ],
+            where=str(
+                vuln["locations"][0]["physicalLocation"]["region"]["startLine"]
+            ),
             namespace=namespace,
             skims_metadata=build_metadata(
                 method=cast(
-                    core_model.MethodsEnum, search_method(result["method"])
+                    core_model.MethodsEnum,
+                    search_method(vuln["properties"]["source_method"]),
                 ),
-                description=result["description"],
-                snippet=result["snippet"][1:-2],
+                description=vuln["message"]["text"],
+                snippet=vuln["locations"][0]["physicalLocation"]["region"][
+                    "snippet"
+                ]["text"],
             ),
         )
-        for result in current_results
+        for vuln in current_results["runs"][0]["results"]
     )
 
     return vulnerabilities

@@ -1,8 +1,8 @@
+import json
 import aioboto3
 from config import (
     load,
 )
-import csv
 from model.core_model import (
     SkimsConfig,
 )
@@ -10,7 +10,6 @@ import tempfile
 from typing import (
     Any,
     Dict,
-    List,
 )
 
 
@@ -28,35 +27,17 @@ async def get_config(execution_id: str) -> SkimsConfig:
             return load(group, temp.name)
 
 
-async def get_results(execution_id: str) -> List[Dict[str, Any]]:
+async def get_results(execution_id: str) -> Dict[str, Any]:
     session = aioboto3.Session()
     async with session.client("s3") as s3_client:
         temp = tempfile.TemporaryFile()
         try:
             await s3_client.download_fileobj(
                 "skims.data",
-                f"results/{execution_id}.csv",
+                f"results/{execution_id}.sarif",
                 temp,
             )
             temp.seek(0)
-            lines = temp.read().decode().splitlines()
-
-            return list(
-                csv.DictReader(
-                    lines[1:],
-                    [
-                        "finding",
-                        "kind",
-                        "what",
-                        "where",
-                        "cwe",
-                        "stream",
-                        "title",
-                        "description",
-                        "snippet",
-                        "method",
-                    ],
-                ),
-            )
+            return json.loads(temp.read().decode())
         finally:
             temp.close()
