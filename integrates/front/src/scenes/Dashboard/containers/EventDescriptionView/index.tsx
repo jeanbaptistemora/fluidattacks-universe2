@@ -5,7 +5,7 @@ import { useAbility } from "@casl/react";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { array, object, string } from "yup";
@@ -261,9 +261,13 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             : undefined;
 
         if (!_.isUndefined(data)) {
+          const affectedComponentsIntersection =
+            data.event.affectedComponents.filter((element: string): boolean =>
+              affectedComponents.includes(element)
+            );
           if (
             data.event.eventType !== values.eventType ||
-            data.event.affectedComponents !== affectedComponents
+            affectedComponentsIntersection.length !== affectedComponents.length
           ) {
             void updateEvent({
               variables: {
@@ -674,20 +678,23 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                   </option>
                                 </Field>
                                 {values.solvingReason === "OTHER" ? (
-                                  <EditableField
-                                    component={FormikText}
-                                    currentValue={
-                                      _.isNil(data.event.otherSolvingReason)
-                                        ? ""
-                                        : data.event.otherSolvingReason
-                                    }
-                                    label={t(
-                                      "searchFindings.tabSeverity.common.deactivation.other"
-                                    )}
-                                    name={"otherSolvingReason"}
-                                    renderAsEditable={isEditing}
-                                    type={"text"}
-                                  />
+                                  <Fragment>
+                                    <br />
+                                    <EditableField
+                                      component={FormikText}
+                                      currentValue={
+                                        _.isNil(data.event.otherSolvingReason)
+                                          ? ""
+                                          : data.event.otherSolvingReason
+                                      }
+                                      label={t(
+                                        "searchFindings.tabSeverity.common.deactivation.other"
+                                      )}
+                                      name={"otherSolvingReason"}
+                                      renderAsEditable={isEditing}
+                                      type={"text"}
+                                    />
+                                  </Fragment>
                                 ) : undefined}
                               </Col50>
                             </Row>

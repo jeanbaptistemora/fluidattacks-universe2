@@ -9,6 +9,7 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { EventDescriptionView } from "scenes/Dashboard/containers/EventDescriptionView";
 import {
   GET_EVENT_DESCRIPTION,
+  UPDATE_EVENT_MUTATION,
   UPDATE_EVENT_SOLVING_REASON_MUTATION,
 } from "scenes/Dashboard/containers/EventDescriptionView/queries";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -35,7 +36,7 @@ describe("EventDescriptionView", (): void => {
         data: {
           event: {
             accessibility: ["REPOSITORY"],
-            affectedComponents: ["-"],
+            affectedComponents: [],
             affectedReattacks: [],
             client: "Test",
             detail: "Something happened",
@@ -131,7 +132,7 @@ describe("EventDescriptionView", (): void => {
     });
   });
 
-  it("should update solving reason", async (): Promise<void> => {
+  it("should update event type", async (): Promise<void> => {
     expect.hasAssertions();
 
     const mockedQueries: readonly MockedResponse[] = [
@@ -144,11 +145,102 @@ describe("EventDescriptionView", (): void => {
           data: {
             event: {
               accessibility: ["REPOSITORY"],
-              affectedComponents: ["-"],
+              affectedComponents: [],
               affectedReattacks: [],
               client: "Test",
               detail: "Something happened",
               eventStatus: "SOLVED",
+              eventType: "AUTHORIZATION_SPECIAL_ATTACK",
+              hacker: "unittest@fluidattacks.com",
+              id: "413372600",
+              otherSolvingReason: "Reason test",
+              solvingReason: "OTHER",
+            },
+          },
+        },
+      },
+    ];
+    const mockedMutations: MockedResponse[] = [
+      {
+        request: {
+          query: UPDATE_EVENT_MUTATION,
+          variables: {
+            affectedComponents: ["TOE_CREDENTIALS"],
+            eventId: "413372600",
+            eventType: "INCORRECT_MISSING_SUPPLIES",
+          },
+        },
+        result: {
+          data: {
+            updateEvent: {
+              success: true,
+            },
+          },
+        },
+      },
+    ];
+
+    const mockedPermissions: PureAbility<string> = new PureAbility([
+      { action: "api_mutations_update_event_mutate" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[...mockedQueries, ...mockedMutations]}
+        >
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventDescriptionView}
+              path={"/:groupName/events/:eventId/description"}
+            />
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.getByText("Something happened")).toBeInTheDocument();
+    });
+    userEvent.click(screen.getByText("group.events.description.edit.text"));
+    userEvent.selectOptions(
+      screen.getByRole("combobox", {
+        name: "eventType",
+      }),
+      ["INCORRECT_MISSING_SUPPLIES"]
+    );
+    userEvent.click(
+      screen.getAllByRole("checkbox", { name: "affectedComponents" })[0]
+    );
+    userEvent.click(
+      screen.getByRole("button", { name: "group.events.description.save.text" })
+    );
+    await waitFor((): void => {
+      expect(msgSuccess).toHaveBeenCalledWith(
+        "group.events.description.alerts.editEvent.success",
+        "groupAlerts.updatedTitle"
+      );
+    });
+  });
+
+  it("should update event solving reason", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedQueries: readonly MockedResponse[] = [
+      {
+        request: {
+          query: GET_EVENT_DESCRIPTION,
+          variables: { eventId: "413372600" },
+        },
+        result: {
+          data: {
+            event: {
+              accessibility: ["REPOSITORY"],
+              affectedComponents: [],
+              affectedReattacks: [],
+              client: "Test",
+              detail: "Something happened",
+              eventStatus: "SOLVED",
+              eventType: "AUTHORIZATION_SPECIAL_ATTACK",
               hacker: "unittest@fluidattacks.com",
               id: "413372600",
               otherSolvingReason: "Reason test",
@@ -197,32 +289,18 @@ describe("EventDescriptionView", (): void => {
       </MemoryRouter>
     );
     await waitFor((): void => {
-      expect(
-        screen.getByText("group.events.description.editSolvingReason")
-      ).toBeInTheDocument();
+      expect(screen.getByText("Something happened")).toBeInTheDocument();
     });
-    userEvent.click(
-      screen.getByText("group.events.description.editSolvingReason")
-    );
-    await waitFor((): void => {
-      expect(
-        screen.getByRole("button", { name: "components.modal.confirm" })
-      ).toBeInTheDocument();
-    });
+    userEvent.click(screen.getByText("group.events.description.edit.text"));
     userEvent.selectOptions(
       screen.getByRole("combobox", {
-        name: "reason",
+        name: "solvingReason",
       }),
       ["PERMISSION_GRANTED"]
     );
     userEvent.click(
-      screen.getByRole("button", { name: "components.modal.confirm" })
+      screen.getByRole("button", { name: "group.events.description.save.text" })
     );
-    await waitFor((): void => {
-      expect(
-        screen.getByRole("button", { name: "components.modal.confirm" })
-      ).toBeInTheDocument();
-    });
     await waitFor((): void => {
       expect(msgSuccess).toHaveBeenCalledWith(
         "group.events.description.alerts.editSolvingReason.success",
