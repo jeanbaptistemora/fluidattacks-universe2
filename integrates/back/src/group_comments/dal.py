@@ -1,6 +1,3 @@
-from boto3.dynamodb.conditions import (
-    Key,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -25,7 +22,6 @@ from typing import (
     Any,
     cast,
     Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -69,11 +65,3 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
     except ClientError as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
     return resp
-
-
-async def get_comments(group_name: str) -> List[Dict[str, Any]]:
-    """Get comments of a group."""
-    key_expression = Key("project_name").eq(group_name)
-    query_attrs = {"KeyConditionExpression": key_expression}
-    items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
-    return items

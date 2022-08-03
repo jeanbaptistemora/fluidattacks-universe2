@@ -14,9 +14,6 @@ from graphql.type.definition import (
 from group_comments import (
     dal as group_comments_dal,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from newutils.validations import (
     validate_field_length,
 )
@@ -69,14 +66,14 @@ async def list_comments(
     return list(filter(_is_scope_comment, comments))
 
 
-async def mask_comments(group_name: str) -> bool:
-    comments = await group_comments_dal.get_comments(group_name)
+async def mask_comments(loaders: Any, group_name: str) -> bool:
+    comments: list[GroupComment] = await loaders.group_comments.load(
+        group_name
+    )
     return all(
         await collect(
             [
-                delete_comment(
-                    get_key_or_fallback(comment), str(comment["user_id"])
-                )
+                delete_comment(comment.group_name, comment.id)
                 for comment in comments
             ]
         )

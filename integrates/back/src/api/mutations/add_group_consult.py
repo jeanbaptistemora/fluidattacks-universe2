@@ -95,27 +95,19 @@ async def mutate(
     await group_comments_domain.add_comment(
         info, group_name, user_email, comment_data
     )
-    success = True
-    if success:
-        redis_del_by_deps_soon("add_group_consult", group_name=group_name)
-        if content.strip() not in {"#external", "#internal"}:
-            schedule(
-                send_group_consult_mail(
-                    info=info,
-                    comment_data=comment_data,
-                    user_email=user_email,
-                    group_name=group_name,
-                )
+    redis_del_by_deps_soon("add_group_consult", group_name=group_name)
+    if content.strip() not in {"#external", "#internal"}:
+        schedule(
+            send_group_consult_mail(
+                info=info,
+                comment_data=comment_data,
+                user_email=user_email,
+                group_name=group_name,
             )
-
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Added comment to {group_name} group successfully",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to add a comment in {group_name} group",
         )
 
-    return AddConsultPayloadType(success=success, comment_id=str(comment_id))
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Added comment to {group_name} group successfully",
+    )
+    return AddConsultPayloadType(success=True, comment_id=str(comment_id))
