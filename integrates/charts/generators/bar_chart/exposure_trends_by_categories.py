@@ -24,6 +24,9 @@ from charts.utils import (
     json_dump,
     TICK_ROTATION,
 )
+from contextlib import (
+    suppress,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -64,7 +67,10 @@ CATEGORIES: dict[str, str] = get_categories()
 
 
 def get_category(*, finding_title: str, categories: dict[str, str]) -> str:
-    return categories[finding_title.split(".")[0]]
+    with suppress(KeyError):
+        return categories[finding_title.split(".")[0]]
+
+    return ""
 
 
 @alru_cache(maxsize=None, typed=True)
