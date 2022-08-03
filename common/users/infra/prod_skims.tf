@@ -23,8 +23,8 @@ locals {
               "batch:SubmitJob",
             ]
             Resource = [
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
             ]
           },
           {
@@ -44,8 +44,8 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:skims",
-              "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:skims:log-stream:*",
+              "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:log-group:skims",
+              "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:log-group:skims:log-stream:*",
             ]
           },
           {
@@ -195,7 +195,7 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"
+              "arn:aws:eks:${var.region}:${data.aws_caller_identity.main.account_id}:cluster/integrates-*"
             ]
           },
         ]

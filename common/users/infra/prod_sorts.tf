@@ -22,8 +22,8 @@ locals {
               "batch:TerminateJob",
             ]
             Resource = [
-              "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:${var.region}:${data.aws_caller_identity.current.account_id}:job-queue/*",
+              "arn:aws:batch:${var.region}:${data.aws_caller_identity.main.account_id}:job-definition/*",
+              "arn:aws:batch:${var.region}:${data.aws_caller_identity.main.account_id}:job-queue/*",
             ]
           },
           {
@@ -40,8 +40,8 @@ locals {
               "iam:Update*",
             ]
             Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/*sorts*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*sorts*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:instance-profile/*sorts*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/*sorts*",
             ]
           },
           {
@@ -71,8 +71,8 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs",
-              "arn:aws:logs:${var.region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*",
+              "arn:aws:logs:${var.region}:${data.aws_caller_identity.main.account_id}:log-group:/aws/sagemaker/TrainingJobs",
+              "arn:aws:logs:${var.region}:${data.aws_caller_identity.main.account_id}:log-group:/aws/sagemaker/TrainingJobs:log-stream:*",
             ]
           },
           {
@@ -85,7 +85,7 @@ locals {
               "redshift:Describe*",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
             ]
           },
           {
@@ -96,9 +96,9 @@ locals {
               "redshift-data:*",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:observes/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbname:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbuser:observes/*",
             ]
           },
           {
@@ -124,9 +124,9 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:hyper-parameter-tuning-job/sagemaker*",
-              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:training-job/sagemaker*",
-              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.current.account_id}:training-job/sorts*",
+              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.main.account_id}:hyper-parameter-tuning-job/sagemaker*",
+              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.main.account_id}:training-job/sagemaker*",
+              "arn:aws:sagemaker:${var.region}:${data.aws_caller_identity.main.account_id}:training-job/sorts*",
             ]
           },
           {

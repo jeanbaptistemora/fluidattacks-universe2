@@ -19,9 +19,9 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/integrates*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/integrates*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/integrates*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/integrates*",
             ]
           },
           {
@@ -42,9 +42,9 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:integrates-*",
-              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:replicationgroup:integrates-*",
-              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:integrates-*",
+              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:integrates-*",
+              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.main.account_id}:replicationgroup:integrates-*",
+              "arn:aws:elasticache:${var.region}:${data.aws_caller_identity.main.account_id}:subnetgroup:integrates-*",
             ]
           },
           {
@@ -99,8 +99,8 @@ locals {
               "batch:TerminateJob",
             ]
             Resource = [
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
             ]
           },
           {
@@ -119,7 +119,7 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:log-group:FLUID*",
+              "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:log-group:FLUID*",
             ]
           },
           {
@@ -129,7 +129,7 @@ locals {
               "logs:PutResourcePolicy",
             ]
             Resource = [
-              "arn:aws:logs:us-east-1:${data.aws_caller_identity.current.account_id}:*",
+              "arn:aws:logs:us-east-1:${data.aws_caller_identity.main.account_id}:*",
             ]
           },
           {
@@ -172,7 +172,7 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:eks:${var.region}:${data.aws_caller_identity.current.account_id}:cluster/integrates-*"
+              "arn:aws:eks:${var.region}:${data.aws_caller_identity.main.account_id}:cluster/integrates-*"
             ]
           },
           {
@@ -205,7 +205,7 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:es:${var.region}:${data.aws_caller_identity.current.account_id}:domain/integrates*"
+              "arn:aws:es:${var.region}:${data.aws_caller_identity.main.account_id}:domain/integrates*"
             ]
           },
           {
@@ -222,7 +222,7 @@ locals {
             Effect = "Allow"
             Action = ["*"]
             Resource = [
-              "arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:integrates*"
+              "arn:aws:lambda:${var.region}:${data.aws_caller_identity.main.account_id}:function:integrates*"
             ]
           },
           {
@@ -278,34 +278,6 @@ module "prod_integrates_aws" {
 
   name   = "prod_integrates"
   policy = local.prod_integrates.policies.aws
-
-  extra_assume_role_policies = [
-    {
-      Sid    = "commonClusterAssumePolicy",
-      Effect = "Allow",
-      Principal = {
-        Federated = join(
-          "/",
-          [
-            "arn:aws:iam::205810638802:oidc-provider",
-            replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-          ]
-        )
-      },
-      Action = "sts:AssumeRoleWithWebIdentity",
-      Condition = {
-        StringEquals = {
-          join(
-            ":",
-            [
-              replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", ""),
-              "sub",
-            ]
-          ) : "system:serviceaccount:production:prod-integrates"
-        },
-      },
-    },
-  ]
 
   tags = {
     "Name"               = "prod_integrates"

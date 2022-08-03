@@ -64,9 +64,9 @@ locals {
               "batch:TerminateJob",
             ]
             Resource = [
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-definition/*",
-              "arn:aws:batch:us-east-1:${data.aws_caller_identity.current.account_id}:job-queue/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-definition/*",
+              "arn:aws:batch:us-east-1:${data.aws_caller_identity.main.account_id}:job-queue/*",
             ]
           },
           {
@@ -76,7 +76,7 @@ locals {
               "redshift:*",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
             ]
           },
           {
@@ -91,12 +91,12 @@ locals {
               "redshift:DescribeSnapshotSchedules",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:subnetgroup:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:event:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:snapshot:*/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:snapshotschedule:*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:usagelimit:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:subnetgroup:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:event:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:snapshot:*/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:snapshotschedule:*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:usagelimit:*",
             ]
           },
           {
@@ -121,8 +121,8 @@ locals {
               "redshift:GetClusterCredentials",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbname:observes/*",
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:dbuser:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbname:observes/*",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:dbuser:observes/*",
             ]
           },
           {
@@ -137,7 +137,7 @@ locals {
               "redshift-data:ListTables",
             ]
             Resource = [
-              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.current.account_id}:cluster:observes",
+              "arn:aws:redshift:${var.region}:${data.aws_caller_identity.main.account_id}:cluster:observes",
             ]
           },
           {
@@ -182,13 +182,13 @@ locals {
               "iam:UpdateAssumeRolePolicy",
             ]
             Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/analytics/analytics",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/observes*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/observes*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/redshift*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/redshift*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/analytics",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/analytics",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/analytics/analytics",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/observes*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/observes*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/redshift*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/redshift*",
             ]
           },
           {

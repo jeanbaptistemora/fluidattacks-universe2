@@ -29,12 +29,12 @@ locals {
               "iam:Update*",
             ]
             Resource = [
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/continuous*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/secure-notes*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/user-provision/continuous*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/continuous*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/secure-notes*",
-              "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/continuous*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/continuous*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/secure-notes*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/user-provision/continuous*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/continuous*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/secure-notes*",
+              "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/continuous*",
             ]
           },
           {
