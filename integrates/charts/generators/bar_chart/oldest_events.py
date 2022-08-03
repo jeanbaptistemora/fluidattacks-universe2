@@ -8,11 +8,11 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
-from charts.generators.bar_chart.exposed_by_groups import (
-    format_max_value,
-)
 from charts.generators.bar_chart.utils import (
     format_csv_data,
+)
+from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
+    format_max_value,
 )
 from charts.utils import (
     get_portfolios_groups,

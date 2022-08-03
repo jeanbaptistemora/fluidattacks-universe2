@@ -100,11 +100,11 @@ def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
-                ["Open Severity"]
+                ["Open exposure"]
                 + [utils.format_cvssf_log(group.value) for group in data],
             ],
             colors={
-                "Open Severity": RISK.more_agressive,
+                "Open exposure": RISK.more_agressive,
             },
             labels=None,
             type="bar",
