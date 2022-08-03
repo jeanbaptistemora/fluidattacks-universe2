@@ -4,6 +4,7 @@ function main {
   local secrets=(
     AWS_OPENSEARCH_HOST
   )
+  export AWS_DEFAULT_REGION="us-east-1"
 
   echo "[INFO] Executing ${module} consumer" \
     && sops_export_vars __argSecretsProd__ "${secrets[@]}" \

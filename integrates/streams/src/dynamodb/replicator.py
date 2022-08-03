@@ -14,7 +14,7 @@ from typing import (
 )
 
 FI_AWS_OPENSEARCH_HOST = os.environ["AWS_OPENSEARCH_HOST"]
-SESSION = boto3.Session(region_name="us-east-1")
+SESSION = boto3.Session()
 CREDENTIALS = SESSION.get_credentials()
 CLIENT = OpenSearch(
     connection_class=RequestsHttpConnection,
