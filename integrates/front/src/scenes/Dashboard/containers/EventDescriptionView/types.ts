@@ -23,6 +23,8 @@ interface IEventDescriptionData {
 interface IDescriptionFormValues {
   affectedComponents: string[];
   eventType: string;
+  otherSolvingReason: string | null;
+  solvingReason: string | null;
 }
 
 interface IUpdateEventAttr {

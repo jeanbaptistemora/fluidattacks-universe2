@@ -1,12 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { array, object } from "yup";
+import { array, object, string } from "yup";
 
 import { ActionButtons } from "./ActionButtons";
 import type {
@@ -32,6 +34,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { authzPermissionsContext } from "utils/authz/config";
 import {
   castAffectedComponents,
   formatAccessibility,
@@ -50,6 +53,13 @@ import { composeValidators, required } from "utils/validations";
 const EventDescriptionView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { eventId } = useParams<{ eventId: string }>();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateEvent: boolean = permissions.can(
+    "api_mutations_update_event_mutate"
+  );
+  const canUpdateEventSolvingReason: boolean = permissions.can(
+    "api_mutations_update_event_solving_reason_mutate"
+  );
 
   const solvingReason: Record<string, string> = {
     AFFECTED_RESOURCE_REMOVED_FROM_SCOPE: t(
@@ -149,7 +159,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           t("group.events.description.alerts.editEvent.success"),
           t("groupAlerts.updatedTitle")
         );
-        toggleEdit();
+        setIsEditing(false);
       }
     },
     onError: (error: ApolloError): void => {
@@ -180,6 +190,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
             t("group.events.description.alerts.editSolvingReason.success"),
             t("groupAlerts.updatedTitle")
           );
+          setIsEditing(false);
         }
       },
       onError: (error: ApolloError): void => {
@@ -244,15 +255,40 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
           values.eventType === "INCORRECT_MISSING_SUPPLIES"
             ? values.affectedComponents
             : [];
-        void updateEvent({
-          variables: {
-            affectedComponents,
-            eventId,
-            eventType: values.eventType,
-          },
-        });
+        const otherSolvingReason =
+          values.solvingReason === "OTHER"
+            ? values.otherSolvingReason
+            : undefined;
+
+        if (!_.isUndefined(data)) {
+          if (
+            data.event.eventType !== values.eventType ||
+            data.event.affectedComponents !== affectedComponents
+          ) {
+            void updateEvent({
+              variables: {
+                affectedComponents,
+                eventId,
+                eventType: values.eventType,
+              },
+            });
+          }
+          if (
+            data.event.solvingReason !== values.solvingReason ||
+            (!_.isUndefined(otherSolvingReason) &&
+              data.event.otherSolvingReason !== otherSolvingReason)
+          ) {
+            void updateEventSolvingReason({
+              variables: {
+                eventId,
+                other: otherSolvingReason,
+                reason: values.solvingReason,
+              },
+            });
+          }
+        }
       },
-      [eventId, updateEvent]
+      [data, eventId, updateEvent, updateEventSolvingReason]
     );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
@@ -264,6 +300,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
       is: "INCORRECT_MISSING_SUPPLIES",
       otherwise: array().notRequired(),
       then: array().min(1, t("validations.someRequired")),
+    }),
+    otherSolvingReason: string().when("solvingReason", {
+      is: "OTHER",
+      otherwise: string().nullable(),
+      then: string().nullable().required(t("validations.required")),
     }),
   });
 
@@ -386,7 +427,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     openSolvingModal={openSolvingModal}
                   />
                   <br />
-                  {isEditing ? (
+                  {isEditing && canUpdateEvent ? (
                     <Row>
                       <Col50>
                         <Row>
@@ -476,7 +517,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                   </Row>
 
                   <Row>
-                    {isEditing ? (
+                    {isEditing && canUpdateEvent ? (
                       values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
                         <Col50>
                           <Row>
@@ -559,12 +600,11 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                             "searchFindings.tabEvents.affectedComponents"
                           )}
                           name={"affectedComponents"}
-                          renderAsEditable={isEditing}
+                          renderAsEditable={isEditing && canUpdateEvent}
                           type={"text"}
                         />
                       </Col50>
                     )}
-
                     <Col50>
                       <EditableField
                         alignField={"horizontalWide"}
@@ -582,41 +622,119 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </Col50>
                   </Row>
                   {data.event.eventStatus === "SOLVED" ? (
-                    <Row>
-                      {data.event.solvingReason === "OTHER" ? (
-                        <Col50>
-                          <EditableField
-                            alignField={"horizontalWide"}
-                            component={FormikText}
-                            currentValue={
-                              _.isNil(data.event.otherSolvingReason)
-                                ? "-"
-                                : _.capitalize(data.event.otherSolvingReason)
-                            }
-                            label={t("searchFindings.tabEvents.solvingReason")}
-                            name={"otherSolvingReason"}
-                            renderAsEditable={isEditing}
-                            type={"text"}
-                          />
-                        </Col50>
-                      ) : (
-                        <Col50>
-                          <EditableField
-                            alignField={"horizontalWide"}
-                            component={FormikText}
-                            currentValue={
-                              _.isNil(data.event.solvingReason)
-                                ? "-"
-                                : solvingReason[data.event.solvingReason]
-                            }
-                            label={t("searchFindings.tabEvents.solvingReason")}
-                            name={"solvingReason"}
-                            renderAsEditable={isEditing}
-                            type={"text"}
-                          />
-                        </Col50>
-                      )}
-                    </Row>
+                    isEditing ? (
+                      canUpdateEventSolvingReason ? (
+                        <Row>
+                          <Col50>
+                            <Row>
+                              <EditableFieldTitle50>
+                                <ControlLabel>
+                                  <b>
+                                    {t(
+                                      "searchFindings.tabEvents.solvingReason"
+                                    )}{" "}
+                                  </b>
+                                </ControlLabel>
+                              </EditableFieldTitle50>
+                              <Col50>
+                                <Field
+                                  component={FormikDropdown}
+                                  name={"solvingReason"}
+                                  validate={composeValidators([required])}
+                                >
+                                  <option value={"PERMISSION_GRANTED"}>
+                                    {solvingReason.PERMISSION_GRANTED}
+                                  </option>
+                                  <option value={"PERMISSION_DENIED"}>
+                                    {solvingReason.PERMISSION_DENIED}
+                                  </option>
+                                  <option
+                                    value={
+                                      "AFFECTED_RESOURCE_REMOVED_FROM_SCOPE"
+                                    }
+                                  >
+                                    {
+                                      solvingReason.AFFECTED_RESOURCE_REMOVED_FROM_SCOPE
+                                    }
+                                  </option>
+                                  <option value={"SUPPLIES_WERE_GIVEN"}>
+                                    {solvingReason.SUPPLIES_WERE_GIVEN}
+                                  </option>
+                                  <option value={"TOE_CHANGE_APPROVED"}>
+                                    {solvingReason.TOE_CHANGE_APPROVED}
+                                  </option>
+                                  <option value={"TOE_WILL_REMAIN_UNCHANGED"}>
+                                    {solvingReason.TOE_WILL_REMAIN_UNCHANGED}
+                                  </option>
+                                  <option value={"PROBLEM_SOLVED"}>
+                                    {solvingReason.PROBLEM_SOLVED}
+                                  </option>
+                                  <option value={"OTHER"}>
+                                    {solvingReason.OTHER}
+                                  </option>
+                                </Field>
+                                {values.solvingReason === "OTHER" ? (
+                                  <EditableField
+                                    component={FormikText}
+                                    currentValue={
+                                      _.isNil(data.event.otherSolvingReason)
+                                        ? ""
+                                        : data.event.otherSolvingReason
+                                    }
+                                    label={t(
+                                      "searchFindings.tabSeverity.common.deactivation.other"
+                                    )}
+                                    name={"otherSolvingReason"}
+                                    renderAsEditable={isEditing}
+                                    type={"text"}
+                                  />
+                                ) : undefined}
+                              </Col50>
+                            </Row>
+                          </Col50>
+                        </Row>
+                      ) : undefined
+                    ) : (
+                      <Row>
+                        {data.event.solvingReason === "OTHER" ? (
+                          <Col50>
+                            <EditableField
+                              alignField={"horizontalWide"}
+                              component={FormikText}
+                              currentValue={
+                                _.isNil(data.event.otherSolvingReason)
+                                  ? "-"
+                                  : _.capitalize(data.event.otherSolvingReason)
+                              }
+                              label={t(
+                                "searchFindings.tabEvents.solvingReason"
+                              )}
+                              name={"otherSolvingReason"}
+                              renderAsEditable={false}
+                              type={"text"}
+                            />
+                          </Col50>
+                        ) : (
+                          <Col50>
+                            <EditableField
+                              alignField={"horizontalWide"}
+                              component={FormikText}
+                              currentValue={
+                                _.isNil(data.event.solvingReason)
+                                  ? "-"
+                                  : solvingReason[data.event.solvingReason]
+                              }
+                              label={t(
+                                "searchFindings.tabEvents.solvingReason"
+                              )}
+                              name={"solvingReason"}
+                              renderAsEditable={false}
+                              type={"text"}
+                            />
+                          </Col50>
+                        )}
+                      </Row>
+                    )
                   ) : undefined}
                 </div>
               </div>

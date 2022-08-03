@@ -1,3 +1,5 @@
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import {
   faCheck,
   faPen,
@@ -12,6 +14,7 @@ import { Button } from "components/Button";
 import { Tooltip } from "components/Tooltip";
 import { ButtonToolbarStartRow, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 
 interface IActionButtonsProps {
   isDirtyForm: boolean;
@@ -31,6 +34,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   openSolvingModal,
 }: IActionButtonsProps): JSX.Element => {
   const { t } = useTranslation();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canUpdateEvent: boolean = permissions.can(
+    "api_mutations_update_event_mutate"
+  );
+  const canUpdateEventSolvingReason: boolean = permissions.can(
+    "api_mutations_update_event_solving_reason_mutate"
+  );
 
   return (
     <Row>
@@ -52,44 +62,42 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
             </Button>
           </Can>
         )}
-        <Can do={"api_mutations_update_event_mutate"}>
-          {eventStatus === "SOLVED" ? undefined : isEditing ? (
-            <React.Fragment>
-              <Button onClick={onToggleEdit} variant={"secondary"}>
-                <React.Fragment>
-                  <FontAwesomeIcon icon={faTimes} />
-                  &nbsp;
-                  {t("group.events.description.cancel")}
-                </React.Fragment>
-              </Button>
-              <Tooltip
-                id={"group.events.description.save.tooltip.btn"}
-                tip={t("group.events.description.save.tooltip")}
-              >
-                <Button
-                  disabled={!isDirtyForm}
-                  type={"submit"}
-                  variant={"primary"}
-                >
-                  <FontAwesomeIcon icon={faRotateRight} />
-                  &nbsp;
-                  {t("group.events.description.save.text")}
-                </Button>
-              </Tooltip>
-            </React.Fragment>
-          ) : (
-            <Tooltip
-              id={"group.events.description.edit.tooltip.btn"}
-              tip={t("group.events.description.edit.tooltip")}
-            >
-              <Button onClick={onToggleEdit} variant={"secondary"}>
-                <FontAwesomeIcon icon={faPen} />
+        {(canUpdateEvent || canUpdateEventSolvingReason) && isEditing ? (
+          <React.Fragment>
+            <Button onClick={onToggleEdit} variant={"secondary"}>
+              <React.Fragment>
+                <FontAwesomeIcon icon={faTimes} />
                 &nbsp;
-                {t("group.events.description.edit.text")}
+                {t("group.events.description.cancel")}
+              </React.Fragment>
+            </Button>
+            <Tooltip
+              id={"group.events.description.save.tooltip.btn"}
+              tip={t("group.events.description.save.tooltip")}
+            >
+              <Button
+                disabled={!isDirtyForm}
+                type={"submit"}
+                variant={"primary"}
+              >
+                <FontAwesomeIcon icon={faRotateRight} />
+                &nbsp;
+                {t("group.events.description.save.text")}
               </Button>
             </Tooltip>
-          )}
-        </Can>
+          </React.Fragment>
+        ) : (
+          <Tooltip
+            id={"group.events.description.edit.tooltip.btn"}
+            tip={t("group.events.description.edit.tooltip")}
+          >
+            <Button onClick={onToggleEdit} variant={"secondary"}>
+              <FontAwesomeIcon icon={faPen} />
+              &nbsp;
+              {t("group.events.description.edit.text")}
+            </Button>
+          </Tooltip>
+        )}
       </ButtonToolbarStartRow>
     </Row>
   );
