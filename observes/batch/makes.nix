@@ -1,7 +1,7 @@
 {outputs, ...}: let
   sharedConfiguration = rec {
     attempts = 5;
-    definition = "makes";
+    definition = "prod_observes";
     environment = [
       "CACHIX_AUTH_TOKEN"
       "UNIVERSE_API_TOKEN"
