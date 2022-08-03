@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 function main {
-  local module="${1:-}"
+  local module="${1}"
   local secrets=(
     AWS_OPENSEARCH_HOST
   )

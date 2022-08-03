@@ -5,6 +5,9 @@ from opensearchpy import (
     RequestsHttpConnection,
 )
 import os
+from typing import (
+    Any,
+)
 
 FI_AWS_OPENSEARCH_HOST = os.environ["AWS_OPENSEARCH_HOST"]
 SESSION = boto3.Session()
@@ -19,5 +22,5 @@ CLIENT = OpenSearch(
 )
 
 
-def replicate() -> None:
+def replicate(_records: tuple[dict[str, Any], ...]) -> None:
     pass
