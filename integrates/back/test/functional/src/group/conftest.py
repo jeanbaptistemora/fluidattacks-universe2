@@ -35,6 +35,9 @@ from db_model.findings.types import (
     FindingVerification,
     FindingVerificationSummary,
 )
+from db_model.group_comments.types import (
+    GroupComment,
+)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -662,14 +665,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         ],
         "consultings": [
             {
-                "content": "This is a test comment",
-                "created": "2019-05-28 15:09:37",
-                "email": "admin@gmail.com",
-                "fullname": "test one",
-                "modified": "2019-05-28 15:09:37",
-                "parent": 0,
-                "group_name": "group1",
-                "user_id": 123456789,
+                "group_comment": GroupComment(
+                    content="This is a test comment",
+                    creation_date="2019-05-28 15:09:37",
+                    email="admin@gmail.com",
+                    full_name="test one",
+                    parent_id="0",
+                    group_name="group1",
+                    id=123456789,
+                )
             },
         ],
         "events": [

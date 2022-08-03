@@ -82,9 +82,6 @@ from group_comments import (
 from newutils.datetime import (
     get_from_str,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from organizations_finding_policies import (
     dal as dal_policies,
 )
@@ -373,18 +370,13 @@ async def populate_roots(data: list[dict[str, Any]]) -> bool:
 
 
 async def populate_consultings(data: list[Any]) -> bool:
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            dal_group_comments.add_comment(
-                get_key_or_fallback(consulting),
-                consulting["email"],
-                consulting,
-            )
-            for consulting in data
-        ]
+    await collect(
+        dal_group_comments.add_comment_typed(
+            comment_data=item["group_comment"]
+        )
+        for item in data
     )
-    return all(await collect(coroutines))
+    return True
 
 
 async def _populate_event_historic_state(data: dict[str, Any]) -> None:
