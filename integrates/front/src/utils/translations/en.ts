@@ -244,86 +244,9 @@ export const enTranslations: ResourceKey = {
     minimumWidth: "ASM is only available on desktops",
   },
   autoenrollment: {
-    addOrganization: {
-      groupDescription: {
-        label: "Description of the group",
-        placeholder: "AWS test new group",
-      },
-      groupName: {
-        label: "Group name ",
-        placeholder: "My group name",
-      },
-      messages: {
-        error: {
-          enrollment: "Invalid enrollment data or user already exists",
-          enrollmentUser: "Enrollment user already exists",
-          group: "Invalid or used Group Name, please change your input",
-          organization:
-            "Invalid or used Organization Name, please change your input",
-          repository: "Invalid repository information, please check again",
-        },
-        success: {
-          body: "You started Machine Plan free trial",
-          title: "Done!",
-        },
-      },
-      organizationName: {
-        label: "Organization name ",
-        placeholder: "My organization",
-      },
-      proceed: "Start your free trial now",
-      reportLanguage: "Report language ",
-      reportLanguageTip:
-        "Select the language of your preference to report vulnerabilities",
-      role: "User manager",
-      roleTitle: "Role",
-      termsOfService: "I read the Terms of Service and Privacy Policy",
-      title: "Let's create your group",
-    },
-    addRoot: {
-      branch: {
-        label: "Branch",
-        placeholder: "qa",
-      },
-      credentials: {
-        auth: {
-          token: "Access Token",
-          user: "User and Password",
-        },
-        name: {
-          label: "Credential name",
-          placeholder: "Test credential",
-        },
-        password: "Repository password",
-        sshKey: "Private SSH Key",
-        token: "Repository access token",
-        type: {
-          https: "HTTPS",
-          label: "Credential type",
-          ssh: "SSH",
-        },
-        user: "Repository user",
-      },
-      environment: {
-        label: "Environment kind",
-        placeholder: "qa",
-      },
-      exclusions: {
-        label: "Exclusions ",
-        placeholder: "/devopsinterbanknew",
-        tooltip: "Enter exclusions paths",
-      },
-      proceed: "Next",
-      subtitle: "To begin, add the first code repository",
-      title: "Welcome to the Attack Surface Manager (ASM)",
-      url: {
-        label: "URL repository ",
-        placeholder: "https://gitrepository.yourproject/sms/...",
-        tooltip:
-          "Can be a repository or fork. Allowed only a HTTPS URL like " +
-          "https://example.com/user/repo.git or a SSH URL like " +
-          "git@github.com:user/repo.git",
-      },
+    branch: {
+      label: "Branch",
+      placeholder: "qa",
     },
     cancelModal: {
       body: "Do you want to cancel your free trial?",
@@ -332,12 +255,87 @@ export const enTranslations: ResourceKey = {
     },
     corporateOnly:
       "Only corporate users are allowed. Please contact your manager to request access.",
+    credentials: {
+      auth: {
+        token: "Access Token",
+        user: "User and Password",
+      },
+      name: {
+        label: "Credential name",
+        placeholder: "Test credential",
+      },
+      password: "Repository password",
+      sshKey: "Private SSH Key",
+      token: "Repository access token",
+      type: {
+        https: "HTTPS",
+        label: "Credential type",
+        ssh: "SSH",
+      },
+      user: "Repository user",
+    },
+    environment: {
+      label: "Environment kind",
+      placeholder: "qa",
+    },
+    exclusions: {
+      label: "Exclusions ",
+      placeholder: "/devopsinterbanknew",
+      tooltip: "Enter exclusions paths",
+    },
+    groupDescription: {
+      label: "Description of the group",
+      placeholder: "AWS test new group",
+    },
+    groupName: {
+      label: "Group name ",
+      placeholder: "My group name",
+      tooltip: "Name that will be assigned to your new group",
+    },
+    messages: {
+      error: {
+        enrollment: "Invalid enrollment data or user already exists",
+        enrollmentUser: "Enrollment user already exists",
+        group: "Invalid or used Group Name, please change your input",
+        organization:
+          "Invalid or used Organization Name, please change your input",
+        repository: "Invalid repository information, please check again",
+      },
+      success: {
+        body: "You started Machine Plan free trial",
+        title: "Done!",
+      },
+    },
+    next: "Next",
+    organizationName: {
+      label: "Organization name ",
+      placeholder: "My organization",
+      tooltip: "Name that will be assigned to your new organization",
+    },
+    proceed: "Start your free trial now",
+    reportLanguage: "Report language ",
+    reportLanguageTip:
+      "Select the language of your preference to report vulnerabilities",
+    role: "User manager",
+    roleTitle: "Role",
     standby: {
       subtitle:
         "You have created your group. You can relax and wait for the " +
         "results of the security testing",
       title: "Our Machine is running!",
     },
+    subtitle: "To begin, add the first code repository",
+    termsOfService: "I read the Terms of Service and Privacy Policy",
+    title: "Let's create your group",
+    url: {
+      label: "URL repository ",
+      placeholder: "https://gitrepository.yourproject/sms/...",
+      tooltip:
+        "Can be a repository or fork. Allowed only a HTTPS URL like " +
+        "https://example.com/user/repo.git or a SSH URL like " +
+        "git@github.com:user/repo.git",
+    },
+    welcome: "Welcome to the Attack Surface Manager (ASM)",
   },
   comments: {
     editorPlaceholder: "Add your comment here",
@@ -3314,7 +3312,6 @@ export const enTranslations: ResourceKey = {
         invalidName: "Name must contain only alphanumeric characters",
         name: "Organization name",
         nameTaken: "Name already taken. Please try with a new one",
-        nameTooltip: "Name that will be assigned to your new organization",
         namesUnavailable:
           "There are no available organization names at the moment",
         success: "Organization {{name}} created successfully",

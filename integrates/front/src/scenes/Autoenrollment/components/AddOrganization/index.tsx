@@ -113,32 +113,26 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             <Col lg={100} md={100} sm={100}>
               <Input
                 disabled={successMutation.organization}
-                label={t(
-                  "autoenrollment.addOrganization.organizationName.label"
-                )}
+                label={t("autoenrollment.organizationName.label")}
                 name={"organizationName"}
-                placeholder={t(
-                  "autoenrollment.addOrganization.organizationName.placeholder"
-                )}
-                tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
+                placeholder={t("autoenrollment.organizationName.placeholder")}
+                tooltip={t("autoenrollment.organizationName.tooltip")}
               />
             </Col>
             <Col lg={100} md={100} sm={100}>
               <Input
                 disabled={successMutation.group}
-                label={t("autoenrollment.addOrganization.groupName.label")}
+                label={t("autoenrollment.groupName.label")}
                 name={"groupName"}
-                placeholder={t(
-                  "autoenrollment.addOrganization.groupName.placeholder"
-                )}
-                tooltip={t("sidebar.newOrganization.modal.nameTooltip")}
+                placeholder={t("autoenrollment.groupName.placeholder")}
+                tooltip={t("autoenrollment.groupName.tooltip")}
               />
             </Col>
             <Col lg={100} md={100} sm={100}>
               <Select
-                label={t("autoenrollment.addOrganization.reportLanguage")}
+                label={t("autoenrollment.reportLanguage")}
                 name={"reportLanguage"}
-                tooltip={t("autoenrollment.addOrganization.reportLanguageTip")}
+                tooltip={t("autoenrollment.reportLanguageTip")}
               >
                 <option value={""}>{""}</option>
                 <option value={"EN"}>
@@ -151,22 +145,16 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             </Col>
             <Col lg={100} md={100} sm={100}>
               <TextArea
-                label={t(
-                  "autoenrollment.addOrganization.groupDescription.label"
-                )}
+                label={t("autoenrollment.groupDescription.label")}
                 name={"groupDescription"}
-                placeholder={t(
-                  "autoenrollment.addOrganization.groupDescription.placeholder"
-                )}
+                placeholder={t("autoenrollment.groupDescription.placeholder")}
               />
             </Col>
             <Col lg={100} md={100} sm={100}>
               <Checkbox
                 label={
                   <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-                    <Text>
-                      {t("autoenrollment.addOrganization.termsOfService")}
-                    </Text>
+                    <Text>{t("autoenrollment.termsOfService")}</Text>
                   </ExternalLink>
                 }
                 name={"terms"}
@@ -174,10 +162,10 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               />
             </Col>
             <Text fw={7} mb={1} mt={2}>
-              {t("autoenrollment.addOrganization.roleTitle")}
+              {t("autoenrollment.roleTitle")}
             </Text>
-            <Text mb={2}>{t("autoenrollment.addOrganization.role")}</Text>
-            {!showSubmitAlert && orgMessages.message !== "" && (
+            <Text mb={2}>{t("autoenrollment.role")}</Text>
+            {!showSubmitAlert && orgMessages.message !== "" ? (
               <Alert
                 icon={true}
                 onTimeOut={setShowSubmitAlert}
@@ -185,29 +173,28 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               >
                 {orgMessages.message}
               </Alert>
-            )}
-            <Gap>
-              <Button
-                disabled={isSubmitting}
-                type={"submit"}
-                variant={"primary"}
-              >
-                {t("autoenrollment.addOrganization.proceed")}
-              </Button>
-              <Button onClick={cancelClick}>
-                {t("components.modal.cancel")}
-              </Button>
-            </Gap>
-            <Modal onClose={noClick} open={showCancelModal} title={""}>
-              <Text>{t("autoenrollment.cancelModal.body")}</Text>
-              <ModalConfirm
-                onCancel={noClick}
-                onConfirm={yesClick}
-                txtCancel={t("autoenrollment.cancelModal.no")}
-                txtConfirm={t("autoenrollment.cancelModal.yes")}
-              />
-            </Modal>
+            ) : undefined}
           </Row>
+          <Gap>
+            <Button disabled={isSubmitting} type={"submit"} variant={"primary"}>
+              {t("autoenrollment.proceed")}
+            </Button>
+            <Button onClick={cancelClick}>
+              {t("components.modal.cancel")}
+            </Button>
+          </Gap>
+          <Modal
+            onClose={noClick}
+            open={showCancelModal}
+            title={t("autoenrollment.cancelModal.body")}
+          >
+            <ModalConfirm
+              onCancel={noClick}
+              onConfirm={yesClick}
+              txtCancel={t("autoenrollment.cancelModal.no")}
+              txtConfirm={t("autoenrollment.cancelModal.yes")}
+            />
+          </Modal>
         </Form>
       </Formik>
     </div>

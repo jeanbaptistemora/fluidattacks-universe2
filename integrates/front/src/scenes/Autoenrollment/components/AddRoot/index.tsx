@@ -182,42 +182,42 @@ const AddRoot: React.FC<IAddRootProps> = ({
               <Row justify={"start"}>
                 <Col lg={50} md={50} sm={100}>
                   <Input
-                    label={t("autoenrollment.addRoot.url.label")}
+                    label={t("autoenrollment.url.label")}
                     name={"url"}
-                    placeholder={t("autoenrollment.addRoot.url.placeholder")}
-                    tooltip={t("autoenrollment.addRoot.url.tooltip")}
+                    placeholder={t("autoenrollment.url.placeholder")}
+                    tooltip={t("autoenrollment.url.tooltip")}
                     type={"text"}
                   />
                 </Col>
                 <Col lg={50} md={50} sm={100}>
                   <Input
-                    label={t("autoenrollment.addRoot.branch.label")}
+                    label={t("autoenrollment.branch.label")}
                     name={"branch"}
-                    placeholder={t("autoenrollment.addRoot.branch.placeholder")}
+                    placeholder={t("autoenrollment.branch.placeholder")}
                     type={"text"}
                   />
                 </Col>
                 <Col lg={50} md={50} sm={100}>
                   <Select
-                    label={t("autoenrollment.addRoot.credentials.type.label")}
+                    label={t("autoenrollment.credentials.type.label")}
                     name={"credentials.type"}
                   >
                     <option value={""}>{""}</option>
                     <option value={"HTTPS"}>
-                      {t("autoenrollment.addRoot.credentials.type.https")}
+                      {t("autoenrollment.credentials.type.https")}
                     </option>
                     <option value={"SSH"}>
-                      {t("autoenrollment.addRoot.credentials.type.ssh")}
+                      {t("autoenrollment.credentials.type.ssh")}
                     </option>
                   </Select>
                 </Col>
                 <Col lg={50} md={50} sm={100}>
                   <Input
                     disabled={values.credentials.type === ""}
-                    label={t("autoenrollment.addRoot.credentials.name.label")}
+                    label={t("autoenrollment.credentials.name.label")}
                     name={"credentials.name"}
                     placeholder={t(
-                      "autoenrollment.addRoot.credentials.name.placeholder"
+                      "autoenrollment.credentials.name.placeholder"
                     )}
                   />
                 </Col>
@@ -236,10 +236,10 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   <Col lg={100} md={100} sm={100}>
                     <Select name={"credentials.auth"}>
                       <option value={"TOKEN"}>
-                        {t("autoenrollment.addRoot.credentials.auth.token")}
+                        {t("autoenrollment.credentials.auth.token")}
                       </option>
                       <option value={"USER"}>
-                        {t("autoenrollment.addRoot.credentials.auth.user")}
+                        {t("autoenrollment.credentials.auth.user")}
                       </option>
                     </Select>
                   </Col>
@@ -248,7 +248,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   values.credentials.auth === "TOKEN" && (
                     <Col lg={100} md={100} sm={100}>
                       <Input
-                        label={t("autoenrollment.addRoot.credentials.token")}
+                        label={t("autoenrollment.credentials.token")}
                         name={"credentials.token"}
                       />
                     </Col>
@@ -258,15 +258,13 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     <Fragment>
                       <Col lg={50} md={50} sm={100}>
                         <Input
-                          label={t("autoenrollment.addRoot.credentials.user")}
+                          label={t("autoenrollment.credentials.user")}
                           name={"credentials.user"}
                         />
                       </Col>
                       <Col lg={50} md={50} sm={100}>
                         <Input
-                          label={t(
-                            "autoenrollment.addRoot.credentials.password"
-                          )}
+                          label={t("autoenrollment.credentials.password")}
                           name={"credentials.password"}
                           type={"password"}
                         />
@@ -275,18 +273,14 @@ const AddRoot: React.FC<IAddRootProps> = ({
                   )}
                 <Col lg={100} md={100} sm={100}>
                   <Input
-                    label={t("autoenrollment.addRoot.environment.label")}
+                    label={t("autoenrollment.environment.label")}
                     name={"env"}
-                    placeholder={t(
-                      "autoenrollment.addRoot.environment.placeholder"
-                    )}
+                    placeholder={t("autoenrollment.environment.placeholder")}
                   />
                 </Col>
                 <Col>
-                  <Label
-                    tooltip={t("autoenrollment.addRoot.exclusions.tooltip")}
-                  >
-                    {t("autoenrollment.addRoot.exclusions.label")}
+                  <Label tooltip={t("autoenrollment.exclusions.tooltip")}>
+                    {t("autoenrollment.exclusions.label")}
                   </Label>
                 </Col>
                 <Col lg={100} md={100} sm={100}>
@@ -299,9 +293,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
                       <Field
                         component={FormikText}
                         name={fieldName}
-                        placeholder={t(
-                          "autoenrollment.addRoot.exclusions.placeholder"
-                        )}
+                        placeholder={t("autoenrollment.exclusions.placeholder")}
                         type={"text"}
                       />
                     )}
@@ -316,15 +308,15 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     {rootMessages.message}
                   </Alert>
                 )}
-                <Gap>
-                  <Button onClick={handleAccess} variant={"primary"}>
-                    {t("autoenrollment.addRoot.proceed")}
-                  </Button>
-                  <Button onClick={cancelClick}>
-                    {t("components.modal.cancel")}
-                  </Button>
-                </Gap>
               </Row>
+              <Gap>
+                <Button onClick={handleAccess} variant={"primary"}>
+                  {t("autoenrollment.next")}
+                </Button>
+                <Button onClick={cancelClick}>
+                  {t("components.modal.cancel")}
+                </Button>
+              </Gap>
               <Modal
                 onClose={noClick}
                 open={showCancelModal}

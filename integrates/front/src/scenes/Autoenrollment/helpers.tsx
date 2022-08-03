@@ -94,14 +94,12 @@ const handleEnrollmentCreateError = (
   graphQLErrors.forEach((error: GraphQLError): void => {
     if (error.message === "Enrollment user already exists") {
       setMessages({
-        message: t(
-          "autoenrollment.addOrganization.messages.error.enrollmentUser"
-        ),
+        message: t("autoenrollment.messages.error.enrollmentUser"),
         type: "error",
       });
     } else {
       setMessages({
-        message: t("autoenrollment.addOrganization.messages.error.enrollment"),
+        message: t("autoenrollment.messages.error.enrollment"),
         type: "error",
       });
       Logger.error("Couldn't add enrollment user data", error);

@@ -17,6 +17,7 @@ import { Standby } from "./components/Standby";
 import { Container, DashboardContent, FormContent } from "./styles";
 
 import { Col, Row } from "components/Layout";
+import { Text } from "components/Text";
 import {
   handleEnrollmentCreateError,
   handleGroupCreateError,
@@ -158,8 +159,8 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
     onCompleted: (result: { addGitRoot: { success: boolean } }): void => {
       if (result.addGitRoot.success) {
         msgSuccess(
-          t("autoenrollment.addOrganization.messages.success.body"),
-          t("autoenrollment.addOrganization.messages.success.title")
+          t("autoenrollment.messages.success.body"),
+          t("autoenrollment.messages.success.title")
         );
       }
     },
@@ -320,15 +321,13 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
             });
             push("/autoenrollment/repository");
             setRootMessages({
-              message: t(
-                "autoenrollment.addOrganization.messages.error.repository"
-              ),
+              message: t("autoenrollment.messages.error.repository"),
               type: "error",
             });
           }
         } else {
           setOrgMessages({
-            message: t("autoenrollment.addOrganization.messages.error.group"),
+            message: t("autoenrollment.messages.error.group"),
             type: "error",
           });
           mixpanel.track("AutoenrollSubmit", {
@@ -342,9 +341,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
         }
       } else {
         setOrgMessages({
-          message: t(
-            "autoenrollment.addOrganization.messages.error.organization"
-          ),
+          message: t("autoenrollment.messages.error.organization"),
           type: "error",
         });
         mixpanel.track("AutoenrollSubmit", {
@@ -386,11 +383,9 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
           <Switch>
             <Route exact={true} path={"/autoenrollment/organization"}>
               <Col lg={100} md={100} sm={100}>
-                <Row justify={"center"}>
-                  <Col>
-                    <h2>{t("autoenrollment.addOrganization.title")}</h2>
-                  </Col>
-                </Row>
+                <Text fw={7} mb={3} mt={4} size={4} ta={"center"}>
+                  {t("autoenrollment.title")}
+                </Text>
                 <Row justify={"center"}>
                   <Col lg={40} md={60} sm={90}>
                     <FormContent>
@@ -409,27 +404,25 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
               </Col>
             </Route>
             <Route exact={true} path={"/autoenrollment/repository"}>
-              <Col lg={100} md={100} sm={100}>
-                <Row justify={"center"}>
-                  <Col>
-                    <h2>{t("autoenrollment.addRoot.title")}</h2>
-                    <p>{t("autoenrollment.addRoot.subtitle")}</p>
-                  </Col>
-                </Row>
-                <Row justify={"center"}>
-                  <Col lg={40} md={60} sm={90}>
-                    <FormContent>
-                      <AddRoot
-                        initialValues={repository}
-                        onCompleted={goToOrg}
-                        rootMessages={rootMessages}
-                        setRepositoryValues={setRepository}
-                        setRootMessages={setRootMessages}
-                      />
-                    </FormContent>
-                  </Col>
-                </Row>
-              </Col>
+              <Text fw={7} mt={4} size={4} ta={"center"}>
+                {t("autoenrollment.welcome")}
+              </Text>
+              <Text mb={3} mt={1} ta={"center"}>
+                {t("autoenrollment.subtitle")}
+              </Text>
+              <Row justify={"center"}>
+                <Col lg={40} md={60} sm={90}>
+                  <FormContent>
+                    <AddRoot
+                      initialValues={repository}
+                      onCompleted={goToOrg}
+                      rootMessages={rootMessages}
+                      setRepositoryValues={setRepository}
+                      setRootMessages={setRootMessages}
+                    />
+                  </FormContent>
+                </Col>
+              </Row>
             </Route>
             <Route exact={true} path={"/autoenrollment/standby"}>
               <Col lg={100} md={100} sm={100}>
