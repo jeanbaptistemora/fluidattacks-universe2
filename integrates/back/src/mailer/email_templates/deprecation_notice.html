@@ -13,19 +13,16 @@
       elements are nearing the end of their six month phase-out window, and
       therefore will be <strong>removed</strong> from our API next month:
     </p>
-    <table aria-label="Deprecated Table" style="width: 75%; margin: auto;">
-      <tr>
-        <th scope="col">
-          Object
-        </th>
-        <th scope="col">
-          Field/Values to be removed soon
-        </th>
-      </tr>
-      {% for object, fields in deprecations.items() %}
-      <tr> <td><strong>{{ object }}</strong></td> <td>{{ fields }}</td> </tr>
-      {% endfor %}
-    </table>
+    {% for object, fields in deprecations.items() %}
+    <div class="row">
+      <div class="column left" style="width: 30%; text-align: center;">
+        Of <strong>{{ object }}</strong>:
+      </div>
+      <div class="column right" style="width: 70%; text-align: center;">
+        {{ fields }}
+      </div>
+    </div>
+    {% endfor %}
     <br>
     <p>
       If your product is consuming any of the aforementioned API elements in

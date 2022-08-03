@@ -21,7 +21,7 @@ def _format_deprecation_for_mail(
     """
     depr_mail: dict[str, str] = {}
     for key, deprecated_fields in deprecations.items():
-        depr_mail[key] = ", ".join(
+        depr_mail[key] = " | ".join(
             [field.field for field in deprecated_fields]
         )
 
