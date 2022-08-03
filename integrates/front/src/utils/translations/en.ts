@@ -313,10 +313,7 @@ export const enTranslations: ResourceKey = {
         placeholder: "/devopsinterbanknew",
         tooltip: "Enter exclusions paths",
       },
-      proceed: {
-        checkAccess: "Check access",
-        next: "Next",
-      },
+      proceed: "Next",
       subtitle: "To begin, add the first code repository",
       title: "Welcome to the Attack Surface Manager (ASM)",
       url: {

@@ -137,10 +137,7 @@ const handleValidationError = (
   });
 };
 
-const rootSchema = (
-  isGitAccessible: boolean,
-  isDirty: boolean
-): InferType<TypedSchema> =>
+const rootSchema = (isDirty: boolean): InferType<TypedSchema> =>
   lazy(
     (values: IRootAttr): BaseSchema =>
       object().shape({
@@ -172,17 +169,10 @@ const rootSchema = (
             .test(
               "isGitAccesible",
               t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean => {
-                if (
-                  isDirty ||
-                  value === undefined ||
-                  values.credentials.type !== "SSH"
-                ) {
-                  return true;
-                }
-
-                return isGitAccessible;
-              }
+              (value): boolean =>
+                isDirty ||
+                value === undefined ||
+                values.credentials.type !== "SSH"
             ),
           name: string().when("type", {
             is: undefined,
@@ -198,17 +188,10 @@ const rootSchema = (
             .test(
               "isGitAccesible",
               t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean => {
-                if (
-                  isDirty ||
-                  value === undefined ||
-                  values.credentials.type !== "HTTPS"
-                ) {
-                  return true;
-                }
-
-                return isGitAccessible;
-              }
+              (value): boolean =>
+                isDirty ||
+                value === undefined ||
+                values.credentials.type !== "HTTPS"
             ),
           token: string()
             .when("type", {
@@ -219,17 +202,10 @@ const rootSchema = (
             .test(
               "isGitAccesible",
               t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean => {
-                if (
-                  isDirty ||
-                  value === undefined ||
-                  values.credentials.type !== "HTTPS"
-                ) {
-                  return true;
-                }
-
-                return isGitAccessible;
-              }
+              (value): boolean =>
+                isDirty ||
+                value === undefined ||
+                values.credentials.type !== "HTTPS"
             ),
           type: string().required(t("validations.required")),
           user: string()
@@ -241,17 +217,10 @@ const rootSchema = (
             .test(
               "isGitAccesible",
               t("group.scope.git.repo.credentials.checkAccess.noAccess"),
-              (value): boolean => {
-                if (
-                  isDirty ||
-                  value === undefined ||
-                  values.credentials.type !== "HTTPS"
-                ) {
-                  return true;
-                }
-
-                return isGitAccessible;
-              }
+              (value): boolean =>
+                isDirty ||
+                value === undefined ||
+                values.credentials.type !== "HTTPS"
             ),
         }),
         env: string().required(t("validations.required")),

@@ -14,7 +14,7 @@ import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
 import { Input, Label, Select, TextArea } from "components/Input";
-import { Col, Row } from "components/Layout";
+import { Col, Gap, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { FormikArrayField } from "scenes/Autoenrollment/components/ArrayField";
 import {
@@ -55,11 +55,17 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   const group = "UNITTESTING";
 
-  const [isGitAccessible, setIsGitAccessible] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [showSubmitAlert, setShowSubmitAlert] = useState(false);
   const [showCancelModal, setShowCancelModal] = useState(false);
 
+  function handleSubmit(): void {
+    setRootMessages({
+      message: t("group.scope.git.repo.credentials.checkAccess.success"),
+      type: "success",
+    });
+    onCompleted();
+  }
   function cancelClick(): void {
     setShowCancelModal(true);
   }
@@ -75,62 +81,48 @@ const AddRoot: React.FC<IAddRootProps> = ({
 
   const [validateGitAccess] = useMutation(VALIDATE_GIT_ACCESS, {
     onCompleted: (): void => {
-      setIsGitAccessible(true);
       setShowSubmitAlert(false);
-      setRootMessages({
-        message: t("group.scope.git.repo.credentials.checkAccess.success"),
-        type: "success",
-      });
+      handleSubmit();
     },
     onError: ({ graphQLErrors }: ApolloError): void => {
       setShowSubmitAlert(false);
       handleValidationError(graphQLErrors, setRootMessages);
-      setIsGitAccessible(false);
     },
   });
 
   async function checkAccess(): Promise<void> {
     if (formRef.current !== null) {
+      const { values } = formRef.current;
       const response: FetchResult<ICheckGitAccessResult> =
         await validateGitAccess({
           variables: {
-            branch: formRef.current.values.branch,
+            branch: values.branch,
             credentials: {
-              key: formRef.current.values.credentials.key
-                ? Buffer.from(formRef.current.values.credentials.key).toString(
-                    "base64"
-                  )
+              key: values.credentials.key
+                ? Buffer.from(values.credentials.key).toString("base64")
                 : undefined,
-              name: formRef.current.values.credentials.name,
-              password: formRef.current.values.credentials.password,
-              token: formRef.current.values.credentials.token,
-              type: formRef.current.values.credentials.type,
-              user: formRef.current.values.credentials.user,
+              name: values.credentials.name,
+              password: values.credentials.password,
+              token: values.credentials.token,
+              type: values.credentials.type,
+              user: values.credentials.user,
             },
             groupName: group,
-            url: formRef.current.values.url,
+            url: values.url,
           },
         });
-      setRepositoryValues(formRef.current.values);
+      setRepositoryValues(values);
       const validateSuccess =
         response.data === null || response.data === undefined
           ? false
           : response.data.validateGitAccess.success;
       mixpanel.track("AutoenrollCheckAccess", {
-        credentialType: formRef.current.values.credentials.type,
+        credentialType: values.credentials.type,
         formErrors: 0,
         success: validateSuccess,
-        url: formRef.current.values.url,
+        url: values.url,
       });
     }
-  }
-
-  function handleSubmit(): void {
-    setRootMessages({
-      message: t("group.scope.git.repo.credentials.checkAccess.success"),
-      type: "success",
-    });
-    onCompleted();
   }
 
   return (
@@ -141,7 +133,7 @@ const AddRoot: React.FC<IAddRootProps> = ({
         innerRef={formRef}
         name={"newRoot"}
         onSubmit={handleSubmit}
-        validationSchema={rootSchema(isGitAccessible, isDirty)}
+        validationSchema={rootSchema(isDirty)}
       >
         {({
           dirty,
@@ -315,52 +307,36 @@ const AddRoot: React.FC<IAddRootProps> = ({
                     )}
                   </FormikArrayField>
                 </Col>
-              </Row>
-              {!showSubmitAlert && rootMessages.message !== "" && (
-                <Alert
-                  icon={true}
-                  onTimeOut={setShowSubmitAlert}
-                  variant={rootMessages.type as IAlertProps["variant"]}
-                >
-                  {rootMessages.message}
-                </Alert>
-              )}
-              <Row justify={"center"}>
-                <Col>
-                  {isGitAccessible && !dirty ? (
-                    <Button
-                      disabled={isSubmitting}
-                      type={"submit"}
-                      variant={"primary"}
-                    >
-                      {t("autoenrollment.addRoot.proceed.next")}
-                    </Button>
-                  ) : (
-                    <Button onClick={handleAccess} variant={"primary"}>
-                      {t("autoenrollment.addRoot.proceed.checkAccess")}
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-              <Row justify={"center"}>
-                <Col>
+                {!showSubmitAlert && rootMessages.message !== "" && (
+                  <Alert
+                    icon={true}
+                    onTimeOut={setShowSubmitAlert}
+                    variant={rootMessages.type as IAlertProps["variant"]}
+                  >
+                    {rootMessages.message}
+                  </Alert>
+                )}
+                <Gap>
+                  <Button onClick={handleAccess} variant={"primary"}>
+                    {t("autoenrollment.addRoot.proceed")}
+                  </Button>
                   <Button onClick={cancelClick}>
                     {t("components.modal.cancel")}
                   </Button>
-                  <Modal
-                    onClose={noClick}
-                    open={showCancelModal}
-                    title={t("autoenrollment.cancelModal.body")}
-                  >
-                    <ModalConfirm
-                      onCancel={noClick}
-                      onConfirm={yesClick}
-                      txtCancel={t("autoenrollment.cancelModal.no")}
-                      txtConfirm={t("autoenrollment.cancelModal.yes")}
-                    />
-                  </Modal>
-                </Col>
+                </Gap>
               </Row>
+              <Modal
+                onClose={noClick}
+                open={showCancelModal}
+                title={t("autoenrollment.cancelModal.body")}
+              >
+                <ModalConfirm
+                  onCancel={noClick}
+                  onConfirm={yesClick}
+                  txtCancel={t("autoenrollment.cancelModal.no")}
+                  txtConfirm={t("autoenrollment.cancelModal.yes")}
+                />
+              </Modal>
             </Form>
           );
         }}
