@@ -36,6 +36,10 @@ from fa_purity.stream.transform import (
 from fa_purity.union import (
     UnionFactory,
 )
+from fa_purity.utils import (
+    raise_exception,
+)
+import logging
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource,
 )
@@ -54,7 +58,8 @@ from typing import (
     Union,
 )
 
-_ORGS_TABLE = "fi_organizations"
+LOG = logging.getLogger(__name__)
+_ORGS_TABLE = "integrates_vms"
 _LastObjKey = Mapping[  # type: ignore[misc]
     str,
     Union[
@@ -84,7 +89,9 @@ class _Page:
 
 def _to_group(pag: _Page) -> FrozenList[GroupId]:
     return tuple(
-        GroupId(to_primitive(i["sk"], str).unwrap().split("#")[1])
+        GroupId.new(to_primitive(i["pk"], str).unwrap().split("#")[1])
+        .alt(raise_exception)
+        .unwrap()
         for i in pag.response["Items"]
     )
 
@@ -102,8 +109,9 @@ class GroupsClient(_GroupsClient):
         self, org: OrganizationId, last_index: Optional[_LastObjKey]
     ) -> Cmd[_Page]:
         def _action() -> _Page:
-            condition = Key("pk").eq(f"ORG#{org.uuid}") & Key(
-                "sk"
+            LOG.debug("Getting groups of %s", org)
+            condition = Key("sk").eq(f"ORG#{org.uuid}") & Key(
+                "pk"
             ).begins_with("GROUP#")
             filter_exp = Attr("deletion_date").not_exists()
             response_items = (
@@ -111,17 +119,22 @@ class GroupsClient(_GroupsClient):
                     KeyConditionExpression=condition,
                     FilterExpression=filter_exp,
                     ExclusiveStartKey=last_index,
+                    IndexName="inverted_index",
                 )
                 if last_index
                 else self._table.query(
                     KeyConditionExpression=condition,
                     FilterExpression=filter_exp,
+                    IndexName="inverted_index",
                 )
             )
-            return _Page(
+            LOG.debug("Groups of %s retrieved!", org)
+            page = _Page(
                 response_items,
                 response_items.get("LastEvaluatedKey"),
             )
+            LOG.debug(page)
+            return page
 
         return Cmd.from_cmd(_action)
 
