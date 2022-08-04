@@ -1,18 +1,35 @@
 locals {
   arch = {
-    roles = [
+    awsRoles = [
       "dev",
       "prod_common",
     ]
-    sizes = [
-      "small",
-    ]
+    sizes = {
+      small = {
+        root_size = 10
+        instance  = "c5ad.large"
+        docker_machine_options = [
+          "amazonec2-volume-type=gp3",
+          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+        ]
+      }
+      large = {
+        root_size = 35
+        instance  = "m5a.large"
+        docker_machine_options = [
+          "amazonec2-volume-type=gp3",
+        ]
+      }
+    }
   }
   runners = {
     for runner in setproduct(
-      local.arch.roles,
-      local.arch.sizes
-    ) : join("_", runner) => { role = runner[0], size = runner[1] }
+      local.arch.awsRoles,
+      keys(local.arch.sizes)
+      ) : join("_", runner) => {
+      role = runner[0]
+      size = runner[1]
+    }
   }
 }
 
@@ -29,7 +46,9 @@ module "runners" {
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
   enable_cloudwatch_logging              = false
-  ami_filter                             = var.runner_ami
+  ami_filter = {
+    "name" = ["amzn2-ami-hvm-2.0.20210721.2-x86_64-ebs"]
+  }
 
   # Cache
   cache_shared = true
@@ -41,36 +60,42 @@ module "runners" {
 
   # Runner
   instance_type                     = "c5a.large"
-  runner_ami_filter                 = var.worker_ami
   enable_runner_ssm_access          = true
   subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
-  runner_root_block_device          = var.runner_block_device
   userdata_pre_install              = data.local_file.init_runner.content
   docker_machine_iam_policy_arns = [
     "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/${each.value.role}"
   ]
+  runner_ami_filter = {
+    "name"     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210907"]
+    "image-id" = ["ami-03a80f322a6053f85"]
+  }
+  runner_root_block_device = {
+    delete_on_termination = true
+    volume_type           = "gp3"
+    volume_size           = 15
+    encrypted             = true
+    iops                  = 3000
+  }
   gitlab_runner_registration_config = {
     registration_token = var.gitlabTokenFluidattacks
     tag_list           = each.key
     description        = "common-ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
-    maximum_timeout    = var.runner_timeout
+    maximum_timeout    = "86400"
     access_level       = "not_protected"
   }
 
   # Workers
-  docker_machine_options = [
-    "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-    "amazonec2-volume-type=gp3",
-  ]
+  docker_machine_options        = local.arch.sizes[each.value.size].docker_machine_options
   docker_machine_spot_price_bid = ""
-  docker_machine_instance_type  = "c5ad.large"
+  docker_machine_instance_type  = local.arch.sizes[each.value.size].instance
   runners_gitlab_url            = "https://gitlab.com"
   runners_executor              = "docker+machine"
-  runners_root_size             = 10
+  runners_root_size             = local.arch.sizes[each.value.size].root_size
   runners_concurrent            = 1000
   runners_ebs_optimized         = true
   runners_idle_count            = 1
@@ -86,8 +111,18 @@ module "runners" {
   runners_request_concurrency   = 10
   runners_request_spot_instance = true
   runners_use_private_address   = false
-  runners_machine_autoscaling   = var.off_peak_periods
   subnet_id_runners             = data.aws_subnet.main.id
+  runners_machine_autoscaling = [
+    {
+      periods = [
+        "* * 0-6,20-23 * * mon-fri *",
+        "* * * * * sat,sun *",
+      ]
+      idle_count = 0
+      idle_time  = 1800
+      timezone   = "America/Bogota"
+    }
+  ]
 
   # Tags
   environment = "common-ci-${each.key}"

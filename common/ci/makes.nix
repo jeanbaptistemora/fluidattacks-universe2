@@ -34,7 +34,6 @@ in {
           outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
-          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/common/ci/new-infra";
         version = "1.0";
@@ -44,9 +43,6 @@ in {
   envVarsForTerraform = {
     commonCi = {
       ciInit = projectPath "/common/ci/infra/init";
-    };
-    commonCiNew = {
-      ciInit = projectPath "/common/ci/new-infra/init";
     };
   };
   lintTerraform = {
