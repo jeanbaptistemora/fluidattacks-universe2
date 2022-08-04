@@ -5,6 +5,10 @@ from back.test import (
 from collections import (
     defaultdict,
 )
+from db_model.enrollment.types import (
+    Enrollment,
+    Trial,
+)
 from db_model.enums import (
     GitCloningStatus,
     Source,
@@ -56,6 +60,18 @@ from typing import (
 @pytest.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "enrollments": (
+            Enrollment(
+                email="user@gmail.com",
+                enrolled=True,
+                trial=Trial(
+                    completed=True,
+                    extension_date="2017-04-06T00:45:11+00:00",
+                    extension_days=5,
+                    start_date="2017-04-06T00:45:11+00:00",
+                ),
+            ),
+        ),
         "findings": [
             {
                 "finding": Finding(
@@ -67,8 +83,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         source=Source.ASM,
                         status=FindingStateStatus.CREATED,
                     ),
-                    title="060. Insecure service configuration - "
-                    "Host verification",
+                    title=(
+                        "060. Insecure service configuration - "
+                        "Host verification"
+                    ),
                     recommendation="Updated recommendation",
                     description="I just have updated the description",
                     hacker_email=generic_data["global_vars"]["admin_email"],
@@ -98,8 +116,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     requirements="R359. Avoid using generic exceptions.",
                     threat="Autenticated attacker from the Internet.",
-                    attack_vector_description="This is an updated attack "
-                    "vector",
+                    attack_vector_description=(
+                        "This is an updated attack vector"
+                    ),
                 ),
                 "historic_state": [
                     FindingState(
@@ -142,16 +161,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_closed_vulnerabilities=3,
                     unreliable_open_vulnerabilities=5,
-                    unreliable_newest_vulnerability_report_date="2020-12-26T"
-                    "05:45:00"
-                    "+00:00",
-                    unreliable_oldest_open_vulnerability_report_date="2020-0"
-                    "2-24T0"
-                    "5:45:0"
-                    "0+00:00",
-                    unreliable_oldest_vulnerability_report_date="2018-04-01T"
-                    "05:45:00"
-                    "+00:00",
+                    unreliable_newest_vulnerability_report_date=(
+                        "2020-12-26T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=(
+                        "2020-02-24T05:45:00+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=(
+                        "2018-04-01T05:45:00+00:00"
+                    ),
                     unreliable_status=FindingStatus.OPEN,
                     unreliable_where="192.168.1.2",
                 ),
@@ -194,8 +212,10 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         report_confidence=Decimal("1"),
                         user_interaction=Decimal("0.85"),
                     ),
-                    requirements="REQ.0132. Passwords (phrase type) "
-                    "must be at least 3 words long.",
+                    requirements=(
+                        "REQ.0132. Passwords (phrase type) "
+                        "must be at least 3 words long."
+                    ),
                     threat="Updated threat",
                     attack_vector_description="This is an updated attack vect",
                 ),

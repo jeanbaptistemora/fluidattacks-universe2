@@ -22,6 +22,15 @@ async def get_result(
             drafts{{
                 id
             }}
+            enrollment {{
+                enrolled
+                trial{{
+                    completed
+                    extensionDate
+                    extensionDays
+                    startDate
+                }}
+            }}
             hasMobileApp
             isConcurrentSession
             notificationsPreferences{{

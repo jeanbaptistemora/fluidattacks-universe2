@@ -12,6 +12,7 @@ from dataloaders import (
 )
 from db_model import (
     credentials as creds_model,
+    enrollment as enrollment_model,
     events as events_model,
     findings as findings_model,
     group_access as group_access_model,
@@ -26,6 +27,9 @@ from db_model import (
 )
 from db_model.credentials.types import (
     Credentials,
+)
+from db_model.enrollment.types import (
+    Enrollment,
 )
 from db_model.events.types import (
     Event,
@@ -398,6 +402,13 @@ async def populate_events(data: list[Any]) -> bool:
         for item in data
     )
     await collect([_populate_event_historic_state(item) for item in data])
+    return True
+
+
+async def populate_enrollments(data: tuple[Enrollment, ...]) -> bool:
+    await collect(
+        enrollment_model.add(enrollment=enrollment) for enrollment in data
+    )
     return True
 
 
