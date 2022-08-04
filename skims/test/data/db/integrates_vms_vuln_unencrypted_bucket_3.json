@@ -72,6 +72,9 @@
           "finding_id": {
             "S": "ac27825e-b74e-4fe1-bb7c-eece7f9f6457"
           },
+          "group_name": {
+            "S": "jessup"
+          },
           "id": {
             "S": "226fe320-8986-4c94-8305-76d773bbeded"
           },
