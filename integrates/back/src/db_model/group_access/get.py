@@ -52,6 +52,8 @@ async def _get_group_access(
 
 
 async def _get_group_stakeholders_access(
+    *,
+    access_dataloader: DataLoader,
     group_name: str,
 ) -> tuple[GroupAccess, ...]:
     primary_key = keys.build_key(
@@ -75,10 +77,18 @@ async def _get_group_stakeholders_access(
         index=index,
     )
 
-    return tuple(format_group_access(item) for item in response.items)
+    access_list: list[GroupAccess] = []
+    for item in response.items:
+        access = format_group_access(item)
+        access_list.append(access)
+        access_dataloader.prime((group_name, access.email), access)
+
+    return tuple(access_list)
 
 
 async def _get_stakeholder_groups_access(
+    *,
+    access_dataloader: DataLoader,
     email: str,
 ) -> tuple[GroupAccess, ...]:
     primary_key = keys.build_key(
@@ -98,7 +108,13 @@ async def _get_stakeholder_groups_access(
         table=TABLE,
     )
 
-    return tuple(format_group_access(item) for item in response.items)
+    access_list: list[GroupAccess] = []
+    for item in response.items:
+        access = format_group_access(item)
+        access_list.append(access)
+        access_dataloader.prime((access.group_name, email), access)
+
+    return tuple(access_list)
 
 
 class GroupAccessLoader(DataLoader):
@@ -115,20 +131,38 @@ class GroupAccessLoader(DataLoader):
 
 
 class GroupStakeholdersAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: Iterable[str]
     ) -> tuple[tuple[GroupAccess, ...], ...]:
         return await collect(
-            tuple(map(_get_group_stakeholders_access, group_names))
+            tuple(
+                _get_group_stakeholders_access(
+                    access_dataloader=self.dataloader, group_name=group_name
+                )
+                for group_name in group_names
+            )
         )
 
 
 class StakeholderGroupsAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[tuple[GroupAccess, ...], ...]:
         return await collect(
-            tuple(map(_get_stakeholder_groups_access, emails))
+            tuple(
+                _get_stakeholder_groups_access(
+                    access_dataloader=self.dataloader, email=email
+                )
+                for email in emails
+            )
         )

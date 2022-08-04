@@ -144,11 +144,10 @@ class Dataloaders(NamedTuple):
     group_toe_lines: GroupToeLinesLoader
     group_unreliable_indicators: GroupUnreliableIndicatorsLoader
     group_stakeholders_access: GroupStakeholdersAccessLoader
-    stakeholder_groups_access: StakeholderGroupsAccessLoader
+    me_drafts: MeDraftsLoader
     me_vulnerabilities: AssignedVulnerabilitiesLoader
     organization_access: OrganizationAccessLoader
     organization_credentials: OrganizationCredentialsLoader
-    me_drafts: MeDraftsLoader
     organization_groups: OrganizationGroupsLoader
     organization_portfolios: OrganizationPortfoliosLoader
     organization_roots: OrganizationRootsLoader
@@ -157,18 +156,19 @@ class Dataloaders(NamedTuple):
     portfolio: PortfolioLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
-    root_secrets: RootSecretsLoader
     root_historic_cloning: RootHistoricCloningLoader
     root_historic_states: RootHistoricStatesLoader
+    root_secrets: RootSecretsLoader
     root_toe_inputs: RootToeInputsLoader
     root_toe_lines: RootToeLinesLoader
     root_vulnerabilities: RootVulnerabilitiesLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderLoader
-    stakeholder_with_fallback: StakeholderWithFallbackLoader
+    stakeholder_groups_access: StakeholderGroupsAccessLoader
     stakeholder_level_role: StakeholderLevelRoleLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
+    stakeholder_with_fallback: StakeholderWithFallbackLoader
     user_credentials: UserCredentialsLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
@@ -216,6 +216,20 @@ def get_new_context() -> Dataloaders:
     stakeholder_with_fallback = StakeholderWithFallbackLoader(
         stakeholder_loader
     )
+    group_access_loader = GroupAccessLoader()
+    group_stakeholders_access_loader = GroupStakeholdersAccessLoader(
+        group_access_loader
+    )
+    stakeholder_groups_access_loader = StakeholderGroupsAccessLoader(
+        group_access_loader
+    )
+    organization_access_loader = OrganizationAccessLoader()
+    organization_stakeholders_access_loader = (
+        OrganizationStakeholdersAccessLoader(organization_access_loader)
+    )
+    stakeholder_organizations_access_loader = (
+        StakeholderOrganizationsAccessLoader(organization_access_loader)
+    )
 
     return Dataloaders(
         credentials=CredentialsLoader(),
@@ -243,7 +257,7 @@ def get_new_context() -> Dataloaders:
         ),
         git_environment_urls=GitEnvironmentUrlsLoader(),
         group=GroupLoader(),
-        group_access=GroupAccessLoader(),
+        group_access=group_access_loader,
         group_comments=GroupCommentsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
@@ -253,35 +267,35 @@ def get_new_context() -> Dataloaders:
         group_roots=GroupRootsLoader(),
         group_toe_inputs=GroupToeInputsLoader(),
         group_toe_lines=GroupToeLinesLoader(),
+        group_stakeholders_access=group_stakeholders_access_loader,
         group_unreliable_indicators=GroupUnreliableIndicatorsLoader(),
-        group_stakeholders_access=GroupStakeholdersAccessLoader(),
-        stakeholder_groups_access=StakeholderGroupsAccessLoader(),
-        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         me_drafts=MeDraftsLoader(),
-        organization_access=OrganizationAccessLoader(),
+        me_vulnerabilities=AssignedVulnerabilitiesLoader(),
+        organization=OrganizationLoader(),
+        organization_access=organization_access_loader,
         organization_groups=OrganizationGroupsLoader(),
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),
         organization_stakeholders_access=(
-            OrganizationStakeholdersAccessLoader()
+            organization_stakeholders_access_loader
         ),
-        organization=OrganizationLoader(),
         portfolio=PortfolioLoader(),
         root=RootLoader(),
-        root_machine_executions=RootMachineExecutionsLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),
+        root_machine_executions=RootMachineExecutionsLoader(),
         root_secrets=RootSecretsLoader(),
         root_toe_inputs=RootToeInputsLoader(),
         root_toe_lines=RootToeLinesLoader(),
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
-        stakeholder_with_fallback=stakeholder_with_fallback,
+        stakeholder_groups_access=stakeholder_groups_access_loader,
         stakeholder_level_role=StakeholderLevelRoleLoader(),
         stakeholder_organizations_access=(
-            StakeholderOrganizationsAccessLoader()
+            stakeholder_organizations_access_loader
         ),
+        stakeholder_with_fallback=stakeholder_with_fallback,
         toe_input=ToeInputLoader(),
         toe_lines=ToeLinesLoader(),
         user_credentials=UserCredentialsLoader(),

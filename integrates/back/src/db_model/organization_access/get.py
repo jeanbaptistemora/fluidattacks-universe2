@@ -53,6 +53,8 @@ async def _get_organization_access(
 
 
 async def _get_organization_stakeholders_access(
+    *,
+    access_dataloader: DataLoader,
     organization_id: str,
 ) -> tuple[OrganizationAccess, ...]:
     primary_key = keys.build_key(
@@ -76,10 +78,18 @@ async def _get_organization_stakeholders_access(
         index=index,
     )
 
-    return tuple(format_organization_access(item) for item in response.items)
+    access_list: list[OrganizationAccess] = []
+    for item in response.items:
+        access = format_organization_access(item)
+        access_list.append(access)
+        access_dataloader.prime((organization_id, access.email), access)
+
+    return tuple(access_list)
 
 
 async def _get_stakeholder_organizations_access(
+    *,
+    access_dataloader: DataLoader,
     email: str,
 ) -> tuple[OrganizationAccess, ...]:
     primary_key = keys.build_key(
@@ -99,7 +109,13 @@ async def _get_stakeholder_organizations_access(
         table=TABLE,
     )
 
-    return tuple(format_organization_access(item) for item in response.items)
+    access_list: list[OrganizationAccess] = []
+    for item in response.items:
+        access = format_organization_access(item)
+        access_list.append(access)
+        access_dataloader.prime((access.organization_id, email), access)
+
+    return tuple(access_list)
 
 
 class OrganizationAccessLoader(DataLoader):
@@ -118,20 +134,40 @@ class OrganizationAccessLoader(DataLoader):
 
 
 class OrganizationStakeholdersAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
     ) -> tuple[tuple[OrganizationAccess, ...], ...]:
         return await collect(
-            tuple(map(_get_organization_stakeholders_access, organization_ids))
+            tuple(
+                _get_organization_stakeholders_access(
+                    access_dataloader=self.dataloader,
+                    organization_id=organization_id,
+                )
+                for organization_id in organization_ids
+            )
         )
 
 
 class StakeholderOrganizationsAccessLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
     ) -> tuple[tuple[OrganizationAccess, ...], ...]:
         return await collect(
-            tuple(map(_get_stakeholder_organizations_access, emails))
+            tuple(
+                _get_stakeholder_organizations_access(
+                    access_dataloader=self.dataloader,
+                    email=email,
+                )
+                for email in emails
+            )
         )
