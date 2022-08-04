@@ -9,6 +9,7 @@ makeScript {
     bin = [
       outputs."${inputs.observesIndex.tap.dynamo.bin}"
       outputs."${inputs.observesIndex.tap.json.bin}"
+      outputs."${inputs.observesIndex.target.s3.bin}"
     ];
     source = [
       outputs."${inputs.observesIndex.target.redshift_2.bin}"

@@ -1,8 +1,0 @@
-{
-    "python.pythonPath": "/nix/store/qafjx1f65qjz4cv9xk1nn899w47jlajw-python3-3.10.4-env/bin/python",
-    "python.testing.pytestArgs": [
-        "tests"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
-}

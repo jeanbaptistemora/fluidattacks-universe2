@@ -64,9 +64,15 @@ function dynamodb_etl {
       > "${data}" \
     && get_schemas "${use_cache}" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
     && cat "${singer_file}" > .singer \
-    && target-redshift destroy-and-upload \
+    && target-s3 \
+      --bucket 'observes.etl-data' \
+      --prefix 'test_dynamo/' \
+      < .singer \
+    && target-redshift from-s3 \
       --schema-name "test_${schema}" \
-      --truncate \
+      --bucket 'observes.etl-data' \
+      --prefix 'test_dynamo/' \
+      --role 'arn:aws:iam::205810638802:role/redshift-role' \
       < .singer
 }
 
