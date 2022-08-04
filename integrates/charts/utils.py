@@ -283,3 +283,25 @@ def format_cvssf_log(cvssf: Decimal) -> Decimal:
         )
 
     return Decimal(math.log2(cvssf))
+
+
+def format_cvssf_log_adjusted(cvssf: Decimal) -> Decimal:
+    cvssf_log: Decimal
+    if cvssf == Decimal("0.0"):
+        return cvssf.quantize(Decimal("0.1"))
+
+    if abs(cvssf) >= MAX_WITH_DECIMALS:
+        cvssf_log = Decimal(
+            math.log2(
+                abs(cvssf.to_integral_exact(rounding=ROUND_FLOOR))
+                * Decimal("10.0")
+            )
+        )
+        return (
+            cvssf_log
+            if cvssf > Decimal("0.0")
+            else cvssf_log * Decimal("-1.0")
+        )
+
+    cvssf_log = Decimal(math.log2(abs(cvssf) * Decimal("10.0")))
+    return cvssf_log if cvssf > Decimal("0.0") else cvssf_log * Decimal("-1.0")

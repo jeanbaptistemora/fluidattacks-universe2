@@ -19,7 +19,7 @@ from charts.generators.text_box.utils_vulnerabilities_remediation import (
 )
 from charts.utils import (
     format_cvssf,
-    format_cvssf_log,
+    format_cvssf_log_adjusted,
     get_cvssf,
     get_portfolios_groups,
     iterate_groups,
@@ -177,20 +177,20 @@ async def get_data_many_groups(
 
 
 def format_data(data: Counter[str], categories: list[str]) -> dict:
+    categories_trend: list[Decimal] = [
+        Decimal(data[f"{category}/open"] - data[f"{category}/closed"])
+        for category in categories
+    ]
     return dict(
         data=dict(
             columns=[
                 ["Exposure"]
                 + [
-                    format_cvssf_log(
-                        Decimal(
-                            data[f"{category}/open"]
-                            - data[f"{category}/closed"]
-                        )
-                    )
-                    for category in categories
+                    format_cvssf_log_adjusted(category)
+                    for category in categories_trend
                 ],
             ],
+            color=None,
             colors={
                 "Exposure": RISK.more_agressive,
             },
@@ -198,7 +198,12 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             type="bar",
         ),
         legend=dict(
-            position="bottom",
+            show=False,
+        ),
+        grid=dict(
+            y=dict(
+                show=True,
+            ),
         ),
         axis=dict(
             x=dict(
@@ -216,43 +221,21 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
                 ),
             ),
         ),
-        maxValue=format_max_value(
+        maxValueLogAdjusted=format_max_value(
             [
-                (
-                    category,
-                    Decimal(
-                        data[f"{category}/open"] - data[f"{category}/closed"]
-                    ),
-                )
-                for category in categories
-            ]
-        ),
-        maxValueLog=format_max_value(
-            [
-                (
-                    category,
-                    format_cvssf_log(
-                        Decimal(
-                            data[f"{category}/open"]
-                            - data[f"{category}/closed"]
-                        )
-                    ),
-                )
-                for category in categories
+                (category, format_cvssf_log_adjusted(abs(value)))
+                for category, value in zip(categories, categories_trend)
             ]
         ),
         originalValues=[
-            format_cvssf(
-                Decimal(data[f"{category}/open"] - data[f"{category}/closed"])
-            )
-            for category in categories
+            format_cvssf(category) for category in categories_trend
         ],
     )
 
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    unique_categories: list[str] = list(set(CATEGORIES.values()))
+    unique_categories: list[str] = list(sorted(set(CATEGORIES.values())))
     async for group in iterate_groups():
         document = format_data(
             data=await get_data_one_group(group=group, loaders=loaders),
