@@ -22,8 +22,9 @@ terraform {
 
 }
 
-provider "aws" {}
-
+provider "aws" {
+  region = "us-east-1"
+}
 provider "cloudflare" {
   email   = var.cloudflareEmail
   api_key = var.cloudflareApiKey

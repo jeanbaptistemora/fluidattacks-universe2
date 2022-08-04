@@ -21,8 +21,9 @@ terraform {
   }
 }
 
-provider "aws" {}
-
+provider "aws" {
+  region = "us-east-1"
+}
 provider "checkly" {
   account_id = var.accountId
   api_key    = var.apiKey

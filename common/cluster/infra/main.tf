@@ -38,7 +38,9 @@ terraform {
 
 }
 
-provider "aws" {}
+provider "aws" {
+  region = "us-east-1"
+}
 provider "helm" {
   kubernetes {
     host                   = module.cluster.cluster_endpoint

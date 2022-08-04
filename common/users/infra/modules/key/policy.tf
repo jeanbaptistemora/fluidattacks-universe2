@@ -3,10 +3,14 @@ locals {
   admin_arns = concat(
     ["arn:aws:iam::${data.aws_caller_identity.main.account_id}:root"],
     [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"],
+    [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_small-docker-machine"],
+    [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_large-docker-machine"],
     [for user in var.admins : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"],
   )
   user_arns = concat(
     [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"],
+    [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_small-docker-machine"],
+    [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_large-docker-machine"],
     [for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"],
   )
   policy = {

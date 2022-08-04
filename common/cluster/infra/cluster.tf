@@ -55,9 +55,33 @@ module "cluster" {
 
   # Auth
   manage_aws_auth_configmap = true
-  aws_auth_roles            = local.cluster_roles
-  aws_auth_users            = local.cluster_users
-  aws_auth_accounts         = local.cluster_accounts
+  aws_auth_accounts         = [data.aws_caller_identity.main.account_id]
+  aws_auth_users = [
+    for user in local.cluster_users : {
+      userarn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:user/${user}"
+      username = user
+      groups   = ["system:masters"]
+    }
+  ]
+  aws_auth_roles = flatten([
+    for user in local.cluster_users : [
+      {
+        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
+        username = user
+        groups   = ["system:masters"]
+      },
+      {
+        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_small-docker-machine"
+        username = "common-ci-${user}_small-docker-machine"
+        groups   = ["system:masters"]
+      },
+      {
+        rolearn  = "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/common-ci-${user}_large-docker-machine"
+        username = "common-ci-${user}_large-docker-machine"
+        groups   = ["system:masters"]
+      },
+    ]
+  ])
 
   tags = {
     "Name"                   = "common-kubernetes"
