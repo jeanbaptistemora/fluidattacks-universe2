@@ -1,12 +1,3 @@
-from .core import (
-    should_send_update_treatment,
-)
-from .utils import (
-    compare_historic_treatments,
-    format_vulnerability_locations,
-    get_valid_assigned,
-    validate_acceptance,
-)
 from aioextensions import (
     collect,
     in_thread,
@@ -79,6 +70,15 @@ from typing import (
     Dict,
     List,
     Optional,
+)
+from vulnerabilities.domain.core import (
+    should_send_update_treatment,
+)
+from vulnerabilities.domain.utils import (
+    compare_historic_treatments,
+    format_vulnerability_locations,
+    get_valid_assigned,
+    validate_acceptance,
 )
 
 
@@ -610,7 +610,7 @@ async def validate_and_send_notification_request(
     # Validate assigned
     if assigned_vulns[0].treatment:
         assigned = str(assigned_vulns[0].treatment.assigned)
-        if assigned is None:
+        if not assigned:
             raise InvalidNotificationRequest(
                 "Some of the provided vulns don't have any assigned hackers"
             )
