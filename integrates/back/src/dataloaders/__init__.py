@@ -188,7 +188,7 @@ def apply_context_attrs(
     return context
 
 
-def get_new_context() -> Dataloaders:
+def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
     group_drafts_and_findings_loader = GroupDraftsAndFindingsLoader()
     group_findings_loader = GroupFindingsLoader(
         group_drafts_and_findings_loader
@@ -211,6 +211,11 @@ def get_new_context() -> Dataloaders:
             finding_vulns_non_deleted_loader
         )
     )
+
+    event_loader = EventLoader()
+    group_events_loader = GroupEventsLoader(event_loader)
+    group_loader = GroupLoader()
+    organization_groups_loader = OrganizationGroupsLoader(group_loader)
 
     stakeholder_loader = StakeholderLoader()
     stakeholder_with_fallback = StakeholderWithFallbackLoader(
@@ -236,7 +241,7 @@ def get_new_context() -> Dataloaders:
         enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event_historic_state=EventsHistoricStateLoader(),
-        event=EventLoader(),
+        event=event_loader,
         event_comments=EventCommentsLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
@@ -256,12 +261,12 @@ def get_new_context() -> Dataloaders:
             FindingVulnerabilitiesOnlyZeroRiskConnectionLoader()
         ),
         git_environment_urls=GitEnvironmentUrlsLoader(),
-        group=GroupLoader(),
+        group=group_loader,
         group_access=group_access_loader,
         group_comments=GroupCommentsLoader(),
         group_drafts=GroupDraftsLoader(group_drafts_and_findings_loader),
         group_drafts_and_findings=group_drafts_and_findings_loader,
-        group_events=GroupEventsLoader(),
+        group_events=group_events_loader,
         group_findings=group_findings_loader,
         group_historic_state=GroupHistoricStateLoader(),
         group_roots=GroupRootsLoader(),
@@ -273,7 +278,7 @@ def get_new_context() -> Dataloaders:
         me_vulnerabilities=AssignedVulnerabilitiesLoader(),
         organization=OrganizationLoader(),
         organization_access=organization_access_loader,
-        organization_groups=OrganizationGroupsLoader(),
+        organization_groups=organization_groups_loader,
         organization_portfolios=OrganizationPortfoliosLoader(),
         organization_credentials=OrganizationCredentialsLoader(),
         organization_roots=OrganizationRootsLoader(),

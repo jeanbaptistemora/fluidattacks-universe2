@@ -96,7 +96,11 @@ async def _get_group_unreliable_indicators(
     return format_unreliable_indicators(item)
 
 
-async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
+async def _get_organization_groups(
+    *,
+    group_dataloader: DataLoader,
+    organization_id: str,
+) -> tuple[Group, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"organization_id": remove_org_id_prefix(organization_id)},
@@ -116,7 +120,13 @@ async def _get_organization_groups(organization_id: str) -> tuple[Group, ...]:
         index=index,
     )
 
-    return tuple(format_group(item) for item in response.items)
+    groups: list[Group] = []
+    for item in response.items:
+        group = format_group(item)
+        groups.append(group)
+        group_dataloader.prime(group.name, group)
+
+    return tuple(groups)
 
 
 class GroupLoader(DataLoader):
@@ -158,10 +168,20 @@ class GroupUnreliableIndicatorsLoader(DataLoader):
 
 
 class OrganizationGroupsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: Iterable[str]
     ) -> tuple[tuple[Group, ...], ...]:
         return await collect(
-            tuple(map(_get_organization_groups, organization_ids))
+            tuple(
+                _get_organization_groups(
+                    group_dataloader=self.dataloader,
+                    organization_id=organization_id,
+                )
+                for organization_id in organization_ids
+            )
         )

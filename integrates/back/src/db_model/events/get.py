@@ -58,6 +58,8 @@ async def _get_event(*, event_id: str) -> Event:
 
 
 async def _get_group_events(
+    *,
+    event_dataloader: DataLoader,
     request: GroupEventsRequest,
 ) -> tuple[Event, ...]:
     if request.is_solved is None:
@@ -93,7 +95,13 @@ async def _get_group_events(
         index=index,
     )
 
-    return tuple(format_event(item) for item in response.items)
+    events: list[Event] = []
+    for item in response.items:
+        event = format_event(item)
+        events.append(event)
+        event_dataloader.prime(event.id, event)
+
+    return tuple(events)
 
 
 async def _get_historic_state(
@@ -120,7 +128,7 @@ class EventsHistoricStateLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
         self, event_ids: Iterable[str]
-    ) -> tuple[tuple[Event, ...], ...]:
+    ) -> tuple[tuple[EventState, ...], ...]:
         return await collect(
             tuple(
                 _get_historic_state(event_id=event_id)
@@ -141,8 +149,20 @@ class EventLoader(DataLoader):
 
 
 class GroupEventsLoader(DataLoader):
-    # pylint: disable=no-self-use,method-hidden
+    def __init__(self, dataloader: DataLoader) -> None:
+        super().__init__()
+        self.dataloader = dataloader
+
+    # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupEventsRequest]
     ) -> tuple[tuple[Event, ...], ...]:
-        return await collect(tuple(map(_get_group_events, requests)))
+        return await collect(
+            tuple(
+                _get_group_events(
+                    event_dataloader=self.dataloader,
+                    request=request,
+                )
+                for request in requests
+            )
+        )
