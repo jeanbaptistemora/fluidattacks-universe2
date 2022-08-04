@@ -1,15 +1,21 @@
 {
-  "FI_project_access": [
+  "integrates_vms": [
     {
       "PutRequest": {
         "Item": {
+          "pk": {
+            "S": "USER#customer@domain.com"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
           "has_access": {
             "BOOL": true
           },
-          "project_name": {
+          "group_name": {
             "S": "jessup"
           },
-          "user_email": {
+          "email": {
             "S": "customer@domain.com"
           }
         }
@@ -18,6 +24,12 @@
     {
       "PutRequest": {
         "Item": {
+          "pk": {
+            "S": "USER#forces.jessup@fluidattacks.com"
+          },
+          "sk": {
+            "S": "GROUP#jessup"
+          },
           "has_access": {
             "BOOL": true
           },
@@ -37,13 +49,13 @@
               }
             }
           },
-          "project_name": {
+          "group_name": {
             "S": "jessup"
           },
           "responsibility": {
             "S": "Forces service user"
           },
-          "user_email": {
+          "email": {
             "S": "forces.jessup@fluidattacks.com"
           }
         }
