@@ -24,7 +24,7 @@ class _Page:
 @dataclass(frozen=True)
 class Page(_Page):
     def __init__(self, obj: _Page) -> None:
-        return super().__init__(obj.page_num, obj.per_page)
+        super().__init__(obj.page_num, obj.per_page)
 
     @staticmethod
     def new_page(page_num: int, per_page: int) -> ResultE[Page]:

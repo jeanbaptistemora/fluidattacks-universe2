@@ -48,7 +48,7 @@ _T = TypeVar("_T")
 
 class UnexpectedType(Exception):
     def __init__(self, obj: _T, expected: str) -> None:
-        return super().__init__(
+        super().__init__(
             f"Expected `{expected}` but got `{type(obj).__name__}`"
         )
 
