@@ -22,6 +22,7 @@ from model.graph_model import (
     GraphShardMetadataLanguage,
     GraphShardNodes,
     MetadataGraphShardNodes,
+    NId,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
@@ -35,9 +36,9 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
-    Dict,
     Optional,
     Set,
+    Tuple,
 )
 import utils.graph as g
 from utils.graph.text_nodes import (
@@ -96,6 +97,17 @@ def _old_insecure_keys_check(
                 == "RSACryptoServiceProvider"
             ):
                 yield shard, member
+
+
+def _get_mode_node(
+    graph: Graph,
+    members: Tuple[str, ...],
+    identifier: str,
+) -> Optional[NId]:
+    for member in members:
+        if graph.nodes[member].get(identifier) == "Mode":
+            test_node = graph.nodes[g.pred(graph, member)[0]].get("value_id")
+    return test_node
 
 
 def c_sharp_insecure_keys(
@@ -190,46 +202,42 @@ def c_sharp_aesmanaged_secure_mode(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    unsafe_modes = {
-        "CipherMode.ECB",
-        "CipherMode.OFB",
-        "CipherMode.CFB",
-    }
+    method = MethodsEnum.CS_AES_SECURE_MODE
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
-            for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="object_creation_expression"
-                ),
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for nid in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="ObjectCreation"),
             ):
-                match_object_creation = g.match_ast(
-                    shard.graph, member, "__0__"
-                )
-
-                if (
-                    shard.graph.nodes[match_object_creation["__1__"]].get(
-                        "label_text"
+                if not graph.nodes[nid].get("name") == "AesManaged":
+                    continue
+                if g.match_ast(graph, nid, "InitializerExpression")[
+                    "InitializerExpression"
+                ]:
+                    props = g.get_ast_childs(
+                        graph, nid, "SymbolLookup", depth=3
                     )
-                    == "AesManaged"
-                ) and check_props(shard.graph, match_object_creation):
-                    yield shard, member
-
-    def check_props(graph: Graph, match: Dict[str, Optional[str]]) -> bool:
-        insecure = False
-        props = g.get_ast_childs(
-            graph, str(match["__2__"]), "member_access_expression", depth=2
-        )
-
-        for prop in props:
-            if node_to_str(graph, prop) in unsafe_modes:
-                insecure = True
-
-        return insecure
+                    test_node = _get_mode_node(graph, props, "symbol")
+                else:
+                    var_name = graph.nodes[g.pred(graph, nid)[0]].get(
+                        "variable"
+                    )
+                    members = [
+                        *yield_syntax_graph_member_access(graph, var_name)
+                    ]
+                    test_node = _get_mode_node(graph, tuple(members), "member")
+                if test_node:
+                    for path in get_backward_paths(graph, test_node):
+                        evaluation = evaluate(method, graph, path, test_node)
+                        if evaluation and evaluation.danger:
+                            yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
@@ -302,9 +310,12 @@ def c_sharp_insecure_hash(
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
             for member in [
-                *yield_shard_member_access(shard, insecure_ciphers),
-                *yield_shard_object_creation(shard, insecure_ciphers),
+                *yield_syntax_graph_member_access(graph, insecure_ciphers),
+                *yield_syntax_graph_object_creation(graph, insecure_ciphers),
             ]:
                 yield shard, member
 
