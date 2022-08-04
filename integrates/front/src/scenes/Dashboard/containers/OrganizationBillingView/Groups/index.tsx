@@ -23,6 +23,7 @@ import { UPDATE_GROUP_MUTATION } from "scenes/Dashboard/containers/OrganizationB
 import type {
   IGetOrganizationBilling,
   IGroupAttr,
+  IPaymentMethodAttr,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Can } from "utils/authz/Can";
 import { useStoredState } from "utils/hooks";
@@ -42,12 +43,14 @@ interface IOrganizationGroupsProps {
   billingPortal: string;
   groups: IGroupAttr[];
   onUpdate: () => Promise<ApolloQueryResult<IGetOrganizationBilling>>;
+  paymentMethods: IPaymentMethodAttr[];
 }
 
 export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   billingPortal,
   groups,
   onUpdate,
+  paymentMethods,
 }: IOrganizationGroupsProps): JSX.Element => {
   const { t } = useTranslation();
 
@@ -64,6 +67,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     machine: "",
     managed: "NOT_MANUALLY",
     name: "",
+    paymentId: "",
     permissions: [],
     service: "",
     squad: "",
@@ -542,6 +546,8 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           managed={currentRow.managed}
           onClose={closeModal}
           onSubmit={handleUpdateGroupSubmit}
+          paymentId={currentRow.paymentId}
+          paymentMethods={paymentMethods}
           permissions={currentRow.permissions}
         />
       )}

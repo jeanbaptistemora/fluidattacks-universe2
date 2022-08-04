@@ -12,6 +12,7 @@ interface IGroupAttr {
   machine: string;
   managed: "MANUALLY" | "NOT_MANUALLY" | "UNDER_REVIEW";
   name: string;
+  paymentId: string | null;
   permissions: string[];
   service: string;
   squad: string;

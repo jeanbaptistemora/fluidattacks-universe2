@@ -1478,6 +1478,7 @@ export const enTranslations: ResourceKey = {
             underReview: "Under review",
           },
           name: "Group name",
+          paymentMethod: "Payment Method",
           title: "Groups",
           updateSubscription: {
             errors: {

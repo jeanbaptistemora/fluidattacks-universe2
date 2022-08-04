@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import { Modal, ModalConfirm } from "components/Modal";
+import type { IPaymentMethodAttr } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
 
@@ -16,11 +17,14 @@ interface IUpdateSubscriptionProps {
     managed: string;
     subscription: string;
   }) => Promise<void>;
+  paymentId: string | null;
+  paymentMethods: IPaymentMethodAttr[];
   permissions: string[];
 }
 
 const validations = object().shape({
   managed: string().required(),
+  paymentId: string().required(),
   subscription: string().required(),
 });
 
@@ -30,6 +34,8 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
   managed,
   onClose,
   onSubmit,
+  paymentId,
+  paymentMethods,
   permissions,
 }: IUpdateSubscriptionProps): JSX.Element => {
   const { t } = useTranslation();
@@ -46,6 +52,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
         initialValues={{
           groupName,
           managed,
+          paymentId,
           subscription: initialValue,
         }}
         name={"updateSubscription"}
@@ -64,6 +71,23 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 name={"groupName"}
                 value={groupName}
               />
+            </div>
+            <div className={"pt2"}>
+              <ControlLabel>
+                <RequiredField>{"*"}&nbsp;</RequiredField>
+                {t("organization.tabs.billing.groups.paymentMethod")}
+              </ControlLabel>
+              <Field component={FormikDropdown} name={"paymentId"}>
+                {paymentMethods.map(
+                  (method): JSX.Element => (
+                    <option key={method.id} value={method.id}>{`${
+                      method.lastFourDigits === ""
+                        ? `${method.country}, ${method.businessName}`
+                        : `${method.brand}, ${method.lastFourDigits}`
+                    }`}</option>
+                  )
+                )}
+              </Field>
             </div>
             <div className={"pt2"}>
               <ControlLabel>

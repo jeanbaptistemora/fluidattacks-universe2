@@ -78,6 +78,7 @@ describe("Organization billing groups view", (): void => {
                     machine: "",
                     managed: "MANUALLY",
                     name: "unittesting",
+                    paymentId: "280fe281-e190-45af-b733-a24889b96fd1",
                     permissions: [
                       "api_mutations_update_subscription_mutate",
                       "api_mutations_update_group_managed_mutate",
@@ -88,6 +89,7 @@ describe("Organization billing groups view", (): void => {
                   },
                 ]}
                 onUpdate={onUpdate}
+                paymentMethods={[]}
               />
             </authzPermissionsContext.Provider>
           </Route>

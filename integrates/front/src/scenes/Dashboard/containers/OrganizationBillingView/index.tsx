@@ -67,6 +67,7 @@ export const OrganizationBilling: React.FC<IOrganizationBillingProps> = (
         billingPortal={billingPortal}
         groups={groups}
         onUpdate={refetch}
+        paymentMethods={paymentMethods}
       />
       <OrganizationPaymentMethods
         onUpdate={refetch}
