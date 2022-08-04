@@ -5,6 +5,7 @@ from ctx import (
 from model import (
     core_model,
 )
+import re
 import sarif_om
 from state.ephemeral import (
     EphemeralStore,
@@ -12,6 +13,7 @@ from state.ephemeral import (
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 from utils.repositories import (
     get_repo_branch,
@@ -113,6 +115,23 @@ def _taxa_is_present(base: sarif_om.SarifLog, taxa_id: str) -> bool:
     return False
 
 
+def _get_sca_info(what: str) -> Optional[Dict[str, Any]]:
+    try:
+        str_info = what.split(" ", maxsplit=1)[1]
+    except IndexError:
+        return None
+    if match := re.match(
+        r"\((?P<name>(\S+)) v(?P<version>(.+))\) \[(?P<cve>(.+))\]", str_info
+    ):
+        match_dict = match.groupdict()
+        return dict(
+            dependency_name=match_dict["name"],
+            dependency_version=match_dict["version"],
+            cve=match_dict["cve"].split(", "),
+        )
+    return None
+
+
 def _format_what(what: str) -> str:
     if " " in what:
         return what.split(" ")[0]
@@ -172,14 +191,28 @@ def _get_sarif(
         for vulnerability in store.iterate():
             # remove F from findings
             rule_id = vulnerability.finding.name.replace("F", "")
+            properties = {}
+            if (
+                (vulnerability.skims_metadata)
+                and (
+                    vulnerability.skims_metadata.technique
+                    == core_model.TechniqueEnum.SCA
+                )
+                and (sca_info := _get_sca_info(vulnerability.what))
+            ):
+                properties = sca_info
+
             result = sarif_om.Result(
                 rule_id=rule_id,
                 level="error",
                 kind="open",
                 message=sarif_om.MultiformatMessageString(
-                    text=vulnerability.skims_metadata.description
-                    if vulnerability.skims_metadata
-                    else ""
+                    text=(
+                        vulnerability.skims_metadata.description
+                        if vulnerability.skims_metadata
+                        else ""
+                    ),
+                    properties=properties,
                 ),
                 locations=[
                     sarif_om.Location(
@@ -207,6 +240,9 @@ def _get_sarif(
                         else ""
                     ),
                     "stream": vulnerability.stream,
+                    "technique": vulnerability.skims_metadata.technique.value
+                    if vulnerability.skims_metadata
+                    else "",
                 },
             )
 

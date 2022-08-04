@@ -41,8 +41,29 @@ async def get_vulnerabilities(
     execution_id: str, namespace: str
 ) -> core_model.Vulnerabilities:
     current_results = await get_results(execution_id)
-    vulnerabilities = tuple(
-        core_model.Vulnerability(
+    vulnerabilities: core_model.Vulnerabilities = ()
+    for vuln in current_results["runs"][0]["results"]:
+        what = vuln["locations"][0]["physicalLocation"]["artifactLocation"][
+            "uri"
+        ]
+        if (
+            (properties := vuln.get("properties"))
+            and (technique_value := properties.get("technique"))
+            and (technique_value == core_model.TechniqueEnum.SCA.value)
+            and (message_properties := vuln["message"].get("properties"))
+            and (message_properties)
+        ):
+            what = " ".join(
+                (
+                    what,
+                    (
+                        f"({message_properties['dependency_name']} "
+                        f"v{message_properties['dependency_version']})"
+                    ),
+                    f"[{', '.join(message_properties['cve'])}]",
+                )
+            )
+        parsed_vuln = core_model.Vulnerability(
             core_model.FindingEnum[f"F{vuln['ruleId']}"],
             kind=core_model.VulnerabilityKindEnum[
                 vuln["properties"]["kind"].upper()
@@ -66,13 +87,12 @@ async def get_vulnerabilities(
                 ]["text"],
             ),
         )
-        for vuln in current_results["runs"][0]["results"]
-    )
+        vulnerabilities = (*vulnerabilities, parsed_vuln)
 
     return vulnerabilities
 
 
-async def _report_wrapped(task_id: str) -> None:
+async def report_wrapped(task_id: str) -> None:
     group = task_id.split("_")[0]
     batch_job_id = task_id.split("_")[1]
     load_config = await get_config(task_id)
@@ -100,4 +120,4 @@ async def _report_wrapped(task_id: str) -> None:
 
 @app.task(serializer="json", name="process-skims-result")
 def report(task_id: str) -> None:
-    asyncio.run(_report_wrapped(task_id))
+    asyncio.run(report_wrapped(task_id))
