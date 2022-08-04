@@ -303,10 +303,13 @@ async def generate_configs(
                     include=(path,),
                     exclude=tuple(
                         {
-                            _path
+                            (
+                                _path
+                                if not path.startswith(f"{_path}/")
+                                else f"{_path}/*"
+                            )
                             for _path in additional_paths
                             if _path != path
-                            and not path.startswith(f"{_path}/")
                         }
                     ),
                 )
