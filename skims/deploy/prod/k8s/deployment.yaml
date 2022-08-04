@@ -44,11 +44,11 @@ spec:
             #   kubectl get pod -n production
             #   kubectl describe pod -n production <pod>
             requests:
-              cpu: 1000m
+              cpu: 400m
               memory: 6000Mi
             limits:
-              cpu: 2000m
-              memory: 6500Mi
+              cpu: 600m
+              memory: 7000Mi
           envFrom:
             - secretRef:
                 name: skims-${NAME}
