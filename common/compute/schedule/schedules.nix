@@ -146,6 +146,7 @@
       "m"
       "gitlab:fluidattacks/universe@trunk"
       "/integrates/streams"
+      "prod"
       "dynamodb"
     ];
 

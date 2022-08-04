@@ -1,6 +1,13 @@
-import boto3
+from dynamodb.context import (
+    FI_DYNAMODB_HOST,
+    FI_DYNAMODB_PORT,
+    FI_ENVIRONMENT,
+)
 from dynamodb.replicator import (
     replicate,
+)
+from dynamodb.utils import (
+    SESSION,
 )
 from threading import (
     Thread,
@@ -11,7 +18,14 @@ from typing import (
     Optional,
 )
 
-CLIENT = boto3.client("dynamodbstreams")
+CLIENT = SESSION.client(
+    endpoint_url=(
+        f"http://{FI_DYNAMODB_HOST}:{FI_DYNAMODB_PORT}"
+        if FI_ENVIRONMENT == "dev"
+        else None
+    ),
+    service_name="dynamodbstreams",
+)
 TABLE_NAME = "integrates_vms"
 
 

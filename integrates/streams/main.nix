@@ -15,6 +15,7 @@ in
     entrypoint = ./entrypoint.sh;
     name = "integrates-streams";
     replace = {
+      __argSecretsDev__ = projectPath "/integrates/secrets/development.yaml";
       __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
     };
     searchPaths = {
