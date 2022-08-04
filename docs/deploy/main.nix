@@ -5,7 +5,7 @@
   ...
 }:
 makeScript {
-  name = "docs";
+  name = "docs-deploy";
   searchPaths = {
     bin = [
       inputs.nixpkgs.awscli
