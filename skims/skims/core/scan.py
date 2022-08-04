@@ -296,11 +296,7 @@ async def main(
     token: Optional[str],
 ) -> bool:
     try:
-        CTX.config = (
-            load(group=group, path=config)
-            if isinstance(config, str)
-            else config
-        )
+        CTX.config = load(group, config) if isinstance(config, str) else config
 
         configure_logs()
         add_bugsnag_data(namespace=CTX.config.namespace)

@@ -24,7 +24,7 @@ async def get_config(execution_id: str) -> SkimsConfig:
                 temp,
             )
             temp.seek(0)
-            return load(group=group, path=temp.name)
+            return load(group, temp.name)
 
 
 async def get_results(execution_id: str) -> Dict[str, Any]:

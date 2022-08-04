@@ -134,11 +134,10 @@ async def main(
 
     vulnerabilities = [
         vulnerability
-        # Exception: WF(AsyncGenerator is subtype of iterator)
         async for vulnerability in iterate_vulnerabilities_to_rebase(
             group=group,
             namespace=namespace,
-        )  # NOSONAR
+        )
     ]
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase = list(
