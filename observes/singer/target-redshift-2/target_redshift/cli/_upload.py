@@ -28,6 +28,7 @@ from target_redshift import (
     loader,
 )
 from target_redshift.loader import (
+    LoadingStrategy,
     SingerHandlerOptions,
 )
 from typing import (
@@ -35,47 +36,6 @@ from typing import (
 )
 
 LOG = logging.getLogger(__name__)
-
-
-def _backup(schema: SchemaId) -> SchemaId:
-    return SchemaId(f"{schema.name}_backup")
-
-
-def _loading(schema: SchemaId) -> SchemaId:
-    return SchemaId(f"{schema.name}_loading")
-
-
-def _post_upload(client: SchemaClient, schema: SchemaId) -> Cmd[None]:
-    _do_nothing = Cmd.from_cmd(lambda: None)
-    drop_backup = client.exist(_backup(schema)).bind(
-        lambda b: client.delete_cascade(_backup(schema)) if b else _do_nothing
-    )
-    rename_old = client.exist(schema).bind(
-        lambda b: client.rename(schema, _backup(schema)) if b else _do_nothing
-    )
-    rename_loading = client.exist(_loading(schema)).bind(
-        lambda b: client.rename(_loading(schema), schema) if b else _do_nothing
-    )
-    return drop_backup + rename_old + rename_loading
-
-
-def _main(
-    conn: DbConnection,
-    schema: SchemaId,
-    records_limit: int,
-    options: SingerHandlerOptions,
-) -> Cmd[None]:
-    client = new_client(conn, LOG)
-    schema_client = client.map(SchemaClient)
-    table_client = client.map(TableClient)
-    recreate = schema_client.bind(
-        lambda c: c.recreate_cascade(_loading(schema))
-    )
-    upload = table_client.bind(
-        lambda c: loader.main(_loading(schema), c, records_limit, options)
-    )
-    post_upload = schema_client.bind(lambda c: _post_upload(c, schema))
-    return recreate + upload + post_upload
 
 
 @click.command()  # type: ignore[misc]
@@ -123,12 +83,24 @@ def destroy_and_upload(
     threads: int,
 ) -> NoReturn:
     _schema = SchemaId(schema_name)
+
+    def _main(conn: DbConnection) -> Cmd[None]:
+        client = new_client(conn, LOG)
+        schema_client = client.map(SchemaClient)
+        table_client = client.map(TableClient)
+        strategy = schema_client.map(lambda s: LoadingStrategy(_schema, s))
+        options = SingerHandlerOptions(
+            truncate,
+            records_per_query,
+            threads,
+        )
+
+        def upload(target: SchemaId) -> Cmd[None]:
+            return table_client.bind(
+                lambda t: loader.main(target, t, records_limit, options)
+            )
+
+        return strategy.bind(lambda ls: ls.main(upload))
+
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
-    options = SingerHandlerOptions(
-        truncate,
-        records_per_query,
-        threads,
-    )
-    connection.bind(
-        lambda c: _main(c, _schema, records_limit, options)
-    ).compute()
+    connection.bind(_main).compute()

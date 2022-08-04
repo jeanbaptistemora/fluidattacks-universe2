@@ -9,6 +9,9 @@ from ._handlers import (
 from ._s3_loader import (
     S3Handler,
 )
+from ._strategy import (
+    LoadingStrategy,
+)
 from fa_purity import (
     Cmd,
     Stream,
@@ -79,4 +82,6 @@ def from_s3(
 
 __all__ = [
     "SingerHandlerOptions",
+    "S3Handler",
+    "LoadingStrategy",
 ]
