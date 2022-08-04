@@ -8,6 +8,8 @@ type Me {
   credentials: [Credentials!]
   "New findings yet to be approved"
   drafts: [Finding!]
+  "Enrollment information"
+  enrollment: Enrollment!
   "Indicates if user has rejected drafts"
   hasDraftsRejected: Boolean!
   "Indicates if user has mobile app"
