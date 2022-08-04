@@ -1,6 +1,5 @@
 /* eslint react/jsx-no-bind: 0 */
 /* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
 import React, { useState } from "react";
 
 import { ResourcesCard } from "./ResourceCard";
@@ -18,6 +17,7 @@ import {
   PageArticle,
 } from "../../styles/styledComponents";
 import { translate } from "../../utils/translations/translate";
+import { AirsLink } from "../AirsLink";
 import { Paragraph, Title } from "../Texts";
 
 interface IProps {
@@ -264,11 +264,11 @@ const ResourcesPage: React.FC<IProps> = ({
           >
             {translate.t("resources.elementsText.rules.rulesDescription2")}
           </Paragraph>
-          <Link to={"https://docs.fluidattacks.com/criteria/"}>
+          <AirsLink href={"https://docs.fluidattacks.com/criteria/"}>
             <NewRegularRedButton className={"w-40-ns w-100"}>
               {translate.t("resources.elementsText.rules.rulesButton")}
             </NewRegularRedButton>
-          </Link>
+          </AirsLink>
         </MainCardContainer>
         <MenuList>
           <ResourcesMenuElements filterData={filterData} />

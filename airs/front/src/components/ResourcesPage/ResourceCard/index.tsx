@@ -1,7 +1,7 @@
 /* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
 import React from "react";
 
+import { AirsLink } from "../../AirsLink";
 import { CloudImage } from "../../CloudImage";
 import {
   ButtonContainer,
@@ -41,12 +41,15 @@ const ResourcesCard: React.FC<IProps> = ({
       <CardDescription>{description}</CardDescription>
     </CardTextContainer>
     <ButtonContainer>
-      <Link
-        className={"f5 mt6 hv-fluid-rd fw4 no-underline t-all-5"}
-        to={urlCard}
-      >
-        <button className={"button-white w-80"}>{buttonText}</button>
-      </Link>
+      <AirsLink href={urlCard}>
+        <button
+          className={
+            "button-white w-80 f5 hv-fluid-rd fw4 no-underline t-all-5"
+          }
+        >
+          {buttonText}
+        </button>
+      </AirsLink>
     </ButtonContainer>
   </CardContainer>
 );

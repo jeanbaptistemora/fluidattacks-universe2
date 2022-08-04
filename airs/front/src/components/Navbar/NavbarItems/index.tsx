@@ -13,6 +13,7 @@ import {
   NavbarRegularButton,
   NavbarSubcategory,
 } from "../../../styles/styledComponents";
+import { AirsLink } from "../../AirsLink";
 import { CloudImage } from "../../CloudImage";
 import { Menu } from "../Menu";
 
@@ -99,9 +100,9 @@ const NavbarItems: React.FC = (): JSX.Element => (
     </div>
     <div className={"w-auto flex-l flex-nowrap dn"}>
       <li className={"mr3 pr2 pv4 db-l dn"}>
-        <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
+        <AirsLink href={"https://app.fluidattacks.com/"}>
           <NavbarLoginButton>{"Log in"}</NavbarLoginButton>
-        </Link>
+        </AirsLink>
       </li>
 
       <li className={"pv4"}>
