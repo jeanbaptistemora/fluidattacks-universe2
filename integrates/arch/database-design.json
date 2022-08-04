@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 02, 2022, 12:25 PM",
+    "DateLastModified": "Aug 04, 2022, 12:40 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -2919,19 +2919,20 @@
           ],
           "NonKeyAttributes": [
             "access_token",
+            "email",
+            "first_name",
+            "is_concurrent_session",
+            "is_registered",
+            "last_login_date",
+            "last_name",
+            "legal_remember",
+            "notifications_preferences",
+            "phone",
+            "pk_2",
             "push_tokens",
             "registration_date",
-            "last_login_date",
-            "legal_remember",
-            "email",
-            "pk_2",
             "sk_2",
-            "notifications_preferences",
-            "first_name",
-            "last_name",
-            "is_concurrent_session",
-            "phone",
-            "is_registered",
+            "role",
             "tours"
           ],
           "DataAccess": {
@@ -3564,10 +3565,11 @@
           ],
           "NonKeyAttributes": [
             "email",
-            "organization_id",
+            "expiration_time",
             "has_access",
             "invitation",
-            "expiration_time"
+            "organization_id",
+            "role"
           ],
           "DataAccess": {
             "MySql": {}
@@ -4690,13 +4692,14 @@
             }
           ],
           "NonKeyAttributes": [
+            "confirm_deletion",
             "email",
-            "responsibility",
+            "expiration_time",
             "group_name",
             "has_access",
             "invitation",
-            "expiration_time",
-            "confirm_deletion"
+            "responsibility",
+            "role"
           ],
           "DataAccess": {
             "MySql": {}
