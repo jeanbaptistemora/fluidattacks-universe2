@@ -19,12 +19,24 @@ const closeMenu = (): void => {
   document.body.setAttribute("style", "overflow-y: auto;");
 };
 
-const BodyLink: React.FC<IProps> = ({ link, name }: IProps): JSX.Element => (
-  <li className={"mv3"}>
-    <Link className={bodyLinkStyles} onClick={closeMenu} to={link}>
-      {name}
-    </Link>
-  </li>
-);
+const BodyLink: React.FC<IProps> = ({ link, name }: IProps): JSX.Element =>
+  link.startsWith("https://") || link.startsWith("http://") ? (
+    <li className={"mv3"}>
+      <a
+        className={bodyLinkStyles}
+        href={link}
+        rel={"nofollow noopener noreferrer"}
+        target={"_blank"}
+      >
+        {name}
+      </a>
+    </li>
+  ) : (
+    <li className={"mv3"}>
+      <Link className={bodyLinkStyles} onClick={closeMenu} to={link}>
+        {name}
+      </Link>
+    </li>
+  );
 
 export { BodyLink };

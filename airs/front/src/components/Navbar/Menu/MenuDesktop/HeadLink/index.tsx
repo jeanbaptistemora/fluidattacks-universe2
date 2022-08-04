@@ -25,12 +25,24 @@ const HeadLink: React.FC<IProps> = ({
   link,
   name,
   margin,
-}: IProps): JSX.Element => (
-  <li className={margin}>
-    <Link className={headLinksStyles} onClick={closeMenu} to={link}>
-      {name}
-    </Link>
-  </li>
-);
+}: IProps): JSX.Element =>
+  link.startsWith("https://") || link.startsWith("http://") ? (
+    <li className={margin}>
+      <a
+        className={headLinksStyles}
+        href={link}
+        rel={"nofollow noopener noreferrer"}
+        target={"_blank"}
+      >
+        {name}
+      </a>
+    </li>
+  ) : (
+    <li className={margin}>
+      <Link className={headLinksStyles} onClick={closeMenu} to={link}>
+        {name}
+      </Link>
+    </li>
+  );
 
 export { HeadLink };

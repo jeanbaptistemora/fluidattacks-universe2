@@ -7,6 +7,7 @@ import {
   NavbarContactButton,
   NavbarList,
 } from "../../../../styles/styledComponents";
+import { AirsLink } from "../../../AirsLink";
 import { Search } from "../../../Search";
 import {
   CloseMenuButton,
@@ -41,9 +42,9 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
     </CloseMenuButtonContainer>
     <DesktopTopbarItemsContainer>
       <DesktopTopbarItem>
-        <Link className={"no-underline"} to={"https://app.fluidattacks.com/"}>
+        <AirsLink href={"https://app.fluidattacks.com/"}>
           <TopBarButton>{"Log in"}</TopBarButton>
-        </Link>
+        </AirsLink>
       </DesktopTopbarItem>
       <DesktopTopbarItem className={"dn-m"}>
         <Link className={"no-underline"} to={"/contact-us/"}>
@@ -51,12 +52,9 @@ const MenuDesktopTopBar: React.FC<IProps> = ({
         </Link>
       </DesktopTopbarItem>
       <DesktopTopbarItem className={"dn-m"}>
-        <Link
-          className={"no-underline"}
-          to={"https://try.fluidattacks.com/us/ebook/"}
-        >
+        <AirsLink href={"https://try.fluidattacks.com/us/ebook/"}>
           <TopBarButton>{"Download eBook"}</TopBarButton>
-        </Link>
+        </AirsLink>
       </DesktopTopbarItem>
       <DesktopTopbarItem className={"dib-m dn"}>
         <Link className={"no-underline"} to={"/contact-us/"}>
