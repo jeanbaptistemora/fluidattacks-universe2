@@ -193,7 +193,7 @@ async def confirm_access(request: Request) -> HTMLResponse:
                     "Invalid or Expired",
                     group_access.group_name,
                 )
-        except StakeholderNotInGroup:
+        except (StakeholderNotInGroup, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -229,7 +229,7 @@ async def confirm_deletion(request: Request) -> HTMLResponse:
                 response = templates.invalid_confirm_deletion(
                     request=request, error="Invalid or Expired"
                 )
-        except InvalidAuthorization:
+        except (StakeholderNotInGroup, InvalidAuthorization):
             response = templates.invalid_confirm_deletion(
                 request=request, error="Invalid or Expired"
             )
@@ -268,7 +268,7 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
                     "Invalid or Expired",
                     organization.name,
                 )
-        except StakeholderNotInOrganization:
+        except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -313,7 +313,7 @@ async def reject_access(request: Request) -> HTMLResponse:
                     "Invalid or Expired",
                     group_access.group_name,
                 )
-        except StakeholderNotInGroup:
+        except (StakeholderNotInGroup, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
@@ -355,7 +355,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                 response = templates.invalid_invitation(
                     request, "Invalid or Expired", organization.name
                 )
-        except StakeholderNotInOrganization:
+        except (StakeholderNotInOrganization, InvalidAuthorization):
             await in_thread(
                 bugsnag.notify, Exception("Invalid token"), severity="warning"
             )
