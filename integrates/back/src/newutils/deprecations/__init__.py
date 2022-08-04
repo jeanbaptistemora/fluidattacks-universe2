@@ -13,10 +13,12 @@ from newutils.deprecations.filters import (
 )
 from newutils.deprecations.types import (
     ApiDeprecation,
+    ApiFieldType,
 )
 
 __all__ = [
     "ApiDeprecation",
+    "ApiFieldType",
     "filter_api_deprecation_dict",
     "filter_api_deprecation_list",
     "get_deprecations_by_period",

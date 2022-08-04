@@ -21,6 +21,7 @@ from newutils.datetime import (
 )
 from newutils.deprecations import (
     ApiDeprecation,
+    ApiFieldType,
     filter_api_deprecation_list,
     get_deprecations_by_period,
     get_due_date,
@@ -92,21 +93,21 @@ def test_filter_api_deprecation_list() -> None:
             field="deprecatedField",
             reason="This field will be removed in 2020/01/01",
             due_date=get_from_str("2020/01/01", "%Y/%m/%d"),
-            type="object_type_definition",
+            type=ApiFieldType.OBJECT,
         ),
         ApiDeprecation(
             parent="testParent2",
             field="deprecatedField2",
             reason="This field will be removed in 2020/02/15",
             due_date=get_from_str("2020/02/15", "%Y/%m/%d"),
-            type="object_type_definition",
+            type=ApiFieldType.OBJECT,
         ),
         ApiDeprecation(
             parent="customDirective",
             field="deprecatedDirectiveField",
             reason="This field will be removed in 2020/06/15",
             due_date=get_from_str("2020/06/15", "%Y/%m/%d"),
-            type="directive_definition",
+            type=ApiFieldType.DIRECTIVE,
         ),
     ]
     assert (

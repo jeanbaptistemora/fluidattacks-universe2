@@ -11,6 +11,7 @@ from newutils import (
 )
 from newutils.deprecations import (
     ApiDeprecation,
+    ApiFieldType,
     get_deprecations_by_period,
 )
 import sys
@@ -29,15 +30,14 @@ def format_deprecation_output_log(
 
     `Field isDeprecated of parent importantQuery was deprecated in 1999/01/01`
     """
-    enum_type: str = "enum_type_definition"
     base_output: str = "Found overdue deprecated fields:\n\n"
     fields: str = ""
     for key, deprecated_fields in deprecations.items():
         fields += "".join(
             (
-                f"{'Value' if field.type == enum_type else 'Field'} "
+                f"{'Value' if field.type == ApiFieldType.ENUM else 'Field'} "
                 f"{field.field} of "
-                f"{'enum' if field.type == enum_type else 'parent'} "
+                f"{'enum' if field.type == ApiFieldType.ENUM else 'parent'} "
                 f"{key} was to be removed in "
                 f"{date_utils.get_as_str(field.due_date, '%Y/%m/%d')}\n"
             )

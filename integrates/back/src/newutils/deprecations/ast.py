@@ -22,6 +22,7 @@ from newutils.deprecations.filters import (
 )
 from newutils.deprecations.types import (
     ApiDeprecation,
+    ApiFieldType,
 )
 from re import (
     search,
@@ -91,7 +92,7 @@ def _search_directives(
                         field=field.name.value,
                         reason=deprecation_reason.replace("\n", " "),
                     ),
-                    type=definition.kind,
+                    type=ApiFieldType(definition.kind),
                 )
             )
         if has_arguments:
@@ -108,7 +109,7 @@ def _search_directives(
                                 field=field.name.value,
                                 reason=arg_deprecation.replace("\n", " "),
                             ),
-                            type=definition.kind,
+                            type=ApiFieldType(definition.kind),
                         )
                     )
     return deprecations
