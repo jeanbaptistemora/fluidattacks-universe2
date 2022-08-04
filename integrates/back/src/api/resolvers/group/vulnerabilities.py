@@ -33,6 +33,7 @@ async def resolve(
     query: str = kwargs.get("search", "")
     results = await search(
         exact_filters={"group_name": parent.name},
+        index="vulnerabilities",
         query=query,
     )
     loaders = info.context.loaders

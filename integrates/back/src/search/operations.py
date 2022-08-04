@@ -9,6 +9,7 @@ from typing import (
 async def search(
     *,
     exact_filters: dict[str, Any],
+    index: str,
     query: str,
 ) -> tuple[dict[str, Any], ...]:
     """
@@ -32,6 +33,6 @@ async def search(
             }
         }
     }
-    response: dict[str, Any] = await client.search(body=body)
+    response: dict[str, Any] = await client.search(body=body, index=index)
 
     return tuple(hit["_source"] for hit in response["hits"]["hits"])
