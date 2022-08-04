@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 04, 2022, 12:40 PM",
+    "DateLastModified": "Aug 04, 2022, 05:26 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -5700,6 +5700,219 @@
           "TableData": [
             {
               "sk": {
+                "S": "ENROLL#__adminEmail__"
+              },
+              "pk": {
+                "S": "ENROLL#__adminEmail__"
+              },
+              "email": {
+                "S": "__adminEmail__"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "5"
+                  },
+                  "extension_date": {
+                    "S": "2019-06-10T20:07:57+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-06-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#continuoushack2@gmail.com"
+              },
+              "pk": {
+                "S": "ENROLL#continuoushack2@gmail.com"
+              },
+              "email": {
+                "S": "continuoushack2@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.961374+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.961408+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#continuoushacking@gmail.com"
+              },
+              "pk": {
+                "S": "ENROLL#continuoushacking@gmail.com"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.969630+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.969646+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#customer_manager@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#customer_manager@fluidattacks.com"
+              },
+              "email": {
+                "S": "customer_manager@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.942324+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.942336+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#forces.unittesting@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#forces.unittesting@fluidattacks.com"
+              },
+              "email": {
+                "S": "forces.unittesting@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.944268+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.944280+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integrateshacker@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integrateshacker@fluidattacks.com"
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.965672+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.965690+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesmanager@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesmanager@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.972366+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.972379+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesmanager@gmail.com"
+              },
+              "pk": {
                 "S": "ENROLL#integratesmanager@gmail.com"
               },
               "email": {
@@ -5710,26 +5923,266 @@
               },
               "trial": {
                 "M": {
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "extension_date": {
-                    "S": "2022-06-10T20:07:57+00:00"
-                  },
                   "extension_days": {
                     "N": "5"
+                  },
+                  "extension_date": {
+                    "S": "2019-06-10T20:07:57+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
                   },
                   "start_date": {
                     "S": "2022-06-01T20:07:57+00:00"
                   }
                 }
-              },
-              "pk": {
-                "S": "ENROLL#integratesmanager@gmail.com"
               }
             },
             {
               "sk": {
+                "S": "ENROLL#integratesreattacker@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesreattacker@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesreattacker@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.955732+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.955784+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesresourcer@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesresourcer@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesresourcer@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.936168+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.936189+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesreviewer@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesreviewer@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesreviewer@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.948485+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.948504+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesserviceforces@gmail.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesserviceforces@gmail.com"
+              },
+              "email": {
+                "S": "integratesserviceforces@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.958701+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.958726+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesuser2@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesuser2@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesuser2@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.940308+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.940319+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesuser2@gmail.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesuser2@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.938286+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.938298+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#integratesuser@gmail.com"
+              },
+              "pk": {
+                "S": "ENROLL#integratesuser@gmail.com"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.974812+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.974857+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#unittest2@fluidattacks.com"
+              },
+              "pk": {
+                "S": "ENROLL#unittest2@fluidattacks.com"
+              },
+              "email": {
+                "S": "unittest2@fluidattacks.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.951154+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.951177+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#unittest@fluidattacks.com"
+              },
+              "pk": {
                 "S": "ENROLL#unittest@fluidattacks.com"
               },
               "email": {
@@ -5740,22 +6193,49 @@
               },
               "trial": {
                 "M": {
-                  "completed": {
-                    "BOOL": true
-                  },
-                  "extension_date": {
-                    "S": "2022-06-10T20:07:57+00:00"
-                  },
                   "extension_days": {
                     "N": "5"
+                  },
+                  "extension_date": {
+                    "S": "2019-06-10T20:07:57+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
                   },
                   "start_date": {
                     "S": "2022-06-01T20:07:57+00:00"
                   }
                 }
+              }
+            },
+            {
+              "sk": {
+                "S": "ENROLL#vulnmanager@gmail.com"
               },
               "pk": {
-                "S": "ENROLL#unittest@fluidattacks.com"
+                "S": "ENROLL#vulnmanager@gmail.com"
+              },
+              "email": {
+                "S": "vulnmanager@gmail.com"
+              },
+              "enrolled": {
+                "BOOL": true
+              },
+              "trial": {
+                "M": {
+                  "extension_days": {
+                    "N": "0"
+                  },
+                  "extension_date": {
+                    "S": "2022-08-04T22:21:45.946275+00:00"
+                  },
+                  "completed": {
+                    "BOOL": true
+                  },
+                  "start_date": {
+                    "S": "2022-08-04T22:21:45.946286+00:00"
+                  }
+                }
               }
             }
           ],
