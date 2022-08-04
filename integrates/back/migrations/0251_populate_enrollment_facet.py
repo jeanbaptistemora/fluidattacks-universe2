@@ -30,6 +30,9 @@ from db_model.organization_access.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.roots.types import (
+    Root,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -115,9 +118,14 @@ async def process_stakeholder(
             )
         )
     )
-    if stakeholder_groups and not await enrollment_exists(
-        loaders, stakeholder
-    ):
+    stakeholder_roots: tuple[Root, ...] = tuple(
+        chain.from_iterable(
+            await loaders.group_roots.load_many(
+                {group.name for group in stakeholder_groups}
+            )
+        )
+    )
+    if stakeholder_roots and not await enrollment_exists(loaders, stakeholder):
         await enrollment_model.add(
             enrollment=Enrollment(
                 email=stakeholder.email,
