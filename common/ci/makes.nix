@@ -28,11 +28,25 @@ in {
         src = "/common/ci/infra";
         version = "1.0";
       };
+      commonCiNew = {
+        setup = [
+          searchPaths
+          outputs."/secretsForAwsFromEnv/prodCommon"
+          outputs."/secretsForEnvFromSops/commonCiProd"
+          outputs."/secretsForTerraformFromEnv/commonCi"
+          outputs."/envVarsForTerraform/commonCi"
+        ];
+        src = "/common/ci/new-infra";
+        version = "1.0";
+      };
     };
   };
   envVarsForTerraform = {
     commonCi = {
       ciInit = projectPath "/common/ci/infra/init";
+    };
+    commonCiNew = {
+      ciInit = projectPath "/common/ci/new-infra/init";
     };
   };
   lintTerraform = {
