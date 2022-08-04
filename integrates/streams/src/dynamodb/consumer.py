@@ -12,7 +12,6 @@ from typing import (
 )
 
 CLIENT = boto3.client("dynamodbstreams")
-MAX_ITEM_COUNT = 100
 TABLE_NAME = "integrates_vms"
 
 
@@ -77,13 +76,7 @@ def _get_shard_iterator(stream_arn: str, shard_id: str) -> str:
 def _get_shard_records(
     shard_iterator: str,
 ) -> Iterator[tuple[dict[str, Any], ...]]:
-    """
-    Yields the records for the requested iterator
-
-    This may keep going for up to 4 hours, so we need to limit the amount of
-    records to process per execution.
-    https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.LowLevel.Walkthrough.html
-    """
+    """Yields the records for the requested iterator"""
     current_iterator = shard_iterator
     processed_records = 0
 
@@ -102,7 +95,7 @@ def _get_shard_records(
 
         current_iterator = response.get("NextShardIterator")
 
-        if current_iterator is None or processed_records > MAX_ITEM_COUNT:
+        if current_iterator is None:
             break
 
     print("Processed", processed_records, "records")
