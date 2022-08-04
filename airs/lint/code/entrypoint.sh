@@ -2,7 +2,6 @@
 
 function main {
   copy __argAirsFront__ out \
-    && aws_login_dev \
     && sops_export_vars __argAirsSecrets__/dev.yaml \
     && pushd out \
     && copy __argAirsNpm__ 'node_modules' \

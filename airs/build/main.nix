@@ -26,7 +26,6 @@ makeScript {
     source = [
       outputs."/airs/npm/runtime"
       outputs."/airs/npm/env"
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };

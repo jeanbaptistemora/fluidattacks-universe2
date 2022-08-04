@@ -102,7 +102,6 @@ function deploy_eph {
   local src="${1}"
 
   __argAirsBuild__/bin/airs-build \
-    && source __argSecretsAwsDev__/template \
     && compress_files "${src}/public" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" "false" \
     && sync_files "${src}/public" "s3://web.eph.fluidattacks.com/${CI_COMMIT_REF_NAME}" \
@@ -115,7 +114,6 @@ function deploy_prod {
   local src="${1}"
 
   __argAirsBuild__/bin/airs-build \
-    && source __argSecretsAwsProd__/template \
     && compress_files "${src}/public" \
     && sync_files "${src}/public" 's3://fluidattacks.com' "false" \
     && sync_files "${src}/public" 's3://fluidattacks.com' \

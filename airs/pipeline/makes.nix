@@ -20,7 +20,7 @@
   gitlabLintJob = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
 in {
   pipelines = {
@@ -32,7 +32,7 @@ in {
           gitlabExtra = {
             rules = gitlabOnlyDev;
             stage = "deploy-app";
-            tags = ["autoscaling"];
+            tags = ["dev_small"];
           };
         }
         {
@@ -40,7 +40,7 @@ in {
           gitlabExtra = {
             rules = gitlabOnlyProd;
             stage = "deploy-app";
-            tags = ["autoscaling"];
+            tags = ["prod_airs_small"];
           };
         }
         {
@@ -65,7 +65,7 @@ in {
             resource_group = "$CI_JOB_NAME";
             rules = gitlabOnlyProd;
             stage = "deploy-infra";
-            tags = ["autoscaling"];
+            tags = ["prod_airs_small"];
           };
         }
         {
@@ -78,7 +78,7 @@ in {
             resource_group = "$CI_JOB_NAME";
             rules = gitlabOnlyDev;
             stage = "test-infra";
-            tags = ["autoscaling"];
+            tags = ["dev_small"];
           };
         }
       ];
