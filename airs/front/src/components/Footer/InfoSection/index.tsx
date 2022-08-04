@@ -19,7 +19,11 @@ const InfoSection: React.FC = (): JSX.Element => (
       </CopyrightParagraph>
     </CopyrightContainer>
     <FooterInfoLinksContainer>
-      <FooterInfoLink href={"https://status.fluidattacks.com/"}>
+      <FooterInfoLink
+        href={"https://status.fluidattacks.com/"}
+        rel={"nofollow noopener noreferrer"}
+        target={"_blank"}
+      >
         {"Service Status"}
       </FooterInfoLink>
       <GrayDash>{" - "}</GrayDash>

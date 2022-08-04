@@ -3,14 +3,11 @@ import { Link } from "gatsby";
 import React from "react";
 
 interface IProps {
-  children: string;
+  children: JSX.Element;
   href: string;
 }
 
-const NoFollowLink: React.FC<IProps> = ({
-  children,
-  href,
-}: IProps): JSX.Element =>
+const AirsLink: React.FC<IProps> = ({ children, href }: IProps): JSX.Element =>
   href.startsWith("https://") || href.startsWith("http://") ? (
     <a href={href} rel={"nofollow noopener noreferrer"} target={"_blank"}>
       {children}
@@ -19,4 +16,4 @@ const NoFollowLink: React.FC<IProps> = ({
     <Link to={href}>{children}</Link>
   );
 
-export { NoFollowLink };
+export { AirsLink };

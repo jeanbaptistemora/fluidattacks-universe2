@@ -1,6 +1,5 @@
 /* eslint @typescript-eslint/no-confusing-void-expression:0 */
 /* eslint react/forbid-component-props: 0 */
-import { Link } from "gatsby";
 import React from "react";
 
 import {
@@ -13,6 +12,7 @@ import {
 
 import { NewRegularRedButton } from "../../styles/styledComponents";
 import { translate } from "../../utils/translations/translate";
+import { AirsLink } from "../AirsLink";
 import { CloudImage } from "../CloudImage";
 import { Paragraph, Title } from "../Texts";
 
@@ -57,11 +57,11 @@ const FreeTrialPage: React.FC = (): JSX.Element => {
               );
             })}
           </ul>
-          <Link to={"https://app.fluidattacks.com/"}>
+          <AirsLink href={"https://app.fluidattacks.com/"}>
             <NewRegularRedButton>
               {translate.t("freeTrial.button")}
             </NewRegularRedButton>
-          </Link>
+          </AirsLink>
         </InternalContainer>
       </WhiteContainer>
       <BlackContainer>

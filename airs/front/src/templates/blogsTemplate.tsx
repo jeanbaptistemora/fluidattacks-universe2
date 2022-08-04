@@ -20,12 +20,12 @@ import { utc } from "moment";
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
 
+import { AirsLink } from "../components/AirsLink";
 import { BlogFooter } from "../components/BlogFooter";
 import { BlogSeo } from "../components/BlogSeo";
 import { InternalForm } from "../components/InternalForm";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
-import { NoFollowLink } from "../components/NoFollowLink";
 import { Seo } from "../components/Seo";
 import {
   BlogArticleBannerContainer,
@@ -53,7 +53,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
 
   const renderAst = new (rehypeReact as any)({
     components: {
-      a: NoFollowLink,
+      a: AirsLink,
     },
     createElement,
   }).Compiler;

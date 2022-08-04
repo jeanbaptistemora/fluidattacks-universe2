@@ -41,13 +41,14 @@ const SocialContainer = styled.div.attrs({
 
 const SocialButton = styled.button.attrs({
   className: `
-  pa2
   ba
+  pa2
   br3
+  mr1
+  pointer
   bc-gray-64
   social-button
   bg-transparent
-  pointer
 `,
 })``;
 
