@@ -2,7 +2,16 @@ locals {
   arch = {
     awsRoles = [
       "dev",
+      "prod_airs",
       "prod_common",
+      "prod_docs",
+      "prod_forces",
+      "prod_integrates",
+      "prod_melts",
+      "prod_observes",
+      "prod_services",
+      "prod_skims",
+      "prod_sorts",
     ]
     sizes = {
       small = {
