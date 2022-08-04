@@ -1,13 +1,17 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import Bugsnag from "@bugsnag/js";
+import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { GET_USER_WELCOME } from "./queries";
-import type { IGetUserWelcomeResult } from "./types";
+import { GET_STAKEHOLDER_ENROLLMENT, GET_STAKEHOLDER_WELCOME } from "./queries";
+import type {
+  IGetStakeholderEnrollmentResult,
+  IGetStakeholderWelcomeResult,
+} from "./types";
 import { isPersonalEmail } from "./utils";
 
 import { Announce } from "components/Announce";
@@ -22,78 +26,93 @@ const Welcome: React.FC = (): JSX.Element => {
   const [hasPersonalEmail, setHasPersonalEmail] = useState<boolean | undefined>(
     undefined
   );
+  const [isEnrolled, setIsEnrolled] = useState<boolean | undefined>(undefined);
 
-  const { data, loading } = useQuery<IGetUserWelcomeResult>(GET_USER_WELCOME, {
-    onCompleted: async ({ me }): Promise<void> => {
-      Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
-      mixpanel.identify(me.userEmail);
-      mixpanel.register({
-        User: me.userName,
-        // Intentional snake case
-        // eslint-disable-next-line camelcase
-        integrates_user_email: me.userEmail,
-      });
-      mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
-      initializeZendesk(me.userEmail, me.userName);
-      setHasPersonalEmail(await isPersonalEmail(me.userEmail));
-    },
-    onError: (error): void => {
-      error.graphQLErrors.forEach(({ message }): void => {
-        Logger.error("An error occurred loading user welcome", message);
-      });
-    },
-  });
+  const [getStakeholderWelcome, { data: welcomeData }] =
+    useLazyQuery<IGetStakeholderWelcomeResult>(GET_STAKEHOLDER_WELCOME, {
+      onCompleted: async ({ me }): Promise<void> => {
+        Bugsnag.setUser(me.userEmail, me.userEmail, me.userName);
+        mixpanel.identify(me.userEmail);
+        mixpanel.register({
+          User: me.userName,
+          // Intentional snake case
+          // eslint-disable-next-line camelcase
+          integrates_user_email: me.userEmail,
+        });
+        mixpanel.people.set({ $email: me.userEmail, $name: me.userName });
+        initializeZendesk(me.userEmail, me.userName);
+        setHasPersonalEmail(await isPersonalEmail(me.userEmail));
+      },
+      onError: (error): void => {
+        error.graphQLErrors.forEach(({ message }): void => {
+          Logger.error(
+            "An error occurred loading stakeholder welcome",
+            message
+          );
+        });
+      },
+    });
+  const { data: enrollmentData } = useQuery<IGetStakeholderEnrollmentResult>(
+    GET_STAKEHOLDER_ENROLLMENT,
+    {
+      fetchPolicy: "cache-first",
+      onCompleted: (data: IGetStakeholderEnrollmentResult): void => {
+        if (data.me.enrollment.enrolled) {
+          setIsEnrolled(true);
+        } else {
+          getStakeholderWelcome();
+        }
+      },
+      onError: (error): void => {
+        error.graphQLErrors.forEach(({ message }): void => {
+          Logger.error(
+            "An error occurred loading stakeholder enrollment",
+            message
+          );
+        });
+      },
+    }
+  );
 
-  if (loading) {
+  if (_.isUndefined(enrollmentData)) {
     return <div />;
   }
 
-  if (data !== undefined) {
-    const orgsLength = data.me.organizations.length;
-
-    if (orgsLength === 0) {
-      if (hasPersonalEmail === undefined) {
-        return <div />;
-      }
-
-      if (hasPersonalEmail) {
-        return <Announce message={t("autoenrollment.corporateOnly")} />;
-      }
-
-      return <Autoenrollment />;
-    }
-    if (
-      orgsLength < 2 &&
-      data.me.organizations.reduce(
-        (orgA, orgB): number => orgA + orgB.groups.length,
-        0
-      ) < 2 &&
-      !data.me.remember
-    ) {
-      if (orgsLength === 1 && data.me.organizations[0].groups.length > 0) {
-        if (
-          data.me.organizations[0].groups.filter(
-            (group): boolean =>
-              group.roots.length > 0 ||
-              group.service === "BLACK" ||
-              group.subscription === "oneshot" ||
-              group.subscription === "continuous"
-          ).length === 0
-        ) {
-          return (
-            <Autoenrollment
-              group={data.me.organizations[0].groups[0].name}
-              organization={data.me.organizations[0].name}
-            />
-          );
-        }
-      } else {
-        return <Autoenrollment organization={data.me.organizations[0].name} />;
-      }
-    }
+  if (!_.isUndefined(isEnrolled) && isEnrolled) {
+    return <Dashboard />;
   }
 
-  return <Dashboard />;
+  if (_.isUndefined(welcomeData)) {
+    return <div />;
+  }
+
+  if (
+    welcomeData.me.organizations.length > 0 &&
+    welcomeData.me.organizations[0].groups.length > 0
+  ) {
+    return (
+      <Autoenrollment
+        group={welcomeData.me.organizations[0].groups[0].name}
+        organization={welcomeData.me.organizations[0].name}
+      />
+    );
+  }
+
+  if (welcomeData.me.organizations.length > 0) {
+    return (
+      <Autoenrollment organization={welcomeData.me.organizations[0].name} />
+    );
+  }
+
+  if (_.isUndefined(hasPersonalEmail)) {
+    return <div />;
+  }
+
+  if (hasPersonalEmail) {
+    return <Announce message={t("autoenrollment.corporateOnly")} />;
+  }
+
+  return <Autoenrollment />;
 };
 
 export { Welcome };

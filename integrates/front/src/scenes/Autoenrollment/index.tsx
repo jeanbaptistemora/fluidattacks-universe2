@@ -34,6 +34,7 @@ import type {
   IOrgAttr,
   IRootAttr,
 } from "scenes/Autoenrollment/types";
+import { GET_STAKEHOLDER_ENROLLMENT } from "scenes/Welcome/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -174,6 +175,7 @@ const Autoenrollment: React.FC<IAutoenrollmentProps> = (
     onError: ({ graphQLErrors }: ApolloError): void => {
       handleEnrollmentCreateError(graphQLErrors, setOrgMessages);
     },
+    refetchQueries: [GET_STAKEHOLDER_ENROLLMENT],
   });
 
   const timeoutPromise = useCallback(

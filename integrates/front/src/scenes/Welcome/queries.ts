@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-const GET_USER_WELCOME = gql`
-  query GetUserWelcome {
+const GET_STAKEHOLDER_WELCOME = gql`
+  query GetStakeholderWelcome {
     me {
       organizations {
         groups {
@@ -23,4 +23,15 @@ const GET_USER_WELCOME = gql`
   }
 `;
 
-export { GET_USER_WELCOME };
+const GET_STAKEHOLDER_ENROLLMENT = gql`
+  query GetStakeholderEnrollment {
+    me {
+      enrollment {
+        enrolled
+      }
+      userEmail
+    }
+  }
+`;
+
+export { GET_STAKEHOLDER_WELCOME, GET_STAKEHOLDER_ENROLLMENT };

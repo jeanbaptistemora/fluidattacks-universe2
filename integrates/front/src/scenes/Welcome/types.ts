@@ -1,4 +1,7 @@
-interface IGetUserWelcomeResult {
+interface IEnrollment {
+  enrolled: boolean;
+}
+interface IGetStakeholderWelcomeResult {
   me: {
     organizations: {
       groups: {
@@ -17,4 +20,14 @@ interface IGetUserWelcomeResult {
   };
 }
 
-export type { IGetUserWelcomeResult };
+interface IGetStakeholderEnrollmentResult {
+  me: {
+    enrollment: IEnrollment;
+  };
+}
+
+export type {
+  IGetStakeholderEnrollmentResult,
+  IGetStakeholderWelcomeResult,
+  IEnrollment,
+};
