@@ -411,15 +411,18 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   const handleUpdateGroupSubmit = useCallback(
     async ({
       managed,
+      paymentId,
       subscription,
     }: {
       managed: string;
+      paymentId: string | null;
       subscription: string;
     }): Promise<void> => {
       const groupName = currentRow.name.toLowerCase();
       const isSubscriptionChanged: boolean =
         subscription !== currentRow.tier.toLocaleUpperCase();
       const isManagedChanged: boolean = managed !== currentRow.managed;
+      const isPaymentIdChanged: boolean = paymentId !== currentRow.paymentId;
 
       try {
         const resultMutation = await updateGroup({
@@ -427,8 +430,10 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
             comments: "",
             groupName,
             isManagedChanged,
+            isPaymentIdChanged,
             isSubscriptionChanged,
             managed,
+            paymentId,
             subscription,
           },
         });
@@ -487,15 +492,7 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         }
       }
     },
-    [
-      closeModal,
-      currentRow.managed,
-      currentRow.name,
-      currentRow.tier,
-      onUpdate,
-      t,
-      updateGroup,
-    ]
+    [closeModal, currentRow, onUpdate, t, updateGroup]
   );
 
   return (

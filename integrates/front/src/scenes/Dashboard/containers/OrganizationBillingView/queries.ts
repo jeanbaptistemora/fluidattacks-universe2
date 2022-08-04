@@ -163,8 +163,10 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
     $comments: String!
     $groupName: String!
     $isManagedChanged: Boolean!
+    $isPaymentIdChanged: Boolean!
     $isSubscriptionChanged: Boolean!
     $managed: ManagedType!
+    $paymentId: String!
     $subscription: BillingSubscriptionType!
   ) {
     updateGroupManaged(
@@ -172,6 +174,13 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
       groupName: $groupName
       managed: $managed
     ) @include(if: $isManagedChanged) {
+      success
+    }
+    updateGroupPaymentId(
+      comments: $comments
+      groupName: $groupName
+      paymentId: $paymentId
+    ) @include(if: $isPaymentIdChanged) {
       success
     }
     updateSubscription(groupName: $groupName, subscription: $subscription)

@@ -15,6 +15,7 @@ interface IUpdateSubscriptionProps {
   onClose: () => void;
   onSubmit: (values: {
     managed: string;
+    paymentId: string | null;
     subscription: string;
   }) => Promise<void>;
   paymentId: string | null;

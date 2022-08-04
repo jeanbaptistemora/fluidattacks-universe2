@@ -1,8 +1,8 @@
-import json
 import aioboto3
 from config import (
     load,
 )
+import json
 from model.core_model import (
     SkimsConfig,
 )
