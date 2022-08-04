@@ -11,7 +11,13 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from mypy_boto3_dynamodb import (
+    DynamoDBServiceResource as ServiceResource,
+)
 import pytest
+from unittest import (
+    mock,
+)
 
 # Constants
 pytestmark = [
@@ -22,7 +28,6 @@ pytestmark = [
 async def test_get_cached_group_service_attributes_policies() -> None:
     loaders: Dataloaders = get_new_context()
     function = get_cached_group_service_policies
-
     assert sorted(await function(await loaders.group.load("oneshottest"))) == [
         "asm",
         "report_vulnerabilities",
@@ -38,30 +43,36 @@ async def test_get_cached_group_service_attributes_policies() -> None:
     ]
 
 
-async def test_get_group_level_role() -> None:
-    assert (
-        await get_group_level_role(
-            "continuoushacking@gmail.com", "unittesting"
+async def test_get_group_level_role(dynamodb: ServiceResource) -> None:
+    def side_effect(table: str, query_attrs: dict) -> str:
+        return dynamodb.Table(table).query(
+            ConsistentRead=query_attrs["ConsistentRead"],
+            KeyConditionExpression=query_attrs["KeyConditionExpression"],
+        )["Items"]
+
+    with mock.patch("authz.policy.dynamodb_ops.query") as mock_query:
+        mock_query.side_effect = side_effect
+        assert (
+            await get_group_level_role(
+                "integrateshacker@fluidattacks.com", "unittesting"
+            )
+            == "hacker"
         )
-        == "user_manager"
-    )
-    assert (
-        await get_group_level_role(
-            "integrateshacker@fluidattacks.com", "unittesting"
+        assert (
+            await get_group_level_role(
+                "integratesuser@gmail.com", "unittesting"
+            )
+            == "user_manager"
         )
-        == "hacker"
-    )
-    assert (
-        await get_group_level_role("integratesuser@gmail.com", "unittesting")
-        == "user_manager"
-    )
-    assert (
-        await get_group_level_role("unittest@fluidattacks.com", "any-group")
-        == "admin"
-    )
-    assert not await get_group_level_role(
-        "asdfasdfasdfasdf@gmail.com", "unittesting"
-    )
+        assert (
+            await get_group_level_role(
+                "unittest@fluidattacks.com", "unittesting"
+            )
+            == "admin"
+        )
+        assert not await get_group_level_role(
+            "asdfasdfasdfasdf@gmail.com", "unittesting"
+        )
 
 
 async def test_get_user_level_role() -> None:
@@ -79,7 +90,6 @@ async def test_grant_user_level_role() -> None:
     assert await grant_user_level_role("..TEST@gmail.com", "user")
     assert await get_user_level_role("..test@gmail.com") == "user"
     assert await get_user_level_role("..tEst@gmail.com") == "user"
-
     assert await grant_user_level_role("..TEST@gmail.com", "admin")
     assert await get_user_level_role("..test@gmail.com") == "admin"
     assert await get_group_level_role("..tEst@gmail.com", "a-group") == "admin"
@@ -106,7 +116,6 @@ async def test_revoke_group_level_role() -> None:
     assert await grant_group_level_role(
         "REVOKE_group_level_role@gmail.com", "other-group", "user"
     )
-
     assert (
         await get_group_level_role(
             "revoke_group_level_ROLE@gmail.com", "group"
@@ -122,7 +131,6 @@ async def test_revoke_group_level_role() -> None:
     assert not await get_group_level_role(
         "REVOKE_group_level_role@gmail.com", "yet-other-group"
     )
-
     assert await revoke_group_level_role(
         "revoke_GROUP_level_role@gmail.com", "other-group"
     )
@@ -138,7 +146,6 @@ async def test_revoke_group_level_role() -> None:
     assert not await get_group_level_role(
         "revoke_group_level_role@gmail.com", "yet-other-group"
     )
-
     assert await revoke_group_level_role(
         "revoke_GROUP_level_role@gmail.com", "group"
     )

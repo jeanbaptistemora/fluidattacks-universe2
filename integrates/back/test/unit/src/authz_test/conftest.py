@@ -28,11 +28,20 @@ def dynamodb() -> ServiceResource:
 def create_table(dynamodb: ServiceResource) -> None:
     table_name = "fi_authz"
     key_schema = [
-        {"AttributeName": "object", "KeyType": "HASH"},
+        {"AttributeName": "subject", "KeyType": "HASH"},
         {"AttributeName": "object", "KeyType": "RANGE"},
     ]
-    attribute_definitions = [{"AttributeName": "object", "AttributeType": "S"}]
+    attribute_definitions = [
+        {"AttributeName": "subject", "AttributeType": "S"},
+        {"AttributeName": "object", "AttributeType": "S"},
+    ]
     data = [
+        dict(
+            level="user",
+            object="unittesting",
+            role="admin",
+            subject="unittest@fluidattacks.com",
+        ),
         dict(
             level="group",
             object="oneshottest",
@@ -46,6 +55,12 @@ def create_table(dynamodb: ServiceResource) -> None:
             subject="integrateshacker@fluidattacks.com",
         ),
         dict(
+            level="group",
+            object="unittesting",
+            role="user_manager",
+            subject="integratesuser@gmail.com",
+        ),
+        dict(
             level="user",
             object="unittesting",
             role="user",
@@ -56,6 +71,12 @@ def create_table(dynamodb: ServiceResource) -> None:
             object="org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
             role="customer_manager",
             subject="unittest2@fluidattacks.com",
+        ),
+        dict(
+            level="group",
+            object="unittesting",
+            role="hacker",
+            subject="continuoushacking@gmail.com",
         ),
     ]
 
