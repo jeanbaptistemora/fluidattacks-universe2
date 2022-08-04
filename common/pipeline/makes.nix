@@ -22,12 +22,12 @@
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-infra";
-    tags = ["autoscaling"];
+    tags = ["prod_common_small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabRotateUsersKeys1 = {
     rules = [
@@ -36,7 +36,7 @@
       gitlabCi.rules.always
     ];
     stage = "rotation";
-    tags = ["autoscaling"];
+    tags = ["prod_common_small"];
   };
   gitlabRotateUsersKeys2 = {
     rules = [
@@ -45,17 +45,17 @@
       gitlabCi.rules.always
     ];
     stage = "rotation";
-    tags = ["autoscaling"];
+    tags = ["prod_common_small"];
   };
   gitlabTestCode = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
 in {
   pipelines = {
@@ -67,7 +67,7 @@ in {
           gitlabExtra = {
             rules = gitlabOnlyDev;
             stage = "build";
-            tags = ["autoscaling"];
+            tags = ["dev_small"];
           };
         }
         {
