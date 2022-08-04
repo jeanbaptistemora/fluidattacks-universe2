@@ -36,7 +36,9 @@ const pageTexts: ResourceKey = {
   },
   blogListAuthors: {
     alejandroHerrera: {
-      description: "[under construction]",
+      description:
+        "Alejandro is security analyst at Fluid Attacks. " +
+        "He has three years of experience in cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Alejandro Herrera.",
       title: "Alejandro Herrera",
@@ -50,7 +52,11 @@ const pageTexts: ResourceKey = {
       title: "Anderson Taguada",
     },
     andresCuberos: {
-      description: "[under construction]",
+      description:
+        "Andres is security developer at Fluid Attacks. " +
+        "He holds a degree in electronic engineering " +
+        "and leads the development of the AI component " +
+        "to aid security testing.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andres Cuberos.",
       title: "Andres Cuberos",
@@ -65,13 +71,20 @@ const pageTexts: ResourceKey = {
       title: "Andres Roldan",
     },
     andresTirado: {
-      description: "[under construction]",
+      description:
+        "Andrés is security analyst at Fluid Attacks. " +
+        "He has a degree in mechatronics engineering " +
+        "and four years of experience in cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Andrés Tirado.",
       title: "Andrés Tirado",
     },
     danielSalazar: {
-      description: "[under construction]",
+      description:
+        "Daniel Salazar is the lead DevSecOps engineer at Fluid Attacks. " +
+        "He holds a degree in computer science " +
+        "and has several years of experience " +
+        "detecting and managing cybersecurity flaws.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Daniel Salazar.",
       title: "Daniel Salazar",
@@ -93,13 +106,19 @@ const pageTexts: ResourceKey = {
       title: "Diego Alvarez",
     },
     felipeGomez: {
-      description: "[under construction]",
+      description:
+        "Felipe is LATAM manager at Fluid Attacks. " +
+        "He has 15 years of experience in cybersecurity.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Felipe Gómez.",
       title: "Felipe Gómez",
     },
     felipeRuiz: {
-      description: "[under construction]",
+      description:
+        "Felipe is cybersecurity editor at Fluid Attacks. " +
+        "He has a background in psychological research " +
+        "and has been writing about cybersecurity " +
+        "since January 2020.",
       metaDescription: "Read Fluid Attacks' blog posts written by Felipe Ruiz.",
       title: "Felipe Ruiz",
     },
@@ -112,7 +131,11 @@ const pageTexts: ResourceKey = {
       title: "Felipe Zárate",
     },
     jasonChavarria: {
-      description: "[under construction]",
+      description:
+        "Jason is cybersecurity editor at Fluid Attacks. " +
+        "He has a background in psychological research " +
+        "and has been writing about cybersecurity " +
+        "since September 2021.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Jason Chavarría.",
       title: "Jason Chavarría",
@@ -150,7 +173,11 @@ const pageTexts: ResourceKey = {
       title: "Kevin Amado",
     },
     kevinCardona: {
-      description: "[under construction]",
+      description:
+        "Kevin is security analyst and developer at Fluid Attacks. " +
+        "He holds a degree in computer engineering " +
+        "and has more than six years of experience " +
+        "in software development.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Kevin Cardona.",
       title: "Kevin Cardona",
@@ -164,7 +191,12 @@ const pageTexts: ResourceKey = {
       title: "Mateo Gutiérrez",
     },
     mauricioGomez: {
-      description: "[under construction]",
+      description:
+        "Mauricio is co-founder of Fluid Attacks. " +
+        "He is an engineer " +
+        "with more than 20 years of experience in cybersecurity " +
+        "and is responsible for " +
+        "Fluid Attacks' business development strategy in North America.",
       metaDescription:
         "Read Fluid Attacks' blog posts written by Mauricio Gómez.",
       title: "Mauricio Gómez",
@@ -177,7 +209,10 @@ const pageTexts: ResourceKey = {
       title: "Oscar Prado",
     },
     oscarUribe: {
-      description: "[under construction]",
+      description:
+        "Oscar is security analyst at Fluid Attacks. " +
+        "He holds a degree in software and computer engineering " +
+        "and seven certifications in offensive security.",
       metaDescription: "Read Fluid Attacks' blog posts written by Oscar Uribe.",
       title: "Oscar Uribe",
     },
