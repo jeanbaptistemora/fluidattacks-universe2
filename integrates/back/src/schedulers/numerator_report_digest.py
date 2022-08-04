@@ -1,3 +1,4 @@
+# pylint: disable=consider-using-f-string
 from aioextensions import (
     collect,
 )
@@ -369,14 +370,14 @@ async def _generate_numerator_report(
 
 def get_percent(num_a: int, num_b: int) -> str:
     try:
-        variation: float = round(((num_a / num_b) * 100), 2)
+        variation: float = num_a / num_b
     except TypeError:
         return "N/A"
     except ValueError:
         return "N/A"
     except ZeroDivisionError:
         return "N/A"
-    return f"{variation}%"
+    return "{:+.0%}".format(variation)
 
 
 def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:

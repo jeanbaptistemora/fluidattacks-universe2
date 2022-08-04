@@ -9,13 +9,26 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Enumerated: {{ count_var_report["enumerated"]["count"] }} <br />
-      Verified: {{ count_var_report["verified"]["count"] }} fields,
-      {{ count_var_report["loc"]["count"] }} lines. <br />
-      Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.<br />
-      Drafts: {{ count_var_report["draft_created"]["count"] }} vulnerabilities.<br />
+      Enumerated: {{ count_var_report["enumerated"]["count"] }}.
+      ({{ count_var_report["enumerated"]["variation"] }})<br />
+
+      Verified: {{ count_var_report["verified"]["count"] }} fields
+      ({{ count_var_report["loc"]["variation"] }}),
+
+      {{ count_var_report["loc"]["count"] }} lines.
+      ({{ count_var_report["verified"]["variation"] }})<br />
+
+      Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
+      ({{ count_var_report["reattacked"]["variation"] }})<br />
+
+      Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
+      ({{ count_var_report["draft_created"]["variation"] }})<br />
+
       - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.<br />
-      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.<br />
+
+      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.
+      ({{ count_var_report["released"]["variation"] }})<br />
+
       - {{ count_var_report["effectiveness"] }} effectiveness.
     </p>
     <p>
@@ -31,14 +44,6 @@
           {{ fields["released"] }} released.<br />
         {% endfor %}
       {% endif %}
-      <br />
-      Variation from yesterday:<br />
-      - {{ count_var_report["enumerated"]["variation"] }}  inputs enumerated,
-      {{ count_var_report["verified"]["variation"] }} inputs verified,
-      {{ count_var_report["loc"]["variation"] }} lines verified,
-      {{ count_var_report["reattacked"]["variation"] }} reattacked,
-      {{ count_var_report["draft_created"]["variation"] }} drafts,
-      {{ count_var_report["released"]["variation"] }} released
     </p>
     <p>Regards,<br />Fluid Attacks Team</p>
   </div>

@@ -25,11 +25,15 @@ from typing import (
 
 
 def test_get_percent() -> None:
-    assert get_percent(0, 10) == "0.0%"
+    assert get_percent(0, 10) == "+0%"
     assert get_percent(10, 0) == "N/A"
     assert get_percent("0", 10) == "N/A"
-    assert get_percent(-10, 10) == "-100.0%"
-    assert get_percent(0.55, 10) == "5.5%"
+    assert get_percent(-10, 10) == "-100%"
+    assert get_percent(0.55, 10) == "+6%"
+    assert get_percent(2, 3) == "+67%"
+    assert get_percent(3, 2) == "+150%"
+    assert get_percent(-2, 3) == "-67%"
+    assert get_percent(-3, 2) == "-150%"
 
 
 def test_validate_date() -> None:
