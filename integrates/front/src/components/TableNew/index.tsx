@@ -1,3 +1,5 @@
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
   flexRender,
@@ -37,6 +39,7 @@ export const Tables = <TData extends object>(
     data,
     columns,
     columnToggle = false,
+    expandedRow = undefined,
     exportCsv = false,
     extraButtons = undefined,
     csvName = "Report",
@@ -46,6 +49,7 @@ export const Tables = <TData extends object>(
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [expanded, setExpanded] = useState({});
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
@@ -70,13 +74,16 @@ export const Tables = <TData extends object>(
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getRowCanExpand: (): boolean => expandedRow !== undefined,
     getSortedRowModel: getSortedRowModel(),
     globalFilterFn: filterFun,
     onColumnVisibilityChange: setColumnVisibility,
+    onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
     state: {
       columnVisibility,
+      expanded,
       globalFilter,
       sorting,
     },
@@ -109,6 +116,30 @@ export const Tables = <TData extends object>(
             {table.getHeaderGroups().map(
               (headerGroup): ReactElement => (
                 <tr key={headerGroup.id}>
+                  {expandedRow !== undefined &&
+                    (table.getIsAllRowsExpanded() ? (
+                      <th>
+                        <div
+                          onClick={table.getToggleAllRowsExpandedHandler()}
+                          onKeyPress={table.getToggleAllRowsExpandedHandler()}
+                          role={"button"}
+                          tabIndex={0}
+                        >
+                          <FontAwesomeIcon icon={faAngleUp} />
+                        </div>
+                      </th>
+                    ) : (
+                      <th>
+                        <div
+                          onClick={table.getToggleAllRowsExpandedHandler()}
+                          onKeyPress={table.getToggleAllRowsExpandedHandler()}
+                          role={"button"}
+                          tabIndex={0}
+                        >
+                          <FontAwesomeIcon icon={faAngleDown} />
+                        </div>
+                      </th>
+                    ))}
                   {headerGroup.headers.map(
                     (header): ReactElement => (
                       <th key={header.id}>
@@ -142,22 +173,55 @@ export const Tables = <TData extends object>(
             )}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(
-              (row): ReactElement => (
-                <tr key={row.id} onClick={onRowClick?.(row)}>
-                  {row.getVisibleCells().map(
-                    (cell): ReactElement => (
-                      <td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
+            {table.getRowModel().rows.map((row): ReactElement => {
+              return (
+                <React.Fragment key={row.id}>
+                  <tr onClick={onRowClick?.(row)}>
+                    {expandedRow !== undefined &&
+                      (row.getIsExpanded() ? (
+                        <td>
+                          <div
+                            onClick={row.getToggleExpandedHandler()}
+                            onKeyPress={row.getToggleExpandedHandler()}
+                            role={"button"}
+                            tabIndex={0}
+                          >
+                            <FontAwesomeIcon icon={faAngleUp} />
+                          </div>
+                        </td>
+                      ) : (
+                        <td>
+                          <div
+                            onClick={row.getToggleExpandedHandler()}
+                            onKeyPress={row.getToggleExpandedHandler()}
+                            role={"button"}
+                            tabIndex={0}
+                          >
+                            <FontAwesomeIcon icon={faAngleDown} />
+                          </div>
+                        </td>
+                      ))}
+                    {row.getVisibleCells().map(
+                      (cell): ReactElement => (
+                        <td key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </td>
+                      )
+                    )}
+                  </tr>
+                  {row.getIsExpanded() && (
+                    <tr>
+                      <td colSpan={row.getVisibleCells().length}>
+                        {expandedRow?.(row)}
                       </td>
-                    )
+                    </tr>
                   )}
-                </tr>
-              )
-            )}
+                </React.Fragment>
+              );
+            })}
           </tbody>
         </table>
       </TableContainer>

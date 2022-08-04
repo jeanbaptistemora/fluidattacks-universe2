@@ -25,6 +25,7 @@ interface ITableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;
+  expandedRow?: (row: Row<TData>) => JSX.Element;
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
   csvName?: string;
