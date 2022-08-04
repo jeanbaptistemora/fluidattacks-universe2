@@ -137,7 +137,7 @@ def get_last_state(
     return None
 
 
-async def had_state_by_then(
+def had_state_by_then(
     *,
     last_day: datetime,
     findings_cvssf: dict[str, Decimal],
@@ -177,35 +177,25 @@ async def get_totals_by_week(
     sprint: bool = False,
 ) -> tuple[Decimal, Decimal]:
     open_vulnerabilities = sum(
-        await collect(
-            tuple(
-                had_state_by_then(
-                    last_day=last_day,
-                    state=VulnerabilityStateStatus.OPEN,
-                    vulnerabilities=chunked_vulnerabilities,
-                    findings_cvssf=findings_cvssf,
-                    sprint=sprint,
-                )
-                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
-            ),
-            workers=8,
+        had_state_by_then(
+            last_day=last_day,
+            state=VulnerabilityStateStatus.OPEN,
+            vulnerabilities=chunked_vulnerabilities,
+            findings_cvssf=findings_cvssf,
+            sprint=sprint,
         )
+        for chunked_vulnerabilities in chunked(vulnerabilities, 16)
     )
 
     closed_vulnerabilities = sum(
-        await collect(
-            tuple(
-                had_state_by_then(
-                    last_day=last_day,
-                    state=VulnerabilityStateStatus.CLOSED,
-                    vulnerabilities=chunked_vulnerabilities,
-                    findings_cvssf=findings_cvssf,
-                    sprint=sprint,
-                )
-                for chunked_vulnerabilities in chunked(vulnerabilities, 16)
-            ),
-            workers=8,
+        had_state_by_then(
+            last_day=last_day,
+            state=VulnerabilityStateStatus.CLOSED,
+            vulnerabilities=chunked_vulnerabilities,
+            findings_cvssf=findings_cvssf,
+            sprint=sprint,
         )
+        for chunked_vulnerabilities in chunked(vulnerabilities, 16)
     )
 
     return Decimal(open_vulnerabilities), Decimal(closed_vulnerabilities)

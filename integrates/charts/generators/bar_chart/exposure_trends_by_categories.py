@@ -14,6 +14,9 @@ from charts.colors import (
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
+from charts.generators.text_box.utils_vulnerabilities_remediation import (
+    had_state_by_then,
+)
 from charts.utils import (
     format_cvssf,
     format_cvssf_log,
@@ -31,6 +34,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -46,12 +52,22 @@ from decimal import (
 from findings.domain.core import (
     get_severity_score,
 )
+from newutils.datetime import (
+    get_now_minus_delta,
+)
 from ruamel import (
     yaml,
 )
 from typing import (
     Counter,
+    NamedTuple,
 )
+
+
+class GroupInformation(NamedTuple):
+    categories: dict[str, str]
+    cvssf: dict[str, Decimal]
+    vulnerabilities: tuple[Vulnerability, ...]
 
 
 def get_categories() -> dict[str, str]:
@@ -74,11 +90,11 @@ def get_category(*, finding_title: str, categories: dict[str, str]) -> str:
 
 
 @alru_cache(maxsize=None, typed=True)
-async def get_data_one_group(
+async def get_data_vulnerabilities(
     *,
     group: str,
     loaders: Dataloaders,
-) -> Counter[str]:
+) -> GroupInformation:
     findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
     finding_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
@@ -97,16 +113,49 @@ async def get_data_one_group(
         [finding.id for finding in findings]
     )
 
+    return GroupInformation(
+        categories=finding_category,
+        cvssf=finding_cvssf,
+        vulnerabilities=vulnerabilities,
+    )
+
+
+@alru_cache(maxsize=None, typed=True)
+async def get_data_one_group(
+    *,
+    group: str,
+    loaders: Dataloaders,
+    days: int = 30,
+) -> Counter[str]:
+    last_day: datetime = get_now_minus_delta(days=days)
+    data: GroupInformation = await get_data_vulnerabilities(
+        group=group,
+        loaders=loaders,
+    )
+
+    current_category: str
     counter: Counter[str] = Counter()
-    for vulnerability in vulnerabilities:
-        if vulnerability.state.status == VulnerabilityStateStatus.OPEN:
-            counter.update(
-                {
-                    finding_category[vulnerability.finding_id]: Decimal(
-                        finding_cvssf[vulnerability.finding_id]
-                    ).quantize(Decimal("0.001"))
-                }
-            )
+
+    for vulnerability in data.vulnerabilities:
+        current_category = data.categories[vulnerability.finding_id]
+        counter.update(
+            {
+                f"{current_category}/open": had_state_by_then(
+                    last_day=last_day,
+                    state=VulnerabilityStateStatus.OPEN,
+                    vulnerabilities=[vulnerability],
+                    findings_cvssf=data.cvssf,
+                    sprint=True,
+                ).quantize(Decimal("0.001")),
+                f"{current_category}/closed": had_state_by_then(
+                    last_day=last_day,
+                    state=VulnerabilityStateStatus.CLOSED,
+                    vulnerabilities=[vulnerability],
+                    findings_cvssf=data.cvssf,
+                    sprint=True,
+                ).quantize(Decimal("0.001")),
+            }
+        )
 
     return counter
 
@@ -133,7 +182,12 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             columns=[
                 ["Exposure"]
                 + [
-                    format_cvssf_log(Decimal(data[category]))
+                    format_cvssf_log(
+                        Decimal(
+                            data[f"{category}/open"]
+                            - data[f"{category}/closed"]
+                        )
+                    )
                     for category in categories
                 ],
             ],
@@ -163,19 +217,35 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
             ),
         ),
         maxValue=format_max_value(
-            [(category, Decimal(data[category])) for category in categories]
+            [
+                (
+                    category,
+                    Decimal(
+                        data[f"{category}/open"] - data[f"{category}/closed"]
+                    ),
+                )
+                for category in categories
+            ]
         ),
         maxValueLog=format_max_value(
             [
                 (
                     category,
-                    format_cvssf_log(Decimal(data[category])),
+                    format_cvssf_log(
+                        Decimal(
+                            data[f"{category}/open"]
+                            - data[f"{category}/closed"]
+                        )
+                    ),
                 )
                 for category in categories
             ]
         ),
         originalValues=[
-            format_cvssf(Decimal(data[category])) for category in categories
+            format_cvssf(
+                Decimal(data[f"{category}/open"] - data[f"{category}/closed"])
+            )
+            for category in categories
         ],
     )
 
