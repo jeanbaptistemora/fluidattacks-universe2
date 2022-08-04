@@ -3,7 +3,6 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodDocs"
           outputs."/secretsForEnvFromSops/docsInfraProd"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
@@ -16,7 +15,6 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];
@@ -45,7 +43,6 @@
     modules = {
       docsInfra = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/docsInfraDev"
           outputs."/secretsForTerraformFromEnv/docsInfra"
         ];

@@ -107,11 +107,11 @@ module "runners" {
   runners_root_size             = local.arch.sizes[each.value.size].root_size
   runners_concurrent            = 1000
   runners_ebs_optimized         = true
-  runners_idle_count            = 1
+  runners_idle_count            = 3
   runners_idle_time             = 1800
   runners_image                 = "docker"
   runners_limit                 = 1000
-  runners_max_builds            = 15
+  runners_max_builds            = 30
   runners_monitoring            = false
   runners_name                  = "common-ci-${each.key}"
   runners_output_limit          = 4096
