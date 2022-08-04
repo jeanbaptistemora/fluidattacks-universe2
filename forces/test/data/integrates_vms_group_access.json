@@ -1,12 +1,18 @@
 {
-  "FI_project_access": [
+  "integrates_vms": [
     {
       "PutRequest": {
         "Item": {
+          "pk": {
+            "S": "USER#forces.herrin@fluidattacks.com"
+          },
+          "sk": {
+            "S": "GROUP#herrin"
+          },
           "responsibility": {
             "S": "Forces service user"
           },
-          "project_name": {
+          "group_name": {
             "S": "herrin"
           },
           "has_access": {
@@ -16,9 +22,6 @@
             "M": {
               "url_token": {
                 "S": "P8MPA7bnJG4-iACw10zsfYsyxIawbVEyrLkjyXy4b4IPmJli3hXL1p2i1Gwc5CmwmqnpNNkRYyerCDGY5V8xRA"
-              },
-              "phone_number": {
-                "S": ""
               },
               "role": {
                 "S": "service_forces"
@@ -31,7 +34,7 @@
               }
             }
           },
-          "user_email": {
+          "email": {
             "S": "forces.herrin@fluidattacks.com"
           }
         }
