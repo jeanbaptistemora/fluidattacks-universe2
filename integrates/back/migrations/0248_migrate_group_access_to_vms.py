@@ -3,8 +3,8 @@
 Migrate stakeholder group access to "integrates_vms" table.
 This info is currently in "FI_project_access".
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-08-04 at 02:05:47 UTC
+Finalization Time: 2022-08-04 at 02:07:10 UTC
 """
 
 from aioextensions import (
