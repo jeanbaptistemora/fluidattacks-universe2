@@ -153,7 +153,7 @@ LOGGER = logging.getLogger(__name__)
 
 @authenticate_session
 async def app(request: Request) -> HTMLResponse:
-    """View for authenticated users"""
+    """View for authenticated users."""
     email = request.session.get("username")
     try:
         if email:
@@ -304,8 +304,8 @@ async def reject_access(request: Request) -> HTMLResponse:
                     "reject_access",
                     group_name=group_name,
                 )
-                response = await templates.reject_invitation_typed(
-                    request, group_access
+                response = await templates.reject_invitation(
+                    request, group_access.group_name
                 )
             else:
                 response = templates.invalid_invitation(
@@ -339,19 +339,19 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                     loaders, organization_access
                 )
             )
+            organization: Organization = await loaders.organization.load(
+                organization_access.organization_id
+            )
             if success:
                 organization_id: str = organization_access.organization_id
                 redis_del_by_deps_soon(
                     "reject_access_organization",
                     organization_id=organization_id,
                 )
-                response = await templates.reject_invitation_typed(
-                    request, organization_access
+                response = await templates.reject_invitation(
+                    request, organization.name
                 )
             else:
-                organization: Organization = await loaders.organization.load(
-                    organization_access.organization_id
-                )
                 response = templates.invalid_invitation(
                     request, "Invalid or Expired", organization.name
                 )
@@ -368,7 +368,7 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
 
 
 async def logout(request: Request) -> HTMLResponse:
-    """Close a user's active session"""
+    """Close a user's active session."""
     if "username" in request.session:
         user_email = request.session["username"]
         await sessions_dal.remove_session_key(user_email, "web")

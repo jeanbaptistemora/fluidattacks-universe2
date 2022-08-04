@@ -4,16 +4,7 @@
 from custom_types import (
     GraphicParameters,
 )
-from db_model.group_access.types import (
-    GroupAccess,
-)
-from db_model.organization_access.types import (
-    OrganizationAccess,
-)
 import json
-from newutils.utils import (
-    get_key_or_fallback,
-)
 from settings import (
     DEBUG,
     STATIC_URL,
@@ -29,10 +20,6 @@ from starlette.templating import (
     Jinja2Templates,
 )
 import traceback
-from typing import (
-    Any,
-    Union,
-)
 
 TEMPLATING_ENGINE = Jinja2Templates(directory=TEMPLATES_DIR)
 
@@ -171,7 +158,6 @@ async def valid_invitation(request: Request, entity_name: str) -> HTMLResponse:
 
 
 async def confirm_deletion(*, request: Request) -> HTMLResponse:
-
     return TEMPLATING_ENGINE.TemplateResponse(
         name="valid_delete_confirmation.html",
         context={
@@ -185,7 +171,6 @@ def invalid_confirm_deletion(
     request: Request,
     error: str,
 ) -> HTMLResponse:
-
     return TEMPLATING_ENGINE.TemplateResponse(
         name="invalid_delete_confirmation.html",
         context={
@@ -195,38 +180,13 @@ def invalid_confirm_deletion(
     )
 
 
-async def reject_invitation_typed(
-    request: Request, access: Union[OrganizationAccess, GroupAccess]
-) -> HTMLResponse:
-    if isinstance(access, OrganizationAccess):
-        entity_name = access.organization_id
-        return TEMPLATING_ENGINE.TemplateResponse(
-            name="reject_invitation.html",
-            context={
-                "group_name": entity_name,
-                "request": request,
-            },
-        )
-    entity_name = access.group_name
-    return TEMPLATING_ENGINE.TemplateResponse(
-        name="reject_invitation.html",
-        context={
-            "group_name": entity_name,
-            "request": request,
-        },
-    )
-
-
 async def reject_invitation(
-    request: Request, group_access: dict[str, Any]
+    request: Request, entity_name: str
 ) -> HTMLResponse:
-    group_name = (
-        get_key_or_fallback(group_access, fallback="") if group_access else ""
-    )
     return TEMPLATING_ENGINE.TemplateResponse(
         name="reject_invitation.html",
         context={
-            "group_name": group_name,
+            "entity_name": entity_name,
             "request": request,
         },
     )
