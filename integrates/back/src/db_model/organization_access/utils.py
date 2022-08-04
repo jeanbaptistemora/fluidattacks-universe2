@@ -37,6 +37,7 @@ def format_organization_access(item: Item) -> OrganizationAccess:
         )
         if item.get("invitation")
         else None,
+        role=item.get("role"),
     )
 
 
@@ -57,6 +58,7 @@ def format_metadata_item(
         if metadata.invitation
         else None,
         "organization_id": remove_org_id_prefix(organization_id),
+        "role": metadata.role,
     }
     return {
         key: None if not value and value is not False else value

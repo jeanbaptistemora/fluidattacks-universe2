@@ -34,6 +34,7 @@ def format_group_access(item: Item) -> GroupAccess:
         if item.get("invitation")
         else None,
         responsibility=item.get("responsibility"),
+        role=item.get("role"),
     )
 
 
@@ -62,6 +63,7 @@ def format_metadata_item(
         if metadata.invitation
         else None,
         "responsibility": metadata.responsibility,
+        "role": metadata.role,
     }
     return {
         key: None if not value and value is not False else value

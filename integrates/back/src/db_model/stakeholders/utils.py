@@ -98,11 +98,8 @@ def format_stakeholder(item: Item) -> Stakeholder:
         phone=format_phone(item["phone"]) if item.get("phone") else None,
         push_tokens=item.get("push_tokens"),
         registration_date=item.get("registration_date"),
+        role=item.get("role"),
         tours=format_tours(item["tours"])
         if item.get("tours")
         else StakeholderTours(),
     )
-
-
-def format_stakeholder_item(stakeholder: Stakeholder) -> Item:
-    return json.loads(json.dumps(stakeholder))

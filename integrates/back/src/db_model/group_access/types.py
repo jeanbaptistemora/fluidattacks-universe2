@@ -24,6 +24,7 @@ class GroupAccess(NamedTuple):
     has_access: Optional[bool] = None
     invitation: Optional[GroupInvitation] = None
     responsibility: Optional[str] = None
+    role: Optional[str] = None
 
 
 class GroupAccessMetadataToUpdate(NamedTuple):
@@ -32,3 +33,4 @@ class GroupAccessMetadataToUpdate(NamedTuple):
     has_access: Optional[bool] = None
     invitation: Optional[GroupInvitation] = None
     responsibility: Optional[str] = None
+    role: Optional[str] = None

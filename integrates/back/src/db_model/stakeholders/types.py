@@ -41,6 +41,7 @@ class Stakeholder(NamedTuple):
     phone: Optional[StakeholderPhone] = None
     push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
+    role: Optional[str] = None
     tours: StakeholderTours = StakeholderTours()
 
 
@@ -56,4 +57,5 @@ class StakeholderMetadataToUpdate(NamedTuple):
     phone: Optional[StakeholderPhone] = None
     push_tokens: Optional[list[str]] = None
     registration_date: Optional[str] = None
+    role: Optional[str] = None
     tours: Optional[StakeholderTours] = None

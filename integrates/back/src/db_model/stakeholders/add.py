@@ -4,9 +4,6 @@ from .constants import (
 from .types import (
     Stakeholder,
 )
-from .utils import (
-    format_stakeholder_item,
-)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -23,6 +20,7 @@ from dynamodb import (
 from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
+import simplejson as json  # type: ignore
 
 
 async def add(*, stakeholder: Stakeholder) -> None:
@@ -46,7 +44,7 @@ async def add(*, stakeholder: Stakeholder) -> None:
         key_structure.sort_key: primary_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
-        **format_stakeholder_item(stakeholder),
+        **json.loads(json.dumps(stakeholder)),
     }
 
     condition_expression = Attr(key_structure.partition_key).not_exists()

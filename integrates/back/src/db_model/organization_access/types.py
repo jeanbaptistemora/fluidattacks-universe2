@@ -16,9 +16,11 @@ class OrganizationAccess(NamedTuple):
     expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
     invitation: Optional[OrganizationInvitation] = None
+    role: Optional[str] = None
 
 
 class OrganizationAccessMetadataToUpdate(NamedTuple):
     expiration_time: Optional[int] = None
     has_access: Optional[bool] = None
     invitation: Optional[OrganizationInvitation] = None
+    role: Optional[str] = None
