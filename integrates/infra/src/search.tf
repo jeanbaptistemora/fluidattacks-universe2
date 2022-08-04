@@ -4,7 +4,7 @@ resource "aws_security_group" "integrates-opensearch" {
 
   ingress {
     from_port   = 443
-    to_port     = 433
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = [data.aws_vpc.main.cidr_block]
   }
