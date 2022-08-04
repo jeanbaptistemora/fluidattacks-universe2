@@ -1,4 +1,5 @@
 from . import (
+    _from_s3,
     _upload,
 )
 from ._core import (
@@ -58,3 +59,4 @@ def main(  # type: ignore[misc]
 
 
 main.add_command(_upload.destroy_and_upload)
+main.add_command(_from_s3.from_s3)
