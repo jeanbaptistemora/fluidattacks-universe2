@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Populate the enrollment items for the old stakeholders
+
+Execution Time:    2022-08-04 at 20:14:17 UTC
+Finalization Time: 2022-08-04 at 20:16:08 UTC
 """
 from aioextensions import (
     collect,
@@ -49,6 +52,9 @@ from newutils import (
     groups as groups_utils,
     organizations as orgs_utils,
 )
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -75,13 +81,17 @@ async def get_organization_groups_by_stakeholder(
 
 
 async def get_stakeholder_organizations(
-    loaders: Dataloaders, stakeholder: Stakeholder
+    loaders: Dataloaders,
+    stakeholder: Stakeholder,
+    org_ids: set,
 ) -> tuple[Organization, ...]:
     stakeholder_orgs: tuple[
         OrganizationAccess, ...
     ] = await loaders.stakeholder_organizations_access.load(stakeholder.email)
     organization_ids: list[str] = [
-        org.organization_id for org in stakeholder_orgs
+        org.organization_id
+        for org in stakeholder_orgs
+        if org.organization_id in org_ids
     ]
     organizations = await loaders.organization.load_many(organization_ids)
     return orgs_utils.filter_active_organizations(organizations)
@@ -101,10 +111,13 @@ async def enrollment_exists(
 
 
 async def process_stakeholder(
-    loaders: Dataloaders, stakeholder: Stakeholder, progress: float
+    loaders: Dataloaders,
+    stakeholder: Stakeholder,
+    org_ids: set,
+    progress: float,
 ) -> None:
     stakeholder_organizations = await get_stakeholder_organizations(
-        loaders=loaders, stakeholder=stakeholder
+        loaders=loaders, stakeholder=stakeholder, org_ids=org_ids
     )
     stakeholder_groups = tuple(
         chain.from_iterable(
@@ -126,6 +139,7 @@ async def process_stakeholder(
         )
     )
     if stakeholder_roots and not await enrollment_exists(loaders, stakeholder):
+        print(stakeholder.email)
         await enrollment_model.add(
             enrollment=Enrollment(
                 email=stakeholder.email,
@@ -152,6 +166,11 @@ async def process_stakeholder(
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
+    org_ids = set()
+    async for org_id, _, _ in (
+        orgs_domain.iterate_organizations_and_groups(loaders)
+    ):
+        org_ids.add(org_id)
     all_stakeholders = await stakeholders_model.get_all_stakeholders()
     LOGGER_CONSOLE.info(
         "All stakeholders",
@@ -162,6 +181,7 @@ async def main() -> None:
             process_stakeholder(
                 loaders=loaders,
                 stakeholder=stakeholder,
+                org_ids=org_ids,
                 progress=count / len(all_stakeholders),
             )
             for count, stakeholder in enumerate(all_stakeholders)
