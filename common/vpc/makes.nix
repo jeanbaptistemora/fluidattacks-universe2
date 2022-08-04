@@ -14,7 +14,6 @@ in {
       commonVpc = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
@@ -28,7 +27,6 @@ in {
       commonVpc = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];
@@ -48,7 +46,6 @@ in {
       commonVpc = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonVpc"
         ];

@@ -4,7 +4,6 @@
     modules = {
       commonStatus = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonStatusProd"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
@@ -17,7 +16,6 @@
     modules = {
       commonStatus = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonStatusDev"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];
@@ -67,7 +65,6 @@
     modules = {
       commonStatus = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonStatusDev"
           outputs."/secretsForTerraformFromEnv/commonStatus"
         ];

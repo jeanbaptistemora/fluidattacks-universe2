@@ -4,7 +4,6 @@
     modules = {
       commonDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
@@ -17,7 +16,6 @@
     modules = {
       commonDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];
@@ -36,7 +34,6 @@
     modules = {
       commonDns = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonDns"
         ];

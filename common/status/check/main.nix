@@ -17,7 +17,6 @@ makeScript {
       inputs.nixpkgs.jq
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };

@@ -5,7 +5,9 @@ data "aws_eks_cluster" "common" {
 }
 variable "gitlab_token" {}
 variable "gitlab_token_services" {}
-variable "region" {}
+variable "region" {
+  default = "us-east-1"
+}
 variable "terraform_state_lock_arn" {
   default = "arn:aws:dynamodb:us-east-1:205810638802:table/terraform_state_lock"
 }

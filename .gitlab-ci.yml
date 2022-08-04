@@ -140,12 +140,6 @@ sorts_extension:
     - m . /reviews .reviews.toml
   interruptible: false
 
-.nix_get_pkgs:
-  before_script:
-    - echo 'sandbox = false' | tee -a "/home/makes/.config/nix/nix.conf" "/etc/nix/nix.conf"
-    - nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-    - nix-channel --update
-
 common_forces:
   <<: *common_in_prod_branch
   stage: post-deploy

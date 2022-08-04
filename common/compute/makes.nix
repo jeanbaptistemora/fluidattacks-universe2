@@ -8,7 +8,6 @@
     modules = {
       commonCompute = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
@@ -20,7 +19,6 @@
     modules = {
       commonCompute = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";
@@ -32,7 +30,6 @@
     modules = {
       commonCompute = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/compute/schedule/parse-terraform"
         ];
         src = "/common/compute/infra";

@@ -14,7 +14,6 @@ in {
       commonVpn = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"
@@ -29,7 +28,6 @@ in {
       commonVpn = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"
@@ -57,7 +55,6 @@ in {
       commonVpn = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForEnvFromSops/commonVpnData"
           outputs."/secretsForTerraformFromEnv/commonVpn"

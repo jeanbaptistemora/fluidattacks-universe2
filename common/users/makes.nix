@@ -3,14 +3,12 @@
     commonUsers = {
       gitlab_token = "UNIVERSE_API_TOKEN";
       gitlab_token_services = "SERVICES_API_TOKEN";
-      region = "AWS_DEFAULT_REGION";
     };
   };
   deployTerraform = {
     modules = {
       commonUsers = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -23,7 +21,6 @@
     modules = {
       commonUsers = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -36,7 +33,6 @@
     modules = {
       commonUsersKeys1 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -59,7 +55,6 @@
       };
       commonUsersKeys2 = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];
@@ -86,7 +81,6 @@
     modules = {
       commonUsers = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
           outputs."/secretsForTerraformFromEnv/commonUsers"
         ];

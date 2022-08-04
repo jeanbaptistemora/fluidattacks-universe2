@@ -7,7 +7,6 @@
     modules = {
       commonOkta = {
         setup = [
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
@@ -20,7 +19,6 @@
     modules = {
       commonOkta = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];
@@ -46,7 +44,6 @@
     modules = {
       commonOkta = {
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/common/okta/parse"
           outputs."/secretsForTerraformFromEnv/commonOkta"
         ];

@@ -20,7 +20,6 @@ in {
       commonCi = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
@@ -31,7 +30,6 @@ in {
       commonCiNew = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/prodCommon"
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
         ];
@@ -50,7 +48,6 @@ in {
       commonCi = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
@@ -80,7 +77,6 @@ in {
       commonCi = {
         setup = [
           searchPaths
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
           outputs."/envVarsForTerraform/commonCi"
