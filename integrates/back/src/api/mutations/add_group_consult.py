@@ -78,7 +78,9 @@ async def mutate(
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    current_time = datetime_utils.get_as_str(datetime_utils.get_now())
+    current_time = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_now()
+    )
     comment_id = int(round(time.time() * 1000))
     content = parameters["content"]
     comment_data = GroupComment(

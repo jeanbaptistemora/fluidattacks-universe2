@@ -21,6 +21,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from db_model.events.enums import (
     EventEvidenceType,
     EventSolutionReason,
@@ -31,9 +34,6 @@ from db_model.events.types import (
 )
 from events import (
     domain as events_domain,
-)
-from finding_comments import (
-    domain as comments_domain,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -149,40 +149,65 @@ async def test_add_comment() -> None:
     user_email = "integratesmanager@gmail.com"
     comment_id = str(round(time() * 1000))
     parent_comment = "0"
+    today = datetime_utils.get_as_str(datetime_utils.get_now())
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
-    comment_data = {
-        "comment_type": "event",
-        "parent": parent_comment,
-        "content": "comment test",
-        "comment_id": comment_id,
-    }
-    comment_id, success = await events_domain.add_comment(
+    comment_data = EventComment(
+        event_id=event_id,
+        comment_type="event",
+        parent_id=parent_comment,
+        creation_date=today,
+        content="comment test",
+        id=comment_id,
+        email=user_email,
+        full_name="integrates manager",
+    )
+    await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent_comment
     )
-    assert success
-    assert comment_id
+    loaders = get_new_context()
+    event_comments: list[EventComment] = await loaders.event_comments.load(
+        event_id
+    )
+    assert event_comments[-1].id == comment_id
+    assert event_comments[-1].event_id == event_id
+    assert event_comments[-1].content == "comment test"
 
-    comment_data["content"] = "comment test 2"
-    comment_data["parent"] = comment_id
-    comment_data["comment_id"] = str(round(time() * 1000))
-    comment_id, success = await events_domain.add_comment(
+    new_comment_data = EventComment(
+        event_id=event_id,
+        comment_type="event",
+        parent_id=comment_id,
+        creation_date=today,
+        content="comment test 2",
+        id=str(round(time() * 1000)),
+        email=user_email,
+        full_name="integrates manager",
+    )
+    await events_domain.add_comment(
         info,
         user_email,
-        comment_data,
+        new_comment_data,
         event_id,
         parent_comment=str(comment_id),
     )
-    assert success
-    assert comment_id
+    new_loaders = get_new_context()
+    new_event_comments: list[
+        EventComment
+    ] = await new_loaders.event_comments.load(event_id)
+    assert new_event_comments[-1].id == new_comment_data.id
+    assert new_event_comments[-1].event_id == event_id
+    assert new_event_comments[-1].content == "comment test 2"
+    assert new_event_comments[-1].parent_id == comment_id
 
     with pytest.raises(InvalidCommentParent):
-        comment_data["parent"] = str(int(comment_id) + 1)
-        comment_data["comment_id"] = str(round(time() * 1000))
+        inv_comment_data = new_comment_data._replace(
+            parent_id=str(int(comment_id) + 1),
+            id=str(round(time() * 1000)),
+        )
         assert await events_domain.add_comment(
             info,
             user_email,
-            comment_data,
+            inv_comment_data,
             event_id,
             parent_comment=str(int(comment_id) + 1),
         )
@@ -285,15 +310,20 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     event_id = "418900971"
     parent_comment = "0"
     comment_id = str(round(time() * 1000))
+    today = datetime_utils.get_as_str(datetime_utils.get_now())
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
-    comment_data = {
-        "comment_type": "event",
-        "parent": "0",
-        "content": "comment test",
-        "comment_id": comment_id,
-    }
-    comment_id, success = await events_domain.add_comment(
+    comment_data = EventComment(
+        event_id=event_id,
+        comment_type="event",
+        parent_id=parent_comment,
+        creation_date=today,
+        content="comment test",
+        id=comment_id,
+        email="unittest@fluidattacks.com",
+        full_name="unit test",
+    )
+    await events_domain.add_comment(
         info,
         "integratesmanager@gmail.com",
         comment_data,
@@ -316,18 +346,17 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
         )
     evidence_prefix = f"unittesting/{event_id}"
 
-    assert success
-    assert len(await comments_domain.get("event", event_id)) >= 1
+    loaders = get_new_context()
+    assert len(await loaders.event_comments.load(event_id)) >= 1
     assert len(await events_domain.search_evidence(evidence_prefix)) >= 1
 
-    loaders = get_new_context()
     test_data = await events_domain.mask(loaders, event_id)
     expected_output = True
 
     assert isinstance(test_data, bool)
     assert test_data == expected_output
-    assert len(await comments_domain.get("event", event_id)) == 0
-    assert len(await events_domain.search_evidence(evidence_prefix)) == 0
     new_loaders = get_new_context()
+    assert len(await new_loaders.event_comments.load(event_id)) == 0
+    assert len(await events_domain.search_evidence(evidence_prefix)) == 0
     event: Event = await new_loaders.event.load(event_id)
     assert event.description == "Masked"

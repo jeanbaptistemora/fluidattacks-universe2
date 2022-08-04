@@ -35,6 +35,9 @@ from db_model import (
     events as events_model,
     findings as findings_model,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from db_model.events.enums import (
     EventAccessibility,
     EventAffectedComponents,
@@ -73,11 +76,14 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from event_comments import (
+    domain as event_comments_domain,
+)
 from events.types import (
     EventAttributesToUpdate,
 )
 from finding_comments import (
-    domain as comments_domain,
+    domain as finding_comments_domain,
 )
 from findings import (
     domain as findings_domain,
@@ -146,12 +152,12 @@ async def remove_file_evidence(file_name: str) -> None:
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
-    comment_data: dict[str, Any],
+    comment_data: EventComment,
     event_id: str,
     parent_comment: str,
-) -> tuple[Union[str, None], bool]:
+) -> None:
     parent_comment = str(parent_comment)
-    content = str(comment_data["content"])
+    content = comment_data.content
     loaders = info.context.loaders
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
@@ -161,16 +167,13 @@ async def add_comment(
         content, user_email, group_name, parent_comment, info.context.store
     )
     if parent_comment != "0":
-        event_comments = [
-            comment["comment_id"]
-            for comment in await comments_domain.get("event", event_id)
-        ]
-        if parent_comment not in event_comments:
+        event_comments: list[EventComment] = await loaders.event_comments.load(
+            event_id
+        )
+        event_comments_ids = [comment.id for comment in event_comments]
+        if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
-
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    success = await comments_domain.add(event_id, comment_data, stakeholder)
-    return success
+    await event_comments_domain.add(comment_data)
 
 
 async def add_event(
@@ -322,9 +325,11 @@ async def mask(loaders: Any, event_id: str) -> bool:
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
-    list_comments = await comments_domain.get("event", event_id)
+    list_comments: list[EventComment] = await loaders.event_comments.load(
+        event_id
+    )
     mask_events_coroutines = [
-        comments_domain.delete(str(comment["comment_id"]), event_id)
+        event_comments_domain.delete(comment.id, event_id)
         for comment in list_comments
     ]
 
@@ -666,7 +671,7 @@ async def request_vulnerabilities_hold(
         "comment_id": comment_id,
     }
     stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    await comments_domain.add(finding_id, comment_data, stakeholder)
+    await finding_comments_domain.add(finding_id, comment_data, stakeholder)
     if not success:
         LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()

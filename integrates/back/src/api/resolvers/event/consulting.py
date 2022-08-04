@@ -2,7 +2,7 @@ from db_model.events.types import (
     Event,
 )
 from event_comments import (
-    domain as comments_domain,
+    domain as event_comments_domain,
 )
 from functools import (
     partial,
@@ -36,7 +36,7 @@ async def resolve_no_cache(
     user_data: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_data["user_email"]
 
-    event_coments = await comments_domain.get_event_comments(
+    event_coments = await event_comments_domain.get_event_comments(
         loaders, group_name, event_id, user_email
     )
     return [

@@ -14,6 +14,9 @@ from datetime import (
 from db_model.enums import (
     Notification,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -34,7 +37,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Dict,
     List,
     Optional,
     Tuple,
@@ -44,7 +46,7 @@ from typing import (
 async def send_mail_comment(
     *,
     loaders: Any,
-    comment_data: Dict[str, Any],
+    comment_data: EventComment,
     event_id: str,
     recipients: List[str],
     group_name: str,
@@ -56,7 +58,7 @@ async def send_mail_comment(
     has_squad: bool = group.state.has_squad
 
     email_context: dict[str, Any] = {
-        "comment": str(comment_data["content"]).splitlines(),
+        "comment": comment_data.content.splitlines(),
         "comment_type": "event",
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}"
@@ -64,7 +66,7 @@ async def send_mail_comment(
         ),
         "finding_id": event_id,
         "finding_name": f"Event #{event_id}",
-        "parent": str(comment_data["parent"]),
+        "parent": comment_data.parent_id,
         "group": group_name,
         "has_machine": has_machine,
         "has_squad": has_squad,

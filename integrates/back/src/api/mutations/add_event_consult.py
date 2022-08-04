@@ -7,6 +7,9 @@ from ariadne.utils import (
 from custom_types import (
     AddConsultPayload,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from db_model.events.types import (
     Event,
 )
@@ -30,6 +33,10 @@ from newutils import (
     token as token_utils,
     validations,
 )
+from newutils.datetime import (
+    get_as_utc_iso_format,
+    get_now,
+)
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
@@ -40,16 +47,14 @@ from time import (
     time,
 )
 from typing import (
-    Any,
     Dict,
-    Optional,
 )
 
 
 async def send_event_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Dict[str, Any],
+    comment_data: EventComment,
     event_id: str,
     user_email: str,
     group_name: str,
@@ -61,7 +66,7 @@ async def send_event_consult_mail(
         recipients=await get_users_subscribed_to_consult(
             loaders=info.context.loaders,
             group_name=group_name,
-            comment_type=str(comment_data["comment_type"]),
+            comment_type=comment_data.comment_type,
         ),
         user_mail=user_email,
         group_name=group_name,
@@ -83,42 +88,46 @@ async def mutate(
 ) -> AddConsultPayload:
     validations.validate_fields([content])
 
-    comment_id: Optional[str] = str(round(time() * 1000))
+    comment_id: str = str(round(time() * 1000))
     user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    today = get_as_utc_iso_format(get_now())
     user_email = str(user_info["user_email"])
-    comment_data = {
-        "comment_type": "event",
-        "parent": parent_comment,
-        "content": content,
-        "comment_id": comment_id,
-    }
-    comment_id, success = await events_domain.add_comment(
+
+    comment_data = EventComment(
+        event_id=event_id,
+        comment_type="event",
+        parent_id=str(parent_comment),
+        creation_date=today,
+        content=content,
+        id=comment_id,
+        email=user_email,
+        full_name=str.join(
+            " ",
+            [user_info.get("first_name", ""), user_info.get("last_name", "")],
+        ),
+    )
+    await events_domain.add_comment(
         info, user_email, comment_data, event_id, parent_comment
     )
-    if success:
-        redis_del_by_deps_soon("add_event_consult", event_id=event_id)
-        if content.strip() not in {"#external", "#internal"}:
-            event_loader = info.context.loaders.event
-            event: Event = await event_loader.load(event_id)
-            group_name = event.group_name
-            schedule(
-                send_event_consult_mail(
-                    info=info,
-                    comment_data=comment_data,
-                    event_id=event_id,
-                    user_email=user_email,
-                    group_name=group_name,
-                )
+
+    redis_del_by_deps_soon("add_event_consult", event_id=event_id)
+    if content.strip() not in {"#external", "#internal"}:
+        event_loader = info.context.loaders.event
+        event: Event = await event_loader.load(event_id)
+        group_name = event.group_name
+        schedule(
+            send_event_consult_mail(
+                info=info,
+                comment_data=comment_data,
+                event_id=event_id,
+                user_email=user_email,
+                group_name=group_name,
             )
-
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Added comment to event {event_id} successfully",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to add comment in event {event_id}",
         )
 
-    return AddConsultPayload(success=success, comment_id=str(comment_id))
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Added comment to event {event_id} successfully",
+    )
+
+    return AddConsultPayload(success=True, comment_id=str(comment_id))

@@ -8,11 +8,17 @@ from botocore.exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
+from newutils.event_comments import (
+    format_event_comment_item,
+)
 from settings import (
     LOGGING,
 )
@@ -30,7 +36,7 @@ TABLE_NAME: str = "fi_finding_comments"
 
 
 async def create(
-    comment_id: str, comment_attributes: Dict[str, Any], finding_id: str
+    comment_id: str, comment_attributes: Dict[str, Any], event_id: str
 ) -> bool:
     success = False
     try:
@@ -39,13 +45,22 @@ async def create(
             {
                 **comment_attributes,
                 "comment_id": comment_id,
-                "finding_id": finding_id,
+                "finding_id": event_id,
                 "parent": str(comment_attributes["parent"]),
             },
         )
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def create_typed(
+    comment_attributes: EventComment,
+) -> None:
+    event_comment = format_event_comment_item(comment_attributes)
+    await create(
+        comment_attributes.id, event_comment, comment_attributes.event_id
+    )
 
 
 async def delete(comment_id: str, finding_id: str) -> bool:
