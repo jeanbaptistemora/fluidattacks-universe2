@@ -604,6 +604,35 @@
       "management:type" = "product";
     };
   };
+  integrates_send_deprecation_notice = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/utils/scheduler"
+      "prod"
+      "schedulers.send_deprecation_notice.main"
+    ];
+
+    schedule_expression = "cron(0 14 5 * ? *)";
+    size = "nano";
+    awsRole = "prod_integrates";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_send_deprecation_notice";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_subscriptions_analytics_daily = {
     enabled = true;
     command = [
