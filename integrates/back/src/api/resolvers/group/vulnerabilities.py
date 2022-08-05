@@ -30,7 +30,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
-    query: str = kwargs.get("search", "")
+    query = kwargs.get("search")
     results = await search(
         exact_filters={"group_name": parent.name},
         index="vulnerabilities",

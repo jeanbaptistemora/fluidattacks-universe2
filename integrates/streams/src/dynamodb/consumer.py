@@ -115,14 +115,16 @@ def _get_shard_records(
     print("Processed", processed_records, "records")
 
 
-def consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
+def _consume_shard_records(shard: dict[str, Any], stream_arn: str) -> None:
+    """Retrieves the records from the shard and triggers replication"""
     shard_iterator = _get_shard_iterator(stream_arn, shard["ShardId"])
+
     for records in _get_shard_records(shard_iterator):
         replicate(records)
 
 
 def consume() -> None:
-    """Consumes the stream and triggers replication"""
+    """Consumes the DynamoDB stream"""
     stream_arn = _get_stream_arn(TABLE_NAME)
     workers: list[Thread] = []
 
@@ -131,7 +133,7 @@ def consume() -> None:
             worker = Thread(
                 args=(shard, stream_arn),
                 daemon=True,
-                target=consume_shard_records,
+                target=_consume_shard_records,
             )
             workers.append(worker)
             worker.start()

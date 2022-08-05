@@ -27,12 +27,13 @@ CLIENT = OpenSearch(
 )
 
 
-def replicate_on_opensearch(
+def _replicate_on_opensearch(
     event_name: str,
     pk: str,
     sk: str,
     item: Optional[dict[str, Any]],
 ) -> None:
+    """Replicates the item on AWS OpenSearch"""
     matches_filters = pk.startswith("VULN#") and sk.startswith("FIN#")
 
     if matches_filters:
@@ -45,6 +46,7 @@ def replicate_on_opensearch(
 
 
 def replicate(records: tuple[dict[str, Any], ...]) -> None:
+    """Replicates the records on other storages"""
     for record in records:
         event_name: str = record["eventName"]
         pk: str = record["dynamodb"]["Keys"]["pk"]["S"]
@@ -54,7 +56,8 @@ def replicate(records: tuple[dict[str, Any], ...]) -> None:
             if "NewImage" in record["dynamodb"]
             else None
         )
+
         if FI_ENVIRONMENT != "prod":
             print("Processing", event_name, pk, sk)
 
-        replicate_on_opensearch(event_name, pk, sk, item)
+        _replicate_on_opensearch(event_name, pk, sk, item)
