@@ -1,4 +1,6 @@
 from syntax_graph.syntax_readers.common import (
+    library_name as common_library_name,
+    parameter_list as common_parameter_list,
     program as common_program,
 )
 from syntax_graph.syntax_readers.dart import (
@@ -22,6 +24,18 @@ DART_DISPATCHERS: Dispatchers = (
             "import_or_export",
         },
         syntax_reader=dart_import_or_export.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "library_name",
+        },
+        syntax_reader=common_library_name.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "formal_parameter_list",
+        },
+        syntax_reader=common_parameter_list.reader,
     ),
     Dispatcher(
         applicable_types={
