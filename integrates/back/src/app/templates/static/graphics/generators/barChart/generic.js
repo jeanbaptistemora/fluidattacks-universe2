@@ -1,6 +1,14 @@
 /* global c3 */
+/* global d3 */
 
 const defaultPaddingRatio = 0.05;
+
+function getColor(d) {
+  if (d[0].value > 0) {
+    return '#db3a34';
+  }
+  return '#009044';
+}
 
 function formatYTick(value) {
   if (value % 1 === 0) {
@@ -19,6 +27,35 @@ function formatXTick(index, categories) {
   return `...${ categories[index].slice(slicedSize) }`;
 }
 
+function formatYTickAdjusted(value) {
+  if (value === 0.0) {
+    return value;
+  }
+  const base = 100.0;
+  const ajustedBase = 10.0;
+  const yTick = Math.round(Math.pow(2.0, Math.abs(value)) * ajustedBase) / base;
+
+  if (value < 0.0) {
+    return -yTick;
+  }
+
+  return yTick;
+}
+
+function formatLabelsAdjusted(datum, index, maxValueLog, originalValues, columns) {
+  const minValue = 0.10;
+  if (Math.abs(datum / maxValueLog) > minValue) {
+    if (typeof index === 'undefined') {
+      const values = columns.filter((value) => value === datum);
+
+      return values.length > 0 ? values[0] : 0;
+    }
+    return originalValues[index];
+  }
+
+  return '';
+}
+
 function formatLogYTick(value) {
   if (value === 0.0) {
     return value;
@@ -28,9 +65,15 @@ function formatLogYTick(value) {
   return Math.round(Math.pow(2.0, value) * base) / base;
 }
 
-function formatLogLabels(datum, index, maxValueLog, originalValues) {
+function formatLogLabels(datum, index, maxValueLog, originalValues, columns) {
   const minValue = 0.10;
   if (datum / maxValueLog > minValue) {
+    if (typeof index === 'undefined') {
+      const values = columns.filter((value) => value === datum);
+
+      return values.length > 0 ? values[0] : 0;
+    }
+
     return originalValues[index];
   }
 
@@ -62,17 +105,40 @@ function render(dataDocument, height, width) {
     };
   }
 
-  if (dataDocument.originalValues && dataDocument.maxValueLog) {
-    const { originalValues } = dataDocument;
+  if (dataDocument.maxValueLog) {
+    const { originalValues, maxValueLog, data: columsData } = dataDocument;
+    const { columns } = columsData;
     dataDocument.axis.y.tick = { format: formatLogYTick };
     dataDocument.data.labels = {
-      format: (datum, _id, index) => formatLogLabels(datum, index, dataDocument.maxValueLog, originalValues),
+      format: (datum, _id, index) => formatLogLabels(datum, index, maxValueLog, originalValues, columns),
     };
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
   }
 
-  c3.generate({
+  if (dataDocument.maxValueLogAdjusted) {
+    const { maxValueLogAdjusted, originalValues, data: columsData } = dataDocument;
+    const { columns } = columsData;
+    dataDocument.axis.y.tick = { count: 4, format: formatYTickAdjusted };
+    dataDocument.data.color = (_color, datum) => (datum.value >= 0 ? '#db3a34' : '#009044');
+    dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
+    dataDocument.data.labels = {
+      format: (datum, _id, index) => formatLabelsAdjusted(
+        datum, index, maxValueLogAdjusted, originalValues, columns[0],
+      ),
+    };
+  }
+
+  return c3.generate({
     ...dataDocument,
+    tooltip: {
+      ...dataDocument.tooltip,
+      contents(d, defaultTitleFormat, defaultValueFormat, color) {
+        return this.getTooltipContent(
+          d,
+          defaultTitleFormat,
+          defaultValueFormat,
+          dataDocument.exposureTrendsByCategories ? () => getColor(d) : color);
+      } },
     bindto: 'div',
     padding: {
       bottom: (dataDocument.paddingRatioBottom ? dataDocument.paddingRatioBottom : defaultPaddingRatio) * height,
@@ -91,7 +157,24 @@ function load() {
   const args = JSON.parse(document.getElementById('args').textContent.replace(/'/g, '"'));
   const dataDocument = JSON.parse(args.data);
 
-  render(dataDocument, args.height, args.width);
+  const chart = render(dataDocument, args.height, args.width);
+
+  if (dataDocument.exposureTrendsByCategories) {
+    d3.select(chart.element).select('.c3-axis-x').select('.domain')
+      .style('visibility', 'hidden');
+    d3.select(chart.element).select('.c3-axis-x').selectAll('line')
+      .style('visibility', 'hidden');
+    d3.select(chart.element)
+      .selectAll('.c3-chart-texts .c3-text').each((_d, index, textList) => {
+        const text = d3.select(textList[index]).text();
+        const moveTextPostive = 15;
+        const moveTextNegative = -25;
+        const pixels = parseFloat(text) >= 0 ? moveTextPostive : moveTextNegative;
+
+        d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`)
+          .style('fill', 'black !important');
+      });
+  }
 }
 
 window.load = load;

@@ -27,6 +27,7 @@ function render(dataDocument, height, width) {
       'Permanently accepted': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
       'Temporarily accepted': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
       'Non available': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
+      'Unavailable': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
       'Available': (_datum, id, index) => getTooltipPercentage(id, index, maxPercentageValues),
     };
   }

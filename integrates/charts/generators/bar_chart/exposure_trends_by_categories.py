@@ -236,6 +236,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         originalValues=[
             format_cvssf(category) for category in categories_trend
         ],
+        exposureTrendsByCategories=True,
     )
 
 
