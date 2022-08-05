@@ -64,10 +64,12 @@ function dynamodb_etl {
       > "${data}" \
     && get_schemas "${use_cache}" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
     && cat "${singer_file}" > .singer \
+    && echo '[INFO] Running target-s3' \
     && target-s3 \
       --bucket 'observes.etl-data' \
       --prefix 'test_dynamo/' \
       < .singer \
+    && echo '[INFO] Running target-redshift' \
     && target-redshift from-s3 \
       --schema-name "test_${schema}" \
       --bucket 'observes.etl-data' \
