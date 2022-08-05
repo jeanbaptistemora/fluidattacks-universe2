@@ -2,6 +2,9 @@
 from back.test import (
     db,
 )
+from db_model.event_comments.types import (
+    EventComment,
+)
 from db_model.events.enums import (
     EventAccessibility,
     EventAffectedComponents,
@@ -13,6 +16,9 @@ from db_model.events.types import (
     EventEvidence,
     EventEvidences,
     EventState,
+)
+from newutils.datetime import (
+    convert_to_iso_str,
 )
 import pytest
 from typing import (
@@ -64,17 +70,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 ],
             },
         ],
-        "comments": [
+        "event_comments": [
             {
-                "finding_id": "418900971",
-                "comment_id": "43455343453",
-                "comment_type": "event",
-                "content": "This is a test comment",
-                "created": "2019-05-28 15:09:37",
-                "email": "admin@gmail.com",
-                "fullname": "test one",
-                "modified": "2019-05-28 15:09:37",
-                "parent": 0,
+                "event_comment": EventComment(
+                    event_id="418900971",
+                    id="43455343453",
+                    comment_type="event",
+                    content="This is a test comment",
+                    creation_date=convert_to_iso_str("2019-05-28 15:09:37"),
+                    email="admin@gmail.com",
+                    full_name="test one",
+                    parent_id="0",
+                )
             },
         ],
     }

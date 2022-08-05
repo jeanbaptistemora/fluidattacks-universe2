@@ -26,6 +26,9 @@ async def get_result(
             closingDate
             consulting {{
                 content
+                id
+                fullName
+                created
             }}
             context
             detail
