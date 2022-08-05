@@ -26,8 +26,13 @@ def format_access_token(item: Item) -> StakeholderAccessToken:
     )
 
 
-def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
-    item: Item = json.loads(json.dumps(metadata))
+def format_metadata_item(
+    email: str, metadata: StakeholderMetadataToUpdate
+) -> Item:
+    item: Item = {
+        "email": email,
+        **json.loads(json.dumps(metadata)),
+    }
     if (
         metadata.access_token
         and metadata.access_token.iat == 0
