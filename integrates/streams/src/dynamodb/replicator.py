@@ -8,6 +8,7 @@ from dynamodb.utils import (
 )
 from opensearchpy import (
     AWSV4SignerAuth,
+    NotFoundError,
     OpenSearch,
     RequestsHttpConnection,
 )
@@ -40,7 +41,10 @@ def _replicate_on_opensearch(
         item_id = "#".join([pk, sk])
 
         if event_name == "REMOVE":
-            CLIENT.delete(id=item_id, index="vulnerabilities")
+            try:
+                CLIENT.delete(id=item_id, index="vulnerabilities")
+            except NotFoundError:
+                print("Item", pk, sk, "not found. Won't delete")
         else:
             CLIENT.index(body=item, id=item_id, index="vulnerabilities")
 
