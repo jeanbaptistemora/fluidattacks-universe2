@@ -319,8 +319,6 @@ export const enTranslations: ResourceKey = {
     reportLanguage: "Report language ",
     reportLanguageTip:
       "Select the language of your preference to report vulnerabilities",
-    role: "User manager",
-    roleTitle: "Role",
     standby: {
       subtitle:
         "You have created your group. You can relax and wait for the " +

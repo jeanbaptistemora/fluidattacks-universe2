@@ -168,10 +168,6 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
                 value={"accept"}
               />
             </Col>
-            <Text fw={7} mb={1} mt={2}>
-              {t("autoenrollment.roleTitle")}
-            </Text>
-            <Text mb={2}>{t("autoenrollment.role")}</Text>
             {!showSubmitAlert && orgMessages.message !== "" ? (
               <Alert
                 icon={true}
@@ -182,7 +178,7 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
               </Alert>
             ) : undefined}
           </Row>
-          <Gap>
+          <Gap mv={6}>
             <Button disabled={isSubmitting} type={"submit"} variant={"primary"}>
               {t("autoenrollment.proceed")}
             </Button>
