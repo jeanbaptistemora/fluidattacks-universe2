@@ -36,7 +36,7 @@ REPOSITORIES: List[
     (
         get_advisories_community,
         URL_ADVISORIES_COMMUNITY,
-        ("maven", "npm", "nuget"),
+        ("maven", "npm", "nuget", "pip"),
     ),
     (
         get_advisory_database,

@@ -38,18 +38,31 @@ def fix_npm_range(unformatted_range: str) -> str:
     return unformatted_range.replace("||", " || ")
 
 
+def fix_pip_range(pip_range: str) -> str:
+    vals_to_change: Dict[str, str] = {"||": " || ", ",": " ", "==": ""}
+
+    for target, replacement in vals_to_change.items():
+        pip_range = pip_range.replace(target, replacement)
+
+    return pip_range
+
+
 def format_ranges(platform: str, range_str: str) -> str:
     if platform in ("maven", "nuget"):
         ranges = re.findall(RE_RANGES, range_str)
         str_ranges = [format_range(ra) for ra in ranges]
         return " || ".join(str_ranges)
-
-    return fix_npm_range(range_str)  # npm
+    elif platform == "pypi":
+        return fix_pip_range(range_str)
+    else:
+        return fix_npm_range(range_str)  # npm
 
 
 def get_advisories_community(
     advisories: Advisories, tmp_dirname: str, platform: str
 ) -> dict:
+    if platform == "pip":
+        platform = "pypi"
     filenames = sorted(
         glob.glob(f"{tmp_dirname}/{platform}/**/*.yml", recursive=True)
     )
