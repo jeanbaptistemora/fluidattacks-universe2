@@ -6,17 +6,9 @@ const GET_STAKEHOLDER_WELCOME = gql`
       organizations {
         groups {
           name
-          roots {
-            ... on GitRoot {
-              url
-            }
-          }
-          service
-          subscription
         }
         name
       }
-      remember
       userEmail
       userName
     }
