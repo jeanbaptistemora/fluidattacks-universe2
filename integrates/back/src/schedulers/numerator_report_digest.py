@@ -205,6 +205,8 @@ async def _draft_content(
                     allowed_users=users_email,
                 )
 
+    LOGGER.info("- draft report generated in group %s", group)
+
 
 async def _finding_content(
     loaders: Dataloaders,
@@ -270,6 +272,8 @@ async def _finding_content(
                         allowed_users=users_email,
                     )
 
+    LOGGER.info("- finding report generated in group %s", group)
+
 
 async def _toe_input_content(
     loaders: Dataloaders,
@@ -304,6 +308,8 @@ async def _toe_input_content(
             allowed_users=users_email,
         )
 
+    LOGGER.info("- toe input report generated in group %s", group)
+
 
 async def _toe_line_content(
     loaders: Dataloaders,
@@ -326,6 +332,8 @@ async def _toe_line_content(
             to_add=toe_lines.node.attacked_lines,
             allowed_users=users_email,
         )
+
+    LOGGER.info("- toe lines report generated in group %s", group)
 
 
 async def _generate_numerator_report(
@@ -364,6 +372,8 @@ async def _generate_numerator_report(
                 ),
             ]
         )
+
+    LOGGER.info("- general report successfully generated")
 
     return content
 
