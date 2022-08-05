@@ -119,7 +119,8 @@ resource "aws_s3_bucket_cors_configuration" "dev" {
     allowed_origins = [
       "https://res.cloudinary.com/",
       "https://www.codiga.io/",
-      "https://sonarcloud.io/"
+      "https://sonarcloud.io/",
+      "https://img.shields.io"
     ]
     max_age_seconds = 3600
   }
