@@ -15,6 +15,7 @@ from schedulers.numerator_report_digest import (
     _generate_count_report,
     _send_mail_report,
     _validate_date,
+    format_number,
     get_percent,
 )
 from typing import (
@@ -22,6 +23,19 @@ from typing import (
     Dict,
     List,
 )
+
+
+def test_format_number() -> None:
+    assert format_number(0) == "0"
+    assert format_number(-1) == "-1"
+    assert format_number(999) == "999"
+    assert format_number(1000) == "1.0k"
+    assert format_number(1001) == "1.0k"
+    assert format_number(1190) == "1.2k"
+    assert format_number(999999) == "1000.0k"
+    assert format_number(1000000) == "1.0M"
+    assert format_number(999999999) == "1000.0M"
+    assert format_number(1000000000) == "1.0G"
 
 
 def test_get_percent() -> None:
