@@ -12,9 +12,11 @@ function main {
     && export NODE_OPTIONS='--max_old_space_size=4096' \
     && if test "${env}" == 'prod'; then
       ensure_gitlab_env_vars \
+        CACHIX_AUTH_TOKEN \
         INTEGRATES_API_TOKEN \
         PROD_SERVICES_AWS_ACCESS_KEY_ID \
-        PROD_SERVICES_AWS_SECRET_ACCESS_KEY
+        PROD_SERVICES_AWS_SECRET_ACCESS_KEY \
+        UNIVERSE_API_TOKEN
     elif test "${env}" == 'dev'; then
       DAEMON=true dynamodb-for-integrates \
         && DAEMON=true integrates-storage dev
