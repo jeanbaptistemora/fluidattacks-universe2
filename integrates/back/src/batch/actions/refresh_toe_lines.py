@@ -290,8 +290,6 @@ def pull_repositories(
     call_melts = [
         "CI=true",
         "CI_COMMIT_REF_NAME=trunk",
-        "PROD_AWS_ACCESS_KEY_ID=$PROD_SERVICES_AWS_ACCESS_KEY_ID",
-        "PROD_AWS_SECRET_ACCESS_KEY=$PROD_SERVICES_AWS_SECRET_ACCESS_KEY",
         f"melts drills --pull-repos {group_name}",
     ]
     if optional_repo_nickname:
