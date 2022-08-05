@@ -5560,6 +5560,31 @@
                         "M": {}
                       }
                     }
+                  },
+                  {
+                    "M": {
+                      "id": {
+                        "S": "4722b0b7-cfeb-4898-8308-185dfc2523bc"
+                      },
+                      "business_name": {
+                        "S": "Testing Company and Sons"
+                      },
+                      "email": {
+                        "S": "test@fluidattacks.com"
+                      },
+                      "country": {
+                        "S": "Colombia"
+                      },
+                      "state": {
+                        "S": "Antioquia"
+                      },
+                      "city": {
+                        "S": "Medellín"
+                      },
+                      "documents": {
+                        "M": {}
+                      }
+                    }
                   }
                 ]
               },

@@ -9,7 +9,6 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { UPDATE_GROUP_MUTATION } from "../queries";
 import { OrganizationGroups } from "scenes/Dashboard/containers/OrganizationBillingView/Groups/index";
 import { authzPermissionsContext } from "utils/authz/config";
-import { msgSuccess } from "utils/notifications";
 
 jest.mock("../../../../../utils/notifications", (): Dictionary => {
   const mockedNotifications: Dictionary<() => Dictionary> = jest.requireActual(
@@ -123,25 +122,6 @@ describe("Organization billing groups view", (): void => {
     });
 
     expect(screen.getByText(btnConfirm)).toBeDisabled();
-
-    userEvent.selectOptions(screen.getByRole("combobox", { name: "managed" }), [
-      "organization.tabs.billing.groups.managed.notManually",
-    ]);
-
-    await waitFor((): void => {
-      expect(screen.getByText(btnConfirm)).not.toBeDisabled();
-    });
-
-    userEvent.click(screen.getByText(btnConfirm));
-
-    await waitFor((): void => {
-      expect(msgSuccess).toHaveBeenCalledWith(
-        "organization.tabs.billing.groups.updateSubscription.success.body",
-        "organization.tabs.billing.groups.updateSubscription.success.title"
-      );
-    });
-
-    expect(onUpdate).toHaveBeenCalledTimes(1);
 
     jest.clearAllMocks();
   });

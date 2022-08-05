@@ -2,11 +2,26 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 import authz
+from billing import (
+    domain as billing_domain,
+)
+from billing.types import (
+    PaymentMethod,
+)
 from custom_types import (
     SimplePayload,
 )
 from dataloaders import (
     Dataloaders,
+)
+from db_model.groups.enums import (
+    GroupManaged,
+)
+from db_model.groups.types import (
+    Group,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from decorators import (
     concurrent_decorators,
@@ -48,11 +63,26 @@ async def mutate(
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
+    group: Group = await loaders.group.load(group_name)
+    org: Organization = await loaders.organization.load(group.organization_id)
+    payment_methods = await billing_domain.customer_payment_methods(org=org)
+    payment_method: PaymentMethod = list(
+        filter(
+            lambda method: method.id == payment_id,
+            payment_methods,
+        )
+    )[0]
+    managed: GroupManaged = (
+        GroupManaged("UNDER_REVIEW")
+        if payment_method.last_four_digits == ""
+        else GroupManaged("MANUALLY")
+    )
 
     await groups_domain.update_group_payment_id(
-        loaders=loaders,
+        group=group,
         comments=comments,
         group_name=group_name,
+        managed=managed,
         payment_id=payment_id,
         user_email=user_email,
     )

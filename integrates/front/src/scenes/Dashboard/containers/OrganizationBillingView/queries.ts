@@ -162,20 +162,11 @@ const UPDATE_GROUP_MUTATION: DocumentNode = gql`
   mutation UpdateGroupMutation(
     $comments: String!
     $groupName: String!
-    $isManagedChanged: Boolean!
     $isPaymentIdChanged: Boolean!
     $isSubscriptionChanged: Boolean!
-    $managed: ManagedType!
     $paymentId: String!
     $subscription: BillingSubscriptionType!
   ) {
-    updateGroupManaged(
-      comments: $comments
-      groupName: $groupName
-      managed: $managed
-    ) @include(if: $isManagedChanged) {
-      success
-    }
     updateGroupPaymentId(
       comments: $comments
       groupName: $groupName

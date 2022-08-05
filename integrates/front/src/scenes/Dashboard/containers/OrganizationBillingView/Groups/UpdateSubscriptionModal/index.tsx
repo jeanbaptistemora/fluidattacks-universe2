@@ -11,10 +11,8 @@ import { FormikDropdown, FormikText } from "utils/forms/fields";
 interface IUpdateSubscriptionProps {
   current: string;
   groupName: string;
-  managed: string;
   onClose: () => void;
   onSubmit: (values: {
-    managed: string;
     paymentId: string | null;
     subscription: string;
   }) => Promise<void>;
@@ -24,7 +22,6 @@ interface IUpdateSubscriptionProps {
 }
 
 const validations = object().shape({
-  managed: string().required(),
   paymentId: string().required(),
   subscription: string().required(),
 });
@@ -32,7 +29,6 @@ const validations = object().shape({
 export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
   current,
   groupName,
-  managed,
   onClose,
   onSubmit,
   paymentId,
@@ -52,7 +48,6 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
       <Formik
         initialValues={{
           groupName,
-          managed,
           paymentId,
           subscription: initialValue,
         }}
@@ -88,26 +83,6 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                     }`}</option>
                   )
                 )}
-              </Field>
-            </div>
-            <div className={"pt2"}>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("organization.tabs.billing.groups.managed.title")}
-              </ControlLabel>
-              <Field component={FormikDropdown} name={"managed"}>
-                <option value={"MANUALLY"}>
-                  {t("organization.tabs.billing.groups.managed.manually")}
-                </option>
-                <option value={"NOT_MANUALLY"}>
-                  {t("organization.tabs.billing.groups.managed.notManually")}
-                </option>
-                <option value={"UNDER_REVIEW"}>
-                  {t("organization.tabs.billing.groups.managed.underReview")}
-                </option>
-                <option value={"TRIAL"}>
-                  {t("organization.tabs.billing.groups.managed.trial")}
-                </option>
               </Field>
             </div>
             <div className={"pt2"}>

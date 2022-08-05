@@ -410,18 +410,15 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
   );
   const handleUpdateGroupSubmit = useCallback(
     async ({
-      managed,
       paymentId,
       subscription,
     }: {
-      managed: string;
       paymentId: string | null;
       subscription: string;
     }): Promise<void> => {
       const groupName = currentRow.name.toLowerCase();
       const isSubscriptionChanged: boolean =
         subscription !== currentRow.tier.toLocaleUpperCase();
-      const isManagedChanged: boolean = managed !== currentRow.managed;
       const isPaymentIdChanged: boolean = paymentId !== currentRow.paymentId;
 
       try {
@@ -429,10 +426,8 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
           variables: {
             comments: "",
             groupName,
-            isManagedChanged,
             isPaymentIdChanged,
             isSubscriptionChanged,
-            managed,
             paymentId,
             subscription,
           },
@@ -540,7 +535,6 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
         <UpdateSubscriptionModal
           current={currentRow.tier.toUpperCase()}
           groupName={currentRow.name}
-          managed={currentRow.managed}
           onClose={closeModal}
           onSubmit={handleUpdateGroupSubmit}
           paymentId={currentRow.paymentId}
