@@ -12,7 +12,6 @@ makeScript {
     ];
     source = [
       outputs."${inputs.observesIndex.tap.checkly.bin}"
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
       outputs."/observes/common/db-creds"
     ];

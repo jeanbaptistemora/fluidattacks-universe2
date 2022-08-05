@@ -3,7 +3,7 @@
 alias migrate-tables="observes-service-migrate-tables-bin"
 
 function dynamodb_centralize {
-  aws_login_prod 'observes' \
+  : \
     && export_notifier_key \
     && echo '[INFO] Generating secret files' \
     && sops_export_vars 'observes/secrets/prod.yaml' \

@@ -10,7 +10,6 @@ makeScript {
       outputs."${inputs.observesIndex.etl.dynamo.bin}"
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/observes/common/db-creds"
     ];
   };

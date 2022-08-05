@@ -9,7 +9,6 @@ makeScript {
       outputs."/observes/etl/gitlab"
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/observes/common/db-creds"
     ];
   };

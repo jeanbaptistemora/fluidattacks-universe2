@@ -8,7 +8,6 @@ function start_etl {
   local db_creds
 
   db_creds=$(mktemp) \
-    && aws_login_prod 'observes' \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       bugsnag_api_key \
       bugsnag_notifier_key \

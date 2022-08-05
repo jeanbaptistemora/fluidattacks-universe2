@@ -1,4 +1,4 @@
-{outputs, ...}: let
+let
   sharedConfiguration = rec {
     attempts = 5;
     definition = "prod_observes";
@@ -8,7 +8,6 @@
     ];
     memory = 1800 * vcpus;
     queue = "small";
-    setup = [outputs."/secretsForAwsFromEnv/prodObserves"];
     vcpus = 1;
   };
 in {

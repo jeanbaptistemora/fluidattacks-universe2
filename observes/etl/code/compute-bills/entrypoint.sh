@@ -11,7 +11,6 @@ function job_compute_bills {
 
   db=$(mktemp) \
     && creds=$(mktemp) \
-    && aws_login_prod 'observes' \
     && prod_db "${db}" \
     && prod_user "${creds}" \
     && export_notifier_key \
@@ -35,7 +34,6 @@ function job_compute_bills {
       "$(date +%Y)" \
       "$(date +%m)" \
       "${INTEGRATES_API_TOKEN}" \
-    && aws_login_prod 'services' \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_month}" \
     && aws_s3_sync "${folder}" "${bucket_month}" \
     && echo "[INFO] Syncing data from: ${folder} to ${bucket_day}" \

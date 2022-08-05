@@ -9,7 +9,6 @@ makeScript {
       outputs."/observes/service/timedoctor-tokens/bin"
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };

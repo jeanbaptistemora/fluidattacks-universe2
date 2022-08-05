@@ -11,7 +11,6 @@ function job_mixpanel_integrates {
 
   db_creds=$(mktemp) \
     && mixpanel_creds=$(mktemp) \
-    && aws_login_prod 'observes' \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       mixpanel_integrates_api_secret \

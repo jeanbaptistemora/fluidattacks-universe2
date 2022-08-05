@@ -8,7 +8,6 @@ in
   makeScript {
     searchPaths = {
       source = [
-        outputs."/common/utils/aws"
         outputs."/common/utils/git"
         outputs."/common/utils/sops"
         outputs."/observes/common/list-groups"

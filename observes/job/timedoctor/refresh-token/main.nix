@@ -11,7 +11,6 @@ makeScript {
     ];
     source = [
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
       outputs."/common/utils/gitlab"
       outputs."/observes/common/db-creds"

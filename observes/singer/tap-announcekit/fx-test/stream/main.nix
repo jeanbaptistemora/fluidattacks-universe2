@@ -8,7 +8,6 @@ makeScript {
   searchPaths = {
     source = [
       outputs."${inputs.observesIndex.tap.announcekit.bin}"
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };

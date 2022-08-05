@@ -14,7 +14,6 @@ makeScript {
     source = [
       outputs."/observes/common/tester"
       outputs."${inputs.observesIndex.tap.announcekit.env.dev}"
-      outputs."/common/utils/aws"
       outputs."/common/utils/sops"
     ];
   };
