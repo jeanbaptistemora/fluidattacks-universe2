@@ -69,9 +69,7 @@ async def get_vulnerabilities(
                 vuln["properties"]["kind"].upper()
             ],
             state=core_model.VulnerabilityStateEnum.OPEN,
-            what=vuln["locations"][0]["physicalLocation"]["artifactLocation"][
-                "uri"
-            ],
+            what=what,
             where=str(
                 vuln["locations"][0]["physicalLocation"]["region"]["startLine"]
             ),
