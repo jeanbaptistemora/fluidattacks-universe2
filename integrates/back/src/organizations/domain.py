@@ -26,6 +26,7 @@ from custom_exceptions import (
 )
 from db_model import (
     credentials as credentials_model,
+    enrollment as enrollment_model,
     organization_access as org_access_model,
     organizations as orgs_model,
     roots as roots_model,
@@ -40,6 +41,10 @@ from db_model.credentials.types import (
     HttpsPatSecret,
     HttpsSecret,
     SshSecret,
+)
+from db_model.enrollment.types import (
+    Enrollment,
+    Trial,
 )
 from db_model.enums import (
     CredentialType,
@@ -283,6 +288,20 @@ async def complete_register_for_organization_invitation(
         [stakeholder_created, stakeholder_exists]
     )
     if success:
+        enrollment: Enrollment = await loaders.enrollment.load(email)
+        if not enrollment.enrolled:
+            await enrollment_model.add(
+                enrollment=Enrollment(
+                    email=email,
+                    enrolled=True,
+                    trial=Trial(
+                        completed=True,
+                        extension_date=datetime_utils.get_iso_date(),
+                        extension_days=0,
+                        start_date=datetime_utils.get_iso_date(),
+                    ),
+                )
+            )
         redis_del_by_deps_soon(
             "confirm_access_organization",
             organization_id=organization_id,

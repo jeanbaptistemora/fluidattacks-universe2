@@ -39,12 +39,17 @@ from datetime import (
     datetime,
 )
 from db_model import (
+    enrollment as enrollment_model,
     group_access as group_access_model,
     groups as groups_model,
     stakeholders as stakeholders_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
+)
+from db_model.enrollment.types import (
+    Enrollment,
+    Trial,
 )
 from db_model.enums import (
     Notification,
@@ -244,6 +249,21 @@ async def complete_register_for_group_invitation(
     else:
         stakeholder = Stakeholder(email=user_email)
         await stakeholders_model.add(stakeholder=stakeholder)
+
+    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    if not enrollment.enrolled:
+        await enrollment_model.add(
+            enrollment=Enrollment(
+                email=user_email,
+                enrolled=True,
+                trial=Trial(
+                    completed=True,
+                    extension_date=datetime_utils.get_iso_date(),
+                    extension_days=0,
+                    start_date=datetime_utils.get_iso_date(),
+                ),
+            )
+        )
 
     redis_del_by_deps_soon(
         "confirm_access",
