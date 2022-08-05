@@ -313,28 +313,32 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
     if any(root.state.credential_id is None for root in roots):
         raise CredentialNotFound()
 
-    # Filter repositories with unsolved events
-    unsolved_events_by_root = await events_domain.get_unsolved_events_by_root(
-        loaders, group_name
-    )
-    unsolved_events_roots = tuple(
-        root for root in roots if unsolved_events_by_root.get(root.id)
-    )
-    await collect(
-        [
-            roots_domain.update_root_cloning_status(
-                loaders=loaders,
-                group_name=group_name,
-                root_id=root.id,
-                status=GitCloningStatus.FAILED,
-                message="Git root has unsolved events",
+    # Filter repositories with unsolved events for groups without squad
+    if not group.state.has_squad:
+        unsolved_events_by_root = (
+            await events_domain.get_unsolved_events_by_root(
+                loaders, group_name
             )
-            for root in unsolved_events_roots
-        ]
-    )
-    roots = tuple(
-        root for root in roots if not unsolved_events_by_root.get(root.id)
-    )
+        )
+        unsolved_events_roots = tuple(
+            root for root in roots if unsolved_events_by_root.get(root.id)
+        )
+        await collect(
+            [
+                roots_domain.update_root_cloning_status(
+                    loaders=loaders,
+                    group_name=group_name,
+                    root_id=root.id,
+                    status=GitCloningStatus.FAILED,
+                    message="Git root has unsolved events",
+                )
+                for root in unsolved_events_roots
+            ]
+        )
+        roots = tuple(
+            root for root in roots if not unsolved_events_by_root.get(root.id)
+        )
+
     if not roots:
         return None
 
