@@ -551,31 +551,37 @@ async def create_payment_method(
 
     # create other payment methods
     if card_number == "":
-        # get actual payment methods
-        other_payment_methods: List[OrganizationPaymentMethods] = []
-        if org.payment_methods:
-            other_payment_methods = org.payment_methods
-        # Raise exception if payment method already exists for customer
-        if business_name in [
-            payment_method.business_name
-            for payment_method in other_payment_methods
-        ]:
-            raise PaymentMethodAlreadyExists()
         other_payment_id = str(uuid.uuid4())
-        other_payment_methods.append(
-            OrganizationPaymentMethods(
-                business_name=business_name,
-                city=city,
-                country=country,
-                documents=OrganizationDocuments(),
-                email=email,
-                id=other_payment_id,
-                state=state,
-            )
+        other_payment = OrganizationPaymentMethods(
+            business_name=business_name,
+            city=city,
+            country=country,
+            documents=OrganizationDocuments(),
+            email=email,
+            id=other_payment_id,
+            state=state,
         )
+
+        # Raise exception if payment method already exists for customer
+        if org.payment_methods:
+            if business_name in [
+                payment_method.business_name
+                for payment_method in org.payment_methods
+            ]:
+                raise PaymentMethodAlreadyExists()
+            org.payment_methods.append(other_payment)
+        else:
+            org = Organization(
+                id=org.id,
+                name=org.name,
+                policies=org.policies,
+                state=org.state,
+                payment_methods=[other_payment],
+                billing_customer=org.billing_customer,
+            )
         await organizations_model.update_metadata(
             metadata=OrganizationMetadataToUpdate(
-                payment_methods=other_payment_methods
+                payment_methods=org.payment_methods
             ),
             organization_id=org.id,
             organization_name=org.name,
