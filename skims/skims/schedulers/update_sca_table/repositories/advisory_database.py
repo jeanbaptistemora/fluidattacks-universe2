@@ -6,8 +6,11 @@ import json
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
-    Tuple,
+)
+from utils.logs import (
+    log_blocking,
 )
 
 URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
@@ -16,7 +19,7 @@ URL_ADVISORY_DATABASE: str = "https://github.com/github/advisory-database.git"
 def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     affected: List[dict],
     vuln_id: str,
-    platforms: Tuple[str, ...],
+    platforms: Iterable[str],
     advisories: List[Advisory],
     severity: str,
 ) -> None:
@@ -51,8 +54,8 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
 
 
 def get_advisory_database(
-    advisories: List[Advisory], tmp_dirname: str, platform: Tuple[str, ...]
-) -> List[Advisory]:
+    advisories: List[Advisory], tmp_dirname: str, platforms: Iterable[str]
+) -> None:
     filenames = sorted(
         glob.glob(
             f"{tmp_dirname}/advisories/github-reviewed/**/*.json",
@@ -73,9 +76,7 @@ def get_advisory_database(
                 if len(severity) > 0:
                     severity_val = str(severity[0].get("score"))
                 get_vulnerabilities_ranges(
-                    affected, vuln_id, platform, advisories, severity_val
+                    affected, vuln_id, platforms, advisories, severity_val
                 )
             except json.JSONDecodeError as exc:
-                print(exc)
-
-    return advisories
+                log_blocking("error", "%s", exc)
