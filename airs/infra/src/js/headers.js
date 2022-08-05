@@ -1083,6 +1083,8 @@ const redirectMap = new Map([
   ["/web/blog/reversing-mortals/image3.png", "https://fluidattacks.com/blog/reversing-mortals/"],
   ["/web/blog/reversing-mortals", "https://fluidattacks.com/blog/reversing-mortals/"],
   ["/web/blog/reversing-mortals/", "https://fluidattacks.com/blog/reversing-mortals/"],
+  ["/security-testing", "https://fluidattacks.com/solutions/security-testing/"],
+  ["/security-testing/", "https://fluidattacks.com/solutions/security-testing/"],
 ]);
 
 addEventListener('fetch', event => {
