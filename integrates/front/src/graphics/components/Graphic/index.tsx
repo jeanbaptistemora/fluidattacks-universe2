@@ -382,6 +382,7 @@ export const Graphic: React.FC<IGraphicProps> = (
   return (
     <React.Fragment>
       <Modal
+        minWidth={1100}
         onClose={frameOnFullScreenExit}
         open={fullScreen}
         title={
