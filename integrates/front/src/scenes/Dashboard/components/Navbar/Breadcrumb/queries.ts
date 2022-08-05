@@ -10,14 +10,22 @@ const GET_FINDING_TITLE: DocumentNode = gql`
   }
 `;
 
+const GET_ORGANIZATION_GROUP_NAMES: DocumentNode = gql`
+  query GetOrganizationGroupNames($organizationId: String!) {
+    organization(organizationId: $organizationId) {
+      name
+      groups {
+        name
+      }
+    }
+  }
+`;
+
 const GET_USER_ORGANIZATIONS: DocumentNode = gql`
   query GetUserOrganizations {
     me(callerOrigin: "FRONT") {
       organizations {
         name
-        groups {
-          name
-        }
       }
       userEmail
     }
@@ -35,4 +43,9 @@ const GET_USER_TAGS: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDING_TITLE, GET_USER_ORGANIZATIONS, GET_USER_TAGS };
+export {
+  GET_FINDING_TITLE,
+  GET_ORGANIZATION_GROUP_NAMES,
+  GET_USER_ORGANIZATIONS,
+  GET_USER_TAGS,
+};

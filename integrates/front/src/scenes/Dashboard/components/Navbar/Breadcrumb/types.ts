@@ -1,7 +1,13 @@
 interface IUserOrgs {
   me: {
-    organizations: { name: string; groups: { name: string }[] }[];
+    organizations: { name: string }[];
     userEmail: string;
+  };
+}
+
+interface IUserOrganizationGroupNames {
+  organization: {
+    groups: { name: string }[];
   };
 }
 
@@ -18,4 +24,9 @@ interface IFindingTitle {
   };
 }
 
-export type { IFindingTitle, IUserOrgs, IUserTags };
+export type {
+  IFindingTitle,
+  IUserOrgs,
+  IUserOrganizationGroupNames,
+  IUserTags,
+};

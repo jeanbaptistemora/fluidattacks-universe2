@@ -12,12 +12,18 @@ import { AddOrganizationModal } from "./AddOrganizationModal";
 import { MenuItem } from "./MenuItem";
 import {
   GET_FINDING_TITLE,
+  GET_ORGANIZATION_GROUP_NAMES,
   GET_USER_ORGANIZATIONS,
   GET_USER_TAGS,
 } from "./queries";
 import { SplitButton } from "./SplitButton";
 import { BreadcrumbContainer, SplitItems } from "./styles";
-import type { IFindingTitle, IUserOrgs, IUserTags } from "./types";
+import type {
+  IFindingTitle,
+  IUserOrganizationGroupNames,
+  IUserOrgs,
+  IUserTags,
+} from "./types";
 import { stylizeBreadcrumbItem } from "./utils";
 
 import { Button } from "components/Button";
@@ -50,17 +56,6 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
   );
 
   const path: string = escape(pathname);
-
-  function getCurrentGroupList(orgData: IUserOrgs): { name: string }[] {
-    const currentOrg = _.find(orgData.me.organizations, [
-      "name",
-      lastOrganization.name,
-    ]);
-
-    return _.isUndefined(currentOrg)
-      ? [{ name: "" }]
-      : _.sortBy(currentOrg.groups, ["name"]);
-  }
 
   const { data, refetch } = useQuery<IUserOrgs>(GET_USER_ORGANIZATIONS, {
     onError: ({ graphQLErrors }): void => {
@@ -103,12 +98,30 @@ export const Breadcrumb: React.FC = (): JSX.Element => {
     },
   });
 
+  const { data: groupNamesData } = useQuery<IUserOrganizationGroupNames>(
+    GET_ORGANIZATION_GROUP_NAMES,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred fetching portfolios", error);
+        });
+      },
+      variables: {
+        organizationId: lastOrganization.name.toLowerCase(),
+      },
+    }
+  );
+
   const organizationList =
     data === undefined
       ? [{ groups: [], name: "" }]
       : _.sortBy(data.me.organizations, ["name"]);
   const groupList =
-    data === undefined ? [{ name: "" }] : getCurrentGroupList(data);
+    groupNamesData === undefined
+      ? [{ name: "" }]
+      : groupNamesData.organization.groups;
   const portfolioList =
     portfolioData === undefined
       ? [{ name: "" }]
