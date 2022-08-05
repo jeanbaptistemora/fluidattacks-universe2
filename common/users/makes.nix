@@ -45,7 +45,6 @@
           "module.prod_integrates_aws.aws_iam_access_key._1"
           "module.prod_melts_aws.aws_iam_access_key._1"
           "module.prod_observes_aws.aws_iam_access_key._1"
-          "module.prod_services_aws.aws_iam_access_key._1"
           "module.prod_skims_aws.aws_iam_access_key._1"
           "module.prod_sorts_aws.aws_iam_access_key._1"
         ];
@@ -67,7 +66,6 @@
           "module.prod_integrates_aws.aws_iam_access_key._2"
           "module.prod_melts_aws.aws_iam_access_key._2"
           "module.prod_observes_aws.aws_iam_access_key._2"
-          "module.prod_services_aws.aws_iam_access_key._2"
           "module.prod_skims_aws.aws_iam_access_key._2"
           "module.prod_sorts_aws.aws_iam_access_key._2"
         ];

@@ -180,7 +180,6 @@ locals {
           "prod_integrates",
           "prod_melts",
           "prod_observes",
-          "prod_services",
           "prod_skims",
           "prod_sorts",
         ]

@@ -25,9 +25,6 @@ locals {
       prod_observes = {
         access_level = "not_protected"
       }
-      prod_services = {
-        access_level = "not_protected"
-      }
       prod_skims = {
         access_level = "not_protected"
       }
