@@ -7,6 +7,9 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
+from fa_purity.json.value.transform import (
+    Unfolder,
+)
 from fa_singer_io.singer import (
     SingerSchema,
 )
@@ -45,14 +48,25 @@ class S3Handler:
     _iam_role: str
 
     def handle_schema(self, schema: SingerSchema) -> Cmd[None]:
+        fields = (
+            Unfolder(schema.schema.encode()["properties"])
+            .to_json()
+            .map(lambda d: frozenset(d))
+            .unwrap()
+        )
+        order = tuple(sorted(fields))
+        columns: Dict[str, Optional[str]] = {
+            f"column_{i}": v for i, v in enumerate(order)
+        }
+        columns_ids = ",".join(f"{{column_{i}}}" for i, _ in enumerate(order))
         stm = f"""
-            COPY {{schema}}.{{table}} FROM %(data_file)s
-            iam_role %(role)s CSV NULL AS 'nan' TRUNCATECOLUMNS
+            COPY {{schema}}.{{table}} ({columns_ids}) FROM %(data_file)s
+            iam_role %(role)s CSV NULL AS 'nan' TRUNCATECOLUMNS FILLRECORD
         """
         identifiers: Dict[str, Optional[str]] = {
             "schema": self._schema.name,
             "table": schema.stream,
-        }
+        } | columns
         data_file = self._bucket + "/" + self._prefix + schema.stream
         args: Dict[str, PrimitiveVal] = {
             "data_file": "s3://" + data_file,

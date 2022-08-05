@@ -107,7 +107,9 @@ def _reformat_group_records(
                 .map(
                     lambda x: _to_prim(
                         isoparse(x).strftime("%Y-%m-%d %H:%M:%S")
-                    ) if x else None
+                    )
+                    if x
+                    else None
                 )
                 .alt(Exception)
             )
