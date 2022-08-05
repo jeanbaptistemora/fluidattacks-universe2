@@ -171,6 +171,24 @@ enum CloningStatus {
   UNKNOWN
 }
 
+"Reasons to reject a draft Finding"
+enum DraftRejectionReason {
+  "There are consistency issues with the vulns, the severity and the evidence"
+  CONSISTENCY
+  "The evidence is insufficient"
+  EVIDENCE
+  "The vulnerabilities should be submitted under another Finding type"
+  NAMING
+  "More data should be gathered before submission"
+  OMISSION
+  "Another reason"
+  OTHER
+  "Faulty severity scoring"
+  SCORING
+  "The writing could be improved"
+  WRITING
+}
+
 "Reasons to remove a Finding"
 enum RemoveFindingJustification {
   "Finding is a duplicate of another"

@@ -70,6 +70,18 @@ ENUMS: Tuple[EnumType, ...] = (
     ),
     EnumType("CallerOrigin", {"API": "API", "FRONT": "FRONT"}),
     EnumType(
+        "DraftRejectionReason",
+        {
+            "CONSISTENCY": "CONSISTENCY",
+            "EVIDENCE": "EVIDENCE",
+            "NAMING": "NAMING",
+            "OMISSION": "OMISSION",
+            "OTHER": "OTHER",
+            "SCORING": "SCORING",
+            "WRITING": "WRITING",
+        },
+    ),
+    EnumType(
         "RemoveFindingJustification",
         {
             "DUPLICATED": "DUPLICATED",
