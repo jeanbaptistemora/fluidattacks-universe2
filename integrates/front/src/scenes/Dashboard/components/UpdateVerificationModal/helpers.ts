@@ -36,7 +36,7 @@ const handleRequestVerificationError = (error: unknown): void => {
       msgError(translate.t("groupAlerts.verificationAlreadyRequested"));
       break;
     case "Exception - The vulnerability has already been closed":
-      msgError(translate.t("groupAlerts."));
+      msgError(translate.t("groupAlerts.vulnClosed"));
       break;
     case "Exception - Vulnerability not found":
       msgError(translate.t("groupAlerts.noFound"));

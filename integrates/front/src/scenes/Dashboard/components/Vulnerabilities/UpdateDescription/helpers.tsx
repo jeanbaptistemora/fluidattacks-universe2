@@ -296,6 +296,10 @@ const handleUpdateVulnTreatmentError = (updateError: unknown): void => {
       translate.t("groupAlerts.organizationPolicies.exceedsAcceptanceDate")
     );
   } else if (
+    _.includes(String(updateError), "The vulnerability has already been closed")
+  ) {
+    msgError(translate.t("groupAlerts.vulnClosed"));
+  } else if (
     _.includes(
       String(updateError),
       translate.t("searchFindings.tabVuln.exceptions.severityOutOfRange")

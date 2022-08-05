@@ -64,6 +64,9 @@ from newutils.groups import (
     get_group_max_number_acceptances,
     get_group_min_acceptance_severity,
 )
+from newutils.vulnerabilities import (
+    validate_closed,
+)
 from typing import (
     Any,
     Awaitable,
@@ -534,6 +537,7 @@ async def update_vulnerabilities_treatment(
     vulnerability = next(
         iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
     )
+    validate_closed(vulnerability)
     if (
         "acceptance_date" in updated_values
         and updated_values.get("acceptance_date")
