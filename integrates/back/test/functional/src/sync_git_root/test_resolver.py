@@ -47,11 +47,6 @@ async def test_sync_git_root(
             "3626aca5-099c-42b9-aa25-d8c6e0aab98f",
             "Exception - Access denied or credential not found",
         ],
-        [
-            "admin@gmail.com",
-            "58167a02-08c2-4cdf-a5e4-568398cbe7cb",
-            "Exception - The root is not active",
-        ],
     ],
 )
 async def test_sync_git_root_error(

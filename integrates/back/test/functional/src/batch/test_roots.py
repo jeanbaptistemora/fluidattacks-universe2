@@ -13,7 +13,6 @@ from batch.types import (
 )
 from custom_exceptions import (
     CredentialNotFound,
-    InactiveRoot,
     RootAlreadyCloning,
 )
 from dataloaders import (
@@ -208,29 +207,6 @@ async def test_queue_sync_git_roots_no_creds(
     )
 
     with pytest.raises(CredentialNotFound):
-        await clone_roots.queue_sync_git_roots(
-            loaders=loaders,
-            user_email=generic_data["global_vars"]["admin_email"],
-            roots=(root_1,),
-            group_name="group1",
-        )
-
-
-@pytest.mark.asyncio
-@pytest.mark.resolver_test_group("batch")
-async def test_queue_sync_git_no_valid_root(
-    generic_data: dict[str, Any], mocker: MockerFixture
-) -> None:
-    mocker.patch.object(
-        roots_domain, "is_in_s3", return_value=("nickname5", False)
-    )
-
-    loaders: Dataloaders = get_new_context()
-    root_1: Root = await loaders.root.load(
-        ("group1", "63298a73-9dff-46cf-b42d-9b2f01a56690")
-    )
-
-    with pytest.raises(InactiveRoot):
         await clone_roots.queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],

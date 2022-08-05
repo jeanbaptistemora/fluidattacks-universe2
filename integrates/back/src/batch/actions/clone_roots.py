@@ -21,7 +21,6 @@ from batch.utils.git_self import (
 )
 from custom_exceptions import (
     CredentialNotFound,
-    InactiveRoot,
     InvalidParameter,
     RootAlreadyCloning,
 )
@@ -295,12 +294,6 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
 ) -> Optional[PutActionResult]:
     group: Group = await loaders.group.load(group_name)
     roots_in_current_actions: Set[str] = set()
-
-    # Validate the repositories are active
-    if roots and any(
-        root.state.status is RootStatus.INACTIVE for root in roots
-    ):
-        raise InactiveRoot()
 
     # Set repositories to be processed
     roots = roots or tuple(
