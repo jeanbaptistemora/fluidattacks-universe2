@@ -44,12 +44,14 @@ export const Tables = <TData extends object>(
     extraButtons = undefined,
     csvName = "Report",
     onRowClick = undefined,
+    enableRowSelection = false,
     showPagination = data.length >= 8,
   } = props;
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [expanded, setExpanded] = useState({});
+  const [rowSelection, setRowSelection] = useState({});
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
@@ -80,11 +82,13 @@ export const Tables = <TData extends object>(
     onColumnVisibilityChange: setColumnVisibility,
     onExpandedChange: setExpanded,
     onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     state: {
       columnVisibility,
       expanded,
       globalFilter,
+      rowSelection,
       sorting,
     },
   });
@@ -140,6 +144,15 @@ export const Tables = <TData extends object>(
                         </div>
                       </th>
                     ))}
+                  {enableRowSelection && (
+                    <th>
+                      <input
+                        checked={table.getIsAllRowsSelected()}
+                        onChange={table.getToggleAllRowsSelectedHandler()}
+                        type={"checkbox"}
+                      />
+                    </th>
+                  )}
                   {headerGroup.headers.map(
                     (header): ReactElement => (
                       <th key={header.id}>
@@ -176,7 +189,7 @@ export const Tables = <TData extends object>(
             {table.getRowModel().rows.map((row): ReactElement => {
               return (
                 <React.Fragment key={row.id}>
-                  <tr onClick={onRowClick?.(row)}>
+                  <tr>
                     {expandedRow !== undefined &&
                       (row.getIsExpanded() ? (
                         <td>
@@ -201,13 +214,29 @@ export const Tables = <TData extends object>(
                           </div>
                         </td>
                       ))}
+                    {enableRowSelection && (
+                      <td>
+                        <input
+                          checked={row.getIsSelected()}
+                          onChange={row.getToggleSelectedHandler()}
+                          type={"checkbox"}
+                        />
+                      </td>
+                    )}
                     {row.getVisibleCells().map(
                       (cell): ReactElement => (
                         <td key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
+                          <div
+                            onClick={onRowClick?.(row)}
+                            onKeyPress={onRowClick?.(row)}
+                            role={"button"}
+                            tabIndex={0}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </div>
                         </td>
                       )
                     )}

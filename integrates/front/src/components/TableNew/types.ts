@@ -29,6 +29,7 @@ interface ITableProps<TData> {
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
   csvName?: string;
+  enableRowSelection?: boolean;
   showPagination?: boolean;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
 }
