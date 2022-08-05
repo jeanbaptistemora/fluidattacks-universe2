@@ -23,7 +23,7 @@ from typing import (
 @click.option(  # type: ignore[misc]
     "--prefix", required=True, type=str, help="Prefix for uploaded s3 files"
 )
-def main(bucket: str, prefix: str, test: bool) -> NoReturn:
+def main(bucket: str, prefix: str) -> NoReturn:
     cmd: Cmd[None] = loader.main(bucket, prefix, stdin_buffer()).bind(
         lambda r: r.alt(raise_exception).unwrap()
     )

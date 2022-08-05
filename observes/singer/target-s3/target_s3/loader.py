@@ -17,9 +17,6 @@ from fa_purity.pure_iter.transform import (
     consume,
     filter_opt,
 )
-from fa_purity.result.transform import (
-    all_ok,
-)
 from fa_purity.utils import (
     raise_exception,
 )
@@ -38,9 +35,6 @@ from target_s3.core import (
 )
 from target_s3.csv import (
     save,
-)
-from target_s3.in_buffer import (
-    stdin_buffer,
 )
 from target_s3.upload import (
     new_client,
@@ -64,7 +58,7 @@ def _gen_schema_map(
 
 def _transform_records(
     schema_map: FrozenDict[str, SingerSchema], records: PureIter[SingerRecord]
-) -> ResultE[PureIter[CompletePlainRecord]]:
+) -> PureIter[ResultE[CompletePlainRecord]]:
     def _get_schema(stream: str) -> ResultE[SingerSchema]:
         return (
             Maybe.from_optional(schema_map.get(stream))
@@ -82,7 +76,7 @@ def _transform_records(
                 lambda sh: CompletePlainRecord.new(sh, p)
             )
         )
-    ).transform(lambda x: all_ok(tuple(x)).map(lambda y: from_flist(y)))
+    )
 
 
 def _extract(
@@ -106,9 +100,12 @@ def _extract(
     records = msgs.map(
         lambda s: s if isinstance(s, SingerRecord) else None
     ).transform(lambda x: filter_opt(x))
-    return schemas.bind(
-        lambda s_map: _transform_records(s_map, records).map(
-            lambda p: (s_map, p)
+    return schemas.map(
+        lambda s_map: (
+            s_map,
+            _transform_records(s_map, records).map(
+                lambda r: r.alt(raise_exception).unwrap()
+            ),
         )
     )
 
