@@ -19,7 +19,7 @@ function start_localstack {
 }
 
 function main {
-  aws_login_dev \
+  : \
     && if ! test -n "${CI:-}"; then
       # check if is in local environment
       start_localstack

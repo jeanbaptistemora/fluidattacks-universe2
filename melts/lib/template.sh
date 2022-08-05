@@ -3,7 +3,7 @@
 function clone_services_repository {
   local group="${1}"
 
-  aws_login_prod 'services' \
+  : \
     && CI='true' \
       CI_COMMIT_REF_NAME='trunk' \
       melts drills --pull-repos "${group}"

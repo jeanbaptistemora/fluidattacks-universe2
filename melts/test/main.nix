@@ -10,7 +10,6 @@ makeScript {
     source = [
       outputs."/melts/config/development"
       outputs."/melts/config/runtime"
-      outputs."/common/utils/aws"
       outputs."/common/utils/git"
     ];
     bin = [
