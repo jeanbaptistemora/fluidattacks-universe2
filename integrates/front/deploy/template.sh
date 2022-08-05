@@ -9,9 +9,8 @@ function _replace {
 }
 
 function deploy {
-  local arg_short="${1}"
-  local env="${2}"
-  local branch="${3}"
+  local env="${1}"
+  local branch="${2}"
   local bugsnag_key='99a64555a50340cfa856f6623c6bf35d'
   local deployment_date
   local bucket_name="integrates.front.${env}.fluidattacks.com"
@@ -26,7 +25,7 @@ function deploy {
   export CI_COMMIT_SHA
   export CI_COMMIT_SHORT_SHA
 
-  "aws_login_${arg_short}" integrates \
+  : \
     && pushd integrates \
     && sops_export_vars "secrets/${env}.yaml" \
       CLOUDFLARE_API_TOKEN \

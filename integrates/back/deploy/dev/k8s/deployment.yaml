@@ -53,8 +53,8 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/* eph dev
-                  FluidIntegrates http://localhost:8001
+                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/* dev FluidIntegrates
+                  http://localhost:8001
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1
@@ -65,8 +65,8 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/* eph dev
-                  FluidIntegrates http://localhost:8001 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
+                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/* dev FluidIntegrates
+                  http://localhost:8001 https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1

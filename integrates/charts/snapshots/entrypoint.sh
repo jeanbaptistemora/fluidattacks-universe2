@@ -10,7 +10,7 @@ function main {
     else
       DAEMON=true integrates-cache \
         && DAEMON=true dynamodb-for-integrates \
-        && DAEMON=true integrates-storage dev
+        && DAEMON=true integrates-storage
     fi \
     && pushd integrates \
     && envGeckoDriver='__argGeckoDriver__' \

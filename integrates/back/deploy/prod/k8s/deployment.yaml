@@ -66,8 +66,8 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/* prod
-                  prod_integrates FluidIntegrates http://localhost:8001
+                - ~/.makes/out-integrates-back-deploy-probes-readiness/bin/* prod_integrates
+                  FluidIntegrates http://localhost:8001
             initialDelaySeconds: 120
             periodSeconds: 60
             successThreshold: 1
@@ -78,7 +78,7 @@ spec:
               command:
                 - sh
                 - -c
-                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/* prod prod_integrates
+                - ~/.makes/out-integrates-back-deploy-probes-liveness/bin/* prod_integrates
                   FluidIntegrates http://localhost:8001 https://${ENDPOINT}.fluidattacks.com
             initialDelaySeconds: 120
             periodSeconds: 60

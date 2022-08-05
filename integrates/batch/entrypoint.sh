@@ -14,12 +14,10 @@ function main {
       ensure_gitlab_env_vars \
         CACHIX_AUTH_TOKEN \
         INTEGRATES_API_TOKEN \
-        PROD_SERVICES_AWS_ACCESS_KEY_ID \
-        PROD_SERVICES_AWS_SECRET_ACCESS_KEY \
         UNIVERSE_API_TOKEN
     elif test "${env}" == 'dev'; then
       DAEMON=true dynamodb-for-integrates \
-        && DAEMON=true integrates-storage dev
+        && DAEMON=true integrates-storage
     fi \
     && pushd integrates \
     && python3 -m back.src.batch.dispatch "${@:2}" \

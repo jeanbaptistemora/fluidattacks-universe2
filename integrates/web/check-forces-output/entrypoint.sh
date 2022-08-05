@@ -23,7 +23,7 @@ function main {
   local out="out"
   export BATCH_BIN
 
-  aws_login_dev \
+  : \
     && if test -n "${CI:-}"; then
       aws_eks_update_kubeconfig 'common' 'us-east-1' \
         && kubectl rollout status \

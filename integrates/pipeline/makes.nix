@@ -10,7 +10,6 @@
       when = "on_success";
     };
     stage = "analytics";
-    tags = ["autoscaling"];
   };
   functionalTests = [
     ["accept_legal"]
@@ -160,54 +159,54 @@
   gitlabDeployAppDev = {
     rules = gitlabOnlyDev;
     stage = "deploy-app";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabDeployAppDevInterested = {
     rules = gitlabDeployEphemeralRule;
     stage = "deploy-app";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabDeployAppProd = {
     rules = gitlabOnlyProd;
     stage = "deploy-app";
-    tags = ["autoscaling"];
+    tags = ["prod_integrates_small"];
   };
   gitlabDeployAppProdResourceGroup = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-app";
-    tags = ["autoscaling"];
+    tags = ["prod_integrates_small"];
   };
   gitlabDeployInfra = {
     resource_group = "deploy/$CI_JOB_NAME";
     rules = gitlabOnlyProd;
     stage = "deploy-infra";
-    tags = ["autoscaling"];
+    tags = ["prod_integrates_small"];
   };
   gitlabExternal = {
     rules = gitlabOnlyDev;
     stage = "external";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabPostDeployDev = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   lib = inputs.nixpkgs.lib;
 in {
@@ -334,6 +333,7 @@ in {
               // {
                 parallel = 7;
                 rules = gitlabOnlyDev;
+                tags = ["dev_small"];
               };
           }
           rec {
@@ -352,6 +352,7 @@ in {
                   )
                   (gitlabCi.rules.always)
                 ];
+                tags = ["prod_integrates_small"];
               };
           }
           {
@@ -366,7 +367,7 @@ in {
               ];
               needs = ["/integrates/charts/documents__prod__25__gitlab"];
               stage = "analytics";
-              tags = ["autoscaling"];
+              tags = ["prod_integrates_small"];
             };
           }
           {
@@ -483,7 +484,7 @@ in {
               retry = 2;
               rules = gitlabOnlyDev;
               stage = "subscriptions";
-              tags = ["autoscaling"];
+              tags = ["dev_small"];
             };
           })
           [

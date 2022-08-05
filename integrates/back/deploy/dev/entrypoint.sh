@@ -47,7 +47,7 @@ function main {
   export UUID
   export DB_JOB
 
-  aws_login_dev \
+  : \
     && aws_eks_update_kubeconfig 'common' 'us-east-1' \
     && B64_CACHIX_AUTH_TOKEN="$(b64 "${CACHIX_AUTH_TOKEN}")" \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \

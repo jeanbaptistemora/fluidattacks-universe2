@@ -16,7 +16,7 @@
     - m . /deployTerraform/integratesInfra
   stage: deploy-infra
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -43,7 +43,7 @@
     - m . /integrates/back/authz-matrix
   stage: deploy-app
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -68,7 +68,7 @@
     - m . /integrates/back/deploy/dev
   stage: deploy-app
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -92,7 +92,7 @@
     - m . /integrates/back/deploy/prod
   stage: deploy-app
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -114,7 +114,7 @@
     - m . /integrates/back/deploy/prod 'even'
   stage: deploy-app
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -136,7 +136,7 @@
     - m . /integrates/back/deploy/prod 'odd'
   stage: deploy-app
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -158,7 +158,7 @@
     - m . /integrates/back/lint/charts
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -180,7 +180,7 @@
     - m . /integrates/back/lint/schema
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -202,7 +202,7 @@
     - m . /integrates/back/lint/schema/deprecations
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -224,7 +224,7 @@
     - m . /integrates/back/test/check-forces-output
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -251,7 +251,7 @@
     - m . /integrates/back/test/functional 'accept_legal'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -278,7 +278,7 @@
     - m . /integrates/back/test/functional 'acknowledge_concurrent_session'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -305,7 +305,7 @@
     - m . /integrates/back/test/functional 'activate_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -332,7 +332,7 @@
     - m . /integrates/back/test/functional 'add_credentials'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -359,7 +359,7 @@
     - m . /integrates/back/test/functional 'add_draft'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -386,7 +386,7 @@
     - m . /integrates/back/test/functional 'add_event'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -413,7 +413,7 @@
     - m . /integrates/back/test/functional 'add_event_consult'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -440,7 +440,7 @@
     - m . /integrates/back/test/functional 'add_files_to_db'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -467,7 +467,7 @@
     - m . /integrates/back/test/functional 'add_finding_consult'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -494,7 +494,7 @@
     - m . /integrates/back/test/functional 'add_forces_execution'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -521,7 +521,7 @@
     - m . /integrates/back/test/functional 'add_git_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -548,7 +548,7 @@
     - m . /integrates/back/test/functional 'add_group'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -575,7 +575,7 @@
     - m . /integrates/back/test/functional 'add_group_consult'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -602,7 +602,7 @@
     - m . /integrates/back/test/functional 'add_group_tags'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -629,7 +629,7 @@
     - m . /integrates/back/test/functional 'add_organization'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -656,7 +656,7 @@
     - m . /integrates/back/test/functional 'add_push_token'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -683,7 +683,7 @@
     - m . /integrates/back/test/functional 'add_toe_input'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -710,7 +710,7 @@
     - m . /integrates/back/test/functional 'add_toe_lines'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -737,7 +737,7 @@
     - m . /integrates/back/test/functional 'add_url_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -764,7 +764,7 @@
     - m . /integrates/back/test/functional 'approve_draft'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -791,7 +791,7 @@
     - m . /integrates/back/test/functional 'batch'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -818,7 +818,7 @@
     - m . /integrates/back/test/functional 'confirm_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -845,7 +845,7 @@
     - m . /integrates/back/test/functional 'deactivate_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -872,7 +872,7 @@
     - m . /integrates/back/test/functional 'delete_obsolete_groups'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -899,7 +899,7 @@
     - m . /integrates/back/test/functional 'download_event_file'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -926,7 +926,7 @@
     - m . /integrates/back/test/functional 'download_file'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -953,7 +953,7 @@
     - m . /integrates/back/test/functional 'download_vulnerability_file'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -980,7 +980,7 @@
     - m . /integrates/back/test/functional 'event'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1007,7 +1007,7 @@
     - m . /integrates/back/test/functional 'events'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1034,7 +1034,7 @@
     - m . /integrates/back/test/functional 'finding'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1061,7 +1061,7 @@
     - m . /integrates/back/test/functional 'forces_executions'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1088,7 +1088,7 @@
     - m . /integrates/back/test/functional 'grant_stakeholder_access'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1115,7 +1115,7 @@
     - m . /integrates/back/test/functional 'grant_stakeholder_organization_access'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1142,7 +1142,7 @@
     - m . /integrates/back/test/functional 'group'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1169,7 +1169,7 @@
     - m . /integrates/back/test/functional 'groups_with_forces'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1196,7 +1196,7 @@
     - m . /integrates/back/test/functional 'handle_vulnerabilities_acceptance'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1223,7 +1223,7 @@
     - m . /integrates/back/test/functional 'invalidate_access_token'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1250,7 +1250,7 @@
     - m . /integrates/back/test/functional 'me'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1277,7 +1277,7 @@
     - m . /integrates/back/test/functional 'move_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1304,7 +1304,7 @@
     - m . /integrates/back/test/functional 'organization'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1331,7 +1331,7 @@
     - m . /integrates/back/test/functional 'organization_id'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1358,7 +1358,7 @@
     - m . /integrates/back/test/functional 'refresh_toe_inputs'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1385,7 +1385,7 @@
     - m . /integrates/back/test/functional 'refresh_toe_lines'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1412,7 +1412,7 @@
     - m . /integrates/back/test/functional 'reject_draft'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1439,7 +1439,7 @@
     - m . /integrates/back/test/functional 'reject_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1466,7 +1466,7 @@
     - m . /integrates/back/test/functional 'remove_credentials'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1493,7 +1493,7 @@
     - m . /integrates/back/test/functional 'remove_event_evidence'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1520,7 +1520,7 @@
     - m . /integrates/back/test/functional 'remove_evidence'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1547,7 +1547,7 @@
     - m . /integrates/back/test/functional 'remove_files'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1574,7 +1574,7 @@
     - m . /integrates/back/test/functional 'remove_finding'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1601,7 +1601,7 @@
     - m . /integrates/back/test/functional 'remove_group'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1628,7 +1628,7 @@
     - m . /integrates/back/test/functional 'remove_group_tag'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1655,7 +1655,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1682,7 +1682,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder_access'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1709,7 +1709,7 @@
     - m . /integrates/back/test/functional 'remove_stakeholder_organization_access'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1736,7 +1736,7 @@
     - m . /integrates/back/test/functional 'remove_tags'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1763,7 +1763,7 @@
     - m . /integrates/back/test/functional 'remove_vulnerability'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1790,7 +1790,7 @@
     - m . /integrates/back/test/functional 'report'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1817,7 +1817,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_hold'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1844,7 +1844,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_verification'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1871,7 +1871,7 @@
     - m . /integrates/back/test/functional 'request_vulnerabilities_zero_risk'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1898,7 +1898,7 @@
     - m . /integrates/back/test/functional 'requeue_actions'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1925,7 +1925,7 @@
     - m . /integrates/back/test/functional 'reset_expired_accepted_findings'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1952,7 +1952,7 @@
     - m . /integrates/back/test/functional 'resources'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -1979,7 +1979,7 @@
     - m . /integrates/back/test/functional 'sign_in'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2006,7 +2006,7 @@
     - m . /integrates/back/test/functional 'solve_event'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2033,7 +2033,7 @@
     - m . /integrates/back/test/functional 'stakeholder'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2060,7 +2060,7 @@
     - m . /integrates/back/test/functional 'submit_draft'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2087,7 +2087,7 @@
     - m . /integrates/back/test/functional 'submit_organization_finding_policy'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2114,7 +2114,7 @@
     - m . /integrates/back/test/functional 'subscribe_to_entity_report'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2141,7 +2141,7 @@
     - m . /integrates/back/test/functional 'sync_git_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2168,7 +2168,7 @@
     - m . /integrates/back/test/functional 'toe_inputs'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2195,7 +2195,7 @@
     - m . /integrates/back/test/functional 'toe_lines'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2222,7 +2222,7 @@
     - m . /integrates/back/test/functional 'unsubscribe_from_group'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2249,7 +2249,7 @@
     - m . /integrates/back/test/functional 'update_access_token'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2276,7 +2276,7 @@
     - m . /integrates/back/test/functional 'update_credentials'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2303,7 +2303,7 @@
     - m . /integrates/back/test/functional 'update_event'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2330,7 +2330,7 @@
     - m . /integrates/back/test/functional 'update_event_evidence'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2357,7 +2357,7 @@
     - m . /integrates/back/test/functional 'update_event_solving_reason'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2384,7 +2384,7 @@
     - m . /integrates/back/test/functional 'update_evidence'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2411,7 +2411,7 @@
     - m . /integrates/back/test/functional 'update_evidence_description'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2438,7 +2438,7 @@
     - m . /integrates/back/test/functional 'update_finding_description'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2465,7 +2465,7 @@
     - m . /integrates/back/test/functional 'update_forces_access_token'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2492,7 +2492,7 @@
     - m . /integrates/back/test/functional 'update_git_environments'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2519,7 +2519,7 @@
     - m . /integrates/back/test/functional 'update_git_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2546,7 +2546,7 @@
     - m . /integrates/back/test/functional 'update_group'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2573,7 +2573,7 @@
     - m . /integrates/back/test/functional 'update_group_access_info'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2600,7 +2600,7 @@
     - m . /integrates/back/test/functional 'update_group_disambiguation'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2627,7 +2627,7 @@
     - m . /integrates/back/test/functional 'update_group_info'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2654,7 +2654,7 @@
     - m . /integrates/back/test/functional 'update_group_managed'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2681,7 +2681,7 @@
     - m . /integrates/back/test/functional 'update_group_policies'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2708,7 +2708,7 @@
     - m . /integrates/back/test/functional 'update_group_stakeholder'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2735,7 +2735,7 @@
     - m . /integrates/back/test/functional 'update_ip_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2762,7 +2762,7 @@
     - m . /integrates/back/test/functional 'update_nickname'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2789,7 +2789,7 @@
     - m . /integrates/back/test/functional 'update_organization_policies'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2816,7 +2816,7 @@
     - m . /integrates/back/test/functional 'update_organization_stakeholder'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2843,7 +2843,7 @@
     - m . /integrates/back/test/functional 'update_severity'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2870,7 +2870,7 @@
     - m . /integrates/back/test/functional 'update_stakeholder_phone'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2897,7 +2897,7 @@
     - m . /integrates/back/test/functional 'update_toe_input'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2924,7 +2924,7 @@
     - m . /integrates/back/test/functional 'update_toe_lines_attacked_lines'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2951,7 +2951,7 @@
     - m . /integrates/back/test/functional 'update_toe_lines_sorts'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -2978,7 +2978,7 @@
     - m . /integrates/back/test/functional 'update_url_root'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3005,7 +3005,7 @@
     - m . /integrates/back/test/functional 'update_vulnerabilities_treatment'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3032,7 +3032,7 @@
     - m . /integrates/back/test/functional 'update_vulnerability_commit'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3059,7 +3059,7 @@
     - m . /integrates/back/test/functional 'update_vulnerability_treatment'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3086,7 +3086,7 @@
     - m . /integrates/back/test/functional 'upload_file'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3113,7 +3113,7 @@
     - m . /integrates/back/test/functional 'validate_git_access'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3140,7 +3140,7 @@
     - m . /integrates/back/test/functional 'verify_stakeholder'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3167,7 +3167,7 @@
     - m . /integrates/back/test/functional 'verify_vulnerabilities_request'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3194,7 +3194,7 @@
     - m . /integrates/back/test/functional 'vulnerability'
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3221,7 +3221,7 @@
     - m . /integrates/back/test/unit
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3249,7 +3249,7 @@
     - m . /integrates/charts/documents 'dev' '7' 'gitlab'
   stage: analytics
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3273,7 +3273,7 @@
     - m . /integrates/charts/documents 'prod' '25' 'gitlab'
   stage: analytics
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3292,7 +3292,7 @@
     - m . /integrates/charts/snapshots 'prod'
   stage: analytics
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3324,7 +3324,7 @@
     - m . /integrates/coverage
   stage: external
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3391,7 +3391,7 @@
     - m . /integrates/coverage/combine '1'
   stage: external
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3458,7 +3458,7 @@
     - m . /integrates/coverage/combine '2'
   stage: external
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3515,7 +3515,7 @@
     - m . /integrates/coverage/combine '3'
   stage: external
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3537,7 +3537,7 @@
     - m . /integrates/front/deploy/dev
   stage: deploy-app
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3558,7 +3558,7 @@
     - m . /integrates/front/deploy/prod
   stage: deploy-app
   tags:
-    - autoscaling
+    - prod_integrates_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3580,7 +3580,7 @@
     - m . /integrates/front/lint
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3609,7 +3609,7 @@
     - m . /integrates/front/test
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3631,7 +3631,7 @@
     - m . /integrates/secrets/lint
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3654,7 +3654,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'daily'
   stage: subscriptions
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3677,7 +3677,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'hourly'
   stage: subscriptions
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3700,7 +3700,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'monthly'
   stage: subscriptions
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3723,7 +3723,7 @@
     - m . /integrates/subscriptions/analytics 'dev' 'weekly'
   stage: subscriptions
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3746,7 +3746,7 @@
     - m . /integrates/web/check-forces-output
   stage: post-deploy
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3772,7 +3772,7 @@
     - m . /integrates/web/e2e
   stage: post-deploy
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3794,7 +3794,7 @@
     - m . /lintPython/dirOfModules/integrates
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3816,7 +3816,7 @@
     - m . /lintPython/dirOfModules/integratesBackChartsGenerators
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3838,7 +3838,7 @@
     - m . /lintPython/imports/integrates
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3860,7 +3860,7 @@
     - m . /lintPython/module/integratesBackDeployPermissionsMatrix
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3882,7 +3882,7 @@
     - m . /lintPython/module/integratesBackMigrations
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3904,7 +3904,7 @@
     - m . /lintPython/module/integratesBackTest
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3926,7 +3926,7 @@
     - m . /lintPython/module/integratesBackTestE2e
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3948,7 +3948,7 @@
     - m . /lintPython/module/integratesJobsCloneRoots
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3970,7 +3970,7 @@
     - m . /lintTerraform/integratesInfra
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -3992,7 +3992,7 @@
     - m . /pipelineOnGitlab/integrates
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4014,7 +4014,7 @@
     - m . /securePythonWithBandit/integratesBack
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -4036,7 +4036,7 @@
     - m . /testTerraform/integratesInfra
   stage: test-infra
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

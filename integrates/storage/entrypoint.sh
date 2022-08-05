@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 function serve {
-  local env="${1:-}"
   local buckets_by_branch=(
     'fluidintegrates.analytics'
   )
@@ -26,11 +25,7 @@ function serve {
   local state_path='.Storage'
   local bill_date
 
-  case "${env}" in
-    dev) aws_login_dev ;;
-    eph) : ;;
-    *) error 'First argument must be one of: dev or eph' ;;
-  esac \
+  : \
     && sops_export_vars __argDevSecrets__ \
       TEST_PROJECTS \
       MINIO_PASS \

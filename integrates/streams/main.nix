@@ -24,7 +24,6 @@ in
       ];
       source = [
         pythonEnvironment
-        outputs."/common/utils/aws"
         outputs."/common/utils/sops"
       ];
     };

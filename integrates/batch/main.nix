@@ -22,7 +22,6 @@ makeScript {
       outputs."/melts"
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/common/utils/env"
     ];
   };

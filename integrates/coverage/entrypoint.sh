@@ -6,7 +6,8 @@ function main {
     --skip-empty
     -i
   )
-  aws_login_dev \
+
+  : \
     && pushd integrates \
     && coverage combine \
     && coverage report "${coverage_args[@]}" \

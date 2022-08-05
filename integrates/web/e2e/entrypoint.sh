@@ -3,7 +3,6 @@
 function main {
   echo '[INFO] Firefox: __argFirefox__' \
     && echo '[INFO] Geckodriver: __argGeckodriver__' \
-    && aws_login_dev \
     && sops_export_vars integrates/secrets/development.yaml \
       STARLETTE_SESSION_KEY \
       TEST_E2E_USER_1 \

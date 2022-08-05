@@ -9,7 +9,8 @@ function export_secrets {
   local secrets_path
 
   case "${env}" in
-    dev | prod-local) aws_login_dev && secrets_path=__argSecretsDev__ ;;
+    dev) secrets_path=__argSecretsDev__ ;;
+    prod-local) secrets_path=__argSecretsDev__ ;;
     prod) secrets_path=__argSecretsProd__ ;;
     *) error 'First argument must be one of: dev, prod, prod-local' ;;
   esac \
