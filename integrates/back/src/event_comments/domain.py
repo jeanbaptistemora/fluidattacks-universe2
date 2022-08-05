@@ -20,16 +20,14 @@ async def add(
     await comments_dal.create_typed(comment_data)
 
 
-async def delete(comment_id: str, finding_id: str) -> bool:
-    return await comments_dal.delete(comment_id, finding_id)
+async def delete(comment_id: str, event_id: str) -> bool:
+    return await comments_dal.delete(comment_id, event_id)
 
 
 async def get_event_comments(
-    loaders: Any, group_name: str, finding_id: str, user_email: str
+    loaders: Any, group_name: str, event_id: str, user_email: str
 ) -> list[EventComment]:
-    comments: list[EventComment] = await loaders.event_comments.load(
-        finding_id
-    )
+    comments: list[EventComment] = await loaders.event_comments.load(event_id)
 
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):

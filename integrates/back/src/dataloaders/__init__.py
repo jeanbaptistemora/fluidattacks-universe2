@@ -7,6 +7,9 @@ from collections import (
 from dataloaders.event_comments.event_comments import (
     EventCommentsLoader,
 )
+from dataloaders.finding_comments.finding_comments import (
+    FindingCommentsLoader,
+)
 from dataloaders.group_comments.group_comments import (
     GroupCommentsLoader,
 )
@@ -115,6 +118,7 @@ class Dataloaders(NamedTuple):
     event_comments: EventCommentsLoader
     event_vulnerabilities_loader: EventVulnerabilitiesLoader
     finding: FindingLoader
+    finding_comments: FindingCommentsLoader
     finding_historic_state: FindingHistoricStateLoader
     finding_historic_verification: FindingHistoricVerificationLoader
     finding_vulnerabilities: FindingVulnerabilitiesNonDeletedLoader
@@ -244,6 +248,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         event=event_loader,
         event_comments=EventCommentsLoader(),
         event_vulnerabilities_loader=EventVulnerabilitiesLoader(),
+        finding_comments=FindingCommentsLoader(),
         finding_historic_state=FindingHistoricStateLoader(),
         finding_historic_verification=(FindingHistoricVerificationLoader()),
         finding=FindingLoader(),
