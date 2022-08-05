@@ -288,17 +288,9 @@ async def update_invited_stakeholder(
         )
 
 
-async def update_attributes(
-    email: str, stakeholder_data: StakeholderMetadataToUpdate
-) -> None:
+async def update(*, email: str, metadata: StakeholderMetadataToUpdate) -> None:
     return await stakeholders_model.update_metadata(
-        metadata=StakeholderMetadataToUpdate(
-            first_name=stakeholder_data.first_name,
-            last_name=stakeholder_data.last_name,
-            registration_date=stakeholder_data.registration_date,
-            last_login_date=stakeholder_data.last_login_date,
-        ),
-        email=email,
+        email=email, metadata=metadata
     )
 
 

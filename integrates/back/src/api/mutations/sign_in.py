@@ -228,4 +228,6 @@ async def log_stakeholder_in(
         )
         await analytics.mixpanel_track(email, "Register")
         await autoenroll_stakeholder(email)
-        await stakeholders_domain.update_attributes(email, stakeholder_data)
+        await stakeholders_domain.update(
+            email=email, metadata=stakeholder_data
+        )

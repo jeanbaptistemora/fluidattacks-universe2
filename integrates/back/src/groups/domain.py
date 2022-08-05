@@ -42,7 +42,6 @@ from db_model import (
     enrollment as enrollment_model,
     group_access as group_access_model,
     groups as groups_model,
-    stakeholders as stakeholders_model,
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
@@ -98,6 +97,7 @@ from db_model.roots.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderMetadataToUpdate,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -202,26 +202,26 @@ async def complete_register_for_group_invitation(
         bugsnag.notify(Exception("Token already used"), severity="warning")
 
     group_name = group_access.group_name
-    user_email = group_access.email
+    email = group_access.email
     if invitation:
         responsibility = invitation.responsibility
         role = invitation.role
         url_token = invitation.url_token
 
     coroutines.append(
-        authz.grant_group_level_role(user_email, group_name, role),
+        authz.grant_group_level_role(email, group_name, role),
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    if not await orgs_domain.has_access(loaders, organization_id, user_email):
+    if not await orgs_domain.has_access(loaders, organization_id, email):
         coroutines.append(
             orgs_domain.add_stakeholder(
-                loaders, organization_id, user_email, "user"
+                loaders, organization_id, email, "user"
             )
         )
 
     await group_access_domain.update(
-        email=user_email,
+        email=email,
         group_name=group_name,
         metadata=GroupAccessMetadataToUpdate(
             expiration_time=0,
@@ -237,24 +237,25 @@ async def complete_register_for_group_invitation(
     )
     if not all(await collect(coroutines)):
         return False
-    if await stakeholders_domain.exists(loaders, user_email):
-        stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    if await stakeholders_domain.exists(loaders, email):
+        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
         if not stakeholder.is_registered:
             await collect(
                 [
-                    stakeholders_domain.register(user_email),
-                    authz.grant_user_level_role(user_email, "user"),
+                    stakeholders_domain.register(email),
+                    authz.grant_user_level_role(email, "user"),
                 ]
             )
     else:
-        stakeholder = Stakeholder(email=user_email)
-        await stakeholders_model.add(stakeholder=stakeholder)
+        await stakeholders_domain.update(
+            email=email, metadata=StakeholderMetadataToUpdate()
+        )
 
-    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    enrollment: Enrollment = await loaders.enrollment.load(email)
     if not enrollment.enrolled:
         await enrollment_model.add(
             enrollment=Enrollment(
-                email=user_email,
+                email=email,
                 enrolled=True,
                 trial=Trial(
                     completed=True,
