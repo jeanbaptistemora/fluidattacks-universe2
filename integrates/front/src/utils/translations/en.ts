@@ -244,6 +244,8 @@ export const enTranslations: ResourceKey = {
     minimumWidth: "ASM is only available on desktops",
   },
   autoenrollment: {
+    acceptTerms: "I read the",
+    and: "and",
     branch: {
       label: "Branch",
       placeholder: "qa",
@@ -312,6 +314,7 @@ export const enTranslations: ResourceKey = {
       placeholder: "My organization",
       tooltip: "Name that will be assigned to your new organization",
     },
+    privacyPolicy: "Privacy policy",
     proceed: "Start your free trial now",
     reportLanguage: "Report language ",
     reportLanguageTip:
@@ -325,7 +328,7 @@ export const enTranslations: ResourceKey = {
       title: "Our Machine is running!",
     },
     subtitle: "To begin, add the first code repository",
-    termsOfService: "I read the Terms of Service and Privacy Policy",
+    termsOfService: "Terms of service",
     title: "Let's create your group",
     url: {
       label: "URL repository ",

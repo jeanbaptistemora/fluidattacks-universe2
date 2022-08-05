@@ -153,9 +153,16 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
             <Col lg={100} md={100} sm={100}>
               <Checkbox
                 label={
-                  <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
-                    <Text>{t("autoenrollment.termsOfService")}</Text>
-                  </ExternalLink>
+                  <Text>
+                    {t("autoenrollment.acceptTerms")}
+                    <ExternalLink href={"https://fluidattacks.com/terms-use/"}>
+                      {t("autoenrollment.termsOfService")}
+                    </ExternalLink>
+                    {t("autoenrollment.and")}
+                    <ExternalLink href={"https://fluidattacks.com/privacy/"}>
+                      {t("autoenrollment.privacyPolicy")}
+                    </ExternalLink>
+                  </Text>
                 }
                 name={"terms"}
                 value={"accept"}
