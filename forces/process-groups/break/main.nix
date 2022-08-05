@@ -11,7 +11,6 @@ makeScript {
       outputs."/forces"
     ];
     source = [
-      outputs."/common/utils/aws"
       outputs."/common/utils/env"
       outputs."/common/utils/sops"
       outputs."/melts/lib"

@@ -11,7 +11,7 @@ forces.test-container:
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|forces)/
   stage: post-deploy
-  tags: [autoscaling-large]
+  tags: [prod_forces_large]
   image: fluidattacks/forces:${CI_COMMIT_REF_NAME}
   variables:
     API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api

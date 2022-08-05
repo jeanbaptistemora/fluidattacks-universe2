@@ -27,7 +27,6 @@
           user = "DOCKER_HUB_USER";
         };
         setup = [
-          outputs."/secretsForAwsFromEnv/dev"
           outputs."/secretsForEnvFromSops/forcesDev"
         ];
         src = outputs."/forces/container";
@@ -40,7 +39,6 @@
           user = "DOCKER_HUB_USER";
         };
         setup = [
-          outputs."/secretsForAwsFromEnv/prodForces"
           outputs."/secretsForEnvFromSops/forcesProd"
         ];
         src = outputs."/forces/container";
@@ -66,13 +64,6 @@
         python = "3.8";
         src = "/forces/test";
       };
-    };
-  };
-  secretsForAwsFromEnv = {
-    prodForces = {
-      accessKeyId = "PROD_FORCES_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "PROD_FORCES_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
     };
   };
   secretsForEnvFromSops = {
