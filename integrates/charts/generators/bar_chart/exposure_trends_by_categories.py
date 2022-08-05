@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart import (
+    format_csv_data,
+)
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
@@ -67,7 +70,8 @@ from typing import (
 class GroupInformation(NamedTuple):
     categories: dict[str, str]
     cvssf: dict[str, Decimal]
-    vulnerabilities: tuple[Vulnerability, ...]
+    finding_vulnerabilities: tuple[tuple[Vulnerability, ...], ...]
+    findings: tuple[Finding, ...]
 
 
 def get_categories() -> dict[str, str]:
@@ -108,15 +112,16 @@ async def get_data_vulnerabilities(
     }
 
     vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
+        tuple[Vulnerability, ...], ...
+    ] = await loaders.finding_vulnerabilities_nzr.load_many(
         [finding.id for finding in findings]
     )
 
     return GroupInformation(
         categories=finding_category,
         cvssf=finding_cvssf,
-        vulnerabilities=vulnerabilities,
+        finding_vulnerabilities=vulnerabilities,
+        findings=findings,
     )
 
 
@@ -133,31 +138,32 @@ async def get_data_one_group(
         loaders=loaders,
     )
 
-    current_category: str
-    counter: Counter[str] = Counter()
-
-    for vulnerability in data.vulnerabilities:
-        current_category = data.categories[vulnerability.finding_id]
-        counter.update(
-            {
-                f"{current_category}/open": had_state_by_then(
-                    last_day=last_day,
-                    state=VulnerabilityStateStatus.OPEN,
-                    vulnerabilities=[vulnerability],
-                    findings_cvssf=data.cvssf,
-                    sprint=True,
-                ).quantize(Decimal("0.001")),
-                f"{current_category}/closed": had_state_by_then(
-                    last_day=last_day,
-                    state=VulnerabilityStateStatus.CLOSED,
-                    vulnerabilities=[vulnerability],
-                    findings_cvssf=data.cvssf,
-                    sprint=True,
-                ).quantize(Decimal("0.001")),
-            }
+    vulnerabilities_by_categories = [
+        {
+            f"{data.categories[finding.id]}/open": had_state_by_then(
+                last_day=last_day,
+                state=VulnerabilityStateStatus.OPEN,
+                vulnerabilities=vulnerabilities,
+                findings_cvssf=data.cvssf,
+                sprint=True,
+            ).quantize(Decimal("0.001")),
+            f"{data.categories[finding.id]}/closed": had_state_by_then(
+                last_day=last_day,
+                state=VulnerabilityStateStatus.CLOSED,
+                vulnerabilities=vulnerabilities,
+                findings_cvssf=data.cvssf,
+                sprint=True,
+            ).quantize(Decimal("0.001")),
+        }
+        for finding, vulnerabilities in zip(
+            data.findings, data.finding_vulnerabilities
         )
+    ]
 
-    return counter
+    return sum(
+        [Counter(source) for source in vulnerabilities_by_categories],
+        Counter(),
+    )
 
 
 async def get_data_many_groups(
@@ -236,6 +242,7 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     unique_categories: list[str] = list(sorted(set(CATEGORIES.values())))
+    category: str = "Categories"
     async for group in iterate_groups():
         document = format_data(
             data=await get_data_one_group(group=group, loaders=loaders),
@@ -245,6 +252,7 @@ async def generate_all() -> None:
             document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=category),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
@@ -259,6 +267,7 @@ async def generate_all() -> None:
             document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=category),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
@@ -274,6 +283,9 @@ async def generate_all() -> None:
                 document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    document=document, header=category
+                ),
             )
 
 
