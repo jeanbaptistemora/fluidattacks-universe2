@@ -7,6 +7,9 @@ from charts import (
 from charts.colors import (
     OTHER,
 )
+from charts.generators.gauge.forces_builds_risk import (
+    format_csv_data,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -78,19 +81,21 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
     )
     async for group in utils.iterate_groups():
         group_roots = await loaders.group_roots.load(group)
-        utils.json_dump(
-            document=format_data(
-                data=format_resources(
-                    [
-                        root
-                        for root in group_roots
-                        if isinstance(root, GitRoot)
-                        and root.state.status == RootStatus.ACTIVE
-                    ]
-                ),
+        document = format_data(
+            data=format_resources(
+                [
+                    root
+                    for root in group_roots
+                    if isinstance(root, GitRoot)
+                    and root.state.status == RootStatus.ACTIVE
+                ]
             ),
+        )
+        utils.json_dump(
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, org_groups in (
@@ -109,10 +114,12 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             root for group_roots in grouped_roots for root in group_roots
         ]
 
+        document = format_data(data=format_resources(org_roots))
         utils.json_dump(
-            document=format_data(data=format_resources(org_roots)),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
         all_org_groups = await orgs_domain.get_group_names(loaders, org_id)
@@ -130,12 +137,14 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         ]
 
         for group_name, group_roots in zip(valid_org_groups, grouped_roots):
+            document = format_data(
+                data=format_resources(group_roots),
+            )
             utils.json_dump(
-                document=format_data(
-                    data=format_resources(group_roots),
-                ),
+                document=document,
                 entity="group",
                 subject=group_name,
+                csv_document=format_csv_data(document=document),
             )
 
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
@@ -155,10 +164,12 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 for group_roots in grouped_portfolios_roots
                 for root in group_roots
             ]
+            document = format_data(data=format_resources(portfolio_roots))
             utils.json_dump(
-                document=format_data(data=format_resources(portfolio_roots)),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document),
             )
 
 
