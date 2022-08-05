@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from finding_comments import (
     domain as comments_domain,
 )
@@ -25,20 +28,21 @@ async def test_list_comments() -> None:
         user_email=user_email,
     )
     expected_output = [
-        {
-            "parent": "0",
-            "created": "2019/08/20 16:35:16",
-            "modified": "2019/08/20 16:35:16",
-            "content": "This is a comenting test",
-            "email": "unittest@fluidattacks.com",
-            "fullname": "unit test at Fluid Attacks",
-            "id": "1566336916294",
-        }
+        FindingComment(
+            finding_id="422286126",
+            id="1566336916294",
+            parent_id="0",
+            comment_type="comment",
+            creation_date="2019-08-20T21:35:16+00:00",
+            content="This is a comenting test",
+            email="unittest@fluidattacks.com",
+            full_name="unit test",
+        )
     ]
     assert isinstance(test_data, tuple)
-    assert isinstance(test_data[0], dict)
+    assert isinstance(test_data[0], FindingComment)
     assert test_data[0] is not None
-    assert sorted(test_data) == sorted(expected_output)  # type: ignore
+    assert sorted(test_data) == sorted(expected_output)
 
 
 async def test_fill_comment_data() -> None:

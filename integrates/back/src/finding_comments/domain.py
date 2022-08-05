@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
 )
 import authz
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.types import (
     FindingVerification,
 )
@@ -32,10 +35,10 @@ from typing import (
 
 
 def _fill_vuln_info(
-    comment: Dict[str, str],
+    comment: FindingComment,
     vulns_ids: Set[str],
     vulns: Tuple[Vulnerability, ...],
-) -> Dict[str, Any]:
+) -> FindingComment:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack"""
     selected_vulns = [
@@ -45,13 +48,12 @@ def _fill_vuln_info(
     wheres = "\n".join(selected_vulns)
     # Avoid needless repetition of the header if the comment is answering more
     # than one reattack
-    if not comment.get("content", "").startswith(
+    if not comment.content.startswith(
         f"Regarding vulnerabilities: \n{wheres}"
     ):
-        comment[
-            "content"
-        ] = f"Regarding vulnerabilities: \n{wheres}\n\n" + comment.get(
-            "content", ""
+        comment = comment._replace(
+            content=f"Regarding vulnerabilities: \n{wheres}\n\n"
+            + comment.content
         )
     return comment
 
@@ -95,6 +97,10 @@ async def _get_fullname(objective_data: Dict[str, str]) -> str:
     return real_name
 
 
+def _is_scope_comment_typed(comment: FindingComment) -> bool:
+    return comment.content.strip() not in {"#external", "#internal"}
+
+
 def _is_scope_comment(comment: Dict[str, Any]) -> bool:
     return str(comment["content"]).strip() not in {"#external", "#internal"}
 
@@ -136,13 +142,11 @@ async def get_comments(
     group_name: str,
     finding_id: str,
     user_email: str,
-) -> Tuple[Dict[str, Any], ...]:
-    historic_verification_loader = loaders.finding_historic_verification
-    finding_vulns_loader = loaders.finding_vulnerabilities
-    comments = await _get_comments("comment", finding_id)
+) -> Tuple[FindingComment, ...]:
+    comments = await loaders.finding_comments.load(("comment", finding_id))
     historic_verification: Tuple[
         FindingVerification, ...
-    ] = await historic_verification_loader.load(finding_id)
+    ] = await loaders.finding_historic_verification.load(finding_id)
     verified = tuple(
         verification
         for verification in historic_verification
@@ -152,40 +156,44 @@ async def get_comments(
         verification_comment_ids: Set[str] = {
             verification.comment_id for verification in verified
         }
-        vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-            finding_id
-        )
+        vulns: Tuple[
+            Vulnerability, ...
+        ] = await loaders.finding_vulnerabilities.load(finding_id)
+
         reattack_comments, non_reattack_comments = filter_reattack_comments(
             comments, verification_comment_ids
         )
         # Loop to add the «Regarding vulnerabilities...» header to comments
         # answering a solicited reattack
-        reattack_comments = [
+        reattack_comments_filled = [
             _fill_vuln_info(
-                cast(Dict[str, str], comment),
+                comment,
                 verification.vulnerability_ids,
                 vulns,
             )
             if (
-                comment["id"] == verification.comment_id
+                comment.id == verification.comment_id
                 and verification.vulnerability_ids
             )
-            else {}
+            else None
             for comment in reattack_comments
             for verification in verified
         ]
         # Filter empty comments and remove duplicate reattack comments that can
         # happen if there is one replying to multiple reattacks
-        reattack_comments = list(filter(None, reattack_comments))
         unique_reattack_comments = list(
-            {comment["id"]: comment for comment in reattack_comments}.values()
+            set(
+                comment
+                for comment in reattack_comments_filled
+                if comment is not None
+            )
         )
         comments = unique_reattack_comments + non_reattack_comments
 
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return tuple(comments)
-    return tuple(filter(_is_scope_comment, comments))
+    return tuple(filter(_is_scope_comment_typed, comments))
 
 
 async def get_observations(
@@ -203,15 +211,15 @@ async def get_observations(
 
 
 def filter_reattack_comments(
-    comments: List[Dict[str, Any]],
+    comments: List[FindingComment],
     verification_comment_ids: Set[str],
-) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+) -> Tuple[List[FindingComment], List[FindingComment]]:
     """Returns the comment list of a finding filtered on whether the comment
     answers a solicited reattack or not. Comments that do this will be within
     the first element of the tuple while the others will be in the second"""
 
-    def filter_func(comment: Dict[str, Any]) -> bool:
-        return str(comment["id"]) in verification_comment_ids
+    def filter_func(comment: FindingComment) -> bool:
+        return comment.id in verification_comment_ids
 
     return list(filter(filter_func, comments)), list(
         filterfalse(filter_func, comments)
