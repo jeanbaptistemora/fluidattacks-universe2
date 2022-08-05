@@ -10,8 +10,10 @@
     fa-purity
     fa-singer-io
     pathos
+    python-dateutil
     mypy-boto3-s3
     types-boto3
+    types-dateutil
     utils-logger
   ];
   build_deps = with python_pkgs; [flit-core];
