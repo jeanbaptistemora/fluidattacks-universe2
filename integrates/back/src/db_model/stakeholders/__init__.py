@@ -1,6 +1,3 @@
-from .add import (
-    add,
-)
 from .get import (
     get_all_stakeholders,
 )
@@ -12,7 +9,6 @@ from .update import (
 )
 
 __all__ = [
-    "add",
     "get_all_stakeholders",
     "remove",
     "update_metadata",

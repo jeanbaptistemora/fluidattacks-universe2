@@ -54,7 +54,7 @@ async def test_remove_stakeholder() -> None:
     loaders: Dataloaders = get_new_context()
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"
-    await autoenroll_stakeholder(email)
+    await autoenroll_stakeholder(email, "FirstName", "LastName")
 
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     assert stakeholder.email == email

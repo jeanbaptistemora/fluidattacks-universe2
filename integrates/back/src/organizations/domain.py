@@ -74,6 +74,7 @@ from db_model.roots.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+    StakeholderMetadataToUpdate,
 )
 from db_model.types import (
     Policies,
@@ -223,16 +224,16 @@ async def add_without_group(
     role: str,
     is_register_after_complete: bool = False,
 ) -> bool:
-    success = False
     if validate_email_address(email):
-        success = await authz.grant_user_level_role(email, role)
-        await stakeholders_domain.add(
-            Stakeholder(
-                email=email,
+        await stakeholders_domain.update(
+            email=email,
+            metadata=StakeholderMetadataToUpdate(
                 is_registered=is_register_after_complete,
-            )
+            ),
         )
-    return success
+        return await authz.grant_user_level_role(email, role)
+
+    return False
 
 
 async def update_state(

@@ -62,15 +62,24 @@ from typing import (
 LOGGER = logging.getLogger(__name__)
 
 
-async def autoenroll_stakeholder(email: str) -> None:
+async def autoenroll_stakeholder(
+    email: str,
+    first_name: str,
+    last_name: str,
+) -> None:
     await orgs_domain.add_without_group(
         email=email,
         role="user",
         is_register_after_complete=True,
     )
+    today = datetime_utils.get_iso_date()
     await stakeholders_model.update_metadata(
         email=email,
         metadata=StakeholderMetadataToUpdate(
+            first_name=first_name,
+            last_login_date=today,
+            last_name=last_name,
+            registration_date=today,
             notifications_preferences=NotificationsPreferences(
                 email=[
                     "ACCESS_GRANTED",
@@ -92,7 +101,7 @@ async def autoenroll_stakeholder(email: str) -> None:
                     "VULNERABILITY_ASSIGNED",
                     "VULNERABILITY_REPORT",
                 ]
-            )
+            ),
         ),
     )
 
@@ -219,15 +228,5 @@ async def log_stakeholder_in(
     else:
         first_name = stakeholder.get("given_name", "")[:29]
         last_name = stakeholder.get("family_name", "")[:29]
-        today = datetime_utils.get_iso_date()
-        stakeholder_data = StakeholderMetadataToUpdate(
-            first_name=first_name,
-            last_login_date=today,
-            last_name=last_name,
-            registration_date=today,
-        )
         await analytics.mixpanel_track(email, "Register")
-        await autoenroll_stakeholder(email)
-        await stakeholders_domain.update(
-            email=email, metadata=stakeholder_data
-        )
+        await autoenroll_stakeholder(email, first_name, last_name)

@@ -131,10 +131,6 @@ async def check_session_web_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def add(data: Stakeholder) -> None:
-    return await stakeholders_model.add(stakeholder=data)
-
-
 async def remove(email: str) -> None:
     await authz.revoke_user_level_role(email)
     await stakeholders_model.remove(email=email)

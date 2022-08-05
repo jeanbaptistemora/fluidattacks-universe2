@@ -97,11 +97,17 @@ from typing import (
 
 
 async def populate_stakeholders(data: list[Stakeholder]) -> bool:
-    await collect(stakeholders_model.add(stakeholder=item) for item in data)
     await collect(
         stakeholders_model.update_metadata(
-            email=user.email,
+            email=item.email,
             metadata=StakeholderMetadataToUpdate(
+                access_token=item.access_token,
+                first_name=item.first_name,
+                is_concurrent_session=item.is_concurrent_session,
+                is_registered=item.is_registered,
+                last_login_date=item.last_login_date,
+                last_name=item.last_name,
+                legal_remember=item.legal_remember,
                 notifications_preferences=NotificationsPreferences(
                     email=[
                         "ACCESS_GRANTED",
@@ -123,10 +129,15 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
                         "VULNERABILITY_ASSIGNED",
                         "VULNERABILITY_REPORT",
                     ]
-                )
+                ),
+                phone=item.phone,
+                push_tokens=item.push_tokens,
+                registration_date=item.registration_date,
+                role=item.role,
+                tours=item.tours,
             ),
         )
-        for user in data
+        for item in data
     )
     return True
 
