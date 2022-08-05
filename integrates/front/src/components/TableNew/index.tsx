@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
 import { TableContainer } from "./styles";
-import type { ITableProps } from "./types";
+import type { ITableProps, ITablepropsWithRowSel } from "./types";
 
 import {
   ButtonToolbarRow,
@@ -32,7 +32,7 @@ import {
 } from "styles/styledComponents";
 
 export const Tables = <TData extends object>(
-  props: Readonly<ITableProps<TData>>
+  props: Readonly<ITableProps<TData>> | Readonly<ITablepropsWithRowSel<TData>>
 ): JSX.Element => {
   const {
     id,
@@ -44,14 +44,18 @@ export const Tables = <TData extends object>(
     extraButtons = undefined,
     csvName = "Report",
     onRowClick = undefined,
-    enableRowSelection = false,
+    rowSelectionPair = undefined,
     showPagination = data.length >= 8,
   } = props;
+
   const [columnVisibility, setColumnVisibility] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [expanded, setExpanded] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
+  const [rowSelection, setRowSelection] = rowSelectionPair ?? [
+    undefined,
+    undefined,
+  ];
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
@@ -144,7 +148,7 @@ export const Tables = <TData extends object>(
                         </div>
                       </th>
                     ))}
-                  {enableRowSelection && (
+                  {rowSelectionPair !== undefined && (
                     <th>
                       <input
                         checked={table.getIsAllRowsSelected()}
@@ -214,7 +218,7 @@ export const Tables = <TData extends object>(
                           </div>
                         </td>
                       ))}
-                    {enableRowSelection && (
+                    {rowSelectionPair !== undefined && (
                       <td>
                         <input
                           checked={row.getIsSelected()}

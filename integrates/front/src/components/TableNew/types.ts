@@ -5,7 +5,7 @@ import type {
   Row,
   Table,
 } from "@tanstack/react-table";
-import type { FormEvent } from "react";
+import type { Dispatch, FormEvent, SetStateAction } from "react";
 
 interface ICellHelper<TData> {
   table: Table<TData>;
@@ -29,9 +29,16 @@ interface ITableProps<TData> {
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
   csvName?: string;
-  enableRowSelection?: boolean;
+  enableRowSelection?: false;
+  rowSelectionPair?: undefined;
   showPagination?: boolean;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
+}
+
+interface ITablepropsWithRowSel<TData>
+  extends Omit<ITableProps<TData>, "enableRowSelection" | "rowSelectionPair"> {
+  enableRowSelection: true;
+  rowSelectionPair: [Record<string, never>, Dispatch<SetStateAction<object>>];
 }
 
 interface IToggleProps<TData> {
@@ -39,4 +46,10 @@ interface IToggleProps<TData> {
   table: Table<TData>;
 }
 
-export type { ICellHelper, IPagMenuProps, ITableProps, IToggleProps };
+export type {
+  ICellHelper,
+  IPagMenuProps,
+  ITableProps,
+  ITablepropsWithRowSel,
+  IToggleProps,
+};
