@@ -9,27 +9,25 @@
   <div class="main-content">
     <p>Hello {{ name }},</p>
     <p>
-      Enumerated: {{ count_var_report["enumerated"]["count"] }}.
+      Enumerated: {{ count_var_report["enumerated"]["count"] }} inputs.
       ({{ count_var_report["enumerated"]["variation"] }})<br />
 
       Verified: {{ count_var_report["verified"]["count"] }} fields
       ({{ count_var_report["verified"]["variation"] }}),
 
-      {{ count_var_report["loc"]["count"] }} lines.
+      {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
       ({{ count_var_report["loc"]["variation"] }})<br />
 
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
       ({{ count_var_report["reattacked"]["variation"] }})<br />
 
-      Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities.
-      ({{ count_var_report["draft_created"]["variation"] }})<br />
+      Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities
+      ({{ count_var_report["draft_created"]["variation"] }}),
+      {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities rejected.<br />
 
-      - Rejected: {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities.<br />
-
-      Released: {{ count_var_report["released"]["count"] }} vulnerabilities.
-      ({{ count_var_report["released"]["variation"] }})<br />
-
-      - {{ count_var_report["effectiveness"] }} effectiveness.
+      Released: {{ count_var_report["released"]["count"] }} vulnerabilities
+      ({{ count_var_report["released"]["variation"] }}),
+      {{ count_var_report["effectiveness"] }} effectiveness.
     </p>
     <p>
       Group details:<br />
@@ -38,7 +36,7 @@
           <strong>{{ group }}</strong>:
           {{ fields["enumerated"] }} inputs enumerated,
           {{ fields["verified"] }} inputs verified,
-          {{ fields["loc"] }} lines verified,
+          {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
           {{ fields["reattacked"] }} reattacked,
           {{ fields["draft_created"] }} drafts,
           {{ fields["released"] }} released.<br />

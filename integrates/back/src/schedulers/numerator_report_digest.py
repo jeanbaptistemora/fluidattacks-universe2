@@ -382,22 +382,12 @@ def get_percent(num_a: int, num_b: int) -> str:
     try:
         variation: float = num_a / num_b
     except TypeError:
-        return "N/A"
+        return "-"
     except ValueError:
-        return "N/A"
+        return "-"
     except ZeroDivisionError:
-        return "N/A"
+        return "-"
     return "{:+.0%}".format(variation)
-
-
-def format_number(num: int) -> str:
-    metric: dict[str, int] = {"G": 1000000000, "M": 1000000, "k": 1000}
-
-    for key, value in metric.items():
-        if num >= value:
-            return "{:.1f}{}".format(num / value, key)
-
-    return str(num)
 
 
 def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
@@ -427,9 +417,6 @@ async def _send_mail_report(
     responsible: str,
 ) -> None:
     count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
-    count_var_report["loc"]["count"] = format_number(
-        count_var_report["loc"]["count"]
-    )
 
     context: Dict[str, Any] = {
         "count_var_report": count_var_report,
