@@ -14,6 +14,7 @@ from typing import (
     Any,
     Dict,
     Optional,
+    Union,
 )
 from utils.repositories import (
     get_repo_branch,
@@ -138,6 +139,13 @@ def _format_what(what: str) -> str:
     return what
 
 
+def _format_were(were: str) -> Union[int, str]:
+    try:
+        return int(were)
+    except ValueError:
+        return were
+
+
 def _get_sarif(
     config: core_model.SkimsConfig,
     stores: Dict[core_model.FindingEnum, EphemeralStore],
@@ -221,7 +229,7 @@ def _get_sarif(
                                 uri=_format_what(vulnerability.what)
                             ),
                             region=sarif_om.Region(
-                                start_line=int(vulnerability.where),
+                                start_line=_format_were(vulnerability.where),
                                 snippet=sarif_om.MultiformatMessageString(
                                     text=vulnerability.skims_metadata.snippet
                                     if vulnerability.skims_metadata
