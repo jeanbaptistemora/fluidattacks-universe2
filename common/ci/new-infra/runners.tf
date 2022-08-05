@@ -1,18 +1,40 @@
 locals {
   arch = {
-    awsRoles = [
-      "dev",
-      "prod_airs",
-      "prod_common",
-      "prod_docs",
-      "prod_forces",
-      "prod_integrates",
-      "prod_melts",
-      "prod_observes",
-      "prod_services",
-      "prod_skims",
-      "prod_sorts",
-    ]
+    awsRoles = {
+      dev = {
+        access_level = "not_protected"
+      }
+      prod_airs = {
+        access_level = "not_protected"
+      }
+      prod_common = {
+        access_level = "not_protected"
+      }
+      prod_docs = {
+        access_level = "not_protected"
+      }
+      prod_forces = {
+        access_level = "not_protected"
+      }
+      prod_integrates = {
+        access_level = "not_protected"
+      }
+      prod_melts = {
+        access_level = "not_protected"
+      }
+      prod_observes = {
+        access_level = "not_protected"
+      }
+      prod_services = {
+        access_level = "not_protected"
+      }
+      prod_skims = {
+        access_level = "not_protected"
+      }
+      prod_sorts = {
+        access_level = "not_protected"
+      }
+    }
     sizes = {
       small = {
         root_size = 10
@@ -33,7 +55,7 @@ locals {
   }
   runners = {
     for runner in setproduct(
-      local.arch.awsRoles,
+      keys(local.arch.awsRoles),
       keys(local.arch.sizes)
       ) : join("_", runner) => {
       role = runner[0]
@@ -95,7 +117,7 @@ module "runners" {
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "86400"
-    access_level       = "not_protected"
+    access_level       = local.arch.awsRoles[each.value.role].access_level
   }
 
   # Workers
