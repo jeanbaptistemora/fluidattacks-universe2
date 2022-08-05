@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "sorts_bucket" {
     "management:area"    = "cost"
     "management:product" = "sorts"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 

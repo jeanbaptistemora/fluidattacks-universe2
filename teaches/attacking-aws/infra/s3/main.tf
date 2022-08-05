@@ -1,6 +1,9 @@
 resource "aws_s3_bucket" "ultra-secure-app-backup" {
   bucket = "ultra-secure-app-backup"
   acl    = "private"
+  tags = {
+    "Access" = "private"
+  }
 
   versioning {
     enabled = false

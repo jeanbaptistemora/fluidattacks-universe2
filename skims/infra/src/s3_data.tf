@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "skims_data" {
     "management:area"    = "cost"
     "management:product" = "skims"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 

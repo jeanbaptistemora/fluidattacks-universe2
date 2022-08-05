@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "common_logging" {
     "management:area"    = "innovation"
     "management:product" = "common"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 

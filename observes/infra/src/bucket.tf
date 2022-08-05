@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "fluidanalytics" {
     "management:area"    = "cost"
     "management:product" = "observes"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 

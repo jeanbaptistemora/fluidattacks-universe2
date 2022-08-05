@@ -8,6 +8,7 @@ resource "aws_s3_bucket" "analytics" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -53,6 +54,7 @@ resource "aws_s3_bucket" "resources" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -109,6 +111,7 @@ resource "aws_s3_bucket" "evidences" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -153,6 +156,7 @@ resource "aws_s3_bucket" "reports" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -210,6 +214,7 @@ resource "aws_s3_bucket" "build" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -254,6 +259,7 @@ resource "aws_s3_bucket" "forces" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -298,6 +304,7 @@ resource "aws_s3_bucket" "continuous_repositories" {
     "management:area"    = "cost"
     "management:product" = "services"
     "management:type"    = "service"
+    "Access"             = "private"
   }
 }
 
@@ -354,6 +361,7 @@ resource "aws_s3_bucket" "continuous_data" {
     "management:area"    = "cost"
     "management:product" = "services"
     "management:type"    = "service"
+    "Access"             = "private"
   }
 }
 

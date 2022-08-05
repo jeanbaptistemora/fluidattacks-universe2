@@ -6,6 +6,7 @@ resource "aws_s3_bucket" "observes_state" {
     "management:area"    = "cost"
     "management:product" = "observes"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 

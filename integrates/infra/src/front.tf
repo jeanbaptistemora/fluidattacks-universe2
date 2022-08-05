@@ -8,6 +8,7 @@ resource "aws_s3_bucket" "dev" {
     "management:area"    = "innovation"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
@@ -99,6 +100,7 @@ resource "aws_s3_bucket" "prod" {
     "management:area"    = "cost"
     "management:product" = "integrates"
     "management:type"    = "product"
+    "Access"             = "private"
   }
 }
 
