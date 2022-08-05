@@ -47,7 +47,7 @@ class S3Handler:
     def handle_schema(self, schema: SingerSchema) -> Cmd[None]:
         stm = f"""
             COPY {{schema}}.{{table}} FROM %(data_file)s
-            iam_role %(role)s ESCAPE NULL AS 'nan' TRUNCATECOLUMNS
+            iam_role %(role)s CSV NULL AS 'nan' TRUNCATECOLUMNS
         """
         identifiers: Dict[str, Optional[str]] = {
             "schema": self._schema.name,
@@ -55,7 +55,7 @@ class S3Handler:
         }
         data_file = self._bucket + "/" + self._prefix + schema.stream
         args: Dict[str, PrimitiveVal] = {
-            "data_file": data_file,
+            "data_file": "s3://" + data_file,
             "role": self._iam_role,
         }
         start = Cmd.from_cmd(

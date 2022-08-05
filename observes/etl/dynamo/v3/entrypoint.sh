@@ -63,19 +63,19 @@ function dynamodb_etl {
       --segments "${segments}" \
       > "${data}" \
     && get_schemas "${use_cache}" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
-    && cat "${singer_file}" > .singer \
+    && echo "[INFO] Singer file at ${singer_file}" \
     && echo '[INFO] Running target-s3' \
     && target-s3 \
       --bucket 'observes.etl-data' \
       --prefix 'test_dynamo/' \
-      < .singer \
+      < "${singer_file}" \
     && echo '[INFO] Running target-redshift' \
     && target-redshift from-s3 \
-      --schema-name "test_${schema}" \
+      --schema-name "${schema}" \
       --bucket 'observes.etl-data' \
       --prefix 'test_dynamo/' \
       --role 'arn:aws:iam::205810638802:role/redshift-role' \
-      < .singer
+      < "${singer_file}"
 }
 
 dynamodb_etl "${@}"

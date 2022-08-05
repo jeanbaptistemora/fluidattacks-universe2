@@ -49,5 +49,5 @@ class LoadingStrategy:
 
     def main(self, procedure: Callable[[SchemaId], Cmd[None]]) -> Cmd[None]:
         recreate = self._client.recreate_cascade(self._loading_schema)
-        upload = procedure(self._target)
+        upload = procedure(self._loading_schema)
         return recreate + upload + self._post_upload()

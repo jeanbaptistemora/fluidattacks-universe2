@@ -17,6 +17,7 @@ from fa_purity.cmd.core import (
 from fa_purity.pure_iter.factory import (
     unsafe_from_cmd,
 )
+import logging
 from tempfile import (
     NamedTemporaryFile,
 )
@@ -26,6 +27,8 @@ from typing import (
     Iterable,
     TypeVar,
 )
+
+LOG = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -87,6 +90,8 @@ class TempReadOnlyFile:
     def save(content: Stream[str]) -> Cmd[TempReadOnlyFile]:
         def _action(act: CmdUnwrapper) -> TempReadOnlyFile:
             file = NamedTemporaryFile("w", delete=False)
+            LOG.info("Saving stream into file")
+            LOG.debug("Saving stream into %s", file.name)
             file.writelines(act.unwrap(content.unsafe_to_iter()))
             file.close()
             return TempReadOnlyFile(_TempReadOnlyFile(file.name))
