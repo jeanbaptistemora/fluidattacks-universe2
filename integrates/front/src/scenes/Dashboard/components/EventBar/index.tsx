@@ -73,7 +73,7 @@ const EventBar: React.FC<IEventBarProps> = ({
       {hasOpenEvents ? (
         <Tooltip id={"eventBarTooltip"} tip={tooltipMessage}>
           <Link to={`/orgs/${organizationName}/groups`}>
-            <Alert autoHide={true} icon={true} time={12}>
+            <Alert autoHide={true} time={12}>
               {eventMessage}
             </Alert>
           </Link>

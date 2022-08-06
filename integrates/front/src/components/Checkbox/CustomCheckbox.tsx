@@ -49,7 +49,7 @@ const CustomCheckbox: React.FC<
         </CheckboxBox>
         <Text ml={2}>{label}</Text>
       </CheckboxLabel>
-      {alert === undefined ? undefined : <Alert icon={true}>{alert}</Alert>}
+      {alert === undefined ? undefined : <Alert>{alert}</Alert>}
     </Fragment>
   );
 };

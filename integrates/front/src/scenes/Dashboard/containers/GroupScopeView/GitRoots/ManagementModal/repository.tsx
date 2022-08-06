@@ -401,7 +401,6 @@ const Repository: FC<IRepositoryProps> = ({
                   ) : undefined}
                   {!showGitAlert && validateGitMsg.message !== "" ? (
                     <Alert
-                      icon={true}
                       onTimeOut={setShowGitAlert}
                       variant={validateGitMsg.type as IAlertProps["variant"]}
                     >
@@ -464,7 +463,6 @@ const Repository: FC<IRepositoryProps> = ({
               </Can>
               {!showSubmitAlert && modalMessages.message !== "" ? (
                 <Alert
-                  icon={true}
                   onTimeOut={setShowSubmitAlert}
                   variant={modalMessages.type as IAlertProps["variant"]}
                 >

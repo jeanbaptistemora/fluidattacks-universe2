@@ -301,7 +301,6 @@ const AddRoot: React.FC<IAddRootProps> = ({
                 </Col>
                 {!showSubmitAlert && rootMessages.message !== "" && (
                   <Alert
-                    icon={true}
                     onTimeOut={setShowSubmitAlert}
                     variant={rootMessages.type as IAlertProps["variant"]}
                   >
