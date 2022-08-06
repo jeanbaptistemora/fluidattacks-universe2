@@ -38,7 +38,7 @@ def format_metadata_item(metadata: OrganizationMetadataToUpdate) -> Item:
             json.loads(json.dumps(payment_method))
             for payment_method in metadata.payment_methods
         ]
-        if metadata.payment_methods
+        if metadata.payment_methods is not None
         else None,
     }
     return {

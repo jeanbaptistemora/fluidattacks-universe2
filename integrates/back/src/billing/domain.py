@@ -758,6 +758,13 @@ async def remove_payment_method(
         if org.payment_methods:
             other_payment_methods = org.payment_methods
 
+        payment_method = list(
+            filter(
+                lambda method: method.id == payment_method_id,
+                other_payment_methods,
+            )
+        )[0]
+        business_name = payment_method.business_name
         other_payment_methods = list(
             filter(
                 lambda method: method.id != payment_method_id,
@@ -771,6 +778,15 @@ async def remove_payment_method(
             organization_id=org.id,
             organization_name=org.name,
         )
+        document_prefix = f"billing/{org.name.lower()}/{business_name.lower()}"
+        file_name: str = ""
+        if payment_method.documents.rut:
+            file_name = payment_method.documents.rut.file_name
+        if payment_method.documents.tax_id:
+            file_name = payment_method.documents.tax_id.file_name
+
+        await remove_file(f"{document_prefix}/{file_name}")
+
         return True
 
     subscriptions: List[Subscription] = await dal.get_customer_subscriptions(
