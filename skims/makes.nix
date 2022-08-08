@@ -54,13 +54,6 @@
       };
     };
   };
-  secretsForAwsFromEnv = {
-    prodSkims = {
-      accessKeyId = "PROD_SKIMS_AWS_ACCESS_KEY_ID";
-      secretAccessKey = "PROD_SKIMS_AWS_SECRET_ACCESS_KEY";
-      sessionToken = "AWS_SESSION_TOKEN";
-    };
-  };
   securePythonWithBandit = {
     skims = {
       python = "3.8";
