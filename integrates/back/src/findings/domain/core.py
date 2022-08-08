@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 from aiodataloader import (
     DataLoader,
 )
@@ -33,6 +34,9 @@ from db_model import (
 )
 from db_model.enums import (
     StateRemovalJustification,
+)
+from db_model.finding_comments.types import (
+    FindingComment,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -526,12 +530,16 @@ def is_deleted(finding: Finding) -> bool:
 
 
 async def mask_finding(loaders: Any, finding: Finding) -> bool:
-    comments_and_observations = await comments_domain.get(
-        "comment", finding.id
-    ) + await comments_domain.get("observation", finding.id)
+    comments_and_observations: list[
+        FindingComment
+    ] = await loaders.finding_comments.load(
+        ("comment", finding.id)
+    ) + await loaders.finding_comments.load(
+        ("observation", finding.id)
+    )
     success = all(
         await collect(
-            comments_domain.delete(str(comment["comment_id"]), finding.id)
+            comments_domain.delete(comment.id, finding.id)
             for comment in comments_and_observations
         )
     )

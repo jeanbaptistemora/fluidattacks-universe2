@@ -54,13 +54,13 @@ async def main() -> None:  # noqa: MC0001
         )
 
         for finding_id in [finding.id for finding in findings]:
-            comments = await comments_domain.get("comment", finding_id)
+            comments = await loaders.finding_comments.load(
+                ("comment", finding_id)
+            )
             for comment in comments:
-                if comment.get("email") == "machine@fluidattacks.com":
-                    if re.search(useless_comments, comment.get("content")):
-                        await comments_domain.delete(
-                            comment.get("comment_id"), finding_id
-                        )
+                if comment.email == "machine@fluidattacks.com":
+                    if re.search(useless_comments, comment.content):
+                        await comments_domain.delete(comment.id, finding_id)
 
 
 if __name__ == "__main__":
