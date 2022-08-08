@@ -16,7 +16,7 @@ import {
   TitleContainer,
 } from "./styledComponents";
 
-import { WhiteBigParagraph } from "../../../styles/styledComponents";
+import { Title } from "../../Texts";
 
 const SolutionsSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -107,7 +107,9 @@ const SolutionsSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <TitleContainer>
-        <WhiteBigParagraph>{t("solutions.homeCards.title")}</WhiteBigParagraph>
+        <Title fColor={"#fff"} fSize={"48"}>
+          {t("solutions.homeCards.title")}
+        </Title>
       </TitleContainer>
       <CardsContainer>
         <ArrowContainer>

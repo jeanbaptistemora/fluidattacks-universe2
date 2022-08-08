@@ -12,9 +12,9 @@ import {
   MainCoverHome,
   NewRegularRedButton,
   PhantomRegularRedButton,
-  WhiteBigParagraph,
 } from "../../../styles/styledComponents";
 import { CloudImage } from "../../CloudImage";
+import { Title } from "../../Texts";
 
 const Portrait: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
@@ -33,9 +33,9 @@ const Portrait: React.FC = (): JSX.Element => {
           />
         </HomeImageContainer>
         <InnerMainContentHome>
-          <WhiteBigParagraph className={"f-home-title"}>
+          <Title fColor={"#fff"} fSize={"72"} fSizeM={"48"} fSizeS={"48"}>
             {"Secure your applications with our Continuous Hacking Solution"}
-          </WhiteBigParagraph>
+          </Title>
           <GrayBigParagraph>
             {"Accurate automation + AI prioritization + Expert intelligence"}
           </GrayBigParagraph>

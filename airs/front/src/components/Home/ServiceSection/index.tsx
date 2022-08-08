@@ -16,12 +16,10 @@ import {
   ServiceParagraph,
 } from "./styledComponents";
 
-import {
-  NewRegularRedButton,
-  WhiteBigParagraph,
-} from "../../../styles/styledComponents";
+import { NewRegularRedButton } from "../../../styles/styledComponents";
 import { useCarrousel } from "../../../utils/hooks";
 import { CloudImage } from "../../CloudImage";
+import { Title } from "../../Texts";
 
 const ServiceSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -32,7 +30,9 @@ const ServiceSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <MainTextContainer>
-        <WhiteBigParagraph>{t("service.homeTitle")}</WhiteBigParagraph>
+        <Title fColor={"#fff"} fSize={"48"}>
+          {t("service.homeTitle")}
+        </Title>
         <ServiceParagraph>{t("service.homeParagraph")}</ServiceParagraph>
       </MainTextContainer>
       <CycleContainer>

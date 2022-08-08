@@ -469,20 +469,6 @@ const InnerMainContentHome: StyledComponent<
   `,
 })``;
 
-const WhiteBigParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f1
-    white
-    fw6
-    neue
-    lh-solid
-    ma0
-  `,
-})``;
-
 const GrayBigParagraph: StyledComponent<
   "p",
   Record<string, unknown>
@@ -1725,5 +1711,4 @@ export {
   SubcategoryLink,
   SystemsCardContainer,
   TitleContainer,
-  WhiteBigParagraph,
 };

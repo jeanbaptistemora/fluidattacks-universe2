@@ -5,8 +5,8 @@ import { Carousel } from "./Carousel";
 import { Grid } from "./Grid";
 import { Container, TitleContainer } from "./styledComponents";
 
-import { WhiteBigParagraph } from "../../../styles/styledComponents";
 import { useCarrousel } from "../../../utils/hooks";
+import { Title } from "../../Texts";
 
 const NumbersSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -83,7 +83,9 @@ const NumbersSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <TitleContainer>
-        <WhiteBigParagraph>{t("numbersSection.title")}</WhiteBigParagraph>
+        <Title fColor={"#fff"} fSize={"48"}>
+          {t("numbersSection.title")}
+        </Title>
       </TitleContainer>
       <Grid data={data} />
       <Carousel data={data[cycle]} progressValue={progress} />
