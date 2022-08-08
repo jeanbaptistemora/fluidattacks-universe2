@@ -17,7 +17,7 @@
     - m . /lintPython/dirOfModules/reviews
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

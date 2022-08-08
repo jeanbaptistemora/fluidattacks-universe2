@@ -26,29 +26,29 @@
     resource_group = "$CI_JOB_NAME";
     rules = gitlabOnlyTrunk;
     stage = "deploy-infra";
-    tags = ["autoscaling"];
+    tags = ["prod_skims_small"];
   };
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabTest = {
     rules = gitlabOnlyDev;
     stage = "test-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   gitlabTestFuntional = {
     rules = gitlabOnlyDev;
     stage = "post-deploy";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
     resource_group = "$CI_COMMIT_REF_NAME-$CI_JOB_NAME";
     needs = ["/integrates/back/deploy/dev"];
   };
   gitlabTestInfra = {
     rules = gitlabOnlyDev;
     stage = "test-infra";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
   categoriesIntegrates = [
     "functional"

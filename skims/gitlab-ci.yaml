@@ -16,7 +16,7 @@
     - m . /deployTerraform/skims
   stage: deploy-infra
   tags:
-    - autoscaling
+    - prod_skims_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -38,7 +38,7 @@
     - m . /lintPython/dirOfModules/skims
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -60,7 +60,7 @@
     - m . /lintPython/imports/skims
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +82,7 @@
     - m . /lintPython/module/skimsTest
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -104,7 +104,7 @@
     - m . /lintPython/module/skimsTestMocksHttp
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -126,7 +126,7 @@
     - m . /lintTerraform/skims
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -148,7 +148,7 @@
     - m . /securePythonWithBandit/skims
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -169,7 +169,7 @@
     - m . /skims/deploy/prod
   stage: deploy-infra
   tags:
-    - autoscaling
+    - prod_skims_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -193,7 +193,7 @@
     - m . /skims/test/cli
   stage: post-deploy
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -215,7 +215,7 @@
     - m . /testPython/skims@benchmark_cmdi
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -237,7 +237,7 @@
     - m . /testPython/skims@benchmark_crypto
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -259,7 +259,7 @@
     - m . /testPython/skims@benchmark_hash
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -281,7 +281,7 @@
     - m . /testPython/skims@benchmark_ldapi
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -303,7 +303,7 @@
     - m . /testPython/skims@benchmark_pathtraver
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -325,7 +325,7 @@
     - m . /testPython/skims@benchmark_securecookie
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -347,7 +347,7 @@
     - m . /testPython/skims@benchmark_sqli
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -369,7 +369,7 @@
     - m . /testPython/skims@benchmark_trustbound
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -391,7 +391,7 @@
     - m . /testPython/skims@benchmark_weakrand
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -413,7 +413,7 @@
     - m . /testPython/skims@benchmark_xpathi
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -435,7 +435,7 @@
     - m . /testPython/skims@benchmark_xss
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -459,7 +459,7 @@
     - m . /testPython/skims@functional
   stage: post-deploy
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -481,7 +481,7 @@
     - m . /testPython/skims@instance_references
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -503,7 +503,7 @@
     - m . /testPython/skims@lib_apk
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -525,7 +525,7 @@
     - m . /testPython/skims@lib_http
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -547,7 +547,7 @@
     - m . /testPython/skims@lib_path
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -569,7 +569,7 @@
     - m . /testPython/skims@lib_ssl
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -591,7 +591,7 @@
     - m . /testPython/skims@nist_c_sharp
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -613,7 +613,7 @@
     - m . /testPython/skims@nist_c_sharp_f001
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -635,7 +635,7 @@
     - m . /testPython/skims@nist_c_sharp_f004
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -657,7 +657,7 @@
     - m . /testPython/skims@nist_c_sharp_f008
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -679,7 +679,7 @@
     - m . /testPython/skims@nist_c_sharp_f021
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -701,7 +701,7 @@
     - m . /testPython/skims@nist_c_sharp_f063
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -723,7 +723,7 @@
     - m . /testPython/skims@nist_c_sharp_f107
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -745,7 +745,7 @@
     - m . /testPython/skims@unittesting
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
@@ -767,7 +767,7 @@
     - m . /testPython/skims@vulnerable_js_app
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -789,7 +789,7 @@
     - m . /testPython/skims@vulnerableapp
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -811,7 +811,7 @@
     - m . /testTerraform/skims
   stage: test-infra
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

@@ -14,7 +14,7 @@
   gitlabLint = {
     rules = gitlabOnlyDev;
     stage = "lint-code";
-    tags = ["autoscaling"];
+    tags = ["dev_small"];
   };
 in {
   pipelines = {
