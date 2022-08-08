@@ -13,6 +13,7 @@ from syntax_graph.syntax_readers.c_sharp import (
     field_declaration as c_sharp_field_declaration,
     for_each_statement as c_sharp_for_each_statement,
     for_statemente as c_sharp_for_statement,
+    global_statement as c_sharp_global_statement,
     initializer_expression as c_sharp_initializer_expression,
     interface_declaration as c_sharp_interface_declaration,
     interpolated_string_expression as c_sharp_interpolated_string_expression,
@@ -228,6 +229,12 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "global_statement",
+        },
+        syntax_reader=c_sharp_global_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "identifier",
         },
         syntax_reader=common_identifier.reader,
@@ -294,6 +301,7 @@ CSHARP_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "local_function_statement",
             "method_declaration",
         },
         syntax_reader=common_method_declaration.reader,
