@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,11 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+
+import {
+  GET_ME_VULNERABILITIES_ASSIGNED,
+  GET_USER_ORGANIZATIONS_GROUPS,
+} from "./queries";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -34,6 +40,8 @@ import { ReattackVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulne
 import type {
   IAction,
   IFilterTodosSet,
+  IGetMeVulnerabilitiesAssigned,
+  IGetUserOrganizationsGroups,
   IGroupAction,
   ITasksVulnerabilities,
 } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/types";
@@ -44,13 +52,11 @@ import type { IOrganizationGroups } from "scenes/Dashboard/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
+import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 
 export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
-  userData,
-  meVulnerabilitiesAssigned,
   setUserRole,
-  refetchVulnerabilitiesAssigned,
 }: ITasksVulnerabilities): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -82,6 +88,35 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
   const permissionsContext: PureAbility<string> = useContext(
     authzPermissionsContext
   );
+
+  const { data: userData } = useQuery<IGetUserOrganizationsGroups>(
+    GET_USER_ORGANIZATIONS_GROUPS,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          Logger.warning(
+            "An error occurred fetching groups from dashboard",
+            error
+          );
+        });
+      },
+    }
+  );
+  const {
+    data: meVulnerabilitiesAssigned,
+    refetch: refetchVulnerabilitiesAssigned,
+  } = useQuery<IGetMeVulnerabilitiesAssigned>(GET_ME_VULNERABILITIES_ASSIGNED, {
+    fetchPolicy: "cache-first",
+    onError: ({ graphQLErrors }): void => {
+      graphQLErrors.forEach((error): void => {
+        Logger.warning(
+          "An error occurred fetching vulnerabilities assigned from dashboard",
+          error
+        );
+      });
+    },
+  });
 
   useTabTracking("Todos");
 

@@ -1,16 +1,6 @@
-import type { ApolloQueryResult } from "@apollo/client";
-
-import type {
-  IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
-} from "scenes/Dashboard/types";
+import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 
 interface ITasksVulnerabilities {
-  meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
-  userData: IGetUserOrganizationsGroups | undefined;
-  refetchVulnerabilitiesAssigned: () => Promise<
-    ApolloQueryResult<IGetMeVulnerabilitiesAssigned>
-  >;
   setUserRole: (userRole: string | undefined) => void;
 }
 
@@ -30,4 +20,34 @@ interface IFilterTodosSet {
   verification?: string;
 }
 
-export type { IAction, IFilterTodosSet, IGroupAction, ITasksVulnerabilities };
+interface IOrganizationGroups {
+  groups: {
+    name: string;
+    permissions: string[];
+    serviceAttributes: string[];
+  }[];
+  name: string;
+}
+
+interface IGetUserOrganizationsGroups {
+  me: {
+    organizations: IOrganizationGroups[];
+    userEmail: string;
+  };
+}
+
+interface IGetMeVulnerabilitiesAssigned {
+  me: {
+    vulnerabilitiesAssigned: IVulnRowAttr[];
+    userEmail: string;
+  };
+}
+
+export type {
+  IAction,
+  IFilterTodosSet,
+  IGetMeVulnerabilitiesAssigned,
+  IGetUserOrganizationsGroups,
+  IGroupAction,
+  ITasksVulnerabilities,
+};

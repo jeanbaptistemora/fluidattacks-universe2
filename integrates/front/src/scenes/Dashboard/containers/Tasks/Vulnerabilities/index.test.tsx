@@ -6,15 +6,12 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
 import {
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER_ORGANIZATIONS_GROUPS,
-} from "scenes/Dashboard/queries";
-import type {
-  IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
-} from "scenes/Dashboard/types";
+} from "./queries";
+
+import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -28,7 +25,7 @@ jest.mock("utils/notifications", (): Dictionary => {
   return mockedNotifications;
 });
 
-describe("TodoVulnerabilitiesView", (): void => {
+describe("todoVulnerabilitiesView", (): void => {
   const mocksVulnerabilities: MockedResponse = {
     request: {
       query: GET_ME_VULNERABILITIES_ASSIGNED,
@@ -149,34 +146,28 @@ describe("TodoVulnerabilitiesView", (): void => {
       <MemoryRouter initialEntries={["/todos"]}>
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <Route path={"/todos"}>
-            <TasksVulnerabilities
-              meVulnerabilitiesAssigned={
-                (
-                  mocksVulnerabilities.result as Dictionary<{
-                    me: IGetMeVulnerabilitiesAssigned["me"];
-                  }>
-                ).data
-              }
-              refetchVulnerabilitiesAssigned={jest.fn()}
-              setUserRole={refreshClick}
-              userData={
-                (
-                  mocksUserGroups.result as Dictionary<{
-                    me: IGetUserOrganizationsGroups["me"];
-                  }>
-                ).data
-              }
-            />
+            <MockedProvider
+              addTypename={false}
+              mocks={[
+                mocksUserGroups,
+                mocksVulnerabilities,
+                mocksVulnerabilities,
+              ]}
+            >
+              <TasksVulnerabilities setUserRole={refreshClick} />
+            </MockedProvider>
           </Route>
         </authzPermissionsContext.Provider>
       </MemoryRouter>
     );
 
-    userEvent.click(container.querySelector("#refresh-assigned") as Element);
-
     await waitFor((): void => {
-      expect(refreshClick).toHaveBeenCalledTimes(1);
+      expect(
+        screen.getByRole("cell", { name: "https://example.com/inputs" })
+      ).toBeInTheDocument();
     });
+
+    userEvent.click(container.querySelector("#refresh-assigned") as Element);
 
     expect(screen.getAllByRole("checkbox")[1]).not.toBeChecked();
 
@@ -220,24 +211,12 @@ describe("TodoVulnerabilitiesView", (): void => {
         <authzPermissionsContext.Provider value={mockedPermissions}>
           <MockedProvider addTypename={false} mocks={[]}>
             <Route path={"/todos"}>
-              <TasksVulnerabilities
-                meVulnerabilitiesAssigned={
-                  (
-                    mocksVulnerabilities.result as Dictionary<{
-                      me: IGetMeVulnerabilitiesAssigned["me"];
-                    }>
-                  ).data
-                }
-                refetchVulnerabilitiesAssigned={jest.fn()}
-                setUserRole={refreshClick}
-                userData={
-                  (
-                    mocksUserGroups.result as Dictionary<{
-                      me: IGetUserOrganizationsGroups["me"];
-                    }>
-                  ).data
-                }
-              />
+              <MockedProvider
+                addTypename={false}
+                mocks={[mocksUserGroups, mocksVulnerabilities]}
+              >
+                <TasksVulnerabilities setUserRole={refreshClick} />
+              </MockedProvider>
             </Route>
           </MockedProvider>
         </authzPermissionsContext.Provider>

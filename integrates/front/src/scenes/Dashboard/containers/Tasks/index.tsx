@@ -15,10 +15,7 @@ import {
 } from "utils/authz/config";
 
 export const TasksContent: React.FC<ITasksContent> = ({
-  userData,
-  meVulnerabilitiesAssigned,
   setUserRole,
-  refetchVulnerabilitiesAssigned,
 }: ITasksContent): JSX.Element => {
   const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
@@ -58,12 +55,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
       <TabContent>
         <Switch>
           <Route path={`${path}/vulns`}>
-            <TasksVulnerabilities
-              meVulnerabilitiesAssigned={meVulnerabilitiesAssigned}
-              refetchVulnerabilitiesAssigned={refetchVulnerabilitiesAssigned}
-              setUserRole={setUserRole}
-              userData={userData}
-            />
+            <TasksVulnerabilities setUserRole={setUserRole} />
           </Route>
           <Route path={`${path}/drafts`}>
             <TasksDrafts />
