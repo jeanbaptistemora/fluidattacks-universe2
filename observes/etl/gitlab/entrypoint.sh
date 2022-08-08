@@ -9,6 +9,7 @@ function start_etl {
   local state="${3}"
   local token="${4}"
   local db_creds="${5}"
+  export AWS_DEFAULT_REGION="us-east-1"
 
   echo "[INFO] Gitlab ETL for ${project}" \
     && echo '[INFO] Running tap' \

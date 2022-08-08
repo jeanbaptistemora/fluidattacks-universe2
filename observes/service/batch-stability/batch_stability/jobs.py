@@ -40,7 +40,7 @@ class Product(Enum):
 
 
 def observes_jobs(queue: str, last_hours: int) -> Stream[JobSummaryTypeDef]:
-    client = JobsClient(boto3.client("batch"), queue)
+    client = JobsClient(boto3.client("batch", region_name="us-east-1"), queue)
     return (
         client.list_jobs("FAILED")
         .transform(lambda s: report.observes_filter(s))

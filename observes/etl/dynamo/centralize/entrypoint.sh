@@ -3,6 +3,7 @@
 alias migrate-tables="observes-service-migrate-tables-bin"
 
 function dynamodb_centralize {
+  export AWS_DEFAULT_REGION="us-east-1"
   : \
     && export_notifier_key \
     && echo '[INFO] Generating secret files' \
