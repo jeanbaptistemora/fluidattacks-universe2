@@ -469,65 +469,6 @@ const InnerMainContentHome: StyledComponent<
   `,
 })``;
 
-const GrayBigParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f-2
-    c-fluid-gray
-    fw6
-    neue
-    lh-solid
-    ma0
-    mt3
-  `,
-})``;
-
-const GrayMediumParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f3
-    c-gray-154
-    fw6
-    neue
-    lh-solid
-    ma0
-    mt3
-  `,
-})``;
-
-const GrayLittleParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f4
-    c-gray-154
-    fw6
-    neue
-    lh-solid
-    ma0
-    mt3
-  `,
-})``;
-
-const BlackSimpleParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    roboto
-    f5
-    c-fluid-bk
-    lh-copy
-    fw3
-    ma0
-  `,
-})``;
-
 const BannerContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -567,21 +508,6 @@ const BannerTitle: StyledComponent<
   `,
 })``;
 
-const LittleBannerTitle: StyledComponent<
-  "h1",
-  Record<string, unknown>
-> = styled.h1.attrs({
-  className: `
-    white
-    fw7
-    f1
-    neue
-    tc
-    f-375-l
-    ma0
-  `,
-})``;
-
 const PageContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -610,85 +536,6 @@ const BigPageContainer: StyledComponent<
   `,
 })``;
 
-const HalfScreenContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    ph0-ns
-  `,
-})``;
-
-const FullWidthContainerPlain: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    w-100
-  `,
-})``;
-
-const SolutionsSectionDescription: StyledComponent<
-  "ul",
-  Record<string, unknown>
-> = styled.ul.attrs({
-  className: `
-    tl
-    roboto
-    list
-    pl0
-  `,
-})``;
-
-const BlackListItemSpaced: StyledComponent<
-  "li",
-  Record<string, unknown>
-> = styled.li.attrs({
-  className: `
-    c-fluid-bk
-    pv3
-  `,
-})``;
-
-const SolutionCardContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    pv3
-    flex
-    w-100
-    w-50-l
-    pr4-l
-  `,
-})``;
-
-const SolutionsSubtitle: StyledComponent<
-  "h3",
-  Record<string, unknown>
-> = styled.h3.attrs({
-  className: `
-    c-fluid-bk
-    f3
-    fw6
-    mv0
-    underline-title
-  `,
-})``;
-
-const SolutionsParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    c-black-gray
-    f5
-    lh-copy
-    fw3
-    mv0
-  `,
-})``;
-
 const FlexCenterItemsContainer: StyledComponent<
   "div",
   Record<string, unknown>
@@ -697,44 +544,6 @@ const FlexCenterItemsContainer: StyledComponent<
     flex
     justify-center
     items-center
-  `,
-})``;
-
-const BlackSolutionParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    c-fluid-bk
-    fw3
-    f3
-    lh-2
-  `,
-})``;
-
-const LittleBlackParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    c-fluid-bk
-    fw3
-    f-1125
-    lh-2
-    mw-750
-  `,
-})``;
-
-const BigSolutionParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    c-black-gray
-    fw3
-    f-1125
-    lh-2
-    mw-1920
   `,
 })``;
 
@@ -1615,11 +1424,7 @@ export {
   BannerSubtitle,
   BannerTitle,
   BigPageContainer,
-  BigSolutionParagraph,
   BlackH2,
-  BlackListItemSpaced,
-  BlackSimpleParagraph,
-  BlackSolutionParagraph,
   ButtonContainer,
   CardBody,
   CardContainer,
@@ -1649,12 +1454,7 @@ export {
   FooterInfoLinksContainer,
   FooterInfoLink,
   FullWidthContainer,
-  FullWidthContainerPlain,
-  GrayBigParagraph,
   GrayDash,
-  GrayLittleParagraph,
-  GrayMediumParagraph,
-  HalfScreenContainer,
   HeaderContainer,
   HomeImageContainer,
   IframeContainer,
@@ -1665,8 +1465,6 @@ export {
   ListItem,
   ListItemLabel,
   LittleBannerContainer,
-  LittleBannerTitle,
-  LittleBlackParagraph,
   LogoContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,
@@ -1703,10 +1501,6 @@ export {
   ServicesGrid,
   SidebarContainer,
   SocialMediaLink,
-  SolutionCardContainer,
-  SolutionsParagraph,
-  SolutionsSectionDescription,
-  SolutionsSubtitle,
   SquaredCardContainer,
   SubcategoryLink,
   SystemsCardContainer,

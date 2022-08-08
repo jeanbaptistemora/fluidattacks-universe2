@@ -5,7 +5,6 @@ import { Link } from "gatsby";
 import React from "react";
 
 import {
-  GrayBigParagraph,
   HomeImageContainer,
   InnerMainContentHome,
   MainContentHome,
@@ -36,9 +35,9 @@ const Portrait: React.FC = (): JSX.Element => {
           <Title fColor={"#fff"} fSize={"72"} fSizeM={"48"} fSizeS={"48"}>
             {"Secure your applications with our Continuous Hacking Solution"}
           </Title>
-          <GrayBigParagraph>
+          <Title fColor={"#b0b0bf"} fSize={"32"} marginTop={"1"}>
             {"Accurate automation + AI prioritization + Expert intelligence"}
-          </GrayBigParagraph>
+          </Title>
           <div className={"cf mt4 mb5"}>
             <Link className={"no-underline"} to={"/free-trial/"}>
               <NewRegularRedButton className={"mb3 fl mh1 w-auto-ns w-100"}>
