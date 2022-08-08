@@ -9,6 +9,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.enums import (
     FindingVerificationStatus,
 )
@@ -76,6 +79,15 @@ async def test_request_hold_vuln(
     assert (
         vulnerability.verification.status
         == VulnerabilityVerificationStatus.ON_HOLD
+    )
+    finding_comments: list[
+        FindingComment
+    ] = await loaders.finding_comments.load(("comment", finding_id))
+    assert finding_comments[-1].finding_id == finding_id
+    assert finding_comments[-1].comment_type == "verification"
+    assert finding_comments[-1].email == email
+    assert finding_comments[-1].content == (
+        f"These reattacks have been put on hold because of Event #{event_id}"
     )
 
 

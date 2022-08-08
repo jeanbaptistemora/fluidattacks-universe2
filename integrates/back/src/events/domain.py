@@ -54,6 +54,9 @@ from db_model.events.types import (
     EventState,
     GroupEventsRequest,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.enums import (
     FindingVerificationStatus,
 )
@@ -66,9 +69,6 @@ from db_model.groups.types import (
 )
 from db_model.roots.types import (
     Root,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -664,14 +664,19 @@ async def request_vulnerabilities_hold(
             for vuln in vulnerabilities
         )
     )
-    comment_data: dict[str, Any] = {
-        "comment_type": "verification",
-        "content": justification,
-        "parent": "0",
-        "comment_id": comment_id,
-    }
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    await finding_comments_domain.add(finding_id, comment_data, stakeholder)
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        comment_type="verification",
+        content=justification,
+        parent_id="0",
+        id=comment_id,
+        email=user_email,
+        creation_date=datetime_utils.get_as_utc_iso_format(
+            datetime_utils.get_now()
+        ),
+        full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
+    )
+    await finding_comments_domain.add_typed(comment_data)
     if not success:
         LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()
