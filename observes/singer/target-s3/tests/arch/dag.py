@@ -10,8 +10,8 @@ _DAG: Dict[str, FrozenList[str]] = {
     "target_s3": (
         "_cli",
         "loader",
-        "csv",
         "upload",
+        "csv",
         "_splitter",
         "core",
         "in_buffer",

@@ -1,24 +1,22 @@
+from . import (
+    _splitter,
+)
+from ._splitter import (
+    GroupedRecords,
+)
 from fa_purity import (
     Cmd,
     FrozenDict,
     Maybe,
-    PureIter,
     Result,
     ResultE,
     Stream,
 )
+from fa_purity.cmd.transform import (
+    serial_merge,
+)
 from fa_purity.json.factory import (
     loads,
-)
-from fa_purity.pure_iter.factory import (
-    from_flist,
-)
-from fa_purity.pure_iter.transform import (
-    consume,
-    filter_opt,
-)
-from fa_purity.utils import (
-    raise_exception,
 )
 from fa_singer_io.singer import (
     SingerRecord,
@@ -31,113 +29,66 @@ from target_s3.core import (
     CompletePlainRecord,
     PlainRecord,
     RecordGroup,
-    TempReadOnlyFile,
-)
-from target_s3.csv import (
-    save,
 )
 from target_s3.upload import (
     new_client,
     S3FileUploader,
 )
 from typing import (
-    FrozenSet,
-    Tuple,
+    NoReturn,
+    TypeVar,
 )
 
-
-def _gen_schema_map(
-    schemas: PureIter[SingerSchema],
-) -> ResultE[FrozenDict[str, SingerSchema]]:
-    streams = schemas.map(lambda x: x.stream)
-    if len(frozenset(streams)) != len(tuple(streams)):
-        err = ValueError("Detected more than one schema for the same stream")
-        return Result.failure(err)
-    return Result.success(FrozenDict({s.stream: s for s in schemas}))
+_T = TypeVar("_T")
 
 
-def _transform_records(
-    schema_map: FrozenDict[str, SingerSchema], records: PureIter[SingerRecord]
-) -> PureIter[ResultE[CompletePlainRecord]]:
-    def _get_schema(stream: str) -> ResultE[SingerSchema]:
-        return (
-            Maybe.from_optional(schema_map.get(stream))
-            .to_result()
-            .alt(
-                lambda _: ValueError(
-                    f"A record is referring to a stream with missing schema i.e. `{stream}`"
-                )
-            )
-        )
-
-    return records.map(
-        lambda s: PlainRecord.from_singer(s).bind(
-            lambda p: _get_schema(p.stream).bind(
-                lambda sh: CompletePlainRecord.new(sh, p)
-            )
-        )
+def _complete_record(
+    schemas: FrozenDict[str, SingerSchema], record: SingerRecord
+) -> ResultE[CompletePlainRecord]:
+    schema = Maybe.from_optional(schemas.get(record.stream))
+    return PlainRecord.from_singer(record).bind(
+        lambda p: schema.to_result()
+        .alt(lambda _: Exception(f"Missing {record.stream} on schemas map"))
+        .bind(lambda sh: CompletePlainRecord.new(sh, p))
     )
 
 
-def _extract(
-    file: TempReadOnlyFile,
-) -> ResultE[
-    Tuple[FrozenDict[str, SingerSchema], PureIter[CompletePlainRecord]]
-]:
-    msgs = file.read().map(
-        lambda i: loads(i).alt(Exception).bind(deserialize).unwrap()
+def _assert_record(item: _T) -> ResultE[SingerRecord]:
+    if isinstance(item, SingerRecord):
+        return Result.success(item)
+    err = Exception(f"Expected `SingerRecord` got `{type(item)}`")
+    return Result.failure(err)
+
+
+def _process_group(
+    uploader: S3FileUploader,
+    schemas: FrozenDict[str, SingerSchema],
+    group: GroupedRecords,
+) -> Cmd[None] | NoReturn:
+    records = group.file.read().map(
+        lambda i: loads(i)
+        .alt(Exception)
+        .bind(deserialize)
+        .bind(_assert_record)
     )
-    schemas = (
-        msgs.map(lambda s: s if isinstance(s, SingerSchema) else None)
-        .transform(lambda x: filter_opt(x))
-        .transform(
-            lambda p: from_flist(
-                tuple(p)
-            )  # this will save schemas into a tuple instead of computing everytime from the raw file
-        )
-        .transform(_gen_schema_map)
+    completed = records.map(
+        lambda r: r.bind(lambda d: _complete_record(schemas, d))
     )
-    records = msgs.map(
-        lambda s: s if isinstance(s, SingerRecord) else None
-    ).transform(lambda x: filter_opt(x))
-    return schemas.map(
-        lambda s_map: (
-            s_map,
-            _transform_records(s_map, records).map(
-                lambda r: r.alt(raise_exception).unwrap()
-            ),
-        )
-    )
+    schema = schemas[group.stream]
+    r_group = RecordGroup.filter(schema, completed.map(lambda x: x.unwrap()))
+    return uploader.upload_to_s3(r_group)
 
 
-def _group(
-    schemas: FrozenSet[SingerSchema], records: PureIter[CompletePlainRecord]
-) -> PureIter[RecordGroup]:
-    return from_flist(tuple(schemas)).map(
-        lambda s: RecordGroup.filter(s, records)
-    )
-
-
-def _process(
-    uploader: S3FileUploader, data: TempReadOnlyFile
-) -> ResultE[Cmd[None]]:
-    extraction = _extract(data)
-    return extraction.map(
-        lambda t: _group(frozenset(v for _, v in t[0].items()), t[1])
-        .transform(
-            lambda p: p.map(
-                lambda g: save(g).bind(lambda t: uploader.upload_to_s3(g, t))
-            )
-        )
-        .transform(lambda p: consume(p))
-    )
-
-
-def main(
-    bucket: str, prefix: str, data: Stream[str]
-) -> Cmd[ResultE[Cmd[None]]]:
+def main(bucket: str, prefix: str, data: Stream[str]) -> Cmd[None] | NoReturn:
     client = new_client()
     uploader = client.map(lambda c: S3FileUploader(c, bucket, prefix))
-    return TempReadOnlyFile.save(data).bind(
-        lambda x: uploader.map(lambda u: _process(u, x))
+    singer = data.map(
+        lambda i: loads(i).alt(Exception).bind(deserialize).unwrap()
+    )
+    return uploader.bind(
+        lambda u: _splitter.group_records(singer).bind(
+            lambda t: serial_merge(
+                tuple(_process_group(u, t[0], g) for g in t[1])
+            ).map(lambda _: None)
+        )
     )

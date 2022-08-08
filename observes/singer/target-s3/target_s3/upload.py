@@ -3,7 +3,9 @@ from . import (
 )
 from .core import (
     RecordGroup,
-    TempReadOnlyFile,
+)
+from .csv import (
+    save,
 )
 import boto3
 from dataclasses import (
@@ -26,9 +28,8 @@ class S3FileUploader:
     _bucket: str
     _prefix: str
 
-    def upload_to_s3(
-        self, group: RecordGroup, file: TempReadOnlyFile
-    ) -> Cmd[None]:
+    def upload_to_s3(self, group: RecordGroup) -> Cmd[None]:
+        file = save(group)
         msg = _utils.log_cmd(
             lambda: LOG.info(
                 "Uploading stream `%s` -> s3://%s",
@@ -44,14 +45,16 @@ class S3FileUploader:
             ),
             None,
         )
-        return file.over_binary(
-            lambda f: msg
-            + Cmd.from_cmd(
-                lambda: self._client.upload_fileobj(
-                    f, self._bucket, self._prefix + group.schema.stream
+        return file.bind(
+            lambda f: f.over_binary(
+                lambda f: msg
+                + Cmd.from_cmd(
+                    lambda: self._client.upload_fileobj(
+                        f, self._bucket, self._prefix + group.schema.stream
+                    )
                 )
+                + end
             )
-            + end
         )
 
 

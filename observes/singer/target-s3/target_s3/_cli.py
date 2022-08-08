@@ -24,7 +24,5 @@ from typing import (
     "--prefix", required=True, type=str, help="Prefix for uploaded s3 files"
 )
 def main(bucket: str, prefix: str) -> NoReturn:
-    cmd: Cmd[None] = loader.main(bucket, prefix, stdin_buffer()).bind(
-        lambda r: r.alt(raise_exception).unwrap()
-    )
+    cmd: Cmd[None] = loader.main(bucket, prefix, stdin_buffer())
     cmd.compute()
