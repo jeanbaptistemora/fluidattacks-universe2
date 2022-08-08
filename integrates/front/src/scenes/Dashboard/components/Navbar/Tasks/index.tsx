@@ -1,34 +1,47 @@
+import { useQuery } from "@apollo/client";
 import { faTasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "./queries";
+import type { IGetMeVulnerabilitiesAssignedIds } from "./types";
+
 import { Button } from "components/Button";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
+import { Logger } from "utils/logger";
 
-interface INavbarTasksProps {
-  meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
-}
-
-export const TaskInfo: React.FC<INavbarTasksProps> = ({
-  meVulnerabilitiesAssigned,
-}: INavbarTasksProps): JSX.Element => {
+export const TaskInfo: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { push } = useHistory();
 
   const onClick = useCallback((): void => {
     push("/todos");
   }, [push]);
+  const { data: meVulnerabilitiesAssignedIds } =
+    useQuery<IGetMeVulnerabilitiesAssignedIds>(
+      GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+      {
+        fetchPolicy: "cache-first",
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            Logger.warning(
+              "An error occurred fetching vulnerabilities assigned ids",
+              error
+            );
+          });
+        },
+      }
+    );
 
   const allAssigned: number = useMemo(
     (): number =>
-      meVulnerabilitiesAssigned === undefined
+      meVulnerabilitiesAssignedIds === undefined
         ? 0
-        : meVulnerabilitiesAssigned.me.vulnerabilitiesAssigned.length,
-    [meVulnerabilitiesAssigned]
+        : meVulnerabilitiesAssignedIds.me.vulnerabilitiesAssigned.length,
+    [meVulnerabilitiesAssignedIds]
   );
 
   const limitFormatter = useCallback((assigned: number): string => {
@@ -38,11 +51,12 @@ export const TaskInfo: React.FC<INavbarTasksProps> = ({
   }, []);
 
   const undefinedOrEmpty: boolean = useMemo(
-    (): boolean => meVulnerabilitiesAssigned === undefined || allAssigned === 0,
-    [meVulnerabilitiesAssigned, allAssigned]
+    (): boolean =>
+      meVulnerabilitiesAssignedIds === undefined || allAssigned === 0,
+    [meVulnerabilitiesAssignedIds, allAssigned]
   );
 
-  if (meVulnerabilitiesAssigned === undefined) {
+  if (meVulnerabilitiesAssignedIds === undefined) {
     return <div />;
   }
 

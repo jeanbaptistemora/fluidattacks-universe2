@@ -29,13 +29,9 @@ import { TasksContent } from "scenes/Dashboard/containers/Tasks";
 import {
   ACCEPT_LEGAL_MUTATION,
   ACKNOWLEDGE_CONCURRENT_SESSION,
-  GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER,
 } from "scenes/Dashboard/queries";
-import type {
-  IGetMeVulnerabilitiesAssigned,
-  IUser,
-} from "scenes/Dashboard/types";
+import type { IUser } from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
 import {
@@ -122,19 +118,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
     },
   });
 
-  const { data: meVulnerabilitiesAssigned } =
-    useQuery<IGetMeVulnerabilitiesAssigned>(GET_ME_VULNERABILITIES_ASSIGNED, {
-      fetchPolicy: "cache-first",
-      onError: ({ graphQLErrors }): void => {
-        graphQLErrors.forEach((error): void => {
-          Logger.warning(
-            "An error occurred fetching vulnerabilities assigned from dashboard",
-            error
-          );
-        });
-      },
-    });
-
   const [acceptLegal] = useMutation(ACCEPT_LEGAL_MUTATION, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
@@ -216,10 +199,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
               <Sidebar />
               <DashboardContent id={"dashboard"}>
                 <DashboardHeader>
-                  <Navbar
-                    meVulnerabilitiesAssigned={meVulnerabilitiesAssigned}
-                    userRole={userRole}
-                  />
+                  <Navbar userRole={userRole} />
                 </DashboardHeader>
                 <main>
                   <Switch>

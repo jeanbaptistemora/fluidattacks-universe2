@@ -1,10 +1,13 @@
+import type { MockedResponse } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "./queries";
+
 import { TaskInfo } from ".";
-import type { IVulnRowAttr } from "../../Vulnerabilities/types";
 
 const mockHistoryPush: jest.Mock = jest.fn();
 jest.mock("react-router-dom", (): Record<string, unknown> => {
@@ -20,116 +23,48 @@ jest.mock("react-router-dom", (): Record<string, unknown> => {
   };
 });
 
-describe("TaskInfo component", (): void => {
+describe("taskInfo component", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof TaskInfo).toBe("function");
   });
 
-  it("should render component", async (): Promise<void> => {
+  it("should list assigned vulnerabilities", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const meVulnerabilitiesAssignedEmpty = {
-      me: {
-        userEmail: "",
-        vulnerabilitiesAssigned: [],
-      },
-    };
-
-    const mockVuln: IVulnRowAttr = {
-      assigned: "assigned-user-1",
-      currentState: "open",
-      currentStateCapitalized: "Open",
-      externalBugTrackingSystem: null,
-      findingId: "438679960",
-      groupName: "test",
-      historicTreatment: [
-        {
-          acceptanceDate: "",
-          acceptanceStatus: "",
-          assigned: "assigned-user-1",
-          date: "2019-07-05 09:56:40",
-          justification: "test progress justification",
-          treatment: "IN PROGRESS",
-          user: "usertreatment@test.test",
-        },
-      ],
+    const mockVulnerability: { id: string } = {
       id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
-      lastTreatmentDate: "2019-07-05 09:56:40",
-      lastVerificationDate: null,
-      remediated: true,
-      reportDate: "",
-      severity: "3",
-      specific: "specific-1",
-      stream: null,
-      tag: "tag-1, tag-2",
-      treatment: "",
-      treatmentAcceptanceDate: "",
-      treatmentAcceptanceStatus: "",
-      treatmentAssigned: "assigned-user-1",
-      treatmentDate: "2019-07-05 09:56:40",
-      treatmentJustification: "test progress justification",
-      treatmentUser: "usertreatment@test.test",
-      verification: "Requested",
-      vulnerabilityType: "inputs",
-      where: "https://example.com/inputs",
-      zeroRisk: "Requested",
     };
-
-    const meVulnerabilitiesAssigned = {
-      me: {
-        userEmail: "assigned-user-1",
-        vulnerabilitiesAssigned: [mockVuln],
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+        },
+        result: {
+          data: {
+            me: {
+              userEmail: "assigned-user-1",
+              vulnerabilitiesAssigned: [mockVulnerability],
+            },
+          },
+        },
       },
-    };
+    ];
 
-    const upperLimit: number = 101;
-    const meVulnerabilitiesAssignedLimmit = {
-      me: {
-        userEmail: "assigned-user-1",
-        vulnerabilitiesAssigned: Array(upperLimit).fill(mockVuln),
-      },
-    };
-
-    const { rerender } = render(
+    render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <TaskInfo meVulnerabilitiesAssigned={undefined} />
+        <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
+          <TaskInfo />
+        </MockedProvider>
       </MemoryRouter>
     );
-
-    expect(screen.queryByRole("button")).not.toBeInTheDocument();
-
-    rerender(
-      <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssignedEmpty} />
-      </MemoryRouter>
-    );
-
-    expect(screen.queryByRole("button")).toBeInTheDocument();
-    expect(
-      screen.queryByText("navbar.task.tooltip.assignedless")
-    ).not.toBeInTheDocument();
-
-    userEvent.hover(screen.getByRole("button"));
 
     await waitFor((): void => {
+      expect(screen.queryByRole("button")).toBeInTheDocument();
       expect(
-        screen.queryByText("navbar.task.tooltip.assignedless")
-      ).toBeInTheDocument();
+        screen.queryByText("navbar.task.tooltip.assigned")
+      ).not.toBeInTheDocument();
     });
-
-    expect(screen.queryByText("0")).not.toBeInTheDocument();
-
-    rerender(
-      <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
-      </MemoryRouter>
-    );
-
-    expect(screen.queryByRole("button")).toBeInTheDocument();
-    expect(
-      screen.queryByText("navbar.task.tooltip.assigned")
-    ).not.toBeInTheDocument();
 
     userEvent.hover(screen.getByRole("button"));
 
@@ -137,17 +72,91 @@ describe("TaskInfo component", (): void => {
       expect(
         screen.queryByText("navbar.task.tooltip.assigned")
       ).toBeInTheDocument();
+      expect(screen.queryByText("1")).toBeInTheDocument();
     });
+    jest.clearAllMocks();
+  });
 
-    expect(screen.queryByText("1")).toBeInTheDocument();
+  it("should not list assigned vulnerabilities", async (): Promise<void> => {
+    expect.hasAssertions();
 
-    rerender(
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+        },
+        result: {
+          data: {
+            me: {
+              userEmail: "assigned-user-1",
+              vulnerabilitiesAssigned: [],
+            },
+          },
+        },
+      },
+    ];
+
+    render(
       <MemoryRouter initialEntries={["/orgs/okada"]}>
-        <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssignedLimmit} />
+        <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
+          <TaskInfo />
+        </MockedProvider>
       </MemoryRouter>
     );
 
-    expect(screen.queryByRole("button")).toBeInTheDocument();
+    await waitFor((): void => {
+      expect(screen.queryByRole("button")).toBeInTheDocument();
+      expect(
+        screen.queryByText("navbar.task.tooltip.assignedless")
+      ).not.toBeInTheDocument();
+    });
+
+    userEvent.hover(screen.getByRole("button"));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText("navbar.task.tooltip.assignedless")
+      ).toBeInTheDocument();
+      expect(screen.queryByText("0")).not.toBeInTheDocument();
+    });
+    jest.clearAllMocks();
+  });
+
+  it("should handle many assigned vulnerabilities", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockVulnerability: { id: string } = {
+      id: "89521e9a-b1a3-4047-a16e-15d530dc1340",
+    };
+    const upperLimit: number = 101;
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+        },
+        result: {
+          data: {
+            me: {
+              userEmail: "assigned-user-1",
+              vulnerabilitiesAssigned:
+                Array(upperLimit).fill(mockVulnerability),
+            },
+          },
+        },
+      },
+    ];
+
+    render(
+      <MemoryRouter initialEntries={["/orgs/okada"]}>
+        <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
+          <TaskInfo />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryByRole("button")).toBeInTheDocument();
+    });
 
     userEvent.click(screen.getByRole("button"));
 

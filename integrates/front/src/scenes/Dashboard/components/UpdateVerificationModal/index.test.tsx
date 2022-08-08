@@ -5,18 +5,19 @@ import userEvent from "@testing-library/user-event";
 import { GraphQLError } from "graphql";
 import React from "react";
 
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../Navbar/Tasks/queries";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import {
   REQUEST_VULNERABILITIES_VERIFICATION,
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/queries";
 import {
   GET_FINDING_AND_GROUP_INFO,
   GET_FINDING_NZR_VULNS,
   GET_FINDING_ZR_VULNS,
 } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 
 describe("update verification component", (): void => {
   const btnConfirm = "components.modal.confirm";
@@ -85,6 +86,19 @@ describe("update verification component", (): void => {
     {
       request: {
         query: GET_ME_VULNERABILITIES_ASSIGNED,
+      },
+      result: {
+        data: {
+          me: {
+            userEmail: "test@test.test",
+            vulnerabilitiesAssigned: [],
+          },
+        },
+      },
+    },
+    {
+      request: {
+        query: GET_ME_VULNERABILITIES_ASSIGNED_IDS,
       },
       result: {
         data: {

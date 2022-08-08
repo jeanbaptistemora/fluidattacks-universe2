@@ -16,17 +16,14 @@ import { Button } from "components/Button";
 import { useShow } from "components/Modal";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
 import { Can } from "utils/authz/Can";
 
 interface INavbarProps {
   userRole: string | undefined;
-  meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
 }
 
 export const Navbar: React.FC<INavbarProps> = ({
   userRole,
-  meVulnerabilitiesAssigned,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
   const [show, open, close] = useShow();
@@ -49,7 +46,7 @@ export const Navbar: React.FC<INavbarProps> = ({
             </Tooltip>
           </li>
           <li>
-            <TaskInfo meVulnerabilitiesAssigned={meVulnerabilitiesAssigned} />
+            <TaskInfo />
           </li>
           <li>
             <Button onClick={open} size={"sm"}>

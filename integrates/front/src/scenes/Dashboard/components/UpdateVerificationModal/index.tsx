@@ -17,6 +17,7 @@ import type {
   IVerifyRequestVulnResult,
 } from "./types";
 
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../Navbar/Tasks/queries";
 import { Switch } from "components/Switch";
 import { Table } from "components/Table";
 import { changeVulnStateFormatter } from "components/Table/formatters";
@@ -28,8 +29,8 @@ import {
   VERIFY_VULNERABILITIES,
 } from "scenes/Dashboard/components/UpdateVerificationModal/queries";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/FindingContent/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 
 interface IVulnData {
@@ -92,7 +93,8 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
               findingId: vulnerabilitiesList[0].findingId,
             },
           },
-          { query: GET_ME_VULNERABILITIES_ASSIGNED },
+          GET_ME_VULNERABILITIES_ASSIGNED,
+          GET_ME_VULNERABILITIES_ASSIGNED_IDS,
         ],
       }
     );

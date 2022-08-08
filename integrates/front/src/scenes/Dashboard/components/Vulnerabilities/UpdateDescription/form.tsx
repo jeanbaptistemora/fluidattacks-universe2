@@ -35,6 +35,7 @@ import { TagField } from "./TagField";
 import { TreatmentField } from "./TreatmentField";
 
 import { GET_FINDING_HEADER } from "../../../containers/FindingContent/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../../Navbar/Tasks/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
 import { ModalConfirm } from "components/Modal";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
@@ -65,8 +66,8 @@ import {
 } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/utils";
 import type { IHistoricTreatment } from "scenes/Dashboard/containers/DescriptionView/types";
 import { GET_FINDING_LOCATIONS } from "scenes/Dashboard/containers/GroupFindingsView/loaders/Locations/queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/VulnerabilitiesView/queries";
-import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/queries";
 import { Col100, Col50, Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
@@ -162,7 +163,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
           refetchData();
         }
       },
-      refetchQueries: [{ query: GET_ME_VULNERABILITIES_ASSIGNED }],
+      refetchQueries: [
+        GET_ME_VULNERABILITIES_ASSIGNED,
+        GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+      ],
     });
 
   const [sendNotification] = useMutation<ISendNotificationResultAttr>(
@@ -215,7 +219,10 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
         );
       });
     },
-    refetchQueries: [{ query: GET_ME_VULNERABILITIES_ASSIGNED }],
+    refetchQueries: [
+      GET_ME_VULNERABILITIES_ASSIGNED,
+      GET_ME_VULNERABILITIES_ASSIGNED_IDS,
+    ],
   });
 
   const handleUpdateVulnTreatment = async (
@@ -317,13 +324,14 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             findingId: vulnerabilities[0].findingId,
           },
         },
-        { query: GET_ME_VULNERABILITIES_ASSIGNED },
         {
           query: GET_FINDING_LOCATIONS,
           variables: {
             findingId: vulnerabilities[0].findingId,
           },
         },
+        GET_ME_VULNERABILITIES_ASSIGNED,
+        GET_ME_VULNERABILITIES_ASSIGNED_IDS,
       ],
     }
   );
