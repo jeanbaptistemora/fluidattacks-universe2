@@ -13,6 +13,12 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     GitRoot,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+)
 from decimal import (
     Decimal,
 )
@@ -126,6 +132,95 @@ async def _create_draft(
         draft_info,
         source=Source.MACHINE,
     )
+
+
+def _get_path_from_integrates_vulnerability(
+    vulnerability: Vulnerability,
+) -> Tuple[str, str]:
+    if vulnerability.type in {
+        VulnerabilityType.INPUTS,
+        VulnerabilityType.PORTS,
+    }:
+        if len(chunks := vulnerability.where.rsplit(" (", maxsplit=1)) == 2:
+            what, namespace = chunks
+            namespace = namespace[:-1]
+        else:
+            what, namespace = chunks[0], ""
+    elif vulnerability.type == VulnerabilityType.LINES:
+        if len(chunks := vulnerability.where.split("/", maxsplit=1)) == 2:
+            namespace, what = chunks
+            print(what)
+        else:
+            namespace, what = "", chunks[0]
+    else:
+        raise NotImplementedError()
+
+    return namespace, what
+
+
+def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
+    what = vulnerability["locations"][0]["physicalLocation"][
+        "artifactLocation"
+    ]["uri"]
+    if (
+        (properties := vulnerability.get("properties"))
+        and (technique_value := properties.get("technique"))
+        and (technique_value == "SCA")
+        and (message_properties := vulnerability["message"].get("properties"))
+        and (message_properties)
+    ):
+        what = " ".join(
+            (
+                what,
+                (
+                    f"({message_properties['dependency_name']} "
+                    f"v{message_properties['dependency_version']})"
+                ),
+                f"[{', '.join(message_properties['cve'])}]",
+            )
+        )
+
+    return what
+
+
+def _build_vulnerabilities_stream_from_sarif(
+    vulnerabilities: List[Dict[str, Any]], commit_hash: str, repo_nickname: str
+) -> Dict[str, Any]:
+    return {
+        "inputs": [
+            {
+                "field": f"{vuln['locations'][0]['physicalLocation']['region']['startLine']}",  # noqa
+                "repo_nickname": repo_nickname,
+                "state": "open",
+                "stream": vuln["properties"]["stream"],
+                "url": (
+                    f"{vuln['locations'][0]['physicalLocation']['artifactLocation']['uri']}"  # noqa
+                    f" ({repo_nickname})"
+                ),
+                "skims_method": vuln["properties"]["source_method"],
+                "skims_technique": vuln["properties"].get("technique"),
+                "developer": "",
+            }
+            for vuln in vulnerabilities
+            if vuln["properties"]["kind"] == "inputs"
+        ],
+        "lines": [
+            {
+                "commit_hash": commit_hash,
+                "line": vuln["locations"][0]["physicalLocation"]["region"][
+                    "startLine"
+                ],
+                "path": _get_path_from_sarif_vulnerability(vuln),
+                "repo_nickname": repo_nickname,
+                "state": "open",
+                "skims_method": vuln["properties"]["source_method"],
+                "skims_technique": vuln["properties"].get("technique", ""),
+                "developer": "",
+            }
+            for vuln in vulnerabilities
+            if vuln["properties"]["kind"] == "lines"
+        ],
+    }
 
 
 async def main() -> None:
