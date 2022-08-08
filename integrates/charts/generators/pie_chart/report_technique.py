@@ -122,7 +122,7 @@ def format_data(*, data: Counter[str]) -> dict:
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    headers: list[str] = ["Report Technique", "Ocurrences"]
+    headers: list[str] = ["Report Technique", "Occurrences"]
     async for group in iterate_groups():
         document = format_data(
             data=await get_data_one_group(group=group, loaders=loaders),

@@ -7,7 +7,7 @@ from charts import (
 from charts.colors import (
     OTHER,
 )
-from charts.generators.gauge.forces_builds_risk import (
+from charts.generators.pie_chart import (
     format_csv_data,
 )
 from dataloaders import (
@@ -24,22 +24,19 @@ from organizations import (
     domain as orgs_domain,
 )
 from typing import (
-    Any,
-    Dict,
-    List,
     NamedTuple,
 )
 
 Resources = NamedTuple(
     "Resources",
     [
-        ("environments", List[str]),
-        ("repositories", List[GitRoot]),
+        ("environments", list[str]),
+        ("repositories", list[GitRoot]),
     ],
 )
 
 
-def format_data(data: Resources) -> Dict[str, Any]:
+def format_data(data: Resources) -> dict:
     return {
         "data": {
             "columns": [
@@ -63,7 +60,7 @@ def format_data(data: Resources) -> Dict[str, Any]:
     }
 
 
-def format_resources(roots: List[GitRoot]) -> Resources:
+def format_resources(roots: list[GitRoot]) -> Resources:
     return Resources(
         environments=[
             env_url
@@ -76,6 +73,7 @@ def format_resources(roots: List[GitRoot]) -> Resources:
 
 async def generate_all() -> None:  # pylint: disable=too-many-locals
     loaders: Dataloaders = get_new_context()
+    headers: list[str] = ["Active resources", "Occurrences"]
     active_group_names: set[str] = set(
         sorted(await orgs_domain.get_all_active_group_names(loaders))
     )
@@ -95,7 +93,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             document=document,
             entity="group",
             subject=group,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
     async for org_id, org_name, org_groups in (
@@ -119,7 +117,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
             document=document,
             entity="organization",
             subject=org_id,
-            csv_document=format_csv_data(document=document),
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
         all_org_groups = await orgs_domain.get_group_names(loaders, org_id)
@@ -144,7 +142,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 document=document,
                 entity="group",
                 subject=group_name,
-                csv_document=format_csv_data(document=document),
+                csv_document=format_csv_data(
+                    document=document, header=headers
+                ),
             )
 
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
@@ -169,7 +169,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
-                csv_document=format_csv_data(document=document),
+                csv_document=format_csv_data(
+                    document=document, header=headers
+                ),
             )
 
 

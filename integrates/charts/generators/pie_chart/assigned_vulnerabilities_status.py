@@ -8,6 +8,9 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.pie_chart import (
+    format_csv_data,
+)
 from charts.utils import (
     get_portfolios_groups,
     iterate_groups,
@@ -95,36 +98,45 @@ def format_data(*, data: Counter[VulnerabilityStateStatus]) -> dict:
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
+    headers: list[str] = ["Status of assigned vulnerabilities", "Number"]
     async for group in iterate_groups():
+        document = format_data(
+            data=await get_data_one_group(group=group, loaders=loaders),
+        )
         json_dump(
-            document=format_data(
-                data=await get_data_one_group(group=group, loaders=loaders),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        json_dump(
-            document=format_data(
-                data=await get_data_many_groups(
-                    groups=org_groups, loaders=loaders
-                ),
+        document = format_data(
+            data=await get_data_many_groups(
+                groups=org_groups, loaders=loaders
             ),
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(
-                        groups=tuple(groups), loaders=loaders
-                    ),
+            document = format_data(
+                data=await get_data_many_groups(
+                    groups=tuple(groups), loaders=loaders
                 ),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    document=document, header=headers
+                ),
             )
 
 

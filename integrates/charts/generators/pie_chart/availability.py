@@ -7,6 +7,9 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.pie_chart import (
+    format_csv_data,
+)
 from charts.utils import (
     iterate_groups,
     json_dump,
@@ -123,15 +126,16 @@ def format_data(*, data: EventsAvailability) -> dict:
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
+    headers: list[str] = ["Group availability", "Days"]
     async for group in iterate_groups():
+        document = format_data(
+            data=await get_data_one_group(group_name=group, loaders=loaders),
+        )
         json_dump(
-            document=format_data(
-                data=await get_data_one_group(
-                    group_name=group, loaders=loaders
-                ),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
 
