@@ -15,7 +15,7 @@ our channel.
 The first way is through our URL.
 
 - First, you need to our URL
-  [https://news.fluidattacks.com/](https://news.fluidattacks.com/)
+  [https://news.atfluid.com/](https://news.atfluid.com/)
 
 ![Subscription Final Product](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_final-product.png)
 
