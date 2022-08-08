@@ -1,5 +1,7 @@
 import type { ApolloQueryResult } from "@apollo/client";
 import { useMutation } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { faMoneyBill } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
@@ -26,6 +28,7 @@ import type {
   IPaymentMethodAttr,
 } from "scenes/Dashboard/containers/OrganizationBillingView/types";
 import { Can } from "utils/authz/Can";
+import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -145,7 +148,13 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
       setIsUpdatingSubscription({ mode: "UPDATE" });
     }
   }, []);
-
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canSeeSubscriptionType: boolean = permissions.can(
+    "see_billing_subscription_type"
+  );
+  const canSeeServiceType: boolean = permissions.can(
+    "see_billing_service_type"
+  );
   // Render Elements
   const tableHeaders: IHeaderConfig[] = [
     {
@@ -165,11 +174,13 @@ export const OrganizationGroups: React.FC<IOrganizationGroupsProps> = ({
     {
       dataField: "tier",
       header: "Tier",
+      omit: !canSeeSubscriptionType,
       width: "8%",
     },
     {
       dataField: "service",
       header: "Service",
+      omit: !canSeeServiceType,
       width: "9%",
     },
     {

@@ -57,6 +57,8 @@ describe("Organization billing groups view", (): void => {
       { action: "api_mutations_update_subscription_mutate" },
       { action: "api_mutations_update_group_managed_mutate" },
       { action: "api_resolvers_organization_billing_portal_resolve" },
+      { action: "see_billing_subscription_type" },
+      { action: "see_billing_service_type" },
     ]);
     const onUpdate: jest.Mock = jest.fn();
     render(
@@ -110,6 +112,8 @@ describe("Organization billing groups view", (): void => {
         "organization.tabs.billing.groups.updateSubscription.title"
       )
     ).not.toBeInTheDocument();
+    expect(screen.queryByText("Tier")).toBeInTheDocument();
+    expect(screen.queryByText("Service")).toBeInTheDocument();
 
     userEvent.click(screen.getByText("Manually"));
 
