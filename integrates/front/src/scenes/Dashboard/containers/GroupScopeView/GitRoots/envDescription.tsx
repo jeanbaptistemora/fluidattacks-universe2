@@ -21,7 +21,11 @@ const Description = ({
     <div>
       <h3>{t("group.scope.git.envUrl")}</h3>
       <Row>
-        <ul>{`${url}`}</ul>
+        <ul>
+          <a href={url} rel={"noreferrer"} target={"_blank"}>
+            {url}
+          </a>
+        </ul>
         <ul>{`${t("group.scope.git.createdAt")} ${formatDate(createdAt)}`}</ul>
       </Row>
       <h3>{t("group.scope.git.title")}</h3>

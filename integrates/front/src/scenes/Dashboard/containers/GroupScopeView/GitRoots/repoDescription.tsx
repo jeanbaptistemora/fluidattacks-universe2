@@ -112,8 +112,12 @@ const Description = ({
           {":"}
           <ul>
             {gitEnvironmentUrls.map(
-              (url): JSX.Element => (
-                <li key={url.id}>{url.url}</li>
+              (envUrl): JSX.Element => (
+                <li key={envUrl.id}>
+                  <a href={envUrl.url} rel={"noreferrer"} target={"_blank"}>
+                    {envUrl.url}
+                  </a>
+                </li>
               )
             )}
           </ul>
