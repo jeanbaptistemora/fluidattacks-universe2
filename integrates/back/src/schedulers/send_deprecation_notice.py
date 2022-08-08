@@ -17,6 +17,9 @@ from db_model import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from forces.domain import (
+    is_forces_user,
+)
 from mailer.deprecations import (
     send_mail_deprecation_notice,
 )
@@ -64,6 +67,7 @@ async def main() -> None:
         stakeholder.email
         for stakeholder in all_stakeholders
         if stakeholder.access_token is not None
+        and not is_forces_user(stakeholder.email)
     }
     # Send out the mails
     loaders: Dataloaders = get_new_context()
