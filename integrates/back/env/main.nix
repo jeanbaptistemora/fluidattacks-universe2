@@ -13,6 +13,8 @@ makeTemplate {
     __argSecretsProd__ = projectPath "/integrates/secrets/production.yaml";
     __argManifestFindings__ = projectPath "/skims/manifests/findings.json";
     __argManifestQueues__ = projectPath "/skims/manifests/queues.json";
+    __argCriteriaRequirements__ = projectPath "/common/criteria/src/requirements/data.yaml";
+    __argCriteriaVulnerabilities__ = projectPath "/common/criteria/src/vulnerabilities/data.yaml";
   };
   name = "integrates-back-env";
   searchPaths = {

@@ -27,6 +27,8 @@ function main {
     && export INTEGRATES_DB_MODEL_PATH='__argIntegrates__/arch/database-design.json' \
     && export INTEGRATES_REPORTS_LOGO_PATH='__argIntegrates__/back/src/reports/resources/themes/background.png' \
     && export INTEGRATES_MAILER_TEMPLATES='__argIntegrates__/back/src/mailer/email_templates' \
+    && export INTEGRATES_CRITERIA_REQUIREMENTS='__argCriteriaRequirements__' \
+    && export INTEGRATES_CRITERIA_VULNERABILITIES='__argCriteriaVulnerabilities__' \
     && export STARTDIR="${PWD}" \
     && export TZ=UTC \
     && if test -z "${CI_COMMIT_REF_NAME:-}"; then

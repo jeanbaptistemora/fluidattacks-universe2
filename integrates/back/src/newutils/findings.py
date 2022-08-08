@@ -18,11 +18,13 @@ import io
 from newutils import (
     datetime as datetime_utils,
 )
+import os
 import re
 from starlette.datastructures import (
     UploadFile,
 )
 from typing import (
+    Any,
     cast,
     Dict,
     List,
@@ -78,6 +80,13 @@ async def get_vulns_file() -> Dict:
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             return yaml.safe_load(await response.text())
+
+
+def get_requirements_file() -> Dict[str, Any]:
+    with open(
+        os.environ["INTEGRATES_CRITERIA_REQUIREMENTS"], encoding="utf-8"
+    ) as handler:
+        return yaml.safe_load(handler)
 
 
 async def is_valid_finding_title(
