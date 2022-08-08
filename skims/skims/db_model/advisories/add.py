@@ -1,4 +1,3 @@
-# pylint: disable=import-error
 from .types import (
     Advisory,
 )
