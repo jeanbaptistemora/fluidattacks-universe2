@@ -16,39 +16,20 @@ import { Button } from "components/Button";
 import { useShow } from "components/Modal";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import type {
-  IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
-  IOrganizationGroups,
-} from "scenes/Dashboard/types";
+import type { IGetMeVulnerabilitiesAssigned } from "scenes/Dashboard/types";
 import { Can } from "utils/authz/Can";
 
 interface INavbarProps {
   userRole: string | undefined;
-  userData: IGetUserOrganizationsGroups | undefined;
   meVulnerabilitiesAssigned: IGetMeVulnerabilitiesAssigned | undefined;
 }
 
 export const Navbar: React.FC<INavbarProps> = ({
   userRole,
-  userData,
   meVulnerabilitiesAssigned,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
   const [show, open, close] = useShow();
-  const groups =
-    userData === undefined
-      ? []
-      : userData.me.organizations.reduce(
-          (
-            previousValue: IOrganizationGroups["groups"],
-            currentValue
-          ): IOrganizationGroups["groups"] => [
-            ...previousValue,
-            ...currentValue.groups,
-          ],
-          []
-        );
 
   return (
     <React.StrictMode>
@@ -76,7 +57,7 @@ export const Navbar: React.FC<INavbarProps> = ({
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </Text>
             </Button>
-            <HelpModal groups={groups} onClose={close} open={show} />
+            <HelpModal onClose={close} open={show} />
           </li>
           <li>
             <TechnicalInfo />

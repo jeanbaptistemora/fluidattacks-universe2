@@ -1,4 +1,6 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-component-props */
+import { useQuery } from "@apollo/client";
 import {
   faComment,
   faEnvelope,
@@ -7,7 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
-import React, { StrictMode, useCallback, useContext, useState } from "react";
+import React, {
+  StrictMode,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { openPopupWidget } from "react-calendly";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
@@ -21,16 +29,21 @@ import { Col, Row } from "components/Layout";
 import type { IModalProps } from "components/Modal";
 import { Modal } from "components/Modal";
 import { Text } from "components/Text";
-import type { IOrganizationGroups } from "scenes/Dashboard/types";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
+import type {
+  IGetUserOrganizationsGroups,
+  IOrganizationGroups,
+} from "scenes/Dashboard/types";
 import { authContext } from "utils/auth";
+import { Logger } from "utils/logger";
 import { toggleZendesk } from "utils/widgets";
 
 interface IHelpModal extends Pick<IModalProps, "onClose" | "open"> {
-  groups: IOrganizationGroups["groups"];
+  loadGroups?: boolean;
 }
 
 export const HelpModal: FC<IHelpModal> = ({
-  groups,
+  loadGroups = true,
   onClose,
   open,
 }: IHelpModal): JSX.Element => {
@@ -40,6 +53,35 @@ export const HelpModal: FC<IHelpModal> = ({
   const { t } = useTranslation();
   const { userEmail, userName } = useContext(authContext);
   const [isUpgradeOpen, setIsUpgradeOpen] = useState(false);
+
+  const { data: userData } = useQuery<IGetUserOrganizationsGroups>(
+    GET_USER_ORGANIZATIONS_GROUPS,
+    {
+      fetchPolicy: "cache-first",
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          Logger.warning("An error occurred fetching user groups", error);
+        });
+      },
+      skip: !open || !loadGroups,
+    }
+  );
+  const groups = useMemo(
+    (): IOrganizationGroups["groups"] =>
+      userData === undefined || !loadGroups
+        ? []
+        : userData.me.organizations.reduce(
+            (
+              previousValue: IOrganizationGroups["groups"],
+              currentValue
+            ): IOrganizationGroups["groups"] => [
+              ...previousValue,
+              ...currentValue.groups,
+            ],
+            []
+          ),
+    [userData, loadGroups]
+  );
 
   const closeUpgradeModal = useCallback((): void => {
     setIsUpgradeOpen(false);

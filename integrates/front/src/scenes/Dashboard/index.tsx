@@ -31,11 +31,9 @@ import {
   ACKNOWLEDGE_CONCURRENT_SESSION,
   GET_ME_VULNERABILITIES_ASSIGNED,
   GET_USER,
-  GET_USER_ORGANIZATIONS_GROUPS,
 } from "scenes/Dashboard/queries";
 import type {
   IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
   IUser,
 } from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
@@ -123,21 +121,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       });
     },
   });
-
-  const { data: userData } = useQuery<IGetUserOrganizationsGroups>(
-    GET_USER_ORGANIZATIONS_GROUPS,
-    {
-      fetchPolicy: "cache-first",
-      onError: ({ graphQLErrors }): void => {
-        graphQLErrors.forEach((error): void => {
-          Logger.warning(
-            "An error occurred fetching groups from dashboard",
-            error
-          );
-        });
-      },
-    }
-  );
 
   const { data: meVulnerabilitiesAssigned } =
     useQuery<IGetMeVulnerabilitiesAssigned>(GET_ME_VULNERABILITIES_ASSIGNED, {
@@ -235,7 +218,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
                 <DashboardHeader>
                   <Navbar
                     meVulnerabilitiesAssigned={meVulnerabilitiesAssigned}
-                    userData={userData}
                     userRole={userRole}
                   />
                 </DashboardHeader>

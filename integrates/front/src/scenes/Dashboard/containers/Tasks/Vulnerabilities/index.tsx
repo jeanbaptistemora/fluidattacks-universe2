@@ -13,10 +13,7 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 
-import {
-  GET_ME_VULNERABILITIES_ASSIGNED,
-  GET_USER_ORGANIZATIONS_GROUPS,
-} from "./queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "./queries";
 
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
@@ -41,14 +38,17 @@ import type {
   IAction,
   IFilterTodosSet,
   IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
   IGroupAction,
   ITasksVulnerabilities,
 } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/types";
 import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks/Vulnerabilities/utils";
 import { EditButton } from "scenes/Dashboard/containers/VulnerabilitiesView/ActionButtons/EditButton";
 import type { IModalConfig } from "scenes/Dashboard/containers/VulnerabilitiesView/types";
-import type { IOrganizationGroups } from "scenes/Dashboard/types";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
+import type {
+  IGetUserOrganizationsGroups,
+  IOrganizationGroups,
+} from "scenes/Dashboard/types";
 import { ButtonToolbarRow } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 import { useStoredState, useTabTracking } from "utils/hooks";
@@ -95,10 +95,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       fetchPolicy: "cache-first",
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          Logger.warning(
-            "An error occurred fetching groups from dashboard",
-            error
-          );
+          Logger.warning("An error occurred fetching user groups", error);
         });
       },
     }

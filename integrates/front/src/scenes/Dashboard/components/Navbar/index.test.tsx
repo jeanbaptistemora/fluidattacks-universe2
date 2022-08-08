@@ -11,6 +11,7 @@ import {
   GET_FINDING_TITLE,
   GET_USER_ORGANIZATIONS,
 } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 
@@ -28,7 +29,7 @@ jest.mock("react-router-dom", (): Record<string, unknown> => {
   };
 });
 
-describe("Navbar", (): void => {
+describe("navbar", (): void => {
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof Navbar).toBe("function");
@@ -42,37 +43,61 @@ describe("Navbar", (): void => {
     const mockedPermissions: PureAbility<string> = new PureAbility([
       { action: "front_can_use_groups_searchbar" },
     ]);
-    const organizationsQuery: Readonly<MockedResponse> = {
-      request: {
-        query: GET_USER_ORGANIZATIONS,
-      },
-      result: {
-        data: {
-          me: {
-            __typename: "Me",
-            organizations: [
-              {
-                __typename: "Organization",
-                groups: [],
+    const mockedQueries: MockedResponse[] = [
+      {
+        request: {
+          query: GET_USER_ORGANIZATIONS_GROUPS,
+        },
+        result: {
+          data: {
+            me: {
+              organizations: {
+                groups: [
+                  {
+                    name: "testgroup",
+                    permissions: ["valid_assigned"],
+                    serviceAttributes: [],
+                  },
+                ],
                 name: "okada",
               },
-              {
-                __typename: "Organization",
-                groups: [],
-                name: "bulat",
-              },
-            ],
-            userEmail: "test@fluidattacks.com",
+            },
           },
         },
       },
-    };
+      {
+        request: {
+          query: GET_USER_ORGANIZATIONS,
+        },
+        result: {
+          data: {
+            me: {
+              __typename: "Me",
+              organizations: [
+                {
+                  __typename: "Organization",
+                  groups: [],
+                  name: "okada",
+                },
+                {
+                  __typename: "Organization",
+                  groups: [],
+                  name: "bulat",
+                },
+              ],
+              userEmail: "test@fluidattacks.com",
+            },
+          },
+        },
+      },
+    ];
+
     localStorage.setItem("organization", JSON.stringify({ name: "okada" }));
 
     render(
       <authzPermissionsContext.Provider value={mockedPermissions}>
         <MemoryRouter initialEntries={["/orgs/okada/groups"]}>
-          <MockedProvider addTypename={true} mocks={[organizationsQuery]}>
+          <MockedProvider addTypename={true} mocks={[...mockedQueries]}>
             <authContext.Provider
               value={{
                 tours: {
@@ -88,23 +113,6 @@ describe("Navbar", (): void => {
                   me: {
                     userEmail: "",
                     vulnerabilitiesAssigned: [],
-                  },
-                }}
-                userData={{
-                  me: {
-                    organizations: [
-                      {
-                        groups: [
-                          {
-                            name: "testgroup",
-                            permissions: ["valid_assigned"],
-                            serviceAttributes: [],
-                          },
-                        ],
-                        name: "okada",
-                      },
-                    ],
-                    userEmail: "",
                   },
                 }}
                 userRole={"user"}
@@ -214,11 +222,7 @@ describe("Navbar", (): void => {
                 userName: "",
               }}
             >
-              <Navbar
-                meVulnerabilitiesAssigned={undefined}
-                userData={undefined}
-                userRole={"user"}
-              />
+              <Navbar meVulnerabilitiesAssigned={undefined} userRole={"user"} />
             </authContext.Provider>
           </MockedProvider>
         </MemoryRouter>
@@ -294,11 +298,7 @@ describe("Navbar", (): void => {
                 userName: "",
               }}
             >
-              <Navbar
-                meVulnerabilitiesAssigned={undefined}
-                userData={undefined}
-                userRole={"user"}
-              />
+              <Navbar meVulnerabilitiesAssigned={undefined} userRole={"user"} />
             </authContext.Provider>
           </MockedProvider>
         </MemoryRouter>

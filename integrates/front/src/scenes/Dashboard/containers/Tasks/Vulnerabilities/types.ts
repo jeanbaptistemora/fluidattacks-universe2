@@ -20,22 +20,6 @@ interface IFilterTodosSet {
   verification?: string;
 }
 
-interface IOrganizationGroups {
-  groups: {
-    name: string;
-    permissions: string[];
-    serviceAttributes: string[];
-  }[];
-  name: string;
-}
-
-interface IGetUserOrganizationsGroups {
-  me: {
-    organizations: IOrganizationGroups[];
-    userEmail: string;
-  };
-}
-
 interface IGetMeVulnerabilitiesAssigned {
   me: {
     vulnerabilitiesAssigned: IVulnRowAttr[];
@@ -47,7 +31,6 @@ export type {
   IAction,
   IFilterTodosSet,
   IGetMeVulnerabilitiesAssigned,
-  IGetUserOrganizationsGroups,
   IGroupAction,
   ITasksVulnerabilities,
 };

@@ -6,12 +6,10 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
-import {
-  GET_ME_VULNERABILITIES_ASSIGNED,
-  GET_USER_ORGANIZATIONS_GROUPS,
-} from "./queries";
+import { GET_ME_VULNERABILITIES_ASSIGNED } from "./queries";
 
 import { TasksVulnerabilities } from "scenes/Dashboard/containers/Tasks/Vulnerabilities";
+import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
