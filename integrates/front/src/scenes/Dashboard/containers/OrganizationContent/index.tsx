@@ -65,6 +65,7 @@ const OrganizationContent: React.FC<IOrganizationContent> = (
   const { data: basicData } = useQuery<IGetOrganizationId>(
     GET_ORGANIZATION_ID,
     {
+      fetchPolicy: "cache-first",
       onError: ({ graphQLErrors }: ApolloError): void => {
         graphQLErrors.forEach((error: GraphQLError): void => {
           msgError(translate.t("groupAlerts.errorTextsad"));
