@@ -3,7 +3,6 @@
   inputs,
   makeSearchPaths,
   outputs,
-  projectPath,
   ...
 }: let
   searchPaths = makeSearchPaths {
@@ -22,25 +21,10 @@ in {
           searchPaths
           outputs."/secretsForEnvFromSops/commonCiProd"
           outputs."/secretsForTerraformFromEnv/commonCi"
-          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/common/ci/infra";
         version = "1.0";
       };
-      commonCiNew = {
-        setup = [
-          searchPaths
-          outputs."/secretsForEnvFromSops/commonCiProd"
-          outputs."/secretsForTerraformFromEnv/commonCi"
-        ];
-        src = "/common/ci/new-infra";
-        version = "1.0";
-      };
-    };
-  };
-  envVarsForTerraform = {
-    commonCi = {
-      ciInit = projectPath "/common/ci/infra/init";
     };
   };
   lintTerraform = {
@@ -50,7 +34,6 @@ in {
           searchPaths
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
-          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/common/ci/infra";
         version = "1.0";
@@ -79,7 +62,6 @@ in {
           searchPaths
           outputs."/secretsForEnvFromSops/commonCiDev"
           outputs."/secretsForTerraformFromEnv/commonCi"
-          outputs."/envVarsForTerraform/commonCi"
         ];
         src = "/common/ci/infra";
         version = "1.0";
