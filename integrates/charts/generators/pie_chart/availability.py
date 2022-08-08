@@ -102,12 +102,12 @@ def format_data(*, data: EventsAvailability) -> dict:
         data=dict(
             columns=[
                 ["Available", data.available],
-                ["Non available", data.non_available],
+                ["Unavailable", data.non_available],
             ],
             type="pie",
             colors={
                 "Available": RISK.agressive,
-                "Non available": RISK.passive,
+                "Unavailable": RISK.passive,
             },
         ),
         legend=dict(
