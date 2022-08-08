@@ -16,7 +16,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import type { ChangeEvent, ReactElement } from "react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
@@ -25,11 +25,8 @@ import { PagMenu } from "./paginationMenu";
 import { TableContainer } from "./styles";
 import type { ITableProps, ITablepropsWithRowSel } from "./types";
 
-import {
-  ButtonToolbarRow,
-  SearchText,
-  TableOptionsColBar,
-} from "styles/styledComponents";
+import { Gap } from "components/Layout/Gap";
+import { SearchText } from "styles/styledComponents";
 
 export const Tables = <TData extends object>(
   props: Readonly<ITableProps<TData>> | Readonly<ITablepropsWithRowSel<TData>>
@@ -44,7 +41,7 @@ export const Tables = <TData extends object>(
     extraButtons = undefined,
     csvName = "Report",
     onRowClick = undefined,
-    rowSelectionPair = undefined,
+    rowSelectionSetter = undefined,
     showPagination = data.length >= 8,
   } = props;
 
@@ -52,10 +49,7 @@ export const Tables = <TData extends object>(
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [expanded, setExpanded] = useState({});
-  const [rowSelection, setRowSelection] = rowSelectionPair ?? [
-    undefined,
-    undefined,
-  ];
+  const [rowSelection, setRowSelection] = useState({});
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
@@ -97,24 +91,36 @@ export const Tables = <TData extends object>(
     },
   });
 
+  useEffect((): void => {
+    rowSelectionSetter?.(
+      table
+        .getSelectedRowModel()
+        .flatRows.map((row: Row<TData>): object => row.original)
+    );
+  }, [rowSelection, rowSelectionSetter, table]);
+
   return (
     <div className={"w-100"} id={id}>
-      <TableOptionsColBar>
-        {extraButtons !== undefined && extraButtons}
-        <ButtonToolbarRow>
+      <div className={"flex w-100"}>
+        <div className={`flex flex-wrap pa0 w-100`}>
+          <Gap>
+            {extraButtons !== undefined && extraButtons}
+            {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
+            {exportCsv && (
+              <CSVLink data={data} filename={csvName}>
+                {t("group.findings.exportCsv.text")}
+              </CSVLink>
+            )}
+          </Gap>
+        </div>
+        <div className={"d-flex justify-content-end w-25"}>
           <SearchText
             onChange={globalFilterHandler}
             placeholder={t("table.search")}
             value={globalFilter}
           />
-        </ButtonToolbarRow>
-      </TableOptionsColBar>
-      {exportCsv && (
-        <CSVLink data={data} filename={csvName}>
-          {t("group.findings.exportCsv.text")}
-        </CSVLink>
-      )}
-      {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
+        </div>
+      </div>
       <TableContainer
         isRowFunctional={onRowClick !== undefined}
         rowSize={"bold"}
@@ -148,7 +154,7 @@ export const Tables = <TData extends object>(
                         </div>
                       </th>
                     ))}
-                  {rowSelectionPair !== undefined && (
+                  {rowSelectionSetter !== undefined && (
                     <th>
                       <input
                         checked={table.getIsAllRowsSelected()}
@@ -218,7 +224,7 @@ export const Tables = <TData extends object>(
                           </div>
                         </td>
                       ))}
-                    {rowSelectionPair !== undefined && (
+                    {rowSelectionSetter !== undefined && (
                       <td>
                         <input
                           checked={row.getIsSelected()}
