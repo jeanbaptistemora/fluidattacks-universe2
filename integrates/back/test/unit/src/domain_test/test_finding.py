@@ -19,6 +19,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -39,6 +42,10 @@ from findings.domain import (
 )
 from freezegun import (  # type: ignore
     freeze_time,
+)
+from newutils.datetime import (
+    get_as_utc_iso_format,
+    get_now,
 )
 import os
 import pytest
@@ -262,36 +269,49 @@ async def test_add_comment() -> None:
     request = await create_dummy_session("unittest@fluidattacks.com")
     info = create_dummy_info(request)
     finding_id = "463461507"
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    current_time = get_as_utc_iso_format(get_now())
     comment_id = str(round(time.time() * 1000))
-    comment_data = {
-        "comment_type": "comment",
-        "comment_id": comment_id,
-        "content": "Test comment",
-        "created": current_time,
-        "fullname": "unittesting",
-        "modified": current_time,
-        "parent": "0",
-    }
-    assert await add_comment(
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        comment_type="comment",
+        id=comment_id,
+        content="Test comment",
+        creation_date=current_time,
+        full_name="unittesting",
+        parent_id="0",
+        email="unittest@fluidattacks.com",
+    )
+    await add_comment(
         info,
         "unittest@fluidattacks.com",
         comment_data,
         finding_id,
         "unittesting",
     )
+    loaders = get_new_context()
+    finding_comments: list[
+        FindingComment
+    ] = await loaders.finding_comments.load(("comment", finding_id))
+    assert finding_comments[-1].content == "Test comment"
+    assert finding_comments[-1].full_name == "unittesting"
 
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    comment_data["created"] = current_time
-    comment_data["modified"] = current_time
-    comment_data["parent"] = str(comment_id)
-    assert await add_comment(
+    current_time = get_as_utc_iso_format(get_now())
+    new_comment_data = comment_data._replace(
+        creation_date=current_time, parent_id=str(comment_id)
+    )
+    await add_comment(
         info,
         "unittest@fluidattacks.com",
-        comment_data,
+        new_comment_data,
         finding_id,
         "unittesting",
     )
+    new_loaders = get_new_context()
+    new_finding_comments: list[
+        FindingComment
+    ] = await new_loaders.finding_comments.load(("comment", finding_id))
+    assert new_finding_comments[-1].content == "Test comment"
+    assert new_finding_comments[-1].parent_id == str(comment_id)
 
 
 @pytest.mark.changes_db

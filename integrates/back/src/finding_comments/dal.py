@@ -8,11 +8,17 @@ from botocore.exceptions import (
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from dynamodb import (
     operations_legacy as dynamodb_ops,
 )
 import logging
 import logging.config
+from newutils.finding_comments import (
+    format_finding_comment_item,
+)
 from settings import (
     LOGGING,
 )
@@ -46,6 +52,15 @@ async def create(
     except ClientError as ex:
         LOGGER.exception(ex, extra={"extra": locals()})
     return success
+
+
+async def create_typed(comment_attributes: FindingComment) -> None:
+    finding_comment_item = format_finding_comment_item(comment_attributes)
+    await create(
+        comment_attributes.id,
+        finding_comment_item,
+        comment_attributes.finding_id,
+    )
 
 
 async def delete(comment_id: str, finding_id: str) -> bool:

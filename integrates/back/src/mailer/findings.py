@@ -14,6 +14,9 @@ from db_model.enums import (
     Notification,
     StateRemovalJustification,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -39,7 +42,7 @@ from typing import (
 async def send_mail_comment(  # pylint: disable=too-many-locals
     *,
     loaders: Any,
-    comment_data: Dict[str, Any],
+    comment_data: FindingComment,
     user_mail: str,
     finding_id: str,
     finding_title: str,
@@ -51,9 +54,9 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     group: Group = await loaders.group.load(group_name)
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
-    type_ = str(comment_data["comment_type"])
+    type_ = comment_data.comment_type
     email_context: dict[str, Any] = {
-        "comment": str(comment_data["content"]).splitlines(),
+        "comment": comment_data.content.splitlines(),
         "comment_type": type_,
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"
@@ -62,7 +65,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         ),
         "finding_id": finding_id,
         "finding_name": finding_title,
-        "parent": str(comment_data["parent"]),
+        "parent": str(comment_data.parent_id),
         "group": group_name,
         "has_machine": has_machine,
         "has_squad": has_squad,

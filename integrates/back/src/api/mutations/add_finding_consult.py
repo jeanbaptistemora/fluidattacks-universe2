@@ -10,6 +10,9 @@ from custom_exceptions import (
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -48,7 +51,6 @@ from time import (
 )
 from typing import (
     Any,
-    Dict,
     Tuple,
 )
 
@@ -56,7 +58,7 @@ from typing import (
 async def send_finding_consult_mail(
     *,
     info: GraphQLResolveInfo,
-    comment_data: Dict[str, Any],
+    comment_data: FindingComment,
     user_email: str,
     group_name: str,
     finding_id: str,
@@ -72,7 +74,7 @@ async def send_finding_consult_mail(
         recipients=await get_users_subscribed_to_consult(
             loaders=info.context.loaders,
             group_name=group_name,
-            comment_type=str(comment_data["comment_type"]),
+            comment_type=comment_data.comment_type,
             is_finding_released=is_finding_released,
         ),
         group_name=group_name,
@@ -93,20 +95,21 @@ async def _add_finding_consult(
     is_finding_released = bool(finding.approval)
     content = parameters["content"]
     comment_id = str(round(time() * 1000))
-    current_time = datetime_utils.get_as_str(datetime_utils.get_now())
-    comment_data = {
-        "comment_id": comment_id,
-        "comment_type": param_type if param_type != "consult" else "comment",
-        "content": content,
-        "fullname": " ".join(
-            [user_data["first_name"], user_data["last_name"]]
-        ),
-        "parent": parameters.get("parent_comment", "0"),
-        "created": current_time,
-        "modified": current_time,
-    }
+    current_time = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_now()
+    )
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        id=comment_id,
+        comment_type=param_type if param_type != "consult" else "comment",
+        parent_id=str(parameters.get("parent_comment")),
+        creation_date=current_time,
+        full_name=" ".join([user_data["first_name"], user_data["last_name"]]),
+        content=content,
+        email=user_email,
+    )
     try:
-        success = await findings_domain.add_comment(
+        await findings_domain.add_comment(
             info, user_email, comment_data, finding_id, group_name
         )
     except PermissionDenied:
@@ -116,31 +119,30 @@ async def _add_finding_consult(
         )
         raise GraphQLError("Access denied") from None
 
-    if success:
-        redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
-        if content.strip() not in {"#external", "#internal"}:
-            schedule(
-                send_finding_consult_mail(
-                    info=info,
-                    comment_data=comment_data,
-                    user_email=user_email,
-                    group_name=group_name,
-                    finding_id=finding_id,
-                    finding_title=finding.title,
-                    is_finding_released=is_finding_released,
-                )
+    redis_del_by_deps_soon("add_finding_consult", finding_id=finding_id)
+    if content.strip() not in {"#external", "#internal"}:
+        schedule(
+            send_finding_consult_mail(
+                info=info,
+                comment_data=comment_data,
+                user_email=user_email,
+                group_name=group_name,
+                finding_id=finding_id,
+                finding_title=finding.title,
+                is_finding_released=is_finding_released,
             )
+        )
 
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Added comment in finding {finding_id} successfully",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Attempted to add comment in finding {finding_id}",
-        )
-    return success, comment_id
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Added comment in finding {finding_id} successfully",
+    )
+
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Attempted to add comment in finding {finding_id}",
+    )
+    return True, comment_id
 
 
 async def add_finding_consult(

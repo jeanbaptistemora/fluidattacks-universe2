@@ -58,6 +58,12 @@ def _is_scope_comment_typed(comment: FindingComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
+async def add_typed(
+    comment_data: FindingComment,
+) -> None:
+    await comments_dal.create_typed(comment_data)
+
+
 async def add(
     finding_id: str,
     comment_data: Dict[str, Any],

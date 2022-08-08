@@ -160,14 +160,16 @@ async def _send_to_redshift(
 async def add_comment(
     info: GraphQLResolveInfo,
     user_email: str,
-    comment_data: Dict[str, Any],
+    comment_data: FindingComment,
     finding_id: str,
     group_name: str,
-) -> bool:
+) -> None:
     loaders = info.context.loaders
-    param_type = comment_data.get("comment_type")
-    parent_comment = str(comment_data["parent"])
-    content = str(comment_data["content"])
+    param_type = comment_data.comment_type
+    parent_comment = (
+        str(comment_data.parent_id) if comment_data.parent_id else "0"
+    )
+    content = comment_data.content
     validations.validate_field_length(content, 20000)
 
     await authz.validate_handle_comment_scope(
@@ -183,17 +185,14 @@ async def add_comment(
 
     if parent_comment != "0":
         finding_comments = [
-            comment["comment_id"]
-            for comment in await comments_domain.get(
-                str(comment_data.get("comment_type")), finding_id
+            comment.id
+            for comment in await loaders.finding_comments.load(
+                (comment_data.comment_type, finding_id)
             )
         ]
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
-
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    success = await comments_domain.add(finding_id, comment_data, stakeholder)
-    return success[1]
+    await comments_domain.add_typed(comment_data)
 
 
 async def remove_finding(

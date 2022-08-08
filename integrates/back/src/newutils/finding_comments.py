@@ -55,7 +55,7 @@ def format_finding_consulting_resolve(finding_comment: FindingComment) -> Item:
 
 
 def format_finding_comment_item(finding_comment: FindingComment) -> Item:
-    item = {
+    return {
         "finding_id": finding_comment.finding_id,
         "comment_id": int(finding_comment.id),
         "parent": finding_comment.parent_id,
@@ -65,9 +65,4 @@ def format_finding_comment_item(finding_comment: FindingComment) -> Item:
         "content": finding_comment.content,
         "email": finding_comment.email,
         "modified": convert_from_iso_str(finding_comment.creation_date),
-    }
-    return {
-        key: None if not value else value
-        for key, value in item.items()
-        if value is not None
     }
