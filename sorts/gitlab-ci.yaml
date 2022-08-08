@@ -16,7 +16,7 @@
     - m . /deployTerraform/sorts
   stage: deploy-infra
   tags:
-    - autoscaling
+    - prod_sorts_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -38,7 +38,7 @@
     - m . /lintPython/dirOfModules/sorts
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -60,7 +60,7 @@
     - m . /lintPython/imports/sorts
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -82,7 +82,7 @@
     - m . /lintPython/module/sortsTests
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -104,7 +104,7 @@
     - m . /lintPython/module/sortsTraining
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -126,7 +126,7 @@
     - m . /lintTerraform/sorts
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -148,7 +148,7 @@
     - m . /sorts/association-rules/check/types
   stage: lint-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -167,7 +167,7 @@
     - m . /sorts/extract-features
   stage: pre-build
   tags:
-    - autoscaling-large
+    - prod_sorts_large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -187,7 +187,7 @@
     - m . /sorts/merge-features
   stage: build
   tags:
-    - autoscaling
+    - prod_sorts_large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -209,7 +209,7 @@
     - m . /testPython/sorts
   stage: test-code
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
@@ -231,7 +231,7 @@
     - m . /testTerraform/sorts
   stage: test-infra
   tags:
-    - autoscaling
+    - dev_small
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

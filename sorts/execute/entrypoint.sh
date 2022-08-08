@@ -25,7 +25,7 @@ function main {
   local parallel="${1}"
   local groups_file
 
-  aws_login_prod 'sorts' \
+  : \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && sops_export_vars 'sorts/secrets.yaml' \
