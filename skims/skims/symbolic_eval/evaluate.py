@@ -22,6 +22,7 @@ from symbolic_eval.cases import (
     parameter_list,
     prefix_operation,
     symbol_lookup,
+    type_of,
     variable_declaration,
 )
 from symbolic_eval.types import (
@@ -57,6 +58,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "ParameterList": parameter_list.evaluate,
     "PrefixOperation": prefix_operation.evaluate,
     "SymbolLookup": symbol_lookup.evaluate,
+    "TypeOf": type_of.evaluate,
     "VariableDeclaration": variable_declaration.evaluate,
 }
 
