@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 import authz
 from db_model.finding_comments.types import (
     FindingComment,
@@ -25,7 +22,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Set,
@@ -58,51 +54,8 @@ def _fill_vuln_info(
     return comment
 
 
-async def _fill_comment_data(data: Dict[str, str]) -> Dict[str, Any]:
-    fullname = await _get_fullname(objective_data=data)
-    return {
-        "content": data["content"],
-        "created": datetime_utils.format_comment_date(data["created"]),
-        "email": data["email"],
-        "fullname": fullname if fullname else data["email"],
-        "id": data["comment_id"],
-        "modified": datetime_utils.format_comment_date(data["modified"]),
-        "parent": data["parent"],
-    }
-
-
-async def _get_comments(
-    comment_type: str,
-    finding_id: str,
-) -> List[Dict[str, Any]]:
-    comments = await collect(
-        [
-            _fill_comment_data(cast(Dict[str, str], comment))
-            for comment in await comments_dal.get_comments(
-                comment_type, finding_id
-            )
-        ]
-    )
-    return list(comments)
-
-
-async def _get_fullname(objective_data: Dict[str, str]) -> str:
-    objective_email = objective_data["email"]
-    objective_possible_fullname = objective_data.get("fullname", "")
-    real_name = objective_possible_fullname or objective_email
-
-    if "@fluidattacks.com" in objective_email:
-        return f"{real_name} at Fluid Attacks"
-
-    return real_name
-
-
 def _is_scope_comment_typed(comment: FindingComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
-
-
-def _is_scope_comment(comment: Dict[str, Any]) -> bool:
-    return str(comment["content"]).strip() not in {"#external", "#internal"}
 
 
 async def add(
@@ -197,17 +150,16 @@ async def get_comments(
 
 
 async def get_observations(
-    group_name: str, finding_id: str, user_email: str
-) -> List[Dict[str, Any]]:
-    observations = await _get_comments("observation", finding_id)
+    loaders: Any, group_name: str, finding_id: str, user_email: str
+) -> list[FindingComment]:
+    observations = await loaders.finding_comments.load(
+        ("observation", finding_id)
+    )
 
-    new_observations: List[Dict[str, Any]] = []
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
-        new_observations = observations
-    else:
-        new_observations = list(filter(_is_scope_comment, observations))
-    return new_observations
+        return observations
+    return list(filter(_is_scope_comment_typed, observations))
 
 
 def filter_reattack_comments(

@@ -1,3 +1,6 @@
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -15,6 +18,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     token as token_utils,
+)
+from newutils.finding_comments import (
+    format_finding_consulting_resolve,
 )
 from redis_cluster.operations import (
     redis_get_or_set_entity_attr,
@@ -44,6 +50,12 @@ async def resolve_no_cache(
 ) -> List[Dict[str, Any]]:
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
-    return await comments_domain.get_observations(
-        parent.group_name, parent.id, user_email
+    loaders = info.context.loaders
+    observations: list[
+        FindingComment
+    ] = await comments_domain.get_observations(
+        loaders, parent.group_name, parent.id, user_email
     )
+    return [
+        format_finding_consulting_resolve(comment) for comment in observations
+    ]
