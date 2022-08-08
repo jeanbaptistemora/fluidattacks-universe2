@@ -1,62 +1,214 @@
 locals {
-  arch = {
-    awsRoles = {
-      dev = {
-        access_level = "not_protected"
-      }
-      prod_airs = {
-        access_level = "not_protected"
-      }
-      prod_common = {
-        access_level = "not_protected"
-      }
-      prod_docs = {
-        access_level = "not_protected"
-      }
-      prod_forces = {
-        access_level = "not_protected"
-      }
-      prod_integrates = {
-        access_level = "not_protected"
-      }
-      prod_melts = {
-        access_level = "not_protected"
-      }
-      prod_observes = {
-        access_level = "not_protected"
-      }
-      prod_skims = {
-        access_level = "not_protected"
-      }
-      prod_sorts = {
-        access_level = "not_protected"
-      }
-    }
-    sizes = {
-      small = {
-        root_size = 10
-        instance  = "c5ad.large"
-        docker_machine_options = [
-          "amazonec2-volume-type=gp3",
-          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-        ]
-      }
-      large = {
-        root_size = 35
-        instance  = "m5a.large"
-        docker_machine_options = [
-          "amazonec2-volume-type=gp3",
-        ]
-      }
-    }
-  }
   runners = {
-    for runner in setproduct(
-      keys(local.arch.awsRoles),
-      keys(local.arch.sizes)
-      ) : join("_", runner) => {
-      role = runner[0]
-      size = runner[1]
+    dev_small = {
+      awsRole      = "dev"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    dev2_small = {
+      awsRole      = "dev"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    dev3_small = {
+      awsRole      = "dev"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    dev_large = {
+      awsRole      = "dev"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_airs_small = {
+      awsRole      = "prod_airs"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_airs_large = {
+      awsRole      = "prod_airs"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_common_small = {
+      awsRole      = "prod_common"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_common_large = {
+      awsRole      = "prod_common"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_docs_small = {
+      awsRole      = "prod_docs"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_docs_large = {
+      awsRole      = "prod_docs"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_forces_small = {
+      awsRole      = "prod_forces"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_forces_large = {
+      awsRole      = "prod_forces"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_integrates_small = {
+      awsRole      = "prod_integrates"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_integrates_large = {
+      awsRole      = "prod_integrates"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_melts_small = {
+      awsRole      = "prod_melts"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_melts_large = {
+      awsRole      = "prod_melts"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_observes_small = {
+      awsRole      = "prod_observes"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_observes_large = {
+      awsRole      = "prod_observes"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_skims_small = {
+      awsRole      = "prod_skims"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_skims_large = {
+      awsRole      = "prod_skims"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
+    }
+    prod_sorts_small = {
+      awsRole      = "prod_sorts"
+      access_level = "not_protected"
+      root_size    = 10
+      instance     = "c5ad.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+      ]
+    }
+    prod_sorts_large = {
+      awsRole      = "prod_sorts"
+      access_level = "not_protected"
+      root_size    = 35
+      instance     = "m5a.large"
+      docker_machine_options = [
+        "amazonec2-volume-type=gp3",
+      ]
     }
   }
 }
@@ -94,7 +246,7 @@ module "runners" {
   runner_instance_enable_monitoring = true
   userdata_pre_install              = data.local_file.init_runner.content
   docker_machine_iam_policy_arns = [
-    "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/${each.value.role}"
+    "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/${each.value.awsRole}"
   ]
   runner_ami_filter = {
     "name"     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210907"]
@@ -109,21 +261,21 @@ module "runners" {
   }
   gitlab_runner_registration_config = {
     registration_token = var.gitlabTokenFluidattacks
-    tag_list           = each.key
+    tag_list           = each.value.awsRole
     description        = "common-ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
     maximum_timeout    = "86400"
-    access_level       = local.arch.awsRoles[each.value.role].access_level
+    access_level       = each.value.access_level
   }
 
   # Workers
-  docker_machine_options        = local.arch.sizes[each.value.size].docker_machine_options
+  docker_machine_options        = each.value.docker_machine_options
   docker_machine_spot_price_bid = ""
-  docker_machine_instance_type  = local.arch.sizes[each.value.size].instance
+  docker_machine_instance_type  = each.value.instance
   runners_gitlab_url            = "https://gitlab.com"
   runners_executor              = "docker+machine"
-  runners_root_size             = local.arch.sizes[each.value.size].root_size
+  runners_root_size             = each.value.root_size
   runners_concurrent            = 1000
   runners_ebs_optimized         = true
   runners_idle_count            = 3
