@@ -17,6 +17,9 @@ from fa_purity.cmd.core import (
 from fa_purity.pure_iter.factory import (
     unsafe_from_cmd,
 )
+from fa_purity.stream.factory import (
+    unsafe_from_cmd as unsafe_build_stream,
+)
 import logging
 from tempfile import (
     NamedTemporaryFile,
@@ -97,3 +100,15 @@ class TempReadOnlyFile:
             return TempReadOnlyFile(_TempReadOnlyFile(file.name))
 
         return new_cmd(_action)
+
+    @classmethod
+    def freeze(cls, file: IO[str]) -> Cmd[TempReadOnlyFile]:
+        def _action() -> Iterable[str]:
+            file.seek(0)
+            line = file.readline()
+            while line:
+                yield line
+                line = file.readline()
+
+        stream = unsafe_build_stream(Cmd.from_cmd(_action))
+        return cls.save(stream)

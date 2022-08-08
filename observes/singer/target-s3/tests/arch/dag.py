@@ -12,6 +12,7 @@ _DAG: Dict[str, FrozenList[str]] = {
         "loader",
         "csv",
         "upload",
+        "_splitter",
         "core",
         "in_buffer",
         "_utils",
