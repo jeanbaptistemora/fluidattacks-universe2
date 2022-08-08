@@ -470,6 +470,20 @@ resource "cloudflare_page_rule" "redirect_landing" {
   }
 }
 
+resource "cloudflare_page_rule" "redirect_news" {
+  zone_id  = cloudflare_zone.fluidattacks_com.id
+  target   = "news.${cloudflare_zone.fluidattacks_com.zone}/*"
+  status   = "active"
+  priority = 100
+
+  actions {
+    forwarding_url {
+      url         = "https://news.atfluid.com/$1"
+      status_code = 301
+    }
+  }
+}
+
 # Workers
 
 resource "cloudflare_worker_script" "headers" {
