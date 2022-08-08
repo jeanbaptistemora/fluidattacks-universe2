@@ -568,29 +568,6 @@ const BlackH2: StyledComponent<"h2", Record<string, unknown>> = styled.h2.attrs(
   }
 )``;
 
-const RegularRedButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className: `
-    outline-transparent
-    bg-button-red
-    hv-bg-fluid-rd
-    pointer
-    white
-    pv3
-    ph4
-    fw7
-    f3
-    dib
-    t-all-3-eio
-    br2
-    bc-fluid-red
-    ba
-    roboto
-  `,
-})``;
-
 const NewRegularRedButton: StyledComponent<
   "button",
   Record<string, unknown>
@@ -740,24 +717,6 @@ const MarkedPhrase: StyledComponent<
   `,
 })``;
 
-const LittleBannerContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    bg-banner-sz
-    nt-5
-    cover
-    h-banner
-    justify-center
-    items-center
-    flex bg-center
-    mw-1366
-    ml-auto
-    mr-auto
-  `,
-})``;
-
 const BlogItemTitle: StyledComponent<
   "h1",
   Record<string, unknown>
@@ -882,22 +841,6 @@ const CardBody: StyledComponent<
     t-all-5
     overflow-hidden
     ph4
-  `,
-})``;
-
-const CardFooter: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className: `
-    tc
-    fw3
-    w-100
-    pointer
-    bn
-    bg-white
-    outline-transparent
-    dn
   `,
 })``;
 
@@ -1059,19 +1002,6 @@ const BlogArticleSubtitle: StyledComponent<
     b
     f3
     mt0
-  `,
-})``;
-
-const CompliancesGrid: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    grid
-    compliance-content
-    compliance-grid
-    roboto
-    w-100
   `,
 })``;
 
@@ -1293,41 +1223,6 @@ const MobileFooterContainer: StyledComponent<
   `,
 })``;
 
-const ContactButtonContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    w-100
-    tl
-    pb3
-    ph3
-  `,
-})``;
-
-const ContactButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs({
-  className: `
-    outline-transparent
-    fw7
-    f-18
-    br2
-    bw1
-    ph5
-    pv2
-    bg-white
-    bc-fluid-red
-    ba
-    hv-fluid-rd
-    hv-bd-fluid-red
-    t-all-3-eio
-    c-dkred
-    pointer
-  `,
-})``;
-
 const BannerH2Title: StyledComponent<
   "h1",
   Record<string, unknown>
@@ -1354,15 +1249,6 @@ const MenuList: StyledComponent<
     tc
     pv3
     slide-show
-  `,
-})``;
-
-const TitleContainer = styled.div.attrs({
-  className: `
-    w-100
-    tc
-    mt5
-    ph-body
   `,
 })``;
 
@@ -1428,7 +1314,6 @@ export {
   ButtonContainer,
   CardBody,
   CardContainer,
-  CardFooter,
   CardHeader,
   CardReadMore,
   CardsContainer,
@@ -1436,9 +1321,6 @@ export {
   CareersFaqContainer,
   CenteredSpacedContainer,
   ComplianceContainer,
-  CompliancesGrid,
-  ContactButton,
-  ContactButtonContainer,
   ContentContainer,
   ContentList,
   CopyrightContainer,
@@ -1464,7 +1346,6 @@ export {
   InternalContainer,
   ListItem,
   ListItemLabel,
-  LittleBannerContainer,
   LogoContainer,
   CenteredMaxWidthContainer,
   InnerMainContentHome,
@@ -1495,7 +1376,6 @@ export {
   RadioButton,
   RadioLabel,
   RedMark,
-  RegularRedButton,
   SectionContainer,
   ServicesHeaderContainer,
   ServicesGrid,
@@ -1504,5 +1384,4 @@ export {
   SquaredCardContainer,
   SubcategoryLink,
   SystemsCardContainer,
-  TitleContainer,
 };

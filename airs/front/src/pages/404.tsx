@@ -10,7 +10,7 @@ import {
   ErrorDescription,
   ErrorSection,
   ErrorTitle,
-  RegularRedButton,
+  NewRegularRedButton,
 } from "../styles/styledComponents";
 
 const Error404Page: React.FC = (): JSX.Element => (
@@ -22,7 +22,7 @@ const Error404Page: React.FC = (): JSX.Element => (
         <ErrorDescription>{"Whoops! Nothing Found"}</ErrorDescription>
         <ButtonContainer>
           <Link to={"/"}>
-            <RegularRedButton>{"Go Home"}</RegularRedButton>
+            <NewRegularRedButton>{"Go Home"}</NewRegularRedButton>
           </Link>
         </ButtonContainer>
       </ErrorContainer>
