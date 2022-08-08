@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart import (
+    format_csv_data,
+)
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
@@ -38,9 +41,6 @@ from operator import (
 )
 from typing import (
     Counter,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -48,11 +48,11 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    finding_cvssf: Dict[str, Decimal] = {
+    finding_cvssf: dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))
         for finding in group_findings
     }
@@ -82,9 +82,9 @@ async def get_data_one_group(
 
 async def get_data_many_groups(
     *,
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
-) -> List[PortfoliosGroupsInfo]:
+) -> list[PortfoliosGroupsInfo]:
     groups_data = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders)
@@ -96,7 +96,7 @@ async def get_data_many_groups(
     return sorted(groups_data, key=attrgetter("value"), reverse=True)
 
 
-def format_data(data: List[PortfoliosGroupsInfo]) -> dict:
+def format_data(data: list[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[
@@ -155,28 +155,34 @@ async def generate_all() -> None:
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(
-                    groups=org_groups, loaders=loaders
-                ),
+        document = format_data(
+            data=await get_data_many_groups(
+                groups=org_groups, loaders=loaders
             ),
+        )
+        utils.json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document),
         )
 
     async for org_id, org_name, _ in (
         utils.iterate_organizations_and_groups()
     ):
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(
-                        groups=tuple(groups), loaders=loaders
-                    ),
+            document = format_data(
+                data=await get_data_many_groups(
+                    groups=tuple(groups), loaders=loaders
                 ),
+            )
+            utils.json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    document=document,
+                ),
             )
 
 
