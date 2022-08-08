@@ -194,6 +194,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
+                    hacker_email=generic_data["global_vars"]["hacker_email"],
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     specific="9999",
                     state=VulnerabilityState(
@@ -221,6 +222,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="475041520",
                     group_name="group1",
+                    hacker_email=generic_data["global_vars"]["hacker_email"],
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     specific="9999",
                     state=VulnerabilityState(

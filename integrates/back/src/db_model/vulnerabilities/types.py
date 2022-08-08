@@ -77,6 +77,7 @@ class VulnerabilityZeroRisk(NamedTuple):
 class Vulnerability(NamedTuple):
     finding_id: str
     group_name: str
+    hacker_email: str
     id: str
     specific: str
     state: VulnerabilityState
@@ -87,7 +88,6 @@ class Vulnerability(NamedTuple):
     custom_severity: Optional[int] = None
     developer: Optional[str] = None
     event_id: Optional[str] = None
-    hacker_email: Optional[str] = None
     hash: Optional[int] = None
     root_id: Optional[str] = None
     skims_method: Optional[str] = None

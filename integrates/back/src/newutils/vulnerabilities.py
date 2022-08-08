@@ -431,6 +431,7 @@ def group_specific(
             Vulnerability(
                 finding_id=group[0].finding_id,
                 group_name=group[0].group_name,
+                hacker_email=group[0].hacker_email,
                 id=group[0].id,
                 specific=specific_grouped,
                 state=group[0].state,

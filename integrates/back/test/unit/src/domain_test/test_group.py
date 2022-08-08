@@ -199,6 +199,7 @@ async def test_get_vuln_closing_date() -> None:
     closed_vulnerability = Vulnerability(
         finding_id="422286126",
         group_name="unittesting",
+        hacker_email="test@test.com",
         id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
         specific="phone",
         state=VulnerabilityState(
@@ -264,6 +265,7 @@ async def test_get_vuln_opening_date() -> None:
     test_vuln = Vulnerability(
         finding_id="",
         group_name="",
+        hacker_email="",
         id="",
         specific="",
         type=VulnerabilityType.LINES,

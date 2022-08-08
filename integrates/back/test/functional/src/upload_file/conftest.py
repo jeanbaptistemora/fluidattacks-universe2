@@ -413,6 +413,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
+                    hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4444",
@@ -449,6 +450,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
+                    hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdce9",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4545",
@@ -485,6 +487,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
+                    hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdcea",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4646",
@@ -549,6 +552,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "vulnerability": Vulnerability(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     group_name="group1",
+                    hacker_email="hacker@gmail.com",
                     id="be09edb7-cd5c-47ed-bee4-97c645acdceb",
                     root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
                     specific="4747",

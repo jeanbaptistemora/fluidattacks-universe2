@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 04, 2022, 05:26 PM",
+    "DateLastModified": "Aug 08, 2022, 04:15 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -353,6 +353,10 @@
         {
           "AttributeName": "hash",
           "AttributeType": "N"
+        },
+        {
+          "AttributeName": "hacker_email",
+          "AttributeType": "S"
         },
         {
           "AttributeName": "custom_severity",
@@ -18431,6 +18435,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18532,6 +18539,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "test@unittesting.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -18651,6 +18661,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18763,6 +18776,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -18855,6 +18871,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -18971,6 +18990,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19073,6 +19095,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19165,6 +19190,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19259,6 +19287,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19351,6 +19382,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19451,6 +19485,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19533,6 +19570,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19617,6 +19657,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19699,6 +19742,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19783,6 +19829,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "integratesmanager@gmail.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -19865,6 +19914,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -19949,6 +20001,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20031,6 +20086,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20115,6 +20173,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20197,6 +20258,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20281,6 +20345,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20363,6 +20430,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20447,6 +20517,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20529,6 +20602,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20613,6 +20689,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20695,6 +20774,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20779,6 +20861,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -20861,6 +20946,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -20945,6 +21033,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21027,6 +21118,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "integratesmanager@gmail.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -21111,6 +21205,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21193,6 +21290,9 @@
               },
               "group_name": {
                 "S": "oneshottest"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -21277,6 +21377,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21359,6 +21462,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -21455,6 +21561,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21550,6 +21659,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21632,6 +21744,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -21758,6 +21873,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -21868,6 +21986,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
@@ -21982,6 +22103,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -22110,6 +22234,9 @@
               "group_name": {
                 "S": "oneshottest"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -22219,6 +22346,9 @@
               "group_name": {
                 "S": "oneshottest"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -22312,6 +22442,9 @@
               "group_name": {
                 "S": "oneshottest"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -22394,6 +22527,9 @@
               },
               "group_name": {
                 "S": "lubbock"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -22493,6 +22629,9 @@
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "ROOT"
@@ -22599,6 +22738,9 @@
               "group_name": {
                 "S": "unittesting"
               },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
               "pk_2": {
                 "S": "ROOT"
               },
@@ -22695,6 +22837,7 @@
             "group_name",
             "stream",
             "hash",
+            "hacker_email",
             "custom_severity",
             "root_id",
             "pk_2",
