@@ -4,13 +4,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { ResourceCard } from "./ResourceCard";
-import { BlackParagraph, Container, TitleContainer } from "./styledComponents";
+import { Container, TitleContainer } from "./styledComponents";
 
 import {
-  BlackBigParagraph,
   FlexCenterItemsContainer,
   NewRegularRedButton,
 } from "../../../styles/styledComponents";
+import { Title } from "../../Texts";
 
 const ResourcesSection: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -36,7 +36,9 @@ const ResourcesSection: React.FC = (): JSX.Element => {
   return (
     <Container>
       <TitleContainer>
-        <BlackBigParagraph>{t("resources.home.title")}</BlackBigParagraph>
+        <Title fColor={"#2e2e38"} fSize={"48"}>
+          {t("resources.home.title")}
+        </Title>
       </TitleContainer>
       <FlexCenterItemsContainer className={"flex-wrap mv5"}>
         {data.map((card): JSX.Element => {
@@ -46,9 +48,11 @@ const ResourcesSection: React.FC = (): JSX.Element => {
         })}
       </FlexCenterItemsContainer>
       <FlexCenterItemsContainer className={"flex-wrap mb5 tc"}>
-        <BlackParagraph>{t("resources.home.phrase")}</BlackParagraph>
+        <Title fColor={"#2e2e38"} fSize={"24"}>
+          {t("resources.home.phrase")}
+        </Title>
         <Link to={"/subscription"}>
-          <NewRegularRedButton className={"w-auto-ns w-100"}>
+          <NewRegularRedButton className={"w-auto-ns w-100 ml3"}>
             {t("resources.home.buttonText")}
           </NewRegularRedButton>
         </Link>

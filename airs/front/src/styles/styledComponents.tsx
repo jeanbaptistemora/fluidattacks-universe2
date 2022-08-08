@@ -1,5 +1,4 @@
 /* eslint import/no-namespace:0 */
-import { Link } from "gatsby";
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -293,58 +292,6 @@ const Badge = styled.span.attrs({
   color: ${({ color }): string => color};
 `;
 
-const BreadcrumbContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    pv0
-    mt-body
-  `,
-})``;
-
-const BreadcrumbInnerContainer: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    df
-    ma-auto
-    bg-fluid-black
-  `,
-})``;
-
-const BreadcrumbList: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: `
-    roboto
-    f6-l
-    f7
-    tl
-    mw-1366
-    ph-body
-    ml-auto
-    mr-auto
-  `,
-})``;
-
-const Break: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs(
-  {
-    className: `
-    ph0
-  `,
-  }
-)``;
-
-const BreadcrumbLink: StyledComponent<
-  typeof Link,
-  Record<string, unknown>
-> = styled(Link)`
-  box-shadow: none;
-`;
-
 const Flex: StyledComponent<"div", Record<string, unknown>> = styled.div.attrs({
   className: `
     flex
@@ -519,36 +466,6 @@ const InnerMainContentHome: StyledComponent<
     pt4
     cf
     tl
-  `,
-})``;
-
-const BlackBigHeader: StyledComponent<
-  "h1",
-  Record<string, unknown>
-> = styled.h1.attrs({
-  className: `
-    f1-l
-    f2
-    c-fluid-bk
-    fw7
-    tl
-    neue
-    lh-solid
-    ma0
-  `,
-})``;
-
-const BlackBigParagraph: StyledComponent<
-  "p",
-  Record<string, unknown>
-> = styled.p.attrs({
-  className: `
-    f1
-    c-fluid-bk
-    fw6
-    neue
-    lh-solid
-    ma0
   `,
 })``;
 
@@ -1713,17 +1630,10 @@ export {
   BannerTitle,
   BigPageContainer,
   BigSolutionParagraph,
-  BlackBigHeader,
-  BlackBigParagraph,
   BlackH2,
   BlackListItemSpaced,
   BlackSimpleParagraph,
   BlackSolutionParagraph,
-  BreadcrumbContainer,
-  BreadcrumbInnerContainer,
-  BreadcrumbLink,
-  BreadcrumbList,
-  Break,
   ButtonContainer,
   CardBody,
   CardContainer,
