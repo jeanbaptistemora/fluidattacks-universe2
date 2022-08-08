@@ -257,6 +257,15 @@ resource "cloudflare_record" "makes" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "news" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = "news.${cloudflare_zone.fluidattacks_com.zone}"
+  type    = "CNAME"
+  value   = "cname.announcekit.app"
+  proxied = false
+  ttl     = 1
+}
+
 resource "cloudflare_record" "stripe_dkim" {
   for_each = toset([
     "dyh5er647prfc3gs4euuquiva6xt6ibs",
