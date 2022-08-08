@@ -65,6 +65,8 @@ locals {
             Resource = [
               "arn:aws:s3:::continuous-data",
               "arn:aws:s3:::continuous-data/*",
+              "arn:aws:s3:::skims.data",
+              "arn:aws:s3:::skims.data/*",
             ]
           },
           {
