@@ -62,11 +62,8 @@ class AsyncAWSConnection(AIOHttpConnection):
         headers: Optional[dict[str, str]] = None,
     ) -> tuple[int, dict[str, str], str]:
         headers_ = headers if headers else {}
-        aws_body = (
-            self._gzip_compress(body) if self.http_compress and body else body
-        )
         aws_request = AWSRequest(
-            data=aws_body,
+            data=body,
             headers=headers_,
             method=method.upper(),
             url="".join([self.url_prefix, self.host, url]),
@@ -87,7 +84,7 @@ CLIENT_OPTIONS = {
     "aws_region": FI_AWS_REGION_NAME,
     "connection_class": AsyncAWSConnection,
     "hosts": [FI_AWS_OPENSEARCH_HOST],
-    "http_compress": True,
+    "http_compress": False,
     "use_ssl": FI_ENVIRONMENT == "production",
     "verify_certs": FI_ENVIRONMENT == "production",
 }
