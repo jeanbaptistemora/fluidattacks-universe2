@@ -170,10 +170,11 @@ async def get_data_many_groups(
     *,
     groups: tuple[str, ...],
     loaders: Dataloaders,
+    days: int,
 ) -> Counter[str]:
     groups_data: tuple[Counter[str], ...] = await collect(
         tuple(
-            get_data_one_group(group=group, loaders=loaders)
+            get_data_one_group(group=group, loaders=loaders, days=days)
             for group in groups
         ),
         workers=32,
@@ -240,54 +241,71 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
     )
 
 
+def get_subject_days(days: int) -> str:
+    if days == 30:
+        return ""
+    return f"_{days}"
+
+
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     unique_categories: list[str] = list(sorted(set(CATEGORIES.values())))
     category: str = "Categories"
-    async for group in iterate_groups():
-        document = format_data(
-            data=await get_data_one_group(group=group, loaders=loaders),
-            categories=unique_categories,
-        )
-        json_dump(
-            document=document,
-            entity="group",
-            subject=group,
-            csv_document=format_csv_data(document=document, header=category),
-        )
-
-    async for org_id, _, org_groups in iterate_organizations_and_groups():
-        document = format_data(
-            data=await get_data_many_groups(
-                groups=org_groups,
-                loaders=loaders,
-            ),
-            categories=unique_categories,
-        )
-        json_dump(
-            document=document,
-            entity="organization",
-            subject=org_id,
-            csv_document=format_csv_data(document=document, header=category),
-        )
-
-    async for org_id, org_name, _ in iterate_organizations_and_groups():
-        for portfolio, groups in await get_portfolios_groups(org_name):
+    list_days: list[int] = [30, 60, 90, 180]
+    for days in list_days:
+        async for group in iterate_groups():
             document = format_data(
-                data=await get_data_many_groups(
-                    groups=tuple(groups),
-                    loaders=loaders,
+                data=await get_data_one_group(
+                    group=group, loaders=loaders, days=days
                 ),
                 categories=unique_categories,
             )
             json_dump(
                 document=document,
-                entity="portfolio",
-                subject=f"{org_id}PORTFOLIO#{portfolio}",
+                entity="group",
+                subject=group + get_subject_days(days),
                 csv_document=format_csv_data(
                     document=document, header=category
                 ),
             )
+
+        async for org_id, _, org_groups in iterate_organizations_and_groups():
+            document = format_data(
+                data=await get_data_many_groups(
+                    groups=org_groups,
+                    loaders=loaders,
+                    days=days,
+                ),
+                categories=unique_categories,
+            )
+            json_dump(
+                document=document,
+                entity="organization",
+                subject=org_id + get_subject_days(days),
+                csv_document=format_csv_data(
+                    document=document, header=category
+                ),
+            )
+
+        async for org_id, org_name, _ in iterate_organizations_and_groups():
+            for portfolio, groups in await get_portfolios_groups(org_name):
+                document = format_data(
+                    data=await get_data_many_groups(
+                        groups=tuple(groups),
+                        loaders=loaders,
+                        days=days,
+                    ),
+                    categories=unique_categories,
+                )
+                json_dump(
+                    document=document,
+                    entity="portfolio",
+                    subject=f"{org_id}PORTFOLIO#{portfolio}"
+                    + get_subject_days(days),
+                    csv_document=format_csv_data(
+                        document=document, header=category
+                    ),
+                )
 
 
 if __name__ == "__main__":

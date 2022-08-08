@@ -155,8 +155,12 @@ async def handle_authz_claims(
     loaders: Dataloaders = get_new_context()
     user_info = await token_utils.get_jwt_content(request)
     email = user_info["user_email"]
-    if params.subject.endswith("_30") or params.subject.endswith("_90"):
-        subject = params.subject[:-3]
+    valid_filters = [30, 60, 90, 180]
+    if any(
+        params.subject.endswith(f"_{valid_filter}")
+        for valid_filter in valid_filters
+    ):
+        subject = params.subject.rsplit("_", 1)[0]
     else:
         subject = params.subject
 
