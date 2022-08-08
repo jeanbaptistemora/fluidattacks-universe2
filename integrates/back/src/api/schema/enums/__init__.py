@@ -199,7 +199,6 @@ ENUMS: Tuple[EnumType, ...] = (
         {
             "CUSTOMER": "CUSTOMER",
             "CUSTOMER_MANAGER": "CUSTOMER_MANAGER",
-            "CUSTOMERADMIN": "CUSTOMERADMIN",
             "USER": "USER",
             "USER_MANAGER": "USER_MANAGER",
         },
@@ -223,7 +222,6 @@ ENUMS: Tuple[EnumType, ...] = (
             "ARCHITECT": "architect",
             "CUSTOMER": "customer",
             "CUSTOMER_MANAGER": "customer_manager",
-            "CUSTOMERADMIN": "customeradmin",
             "HACKER": "hacker",
             "REATTACKER": "reattacker",
             "RESOURCER": "resourcer",
