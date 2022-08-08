@@ -45,25 +45,25 @@ def format_availability_percentages(
 ) -> tuple[dict[str, str], ...]:
     if not values:
         max_percentage_values = {
-            "Non available": "",
+            "Unavailable": "",
             "Available": "",
         }
         percentage_values = {
-            "Non available": "0.0",
+            "Unavailable": "0.0",
             "Available": "0.0",
         }
 
         return (percentage_values, max_percentage_values)
 
-    total_bar: Decimal = values["Non available"] + values["Available"]
+    total_bar: Decimal = values["Unavailable"] + values["Available"]
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
     raw_percentages: list[Decimal] = [
-        values["Non available"] / total_bar,
+        values["Unavailable"] / total_bar,
         values["Available"] / total_bar,
     ]
     percentages: list[Decimal] = get_percentage(raw_percentages)
     max_percentage_values = {
-        "Non available": str(percentages[0])
+        "Unavailable": str(percentages[0])
         if percentages[0] >= MIN_PERCENTAGE
         else "",
         "Available": str(percentages[1])
@@ -71,7 +71,7 @@ def format_availability_percentages(
         else "",
     }
     percentage_values = {
-        "Non available": str(percentages[0]),
+        "Unavailable": str(percentages[0]),
         "Available": str(percentages[1]),
     }
 
@@ -87,7 +87,7 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
     percentage_values = [
         format_availability_percentages(
             values={
-                "Non available": Decimal(group.non_available),
+                "Unavailable": Decimal(group.non_available),
                 "Available": Decimal(group.available),
             }
         )
@@ -97,20 +97,20 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
     return dict(
         data=dict(
             columns=[
-                ["Non available"]
+                ["Unavailable"]
                 + [str(group.non_available) for group in sorted_data],
                 ["Available"]
                 + [str(group.available) for group in sorted_data],
             ],
             colors={
                 "Available": RISK.agressive,
-                "Non available": RISK.passive,
+                "Unavailable": RISK.passive,
             },
-            labels=dict(format={"Non available": None}),
+            labels=dict(format={"Unavailable": None}),
             type="bar",
             groups=[
                 [
-                    "Non available",
+                    "Unavailable",
                     "Available",
                 ],
             ],
@@ -145,8 +145,8 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
             ),
         ),
         percentageValues={
-            "Non available": [
-                percentage_value[0]["Non available"]
+            "Unavailable": [
+                percentage_value[0]["Unavailable"]
                 for percentage_value in percentage_values
             ],
             "Available": [
@@ -155,8 +155,8 @@ def format_data(*, data: tuple[EventsAvailability, ...]) -> dict[str, Any]:
             ],
         },
         maxPercentageValues={
-            "Non available": [
-                percentage_value[1]["Non available"]
+            "Unavailable": [
+                percentage_value[1]["Unavailable"]
                 for percentage_value in percentage_values
             ],
             "Available": [
