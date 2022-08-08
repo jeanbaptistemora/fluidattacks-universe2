@@ -1325,15 +1325,6 @@ body {
   width: 18.125rem;
 }
 
-.demo-button {
-  &:hover {
-    p {
-      margin-left: -0.5rem;
-      padding-right: 1rem;
-    }
-  }
-}
-
 .slide-show::-webkit-scrollbar {
   width: 12px;
 }
@@ -1346,22 +1337,6 @@ body {
   color: $fluid-black;
   padding-bottom: 0.2rem;
   transition: 0.25s;
-}
-
-.all:checked~.all-tag {
-  @include menu-font;
-}
-
-.ebook:checked~.ebook-tag {
-  @include menu-font;
-}
-
-.report:checked~.report-tag {
-  @include menu-font;
-}
-
-.webinar:checked~.webinar-tag {
-  @include menu-font;
 }
 
 .all-clients:checked~.tag-all {
@@ -1413,40 +1388,6 @@ body {
 }
 
 // Solutions Desktop Grid
-.card-parent {
-  height: 170px;
-  width: 208px;
-}
-
-.card-child::before {
-  background-color: #34495e;
-  content: '';
-  display: none;
-  height: 100%;
-  left: 0;
-  opacity: 0.3;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.card-parent:hover .card-child,
-.card-parent:focus .card-child {
-  transform: scale(1.05);
-}
-
-.card-link { display: none; }
-
-.card-parent:hover .card-child::before,
-.card-parent:focus .card-child::before {
-  display: block;
-}
-
-.card-parent:hover .card-link,
-.card-parent:focus .card-link {
-  display: block;
-}
-
 .button-white {
   background-color: transparent;
   border: solid 2px;
