@@ -1,6 +1,9 @@
 from . import (
     _splitter,
 )
+from ._parallel import (
+    in_threads,
+)
 from ._splitter import (
     GroupedRecords,
 )
@@ -17,6 +20,9 @@ from fa_purity.cmd.transform import (
 )
 from fa_purity.json.factory import (
     loads,
+)
+from fa_purity.pure_iter import (
+    factory as PureIterFactory,
 )
 from fa_singer_io.singer import (
     SingerRecord,
@@ -87,8 +93,11 @@ def main(bucket: str, prefix: str, data: Stream[str]) -> Cmd[None] | NoReturn:
     )
     return uploader.bind(
         lambda u: _splitter.group_records(singer).bind(
-            lambda t: serial_merge(
-                tuple(_process_group(u, t[0], g) for g in t[1])
+            lambda t: in_threads(
+                PureIterFactory.from_flist(
+                    tuple(_process_group(u, t[0], g) for g in t[1])
+                ),
+                100,
             ).map(lambda _: None)
         )
     )

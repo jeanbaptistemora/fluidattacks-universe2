@@ -21,6 +21,7 @@
     grimp
     mypy
     pytest
+    pytest-timeout
   ];
   pkg = (import ./build.nix) {
     inherit lib src metadata runtime_deps build_deps test_deps;

@@ -16,6 +16,7 @@ _DAG: Dict[str, FrozenList[str]] = {
         "core",
         "in_buffer",
         "_utils",
+        "_parallel",
     ),
     "target_s3.core": (
         "_record_group",

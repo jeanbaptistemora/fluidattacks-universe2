@@ -55,7 +55,7 @@ def group_records(
             elif isinstance(s, SingerRecord):
                 if files.get(s.stream) is None:
                     files[s.stream] = NamedTemporaryFile(
-                        "w", delete=False
+                        "w+", delete=False
                     )  # implicit cmd
                 act.unwrap(emit(files[s.stream], s))
         groups = tuple(
