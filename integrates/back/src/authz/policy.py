@@ -1,10 +1,10 @@
-from .model import (
+from aioextensions import (
+    collect,
+)
+from authz.model import (
     get_group_level_roles_model,
     get_organization_level_roles_model,
     get_user_level_roles_model,
-)
-from aioextensions import (
-    collect,
 )
 from boto3.dynamodb.conditions import (
     Key,
@@ -16,6 +16,14 @@ import contextlib
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
+from db_model import (
+    group_access as group_access_model,
+    organization_access as organization_access_model,
+    stakeholders as stakeholders_model,
+)
+from db_model.group_access.types import (
+    GroupAccessMetadataToUpdate,
+)
 from db_model.groups.enums import (
     GroupService,
     GroupStateStatus,
@@ -23,6 +31,12 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
+)
+from db_model.organization_access.types import (
+    OrganizationAccessMetadataToUpdate,
+)
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
 )
 from dynamodb import (
     operations_legacy as dynamodb_ops,
@@ -55,7 +69,6 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 AUTHZ_TABLE: str = "fi_authz"
-GROUPS_TABLE: str = "FI_projects"
 LOGGER = logging.getLogger(__name__)
 
 
@@ -310,6 +323,11 @@ async def grant_group_level_role(
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
+    await group_access_model.update_metadata(
+        email=email,
+        group_name=group_name,
+        metadata=GroupAccessMetadataToUpdate(role=role),
+    )
     policy = SubjectPolicy(
         level="group",
         subject=email,
@@ -331,15 +349,20 @@ async def grant_group_level_role(
 
 
 async def grant_organization_level_role(
-    email: str, organization: str, role: str
+    email: str, organization_id: str, role: str
 ) -> bool:
     if role not in get_organization_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
+    await organization_access_model.update_metadata(
+        email=email,
+        organization_id=organization_id,
+        metadata=OrganizationAccessMetadataToUpdate(role=role),
+    )
     policy = SubjectPolicy(
         level="organization",
         subject=email,
-        object=organization,
+        object=organization_id,
         role=role,
     )
     success: bool = False
@@ -360,6 +383,10 @@ async def grant_user_level_role(email: str, role: str) -> bool:
     if role not in get_user_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
+    await stakeholders_model.update_metadata(
+        email=email,
+        metadata=StakeholderMetadataToUpdate(role=role),
+    )
     policy = SubjectPolicy(
         level="user",
         subject=email,

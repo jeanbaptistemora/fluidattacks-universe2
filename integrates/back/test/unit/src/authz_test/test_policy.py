@@ -86,6 +86,7 @@ async def test_get_user_level_role() -> None:
     assert not await get_user_level_role("asdfasdfasdfasdf@gmail.com")
 
 
+@pytest.mark.changes_db
 async def test_grant_user_level_role() -> None:
     assert await grant_user_level_role("..TEST@gmail.com", "user")
     assert await get_user_level_role("..test@gmail.com") == "user"
@@ -98,6 +99,7 @@ async def test_grant_user_level_role() -> None:
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
+@pytest.mark.changes_db
 async def test_grant_group_level_role() -> None:
     assert await grant_group_level_role("..TEST2@gmail.com", "group", "user")
     assert await get_user_level_role("..test2@gmail.com") == "user"
@@ -109,6 +111,7 @@ async def test_grant_group_level_role() -> None:
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
+@pytest.mark.changes_db
 async def test_revoke_group_level_role() -> None:
     assert await grant_group_level_role(
         "revoke_group_LEVEL_role@gmail.com", "group", "user"
@@ -160,6 +163,7 @@ async def test_revoke_group_level_role() -> None:
     )
 
 
+@pytest.mark.changes_db
 async def test_revoke_user_level_role() -> None:
     assert await grant_user_level_role(
         "revoke_user_LEVEL_role@gmail.com", "user"

@@ -16,6 +16,7 @@ pytestmark = [
 ]
 
 
+@pytest.mark.changes_db
 async def test_group_level_enforcer() -> None:
     test_cases = {
         # Common user, group
@@ -46,6 +47,7 @@ async def test_group_level_enforcer() -> None:
                     ), f"{role} should not be able to do {action}"
 
 
+@pytest.mark.changes_db
 async def test_user_level_enforcer() -> None:
     test_cases = {
         # Common user, object_
