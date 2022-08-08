@@ -12,6 +12,9 @@ from custom_exceptions import (
 from db_model import (
     findings as findings_model,
 )
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -114,14 +117,12 @@ def validate_draft_inputs(*, kwargs: List[str]) -> None:
 
 
 async def add_draft(
-    context: Any,
     group_name: str,
     user_email: str,
     draft_info: FindingDraftToAdd,
+    source: Source,
 ) -> Finding:
     await findings_utils.is_valid_finding_title(draft_info.title)
-    if not operation_can_be_executed(context, draft_info.title):
-        raise MachineCanNotOperate()
 
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())
@@ -135,7 +136,7 @@ async def add_draft(
         state=FindingState(
             modified_by=user_email,
             modified_date=datetime_utils.get_iso_date(),
-            source=requests_utils.get_source_new(context),
+            source=source,
             status=FindingStateStatus.CREATED,
         ),
         recommendation=draft_info.recommendation,

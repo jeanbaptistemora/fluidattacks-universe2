@@ -6,6 +6,7 @@ from ariadne.utils import (
 )
 from custom_exceptions import (
     HasRejectedDrafts,
+    MachineCanNotOperate,
 )
 from custom_types import (
     AddDraftPayload,
@@ -44,8 +45,12 @@ from findings.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from machine.availability import (
+    operation_can_be_executed,
+)
 from newutils import (
     logs as logs_utils,
+    requests as requests_utils,
     token as token_utils,
     validations,
 )
@@ -158,8 +163,14 @@ async def mutate(
             threat=kwargs.get("threat", ""),
             title=title,
         )
+        if not operation_can_be_executed(info.context, draft_info.title):
+            raise MachineCanNotOperate()
+
         draft = await findings_domain.add_draft(
-            info.context, group_name, user_email, draft_info
+            group_name,
+            user_email,
+            draft_info,
+            source=requests_utils.get_source_new(info.context),
         )
         logs_utils.cloudwatch_log(
             info.context,
