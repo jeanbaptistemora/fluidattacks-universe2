@@ -575,6 +575,64 @@
       "management:type" = "product";
     };
   };
+  integrates_charts_documents = rec {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/charts/documents"
+      "prod"
+      (toString parallel)
+      "batch"
+    ];
+
+    schedule_expression = "cron(5 0,4,8,11,14,18,21 ? * 2-6 *)";
+    size = "small";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 10800;
+    parallel = 30;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_charts_documents";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
+  integrates_charts_snapshots = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/integrates/charts/snapshots"
+      "prod"
+    ];
+
+    schedule_expression = "cron(45 0,4,8 * * 2-6 *)";
+    size = "small";
+    awsRole = "prod_integrates";
+    attempts = 1;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "integrates_charts_snapshots";
+      "management:area" = "cost";
+      "management:product" = "integrates";
+      "management:type" = "product";
+    };
+  };
   integrates_review_machine_executions = {
     enabled = false;
     command = [
