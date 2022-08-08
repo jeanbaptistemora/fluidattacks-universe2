@@ -591,7 +591,7 @@
     awsRole = "prod_integrates";
     attempts = 1;
     timeout = 10800;
-    parallel = 30;
+    parallel = 20;
 
     environment = [
       "CACHIX_AUTH_TOKEN"
