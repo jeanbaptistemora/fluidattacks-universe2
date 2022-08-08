@@ -2,7 +2,6 @@
 
 alias tap-dynamo="observes-singer-tap-dynamo-bin"
 alias tap-json="observes-singer-tap-json-bin"
-alias target-redshift="observes-target-redshift"
 
 function get_schemas {
   local use_cache="${1}"
@@ -60,13 +59,19 @@ function dynamodb_etl {
       --total "${total_segments}" \
       > "${data}" \
     && get_schemas "yes" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
-    && cat "${singer_file}" > .singer \
-    && target-redshift \
-      --auth "${db_creds}" \
-      --schema-name "${schema}_part_${AWS_BATCH_JOB_ARRAY_INDEX}" \
-      --drop-schema \
-      --no-vacuum \
-      < .singer
+    && echo "[INFO] Singer file at ${singer_file}" \
+    && echo '[INFO] Running target-s3' \
+    && target-s3 \
+      --bucket 'observes.etl-data' \
+      --prefix "dynamodb/part_${AWS_BATCH_JOB_ARRAY_INDEX}/" \
+      < "${singer_file}" \
+    && echo '[INFO] Running target-redshift' \
+    && target-redshift from-s3 \
+      --schema-name "${schema}" \
+      --bucket 'observes.etl-data' \
+      --prefix "dynamodb/part_${AWS_BATCH_JOB_ARRAY_INDEX}/" \
+      --role 'arn:aws:iam::205810638802:role/redshift-role' \
+      < "${singer_file}"
 }
 
 dynamodb_etl "${@}"

@@ -9,9 +9,10 @@ makeScript {
     bin = [
       outputs."${inputs.observesIndex.tap.dynamo.bin}"
       outputs."${inputs.observesIndex.tap.json.bin}"
-      outputs."${inputs.observesIndex.target.redshift.bin}"
+      outputs."${inputs.observesIndex.target.s3.bin}"
     ];
     source = [
+      outputs."${inputs.observesIndex.target.redshift_2.bin}"
       outputs."${inputs.observesIndex.service.job_last_success.bin}"
       outputs."/common/utils/aws"
       outputs."/observes/common/db-creds"
