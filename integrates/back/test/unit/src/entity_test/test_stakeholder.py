@@ -91,7 +91,7 @@ async def test_add_stakeholder() -> None:
         mutation {
             addStakeholder(
                 email: "test@test.com",
-                role: CUSTOMER
+                role: USER
             ) {
                 success
                 email
@@ -116,7 +116,7 @@ async def test_grant_stakeholder_access_1() -> None:
             email: "test@test.test"
             groupName: "unittesting"
             responsibility: "test"
-            role: CUSTOMER) {
+            role: USER) {
             success
             grantedStakeholder {
                 email
@@ -267,7 +267,7 @@ async def test_edit_stakeholder() -> None:
             email: "integratesuser2@gmail.com"
             groupName: "unittesting"
             responsibility: "edited"
-            role: CUSTOMER) {
+            role: USER) {
                 success
             }
         }
