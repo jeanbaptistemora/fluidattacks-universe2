@@ -2,6 +2,7 @@ import type {
   Cell,
   Column,
   ColumnDef,
+  InitialTableState,
   Row,
   Table,
 } from "@tanstack/react-table";
@@ -22,6 +23,7 @@ interface IPagMenuProps<TData> {
 
 interface ITableProps<TData> {
   id: string;
+  initialState?: InitialTableState;
   data: TData[];
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;

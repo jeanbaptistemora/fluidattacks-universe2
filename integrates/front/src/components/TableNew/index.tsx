@@ -35,6 +35,7 @@ export const Tables = <TData extends object>(
     id,
     data,
     columns,
+    initialState = undefined,
     columnToggle = false,
     expandedRow = undefined,
     exportCsv = false,
@@ -46,11 +47,19 @@ export const Tables = <TData extends object>(
     showPagination = data.length >= 8,
   } = props;
 
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [expanded, setExpanded] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
+  const [columnVisibility, setColumnVisibility] = useState(
+    initialState?.columnVisibility ?? {}
+  );
+  const [sorting, setSorting] = useState<SortingState>(
+    initialState?.sorting ?? []
+  );
+  const [globalFilter, setGlobalFilter] = useState(
+    initialState?.globalFilter ?? ""
+  );
+  const [expanded, setExpanded] = useState(initialState?.expanded ?? {});
+  const [rowSelection, setRowSelection] = useState(
+    initialState?.rowSelection ?? {}
+  );
   const { t } = useTranslation();
 
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
