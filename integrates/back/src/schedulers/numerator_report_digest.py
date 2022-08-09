@@ -25,7 +25,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingState,
     FindingVerification,
 )
 from db_model.groups.types import (
@@ -41,7 +40,6 @@ from db_model.toe_lines.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from group_access import (
     domain as group_access_domain,
@@ -208,23 +206,17 @@ async def _draft_content(
     LOGGER.info("- draft report generated in group %s", group)
 
 
-async def _finding_content(
+async def _finding_reattacked(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
+    finding_id: str,
     group: str,
     date_range: int,
     content: Dict[str, Any],
     users_email: List[str],
 ) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-    finding_ids = tuple(finding.id for finding in findings)
     historic_verification: Tuple[
         FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load_many_chained(
-        finding_ids
-    )
-    historic_state: Tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load_many_chained(finding_ids)
+    ] = await loaders.finding_historic_verification.load(finding_id)
 
     for verification in historic_verification:
         if (
@@ -244,33 +236,61 @@ async def _finding_content(
                 allowed_users=users_email,
             )
 
+
+async def _finding_vulns_released(  # pylint: disable=too-many-arguments
+    loaders: Dataloaders,
+    finding: Finding,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
+) -> None:
+    if finding.state.status != FindingStateStatus.APPROVED:
+        return None
+
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
-        list(finding_ids)
-    )
+    ] = await loaders.finding_vulnerabilities.load(finding.id)
 
-    vuln_historic_states: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load_many_chained(
-        [vulnerability.id for vulnerability in vulnerabilities]
-    )
+    for vuln in vulnerabilities:
+        _generate_count_report(
+            content=content,
+            date_range=date_range,
+            date_report=datetime_utils.get_datetime_from_iso_str(
+                finding.state.modified_date
+            ),
+            field="released",
+            group=group,
+            user_email=vuln.hacker_email,
+            allowed_users=users_email,
+        )
 
-    for finding_state in historic_state:
-        if finding_state.status == FindingStateStatus.APPROVED:
-            for vuln in vuln_historic_states:
-                if finding_state.modified_date == vuln.modified_date:
-                    _generate_count_report(
-                        content=content,
-                        date_range=date_range,
-                        date_report=datetime_utils.get_datetime_from_iso_str(
-                            finding_state.modified_date
-                        ),
-                        field="released",
-                        group=group,
-                        user_email=vuln.modified_by,
-                        allowed_users=users_email,
-                    )
+
+async def _finding_content(
+    loaders: Dataloaders,
+    group: str,
+    date_range: int,
+    content: Dict[str, Any],
+    users_email: List[str],
+) -> None:
+    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
+
+    for finding in findings:
+        await collect(
+            [
+                _finding_reattacked(
+                    loaders,
+                    finding.id,
+                    group,
+                    date_range,
+                    content,
+                    users_email,
+                ),
+                _finding_vulns_released(
+                    loaders, finding, group, date_range, content, users_email
+                ),
+            ]
+        )
 
     LOGGER.info("- finding report generated in group %s", group)
 
