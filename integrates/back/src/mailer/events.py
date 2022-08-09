@@ -134,10 +134,24 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
 
     event_type_format = {
         "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
-        "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
-        "OTHER": "Other",
-        "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
+        "CLIENT_CANCELS_PROJECT_MILESTONE": (
+            "The client cancels a project milestone"
+        ),
+        "CLIENT_EXPLICITLY_SUSPENDS_PROJECT": (
+            "The client suspends the project"
+        ),
+        "CLONING_ISSUES": "Repository cloning issues",
+        "CREDENTIAL_ISSUES": "Repository credentials issues",
         "DATA_UPDATE_REQUIRED": "Request user modification/workflow update",
+        "ENVIRONMENT_ISSUES": "Environment issues",
+        "INSTALLER_ISSUES": "Installer issues",
+        "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
+        "MISSING_SUPPLIES": "Missing supplies",
+        "NETWORK_ACCESS_ISSUES": "Network access issues",
+        "OTHER": "Other",
+        "REMOTE_ACCESS_ISSUES": "Remote access issues",
+        "TOE_DIFFERS_APPROVED": "ToE different than agreed upon",
+        "VPN_ISSUES": "VPN issues",
     }
 
     root = await loaders.root.load((group_name, root_id)) if root_id else None
