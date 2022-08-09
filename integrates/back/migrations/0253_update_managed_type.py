@@ -11,9 +11,16 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    TABLE,
+)
 from db_model.groups.types import (
     Group,
     GroupState,
+)
+from dynamodb import (
+    keys,
+    operations,
 )
 from enum import (
     Enum,
@@ -32,6 +39,7 @@ from organizations.domain import (
 from settings import (
     LOGGING,
 )
+import simplejson as json  # type: ignore
 import time
 
 logging.config.dictConfig(LOGGING)
@@ -47,13 +55,72 @@ class GroupManaged(str, Enum):
     TRIAL: str = "TRIAL"
 
 
+async def process_historic_state(
+    group_name: str,
+    state: GroupState,
+) -> None:
+    key_structure = TABLE.primary_key
+    state_item = json.loads(json.dumps(state))
+    state_item = {
+        key: None if not value and value is not False else value
+        for key, value in state_item.items()
+        if value is not None
+    }
+    historic_state_key = keys.build_key(
+        facet=TABLE.facets["group_historic_state"],
+        values={
+            "name": group_name,
+            "iso8601utc": state.modified_date,
+        },
+    )
+    historic_item = {
+        key_structure.partition_key: historic_state_key.partition_key,
+        key_structure.sort_key: historic_state_key.sort_key,
+        **state_item,
+    }
+    await operations.put_item(
+        facet=TABLE.facets["group_historic_state"],
+        item=historic_item,
+        table=TABLE,
+    )
+
+
 async def process_group(
     loaders: Dataloaders,
     group_name: str,
     progress: float,
 ) -> None:
-    group: Group = await loaders.group.load(group_name)
+    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
+        group_name
+    )
 
+    await collect(
+        tuple(
+            process_historic_state(
+                group_name=group_name,
+                state=GroupState(
+                    comments=state.comments,
+                    modified_date=state.modified_date,
+                    has_machine=state.has_machine,
+                    has_squad=state.has_squad,
+                    managed=GroupManaged("MANAGED")
+                    if state.managed is True
+                    else GroupManaged("NOT_MANAGED"),
+                    justification=state.justification,
+                    modified_by=state.modified_by,
+                    payment_id=state.payment_id,
+                    service=state.service,
+                    status=state.status,
+                    tier=state.tier,
+                    type=state.type,
+                ),
+            )
+            for state in historic
+        ),
+        workers=2,
+    )
+
+    group: Group = await loaders.group.load(group_name)
     await groups_domain.update_state(
         group_name=group_name,
         organization_id=group.organization_id,
