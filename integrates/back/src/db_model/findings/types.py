@@ -1,4 +1,5 @@
 from .enums import (
+    DraftRejectionReason,
     FindingSorts,
     FindingStateStatus,
     FindingStatus,
@@ -18,11 +19,20 @@ from typing import (
 )
 
 
+class DraftRejection(NamedTuple):
+    other: str
+    reason: DraftRejectionReason
+    rejected_by: str
+    rejection_date: str
+    submitted_by: str
+
+
 class FindingState(NamedTuple):
     modified_by: str
     modified_date: str
     source: Source
     status: FindingStateStatus
+    rejection: Optional[DraftRejection] = None
     justification: StateRemovalJustification = (
         StateRemovalJustification.NO_JUSTIFICATION
     )

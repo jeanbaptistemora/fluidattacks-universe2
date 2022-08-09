@@ -3,6 +3,16 @@ from enum import (
 )
 
 
+class DraftRejectionReason(Enum):
+    CONSISTENCY: str = "CONSISTENCY"
+    EVIDENCE: str = "EVIDENCE"
+    NAMING: str = "NAMING"
+    OMISSION: str = "OMISSION"
+    OTHER: str = "OTHER"
+    SCORING: str = "SCORING"
+    WRITING: str = "WRITING"
+
+
 class FindingCvssVersion(Enum):
     V31: str = "3.1"
     V20: str = "2.0"

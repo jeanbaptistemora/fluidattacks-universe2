@@ -1,4 +1,5 @@
 from .enums import (
+    DraftRejectionReason,
     FindingCvssVersion,
     FindingSorts,
     FindingStateStatus,
@@ -6,6 +7,7 @@ from .enums import (
     FindingVerificationStatus,
 )
 from .types import (
+    DraftRejection,
     Finding,
     Finding20Severity,
     Finding31Severity,
@@ -147,6 +149,7 @@ def format_state_item(state: FindingState) -> Item:
         "justification": state.justification.value,
         "modified_by": state.modified_by,
         "modified_date": state.modified_date,
+        "rejection": state.rejection,
         "source": state.source.value,
         "status": state.status.value,
     }
@@ -294,3 +297,23 @@ def format_optional_verification(
     if verification_item is not None:
         verification = format_verification(verification_item)
     return verification
+
+
+def format_rejection(rejection_item: Item) -> DraftRejection:
+    return DraftRejection(
+        other=rejection_item["other"],
+        reason=DraftRejectionReason[rejection_item["reason"]],
+        rejected_by=rejection_item["rejected_by"],
+        rejection_date=rejection_item["rejection_date"],
+        submitted_by=rejection_item["submitted_by"],
+    )
+
+
+def format_rejection_item(rejection: DraftRejection) -> Item:
+    return {
+        "other": rejection.other,
+        "reason": rejection.reason.value,
+        "rejected_by": rejection.rejected_by,
+        "rejection_date": rejection.rejection_date,
+        "submitted_by": rejection.submitted_by,
+    }
