@@ -40,13 +40,14 @@ async def resolve(
     draft_ids = tuple(
         draft.id for draft in await loaders.group_drafts.load(parent.name)
     )
+    vulnerabilities = tuple(format_vulnerability(result) for result in results)
     edges = tuple(
         VulnerabilityEdge(
             cursor="",
-            node=format_vulnerability(result),
+            node=vulnerability,
         )
-        for result in results
-        if result["finding_id"] not in draft_ids
+        for vulnerability in vulnerabilities
+        if vulnerability.finding_id not in draft_ids
     )
 
     return VulnerabilitiesConnection(
