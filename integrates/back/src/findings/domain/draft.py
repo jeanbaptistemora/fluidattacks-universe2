@@ -16,9 +16,11 @@ from db_model.enums import (
     Source,
 )
 from db_model.findings.enums import (
+    DraftRejectionReason,
     FindingStateStatus,
 )
 from db_model.findings.types import (
+    DraftRejection,
     Finding,
     FindingState,
 )
@@ -49,6 +51,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Optional,
 )
 import uuid
 from vulnerabilities import (
@@ -149,7 +152,13 @@ async def add_draft(
     return draft
 
 
-async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
+async def reject_draft(
+    context: Any,
+    finding_id: str,
+    reason: DraftRejectionReason,
+    other: Optional[str],
+    reviewer_email: str,
+) -> None:
     finding_loader = context.loaders.finding
     finding: Finding = await finding_loader.load(finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
@@ -157,10 +166,21 @@ async def reject_draft(context: Any, finding_id: str, user_email: str) -> None:
 
     if finding.state.status != FindingStateStatus.SUBMITTED:
         raise NotSubmitted()
+    if reason == DraftRejectionReason.OTHER and not other:
+        raise IncompleteDraft(fields=["reason"])
+
+    rejection = DraftRejection(
+        other=other if other else "",
+        reason=reason,
+        rejected_by=reviewer_email,
+        rejection_date=datetime_utils.get_iso_date(),
+        submitted_by=finding.state.modified_by,
+    )
 
     new_state = FindingState(
-        modified_by=user_email,
+        modified_by=reviewer_email,
         modified_date=datetime_utils.get_iso_date(),
+        rejection=rejection,
         source=requests_utils.get_source_new(context),
         status=FindingStateStatus.REJECTED,
     )

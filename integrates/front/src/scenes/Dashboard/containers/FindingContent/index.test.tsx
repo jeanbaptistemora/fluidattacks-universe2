@@ -617,6 +617,7 @@ describe("FindingContent", (): void => {
         query: REJECT_DRAFT_MUTATION,
         variables: {
           findingId: "438679960",
+          reason: "SCORING",
         },
       },
       result: {
@@ -682,6 +683,7 @@ describe("FindingContent", (): void => {
         query: REJECT_DRAFT_MUTATION,
         variables: {
           findingId: "438679960",
+          reason: "WRITING",
         },
       },
       result: {

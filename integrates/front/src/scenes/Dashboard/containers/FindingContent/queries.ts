@@ -34,8 +34,12 @@ const APPROVE_DRAFT_MUTATION: DocumentNode = gql`
 `;
 
 const REJECT_DRAFT_MUTATION: DocumentNode = gql`
-  mutation RejectDraftMutation($findingId: String!) {
-    rejectDraft(findingId: $findingId) {
+  mutation RejectDraftMutation(
+    $findingId: String!
+    $reason: DraftRejectionReason!
+    $other: String
+  ) {
+    rejectDraft(findingId: $findingId, reason: $reason, other: $other) {
       success
     }
   }

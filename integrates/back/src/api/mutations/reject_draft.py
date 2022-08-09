@@ -14,6 +14,9 @@ from db_model.enums import (
     Notification,
     Source,
 )
+from db_model.findings.enums import (
+    DraftRejectionReason,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -45,6 +48,9 @@ from newutils import (
 from redis_cluster.operations import (
     redis_del_by_deps_soon,
 )
+from typing import (
+    Optional,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -56,14 +62,25 @@ from redis_cluster.operations import (
     require_finding_access,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, finding_id: str
+    _parent: None,
+    info: GraphQLResolveInfo,
+    finding_id: str,
+    reason: str,
+    other: Optional[str] = None,
 ) -> SimplePayload:
     try:
+        # Graphql returns optional string args as "None" instead of None
+        other_reason: Optional[str] = other if other != str(None) else None
+
         finding_loader = info.context.loaders.finding
         user_info = await token_utils.get_jwt_content(info.context)
         reviewer_email = user_info["user_email"]
         await findings_domain.reject_draft(
-            info.context, finding_id, reviewer_email
+            context=info.context,
+            finding_id=finding_id,
+            reason=DraftRejectionReason[reason],
+            other=other_reason,
+            reviewer_email=reviewer_email,
         )
         redis_del_by_deps_soon(
             "reject_draft",

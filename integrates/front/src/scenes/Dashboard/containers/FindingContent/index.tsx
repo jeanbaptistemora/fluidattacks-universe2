@@ -158,7 +158,8 @@ const FindingContent: React.FC = (): JSX.Element => {
           }
         });
       },
-      variables: { findingId },
+      // Temporary dummy value for reason while the proper selection is added
+      variables: { findingId, reason: "WRITING" },
     }
   );
 

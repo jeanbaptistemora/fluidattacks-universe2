@@ -8,6 +8,7 @@ from dataloaders import (
 from typing import (
     Any,
     Dict,
+    Optional,
 )
 
 
@@ -15,11 +16,15 @@ async def get_result(
     *,
     user: str,
     finding_id: str,
+    reason: str,
+    other: Optional[str] = None,
 ) -> Dict[str, Any]:
     query: str = f"""
         mutation {{
             rejectDraft(
                 findingId: "{finding_id}"
+                other: "{other}"
+                reason: {reason}
             ) {{
                 success
             }}

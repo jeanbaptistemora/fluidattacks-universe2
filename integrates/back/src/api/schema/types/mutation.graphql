@@ -567,8 +567,10 @@ type Mutation {
   rejectDraft(
     "Identifier of the draft Finding to be rejected"
     findingId: String!
+    "Custom reason provided"
+    other: String
     "Rejection reason"
-    reason: DraftRejectionReason
+    reason: DraftRejectionReason!
   ): SimplePayload!
 
   "Rejects the provided vulnerabilities from being considered as zero risk"
