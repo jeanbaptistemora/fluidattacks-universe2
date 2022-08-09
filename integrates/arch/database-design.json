@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 09, 2022, 09:39 PM",
+    "DateLastModified": "Aug 09, 2022, 11:02 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -938,6 +938,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "user"
+              },
               "last_name": {
                 "S": "User"
               },
@@ -1051,6 +1054,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "user"
+              },
               "last_name": {
                 "S": ""
               },
@@ -1115,6 +1121,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "user"
               },
               "last_name": {
                 "S": "Customer"
@@ -1266,6 +1275,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "admin"
+              },
               "last_name": {
                 "S": "Manager"
               },
@@ -1392,6 +1404,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "hacker"
+              },
               "last_name": {
                 "S": "Reattacker"
               },
@@ -1450,6 +1465,9 @@
               "is_registered": {
                 "BOOL": false
               },
+              "role": {
+                "S": "user"
+              },
               "last_name": {
                 "S": "Manager"
               },
@@ -1507,6 +1525,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "admin"
               },
               "last_name": {
                 "S": "Manager"
@@ -1634,6 +1655,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "hacker"
+              },
               "last_name": {
                 "S": "Hacker2"
               },
@@ -1692,6 +1716,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "hacker"
+              },
               "last_name": {
                 "S": "Reviewer"
               },
@@ -1749,6 +1776,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "hacker"
               },
               "last_name": {
                 "S": "Hacking"
@@ -1874,64 +1904,6 @@
                 "BOOL": false
               },
               "is_registered": {
-                "BOOL": true
-              },
-              "last_name": {
-                "S": "Service Forces"
-              },
-              "last_login_date": {
-                "S": "2019-10-29T18:40:37+00:00"
-              },
-              "tours": {
-                "M": {
-                  "new_group": {
-                    "BOOL": false
-                  },
-                  "new_root": {
-                    "BOOL": false
-                  }
-                }
-              },
-              "legal_remember": {
-                "BOOL": true
-              },
-              "registration_date": {
-                "S": "2018-02-28T16:54:12+00:00"
-              },
-              "sk": {
-                "S": "USER#integratesserviceforces@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "USER#all"
-              },
-              "pk": {
-                "S": "USER#integratesserviceforces@fluidattacks.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
-              "first_name": {
-                "S": "Integrates"
-              },
-              "email": {
-                "S": "integratesserviceforces@fluidattacks.com"
-              },
-              "sk_2": {
-                "S": "USER#integratesserviceforces@fluidattacks.com"
-              }
-            },
-            {
-              "is_concurrent_session": {
-                "BOOL": false
-              },
-              "is_registered": {
                 "BOOL": false
               },
               "last_name": {
@@ -1991,6 +1963,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "hacker"
               },
               "last_name": {
                 "S": "Owner"
@@ -2105,6 +2080,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "admin"
+              },
               "last_name": {
                 "S": "Manager"
               },
@@ -2162,6 +2140,70 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "user"
+              },
+              "last_name": {
+                "S": "Service Forces"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#integratesserviceforces@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#integratesserviceforces@fluidattacks.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "integratesserviceforces@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#integratesserviceforces@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "role": {
+                "S": "hacker"
               },
               "last_name": {
                 "S": "Resourcer"
@@ -2254,6 +2296,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "hacker"
               },
               "last_name": {
                 "S": "Manager"
@@ -2368,6 +2413,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "user"
+              },
               "last_name": {
                 "S": "Internal Manager"
               },
@@ -2426,63 +2474,8 @@
               "is_registered": {
                 "BOOL": true
               },
-              "last_name": {
-                "S": "Internal Manager"
-              },
-              "last_login_date": {
-                "S": "2019-10-29T18:40:37+00:00"
-              },
-              "tours": {
-                "M": {
-                  "new_group": {
-                    "BOOL": false
-                  },
-                  "new_root": {
-                    "BOOL": false
-                  }
-                }
-              },
-              "legal_remember": {
-                "BOOL": true
-              },
-              "registration_date": {
-                "S": "2018-02-28T16:54:12+00:00"
-              },
-              "sk": {
-                "S": "USER#org_testuser3@gmail.com"
-              },
-              "pk_2": {
-                "S": "USER#all"
-              },
-              "pk": {
-                "S": "USER#org_testuser3@gmail.com"
-              },
-              "notifications_preferences": {
-                "M": {
-                  "sms": {
-                    "L": []
-                  },
-                  "email": {
-                    "L": []
-                  }
-                }
-              },
-              "first_name": {
-                "S": "Integrates"
-              },
-              "email": {
-                "S": "org_testuser3@gmail.com"
-              },
-              "sk_2": {
-                "S": "USER#org_testuser3@gmail.com"
-              }
-            },
-            {
-              "is_concurrent_session": {
-                "BOOL": false
-              },
-              "is_registered": {
-                "BOOL": true
+              "role": {
+                "S": "hacker"
               },
               "last_name": {
                 "S": "Hacker"
@@ -2554,6 +2547,9 @@
               },
               "is_registered": {
                 "BOOL": true
+              },
+              "role": {
+                "S": "user"
               },
               "last_name": {
                 "S": "Hacking"
@@ -2736,6 +2732,9 @@
               "is_registered": {
                 "BOOL": true
               },
+              "role": {
+                "S": "admin"
+              },
               "last_name": {
                 "S": ""
               },
@@ -2850,6 +2849,67 @@
                 "BOOL": true
               },
               "last_name": {
+                "S": "Internal Manager"
+              },
+              "last_login_date": {
+                "S": "2019-10-29T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "notifications_preferences": {
+                "M": {
+                  "sms": {
+                    "L": []
+                  },
+                  "email": {
+                    "L": []
+                  }
+                }
+              },
+              "first_name": {
+                "S": "Integrates"
+              },
+              "email": {
+                "S": "org_testuser3@gmail.com"
+              },
+              "sk_2": {
+                "S": "USER#org_testuser3@gmail.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "role": {
+                "S": "admin"
+              },
+              "last_name": {
                 "S": "de Orellana"
               },
               "last_login_date": {
@@ -2884,15 +2944,15 @@
               "registration_date": {
                 "S": "2019-02-28T16:54:12+00:00"
               },
-              "sk": {
-                "S": "USER#unittest@fluidattacks.com"
-              },
               "push_tokens": {
                 "L": [
                   {
                     "S": "ExponentPushToken[dummy]"
                   }
                 ]
+              },
+              "sk": {
+                "S": "USER#unittest@fluidattacks.com"
               },
               "pk_2": {
                 "S": "USER#all"
@@ -2954,6 +3014,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user_manager"
+              },
               "pk": {
                 "S": "USER#integratesuser@gmail.com"
               },
@@ -2967,6 +3030,9 @@
             {
               "sk": {
                 "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "role": {
+                "S": "user_manager"
               },
               "pk": {
                 "S": "USER#integratesuser@gmail.com"
@@ -2996,6 +3062,9 @@
               "sk": {
                 "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
               },
+              "role": {
+                "S": "user_manager"
+              },
               "pk": {
                 "S": "USER#integratesuser@gmail.com"
               },
@@ -3009,6 +3078,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#forces.unittesting@fluidattacks.com"
@@ -3024,6 +3096,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#integratesuser2@gmail.com"
               },
@@ -3037,6 +3112,9 @@
             {
               "sk": {
                 "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "role": {
+                "S": "admin"
               },
               "pk": {
                 "S": "USER#deleteimamura@fluidattacks.com"
@@ -3052,6 +3130,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user_manager"
+              },
               "pk": {
                 "S": "USER#integratesmanager@fluidattacks.com"
               },
@@ -3065,6 +3146,9 @@
             {
               "sk": {
                 "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "role": {
+                "S": "admin"
               },
               "pk": {
                 "S": "USER#integratesmanager@fluidattacks.com"
@@ -3080,6 +3164,9 @@
               "sk": {
                 "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#integratesmanager@fluidattacks.com"
               },
@@ -3094,6 +3181,9 @@
               "sk": {
                 "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
               },
+              "role": {
+                "S": "admin"
+              },
               "pk": {
                 "S": "USER#integratesmanager@fluidattacks.com"
               },
@@ -3107,6 +3197,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#integratesreattacker@fluidattacks.com"
@@ -3122,6 +3215,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#vulnmanager@gmail.com"
               },
@@ -3135,6 +3231,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user_manager"
               },
               "pk": {
                 "S": "USER#integratesmanager@gmail.com"
@@ -3150,6 +3249,9 @@
               "sk": {
                 "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
               },
+              "role": {
+                "S": "admin"
+              },
               "pk": {
                 "S": "USER#integratesmanager@gmail.com"
               },
@@ -3163,6 +3265,9 @@
             {
               "sk": {
                 "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#integratesmanager@gmail.com"
@@ -3178,6 +3283,9 @@
               "sk": {
                 "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
               },
+              "role": {
+                "S": "admin"
+              },
               "pk": {
                 "S": "USER#integratesmanager@gmail.com"
               },
@@ -3191,6 +3299,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#integratesreviewer@fluidattacks.com"
@@ -3220,6 +3331,9 @@
               "sk": {
                 "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
               },
+              "role": {
+                "S": "admin"
+              },
               "pk": {
                 "S": "USER#continuoushacking@gmail.com"
               },
@@ -3248,6 +3362,9 @@
               "sk": {
                 "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
               },
+              "role": {
+                "S": "admin"
+              },
               "pk": {
                 "S": "USER#continuoushacking@gmail.com"
               },
@@ -3262,19 +3379,8 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
-              "pk": {
-                "S": "USER#integratesserviceforces@fluidattacks.com"
-              },
-              "email": {
-                "S": "integratesserviceforces@fluidattacks.com"
-              },
-              "organization_id": {
-                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-              }
-            },
-            {
-              "sk": {
-                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              "role": {
+                "S": "customer_manager"
               },
               "pk": {
                 "S": "USER#customer_manager@fluidattacks.com"
@@ -3290,6 +3396,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user_manager"
+              },
               "pk": {
                 "S": "USER#__adminEmail__"
               },
@@ -3303,6 +3412,9 @@
             {
               "sk": {
                 "S": "ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac"
+              },
+              "role": {
+                "S": "admin"
               },
               "pk": {
                 "S": "USER#__adminEmail__"
@@ -3318,6 +3430,9 @@
               "sk": {
                 "S": "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#__adminEmail__"
               },
@@ -3331,6 +3446,9 @@
             {
               "sk": {
                 "S": "ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1"
+              },
+              "role": {
+                "S": "admin"
               },
               "pk": {
                 "S": "USER#__adminEmail__"
@@ -3346,6 +3464,26 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user"
+              },
+              "pk": {
+                "S": "USER#integratesserviceforces@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesserviceforces@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#integratesresourcer@fluidattacks.com"
               },
@@ -3359,6 +3497,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "customer_manager"
               },
               "pk": {
                 "S": "USER#unittest2@fluidattacks.com"
@@ -3374,6 +3515,9 @@
               "sk": {
                 "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#org_testuser5@gmail.com"
               },
@@ -3387,6 +3531,9 @@
             {
               "sk": {
                 "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "role": {
+                "S": "customer_manager"
               },
               "pk": {
                 "S": "USER#org_testgroupmanager1@gmail.com"
@@ -3416,6 +3563,9 @@
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#integratesuser2@fluidattacks.com"
               },
@@ -3429,6 +3579,9 @@
             {
               "sk": {
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#integrateshacker@fluidattacks.com"
@@ -3528,6 +3681,9 @@
               "sk": {
                 "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
               },
+              "role": {
+                "S": "user"
+              },
               "pk": {
                 "S": "USER#nodeleteimamura@fluidattacks.com"
               },
@@ -3555,6 +3711,9 @@
             {
               "sk": {
                 "S": "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "role": {
+                "S": "user"
               },
               "pk": {
                 "S": "USER#org_testuser3@gmail.com"
@@ -3587,191 +3746,221 @@
           },
           "TableData": [
             {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "asgard"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#barranquilla"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "barranquilla"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#gotham"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "gotham"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#gotham"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#metropolis"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "metropolis"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#metropolis"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#monteria"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "monteria"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#monteria"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
+              },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "USER#integratesuser@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user"
               },
               "group_name": {
                 "S": "oneshottest"
               },
-              "email": {
-                "S": "integratesuser@gmail.com"
-              }
-            },
-            {
+              "responsibility": {
+                "S": "Test"
+              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
               },
               "pk": {
                 "S": "USER#integratesuser@gmail.com"
               },
-              "has_access": {
-                "BOOL": true
+              "email": {
+                "S": "integratesuser@gmail.com"
+              }
+            },
+            {
+              "role": {
+                "S": "user_manager"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser@gmail.com"
               },
               "email": {
                 "S": "integratesuser@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "service_forces"
               },
-              "pk": {
-                "S": "USER#forces.unittesting@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Forces service user"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#forces.unittesting@fluidattacks.com"
               },
               "email": {
                 "S": "forces.unittesting@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "user"
               },
-              "pk": {
-                "S": "USER#integratesuser2@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser2@gmail.com"
               },
               "email": {
                 "S": "integratesuser2@gmail.com"
               }
             },
             {
-              "responsibility": {
-                "S": "delete"
+              "role": {
+                "S": "hacker"
               },
               "group_name": {
                 "S": "deleteimamura"
+              },
+              "responsibility": {
+                "S": "delete"
               },
               "invitation": {
                 "M": {
@@ -3792,111 +3981,126 @@
               "sk": {
                 "S": "GROUP#deleteimamura"
               },
-              "pk": {
-                "S": "USER#deleteimamura@fluidattacks.com"
-              },
               "has_access": {
                 "BOOL": true
+              },
+              "pk": {
+                "S": "USER#deleteimamura@fluidattacks.com"
               },
               "email": {
                 "S": "deleteimamura@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "asgard"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#barranquilla"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "barranquilla"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#gotham"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "gotham"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#gotham"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#metropolis"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "metropolis"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#metropolis"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
+              },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#monteria"
+              "role": {
+                "S": "admin"
               },
-              "pk": {
-                "S": "USER#integratesmanager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "monteria"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "monteria"
+              "sk": {
+                "S": "GROUP#monteria"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@fluidattacks.com"
               },
               "email": {
                 "S": "integratesmanager@fluidattacks.com"
@@ -3943,31 +4147,37 @@
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "reattacker"
               },
-              "pk": {
-                "S": "USER#integratesreattacker@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test reattacker"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesreattacker@fluidattacks.com"
               },
               "email": {
                 "S": "integratesreattacker@fluidattacks.com"
               }
             },
             {
-              "responsibility": {
-                "S": "Test vulnerability manager"
+              "role": {
+                "S": "vulnerability_manager"
               },
               "group_name": {
                 "S": "unittesting"
+              },
+              "responsibility": {
+                "S": "Test vulnerability manager"
               },
               "invitation": {
                 "M": {
@@ -3988,111 +4198,126 @@
               "sk": {
                 "S": "GROUP#unittesting"
               },
-              "pk": {
-                "S": "USER#vulnmanager@gmail.com"
-              },
               "has_access": {
                 "BOOL": true
+              },
+              "pk": {
+                "S": "USER#vulnmanager@gmail.com"
               },
               "email": {
                 "S": "vulnmanager@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "asgard"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
               "email": {
                 "S": "integratesmanager@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#barranquilla"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "barranquilla"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
               "email": {
                 "S": "integratesmanager@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#gotham"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "gotham"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#gotham"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
               "email": {
                 "S": "integratesmanager@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#metropolis"
-              },
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "metropolis"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#metropolis"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
+              },
               "email": {
                 "S": "integratesmanager@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#monteria"
+              "role": {
+                "S": "admin"
               },
-              "pk": {
-                "S": "USER#integratesmanager@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "monteria"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "monteria"
+              "sk": {
+                "S": "GROUP#monteria"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesmanager@gmail.com"
               },
               "email": {
                 "S": "integratesmanager@gmail.com"
@@ -4139,400 +4364,460 @@
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "reviewer"
               },
-              "pk": {
-                "S": "USER#integratesreviewer@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesreviewer@fluidattacks.com"
               },
               "email": {
                 "S": "integratesreviewer@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "asgard"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#barranquilla"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "barranquilla"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#gotham"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "gotham"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#gotham"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#metropolis"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "metropolis"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#metropolis"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#monteria"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "monteria"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#monteria"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
+              },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "USER#continuoushacking@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "user_manager"
               },
               "group_name": {
                 "S": "oneshottest"
               },
-              "email": {
-                "S": "continuoushacking@gmail.com"
-              }
-            },
-            {
+              "responsibility": {
+                "S": "Test"
+              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
               },
               "pk": {
                 "S": "USER#continuoushacking@gmail.com"
               },
-              "has_access": {
-                "BOOL": true
+              "email": {
+                "S": "continuoushacking@gmail.com"
+              }
+            },
+            {
+              "role": {
+                "S": "user_manager"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushacking@gmail.com"
               },
               "email": {
                 "S": "continuoushacking@gmail.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "USER#integratesserviceforces@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "customer_manager"
               },
               "group_name": {
                 "S": "unittesting"
-              },
-              "email": {
-                "S": "integratesserviceforces@fluidattacks.com"
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
-              },
-              "pk": {
-                "S": "USER#customer_manager@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
               },
               "responsibility": {
                 "S": "Test Owner"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#customer_manager@fluidattacks.com"
               },
               "email": {
                 "S": "customer_manager@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#asgard"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "asgard"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#asgard"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#barranquilla"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "barranquilla"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#barranquilla"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#gotham"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "gotham"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#gotham"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#metropolis"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "metropolis"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#metropolis"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#monteria"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "monteria"
               },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#monteria"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
+              },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "USER#__adminEmail__"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "admin"
               },
               "group_name": {
                 "S": "oneshottest"
               },
-              "email": {
-                "S": "__adminEmail__"
-              }
-            },
-            {
+              "responsibility": {
+                "S": "Test"
+              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
               },
               "pk": {
                 "S": "USER#__adminEmail__"
               },
-              "has_access": {
-                "BOOL": true
+              "email": {
+                "S": "__adminEmail__"
+              }
+            },
+            {
+              "role": {
+                "S": "admin"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#__adminEmail__"
               },
               "email": {
                 "S": "__adminEmail__"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "service_forces"
               },
-              "pk": {
-                "S": "USER#integratesresourcer@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesserviceforces@fluidattacks.com"
+              },
+              "email": {
+                "S": "integratesserviceforces@fluidattacks.com"
+              }
+            },
+            {
+              "role": {
+                "S": "resourcer"
+              },
               "group_name": {
                 "S": "unittesting"
+              },
+              "responsibility": {
+                "S": "Test"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesresourcer@fluidattacks.com"
               },
               "email": {
                 "S": "integratesresourcer@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "customer_manager"
               },
-              "pk": {
-                "S": "USER#unittest2@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Tester"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#unittest2@fluidattacks.com"
               },
               "email": {
                 "S": "unittest2@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "user"
               },
-              "pk": {
-                "S": "USER#integratesuser2@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integratesuser2@fluidattacks.com"
               },
               "email": {
                 "S": "integratesuser2@fluidattacks.com"
@@ -4559,71 +4844,83 @@
               }
             },
             {
-              "sk": {
-                "S": "GROUP#oneshottest"
-              },
-              "pk": {
-                "S": "USER#integrateshacker@fluidattacks.com"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "responsibility": {
-                "S": "Test"
+              "role": {
+                "S": "reattacker"
               },
               "group_name": {
                 "S": "oneshottest"
               },
-              "email": {
-                "S": "integrateshacker@fluidattacks.com"
-              }
-            },
-            {
+              "responsibility": {
+                "S": "Test"
+              },
               "sk": {
-                "S": "GROUP#unittesting"
+                "S": "GROUP#oneshottest"
+              },
+              "has_access": {
+                "BOOL": true
               },
               "pk": {
                 "S": "USER#integrateshacker@fluidattacks.com"
               },
-              "has_access": {
-                "BOOL": true
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              }
+            },
+            {
+              "role": {
+                "S": "hacker"
+              },
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#integrateshacker@fluidattacks.com"
               },
               "email": {
                 "S": "integrateshacker@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#unittesting"
+              "role": {
+                "S": "user_manager"
               },
-              "pk": {
-                "S": "USER#continuoushack2@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "unittesting"
               },
               "responsibility": {
                 "S": "Test"
               },
-              "group_name": {
-                "S": "unittesting"
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#continuoushack2@gmail.com"
               },
               "email": {
                 "S": "continuoushack2@gmail.com"
               }
             },
             {
-              "responsibility": {
-                "S": "no delete"
+              "role": {
+                "S": "hacker"
               },
               "group_name": {
                 "S": "deleteimamura"
+              },
+              "responsibility": {
+                "S": "no delete"
               },
               "invitation": {
                 "M": {
@@ -4644,31 +4941,34 @@
               "sk": {
                 "S": "GROUP#deleteimamura"
               },
-              "pk": {
-                "S": "USER#nodeleteimamura@fluidattacks.com"
-              },
               "has_access": {
                 "BOOL": true
+              },
+              "pk": {
+                "S": "USER#nodeleteimamura@fluidattacks.com"
               },
               "email": {
                 "S": "nodeleteimamura@fluidattacks.com"
               }
             },
             {
-              "sk": {
-                "S": "GROUP#sheele"
+              "role": {
+                "S": "user"
               },
-              "pk": {
-                "S": "USER#org_testuser3@gmail.com"
-              },
-              "has_access": {
-                "BOOL": true
+              "group_name": {
+                "S": "sheele"
               },
               "responsibility": {
                 "S": ""
               },
-              "group_name": {
-                "S": "sheele"
+              "sk": {
+                "S": "GROUP#sheele"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.com"
               },
               "email": {
                 "S": "org_testuser3@gmail.com"
