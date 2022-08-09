@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityZeroRiskStatus,
@@ -57,6 +60,13 @@ async def test_request_vulnerabilities_zero_risk(
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.OPEN
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.REQUESTED
+    zero_risk_comments: list[
+        FindingComment
+    ] = await loaders.finding_comments.load(("zero_risk", finding_id))
+    assert zero_risk_comments[-1].finding_id == finding_id
+    assert zero_risk_comments[-1].content == "request zero risk vuln"
+    assert zero_risk_comments[-1].comment_type == "zero_risk"
+    assert zero_risk_comments[-1].email == email
 
 
 @pytest.mark.asyncio

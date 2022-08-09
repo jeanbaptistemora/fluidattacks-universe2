@@ -18,6 +18,9 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -25,9 +28,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
     FindingVerification,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
 )
 from db_model.vulnerabilities import (
     enums as vulns_enums,
@@ -162,21 +162,20 @@ async def confirm_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    comment_data: Dict[str, Any] = {
-        "comment_type": "zero_risk",
-        "content": justification,
-        "parent": "0",
-        "comment_id": comment_id,
-    }
-
-    stakeholder = Stakeholder(
-        first_name=user_info["first_name"],
-        last_name=user_info["last_name"],
+    current_time = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_now()
+    )
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        content=justification,
+        comment_type="zero_risk",
+        id=comment_id,
         email=user_email,
+        full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
+        creation_date=current_time,
+        parent_id="0",
     )
-    add_comment = await comments_domain.add(
-        finding_id, comment_data, stakeholder
-    )
+    await comments_domain.add_typed(comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,
@@ -191,9 +190,6 @@ async def confirm_vulnerabilities_zero_risk(
         )
         for vuln in vulnerabilities
     )
-    if not add_comment[1]:
-        LOGGER.error("An error occurred confirming zero risk vuln")
-        return False
     return True
 
 
@@ -544,20 +540,20 @@ async def reject_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = str(user_info["user_email"])
-    comment_data: Dict[str, Any] = {
-        "comment_type": "zero_risk",
-        "content": justification,
-        "parent": "0",
-        "comment_id": comment_id,
-    }
-    stakeholder = Stakeholder(
-        first_name=user_info["first_name"],
-        last_name=user_info["last_name"],
+    current_time = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_now()
+    )
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        content=justification,
+        comment_type="zero_risk",
+        id=comment_id,
         email=user_email,
+        full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
+        creation_date=current_time,
+        parent_id="0",
     )
-    add_comment = await comments_domain.add(
-        finding_id, comment_data, stakeholder
-    )
+    await comments_domain.add_typed(comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,
@@ -572,9 +568,6 @@ async def reject_vulnerabilities_zero_risk(
         )
         for vuln in vulnerabilities
     )
-    if not add_comment[1]:
-        LOGGER.error("An error occurred rejecting zero risk vuln")
-        return False
     return True
 
 
@@ -632,20 +625,20 @@ async def request_vulnerabilities_zero_risk(
 
     comment_id = str(round(time() * 1000))
     user_email = user_info["user_email"]
-    comment_data: Dict[str, Any] = {
-        "comment_type": "zero_risk",
-        "content": justification,
-        "parent": "0",
-        "comment_id": comment_id,
-    }
-    stakeholder = Stakeholder(
-        first_name=user_info["first_name"],
-        last_name=user_info["last_name"],
+    current_time = datetime_utils.get_as_utc_iso_format(
+        datetime_utils.get_now()
+    )
+    comment_data = FindingComment(
+        finding_id=finding_id,
+        content=justification,
+        comment_type="zero_risk",
+        id=comment_id,
         email=user_email,
+        full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
+        creation_date=current_time,
+        parent_id="0",
     )
-    add_comment = await comments_domain.add(
-        finding_id, comment_data, stakeholder
-    )
+    await comments_domain.add_typed(comment_data)
     await collect(
         vulns_model.update_historic_entry(
             current_value=vuln,
@@ -660,9 +653,6 @@ async def request_vulnerabilities_zero_risk(
         )
         for vuln in vulnerabilities
     )
-    if not add_comment[1]:
-        LOGGER.error("An error occurred requesting zero risk vuln")
-        return False
     await notifications_domain.request_vulnerability_zero_risk(
         loaders=loaders,
         finding_id=finding_id,
