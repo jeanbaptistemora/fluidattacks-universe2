@@ -26,9 +26,7 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    List,
     Optional,
-    Tuple,
 )
 
 
@@ -62,9 +60,9 @@ async def get_data_one_group(
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
+    groups: list[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    groups_data: Tuple[Remediate, ...] = await collect(
+    groups_data: tuple[Remediate, ...] = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
             for group in groups

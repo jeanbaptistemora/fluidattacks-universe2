@@ -8,6 +8,9 @@ from async_lru import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.bar_chart.utils import (
+    format_csv_data,
+)
 from charts.generators.bar_chart.utils_top_vulnerabilities_by_source import (
     format_max_value,
 )
@@ -44,11 +47,7 @@ from newutils.datetime import (
 )
 import re
 from typing import (
-    Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -64,10 +63,10 @@ def format_where(where: str) -> str:
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, date_minus_delta: datetime
 ) -> Counter[str]:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         tuple(finding.id for finding in group_findings)
@@ -89,7 +88,7 @@ async def get_data_one_group(
 
 async def get_data_many_groups(
     *,
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
     date_minus_delta: datetime,
 ) -> Counter[str]:
@@ -107,8 +106,8 @@ async def get_data_many_groups(
     return sum(groups_data, Counter())
 
 
-def format_data(*, counters: Counter[str]) -> Dict[str, Any]:
-    merged_data: List[Tuple[str, int]] = counters.most_common()[:20]
+def format_data(*, counters: Counter[str]) -> dict:
+    merged_data: list[tuple[str, int]] = counters.most_common()[:20]
 
     return dict(
         data=dict(
@@ -170,44 +169,58 @@ def format_data(*, counters: Counter[str]) -> Dict[str, Any]:
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
     date_minus_delta: datetime = get_now_minus_delta(weeks=20)
+    header: str = "File path"
+    alternative: str = "Number of vulnerabilities"
     async for group in iterate_groups():
-        json_dump(
-            document=format_data(
-                counters=await get_data_one_group(
-                    group=group,
-                    loaders=loaders,
-                    date_minus_delta=date_minus_delta,
-                ),
+        document = format_data(
+            counters=await get_data_one_group(
+                group=group,
+                loaders=loaders,
+                date_minus_delta=date_minus_delta,
             ),
+        )
+        json_dump(
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(
+                document=document, header=header, alternative=alternative
+            ),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        json_dump(
-            document=format_data(
-                counters=await get_data_many_groups(
-                    groups=org_groups,
-                    loaders=loaders,
-                    date_minus_delta=date_minus_delta,
-                ),
+        document = format_data(
+            counters=await get_data_many_groups(
+                groups=org_groups,
+                loaders=loaders,
+                date_minus_delta=date_minus_delta,
             ),
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(
+                document=document, header=header, alternative=alternative
+            ),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            json_dump(
-                document=format_data(
-                    counters=await get_data_many_groups(
-                        groups=tuple(groups),
-                        loaders=loaders,
-                        date_minus_delta=date_minus_delta,
-                    ),
+            document = format_data(
+                counters=await get_data_many_groups(
+                    groups=tuple(groups),
+                    loaders=loaders,
+                    date_minus_delta=date_minus_delta,
                 ),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    document=document, header=header, alternative=alternative
+                ),
             )
 
 

@@ -29,11 +29,7 @@ from groups import (
     domain as groups_domain,
 )
 from typing import (
-    Any,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 
 
@@ -67,9 +63,9 @@ async def get_data_one_group(
 
 
 async def get_data_many_groups(
-    groups: List[str], loaders: Dataloaders, min_date: Optional[date] = None
+    groups: list[str], loaders: Dataloaders, min_date: Optional[date] = None
 ) -> Remediate:
-    groups_data: Tuple[Remediate, ...] = await collect(
+    groups_data: tuple[Remediate, ...] = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders, min_date=min_date)
             for group in groups
@@ -80,8 +76,8 @@ async def get_data_many_groups(
     return sum_mttr_many_groups(groups_data=groups_data)
 
 
-def format_data(data: Remediate) -> Dict[str, Any]:
-    translations: Dict[str, str] = {
+def format_data(data: Remediate) -> dict:
+    translations: dict[str, str] = {
         "critical_severity": "Critical Severity",
         "high_severity": "High Severity",
         "medium_severity": "Medium Severity",
