@@ -132,5 +132,6 @@ if __name__ == "__main__":
             format_data=format_data,
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
+            alternative="Mean time to remediate (cvssf) in days",
         )
     )

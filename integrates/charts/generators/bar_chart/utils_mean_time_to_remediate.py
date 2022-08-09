@@ -5,6 +5,7 @@ from charts.colors import (
     RISK,
 )
 from charts.generators.bar_chart.utils import (
+    format_csv_data,
     Remediate,
 )
 from dataloaders import (
@@ -28,7 +29,7 @@ from typing import (
 )
 
 
-async def generate_all(
+async def generate_all(  # pylint: disable=too-many-locals
     *,
     format_data: Callable[[Remediate], Dict[str, Any]],
     get_data_one_group: Callable[
@@ -37,6 +38,7 @@ async def generate_all(
     get_data_many_groups: Callable[
         [Tuple[str, ...], Dataloaders, Optional[date]], Awaitable[Remediate]
     ],
+    alternative: str = "Mean time to remediate",
 ) -> None:
     loaders: Dataloaders = get_new_context()
     list_days: List[int] = [30, 90]
@@ -44,29 +46,38 @@ async def generate_all(
         datetime_utils.get_now_minus_delta(days=list_days[0]).date(),
         datetime_utils.get_now_minus_delta(days=list_days[1]).date(),
     ]
+    header: str = "Categories"
     for days, min_date in zip([None, *list_days], [None, *dates]):
         async for group in utils.iterate_groups():
+            document = format_data(
+                await get_data_one_group(group, loaders, min_date),
+            )
             utils.json_dump(
-                document=format_data(
-                    await get_data_one_group(group, loaders, min_date),
-                ),
+                document=document,
                 entity="group",
                 subject=group + utils.get_subject_days(days),
+                csv_document=format_csv_data(
+                    document=document, header=header, alternative=alternative
+                ),
             )
 
         async for org_id, _, org_groups in (
             utils.iterate_organizations_and_groups()
         ):
-            utils.json_dump(
-                document=format_data(
-                    await get_data_many_groups(
-                        org_groups,
-                        loaders,
-                        min_date,
-                    ),
+            document = format_data(
+                await get_data_many_groups(
+                    org_groups,
+                    loaders,
+                    min_date,
                 ),
+            )
+            utils.json_dump(
+                document=document,
                 entity="organization",
                 subject=org_id + utils.get_subject_days(days),
+                csv_document=format_csv_data(
+                    document=document, header=header, alternative=alternative
+                ),
             )
 
         async for org_id, org_name, _ in (
@@ -75,17 +86,23 @@ async def generate_all(
             for portfolio, groups in await utils.get_portfolios_groups(
                 org_name
             ):
-                utils.json_dump(
-                    document=format_data(
-                        await get_data_many_groups(
-                            tuple(groups),
-                            loaders,
-                            min_date,
-                        ),
+                document = format_data(
+                    await get_data_many_groups(
+                        tuple(groups),
+                        loaders,
+                        min_date,
                     ),
+                )
+                utils.json_dump(
+                    document=document,
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
                     + utils.get_subject_days(days),
+                    csv_document=format_csv_data(
+                        document=document,
+                        header=header,
+                        alternative=alternative,
+                    ),
                 )
 
 

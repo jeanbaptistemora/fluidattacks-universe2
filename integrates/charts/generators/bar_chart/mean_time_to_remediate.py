@@ -81,5 +81,6 @@ if __name__ == "__main__":
             format_data=format_data_non_cvssf,
             get_data_one_group=get_data_one_group,
             get_data_many_groups=get_data_many_groups,
+            alternative="Mean time to remediate in days",
         )
     )
