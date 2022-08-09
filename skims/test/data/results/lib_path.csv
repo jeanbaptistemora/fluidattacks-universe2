@@ -35980,7 +35980,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
    59 |       <groupId>com.newrelic.agent.java</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731, CVE-2011-2732, CVE-2011-2894, CVE-2012-5055, CVE-2014-0097, CVE-2016-5007, CVE-2016-9879, CVE-2017-4995, CVE-2018-1199, CVE-2018-1258, CVE-2019-11272, CVE-2019-3795, CVE-2020-3700, CVE-2020-5408, CVE-2021-22112, CVE-2021-22119]",90,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version  with ['CVE-2011-2731', 'CVE-2011-2732', 'CVE-2011-2894', 'CVE-2012-5055', 'CVE-2014-0097', 'CVE-2016-5007', 'CVE-2016-9879', 'CVE-2017-4995', 'CVE-2018-1199', 'CVE-2018-1258', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-3700', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2021-22119'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v*) [CVE-2011-2731, CVE-2011-2732, CVE-2011-2894, CVE-2012-5055, CVE-2014-0097, CVE-2016-5007, CVE-2016-9879, CVE-2017-4995, CVE-2018-1199, CVE-2018-1258, CVE-2019-11272, CVE-2019-3795, CVE-2020-3700, CVE-2020-5408, CVE-2021-22112, CVE-2021-22119, CVE-2022-22978]",90,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version  with ['CVE-2011-2731', 'CVE-2011-2732', 'CVE-2011-2894', 'CVE-2012-5055', 'CVE-2014-0097', 'CVE-2016-5007', 'CVE-2016-9879', 'CVE-2017-4995', 'CVE-2018-1199', 'CVE-2018-1258', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-3700', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2021-22119', 'CVE-2022-22978'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    80 |       <scope>test</scope>
    81 |     </dependency>
    82 |     <dependency>
@@ -36004,7 +36004,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xm
   100 |       <groupId>org.slf4j</groupId>
       ^ Col 0
 ",maven.maven_pom_xml
-F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995, CVE-2018-1199, CVE-2019-11272, CVE-2019-3795, CVE-2020-5408, CVE-2021-22112]",85,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with ['CVE-2017-4995', 'CVE-2018-1199', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-5408', 'CVE-2021-22112'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
+F011,lines,"namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml (org.springframework.security:spring-security-core v4.2.2.RELEASE) [CVE-2017-4995, CVE-2018-1199, CVE-2019-11272, CVE-2019-3795, CVE-2020-5408, CVE-2021-22112, CVE-2022-22978]",85,937,skims,011. Use of software with known vulnerabilities,"Use of org.springframework.security:spring-security-core at version 4.2.2.RELEASE with ['CVE-2017-4995', 'CVE-2018-1199', 'CVE-2019-11272', 'CVE-2019-3795', 'CVE-2020-5408', 'CVE-2021-22112', 'CVE-2022-22978'] in namespace/skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml","
    75 |     </dependency>
    76 |     <dependency>
    77 |       <groupId>junit</groupId>
