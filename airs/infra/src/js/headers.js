@@ -20,6 +20,7 @@ let securityHeaders = {
                               + "snap.licdn.com "
                               + "static1.clutch.co/api/widget.js "
                               + "widget.clutch.co/static/js/widget.js "
+                              + "diffuser-cdn.app-us1.com/diffuser/diffuser.js "
                               + "www.googleadservices.com/pagead/; "
                               + "frame-ancestors "
                               + "'self'; "
