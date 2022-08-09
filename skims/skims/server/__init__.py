@@ -1,3 +1,4 @@
+import boto3
 from celery import (
     Celery,
 )
@@ -6,6 +7,7 @@ from kombu.utils.url import (
 )
 import os
 
+AWS_CREDENTIALS = boto3.Session().get_credentials()
 BROKER_TRANSPORT_OPTIONS = {
     "region": "us-east-1",
     "polling_interval": 0.3,
@@ -15,24 +17,24 @@ BROKER_TRANSPORT_OPTIONS = {
                 "https://sqs.us-east-1.amazonaws.com/"
                 "205810638802/skims-report-queue"
             ),
-            "access_key_id": os.environ["AWS_ACCESS_KEY_ID"],
-            "secret_access_key": os.environ["AWS_SECRET_ACCESS_KEY"],
+            "access_key_id": AWS_CREDENTIALS.access_key,
+            "secret_access_key": AWS_CREDENTIALS.secret_key,
         },
         "skims-report-queue": {
             "url": (
                 "https://sqs.us-east-1.amazonaws.com/"
                 "205810638802/skims-report-queue"
             ),
-            "access_key_id": os.environ["AWS_ACCESS_KEY_ID"],
-            "secret_access_key": os.environ["AWS_SECRET_ACCESS_KEY"],
+            "access_key_id": AWS_CREDENTIALS.access_key,
+            "secret_access_key": AWS_CREDENTIALS.secret_key,
         },
     },
 }
 app = Celery(
     "report",
     broker=(
-        f"sqs://{safequote(os.environ['AWS_ACCESS_KEY_ID'])}:"
-        f"{safequote(os.environ['AWS_SECRET_ACCESS_KEY'])}@"
+        f"sqs://{safequote(AWS_CREDENTIALS.access_key)}:"
+        f"{safequote(AWS_CREDENTIALS.secret_key)}@"
     ),
     include=["server.tasks"],
     broker_transport_options=BROKER_TRANSPORT_OPTIONS,
