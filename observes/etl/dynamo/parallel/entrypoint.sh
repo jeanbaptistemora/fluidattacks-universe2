@@ -36,6 +36,7 @@ function get_schemas {
 
 function dynamodb_etl {
   local total_segments="${1}"
+  local segment="${2}"
 
   local db_creds
   local data
@@ -43,7 +44,11 @@ function dynamodb_etl {
   local schemas
   export AWS_DEFAULT_REGION="us-east-1"
 
-  db_creds=$(mktemp) \
+  if test "${segment}" == "auto"; then
+    segment="${AWS_BATCH_JOB_ARRAY_INDEX}"
+  fi \
+    && echo "[INFO] worker at segment: ${segment}" \
+    && db_creds=$(mktemp) \
     && schemas=$(mktemp -d) \
     && singer_file=$(mktemp) \
     && data=$(mktemp) \
@@ -53,7 +58,7 @@ function dynamodb_etl {
     && echo '[INFO] Running segment streamer' \
     && tap-dynamo stream-segment \
       --table "integrates_vms" \
-      --current "${AWS_BATCH_JOB_ARRAY_INDEX}" \
+      --current "${segment}" \
       --total "${total_segments}" \
       > "${data}" \
     && get_schemas "yes" "s3://observes.cache/dynamoEtl/vms_schema" "${data}" "${singer_file}" "${schemas}" \
@@ -61,13 +66,13 @@ function dynamodb_etl {
     && echo '[INFO] Running target-s3' \
     && target-s3 \
       --bucket 'observes.etl-data' \
-      --prefix "dynamodb/part_${AWS_BATCH_JOB_ARRAY_INDEX}/" \
+      --prefix "dynamodb/part_${segment}/" \
       < "${singer_file}" \
     && echo '[INFO] Running target-redshift' \
     && target-redshift from-s3 \
-      --schema-name "dynamodb_integrates_vms_part_${AWS_BATCH_JOB_ARRAY_INDEX}" \
+      --schema-name "dynamodb_integrates_vms_part_${segment}" \
       --bucket 'observes.etl-data' \
-      --prefix "dynamodb/part_${AWS_BATCH_JOB_ARRAY_INDEX}/" \
+      --prefix "dynamodb/part_${segment}/" \
       --role 'arn:aws:iam::205810638802:role/redshift-role' \
       < "${singer_file}"
 }

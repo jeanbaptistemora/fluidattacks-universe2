@@ -90,6 +90,7 @@ class Executor:
         args = [
             self._etl_parallel,
             "10",  # total_segments: MUST coincide with batch parallel conf
+            "auto",
         ]
         return external_run(tuple(args))
 

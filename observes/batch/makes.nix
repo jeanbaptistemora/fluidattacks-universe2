@@ -132,6 +132,9 @@ in {
         attemptDurationSeconds = 259200;
         attempts = 1;
         command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
+        queue = "large";
+        vcpus = 8;
+        memory = 15200;
         parallel = 10;
       };
 
