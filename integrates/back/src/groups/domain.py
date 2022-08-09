@@ -338,7 +338,7 @@ async def add_group(  # pylint: disable=too-many-locals
             state=GroupState(
                 has_machine=has_machine,
                 has_squad=has_squad,
-                managed=GroupManaged("NOT_MANUALLY"),
+                managed=GroupManaged("NOT_MANAGED"),
                 modified_by=user_email,
                 modified_date=datetime_utils.get_iso_date(),
                 service=service,
@@ -509,7 +509,7 @@ async def update_group_managed(
             ),
         )
 
-        if managed == "MANUALLY":
+        if managed == "MANAGED":
             organization: Organization = await loaders.organization.load(
                 group.organization_id
             )

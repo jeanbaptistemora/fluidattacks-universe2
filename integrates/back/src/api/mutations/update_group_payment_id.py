@@ -75,7 +75,7 @@ async def mutate(
     managed: GroupManaged = (
         GroupManaged("UNDER_REVIEW")
         if payment_method.last_four_digits == ""
-        else GroupManaged("MANUALLY")
+        else GroupManaged("NOT_MANAGED")
     )
 
     await groups_domain.update_group_payment_id(

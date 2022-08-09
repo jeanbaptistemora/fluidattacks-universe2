@@ -48,9 +48,15 @@ async def mutate(
     managed: GroupManaged,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
+    managed = GroupManaged(managed)
     group_name = group_name.lower()
     user_info = await token_utils.get_jwt_content(info.context)
     user_email = user_info["user_email"]
+
+    if managed == GroupManaged("MANUALLY"):
+        managed = GroupManaged("MANAGED")
+    if managed == GroupManaged("NOT_MANUALLY"):
+        managed = GroupManaged("NOT_MANAGED")
 
     await groups_domain.update_group_managed(
         loaders=loaders,
