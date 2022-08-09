@@ -76,4 +76,6 @@ uvicorn:
   extras:
     - standard
 watchtower: 3.0.0
+wcmatch:
+  version: '8.4'
 zenpy: 2.0.24

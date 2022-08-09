@@ -28,6 +28,10 @@ from findings import (
 from findings.types import (
     FindingDraftToAdd,
 )
+import json
+from newutils.files import (
+    path_is_include,
+)
 from newutils.findings import (
     get_requirements_file,
     get_vulns_file,
@@ -35,7 +39,6 @@ from newutils.findings import (
 import tempfile
 from typing import (
     Any,
-    cast,
     Dict,
     List,
     Optional,
@@ -223,6 +226,146 @@ def _build_vulnerabilities_stream_from_sarif(
     }
 
 
+def _build_vulnerabilities_stream_from_integrates(
+    vulnerabilities: Tuple[Vulnerability, ...], state: Optional[str] = None
+) -> Dict[str, Any]:
+    state = state or "closed"
+    return {
+        "inputs": [
+            {
+                "field": vuln.specific,  # noqa
+                "repo_nickname": _get_path_from_integrates_vulnerability(vuln)[
+                    0
+                ],
+                "state": state,
+                "stream": vuln.stream,
+                "url": vuln.where,
+                "skims_method": vuln.skims_method,
+                "skims_technique": vuln.skims_technique,
+                "developer": vuln.developer,
+            }
+            for vuln in vulnerabilities
+            if vuln.type == VulnerabilityType.INPUTS
+        ],
+        "lines": [
+            {
+                "commit_hash": vuln.commit,
+                "line": vuln.specific,
+                "path": _get_path_from_integrates_vulnerability(vuln)[1],
+                "repo_nickname": _get_path_from_integrates_vulnerability(vuln)[
+                    0
+                ],
+                "state": state,
+                "skims_method": vuln.skims_method,
+                "skims_technique": vuln.skims_technique,
+                "developer": vuln.developer,
+            }
+            for vuln in vulnerabilities
+            if vuln.type == VulnerabilityType.LINES
+        ],
+    }
+
+
+def _machine_vulns_to_close(
+    machine_vulnerabilities: List[Dict[str, Any]],
+    integrates_vulns: Tuple[Vulnerability, ...],
+    execution_config: Dict[str, Any],
+) -> Tuple[Vulnerability, ...]:
+    machine_hashes = {
+        hash(
+            (
+                _get_path_from_sarif_vulnerability(vuln),
+                str(
+                    vuln["locations"][0]["physicalLocation"]["region"][
+                        "startLine"
+                    ]
+                ),
+            )
+        )
+        for vuln in machine_vulnerabilities
+    }
+
+    return tuple(
+        vuln
+        for vuln in integrates_vulns
+        # his result was not found by Skims
+        if hash(
+            (_get_path_from_integrates_vulnerability(vuln)[1], vuln.specific)
+        )
+        not in machine_hashes
+        and (
+            # the result path is included in the current analysis
+            path_is_include(
+                _get_path_from_integrates_vulnerability(vuln)[1].split(
+                    " ", maxsplit=1
+                )[0],
+                [
+                    *(execution_config["path"]["include"]),
+                    *(execution_config["apk"]["include"]),
+                ],
+                [
+                    *(execution_config["path"]["exclude"]),
+                    *(execution_config["apk"]["exclude"]),
+                ],
+            )
+            if vuln.type == VulnerabilityType.LINES
+            else (
+                execution_config.get("dast")
+                if vuln.type == VulnerabilityType.INPUTS
+                else True
+            )
+        )
+    )
+
+
+async def process_criteria_vuln(
+    loaders: Dataloaders,
+    group_name: str,
+    vulnerability_id: str,
+    criteria_vulnerability: Dict[str, Any],
+    criteria_requirements: Dict[str, Any],
+    **kwargs: Any,
+) -> None:
+    finding: Optional[Finding] = kwargs.get("finding", None)
+    language: str = kwargs["language"]
+    git_root: GitRoot = kwargs["git_root"]
+    sarif_log: Dict[str, Any] = kwargs["sarif_log"]
+    machine_vulnerabilities = [
+        vuln
+        for vuln in sarif_log["runs"][0]["results"]
+        if vuln["ruleId"] == vulnerability_id
+    ]
+    execution_config: Dict[str, Any] = kwargs["execution_config"]
+    if finding is None:
+        finding = await _create_draft(
+            group_name,
+            vulnerability_id,
+            language,
+            criteria_vulnerability,
+            criteria_requirements,
+        )
+    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        vuln
+        for vuln in await loaders.finding_vulnerabilities_all.load(finding.id)
+        if vuln.state.source == Source.MACHINE and vuln.root_id == git_root.id
+    )
+    vulns_to_close = _build_vulnerabilities_stream_from_integrates(
+        _machine_vulns_to_close(
+            machine_vulnerabilities,
+            integrates_vulnerabilities,
+            execution_config,
+        ),
+        state="closed",
+    )
+    vulns_to_open = _build_vulnerabilities_stream_from_sarif(
+        machine_vulnerabilities,
+        sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
+        git_root.state.nickname,
+    )
+    print(json.dumps(vulns_to_open, indent=2))
+    print(json.dumps(vulns_to_close, indent=2))
+
+
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     execution_id = ""
@@ -259,12 +402,17 @@ async def main() -> None:
                 break
         else:
             rules_finding = (*rules_finding, (vuln_id, None))
+
     for vuln_id, finding in rules_finding:  # type: ignore
-        if not finding:
-            finding = await _create_draft(
-                group_name,
-                vuln_id,
-                cast(str, execution_config["language"]),
-                criteria_vulns[vuln_id],
-                criteria_reqs,
-            )
+        await process_criteria_vuln(
+            loaders,
+            group_name,
+            vuln_id,
+            criteria_vulns[vuln_id],
+            criteria_reqs,
+            finding=finding,
+            language=execution_config["language"],
+            git_root=git_root,
+            sarif_log=results,
+            execution_config=execution_config,
+        )

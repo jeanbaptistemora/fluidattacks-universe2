@@ -14,6 +14,10 @@ from starlette.datastructures import (
 )
 from typing import (
     List,
+    Optional,
+)
+from wcmatch import (
+    glob as w_glob,
 )
 
 
@@ -64,3 +68,37 @@ def _get_num_lines(filename: str) -> int:
     with open(filename, mode="rb") as content:
         num_lines = len(content.readlines())
     return num_lines
+
+
+def transform_glob(pattern: str) -> str:
+    if pattern.startswith("glob(") and pattern.endswith(")"):
+        return pattern[5:-1]
+    return pattern
+
+
+def _path_in_pattern(path: str, pattern: str) -> bool:
+    if pattern == ".":
+        return True
+    return path.startswith(pattern) or w_glob.globmatch(
+        path, transform_glob(pattern)
+    )
+
+
+def path_is_include(
+    path: str,
+    include_patterns: Optional[List[str]] = None,
+    exclude_patterns: Optional[List[str]] = None,
+) -> bool:
+    is_include = False
+    if not include_patterns and not exclude_patterns:
+        return True
+    for include_pattern in include_patterns or []:
+        if _path_in_pattern(path, include_pattern):
+            is_include = True
+            break
+    for exclude_path in exclude_patterns or []:
+        if _path_in_pattern(path, exclude_path):
+            is_include = False
+            break
+
+    return is_include
