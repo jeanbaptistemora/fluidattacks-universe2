@@ -411,6 +411,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
         raise InvalidParameter()
 
     host: str = url_attributes.host
+    fragment: Optional[str] = url_attributes.fragment
     path: str = url_attributes.path or "/"
     query: Optional[str] = url_attributes.query
     default_port = "443" if url_attributes.scheme == "https" else "80"
@@ -453,7 +454,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             modified_date=modified_date,
             nickname=nickname,
             other=None,
-            path=path,
+            path=f"{path}#{fragment}" if fragment else path,
             port=port,
             protocol=protocol,
             query=query,
