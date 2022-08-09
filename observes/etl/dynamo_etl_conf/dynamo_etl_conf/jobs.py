@@ -87,13 +87,9 @@ class Executor:
         )
 
     def core(self) -> Cmd[None]:
-        table = TargetTables.CORE
         args = [
             self._etl_parallel,
-            f"{self._schema_prefix}{table.value}",
-            table.value,
-            "5",  # total_segments: MUST coincide with batch parallel conf
-            "s3://observes.cache/dynamoEtl/vms_schema",
+            "10",  # total_segments: MUST coincide with batch parallel conf
         ]
         return external_run(tuple(args))
 

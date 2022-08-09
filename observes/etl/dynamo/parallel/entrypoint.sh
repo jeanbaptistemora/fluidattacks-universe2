@@ -35,10 +35,7 @@ function get_schemas {
 }
 
 function dynamodb_etl {
-  local schema="${1}"
-  local table="${2}"
-  local total_segments="${3}"
-  local cache_bucket="${4}"
+  local total_segments="${1}"
 
   local db_creds
   local data
@@ -55,11 +52,11 @@ function dynamodb_etl {
     && export_notifier_key \
     && echo '[INFO] Running segment streamer' \
     && tap-dynamo stream-segment \
-      --table "${table}" \
+      --table "integrates_vms" \
       --current "${AWS_BATCH_JOB_ARRAY_INDEX}" \
       --total "${total_segments}" \
       > "${data}" \
-    && get_schemas "yes" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
+    && get_schemas "yes" "s3://observes.cache/dynamoEtl/vms_schema" "${data}" "${singer_file}" "${schemas}" \
     && echo "[INFO] Singer file at ${singer_file}" \
     && echo '[INFO] Running target-s3' \
     && target-s3 \
@@ -68,7 +65,7 @@ function dynamodb_etl {
       < "${singer_file}" \
     && echo '[INFO] Running target-redshift' \
     && target-redshift from-s3 \
-      --schema-name "${schema}" \
+      --schema-name "dynamodb_integrates_vms_part_${AWS_BATCH_JOB_ARRAY_INDEX}" \
       --bucket 'observes.etl-data' \
       --prefix "dynamodb/part_${AWS_BATCH_JOB_ARRAY_INDEX}/" \
       --role 'arn:aws:iam::205810638802:role/redshift-role' \

@@ -132,7 +132,7 @@ in {
         attemptDurationSeconds = 259200;
         attempts = 1;
         command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
-        parallel = 5;
+        parallel = 10;
       };
 
     observesDynamoPrepare =
