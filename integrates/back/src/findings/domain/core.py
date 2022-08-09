@@ -820,26 +820,27 @@ async def update_severity(
 
 async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     *,
-    context: Any,
+    context: Optional[Any] = None,
     finding_id: str,
     user_info: Dict[str, str],
     justification: str,
     open_vulns_ids: List[str],
     closed_vulns_ids: List[str],
     vulns_to_close_from_file: List[Vulnerability],
+    loaders: Any,
     is_reattack_open: Optional[bool] = None,
     is_closing_event: bool = False,
 ) -> bool:
     # All vulns must be open before verifying them
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
-    finding_loader = context.loaders.finding
+    finding_loader = loaders.finding
     finding_loader.clear(finding_id)
     finding: Finding = await finding_loader.load(finding_id)
-    if not operation_can_be_executed(context, finding.title):
+    if context and not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
 
-    finding_vulns_loader = context.loaders.finding_vulnerabilities_all
+    finding_vulns_loader = loaders.finding_vulnerabilities_all
     vulnerability_ids: List[str] = open_vulns_ids + closed_vulns_ids
     vulnerabilities = [
         vuln
@@ -909,7 +910,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         if success and closed_vulns_ids:
             schedule(
                 send_closed_vulnerabilities_report(
-                    loaders=context.loaders,
+                    loaders=loaders,
                     finding_id=finding_id,
                     closed_vulnerabilities_id=closed_vulns_ids,
                 )

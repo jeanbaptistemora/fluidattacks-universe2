@@ -115,6 +115,7 @@ async def mutate(
                     open_vulns_ids=reattacked_vulns,
                     closed_vulns_ids=[],
                     vulns_to_close_from_file=[],
+                    loaders=loaders,
                 )
             if treatment_changed_vulns:
                 loaders.finding_vulnerabilities_all.clear(finding_id)

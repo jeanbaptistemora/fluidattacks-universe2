@@ -85,6 +85,7 @@ async def mutate(
             open_vulns_ids=open_vulnerabilities,
             closed_vulns_ids=closed_vulnerabilities,
             vulns_to_close_from_file=[],
+            loaders=info.context.loaders,
         )
         if success:
             redis_del_by_deps_soon(

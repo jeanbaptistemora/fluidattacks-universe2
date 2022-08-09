@@ -436,6 +436,7 @@ async def solve_event(  # pylint: disable=too-many-locals
                 closed_vulns_ids=verification_ids,
                 vulns_to_close_from_file=[],
                 is_closing_event=True,
+                loaders=info.context.loaders,
             )
 
     await events_model.update_state(
