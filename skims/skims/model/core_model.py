@@ -2968,6 +2968,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JAVA_INSECURE_LOGGING = MethodInfo(
+        file_name="java",
+        name="java_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CS_INFO_LEAK_ERRORS = MethodInfo(
         file_name="csharp",
         name="csharp_info_leak_errors",
