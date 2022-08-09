@@ -205,7 +205,7 @@ def get_vulnerabilities_from_iterator_blocking(
         build_lines_vuln(
             method=method,
             what=path,
-            where="0",
+            where=str(line_no),
             metadata=build_metadata(
                 method=method,
                 description=f"{t(key=description_key)} {t(key='words.in')} "
