@@ -107,6 +107,7 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
         "responsible": modified_by,
         "justification": justification,
         "finding": finding_title,
+        "is_approved": is_approved,
         "location": location,
         "managers_email": managers_email,
         "approve_state": approve_state,
