@@ -713,9 +713,7 @@ async def get_groups_by_stakeholder(
         group_names = list(
             await filter_groups_with_org(loaders, tuple(group_names))
         )
-    group_level_roles = await authz.get_group_level_roles(
-        email, group_names, with_cache=with_cache
-    )
+
     if organization_id:
         org_groups = await loaders.organization_groups.load(organization_id)
         org_group_names: set[str] = set(group.name for group in org_groups)
@@ -724,6 +722,10 @@ async def get_groups_by_stakeholder(
             for group_name in group_names
             if group_name in org_group_names
         ]
+
+    group_level_roles = await authz.get_group_level_roles(
+        email, group_names, with_cache=with_cache
+    )
 
     return [
         group_name
