@@ -20,7 +20,7 @@ function main {
   _clean "${src}" \
     && generate-criteria \
     && pushd "${src}" \
-    && copy "__argNodeModules__" node_modules \
+    && npm install \
     && npm run "${action}" \
     && popd \
     || return 1

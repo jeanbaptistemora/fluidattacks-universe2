@@ -1,73 +1,66 @@
-import React from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import useThemeContext from '@theme/hooks/useThemeContext';
-import styles from './styles.module.css';
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import React from "react";
+import clsx from "clsx";
+import Layout from "@theme/Layout";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { useColorMode } from "@docusaurus/theme-common";
+import styles from "./styles.module.css";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 
 const features = [
   {
-    title: 'About',
-    description: (
-      <>
-        Here you can find some useful information about us
-      </>
-    ),
-    link: 'about/faq'
+    title: "About",
+    description: <>Here you can find some useful information about us</>,
+    link: "about/faq",
   },
   {
-    title: 'Machine',
-    description: (
-      <>
-        Guides and information about our Machine plan
-      </>
-    ),
-    link: 'machine/web/asm'
+    title: "Machine",
+    description: <>Guides and information about our Machine plan</>,
+    link: "machine/web/asm",
   },
   {
-    title: 'Squad',
-    description: (
-      <>
-        Guides and information about our Squad plan
-      </>
-    ),
-    link: 'squad/reattacks'
+    title: "Squad",
+    description: <>Guides and information about our Squad plan</>,
+    link: "squad/reattacks",
   },
   {
-    title: 'Criteria',
+    title: "Criteria",
     description: (
       <>
-        List of security requirements, compliances and vulnerabilities considered by our organization
+        List of security requirements, compliances and vulnerabilities
+        considered by our organization
       </>
     ),
-    link: 'criteria/'
+    link: "criteria/",
   },
   {
-    title: 'Development',
+    title: "Development",
     description: (
       <>
-        Information, guides and tips useful to our production team in the development of products
+        Information, guides and tips useful to our production team in the
+        development of products
       </>
     ),
-    link: 'development'
+    link: "development",
   },
 ];
 
-function Card({cardLink, children}) {
-  const { isDarkTheme } = useThemeContext();
+function Card({ cardLink, children }) {
+  const { colorMode } = useColorMode();
   return (
-    <a className={isDarkTheme ? styles.darkCard : styles.card} href={cardLink}>
+    <a
+      className={colorMode === "dark" ? styles.darkCard : styles.card}
+      href={cardLink}
+    >
       {children}
     </a>
   );
 }
 
-function Feature({imageUrl, title, description, link}) {
+function Feature({ imageUrl, title, description, link }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className={clsx('col col--4', styles.feature)}>
+    <div className={clsx("col col--4", styles.feature)}>
       {imgUrl && (
         <div className="text--center">
           <img className={styles.featureImage} src={imgUrl} alt={title} />
@@ -80,7 +73,7 @@ function Feature({imageUrl, title, description, link}) {
               <h3>{title}</h3>
               <p>{description}</p>
             </Card>
-          )
+          );
         }}
       </BrowserOnly>
     </div>
@@ -89,11 +82,12 @@ function Feature({imageUrl, title, description, link}) {
 
 function Home() {
   const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
+  const { siteConfig = {} } = context;
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="Description will go into a meta tag in <head />"
+    >
       <main>
         {features && features.length > 0 && (
           <section className={styles.features}>

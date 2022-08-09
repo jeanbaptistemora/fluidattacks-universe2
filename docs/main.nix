@@ -7,9 +7,6 @@
 }:
 makeScript {
   name = "docs";
-  replace = {
-    __argNodeModules__ = outputs."/docs/runtime";
-  };
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash
@@ -17,8 +14,6 @@ makeScript {
       outputs."/docs/generate/criteria"
       (makeNodeJsVersion "16")
     ];
-    nodeBin = [outputs."/docs/runtime"];
-    nodeModule = ["./node_modules"];
   };
   entrypoint = ./entrypoint.sh;
 }
