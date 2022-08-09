@@ -3,8 +3,8 @@
 
 const defaultPaddingRatio = 0.05;
 
-function getColor(d) {
-  if (d[0].value > 0) {
+function getColor(d, originalValues) {
+  if (originalValues[d[0].x] > 0) {
     return '#db3a34';
   }
   return '#009044';
@@ -118,8 +118,8 @@ function render(dataDocument, height, width) {
   if (dataDocument.maxValueLogAdjusted) {
     const { maxValueLogAdjusted, originalValues, data: columsData } = dataDocument;
     const { columns } = columsData;
-    dataDocument.axis.y.tick = { count: 4, format: formatYTickAdjusted };
-    dataDocument.data.color = (_color, datum) => (datum.value >= 0 ? '#db3a34' : '#009044');
+    dataDocument.axis.y.tick = { format: formatYTickAdjusted };
+    dataDocument.data.color = (_color, datum) => (originalValues[datum.x] > 0 ? '#db3a34' : '#009044');
     dataDocument.tooltip = { format: { value: (_datum, _r, _id, index) => originalValues[index] } };
     dataDocument.data.labels = {
       format: (datum, _id, index) => formatLabelsAdjusted(
@@ -127,6 +127,8 @@ function render(dataDocument, height, width) {
       ),
     };
   }
+
+  const { originalValues } = dataDocument;
 
   return c3.generate({
     ...dataDocument,
@@ -137,7 +139,7 @@ function render(dataDocument, height, width) {
           d,
           defaultTitleFormat,
           defaultValueFormat,
-          dataDocument.exposureTrendsByCategories ? () => getColor(d) : color);
+          dataDocument.exposureTrendsByCategories ? () => getColor(d, originalValues) : color);
       } },
     bindto: 'div',
     padding: {
@@ -169,7 +171,7 @@ function load() {
         const text = d3.select(textList[index]).text();
         const moveTextPostive = 15;
         const moveTextNegative = -25;
-        const pixels = parseFloat(text) >= 0 ? moveTextPostive : moveTextNegative;
+        const pixels = parseFloat(text) > 0 ? moveTextPostive : moveTextNegative;
 
         d3.select(textList[index]).style('transform', `translate(0, ${ pixels }px)`)
           .style('fill', 'black !important');

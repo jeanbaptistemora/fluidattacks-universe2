@@ -207,11 +207,6 @@ def format_data(data: Counter[str], categories: list[str]) -> dict:
         legend=dict(
             show=False,
         ),
-        grid=dict(
-            y=dict(
-                show=True,
-            ),
-        ),
         axis=dict(
             x=dict(
                 categories=categories,
