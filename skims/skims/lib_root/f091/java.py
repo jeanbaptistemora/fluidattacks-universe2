@@ -121,7 +121,7 @@ def insecure_logging(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
-    method = core_model.MethodsEnum.JAVA_LEAK_STACKTRACE
+    method = core_model.MethodsEnum.JAVA_INSECURE_LOGGING
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
@@ -162,7 +162,7 @@ def insecure_logging(
                             yield shard, member
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f066.js_uses_console_log",
+        desc_key="criteria.vulns.091.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
