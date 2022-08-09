@@ -485,19 +485,12 @@ async def update_event(
         if attributes.affected_components is None
         else attributes.affected_components
     )
-    if event_type not in {
-        EventType.INCORRECT_MISSING_SUPPLIES,
-        EventType.MISSING_SUPPLIES,
-    }:
+    if event_type is not EventType.INCORRECT_MISSING_SUPPLIES:
         if attributes.affected_components:
             raise InvalidField("affectedComponents")
         affected_components = None
     if (
-        event_type
-        in {
-            EventType.INCORRECT_MISSING_SUPPLIES,
-            EventType.MISSING_SUPPLIES,
-        }
+        event_type is EventType.INCORRECT_MISSING_SUPPLIES
         and not affected_components
     ):
         raise RequiredAffectedComponents()
