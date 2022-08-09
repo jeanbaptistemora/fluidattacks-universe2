@@ -5,13 +5,18 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
+from charts.generators.pie_chart import (
+    format_csv_data,
 )
 from charts.generators.pie_chart.utils import (
     format_data,
     PortfoliosGroupsInfo,
     slice_groups,
+)
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_organizations_and_groups,
+    json_dump,
 )
 from dataloaders import (
     Dataloaders,
@@ -50,29 +55,30 @@ async def get_data_groups(
 
 async def generate_all() -> None:
     loaders: Dataloaders = get_new_context()
-    async for org_id, _, org_group_names in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                groups_data=await get_data_groups(
-                    loaders, list(org_group_names)
-                ),
-            ),
+    headers: list[str] = ["Group name", "Open vulnerabilities"]
+    async for org_id, _, org_group_names in iterate_organizations_and_groups():
+        document = format_data(
+            groups_data=await get_data_groups(loaders, list(org_group_names)),
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=headers),
         )
 
-    async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
-        for portfolio, group_names in await utils.get_portfolios_groups(
-            org_name
-        ):
-            utils.json_dump(
-                document=format_data(
-                    groups_data=await get_data_groups(loaders, group_names),
-                ),
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, group_names in await get_portfolios_groups(org_name):
+            document = format_data(
+                groups_data=await get_data_groups(loaders, group_names),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(
+                    document=document, header=headers
+                ),
             )
 
 

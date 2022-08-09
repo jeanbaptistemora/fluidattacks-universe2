@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from datetime import (
-    datetime,
-)
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
