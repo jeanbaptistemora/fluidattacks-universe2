@@ -90,14 +90,6 @@ async def test_group() -> None:
     """
     expected_stakeholders = [
         {
-            "email": "integratesserviceforces@gmail.com",
-            "firstLogin": "2018-02-28 11:54:12",  # NOSONAR
-            "invitationState": "REGISTERED",
-            "lastLogin": "2019-10-29 13:40:37",  # NOSONAR
-            "responsibility": "Test",
-            "role": "service_forces",
-        },
-        {
             "email": "integratesmanager@gmail.com",
             "firstLogin": "2018-02-28 11:54:12",
             "invitationState": "REGISTERED",

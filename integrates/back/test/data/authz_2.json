@@ -103,7 +103,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "hacker"
+            "S": "user"
           }
         }
       }
@@ -157,7 +157,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "reattacker"
+            "S": "user"
           }
         }
       }
@@ -211,7 +211,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "resourcer"
+            "S": "user"
           }
         }
       }
@@ -265,7 +265,7 @@
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
           },
           "role": {
-            "S": "reviewer"
+            "S": "user"
           }
         }
       }
@@ -277,7 +277,7 @@
             "S": "user"
           },
           "subject": {
-            "S": "integratesserviceforces@gmail.com"
+            "S": "integratesserviceforces@fluidattacks.com"
           },
           "object": {
             "S": "self"
@@ -295,7 +295,7 @@
             "S": "group"
           },
           "subject": {
-            "S": "integratesserviceforces@gmail.com"
+            "S": "integratesserviceforces@fluidattacks.com"
           },
           "object": {
             "S": "unittesting"
@@ -313,7 +313,7 @@
             "S": "organization"
           },
           "subject": {
-            "S": "integratesserviceforces@gmail.com"
+            "S": "integratesserviceforces@fluidattacks.com"
           },
           "object": {
             "S": "org#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 08, 2022, 04:15 PM",
+    "DateLastModified": "Aug 09, 2022, 09:39 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1899,13 +1899,13 @@
                 "S": "2018-02-28T16:54:12+00:00"
               },
               "sk": {
-                "S": "USER#integratesserviceforces@gmail.com"
+                "S": "USER#integratesserviceforces@fluidattacks.com"
               },
               "pk_2": {
                 "S": "USER#all"
               },
               "pk": {
-                "S": "USER#integratesserviceforces@gmail.com"
+                "S": "USER#integratesserviceforces@fluidattacks.com"
               },
               "notifications_preferences": {
                 "M": {
@@ -1921,10 +1921,10 @@
                 "S": "Integrates"
               },
               "email": {
-                "S": "integratesserviceforces@gmail.com"
+                "S": "integratesserviceforces@fluidattacks.com"
               },
               "sk_2": {
-                "S": "USER#integratesserviceforces@gmail.com"
+                "S": "USER#integratesserviceforces@fluidattacks.com"
               }
             },
             {
@@ -3263,10 +3263,10 @@
                 "S": "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
               },
               "pk": {
-                "S": "USER#integratesserviceforces@gmail.com"
+                "S": "USER#integratesserviceforces@fluidattacks.com"
               },
               "email": {
-                "S": "integratesserviceforces@gmail.com"
+                "S": "integratesserviceforces@fluidattacks.com"
               },
               "organization_id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
@@ -4303,7 +4303,7 @@
                 "S": "GROUP#unittesting"
               },
               "pk": {
-                "S": "USER#integratesserviceforces@gmail.com"
+                "S": "USER#integratesserviceforces@fluidattacks.com"
               },
               "has_access": {
                 "BOOL": true
@@ -4315,7 +4315,7 @@
                 "S": "unittesting"
               },
               "email": {
-                "S": "integratesserviceforces@gmail.com"
+                "S": "integratesserviceforces@fluidattacks.com"
               }
             },
             {
@@ -6059,13 +6059,13 @@
             },
             {
               "sk": {
-                "S": "ENROLL#integratesserviceforces@gmail.com"
+                "S": "ENROLL#integratesserviceforces@fluidattacks.com"
               },
               "pk": {
-                "S": "ENROLL#integratesserviceforces@gmail.com"
+                "S": "ENROLL#integratesserviceforces@fluidattacks.com"
               },
               "email": {
-                "S": "integratesserviceforces@gmail.com"
+                "S": "integratesserviceforces@fluidattacks.com"
               },
               "enrolled": {
                 "BOOL": true

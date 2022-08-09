@@ -289,7 +289,7 @@ async def test_get_org_stakeholders() -> None:
         "integratesreattacker@fluidattacks.com",
         "integratesresourcer@fluidattacks.com",
         "integratesreviewer@fluidattacks.com",
-        "integratesserviceforces@gmail.com",
+        "integratesserviceforces@fluidattacks.com",
         "integratesuser2@fluidattacks.com",
         "integratesuser2@gmail.com",
         "integratesuser@gmail.com",
