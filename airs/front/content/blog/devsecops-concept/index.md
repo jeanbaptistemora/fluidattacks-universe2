@@ -211,18 +211,18 @@ combined with [teams of security experts](../../solutions/ethical-hacking/)
 that use their knowledge to detect gaps,
 keeping pace with DevOps.
 The use of these tools and human capabilities integrated into the pipelines,
-employing [SAST](../../categories/sast/)
-and [DAST](../../categories/dast/) techniques,
+employing [static application security testing](../../categories/sast/)
+and [dynamic application security testing](../../categories/dast/) techniques,
 makes it possible to minimize the
 number of vulnerabilities.
 These weaknesses can be found early,
 while the code is under construction,
 and their remediation can also be done promptly.
-The timely activity of experts and tools,
+The timely activity of experts and DevSecOps tools,
 which should generate continuous information logging
 and quick feedback,
 allows companies to stay one step ahead of attackers
-and maintain security control.
+and maintain security controls.
 That is why DevSecOps practices are important.
 
 **Caution:**
@@ -288,6 +288,8 @@ For the most part,
 this is achieved by creating the possibility of collaboration
 between the development,
 operations and security teams.
+What we're aiming for here
+is for people to adopt a DevSecOps culture and mindset.
 
 You may also move on
 to **specify the security checks**
@@ -308,6 +310,7 @@ In this process,
 some DevSecOps roles and responsibilities should emerge.
 There is a person whose job is to define actions,
 lead the security checks
+(e.g., conducting risk assessments and threat modeling)
 and monitor practices in the DevSecOps process.
 We're talking about the DevSecOps engineer.
 We've dedicated a blog post about this role
@@ -324,7 +327,8 @@ from items used in GitLab's
 Thus, we offer the following:
 
 - **Culture:**
-  Regularly informing employees about company-wide security policies;
+  Regularly informing employees about company-wide security policies
+  (vital for maintaining cybersecurity awareness);
   educating them to incorporate security practices
   (e.g., testing and code review)
   into their daily work;
@@ -402,6 +406,7 @@ As we mentioned earlier,
 it's ideal to have automated security checks.
 This includes essential things
 like implementing multi-factor authentication
+(i.e., use two-factor authentication (2FA) at the very least)
 and having automated security testing tools
 (e.g., [SAST](../../categories/sast/),
 [DAST](../../categories/dast/))
@@ -417,6 +422,9 @@ In fact,
 our ethical hackers [found about 81%](https://try.fluidattacks.com/report/state-of-attacks-2021/)
 of the high and critical severity vulnerabilities reported
 in systems over an analysis period in 2020.
+In short,
+process automation does save you time
+but a manual intervention is needed to achieve accuracy.
 
 ## DevSecOps as a service
 
@@ -447,6 +455,10 @@ So,
 we help organizations implement DevSecOps
 by offering our ethical hackers' skills (in addition to automated tools)
 to find vulnerabilities across the SDLC.
+By performing regular [penetration tests](../../solutions/penetration-testing/),
+organizations can validate the security of their technology
+and test it against new techniques used by threat actors
+and therefore out of the scope of automated tools.
 
 ## How does DevSecOps relate to red teams?
 
@@ -547,6 +559,10 @@ to ensure accuracy and efficiency.
 `Fluid Attacks` has not forgotten the value of speed
 but has always kept it in parallel with high-quality testing
 and excellent results.
+So,
+we invite organizations to automate tools and processes
+where it is possible
+and rely on ethical hackers to perform sophisticated security testing.
 
 ## SecDevOps?
 
@@ -590,7 +606,8 @@ Moreover,
 you can ask us about our [Squad Plan](../../plans/),
 which involves [ethical hackers](../../solutions/ethical-hacking/)
 assessing the security of your technology.
-To learn more,
+To learn more
+and get all your DevSecOps questions answered,
 [contact us](../../contact-us/)\!
 
 > **Note:**
