@@ -265,14 +265,34 @@ enum EventEvidenceType {
 enum EventType {
   "Authorization for special attack"
   AUTHORIZATION_SPECIAL_ATTACK
+  "The client cancels a project milestone"
+  CLIENT_CANCELS_PROJECT_MILESTONE
+  "The client suspends the project"
+  CLIENT_EXPLICITLY_SUSPENDS_PROJECT
+  "Repository cloning issues"
+  CLONING_ISSUES
+  "Repository credentials issues"
+  CREDENTIAL_ISSUES
   "Request for an user modification or updating a workflow"
   DATA_UPDATE_REQUIRED
+  "Environment issues"
+  ENVIRONMENT_ISSUES
   "Incorrect or missing supplies"
   INCORRECT_MISSING_SUPPLIES
+  "Installer issues"
+  INSTALLER_ISSUES
+  "Missing supplies"
+  MISSING_SUPPLIES
+  "Network access issues"
+  NETWORK_ACCESS_ISSUES
   "Other"
   OTHER
+  "Remote access issues"
+  REMOTE_ACCESS_ISSUES
   "Target of Evaluation different than agreed upon"
   TOE_DIFFERS_APPROVED
+  "VPN issues"
+  VPN_ISSUES
 }
 
 "Evidence description enum definition"
