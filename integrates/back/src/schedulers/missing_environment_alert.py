@@ -91,7 +91,9 @@ async def _send_mail_report(
 
 async def missing_environment_alert() -> None:
     loaders: Dataloaders = get_new_context()
-    group_names = await orgs_domain.get_all_active_group_names(loaders)
+    group_names = await orgs_domain.get_all_active_group_names_with_machine(
+        loaders
+    )
 
     if FI_ENVIRONMENT == "production":
         group_names = tuple(
