@@ -40,6 +40,7 @@ export const Tables = <TData extends object>(
     exportCsv = false,
     extraButtons = undefined,
     csvName = "Report",
+    enableSearchBar = true,
     onRowClick = undefined,
     rowSelectionSetter = undefined,
     showPagination = data.length >= 8,
@@ -95,7 +96,7 @@ export const Tables = <TData extends object>(
     rowSelectionSetter?.(
       table
         .getSelectedRowModel()
-        .flatRows.map((row: Row<TData>): object => row.original)
+        .flatRows.map((row: Row<TData>): TData => row.original)
     );
   }, [rowSelection, rowSelectionSetter, table]);
 
@@ -113,13 +114,15 @@ export const Tables = <TData extends object>(
             )}
           </Gap>
         </div>
-        <div className={"d-flex justify-content-end w-25"}>
-          <SearchText
-            onChange={globalFilterHandler}
-            placeholder={t("table.search")}
-            value={globalFilter}
-          />
-        </div>
+        {enableSearchBar && (
+          <div className={"d-flex justify-content-end w-25"}>
+            <SearchText
+              onChange={globalFilterHandler}
+              placeholder={t("table.search")}
+              value={globalFilter}
+            />
+          </div>
+        )}
       </div>
       <TableContainer
         isRowFunctional={onRowClick !== undefined}

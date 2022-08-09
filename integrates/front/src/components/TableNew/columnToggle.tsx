@@ -47,6 +47,7 @@ export const ToggleFunction = <TData extends object>(
                 <Col lg={30} md={30} sm={30}>
                   <Switch
                     checked={column.getIsVisible()}
+                    name={column.id}
                     onChange={column.getToggleVisibilityHandler()}
                   />
                 </Col>

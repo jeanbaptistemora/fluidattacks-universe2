@@ -30,6 +30,7 @@ interface ITableProps<TData> {
   extraButtons?: JSX.Element;
   csvName?: string;
   enableRowSelection?: false;
+  enableSearchBar?: boolean;
   rowSelectionSetter?: undefined;
   showPagination?: boolean;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
@@ -41,7 +42,7 @@ interface ITablepropsWithRowSel<TData>
     "enableRowSelection" | "rowSelectionSetter"
   > {
   enableRowSelection: true;
-  rowSelectionSetter: Dispatch<SetStateAction<object>>;
+  rowSelectionSetter: Dispatch<SetStateAction<TData[]>>;
 }
 
 interface IToggleProps<TData> {
