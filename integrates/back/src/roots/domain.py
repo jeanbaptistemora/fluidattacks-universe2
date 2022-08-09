@@ -423,6 +423,9 @@ async def add_url_root(  # pylint: disable=too-many-locals
         group.organization_id
     )
     organization_name = organization.name
+    if fragment:
+        path = f"{path}#{fragment}"
+
     if (
         ensure_org_uniqueness
         and group.state.type != GroupSubscriptionType.ONESHOT
@@ -454,7 +457,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             modified_date=modified_date,
             nickname=nickname,
             other=None,
-            path=f"{path}#{fragment}" if fragment else path,
+            path=path,
             port=port,
             protocol=protocol,
             query=query,
