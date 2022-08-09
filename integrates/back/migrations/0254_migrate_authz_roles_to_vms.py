@@ -14,6 +14,10 @@ from aioextensions import (
     run,
 )
 import authz
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from db_model import (
     group_access as group_access_model,
     organization_access as org_access_model,
@@ -29,6 +33,12 @@ from db_model.organization_access.types import (
 from db_model.organization_access.utils import (
     remove_org_id_prefix,
 )
+from db_model.organizations import (
+    get_all_organizations,
+)
+from db_model.organizations.enums import (
+    OrganizationStateStatus,
+)
 from db_model.stakeholders.types import (
     StakeholderMetadataToUpdate,
 )
@@ -42,6 +52,9 @@ from dynamodb.types import (
 )
 import logging
 import logging.config
+from organizations import (
+    domain as orgs_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -141,7 +154,12 @@ async def _grant_user_level_role(email: str, role: str) -> None:
     )
 
 
-async def process_authz_policy(item: Item) -> None:
+async def process_authz_policy(
+    *,
+    item: Item,
+    all_active_group_names: tuple[str, ...],
+    all_active_org_ids: tuple[str, ...],
+) -> None:
     policy_level = item["level"]
     email = item["subject"]
     policy_object = item["object"]
@@ -149,15 +167,21 @@ async def process_authz_policy(item: Item) -> None:
 
     if policy_level == "group":
         group_name = policy_object
-        if not await _get_group_access(email=email, group_name=group_name):
+        if (
+            group_name not in all_active_group_names
+            or not await _get_group_access(email=email, group_name=group_name)
+        ):
             return
         await _grant_group_level_role(email, group_name, role)
 
     elif policy_level == "organization":
         organization_id = _capitalize_org_id_prefix(policy_object)
-        if not await _get_organization_access(
-            email=email,
-            organization_id=organization_id,
+        if (
+            organization_id not in all_active_org_ids
+            or not await _get_organization_access(
+                email=email,
+                organization_id=organization_id,
+            )
         ):
             return
         await _grant_organization_level_role(email, organization_id, role)
@@ -177,6 +201,16 @@ async def process_authz_policy(item: Item) -> None:
 
 
 async def main() -> None:
+    loaders: Dataloaders = get_new_context()
+    all_active_group_names = await orgs_domain.get_all_active_group_names(
+        loaders
+    )
+    all_active_orgs_ids = tuple(
+        org.id
+        for org in await get_all_organizations()
+        if org.state.status == OrganizationStateStatus.ACTIVE
+    )
+
     items: list[Item] = await ops_legacy.scan(table=AUTHZ_TABLE, scan_attrs={})
     LOGGER_CONSOLE.info(
         "Authz policies scanned",
@@ -184,8 +218,15 @@ async def main() -> None:
     )
 
     await collect(
-        (process_authz_policy(item) for item in items),
-        workers=16,
+        (
+            process_authz_policy(
+                item=item,
+                all_active_group_names=all_active_group_names,
+                all_active_org_ids=all_active_orgs_ids,
+            )
+            for item in items
+        ),
+        workers=64,
     )
 
 
