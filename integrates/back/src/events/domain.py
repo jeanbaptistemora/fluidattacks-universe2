@@ -683,7 +683,7 @@ async def request_vulnerabilities_hold(
         ),
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
     )
-    await finding_comments_domain.add_typed(comment_data)
+    await finding_comments_domain.add(comment_data)
     if not success:
         LOGGER.error("An error occurred requesting hold")
         raise NoHoldRequested()

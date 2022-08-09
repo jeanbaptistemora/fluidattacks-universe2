@@ -5,9 +5,6 @@ from db_model.finding_comments.types import (
 from db_model.findings.types import (
     FindingVerification,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -17,22 +14,15 @@ from finding_comments import (
 from itertools import (
     filterfalse,
 )
-from newutils import (
-    datetime as datetime_utils,
-)
 from typing import (
     Any,
-    Dict,
-    List,
-    Set,
     Tuple,
-    Union,
 )
 
 
 def _fill_vuln_info(
     comment: FindingComment,
-    vulns_ids: Set[str],
+    vulns_ids: set[str],
     vulns: Tuple[Vulnerability, ...],
 ) -> FindingComment:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
@@ -54,46 +44,18 @@ def _fill_vuln_info(
     return comment
 
 
-def _is_scope_comment_typed(comment: FindingComment) -> bool:
+def _is_scope_comment(comment: FindingComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
-async def add_typed(
+async def add(
     comment_data: FindingComment,
 ) -> None:
     await comments_dal.create_typed(comment_data)
 
 
-async def add(
-    finding_id: str,
-    comment_data: Dict[str, Any],
-    user_info: Stakeholder,
-) -> Tuple[Union[str, None], bool]:
-    today = datetime_utils.get_as_str(datetime_utils.get_now())
-    comment_id = str(comment_data["comment_id"])
-    comment_attributes = {
-        "comment_type": comment_data["comment_type"],
-        "content": str(comment_data.get("content")),
-        "created": today,
-        "email": user_info.email,
-        "fullname": str.join(" ", [user_info.first_name, user_info.last_name])
-        if user_info.first_name and user_info.last_name
-        else "",
-        "modified": today,
-        "parent": comment_data.get("parent", "0"),
-    }
-    success = await comments_dal.create(
-        comment_id, comment_attributes, finding_id
-    )
-    return (comment_id if success else None, success)
-
-
 async def delete(comment_id: str, finding_id: str) -> bool:
     return await comments_dal.delete(comment_id, finding_id)
-
-
-async def get(comment_type: str, element_id: str) -> List[Dict[str, Any]]:
-    return await comments_dal.get_comments(comment_type, element_id)
 
 
 async def get_comments(
@@ -112,7 +74,7 @@ async def get_comments(
         if verification.vulnerability_ids
     )
     if bool(verified):
-        verification_comment_ids: Set[str] = {
+        verification_comment_ids: set[str] = {
             verification.comment_id for verification in verified
         }
         vulns: Tuple[
@@ -152,7 +114,7 @@ async def get_comments(
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return tuple(comments)
-    return tuple(filter(_is_scope_comment_typed, comments))
+    return tuple(filter(_is_scope_comment, comments))
 
 
 async def get_observations(
@@ -165,13 +127,13 @@ async def get_observations(
     enforcer = await authz.get_group_level_enforcer(user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return observations
-    return list(filter(_is_scope_comment_typed, observations))
+    return list(filter(_is_scope_comment, observations))
 
 
 def filter_reattack_comments(
-    comments: List[FindingComment],
-    verification_comment_ids: Set[str],
-) -> Tuple[List[FindingComment], List[FindingComment]]:
+    comments: list[FindingComment],
+    verification_comment_ids: set[str],
+) -> Tuple[list[FindingComment], list[FindingComment]]:
     """Returns the comment list of a finding filtered on whether the comment
     answers a solicited reattack or not. Comments that do this will be within
     the first element of the tuple while the others will be in the second"""
