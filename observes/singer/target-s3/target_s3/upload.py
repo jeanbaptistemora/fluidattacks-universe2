@@ -30,18 +30,19 @@ class S3FileUploader:
 
     def upload_to_s3(self, group: RecordGroup) -> Cmd[None]:
         file = save(group)
+        file_key = self._prefix + group.schema.stream + ".csv"
         msg = _utils.log_cmd(
             lambda: LOG.info(
                 "Uploading stream `%s` -> s3://%s",
                 group.schema.stream,
-                self._bucket + "/" + self._prefix + group.schema.stream,
+                self._bucket + "/" + file_key,
             ),
             None,
         )
         end = _utils.log_cmd(
             lambda: LOG.info(
                 "s3://%s uploaded!",
-                self._bucket + "/" + self._prefix + group.schema.stream,
+                self._bucket + "/" + file_key,
             ),
             None,
         )
@@ -50,7 +51,7 @@ class S3FileUploader:
                 lambda f: msg
                 + Cmd.from_cmd(
                     lambda: self._client.upload_fileobj(
-                        f, self._bucket, self._prefix + group.schema.stream
+                        f, self._bucket, file_key
                     )
                 )
                 + end

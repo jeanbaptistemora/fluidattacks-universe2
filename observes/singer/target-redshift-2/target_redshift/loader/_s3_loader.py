@@ -96,7 +96,7 @@ class S3Handler:
         )
 
     def handle_schema(self, schema: SingerSchema) -> Cmd[None]:
-        data_file = self._prefix + schema.stream
+        data_file = self._prefix + schema.stream + ".csv"
         start = Cmd.from_cmd(
             lambda: LOG.info(
                 "Appending data: %s -> %s.%s",
