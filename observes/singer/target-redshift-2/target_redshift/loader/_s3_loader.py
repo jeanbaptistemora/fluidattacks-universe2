@@ -1,3 +1,6 @@
+from botocore.exceptions import (
+    ClientError,
+)
 from dataclasses import (
     dataclass,
 )
@@ -16,6 +19,7 @@ from fa_singer_io.singer import (
 import logging
 from mypy_boto3_s3 import (
     S3Client,
+    S3ServiceResource,
 )
 from redshift_client.id_objs import (
     SchemaId,
@@ -42,12 +46,27 @@ LOG = logging.getLogger(__name__)
 class S3Handler:
     _schema: SchemaId
     _client: S3Client
+    _resource: S3ServiceResource
     _db_client: SqlClient
     _bucket: str
     _prefix: str
     _iam_role: str
 
-    def handle_schema(self, schema: SingerSchema) -> Cmd[None]:
+    def _exist(self, file: str) -> Cmd[bool]:
+        def _action() -> bool:
+            try:
+                self._resource.Object(self._bucket, file).load()
+            except ClientError as e:  # type: ignore[misc]
+                if e.response["Error"]["Code"] == "404":  # type: ignore[misc]
+                    return False
+                else:
+                    raise Exception(f"S3 error: {e.response}")  # type: ignore[misc]
+            else:
+                return True
+
+        return Cmd.from_cmd(_action)
+
+    def _upload(self, schema: SingerSchema, data_file: str) -> Cmd[None]:
         fields = (
             Unfolder(schema.schema.encode()["properties"])
             .to_json()
@@ -67,11 +86,17 @@ class S3Handler:
             "schema": self._schema.name,
             "table": schema.stream,
         } | columns
-        data_file = self._bucket + "/" + self._prefix + schema.stream
         args: Dict[str, PrimitiveVal] = {
-            "data_file": "s3://" + data_file,
+            "data_file": "s3://" + self._bucket + "/" + data_file,
             "role": self._iam_role,
         }
+        return self._db_client.execute(
+            dynamic_query(stm, freeze(identifiers)),
+            QueryValues(freeze(args)),
+        )
+
+    def handle_schema(self, schema: SingerSchema) -> Cmd[None]:
+        data_file = self._prefix + schema.stream
         start = Cmd.from_cmd(
             lambda: LOG.info(
                 "Appending data: %s -> %s.%s",
@@ -85,11 +110,11 @@ class S3Handler:
                 "S3 data uploaded into %s.%s", self._schema.name, schema.stream
             )
         )
-        return (
-            start
-            + self._db_client.execute(
-                dynamic_query(stm, freeze(identifiers)),
-                QueryValues(freeze(args)),
+        skip = Cmd.from_cmd(
+            lambda: LOG.warning(
+                "Ignoring nonexistent S3 file: %s",
+                self._bucket + "/" + data_file,
             )
-            + end
         )
+        upload = start + self._upload(schema, data_file) + end
+        return self._exist(data_file).bind(lambda b: upload if b else skip)

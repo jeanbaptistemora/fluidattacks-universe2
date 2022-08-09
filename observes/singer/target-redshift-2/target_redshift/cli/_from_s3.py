@@ -10,6 +10,7 @@ from fa_purity import (
 import logging
 from mypy_boto3_s3 import (
     S3Client,
+    S3ServiceResource,
 )
 from redshift_client.id_objs import (
     SchemaId,
@@ -44,6 +45,10 @@ LOG = logging.getLogger(__name__)
 
 def _new_s3_client() -> Cmd[S3Client]:
     return Cmd.from_cmd(lambda: boto3.client("s3"))
+
+
+def _new_s3_resource() -> Cmd[S3ServiceResource]:
+    return Cmd.from_cmd(lambda: boto3.resource("s3"))
 
 
 @click.command()  # type: ignore[misc]
@@ -89,8 +94,12 @@ def from_s3(
 
         def _upload(target: SchemaId) -> Cmd[None]:
             handler = client.bind(
-                lambda db: _new_s3_client().map(
-                    lambda c: S3Handler(target, c, db, bucket, prefix, role)
+                lambda db: _new_s3_client().bind(
+                    lambda c: _new_s3_resource().map(
+                        lambda r: S3Handler(
+                            target, c, r, db, bucket, prefix, role
+                        )
+                    )
                 )
             )
             return table_client.bind(
