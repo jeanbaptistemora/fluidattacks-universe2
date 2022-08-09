@@ -1,5 +1,6 @@
 export interface IGraphicProps {
   bsHeight: number;
+  shouldDisplayAll?: boolean;
   documentName: string;
   documentType: string;
   entity: string;

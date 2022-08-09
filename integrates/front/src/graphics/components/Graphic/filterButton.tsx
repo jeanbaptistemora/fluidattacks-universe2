@@ -16,10 +16,13 @@ import styles from "graphics/components/Graphic/index.css";
 import { GraphicButton } from "styles/styledComponents";
 
 interface ITimeFilterButton {
+  shouldDisplayAll: boolean | undefined;
   subjectName: string;
   subject: string;
   timeFilter: boolean;
   changeToThirtyDays: () => void;
+  changeToOneHundredEighty: (() => void) | undefined;
+  changeToSixtyDays: (() => void) | undefined;
   changeToNinety: () => void;
   changeToAll: () => void;
 }
@@ -65,11 +68,14 @@ const GButton: React.FC<IGButton> = ({
 };
 
 const TimeFilterButton: React.FC<ITimeFilterButton> = ({
+  shouldDisplayAll = true,
   subjectName,
   subject,
   timeFilter,
   changeToThirtyDays,
+  changeToSixtyDays = undefined,
   changeToNinety,
+  changeToOneHundredEighty = undefined,
   changeToAll,
 }: ITimeFilterButton): JSX.Element => {
   const { t } = useTranslation();
@@ -87,9 +93,29 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
           className={styles.buttonSize}
           onClick={changeToThirtyDays}
         >
-          <DaysLabel days={"30"} isEqual={subjectName === `${subject}_30`} />
+          <DaysLabel
+            days={"30"}
+            isEqual={
+              shouldDisplayAll
+                ? subjectName === `${subject}_30`
+                : subjectName === subject
+            }
+          />
         </GraphicButton>
       </Tooltip>
+      {changeToSixtyDays !== undefined && (
+        <Tooltip
+          id={"analytics.limitData.sixtyDays.tooltip.id"}
+          tip={t("analytics.limitData.sixtyDays.tooltip")}
+        >
+          <GraphicButton
+            className={styles.buttonSize}
+            onClick={changeToSixtyDays}
+          >
+            <DaysLabel days={"60"} isEqual={subjectName === `${subject}_60`} />
+          </GraphicButton>
+        </Tooltip>
+      )}
       <Tooltip
         id={"analytics.limitData.ninetyDays.tooltip.id"}
         tip={t("analytics.limitData.ninetyDays.tooltip")}
@@ -98,14 +124,32 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
           <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
         </GraphicButton>
       </Tooltip>
-      <Tooltip
-        id={"analytics.limitData.all.tooltip.id"}
-        tip={t("analytics.limitData.all.tooltip")}
-      >
-        <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
-          <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
-        </GraphicButton>
-      </Tooltip>
+      {changeToOneHundredEighty !== undefined && (
+        <Tooltip
+          id={"analytics.limitData.oneHundredEighty.tooltip.id"}
+          tip={t("analytics.limitData.oneHundredEighty.tooltip")}
+        >
+          <GraphicButton
+            className={styles.buttonSize}
+            onClick={changeToOneHundredEighty}
+          >
+            <DaysLabel
+              days={"180"}
+              isEqual={subjectName === `${subject}_180`}
+            />
+          </GraphicButton>
+        </Tooltip>
+      )}
+      {shouldDisplayAll && (
+        <Tooltip
+          id={"analytics.limitData.all.tooltip.id"}
+          tip={t("analytics.limitData.all.tooltip")}
+        >
+          <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
+            <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
+          </GraphicButton>
+        </Tooltip>
+      )}
     </React.StrictMode>
   );
 };
@@ -118,8 +162,9 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
   changeToDefault,
 }: ITypeFilterButton): JSX.Element => {
   const tooltip: string = useMemo(
-    (): string => mergedDocuments[documentName].default.tooltip,
-    [documentName]
+    (): string =>
+      documentNameFilter ? mergedDocuments[documentName].default.tooltip : "",
+    [documentName, documentNameFilter]
   );
 
   if (!documentNameFilter) {
@@ -152,6 +197,7 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
 };
 
 export const FilterButton: React.FC<ITimeFilterButton & ITypeFilterButton> = ({
+  shouldDisplayAll = true,
   subjectName,
   subject,
   documentName,
@@ -160,7 +206,9 @@ export const FilterButton: React.FC<ITimeFilterButton & ITypeFilterButton> = ({
   documentNameFilter,
   changeToAlternative,
   changeToThirtyDays,
+  changeToSixtyDays = undefined,
   changeToNinety,
+  changeToOneHundredEighty = undefined,
   changeToAll,
   changeToDefault,
 }: ITimeFilterButton & ITypeFilterButton): JSX.Element => (
@@ -178,7 +226,10 @@ export const FilterButton: React.FC<ITimeFilterButton & ITypeFilterButton> = ({
           <TimeFilterButton
             changeToAll={changeToAll}
             changeToNinety={changeToNinety}
+            changeToOneHundredEighty={changeToOneHundredEighty}
+            changeToSixtyDays={changeToSixtyDays}
             changeToThirtyDays={changeToThirtyDays}
+            shouldDisplayAll={shouldDisplayAll}
             subject={subject}
             subjectName={subjectName}
             timeFilter={timeFilter}

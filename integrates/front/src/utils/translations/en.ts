@@ -90,6 +90,14 @@ export const enTranslations: ResourceKey = {
         text: "90",
         tooltip: "Data filtered from the last 90 days",
       },
+      oneHundredEighty: {
+        text: "180",
+        tooltip: "Data filtered from the last 180 days",
+      },
+      sixtyDays: {
+        text: "60",
+        tooltip: "Data filtered from the last 60 days",
+      },
       thirtyDays: {
         text: "30",
         tooltip: "Data filtered from the last 30 days",

@@ -9,7 +9,9 @@ interface IDaysLabelProps {
 }
 
 const labels: Record<string, string> = {
+  "180": translate.t("analytics.limitData.oneHundredEighty.text"),
   "30": translate.t("analytics.limitData.thirtyDays.text"),
+  "60": translate.t("analytics.limitData.sixtyDays.text"),
   "90": translate.t("analytics.limitData.ninetyDays.text"),
   allTime: translate.t("analytics.limitData.all.text"),
 };

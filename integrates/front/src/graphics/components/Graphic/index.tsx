@@ -101,12 +101,14 @@ function buildUrl(
     : url.toString();
 }
 
+// eslint-disable-next-line complexity
 export const Graphic: React.FC<IGraphicProps> = (
   props: Readonly<IGraphicProps>
 ): JSX.Element => {
   const {
     bsHeight,
     className,
+    shouldDisplayAll = true,
     documentName,
     documentType,
     entity,
@@ -227,6 +229,14 @@ export const Graphic: React.FC<IGraphicProps> = (
   }
   function changeToNinety(): void {
     setSubjectName(`${subject}_90`);
+    frameOnRefresh();
+  }
+  function changeToSixtyDays(): void {
+    setSubjectName(`${subject}_60`);
+    frameOnRefresh();
+  }
+  function changeToOneHundredEighty(): void {
+    setSubjectName(`${subject}_180`);
     frameOnRefresh();
   }
   function changeToAll(): void {
@@ -395,13 +405,22 @@ export const Graphic: React.FC<IGraphicProps> = (
                   changeToAlternative={changeToAlternative}
                   changeToDefault={changeToDefault}
                   changeToNinety={changeToNinety}
-                  changeToThirtyDays={changeTothirtyDays}
+                  changeToOneHundredEighty={
+                    shouldDisplayAll ? undefined : changeToOneHundredEighty
+                  }
+                  changeToSixtyDays={
+                    shouldDisplayAll ? undefined : changeToSixtyDays
+                  }
+                  changeToThirtyDays={
+                    shouldDisplayAll ? changeTothirtyDays : changeToAll
+                  }
                   currentDocumentName={currentDocumentName}
                   documentName={documentName}
                   documentNameFilter={isDocumentMerged(
                     documentName,
                     documentType
                   )}
+                  shouldDisplayAll={shouldDisplayAll}
                   subject={subject}
                   subjectName={subjectName}
                   timeFilter={isDocumentAllowed(documentName, documentType)}
@@ -522,13 +541,24 @@ export const Graphic: React.FC<IGraphicProps> = (
                           changeToAlternative={changeToAlternative}
                           changeToDefault={changeToDefault}
                           changeToNinety={changeToNinety}
-                          changeToThirtyDays={changeTothirtyDays}
+                          changeToOneHundredEighty={
+                            shouldDisplayAll
+                              ? undefined
+                              : changeToOneHundredEighty
+                          }
+                          changeToSixtyDays={
+                            shouldDisplayAll ? undefined : changeToSixtyDays
+                          }
+                          changeToThirtyDays={
+                            shouldDisplayAll ? changeTothirtyDays : changeToAll
+                          }
                           currentDocumentName={currentDocumentName}
                           documentName={documentName}
                           documentNameFilter={isDocumentMerged(
                             documentName,
                             documentType
                           )}
+                          shouldDisplayAll={shouldDisplayAll}
                           subject={subject}
                           subjectName={subjectName}
                           timeFilter={isDocumentAllowed(
