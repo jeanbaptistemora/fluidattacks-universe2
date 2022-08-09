@@ -21,13 +21,15 @@
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
       ({{ count_var_report["reattacked"]["variation"] }})<br />
 
-      Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities
-      ({{ count_var_report["draft_created"]["variation"] }}),
-      {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities rejected.<br />
+      <span style="white-space: nowrap;">
+        Draft(s): {{ count_var_report["draft_created"]["count"] }} vulnerabilities
+        ({{ count_var_report["draft_created"]["variation"] }}),
+        {{ count_var_report["draft_rejected"]["count"] }} vulnerabilities rejected.<br />
 
-      Released: {{ count_var_report["released"]["count"] }} vulnerabilities
-      ({{ count_var_report["released"]["variation"] }}),
-      {{ count_var_report["effectiveness"] }} effectiveness.
+        Released: {{ count_var_report["released"]["count"] }} vulnerabilities
+        ({{ count_var_report["released"]["variation"] }}),
+        effectiveness ({{ count_var_report["effectiveness"] }}).
+      </span>
     </p>
     <p>
       Group details:<br />
