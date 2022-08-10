@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Get the events that needs to change their taxonomy
+
+Execution Time:    2022-08-10 at 21:45:53 UTC
+Finalization Time: 2022-08-10 at 21:46:02 UTC
 """
 from aioextensions import (
     collect,
