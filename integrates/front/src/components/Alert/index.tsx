@@ -6,6 +6,8 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import type { IAlertBoxProps } from "./Box";
 import { AlertBox, ContentBox, variants } from "./Box";
+import type { IToastBoxProps, IToastProps } from "./Toast";
+import { ToastBox, toast } from "./Toast";
 
 import { Button } from "components/Button";
 
@@ -59,5 +61,5 @@ const Alert: FC<IAlertProps> = ({
   );
 };
 
-export type { IAlertProps };
-export { Alert };
+export type { IAlertProps, IToastBoxProps, IToastProps };
+export { Alert, ToastBox, toast };
