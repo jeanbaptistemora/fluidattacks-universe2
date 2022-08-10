@@ -345,16 +345,6 @@ async def get_all_active_group_names(
     return active_group_names
 
 
-async def get_all_active_group_names_with_machine(
-    loaders: Any,
-) -> tuple[str, ...]:
-    active_groups = await get_all_active_groups(loaders)
-    active_group_names = tuple(
-        group.name for group in active_groups if group.state.has_machine
-    )
-    return active_group_names
-
-
 async def get_all_deleted_groups(
     loaders: Any,
 ) -> tuple[Group, ...]:

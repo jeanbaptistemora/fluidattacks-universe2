@@ -9,6 +9,11 @@ from dataloaders import (
 from datetime import (
     date,
 )
+from db_model.groups.enums import (
+    GroupService,
+    GroupSubscriptionType,
+    GroupTier,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -91,8 +96,18 @@ async def _send_mail_report(
 
 async def missing_environment_alert() -> None:
     loaders: Dataloaders = get_new_context()
-    group_names = await orgs_domain.get_all_active_group_names_with_machine(
-        loaders
+    active_groups = await orgs_domain.get_all_active_groups(loaders)
+    group_names = tuple(
+        group.name
+        for group in active_groups
+        if (
+            group.state.has_machine
+            and group.state.tier != GroupTier.ONESHOT
+            and not (
+                group.state.type == GroupSubscriptionType.CONTINUOUS
+                and group.state.service == GroupService.BLACK
+            )
+        )
     )
 
     if FI_ENVIRONMENT == "production":
