@@ -1,7 +1,5 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
@@ -9,6 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
+import { Label } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
@@ -91,205 +90,127 @@ const Policies: React.FC<IPolicies> = ({
           <Row>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
+                <Label
+                  htmlFor={"maxAcceptanceDays"}
+                  tooltip={t(
+                    `${translationStart}recommended.maxAcceptanceDays`
+                  )}
+                >
                   {t(`${translationStart}policies.maxAcceptanceDays`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"maxAcceptanceDays"}
-                    tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.maxAcceptanceDays.tooltip`}
-                  place={"top"}
-                  tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"maxAcceptanceDays"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"maxAcceptanceDays"}
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
+                <Label
+                  htmlFor={"maxNumberAcceptances"}
+                  tooltip={t(
+                    `${translationStart}recommended.maxNumberAcceptances`
+                  )}
+                >
                   {t(`${translationStart}policies.maxNumberAcceptances`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"maxNumberAcceptances"}
-                    tip={t(
-                      `${translationStart}recommended.maxNumberAcceptances`
-                    )}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.maxNumberAcceptances.tooltip`}
-                  place={"top"}
-                  tip={t(`${translationStart}recommended.maxNumberAcceptances`)}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"maxNumberAcceptances"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"maxNumberAcceptances"}
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
-                  {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"vulnerabilityGracePeriod"}
-                    tip={t(
-                      `${translationStart}recommended.vulnerabilityGracePeriod`
-                    )}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.vulnerabilityGracePeriod.tooltip`}
-                  place={"top"}
-                  tip={t(
+                <Label
+                  htmlFor={"vulnerabilityGracePeriod"}
+                  tooltip={t(
                     `${translationStart}recommended.vulnerabilityGracePeriod`
                   )}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"vulnerabilityGracePeriod"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                  {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"vulnerabilityGracePeriod"}
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
           </Row>
           <Row>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
-                  {t(`${translationStart}policies.minAcceptanceSeverity`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"maxAcceptanceDays"}
-                    tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.minAcceptanceSeverity.tooltip`}
-                  place={"top"}
-                  tip={t(
+                <Label
+                  htmlFor={"minAcceptanceSeverity"}
+                  tooltip={t(
                     `${translationStart}recommended.minAcceptanceSeverity`
                   )}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"minAcceptanceSeverity"}
-                    type={"text"}
-                    validate={composeValidators([
-                      isFloatOrInteger,
-                      numberBetween(minSeverity, maxSeverity),
-                    ])}
-                  />
-                </Tooltip>
+                  {t(`${translationStart}policies.minAcceptanceSeverity`)}
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"minAcceptanceSeverity"}
+                  type={"text"}
+                  validate={composeValidators([
+                    isFloatOrInteger,
+                    numberBetween(minSeverity, maxSeverity),
+                  ])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
-                  {t(`${translationStart}policies.maxAcceptanceSeverity`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"maxAcceptanceDays"}
-                    tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.maxAcceptanceSeverity.tooltip`}
-                  place={"top"}
-                  tip={t(
+                <Label
+                  htmlFor={"maxAcceptanceSeverity"}
+                  tooltip={t(
                     `${translationStart}recommended.maxAcceptanceSeverity`
                   )}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"maxAcceptanceSeverity"}
-                    type={"text"}
-                    validate={composeValidators([
-                      isFloatOrInteger,
-                      numberBetween(minSeverity, maxSeverity),
-                    ])}
-                  />
-                </Tooltip>
+                  {t(`${translationStart}policies.maxAcceptanceSeverity`)}
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"maxAcceptanceSeverity"}
+                  type={"text"}
+                  validate={composeValidators([
+                    isFloatOrInteger,
+                    numberBetween(minSeverity, maxSeverity),
+                  ])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
               <Card>
-                <Text mb={2}>
-                  {t(`${translationStart}policies.minBreakingSeverity`)}
-                  &nbsp;
-                  <Tooltip
-                    disp={"inline"}
-                    id={"minBreakingSeverity"}
-                    tip={t(
-                      `${translationStart}recommended.minBreakingSeverity`
-                    )}
-                  >
-                    <Button disabled={true} size={"sm"}>
-                      <FontAwesomeIcon color={"#5c5c70"} icon={faCircleInfo} />
-                    </Button>
-                  </Tooltip>
-                </Text>
-                <Tooltip
-                  id={`${translationStart}recommended.minBreakingSeverity.tooltip`}
-                  place={"top"}
-                  tip={t(`${translationStart}recommended.minBreakingSeverity`)}
+                <Label
+                  htmlFor={"minBreakingSeverity"}
+                  tooltip={t(
+                    `${translationStart}recommended.minBreakingSeverity`
+                  )}
                 >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"minBreakingSeverity"}
-                    type={"text"}
-                    validate={composeValidators([
-                      isFloatOrInteger,
-                      numberBetween(minSeverity, maxSeverity),
-                    ])}
-                  />
-                </Tooltip>
+                  {t(`${translationStart}policies.minBreakingSeverity`)}
+                </Label>
+                <Field
+                  component={FormikText}
+                  disabled={permissions.cannot(permission)}
+                  name={"minBreakingSeverity"}
+                  type={"text"}
+                  validate={composeValidators([
+                    isFloatOrInteger,
+                    numberBetween(minSeverity, maxSeverity),
+                  ])}
+                />
               </Card>
             </Col>
           </Row>
