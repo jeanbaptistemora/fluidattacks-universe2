@@ -1,6 +1,8 @@
 # pylint: disable=invalid-name
 """
 Retrieve all solved events
+Execution Time:    2022-08-09 at 20∶58∶27 UTC
+Finalization Time: 2022-08-09 at 20∶58∶27 UTC
 """
 from aioextensions import (
     collect,
