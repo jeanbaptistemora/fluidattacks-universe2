@@ -29,7 +29,9 @@ from newutils.deprecations import (
 import os
 import pytest
 
-MOCK_SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
+MOCK_SCHEMA_PATH: str = os.path.dirname(
+    os.path.abspath(os.path.join("..", os.path.dirname(__file__)))
+)
 MOCK_SDL_CONTENT: str = load_schema_from_path(MOCK_SCHEMA_PATH)
 
 
