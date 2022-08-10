@@ -544,8 +544,9 @@ async def update_evidence(
     group_name = event.group_name
     evidence_id = f"{group_name}-{event_id}-{evidence_type_str}{extension}"
     full_name = f"{group_name}/{event_id}/{evidence_id}"
-    validations.validate_sanitized_csv_input(full_name)
-    validations.validate_sanitized_csv_input(file.filename, file.content_type)
+    validations.validate_sanitized_csv_input(
+        file.filename, file.content_type, full_name
+    )
 
     await save_evidence(file, full_name)
     await events_model.update_evidence(

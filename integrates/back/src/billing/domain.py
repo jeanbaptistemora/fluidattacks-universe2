@@ -502,9 +502,8 @@ async def update_documents(
     if rut:
         rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
         rut_full_name = f"billing/{org_name}/{business_name}/{rut_file_name}"
-        validations.validate_sanitized_csv_input(rut_full_name)
         validations.validate_sanitized_csv_input(
-            rut.filename, rut.content_type
+            rut.filename, rut.content_type, rut_full_name
         )
         await save_file(rut, rut_full_name)
         documents = OrganizationDocuments(
@@ -520,9 +519,8 @@ async def update_documents(
         tax_id_full_name = (
             f"billing/{org_name}/{business_name}/{tax_id_file_name}"
         )
-        validations.validate_sanitized_csv_input(tax_id_full_name)
         validations.validate_sanitized_csv_input(
-            tax_id.filename, tax_id.content_type
+            tax_id.filename, tax_id.content_type, tax_id_full_name
         )
         await save_file(tax_id, tax_id_full_name)
         documents = OrganizationDocuments(

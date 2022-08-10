@@ -62,8 +62,7 @@ async def add(  # pylint: disable=too-many-arguments
 ) -> None:
     if is_moving_toe_lines is False:
         validate_loc(attributes.loc)
-        validate_sanitized_csv_input(filename)
-        validate_sanitized_csv_input(attributes.last_author)
+        validate_sanitized_csv_input(attributes.last_author, filename)
         validate_email_address(attributes.last_author)
         validate_commit_hash(attributes.last_commit)
         validate_modified_date(attributes.modified_date)
