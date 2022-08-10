@@ -358,7 +358,7 @@ def format_data(
                     bottom=0,
                 ),
                 label=dict(
-                    text="Severity (CVSSF)",
+                    text="Exposure (CVSSF)",
                     position="inner-top",
                 ),
             ),
