@@ -23760,11 +23760,11 @@ F086,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,29,353,skims,
   34 | </html>
      ^ Col 0
 ",html.html_has_not_sub_resource_integrity
-F117,lines,namespace/skims/test/data/lib_path/f117/.project,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
+F117,lines,namespace/skims/test/data/lib_path/f117/.project,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
 
 ",generic.unverifiable_files
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
-> 1 | ����9
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
+  1 | ����9
   2 | 
   3 | 
   4 | <init>()VCodeLineNumberTablemain([Ljava/lang/String;)V
@@ -23775,8 +23775,8 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,1,377,skims,117. 
   9 | 
     ^ Col 0
 ",generic.unverifiable_files
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,1,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
->  1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
+   1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
    2 | K-*��ϳR0�3��r.JM,IM�u�
    3 | +h�&�敔j�r�rPK�Kx32PK�[%O
    4 | MyJar.class;�o�>K~.f
