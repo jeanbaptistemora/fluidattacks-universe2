@@ -32,6 +32,10 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     args.evaluation[symbol_id] = False
 
     for ref_id in refs_exec_order:
+        if args.graph.nodes[ref_id]["label_type"] == "Parameter":
+            # Evaluate the parameter if it defines the symbol
+            args.generic(args.fork_n_id(ref_id))
+
         if ref_id not in args.path:
             continue
         cfg_id = g.lookup_first_cfg_parent(args.graph, ref_id)
