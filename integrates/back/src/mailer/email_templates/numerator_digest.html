@@ -12,11 +12,10 @@
       Enumerated: {{ count_var_report["enumerated"]["count"] }} inputs.
       ({{ count_var_report["enumerated"]["variation"] }})<br />
 
-      Verified: {{ count_var_report["verified"]["count"] }} inputs
-      ({{ count_var_report["verified"]["variation"] }}),
+      Verified: {{ count_var_report["verified"]["count"] }} inputs,
 
       {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines.
-      ({{ count_var_report["loc"]["variation"] }})<br />
+      ({{ count_var_report["verified"]["variation"] }})<br />
 
       Reatacked: {{ count_var_report["reattacked"]["count"] }} vulnerabilities.
       ({{ count_var_report["reattacked"]["variation"] }})<br />

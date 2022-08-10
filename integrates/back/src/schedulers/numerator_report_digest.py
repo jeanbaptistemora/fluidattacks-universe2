@@ -411,16 +411,26 @@ def get_percent(num_a: int, num_b: int) -> str:
 
 
 def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
-    count_and_variation: Dict[str, Any] = {}
-    for key, value in content.items():
-        if key not in ["groups"]:
-            count_and_variation[key] = {
-                "count": value["count"]["today"],
-                "variation": get_percent(
-                    value["count"]["today"] - value["count"]["past_day"],
-                    value["count"]["past_day"],
-                ),
-            }
+    count_and_variation: Dict[str, Any] = {
+        key: {
+            "count": (count := value["count"])["today"],
+            "variation": (
+                get_percent(
+                    (count["today"] + content["loc"]["count"]["today"])
+                    - (
+                        count["past_day"] + content["loc"]["count"]["past_day"]
+                    ),
+                    (count["past_day"] + content["loc"]["count"]["past_day"]),
+                )
+                if key in ["verified"]
+                else get_percent(
+                    count["today"] - count["past_day"],
+                    count["past_day"],
+                )
+            ),
+        }
+        for key, value in content.items()
+    }
     count_and_variation["effectiveness"] = get_percent(
         content["released"]["count"]["today"]
         - content["draft_rejected"]["count"]["today"],
@@ -436,11 +446,12 @@ async def _send_mail_report(
     report_date: date,
     responsible: str,
 ) -> None:
+    groups_content = content.pop("groups")
     count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
 
     context: Dict[str, Any] = {
         "count_var_report": count_var_report,
-        "groups": content["groups"],
+        "groups": groups_content,
         "responsible": responsible,
     }
 
