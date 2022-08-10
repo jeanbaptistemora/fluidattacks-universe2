@@ -5,6 +5,12 @@ from aioextensions import (
 from aiohttp.client_exceptions import (
     ClientPayloadError,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    InvalidUrl,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -16,10 +22,14 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
 )
+from db_model.roots.enums import (
+    RootStatus,
+)
 from db_model.roots.types import (
     GitRoot,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
@@ -48,6 +58,12 @@ from organizations_finding_policies import (
     domain as policies_domain,
 )
 import tempfile
+from toe.inputs import (
+    domain as toe_inputs_domain,
+)
+from toe.inputs.types import (
+    ToeInputAttributesToAdd,
+)
 from typing import (
     Any,
     Dict,
@@ -379,6 +395,25 @@ def _machine_vulns_to_close(
     )
 
 
+async def ensure_toe_inputs(
+    loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
+) -> None:
+    for vuln in stream["inputs"]:
+        with suppress(InvalidUrl):
+            await toe_inputs_domain.add(
+                loaders=loaders,
+                group_name=group_name,
+                component=vuln["url"],
+                entry_point=vuln["field"],
+                attributes=ToeInputAttributesToAdd(
+                    be_present=True,
+                    unreliable_root_id=root_id,
+                    has_vulnerabilities=False,
+                    seen_first_time_by="machine@fluidattacks.com",
+                ),
+            )
+
+
 async def process_criteria_vuln(
     loaders: Dataloaders,
     group_name: str,
@@ -411,7 +446,9 @@ async def process_criteria_vuln(
     integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
-        if vuln.state.source == Source.MACHINE and vuln.root_id == git_root.id
+        if vuln.state.status == VulnerabilityStateStatus.OPEN
+        and vuln.state.source == Source.MACHINE
+        and vuln.root_id == git_root.id
     )
     vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
@@ -444,6 +481,9 @@ async def process_criteria_vuln(
         )
 
     if (len(vulns_to_open["inputs"]) + len(vulns_to_open["inputs"])) > 0:
+        await ensure_toe_inputs(
+            loaders, group_name, git_root.id, vulns_to_open
+        )
         await map_vulnerabilities_to_dynamo(
             loaders=loaders,
             vulns_data_from_file=vulns_to_open,
@@ -472,6 +512,7 @@ async def process_execution(
             root
             for root in await loaders.group_roots.load(group_name)
             if isinstance(root, GitRoot)
+            and root.state.status == RootStatus.ACTIVE
             and root.state.nickname == execution_config["namespace"]
         )
     except StopIteration:
