@@ -512,6 +512,15 @@ class InvalidCommentParent(CustomBaseException):
         super(InvalidCommentParent, self).__init__(msg)
 
 
+class RepeatedComment(CustomBaseException):
+    """Exception to prevent repeated values"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Comment already exists "
+        super(RepeatedComment, self).__init__(msg)
+
+
 class InvalidCvssField(CustomBaseException):
     """Exception to control cvss field values"""
 
