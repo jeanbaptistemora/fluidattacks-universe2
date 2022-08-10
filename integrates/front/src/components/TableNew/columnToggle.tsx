@@ -15,7 +15,7 @@ import { Switch } from "components/Switch";
 export const ToggleFunction = <TData extends object>(
   props: IToggleProps<TData>
 ): JSX.Element => {
-  const { id, table } = props;
+  const { table } = props;
   const { t } = useTranslation();
   const [hidden, setHidden] = useState(true);
   function showModal(): void {
@@ -26,7 +26,7 @@ export const ToggleFunction = <TData extends object>(
   }
 
   return (
-    <div id={id}>
+    <div id={"columns-filter"}>
       <Button onClick={showModal}>
         <FontAwesomeIcon icon={faCog} />
         &nbsp;
@@ -37,7 +37,7 @@ export const ToggleFunction = <TData extends object>(
         open={!hidden}
         title={t("group.findings.tableSet.modalTitle")}
       >
-        <ToggleContainer>
+        <ToggleContainer id={"columns-buttons"}>
           {table.getAllLeafColumns().map((column): ReactElement => {
             return (
               <Row align={"center"} key={column.id}>

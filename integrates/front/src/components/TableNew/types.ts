@@ -48,7 +48,6 @@ interface ITablepropsWithRowSel<TData>
 }
 
 interface IToggleProps<TData> {
-  id: string;
   table: Table<TData>;
 }
 

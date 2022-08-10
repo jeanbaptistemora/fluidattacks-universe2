@@ -57,9 +57,9 @@ def test_group_reports(
         timeout,
     )
     reports.click()
-    technical_report = utils.wait_for_text(
+    technical_report = utils.wait_for_id(
         driver,
-        "Technical",
+        "report-excel",
         timeout,
     )
     technical_report.click()

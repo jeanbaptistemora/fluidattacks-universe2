@@ -115,7 +115,7 @@ export const Tables = <TData extends object>(
         <div className={`flex flex-wrap pa0 w-100`}>
           <Gap>
             {extraButtons !== undefined && extraButtons}
-            {columnToggle && <ToggleFunction id={`${id}-togg`} table={table} />}
+            {columnToggle && <ToggleFunction table={table} />}
             {exportCsv && (
               <CSVLink data={data} filename={csvName}>
                 {t("group.findings.exportCsv.text")}
