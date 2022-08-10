@@ -5,8 +5,8 @@ Copy roles from authz to access items:
     group   to  group_access_metadata
     org     to  organization_access_metadata
 
-Execution Time:
-Finalization Time:
+Execution Time:    2022-08-10 at 18:04:30 UTC
+Finalization Time: 2022-08-10 at 18:06:19 UTC
 """
 
 from aioextensions import (
@@ -167,27 +167,30 @@ async def process_authz_policy(
 
     if policy_level == "group":
         group_name = policy_object
-        if (
-            group_name not in all_active_group_names
-            or not await _get_group_access(email=email, group_name=group_name)
-        ):
+        if group_name not in all_active_group_names:
+            return
+        group_access = await _get_group_access(
+            email=email, group_name=group_name
+        )
+        if not group_access or group_access.get("role") == role:
             return
         await _grant_group_level_role(email, group_name, role)
 
     elif policy_level == "organization":
         organization_id = _capitalize_org_id_prefix(policy_object)
-        if (
-            organization_id not in all_active_org_ids
-            or not await _get_organization_access(
-                email=email,
-                organization_id=organization_id,
-            )
-        ):
+        if organization_id not in all_active_org_ids:
+            return
+        org_access = await _get_organization_access(
+            email=email,
+            organization_id=organization_id,
+        )
+        if not org_access or org_access.get("role") == role:
             return
         await _grant_organization_level_role(email, organization_id, role)
 
     elif policy_level == "user":
-        if not await _get_stakeholder(email=email):
+        stakeholder = await _get_stakeholder(email=email)
+        if not stakeholder or stakeholder.get("role") == role:
             return
         await _grant_user_level_role(email, role)
 
@@ -226,7 +229,7 @@ async def main() -> None:
             )
             for item in items
         ),
-        workers=64,
+        workers=128,
     )
 
 
