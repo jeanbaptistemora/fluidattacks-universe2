@@ -189,14 +189,6 @@ label {
   background-color: #ffbf00;
 }
 
-:global .bg-ns {
-  background-color: #525a5c !important;
-}
-
-:global .bg-ne {
-  background-color: #ff3435 !important;
-}
-
 :global .bg-sb,
 :global .bg-sb:active,
 :global .bg-sb:focus,
@@ -270,14 +262,6 @@ label {
   min-height: calc(1.5em + 0.75rem + 2px);
 }
 
-:global .top9-9 {
-  top: 9.9rem;
-}
-
-:global .w-45 {
-  width: 45%;
-}
-
 :global .w-fit-content {
   width: fit-content;
 }
@@ -292,10 +276,6 @@ label {
   :global .w-45-ns {
     width: 45%;
   }
-}
-
-:global .b--mid-light-gray {
-  border-color: #ddd;
 }
 
 ::selection {

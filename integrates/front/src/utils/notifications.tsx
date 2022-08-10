@@ -1,15 +1,15 @@
-import React from "react";
-import { Slide, toast } from "react-toastify";
+import { toast as toastify } from "react-toastify";
 
-import { Notification } from "components/Notification";
+import { toast } from "components/Alert";
 
 const msgSuccess: (text: string, title: string) => void = (
   text: string,
   title: string
 ): void => {
-  toast.success(<Notification text={text} title={title} />, {
-    className: "bg-ns",
-    transition: Slide,
+  toast({
+    msg: text,
+    title,
+    variant: "success",
   });
 };
 
@@ -17,11 +17,11 @@ const msgError: (text: string, title?: string) => void = (
   text: string,
   title: string = "Oops!"
 ): void => {
-  if (!toast.isActive(text)) {
-    toast.error(<Notification text={text} title={title} />, {
-      className: "bg-ne",
-      toastId: text,
-      transition: Slide,
+  if (!toastify.isActive(text)) {
+    toast({
+      msg: text,
+      title,
+      variant: "error",
     });
   }
 };
@@ -30,11 +30,12 @@ const msgErrorStick: (text: string, title?: string) => void = (
   text: string,
   title: string = "Oops!"
 ): void => {
-  toast.error(<Notification text={text} title={title} />, {
+  toast({
     autoClose: false,
-    className: "bg-ne",
     draggable: false,
-    transition: Slide,
+    msg: text,
+    title,
+    variant: "error",
   });
 };
 
@@ -45,18 +46,16 @@ const msgInfo: (text: string, title: string, hideMessage?: boolean) => void = (
 ): void => {
   const toastId: string = title.toLocaleLowerCase() + text.toLocaleLowerCase();
   if (hideMessage) {
-    toast.dismiss(toastId);
-
-    return;
+    toastify.dismiss(toastId);
   }
-  toast.info(<Notification text={text} title={title} />, {
+  toast({
     autoClose: false,
-    className: "bg-ns",
     closeButton: true,
     delay: 0,
     draggable: false,
-    toastId,
-    transition: Slide,
+    msg: text,
+    title,
+    variant: "info",
   });
 };
 
