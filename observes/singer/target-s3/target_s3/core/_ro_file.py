@@ -93,7 +93,6 @@ class TempReadOnlyFile:
     def save(content: Stream[str]) -> Cmd[TempReadOnlyFile]:
         def _action(act: CmdUnwrapper) -> TempReadOnlyFile:
             file = NamedTemporaryFile("w", delete=False)
-            LOG.info("Saving stream into file")
             LOG.debug("Saving stream into %s", file.name)
             file.writelines(act.unwrap(content.unsafe_to_iter()))
             file.close()
@@ -102,13 +101,16 @@ class TempReadOnlyFile:
         return new_cmd(_action)
 
     @classmethod
-    def freeze(cls, file: IO[str]) -> Cmd[TempReadOnlyFile]:
+    def freeze(cls, file_path: str) -> Cmd[TempReadOnlyFile]:
         def _action() -> Iterable[str]:
-            file.seek(0)
-            line = file.readline()
-            while line:
-                yield line
+            with open(file_path, "r") as file:
+                file.seek(0)
                 line = file.readline()
+                while line:
+                    yield line
+                    line = file.readline()
 
+        start = Cmd.from_cmd(lambda: LOG.debug("Freezing file"))
+        end = Cmd.from_cmd(lambda: LOG.debug("Freezing completed!"))
         stream = unsafe_build_stream(Cmd.from_cmd(_action))
-        return cls.save(stream)
+        return start + cls.save(stream).bind(lambda f: end.map(lambda _: f))

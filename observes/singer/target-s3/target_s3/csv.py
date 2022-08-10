@@ -149,7 +149,7 @@ def _reformat_group(group: RecordGroup) -> RecordGroup:
             lambda c: _reformat_group_records(p, c).unwrap()
         )
     ).unwrap()
-    return RecordGroup.new(group.schema, records).unwrap()
+    return RecordGroup.new(group.schema, records)
 
 
 def save(

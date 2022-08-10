@@ -5,10 +5,8 @@ from boto3.dynamodb.types import (
     TypeDeserializer,
 )
 from dynamodb.types import (
-    Record,
-)
-from dynamodb.types import (
     EventName,
+    Record,
 )
 from typing import (
     Any,

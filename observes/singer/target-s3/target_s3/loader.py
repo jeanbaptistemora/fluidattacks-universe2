@@ -15,9 +15,6 @@ from fa_purity import (
     ResultE,
     Stream,
 )
-from fa_purity.cmd.transform import (
-    serial_merge,
-)
 from fa_purity.json.factory import (
     loads,
 )
@@ -31,6 +28,7 @@ from fa_singer_io.singer import (
 from fa_singer_io.singer.deserializer import (
     deserialize,
 )
+import logging
 from target_s3.core import (
     CompletePlainRecord,
     PlainRecord,
@@ -45,6 +43,7 @@ from typing import (
     TypeVar,
 )
 
+LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
 
@@ -91,13 +90,15 @@ def main(bucket: str, prefix: str, data: Stream[str]) -> Cmd[None] | NoReturn:
     singer = data.map(
         lambda i: loads(i).alt(Exception).bind(deserialize).unwrap()
     )
+    start = Cmd.from_cmd(lambda: LOG.info("Process groups started"))
     return uploader.bind(
         lambda u: _splitter.group_records(singer).bind(
-            lambda t: in_threads(
+            lambda t: start
+            + in_threads(
                 PureIterFactory.from_flist(
                     tuple(_process_group(u, t[0], g) for g in t[1])
                 ),
                 100,
-            ).map(lambda _: None)
+            )
         )
     )
