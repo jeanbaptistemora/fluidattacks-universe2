@@ -84,7 +84,7 @@ async def resolve(
             if org_access.invitation
             and org_invitation_state == OrganizationInvitiationState.PENDING
             else await authz.get_organization_level_role(
-                parent.email, organization_id
+                loaders, parent.email, organization_id
             )
         )
 

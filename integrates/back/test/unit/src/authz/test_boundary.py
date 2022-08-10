@@ -70,8 +70,9 @@ async def test_get_group_level_actions_model(email: str, group: str) -> None:
 async def test_get_organization_level_actions_model(
     email: str, organization_id: str
 ) -> None:
+    loaders: Dataloaders = get_new_context()
     organization_level_role = await authz.get_organization_level_role(
-        email, organization_id
+        loaders, email, organization_id
     )
 
     assert await authz.get_organization_level_actions(

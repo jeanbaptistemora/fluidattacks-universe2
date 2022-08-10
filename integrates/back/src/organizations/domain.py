@@ -176,8 +176,8 @@ async def add_group_access(
 ) -> bool:
     stakeholders = await get_stakeholders_emails(loaders, organization_id)
     stakeholders_roles = await collect(
-        authz.get_organization_level_role(stakeholder, organization_id)
-        for stakeholder in stakeholders
+        authz.get_organization_level_role(loaders, email, organization_id)
+        for email in stakeholders
     )
     return all(
         await collect(
@@ -436,7 +436,9 @@ async def get_stakeholder_role(
         org_access.invitation.role
         if org_access.invitation
         and invitation_state == OrganizationInvitiationState.PENDING
-        else await authz.get_organization_level_role(email, organization_id)
+        else await authz.get_organization_level_role(
+            loaders, email, organization_id
+        )
     )
 
 
@@ -470,7 +472,9 @@ async def has_group(
 
 async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
     if (
-        await authz.get_organization_level_role(email, organization_id)
+        await authz.get_organization_level_role(
+            loaders, email, organization_id
+        )
         == "admin"
     ):
         return True

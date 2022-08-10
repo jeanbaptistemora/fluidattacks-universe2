@@ -59,25 +59,27 @@ pytestmark = [
 
 
 async def test_add_group() -> None:
+    loaders: Dataloaders = get_new_context()
     group_name = "kurome"
     group_users = await group_access_domain.get_group_stakeholders_emails(
-        get_new_context(), group_name
+        loaders, group_name
     )
     assert len(group_users) == 0
 
     org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"  # NOSONAR
-    org_group_names = await orgs_domain.get_group_names(
-        get_new_context(), org_id
-    )
+    org_group_names = await orgs_domain.get_group_names(loaders, org_id)
     assert group_name in org_group_names
-    await orgs_domain.add_group_access(get_new_context(), org_id, group_name)
+    await orgs_domain.add_group_access(loaders, org_id, group_name)
 
+    loaders = get_new_context()
     group_users = await group_access_domain.get_group_stakeholders_emails(
-        get_new_context(), group_name
+        loaders, group_name
     )
     assert len(group_users) == 1
     assert (
-        await authz.get_organization_level_role(group_users[0], org_id)
+        await authz.get_organization_level_role(
+            loaders, group_users[0], org_id
+        )
         == "customer_manager"
     )
 
@@ -120,7 +122,9 @@ async def test_add_customer_manager_good() -> None:
         loaders, org_id, user, "customer_manager"
     )
     assert (
-        await authz.get_organization_level_role(user, org_id)
+        await authz.get_organization_level_role(
+            get_new_context(), user, org_id
+        )
         == "customer_manager"
     )
 
@@ -144,10 +148,11 @@ async def test_add_organization() -> None:
     await orgs_domain.add_organization(loaders, org_name, user)
 
     organization: Organization = await loaders.organization.load(org_name)
-    org_id = organization.id
-    assert await orgs_domain.has_access(loaders, org_id, user)
+    loaders = get_new_context()
+    assert await orgs_domain.has_access(loaders, organization.id, user)
     assert (
-        await authz.get_organization_level_role(user, org_id) == "user_manager"
+        await authz.get_organization_level_role(loaders, user, organization.id)
+        == "user_manager"
     )
 
     with pytest.raises(InvalidOrganization):
@@ -338,23 +343,23 @@ async def test_remove_user() -> None:
     )
     assert user in group_users
     assert await authz.get_group_level_role(user, group) == "user"
-    assert await authz.get_organization_level_role(user, org_id) == "user"
-
-    assert await orgs_domain.remove_access(
-        get_new_context(), org_id, user, modified_by
+    assert (
+        await authz.get_organization_level_role(loaders, user, org_id)
+        == "user"
     )
+
+    assert await orgs_domain.remove_access(loaders, org_id, user, modified_by)
+    loaders = get_new_context()
     updated_group_users = (
-        await group_access_domain.get_group_stakeholders_emails(
-            get_new_context(), group
-        )
+        await group_access_domain.get_group_stakeholders_emails(loaders, group)
     )
     assert user not in updated_group_users
     assert await authz.get_group_level_role(user, group) == ""
-    assert await authz.get_organization_level_role(user, org_id) == ""
+    assert await authz.get_organization_level_role(loaders, user, org_id) == ""
 
     with pytest.raises(StakeholderNotInOrganization):
         await orgs_domain.remove_access(
-            get_new_context(), org_id, "madeupuser@gmail.com", modified_by
+            loaders, org_id, "madeupuser@gmail.com", modified_by
         )
 
 

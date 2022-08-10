@@ -343,9 +343,9 @@ async def get_group_level_roles(
 
 
 async def get_organization_level_role(
+    loaders: Any,
     email: str,
     organization_id: str,
-    loaders: Any = None,
 ) -> str:
     organization_role: str = ""
     # Admins are granted access to all organizations

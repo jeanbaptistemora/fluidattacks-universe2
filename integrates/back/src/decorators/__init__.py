@@ -599,7 +599,9 @@ def require_organization_access(func: TVar) -> TVar:
         organization_id = organization.id
         role, has_access = await collect(
             [
-                authz.get_organization_level_role(user_email, organization_id),
+                authz.get_organization_level_role(
+                    loaders, user_email, organization_id
+                ),
                 orgs_domain.has_access(loaders, organization_id, user_email),
             ]
         )
