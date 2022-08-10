@@ -1,7 +1,6 @@
 from lib_root.utilities.c_sharp import (
     get_first_member,
     get_object_identifiers,
-    yield_shard_object_creation,
     yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
@@ -114,7 +113,8 @@ def js_deserialization(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-            for n_id in yield_shard_object_creation(shard, serializer):
+            graph = shard.syntax_graph
+            for n_id in yield_syntax_graph_object_creation(graph, serializer):
                 graph = shard.syntax_graph
                 for path in get_backward_paths(graph, n_id):
                     if (
