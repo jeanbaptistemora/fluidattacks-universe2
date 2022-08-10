@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 09, 2022, 11:02 AM",
+    "DateLastModified": "Aug 10, 2022, 12:36 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -921,6 +921,14 @@
         {
           "AttributeName": "confirm_deletion",
           "AttributeType": "M"
+        },
+        {
+          "AttributeName": "creation_date",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "full_name",
+          "AttributeType": "S"
         }
       ],
       "TableFacets": [
@@ -10364,52 +10372,17 @@
           "FacetName": "group_comment",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "CMNT#uuid"
+            "SortKeyAlias": "CMNT#id"
           },
-          "TableData": [
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "content": {
-                "S": "comment"
-              }
-            },
-            {
-              "pk": {
-                "S": "GROUP#unittesting"
-              },
-              "sk": {
-                "S": "CMNT#726ed18c-97e9-487a-8fa9-eed31c54fb74"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "parent_id": {
-                "S": "CMNT#8207c89a-27e2-4abe-9367-3ffea7856a4d"
-              },
-              "content": {
-                "S": "reply"
-              }
-            }
-          ],
+          "TableData": [],
           "NonKeyAttributes": [
-            "modified_date",
-            "modified_by",
+            "group_name",
+            "id",
             "parent_id",
-            "content"
+            "creation_date",
+            "content",
+            "email",
+            "full_name"
           ],
           "DataAccess": {
             "MySql": {}
