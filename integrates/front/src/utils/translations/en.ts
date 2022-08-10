@@ -296,7 +296,7 @@ export const enTranslations: ResourceKey = {
     },
     groupDescription: {
       label: "Description of the group",
-      placeholder: "AWS test new group",
+      placeholder: "New group description example",
     },
     groupName: {
       label: "Group name ",
