@@ -5,6 +5,7 @@ export const enTranslations: ResourceKey = {
     barChart: {
       eventualities: "Unsolved events by groups",
       exposureByGroups: "Open Exposure by groups",
+      exposureTrendsByCategories: "Exposure Trends by Categories",
       meanTimeToRemediate: {
         tooltip: {
           alt: {

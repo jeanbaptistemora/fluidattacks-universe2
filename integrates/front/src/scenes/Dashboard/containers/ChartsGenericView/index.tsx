@@ -193,6 +193,23 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
               </Col100>
             </RowCenter>
             <RowCenter>
+              <Col100>
+                <Graphic
+                  bsHeight={320}
+                  className={"g1"}
+                  documentName={"exposureTrendsByCategories"}
+                  documentType={"barChart"}
+                  entity={entity}
+                  generatorName={"generic"}
+                  generatorType={"barChart"}
+                  reportMode={reportMode}
+                  shouldDisplayAll={false}
+                  subject={subject}
+                  title={t("analytics.barChart.exposureTrendsByCategories")}
+                />
+              </Col100>
+            </RowCenter>
+            <RowCenter>
               <Col50>
                 <Graphic
                   bsHeight={160}

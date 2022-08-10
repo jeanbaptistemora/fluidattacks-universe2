@@ -17,6 +17,7 @@ const allowedDocumentNames: string[] = [
   "meanTimeToRemediate",
   "meanTimeToRemediateCvssf",
   "mttrBenchmarkingCvssf",
+  "exposureTrendsByCategories",
   "mttrBenchmarkingNonTreatedCvssf",
   "riskOverTime",
   "riskOverTimeCvssf",
