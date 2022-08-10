@@ -363,7 +363,6 @@ export const enTranslations: ResourceKey = {
       cancel: "Cancel",
       confirm: "Confirm",
     },
-    scrollUpButton: "Back to top",
   },
   configuration: {
     close: "Close",

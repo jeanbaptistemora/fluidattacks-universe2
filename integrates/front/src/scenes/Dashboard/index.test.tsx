@@ -96,7 +96,6 @@ describe("Dashboard", (): void => {
       expect(container.querySelector("#navbar")).toBeInTheDocument();
     });
 
-    expect(container.querySelector("#scroll-up")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "App logo" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "App logo" })).toHaveAttribute(
       "href",

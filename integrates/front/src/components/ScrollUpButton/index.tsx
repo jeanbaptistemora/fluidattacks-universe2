@@ -1,17 +1,17 @@
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { FC } from "react";
 import React, { useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 import { Button } from "components/Button";
 
 const FloatButton = styled.div.attrs({
-  className: "fixed",
-  id: "scroll-up",
+  className: "comp-scroll-up",
 })`
-  bottom: 8px;
-  right: 16px;
+  bottom: 15px;
+  position: fixed;
+  right: 140px;
   z-index: 100;
 `;
 
@@ -20,12 +20,11 @@ interface IScrollUpButtonProps {
   visibleAt?: number;
 }
 
-export const ScrollUpButton: React.FC<IScrollUpButtonProps> = ({
+const ScrollUpButton: FC<IScrollUpButtonProps> = ({
   scrollerId = "dashboard",
   visibleAt = 500,
-}: Readonly<IScrollUpButtonProps>): JSX.Element => {
+}: Readonly<IScrollUpButtonProps>): JSX.Element | null => {
   const [visible, setVisible] = useState(false);
-  const { t } = useTranslation();
   const [scroller, setScroller] = useState<HTMLElement | null>();
 
   useEffect((): void => {
@@ -42,15 +41,13 @@ export const ScrollUpButton: React.FC<IScrollUpButtonProps> = ({
     });
   }, [scroller]);
 
-  return (
+  return visible ? (
     <FloatButton>
-      {visible && (
-        <Button onClick={goToTop} variant={"primary"}>
-          {t("components.scrollUpButton")}
-          &nbsp;
-          <FontAwesomeIcon icon={faArrowUp} />
-        </Button>
-      )}
+      <Button id={"scroll-up"} onClick={goToTop} variant={"primary"}>
+        <FontAwesomeIcon icon={faArrowUp} />
+      </Button>
     </FloatButton>
-  );
+  ) : null;
 };
+
+export { ScrollUpButton };

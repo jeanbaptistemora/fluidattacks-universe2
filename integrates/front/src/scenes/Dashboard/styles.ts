@@ -13,7 +13,7 @@ const DashboardContent = styled.div.attrs({
   className: "flex flex-auto flex-column",
 })`
   overflow-y: auto;
-  padding-bottom: 40px;
+  padding-bottom: 72px;
   padding-left: 24px;
   padding-right: 24px;
 
