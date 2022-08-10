@@ -479,6 +479,26 @@ async def update_documents(
     documents = OrganizationDocuments()
     org_name = org.name.lower()
     business_name = business_name.lower()
+    if org.payment_methods is not None:
+        actual_payment_method = list(
+            filter(
+                lambda method: method.id == payment_method_id,
+                org.payment_methods,
+            )
+        )[0]
+        if actual_payment_method.business_name.lower() != business_name:
+            document_prefix = (
+                f"billing/{org.name.lower()}/"
+                + f"{actual_payment_method.business_name.lower()}"
+            )
+            file_name: str = ""
+            if actual_payment_method.documents.rut:
+                file_name = actual_payment_method.documents.rut.file_name
+            if actual_payment_method.documents.tax_id:
+                file_name = actual_payment_method.documents.tax_id.file_name
+
+            await remove_file(f"{document_prefix}/{file_name}")
+
     if rut:
         rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
         rut_full_name = f"billing/{org_name}/{business_name}/{rut_file_name}"
