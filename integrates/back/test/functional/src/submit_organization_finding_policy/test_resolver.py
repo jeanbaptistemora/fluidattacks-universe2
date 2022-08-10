@@ -73,8 +73,8 @@ async def test_submit_organization_finding_policy_fail_1(
 @pytest.mark.parametrize(
     ("email",),
     (
-        ("hacker@gmail.com",),
-        ("reattacker@gmail.com",),
+        ("hacker1@gmail.com",),
+        ("reattacker1@gmail.com",),
     ),
 )
 async def test_submit_organization_finding_policy_fail_2(

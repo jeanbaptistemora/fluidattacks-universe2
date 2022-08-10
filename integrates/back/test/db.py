@@ -1,9 +1,7 @@
 from aioextensions import (
     collect,
 )
-from authz import (
-    policy as authz_policy,
-)
+import authz
 from batch.dal import (
     put_action_to_dynamodb,
 )
@@ -452,21 +450,41 @@ async def populate_comments(data: list[Any]) -> bool:
 
 
 async def populate_policies(data: list[Any]) -> bool:
-    success = all(
-        await collect(
-            [
-                authz_policy.put_subject_policy(
-                    authz_policy.SubjectPolicy(
-                        level=policy["level"],
-                        subject=policy["subject"],
-                        object=policy["object"],
-                        role=policy["role"],
-                    ),
-                )
-                for policy in data
-            ]
-        )
+    coroutines: list[Awaitable[bool]] = []
+    coroutines.extend(
+        [
+            authz.grant_user_level_role(
+                email=policy["subject"],
+                role=policy["role"],
+            )
+            for policy in data
+            if policy["level"] == "user"
+        ]
     )
+    coroutines.extend(
+        [
+            authz.grant_organization_level_role(
+                email=policy["subject"],
+                organization_id=policy["object"],
+                role=policy["role"],
+            )
+            for policy in data
+            if policy["level"] == "organization"
+        ]
+    )
+    coroutines.extend(
+        [
+            authz.grant_group_level_role(
+                email=policy["subject"],
+                group_name=policy["object"],
+                role=policy["role"],
+            )
+            for policy in data
+            if policy["level"] == "group"
+        ]
+    )
+    success = all(await collect(coroutines))
+
     if success:
         await collect(
             [

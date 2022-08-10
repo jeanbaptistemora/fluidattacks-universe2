@@ -121,44 +121,8 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         ],
         "organization_access": [
             OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="admin@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="hacker@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="reattacker@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="user@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="user_manager@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="vulnerability_manager@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="customer_manager@fluidattacks.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="resourcer@gmail.com",
-            ),
-            OrganizationAccess(
-                organization_id="40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
-                email="reviewer@gmail.com",
-            ),
-            OrganizationAccess(
                 organization_id="8a7c8089-92df-49ec-8c8b-ee83e4ff3256",
-                email="admin@gmail.com",
+                email=generic_data["global_vars"]["admin_email"],
             ),
         ],
     }

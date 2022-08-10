@@ -27,17 +27,16 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder")
 @pytest.mark.parametrize(
-    ["email", "role", "admin_email"],
+    ["email", "admin_email"],
     [
         [
             "customer_manager@fluidattacks.com",
-            "customer_manager",
             "admin@gmail.com",
         ],
     ],
 )
 async def test_remove_stakeholder(
-    populate: bool, email: str, role: str, admin_email: str
+    populate: bool, email: str, admin_email: str
 ) -> None:
     assert populate
     group_name: str = "group1"
@@ -66,9 +65,12 @@ async def test_remove_stakeholder(
     assert "ACCESS_GRANTED" in old_stakeholder.notifications_preferences.email
 
     assert not result_me_query["data"]["me"]["remember"]
-    assert result_me_query["data"]["me"]["role"] == role
+    assert result_me_query["data"]["me"]["role"] == "user"
     assert result_stakeholder_query["data"]["stakeholder"]["email"] == email
-    assert result_stakeholder_query["data"]["stakeholder"]["role"] == role
+    assert (
+        result_stakeholder_query["data"]["stakeholder"]["role"]
+        == "customer_manager"
+    )
     assert (
         len(
             result_organization_stakeholder_query["data"]["stakeholder"][

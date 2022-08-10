@@ -79,8 +79,8 @@ from typing import (
         ),
         (
             "user_manager@gmail.com",
-            "user_manager",
-            0,
+            "user",
+            3,
             {
                 "callingCountryCode": "1",
                 "countryCode": "US",
@@ -145,8 +145,8 @@ from typing import (
         ),
         (
             "reattacker@gmail.com",
-            "reattacker",
-            0,
+            "user",
+            3,
             {
                 "callingCountryCode": "57",
                 "countryCode": "CO",
@@ -167,8 +167,8 @@ from typing import (
         ),
         (
             "resourcer@gmail.com",
-            "resourcer",
-            0,
+            "user",
+            3,
             {
                 "callingCountryCode": "57",
                 "countryCode": "CO",
@@ -189,8 +189,8 @@ from typing import (
         ),
         (
             "reviewer@gmail.com",
-            "reviewer",
-            0,
+            "user",
+            3,
             {
                 "callingCountryCode": "57",
                 "countryCode": "CO",
@@ -211,8 +211,8 @@ from typing import (
         ),
         (
             "service_forces@gmail.com",
-            "service_forces",
-            0,
+            "user",
+            3,
             None,
             1,
             [],
@@ -229,8 +229,8 @@ from typing import (
         ),
         (
             "customer_manager@fluidattacks.com",
-            "customer_manager",
-            0,
+            "user",
+            6,
             {
                 "callingCountryCode": "57",
                 "countryCode": "CO",
