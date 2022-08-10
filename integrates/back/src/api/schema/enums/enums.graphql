@@ -384,12 +384,8 @@ enum Language {
 enum ManagedType {
   "Managed"
   MANAGED
-  "Manually"
-  MANUALLY
   "Not managed"
   NOT_MANAGED
-  "Not manually"
-  NOT_MANUALLY
   "Trial"
   TRIAL
   "Under review"

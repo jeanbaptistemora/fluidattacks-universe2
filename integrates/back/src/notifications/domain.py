@@ -272,7 +272,7 @@ async def new_group(
     )
 
 
-async def managed_manually(
+async def request_managed(
     *,
     group_name: str,
     managed: GroupManaged,
@@ -281,9 +281,7 @@ async def managed_manually(
 ) -> bool:
     translations: Dict[str, str] = {
         "MANAGED": "Managed",
-        "MANUALLY": "Manually",
         "NOT_MANAGED": "Not Managed",
-        "NOT_MANUALLY": "Not Manually",
         "UNDER_REVIEW": "Under Review",
         "TRIAL": "Trial",
     }

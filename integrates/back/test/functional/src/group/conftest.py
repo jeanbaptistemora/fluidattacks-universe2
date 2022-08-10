@@ -102,7 +102,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
-                        managed=GroupManaged["MANUALLY"],
+                        managed=GroupManaged["MANAGED"],
                         modified_by="unknown",
                         modified_date="2020-05-20T22:00:00+00:00",
                         status=GroupStateStatus.ACTIVE,
@@ -149,7 +149,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GroupState(
                         has_machine=True,
                         has_squad=True,
-                        managed=GroupManaged["MANUALLY"],
+                        managed=GroupManaged["MANAGED"],
                         modified_by=generic_data["global_vars"]["admin_email"],
                         modified_date="2020-05-20T22:00:00+00:00",
                         status=GroupStateStatus.ACTIVE,

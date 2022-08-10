@@ -239,20 +239,14 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
 
 
 def format_state(state: Item) -> GroupState:
-    managed = GroupManaged("NOT_MANAGED")
-    if not isinstance(state["managed"], bool):
-        if state["managed"] != GroupManaged("NOT_MANUALLY"):
-            managed = GroupManaged(state["managed"])
-    elif state["managed"] is True:
-        managed = GroupManaged("MANAGED")
-    if state["managed"] == GroupManaged("MANUALLY"):
-        managed = GroupManaged("MANAGED")
 
     return GroupState(
         comments=state.get("comments"),
         has_machine=state["has_machine"],
         has_squad=state["has_squad"],
-        managed=managed,
+        managed=GroupManaged(state["managed"])
+        if state["managed"]
+        else GroupManaged("NOT_MANAGED"),
         justification=format_state_justification(state.get("justification")),
         modified_by=state["modified_by"],
         modified_date=state["modified_date"],

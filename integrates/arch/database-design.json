@@ -7184,7 +7184,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "BLACK"
@@ -7350,7 +7350,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7413,7 +7413,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7476,7 +7476,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7575,7 +7575,7 @@
                     "S": "SQUAD"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7648,7 +7648,7 @@
                     "S": "ONESHOT"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7718,7 +7718,7 @@
                     "S": "SQUAD"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7788,7 +7788,7 @@
                     "S": "FREE"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7858,7 +7858,7 @@
                     "S": "FREE"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7928,7 +7928,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -7991,7 +7991,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -8061,7 +8061,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -8127,7 +8127,7 @@
                     "S": "MACHINE"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -8197,7 +8197,7 @@
                     "S": "OTHER"
                   },
                   "managed": {
-                    "S": "NOT_MANUALLY"
+                    "S": "NOT_MANAGED"
                   },
                   "service": {
                     "S": "WHITE"
@@ -8266,7 +8266,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "BLACK"
@@ -8301,7 +8301,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8336,7 +8336,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8371,7 +8371,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8406,7 +8406,7 @@
                 "S": "SQUAD"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8441,7 +8441,7 @@
                 "S": "ONESHOT"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8476,7 +8476,7 @@
                 "S": "SQUAD"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8511,7 +8511,7 @@
                 "S": "FREE"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8546,7 +8546,7 @@
                 "S": "FREE"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8581,7 +8581,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8616,7 +8616,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8651,7 +8651,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8689,7 +8689,7 @@
                 "S": "MACHINE"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"
@@ -8724,7 +8724,7 @@
                 "S": "OTHER"
               },
               "managed": {
-                "S": "NOT_MANUALLY"
+                "S": "NOT_MANAGED"
               },
               "service": {
                 "S": "WHITE"

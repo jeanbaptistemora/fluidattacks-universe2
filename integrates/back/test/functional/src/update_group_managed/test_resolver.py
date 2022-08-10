@@ -69,7 +69,7 @@ async def test_update_group_managed_fail(populate: bool, email: str) -> None:
     result: dict[str, Any] = await put_mutation(
         user=email,
         group=group_name,
-        managed=GroupManaged["NOT_MANUALLY"],
+        managed=GroupManaged["NOT_MANAGED"],
         comments="",
     )
     assert "errors" in result

@@ -513,7 +513,7 @@ async def update_group_managed(
             organization: Organization = await loaders.organization.load(
                 group.organization_id
             )
-            await notifications_domain.managed_manually(
+            await notifications_domain.request_managed(
                 group_name=group_name,
                 managed=managed,
                 organization_name=organization.name,
