@@ -434,19 +434,14 @@ async def populate_event_comments(data: list[Any]) -> bool:
     return True
 
 
-async def populate_comments(data: list[Any]) -> bool:
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.extend(
-        [
-            dal_comment.create(
-                comment["comment_id"],
-                comment,
-                comment["finding_id"],
-            )
-            for comment in data
-        ]
+async def populate_finding_comments(data: list[Any]) -> bool:
+    await collect(
+        dal_comment.create_typed(
+            comment_attributes=item["finding_comment"],
+        )
+        for item in data
     )
-    return all(await collect(coroutines))
+    return True
 
 
 async def populate_policies(data: list[Any]) -> bool:

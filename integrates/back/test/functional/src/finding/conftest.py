@@ -5,6 +5,9 @@ from back.test import (
 from db_model.enums import (
     Source,
 )
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -301,28 +304,30 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 ],
             },
         ],
-        "comments": [
+        "finding_comments": [
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "comment_id": "43455343453",
-                "comment_type": "observation",
-                "content": "This is a test observations",
-                "created": "2019-05-28 15:09:37",
-                "email": "admin@gmail.com",
-                "fullname": "test one",
-                "modified": "2019-05-28 15:09:37",
-                "parent": 0,
+                "finding_comment": FindingComment(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="43455343453",
+                    comment_type="observation",
+                    content="This is a test observations",
+                    email="admin@gmail.com",
+                    full_name="test one",
+                    creation_date="2019-05-28T20:09:37+00:00",
+                    parent_id="0",
+                )
             },
             {
-                "finding_id": "3c475384-834c-47b0-ac71-a41a022e401c",
-                "comment_id": "42343434",
-                "comment_type": "comment",
-                "content": "This is a test observations",
-                "created": "2019-05-28 15:09:37",
-                "email": "admin@gmail.com",
-                "fullname": "test one",
-                "modified": "2019-05-28 15:09:37",
-                "parent": 0,
+                "finding_comment": FindingComment(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="42343434",
+                    comment_type="comment",
+                    content="This is a test observations",
+                    email="admin@gmail.com",
+                    full_name="test one",
+                    creation_date="2019-05-28T20:09:37+00:00",
+                    parent_id="0",
+                )
             },
         ],
     }

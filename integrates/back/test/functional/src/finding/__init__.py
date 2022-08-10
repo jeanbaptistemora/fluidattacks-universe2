@@ -27,6 +27,7 @@ async def get_result(
                 closedVulnerabilities
                 consulting {{
                     content
+                    created
                 }}
                 currentState
                 cvssVersion

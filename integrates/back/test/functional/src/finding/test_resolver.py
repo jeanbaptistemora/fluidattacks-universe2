@@ -167,7 +167,8 @@ async def test_get_finding(populate: bool, email: str) -> None:
                 "Regarding vulnerabilities: \n"
                 "  - 192.168.1.20\n\n"
                 "This is a test observations"
-            )
+            ),
+            "created": "2019/05/28 15:09:37",
         },
     ]
     assert result["data"]["finding"]["currentState"] == current_state
