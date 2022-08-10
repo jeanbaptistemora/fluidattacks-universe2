@@ -1,11 +1,12 @@
 ---
 closure:
   boto3: 1.24.44
-  botocore: 1.27.44
+  botocore: 1.27.48
   certifi: 2022.6.15
   charset-normalizer: 2.1.0
   idna: '3.3'
   jmespath: 1.0.1
+  more-itertools: 8.14.0
   opensearch-py: 2.0.0
   python-dateutil: 2.8.2
   requests: 2.28.1
@@ -19,12 +20,12 @@ links:
   - name: boto3-1.24.44.tar.gz
     sha256: 13m0h9wwkbx23r7gmiyvfxqqk7y9nfaiwfn17dc3x6bih8pnvl0r
     url: https://files.pythonhosted.org/packages/2e/6d/cf85550a36487f4f572f463c9ea663d909baf73f0bb36ebe638e1a643b37/boto3-1.24.44.tar.gz
-  - name: botocore-1.27.44-py3-none-any.whl
-    sha256: 0qfnary67mfxl6kvmlyyv9v2ivhj9rrcfy21qcsfll5w7fr76jxf
-    url: https://files.pythonhosted.org/packages/14/3d/5c3c17d4b595688db9820beff93275748d1a0b3987e559b10188b32d89e5/botocore-1.27.44-py3-none-any.whl
-  - name: botocore-1.27.44.tar.gz
-    sha256: 0zp1zarxmlqnzhvrxdvdmrkgiaszgnl0l2i7nb0sflw8qp5ryqw3
-    url: https://files.pythonhosted.org/packages/ac/79/91066c4cfe4db9b16901ec40543841279e5ccc6b048b46d1e41de563d342/botocore-1.27.44.tar.gz
+  - name: botocore-1.27.48-py3-none-any.whl
+    sha256: 19xzvi8qv5i7wwdn3mkzg30gq165k94pbb0axsqlxy5hsdnyyn2r
+    url: https://files.pythonhosted.org/packages/20/1b/3230d4a0bae44f6bd1aeea9d757958cf84a0501613e1a76ecc6c82222b97/botocore-1.27.48-py3-none-any.whl
+  - name: botocore-1.27.48.tar.gz
+    sha256: 0f2n5c08xfh4n6viir3v7wf91mk7c1q12fkj75j31va6a0lg9qld
+    url: https://files.pythonhosted.org/packages/e3/48/3557daaa666fcda08a2ce8aefc7769fa39ab25921dfd48ab8eeeb9786131/botocore-1.27.48.tar.gz
   - name: certifi-2022.6.15-py3-none-any.whl
     sha256: 04l46xlyyyg7cwdvk2h7s93kbb1qci7l2scbbzbijiz8amfl31py
     url: https://files.pythonhosted.org/packages/e9/06/d3d367b7af6305b16f0d28ae2aaeb86154fa91f144f036c2d5002a5a202b/certifi-2022.6.15-py3-none-any.whl
@@ -49,6 +50,12 @@ links:
   - name: jmespath-1.0.1.tar.gz
     sha256: 1gpdc1f0q5c9scmbw1l9g40jjfk3pxwg91ayvn7xbvvddlh1n9lh
     url: https://files.pythonhosted.org/packages/00/2a/e867e8531cf3e36b41201936b7fa7ba7b5702dbef42922193f05c8976cd6/jmespath-1.0.1.tar.gz
+  - name: more_itertools-8.14.0-py3-none-any.whl
+    sha256: 1lngjm89n8lwhffayywh0fjl0spypq4prhdcrv3imcxiwlggki0v
+    url: https://files.pythonhosted.org/packages/0b/ff/1ad78678bee731ae5414ea5e97396b3f91de32186028daa614d322ac5a8b/more_itertools-8.14.0-py3-none-any.whl
+  - name: more-itertools-8.14.0.tar.gz
+    sha256: 0l5prh5hnss54z957jwhkqw9826bq5mpm1ndzkdbhf2l7p6l7560
+    url: https://files.pythonhosted.org/packages/c7/0c/fad24ca2c9283abc45a32b3bfc2a247376795683449f595ff1280c171396/more-itertools-8.14.0.tar.gz
   - name: opensearch_py-2.0.0-py2.py3-none-any.whl
     sha256: 16hrnpk998wkcssl93lfsjypdxy3p8lzyaybz806qa6sbrap3rd3
     url: https://files.pythonhosted.org/packages/13/97/128668e1e4456c2f1c2f65930f2336146f9145bbe00ee3f0fe8c63437259/opensearch_py-2.0.0-py2.py3-none-any.whl
