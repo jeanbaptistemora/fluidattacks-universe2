@@ -333,6 +333,38 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                 ],
             },
+            {
+                "vulnerability": Vulnerability(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    group_name="group1",
+                    hacker_email="hacker@gmail.com",
+                    id="b7ae9350-a94e-40a9-a35f-a3dcee93c959",
+                    specific="999",
+                    state=VulnerabilityState(
+                        modified_by="hacker@gmail.com",
+                        modified_date="2018-04-08T00:45:14+00:00",
+                        source=Source.ASM,
+                        status=VulnerabilityStateStatus.CLOSED,
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_report_date="2018-04-08T00:45:14+00:00",
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=1,
+                    ),
+                    verification=VulnerabilityVerification(
+                        modified_date="2018-04-09T00:45:11+00:00",
+                        status=VulnerabilityVerificationStatus.REQUESTED,
+                    ),
+                    where="192.168.1.22",
+                ),
+                "historic_treatment": [
+                    VulnerabilityTreatment(
+                        modified_date="2018-04-08T00:45:11+00:00",
+                        status=VulnerabilityTreatmentStatus.NEW,
+                    ),
+                ],
+            },
         ],
         "policies": [
             {

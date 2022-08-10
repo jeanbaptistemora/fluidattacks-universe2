@@ -16,6 +16,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAssigned,
+    VulnAlreadyClosed,
 )
 from dataloaders import (
     Dataloaders,
@@ -113,6 +114,43 @@ async def test_update_vulnerabilities_treatment(
         vuln["id"] for vuln in result["data"]["me"]["vulnerabilitiesAssigned"]
     ]
     assert vulnerability in vuln_ids
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_vulnerabilities_treatment")
+@pytest.mark.parametrize(
+    ("email", "vulnerability", "treatment", "assigned", "acceptance_date"),
+    (
+        (
+            "vulnerability_manager@gmail.com",
+            "b7ae9350-a94e-40a9-a35f-a3dcee93c959",
+            "ACCEPTED",
+            "user@gmail.com",
+            "2021-03-31 19:45:11",
+        ),
+    ),
+)
+@freeze_time("2021-03-31")
+async def test_update_vulnerabilities_treatment_closed(
+    populate: bool,
+    email: str,
+    vulnerability: str,
+    treatment: str,
+    assigned: str,
+    acceptance_date: str,
+) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    result: dict[str, Any] = await put_mutation(
+        user=email,
+        finding=finding_id,
+        vulnerability=vulnerability,
+        treatment=treatment,
+        assigned=assigned,
+        acceptance_date=acceptance_date,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(VulnAlreadyClosed())
 
 
 @pytest.mark.asyncio
