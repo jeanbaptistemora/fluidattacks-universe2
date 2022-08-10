@@ -475,7 +475,9 @@ async def grant_user_level_role(email: str, role: str) -> bool:
 
 
 async def has_access_to_group(
-    email: str, group_name: str, loaders: Any = None
+    loaders: Any,
+    email: str,
+    group_name: str,
 ) -> bool:
     """Verify if the user has access to a group."""
     return bool(await get_group_level_role(email, group_name.lower(), loaders))

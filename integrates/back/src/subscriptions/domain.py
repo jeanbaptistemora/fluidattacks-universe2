@@ -117,6 +117,7 @@ async def can_subscribe_user_to_entity_report(
 
     if report_entity.lower() == "group":
         success = await authz.has_access_to_group(
+            loaders,
             user_email,
             report_subject.lower(),
         )

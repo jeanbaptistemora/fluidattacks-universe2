@@ -166,8 +166,7 @@ async def handle_authz_claims(
 
     if params.entity == "group":
         if not await authz.has_access_to_group(
-            email,
-            subject.lower(),
+            loaders, email, subject.lower()
         ):
             raise PermissionError("Access denied")
     elif params.entity == "organization":

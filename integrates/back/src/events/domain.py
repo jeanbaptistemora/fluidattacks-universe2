@@ -321,8 +321,7 @@ async def get_solving_date(loaders: Any, event_id: str) -> Optional[str]:
 async def has_access_to_event(loaders: Any, email: str, event_id: str) -> bool:
     """Verify if the user has access to a event submission."""
     event: Event = await loaders.event.load(event_id)
-    group = event.group_name
-    return bool(await authz.has_access_to_group(email, group))
+    return await authz.has_access_to_group(loaders, email, event.group_name)
 
 
 async def mask(loaders: Any, event_id: str) -> bool:

@@ -517,8 +517,7 @@ async def has_access_to_finding(
 ) -> bool:
     """Verify if the user has access to a finding submission."""
     finding: Finding = await loaders.finding.load(finding_id)
-    has_access = await authz.has_access_to_group(email, finding.group_name)
-    return has_access
+    return await authz.has_access_to_group(loaders, email, finding.group_name)
 
 
 def is_deleted(finding: Finding) -> bool:
