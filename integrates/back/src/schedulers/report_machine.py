@@ -2,6 +2,9 @@ import aioboto3
 from aioextensions import (
     collect,
 )
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -24,6 +27,9 @@ from db_model.vulnerabilities.types import (
 )
 from decimal import (
     Decimal,
+)
+from decorators import (
+    retry_on_exceptions,
 )
 from findings import (
     domain as findings_domain,
@@ -53,11 +59,15 @@ from vulnerability_files.domain import (
     map_vulnerabilities_to_dynamo,
 )
 import yaml  # type: ignore
+from yaml.reader import (  # type: ignore
+    ReaderError,
+)
 
 
-async def get_config(execution_id: str) -> Dict[str, Any]:
-    session = aioboto3.Session()
-    async with session.client("s3") as s3_client:
+async def get_config(
+    boto3_session: aioboto3.Session, execution_id: str
+) -> Dict[str, Any]:
+    async with boto3_session.client("s3") as s3_client:
         with tempfile.NamedTemporaryFile() as temp:
             await s3_client.download_fileobj(
                 "skims.data",
@@ -68,9 +78,15 @@ async def get_config(execution_id: str) -> Dict[str, Any]:
             return yaml.safe_load(temp)
 
 
-async def get_sarif_log(execution_id: str) -> Dict[str, Any]:
-    session = aioboto3.Session()
-    async with session.client("s3") as s3_client:
+@retry_on_exceptions(
+    exceptions=(ClientPayloadError,),
+    sleep_seconds=1,
+)
+async def get_sarif_log(
+    boto3_session: aioboto3.Session,
+    execution_id: str,
+) -> Optional[Dict[str, Any]]:
+    async with boto3_session.client("s3") as s3_client:
         with tempfile.NamedTemporaryFile() as temp:
             await s3_client.download_fileobj(
                 "skims.data",
@@ -78,7 +94,12 @@ async def get_sarif_log(execution_id: str) -> Dict[str, Any]:
                 temp,
             )
             temp.seek(0)
-            return yaml.safe_load(temp)
+            try:
+                return yaml.safe_load(
+                    temp.read().decode(encoding="utf-8").replace("x0081", "")
+                )
+            except ReaderError:
+                return None
 
 
 def generate_cssv_vector(criteria_vulnerability: Dict[str, Any]) -> str:
@@ -193,8 +214,32 @@ def _get_path_from_sarif_vulnerability(vulnerability: Dict[str, Any]) -> str:
     return what
 
 
+def _filter_vulns_to_open(
+    stream: dict[str, Any],
+    integrates_vulnerabilities: Tuple[Vulnerability, ...],
+) -> dict[str, Any]:
+    integrates_hashes = {
+        hash((vuln.where, vuln.specific))
+        for vuln in integrates_vulnerabilities
+    }
+    return {
+        "inputs": [
+            vuln
+            for vuln in stream["inputs"]
+            if hash((vuln["url"], vuln["field"])) not in integrates_hashes
+        ],
+        "lines": [
+            vuln
+            for vuln in stream["lines"]
+            if hash((vuln["path"], vuln["line"])) not in integrates_hashes
+        ],
+    }
+
+
 def _build_vulnerabilities_stream_from_sarif(
-    vulnerabilities: List[Dict[str, Any]], commit_hash: str, repo_nickname: str
+    vulnerabilities: List[Dict[str, Any]],
+    commit_hash: str,
+    repo_nickname: str,
 ) -> Dict[str, Any]:
     return {
         "inputs": [
@@ -210,6 +255,7 @@ def _build_vulnerabilities_stream_from_sarif(
                 "skims_method": vuln["properties"]["source_method"],
                 "skims_technique": vuln["properties"].get("technique"),
                 "developer": "",
+                "source": "MACHINE",
             }
             for vuln in vulnerabilities
             if vuln["properties"]["kind"] == "inputs"
@@ -217,15 +263,21 @@ def _build_vulnerabilities_stream_from_sarif(
         "lines": [
             {
                 "commit_hash": commit_hash,
-                "line": vuln["locations"][0]["physicalLocation"]["region"][
-                    "startLine"
-                ],
-                "path": _get_path_from_sarif_vulnerability(vuln),
+                "line": str(
+                    vuln["locations"][0]["physicalLocation"]["region"][
+                        "startLine"
+                    ]
+                ),
+                "path": (
+                    f"{repo_nickname}/"
+                    f"{_get_path_from_sarif_vulnerability(vuln)}"
+                ),
                 "repo_nickname": repo_nickname,
                 "state": "open",
                 "skims_method": vuln["properties"]["source_method"],
                 "skims_technique": vuln["properties"].get("technique", ""),
                 "developer": "",
+                "source": "MACHINE",
             }
             for vuln in vulnerabilities
             if vuln["properties"]["kind"] == "lines"
@@ -250,6 +302,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "skims_method": vuln.skims_method,
                 "skims_technique": vuln.skims_technique,
                 "developer": vuln.developer,
+                "source": vuln.state.source.value,
             }
             for vuln in vulnerabilities
             if vuln.type == VulnerabilityType.INPUTS
@@ -258,7 +311,7 @@ def _build_vulnerabilities_stream_from_integrates(
             {
                 "commit_hash": vuln.commit,
                 "line": vuln.specific,
-                "path": _get_path_from_integrates_vulnerability(vuln)[1],
+                "path": vuln.where,
                 "repo_nickname": _get_path_from_integrates_vulnerability(vuln)[
                     0
                 ],
@@ -266,6 +319,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "skims_method": vuln.skims_method,
                 "skims_technique": vuln.skims_technique,
                 "developer": vuln.developer,
+                "source": vuln.state.source.value,
             }
             for vuln in vulnerabilities
             if vuln.type == VulnerabilityType.LINES
@@ -354,7 +408,11 @@ async def process_criteria_vuln(
         org_name=kwargs["organization"],
         finding_name=finding.title.lower(),
     )
-    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple()
+    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
+        vuln
+        for vuln in await loaders.finding_vulnerabilities.load(finding.id)
+        if vuln.state.source == Source.MACHINE and vuln.root_id == git_root.id
+    )
     vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
             machine_vulnerabilities,
@@ -368,39 +426,47 @@ async def process_criteria_vuln(
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
         git_root.state.nickname,
     )
-    await map_vulnerabilities_to_dynamo(
-        loaders=loaders,
-        vulns_data_from_file=vulns_to_close,
-        group_name=group_name,
-        finding_id=finding.id,
-        finding_policy=finding_policy,
-        user_info={
-            "email": "machine@fluidattacks.com",
-            "first_name": "machine",
-            "last_name": "machine",
-        },
+    vulns_to_open = _filter_vulns_to_open(
+        vulns_to_open, integrates_vulnerabilities
     )
-    await map_vulnerabilities_to_dynamo(
-        loaders=loaders,
-        vulns_data_from_file=vulns_to_open,
-        group_name=group_name,
-        finding_id=finding.id,
-        finding_policy=finding_policy,
-        user_info={
-            "email": "machine@fluidattacks.com",
-            "first_name": "machine",
-            "last_name": "machine",
-        },
-    )
+    if (len(vulns_to_close["inputs"]) + len(vulns_to_close["inputs"])) > 0:
+        await map_vulnerabilities_to_dynamo(
+            loaders=loaders,
+            vulns_data_from_file=vulns_to_close,
+            group_name=group_name,
+            finding_id=finding.id,
+            finding_policy=finding_policy,
+            user_info={
+                "user_email": "machine@fluidattacks.com",
+                "first_name": "machine",
+                "last_name": "machine",
+            },
+        )
+
+    if (len(vulns_to_open["inputs"]) + len(vulns_to_open["inputs"])) > 0:
+        await map_vulnerabilities_to_dynamo(
+            loaders=loaders,
+            vulns_data_from_file=vulns_to_open,
+            group_name=group_name,
+            finding_id=finding.id,
+            finding_policy=finding_policy,
+            user_info={
+                "user_email": "machine@fluidattacks.com",
+                "first_name": "machine",
+                "last_name": "machine",
+            },
+        )
 
 
-async def main() -> None:
-    loaders: Dataloaders = get_new_context()
-    execution_id = ""
+async def process_execution(
+    loaders: Dataloaders,
+    boto3_session: aioboto3.Session,
+    execution_id: str,
+    criteria_vulns: dict[str, Any],
+    criteria_reqs: dict[str, Any],
+) -> None:
     group_name = execution_id.split("_", maxsplit=1)[0]
-    execution_config = await get_config(execution_id)
-    criteria_vulns = await get_vulns_file()
-    criteria_reqs = get_requirements_file()
+    execution_config = await get_config(boto3_session, execution_id)
     try:
         git_root = next(  # noqa  # pylint: disabled=unused-variable
             root
@@ -413,7 +479,10 @@ async def main() -> None:
     group_findings: Tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
-    results = await get_sarif_log(execution_id)
+    results = await get_sarif_log(boto3_session, execution_id)
+    if not results:
+        return
+
     rules_id: List[str] = [
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     ]
@@ -453,4 +522,15 @@ async def main() -> None:
             )
             for vuln_id, finding in rules_finding
         ]
+    )
+
+
+async def main() -> None:
+    loaders: Dataloaders = get_new_context()
+    execution_id = ""
+    criteria_vulns = await get_vulns_file()
+    criteria_reqs = get_requirements_file()
+    session = aioboto3.Session()
+    await process_execution(
+        loaders, session, execution_id, criteria_vulns, criteria_reqs
     )
