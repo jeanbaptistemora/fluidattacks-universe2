@@ -7,7 +7,7 @@ from boto3.dynamodb.types import (
 from dynamodb.types import (
     Record,
 )
-from streams.src.dynamodb.types import (
+from dynamodb.types import (
     EventName,
 )
 from typing import (
