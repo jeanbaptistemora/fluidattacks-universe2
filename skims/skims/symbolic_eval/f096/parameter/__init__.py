@@ -1,8 +1,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f096.object_creation.c_sharp import (
-    cs_js_deserialization,
+from symbolic_eval.f096.parameter.c_sharp import (
     cs_xml_serial,
 )
 from symbolic_eval.types import (
@@ -15,7 +14,6 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.CS_JS_DESERIALIZATION: cs_js_deserialization,
     MethodsEnum.CS_XML_SERIAL: cs_xml_serial,
 }
 

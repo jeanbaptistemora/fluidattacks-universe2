@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f096.member_access.c_sharp import (
     cs_type_name_handling,
+    cs_xml_serial,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -15,6 +16,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_TYPE_NAME_HANDLING: cs_type_name_handling,
+    MethodsEnum.CS_XML_SERIAL: cs_xml_serial,
 }
 
 
