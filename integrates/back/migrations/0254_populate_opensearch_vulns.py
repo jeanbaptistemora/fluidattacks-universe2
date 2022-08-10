@@ -4,6 +4,9 @@ Populates OpenSearch with all the vulns from active groups
 
 Execution Time:    2022-08-09 at 13:59:41 UTC
 Finalization Time: 2022-08-09 at 16:20:23 UTC
+
+Execution Time:    2022-08-10 at 13:18:44 UTC
+Finalization Time: 2022-08-10 at 13:37:27 UTC
 """
 
 from aioextensions import (
@@ -29,8 +32,8 @@ from dynamodb import (
 )
 import logging
 import logging.config
-from opensearchpy.exceptions import (
-    ConflictError,
+from more_itertools import (
+    chunked,
 )
 from organizations.domain import (
     get_all_active_group_names,
@@ -53,16 +56,22 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def process_vulnerability(vulnerability: dict[str, Any]) -> None:
-    try:
-        client = await get_client()
-        await client.create(
-            body=vulnerability,
-            id="#".join([vulnerability["pk"], vulnerability["sk"]]),
-            index="vulnerabilities",
-        )
-    except ConflictError:
-        pass
+async def process_vulnerabilities(
+    vulnerabilities: tuple[dict[str, Any], ...]
+) -> None:
+    body = []
+
+    for vulnerability in vulnerabilities:
+        action = {
+            "index": {
+                "_index": "vulnerabilities",
+                "_id": "#".join([vulnerability["pk"], vulnerability["sk"]]),
+            }
+        }
+        body.extend([action, vulnerability])
+
+    client = await get_client()
+    await client.bulk(body=body)
 
 
 async def process_finding(finding: Finding) -> None:
@@ -88,8 +97,8 @@ async def process_finding(finding: Finding) -> None:
 
     await collect(
         tuple(
-            process_vulnerability(vulnerability)
-            for vulnerability in vulnerabilities
+            process_vulnerabilities(vulns_chunk)
+            for vulns_chunk in chunked(vulnerabilities, 100)
         )
     )
 
@@ -109,7 +118,8 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
-        tuple(process_finding(finding) for finding in group_findings)
+        tuple(process_finding(finding) for finding in group_findings),
+        workers=5,
     )
 
 
@@ -122,7 +132,7 @@ async def main() -> None:
             process_group(loaders, group_name)
             for group_name in active_group_names
         ),
-        workers=5,
+        workers=2,
     )
     await search_shutdown()
 

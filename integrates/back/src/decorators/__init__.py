@@ -624,7 +624,7 @@ async def resolve_group_name(  # noqa: MC0001
     """Get group name based on args passed."""
     if args and args[0] and isinstance(args[0], Vulnerability):
         vuln: Vulnerability = args[0]
-        name = await _resolve_from_finding_id(context, vuln.finding_id)
+        name = vuln.group_name
     elif args and args[0] and isinstance(args[0], Group):
         group: Group = args[0]
         name = group.name
