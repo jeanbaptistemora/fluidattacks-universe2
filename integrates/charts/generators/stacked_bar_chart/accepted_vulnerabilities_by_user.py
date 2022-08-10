@@ -8,6 +8,9 @@ from async_lru import (
 from charts.colors import (
     TREATMENT,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data,
+)
 from charts.generators.stacked_bar_chart.utils import (
     MIN_PERCENTAGE,
 )
@@ -40,23 +43,19 @@ from functools import (
 )
 import operator
 from typing import (
-    Any,
     Counter,
-    Dict,
     Iterable,
-    List,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings: Tuple[Finding, ...] = await context.group_findings.load(
+    group_findings: tuple[Finding, ...] = await context.group_findings.load(
         group.lower()
     )
 
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await context.finding_vulnerabilities_nzr.load_many_chained(
         tuple(finding.id for finding in group_findings)
@@ -94,10 +93,8 @@ def get_max_value(counter_values: Iterable[int]) -> int:
     return 1
 
 
-def format_vulnerabilities_by_data(
-    *, counters: Counter[str]
-) -> Dict[str, Any]:
-    translations: Dict[str, str] = {
+def format_vulnerabilities_by_data(*, counters: Counter[str]) -> dict:
+    translations: dict[str, str] = {
         "ACCEPTED_UNDEFINED": "Permanently accepted",
         "ACCEPTED": "Temporarily accepted",
     }
@@ -111,21 +108,21 @@ def format_vulnerabilities_by_data(
             Counter(),
         )
     )
-    data: List[Tuple[str, int]] = counter_user.most_common(12)
-    accepted: List[int] = [counters[f"{user}/ACCEPTED"] for user, _ in data]
-    accepted_undefined: List[int] = [
+    data: list[tuple[str, int]] = counter_user.most_common(12)
+    accepted: list[int] = [counters[f"{user}/ACCEPTED"] for user, _ in data]
+    accepted_undefined: list[int] = [
         counters[f"{user}/ACCEPTED_UNDEFINED"] for user, _ in data
     ]
     max_acc_value: int = get_max_value(accepted)
     max_acc_undefined_value: int = get_max_value(accepted_undefined)
 
-    max_accepted: List[str] = [
+    max_accepted: list[str] = [
         str(value)
         if Decimal(value / max_acc_value) * Decimal("100.0") >= MIN_PERCENTAGE
         else ""
         for value in accepted
     ]
-    max_accepted_undefined: List[str] = [
+    max_accepted_undefined: list[str] = [
         str(value)
         if (Decimal(value / max_acc_undefined_value) * Decimal("100.0"))
         >= MIN_PERCENTAGE
@@ -180,39 +177,46 @@ def format_vulnerabilities_by_data(
     )
 
 
-async def get_data_many_groups(groups: Tuple[str, ...]) -> Counter[str]:
+async def get_data_many_groups(groups: tuple[str, ...]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sum(groups_data, Counter())
 
 
 async def generate_all() -> None:
+    header: str = "User"
     async for group in iterate_groups():
+        document = format_vulnerabilities_by_data(
+            counters=await get_data_one_group(group),
+        )
         json_dump(
-            document=format_vulnerabilities_by_data(
-                counters=await get_data_one_group(group),
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_vulnerabilities_by_data(
+            counters=await get_data_many_groups(org_groups),
+        )
         json_dump(
-            document=format_vulnerabilities_by_data(
-                counters=await get_data_many_groups(org_groups),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_vulnerabilities_by_data(
+                counters=await get_data_many_groups(tuple(groups)),
+            )
             json_dump(
-                document=format_vulnerabilities_by_data(
-                    counters=await get_data_many_groups(tuple(groups)),
-                ),
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 
