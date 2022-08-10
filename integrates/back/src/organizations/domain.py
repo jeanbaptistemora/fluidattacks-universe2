@@ -182,7 +182,7 @@ async def add_group_access(
     return all(
         await collect(
             group_access_domain.add_access(
-                stakeholder, group_name, "customer_manager"
+                loaders, stakeholder, group_name, "customer_manager"
             )
             for stakeholder, stakeholder_role in zip(
                 stakeholders, stakeholders_roles
@@ -206,13 +206,13 @@ async def add_stakeholder(
         ),
     )
     success = await authz.grant_organization_level_role(
-        email, organization_id, role
+        loaders, email, organization_id, role
     )
     if success and role == "customer_manager":
         org_groups = await get_group_names(loaders, organization_id)
         success = success and all(
             await collect(
-                group_access_domain.add_access(email, group, role)
+                group_access_domain.add_access(loaders, email, group, role)
                 for group in org_groups
             )
         )

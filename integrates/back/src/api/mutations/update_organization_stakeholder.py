@@ -62,14 +62,11 @@ LOGGER = logging.getLogger(__name__)
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> UpdateStakeholderPayload:
-    success: bool = False
-
-    organization_id: str = str(parameters.get("organization_id"))
     loaders: Dataloaders = info.context.loaders
+    organization_id: str = str(parameters.get("organization_id"))
     organization: Organization = await loaders.organization.load(
         organization_id
     )
-    organization_name: str = organization.name
     requester_data = await token_utils.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]
 
@@ -85,7 +82,6 @@ async def mutate(
         # Validate role requirements before changing anything
         validate_role_fluid_reqs(user_email, new_role)
         if organization_access.invitation:
-
             await orgs_domain.update_invited_stakeholder(
                 user_email,
                 organization_access.invitation,
@@ -94,39 +90,26 @@ async def mutate(
             )
             if organization_access.invitation.is_used:
                 await authz.grant_organization_level_role(
-                    user_email, organization_id, new_role
+                    loaders, user_email, organization_id, new_role
                 )
         else:
             # For some users without invitation
-            if await authz.grant_organization_level_role(
-                user_email, organization_id, new_role
-            ):
-                success = True
-            else:
-                LOGGER.error(
-                    "Couldn't update stakeholder role",
-                    extra={"extra": info.context},
-                )
+            await authz.grant_organization_level_role(
+                loaders, user_email, organization_id, new_role
+            )
     except StakeholderNotInOrganization as ex:
         raise StakeholderNotFound() from ex
 
-    if success:
-        await redis_del_by_deps(
-            "update_organization_stakeholder", organization_id=organization_id
-        )
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} modified "
-            f"information from the stakeholder {user_email} "
-            f"in the organization {organization_name}",
-        )
-    else:
-        logs_utils.cloudwatch_log(
-            info.context,
-            f"Security: Stakeholder {requester_email} attempted to modify "
-            f"information from stakeholder {user_email} in organization "
-            f"{organization_name}",
-        )
+    await redis_del_by_deps(
+        "update_organization_stakeholder", organization_id=organization_id
+    )
+    logs_utils.cloudwatch_log(
+        info.context,
+        f"Security: Stakeholder {requester_email} modified "
+        f"information from the stakeholder {user_email} "
+        f"in the organization {organization.name}",
+    )
+
     return UpdateStakeholderPayload(
         success=True, modified_stakeholder=dict(email=user_email)
     )

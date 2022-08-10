@@ -81,7 +81,7 @@ async def _update_stakeholder(
         )
     else:
         if await authz.grant_group_level_role(
-            modified_email, group.name, modified_role
+            loaders, modified_email, group.name, modified_role
         ):
             await stakeholders_domain.update_information(
                 info.context, updated_data, group.name

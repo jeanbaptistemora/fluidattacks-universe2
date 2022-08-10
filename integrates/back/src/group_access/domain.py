@@ -66,7 +66,9 @@ from typing import (
 )
 
 
-async def add_access(email: str, group_name: str, role: str) -> bool:
+async def add_access(
+    loaders: Any, email: str, group_name: str, role: str
+) -> bool:
     await group_access_model.update_metadata(
         email=email,
         group_name=group_name,
@@ -74,7 +76,7 @@ async def add_access(email: str, group_name: str, role: str) -> bool:
             has_access=True,
         ),
     )
-    return await authz.grant_group_level_role(email, group_name, role)
+    return await authz.grant_group_level_role(loaders, email, group_name, role)
 
 
 async def get_access_by_url_token(loaders: Any, url_token: str) -> GroupAccess:

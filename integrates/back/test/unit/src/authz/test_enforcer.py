@@ -18,6 +18,7 @@ pytestmark = [
 
 @pytest.mark.changes_db
 async def test_group_level_enforcer() -> None:
+    loaders: Dataloaders = get_new_context()
     test_cases = {
         # Common user, group
         ("test@tests.com", "test"),
@@ -30,7 +31,7 @@ async def test_group_level_enforcer() -> None:
         for role in model:
             await authz.revoke_user_level_role(subject)
             await authz.revoke_group_level_role(subject, group)
-            await authz.grant_group_level_role(subject, group, role)
+            await authz.grant_group_level_role(loaders, subject, group, role)
             enforcer = await authz.get_group_level_enforcer(subject)
 
             for action in model[role]["actions"]:

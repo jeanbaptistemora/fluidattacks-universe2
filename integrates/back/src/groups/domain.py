@@ -209,7 +209,7 @@ async def complete_register_for_group_invitation(
         url_token = invitation.url_token
 
     coroutines.append(
-        authz.grant_group_level_role(email, group_name, role),
+        authz.grant_group_level_role(loaders, email, group_name, role),
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
@@ -374,7 +374,7 @@ async def add_group(  # pylint: disable=too-many-locals
             else "user_manager"
         )
         success = await authz.grant_group_level_role(
-            user_email, group_name, role
+            loaders, user_email, group_name, role
         )
 
     # Notify us in case the user wants any Fluid Service

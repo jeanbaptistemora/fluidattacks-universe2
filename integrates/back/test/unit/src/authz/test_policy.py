@@ -101,23 +101,29 @@ async def test_grant_user_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_grant_group_level_role() -> None:
-    assert await grant_group_level_role("..TEST2@gmail.com", "group", "user")
+    loaders: Dataloaders = get_new_context()
+    assert await grant_group_level_role(
+        loaders, "..TEST2@gmail.com", "group", "user"
+    )
     assert await get_user_level_role("..test2@gmail.com") == "user"
     assert await get_user_level_role("..tESt2@gmail.com") == "user"
     assert await get_group_level_role("..test2@gmail.com", "GROUP") == "user"
     assert not await get_group_level_role("..test2@gmail.com", "other-group")
     with pytest.raises(ValueError) as test_raised_err:
-        await grant_group_level_role("..TEST2@gmail.com", "group", "breakall")
+        await grant_group_level_role(
+            loaders, "..TEST2@gmail.com", "group", "breakall"
+        )
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
 
 @pytest.mark.changes_db
 async def test_revoke_group_level_role() -> None:
+    loaders: Dataloaders = get_new_context()
     assert await grant_group_level_role(
-        "revoke_group_LEVEL_role@gmail.com", "group", "user"
+        loaders, "revoke_group_LEVEL_role@gmail.com", "group", "user"
     )
     assert await grant_group_level_role(
-        "REVOKE_group_level_role@gmail.com", "other-group", "user"
+        loaders, "REVOKE_group_level_role@gmail.com", "other-group", "user"
     )
     assert (
         await get_group_level_role(

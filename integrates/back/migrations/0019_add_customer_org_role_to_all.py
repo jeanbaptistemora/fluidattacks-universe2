@@ -82,7 +82,7 @@ async def main() -> None:
             )
         else:
             await in_thread(
-                authz.grant_organization_level_role,
+                authz.grant_organization_level_role_legacy,
                 user_email,
                 organization_id,
                 "customer",

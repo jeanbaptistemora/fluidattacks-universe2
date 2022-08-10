@@ -394,7 +394,10 @@ async def get_user_level_role(
 
 
 async def grant_group_level_role(
-    email: str, group_name: str, role: str
+    loaders: Any,
+    email: str,
+    group_name: str,
+    role: str,
 ) -> bool:
     if role not in get_group_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
@@ -415,7 +418,7 @@ async def grant_group_level_role(
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await get_user_level_role(email):
+    if not await get_user_level_role(email, loaders):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )
@@ -425,7 +428,10 @@ async def grant_group_level_role(
 
 
 async def grant_organization_level_role(
-    email: str, organization_id: str, role: str
+    loaders: Any,
+    email: str,
+    organization_id: str,
+    role: str,
 ) -> bool:
     if role not in get_organization_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
@@ -446,7 +452,7 @@ async def grant_organization_level_role(
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await get_user_level_role(email):
+    if not await get_user_level_role(email, loaders):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )

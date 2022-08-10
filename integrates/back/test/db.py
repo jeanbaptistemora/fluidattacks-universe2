@@ -6,6 +6,7 @@ from batch.dal import (
     put_action_to_dynamodb,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from db_model import (
@@ -445,6 +446,7 @@ async def populate_finding_comments(data: list[Any]) -> bool:
 
 
 async def populate_policies(data: list[Any]) -> bool:
+    loaders: Dataloaders = get_new_context()
     coroutines: list[Awaitable[bool]] = []
     coroutines.extend(
         [
@@ -459,6 +461,7 @@ async def populate_policies(data: list[Any]) -> bool:
     coroutines.extend(
         [
             authz.grant_organization_level_role(
+                loaders=loaders,
                 email=policy["subject"],
                 organization_id=policy["object"],
                 role=policy["role"],
@@ -470,6 +473,7 @@ async def populate_policies(data: list[Any]) -> bool:
     coroutines.extend(
         [
             authz.grant_group_level_role(
+                loaders=loaders,
                 email=policy["subject"],
                 group_name=policy["object"],
                 role=policy["role"],
