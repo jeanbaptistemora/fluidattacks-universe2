@@ -263,11 +263,11 @@ enum EventEvidenceType {
 
 "Event type enum definition"
 enum EventType {
-  "Authorization for special attack"
+  "Authorization for a special attack"
   AUTHORIZATION_SPECIAL_ATTACK
   "The client cancels a project milestone"
   CLIENT_CANCELS_PROJECT_MILESTONE
-  "The client suspends the project"
+  "The client explicitly suspends the project"
   CLIENT_EXPLICITLY_SUSPENDS_PROJECT
   "Repository cloning issues"
   CLONING_ISSUES

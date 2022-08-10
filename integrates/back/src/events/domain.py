@@ -1,4 +1,7 @@
 # pylint:disable=cyclic-import
+from . import (
+    validations as events_validations,
+)
 from aioextensions import (
     collect,
     schedule,
@@ -186,6 +189,7 @@ async def add_event(
 ) -> AddEventPayload:
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
+    events_validations.validate_type(EventType[kwargs["event_type"]])
     root: Root = await loaders.root.load((group_name, kwargs["root_id"]))
     if root.state.status != "ACTIVE":
         raise InvalidParameter(field="rootId")
@@ -480,6 +484,8 @@ async def update_event(
     if all(attribute is None for attribute in attributes):
         raise RequiredFieldToBeUpdate()
 
+    if attributes.event_type:
+        events_validations.validate_type(attributes.event_type)
     event_type = attributes.event_type or event.type
     affected_components = (
         event.affected_components
