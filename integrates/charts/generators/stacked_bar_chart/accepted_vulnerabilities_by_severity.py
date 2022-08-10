@@ -5,16 +5,22 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
-from charts import (
-    utils,
-)
 from charts.colors import (
     RISK,
     TREATMENT,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data,
+)
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
     MIN_PERCENTAGE,
+)
+from charts.utils import (
+    get_portfolios_groups,
+    iterate_groups,
+    iterate_organizations_and_groups,
+    json_dump,
 )
 from dataloaders import (
     get_new_context,
@@ -36,11 +42,7 @@ from findings import (
     domain as findings_domain,
 )
 from typing import (
-    Any,
     Counter,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -59,7 +61,7 @@ def get_severity_level(severity: Decimal) -> str:
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
     group_findings_loader = context.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
+    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
@@ -71,8 +73,8 @@ async def get_data_one_group(group: str) -> Counter[str]:
     ]
 
     finding_vulns_loader = context.finding_vulnerabilities_nzr
-    finding_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
+    finding_vulns: tuple[
+        tuple[Vulnerability, ...], ...
     ] = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
     for severity, vulns in zip(finding_severity_levels, finding_vulns):
@@ -88,15 +90,15 @@ async def get_data_one_group(group: str) -> Counter[str]:
     return severity_counter
 
 
-async def get_data_many_groups(groups: List[str]) -> Counter[str]:
+async def get_data_many_groups(groups: list[str]) -> Counter[str]:
     groups_data = await collect(map(get_data_one_group, groups), workers=32)
 
     return sum(groups_data, Counter())
 
 
 def format_percentages(
-    values: Dict[str, Decimal]
-) -> Tuple[Dict[str, str], ...]:
+    values: dict[str, Decimal]
+) -> tuple[dict[str, str], ...]:
     if not values:
         max_percentage_values = dict(
             Accepted="",
@@ -111,11 +113,11 @@ def format_percentages(
 
     total_bar: Decimal = values["Accepted"] + values["Open"]
     total_bar = total_bar if total_bar > Decimal("0.0") else Decimal("0.1")
-    raw_percentages: List[Decimal] = [
+    raw_percentages: list[Decimal] = [
         values["Accepted"] / total_bar,
         values["Open"] / total_bar,
     ]
-    percentages: List[Decimal] = get_percentage(raw_percentages)
+    percentages: list[Decimal] = get_percentage(raw_percentages)
     max_percentage_values = dict(
         Accepted=str(percentages[0])
         if percentages[0] >= MIN_PERCENTAGE
@@ -130,8 +132,8 @@ def format_percentages(
     return (percentage_values, max_percentage_values)
 
 
-def format_data(data: Counter[str]) -> Dict[str, Any]:
-    translations: Dict[str, str] = {
+def format_data(data: Counter[str]) -> dict:
+    translations: dict[str, str] = {
         "critical_severity": "Critical Severity",
         "high_severity": "High Severity",
         "medium_severity": "Medium Severity",
@@ -224,34 +226,37 @@ def format_data(data: Counter[str]) -> Dict[str, Any]:
 
 
 async def generate_all() -> None:
-    async for group in utils.iterate_groups():
-        utils.json_dump(
-            document=format_data(data=await get_data_one_group(group)),
+    header: str = "Categories"
+    async for group in iterate_groups():
+        document = format_data(data=await get_data_one_group(group))
+        json_dump(
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
-    async for org_id, _, org_groups in (
-        utils.iterate_organizations_and_groups()
-    ):
-        utils.json_dump(
-            document=format_data(
-                data=await get_data_many_groups(list(org_groups)),
-            ),
+    async for org_id, _, org_groups in iterate_organizations_and_groups():
+        document = format_data(
+            data=await get_data_many_groups(list(org_groups)),
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
-    async for org_id, org_name, _ in (
-        utils.iterate_organizations_and_groups()
-    ):
-        for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    data=await get_data_many_groups(list(groups)),
-                ),
+    async for org_id, org_name, _ in iterate_organizations_and_groups():
+        for portfolio, groups in await get_portfolios_groups(org_name):
+            document = format_data(
+                data=await get_data_many_groups(list(groups)),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 
