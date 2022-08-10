@@ -69,6 +69,7 @@ async def get_report(
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
+    finding_title: str,
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -80,6 +81,7 @@ async def get_report(
             states=states,
             verifications=verifications,
             closing_date=closing_date,
+            finding_title=finding_title,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -110,6 +112,7 @@ async def send_report(
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
+    finding_title: str,
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -129,6 +132,7 @@ async def send_report(
                 states=states,
                 verifications=verifications,
                 closing_date=closing_date,
+                finding_title=finding_title,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -155,6 +159,7 @@ def get_filter_message(
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
+    finding_title: str,
 ) -> str:
     if report_type == "XLS":
         if closing_date:
@@ -191,6 +196,8 @@ def get_filter_message(
             message += f" Verifications: {verifications}."
         if closing_date:
             message += f" Closing date: {closing_date}."
+        if finding_title:
+            message += f" Finding type code: {finding_title}."
         if message:
             return f". With the following filters:{message}"
     return ""
@@ -217,6 +224,7 @@ async def report(*, item: BatchProcessing) -> None:
         if additional_info["closing_date"]
         else None
     )
+    finding_title: str = additional_info.get("finding_title", "")
     message = (
         f"Processing {report_type} report requested by "
         + f"{item.subject} for group {item.entity}"
@@ -226,6 +234,7 @@ async def report(*, item: BatchProcessing) -> None:
             states=states,
             verifications=verifications,
             closing_date=closing_date,
+            finding_title=finding_title,
         )
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -236,6 +245,7 @@ async def report(*, item: BatchProcessing) -> None:
         states=states,
         verifications=verifications,
         closing_date=closing_date,
+        finding_title=finding_title,
     )
     if report_url:
         await send_report(
@@ -246,4 +256,5 @@ async def report(*, item: BatchProcessing) -> None:
             states=states,
             verifications=verifications,
             closing_date=closing_date,
+            finding_title=finding_title,
         )

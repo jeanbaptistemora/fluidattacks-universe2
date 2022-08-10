@@ -105,6 +105,7 @@ class ITReport:
         treatments: set[VulnerabilityTreatmentStatus],
         verifications: set[VulnerabilityVerificationStatus],
         closing_date: Optional[datetime],
+        finding_title: str,
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -115,6 +116,7 @@ class ITReport:
         self.states = states
         self.verifications = verifications
         self.closing_date = closing_date
+        self.finding_title = finding_title
         if self.closing_date:
             self.states = set(
                 [
@@ -161,6 +163,13 @@ class ITReport:
 
     async def generate(self, data: tuple[Finding, ...]) -> None:
         findings_ids = tuple(finding.id for finding in data)
+        if self.finding_title:
+            data = tuple(
+                finding
+                for finding in data
+                if finding.title.startswith(self.finding_title)
+            )
+            findings_ids = tuple(finding.id for finding in data)
         findings_vulnerabilities: tuple[Vulnerability, ...]
         findings_verifications: tuple[tuple[FindingVerification], ...]
         findings_vulnerabilities, findings_verifications = await collect(

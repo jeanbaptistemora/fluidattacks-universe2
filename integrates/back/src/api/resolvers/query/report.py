@@ -50,6 +50,9 @@ from newutils import (
 from newutils.datetime import (
     get_now,
 )
+from newutils.findings import (
+    is_valid_finding_title,
+)
 import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
@@ -75,6 +78,7 @@ def _filter_unique_report(
     new_states: set[VulnerabilityStateStatus],
     new_verifications: set[VulnerabilityVerificationStatus],
     new_closing_date: Optional[datetime],
+    new_finding_title: str,
 ) -> bool:
     additional_info: dict[str, Any] = json.loads(old_additional_info)
     if new_type == "XLS":
@@ -88,13 +92,14 @@ def _filter_unique_report(
             == list(sorted(additional_info.get("verifications", [])))
             and (new_closing_date.isoformat() if new_closing_date else None)
             == additional_info.get("closing_date", None)
+            and new_finding_title == additional_info.get("finding_title", "")
         )
 
     return new_type == additional_info.get("report_type")
 
 
 @enforce_group_level_auth_async
-async def _get_url_group_report(  # pylint: disable = too-many-arguments
+async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too-many-locals
     info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
@@ -104,6 +109,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
     verification_code: str,
+    finding_title: str,
 ) -> bool:
     existing_actions: tuple[
         BatchProcessing, ...
@@ -119,6 +125,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
                 new_states=states,
                 new_verifications=verifications,
                 new_closing_date=closing_date,
+                new_finding_title=finding_title,
             ),
             existing_actions,
         )
@@ -142,6 +149,7 @@ async def _get_url_group_report(  # pylint: disable = too-many-arguments
             "states": list(sorted(states)),
             "verifications": list(sorted(verifications)),
             "closing_date": closing_date.isoformat() if closing_date else None,
+            "finding_title": finding_title,
         }
     )
 
@@ -233,6 +241,10 @@ async def resolve(
         else set()
     )
     closing_date: Optional[datetime] = kwargs.get("closing_date", None)
+    finding_title: str = kwargs.get("finding_title", "")
+    if finding_title:
+        await is_valid_finding_title(finding_title)
+        finding_title = finding_title[:3]
     if closing_date is not None:
         _validate_closing_date(closing_date=closing_date)
         states = set(
@@ -258,6 +270,7 @@ async def resolve(
             states=states,
             verifications=verifications,
             closing_date=closing_date,
+            finding_title=finding_title or "",
             verification_code=verification_code,
         )
     }

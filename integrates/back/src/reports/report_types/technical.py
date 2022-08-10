@@ -174,6 +174,7 @@ async def generate_xls_file(
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
+    finding_title: str,
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -183,6 +184,7 @@ async def generate_xls_file(
         loaders=loaders,
         verifications=verifications,
         closing_date=closing_date,
+        finding_title=finding_title,
     )
     await it_report.create()
     filepath = it_report.result_filename

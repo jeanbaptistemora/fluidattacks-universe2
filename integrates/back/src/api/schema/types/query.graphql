@@ -102,6 +102,8 @@ type Query {
   report(
     "Closing date to include, in the format `yyyy-MM-ddThh:mm:ssZ`"
     closingDate: DateTime
+    "Finding's number and name to include"
+    findingTitle: String
     "Name of the group to which the report belongs"
     groupName: String
     "Type of the report/export"

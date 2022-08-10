@@ -39,6 +39,7 @@ async def get_group_report_url(
     states: set[VulnerabilityStateStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
+    finding_title: str,
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -65,6 +66,7 @@ async def get_group_report_url(
             states=states,
             verifications=verifications,
             closing_date=closing_date,
+            finding_title=finding_title,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(
