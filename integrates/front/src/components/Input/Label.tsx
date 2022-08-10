@@ -23,12 +23,12 @@ const Label: FC<ILabelProps> = ({
     {required ? (
       <FontAwesomeIcon color={"#bf0b1a"} icon={faAsterisk} size={"xs"} />
     ) : undefined}
-    <Text disp={"inline-block"} mb={1} ml={required ? 1 : 0} mr={1}>
+    <Text disp={"inline"} mb={1} ml={required ? 1 : 0} mr={1}>
       {children}
     </Text>
     {tooltip === undefined || htmlFor === undefined ? undefined : (
       <Tooltip
-        disp={"inline-block"}
+        disp={"inline"}
         id={`${htmlFor}-tooltip`}
         place={"bottom"}
         tip={tooltip}
