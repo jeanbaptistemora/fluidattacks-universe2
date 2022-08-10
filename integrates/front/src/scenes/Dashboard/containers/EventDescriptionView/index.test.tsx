@@ -49,7 +49,7 @@ describe("EventDescriptionView", (): void => {
     },
   ];
 
-  it("should return a fuction", (): void => {
+  it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof EventDescriptionView).toBe("function");
   });
@@ -71,6 +71,9 @@ describe("EventDescriptionView", (): void => {
       expect(
         screen.queryByText("searchFindings.tabEvents.description")
       ).toBeInTheDocument();
+      expect(
+        screen.queryByText("searchFindings.tabEvents.dateClosed")
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -148,6 +151,7 @@ describe("EventDescriptionView", (): void => {
               affectedComponents: [],
               affectedReattacks: [],
               client: "Test",
+              closingDate: "2022-08-09 13:37:00",
               detail: "Something happened",
               eventStatus: "SOLVED",
               eventType: "AUTHORIZATION_SPECIAL_ATTACK",
@@ -200,6 +204,9 @@ describe("EventDescriptionView", (): void => {
     );
     await waitFor((): void => {
       expect(screen.getByText("Something happened")).toBeInTheDocument();
+      expect(
+        screen.queryByText("searchFindings.tabEvents.dateClosed")
+      ).toBeInTheDocument();
     });
     userEvent.click(screen.getByText("group.events.description.edit.text"));
     userEvent.selectOptions(
@@ -238,6 +245,7 @@ describe("EventDescriptionView", (): void => {
               affectedComponents: [],
               affectedReattacks: [],
               client: "Test",
+              closingDate: "2022-08-09 13:37:00",
               detail: "Something happened",
               eventStatus: "SOLVED",
               eventType: "AUTHORIZATION_SPECIAL_ATTACK",
@@ -290,6 +298,9 @@ describe("EventDescriptionView", (): void => {
     );
     await waitFor((): void => {
       expect(screen.getByText("Something happened")).toBeInTheDocument();
+      expect(
+        screen.queryByText("searchFindings.tabEvents.dateClosed")
+      ).toBeInTheDocument();
     });
     userEvent.click(screen.getByText("group.events.description.edit.text"));
     userEvent.selectOptions(

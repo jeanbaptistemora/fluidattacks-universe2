@@ -9,6 +9,7 @@ interface IEventDescriptionData {
     accessibility: string[];
     affectedComponents: string[];
     affectedReattacks: IAffectedReattacks[];
+    closingDate: string;
     hacker: string;
     client: string;
     detail: string;

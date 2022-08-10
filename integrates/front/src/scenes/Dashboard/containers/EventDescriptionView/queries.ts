@@ -12,6 +12,7 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
         specific
       }
       client
+      closingDate
       detail
       eventType
       eventStatus

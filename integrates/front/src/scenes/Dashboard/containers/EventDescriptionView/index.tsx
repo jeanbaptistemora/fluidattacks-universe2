@@ -710,6 +710,21 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                             />
                           </Col50>
                         )}
+                        <Col50>
+                          <EditableField
+                            alignField={"horizontalWide"}
+                            component={FormikText}
+                            currentValue={
+                              _.isNil(data.event.closingDate)
+                                ? "-"
+                                : data.event.closingDate
+                            }
+                            label={t("searchFindings.tabEvents.dateClosed")}
+                            name={"dateClosed"}
+                            renderAsEditable={false}
+                            type={"text"}
+                          />
+                        </Col50>
                       </Row>
                     )
                   ) : undefined}
