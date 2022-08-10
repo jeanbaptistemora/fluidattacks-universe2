@@ -608,7 +608,9 @@ async def send_mail_updated_group_information(
 async def send_mail_updated_policies(
     *, loaders: Any, email_to: List[str], context: Dict[str, Any]
 ) -> None:
-    user_role = await authz.get_user_level_role(context["responsible"])
+    user_role = await authz.get_user_level_role(
+        loaders, context["responsible"]
+    )
     context["user_role"] = user_role.replace("_", " ")
     await send_mails_async(
         loaders,

@@ -1,15 +1,18 @@
 import authz
+from dataloaders import (
+    Dataloaders,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo, **_kwargs: str
+    parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: str
 ) -> str:
+    loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
-    return await authz.get_user_level_role(user_email)
+    return await authz.get_user_level_role(loaders, user_email)

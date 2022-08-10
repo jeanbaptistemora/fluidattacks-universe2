@@ -350,8 +350,8 @@ def enforce_owner(func: TVar) -> TVar:
         user_data = await token_utils.get_jwt_content(context)
         subject = user_data["user_email"]
         if owner != subject:
-            stakeholder_level_role: str = (
-                await loaders.stakeholder_level_role.load(subject)
+            stakeholder_level_role = await authz.get_user_level_role(
+                loaders=loaders, email=subject
             )
             if stakeholder_level_role != "admin":
                 logs_utils.cloudwatch_log(context, UNAUTHORIZED_OWNER_MSG)

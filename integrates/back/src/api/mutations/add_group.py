@@ -65,7 +65,7 @@ async def mutate(
         )
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
-    user_role = await authz.get_user_level_role(user_email)
+    user_role = await authz.get_user_level_role(loaders, user_email)
 
     await groups_domain.add_group(
         loaders=loaders,

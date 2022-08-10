@@ -76,23 +76,42 @@ async def test_get_group_level_role(dynamodb: ServiceResource) -> None:
 
 
 async def test_get_user_level_role() -> None:
-    assert await get_user_level_role("continuoushacking@gmail.com") == "hacker"
+    loaders: Dataloaders = get_new_context()
     assert (
-        await get_user_level_role("integrateshacker@fluidattacks.com")
+        await get_user_level_role(loaders, "continuoushacking@gmail.com")
         == "hacker"
     )
-    assert await get_user_level_role("integratesuser@gmail.com") == "user"
-    assert await get_user_level_role("unittest@fluidattacks.com") == "admin"
-    assert not await get_user_level_role("asdfasdfasdfasdf@gmail.com")
+    assert (
+        await get_user_level_role(loaders, "integrateshacker@fluidattacks.com")
+        == "hacker"
+    )
+    assert (
+        await get_user_level_role(loaders, "integratesuser@gmail.com")
+        == "user"
+    )
+    assert (
+        await get_user_level_role(loaders, "unittest@fluidattacks.com")
+        == "admin"
+    )
+    assert not await get_user_level_role(loaders, "asdfasdfasdfasdf@gmail.com")
 
 
 @pytest.mark.changes_db
 async def test_grant_user_level_role() -> None:
     assert await grant_user_level_role("..TEST@gmail.com", "user")
-    assert await get_user_level_role("..test@gmail.com") == "user"
-    assert await get_user_level_role("..tEst@gmail.com") == "user"
+    assert (
+        await get_user_level_role(get_new_context(), "..test@gmail.com")
+        == "user"
+    )
+    assert (
+        await get_user_level_role(get_new_context(), "..tEst@gmail.com")
+        == "user"
+    )
     assert await grant_user_level_role("..TEST@gmail.com", "admin")
-    assert await get_user_level_role("..test@gmail.com") == "admin"
+    assert (
+        await get_user_level_role(get_new_context(), "..test@gmail.com")
+        == "admin"
+    )
     assert await get_group_level_role("..tEst@gmail.com", "a-group") == "admin"
     with pytest.raises(ValueError) as test_raised_err:
         await grant_user_level_role("..TEST@gmail.com", "breakall")
@@ -101,17 +120,22 @@ async def test_grant_user_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_grant_group_level_role() -> None:
-    loaders: Dataloaders = get_new_context()
     assert await grant_group_level_role(
-        loaders, "..TEST2@gmail.com", "group", "user"
+        get_new_context(), "..TEST2@gmail.com", "group", "user"
     )
-    assert await get_user_level_role("..test2@gmail.com") == "user"
-    assert await get_user_level_role("..tESt2@gmail.com") == "user"
+    assert (
+        await get_user_level_role(get_new_context(), "..test2@gmail.com")
+        == "user"
+    )
+    assert (
+        await get_user_level_role(get_new_context(), "..tESt2@gmail.com")
+        == "user"
+    )
     assert await get_group_level_role("..test2@gmail.com", "GROUP") == "user"
     assert not await get_group_level_role("..test2@gmail.com", "other-group")
     with pytest.raises(ValueError) as test_raised_err:
         await grant_group_level_role(
-            loaders, "..TEST2@gmail.com", "group", "breakall"
+            get_new_context(), "..TEST2@gmail.com", "group", "breakall"
         )
     assert str(test_raised_err.value) == "Invalid role value: breakall"
 
@@ -171,13 +195,19 @@ async def test_revoke_group_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_revoke_user_level_role() -> None:
+    loaders: Dataloaders = get_new_context()
     assert await grant_user_level_role(
         "revoke_user_LEVEL_role@gmail.com", "user"
     )
 
     assert (
-        await get_user_level_role("revoke_user_level_ROLE@gmail.com") == "user"
+        await get_user_level_role(loaders, "revoke_user_level_ROLE@gmail.com")
+        == "user"
     )
-    assert not await get_user_level_role("REVOKE_user_level_role@gmail.net")
+    assert not await get_user_level_role(
+        loaders, "REVOKE_user_level_role@gmail.net"
+    )
     assert await revoke_user_level_role("revoke_USER_LEVEL_ROLE@gmail.com")
-    assert not await get_user_level_role("revoke_user_level_ROLE@gmail.com")
+    assert not await get_user_level_role(
+        get_new_context(), "revoke_user_level_ROLE@gmail.com"
+    )

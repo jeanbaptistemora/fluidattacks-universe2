@@ -303,7 +303,7 @@ async def get_group_level_role(
         group_role = subject_policy.role
 
     # Please always make the query at the end
-    if not group_role and await get_user_level_role(email, loaders) == "admin":
+    if not group_role and await get_user_level_role(loaders, email) == "admin":
         return "admin"
 
     return group_role
@@ -315,7 +315,7 @@ async def get_group_level_roles(
     with_cache: bool = True,
     loaders: Any = None,
 ) -> dict[str, str]:
-    is_admin: bool = await get_user_level_role(email, loaders) == "admin"
+    is_admin: bool = await get_user_level_role(loaders, email) == "admin"
 
     if loaders:
         groups_access: tuple[
@@ -368,7 +368,7 @@ async def get_organization_level_role(
     # Please always make the query at the end
     if (
         not organization_role
-        and await get_user_level_role(email, loaders) == "admin"
+        and await get_user_level_role(loaders, email) == "admin"
     ):
         return "admin"
 
@@ -376,8 +376,8 @@ async def get_organization_level_role(
 
 
 async def get_user_level_role(
+    loaders: Any,
     email: str,
-    loaders: Any = None,
 ) -> str:
     user_role: str = ""
     if loaders:
@@ -418,7 +418,7 @@ async def grant_group_level_role(
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await get_user_level_role(email, loaders):
+    if not await get_user_level_role(loaders, email):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )
@@ -452,7 +452,7 @@ async def grant_organization_level_role(
     coroutines.append(put_subject_policy(policy))
 
     # If there is no user-level role for this user add one
-    if not await get_user_level_role(email, loaders):
+    if not await get_user_level_role(loaders, email):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )

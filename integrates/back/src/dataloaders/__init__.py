@@ -1,6 +1,3 @@
-from .stakeholder_level_role import (
-    StakeholderLevelRoleLoader,
-)
 from collections import (
     defaultdict,
 )
@@ -170,7 +167,6 @@ class Dataloaders(NamedTuple):
     toe_lines: ToeLinesLoader
     stakeholder: StakeholderLoader
     stakeholder_groups_access: StakeholderGroupsAccessLoader
-    stakeholder_level_role: StakeholderLevelRoleLoader
     stakeholder_organizations_access: StakeholderOrganizationsAccessLoader
     stakeholder_with_fallback: StakeholderWithFallbackLoader
     user_credentials: UserCredentialsLoader
@@ -301,7 +297,6 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         root_vulnerabilities=RootVulnerabilitiesLoader(),
         stakeholder=stakeholder_loader,
         stakeholder_groups_access=stakeholder_groups_access_loader,
-        stakeholder_level_role=StakeholderLevelRoleLoader(),
         stakeholder_organizations_access=(
             stakeholder_organizations_access_loader
         ),

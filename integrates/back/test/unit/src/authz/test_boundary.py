@@ -1,4 +1,8 @@
 import authz
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 import pytest
 
 # Constants
@@ -16,7 +20,8 @@ pytestmark = [
     ],
 )
 async def test_get_user_level_actions_model(email: str) -> None:
-    user_level_role = await authz.get_user_level_role(email)
+    loaders: Dataloaders = get_new_context()
+    user_level_role = await authz.get_user_level_role(loaders, email)
 
     assert await authz.get_user_level_actions(
         email
