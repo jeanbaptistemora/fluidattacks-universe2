@@ -13,6 +13,14 @@ from botocore.exceptions import (
     ClientError,
 )
 import contextlib
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    StakeholderNotFound,
+    StakeholderNotInGroup,
+    StakeholderNotInOrganization,
+)
 from custom_types import (
     DynamoDelete as DynamoDeleteType,
 )
@@ -22,6 +30,7 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.group_access.types import (
+    GroupAccess,
     GroupAccessMetadataToUpdate,
 )
 from db_model.groups.enums import (
@@ -33,9 +42,11 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.organization_access.types import (
+    OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
 )
 from db_model.stakeholders.types import (
+    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from dynamodb import (
@@ -272,14 +283,29 @@ async def get_cached_subject_policies(
     return policies
 
 
-async def get_group_level_role(email: str, group_name: str) -> str:
+async def get_group_level_role(
+    email: str,
+    group_name: str,
+    loaders: Any = None,
+) -> str:
+    group_role: str = ""
     # Admins are granted access to all groups
-    subject_policy = await _get_subject_policy(email, group_name)
-    group_role: str = subject_policy.role
+    if loaders:
+        with suppress(StakeholderNotInGroup):
+            group_access: GroupAccess = await loaders.group_access.load(
+                (group_name, email)
+            )
+            if group_access.role:
+                group_role = group_access.role
+
+    if not group_role:
+        subject_policy = await _get_subject_policy(email, group_name)
+        group_role = subject_policy.role
 
     # Please always make the query at the end
-    if not group_role and await get_user_level_role(email) == "admin":
+    if not group_role and await get_user_level_role(email, loaders) == "admin":
         return "admin"
+
     return group_role
 
 
@@ -287,12 +313,27 @@ async def get_group_level_roles(
     email: str,
     groups: list[str],
     with_cache: bool = True,
+    loaders: Any = None,
 ) -> dict[str, str]:
-    is_admin: bool = await get_user_level_role(email) == "admin"
-    policies = await get_cached_subject_policies(email, with_cache=with_cache)
-    db_roles: dict[str, str] = {
-        object_: role for level, object_, role in policies if level == "group"
-    }
+    is_admin: bool = await get_user_level_role(email, loaders) == "admin"
+
+    if loaders:
+        groups_access: tuple[
+            GroupAccess, ...
+        ] = await loaders.stakeholder_groups_access.load(email)
+        db_roles: dict[str, str] = {
+            access.group_name: access.role or "" for access in groups_access
+        }
+    else:
+        policies = await get_cached_subject_policies(
+            email, with_cache=with_cache
+        )
+        db_roles = {
+            object_: role
+            for level, object_, role in policies
+            if level == "group"
+        }
+
     return {
         group: "admin"
         if is_admin and group not in db_roles
@@ -301,20 +342,55 @@ async def get_group_level_roles(
     }
 
 
-async def get_organization_level_role(email: str, organization_id: str) -> str:
+async def get_organization_level_role(
+    email: str,
+    organization_id: str,
+    loaders: Any = None,
+) -> str:
+    organization_role: str = ""
     # Admins are granted access to all organizations
-    subject_policy = await _get_subject_policy(email, organization_id.lower())
-    organization_role: str = subject_policy.role
+    if loaders:
+        with suppress(StakeholderNotInOrganization):
+            org_access: OrganizationAccess = (
+                await loaders.organization_access.load(
+                    (organization_id, email)
+                )
+            )
+            if org_access.role:
+                organization_role = org_access.role
+
+    if not organization_role:
+        subject_policy = await _get_subject_policy(
+            email, organization_id.lower()
+        )
+        organization_role = subject_policy.role
 
     # Please always make the query at the end
-    if not organization_role and await get_user_level_role(email) == "admin":
+    if (
+        not organization_role
+        and await get_user_level_role(email, loaders) == "admin"
+    ):
         return "admin"
+
     return organization_role
 
 
-async def get_user_level_role(email: str) -> str:
-    user_policy = await _get_subject_policy(email, "self")
-    return str(user_policy.role)
+async def get_user_level_role(
+    email: str,
+    loaders: Any = None,
+) -> str:
+    user_role: str = ""
+    if loaders:
+        with suppress(StakeholderNotFound):
+            stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+            if stakeholder.role:
+                user_role = stakeholder.role
+
+    if not user_role:
+        user_policy = await _get_subject_policy(email, "self")
+        user_role = str(user_policy.role)
+
+    return user_role
 
 
 async def grant_group_level_role(
@@ -398,9 +474,11 @@ async def grant_user_level_role(email: str, role: str) -> bool:
     ) and await revoke_cached_subject_policies(email)
 
 
-async def has_access_to_group(email: str, group_name: str) -> bool:
+async def has_access_to_group(
+    email: str, group_name: str, loaders: Any = None
+) -> bool:
     """Verify if the user has access to a group."""
-    return bool(await get_group_level_role(email, group_name.lower()))
+    return bool(await get_group_level_role(email, group_name.lower(), loaders))
 
 
 async def put_subject_policy(policy: SubjectPolicy) -> bool:
