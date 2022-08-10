@@ -1,4 +1,7 @@
 import aioboto3
+from aioextensions import (
+    collect,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -28,13 +31,15 @@ from findings import (
 from findings.types import (
     FindingDraftToAdd,
 )
-import json
 from newutils.files import (
     path_is_include,
 )
 from newutils.findings import (
     get_requirements_file,
     get_vulns_file,
+)
+from organizations_finding_policies import (
+    domain as policies_domain,
 )
 import tempfile
 from typing import (
@@ -43,6 +48,9 @@ from typing import (
     List,
     Optional,
     Tuple,
+)
+from vulnerability_files.domain import (
+    map_vulnerabilities_to_dynamo,
 )
 import yaml  # type: ignore
 
@@ -152,7 +160,6 @@ def _get_path_from_integrates_vulnerability(
     elif vulnerability.type == VulnerabilityType.LINES:
         if len(chunks := vulnerability.where.split("/", maxsplit=1)) == 2:
             namespace, what = chunks
-            print(what)
         else:
             namespace, what = "", chunks[0]
     else:
@@ -327,7 +334,6 @@ async def process_criteria_vuln(
     **kwargs: Any,
 ) -> None:
     finding: Optional[Finding] = kwargs.get("finding", None)
-    language: str = kwargs["language"]
     git_root: GitRoot = kwargs["git_root"]
     sarif_log: Dict[str, Any] = kwargs["sarif_log"]
     machine_vulnerabilities = [
@@ -340,15 +346,15 @@ async def process_criteria_vuln(
         finding = await _create_draft(
             group_name,
             vulnerability_id,
-            language,
+            kwargs["language"],
             criteria_vulnerability,
             criteria_requirements,
         )
-    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
-        vuln
-        for vuln in await loaders.finding_vulnerabilities_all.load(finding.id)
-        if vuln.state.source == Source.MACHINE and vuln.root_id == git_root.id
+    finding_policy = await policies_domain.get_finding_policy_by_name(
+        org_name=kwargs["organization"],
+        finding_name=finding.title.lower(),
     )
+    integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple()
     vulns_to_close = _build_vulnerabilities_stream_from_integrates(
         _machine_vulns_to_close(
             machine_vulnerabilities,
@@ -362,8 +368,30 @@ async def process_criteria_vuln(
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
         git_root.state.nickname,
     )
-    print(json.dumps(vulns_to_open, indent=2))
-    print(json.dumps(vulns_to_close, indent=2))
+    await map_vulnerabilities_to_dynamo(
+        loaders=loaders,
+        vulns_data_from_file=vulns_to_close,
+        group_name=group_name,
+        finding_id=finding.id,
+        finding_policy=finding_policy,
+        user_info={
+            "email": "machine@fluidattacks.com",
+            "first_name": "machine",
+            "last_name": "machine",
+        },
+    )
+    await map_vulnerabilities_to_dynamo(
+        loaders=loaders,
+        vulns_data_from_file=vulns_to_open,
+        group_name=group_name,
+        finding_id=finding.id,
+        finding_policy=finding_policy,
+        user_info={
+            "email": "machine@fluidattacks.com",
+            "first_name": "machine",
+            "last_name": "machine",
+        },
+    )
 
 
 async def main() -> None:
@@ -403,16 +431,26 @@ async def main() -> None:
         else:
             rules_finding = (*rules_finding, (vuln_id, None))
 
-    for vuln_id, finding in rules_finding:  # type: ignore
-        await process_criteria_vuln(
-            loaders,
-            group_name,
-            vuln_id,
-            criteria_vulns[vuln_id],
-            criteria_reqs,
-            finding=finding,
-            language=execution_config["language"],
-            git_root=git_root,
-            sarif_log=results,
-            execution_config=execution_config,
+    organization_name = (
+        await loaders.organization.load(
+            (await loaders.group.load(group_name)).organization_id
         )
+    ).name
+    await collect(
+        [
+            process_criteria_vuln(
+                loaders,
+                group_name,
+                vuln_id,
+                criteria_vulns[vuln_id],
+                criteria_reqs,
+                finding=finding,
+                language=execution_config["language"],
+                git_root=git_root,
+                sarif_log=results,
+                execution_config=execution_config,
+                organization=organization_name,
+            )
+            for vuln_id, finding in rules_finding
+        ]
+    )
