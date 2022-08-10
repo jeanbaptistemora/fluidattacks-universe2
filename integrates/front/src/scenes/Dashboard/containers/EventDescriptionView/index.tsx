@@ -40,12 +40,7 @@ import {
   castEventType,
   formatAccessibility,
 } from "utils/formatHelpers";
-import {
-  EditableField,
-  FormikCheckbox,
-  FormikDropdown,
-  FormikText,
-} from "utils/forms/fields";
+import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
@@ -416,22 +411,53 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                               name={"eventType"}
                               validate={required}
                             >
+                              <option value={""} />
                               <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                                 {t(
                                   castEventType("AUTHORIZATION_SPECIAL_ATTACK")
                                 )}
                               </option>
+                              <option
+                                value={"CLIENT_EXPLICITLY_SUSPENDS_PROJECT"}
+                              >
+                                {t(
+                                  castEventType(
+                                    "CLIENT_EXPLICITLY_SUSPENDS_PROJECT"
+                                  )
+                                )}
+                              </option>
+                              <option value={"CLONING_ISSUES"}>
+                                {t(castEventType("CLONING_ISSUES"))}
+                              </option>
+                              <option value={"CREDENTIAL_ISSUES"}>
+                                {t(castEventType("CREDENTIAL_ISSUES"))}
+                              </option>
                               <option value={"DATA_UPDATE_REQUIRED"}>
                                 {t(castEventType("DATA_UPDATE_REQUIRED"))}
                               </option>
-                              <option value={"INCORRECT_MISSING_SUPPLIES"}>
-                                {t(castEventType("INCORRECT_MISSING_SUPPLIES"))}
+                              <option value={"ENVIRONMENT_ISSUES"}>
+                                {t(castEventType("ENVIRONMENT_ISSUES"))}
+                              </option>
+                              <option value={"INSTALLER_ISSUES"}>
+                                {t(castEventType("INSTALLER_ISSUES"))}
+                              </option>
+                              <option value={"MISSING_SUPPLIES"}>
+                                {t(castEventType("MISSING_SUPPLIES"))}
+                              </option>
+                              <option value={"NETWORK_ACCESS_ISSUES"}>
+                                {t(castEventType("NETWORK_ACCESS_ISSUES"))}
+                              </option>
+                              <option value={"OTHER"}>
+                                {t(castEventType("OTHER"))}
+                              </option>
+                              <option value={"REMOTE_ACCESS_ISSUES"}>
+                                {t(castEventType("REMOTE_ACCESS_ISSUES"))}
                               </option>
                               <option value={"TOE_DIFFERS_APPROVED"}>
                                 {t(castEventType("TOE_DIFFERS_APPROVED"))}
                               </option>
-                              <option value={"OTHER"}>
-                                {t(castEventType("OTHER"))}
+                              <option value={"VPN_ISSUES"}>
+                                {t(castEventType("VPN_ISSUES"))}
                               </option>
                             </Field>
                           </Col50>
@@ -491,97 +517,22 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                       />
                     </Col50>
                   </Row>
-
                   <Row>
-                    {isEditing && canUpdateEvent ? (
-                      values.eventType === "INCORRECT_MISSING_SUPPLIES" ||
-                      values.eventType === "MISSING_SUPPLIES" ? (
-                        <Col50>
-                          <Row>
-                            <EditableFieldTitle50>
-                              <ControlLabel>
-                                <b>
-                                  {t("group.events.form.components.title")}{" "}
-                                </b>
-                              </ControlLabel>
-                            </EditableFieldTitle50>
-                            <Col50 />
-                          </Row>
-                          <Row>
-                            <EditableFieldTitle50 />
-                            <Col50>
-                              <FormGroup>
-                                <Field
-                                  component={FormikCheckbox}
-                                  label={t(
-                                    "group.events.form.components.toeCredentials"
-                                  )}
-                                  name={"affectedComponents"}
-                                  type={"checkbox"}
-                                  value={"TOE_CREDENTIALS"}
-                                />
-                                <Field
-                                  component={FormikCheckbox}
-                                  label={t(
-                                    "group.events.form.components.toePrivileges"
-                                  )}
-                                  name={"affectedComponents"}
-                                  type={"checkbox"}
-                                  value={"TOE_PRIVILEGES"}
-                                />
-                                <Field
-                                  component={FormikCheckbox}
-                                  label={t(
-                                    "group.events.form.components.toeUnstability"
-                                  )}
-                                  name={"affectedComponents"}
-                                  type={"checkbox"}
-                                  value={"TOE_UNSTABLE"}
-                                />
-                                <Field
-                                  component={FormikCheckbox}
-                                  label={t(
-                                    "group.events.form.components.toeUnavailable"
-                                  )}
-                                  name={"affectedComponents"}
-                                  type={"checkbox"}
-                                  value={"TOE_UNAVAILABLE"}
-                                />
-                                <Field
-                                  component={FormikCheckbox}
-                                  label={t(
-                                    "group.events.form.components.testData"
-                                  )}
-                                  name={"affectedComponents"}
-                                  type={"checkbox"}
-                                  value={"TEST_DATA"}
-                                />
-                              </FormGroup>
-                            </Col50>
-                          </Row>
-                        </Col50>
-                      ) : (
-                        <Col50 />
-                      )
-                    ) : _.isEmpty(data.event.affectedComponents) ? undefined : (
-                      <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
-                          currentValue={data.event.affectedComponents
-                            .map((item: string): string =>
-                              translate.t(castAffectedComponents(item))
-                            )
-                            .join(", ")}
-                          label={t(
-                            "searchFindings.tabEvents.affectedComponents"
-                          )}
-                          name={"affectedComponents"}
-                          renderAsEditable={isEditing && canUpdateEvent}
-                          type={"text"}
-                        />
-                      </Col50>
-                    )}
+                    <Col50>
+                      <EditableField
+                        alignField={"horizontalWide"}
+                        component={FormikText}
+                        currentValue={data.event.affectedComponents
+                          .map((item: string): string =>
+                            translate.t(castAffectedComponents(item))
+                          )
+                          .join(", ")}
+                        label={t("searchFindings.tabEvents.affectedComponents")}
+                        name={"affectedComponents"}
+                        renderAsEditable={false}
+                        type={"text"}
+                      />
+                    </Col50>
                     <Col50>
                       <EditableField
                         alignField={"horizontalWide"}

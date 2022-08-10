@@ -169,9 +169,9 @@ describe("EventDescriptionView", (): void => {
         request: {
           query: UPDATE_EVENT_MUTATION,
           variables: {
-            affectedComponents: ["TOE_CREDENTIALS"],
+            affectedComponents: [],
             eventId: "413372600",
-            eventType: "INCORRECT_MISSING_SUPPLIES",
+            eventType: "MISSING_SUPPLIES",
           },
         },
         result: {
@@ -213,10 +213,7 @@ describe("EventDescriptionView", (): void => {
       screen.getByRole("combobox", {
         name: "eventType",
       }),
-      ["INCORRECT_MISSING_SUPPLIES"]
-    );
-    userEvent.click(
-      screen.getAllByRole("checkbox", { name: "affectedComponents" })[0]
+      ["MISSING_SUPPLIES"]
     );
     userEvent.click(
       screen.getByRole("button", { name: "group.events.description.save.text" })

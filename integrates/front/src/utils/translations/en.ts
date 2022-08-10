@@ -589,7 +589,7 @@ export const enTranslations: ResourceKey = {
       successCreate: "Event created successfully",
       titleSuccess: "Success",
       type: {
-        authorizationSpecialAttack: "Authorization for special attack",
+        authorizationSpecialAttack: "Authorization for a special attack",
         clientCancelsProjectMilestone: "The client cancels a project milestone",
         clientSuspendsProject: "The client explicitly suspends the project",
         cloningIssues: "Repository cloning issues",

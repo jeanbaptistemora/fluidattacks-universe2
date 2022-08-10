@@ -29,7 +29,6 @@ import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import {
   FormikAutocompleteText,
-  FormikCheckbox,
   FormikDateTime,
   FormikDropdown,
   FormikFileInput,
@@ -123,7 +122,11 @@ const AddModal: React.FC<IAddModalProps> = ({
   }
 
   const validations = object().shape({
-    accessibility: array().min(1, t("validations.someRequired")),
+    accessibility: array().when("eventType", {
+      is: "INCORRECT_MISSING_SUPPLIES",
+      otherwise: array().notRequired(),
+      then: array().min(1, t("validations.someRequired")),
+    }),
     affectedComponents: array().when("eventType", {
       is: "INCORRECT_MISSING_SUPPLIES",
       otherwise: array().notRequired(),
@@ -204,97 +207,45 @@ const AddModal: React.FC<IAddModalProps> = ({
                       <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                         {t(castEventType("AUTHORIZATION_SPECIAL_ATTACK"))}
                       </option>
+                      <option value={"CLIENT_EXPLICITLY_SUSPENDS_PROJECT"}>
+                        {t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT"))}
+                      </option>
+                      <option value={"CLONING_ISSUES"}>
+                        {t(castEventType("CLONING_ISSUES"))}
+                      </option>
+                      <option value={"CREDENTIAL_ISSUES"}>
+                        {t(castEventType("CREDENTIAL_ISSUES"))}
+                      </option>
                       <option value={"DATA_UPDATE_REQUIRED"}>
                         {t(castEventType("DATA_UPDATE_REQUIRED"))}
                       </option>
-                      <option value={"INCORRECT_MISSING_SUPPLIES"}>
-                        {t(castEventType("INCORRECT_MISSING_SUPPLIES"))}
+                      <option value={"ENVIRONMENT_ISSUES"}>
+                        {t(castEventType("ENVIRONMENT_ISSUES"))}
                       </option>
-                      <option value={"TOE_DIFFERS_APPROVED"}>
-                        {t(castEventType("TOE_DIFFERS_APPROVED"))}
+                      <option value={"INSTALLER_ISSUES"}>
+                        {t(castEventType("INSTALLER_ISSUES"))}
+                      </option>
+                      <option value={"MISSING_SUPPLIES"}>
+                        {t(castEventType("MISSING_SUPPLIES"))}
+                      </option>
+                      <option value={"NETWORK_ACCESS_ISSUES"}>
+                        {t(castEventType("NETWORK_ACCESS_ISSUES"))}
                       </option>
                       <option value={"OTHER"}>
                         {t(castEventType("OTHER"))}
                       </option>
+                      <option value={"REMOTE_ACCESS_ISSUES"}>
+                        {t(castEventType("REMOTE_ACCESS_ISSUES"))}
+                      </option>
+                      <option value={"TOE_DIFFERS_APPROVED"}>
+                        {t(castEventType("TOE_DIFFERS_APPROVED"))}
+                      </option>
+                      <option value={"VPN_ISSUES"}>
+                        {t(castEventType("VPN_ISSUES"))}
+                      </option>
                     </Field>
                   </FormGroup>
                 </Col50>
-              </Row>
-              <Row>
-                <Col50>
-                  <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.form.accessibility.title")}
-                    </ControlLabel>
-                    <br />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.accessibility.environment")}
-                      name={"accessibility"}
-                      type={"checkbox"}
-                      value={"environment"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.accessibility.repository")}
-                      name={"accessibility"}
-                      type={"checkbox"}
-                      value={"repository"}
-                    />
-                    <Field
-                      component={FormikCheckbox}
-                      label={t("group.events.form.accessibility.vpnConnection")}
-                      name={"accessibility"}
-                      type={"checkbox"}
-                      value={"vpn_connection"}
-                    />
-                  </FormGroup>
-                </Col50>
-                {values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
-                  <Col50>
-                    <FormGroup>
-                      <ControlLabel>
-                        {t("group.events.form.components.title")}
-                      </ControlLabel>
-                      <br />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toeCredentials")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_CREDENTIALS"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toePrivileges")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_PRIVILEGES"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toeUnstability")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_UNSTABLE"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.toeUnavailable")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TOE_UNAVAILABLE"}
-                      />
-                      <Field
-                        component={FormikCheckbox}
-                        label={t("group.events.form.components.testData")}
-                        name={"affectedComponents"}
-                        type={"checkbox"}
-                        value={"TEST_DATA"}
-                      />
-                    </FormGroup>
-                  </Col50>
-                ) : undefined}
               </Row>
               <Row>
                 <Col100>

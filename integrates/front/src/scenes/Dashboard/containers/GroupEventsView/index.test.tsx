@@ -109,7 +109,7 @@ describe("EventsView", (): void => {
     });
 
     expect(
-      screen.getByRole("cell", { name: "Authorization for special attack" })
+      screen.getByRole("cell", { name: "Authorization for a special attack" })
     ).toBeInTheDocument();
     expect(screen.getByRole("cell", { name: "Solved" })).toBeInTheDocument();
   });
@@ -144,9 +144,6 @@ describe("EventsView", (): void => {
     expect(screen.getAllByRole("combobox", { name: "eventType" })).toHaveLength(
       1
     );
-    expect(
-      screen.getAllByRole("checkbox", { name: "accessibility" })
-    ).toHaveLength(3);
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("file")).toHaveLength(1);
     expect(screen.getAllByTestId("image")).toHaveLength(1);

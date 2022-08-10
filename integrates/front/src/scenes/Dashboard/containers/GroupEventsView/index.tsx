@@ -7,7 +7,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import type { SortOrder } from "react-bootstrap-table-next";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -204,26 +204,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  const handleQryResult: (rData: IEventsDataset) => void = (
-    rData: IEventsDataset
-  ): void => {
-    if (!_.isUndefined(rData)) {
-      const eventOptions: string[] = Array.from(
-        new Set(
-          rData.group.events.map(
-            (event: { eventType: string }): string => event.eventType
-          )
-        )
-      );
-      const transEventOptions = eventOptions.map((option: string): string =>
-        t(castEventType(option))
-      );
-      const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
-        _.includes(transEventOptions, value)
-      );
-      setOptionType(filterOptions);
-    }
-  };
   const handleQryErrors: (error: ApolloError) => void = ({
     graphQLErrors,
   }: ApolloError): void => {
@@ -265,8 +245,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     setIsUpdateAffectedModalOpen(false);
   }, []);
 
-  const { data, refetch } = useQuery(GET_EVENTS, {
-    onCompleted: handleQryResult,
+  const { data, refetch } = useQuery<IEventsDataset>(GET_EVENTS, {
     onError: handleQryErrors,
     variables: { groupName },
   });
@@ -392,6 +371,27 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       t,
     ]
   );
+
+  useEffect((): void => {
+    if (!_.isUndefined(data)) {
+      const eventOptions: string[] = Array.from(
+        new Set(
+          data.group.events.map(
+            (event: { eventType: string }): string => event.eventType
+          )
+        )
+      );
+      const transEventOptions = eventOptions.map((option: string): string =>
+        t(castEventType(option))
+      );
+      const filterOptions = _.pickBy(selectOptionType, (value): boolean =>
+        _.includes(transEventOptions, value)
+      );
+      setOptionType(filterOptions);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const allEvents = data === undefined ? [] : data.group.events;
   const dataset = formatEvents(allEvents);
   const hasOpenEvents = dataset.some(
