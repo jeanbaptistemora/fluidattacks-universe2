@@ -54,25 +54,26 @@ async def main() -> None:
     deprecations = get_deprecations_by_period(
         sdl_content=SDL_CONTENT,
         end=next_month.replace(day=last_day),
-        start=None,
+        start=next_month.replace(day=1),
     )
-    mail_deprecations: dict[str, str] = _format_deprecation_for_mail(
-        deprecations
-    )
-    # Find users with generated tokens
-    all_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await stakeholders_model.get_all_stakeholders()
-    users_with_tokens: set[str] = {
-        stakeholder.email
-        for stakeholder in all_stakeholders
-        if stakeholder.access_token is not None
-        and not is_forces_user(stakeholder.email)
-    }
-    # Send out the mails
-    loaders: Dataloaders = get_new_context()
-    await send_mail_deprecation_notice(
-        loaders=loaders,
-        mail_deprecations=mail_deprecations,
-        email_to=users_with_tokens,
-    )
+    if bool(deprecations):
+        mail_deprecations: dict[str, str] = _format_deprecation_for_mail(
+            deprecations
+        )
+        # Find users with generated tokens
+        all_stakeholders: tuple[
+            Stakeholder, ...
+        ] = await stakeholders_model.get_all_stakeholders()
+        users_with_tokens: set[str] = {
+            stakeholder.email
+            for stakeholder in all_stakeholders
+            if stakeholder.access_token is not None
+            and not is_forces_user(stakeholder.email)
+        }
+        # Send out the mails
+        loaders: Dataloaders = get_new_context()
+        await send_mail_deprecation_notice(
+            loaders=loaders,
+            mail_deprecations=mail_deprecations,
+            email_to=users_with_tokens,
+        )
