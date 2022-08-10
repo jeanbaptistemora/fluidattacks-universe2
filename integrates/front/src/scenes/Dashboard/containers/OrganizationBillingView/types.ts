@@ -10,12 +10,7 @@ interface IGroupAttr {
   hasMachine: boolean;
   hasSquad: boolean;
   machine: string;
-  managed:
-    | "MANAGED"
-    | "MANUALLY"
-    | "NOT_MANAGED"
-    | "NOT_MANUALLY"
-    | "UNDER_REVIEW";
+  managed: "MANAGED" | "NOT_MANAGED" | "UNDER_REVIEW";
   name: string;
   paymentId: string | null;
   permissions: string[];

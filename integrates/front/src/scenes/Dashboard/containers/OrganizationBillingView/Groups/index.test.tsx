@@ -56,7 +56,7 @@ describe("Organization billing groups view", (): void => {
                     hasMachine: true,
                     hasSquad: true,
                     machine: "",
-                    managed: "MANUALLY",
+                    managed: "MANAGED",
                     name: "unittesting",
                     paymentId: "280fe281-e190-45af-b733-a24889b96fd1",
                     permissions: [
@@ -83,7 +83,7 @@ describe("Organization billing groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
     expect(screen.getAllByRole("button")).toHaveLength(2);
-    expect(screen.queryByText("Manually")).toBeInTheDocument();
+    expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
@@ -115,7 +115,7 @@ describe("Organization billing groups view", (): void => {
                     hasMachine: true,
                     hasSquad: true,
                     machine: "",
-                    managed: "MANUALLY",
+                    managed: "MANAGED",
                     name: "unittesting",
                     paymentId: "280fe281-e190-45af-b733-a24889b96fd1",
                     permissions: [
@@ -141,7 +141,7 @@ describe("Organization billing groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
     expect(screen.getAllByRole("button")).toHaveLength(2);
-    expect(screen.queryByText("Manually")).toBeInTheDocument();
+    expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
@@ -165,7 +165,7 @@ describe("Organization billing groups view", (): void => {
           isManagedChanged: true,
           isPaymentIdChanged: false,
           isSubscriptionChanged: false,
-          managed: "NOT_MANUALLY",
+          managed: "NOT_MANAGED",
           paymentId: "280fe281-e190-45af-b733-a24889b96fd1",
           subscription: "SQUAD",
         },
@@ -205,7 +205,7 @@ describe("Organization billing groups view", (): void => {
                     hasMachine: true,
                     hasSquad: true,
                     machine: "",
-                    managed: "MANUALLY",
+                    managed: "MANAGED",
                     name: "unittesting",
                     paymentId: "280fe281-e190-45af-b733-a24889b96fd1",
                     permissions: [
@@ -232,7 +232,7 @@ describe("Organization billing groups view", (): void => {
 
     expect(screen.getAllByRole("row")).toHaveLength(2);
     expect(screen.getAllByRole("button")).toHaveLength(2);
-    expect(screen.queryByText("Manually")).toBeInTheDocument();
+    expect(screen.queryAllByText("Managed")).toHaveLength(2);
     expect(
       screen.queryByText(
         "organization.tabs.billing.groups.updateSubscription.title"
@@ -241,7 +241,7 @@ describe("Organization billing groups view", (): void => {
     expect(screen.queryByText("Tier")).toBeInTheDocument();
     expect(screen.queryByText("Service")).toBeInTheDocument();
 
-    userEvent.click(screen.getByText("Manually"));
+    userEvent.click(screen.getAllByText("Managed")[1]);
 
     await waitFor((): void => {
       expect(

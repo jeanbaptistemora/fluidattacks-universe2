@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 update managed field type from boolean to enum
+
+Execution Time:    2022-08-10 at 12:44:32 UTC
+Finalization Time: 2022-08-10 at 12:46:11 UTC
 """
 
 from aioextensions import (
