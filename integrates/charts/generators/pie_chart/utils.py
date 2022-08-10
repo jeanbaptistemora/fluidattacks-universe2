@@ -20,10 +20,7 @@ from typing import (
     Any,
     Awaitable,
     Callable,
-    Dict,
-    List,
     NamedTuple,
-    Tuple,
 )
 
 
@@ -36,8 +33,8 @@ MAX_GROUPS_DISPLAYED = 4
 
 
 def slice_groups(
-    groups_data: List[PortfoliosGroupsInfo], total_value: Decimal
-) -> List[PortfoliosGroupsInfo]:
+    groups_data: list[PortfoliosGroupsInfo], total_value: Decimal
+) -> list[PortfoliosGroupsInfo]:
     groups_data_sorted = sorted(
         groups_data, key=attrgetter("value"), reverse=True
     )
@@ -55,7 +52,7 @@ def slice_groups(
     return groups_data_sliced
 
 
-def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
+def format_data(groups_data: list[PortfoliosGroupsInfo]) -> dict:
     return dict(
         data=dict(
             columns=[[group.group_name, group.value] for group in groups_data],
@@ -79,8 +76,8 @@ def format_data(groups_data: List[PortfoliosGroupsInfo]) -> dict:
 async def generate_all(
     *,
     get_data_one_group: Callable[[str], Awaitable[Any]],
-    get_data_many_groups: Callable[[Tuple[str, ...]], Awaitable[Any]],
-    format_document: Callable[[Any], Dict[str, Any]],
+    get_data_many_groups: Callable[[tuple[str, ...]], Awaitable[Any]],
+    format_document: Callable[[Any], dict[str, Any]],
 ) -> None:
     async for group in iterate_groups():
         document = format_document(
