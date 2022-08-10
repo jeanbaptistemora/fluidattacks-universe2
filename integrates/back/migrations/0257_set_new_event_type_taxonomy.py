@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Set the new event taxonomy for the old events
+
+Execution Time:    2022-08-10 at 20:02:20 UTC
+Finalization Time: 2022-08-10 at 20:02:32 UTC
 """
 from aioextensions import (
     collect,
