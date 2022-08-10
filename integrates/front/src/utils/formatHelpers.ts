@@ -45,14 +45,25 @@ const castAffectedComponents: (field: string) => string = (
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
-      "searchFindings.tabEvents.typeValues.authAttack",
-    "Ambiente inestable": "searchFindings.tabEvents.typeValues.unsAmbient",
-    "Ambiente no accesible": "searchFindings.tabEvents.typeValues.inaccAmbient",
-    DATA_UPDATE_REQUIRED: "searchFindings.tabEvents.typeValues.dataUpdate",
-    INCORRECT_MISSING_SUPPLIES:
-      "searchFindings.tabEvents.typeValues.incorSupplies",
-    OTHER: "searchFindings.tabEvents.typeValues.other",
-    TOE_DIFFERS_APPROVED: "searchFindings.tabEvents.typeValues.toeDiffers",
+      "group.events.type.authorizationSpecialAttack",
+    "Ambiente inestable": "group.events.type.unsAmbient",
+    "Ambiente no accesible": "group.events.type.inaccAmbient",
+    CLIENT_CANCELS_PROJECT_MILESTONE:
+      "group.events.type.clientCancelsProjectMilestone",
+    CLIENT_EXPLICITLY_SUSPENDS_PROJECT:
+      "group.events.type.clientSuspendsProject",
+    CLONING_ISSUES: "group.events.type.cloningIssues",
+    CREDENTIAL_ISSUES: "group.events.type.credentialsIssues",
+    DATA_UPDATE_REQUIRED: "group.events.type.dataUpdateRequired",
+    ENVIRONMENT_ISSUES: "group.events.type.environmentIssues",
+    INCORRECT_MISSING_SUPPLIES: "group.events.type.incorrectMissingSupplies",
+    INSTALLER_ISSUES: "group.events.type.installerIssues",
+    MISSING_SUPPLIES: "group.events.type.missingSupplies",
+    NETWORK_ACCESS_ISSUES: "group.events.type.networkAccessIssues",
+    OTHER: "group.events.type.other",
+    REMOTE_ACCESS_ISSUES: "group.events.type.remoteAccessIssues",
+    TOE_DIFFERS_APPROVED: "group.events.type.toeDiffersApproved",
+    VPN_ISSUES: "group.events.type.vpnIssues",
   };
 
   return eventType[field];

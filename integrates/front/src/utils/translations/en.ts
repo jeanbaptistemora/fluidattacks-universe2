@@ -579,13 +579,7 @@ export const enTranslations: ResourceKey = {
         responsible: "Person in charge (client)",
         root: "Root",
         rootPlaceholder: "Search by nickname...",
-        type: {
-          dataUpdate: "Request user modification/workflow update",
-          missingSupplies: "Incorrect or missing supplies",
-          specialAttack: "Authorization for special attack",
-          title: "Type",
-          toeDiffers: "ToE different than agreed upon",
-        },
+        type: "Type",
         wrongFileType: "Evidence files must have .pdf, .zip or .csv extension",
         wrongImageType:
           "Evidence images must have .gif/.png extension for animation" +
@@ -594,6 +588,26 @@ export const enTranslations: ResourceKey = {
       new: "New Event",
       successCreate: "Event created successfully",
       titleSuccess: "Success",
+      type: {
+        authorizationSpecialAttack: "Authorization for special attack",
+        clientCancelsProjectMilestone: "The client cancels a project milestone",
+        clientSuspendsProject: "The client explicitly suspends the project",
+        cloningIssues: "Repository cloning issues",
+        credentialsIssues: "Repository credentials issues",
+        dataUpdateRequired: "Request user modification/workflow update",
+        environmentIssues: "Environment issues",
+        inaccAmbient: "Inaccessible environment",
+        incorSupplies: "Incorrect or missing supplies",
+        incorrectMissingSupplies: "Incorrect or missing supplies",
+        installerIssues: "Installer issues",
+        missingSupplies: "Missing supplies",
+        networkAccessIssues: "Network access issues",
+        other: "Other",
+        remoteAccessIssues: "Remote access issues",
+        title: "Type",
+        toeDiffersApproved: "ToE different than agreed upon",
+        vpnIssues: "VPN issues",
+      },
     },
     findings: {
       boolean: {
@@ -2549,15 +2563,6 @@ export const enTranslations: ResourceKey = {
       },
       tableAdvice: "Click on an event to see more details",
       type: "Type",
-      typeValues: {
-        authAttack: "Authorization for a special attack",
-        dataUpdate: "Request user modification/workflow update",
-        inaccAmbient: "Inaccessible environment",
-        incorSupplies: "Incorrect or missing supplies",
-        other: "Other",
-        toeDiffers: "ToE different from that agreed upon",
-        unsAmbient: "Unstable ambient",
-      },
     },
     tabEvidence: {
       animationExploit: "Exploitation animation",

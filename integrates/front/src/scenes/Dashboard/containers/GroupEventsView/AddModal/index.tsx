@@ -26,6 +26,7 @@ import {
   Row,
 } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
+import { castEventType } from "utils/formatHelpers";
 import {
   FormikAutocompleteText,
   FormikCheckbox,
@@ -193,9 +194,7 @@ const AddModal: React.FC<IAddModalProps> = ({
                 </Col50>
                 <Col50>
                   <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.form.type.title")}
-                    </ControlLabel>
+                    <ControlLabel>{t("group.events.form.type")}</ControlLabel>
                     <Field
                       component={FormikDropdown}
                       name={"eventType"}
@@ -203,19 +202,19 @@ const AddModal: React.FC<IAddModalProps> = ({
                     >
                       <option value={""} />
                       <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
-                        {t("group.events.form.type.specialAttack")}
+                        {t(castEventType("AUTHORIZATION_SPECIAL_ATTACK"))}
                       </option>
                       <option value={"DATA_UPDATE_REQUIRED"}>
-                        {t("group.events.form.type.dataUpdate")}
+                        {t(castEventType("DATA_UPDATE_REQUIRED"))}
                       </option>
                       <option value={"INCORRECT_MISSING_SUPPLIES"}>
-                        {t("group.events.form.type.missingSupplies")}
+                        {t(castEventType("INCORRECT_MISSING_SUPPLIES"))}
                       </option>
                       <option value={"TOE_DIFFERS_APPROVED"}>
-                        {t("group.events.form.type.toeDiffers")}
+                        {t(castEventType("TOE_DIFFERS_APPROVED"))}
                       </option>
                       <option value={"OTHER"}>
-                        {t("group.events.form.other")}
+                        {t(castEventType("OTHER"))}
                       </option>
                     </Field>
                   </FormGroup>

@@ -37,6 +37,7 @@ import {
 import { authzPermissionsContext } from "utils/authz/config";
 import {
   castAffectedComponents,
+  castEventType,
   formatAccessibility,
 } from "utils/formatHelpers";
 import {
@@ -416,19 +417,21 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                               validate={required}
                             >
                               <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
-                                {t("group.events.form.type.specialAttack")}
+                                {t(
+                                  castEventType("AUTHORIZATION_SPECIAL_ATTACK")
+                                )}
                               </option>
                               <option value={"DATA_UPDATE_REQUIRED"}>
-                                {t("group.events.form.type.dataUpdate")}
+                                {t(castEventType("DATA_UPDATE_REQUIRED"))}
                               </option>
                               <option value={"INCORRECT_MISSING_SUPPLIES"}>
-                                {t("group.events.form.type.missingSupplies")}
+                                {t(castEventType("INCORRECT_MISSING_SUPPLIES"))}
                               </option>
                               <option value={"TOE_DIFFERS_APPROVED"}>
-                                {t("group.events.form.type.toeDiffers")}
+                                {t(castEventType("TOE_DIFFERS_APPROVED"))}
                               </option>
                               <option value={"OTHER"}>
-                                {t("group.events.form.other")}
+                                {t(castEventType("OTHER"))}
                               </option>
                             </Field>
                           </Col50>
@@ -491,7 +494,8 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
 
                   <Row>
                     {isEditing && canUpdateEvent ? (
-                      values.eventType === "INCORRECT_MISSING_SUPPLIES" ? (
+                      values.eventType === "INCORRECT_MISSING_SUPPLIES" ||
+                      values.eventType === "MISSING_SUPPLIES" ? (
                         <Col50>
                           <Row>
                             <EditableFieldTitle50>

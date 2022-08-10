@@ -2,19 +2,48 @@ import { castEventType } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
 const selectOptionType = {
-  [translate.t("group.events.form.type.specialAttack")]: translate.t(
+  [translate.t(castEventType("AUTHORIZATION_SPECIAL_ATTACK"))]: translate.t(
     castEventType("AUTHORIZATION_SPECIAL_ATTACK")
   ),
-  [translate.t("group.events.form.type.dataUpdate")]: translate.t(
+  [translate.t(castEventType("CLIENT_CANCELS_PROJECT_MILESTONE"))]: translate.t(
+    castEventType("CLIENT_CANCELS_PROJECT_MILESTONE")
+  ),
+  [translate.t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT"))]:
+    translate.t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT")),
+  [translate.t(castEventType("CLONING_ISSUES"))]: translate.t(
+    castEventType("CLONING_ISSUES")
+  ),
+  [translate.t(castEventType("CREDENTIAL_ISSUES"))]: translate.t(
+    castEventType("CREDENTIAL_ISSUES")
+  ),
+  [translate.t(castEventType("DATA_UPDATE_REQUIRED"))]: translate.t(
     castEventType("DATA_UPDATE_REQUIRED")
   ),
-  [translate.t("group.events.form.type.missingSupplies")]: translate.t(
+  [translate.t(castEventType("ENVIRONMENT_ISSUES"))]: translate.t(
+    castEventType("ENVIRONMENT_ISSUES")
+  ),
+  [translate.t(castEventType("INCORRECT_MISSING_SUPPLIES"))]: translate.t(
     castEventType("INCORRECT_MISSING_SUPPLIES")
   ),
-  [translate.t("group.events.form.type.toeDiffers")]: translate.t(
+  [translate.t(castEventType("INSTALLER_ISSUES"))]: translate.t(
+    castEventType("INSTALLER_ISSUES")
+  ),
+  [translate.t(castEventType("MISSING_SUPPLIES"))]: translate.t(
+    castEventType("MISSING_SUPPLIES")
+  ),
+  [translate.t(castEventType("NETWORK_ACCESS_ISSUES"))]: translate.t(
+    castEventType("NETWORK_ACCESS_ISSUES")
+  ),
+  [translate.t(castEventType("OTHER"))]: translate.t(castEventType("OTHER")),
+  [translate.t(castEventType("REMOTE_ACCESS_ISSUES"))]: translate.t(
+    castEventType("REMOTE_ACCESS_ISSUES")
+  ),
+  [translate.t(castEventType("TOE_DIFFERS_APPROVED"))]: translate.t(
     castEventType("TOE_DIFFERS_APPROVED")
   ),
-  [translate.t("group.events.form.other")]: translate.t(castEventType("OTHER")),
+  [translate.t(castEventType("VPN_ISSUES"))]: translate.t(
+    castEventType("VPN_ISSUES")
+  ),
 };
 const accessibilityOptions: Record<string, string> = {
   [translate.t("group.events.form.accessibility.environment")]:

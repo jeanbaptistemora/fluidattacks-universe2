@@ -69,9 +69,7 @@ describe("EventContent", (): void => {
     );
 
     await waitFor((): void => {
-      expect(
-        screen.queryByText("searchFindings.tabEvents.typeValues.other")
-      ).toBeInTheDocument();
+      expect(screen.queryByText("group.events.type.other")).toBeInTheDocument();
     });
   });
 
