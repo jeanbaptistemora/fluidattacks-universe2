@@ -132,7 +132,7 @@ def get_vulnerability_reattacks_date(
 def format_mttr_data(
     data: Tuple[Decimal, Decimal, Decimal, Decimal],
     categories: List[str],
-    y_label: str = "Days per severity (less is better)",
+    y_label: str = "Days per exposure (less is better)",
 ) -> Dict[str, Any]:
 
     return dict(
