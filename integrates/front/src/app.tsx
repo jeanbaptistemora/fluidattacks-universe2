@@ -7,8 +7,8 @@ import React, { useState } from "react";
 import { render } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
+import { ToastBox } from "components/Alert";
 import { Announce } from "components/Announce";
 import { MatomoWrapper } from "components/MatomoWrapper";
 import { Login } from "scenes/Login";
@@ -81,12 +81,7 @@ const App: React.FC = (): JSX.Element => {
               </ApolloProvider>
             </MatomoWrapper>
           </BrowserRouter>
-          <ToastContainer
-            autoClose={5000}
-            closeOnClick={false}
-            hideProgressBar={true}
-            position={"top-right"}
-          />
+          <ToastBox autoClose={5000} position={"top-right"} />
         </BugsnagErrorBoundary>
       </MatomoProvider>
     </React.StrictMode>
