@@ -18,11 +18,11 @@ async def get_result(
     query: str = f"""
         mutation {{
             addEvent(
-                accessibility: [ENVIRONMENT, VPN_CONNECTION],
+                accessibility: [],
                 affectedComponents: [TEST_DATA, TOE_PRIVILEGES],
                 detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
-                eventType: INCORRECT_MISSING_SUPPLIES,
+                eventType: MISSING_SUPPLIES,
                 groupName: "{group}",
                 rootId: "63298a73-9dff-46cf-b42d-9b2f01a56690",
             ) {{

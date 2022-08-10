@@ -7,5 +7,8 @@ from db_model.events.enums import (
 
 
 def validate_type(event_type: EventType) -> None:
-    if event_type is EventType.CLIENT_CANCELS_PROJECT_MILESTONE:
+    if event_type in {
+        EventType.CLIENT_CANCELS_PROJECT_MILESTONE,
+        EventType.INCORRECT_MISSING_SUPPLIES,
+    }:
         raise InvalidParameter("eventType")

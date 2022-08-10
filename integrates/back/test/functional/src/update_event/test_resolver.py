@@ -26,18 +26,6 @@ from typing import (
     [
         ["admin@gmail.com", "418900971", "AUTHORIZATION_SPECIAL_ATTACK", []],
         ["admin@gmail.com", "418900972", "DATA_UPDATE_REQUIRED", None],
-        [
-            "admin@gmail.com",
-            "418900973",
-            "INCORRECT_MISSING_SUPPLIES",
-            [
-                "TEST_DATA",
-                "TOE_CREDENTIALS",
-                "TOE_PRIVILEGES",
-                "TOE_UNAVAILABLE",
-                "TOE_UNSTABLE",
-            ],
-        ],
         ["admin@gmail.com", "418900974", "OTHER", None],
         ["admin@gmail.com", "418900974", "TOE_DIFFERS_APPROVED", []],
         ["admin@gmail.com", "418900975", "OTHER", []],

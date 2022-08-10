@@ -6,8 +6,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.events.enums import (
-    EventAccessibility,
-    EventAffectedComponents,
     EventStateStatus,
     EventType,
 )
@@ -60,14 +58,6 @@ async def test_add_event(
     event: Event = next(
         event for event in group_events if event.hacker == email
     )
-    assert event.accessibility == {
-        EventAccessibility.ENVIRONMENT,
-        EventAccessibility.VPN_CONNECTION,
-    }
-    assert event.affected_components == {
-        EventAffectedComponents.TEST_DATA,
-        EventAffectedComponents.TOE_PRIVILEGES,
-    }
     assert event.client == "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     assert event.description == "hacker create new event"
     assert event.event_date == "2020-02-01T00:00:00+00:00"
@@ -75,7 +65,7 @@ async def test_add_event(
     assert event.group_name == group_name
     assert event.hacker == email
     assert event.state.status == EventStateStatus.CREATED
-    assert event.type == EventType.INCORRECT_MISSING_SUPPLIES
+    assert event.type == EventType.MISSING_SUPPLIES
     assert event.root_id == "63298a73-9dff-46cf-b42d-9b2f01a56690"
 
 

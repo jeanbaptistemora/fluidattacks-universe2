@@ -133,7 +133,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     ]
 
     event_type_format = {
-        "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for special attack",
+        "AUTHORIZATION_SPECIAL_ATTACK": "Authorization for a special attack",
         "CLIENT_CANCELS_PROJECT_MILESTONE": (
             "The client cancels a project milestone"
         ),
