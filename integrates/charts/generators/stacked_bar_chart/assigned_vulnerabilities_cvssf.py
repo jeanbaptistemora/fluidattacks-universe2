@@ -5,6 +5,9 @@ from aioextensions import (
 from async_lru import (
     alru_cache,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data,
+)
 from charts.generators.stacked_bar_chart.utils import (
     AssignedFormatted,
     format_stacked_vulnerabilities_data,
@@ -40,24 +43,21 @@ from findings.domain.core import (
     get_severity_score,
 )
 from typing import (
-    Any,
     Counter,
-    List,
-    Tuple,
 )
 
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
-) -> dict[str, List[Tuple[Vulnerability, Decimal]]]:
-    assigned: dict[str, List[Tuple[Vulnerability, Decimal]]] = defaultdict(
+) -> dict[str, list[tuple[Vulnerability, Decimal]]]:
+    assigned: dict[str, list[tuple[Vulnerability, Decimal]]] = defaultdict(
         list
     )
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: Tuple[
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities_nzr.load_many_chained(
         tuple(finding.id for finding in group_findings)
@@ -78,11 +78,11 @@ async def get_data_one_group(
 
 async def get_data_many_groups(
     *,
-    groups: Tuple[str, ...],
+    groups: tuple[str, ...],
     loaders: Dataloaders,
-) -> dict[str, List[Tuple[Vulnerability, Decimal]]]:
-    groups_data: Tuple[
-        dict[str, List[Tuple[Vulnerability, Decimal]]], ...
+) -> dict[str, list[tuple[Vulnerability, Decimal]]]:
+    groups_data: tuple[
+        dict[str, list[tuple[Vulnerability, Decimal]]], ...
     ] = await collect(
         tuple(
             get_data_one_group(group=group, loaders=loaders)
@@ -90,7 +90,7 @@ async def get_data_many_groups(
         ),
         workers=32,
     )
-    assigned: dict[str, List[Tuple[Vulnerability, Decimal]]] = defaultdict(
+    assigned: dict[str, list[tuple[Vulnerability, Decimal]]] = defaultdict(
         list
     )
 
@@ -102,7 +102,7 @@ async def get_data_many_groups(
 
 
 def format_assigned(
-    *, user: str, vulnerabilities: List[Tuple[Vulnerability, Decimal]]
+    *, user: str, vulnerabilities: list[tuple[Vulnerability, Decimal]]
 ) -> AssignedFormatted:
     status: Counter[str] = Counter()
     treatment: Counter[str] = Counter()
@@ -140,10 +140,10 @@ def format_assigned(
 
 
 def format_data(
-    *, assigned_data: dict[str, List[Tuple[Vulnerability, Decimal]]]
-) -> dict[str, Any]:
+    *, assigned_data: dict[str, list[tuple[Vulnerability, Decimal]]]
+) -> dict:
     limit: int = 18
-    data: Tuple[AssignedFormatted, ...] = tuple(
+    data: tuple[AssignedFormatted, ...] = tuple(
         format_assigned(user=user, vulnerabilities=vulnerabilities)
         for user, vulnerabilities in assigned_data.items()
     )
@@ -166,39 +166,46 @@ def format_data(
 
 
 async def generate_all() -> None:
+    header: str = "User"
     loaders: Dataloaders = get_new_context()
     async for group in iterate_groups():
-        json_dump(
-            document=format_data(
-                assigned_data=await get_data_one_group(
-                    group=group, loaders=loaders
-                ),
+        document = format_data(
+            assigned_data=await get_data_one_group(
+                group=group, loaders=loaders
             ),
+        )
+        json_dump(
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, _, org_groups in iterate_organizations_and_groups():
-        json_dump(
-            document=format_data(
-                assigned_data=await get_data_many_groups(
-                    groups=org_groups, loaders=loaders
-                ),
+        document = format_data(
+            assigned_data=await get_data_many_groups(
+                groups=org_groups, loaders=loaders
             ),
+        )
+        json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, org_name, _ in iterate_organizations_and_groups():
         for portfolio, groups in await get_portfolios_groups(org_name):
-            json_dump(
-                document=format_data(
-                    assigned_data=await get_data_many_groups(
-                        groups=tuple(groups), loaders=loaders
-                    ),
+            document = format_data(
+                assigned_data=await get_data_many_groups(
+                    groups=tuple(groups), loaders=loaders
                 ),
+            )
+            json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 
