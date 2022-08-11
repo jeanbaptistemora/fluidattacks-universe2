@@ -8,7 +8,7 @@ import _ from "lodash";
 import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import { array, object, string } from "yup";
+import { object, string } from "yup";
 
 import { ActionButtons } from "./ActionButtons";
 import type {
@@ -35,15 +35,10 @@ import {
   Row,
 } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import {
-  castAffectedComponents,
-  castEventType,
-  formatAccessibility,
-} from "utils/formatHelpers";
+import { castEventType } from "utils/formatHelpers";
 import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-import { translate } from "utils/translations/translate";
 import { composeValidators, required } from "utils/validations";
 
 const EventDescriptionView: React.FC = (): JSX.Element => {
@@ -224,27 +219,15 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   const handleDescriptionSubmit: (values: IDescriptionFormValues) => void =
     useCallback(
       (values: IDescriptionFormValues): void => {
-        const affectedComponents =
-          values.eventType === "INCORRECT_MISSING_SUPPLIES"
-            ? values.affectedComponents
-            : [];
         const otherSolvingReason =
           values.solvingReason === "OTHER"
             ? values.otherSolvingReason
             : undefined;
 
         if (!_.isUndefined(data)) {
-          const affectedComponentsIntersection =
-            data.event.affectedComponents.filter((element: string): boolean =>
-              affectedComponents.includes(element)
-            );
-          if (
-            data.event.eventType !== values.eventType ||
-            affectedComponentsIntersection.length !== affectedComponents.length
-          ) {
+          if (data.event.eventType !== values.eventType) {
             void updateEvent({
               variables: {
-                affectedComponents,
                 eventId,
                 eventType: values.eventType,
               },
@@ -273,11 +256,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
   }
 
   const editValidations = object().shape({
-    affectedComponents: array().when("eventType", {
-      is: "INCORRECT_MISSING_SUPPLIES",
-      otherwise: array().notRequired(),
-      then: array().min(1, t("validations.someRequired")),
-    }),
     otherSolvingReason: string().when("solvingReason", {
       is: "OTHER",
       otherwise: string().nullable(),
@@ -512,38 +490,6 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                         }
                         label={t("searchFindings.tabEvents.affectedReattacks")}
                         name={"affectedReattacks"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                  </Row>
-                  <Row>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={data.event.affectedComponents
-                          .map((item: string): string =>
-                            translate.t(castAffectedComponents(item))
-                          )
-                          .join(", ")}
-                        label={t("searchFindings.tabEvents.affectedComponents")}
-                        name={"affectedComponents"}
-                        renderAsEditable={false}
-                        type={"text"}
-                      />
-                    </Col50>
-                    <Col50>
-                      <EditableField
-                        alignField={"horizontalWide"}
-                        component={FormikText}
-                        currentValue={data.event.accessibility
-                          .map((item: string): string =>
-                            translate.t(formatAccessibility(item))
-                          )
-                          .join(", ")}
-                        label={t("searchFindings.tabEvents.eventIn")}
-                        name={"accessibility"}
                         renderAsEditable={false}
                         type={"text"}
                       />

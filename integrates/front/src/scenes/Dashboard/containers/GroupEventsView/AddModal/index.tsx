@@ -56,8 +56,6 @@ const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
 
 interface IFormValues {
   eventDate: Moment | string;
-  accessibility: string[];
-  affectedComponents: string[];
   affectsReattacks: boolean;
   affectedReattacks: string[];
   eventType: string;
@@ -122,16 +120,6 @@ const AddModal: React.FC<IAddModalProps> = ({
   }
 
   const validations = object().shape({
-    accessibility: array().when("eventType", {
-      is: "INCORRECT_MISSING_SUPPLIES",
-      otherwise: array().notRequired(),
-      then: array().min(1, t("validations.someRequired")),
-    }),
-    affectedComponents: array().when("eventType", {
-      is: "INCORRECT_MISSING_SUPPLIES",
-      otherwise: array().notRequired(),
-      then: array().min(1, t("validations.someRequired")),
-    }),
     affectedReattacks: array().when("affectsReattacks", {
       is: true,
       otherwise: array().notRequired(),
@@ -144,8 +132,6 @@ const AddModal: React.FC<IAddModalProps> = ({
     <Modal onClose={onClose} open={true} title={t("group.events.new")}>
       <Formik
         initialValues={{
-          accessibility: [],
-          affectedComponents: [],
           affectedReattacks: [],
           affectsReattacks: false,
           detail: "",

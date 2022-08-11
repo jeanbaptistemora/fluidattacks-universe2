@@ -2,12 +2,7 @@ import _ from "lodash";
 
 import type { IEventAttr, IEventData } from "./types";
 
-import {
-  castAffectedComponents,
-  castEventStatus,
-  castEventType,
-  formatAccessibility,
-} from "utils/formatHelpers";
+import { castEventStatus, castEventType } from "utils/formatHelpers";
 import { translate } from "utils/translations/translate";
 
 const formatEvents: (dataset: IEventAttr[]) => IEventData[] = (
@@ -16,17 +11,9 @@ const formatEvents: (dataset: IEventAttr[]) => IEventData[] = (
   dataset.map((event: IEventAttr): IEventData => {
     const eventType: string = translate.t(castEventType(event.eventType));
     const eventStatus: string = translate.t(castEventStatus(event.eventStatus));
-    const accessibility: string = event.accessibility
-      .map((item: string): string => translate.t(formatAccessibility(item)))
-      .join(", ");
-    const affectedComponents: string = event.affectedComponents
-      .map((item: string): string => translate.t(castAffectedComponents(item)))
-      .join(", ");
 
     return {
       ...event,
-      accessibility,
-      affectedComponents,
       eventStatus,
       eventType,
     };

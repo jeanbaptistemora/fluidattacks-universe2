@@ -25,11 +25,7 @@ import {
   handleRequestHoldError,
   handleRequestHoldsHelper,
 } from "./helpers";
-import {
-  accessibilityOptions,
-  afectCompsOptions,
-  selectOptionType,
-} from "./selectOptions";
+import { selectOptionType } from "./selectOptions";
 import type { IEventData, IEventsDataset, IFilterSet } from "./types";
 import { UpdateAffectedModal } from "./UpdateAffectedModal";
 import type { IUpdateAffectedValues } from "./UpdateAffectedModal/types";
@@ -76,8 +72,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     useStoredState<IFilterSet>(
       "filterGroupEventsSet",
       {
-        accessibility: "",
-        afectComps: "",
         closingDateRange: { max: "", min: "" },
         dateRange: { max: "", min: "" },
         status: "",
@@ -89,8 +83,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const [columnItems, setColumnItems] = useStoredState<Record<string, boolean>>(
     "eventsTableSet",
     {
-      accessibility: true,
-      affectedComponents: true,
       closingDate: true,
       detail: true,
       eventDate: true,
@@ -164,20 +156,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       header: t("searchFindings.tabEvents.description"),
       onSort: onSortState,
       visible: columnItems.detail,
-      wrapped: true,
-    },
-    {
-      dataField: "accessibility",
-      header: t("searchFindings.tabEvents.accessibility"),
-      onSort: onSortState,
-      visible: columnItems.accessibility,
-      wrapped: true,
-    },
-    {
-      dataField: "affectedComponents",
-      header: t("searchFindings.tabEvents.affectedComponents"),
-      onSort: onSortState,
-      visible: columnItems.affectedComponents,
       wrapped: true,
     },
     {
@@ -310,22 +288,8 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       setAffectsReattacks(values.affectsReattacks);
       setSelectedReattacks(formatReattacks(values.affectedReattacks));
 
-      const selectedAccessibility: string[] = values.accessibility.map(
-        (element: string): string => element.toUpperCase()
-      );
-
-      const selectedComponents: string[] | undefined = _.isUndefined(
-        values.affectedComponents
-      )
-        ? undefined
-        : values.affectedComponents.map((component: string): string =>
-            component.toUpperCase()
-          );
-
       await addEvent({
         variables: {
-          accessibility: selectedAccessibility,
-          affectedComponents: selectedComponents,
           detail: values.detail,
           eventDate: values.eventDate,
           eventType: values.eventType,
@@ -493,45 +457,9 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     "closingDate"
   );
 
-  function onAccessibilityChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        accessibility: event.target.value,
-      })
-    );
-  }
-  const filterAccessibilityResult = filterSelect(
-    dataset,
-    filterGroupEventsTable.accessibility,
-    "accessibility"
-  );
-
-  function onAfectCompsChange(
-    event: React.ChangeEvent<HTMLSelectElement>
-  ): void {
-    event.persist();
-    setFilterGroupEventsTable(
-      (value): IFilterSet => ({
-        ...value,
-        afectComps: event.target.value,
-      })
-    );
-  }
-  const filterAfectCompsResult = filterSelect(
-    dataset,
-    filterGroupEventsTable.afectComps,
-    "affectedComponents"
-  );
-
   function clearFilters(): void {
     setFilterGroupEventsTable(
       (): IFilterSet => ({
-        accessibility: "",
-        afectComps: "",
         closingDateRange: { max: "", min: "" },
         dateRange: { max: "", min: "" },
         status: "",
@@ -546,9 +474,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     filterStatusResult,
     filterTypeResult,
     filterDateRangeResult,
-    filterClosingDateRangeResult,
-    filterAccessibilityResult,
-    filterAfectCompsResult
+    filterClosingDateRangeResult
   );
 
   const customFiltersProps: IFilterProps[] = [
@@ -563,24 +489,6 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       tooltipId: "group.events.filtersTooltips.date.id",
       tooltipMessage: "group.events.filtersTooltips.date",
       type: "dateRange",
-    },
-    {
-      defaultValue: filterGroupEventsTable.accessibility,
-      onChangeSelect: onAccessibilityChange,
-      placeholder: "Accessibility",
-      selectOptions: accessibilityOptions,
-      tooltipId: "group.events.filtersTooltips.accessibility.id",
-      tooltipMessage: "group.events.filtersTooltips.accessibility",
-      type: "select",
-    },
-    {
-      defaultValue: filterGroupEventsTable.afectComps,
-      onChangeSelect: onAfectCompsChange,
-      placeholder: "Affected components",
-      selectOptions: afectCompsOptions,
-      tooltipId: "group.events.filtersTooltips.affectedComponents.id",
-      tooltipMessage: "group.events.filtersTooltips.affectedComponents",
-      type: "select",
     },
     {
       defaultValue: filterGroupEventsTable.type,

@@ -35,8 +35,6 @@ describe("EventDescriptionView", (): void => {
       result: {
         data: {
           event: {
-            accessibility: ["REPOSITORY"],
-            affectedComponents: [],
             affectedReattacks: [],
             client: "Test",
             detail: "Something happened",
@@ -147,8 +145,6 @@ describe("EventDescriptionView", (): void => {
         result: {
           data: {
             event: {
-              accessibility: ["REPOSITORY"],
-              affectedComponents: [],
               affectedReattacks: [],
               client: "Test",
               closingDate: "2022-08-09 13:37:00",
@@ -169,7 +165,6 @@ describe("EventDescriptionView", (): void => {
         request: {
           query: UPDATE_EVENT_MUTATION,
           variables: {
-            affectedComponents: [],
             eventId: "413372600",
             eventType: "MISSING_SUPPLIES",
           },
@@ -238,8 +233,6 @@ describe("EventDescriptionView", (): void => {
         result: {
           data: {
             event: {
-              accessibility: ["REPOSITORY"],
-              affectedComponents: [],
               affectedReattacks: [],
               client: "Test",
               closingDate: "2022-08-09 13:37:00",

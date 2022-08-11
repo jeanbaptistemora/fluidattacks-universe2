@@ -6,8 +6,6 @@ interface IAffectedReattacks {
 
 interface IEventDescriptionData {
   event: {
-    accessibility: string[];
-    affectedComponents: string[];
     affectedReattacks: IAffectedReattacks[];
     closingDate: string;
     hacker: string;
@@ -22,7 +20,6 @@ interface IEventDescriptionData {
 }
 
 interface IDescriptionFormValues {
-  affectedComponents: string[];
   eventType: string;
   otherSolvingReason: string | null;
   solvingReason: string | null;

@@ -4,8 +4,6 @@ import type { DocumentNode } from "graphql";
 const GET_EVENT_DESCRIPTION: DocumentNode = gql`
   query GetEventDescription($eventId: String!) {
     event(identifier: $eventId) {
-      accessibility
-      affectedComponents
       affectedReattacks {
         findingId
         where
@@ -37,16 +35,8 @@ const SOLVE_EVENT_MUTATION: DocumentNode = gql`
 `;
 
 const UPDATE_EVENT_MUTATION: DocumentNode = gql`
-  mutation UpdateEventMutation(
-    $affectedComponents: [AffectedComponents]
-    $eventId: String!
-    $eventType: EventType
-  ) {
-    updateEvent(
-      affectedComponents: $affectedComponents
-      eventId: $eventId
-      eventType: $eventType
-    ) {
+  mutation UpdateEventMutation($eventId: String!, $eventType: EventType) {
+    updateEvent(eventId: $eventId, eventType: $eventType) {
       success
     }
   }

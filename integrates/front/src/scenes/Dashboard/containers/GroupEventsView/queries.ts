@@ -5,8 +5,6 @@ const GET_EVENTS: DocumentNode = gql`
   query GetEventsQuery($groupName: String!) {
     group(groupName: $groupName) {
       events {
-        accessibility
-        affectedComponents
         eventDate
         detail
         id
@@ -37,8 +35,6 @@ const GET_EVENTS: DocumentNode = gql`
 
 const ADD_EVENT_MUTATION: DocumentNode = gql`
   mutation AddEventMutation(
-    $accessibility: [EventAccessibility]!
-    $affectedComponents: [AffectedComponents]
     $detail: String!
     $eventDate: DateTime!
     $eventType: EventType!
@@ -48,8 +44,6 @@ const ADD_EVENT_MUTATION: DocumentNode = gql`
     $rootId: ID!
   ) {
     addEvent(
-      accessibility: $accessibility
-      affectedComponents: $affectedComponents
       detail: $detail
       eventDate: $eventDate
       eventType: $eventType

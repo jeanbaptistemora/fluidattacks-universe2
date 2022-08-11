@@ -35,8 +35,6 @@ describe("EventsView", (): void => {
           group: {
             events: [
               {
-                accessibility: ["REPOSIRORY"],
-                affectedComponents: [],
                 closingDate: "-",
                 detail: "Test description",
                 eventDate: "2018-10-17 00:00:00",
