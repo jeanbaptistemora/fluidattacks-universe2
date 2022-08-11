@@ -23,42 +23,37 @@ import { useTranslation } from "react-i18next";
 import { ToggleFunction } from "./columnToggle";
 import { PagMenu } from "./paginationMenu";
 import { TableContainer } from "./styles";
-import type { ITableProps, ITablepropsWithRowSel } from "./types";
+import type { ITableProps } from "./types";
 
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
-export const Tables = <TData extends object>(
-  props: Readonly<ITableProps<TData>> | Readonly<ITablepropsWithRowSel<TData>>
-): JSX.Element => {
-  const {
-    id,
-    data,
-    columns,
-    initialState = undefined,
-    columnToggle = false,
-    expandedRow = undefined,
-    exportCsv = false,
-    extraButtons = undefined,
-    csvName = "Report",
-    enableSearchBar = true,
-    onRowClick = undefined,
-    rowSelectionSetter = undefined,
-    showPagination = data.length >= 8,
-  } = props;
-
+const Tables = <TData extends object>({
+  columns,
+  columnToggle = false,
+  csvName = "Report",
+  data,
+  enableSearchBar = true,
+  expandedRow = undefined,
+  exportCsv = false,
+  extraButtons = undefined,
+  id,
+  initState = undefined,
+  onRowClick = undefined,
+  rowSelectionSetter = undefined,
+}: Readonly<ITableProps<TData>>): JSX.Element => {
   const [columnVisibility, setColumnVisibility] = useState(
-    initialState?.columnVisibility ?? {}
+    initState?.columnVisibility ?? {}
   );
   const [sorting, setSorting] = useState<SortingState>(
-    initialState?.sorting ?? []
+    initState?.sorting ?? []
   );
   const [globalFilter, setGlobalFilter] = useState(
-    initialState?.globalFilter ?? ""
+    initState?.globalFilter ?? ""
   );
-  const [expanded, setExpanded] = useState(initialState?.expanded ?? {});
+  const [expanded, setExpanded] = useState(initState?.expanded ?? {});
   const [rowSelection, setRowSelection] = useState(
-    initialState?.rowSelection ?? {}
+    initState?.rowSelection ?? {}
   );
   const { t } = useTranslation();
 
@@ -110,28 +105,28 @@ export const Tables = <TData extends object>(
   }, [rowSelection, rowSelectionSetter, table]);
 
   return (
-    <div className={"w-100"} id={id}>
-      <div className={"flex w-100"}>
-        <div className={`flex flex-wrap pa0 w-100`}>
+    <div className={"comp-table"} id={id}>
+      <div className={"flex justify-between"}>
+        <div>
           <Gap>
-            {extraButtons !== undefined && extraButtons}
-            {columnToggle && <ToggleFunction table={table} />}
-            {exportCsv && (
+            {extraButtons}
+            {columnToggle ? <ToggleFunction table={table} /> : undefined}
+            {exportCsv ? (
               <CSVLink data={data} filename={csvName}>
                 {t("group.findings.exportCsv.text")}
               </CSVLink>
-            )}
+            ) : undefined}
           </Gap>
         </div>
-        {enableSearchBar && (
-          <div className={"d-flex justify-content-end w-25"}>
+        {enableSearchBar ? (
+          <div>
             <SearchText
               onChange={globalFilterHandler}
               placeholder={t("table.search")}
               value={globalFilter}
             />
           </div>
-        )}
+        ) : undefined}
       </div>
       <TableContainer
         isRowFunctional={onRowClick !== undefined}
@@ -276,7 +271,9 @@ export const Tables = <TData extends object>(
           </tbody>
         </table>
       </TableContainer>
-      {showPagination && <PagMenu table={table} />}
+      {data.length >= 10 ? <PagMenu table={table} /> : undefined}
     </div>
   );
 };
+
+export { Tables };

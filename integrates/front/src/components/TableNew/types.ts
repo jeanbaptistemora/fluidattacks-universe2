@@ -22,39 +22,23 @@ interface IPagMenuProps<TData> {
 }
 
 interface ITableProps<TData> {
-  id: string;
-  initialState?: InitialTableState;
+  csvName?: string;
   data: TData[];
   columns: ColumnDef<TData>[];
   columnToggle?: boolean;
+  enableRowSelection?: boolean;
+  enableSearchBar?: boolean;
   expandedRow?: (row: Row<TData>) => JSX.Element;
   exportCsv?: boolean;
   extraButtons?: JSX.Element;
-  csvName?: string;
-  enableRowSelection?: false;
-  enableSearchBar?: boolean;
-  rowSelectionSetter?: undefined;
-  showPagination?: boolean;
+  id: string;
+  initState?: InitialTableState;
   onRowClick?: (row: Row<TData>) => (event: FormEvent<HTMLElement>) => void;
-}
-
-interface ITablepropsWithRowSel<TData>
-  extends Omit<
-    ITableProps<TData>,
-    "enableRowSelection" | "rowSelectionSetter"
-  > {
-  enableRowSelection: true;
-  rowSelectionSetter: Dispatch<SetStateAction<TData[]>>;
+  rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
 }
 
 interface IToggleProps<TData> {
   table: Table<TData>;
 }
 
-export type {
-  ICellHelper,
-  IPagMenuProps,
-  ITableProps,
-  ITablepropsWithRowSel,
-  IToggleProps,
-};
+export type { ICellHelper, IPagMenuProps, ITableProps, IToggleProps };
