@@ -15,8 +15,8 @@ from db_model.organizations.types import (
 )
 from decorators import (
     concurrent_decorators,
+    enforce_organization_level_auth_async,
     require_login,
-    require_organization_access,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -32,7 +32,7 @@ from typing import (
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
-    require_organization_access,
+    enforce_organization_level_auth_async,
 )
 async def mutate(
     _parent: None,
