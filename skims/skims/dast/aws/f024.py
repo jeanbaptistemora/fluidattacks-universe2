@@ -274,6 +274,57 @@ async def unrestricted_ip_protocols(
     return vulns
 
 
+async def security_groups_ip_ranges_in_rfc1918(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    rfc1918 = {"10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"}
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    vulns: core_model.Vulnerabilities = ()
+
+    if security_groups:
+        for group in security_groups:
+            locations = [
+                *[
+                    Location(
+                        access_patterns=(
+                            (
+                                f"/IpPermissions/{index}/IpRanges"
+                                f"/{index_ip_range}/CidrIp"
+                            ),
+                        ),
+                        arn=(
+                            f"arn:aws:ec2::{group['OwnerId']}:"
+                            f"security-group/{group['GroupId']}"
+                        ),
+                        values=(ip_range["CidrIp"],),
+                        description=t(
+                            "src.lib_path.f024."
+                            "ec2_has_security_groups_ip_ranges_in_rfc1918"
+                        ),
+                    )
+                    for index, ip_permission in enumerate(
+                        group["IpPermissions"]
+                    )
+                    for index_ip_range, ip_range in enumerate(
+                        ip_permission["IpRanges"]
+                    )
+                    if ip_range["CidrIp"] in rfc1918
+                ],
+            ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(core_model.MethodsEnum.AWS_SEC_GROUPS_RFC1918),
+                    aws_response=group,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -281,4 +332,5 @@ CHECKS: Tuple[
     allows_anyone_to_admin_ports,
     unrestricted_cidrs,
     unrestricted_ip_protocols,
+    security_groups_ip_ranges_in_rfc1918,
 )
