@@ -1,6 +1,6 @@
 from lib_root.utilities.c_sharp import (
-    get_first_member,
-    get_object_identifiers,
+    get_first_member_syntax_graph,
+    get_syntax_object_identifiers,
 )
 from lib_root.utilities.common import (
     search_method_invocation_naive,
@@ -34,20 +34,21 @@ def xpath_injection(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XPATH_INJECTION
     c_sharp = GraphLanguage.CSHARP
+    danger_meths = {"SelectSingleNode"}
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
 
-            xpath_obj = get_object_identifiers(shard, {"XPathNavigator"})
-
             graph = shard.syntax_graph
-            danger_meths = {"SelectSingleNode"}
+            xpath_obj = get_syntax_object_identifiers(
+                graph, {"XPathNavigator"}
+            )
 
             for n_id in search_method_invocation_naive(graph, danger_meths):
                 if (
-                    memb := get_first_member(shard, n_id)
+                    memb := get_first_member_syntax_graph(graph, n_id)
                 ) and shard.graph.nodes[memb].get("label_text") in xpath_obj:
                     for path in get_backward_paths(graph, n_id):
                         if (
