@@ -113,35 +113,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
     getData().catch((): void => {
       setCountriesData(undefined);
     });
-    if (countriesData) {
-      setStates(
-        countriesData
-          .filter(
-            (country): boolean => country.name === initialValues.country
-          )[0]
-          .states.map((state): string => state.name)
-      );
-      if ((states ?? []).length > 0) {
-        setCities(
-          countriesData
-            .filter(
-              (country): boolean => country.name === initialValues.country
-            )[0]
-            .states.filter(
-              (state): boolean => state.name === initialValues.state
-            )[0]
-            .cities.map((city): string => city.name)
-        );
-      }
-    }
-  }, [
-    countriesData,
-    initialValues,
-    setCities,
-    setCountriesData,
-    setStates,
-    states,
-  ]);
+  }, [setCountriesData]);
 
   return (
     <Modal
