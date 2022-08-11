@@ -12,6 +12,8 @@ function main {
       -m celery \
       -A server \
       worker \
+      --concurrency 2 \
+      --max-tasks-per-child 10 \
       -l INFO \
     && popd || return
 }
