@@ -5,13 +5,14 @@ import { useAbility } from "@casl/react";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Redirect,
   Route,
   Switch,
   useHistory,
+  useLocation,
   useParams,
   useRouteMatch,
 } from "react-router-dom";
@@ -40,6 +41,8 @@ import {
   SUBMIT_DRAFT_MUTATION,
 } from "scenes/Dashboard/containers/FindingContent/queries";
 import type { IHeaderQueryResult } from "scenes/Dashboard/containers/FindingContent/types";
+import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/GroupDraftsView/queries";
+import { GET_FINDINGS } from "scenes/Dashboard/containers/GroupFindingsView/queries";
 import { MachineView } from "scenes/Dashboard/containers/MachineView/index";
 import { RecordsView } from "scenes/Dashboard/containers/RecordsView/index";
 import { SeverityView } from "scenes/Dashboard/containers/SeverityView/index";
@@ -63,6 +66,7 @@ const FindingContent: React.FC = (): JSX.Element => {
   }>();
   const { t } = useTranslation();
   const { path, url } = useRouteMatch<{ path: string; url: string }>();
+  const { pathname } = useLocation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const { replace } = useHistory();
 
@@ -119,6 +123,10 @@ const FindingContent: React.FC = (): JSX.Element => {
       onError: (approveError: ApolloError): void => {
         handleDraftApprovalError(approveError, headerRefetch);
       },
+      refetchQueries: [
+        { query: GET_DRAFTS_AND_FINDING_TITLES, variables: { groupName } },
+        { query: GET_FINDINGS, variables: { groupName } },
+      ],
       variables: { findingId },
     }
   );
@@ -192,6 +200,31 @@ const FindingContent: React.FC = (): JSX.Element => {
     },
     [removeFinding, findingId]
   );
+
+  useEffect((): void => {
+    if (!_.isUndefined(headerData) && !_.isEmpty(headerData)) {
+      const [currentTab] = pathname.split("/").slice(-1);
+      if (_.isEmpty(headerData.finding.releaseDate)) {
+        const properPath: string = `/orgs/${organizationName}/groups/${groupName}/drafts/${findingId}`;
+        if (properPath !== url) {
+          replace(`${properPath}/${currentTab}`);
+        }
+      } else {
+        const properPath: string = `/orgs/${organizationName}/groups/${groupName}/vulns/${findingId}`;
+        if (properPath !== url) {
+          replace(`${properPath}/${currentTab}`);
+        }
+      }
+    }
+  }, [
+    findingId,
+    groupName,
+    headerData,
+    organizationName,
+    pathname,
+    replace,
+    url,
+  ]);
 
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) {
     return <div />;
