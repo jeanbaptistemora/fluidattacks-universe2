@@ -25,9 +25,6 @@ from symbolic_eval.utils import (
 from utils import (
     graph as g,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
-)
 from utils.string import (
     build_attr_paths,
 )
@@ -39,21 +36,21 @@ def insec_create(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSEC_CREATE
     c_sharp = GraphLanguage.CSHARP
+    paths = build_attr_paths("System", "Net", "WebRequest", "Create")
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
-            paths = build_attr_paths("System", "Net", "WebRequest", "Create")
-
             graph = shard.syntax_graph
+
             for n_id in search_method_invocation_naive(graph, {"Create"}):
                 if (
-                    member := g.match_ast_d(
-                        shard.graph, n_id, "member_access_expression"
-                    )
-                ) and not node_to_str(shard.graph, member) in paths:
+                    (member := g.match_ast_d(graph, n_id, "MemberAccess"))
+                    and (expr := graph.nodes[member].get("expression"))
+                    and (memb := graph.nodes[member].get("member"))
+                    and not (f"{expr}.{memb}" in paths)
+                ):
                     continue
                 for path in get_backward_paths(graph, n_id):
                     if (
