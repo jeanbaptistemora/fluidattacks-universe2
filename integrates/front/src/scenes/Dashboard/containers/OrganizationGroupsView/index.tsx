@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 import { Button } from "components/Button";
 import { Tables } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
-import type { ICellHelper } from "components/TableNew/types";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -130,9 +129,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   const tableHeaders: ColumnDef<IGroupData>[] = [
     {
       accessorKey: "name",
-      cell: (cell: ICellHelper<IGroupData>): JSX.Element => {
-        const link: string = `${String(cell.getValue())}/vulns`;
-        const text: string = cell.getValue();
+      cell: (cell): JSX.Element => {
+        const link = `groups/${String(cell.getValue())}/vulns`;
+        const text = cell.getValue<string>();
 
         return formatLinkHandler(link, text);
       },
@@ -145,7 +144,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     { accessorKey: "plan", header: t("organization.tabs.groups.plan") },
     {
       accessorKey: "userRole",
-      cell: (cell: ICellHelper<IGroupData>): string => {
+      cell: (cell): string => {
         return t(`userModal.roles.${_.camelCase(cell.getValue())}`, {
           defaultValue: "-",
         });
@@ -154,9 +153,9 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     },
     {
       accessorKey: "eventFormat",
-      cell: (cell: ICellHelper<IGroupData>): JSX.Element => {
-        const link: string = `${String(cell.row.getValue("name"))}/events`;
-        const text: string = cell.getValue();
+      cell: (cell): JSX.Element => {
+        const link = `groups/${String(cell.row.getValue("name"))}/events`;
+        const text = cell.getValue<string>();
 
         return formatLinkHandler(link, text);
       },

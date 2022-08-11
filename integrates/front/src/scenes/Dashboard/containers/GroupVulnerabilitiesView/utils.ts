@@ -1,7 +1,5 @@
 import type { IVulnerability } from "./types";
 
-import { linkFormatter } from "components/Table/formatters";
-
 const filterByState = (
   state: string
 ): ((vulnerability: IVulnerability) => boolean) => {
@@ -18,26 +16,4 @@ const filterByTreatment = (
   };
 };
 
-const formatEvidence = (
-  _cell: string,
-  row: IVulnerability,
-  rowIndex: number
-): React.ReactNode => {
-  return linkFormatter<IVulnerability>(
-    (): string => `${row.finding.id}/evidence`
-  )("View", row, rowIndex);
-};
-
-const formatVulnerability = (
-  _cell: string,
-  row: IVulnerability
-): React.ReactNode => {
-  return `${row.where} | ${row.specific}`;
-};
-
-export {
-  filterByState,
-  filterByTreatment,
-  formatEvidence,
-  formatVulnerability,
-};
+export { filterByState, filterByTreatment };

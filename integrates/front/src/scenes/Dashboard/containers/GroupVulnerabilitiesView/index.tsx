@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import React from "react";
 import {
   Redirect,
   Route,
@@ -9,49 +10,50 @@ import {
 
 import { useGroupVulnerabilities } from "./hooks";
 import type { IVulnerability } from "./types";
-import {
-  filterByState,
-  filterByTreatment,
-  formatEvidence,
-  formatVulnerability,
-} from "./utils";
+import { filterByState, filterByTreatment } from "./utils";
 
-import { SearchBar } from "components/SearchBar";
-import { Table } from "components/Table";
-import { linkFormatter } from "components/Table/formatters";
-import type { IHeaderConfig } from "components/Table/types";
+import { Tables } from "components/TableNew";
+import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
 
-const tableHeaders: IHeaderConfig[] = [
+const tableColumns: ColumnDef<IVulnerability>[] = [
   {
-    dataField: "where",
-    formatter: formatVulnerability,
+    accessorFn: (row): string => `${row.where} | ${row.specific}`,
     header: "Vulnerability",
-    wrapped: true,
   },
   {
-    dataField: "finding.title",
-    formatter: linkFormatter<IVulnerability>(
-      (_cell, row): string => `${row.finding.id}/description`
-    ),
+    accessorFn: (row): string => row.finding.title,
+    cell: (cell): JSX.Element => {
+      const link = `${cell.row.original.finding.id}/description`;
+      const text = cell.getValue<string>();
+
+      return formatLinkHandler(link, text);
+    },
     header: "Type",
-    wrapped: true,
   },
   {
-    dataField: "reportDate",
+    accessorKey: "reportDate",
     header: "Found",
   },
   {
-    dataField: "finding.severityScore",
-    formatter: linkFormatter<IVulnerability>(
-      (_cell, row): string => `${row.finding.id}/severity`
-    ),
+    accessorFn: (row): string => row.finding.severityScore.toString(),
+    cell: (cell): JSX.Element => {
+      const link = `${cell.row.original.finding.id}/severity`;
+      const text = cell.getValue<string>();
+
+      return formatLinkHandler(link, text);
+    },
     header: "Severity",
   },
   {
-    dataField: "evidence",
-    formatter: formatEvidence,
+    accessorFn: (): string => "View",
+    cell: (cell): JSX.Element => {
+      const link = `${cell.row.original.finding.id}/evidence`;
+      const text = cell.getValue<string>();
+
+      return formatLinkHandler(link, text);
+    },
     header: "Evidence",
   },
 ];
@@ -72,8 +74,7 @@ const views = [
 const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const { path, url } = useRouteMatch();
-  const [search, setSearch] = useState("");
-  const vulnerabilities = useGroupVulnerabilities(groupName, search);
+  const vulnerabilities = useGroupVulnerabilities(groupName, "");
 
   return (
     <div>
@@ -91,19 +92,16 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           );
         })}
       </Tabs>
-      <SearchBar onSubmit={setSearch} />
       <TabContent>
         <Switch>
           {views.map(({ title, filter }): JSX.Element => {
             return (
               <Route exact={true} key={title} path={`${path}/${title}`}>
-                <Table
-                  dataset={vulnerabilities.filter(filter)}
+                <Tables
+                  columns={tableColumns}
+                  data={vulnerabilities.filter(filter)}
                   exportCsv={false}
-                  headers={tableHeaders}
                   id={`tblVulnerabilities${title}`}
-                  pageSize={10}
-                  search={false}
                 />
               </Route>
             );

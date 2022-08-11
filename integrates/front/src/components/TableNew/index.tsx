@@ -13,6 +13,7 @@ import type {
   FilterFn,
   FilterMeta,
   Row,
+  RowData,
   SortingState,
 } from "@tanstack/react-table";
 import type { ChangeEvent, ReactElement } from "react";
@@ -28,7 +29,7 @@ import type { ITableProps } from "./types";
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
-const Tables = <TData extends object>({
+const Tables = <TData extends RowData>({
   columns,
   columnToggle = false,
   csvName = "Report",
@@ -112,7 +113,7 @@ const Tables = <TData extends object>({
             {extraButtons}
             {columnToggle ? <ToggleFunction table={table} /> : undefined}
             {exportCsv ? (
-              <CSVLink data={data} filename={csvName}>
+              <CSVLink data={data as object[]} filename={csvName}>
                 {t("group.findings.exportCsv.text")}
               </CSVLink>
             ) : undefined}

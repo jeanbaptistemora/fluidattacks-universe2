@@ -4,9 +4,5 @@ import React from "react";
 import { TableLink } from "components/TableNew/styles";
 
 export function formatLinkHandler(link: string, text: string): JSX.Element {
-  return (
-    <TableLink to={`groups/${link.toLowerCase()}`}>
-      {_.capitalize(text)}
-    </TableLink>
-  );
+  return <TableLink to={link}>{_.capitalize(text)}</TableLink>;
 }

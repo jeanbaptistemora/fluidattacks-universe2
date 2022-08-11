@@ -4,11 +4,12 @@ import type {
   ColumnDef,
   InitialTableState,
   Row,
+  RowData,
   Table,
 } from "@tanstack/react-table";
 import type { Dispatch, FormEvent, SetStateAction } from "react";
 
-interface ICellHelper<TData> {
+interface ICellHelper<TData extends RowData> {
   table: Table<TData>;
   column: Column<TData, unknown>;
   row: Row<TData>;
@@ -17,11 +18,11 @@ interface ICellHelper<TData> {
   renderValue: <TTValue = unknown>() => TTValue | null;
 }
 
-interface IPagMenuProps<TData> {
+interface IPagMenuProps<TData extends RowData> {
   table: Table<TData>;
 }
 
-interface ITableProps<TData> {
+interface ITableProps<TData extends RowData> {
   csvName?: string;
   data: TData[];
   columns: ColumnDef<TData>[];
@@ -37,7 +38,7 @@ interface ITableProps<TData> {
   rowSelectionSetter?: Dispatch<SetStateAction<TData[]>>;
 }
 
-interface IToggleProps<TData> {
+interface IToggleProps<TData extends RowData> {
   table: Table<TData>;
 }
 

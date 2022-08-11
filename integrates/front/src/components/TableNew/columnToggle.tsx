@@ -1,5 +1,6 @@
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { RowData } from "@tanstack/react-table";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,7 +13,7 @@ import { Col, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Switch } from "components/Switch";
 
-export const ToggleFunction = <TData extends object>(
+export const ToggleFunction = <TData extends RowData>(
   props: IToggleProps<TData>
 ): JSX.Element => {
   const { table } = props;

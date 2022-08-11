@@ -1,9 +1,10 @@
+import type { RowData } from "@tanstack/react-table";
 import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 
 import type { IPagMenuProps } from "./types";
 
-export const PagMenu = <TData extends object>(
+export const PagMenu = <TData extends RowData>(
   props: IPagMenuProps<TData>
 ): JSX.Element => {
   const { table } = props;
