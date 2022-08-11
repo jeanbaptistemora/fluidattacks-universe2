@@ -14,7 +14,7 @@ from aioextensions import (
 )
 from authz.policy import (
     _delete_subject_policy,
-    get_group_level_role,
+    get_group_level_role_legacy,
     get_user_subject_policies,
 )
 from custom_exceptions import (
@@ -57,7 +57,7 @@ async def _process_user(
     try:
         await loaders.group.load(group_name)
     except GroupNotFound as ex:
-        group_role = await get_group_level_role(
+        group_role = await get_group_level_role_legacy(
             email,
             group_name,
         )

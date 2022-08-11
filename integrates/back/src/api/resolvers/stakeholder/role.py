@@ -65,7 +65,9 @@ async def resolve(
             group_access.invitation.role
             if group_access.invitation
             and group_invitation_state == GroupInvitiationState.PENDING
-            else await authz.get_group_level_role(parent.email, group_name)
+            else await authz.get_group_level_role(
+                loaders, parent.email, group_name
+            )
         )
 
     elif entity == "ORGANIZATION":

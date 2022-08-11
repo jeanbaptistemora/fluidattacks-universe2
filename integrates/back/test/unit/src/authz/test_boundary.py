@@ -43,7 +43,8 @@ async def test_get_user_level_actions_model(email: str) -> None:
     ],
 )
 async def test_get_group_level_actions_model(email: str, group: str) -> None:
-    group_level_role = await authz.get_group_level_role(email, group)
+    loaders: Dataloaders = get_new_context()
+    group_level_role = await authz.get_group_level_role(loaders, email, group)
 
     assert await authz.get_group_level_actions(
         email, group

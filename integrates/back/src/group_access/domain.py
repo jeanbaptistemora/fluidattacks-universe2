@@ -97,8 +97,8 @@ async def get_reattackers(
         loaders, group_name, active
     )
     stakeholder_roles = await collect(
-        authz.get_group_level_role(stakeholder, group_name)
-        for stakeholder in stakeholders
+        authz.get_group_level_role(loaders, email, group_name)
+        for email in stakeholders
     )
     return [
         str(stakeholder)
@@ -169,7 +169,7 @@ async def get_managers(loaders: Any, group_name: str) -> list[str]:
     )
     stakeholders_roles = await collect(
         [
-            authz.get_group_level_role(stakeholder, group_name)
+            authz.get_group_level_role(loaders, stakeholder, group_name)
             for stakeholder in stakeholders
         ]
     )
@@ -233,7 +233,7 @@ async def get_stakeholders_email_by_roles(
     )
     stakeholder_roles = await collect(
         tuple(
-            authz.get_group_level_role(stakeholder, group_name)
+            authz.get_group_level_role(loaders, stakeholder, group_name)
             for stakeholder in stakeholders
         )
     )
@@ -349,5 +349,5 @@ async def get_stakeholder_role(
         group_access.invitation.role
         if group_access.invitation
         and group_invitation_state == GroupInvitiationState.PENDING
-        else await authz.get_group_level_role(email, group_name)
+        else await authz.get_group_level_role(loaders, email, group_name)
     )

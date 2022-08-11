@@ -444,7 +444,10 @@ async def get_users_subscribed_to_consult(
     users = await get_stakeholders_to_notify(loaders, group_name)
     if comment_type.lower() == "observation" or not is_finding_released:
         roles: list[str] = await collect(
-            tuple(get_group_level_role(email, group_name) for email in users),
+            tuple(
+                get_group_level_role(loaders, email, group_name)
+                for email in users
+            ),
             workers=16,
         )
         hackers = [

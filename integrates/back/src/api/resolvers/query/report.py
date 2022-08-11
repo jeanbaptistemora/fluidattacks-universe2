@@ -209,7 +209,9 @@ async def resolve(
                     " and description fields of the Group are filled out"
                 )
             )
-        user_role = await authz.get_group_level_role(user_email, group_name)
+        user_role = await authz.get_group_level_role(
+            loaders, user_email, group_name
+        )
         if user_role != "user_manager":
             raise RequestedReportError(
                 expr="Only user managers can request certificates"

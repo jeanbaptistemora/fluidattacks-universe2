@@ -46,7 +46,7 @@ def guess_owner(group: str) -> str:
     possible_owner: str = "unknown"
 
     for email in all_users:
-        if authz.get_group_level_role(email, group) == "customeradmin":
+        if authz.get_group_level_role_legacy(email, group) == "customeradmin":
             possible_owner = email
             break
 

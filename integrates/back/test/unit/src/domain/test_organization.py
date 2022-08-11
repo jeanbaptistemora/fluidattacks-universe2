@@ -342,7 +342,7 @@ async def test_remove_user() -> None:
         loaders, group
     )
     assert user in group_users
-    assert await authz.get_group_level_role(user, group) == "user"
+    assert await authz.get_group_level_role(loaders, user, group) == "user"
     assert (
         await authz.get_organization_level_role(loaders, user, org_id)
         == "user"
@@ -354,7 +354,7 @@ async def test_remove_user() -> None:
         await group_access_domain.get_group_stakeholders_emails(loaders, group)
     )
     assert user not in updated_group_users
-    assert await authz.get_group_level_role(user, group) == ""
+    assert await authz.get_group_level_role(loaders, user, group) == ""
     assert await authz.get_organization_level_role(loaders, user, org_id) == ""
 
     with pytest.raises(StakeholderNotInOrganization):

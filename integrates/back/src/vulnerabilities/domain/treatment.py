@@ -550,7 +550,9 @@ async def update_vulnerabilities_treatment(
         )
 
     if "assigned" in updated_values:
-        role: str = await authz.get_group_level_role(user_email, group_name)
+        role: str = await authz.get_group_level_role(
+            loaders, user_email, group_name
+        )
         updated_values["assigned"] = await get_valid_assigned(
             loaders=loaders,
             assigned=updated_values["assigned"],

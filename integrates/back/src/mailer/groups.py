@@ -155,7 +155,9 @@ async def send_mail_added_root(
         True: "Applicable",
         False: "Not applicable",
     }
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     await send_mails_async(
         loaders,
         email_to=email_to,
@@ -196,7 +198,9 @@ async def send_mail_updated_root(
         "url": "URL",
         "includes_health_check": "Health check",
     }
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
@@ -224,7 +228,9 @@ async def send_mail_updated_root_credential(
     responsible: str,
     root_nickname: str,
 ) -> None:
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     org_name = await get_organization_name(loaders, group_name)
     await send_mails_async(
         loaders=loaders,
@@ -265,7 +271,9 @@ async def send_mail_deactivated_root(
         if last_root_state == "OK"
         else last_root_state.capitalize()
     )
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
@@ -303,7 +311,9 @@ async def send_mail_file_report(
     uploaded_date: Optional[date] = None,
 ) -> None:
     state_format: str = "added" if is_added else "deleted"
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     uploaded_days_to_date = (
         (datetime_utils.get_now().date() - uploaded_date).days
         if uploaded_date
@@ -394,7 +404,9 @@ async def send_mail_portfolio_report(
     report_date: date,
     email_to: List[str],
 ) -> None:
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
@@ -421,7 +433,9 @@ async def send_mail_updated_services(
     report_date: str,
     email_to: List[str],
 ) -> None:
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     org_name = await get_organization_name(loaders, group_name)
     await send_mails_async(
         loaders=loaders,
@@ -451,7 +465,9 @@ async def send_mail_devsecops_agent_token(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     token_status: str = "reset" if had_token else "generated"
-    user_role = await authz.get_group_level_role(user_email, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, user_email, group_name
+    )
 
     email_context: dict[str, Any] = {
         "scope_url": (f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/scope"),
@@ -508,7 +524,9 @@ async def send_mail_environment_report(
     other: Optional[str],
     reason: Optional[str],
 ) -> None:
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
@@ -587,7 +605,9 @@ async def send_mail_updated_group_information(
         ),
     }
 
-    user_role = await authz.get_group_level_role(responsible, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, responsible, group_name
+    )
 
     await send_mails_async(
         loaders=loaders,

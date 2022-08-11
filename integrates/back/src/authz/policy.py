@@ -284,9 +284,9 @@ async def get_cached_subject_policies(
 
 
 async def get_group_level_role(
+    loaders: Any,
     email: str,
     group_name: str,
-    loaders: Any = None,
 ) -> str:
     group_role: str = ""
     # Admins are granted access to all groups
@@ -486,7 +486,7 @@ async def has_access_to_group(
     group_name: str,
 ) -> bool:
     """Verify if the user has access to a group."""
-    return bool(await get_group_level_role(email, group_name.lower(), loaders))
+    return bool(await get_group_level_role(loaders, email, group_name.lower()))
 
 
 async def put_subject_policy(policy: SubjectPolicy) -> bool:

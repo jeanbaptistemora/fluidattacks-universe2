@@ -42,7 +42,9 @@ async def move_invitation_date_to_invitation(
     group_name = project_access["project_name"]
     responsibility = project_access["responsibility"]
     is_used = project_access["has_access"]
-    group_role = await authz.get_group_level_role(user_email, group_name)
+    group_role = await authz.get_group_level_role_legacy(
+        user_email, group_name
+    )
     url_token = "unknown"  # nosec
     new_invitation = {
         "date": invitation_date,

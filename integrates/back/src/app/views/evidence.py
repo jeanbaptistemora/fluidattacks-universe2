@@ -7,6 +7,7 @@ from context import (
     FI_AWS_S3_BUCKET,
 )
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from decorators import (
@@ -55,7 +56,10 @@ download_evidence_file = retry_on_exceptions(
 
 
 async def enforce_group_level_role(
-    request: Request, group: str, *allowed_roles: Sequence[str]
+    loaders: Dataloaders,
+    request: Request,
+    group: str,
+    *allowed_roles: Sequence[str],
 ) -> Response:
     response = None
     email = request.session.get("username")
@@ -68,7 +72,7 @@ async def enforce_group_level_role(
             'location = "/"; '
             "</script>"
         )
-    requester_role = await authz.get_group_level_role(email, group)
+    requester_role = await authz.get_group_level_role(loaders, email, group)
     if requester_role not in allowed_roles:
         response = Response("Access denied")
         response.status_code = 403
@@ -76,7 +80,7 @@ async def enforce_group_level_role(
 
 
 async def get_evidence(request: Request) -> Response:
-    loaders = get_new_context()
+    loaders: Dataloaders = get_new_context()
     group_name = request.path_params["group_name"]
     finding_id = request.path_params["finding_id"]
     file_id = request.path_params["file_id"]
@@ -94,7 +98,9 @@ async def get_evidence(request: Request) -> Response:
         "user_manager",
         "vulnerability_manager",
     ]
-    error = await enforce_group_level_role(request, group_name, *allowed_roles)
+    error = await enforce_group_level_role(
+        loaders, request, group_name, *allowed_roles
+    )
     if error is not None:
         return error
 

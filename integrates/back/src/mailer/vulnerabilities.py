@@ -54,7 +54,7 @@ async def send_mail_updated_treatment(
         in stakeholder.notifications_preferences.email
     ]
     stakeholder_role = await authz.get_group_level_role(
-        modified_by, group_name
+        loaders, modified_by, group_name
     )
     email_context: dict[str, Any] = {
         "assigned": assigned,
@@ -100,7 +100,9 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     org_name = await get_organization_name(loaders, group_name)
     approve_state: str = "has been approved" if is_approved else "is requested"
     user_email: str = modified_by if modified_by else ""
-    user_role = await authz.get_group_level_role(user_email, group_name)
+    user_role = await authz.get_group_level_role(
+        loaders, user_email, group_name
+    )
     email_context: dict[str, Any] = {
         "date": datetime_utils.get_date_from_iso_str(modified_date),
         "group": group_name,
