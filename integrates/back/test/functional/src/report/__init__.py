@@ -7,6 +7,7 @@ from dataloaders import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -135,7 +136,8 @@ async def get_result_closing_date(
     treatments: list[str],
     states: list[str],
     verifications: list[str],
-    closing_date: str,
+    closing_date: Optional[str],
+    finding_title: str,
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(
@@ -146,6 +148,7 @@ async def get_result_closing_date(
             $states: [VulnerabilityState!]
             $verifications: [VulnerabilityVerification!]
             $closingDate: DateTime
+            $findingTitle: String
         ) {
             report(
                 reportType: $reportType
@@ -156,6 +159,7 @@ async def get_result_closing_date(
                 states: $states
                 closingDate: $closingDate
                 verifications: $verifications
+                findingTitle: $findingTitle
             ) {
                 success
             }
@@ -170,6 +174,7 @@ async def get_result_closing_date(
             "states": states,
             "verifications": verifications,
             "closingDate": closing_date,
+            "findingTitle": finding_title,
         },
     }
 

@@ -5,6 +5,7 @@ from . import (
     get_result_treatments,
 )
 from custom_exceptions import (
+    InvalidFindingTitle,
     ReportAlreadyRequested,
 )
 import pytest
@@ -179,7 +180,14 @@ async def test_get_report_states(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report")
 @pytest.mark.parametrize(
-    ["email", "treatments", "states", "verifications", "closing_date"],
+    [
+        "email",
+        "treatments",
+        "states",
+        "verifications",
+        "closing_date",
+        "finding_title",
+    ],
     [
         [
             "admin@gmail.com",
@@ -187,6 +195,7 @@ async def test_get_report_states(
             ["CLOSED"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
+            "007. Cross-site request forgery",
         ],
         [
             "user_manager@gmail.com",
@@ -194,6 +203,7 @@ async def test_get_report_states(
             ["CLOSED"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
+            "007. Cross-site request forgery",
         ],
         [
             "vulnerability_manager@gmail.com",
@@ -201,6 +211,7 @@ async def test_get_report_states(
             ["CLOSED"],
             ["VERIFIED"],
             "2020-06-01T05:00:00+00:00",
+            "007. Cross-site request forgery",
         ],
     ],
 )
@@ -212,6 +223,7 @@ async def test_get_report_closing_date(
     states: list[str],
     verifications: list[str],
     closing_date: str,
+    finding_title: str,
 ) -> None:
     assert populate
     group: str = "group1"
@@ -223,6 +235,7 @@ async def test_get_report_closing_date(
         states=states,
         verifications=verifications,
         closing_date=closing_date,
+        finding_title=finding_title,
     )
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
@@ -484,6 +497,7 @@ async def test_get_report_closing_date_second_time_fail(
         states=states,
         verifications=verifications,
         closing_date=closing_date,
+        finding_title="007. Cross-site request forgery",
     )
     if should_fail:
         assert "errors" in result_xls
@@ -502,6 +516,7 @@ async def test_get_report_closing_date_second_time_fail(
         states=states,
         verifications=verifications,
         closing_date=closing_date,
+        finding_title="007. Cross-site request forgery",
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
@@ -542,6 +557,42 @@ async def test_get_report_invalid_state(
         "Variable '$states' got invalid value"
         in result_data["errors"][0]["message"]
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["email", "treatments", "states", "verifications"],
+    [
+        [
+            "admin@gmail.com",
+            ["ACCEPTED_UNDEFINED", "NEW"],
+            ["CLOSED"],
+            ["VERIFIED"],
+        ],
+    ],
+)
+async def test_get_report_invalid_title(
+    populate: bool,
+    email: str,
+    treatments: list[str],
+    states: list[str],
+    verifications: list[str],
+) -> None:
+    assert populate
+    group: str = "group1"
+    result: dict[str, Any] = await get_result_closing_date(
+        user=email,
+        group_name=group,
+        report_type="DATA",
+        treatments=treatments,
+        states=states,
+        verifications=verifications,
+        closing_date=None,
+        finding_title="0078. Cross-site request forgery -- host",
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidFindingTitle())
 
 
 @pytest.mark.asyncio
