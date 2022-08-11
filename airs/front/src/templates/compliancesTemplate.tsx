@@ -138,7 +138,7 @@ const CompliancesIndex: React.FC<IQueryData> = ({
                     </Paragraph>
                     <Link to={complianceCard.link}>
                       <PhantomRegularRedButton>
-                        {"Go to compliance"}
+                        {"Read more"}
                       </PhantomRegularRedButton>
                     </Link>
                   </SystemsCardContainer>
