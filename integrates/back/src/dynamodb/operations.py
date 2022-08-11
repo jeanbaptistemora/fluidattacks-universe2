@@ -49,26 +49,6 @@ from typing import (
 )
 
 
-# Fix for https://github.com/boto/boto3/pull/2867
-class PatchedBatchWriter(BatchWriter):
-    async def _flush(self) -> None:
-        items_to_send = self._items_buffer[
-            : self._flush_amount
-        ]  # type: List[Item]
-        self._items_buffer = self._items_buffer[
-            self._flush_amount :
-        ]  # type: List[Item]
-        response = await self._client.batch_write_item(
-            RequestItems={self._table_name: items_to_send}
-        )
-        unprocessed_items = response["UnprocessedItems"].get(
-            self._table_name, []
-        )
-
-        if unprocessed_items:
-            self._items_buffer.extend(unprocessed_items)
-
-
 def _build_facet_item(*, facet: Facet, item: Item, table: Table) -> Item:
     key_structure = table.primary_key
     attrs = (key_structure.partition_key, key_structure.sort_key, *facet.attrs)
@@ -137,7 +117,7 @@ async def batch_delete_item(
     key_structure = table.primary_key
     table_resource = await get_table_resource(table)
 
-    async with PatchedBatchWriter(
+    async with BatchWriter(
         table_resource.name,
         table_resource.meta.client,
         flush_amount=25,
@@ -206,7 +186,7 @@ async def batch_get_item(
 async def batch_put_item(*, items: Tuple[Item, ...], table: Table) -> None:
     table_resource = await get_table_resource(table)
 
-    async with PatchedBatchWriter(
+    async with BatchWriter(
         table_resource.name,
         table_resource.meta.client,
         flush_amount=25,

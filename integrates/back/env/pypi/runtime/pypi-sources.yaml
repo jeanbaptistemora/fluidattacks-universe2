@@ -1,7 +1,7 @@
 ---
 closure:
-  aioboto3: 9.6.0
-  aiobotocore: 2.3.0
+  aioboto3: 10.0.0
+  aiobotocore: 2.3.4
   aiodataloader: 0.2.0
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
@@ -141,15 +141,18 @@ closure:
   yarl: 1.8.1
   zenpy: 2.0.24
 links:
-  - name: aioboto3-9.6.0-py3-none-any.whl
-    sha256: 0ivvzlqlyzknj6miypavwrgc89pbbrqbjmvh4kqvawkk7hhf6bd6
-    url: https://files.pythonhosted.org/packages/8a/b7/8be5d86ac9404b3231a53d965b49d843c1cd4fe9afdc459915cb45cea107/aioboto3-9.6.0-py3-none-any.whl
-  - name: aioboto3-9.6.0.tar.gz
-    sha256: 0fybpmpx5wk9b49ndp0m9vy2v7imwdlnln7681q7nqkim37mvb5b
-    url: https://files.pythonhosted.org/packages/8b/e3/7a500d59808725fd2a9614bb29f14a84ec00f93e0d9f1bf59006f29ec1ee/aioboto3-9.6.0.tar.gz
-  - name: aiobotocore-2.3.0.tar.gz
-    sha256: 1zhv5bk4bapnlnn3gybh8zvxasa41gilbicys2ac22s1c5h3sggw
-    url: https://files.pythonhosted.org/packages/34/53/7c9d3bf3dbc0d2f02a77e01ee9a996ae641d5152b9c0fbbb445883776199/aiobotocore-2.3.0.tar.gz
+  - name: aioboto3-10.0.0-py3-none-any.whl
+    sha256: 1azr3v7zn56wz8sjizab3rmy3l8kj3jyyadlbmz78b5n4rrqi358
+    url: https://files.pythonhosted.org/packages/00/75/d0f860f49929e4569b53603e6f9f213777c7f8342067699d42006b9a4786/aioboto3-10.0.0-py3-none-any.whl
+  - name: aioboto3-10.0.0.tar.gz
+    sha256: 00wwynza4vc80kh6yy0j3nlnbmncjc1dlmc481pig5rfxvjbk62x
+    url: https://files.pythonhosted.org/packages/12/f8/f2d2e0b410378a8fe1ebf6af977a61266a4d860bca7b13887c04021ac12b/aioboto3-10.0.0.tar.gz
+  - name: aiobotocore-2.3.4-py3-none-any.whl
+    sha256: 0mznd2jm63k4iyqb5mi9qbq6riycpxrgqz02w96ywv3ja7mmkq7a
+    url: https://files.pythonhosted.org/packages/29/06/1e72977e66ecb98140ee23f99876b9b17dd6d1f2d6b6e524f2208c87f45a/aiobotocore-2.3.4-py3-none-any.whl
+  - name: aiobotocore-2.3.4.tar.gz
+    sha256: 1yrby4mxg4s8p8cdhyyx03k81vjk16mgr924wm5nzxk4azmfnm35
+    url: https://files.pythonhosted.org/packages/af/a3/9cc0962847239690e731329f754748a84ffcc64769a5e9a33d343f5f694e/aiobotocore-2.3.4.tar.gz
   - name: aiodataloader-0.2.0.tar.gz
     sha256: 1yjpnqz6dai7s291vfvqdgqqvv4nivppi94a3v28jq3y22fbs6yx
     url: https://files.pythonhosted.org/packages/7b/23/3a7cbaa38ad7d9e6d67fce2054b84d7363da502638b16b13069328b746bf/aiodataloader-0.2.0.tar.gz

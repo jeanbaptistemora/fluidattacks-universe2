@@ -1,6 +1,6 @@
 ---
-aioboto3: 9.6.0
-aiobotocore: 2.3.0
+aioboto3: 10.0.0
+aiobotocore: 2.3.4
 aiodataloader: 0.2.0
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
