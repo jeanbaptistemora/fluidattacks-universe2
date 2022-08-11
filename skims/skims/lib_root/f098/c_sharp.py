@@ -25,9 +25,6 @@ from symbolic_eval.utils import (
 from utils import (
     graph as g,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
-)
 from utils.string import (
     build_attr_paths,
 )
@@ -40,25 +37,26 @@ def path_injection(
     method = MethodsEnum.CS_PATH_INJECTION
     c_sharp = GraphLanguage.CSHARP
 
+    paths = build_attr_paths("System", "IO", "File", "Open")
+
     def n_ids() -> GraphShardNodes:
 
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
+            graph = shard.syntax_graph
 
-            paths = build_attr_paths("System", "IO", "File", "Open")
-            syn_graph = shard.syntax_graph
-
-            for nid in search_method_invocation_naive(syn_graph, {"Open"}):
+            for nid in search_method_invocation_naive(graph, {"Open"}):
                 if (
-                    member := g.match_ast_d(
-                        shard.graph, nid, "member_access_expression"
-                    )
-                ) and not node_to_str(shard.graph, member) in paths:
+                    (member := g.match_ast_d(graph, nid, "MemberAccess"))
+                    and (expr := graph.nodes[member].get("expression"))
+                    and (memb := graph.nodes[member].get("member"))
+                    and not (f"{expr}.{memb}" in paths)
+                ):
                     continue
-                for path in get_backward_paths(syn_graph, nid):
+                for path in get_backward_paths(graph, nid):
                     if (
-                        evaluation := evaluate(method, syn_graph, path, nid)
+                        evaluation := evaluate(method, graph, path, nid)
                     ) and evaluation.danger:
                         yield shard, nid
 
