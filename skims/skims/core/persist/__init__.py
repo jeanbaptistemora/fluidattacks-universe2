@@ -450,7 +450,8 @@ async def persist(
                 if finding in config.checks
                 and finding in stores
                 and not stores[finding].has_errors
-            )
+            ),
+            workers=10,
         )
         final_severity = await get_group_open_severity(group, client=client)
         await log("info", "Initial %s's CVSSF: %s", group, initial_severity)
