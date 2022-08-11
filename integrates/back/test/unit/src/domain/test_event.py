@@ -65,7 +65,6 @@ async def test_get_event() -> None:
 @pytest.mark.changes_db
 async def test_add_event() -> None:
     attrs = {
-        "accessibility": ["VPN_CONNECTION"],
         "context": "OTHER",
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
@@ -84,7 +83,6 @@ async def test_add_event() -> None:
 @pytest.mark.changes_db
 async def test_add_event_file_image() -> None:
     attrs = {
-        "accessibility": ["VPN_CONNECTION"],
         "detail": "Something happened.",
         "event_date": parse_datetime("2019-12-09T05:00:00.000Z"),
         "event_type": "AUTHORIZATION_SPECIAL_ATTACK",

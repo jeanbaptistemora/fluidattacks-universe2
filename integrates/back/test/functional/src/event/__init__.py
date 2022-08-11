@@ -17,8 +17,6 @@ async def get_result(
 ) -> dict[str, Any]:
     query: str = f"""{{
         event(identifier: "{event}"){{
-            accessibility
-            affectedComponents
             affectedReattacks {{
                 id
             }}

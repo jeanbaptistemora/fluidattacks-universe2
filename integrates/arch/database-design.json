@@ -10543,7 +10543,7 @@
                 "S": "test test test"
               },
               "type": {
-                "S": "INCORRECT_MISSING_SUPPLIES"
+                "S": "MISSING_SUPPLIES"
               },
               "affected_components": {
                 "SS": [

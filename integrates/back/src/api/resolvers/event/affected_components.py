@@ -7,12 +7,8 @@ from graphql.type.definition import (
 
 
 async def resolve(
-    parent: Event,
+    _parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> set[str]:
-    if not parent.affected_components:
-        return set()
-    affected_components = parent.affected_components
-
-    return set(item.value for item in affected_components)
+    return set()

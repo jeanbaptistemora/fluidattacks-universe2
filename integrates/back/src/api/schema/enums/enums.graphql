@@ -279,6 +279,11 @@ enum EventType {
   ENVIRONMENT_ISSUES
   "Incorrect or missing supplies"
   INCORRECT_MISSING_SUPPLIES
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/01/11.
+      """
+    )
   "Installer issues"
   INSTALLER_ISSUES
   "Missing supplies"

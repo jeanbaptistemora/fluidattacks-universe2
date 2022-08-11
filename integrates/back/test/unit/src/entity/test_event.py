@@ -47,8 +47,6 @@ async def test_event() -> None:
             eventDate
             eventStatus
             historicState
-            accessibility
-            affectedComponents
             context
             subscription
             evidenceFile
@@ -91,7 +89,6 @@ async def test_create_event() -> None:
     query = """
         mutation {
             addEvent(groupName: "unittesting",
-                        accessibility: [],
                         detail: "Test",
                         eventDate: "2020-02-01T00:00:00Z",
                         eventType: MISSING_SUPPLIES

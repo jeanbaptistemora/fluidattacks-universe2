@@ -2,6 +2,11 @@
 type Event {
   "Where the event was present"
   accessibility: [EventAccessibility!]!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/01/11.
+      """
+    )
   "Actions after getting blocked by an event"
   actionAfterBlocking: ActionsAfterBlocking
     @deprecated(
@@ -18,6 +23,11 @@ type Event {
     )
   "Components involved or affected by the event, if applicable"
   affectedComponents: [AffectedComponents!]!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/01/11.
+      """
+    )
   """
   Vulnerabilities requested for a reattack that had to be put on hold
   because of this Event

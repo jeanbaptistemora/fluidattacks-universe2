@@ -29,8 +29,6 @@ async def test_get_event(populate: bool, email: str) -> None:
     result: dict[str, Any] = await get_result(user=email, event=event_id)
     assert "errors" not in result
     assert "event" in result["data"]
-    assert result["data"]["event"]["accessibility"] == ["REPOSITORY"]
-    assert result["data"]["event"]["affectedComponents"] == ["FLUID_STATION"]
     assert result["data"]["event"]["client"] == "Fluid"
     assert result["data"]["event"]["closingDate"] == "-"
     assert result["data"]["event"]["consulting"] == [

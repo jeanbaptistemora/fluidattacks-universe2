@@ -145,7 +145,6 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "DATA_UPDATE_REQUIRED": "Request user modification/workflow update",
         "ENVIRONMENT_ISSUES": "Environment issues",
         "INSTALLER_ISSUES": "Installer issues",
-        "INCORRECT_MISSING_SUPPLIES": "Incorrect or missing supplies",
         "MISSING_SUPPLIES": "Missing supplies",
         "NETWORK_ACCESS_ISSUES": "Network access issues",
         "OTHER": "Other",
