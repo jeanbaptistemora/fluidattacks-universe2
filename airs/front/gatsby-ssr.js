@@ -11,11 +11,11 @@ export const onRenderBody = (
   setHeadComponents([
     // Disabling cache
     <metadata
-      http-equiv={"Pragma"}
+      httpEquiv={"Pragma"}
       content={"no-cache"}
     />,
     <metadata
-      http-equiv={"cache-control"}
+      httpEquiv={"cache-control"}
       content={"no-cache, no-store, must-revalidate"}
     />,
     <script
