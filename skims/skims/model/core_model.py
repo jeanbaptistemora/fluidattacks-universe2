@@ -1754,7 +1754,15 @@ class MethodsEnum(Enum):
     )
     AWS_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="aws",
-        name="unrestricted_ip_protocols",
+        name="security_groups_ip_ranges_in_rfc1918",
+        module="dast",
+        finding=FindingEnum.F024,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_UNRESTRICTED_DNS_ACCESS = MethodInfo(
+        file_name="aws",
+        name="unrestricted_dns_access",
         module="dast",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
