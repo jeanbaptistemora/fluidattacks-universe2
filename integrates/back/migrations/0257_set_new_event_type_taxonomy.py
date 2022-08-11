@@ -4,11 +4,14 @@ Set the new event taxonomy for the old events
 
 Execution Time:    2022-08-10 at 20:02:20 UTC
 Finalization Time: 2022-08-10 at 20:02:32 UTC
+
+Execution Time:    2022-08-11 at 14:46:50 UTC
+Finalization Time: 2022-08-11 at 14:46:55 UTC
+
+Execution Time:    2022-08-11 at 15:38:54 UTC
+Finalization Time: 2022-08-11 at 15:39:20 UTC
 """
-from aioextensions import (
-    collect,
-    run,
-)
+import asyncio
 import csv
 from custom_exceptions import (
     EventNotFound,
@@ -68,7 +71,7 @@ async def process_event(
 async def main() -> None:  # noqa: MC0001
     loader = get_new_context()
     with open(
-        "Historico Eventualidades - -Report1-2022-07-05-01 53-final.csv",
+        "Historico Eventualidades - Report2-2022-08-10.csv",
         mode="r",
         encoding="utf8",
     ) as in_file:
@@ -81,23 +84,25 @@ async def main() -> None:  # noqa: MC0001
                 "new_event_type": str(rows[4]).strip(),
             }
             for rows in reader
-            if rows[0] != "event_id_str"  # Skip header
+            if rows[0] != "event_id"  # Skip header
         ]
 
     print(f"   === events to update: {len(new_data)}")
     print(f"   === sample: {new_data[:3]}")
+    tasks = []
+    for event_data in new_data:
+        tasks.append(asyncio.create_task(process_event(loader, event_data)))
+        await asyncio.sleep(0.01)
 
-    await collect(
-        tuple(process_event(loader, event_data) for event_data in new_data),
-        workers=100,
-    )
+    await asyncio.gather(*tasks)
+    print("finish")
 
 
 if __name__ == "__main__":
     execution_time = time.strftime(
         "Execution Time:    %Y-%m-%d at %H:%M:%S %Z"
     )
-    run(main())
+    asyncio.run(main())
     finalization_time = time.strftime(
         "Finalization Time: %Y-%m-%d at %H:%M:%S %Z"
     )
