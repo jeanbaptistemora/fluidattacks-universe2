@@ -41,6 +41,12 @@ from db_model.toe_lines.types import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decimal import (
+    Decimal,
+)
+from findings import (
+    domain as findings_domain,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -99,6 +105,7 @@ def _generate_fields() -> Dict[str, Any]:
         "released": _generate_count_fields(),
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
+        "max_cvss": 0.0,
         "groups": {},
     }
     return fields
@@ -127,6 +134,7 @@ def _generate_count_report(
     to_add: int = 1,
     user_email: str,
     allowed_users: List[str],
+    cvss: Decimal = Decimal("0.0"),
 ) -> None:
     if user_email and user_email in allowed_users and date_report:
         date_format: date = datetime_utils.as_zone(date_report).date()
@@ -146,6 +154,10 @@ def _generate_count_report(
             content[user_email][field]["count"]["today"] = (
                 int(content[user_email][field]["count"]["today"]) + to_add
             )
+
+            if field in ["released"]:
+                _max_severity_released(content, cvss, user_email)
+
         else:
             if datetime_utils.get_now().weekday() == 1:
                 date_range = 3
@@ -248,6 +260,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
     if finding.state.status != FindingStateStatus.APPROVED:
         return None
 
+    cvss: Decimal = findings_domain.get_severity_score(finding.severity)
     vulnerabilities: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load(finding.id)
@@ -263,7 +276,17 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
             group=group,
             user_email=vuln.hacker_email,
             allowed_users=users_email,
+            cvss=cvss,
         )
+
+
+def _max_severity_released(
+    content: Dict[str, Any],
+    cvss: Decimal,
+    user_email: str,
+) -> None:
+    if content[user_email]["max_cvss"] < cvss:
+        content[user_email]["max_cvss"] = cvss
 
 
 async def _finding_content(
@@ -447,11 +470,13 @@ async def _send_mail_report(
     responsible: str,
 ) -> None:
     groups_content = content.pop("groups")
+    max_cvss = content.pop("max_cvss")
     count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
 
     context: Dict[str, Any] = {
         "count_var_report": count_var_report,
         "groups": groups_content,
+        "max_cvss": max_cvss,
         "responsible": responsible,
     }
 

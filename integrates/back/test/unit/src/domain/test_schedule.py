@@ -111,6 +111,7 @@ def test_validate_date_fail() -> None:
                             "today": 0,
                         }
                     },
+                    "max_cvss": 0.0,
                     "groups": {
                         "unittesting": {
                             "verified": 0,
@@ -249,6 +250,7 @@ def test_generate_count_report(
                         "today": 0,
                     }
                 },
+                "max_cvss": 0.0,
                 "groups": {
                     "unittesting": {
                         "verified": 6,
