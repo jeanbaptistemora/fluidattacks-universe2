@@ -3,6 +3,7 @@ let securityHeaders = {
                               + "'self' "
                               + "'unsafe-inline' "
                               + "fluidattacks.matomo.cloud "
+                              + "*.app-us1.com "
                               + "*.cloudflareinsights.com "
                               + "*.cookiebot.com "
                               + "*.google-analytics.com "
