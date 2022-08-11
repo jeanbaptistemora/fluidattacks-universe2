@@ -47,6 +47,8 @@ const msgInfo: (text: string, title: string, hideMessage?: boolean) => void = (
   const toastId: string = title.toLocaleLowerCase() + text.toLocaleLowerCase();
   if (hideMessage) {
     toastify.dismiss(toastId);
+
+    return;
   }
   toast({
     autoClose: false,
