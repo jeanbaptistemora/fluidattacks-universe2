@@ -92,7 +92,7 @@ type Mutation {
   "Reports an unexpected Event when dealing with the ToE"
   addEvent(
     "Where the event was present"
-    accessibility: [EventAccessibility]!
+    accessibility: [EventAccessibility]
     "Components involved or affected by the event, if applicable"
     affectedComponents: [AffectedComponents]
     "Comment laying out or explaining the event"

@@ -15,15 +15,11 @@ async def get_result(
     user: str,
     event_id: str,
     event_type: str,
-    affected_components: list[str],
 ) -> dict[str, Any]:
     query: str = f"""
-        mutation  UpdateEventMutation(
-            $affectedComponents: [AffectedComponents]
-        ){{
+        mutation {{
             updateEvent(
                 eventId: "{event_id}"
-                affectedComponents: $affectedComponents
                 eventType: {event_type}
             ) {{
                 success
@@ -32,7 +28,6 @@ async def get_result(
     """
     data: dict[str, Any] = {
         "query": query,
-        "variables": {"affectedComponents": affected_components},
     }
     return await get_graphql_result(
         data,

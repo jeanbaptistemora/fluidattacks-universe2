@@ -18,8 +18,6 @@ async def get_result(
     query: str = f"""
         mutation {{
             addEvent(
-                accessibility: [],
-                affectedComponents: [TEST_DATA, TOE_PRIVILEGES],
                 detail: "hacker create new event",
                 eventDate: "2020-02-01T00:00:00Z",
                 eventType: MISSING_SUPPLIES,

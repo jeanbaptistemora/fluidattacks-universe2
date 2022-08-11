@@ -1577,12 +1577,6 @@ class BranchNotFound(CustomBaseException):
         super(BranchNotFound, self).__init__(msg)
 
 
-class RequiredAffectedComponents(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - Affected components are required"
-        super(RequiredAffectedComponents, self).__init__(msg)
-
-
 class RequiredFieldToBeUpdate(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A field is required to be updated"

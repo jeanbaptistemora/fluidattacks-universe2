@@ -18,12 +18,10 @@ from custom_exceptions import (
     EventHasNotBeenSolved,
     InvalidCommentParent,
     InvalidDate,
-    InvalidField,
     InvalidFileSize,
     InvalidFileType,
     InvalidParameter,
     NoHoldRequested,
-    RequiredAffectedComponents,
     RequiredFieldToBeUpdate,
     VulnNotFound,
 )
@@ -42,8 +40,6 @@ from db_model.event_comments.types import (
     EventComment,
 )
 from db_model.events.enums import (
-    EventAccessibility,
-    EventAffectedComponents,
     EventEvidenceType,
     EventSolutionReason,
     EventStateStatus,
@@ -204,23 +200,9 @@ async def add_event(
         raise InvalidDate()
 
     group: Group = await loaders.group.load(group_name)
-    accessibility: Optional[set[EventAccessibility]] = None
-    if "accessibility" in kwargs:
-        accessibility = set(
-            EventAccessibility[item]
-            for item in kwargs["accessibility"]
-            if item
-        )
-    affected_components: Optional[set[EventAffectedComponents]] = None
-    if "affected_components" in kwargs:
-        affected_components = set(
-            EventAffectedComponents[item]
-            for item in kwargs["affected_components"]
-            if item
-        )
     event = Event(
-        accessibility=accessibility,
-        affected_components=affected_components,
+        accessibility=None,
+        affected_components=None,
         client=group.organization_id,
         description=kwargs["detail"],
         event_date=datetime_utils.get_as_utc_iso_format(event_date),
@@ -486,32 +468,10 @@ async def update_event(
     if attributes.event_type:
         events_validations.validate_type(attributes.event_type)
     event_type = attributes.event_type or event.type
-    affected_components = (
-        event.affected_components
-        if attributes.affected_components is None
-        else attributes.affected_components
-    )
-    if event_type is not EventType.INCORRECT_MISSING_SUPPLIES:
-        if attributes.affected_components:
-            raise InvalidField("affectedComponents")
-        affected_components = None
-    if (
-        event_type is EventType.INCORRECT_MISSING_SUPPLIES
-        and not affected_components
-    ):
-        raise RequiredAffectedComponents()
-
-    clean_affected_components = affected_components is None
     await events_model.update_metadata(
         event_id=event.id,
         group_name=event.group_name,
-        metadata=EventMetadataToUpdate(
-            type=attributes.event_type,
-            affected_components=None
-            if clean_affected_components
-            else affected_components,
-            clean_affected_components=clean_affected_components,
-        ),
+        metadata=EventMetadataToUpdate(type=event_type),
     )
 
 
