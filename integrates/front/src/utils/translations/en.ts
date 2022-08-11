@@ -596,9 +596,6 @@ export const enTranslations: ResourceKey = {
         credentialsIssues: "Repository credentials issues",
         dataUpdateRequired: "Request user modification/workflow update",
         environmentIssues: "Environment issues",
-        inaccAmbient: "Inaccessible environment",
-        incorSupplies: "Incorrect or missing supplies",
-        incorrectMissingSupplies: "Incorrect or missing supplies",
         installerIssues: "Installer issues",
         missingSupplies: "Missing supplies",
         networkAccessIssues: "Network access issues",
@@ -2504,7 +2501,6 @@ export const enTranslations: ResourceKey = {
       zeroRisk: "Zero risk",
     },
     tabEvents: {
-      accessibility: "Accessibility",
       actionAfterBlocking: "Action after blocking",
       actionAfterBlockingValues: {
         none: "None",

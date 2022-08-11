@@ -1,53 +1,9 @@
 import { translate } from "utils/translations/translate";
 
-const castAffectedComponents: (field: string) => string = (
-  field: string
-): string => {
-  const eventAffectedComponents: Record<string, string> = {
-    CLIENT_STATION:
-      "searchFindings.tabEvents.affectedComponentsValues.clientStation",
-    COMPILE_ERROR:
-      "searchFindings.tabEvents.affectedComponentsValues.compileError",
-    DOCUMENTATION:
-      "searchFindings.tabEvents.affectedComponentsValues.documentation",
-    FLUID_STATION:
-      "searchFindings.tabEvents.affectedComponentsValues.fluidStation",
-    INTERNET_CONNECTION:
-      "searchFindings.tabEvents.affectedComponentsValues.internetConnection",
-    LOCAL_CONNECTION:
-      "searchFindings.tabEvents.affectedComponentsValues.localConnection",
-    OTHER: "searchFindings.tabEvents.affectedComponentsValues.other",
-    SOURCE_CODE: "searchFindings.tabEvents.affectedComponentsValues.sourceCode",
-    TEST_DATA: "searchFindings.tabEvents.affectedComponentsValues.testData",
-    TOE_ALTERATION:
-      "searchFindings.tabEvents.affectedComponentsValues.toeAlteration",
-    TOE_CREDENTIALS:
-      "searchFindings.tabEvents.affectedComponentsValues.toeCredentials",
-    TOE_EXCLUSSION:
-      "searchFindings.tabEvents.affectedComponentsValues.toeExclussion",
-    TOE_LOCATION:
-      "searchFindings.tabEvents.affectedComponentsValues.toeLocation",
-    TOE_PRIVILEGES:
-      "searchFindings.tabEvents.affectedComponentsValues.toePrivileges",
-    TOE_UNACCESSIBLE:
-      "searchFindings.tabEvents.affectedComponentsValues.toeUnaccessible",
-    TOE_UNAVAILABLE:
-      "searchFindings.tabEvents.affectedComponentsValues.toeUnavailable",
-    TOE_UNSTABLE:
-      "searchFindings.tabEvents.affectedComponentsValues.toeUnstable",
-    VPN_CONNECTION:
-      "searchFindings.tabEvents.affectedComponentsValues.vpnConnection",
-  };
-
-  return eventAffectedComponents[field] ? eventAffectedComponents[field] : "-";
-};
-
 const castEventType: (field: string) => string = (field: string): string => {
   const eventType: Record<string, string> = {
     AUTHORIZATION_SPECIAL_ATTACK:
       "group.events.type.authorizationSpecialAttack",
-    "Ambiente inestable": "group.events.type.unsAmbient",
-    "Ambiente no accesible": "group.events.type.inaccAmbient",
     CLIENT_CANCELS_PROJECT_MILESTONE:
       "group.events.type.clientCancelsProjectMilestone",
     CLIENT_EXPLICITLY_SUSPENDS_PROJECT:
@@ -56,7 +12,6 @@ const castEventType: (field: string) => string = (field: string): string => {
     CREDENTIAL_ISSUES: "group.events.type.credentialsIssues",
     DATA_UPDATE_REQUIRED: "group.events.type.dataUpdateRequired",
     ENVIRONMENT_ISSUES: "group.events.type.environmentIssues",
-    INCORRECT_MISSING_SUPPLIES: "group.events.type.incorrectMissingSupplies",
     INSTALLER_ISSUES: "group.events.type.installerIssues",
     MISSING_SUPPLIES: "group.events.type.missingSupplies",
     NETWORK_ACCESS_ISSUES: "group.events.type.networkAccessIssues",
@@ -76,18 +31,6 @@ const castEventStatus: (field: string) => string = (field: string): string => {
   };
 
   return eventStatus[field];
-};
-
-const formatAccessibility: (field: string) => string = (
-  field: string
-): string => {
-  const eventAccessibility: Record<string, string> = {
-    ENVIRONMENT: "group.events.form.accessibility.environment",
-    REPOSITORY: "group.events.form.accessibility.repository",
-    VPN_CONNECTION: "group.events.form.accessibility.vpnConnection",
-  };
-
-  return eventAccessibility[field] ? eventAccessibility[field] : "-";
 };
 
 const formatDropdownField: (field: string) => string = (
@@ -187,10 +130,8 @@ const formatDuration = (value: number): string => {
 };
 
 export {
-  castAffectedComponents,
   castEventType,
   castEventStatus,
-  formatAccessibility,
   formatDate,
   formatDropdownField,
   formatDuration,

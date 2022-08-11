@@ -22,9 +22,6 @@ const selectOptionType = {
   [translate.t(castEventType("ENVIRONMENT_ISSUES"))]: translate.t(
     castEventType("ENVIRONMENT_ISSUES")
   ),
-  [translate.t(castEventType("INCORRECT_MISSING_SUPPLIES"))]: translate.t(
-    castEventType("INCORRECT_MISSING_SUPPLIES")
-  ),
   [translate.t(castEventType("INSTALLER_ISSUES"))]: translate.t(
     castEventType("INSTALLER_ISSUES")
   ),
