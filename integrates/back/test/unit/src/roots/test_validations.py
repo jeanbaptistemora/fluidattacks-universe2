@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidField,
     InvalidFieldLength,
     InvalidRootComponent,
+    UnsanitizedInputFound,
 )
 from dataloaders import (
     get_new_context,
@@ -23,6 +24,7 @@ from newutils.validations import (
     validate_file_exists,
     validate_file_name,
     validate_group_name,
+    validate_sanitized_csv_input,
 )
 import pytest
 from roots.validations import (
@@ -179,3 +181,28 @@ def test_is_exclude_valid() -> None:
     )
     assert not is_exclude_valid(["Universe/test.py"], repo_url)
     assert not is_exclude_valid(["universe/**/test.py"], repo_url)
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        ('"=invalidField"'),
+        ("'+invalidField"),
+        (",-invalidField"),
+        (";@invalidField"),
+        ("=invalidField"),
+        ("+invalidField"),
+        ("-invalidField"),
+        ("@invalidField"),
+        ("\\ninvalidField"),
+    ],
+)
+def test_validate_sanitized_csv_input(field: str) -> None:
+    validate_sanitized_csv_input(
+        "validfield@",
+        "valid+field",
+        "valid field",
+        "http://localhost/bWAPP/sqli_1.php",
+    )
+    with pytest.raises(UnsanitizedInputFound):
+        assert validate_sanitized_csv_input(field)
