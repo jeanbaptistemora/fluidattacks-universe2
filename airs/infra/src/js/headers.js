@@ -9,6 +9,7 @@ let securityHeaders = {
                               + "*.google-analytics.com "
                               + "*.googletagmanager.com "
                               + "*.hotjar.com "
+                              + "*.trackcmp.net "
                               + "*.typekit.net "
                               + "*.zoho.com "
                               + "*.zohocdn.com "
