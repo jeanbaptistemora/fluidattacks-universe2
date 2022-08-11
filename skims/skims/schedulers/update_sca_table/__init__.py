@@ -63,11 +63,12 @@ async def update_sca() -> None:
     ]
     # processing vulnerable packages
     advisories: Advisories = []
-    log_blocking("info", "Processing vulnerabilities")
+    log_blocking("info", "Processing advisories")
     for get_ad, repo, platforms in tmp_repositories:
         get_ad(advisories, repo, platforms)
 
     # adding to table
+    log_blocking("info", "Adding advisories to skima_sca table")
     for advisory in advisories:
         await advisories_model.add(advisory=advisory)
 

@@ -23,6 +23,7 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
     advisories: List[Advisory],
     severity: str,
 ) -> None:
+    current_advisories: Dict[str, str] = {}
     for pkg_obj in affected:
         package: Dict[str, Any] = pkg_obj.get("package") or {}
         ecosystem: str = str(package.get("ecosystem"))
@@ -31,6 +32,10 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
         pkg_name: str = str(package.get("name")).lower()
         ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []
         final_range = ""
+        versions: List[str] = pkg_obj.get("versions") or []
+        formatted_versions = ["=" + ver for ver in versions]
+        if formatted_versions:
+            final_range = " || ".join(formatted_versions)
         for range_ver in ranges:
             events: List[Dict[str, str]] = range_ver.get("events") or []
             str_range: str
@@ -41,14 +46,23 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
                 final_range = str_range
             else:
                 final_range = " || ".join((final_range, str_range))
+        if pkg_name not in current_advisories:
+            current_advisories.update({pkg_name: final_range})
+        else:
+            cur_range = current_advisories[pkg_name]
+            current_advisories.update(
+                {pkg_name: " || ".join((cur_range, final_range))}
+            )
+
+    for key_pkg, range_val in current_advisories.items():
         advisories.append(
             Advisory(
                 associated_advisory=vuln_id,
                 package_manager=platform,
-                package_name=pkg_name,
+                package_name=key_pkg,
                 severity=severity,
                 source=URL_ADVISORY_DATABASE,
-                vulnerable_version=final_range,
+                vulnerable_version=range_val,
             )
         )
 

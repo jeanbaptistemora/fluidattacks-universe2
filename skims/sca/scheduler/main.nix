@@ -7,7 +7,8 @@
 }:
 makeScript {
   replace = {
-    __argSecretsProd__ = projectPath "/skims/secrets/dev.yaml";
+    __argSecretsDev__ = projectPath "/skims/secrets/dev.yaml";
+    __argSecretsProd__ = projectPath "/skims/secrets/prod.yaml";
   };
   name = "skims-scheduler";
   searchPaths = {

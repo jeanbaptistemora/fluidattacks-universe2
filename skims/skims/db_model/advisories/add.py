@@ -1,11 +1,11 @@
 from .types import (
     Advisory,
 )
+from .update import (
+    update,
+)
 from boto3.dynamodb.conditions import (
     Key,
-)
-from custom_exceptions import (
-    AdvisoryAlreadyCreated,
 )
 from db_model import (
     TABLE,
@@ -33,19 +33,27 @@ async def add(*, advisory: Advisory) -> None:
     response = await operations.query(
         condition_expression=(
             Key(key_structure.partition_key).eq(advisory_key.partition_key)
+            & Key(key_structure.sort_key).eq(advisory_key.sort_key)
         ),
         facets=(TABLE.facets["advisories"],),
         limit=1,
         table=TABLE,
     )
     if response.items:
-        raise AdvisoryAlreadyCreated.new()
+        current_ad = response.items[0]
+        if (
+            current_ad.get("vulnerable_version") != advisory.vulnerable_version
+            or current_ad.get("severity") != advisory.severity
+        ):
+            await update(advisory=advisory)
+            print(f"Updated ( {advisory_key.sort_key} )")
+    else:
+        advisory_item = {
+            key_structure.partition_key: advisory_key.partition_key,
+            key_structure.sort_key: advisory_key.sort_key,
+            **json.loads(json.dumps(advisory)),
+        }
+        items.append(advisory_item)
 
-    advisory_item = {
-        key_structure.partition_key: advisory_key.partition_key,
-        key_structure.sort_key: advisory_key.sort_key,
-        **json.loads(json.dumps(advisory)),
-    }
-    items.append(advisory_item)
-
-    await operations.batch_put_item(items=tuple(items), table=TABLE)
+        await operations.batch_put_item(items=tuple(items), table=TABLE)
+        print(f"Added ( {advisory_key.sort_key} )")
