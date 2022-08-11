@@ -192,6 +192,17 @@ def get_object_identifiers(
     return list(filter(None, ident_objects))
 
 
+def get_syntax_object_identifiers(
+    graph: Graph, obj_names: Set[str]
+) -> List[str]:
+    obj_nodes = list(yield_syntax_graph_object_creation(graph, obj_names))
+    ident_objects = []
+    for element in obj_nodes:
+        pred_obj = g.pred(graph, element)[0]
+        ident_objects.append(graph.nodes[pred_obj].get("variable"))
+    return list(filter(None, ident_objects))
+
+
 def check_member_acces_expression(
     shard: graph_model.GraphShard, n_id: str, express: str
 ) -> bool:
