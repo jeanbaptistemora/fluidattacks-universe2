@@ -724,7 +724,7 @@ async def get_groups_by_stakeholder(
         ]
 
     group_level_roles = await authz.get_group_level_roles(
-        email, group_names, with_cache=with_cache
+        loaders, email, group_names, with_cache=with_cache
     )
 
     return [

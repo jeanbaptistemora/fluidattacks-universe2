@@ -310,10 +310,10 @@ async def get_group_level_role(
 
 
 async def get_group_level_roles(
+    loaders: Any,
     email: str,
     groups: list[str],
     with_cache: bool = True,
-    loaders: Any = None,
 ) -> dict[str, str]:
     is_admin: bool = await get_user_level_role(loaders, email) == "admin"
 
@@ -322,7 +322,9 @@ async def get_group_level_roles(
             GroupAccess, ...
         ] = await loaders.stakeholder_groups_access.load(email)
         db_roles: dict[str, str] = {
-            access.group_name: access.role or "" for access in groups_access
+            access.group_name: access.role
+            for access in groups_access
+            if access.role
         }
     else:
         policies = await get_cached_subject_policies(

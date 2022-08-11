@@ -73,6 +73,7 @@ async def has_user_access(loaders: Any, email: str, subject: str) -> bool:
                     loaders=loaders, email=email, organization_id=org_id
                 ),
                 authz.get_group_level_roles(
+                    loaders=loaders,
                     email=email,
                     groups=portfolio_groups,
                 ),
