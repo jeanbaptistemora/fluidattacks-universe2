@@ -234,3 +234,13 @@ def yield_syntax_graph_object_creation(
     ):
         if graph.nodes[nid].get("name") in members:
             yield nid
+
+
+def get_first_member_syntax_graph(graph: Graph, n_id: str) -> Optional[str]:
+    member: Any = g.match_ast(graph, n_id, "MemberAccess")
+    if member.get("MemberAccess") == "None":
+        return n_id
+    while member.get("MemberAccess"):
+        member = member.get("MemberAccess")
+        member = g.match_ast(graph, member, "MemberAccess")
+    return member["__0__"]

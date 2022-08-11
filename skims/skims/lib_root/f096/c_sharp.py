@@ -1,6 +1,6 @@
 from lib_root.utilities.c_sharp import (
-    get_first_member,
-    get_object_identifiers,
+    get_first_member_syntax_graph,
+    get_syntax_object_identifiers,
     yield_syntax_graph_object_creation,
 )
 from lib_sast.types import (
@@ -21,12 +21,6 @@ from symbolic_eval.utils import (
 )
 from utils import (
     graph as g,
-)
-from utils.graph.text_nodes import (
-    node_to_str,
-)
-from utils.string import (
-    split_on_last_dot as split_last,
 )
 
 
@@ -145,25 +139,23 @@ def type_name_handling(
             if shard.syntax_graph is None:
                 continue
 
-            serial_objs = get_object_identifiers(shard, serializer)
+            graph = shard.syntax_graph
+            serial_objs = get_syntax_object_identifiers(graph, serializer)
             for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="member_access_expression"
-                ),
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
             ):
-                fr_memb = get_first_member(shard, member)
-                last_memb = split_last(node_to_str(shard.graph, member))[1]
+                fr_memb = get_first_member_syntax_graph(graph, member)
+                last_memb = graph.nodes[member].get("member")
                 if (
-                    shard.graph.nodes[fr_memb]["label_type"] == "identifier"
-                    and shard.graph.nodes[fr_memb]["label_text"] in serial_objs
+                    graph.nodes[fr_memb].get("label_type") == "SymbolLookup"
+                    and graph.nodes[fr_memb].get("symbol") in serial_objs
                     and last_memb == "TypeNameHandling"
-                    and (pred := g.pred_ast(shard.graph, member)[0])
-                    and (assign := g.match_ast(shard.graph, pred)["__2__"])
+                    and (pred := g.pred_ast(graph, member)[0])
+                    and (assign := g.match_ast(graph, pred)["__1__"])
                 ):
-                    for path in get_backward_paths(shard.syntax_graph, assign):
-                        graph = shard.syntax_graph
+                    for path in get_backward_paths(graph, assign):
                         if (
                             evaluation := evaluate(method, graph, path, assign)
                         ) and evaluation.danger:
