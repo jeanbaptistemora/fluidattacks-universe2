@@ -15,8 +15,18 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+    timezone,
+)
 from db_model.enums import (
     Source,
+)
+from db_model.finding_comments.enums import (
+    CommentType,
+)
+from db_model.finding_comments.types import (
+    FindingComment,
 )
 from db_model.findings.types import (
     Finding,
@@ -31,6 +41,7 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
+    VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -41,11 +52,17 @@ from decimal import (
 from decorators import (
     retry_on_exceptions,
 )
+from finding_comments import (
+    domain as comments_domain,
+)
 from findings import (
     domain as findings_domain,
 )
 from findings.types import (
     FindingDraftToAdd,
+)
+from newutils import (
+    datetime as datetime_utils,
 )
 from newutils.files import (
     path_is_include,
@@ -57,7 +74,14 @@ from newutils.findings import (
 from organizations_finding_policies import (
     domain as policies_domain,
 )
+import pytz  # type: ignore
+from settings.various import (
+    TIME_ZONE,
+)
 import tempfile
+from time import (
+    time,
+)
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
@@ -69,6 +93,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Set,
     Tuple,
 )
 from vulnerability_files.domain import (
@@ -252,6 +277,35 @@ def _filter_vulns_to_open(
     }
 
 
+def _get_vulns_with_reattack(
+    stream: dict[str, Any],
+    integrates_vulnerabilities: Tuple[Vulnerability, ...],
+    state: str,
+) -> Tuple[Vulnerability, ...]:
+    result: Tuple[Vulnerability, ...] = ()
+    for vulnerability in integrates_vulnerabilities:
+        if not (
+            vulnerability.verification
+            and vulnerability.verification.status
+            == VulnerabilityVerificationStatus.REQUESTED
+        ):
+            continue
+        for _vuln in stream["lines"]:
+            if _vuln["state"] == state and hash(
+                (_vuln["path"], _vuln["line"])
+            ) == hash((vulnerability.where, vulnerability.specific)):
+                result = (*result, vulnerability)
+                break
+        for _vuln in stream["inputs"]:
+            if _vuln["state"] == state and hash(
+                (_vuln["path"], _vuln["line"])
+            ) == hash((vulnerability.where, vulnerability.specific)):
+                result = (*result, vulnerability)
+                break
+
+    return result
+
+
 def _build_vulnerabilities_stream_from_sarif(
     vulnerabilities: List[Dict[str, Any]],
     commit_hash: str,
@@ -399,6 +453,8 @@ async def ensure_toe_inputs(
     loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
 ) -> None:
     for vuln in stream["inputs"]:
+        if vuln["state"] != "open":
+            continue
         with suppress(InvalidUrl):
             await toe_inputs_domain.add(
                 loaders=loaders,
@@ -412,6 +468,111 @@ async def ensure_toe_inputs(
                     seen_first_time_by="machine@fluidattacks.com",
                 ),
             )
+
+
+async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
+    loaders: Dataloaders,
+    group_name: str,
+    git_root: GitRoot,
+    finding: Finding,
+    stream: dict[str, Any],
+    organization: str,
+) -> Optional[Set[str]]:
+    finding_policy = await policies_domain.get_finding_policy_by_name(
+        org_name=organization,
+        finding_name=finding.title.lower(),
+    )
+    if (len(stream["inputs"]) + len(stream["inputs"])) > 0:
+        length = len(stream["inputs"]) + len(stream["inputs"])
+        print(f"{length}  vuln to close")
+        await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
+        return await map_vulnerabilities_to_dynamo(
+            loaders=loaders,
+            vulns_data_from_file=stream,
+            group_name=group_name,
+            finding_id=finding.id,
+            finding_policy=finding_policy,
+            user_info={
+                "user_email": "machine@fluidattacks.com",
+                "first_name": "machine",
+                "last_name": "machine",
+            },
+        )
+    return None
+
+
+async def add_reattack_justification(
+    finding_id: str,
+    open_vulnerabilities: Tuple[Vulnerability, ...],
+    closed_vulnerabilities: Tuple[Vulnerability, ...],
+    commit_hash: str,
+) -> None:
+    today = datetime.now(tz=timezone.utc)
+    format_date = today.astimezone(tz=pytz.timezone(TIME_ZONE)).strftime(
+        "%Y/%m/%d %H:%M"
+    )
+    open_justification: str = ""
+    closed_justification: str = ""
+
+    closed_vulns_strs = [
+        f"  - {vuln.where}" for vuln in closed_vulnerabilities
+    ]
+    open_vulns_strs = [f"  - {vuln.where}" for vuln in open_vulnerabilities]
+    str_open_vulns = "\n ".join(open_vulns_strs) if open_vulns_strs else ""
+    str_closed_vulns = (
+        "\n ".join(closed_vulns_strs) if closed_vulns_strs else ""
+    )
+
+    open_justification = (
+        "Reported vulnerabilities are still open in commit "
+        + f"{commit_hash}: \n {str_open_vulns}"
+        if open_vulns_strs
+        else ""
+    )
+    if open_justification:
+        open_justification = (
+            "A reattack request was executed on "
+            + f"{format_date.replace(' ', ' at ')}.\n"
+            + open_justification
+        )
+        await comments_domain.add(
+            FindingComment(
+                finding_id=finding_id,
+                id=str(round(time() * 1000)),
+                comment_type=CommentType.COMMENT,
+                parent_id="0",
+                creation_date=datetime_utils.get_as_utc_iso_format(
+                    datetime_utils.get_now()
+                ),
+                full_name="machine",
+                content=open_justification,
+                email="machine@fluidttacks.com",
+            )
+        )
+    closed_justification = (
+        "Reattack request was executed on "
+        + f"{format_date.replace(' ', ' at ')}. \n"
+        + "Reported vulnerabilities were solved "
+        + f"in commit {commit_hash}: \n"
+        + f"{str_closed_vulns} \n"
+        if closed_vulns_strs
+        else ""
+    )
+    if closed_justification:
+        await comments_domain.add(
+            FindingComment(
+                finding_id=finding_id,
+                id=str(round(time() * 1000)),
+                comment_type=CommentType.CONSULT,
+                parent_id="0",
+                creation_date=datetime_utils.get_as_utc_iso_format(
+                    datetime_utils.get_now()
+                ),
+                full_name="machine",
+                content=closed_justification,
+                email="machine@fluidttacks.com",
+            )
+        )
 
 
 async def process_criteria_vuln(
@@ -439,10 +600,7 @@ async def process_criteria_vuln(
             criteria_vulnerability,
             criteria_requirements,
         )
-    finding_policy = await policies_domain.get_finding_policy_by_name(
-        org_name=kwargs["organization"],
-        finding_name=finding.title.lower(),
-    )
+
     integrates_vulnerabilities: Tuple[Vulnerability, ...] = tuple(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
@@ -463,39 +621,32 @@ async def process_criteria_vuln(
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
         git_root.state.nickname,
     )
+    reattack_future = add_reattack_justification(
+        finding.id,
+        _get_vulns_with_reattack(
+            vulns_to_open, integrates_vulnerabilities, "open"
+        ),
+        _get_vulns_with_reattack(
+            vulns_to_open, integrates_vulnerabilities, "closed"
+        ),
+        sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
+    )
     vulns_to_open = _filter_vulns_to_open(
         vulns_to_open, integrates_vulnerabilities
     )
-    if (len(vulns_to_close["inputs"]) + len(vulns_to_close["inputs"])) > 0:
-        await map_vulnerabilities_to_dynamo(
-            loaders=loaders,
-            vulns_data_from_file=vulns_to_close,
-            group_name=group_name,
-            finding_id=finding.id,
-            finding_policy=finding_policy,
-            user_info={
-                "user_email": "machine@fluidattacks.com",
-                "first_name": "machine",
-                "last_name": "machine",
-            },
-        )
 
-    if (len(vulns_to_open["inputs"]) + len(vulns_to_open["inputs"])) > 0:
-        await ensure_toe_inputs(
-            loaders, group_name, git_root.id, vulns_to_open
-        )
-        await map_vulnerabilities_to_dynamo(
-            loaders=loaders,
-            vulns_data_from_file=vulns_to_open,
-            group_name=group_name,
-            finding_id=finding.id,
-            finding_policy=finding_policy,
-            user_info={
-                "user_email": "machine@fluidattacks.com",
-                "first_name": "machine",
-                "last_name": "machine",
-            },
-        )
+    if await persist_vulnerabilities(
+        loaders,
+        group_name,
+        git_root,
+        finding,
+        {
+            "inputs": [*vulns_to_close["inputs"], vulns_to_open["inputs"]],
+            "lines": [*vulns_to_close["lines"], vulns_to_close["lines"]],
+        },
+        kwargs["organization"],
+    ):
+        await reattack_future
 
 
 async def process_execution(

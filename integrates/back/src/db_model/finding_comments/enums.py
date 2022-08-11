@@ -8,3 +8,4 @@ class CommentType(Enum):
     VERIFICATION: str = "VERIFICATION"
     OBSERVATION: str = "OBSERVATION"
     ZERO_RISK: str = "ZERO_RISK"
+    CONSULT: str = "CONSULT"
