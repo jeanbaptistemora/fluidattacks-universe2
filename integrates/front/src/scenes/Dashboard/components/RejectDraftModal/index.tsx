@@ -2,9 +2,11 @@ import { Field, Form, Formik } from "formik";
 import type { FC } from "react";
 import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
+import { object, string } from "yup";
 
 import { Modal, ModalConfirm } from "components/Modal";
 import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { validTextField } from "utils/validations";
 
 interface IRejectDraftModalProps {
   isOpen: boolean;
@@ -29,23 +31,32 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
 }: IRejectDraftModalProps): JSX.Element => {
   const { t } = useTranslation();
 
+  const validations = object().shape({
+    other: string().when("reason", {
+      is: "OTHER",
+      then: string().required(t("validations.required")),
+    }),
+    reason: string().required(),
+  });
+
   return (
     <StrictMode>
       <Modal
         minWidth={400}
         onClose={onClose}
         open={isOpen}
-        title={t("searchFindings.tabIndicators.tags.modalTitle")}
+        title={t("group.drafts.reject.title")}
       >
         <Formik
           initialValues={{
             other: "",
             reason: "",
           }}
-          name={"addTags"}
+          name={"rejectDraft"}
           onSubmit={onSubmit}
+          validationSchema={validations}
         >
-          {({ dirty }): JSX.Element => (
+          {({ dirty, values }): JSX.Element => (
             <Form>
               <Field
                 component={FormikDropdown}
@@ -62,14 +73,17 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                   )
                 )}
               </Field>
-              <Field
-                component={FormikText}
-                key={"other"}
-                label={t("group.drafts.reject.otherReason")}
-                name={"other"}
-                type={"checkbox"}
-                value={"other"}
-              />
+              {values.reason === "OTHER" ? (
+                <Field
+                  component={FormikText}
+                  key={"other"}
+                  label={t("group.drafts.reject.otherReason")}
+                  name={"other"}
+                  type={"checkbox"}
+                  validate={validTextField}
+                  value={"other"}
+                />
+              ) : undefined}
               <ModalConfirm
                 disabled={!dirty}
                 id={"reject-draft-confirm"}
