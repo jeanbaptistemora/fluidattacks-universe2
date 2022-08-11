@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Remove the event accessibility and affected attributes
+
+Execution Time:    2022-08-11 at 20:23:23 UTC
+Finalization Time: 2022-08-11 at 20:24:09 UTC
 """
 from aioextensions import (
     collect,
