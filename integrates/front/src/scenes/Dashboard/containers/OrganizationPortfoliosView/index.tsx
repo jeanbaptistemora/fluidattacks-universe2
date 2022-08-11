@@ -1,7 +1,7 @@
 import type { ColumnDef, Row as tanRow } from "@tanstack/react-table";
 import _ from "lodash";
 import type { FormEvent } from "react";
-import React from "react";
+import React, { StrictMode } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { Tables } from "components/TableNew";
@@ -10,7 +10,6 @@ import type {
   IPortfolios,
   IPortfoliosTable,
 } from "scenes/Dashboard/containers/OrganizationPortfoliosView/types";
-import { Row } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
@@ -83,26 +82,16 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   ];
 
   return (
-    <React.StrictMode>
-      <div>
-        {_.isEmpty(portfolios) ? (
-          <div />
-        ) : (
-          <div>
-            <div>
-              <Row>
-                <Tables
-                  columns={tableHeaders}
-                  data={formatPortfolioTableData(portfolios)}
-                  id={"tblGroups"}
-                  onRowClick={handleRowClick}
-                />
-              </Row>
-            </div>
-          </div>
-        )}
-      </div>
-    </React.StrictMode>
+    <StrictMode>
+      {_.isEmpty(portfolios) ? undefined : (
+        <Tables
+          columns={tableHeaders}
+          data={formatPortfolioTableData(portfolios)}
+          id={"tblGroups"}
+          onRowClick={handleRowClick}
+        />
+      )}
+    </StrictMode>
   );
 };
 

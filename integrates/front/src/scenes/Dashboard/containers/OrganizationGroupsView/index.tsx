@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useContext, useState } from "react";
+import React, { StrictMode, useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,6 @@ import { Button } from "components/Button";
 import { Tables } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import type { ICellHelper } from "components/TableNew/types";
-import { Tooltip } from "components/Tooltip/index";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
 import { GET_ORGANIZATION_GROUPS } from "scenes/Dashboard/containers/OrganizationGroupsView/queries";
@@ -22,7 +21,6 @@ import type {
   IGroupData,
   IOrganizationGroupsProps,
 } from "scenes/Dashboard/containers/OrganizationGroupsView/types";
-import { Row } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
@@ -171,66 +169,55 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     : [];
 
   return (
-    <React.StrictMode>
-      <div>
-        {_.isUndefined(data) || _.isEmpty(data) ? (
-          <div />
-        ) : (
-          <div>
-            <div>
-              <Row>
-                <Tables
-                  columns={tableHeaders}
-                  data={dataset}
-                  extraButtons={
-                    <Can do={"api_mutations_add_group_mutate"}>
-                      <Tooltip
-                        hide={runTour}
-                        id={"organization.tabs.groups.newGroup.new.tooltip.btn"}
-                        tip={t("organization.tabs.groups.newGroup.new.tooltip")}
-                      >
-                        <Button
-                          id={"add-group"}
-                          onClick={openNewGroupModal}
-                          variant={"primary"}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                          &nbsp;
-                          {t("organization.tabs.groups.newGroup.new.text")}
-                        </Button>
-                        {runTour ? (
-                          <Tour
-                            run={false}
-                            steps={[
-                              {
-                                ...BaseStep,
-                                content: t("tours.addGroup.addButton"),
-                                disableBeacon: true,
-                                hideFooter: true,
-                                target: "#add-group",
-                              },
-                            ]}
-                          />
-                        ) : undefined}
-                      </Tooltip>
-                    </Can>
-                  }
-                  id={"tblGroups"}
-                />
-              </Row>
-            </div>
-            {isGroupModalOpen ? (
-              <AddGroupModal
-                isOpen={true}
-                onClose={closeNewGroupModal}
-                organization={organizationName}
-                runTour={enableTour}
-              />
-            ) : undefined}
-          </div>
-        )}
-      </div>
-    </React.StrictMode>
+    <StrictMode>
+      {_.isUndefined(data) || _.isEmpty(data) ? undefined : (
+        <Tables
+          columns={tableHeaders}
+          data={dataset}
+          extraButtons={
+            <Can do={"api_mutations_add_group_mutate"}>
+              <Button
+                id={"add-group"}
+                onClick={openNewGroupModal}
+                tooltip={
+                  runTour
+                    ? undefined
+                    : t("organization.tabs.groups.newGroup.new.tooltip")
+                }
+                variant={"primary"}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;
+                {t("organization.tabs.groups.newGroup.new.text")}
+              </Button>
+            </Can>
+          }
+          id={"tblGroups"}
+        />
+      )}
+      {isGroupModalOpen ? (
+        <AddGroupModal
+          isOpen={true}
+          onClose={closeNewGroupModal}
+          organization={organizationName}
+          runTour={enableTour}
+        />
+      ) : undefined}
+      {runTour ? (
+        <Tour
+          run={false}
+          steps={[
+            {
+              ...BaseStep,
+              content: t("tours.addGroup.addButton"),
+              disableBeacon: true,
+              hideFooter: true,
+              target: "#add-group",
+            },
+          ]}
+        />
+      ) : undefined}
+    </StrictMode>
   );
 };
 
