@@ -5,6 +5,9 @@ from back.test import (
 from db_model.enums import (
     Source,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -309,7 +312,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "finding_comment": FindingComment(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="43455343453",
-                    comment_type="observation",
+                    comment_type=CommentType.OBSERVATION,
                     content="This is a test observations",
                     email="admin@gmail.com",
                     full_name="test one",
@@ -321,7 +324,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "finding_comment": FindingComment(
                     finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
                     id="42343434",
-                    comment_type="comment",
+                    comment_type=CommentType.COMMENT,
                     content="This is a test observations",
                     email="admin@gmail.com",
                     full_name="test one",

@@ -19,6 +19,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -273,7 +276,7 @@ async def test_add_comment() -> None:
     comment_id = str(round(time.time() * 1000))
     comment_data = FindingComment(
         finding_id=finding_id,
-        comment_type="comment",
+        comment_type=CommentType.COMMENT,
         id=comment_id,
         content="Test comment",
         creation_date=current_time,
@@ -291,7 +294,7 @@ async def test_add_comment() -> None:
     loaders = get_new_context()
     finding_comments: list[
         FindingComment
-    ] = await loaders.finding_comments.load(("comment", finding_id))
+    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
     assert finding_comments[-1].content == "Test comment"
     assert finding_comments[-1].full_name == "unittesting"
 
@@ -309,7 +312,9 @@ async def test_add_comment() -> None:
     new_loaders = get_new_context()
     new_finding_comments: list[
         FindingComment
-    ] = await new_loaders.finding_comments.load(("comment", finding_id))
+    ] = await new_loaders.finding_comments.load(
+        (CommentType.COMMENT, finding_id)
+    )
     assert new_finding_comments[-1].content == "Test comment"
     assert new_finding_comments[-1].parent_id == str(comment_id)
 

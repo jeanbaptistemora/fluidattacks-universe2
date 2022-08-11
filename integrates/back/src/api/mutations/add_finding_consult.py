@@ -10,6 +10,9 @@ from custom_exceptions import (
 from custom_types import (
     AddConsultPayload as AddConsultPayloadType,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -74,7 +77,7 @@ async def send_finding_consult_mail(
         recipients=await get_users_subscribed_to_consult(
             loaders=info.context.loaders,
             group_name=group_name,
-            comment_type=comment_data.comment_type,
+            comment_type=comment_data.comment_type.value.lower(),
             is_finding_released=is_finding_released,
         ),
         group_name=group_name,
@@ -101,7 +104,9 @@ async def _add_finding_consult(
     comment_data = FindingComment(
         finding_id=finding_id,
         id=comment_id,
-        comment_type=param_type if param_type != "consult" else "comment",
+        comment_type=CommentType.OBSERVATION
+        if param_type != "consult"
+        else CommentType.COMMENT,
         parent_id=str(parameters.get("parent_comment")),
         creation_date=current_time,
         full_name=" ".join([user_data["first_name"], user_data["last_name"]]),

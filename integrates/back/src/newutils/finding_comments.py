@@ -59,7 +59,7 @@ def format_finding_comment_item(finding_comment: FindingComment) -> Item:
         "finding_id": finding_comment.finding_id,
         "comment_id": int(finding_comment.id),
         "parent": finding_comment.parent_id,
-        "comment_type": finding_comment.comment_type,
+        "comment_type": finding_comment.comment_type.value.lower(),
         "created": convert_from_iso_str(finding_comment.creation_date),
         "fullname": finding_comment.full_name,
         "content": finding_comment.content,

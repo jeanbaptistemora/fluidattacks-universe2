@@ -8,6 +8,9 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -26,19 +29,19 @@ TABLE_NAME: str = "fi_finding_comments"
 
 
 async def get_comments(
-    comment_type: str, finding_id: str
+    comment_type: CommentType, finding_id: str
 ) -> list[dict[str, Any]]:
     """Get comments of the given finding"""
     key_exp = Key("finding_id").eq(finding_id)
-    comment_type = comment_type.lower()
+    comment_typed = comment_type.value.lower()
     filter_exp = ""
-    if comment_type == "comment":
+    if comment_typed == "comment":
         filter_exp = Attr("comment_type").eq("comment") | Attr(
             "comment_type"
         ).eq("verification")
-    elif comment_type == "observation":
+    elif comment_typed == "observation":
         filter_exp = Attr("comment_type").eq("observation")
-    elif comment_type == "zero_risk":
+    elif comment_typed == "zero_risk":
         filter_exp = Attr("comment_type").eq("zero_risk")
     query_attrs = {
         "KeyConditionExpression": key_exp,
@@ -50,7 +53,7 @@ async def get_comments(
 class FindingCommentsLoader(DataLoader):
     # pylint: disable=no-self-use,method-hidden
     async def batch_load_fn(
-        self, keys: Iterable[tuple[str, str]]
+        self, keys: Iterable[tuple[CommentType, str]]
     ) -> tuple[tuple[FindingComment, ...], ...]:
         items = await collect(
             tuple(

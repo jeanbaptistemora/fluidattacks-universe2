@@ -18,6 +18,9 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -168,7 +171,7 @@ async def confirm_vulnerabilities_zero_risk(
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
-        comment_type="zero_risk",
+        comment_type=CommentType.ZERO_RISK,
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
@@ -546,7 +549,7 @@ async def reject_vulnerabilities_zero_risk(
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
-        comment_type="zero_risk",
+        comment_type=CommentType.ZERO_RISK,
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),
@@ -631,7 +634,7 @@ async def request_vulnerabilities_zero_risk(
     comment_data = FindingComment(
         finding_id=finding_id,
         content=justification,
-        comment_type="zero_risk",
+        comment_type=CommentType.ZERO_RISK,
         id=comment_id,
         email=user_email,
         full_name=" ".join([user_info["first_name"], user_info["last_name"]]),

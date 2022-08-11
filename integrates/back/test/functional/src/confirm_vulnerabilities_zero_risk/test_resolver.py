@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -53,7 +56,9 @@ async def test_confirm_vulnerabilities_zero_risk(
     assert vuln.zero_risk.status == VulnerabilityZeroRiskStatus.CONFIRMED
     zero_risk_comments: list[
         FindingComment
-    ] = await loaders.finding_comments.load(("zero_risk", finding_id))
+    ] = await loaders.finding_comments.load(
+        (CommentType.ZERO_RISK, finding_id)
+    )
     assert zero_risk_comments[-1].finding_id == finding_id
     assert zero_risk_comments[-1].content == "confirm zero risk vuln"
     assert zero_risk_comments[-1].comment_type == "zero_risk"

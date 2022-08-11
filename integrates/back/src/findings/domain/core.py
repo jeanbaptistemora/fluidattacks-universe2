@@ -35,6 +35,9 @@ from db_model import (
 from db_model.enums import (
     StateRemovalJustification,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -173,7 +176,7 @@ async def add_comment(
         content, user_email, group_name, parent_comment, info.context.store
     )
 
-    if param_type == "observation":
+    if param_type == CommentType.OBSERVATION:
         enforcer = await authz.get_group_level_enforcer(
             user_email, info.context.store
         )
@@ -528,9 +531,9 @@ async def mask_finding(loaders: Any, finding: Finding) -> bool:
     comments_and_observations: list[
         FindingComment
     ] = await loaders.finding_comments.load(
-        ("comment", finding.id)
+        (CommentType.COMMENT, finding.id)
     ) + await loaders.finding_comments.load(
-        ("observation", finding.id)
+        (CommentType.OBSERVATION, finding.id)
     )
     success = all(
         await collect(
@@ -652,7 +655,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
     )
     comment_data = FindingComment(
         finding_id=finding_id,
-        comment_type="verification",
+        comment_type=CommentType.VERIFICATION,
         content=justification,
         parent_id="0",
         id=comment_id,
@@ -883,7 +886,7 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     )
     comment_data = FindingComment(
         finding_id=finding_id,
-        comment_type="verification",
+        comment_type=CommentType.VERIFICATION,
         content=justification,
         parent_id="0",
         id=comment_id,

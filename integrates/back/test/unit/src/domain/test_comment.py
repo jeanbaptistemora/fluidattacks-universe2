@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -35,7 +38,7 @@ async def test_list_comments() -> None:
             finding_id="422286126",
             id="1566336916294",
             parent_id="0",
-            comment_type="comment",
+            comment_type=CommentType.COMMENT.value.lower(),
             creation_date="2019-08-20T21:35:16+00:00",
             content="This is a comenting test",
             email="unittest@fluidattacks.com",
@@ -53,7 +56,7 @@ async def test_fill_comment_data() -> None:
         finding_id="422286126",
         id="1566336916294",
         parent_id="0",
-        comment_type="comment",
+        comment_type=CommentType.COMMENT,
         creation_date="2019-08-20T21:35:16+00:00",
         content="This is a comenting test",
         email="unittest@fluidattacks.com",

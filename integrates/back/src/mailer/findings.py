@@ -14,6 +14,9 @@ from db_model.enums import (
     Notification,
     StateRemovalJustification,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -55,13 +58,14 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     has_machine: bool = group.state.has_machine
     has_squad: bool = group.state.has_squad
     type_ = comment_data.comment_type
+    type_fmt = "consulting" if type_ == CommentType.COMMENT else "observation"
     email_context: dict[str, Any] = {
         "comment": comment_data.content.splitlines(),
         "comment_type": type_,
         "comment_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/"
             f'{"vulns" if is_finding_released else "drafts"}/{finding_id}/'
-            f'{"consulting" if type_ == "comment" else "observations"}'
+            f"{type_fmt}"
         ),
         "finding_id": finding_id,
         "finding_name": finding_title,
@@ -83,6 +87,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
     customer_success_recipients = FI_MAIL_CUSTOMER_SUCCESS.split(",")
+    type_frt = "observation" if type_ == CommentType.OBSERVATION else "comment"
     await send_mails_async(
         loaders,
         [*stakeholders_email, *customer_success_recipients, *reviewers],
@@ -90,7 +95,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         COMMENTS_TAG,
         (
             "[ASM] New "
-            f'{"observation" if type_ == "observation" else "comment"}'
+            f"{type_frt}"
             f" in [{finding_title}] for [{group_name}]"
         ),
         "new_comment",

@@ -9,6 +9,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -82,7 +85,7 @@ async def test_request_hold_vuln(
     )
     finding_comments: list[
         FindingComment
-    ] = await loaders.finding_comments.load(("comment", finding_id))
+    ] = await loaders.finding_comments.load((CommentType.COMMENT, finding_id))
     assert finding_comments[-1].finding_id == finding_id
     assert finding_comments[-1].comment_type == "verification"
     assert finding_comments[-1].email == email

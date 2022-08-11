@@ -53,6 +53,9 @@ from db_model.events.types import (
     EventState,
     GroupEventsRequest,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -633,7 +636,7 @@ async def request_vulnerabilities_hold(
     )
     comment_data = FindingComment(
         finding_id=finding_id,
-        comment_type="verification",
+        comment_type=CommentType.VERIFICATION,
         content=justification,
         parent_id="0",
         id=comment_id,

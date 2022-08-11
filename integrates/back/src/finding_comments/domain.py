@@ -1,4 +1,7 @@
 import authz
+from db_model.finding_comments.enums import (
+    CommentType,
+)
 from db_model.finding_comments.types import (
     FindingComment,
 )
@@ -64,7 +67,9 @@ async def get_comments(
     finding_id: str,
     user_email: str,
 ) -> Tuple[FindingComment, ...]:
-    comments = await loaders.finding_comments.load(("comment", finding_id))
+    comments = await loaders.finding_comments.load(
+        (CommentType.COMMENT, finding_id)
+    )
     historic_verification: Tuple[
         FindingVerification, ...
     ] = await loaders.finding_historic_verification.load(finding_id)
@@ -121,7 +126,7 @@ async def get_observations(
     loaders: Any, group_name: str, finding_id: str, user_email: str
 ) -> list[FindingComment]:
     observations = await loaders.finding_comments.load(
-        ("observation", finding_id)
+        (CommentType.OBSERVATION, finding_id)
     )
 
     enforcer = await authz.get_group_level_enforcer(user_email)
