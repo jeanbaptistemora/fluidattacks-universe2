@@ -1,7 +1,6 @@
 # shellcheck shell=bash
 
 alias tap-json="observes-singer-tap-json-bin"
-alias target-redshift="observes-target-redshift"
 
 function get_schemas {
   local use_cache="${1}"
@@ -53,10 +52,8 @@ function dynamodb_etl {
     && export_notifier_key \
     && get_schemas "yes" "${cache_bucket}" "${data}" "${singer_file}" "${schemas}" \
     && cat "${singer_file}" > .singer \
-    && target-redshift \
-      --auth "${db_creds}" \
+    && target-redshift destroy-and-upload \
       --schema-name "${schema}" \
-      --drop-schema \
       < .singer
 }
 
