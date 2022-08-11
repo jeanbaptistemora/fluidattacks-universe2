@@ -569,6 +569,9 @@ async def create_payment_method(
 
     # create other payment methods
     if card_number == "":
+        if business_name is not None:
+            validations.validate_field_length(business_name, 60)
+            validations.validate_fields([business_name])
         other_payment_id = str(uuid.uuid4())
         other_payment = OrganizationPaymentMethods(
             business_name=business_name,
@@ -698,6 +701,10 @@ async def update_payment_method(
         )[0].last_four_digits
         == ""
     ):
+        # validate business_name
+        if business_name is not None:
+            validations.validate_field_length(business_name, 60)
+            validations.validate_fields([business_name])
         # get actual payment methods
         other_payment_methods: List[OrganizationPaymentMethods] = []
         if org.payment_methods:

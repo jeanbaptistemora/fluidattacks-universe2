@@ -47,7 +47,12 @@ export const AddOtherMethodModal = ({
   const [cities, setCities] = useState<string[] | undefined>(undefined);
 
   const validations = object().shape({
-    businessName: string().required(),
+    businessName: string()
+      .required()
+      .max(60)
+      .matches(
+        /^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@_$#!,.*\-?"[\]|()/{}>][a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@_$#!,.*\-?"[\]|()/{}>=]+$/u
+      ),
     city: string().test(
       "isRequired",
       t("validations.required"),
