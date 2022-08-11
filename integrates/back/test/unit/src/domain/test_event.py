@@ -8,7 +8,6 @@ from back.test.unit.src.utils import (
 )
 from custom_exceptions import (
     EventAlreadyClosed,
-    EventNotFound,
     InvalidCommentParent,
     InvalidFileSize,
     InvalidFileType,
@@ -50,16 +49,6 @@ from time import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-async def test_get_event() -> None:
-    loaders: Dataloaders = get_new_context()
-    event_id = "418900971"
-    test_data: Event = await loaders.event.load(event_id)
-    expected_output = "unittesting"
-    assert test_data.group_name == expected_output
-    with pytest.raises(EventNotFound):
-        await loaders.event.load("000001111")
 
 
 @pytest.mark.changes_db
