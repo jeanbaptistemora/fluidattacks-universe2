@@ -113,7 +113,7 @@ def format_data(data: Remediate) -> dict:
                     bottom=0,
                 ),
                 label=dict(
-                    text="Days per Severity",
+                    text="Days per Exposure",
                     position="inner-top",
                 ),
             ),

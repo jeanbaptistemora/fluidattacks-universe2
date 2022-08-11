@@ -136,7 +136,7 @@ def format_data_non_cvssf(data: Remediate) -> dict:
                     bottom=0,
                 ),
                 label=dict(
-                    text="Calendar days per severity (less is better)",
+                    text="Calendar days per exposure (less is better)",
                     position="inner-top",
                 ),
             ),

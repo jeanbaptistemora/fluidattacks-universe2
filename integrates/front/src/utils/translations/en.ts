@@ -11,16 +11,16 @@ export const enTranslations: ResourceKey = {
           alt: {
             default: "Mean time to remediate",
             nonTreated: "Non treated mean time to remediate",
-            nonTreatedCvssf: "Non treated mean time to remediate & severity",
+            nonTreatedCvssf: "Non treated mean time to remediate & exposure",
           },
-          default: "Mean time to remediate & severity",
+          default: "Mean time to remediate & exposure",
         },
       },
       mttrBenchmarking: {
         title: "MTTR Benchmarking",
         tooltip: {
-          all: "Days per Severity for all vulnerabilities",
-          nonTreated: "Days per Severity for non treated vulnerabilities",
+          all: "Days per Exposure for all vulnerabilities",
+          nonTreated: "Days per Exposure for non treated vulnerabilities",
         },
       },
       topVulnerabilities: {
