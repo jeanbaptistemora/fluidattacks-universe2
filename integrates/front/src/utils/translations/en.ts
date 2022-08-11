@@ -441,9 +441,18 @@ export const enTranslations: ResourceKey = {
       },
       new: "New Finding",
       reject: {
+        consistency: "Consistency",
+        evidence: "Evidence",
+        naming: "Naming",
+        omission: "Omission",
+        other: "Other",
+        otherReason: "Please provide a custom reason",
+        reason: "Reason",
+        scoring: "Scoring",
         text: "Reject",
         title: "Reject Draft",
         tooltip: "Cancel the request for review the finding",
+        writing: "Writing",
       },
       submit: {
         text: "Submit",
