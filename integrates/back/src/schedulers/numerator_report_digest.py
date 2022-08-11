@@ -8,6 +8,9 @@ from context import (
     FI_MAIL_CTO,
     FI_TEST_PROJECTS,
 )
+from custom_exceptions import (
+    UnableToSendMail,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -44,6 +47,9 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+from decorators import (
+    retry_on_exceptions,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -51,6 +57,9 @@ from group_access import (
     domain as group_access_domain,
 )
 import logging
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
 from mailer import (
     groups as groups_mail,
 )
@@ -75,6 +84,13 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+mail_numerator_report = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=3,
+    sleep_seconds=2,
+)(groups_mail.send_mail_numerator_report)
 
 
 def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
@@ -480,7 +496,7 @@ async def _send_mail_report(
         "responsible": responsible,
     }
 
-    await groups_mail.send_mail_numerator_report(
+    await mail_numerator_report(
         loaders=loaders,
         context=context,
         email_to=[responsible],
