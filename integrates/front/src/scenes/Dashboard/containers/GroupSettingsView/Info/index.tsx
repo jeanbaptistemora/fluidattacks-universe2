@@ -129,6 +129,8 @@ const GroupInformation: React.FC = (): JSX.Element => {
 
   const handleFormSubmit = useCallback(
     async (values: Record<string, string>): Promise<void> => {
+      const isManagedChanged: boolean =
+        data === undefined ? false : values.managed !== data.group.managed;
       await editGroupInfo({
         variables: {
           businessId: values.businessId,
@@ -136,6 +138,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
           comments: "",
           description: values.description,
           groupName,
+          isManagedChanged,
           language: values.language,
           managed: values.managed,
           sprintDuration: Number(values.sprintDuration),
@@ -143,7 +146,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
         },
       });
     },
-    [editGroupInfo, groupName]
+    [data, editGroupInfo, groupName]
   );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {

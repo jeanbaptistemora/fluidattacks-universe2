@@ -171,6 +171,7 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
     $comments: String!
     $description: String!
     $groupName: String!
+    $isManagedChanged: Boolean!
     $language: Language!
     $managed: ManagedType!
     $sprintDuration: Int
@@ -191,7 +192,7 @@ const UPDATE_GROUP_INFO: DocumentNode = gql`
       comments: $comments
       groupName: $groupName
       managed: $managed
-    ) {
+    ) @include(if: $isManagedChanged) {
       success
     }
   }
