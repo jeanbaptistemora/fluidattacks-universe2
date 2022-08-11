@@ -2,59 +2,49 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface ITableContainerProps {
-  isRowFunctional: boolean;
-  rowSize: "bold" | "thin";
+  clickable: boolean;
 }
-
-const rowSizes: Record<ITableContainerProps["rowSize"], string> = {
-  bold: "1rem",
-  thin: "0",
-};
 
 const TableContainer = styled.div.attrs({
   className: "f6 overflow-auto",
 })<ITableContainerProps>`
   background-color: #f4f4f6;
+  border: solid 1px #d2d2da;
   border-radius: 4px;
-  margin-top: 16px;
-
-  td,
-  th {
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: rgba(0, 0, 0, 0.2);
-    padding-bottom: ${(props): string => rowSizes[props.rowSize]};
-    padding-right: ${(props): string => rowSizes[props.rowSize]};
-  }
-
-  td {
-    padding-top: ${(props): string => rowSizes[props.rowSize]};
-    width: auto;
-  }
-
-  th {
-    font-weight: 600;
-    text-align: left;
-    cursor: pointer;
-    width: auto;
-  }
-
-  tr {
-    cursor: ${(props): string => (props.isRowFunctional ? "pointer" : "unset")};
-  }
+  margin-top: 8px;
 
   table {
     border-spacing: 0;
+    padding: 12px;
     table-layout: auto;
     width: 100%;
-    padding: 16px;
+  }
+
+  tr {
+    cursor: ${({ clickable }): string => (clickable ? "pointer" : "unset")};
+    &:last-child > td {
+      border: none;
+    }
+  }
+
+  td,
+  th {
+    border-bottom: solid 1px #8888;
+    padding: 12px;
+    width: auto;
+  }
+
+  th {
+    cursor: pointer;
+    font-weight: 700;
+    text-align: left;
   }
 `;
 
 const TableLink = styled(Link)`
   border: none;
-  color: #5c5c70;
   border-bottom: solid 1px;
+  color: #5c5c70;
 
   :hover {
     color: #2e2e38;

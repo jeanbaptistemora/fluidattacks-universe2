@@ -128,10 +128,7 @@ const Tables = <TData extends object>({
           </div>
         ) : undefined}
       </div>
-      <TableContainer
-        isRowFunctional={onRowClick !== undefined}
-        rowSize={"bold"}
-      >
+      <TableContainer clickable={onRowClick !== undefined}>
         <table>
           <thead>
             {table.getHeaderGroups().map(
