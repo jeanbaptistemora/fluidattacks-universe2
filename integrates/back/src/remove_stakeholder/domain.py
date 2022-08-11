@@ -15,6 +15,9 @@ from custom_exceptions import (
 from db_model import (
     group_access as group_access_model,
 )
+from db_model.enrollment.types import (
+    EnrollmentMetadataToUpdate,
+)
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
@@ -25,6 +28,9 @@ from db_model.organization_access.types import (
 )
 from decorators import (
     retry_on_exceptions,
+)
+from enrollment import (
+    domain as enrollment_domain,
 )
 from group_access import (
     domain as group_access_domain,
@@ -114,7 +120,6 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    await stakeholders_domain.remove(email=email)
     await collect(
         tuple(
             redis_del_by_deps(
@@ -144,6 +149,13 @@ async def remove_stakeholder_all_organizations(
             group_access_domain.remove_access(loaders, email, group)
             for group in stakeholder_groups
         )
+    )
+
+    await stakeholders_domain.remove(email=email)
+    await enrollment_domain.update_metadata(
+        loaders=loaders,
+        email=email,
+        metadata=EnrollmentMetadataToUpdate(enrolled=False),
     )
 
 

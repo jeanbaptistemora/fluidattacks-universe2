@@ -1,5 +1,6 @@
 from .types import (
     Enrollment,
+    EnrollmentMetadataToUpdate,
     Trial,
 )
 from dynamodb.types import (
@@ -22,3 +23,14 @@ def format_trial(item: Item) -> Trial:
         extension_days=item["extension_days"],
         start_date=item["start_date"],
     )
+
+
+def format_metadata_item(metadata: EnrollmentMetadataToUpdate) -> Item:
+    item: Item = {
+        "enrolled": metadata.enrolled,
+    }
+    return {
+        key: None if not value and value is not False else value
+        for key, value in item.items()
+        if value is not None
+    }

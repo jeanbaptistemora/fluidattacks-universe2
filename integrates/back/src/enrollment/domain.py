@@ -12,6 +12,7 @@ from db_model import (
 )
 from db_model.enrollment.types import (
     Enrollment,
+    EnrollmentMetadataToUpdate,
     Trial,
 )
 from decorators import (
@@ -91,3 +92,15 @@ async def add_enrollment(
         "empty_notification_notice": True,
     }
     schedule(mail_free_trial_start(loaders, mail_to, email_context))
+
+
+async def update_metadata(
+    loaders: Any,
+    email: str,
+    metadata: EnrollmentMetadataToUpdate,
+) -> None:
+    if await exists(loaders, email):
+        await enrollment_model.update_metadata(
+            email=email,
+            metadata=metadata,
+        )
