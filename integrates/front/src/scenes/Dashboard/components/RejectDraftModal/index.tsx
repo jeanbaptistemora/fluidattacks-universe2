@@ -79,7 +79,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                   key={"other"}
                   label={t("group.drafts.reject.otherReason")}
                   name={"other"}
-                  type={"checkbox"}
+                  type={"text"}
                   validate={validTextField}
                   value={"other"}
                 />
