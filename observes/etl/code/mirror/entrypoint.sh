@@ -3,6 +3,10 @@
 function job_code_mirror {
   local group="${1}"
   local working_dir
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_SESSION_TOKEN
+  export AWS_DEFAULT_REGION="us-east-1"
 
   working_dir=$(mktemp -d) \
     && if test -z "${group}"; then

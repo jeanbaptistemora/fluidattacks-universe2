@@ -95,10 +95,9 @@ class Executor:
         return external_run(tuple(args))
 
     def prepare_core(self) -> Cmd[None]:
-        table = TargetTables.CORE
         args = [
             self._etl_prepare,
-            f"{self._schema_prefix}{table.value}_loading",
+            f"dynamodb_integrates_vms_merged_parts_loading",
             "s3://observes.cache/dynamoEtl/vms_schema",
         ]
         return external_run(tuple(args))

@@ -66,18 +66,11 @@ def behind_work_days(minute: CronItem, hour: CronItem) -> Cron:
 
 
 ANY = AnyTime()
-dynamo_days = (
-    Days.MON.value,
-    Days.WEN.value,
-    Days.FRI.value,
-)
 SCHEDULE: FrozenDict[Cron, FrozenList[Jobs]] = FrozenDict(
     {
         work_days(ANY, ANY).unwrap(): (Jobs.REPORT_FAILS,),
         weekly(ANY, 0, 6).unwrap(): (Jobs.DYNAMO_INTEGRATES_MAIN_NO_CACHE,),
-        week_days(ANY, 12, dynamo_days).unwrap(): (
-            Jobs.DYNAMO_INTEGRATES_MAIN,
-        ),
+        work_days(ANY, 3).unwrap(): (Jobs.DYNAMO_INTEGRATES_MAIN,),
         behind_work_days(ANY, 23): (Jobs.MAILCHIMP_ETL,),
         work_days(ANY, 0).unwrap(): (
             Jobs.MIRROR,

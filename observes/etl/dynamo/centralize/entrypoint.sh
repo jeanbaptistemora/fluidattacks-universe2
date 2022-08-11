@@ -19,7 +19,7 @@ function dynamodb_centralize {
       --schema 'dynamodb' \
     && dynamo-etl centralize parts \
       --schema-prefix 'dynamodb_integrates_vms_part_' \
-      --schema 'dynamodb_integrates_vms_loading'
+      --schema 'dynamodb_integrates_vms_merged_parts_loading'
 }
 
 dynamodb_centralize
