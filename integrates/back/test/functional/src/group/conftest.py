@@ -10,8 +10,6 @@ from db_model.enums import (
     Source,
 )
 from db_model.events.enums import (
-    EventAccessibility,
-    EventAffectedComponents,
     EventStateStatus,
     EventType,
 )
@@ -685,10 +683,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "event": Event(
                     id="418900971",
                     group_name="group1",
-                    accessibility={EventAccessibility.REPOSITORY},
-                    affected_components={
-                        EventAffectedComponents.FLUID_STATION
-                    },
                     hacker=generic_data["global_vars"]["hacker_email"],
                     client="Fluid",
                     description="ASM unit test",

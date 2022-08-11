@@ -1,8 +1,6 @@
 from .enums import (
-    EventAccessibility,
     EventActionsAfterBlocking,
     EventActionsBeforeBlocking,
-    EventAffectedComponents,
     EventSolutionReason,
     EventStateStatus,
     EventType,
@@ -45,14 +43,12 @@ class Event(NamedTuple):
     id: str
     state: EventState
     type: EventType
-    accessibility: Optional[set[EventAccessibility]] = None
     action_after_blocking: Optional[
         EventActionsAfterBlocking
     ] = None  # Deprecated
     action_before_blocking: Optional[
         EventActionsBeforeBlocking
     ] = None  # Deprecated
-    affected_components: Optional[set[EventAffectedComponents]] = None
     context: Optional[str] = None  # Deprecated
     root_id: Optional[str] = None
     unreliable_indicators: EventUnreliableIndicators = (
@@ -61,11 +57,9 @@ class Event(NamedTuple):
 
 
 class EventMetadataToUpdate(NamedTuple):
-    affected_components: Optional[set[EventAffectedComponents]] = None
     client: Optional[str] = None
     description: Optional[str] = None
     type: Optional[EventType] = None
-    clean_affected_components: bool = False
 
 
 class EventUnreliableIndicatorsToUpdate(NamedTuple):

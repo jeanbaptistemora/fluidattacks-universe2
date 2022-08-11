@@ -3,12 +3,6 @@ from enum import (
 )
 
 
-class EventAccessibility(str, Enum):
-    ENVIRONMENT: str = "ENVIRONMENT"
-    REPOSITORY: str = "REPOSITORY"
-    VPN_CONNECTION: str = "VPN_CONNECTION"
-
-
 class EventActionsAfterBlocking(str, Enum):
     EXECUTE_OTHER_GROUP_OTHER_CLIENT: str = "EXECUTE_OTHER_GROUP_OTHER_CLIENT"
     EXECUTE_OTHER_GROUP_SAME_CLIENT: str = "EXECUTE_OTHER_GROUP_SAME_CLIENT"
@@ -22,27 +16,6 @@ class EventActionsBeforeBlocking(str, Enum):
     NONE: str = "NONE"
     OTHER: str = "OTHER"
     TEST_OTHER_PART_TOE: str = "TEST_OTHER_PART_TOE"
-
-
-class EventAffectedComponents(str, Enum):
-    CLIENT_STATION: str = "CLIENT_STATION"
-    COMPILE_ERROR: str = "COMPILE_ERROR"
-    DOCUMENTATION: str = "DOCUMENTATION"
-    FLUID_STATION: str = "FLUID_STATION"
-    INTERNET_CONNECTION: str = "INTERNET_CONNECTION"
-    LOCAL_CONNECTION: str = "LOCAL_CONNECTION"
-    OTHER: str = "OTHER"
-    SOURCE_CODE: str = "SOURCE_CODE"
-    TEST_DATA: str = "TEST_DATA"
-    TOE_ALTERATION: str = "TOE_ALTERATION"
-    TOE_CREDENTIALS: str = "TOE_CREDENTIALS"
-    TOE_EXCLUSSION: str = "TOE_EXCLUSSION"
-    TOE_LOCATION: str = "TOE_LOCATION"
-    TOE_PRIVILEGES: str = "TOE_PRIVILEGES"
-    TOE_UNACCESSIBLE: str = "TOE_UNACCESSIBLE"
-    TOE_UNAVAILABLE: str = "TOE_UNAVAILABLE"
-    TOE_UNSTABLE: str = "TOE_UNSTABLE"
-    VPN_CONNECTION: str = "VPN_CONNECTION"
 
 
 class EventEvidenceType(str, Enum):

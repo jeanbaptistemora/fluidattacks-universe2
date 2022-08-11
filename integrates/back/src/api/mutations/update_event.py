@@ -8,7 +8,6 @@ from custom_types import (
     SimplePayload,
 )
 from db_model.events.enums import (
-    EventAffectedComponents,
     EventType,
 )
 from db_model.events.types import (
@@ -55,22 +54,11 @@ async def mutate(
             if kwargs.get("event_type")
             else None
         )
-        affected_components = (
-            set(
-                EventAffectedComponents[item]
-                for item in kwargs["affected_components"]
-                if item
-            )
-            if kwargs.get("affected_components")
-            else None
-        )
         event: Event = await info.context.loaders.event.load(event_id)
         await events_domain.update_event(
             loaders=info.context.loaders,
             event_id=event_id,
-            attributes=EventAttributesToUpdate(
-                event_type=event_type, affected_components=affected_components
-            ),
+            attributes=EventAttributesToUpdate(event_type=event_type),
         )
         logs_utils.cloudwatch_log(
             info.context,

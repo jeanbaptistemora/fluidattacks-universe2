@@ -204,8 +204,6 @@ async def add_event(
 
     group: Group = await loaders.group.load(group_name)
     event = Event(
-        accessibility=None,
-        affected_components=None,
         client=group.organization_id,
         description=kwargs["detail"],
         event_date=datetime_utils.get_as_utc_iso_format(event_date),

@@ -7,10 +7,8 @@ from .types import (
     EventUnreliableIndicators,
 )
 from db_model.events.enums import (
-    EventAccessibility,
     EventActionsAfterBlocking,
     EventActionsBeforeBlocking,
-    EventAffectedComponents,
     EventSolutionReason,
     EventStateStatus,
     EventType,
@@ -50,17 +48,6 @@ def format_event(item: Item) -> Event:
         ]
         if item.get("action_before_blocking")
         else None,
-        accessibility=set(
-            EventAccessibility[acc_item] for acc_item in item["accessibility"]
-        )
-        if item.get("accessibility")
-        else None,
-        affected_components=set(
-            EventAffectedComponents[aff_item]
-            for aff_item in item["affected_components"]
-        )
-        if item.get("affected_components")
-        else None,
         client=item["client"],
         context=item.get("context"),
         description=item["description"],
@@ -97,21 +84,11 @@ def format_event_item(event: Event) -> Item:
         "id": event.id,
         "state": json.loads(json.dumps(event.state)),
         "type": event.type.value,
-        "accessibility": set(
-            acc_item.value for acc_item in event.accessibility
-        )
-        if event.accessibility
-        else None,
         "action_after_blocking": event.action_after_blocking.value
         if event.action_after_blocking
         else None,
         "action_before_blocking": event.action_before_blocking.value
         if event.action_before_blocking
-        else None,
-        "affected_components": set(
-            acc_item.value for acc_item in event.affected_components
-        )
-        if event.affected_components
         else None,
         "context": event.context,
         "root_id": event.root_id,
@@ -123,19 +100,11 @@ def format_event_item(event: Event) -> Item:
 
 def format_metadata_item(metadata: EventMetadataToUpdate) -> Item:
     item = {
-        "affected_components": set(
-            acc_item.value for acc_item in metadata.affected_components
-        )
-        if metadata.affected_components
-        else None,
         "client": metadata.client,
         "description": metadata.description,
         "type": metadata.type,
     }
-    item = {key: value for key, value in item.items() if value is not None}
-    if metadata.clean_affected_components:
-        item["affected_components"] = None
-    return item
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_state(item: Item) -> EventState:
