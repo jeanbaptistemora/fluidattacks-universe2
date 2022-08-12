@@ -21,7 +21,7 @@ import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
 import { ToggleFunction } from "./columnToggle";
-import { PagMenu } from "./paginationMenu";
+import { Pagination } from "./Pagination";
 import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
@@ -288,8 +288,16 @@ const Table = <TData extends object>({
             })}
           </tbody>
         </table>
-        {data.length >= 10 ? <PagMenu table={table} /> : undefined}
       </TableContainer>
+      {data.length >= 10 ? (
+        <Pagination
+          getPageCount={table.getPageCount}
+          getState={table.getState}
+          setPageIndex={table.setPageIndex}
+          setPageSize={table.setPageSize}
+          size={data.length}
+        />
+      ) : undefined}
     </div>
   );
 };
