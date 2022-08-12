@@ -614,7 +614,7 @@
       "schedulers.send_deprecation_notice.main"
     ];
 
-    schedule_expression = "cron(0 12 6 * ? *)";
+    schedule_expression = "cron(0 12 12 * ? *)";
     size = "nano";
     awsRole = "prod_integrates";
     attempts = 3;
