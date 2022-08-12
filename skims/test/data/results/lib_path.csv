@@ -23660,7 +23660,7 @@ F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls
   13 |
   14 |
      ^ Col 22
-",analyze_headers.c_sharp_weak_protocol
+",c_sharp.c_sharp_weak_protocol
 F016,lines,namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
  in namespace/skims/test/data/lib_root/f016/httpclient_no_revocation_list.cs","
    1 | ng System.Net.Http;
