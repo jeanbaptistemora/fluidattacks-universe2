@@ -122,6 +122,7 @@ def _generate_fields() -> Dict[str, Any]:
         "draft_created": _generate_count_fields(),
         "draft_rejected": _generate_count_fields(),
         "max_cvss": 0.0,
+        "oldest_draft": 0,
         "groups": {},
     }
     return fields
@@ -152,7 +153,7 @@ def _generate_count_report(
     allowed_users: List[str],
     cvss: Decimal = Decimal("0.0"),
 ) -> None:
-    if user_email and user_email in allowed_users and date_report:
+    if user_email in allowed_users and date_report:
         date_format: date = datetime_utils.as_zone(date_report).date()
         is_valid_date = _validate_date(date_format, date_range, date_range - 1)
 
@@ -202,19 +203,18 @@ async def _draft_content(
                 FindingStateStatus.CREATED,
                 FindingStateStatus.SUBMITTED,
             ]:
-                _generate_count_report(
+                _draft_created_content(
                     content=content,
                     date_range=date_range,
                     date_report=datetime_utils.get_datetime_from_iso_str(
                         vuln.state.modified_date
                     ),
-                    field="draft_created",
                     group=group,
-                    user_email=vuln.state.modified_by,
-                    allowed_users=users_email,
+                    user_email=vuln.hacker_email,
+                    users_email=users_email,
                 )
 
-            if (
+            elif (
                 draft.state.status == FindingStateStatus.REJECTED
                 and vuln.state.justification
                 != StateRemovalJustification.EXCLUSION
@@ -227,11 +227,46 @@ async def _draft_content(
                     ),
                     field="draft_rejected",
                     group=group,
-                    user_email=vuln.state.modified_by,
+                    user_email=vuln.hacker_email,
                     allowed_users=users_email,
                 )
 
     LOGGER.info("- draft report generated in group %s", group)
+
+
+def _draft_created_content(  # pylint: disable=too-many-arguments
+    content: Dict[str, Any],
+    date_range: int,
+    date_report: datetime,
+    group: str,
+    user_email: str,
+    users_email: List[str],
+) -> None:
+    if user_email in users_email:
+        _generate_count_report(
+            content=content,
+            date_range=date_range,
+            date_report=date_report,
+            field="draft_created",
+            group=group,
+            user_email=user_email,
+            allowed_users=users_email,
+        )
+        _oldest_draft(content, date_report, user_email)
+
+
+def _oldest_draft(
+    content: Dict[str, Any],
+    date_report: datetime,
+    user_email: str,
+) -> None:
+    if not content.get(user_email):
+        content[user_email] = _generate_fields()
+
+    draft_days = (datetime_utils.get_now().date() - date_report.date()).days
+
+    if content[user_email]["oldest_draft"] < draft_days:
+        content[user_email]["oldest_draft"] = draft_days
 
 
 async def _finding_reattacked(  # pylint: disable=too-many-arguments
@@ -487,12 +522,14 @@ async def _send_mail_report(
 ) -> None:
     groups_content = content.pop("groups")
     max_cvss = content.pop("max_cvss")
+    oldest_draft = content.pop("oldest_draft")
     count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
 
     context: Dict[str, Any] = {
         "count_var_report": count_var_report,
         "groups": groups_content,
         "max_cvss": max_cvss,
+        "oldest_draft": oldest_draft,
         "responsible": responsible,
     }
 

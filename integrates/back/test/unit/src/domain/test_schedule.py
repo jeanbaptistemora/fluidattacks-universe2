@@ -112,6 +112,7 @@ def test_validate_date_fail() -> None:
                         }
                     },
                     "max_cvss": 0.0,
+                    "oldest_draft": 0,
                     "groups": {
                         "unittesting": {
                             "verified": 0,
@@ -251,6 +252,7 @@ def test_generate_count_report(
                     }
                 },
                 "max_cvss": 0.0,
+                "oldest_draft": 0,
                 "groups": {
                     "unittesting": {
                         "verified": 6,
