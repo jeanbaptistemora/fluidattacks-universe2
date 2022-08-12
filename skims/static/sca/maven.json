@@ -955,7 +955,8 @@
     "SNYK-JAVA-COMMONSCODEC-561518": "<1.13"
   },
   "commons-collections:commons-collections": {
-    "CVE-2015-7501": ">=3-alpha0 <=3.2.1"
+    "CVE-2015-7501": ">=3-alpha0 <=3.2.1",
+    "CVE-2015-6420": "4.0.0 || >=0 <=3.2.1"
   },
   "commons-fileupload:commons-fileupload": {
     "CVE-2013-0248": ">=1-alpha0 <=1.2.2",
@@ -1722,10 +1723,6 @@
   },
   "org.apache.cocoon:cocoon-core": {
     "CVE-2020-11991": ">=2.1 <=2.1.12"
-  },
-  "org.apache.commons:commons-collections": {
-    "CVE-2015-6420": "4.0.0 || >=0 <=3.2.1",
-    "CVE-2017-15708": ">=0 <=3.2.1"
   },
   "org.apache.commons:commons-collections4": {
     "CVE-2015-7501": ">=4.0 <4.1",
@@ -4977,7 +4974,8 @@
   },
   "org.springframework.data:spring-data-jpa": {
     "CVE-2019-3797": ">=1.11.0 <=1.11.19 || >=2.0.0 <=2.0.13 || >=2.1.0 <=2.1.5",
-    "CVE-2019-3802": ">=1.11.0 <=1.11.21 || >=2.0.0 <=2.1.7"
+    "CVE-2019-3802": ">=1.11.0 <=1.11.21 || >=2.0.0 <=2.1.7",
+    "CVE-2016-6652": "<=1.9.4"
   },
   "org.springframework.data:spring-data-rest-core": {
     "CVE-2017-8046": ">=0 <2.6.9 || >=3.0.0-snapshot <3.0.1",
