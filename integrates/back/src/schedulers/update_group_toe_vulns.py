@@ -102,18 +102,22 @@ async def process_toe_inputs(
     inputs_types = {VulnerabilityType.INPUTS, VulnerabilityType.PORTS}
 
     for toe_input in group_toe_inputs:
-        has_vulnerabilities: bool = any(
-            vulnerability.state.status is VulnerabilityStateStatus.OPEN
-            # ToeInput is not associated to a root_id
-            # and vulnerability.root_id == toe_input.root_id
-            and html.unescape(vulnerability.where).startswith(
-                toe_input.component
+        has_vulnerabilities: bool = (
+            any(
+                vulnerability.state.status is VulnerabilityStateStatus.OPEN
+                # ToeInput is not associated to a root_id
+                # and vulnerability.root_id == toe_input.root_id
+                and html.unescape(vulnerability.where).startswith(
+                    toe_input.component
+                )
+                and html.unescape(vulnerability.specific).startswith(
+                    toe_input.entry_point
+                )
+                for vulnerability in vulnerabilities
+                if vulnerability.type in inputs_types
             )
-            and html.unescape(vulnerability.specific).startswith(
-                toe_input.entry_point
-            )
-            for vulnerability in vulnerabilities
-            if vulnerability.type in inputs_types
+            if toe_input.be_present
+            else False
         )
 
         if toe_input.has_vulnerabilities != has_vulnerabilities:
@@ -158,15 +162,20 @@ async def process_toe_lines(
     updations = []
 
     for toe_line in group_toe_lines:
-        has_vulnerabilities = any(
-            vulnerability.state.status is VulnerabilityStateStatus.OPEN
-            and vulnerability_where_repo == root_nicknames[toe_line.root_id]
-            and vulnerability_where_path.startswith(toe_line.filename)
-            for vulnerability in vulnerabilities
-            if vulnerability.type == VulnerabilityType.LINES
-            for vulnerability_where_repo, vulnerability_where_path in [
-                _strip_first_dir(html.unescape(vulnerability.where))
-            ]
+        has_vulnerabilities = (
+            any(
+                vulnerability.state.status is VulnerabilityStateStatus.OPEN
+                and vulnerability_where_repo
+                == root_nicknames[toe_line.root_id]
+                and vulnerability_where_path.startswith(toe_line.filename)
+                for vulnerability in vulnerabilities
+                if vulnerability.type == VulnerabilityType.LINES
+                for vulnerability_where_repo, vulnerability_where_path in [
+                    _strip_first_dir(html.unescape(vulnerability.where))
+                ]
+            )
+            if toe_line.be_present
+            else False
         )
 
         if toe_line.has_vulnerabilities != has_vulnerabilities:
