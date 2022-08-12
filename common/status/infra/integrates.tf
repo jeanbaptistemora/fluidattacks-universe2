@@ -30,7 +30,7 @@ resource "checkly_check" "integrates_api" {
   name                      = "API"
   type                      = "API"
   activated                 = true
-  frequency                 = 10
+  frequency                 = 1
   double_check              = true
   ssl_check                 = true
   use_global_alert_settings = false
