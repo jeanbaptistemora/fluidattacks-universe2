@@ -87,6 +87,7 @@ async def mutate(
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
+            loaders=loaders,
             group=group_name,
             requester_email=user_email,
         )

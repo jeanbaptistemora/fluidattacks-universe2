@@ -116,7 +116,7 @@ async def get_comments(
         )
         comments = unique_reattack_comments + non_reattack_comments
 
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return tuple(comments)
     return tuple(filter(_is_scope_comment, comments))
@@ -129,7 +129,7 @@ async def get_observations(
         (CommentType.OBSERVATION, finding_id)
     )
 
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return observations
     return list(filter(_is_scope_comment, observations))

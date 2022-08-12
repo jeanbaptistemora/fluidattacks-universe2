@@ -11,7 +11,7 @@ from aioextensions import (
     run,
 )
 from authz.enforcer import (
-    get_group_level_enforcer,
+    get_group_level_enforcer_legacy,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -69,7 +69,9 @@ async def populate_index(
     gsi_2_index = TABLE.indexes["gsi_2"]
     user_email: str = metadata.get("analyst_email", "")
     if user_email:
-        enforcer = await get_group_level_enforcer(user_email, with_cache=False)
+        enforcer = await get_group_level_enforcer_legacy(
+            user_email, with_cache=False
+        )
         if not enforcer(group_name, "api_mutations_submit_draft_mutate"):
             user_email = ""
 

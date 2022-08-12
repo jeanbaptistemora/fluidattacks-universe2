@@ -173,13 +173,11 @@ async def add_comment(
     validations.validate_field_length(content, 20000)
 
     await authz.validate_handle_comment_scope(
-        content, user_email, group_name, parent_comment, info.context.store
+        loaders, content, user_email, group_name, parent_comment
     )
 
     if param_type == CommentType.OBSERVATION:
-        enforcer = await authz.get_group_level_enforcer(
-            user_email, info.context.store
-        )
+        enforcer = await authz.get_group_level_enforcer(loaders, user_email)
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
 

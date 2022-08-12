@@ -2,6 +2,9 @@ import authz
 from custom_exceptions import (
     InvalidParameter,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -19,12 +22,12 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _get_group_permissions(
-    user_email: str, group_name: str, with_cache: bool
+    loaders: Dataloaders, email: str, group_name: str
 ) -> set[str]:
     if not group_name:
         raise InvalidParameter()
     actions: set[str] = await authz.get_group_level_actions(
-        user_email, group_name, with_cache
+        loaders, email, group_name
     )
     return actions
 
@@ -34,24 +37,17 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> set[str]:
+    loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     group_name: str = parent.name
     permissions: set[str] = await _get_group_permissions(
-        user_email, group_name, with_cache=True
+        loaders, user_email, group_name
     )
     if not permissions:
         LOGGER.error(
-            "Empty permissions on _get_group_permissions with cache",
+            "Empty permissions on _get_group_permissions",
             extra=dict(extra=locals()),
         )
-        await authz.revoke_cached_subject_policies(user_email)
-        permissions = await _get_group_permissions(
-            user_email, group_name, with_cache=False
-        )
-        if not permissions:
-            LOGGER.error(
-                "Empty permissions on _get_group_permissions without cache",
-                extra=dict(extra=locals()),
-            )
+
     return permissions

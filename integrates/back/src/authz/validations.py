@@ -16,7 +16,6 @@ from db_model.groups.types import (
 )
 from typing import (
     Any,
-    DefaultDict,
 )
 
 # Constants
@@ -51,13 +50,13 @@ async def validate_fluidattacks_staff_on_group(
 
 
 async def validate_handle_comment_scope(
+    loaders: Any,
     content: str,
     user_email: str,
     group_name: str,
     parent_comment: str,
-    context_store: DefaultDict[Any, Any] = DefaultDict(str),
 ) -> None:
-    enforcer = await get_group_level_enforcer(user_email, context_store)
+    enforcer = await get_group_level_enforcer(loaders, user_email)
     if content.strip() in {"#external", "#internal"}:
         if not enforcer(group_name, "handle_comment_scope"):
             raise PermissionDenied()

@@ -166,7 +166,7 @@ async def add_comment(
 
     validations.validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
-        content, user_email, group_name, parent_comment, info.context.store
+        loaders, content, user_email, group_name, parent_comment
     )
     if parent_comment != "0":
         event_comments: list[EventComment] = await loaders.event_comments.load(

@@ -29,7 +29,7 @@ async def get_event_comments(
 ) -> list[EventComment]:
     comments: list[EventComment] = await loaders.event_comments.load(event_id)
 
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if enforcer(group_name, "handle_comment_scope"):
         return comments
     return list(filter(_is_scope_comment, comments))

@@ -111,14 +111,15 @@ async def mutate(
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
 
+    loaders: Dataloaders = info.context.loaders
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
+            loaders=loaders,
             group=group_name,
             requester_email=user_email,
         )
     )
 
-    loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(group_name)
     await authz.validate_fluidattacks_staff_on_group(
         group, modified_email, modified_role

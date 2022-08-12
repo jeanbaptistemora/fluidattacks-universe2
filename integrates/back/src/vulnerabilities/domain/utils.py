@@ -103,7 +103,7 @@ async def get_valid_assigned(
 ) -> str:
     if not is_manager:
         assigned = user_email
-    enforcer = await authz.get_group_level_enforcer(assigned)
+    enforcer = await authz.get_group_level_enforcer(loaders, assigned)
     if await stakeholders_domain.exists(loaders, assigned):
         stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
     else:

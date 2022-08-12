@@ -239,7 +239,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise PermissionDenied()
 
     gitignore = kwargs["gitignore"]
-    group_enforcer = await authz.get_group_level_enforcer(user_email)
+    group_enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if gitignore and not group_enforcer(group_name, "update_git_root_filter"):
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
@@ -708,7 +708,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         )
 
     gitignore = kwargs["gitignore"]
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if gitignore != root.state.gitignore and not enforcer(
         group_name, "update_git_root_filter"
     ):

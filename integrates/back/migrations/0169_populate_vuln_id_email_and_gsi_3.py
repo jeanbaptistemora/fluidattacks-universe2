@@ -11,7 +11,7 @@ from aioextensions import (
     run,
 )
 from authz.enforcer import (
-    get_group_level_enforcer,
+    get_group_level_enforcer_legacy,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -69,7 +69,9 @@ async def populate_index(*, current: Dict, group_name: str) -> None:
         treatment=format_vulnerability(current).treatment
     )
     if user_email:
-        enforcer = await get_group_level_enforcer(user_email, with_cache=False)
+        enforcer = await get_group_level_enforcer_legacy(
+            user_email, with_cache=False
+        )
         if not enforcer(group_name, "valid_assigned"):
             user_email = ""
     gsi_3_key = keys.build_key(

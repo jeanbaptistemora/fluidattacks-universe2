@@ -1653,7 +1653,7 @@ async def request_upgrade(
     Lead the user towards a subscription upgrade managed by our team.
     This is meant to be a temporary flow while the billing module gets ready.
     """
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     if not all(
         enforcer(group_name, "request_group_upgrade")
         for group_name in group_names

@@ -179,7 +179,7 @@ async def update_nickname(*, item: BatchProcessing) -> None:
     LOGGER.info(
         "Updating nickname in vulnerabilities in root", extra={"extra": item}
     )
-    enforcer = await get_group_level_enforcer(subject, with_cache=False)
+    enforcer = await get_group_level_enforcer(loaders, subject)
     if enforcer(
         group_name,
         "api_mutations_update_git_root_mutate",

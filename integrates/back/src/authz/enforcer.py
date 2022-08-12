@@ -7,6 +7,10 @@ from .model import (
 from .policy import (
     get_cached_group_service_policies,
     get_cached_subject_policies,
+    get_user_level_role,
+)
+from db_model.group_access.types import (
+    GroupAccess,
 )
 from db_model.groups.types import (
     Group,
@@ -14,36 +18,33 @@ from db_model.groups.types import (
 from typing import (
     Any,
     Callable,
-    DefaultDict,
 )
 
 
 async def get_group_level_enforcer(
-    subject: str,
-    context_store: DefaultDict[Any, Any] = DefaultDict(str),
-    with_cache: bool = True,
+    loaders: Any,
+    email: str,
 ) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided subject.
     The argument `context_store` will be used to memoize round-trips.
     """
-    policies = await get_cached_subject_policies(
-        subject, context_store, with_cache=with_cache
-    )
-    roles = get_group_level_roles_model(subject)
+    groups_access: tuple[
+        GroupAccess, ...
+    ] = await loaders.stakeholder_groups_access.load(email)
+    roles = get_group_level_roles_model(email)
+    user_level_role = await get_user_level_role(loaders, email)
 
     def enforcer(r_object: str, r_action: str) -> bool:
         return any(
             # Regular user with a group policy set for the r_object
-            p_level == "group"
-            and r_object == p_object
-            and r_action in roles.get(p_role, {}).get("actions", set())
-            for p_level, p_object, p_role in policies
-        ) or any(
+            r_object == access.group_name
+            and access.role
+            and r_action in roles.get(access.role, {}).get("actions", set())
+            for access in groups_access
+        ) or (
             # An admin
-            p_level == "user"
-            and p_role == "admin"
-            and r_action in roles.get(p_role, {}).get("actions", set())
-            for p_level, _, p_role in policies
+            user_level_role == "admin"
+            and r_action in roles.get("admin", {}).get("actions", set())
         )
 
     return enforcer

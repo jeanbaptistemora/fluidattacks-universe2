@@ -3,6 +3,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    group_access as group_access_model,
+    stakeholders as stakeholders_model,
+)
 import pytest
 from typing import (
     Any,
@@ -16,9 +20,7 @@ pytestmark = [
 ]
 
 
-@pytest.mark.changes_db
 async def test_group_level_enforcer() -> None:
-    loaders: Dataloaders = get_new_context()
     test_cases = {
         # Common user, group
         ("test@tests.com", "test"),
@@ -29,10 +31,16 @@ async def test_group_level_enforcer() -> None:
         model = authz.get_group_level_roles_model(subject)
 
         for role in model:
+            await stakeholders_model.remove(email=subject)
             await authz.revoke_user_level_role(subject)
+            await group_access_model.remove(email=subject, group_name=group)
             await authz.revoke_group_level_role(subject, group)
-            await authz.grant_group_level_role(loaders, subject, group, role)
-            enforcer = await authz.get_group_level_enforcer(subject)
+            await authz.grant_group_level_role(
+                get_new_context(), subject, group, role
+            )
+            enforcer = await authz.get_group_level_enforcer(
+                get_new_context(), subject
+            )
 
             for action in model[role]["actions"]:
                 assert enforcer(

@@ -38,7 +38,7 @@ async def add_comment(
     content = comment_data.content
     validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
-        content, email, group_name, parent_comment, info.context.store
+        loaders, content, email, group_name, parent_comment
     )
     if parent_comment != "0":
         comments: list[GroupComment] = await loaders.group_comments.load(
@@ -57,7 +57,7 @@ async def delete_comment(group_name: str, user_id: str) -> bool:
 async def list_comments(
     loaders: Any, group_name: str, user_email: str
 ) -> list[GroupComment]:
-    enforcer = await authz.get_group_level_enforcer(user_email)
+    enforcer = await authz.get_group_level_enforcer(loaders, user_email)
     comments = await loaders.group_comments.load(group_name)
 
     if enforcer(group_name, "handle_comment_scope"):

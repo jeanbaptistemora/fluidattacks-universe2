@@ -47,7 +47,7 @@ async def test_get_group_level_actions_model(email: str, group: str) -> None:
     group_level_role = await authz.get_group_level_role(loaders, email, group)
 
     assert await authz.get_group_level_actions(
-        email, group
+        loaders, email, group
     ) == authz.get_group_level_roles_model(email).get(
         group_level_role, {}
     ).get(
