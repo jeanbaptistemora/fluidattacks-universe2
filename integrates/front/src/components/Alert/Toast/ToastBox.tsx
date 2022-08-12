@@ -15,8 +15,11 @@ const StyledToastBox = styled(ToastContainer)`
   > .Toastify__toast {
     border-radius: 4px;
     margin-bottom: 6px;
-    padding: 0;
     position: relative;
+
+    .comp-alert {
+      padding: 20px 12px;
+    }
 
     > .comp-button {
       position: absolute;
