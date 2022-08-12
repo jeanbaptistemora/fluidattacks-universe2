@@ -41,15 +41,16 @@ describe("Reject draft modal", (): void => {
       />
     );
 
-    expect(screen.queryByLabelText("other")).not.toBeInTheDocument();
+    // Check for the absence and then presence of the `other` field
     expect(screen.queryByText("group.drafts.reject.title")).toBeInTheDocument();
+    expect(screen.queryByLabelText("other")).not.toBeInTheDocument();
 
     userEvent.selectOptions(screen.getByLabelText("reason"), "OTHER");
-
     await waitFor((): void => {
       expect(screen.queryByLabelText("other")).toBeInTheDocument();
     });
 
+    // Validate required field
     expect(screen.queryByText("validations.required")).not.toBeInTheDocument();
 
     userEvent.click(screen.getByLabelText("other"));
@@ -57,6 +58,21 @@ describe("Reject draft modal", (): void => {
 
     await waitFor((): void => {
       expect(screen.queryByText("validations.required")).toBeInTheDocument();
+    });
+
+    // Validate forbidden characters
+    expect(
+      screen.queryByText("Field cannot begin with the following character: '='")
+    ).not.toBeInTheDocument();
+
+    userEvent.type(screen.getByLabelText("other"), "=I'm trying to sql inject");
+    fireEvent.blur(screen.getByLabelText("other"));
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(
+          "Field cannot begin with the following character: '='"
+        )
+      ).toBeInTheDocument();
     });
   });
 });
