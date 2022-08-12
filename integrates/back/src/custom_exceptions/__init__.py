@@ -1591,9 +1591,3 @@ class RequiredFieldToBeUpdate(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - A field is required to be updated"
         super(RequiredFieldToBeUpdate, self).__init__(msg)
-
-
-class GirRootHasUnsolvedEvents(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - Git root has unsolved events"
-        super(GirRootHasUnsolvedEvents, self).__init__(msg)

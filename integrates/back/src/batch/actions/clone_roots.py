@@ -314,7 +314,7 @@ async def queue_sync_git_roots(  # pylint: disable=too-many-locals
         raise CredentialNotFound()
 
     # Filter repositories with unsolved events for groups without squad
-    if not group.state.has_squad:
+    if not group.state.has_squad and not force:
         unsolved_events_by_root = (
             await events_domain.get_unsolved_events_by_root(
                 loaders, group_name
