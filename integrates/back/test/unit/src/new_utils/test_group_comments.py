@@ -11,7 +11,7 @@ pytestmark = [
 ]
 
 
-async def test_fill_comment_data() -> None:
+async def test_format_group_consulting_resolve() -> None:
     test_data = GroupComment(
         group_name="unittesting",
         content="test content",
