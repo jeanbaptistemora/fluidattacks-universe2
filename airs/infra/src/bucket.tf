@@ -111,6 +111,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "dev" {
   }
 }
 
+resource "aws_s3_bucket_cors_configuration" "dev" {
+  bucket = aws_s3_bucket.dev.id
+
+  cors_rule {
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = [
+      "https://fluidattacks.com/",
+      "https://salesiq.zoho.com/widget",
+      "https://cdnjs.cloudflare.com/"
+    ]
+    max_age_seconds = 3600
+  }
+}
+
 resource "aws_s3_bucket_lifecycle_configuration" "dev" {
   bucket = aws_s3_bucket.dev.id
 
