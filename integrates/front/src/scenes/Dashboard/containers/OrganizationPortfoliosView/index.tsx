@@ -4,7 +4,7 @@ import type { FormEvent } from "react";
 import React, { StrictMode } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { Tables } from "components/TableNew";
+import { Table } from "components/TableNew";
 import type {
   IOrganizationPortfoliosProps,
   IPortfolios,
@@ -84,7 +84,7 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
   return (
     <StrictMode>
       {_.isEmpty(portfolios) ? undefined : (
-        <Tables
+        <Table
           columns={tableHeaders}
           data={formatPortfolioTableData(portfolios)}
           id={"tblGroups"}

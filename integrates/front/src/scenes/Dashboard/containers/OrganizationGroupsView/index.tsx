@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
-import { Tables } from "components/TableNew";
+import { Table } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import { BaseStep, Tour } from "components/Tour/index";
 import { AddGroupModal } from "scenes/Dashboard/components/AddGroupModal";
@@ -170,7 +170,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
   return (
     <StrictMode>
       {_.isUndefined(data) || _.isEmpty(data) ? undefined : (
-        <Tables
+        <Table
           columns={tableHeaders}
           data={dataset}
           extraButtons={

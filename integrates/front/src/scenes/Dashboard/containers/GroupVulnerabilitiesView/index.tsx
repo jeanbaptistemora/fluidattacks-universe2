@@ -12,7 +12,7 @@ import { useGroupVulnerabilities } from "./hooks";
 import type { IVulnerability } from "./types";
 import { filterByState, filterByTreatment } from "./utils";
 
-import { Tables } from "components/TableNew";
+import { Table } from "components/TableNew";
 import { formatLinkHandler } from "components/TableNew/formatters/linkFormatter";
 import { Tab, Tabs } from "components/Tabs";
 import { TabContent } from "styles/styledComponents";
@@ -97,7 +97,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
           {views.map(({ title, filter }): JSX.Element => {
             return (
               <Route exact={true} key={title} path={`${path}/${title}`}>
-                <Tables
+                <Table
                   columns={tableColumns}
                   data={vulnerabilities.filter(filter)}
                   exportCsv={false}

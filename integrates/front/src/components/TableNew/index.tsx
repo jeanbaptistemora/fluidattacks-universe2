@@ -13,7 +13,6 @@ import type {
   FilterFn,
   FilterMeta,
   Row,
-  RowData,
   SortingState,
 } from "@tanstack/react-table";
 import type { ChangeEvent, ReactElement } from "react";
@@ -29,7 +28,7 @@ import type { ITableProps } from "./types";
 import { Gap } from "components/Layout/Gap";
 import { SearchText } from "styles/styledComponents";
 
-const Tables = <TData extends RowData>({
+const Table = <TData extends object>({
   columns,
   columnToggle = false,
   csvName = "Report",
@@ -268,10 +267,10 @@ const Tables = <TData extends RowData>({
             })}
           </tbody>
         </table>
+        {data.length >= 10 ? <PagMenu table={table} /> : undefined}
       </TableContainer>
-      {data.length >= 10 ? <PagMenu table={table} /> : undefined}
     </div>
   );
 };
 
-export { Tables };
+export { Table };
