@@ -5,11 +5,17 @@ from aioextensions import (
 from aiohttp.client_exceptions import (
     ClientPayloadError,
 )
+import base64
+import boto3
+from context import (
+    FI_AWS_REGION_NAME,
+)
 from contextlib import (
     suppress,
 )
 from custom_exceptions import (
     InvalidUrl,
+    ToeInputNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -61,6 +67,8 @@ from findings import (
 from findings.types import (
     FindingDraftToAdd,
 )
+import json
+import logging
 from newutils import (
     datetime as datetime_utils,
 )
@@ -77,6 +85,11 @@ from organizations_finding_policies import (
 import pytz  # type: ignore
 from settings.various import (
     TIME_ZONE,
+)
+from signal import (
+    SIGINT,
+    signal,
+    SIGTERM,
 )
 import tempfile
 from time import (
@@ -103,6 +116,19 @@ import yaml  # type: ignore
 from yaml.reader import (  # type: ignore
     ReaderError,
 )
+
+LOGGER = logging.getLogger(__name__)
+
+
+class SignalHandler:  # pylint: disable=too-few-public-methods
+    def __init__(self) -> None:
+        self.received_signal = False
+        signal(SIGINT, self._signal_handler)  # type: ignore
+        signal(SIGTERM, self._signal_handler)  # type: ignore
+
+    def _signal_handler(self, _signal: str, _: Any) -> None:
+        print(f"handling signal {_signal}, exiting gracefully")
+        self.received_signal = True
 
 
 async def get_config(
@@ -196,7 +222,7 @@ async def _create_draft(
         threat=criteria_vulnerability[language]["threat"],
         title=(
             f"{vulnerability_id}. "
-            f"{criteria_vulnerability[language]['tittle']}"
+            f"{criteria_vulnerability[language]['title']}"
         ),
     )
     return await findings_domain.add_draft(
@@ -455,7 +481,7 @@ async def ensure_toe_inputs(
     for vuln in stream["inputs"]:
         if vuln["state"] != "open":
             continue
-        with suppress(InvalidUrl):
+        with suppress(InvalidUrl, ToeInputNotFound):
             await toe_inputs_domain.add(
                 loaders=loaders,
                 group_name=group_name,
@@ -482,11 +508,14 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
         org_name=organization,
         finding_name=finding.title.lower(),
     )
-    if (len(stream["inputs"]) + len(stream["inputs"])) > 0:
-        length = len(stream["inputs"]) + len(stream["inputs"])
-        print(f"{length}  vuln to close")
+
+    if (len(stream["inputs"]) + len(stream["lines"])) > 0:
+        length = len(stream["inputs"]) + len(stream["lines"])
+        LOGGER.info(
+            "%s vulns to modify for the finding %s", length, finding.id
+        )
         await ensure_toe_inputs(loaders, group_name, git_root.id, stream)
-        return await map_vulnerabilities_to_dynamo(
+        result = await map_vulnerabilities_to_dynamo(
             loaders=loaders,
             vulns_data_from_file=stream,
             group_name=group_name,
@@ -498,6 +527,10 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
                 "last_name": "machine",
             },
         )
+        return result
+    LOGGER.warning(
+        "No vulnerabilities found to modify for finding %s", finding.id
+    )
     return None
 
 
@@ -593,6 +626,7 @@ async def process_criteria_vuln(
     ]
     execution_config: Dict[str, Any] = kwargs["execution_config"]
     if finding is None:
+        LOGGER.info("Cloud not find a finding for %s", vulnerability_id)
         finding = await _create_draft(
             group_name,
             vulnerability_id,
@@ -621,6 +655,7 @@ async def process_criteria_vuln(
         sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
         git_root.state.nickname,
     )
+
     reattack_future = add_reattack_justification(
         finding.id,
         _get_vulns_with_reattack(
@@ -641,8 +676,8 @@ async def process_criteria_vuln(
         git_root,
         finding,
         {
-            "inputs": [*vulns_to_close["inputs"], vulns_to_open["inputs"]],
-            "lines": [*vulns_to_close["lines"], vulns_to_close["lines"]],
+            "inputs": [*vulns_to_open["inputs"], *vulns_to_close["inputs"]],
+            "lines": [*vulns_to_open["lines"], *vulns_to_close["lines"]],
         },
         kwargs["organization"],
     ):
@@ -655,7 +690,8 @@ async def process_execution(
     execution_id: str,
     criteria_vulns: dict[str, Any],
     criteria_reqs: dict[str, Any],
-) -> None:
+) -> bool:
+    LOGGER.info("Processing the execution %s", execution_id)
     group_name = execution_id.split("_", maxsplit=1)[0]
     execution_config = await get_config(boto3_session, execution_id)
     try:
@@ -667,17 +703,25 @@ async def process_execution(
             and root.state.nickname == execution_config["namespace"]
         )
     except StopIteration:
-        return
-    group_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+        LOGGER.warning(
+            "Cloud not find root %s for the execution %s",
+            execution_config["namespace"],
+            execution_id,
+        )
+        return False
     results = await get_sarif_log(boto3_session, execution_id)
     if not results:
-        return
+        LOGGER.warning("Cloud not find execution result %s", execution_id)
+        return False
 
     rules_id: List[str] = [
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     ]
+    if not rules_id:
+        LOGGER.info("Execution %s has no results", execution_id)
+    group_findings: Tuple[
+        Finding, ...
+    ] = await loaders.group_drafts_and_findings.load(group_name)
     group_findings = tuple(
         finding
         for finding in group_findings
@@ -697,6 +741,11 @@ async def process_execution(
             (await loaders.group.load(group_name)).organization_id
         )
     ).name
+    LOGGER.info(
+        "Processing %s findings in the execution %s",
+        len(rules_finding),
+        execution_id,
+    )
     await collect(
         [
             process_criteria_vuln(
@@ -715,14 +764,39 @@ async def process_execution(
             for vuln_id, finding in rules_finding
         ]
     )
+    return True
+
+
+def _decode_sqs_message(message: Any) -> str:
+    return json.loads(
+        base64.b64decode(
+            json.loads(base64.b64decode(message.body).decode())["body"]
+        ).decode()
+    )["id"]
 
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    execution_id = ""
     criteria_vulns = await get_vulns_file()
     criteria_reqs = get_requirements_file()
     session = aioboto3.Session()
-    await process_execution(
-        loaders, session, execution_id, criteria_vulns, criteria_reqs
-    )
+    sqs = boto3.resource("sqs", region_name=FI_AWS_REGION_NAME)
+    queue = sqs.get_queue_by_name(QueueName="skims-report-queue")
+    signal_handler = SignalHandler()
+    while not signal_handler.received_signal:
+        messages = queue.receive_messages(
+            MessageAttributeNames=["All"],
+            MaxNumberOfMessages=10,
+            WaitTimeSeconds=3,
+        )
+        futures = [
+            process_execution(
+                loaders,
+                session,
+                _decode_sqs_message(message),
+                criteria_vulns,
+                criteria_reqs,
+            )
+            for message in messages
+        ]
+        await collect(futures)
