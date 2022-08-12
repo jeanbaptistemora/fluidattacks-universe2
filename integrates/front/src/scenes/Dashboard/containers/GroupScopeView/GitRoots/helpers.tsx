@@ -385,9 +385,6 @@ const handleSyncError = (graphQLErrors: readonly GraphQLError[]): void => {
       case "Exception - The root already has an active cloning process":
         msgError(translate.t("group.scope.git.sync.alreadyCloning"));
         break;
-      case "Exception - Git root has unsolved events":
-        msgError(translate.t("group.scope.git.sync.hasUnsolvedEvents"));
-        break;
       default:
         msgError(translate.t("groupAlerts.errorTextsad"));
         Logger.error("Couldn't queue root cloning", error);

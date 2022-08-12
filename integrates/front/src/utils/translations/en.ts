@@ -997,7 +997,6 @@ export const enTranslations: ResourceKey = {
         },
         sync: {
           alreadyCloning: "Git root already has an active cloning process",
-          hasUnsolvedEvents: "Git root has unsolved events",
           noCredentials:
             "Git root cannot be cloned due to lack of access credentials",
           success: "Sync started successfully",
