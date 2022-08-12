@@ -237,6 +237,21 @@ locals {
             ]
             Resource = ["*"]
           },
+          {
+            Sid    = "sqsAll"
+            Effect = "Allow"
+            Action = [
+              "sqs:*",
+              "sqs:ChangeMessageVisibility",
+              "sqs:DeleteMessage",
+              "sqs:GetQueueUrl",
+              "sqs:ReceiveMessage",
+            ]
+            Resource = [
+              "arn:aws:sqs:us-east-1:205810638802:skims-*",
+              "arn:aws:sqs:us-east-1:205810638802:celery",
+            ]
+          },
         ]
       }
       cloudflare = {
