@@ -38,7 +38,6 @@ from typing import (
     Union,
 )
 from utils.function import (
-    shield,
     SkimsCanNotOperate,
     StopRetrying,
 )
@@ -54,7 +53,6 @@ from zone import (
 
 # Constants
 TFun = TypeVar("TFun", bound=Callable[..., Any])
-SHIELD: Callable[[TFun], TFun] = shield(retries=12)
 
 
 class ErrorMapping(NamedTuple):
@@ -114,6 +112,7 @@ async def _execute(
     variables: Dict[str, Any],
     client: Optional[GraphQLClient] = None,
 ) -> Dict[str, Any]:
+    retries: int = 0
     while True:
         response = await _request(
             query=query,
@@ -121,6 +120,13 @@ async def _execute(
             variables=variables,
             client=client,
         )
+
+        if response.status >= 500:
+            retries += 1
+            if retries == 3:
+                break
+            await asyncio.sleep(retries)
+
         if response.status == 429 and (
             seconds := response.headers.get("retry-after")
         ):
@@ -161,7 +167,6 @@ async def _execute(
     return result
 
 
-@SHIELD
 async def get_group_level_role(
     *,
     group: str,
@@ -202,7 +207,6 @@ async def get_group_finding_ids(group: str) -> Tuple[str, ...]:
     )
 
 
-@SHIELD
 async def get_group_findings(
     *,
     group: str,
@@ -258,7 +262,6 @@ async def get_group_findings(
     return tuple(findings)
 
 
-@SHIELD
 async def get_group_language(
     group: str,
     client: Optional[GraphQLClient] = None,
@@ -282,7 +285,6 @@ async def get_group_language(
     return None
 
 
-@SHIELD
 async def get_group_open_severity(
     group: str,
     client: Optional[GraphQLClient] = None,
@@ -322,7 +324,6 @@ class ResultGetGroupRoots(NamedTuple):
     download_url: Optional[str] = None
 
 
-@SHIELD
 async def get_group_roots(
     *,
     group: str,
@@ -377,7 +378,6 @@ async def get_group_roots(
         return tuple()
 
 
-@SHIELD
 async def get_group_root_download_url(
     *,
     group: str,
@@ -408,7 +408,6 @@ async def get_group_root_download_url(
         return (root_id, None)
 
 
-@SHIELD
 async def get_finding_current_release_status(
     *,
     finding_id: str,
@@ -437,7 +436,6 @@ async def get_finding_current_release_status(
     return core_model.FindingReleaseStatusEnum.APPROVED
 
 
-@SHIELD
 async def get_finding_vulnerabilities(  # pylint: disable=too-many-locals
     finding: core_model.FindingEnum,
     finding_id: str,
@@ -607,7 +605,6 @@ class ResultCreateDraft(NamedTuple):
     id: str = ""
 
 
-@SHIELD
 async def do_create_draft(
     *,
     finding: core_model.FindingEnum,
@@ -667,7 +664,6 @@ async def do_create_draft(
     return ResultCreateDraft(success=False)
 
 
-@SHIELD
 async def do_delete_finding(
     *,
     finding_id: str,
@@ -703,7 +699,6 @@ async def do_delete_finding(
     return success
 
 
-@SHIELD
 async def do_approve_draft(
     *,
     finding_id: str,
@@ -738,7 +733,6 @@ async def do_approve_draft(
     return False
 
 
-@SHIELD
 async def do_submit_draft(
     *,
     finding_id: str,
@@ -773,7 +767,6 @@ async def do_submit_draft(
     return False
 
 
-@SHIELD
 async def do_update_finding_severity(
     *,
     finding_id: str,
@@ -857,7 +850,6 @@ async def do_update_finding_severity(
 
 
 # @rate_limited(rpm=DO_UPDATE_EVIDENCE_RATE_LIMIT)
-@SHIELD
 async def do_update_evidence(
     *,
     evidence_id: core_model.FindingEvidenceIDEnum,
@@ -898,7 +890,6 @@ async def do_update_evidence(
     return False
 
 
-@SHIELD
 async def do_update_evidence_description(
     *,
     evidence_description: str,
@@ -981,7 +972,6 @@ async def do_update_vulnerability_commit(
     return False
 
 
-@SHIELD
 async def do_upload_vulnerabilities(
     *,
     finding_id: str,
@@ -1026,7 +1016,6 @@ async def do_upload_vulnerabilities(
     return False
 
 
-@SHIELD
 async def do_verify_request_vuln(
     *,
     closed_vulnerabilities: Tuple[str, ...],
@@ -1068,7 +1057,6 @@ async def do_verify_request_vuln(
     return False
 
 
-@SHIELD
 async def do_add_execution(
     *,
     root: str,
@@ -1119,7 +1107,6 @@ async def do_add_execution(
     return False
 
 
-@SHIELD
 async def do_start_execution(
     *,
     root: str,
@@ -1166,7 +1153,6 @@ async def do_start_execution(
     return False
 
 
-@SHIELD
 async def do_finish_execution(
     *,
     root: str,
@@ -1213,7 +1199,6 @@ async def do_finish_execution(
     return False
 
 
-@SHIELD
 async def do_add_finding_consult(
     *,
     content: str,
@@ -1258,7 +1243,6 @@ async def do_add_finding_consult(
     return False
 
 
-@SHIELD
 async def get_finding_consult(
     *,
     finding_id: str,
@@ -1296,7 +1280,6 @@ class ToEInput(NamedTuple):
     entry_point: str
 
 
-@SHIELD
 async def do_add_toe_input(
     group: str,
     root_id: str,
