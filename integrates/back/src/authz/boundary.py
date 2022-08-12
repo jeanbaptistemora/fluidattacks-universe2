@@ -112,15 +112,12 @@ async def get_organization_level_roles_a_user_can_grant(
     return roles_the_user_can_grant
 
 
-async def get_user_level_actions(
-    subject: str, with_cache: bool = True
-) -> set[str]:
-    enforcer = await get_user_level_enforcer(subject, with_cache=with_cache)
-    object_ = "self"
+async def get_user_level_actions(loaders: Any, subject: str) -> set[str]:
+    enforcer = await get_user_level_enforcer(loaders, subject)
     user_actions = {
         action
         for action in get_user_level_actions_model(subject)
-        if enforcer(object_, action)
+        if enforcer(action)
     }
     if not user_actions:
         LOGGER.error(
@@ -132,13 +129,14 @@ async def get_user_level_actions(
 
 async def get_user_level_roles_a_user_can_grant(
     *,
+    loaders: Any,
     requester_email: str,
 ) -> tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
-    enforcer = await get_user_level_enforcer(requester_email)
+    enforcer = await get_user_level_enforcer(loaders, requester_email)
     roles_the_user_can_grant: tuple[str, ...] = tuple(
         role
         for role in get_user_level_roles_model(requester_email)
-        if enforcer("self", f"grant_user_level_role:{role}")
+        if enforcer(f"grant_user_level_role:{role}")
     )
     return roles_the_user_can_grant

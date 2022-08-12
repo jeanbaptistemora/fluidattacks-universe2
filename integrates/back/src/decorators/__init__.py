@@ -320,11 +320,11 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
 
         user_data = await token_utils.get_jwt_content(context)
         subject = user_data["user_email"]
-        object_ = "self"
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
-        enforcer = await authz.get_user_level_enforcer(subject)
-        if not enforcer(object_, action):
+        loaders = context.loaders
+        enforcer = await authz.get_user_level_enforcer(loaders, subject)
+        if not enforcer(action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError("Access denied")
         return await _func(*args, **kwargs)

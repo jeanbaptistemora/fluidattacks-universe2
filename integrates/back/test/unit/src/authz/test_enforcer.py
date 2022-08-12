@@ -105,23 +105,26 @@ async def test_group_level_enforcer() -> None:
 
 @pytest.mark.changes_db
 async def test_user_level_enforcer() -> None:
-    test_cases = {
-        # Common user, object_
-        ("test@tests.com", "self"),
-        # Fluid user, object_
-        ("test@fluidattacks.com", "self"),
-    }
-    for subject, object_ in test_cases:
+    test_cases = [
+        # Common user
+        "test@tests.com",
+        # Fluid user
+        "test@fluidattacks.com",
+    ]
+    for subject in test_cases:
         model = authz.get_user_level_roles_model(subject)
 
         for role in model:
+            await stakeholders_model.remove(email=subject)
             await authz.revoke_user_level_role(subject)
             await authz.grant_user_level_role(subject, role)
-            enforcer = await authz.get_user_level_enforcer(subject)
+            enforcer = await authz.get_user_level_enforcer(
+                get_new_context(), subject
+            )
 
             for action in model[role]["actions"]:
                 assert enforcer(
-                    object_, action
+                    action
                 ), f"{role} should be able to do {action}"
 
             for other_role in model:
@@ -129,7 +132,7 @@ async def test_user_level_enforcer() -> None:
                     model[other_role]["actions"] - model[role]["actions"]
                 ):
                     assert not enforcer(
-                        object_, action
+                        action
                     ), f"{role} should not be able to do {action}"
 
 

@@ -24,7 +24,7 @@ async def test_get_user_level_actions_model(email: str) -> None:
     user_level_role = await authz.get_user_level_role(loaders, email)
 
     assert await authz.get_user_level_actions(
-        email
+        loaders, email
     ) == authz.get_user_level_roles_model(email).get(user_level_role, {}).get(
         "actions"
     )

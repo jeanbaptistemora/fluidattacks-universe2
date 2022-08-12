@@ -44,7 +44,7 @@ async def remove_default_org_access(
     email: str,
     default_org_id: str,
 ) -> bool:
-    enforcer = await authz.get_user_level_enforcer(email)
+    enforcer = await authz.get_user_level_enforcer_legacy(email)
     if enforcer("self", "keep_default_organization_access"):
         return True
     orgs_ids: List[str] = await orgs_domain.get_user_organizations(email)

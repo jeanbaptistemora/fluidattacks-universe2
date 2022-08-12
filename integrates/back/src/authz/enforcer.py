@@ -6,7 +6,6 @@ from .model import (
 )
 from .policy import (
     get_cached_group_service_policies,
-    get_cached_subject_policies,
     get_user_level_role,
 )
 from db_model.group_access.types import (
@@ -35,17 +34,17 @@ async def get_group_level_enforcer(
     roles = get_group_level_roles_model(email)
     user_level_role = await get_user_level_role(loaders, email)
 
-    def enforcer(r_object: str, r_action: str) -> bool:
+    def enforcer(group_name_to_test: str, action: str) -> bool:
         return any(
             # Regular user with a group policy set for the r_object
-            r_object == access.group_name
+            group_name_to_test == access.group_name
             and access.role
-            and r_action in roles.get(access.role, {}).get("actions", set())
+            and action in roles.get(access.role, {}).get("actions", set())
             for access in groups_access
         ) or (
             # An admin
             user_level_role == "admin"
-            and r_action in roles.get("admin", {}).get("actions", set())
+            and action in roles.get("admin", {}).get("actions", set())
         )
 
     return enforcer
@@ -81,46 +80,34 @@ async def get_organization_level_enforcer(
     roles = get_organization_level_roles_model(email)
     user_level_role = await get_user_level_role(loaders, email)
 
-    def enforcer(r_object: str, r_action: str) -> bool:
+    def enforcer(organization_id_to_test: str, action: str) -> bool:
         return any(
             # Regular user with an organization policy set for the r_object
-            r_object == access.organization_id
+            organization_id_to_test == access.organization_id
             and access.role
-            and r_action in roles.get(access.role, {}).get("actions", set())
+            and action in roles.get(access.role, {}).get("actions", set())
             for access in orgs_access
         ) or (
             # An admin
             user_level_role == "admin"
-            and r_action in roles.get("admin", {}).get("actions", set())
+            and action in roles.get("admin", {}).get("actions", set())
         )
 
     return enforcer
 
 
 async def get_user_level_enforcer(
-    subject: str,
-    with_cache: bool = True,
-) -> Callable[[str, str], bool]:
-    """Return a filtered group-level authorization for the provided subject."""
-    policies = await get_cached_subject_policies(
-        subject, with_cache=with_cache
-    )
-    roles = get_user_level_roles_model(subject)
+    loaders: Any,
+    email: str,
+) -> Callable[[str], bool]:
+    """Return a filtered group-level authorization for the provided email."""
+    roles = get_user_level_roles_model(email)
+    user_level_role = await get_user_level_role(loaders, email)
 
-    # Filter results as early as possible to save cycles in the enforcer
-    policies = tuple(
-        item
-        for item in policies
-        for p_level, *_ in [item]
-        if p_level == "user"
-    )
-
-    def enforcer(r_object: str, r_action: str) -> bool:
-        should_grant_access: bool = any(
-            r_object == p_object
-            and r_action in roles.get(p_role, {}).get("actions", set())
-            for _, p_object, p_role in policies
+    def enforcer(action: str) -> bool:
+        return bool(
+            user_level_role
+            and action in roles.get(user_level_role, {}).get("actions", set())
         )
-        return should_grant_access
 
     return enforcer

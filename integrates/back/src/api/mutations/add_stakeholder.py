@@ -8,6 +8,9 @@ from custom_exceptions import (
 from custom_types import (
     AddStakeholderPayload,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from decorators import (
     concurrent_decorators,
     enforce_user_level_auth_async,
@@ -43,11 +46,13 @@ async def mutate(
     email: str,
     role: str,
 ) -> AddStakeholderPayload:
+    loaders: Dataloaders = info.context.loaders
     role = map_roles(role)
     success: bool = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
+        loaders=loaders,
         requester_email=user_email,
     )
 
