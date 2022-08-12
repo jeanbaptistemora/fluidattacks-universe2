@@ -16,6 +16,9 @@ from charts.generators.bar_chart.utils import (
     ORGANIZATION_CATEGORIES,
     PORTFOLIO_CATEGORIES,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data,
+)
 from charts.generators.stacked_bar_chart.utils import (
     get_percentage,
     MIN_PERCENTAGE,
@@ -393,7 +396,7 @@ def format_data(
     )
 
 
-async def generate_all() -> None:
+async def generate_all() -> None:  # pylint: disable=too-many-locals
     loaders: Dataloaders = get_new_context()
     organizations: List[Tuple[str, Tuple[str, ...]]] = []
     portfolios: List[Tuple[str, Tuple[str, ...]]] = []
@@ -438,51 +441,56 @@ async def generate_all() -> None:
         organizations=all_portfolios_data
     )
 
+    header: str = "Categories"
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
-        utils.json_dump(
-            document=format_data(
-                organization=await get_data_one_organization(
-                    organization_id=org_id,
-                    groups=org_groups,
-                    loaders=loaders,
-                ),
-                best_cvssf=best_cvssf,
-                mean_cvssf=get_mean_organizations(
-                    organizations=get_valid_organizations(
-                        organizations=all_organizations_data,
-                        organization_id=org_id,
-                    )
-                ),
-                worst_cvssf=worst_cvssf,
-                categories=ORGANIZATION_CATEGORIES,
+        document = format_data(
+            organization=await get_data_one_organization(
+                organization_id=org_id,
+                groups=org_groups,
+                loaders=loaders,
             ),
+            best_cvssf=best_cvssf,
+            mean_cvssf=get_mean_organizations(
+                organizations=get_valid_organizations(
+                    organizations=all_organizations_data,
+                    organization_id=org_id,
+                )
+            ),
+            worst_cvssf=worst_cvssf,
+            categories=ORGANIZATION_CATEGORIES,
+        )
+        utils.json_dump(
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data(document=document, header=header),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_data(
-                    organization=await get_data_one_organization(
-                        organization_id=portfolio,
-                        groups=tuple(groups),
-                        loaders=loaders,
-                    ),
-                    best_cvssf=best_portfolio_cvssf,
-                    mean_cvssf=get_mean_organizations(
-                        organizations=get_valid_organizations(
-                            organizations=all_portfolios_data,
-                            organization_id=portfolio,
-                        )
-                    ),
-                    worst_cvssf=worst_portfolio_cvssf,
-                    categories=PORTFOLIO_CATEGORIES,
+            document = format_data(
+                organization=await get_data_one_organization(
+                    organization_id=portfolio,
+                    groups=tuple(groups),
+                    loaders=loaders,
                 ),
+                best_cvssf=best_portfolio_cvssf,
+                mean_cvssf=get_mean_organizations(
+                    organizations=get_valid_organizations(
+                        organizations=all_portfolios_data,
+                        organization_id=portfolio,
+                    )
+                ),
+                worst_cvssf=worst_portfolio_cvssf,
+                categories=PORTFOLIO_CATEGORIES,
+            )
+            utils.json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data(document=document, header=header),
             )
 
 
