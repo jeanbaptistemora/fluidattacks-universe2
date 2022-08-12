@@ -1017,6 +1017,8 @@ class FindingEvidenceDescriptionIDEnum(Enum):
 class FindingReleaseStatusEnum(Enum):
     APPROVED: str = "APPROVED"
     CREATED: str = "CREATED"
+    DELETED: str = "DELETED"
+    MASKED: str = "MASKED"
     REJECTED: str = "REJECTED"
     SUBMITTED: str = "SUBMITTED"
 
@@ -1529,7 +1531,7 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.DAST,
     )
     CS_WEAK_PROTOCOL = MethodInfo(
-        file_name="analyze_headers",
+        file_name="c_sharp",
         name="c_sharp_weak_protocol",
         module="lib_root",
         finding=FindingEnum.F016,

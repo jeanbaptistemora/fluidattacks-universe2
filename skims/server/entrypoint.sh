@@ -13,7 +13,6 @@ function main {
       -A server \
       worker \
       --concurrency 2 \
-      --max-tasks-per-child 10 \
       -l INFO \
     && popd || return
 }
