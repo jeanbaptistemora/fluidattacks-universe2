@@ -25,6 +25,8 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
+    FindingVulnerabilitiesZrRequest,
+    VulnerabilitiesConnection,
     Vulnerability,
 )
 from decorators import (
@@ -34,6 +36,9 @@ from dynamodb.exceptions import (
     UnavailabilityError,
 )
 import html
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
 from newutils import (
@@ -92,7 +97,7 @@ async def update_toe_input(
     exceptions=(ToeInputAlreadyUpdated,),
 )
 async def process_toe_inputs(
-    group_name: str, vulnerabilities: tuple[Vulnerability, ...]
+    group_name: str, open_vulnerabilities: tuple[Vulnerability, ...]
 ) -> None:
     loaders = get_new_context()
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
@@ -104,16 +109,15 @@ async def process_toe_inputs(
     for toe_input in group_toe_inputs:
         has_vulnerabilities: bool = (
             any(
-                vulnerability.state.status is VulnerabilityStateStatus.OPEN
                 # ToeInput is not associated to a root_id
                 # and vulnerability.root_id == toe_input.root_id
-                and html.unescape(vulnerability.where).startswith(
+                html.unescape(vulnerability.where).startswith(
                     toe_input.component
                 )
                 and html.unescape(vulnerability.specific).startswith(
                     toe_input.entry_point
                 )
-                for vulnerability in vulnerabilities
+                for vulnerability in open_vulnerabilities
                 if vulnerability.type in inputs_types
             )
             if toe_input.be_present
@@ -151,7 +155,7 @@ async def update_toe_lines(
 )
 async def process_toe_lines(
     group_name: str,
-    vulnerabilities: tuple[Vulnerability, ...],
+    open_vulnerabilities: tuple[Vulnerability, ...],
     root_nicknames: dict[str, str],
 ) -> None:
     loaders: Dataloaders = get_new_context()
@@ -164,11 +168,9 @@ async def process_toe_lines(
     for toe_line in group_toe_lines:
         has_vulnerabilities = (
             any(
-                vulnerability.state.status is VulnerabilityStateStatus.OPEN
-                and vulnerability_where_repo
-                == root_nicknames[toe_line.root_id]
+                vulnerability_where_repo == root_nicknames[toe_line.root_id]
                 and vulnerability_where_path.startswith(toe_line.filename)
-                for vulnerability in vulnerabilities
+                for vulnerability in open_vulnerabilities
                 if vulnerability.type == VulnerabilityType.LINES
                 for vulnerability_where_repo, vulnerability_where_path in [
                     _strip_first_dir(html.unescape(vulnerability.where))
@@ -191,6 +193,22 @@ async def process_toe_lines(
     await collect(tuple(updations))
 
 
+async def get_open_vulnerabilities(
+    loaders: Dataloaders,
+    finding: Finding,
+) -> tuple[Vulnerability, ...]:
+    connections: VulnerabilitiesConnection = (
+        await loaders.finding_vulnerabilities_nzr_c.load(
+            FindingVulnerabilitiesZrRequest(
+                finding_id=finding.id,
+                paginate=False,
+                state_status=VulnerabilityStateStatus.OPEN,
+            )
+        )
+    )
+    return tuple(edge.node for edge in connections.edges)
+
+
 async def process_group(group_name: str) -> None:
     loaders: Dataloaders = get_new_context()
     _log("group", id=group_name)
@@ -201,25 +219,23 @@ async def process_group(group_name: str) -> None:
 
     findings: tuple[Finding, ...]
     findings = await loaders.group_findings.load(group_name)
-
-    vulnerabilities: tuple[Vulnerability, ...] = tuple(
-        vulnerability
-        for vulnerability in (
-            await loaders.finding_vulnerabilities_nzr.load_many_chained(
-                [finding.id for finding in findings]
+    open_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    get_open_vulnerabilities(loaders, finding)
+                    for finding in findings
+                )
             )
         )
-        if vulnerability.state.status
-        in {
-            VulnerabilityStateStatus.OPEN,
-            VulnerabilityStateStatus.CLOSED,
-        }
     )
 
     await collect(
         (
-            process_toe_inputs(group_name, vulnerabilities),
-            process_toe_lines(group_name, vulnerabilities, root_nicknames),
+            process_toe_inputs(group_name, open_vulnerabilities),
+            process_toe_lines(
+                group_name, open_vulnerabilities, root_nicknames
+            ),
         )
     )
 
