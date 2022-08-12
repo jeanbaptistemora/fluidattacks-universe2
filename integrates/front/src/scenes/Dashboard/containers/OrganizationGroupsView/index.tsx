@@ -95,7 +95,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
     groupData: IGroupData[]
   ): IGroupData[] =>
     groupData.map((group: IGroupData): IGroupData => {
-      const name: string = group.name.toUpperCase();
       const description: string = _.capitalize(group.description);
       const subscription: string = _.capitalize(group.subscription);
       const plan =
@@ -121,7 +120,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         ...group,
         description,
         eventFormat,
-        name,
         plan,
       };
     });
