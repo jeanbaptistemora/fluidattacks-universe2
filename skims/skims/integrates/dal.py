@@ -43,6 +43,7 @@ from utils.function import (
 )
 from utils.logs import (
     log,
+    log_to_remote,
 )
 from utils.string import (
     to_in_memory_file,
@@ -138,6 +139,14 @@ async def _execute(
         await log("debug", "query: %s", query)
         await log("debug", "variables: %s", variables)
         await log("debug", "response status: %s", response.status)
+        await log_to_remote(
+            msg=aiohttp.ClientResponseError,
+            severity="error",
+            query=query,
+            variables=f"{variables}",
+            response_status=response.status,
+            response=response.content,
+        )
         raise aiohttp.ClientResponseError(
             response.request_info,
             (response,),
