@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
-    yield_shard_member_access,
+    yield_syntax_graph_member_access,
 )
 from lib_sast.types import (
     ShardDb,
@@ -41,13 +40,14 @@ def open_redirect(
             if shard.syntax_graph is None:
                 continue
 
-            for member in yield_shard_member_access(shard, {"Response"}):
-                if not check_member_acces_expression(
-                    shard, member, "Redirect"
-                ):
+            graph = shard.syntax_graph
+
+            for member in yield_syntax_graph_member_access(
+                graph, {"Response"}
+            ):
+                if not graph.nodes[member].get("member") == "Redirect":
                     continue
-                graph = shard.syntax_graph
-                pred = g.pred_ast(shard.graph, member)[0]
+                pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     if (
                         evaluation := evaluate(method, graph, path, pred)

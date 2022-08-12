@@ -49,7 +49,7 @@ def xpath_injection(
             for n_id in search_method_invocation_naive(graph, danger_meths):
                 if (
                     memb := get_first_member_syntax_graph(graph, n_id)
-                ) and shard.graph.nodes[memb].get("label_text") in xpath_obj:
+                ) and graph.nodes[memb].get("symbol") in xpath_obj:
                     for path in get_backward_paths(graph, n_id):
                         if (
                             evaluation := evaluate(method, graph, path, n_id)
