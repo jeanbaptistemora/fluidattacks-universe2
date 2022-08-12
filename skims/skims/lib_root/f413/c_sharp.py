@@ -25,9 +25,6 @@ from symbolic_eval.utils import (
 from utils import (
     graph as g,
 )
-from utils.graph.text_nodes import (
-    node_to_str,
-)
 from utils.string import (
     build_attr_paths,
 )
@@ -53,10 +50,11 @@ def insecure_assembly_load(
 
             for n_id in search_method_invocation_naive(graph, {"Load"}):
                 if (
-                    member := g.match_ast_d(
-                        shard.graph, n_id, "member_access_expression"
-                    )
-                ) and not node_to_str(shard.graph, member) in paths:
+                    (member := g.match_ast_d(graph, n_id, "MemberAccess"))
+                    and (expr := graph.nodes[member].get("expression"))
+                    and (memb := graph.nodes[member].get("member"))
+                    and not (f"{expr}.{memb}" in paths)
+                ):
                     continue
                 for path in get_backward_paths(graph, n_id):
                     if (
