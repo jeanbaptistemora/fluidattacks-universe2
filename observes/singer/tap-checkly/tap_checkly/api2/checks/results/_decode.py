@@ -60,14 +60,12 @@ def _decode_result_api(api_result: JsonObj) -> CheckResultApi:
 
 def from_raw_result(raw: JsonObj) -> CheckResult:
     return CheckResult(
-        Unfolder(raw["apiCheckResult"])
-        .to_optional(lambda j: j.to_json())
-        .map(lambda x: Maybe.from_optional(x).map(_decode_result_api))
-        .unwrap(),
-        Unfolder(raw["browserCheckResult"])
-        .to_optional(lambda j: j.to_json())
-        .map(lambda x: Maybe.from_optional(x))
-        .unwrap(),
+        Maybe.from_optional(raw.get("apiCheckResult")).map(
+            lambda j: Unfolder(j).to_json().map(_decode_result_api).unwrap()
+        ),
+        Maybe.from_optional(raw.get("browserCheckResult")).map(
+            lambda j: Unfolder(j).to_json().unwrap()
+        ),
         Unfolder(raw["attempts"]).to_primitive(int).unwrap(),
         Unfolder(raw["checkRunId"]).to_primitive(int).map(CheckRunId).unwrap(),
         Unfolder(raw["created_at"]).to_primitive(str).map(isoparse).unwrap(),
