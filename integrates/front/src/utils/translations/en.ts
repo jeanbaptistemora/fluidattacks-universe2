@@ -446,7 +446,7 @@ export const enTranslations: ResourceKey = {
         naming: "Naming",
         omission: "Omission",
         other: "Other",
-        otherReason: "Please provide a custom reason",
+        otherReason: "Why?",
         reason: "Reason",
         scoring: "Scoring",
         text: "Reject",

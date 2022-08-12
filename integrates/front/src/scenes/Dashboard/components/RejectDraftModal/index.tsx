@@ -4,10 +4,9 @@ import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { Select } from "components/Input";
+import { Label, Select } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Text } from "components/Text";
 import { FormikTextArea } from "utils/forms/fields";
 import { validTextField } from "utils/validations";
 
@@ -51,6 +50,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
         title={t("group.drafts.reject.title")}
       >
         <Formik
+          enableReinitialize={true}
           initialValues={{
             other: "",
             reason: "",
@@ -65,12 +65,9 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                 <Select
                   id={"reject-draft-reason"}
                   label={
-                    <React.Fragment>
-                      <Text disp={"inline"} tone={"red"}>
-                        {"* "}
-                      </Text>
+                    <Label required={true}>
                       {t("group.drafts.reject.reason")}
-                    </React.Fragment>
+                    </Label>
                   }
                   name={"reason"}
                 >
@@ -84,13 +81,10 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                   )}
                 </Select>
                 {values.reason === "OTHER" ? (
-                  <React.Fragment>
-                    <Text mb={1}>
-                      <Text disp={"inline"} tone={"red"}>
-                        {"* "}
-                      </Text>
+                  <div>
+                    <Label required={true}>
                       {t("group.drafts.reject.otherReason")}
-                    </Text>
+                    </Label>
                     <Field
                       component={FormikTextArea}
                       id={"reject-draft-other-reason"}
@@ -98,7 +92,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                       type={"text"}
                       validate={validTextField}
                     />
-                  </React.Fragment>
+                  </div>
                 ) : undefined}
                 <ModalConfirm
                   disabled={!dirty}
