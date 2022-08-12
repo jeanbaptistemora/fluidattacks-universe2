@@ -1333,7 +1333,7 @@ async def remove_user(  # pylint: disable=too-many-locals
     )
     has_groups_in_asm = bool(all_active_groups_by_user)
     if not has_groups_in_asm:
-        await stakeholders_domain.remove(email)
+        await stakeholders_domain.remove(loaders, email)
     return True
 
 

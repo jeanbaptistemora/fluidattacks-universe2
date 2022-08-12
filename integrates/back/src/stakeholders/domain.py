@@ -2,7 +2,11 @@ import authz
 from authz.validations import (
     validate_role_fluid_reqs,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
+    EnrollmentNotFound,
     ExpiredToken,
     InvalidExpirationTime,
     InvalidPushToken,
@@ -16,7 +20,12 @@ from datetime import (
     datetime,
 )
 from db_model import (
+    enrollment as enrollment_model,
     stakeholders as stakeholders_model,
+)
+from db_model.enrollment.types import (
+    Enrollment,
+    EnrollmentMetadataToUpdate,
 )
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
@@ -131,10 +140,17 @@ async def check_session_web_validity(request: Request) -> None:
         raise SecureAccessException() from None
 
 
-async def remove(email: str) -> None:
+async def remove(loaders: Any, email: str) -> None:
     await stakeholders_model.remove(email=email)
     await authz.revoke_user_level_role(email)
     await redis_del_by_deps("session_logout", session_email=email)
+    with suppress(EnrollmentNotFound):
+        enrollment: Enrollment = await loaders.enrollment.load(email)
+        if enrollment.enrolled:
+            await enrollment_model.update_metadata(
+                email=email,
+                metadata=EnrollmentMetadataToUpdate(enrolled=False),
+            )
 
 
 async def update_information(

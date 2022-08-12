@@ -2,9 +2,6 @@ from aioextensions import (
     collect,
     schedule,
 )
-from authz.policy import (
-    get_user_subject_policies,
-)
 from context import (
     BASE_URL,
 )
@@ -14,9 +11,6 @@ from custom_exceptions import (
 )
 from db_model import (
     group_access as group_access_model,
-)
-from db_model.enrollment.types import (
-    EnrollmentMetadataToUpdate,
 )
 from db_model.group_access.types import (
     GroupAccess,
@@ -28,9 +22,6 @@ from db_model.organization_access.types import (
 )
 from decorators import (
     retry_on_exceptions,
-)
-from enrollment import (
-    domain as enrollment_domain,
 )
 from group_access import (
     domain as group_access_domain,
@@ -140,10 +131,7 @@ async def remove_stakeholder_all_organizations(
             ),
         ]
     )
-    authz_groups = [
-        policy[1] for policy in await get_user_subject_policies(email)
-    ]
-    stakeholder_groups = set(active + inactive + authz_groups)
+    stakeholder_groups = set(active + inactive)
     await collect(
         tuple(
             group_access_domain.remove_access(loaders, email, group)
@@ -151,12 +139,7 @@ async def remove_stakeholder_all_organizations(
         )
     )
 
-    await stakeholders_domain.remove(email=email)
-    await enrollment_domain.update_metadata(
-        loaders=loaders,
-        email=email,
-        metadata=EnrollmentMetadataToUpdate(enrolled=False),
-    )
+    await stakeholders_domain.remove(loaders=loaders, email=email)
 
 
 async def complete_deletion(*, loaders: Any, email: str) -> None:

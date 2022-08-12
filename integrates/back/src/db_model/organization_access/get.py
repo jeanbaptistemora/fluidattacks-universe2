@@ -3,7 +3,6 @@ from .types import (
 )
 from .utils import (
     format_organization_access,
-    remove_org_id_prefix,
 )
 from aiodataloader import (
     DataLoader,
@@ -19,6 +18,9 @@ from custom_exceptions import (
 )
 from db_model import (
     TABLE,
+)
+from db_model.organizations.utils import (
+    remove_org_id_prefix,
 )
 from dynamodb import (
     keys,

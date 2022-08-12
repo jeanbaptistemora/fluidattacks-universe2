@@ -1,8 +1,8 @@
-from .utils import (
-    remove_org_id_prefix,
-)
 from db_model import (
     TABLE,
+)
+from db_model.organizations.utils import (
+    remove_org_id_prefix,
 )
 from dynamodb import (
     keys,

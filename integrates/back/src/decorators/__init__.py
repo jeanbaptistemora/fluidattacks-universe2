@@ -27,6 +27,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.organizations.utils import (
+    add_org_id_prefix,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -43,7 +46,6 @@ import logging.config
 from newutils import (
     function,
     logs as logs_utils,
-    organizations as orgs_utils,
     templates as templates_utils,
     token as token_utils,
     validations,
@@ -272,7 +274,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
             or kwargs.get("organization_id")
             or kwargs.get("organization_name")
             or (getattr(args[0], "organization_id", None) if args else None)
-            or orgs_utils.add_org_id_prefix(args[0].id)
+            or add_org_id_prefix(args[0].id)
         )
         loaders = context.loaders
         organization: Organization = await loaders.organization.load(

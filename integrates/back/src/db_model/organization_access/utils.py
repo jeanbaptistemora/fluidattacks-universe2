@@ -1,23 +1,15 @@
-from .constants import (
-    ORGANIZATION_ID_PREFIX,
-)
 from .types import (
     OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
     OrganizationInvitation,
 )
+from db_model.organizations.utils import (
+    add_org_id_prefix,
+    remove_org_id_prefix,
+)
 from dynamodb.types import (
     Item,
 )
-
-
-def add_org_id_prefix(organization_id: str) -> str:
-    no_prefix_id = remove_org_id_prefix(organization_id)
-    return f"{ORGANIZATION_ID_PREFIX}{no_prefix_id}"
-
-
-def remove_org_id_prefix(organization_id: str) -> str:
-    return organization_id.lstrip(ORGANIZATION_ID_PREFIX)
 
 
 def format_organization_access(item: Item) -> OrganizationAccess:

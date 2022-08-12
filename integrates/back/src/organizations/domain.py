@@ -68,6 +68,9 @@ from db_model.organizations.types import (
     OrganizationMetadataToUpdate,
     OrganizationState,
 )
+from db_model.organizations.utils import (
+    add_org_id_prefix,
+)
 from db_model.roots.types import (
     GitRoot,
     Root,
@@ -99,10 +102,6 @@ from newutils import (
 )
 from newutils.organization_access import (
     format_invitation_state,
-)
-from newutils.organizations import (
-    add_org_id_prefix,
-    remove_org_id_prefix,
 )
 from newutils.validations import (
     validate_email_address,
@@ -196,7 +195,6 @@ async def add_stakeholder(
     loaders: Any, organization_id: str, email: str, role: str
 ) -> bool:
     # Check for customer manager granting requirements
-    organization_id = add_org_id_prefix(organization_id)
     validate_role_fluid_reqs(email, role)
     await org_access_model.update_metadata(
         organization_id=organization_id,
@@ -412,9 +410,8 @@ async def get_or_add(
     organization: Organization = await loaders.organization.load(
         organization_name
     )
-    organization_id = remove_org_id_prefix(organization.id)
-    if email and not await has_access(loaders, organization_id, email):
-        await add_stakeholder(loaders, organization_id, email, "user_manager")
+    if email and not await has_access(loaders, organization.id, email):
+        await add_stakeholder(loaders, organization.id, email, "user_manager")
 
     return organization
 
@@ -480,7 +477,6 @@ async def has_access(loaders: Any, organization_id: str, email: str) -> bool:
         return True
 
     try:
-        organization_id = add_org_id_prefix(organization_id)
         await loaders.organization_access.load((organization_id, email))
         return True
     except StakeholderNotInOrganization:
@@ -593,16 +589,15 @@ async def remove_credentials(
 async def remove_access(
     loaders: Any, organization_id: str, email: str, modified_by: str
 ) -> bool:
-    organization_id = add_org_id_prefix(organization_id)
     if not await has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
     await org_access_model.remove(email=email, organization_id=organization_id)
-    user_removed = await authz.revoke_organization_level_role(
+    is_user_removed = await authz.revoke_organization_level_role(
         email, organization_id
     )
     org_group_names = await get_group_names(loaders, organization_id)
-    groups_removed = all(
+    are_groups_removed = all(
         await collect(
             tuple(
                 group_access_domain.remove_access(loaders, email, group)
@@ -613,7 +608,7 @@ async def remove_access(
 
     has_orgs = bool(await loaders.stakeholder_organizations_access.load(email))
     if not has_orgs:
-        await stakeholders_domain.remove(email)
+        await stakeholders_domain.remove(loaders, email)
     user_credentials: tuple[
         Credentials, ...
     ] = await loaders.user_credentials.load(email)
@@ -628,7 +623,7 @@ async def remove_access(
             for credential in user_credentials
         )
     )
-    return user_removed and groups_removed
+    return is_user_removed and are_groups_removed
 
 
 async def reject_register_for_organization_invitation(
