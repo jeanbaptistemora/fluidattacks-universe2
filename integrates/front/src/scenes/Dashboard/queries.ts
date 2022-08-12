@@ -30,8 +30,8 @@ const GET_ORG_LEVEL_PERMISSIONS: DocumentNode = gql`
   query GetOrgLevelPermissions($identifier: String!) {
     organization(organizationId: $identifier) {
       name
-      permissions(identifier: $identifier)
-      userRole(identifier: $identifier)
+      permissions
+      userRole
     }
   }
 `;

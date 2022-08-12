@@ -41,10 +41,7 @@ async def test_get_organization_ver_1(
         "vulnerability_manager@fluidattacks.com",
         "vulnerability_manager@gmail.com",
     ]
-    group_name: str = "group1"
-    result: dict[str, Any] = await get_result(
-        user=email, org=org_id, group=group_name
-    )
+    result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
@@ -72,14 +69,14 @@ async def test_get_organization_ver_1(
 @pytest.mark.parametrize(
     ("email", "role", "permissions"),
     (
-        ("user@gmail.com", "user", 0),
-        ("user_manager@gmail.com", "user_manager", 0),
-        ("vulnerability_manager@gmail.com", "vulnerability_manager", 0),
-        ("hacker@gmail.com", "hacker", 0),
-        ("reattacker@gmail.com", "reattacker", 0),
-        ("resourcer@gmail.com", "resourcer", 0),
-        ("reviewer@gmail.com", "reviewer", 0),
-        ("customer_manager@fluidattacks.com", "customer_manager", 0),
+        ("user@gmail.com", "user", 3),
+        ("user_manager@gmail.com", "user_manager", 21),
+        ("vulnerability_manager@gmail.com", "user", 3),
+        ("hacker@gmail.com", "user", 3),
+        ("reattacker@gmail.com", "user", 3),
+        ("resourcer@gmail.com", "user", 3),
+        ("reviewer@gmail.com", "user", 3),
+        ("customer_manager@fluidattacks.com", "customer_manager", 23),
     ),
 )
 async def test_get_organization_ver_2(
@@ -91,10 +88,7 @@ async def test_get_organization_ver_2(
     org_groups: list[str] = [
         "group1",
     ]
-    group_name: str = "group1"
-    result: dict[str, Any] = await get_result(
-        user=email, org=org_id, group=group_name
-    )
+    result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
@@ -126,10 +120,7 @@ async def test_get_organization_default_values(
     org_stakeholders: list[str] = [
         "admin@gmail.com",
     ]
-    group_name: str = "group2"
-    result: dict[str, Any] = await get_result(
-        user=email, org=org_id, group=group_name
-    )
+    result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]

@@ -14,7 +14,6 @@ async def get_result(
     *,
     user: str,
     org: str,
-    group: str,
 ) -> dict[str, Any]:
     query: str = f"""
         query {{
@@ -32,8 +31,8 @@ async def get_result(
                 stakeholders {{
                     email
                 }}
-                permissions(identifier: "{group}")
-                userRole(identifier: "{group}")
+                permissions
+                userRole
                 vulnerabilityGracePeriod
             }}
         }}

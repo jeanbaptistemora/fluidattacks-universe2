@@ -23,32 +23,27 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def _get_org_permissions(
-    loaders: Dataloaders, user_email: str, identifier: str
+    loaders: Dataloaders, user_email: str, organization_id: str
 ) -> set[str]:
-    # Exception: WF(Cannot assign to accepted value)
-    actions: set[str] = set()  # NOSONAR
-    if identifier:
-        actions = await authz.get_organization_level_actions(
-            loaders, user_email, identifier
-        )
-    else:
+    if not organization_id:
         raise InvalidParameter()
-    return actions
+
+    return await authz.get_organization_level_actions(
+        loaders, user_email, organization_id
+    )
 
 
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    **kwargs: dict,
+    **_kwargs: None,
 ) -> set[str]:
     loaders: Dataloaders = get_new_context()
     user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
-    org_id = parent.id
-    identifier = str(kwargs.get("identifier", org_id))
 
     permissions: set[str] = await _get_org_permissions(
-        loaders, user_email, identifier
+        loaders, user_email, parent.id
     )
     if not permissions:
         LOGGER.error(

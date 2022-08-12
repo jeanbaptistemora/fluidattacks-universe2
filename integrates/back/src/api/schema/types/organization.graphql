@@ -35,23 +35,11 @@ type Organization {
   "Payment methods belonging to the organization"
   paymentMethods: [PaymentMethod]
   "Permissions of the current user within the organization"
-  permissions(
-    """
-    Identifier of the entity, if left empty it defaults to the
-    Organization identifier
-    """
-    identifier: String
-  ): [String]
+  permissions: [String]
   "Users who have access to the organization"
   stakeholders: [Stakeholder]
   "Role of the current user within the organization"
-  userRole(
-    """
-    Identifier of the entity, if left empty it defaults to the
-    Organization identifier
-    """
-    identifier: String
-  ): String
+  userRole: String
   """
   Grace period in days where newly reported vulnerabilities won't break the
   build (DevSecOps only)

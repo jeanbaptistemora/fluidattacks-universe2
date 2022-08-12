@@ -26,10 +26,8 @@ async def _get_group_permissions(
 ) -> set[str]:
     if not group_name:
         raise InvalidParameter()
-    actions: set[str] = await authz.get_group_level_actions(
-        loaders, email, group_name
-    )
-    return actions
+
+    return await authz.get_group_level_actions(loaders, email, group_name)
 
 
 async def resolve(
