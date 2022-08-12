@@ -522,6 +522,112 @@ async def unrestricted_ftp_access(
     return vulns
 
 
+async def open_all_ports_to_the_public(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="ec2", function="describe_security_groups"
+    )
+    security_groups: List[Dict[str, Any]] = response.get("SecurityGroups", [])
+    vulns: core_model.Vulnerabilities = ()
+
+    if security_groups:
+        for group in security_groups:
+            locations: List[Location] = []
+            for index, ip_permission in enumerate(group["IpPermissions"]):
+                with suppress(KeyError):
+                    if (
+                        ip_permission["FromPort"] == 0
+                        and ip_permission["ToPort"] == 65535
+                    ):
+                        locations = [
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        f"/IpPermissions/{index}/FromPort",
+                                        f"/IpPermissions/{index}/ToPort",
+                                        (
+                                            f"/IpPermissions/{index}/IpRanges"
+                                            f"/{index_ip_range}/CidrIp"
+                                        ),
+                                    ),
+                                    arn=(
+                                        f"arn:aws:ec2::{group['OwnerId']}:"
+                                        f"security-group/{group['GroupId']}"
+                                    ),
+                                    values=(
+                                        ip_permission["FromPort"],
+                                        ip_permission["ToPort"],
+                                        ip_range["CidrIp"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path.f024."
+                                        "ec2_has_open_all_ports_to_the_public"
+                                    ),
+                                )
+                                for index_ip_range, ip_range in enumerate(
+                                    ip_permission["IpRanges"]
+                                )
+                                if ip_range["CidrIp"] == "0.0.0.0/0"
+                            ],
+                        ]
+            for index, ip_permission in enumerate(
+                group["IpPermissionsEgress"]
+            ):
+                with suppress(KeyError):
+                    if (
+                        ip_permission["FromPort"] == 0
+                        and ip_permission["ToPort"] == 65535
+                    ):
+                        locations = [
+                            *locations,
+                            *[
+                                Location(
+                                    access_patterns=(
+                                        (
+                                            f"/IpPermissionsEgress/{index}"
+                                            "/FromPort"
+                                        ),
+                                        f"/IpPermissionsEgress/{index}/ToPort",
+                                        (
+                                            f"/IpPermissionsEgress/{index}/"
+                                            "IpRanges"
+                                            f"/{index_ip_range}/CidrIp"
+                                        ),
+                                    ),
+                                    arn=(
+                                        f"arn:aws:ec2::{group['OwnerId']}:"
+                                        f"security-group/{group['GroupId']}"
+                                    ),
+                                    values=(
+                                        ip_permission["FromPort"],
+                                        ip_permission["ToPort"],
+                                        ip_range["CidrIp"],
+                                    ),
+                                    description=t(
+                                        "src.lib_path.f024."
+                                        "ec2_has_open_all_ports_to_the_public"
+                                    ),
+                                )
+                                for index_ip_range, ip_range in enumerate(
+                                    ip_permission["IpRanges"]
+                                )
+                                if ip_range["CidrIp"] == "0.0.0.0/0"
+                            ],
+                        ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_OPEN_ALL_PORTS_TO_THE_PUBLIC
+                    ),
+                    aws_response=group,
+                ),
+            )
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
