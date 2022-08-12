@@ -4,6 +4,7 @@ locals {
       awsRole      = "dev"
       access_level = "not_protected"
       root_size    = 10
+      replicas     = 3
       instance     = "c5ad.large"
       tags         = ["dev_small"]
       docker_machine_options = [
@@ -15,6 +16,7 @@ locals {
       awsRole      = "dev"
       access_level = "not_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["dev_large"]
       docker_machine_options = [
@@ -23,8 +25,9 @@ locals {
     }
     prod_airs_small = {
       awsRole      = "prod_airs"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_airs_small"]
       docker_machine_options = [
@@ -34,8 +37,9 @@ locals {
     }
     prod_airs_large = {
       awsRole      = "prod_airs"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_airs_large"]
       docker_machine_options = [
@@ -44,8 +48,9 @@ locals {
     }
     prod_common_small = {
       awsRole      = "prod_common"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_common_small"]
       docker_machine_options = [
@@ -55,8 +60,9 @@ locals {
     }
     prod_common_large = {
       awsRole      = "prod_common"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_common_large"]
       docker_machine_options = [
@@ -65,8 +71,9 @@ locals {
     }
     prod_docs_small = {
       awsRole      = "prod_docs"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_docs_small"]
       docker_machine_options = [
@@ -76,8 +83,9 @@ locals {
     }
     prod_docs_large = {
       awsRole      = "prod_docs"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_docs_large"]
       docker_machine_options = [
@@ -86,8 +94,9 @@ locals {
     }
     prod_forces_small = {
       awsRole      = "prod_forces"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_forces_small"]
       docker_machine_options = [
@@ -97,8 +106,9 @@ locals {
     }
     prod_forces_large = {
       awsRole      = "prod_forces"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_forces_large"]
       docker_machine_options = [
@@ -107,8 +117,9 @@ locals {
     }
     prod_integrates_small = {
       awsRole      = "prod_integrates"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_integrates_small"]
       docker_machine_options = [
@@ -118,8 +129,9 @@ locals {
     }
     prod_integrates_large = {
       awsRole      = "prod_integrates"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_integrates_large"]
       docker_machine_options = [
@@ -128,8 +140,9 @@ locals {
     }
     prod_melts_small = {
       awsRole      = "prod_melts"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_melts_small"]
       docker_machine_options = [
@@ -139,8 +152,9 @@ locals {
     }
     prod_melts_large = {
       awsRole      = "prod_melts"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_melts_large"]
       docker_machine_options = [
@@ -149,8 +163,9 @@ locals {
     }
     prod_observes_small = {
       awsRole      = "prod_observes"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_observes_small"]
       docker_machine_options = [
@@ -160,8 +175,9 @@ locals {
     }
     prod_observes_large = {
       awsRole      = "prod_observes"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_observes_large"]
       docker_machine_options = [
@@ -170,8 +186,9 @@ locals {
     }
     prod_skims_small = {
       awsRole      = "prod_skims"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_skims_small"]
       docker_machine_options = [
@@ -181,8 +198,9 @@ locals {
     }
     prod_skims_large = {
       awsRole      = "prod_skims"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_skims_large"]
       docker_machine_options = [
@@ -191,8 +209,9 @@ locals {
     }
     prod_sorts_small = {
       awsRole      = "prod_sorts"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 10
+      replicas     = 1
       instance     = "c5ad.large"
       tags         = ["prod_sorts_small"]
       docker_machine_options = [
@@ -202,8 +221,9 @@ locals {
     }
     prod_sorts_large = {
       awsRole      = "prod_sorts"
-      access_level = "not_protected"
+      access_level = "ref_protected"
       root_size    = 35
+      replicas     = 1
       instance     = "m5a.large"
       tags         = ["prod_sorts_large"]
       docker_machine_options = [
@@ -214,9 +234,13 @@ locals {
 }
 
 module "runners" {
-  source   = "npalm/gitlab-runner/aws"
-  version  = "5.1.0"
-  for_each = local.runners
+  source  = "npalm/gitlab-runner/aws"
+  version = "5.1.0"
+  for_each = merge([
+    for name, values in local.runners : {
+      for replica in range(values.replicas) : "${name}_${replica}" => values
+    }
+  ]...)
 
   # AWS
   aws_region                             = "us-east-1"
@@ -245,7 +269,7 @@ module "runners" {
   runner_instance_ebs_optimized     = true
   runner_instance_enable_monitoring = true
   userdata_pre_install              = data.local_file.init_runner.content
-  docker_machine_iam_policy_arns = [
+  runner_iam_policy_arns = [
     "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/${each.value.awsRole}"
   ]
   runner_ami_filter = {
@@ -270,28 +294,29 @@ module "runners" {
   }
 
   # Workers
-  docker_machine_options        = each.value.docker_machine_options
-  docker_machine_spot_price_bid = ""
-  docker_machine_instance_type  = each.value.instance
-  runners_gitlab_url            = "https://gitlab.com"
-  runners_executor              = "docker+machine"
-  runners_root_size             = each.value.root_size
-  runners_concurrent            = 1000
-  runners_ebs_optimized         = true
-  runners_idle_count            = 3
-  runners_idle_time             = 1800
-  runners_image                 = "docker"
-  runners_limit                 = 1000
-  runners_max_builds            = 30
-  runners_monitoring            = false
-  runners_name                  = "common-ci-${each.key}"
-  runners_output_limit          = 4096
-  runners_privileged            = false
-  runners_pull_policy           = "always"
-  runners_request_concurrency   = 10
-  runners_request_spot_instance = true
-  runners_use_private_address   = false
-  subnet_id_runners             = data.aws_subnet.main.id
+  docker_machine_options            = each.value.docker_machine_options
+  docker_machine_spot_price_bid     = ""
+  docker_machine_instance_type      = each.value.instance
+  runners_gitlab_url                = "https://gitlab.com"
+  runners_executor                  = "docker+machine"
+  runners_root_size                 = each.value.root_size
+  runners_concurrent                = 1000
+  runners_ebs_optimized             = true
+  runners_idle_count                = 3
+  runners_idle_time                 = 1800
+  runners_image                     = "docker"
+  runners_limit                     = 1000
+  runners_max_builds                = 30
+  runners_monitoring                = false
+  runners_name                      = "common-ci-${each.key}"
+  runners_output_limit              = 4096
+  runners_privileged                = false
+  runners_pull_policy               = "always"
+  runners_request_concurrency       = 10
+  runners_request_spot_instance     = true
+  runners_use_private_address       = false
+  subnet_id_runners                 = data.aws_subnet.main.id
+  runners_iam_instance_profile_name = each.value.awsRole
   runners_machine_autoscaling = [
     {
       periods = [

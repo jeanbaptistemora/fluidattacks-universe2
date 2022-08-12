@@ -9,6 +9,7 @@ locals {
           Effect = "Allow",
           Principal = {
             Service = [
+              "ec2.amazonaws.com",
               "ecs-tasks.amazonaws.com",
             ],
           },
