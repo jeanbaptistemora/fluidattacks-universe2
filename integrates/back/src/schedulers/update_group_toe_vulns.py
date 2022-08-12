@@ -190,10 +190,13 @@ async def process_group(group_name: str) -> None:
     findings = await loaders.group_findings.load(group_name)
 
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
-        vuln
-        for finding in findings
-        for vuln in await loaders.finding_vulnerabilities_nzr.load(finding.id)
-        if vuln.state.status
+        vulnerability
+        for vulnerability in (
+            await loaders.finding_vulnerabilities_nzr.load_many_chained(
+                [finding.id for finding in findings]
+            )
+        )
+        if vulnerability.state.status
         in {
             VulnerabilityStateStatus.OPEN,
             VulnerabilityStateStatus.CLOSED,
