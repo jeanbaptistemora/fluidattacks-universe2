@@ -14,6 +14,7 @@ from batch.types import (
 )
 from custom_exceptions import (
     InvalidDate,
+    InvalidReportFilter,
     ReportAlreadyRequested,
     RequestedReportError,
     RequiredNewPhoneNumber,
@@ -108,8 +109,9 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
-    verification_code: str,
     finding_title: str,
+    age: Optional[int],
+    verification_code: str,
 ) -> bool:
     existing_actions: tuple[
         BatchProcessing, ...
@@ -150,6 +152,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "verifications": list(sorted(verifications)),
             "closing_date": closing_date.isoformat() if closing_date else None,
             "finding_title": finding_title,
+            "age": age,
         }
     )
 
@@ -176,6 +179,17 @@ def _validate_closing_date(*, closing_date: datetime) -> None:
     today = get_now()
     if closing_date.astimezone(tzn) > today:
         raise InvalidDate()
+
+
+def _validate_age(**kwargs: Any) -> None:
+    age: Optional[int] = kwargs.get("age", None)
+    if age is not None:
+        min_value = int(0)
+        max_value = int(10000)
+        if int(0) > age or age > max_value:
+            raise InvalidReportFilter(
+                f"Age value must be between {min_value} and {max_value}"
+            )
 
 
 @convert_kwargs_to_snake_case
@@ -261,6 +275,7 @@ async def resolve(
             ]
         ):
             verifications = set()
+    _validate_age(**kwargs)
 
     return {
         "success": await _get_url_group_report(
@@ -273,6 +288,7 @@ async def resolve(
             verifications=verifications,
             closing_date=closing_date,
             finding_title=finding_title or "",
+            age=kwargs.get("age", None),
             verification_code=verification_code,
         )
     }

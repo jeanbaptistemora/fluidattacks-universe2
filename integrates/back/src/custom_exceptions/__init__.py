@@ -816,6 +816,16 @@ class InvalidSeverity(CustomBaseException):
         super(InvalidSeverity, self).__init__(msg)
 
 
+class InvalidReportFilter(CustomBaseException):
+    """Exception to control severity value"""
+
+    def __init__(self, expr: str = "") -> None:
+        msg: str = "Exception - Invalid filter"
+        if expr:
+            msg = f"Exception - {expr}"
+        super(InvalidReportFilter, self).__init__(msg)
+
+
 class InvalidSeverityUpdateValues(CustomBaseException):
     """Exception to control severity update values"""
 

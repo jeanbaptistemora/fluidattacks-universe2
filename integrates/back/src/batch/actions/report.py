@@ -70,6 +70,7 @@ async def get_report(
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
     finding_title: str,
+    age: Optional[int],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -82,6 +83,7 @@ async def get_report(
             verifications=verifications,
             closing_date=closing_date,
             finding_title=finding_title,
+            age=age,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -113,6 +115,7 @@ async def send_report(
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
     finding_title: str,
+    age: Optional[int],
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -133,6 +136,7 @@ async def send_report(
                 verifications=verifications,
                 closing_date=closing_date,
                 finding_title=finding_title,
+                age=age,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -160,47 +164,52 @@ def get_filter_message(
     verifications: set[VulnerabilityVerificationStatus],
     closing_date: Optional[datetime],
     finding_title: str,
+    age: Optional[int],
 ) -> str:
-    if report_type == "XLS":
-        if closing_date:
-            states = set(
+    if closing_date:
+        states = set(
+            [
+                VulnerabilityStateStatus["CLOSED"],
+            ]
+        )
+        treatments = set(VulnerabilityTreatmentStatus)
+        if verifications != set(
+            [
+                VulnerabilityVerificationStatus["VERIFIED"],
+            ]
+        ):
+            verifications = set()
+
+    message: str = ""
+    if list(sorted(states)) != list(
+        sorted(
+            set(
                 [
                     VulnerabilityStateStatus["CLOSED"],
+                    VulnerabilityStateStatus["OPEN"],
                 ]
             )
-            treatments = set(VulnerabilityTreatmentStatus)
-            if verifications != set(
-                [
-                    VulnerabilityVerificationStatus["VERIFIED"],
-                ]
-            ):
-                verifications = set()
+        )
+    ):
+        message += f" States: {states}."
+    if sorted(list(treatments)) != sorted(
+        list(set(VulnerabilityTreatmentStatus))
+    ):
+        message += f" Treatments: {treatments}."
+    if verifications:
+        message += f" Verifications: {verifications}."
+    if closing_date:
+        message += f" Closing date: {closing_date}."
+    if finding_title:
+        message += f" Finding type code: {finding_title}."
+    if age is not None:
+        message += f" Age in days: {age}."
 
-        message: str = ""
-        if list(sorted(states)) != list(
-            sorted(
-                set(
-                    [
-                        VulnerabilityStateStatus["CLOSED"],
-                        VulnerabilityStateStatus["OPEN"],
-                    ]
-                )
-            )
-        ):
-            message += f" States: {states}."
-        if sorted(list(treatments)) != sorted(
-            list(set(VulnerabilityTreatmentStatus))
-        ):
-            message += f" Treatments: {treatments}."
-        if verifications:
-            message += f" Verifications: {verifications}."
-        if closing_date:
-            message += f" Closing date: {closing_date}."
-        if finding_title:
-            message += f" Finding type code: {finding_title}."
-        if message:
-            return f". With the following filters:{message}"
-    return ""
+    return (
+        f". With the following filters:{message}"
+        if report_type == "XLS" and message
+        else ""
+    )
 
 
 async def report(*, item: BatchProcessing) -> None:
@@ -225,6 +234,7 @@ async def report(*, item: BatchProcessing) -> None:
         else None
     )
     finding_title: str = additional_info.get("finding_title", "")
+    age: Optional[int] = additional_info.get("age", None)
     message = (
         f"Processing {report_type} report requested by "
         + f"{item.subject} for group {item.entity}"
@@ -235,6 +245,7 @@ async def report(*, item: BatchProcessing) -> None:
             verifications=verifications,
             closing_date=closing_date,
             finding_title=finding_title,
+            age=age,
         )
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -246,6 +257,7 @@ async def report(*, item: BatchProcessing) -> None:
         verifications=verifications,
         closing_date=closing_date,
         finding_title=finding_title,
+        age=age,
     )
     if report_url:
         await send_report(
@@ -257,4 +269,5 @@ async def report(*, item: BatchProcessing) -> None:
             verifications=verifications,
             closing_date=closing_date,
             finding_title=finding_title,
+            age=age,
         )

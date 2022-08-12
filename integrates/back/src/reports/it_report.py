@@ -39,6 +39,9 @@ from decimal import (
 from findings import (
     domain as findings_domain,
 )
+from findings.domain.core import (
+    get_report_days,
+)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -106,6 +109,7 @@ class ITReport:
         verifications: set[VulnerabilityVerificationStatus],
         closing_date: Optional[datetime],
         finding_title: str,
+        age: Optional[int],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -117,6 +121,7 @@ class ITReport:
         self.verifications = verifications
         self.closing_date = closing_date
         self.finding_title = finding_title
+        self.age = age
         if self.closing_date:
             self.states = set(
                 [
@@ -161,15 +166,27 @@ class ITReport:
             findings_ids
         )
 
+    @staticmethod
+    def _get_report_days(finding: Finding) -> int:
+        unreliable_indicators = finding.unreliable_indicators
+        return get_report_days(
+            unreliable_indicators.unreliable_oldest_vulnerability_report_date
+        )
+
     async def generate(self, data: tuple[Finding, ...]) -> None:
-        findings_ids = tuple(finding.id for finding in data)
         if self.finding_title:
             data = tuple(
                 finding
                 for finding in data
                 if finding.title.startswith(self.finding_title)
             )
-            findings_ids = tuple(finding.id for finding in data)
+        if self.age is not None:
+            data = tuple(
+                finding
+                for finding in data
+                if self._get_report_days(finding) <= self.age
+            )
+        findings_ids = tuple(finding.id for finding in data)
         findings_vulnerabilities: tuple[Vulnerability, ...]
         findings_verifications: tuple[tuple[FindingVerification], ...]
         findings_vulnerabilities, findings_verifications = await collect(

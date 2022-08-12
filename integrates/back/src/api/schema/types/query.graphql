@@ -100,6 +100,8 @@ type Query {
 
   "Report entity"
   report(
+    "Age of the Type in days (last N days) to include"
+    age: Int
     "Closing date to include, in the format `yyyy-MM-ddThh:mm:ssZ`"
     closingDate: DateTime
     "Finding's number and name to include"
