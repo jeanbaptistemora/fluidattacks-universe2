@@ -151,6 +151,7 @@ TEST_GROUPS: set[str] = {
     "update_toe_input",
     "update_toe_lines_attacked_lines",
     "update_toe_lines_sorts",
+    "update_toe_vulnerabilities",
     "update_tours",
     "update_url_root",
     "update_vulnerabilities_treatment",
