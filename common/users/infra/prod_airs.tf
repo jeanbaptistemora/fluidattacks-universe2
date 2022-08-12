@@ -1,37 +1,35 @@
 locals {
   prod_airs = {
     policies = {
-      aws = {
-        Version = "2012-10-17"
-        Statement = [
-          {
-            Sid    = "s3Write"
-            Effect = "Allow"
-            Action = ["*"]
-            // This buckets and resources list belog to airs, so the wildcard
-            // above is not dangerous
-            Resource = [
-              "arn:aws:s3:::fluidattacks.com",
-              "arn:aws:s3:::fluidattacks.com/*",
-              "arn:aws:s3:::fluidattacks-terraform-states-prod/airs*",
-              "arn:aws:s3:::web.eph.fluidattacks.com",
-              "arn:aws:s3:::web.eph.fluidattacks.com/*",
-            ]
-          },
-          {
-            Sid    = "dynamoWrite"
-            Effect = "Allow"
-            Action = [
-              "dynamodb:DeleteItem",
-              "dynamodb:GetItem",
-              "dynamodb:PutItem",
-            ]
-            Resource = [
-              var.terraform_state_lock_arn,
-            ]
-          },
-        ]
-      }
+      aws = [
+        {
+          Sid    = "s3Write"
+          Effect = "Allow"
+          Action = ["*"]
+          // This buckets and resources list belog to airs, so the wildcard
+          // above is not dangerous
+          Resource = [
+            "arn:aws:s3:::fluidattacks.com",
+            "arn:aws:s3:::fluidattacks.com/*",
+            "arn:aws:s3:::fluidattacks-terraform-states-prod/airs*",
+            "arn:aws:s3:::web.eph.fluidattacks.com",
+            "arn:aws:s3:::web.eph.fluidattacks.com/*",
+          ]
+        },
+        {
+          Sid    = "dynamoWrite"
+          Effect = "Allow"
+          Action = [
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+          ]
+          Resource = [
+            var.terraform_state_lock_arn,
+          ]
+        },
+      ]
+
       cloudflare = {
         account = {
           effect = "allow"

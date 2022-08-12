@@ -1,33 +1,30 @@
 locals {
   prod_melts = {
     policies = {
-      aws = {
-        Version = "2012-10-17"
-        Statement = [
-          {
-            Sid    = "s3Write"
-            Effect = "Allow"
-            Action = ["*"]
-            // This buckets and resources list belog to melts, so the wildcard
-            // above is not dangerous
-            Resource = [
-              "arn:aws:s3:::fluidattacks-terraform-states-prod/melts*",
-            ]
-          },
-          {
-            Sid    = "dynamoWrite"
-            Effect = "Allow"
-            Action = [
-              "dynamodb:DeleteItem",
-              "dynamodb:GetItem",
-              "dynamodb:PutItem",
-            ]
-            Resource = [
-              var.terraform_state_lock_arn,
-            ]
-          },
-        ]
-      }
+      aws = [
+        {
+          Sid    = "s3Write"
+          Effect = "Allow"
+          Action = ["*"]
+          // This buckets and resources list belog to melts, so the wildcard
+          // above is not dangerous
+          Resource = [
+            "arn:aws:s3:::fluidattacks-terraform-states-prod/melts*",
+          ]
+        },
+        {
+          Sid    = "dynamoWrite"
+          Effect = "Allow"
+          Action = [
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+          ]
+          Resource = [
+            var.terraform_state_lock_arn,
+          ]
+        },
+      ]
     }
   }
 }

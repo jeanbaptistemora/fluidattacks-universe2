@@ -1,34 +1,32 @@
 locals {
   prod_forces = {
     policies = {
-      aws = {
-        Version = "2012-10-17"
-        Statement = [
-          {
-            Sid    = "s3Write"
-            Effect = "Allow"
-            Action = ["*"]
-            // This buckets and resources list belog to forces, so the wildcard
-            // above is not dangerous
-            Resource = [
-              "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
-              "arn:aws:s3:::fluidattacks-terraform-states-prod/forces*",
-            ]
-          },
-          {
-            Sid    = "dynamoWrite"
-            Effect = "Allow"
-            Action = [
-              "dynamodb:DeleteItem",
-              "dynamodb:GetItem",
-              "dynamodb:PutItem",
-            ]
-            Resource = [
-              var.terraform_state_lock_arn,
-            ]
-          },
-        ]
-      }
+      aws = [
+        {
+          Sid    = "s3Write"
+          Effect = "Allow"
+          Action = ["*"]
+          // This buckets and resources list belog to forces, so the wildcard
+          // above is not dangerous
+          Resource = [
+            "arn:aws:s3:::fluidattacks-terraform-states-prod/break-build.tfstate",
+            "arn:aws:s3:::fluidattacks-terraform-states-prod/forces*",
+          ]
+        },
+        {
+          Sid    = "dynamoWrite"
+          Effect = "Allow"
+          Action = [
+            "dynamodb:DeleteItem",
+            "dynamodb:GetItem",
+            "dynamodb:PutItem",
+          ]
+          Resource = [
+            var.terraform_state_lock_arn,
+          ]
+        },
+      ]
+
     }
 
     keys = {

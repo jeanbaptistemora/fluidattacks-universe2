@@ -29,7 +29,7 @@ locals {
           },
         },
       ],
-      var.extra_assume_role_policies,
+      var.assume_role_policy,
     )
   }
 }

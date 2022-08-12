@@ -1,62 +1,60 @@
 locals {
   prod_common = {
     policies = {
-      aws = {
-        Version = "2012-10-17"
-        Statement = [
-          {
-            Sid    = "allWrite"
-            Effect = "Allow"
-            Action = [
-              "access-analyzer:*",
-              "acm:*",
-              "autoscaling:*",
-              "aws-marketplace:*",
-              "aws-portal:*",
-              "backup:*",
-              "batch:*",
-              "budgets:*",
-              "ce:*",
-              "cloudwatch:*",
-              "cur:*",
-              "dynamodb:*",
-              "ec2:*",
-              "ecs:*",
-              "eks:*",
-              "elasticache:*",
-              "elasticloadbalancing:*",
-              "es:*",
-              "events:*",
-              "iam:*",
-              "kms:*",
-              "lambda:*",
-              "logs:*",
-              "pricing:*",
-              "ram:*",
-              "rds:*",
-              "redshift:*",
-              "redshift-serverless:*",
-              "route53:*",
-              "route53-recovery-control-config:*",
-              "route53-recovery-readiness:*",
-              "route53domains:*",
-              "route53resolver:*",
-              "s3:*",
-              "sagemaker:*",
-              "savingsplans:*",
-              "secretsmanager:*",
-              "servicequotas:*",
-              "sns:*",
-              "sqs:*",
-              "ssm:*",
-              "sts:*",
-              "support:*",
-              "tag:*",
-            ]
-            Resource = ["*"]
-          },
-        ]
-      }
+      aws = [
+        {
+          Sid    = "allWrite"
+          Effect = "Allow"
+          Action = [
+            "access-analyzer:*",
+            "acm:*",
+            "autoscaling:*",
+            "aws-marketplace:*",
+            "aws-portal:*",
+            "backup:*",
+            "batch:*",
+            "budgets:*",
+            "ce:*",
+            "cloudwatch:*",
+            "cur:*",
+            "dynamodb:*",
+            "ec2:*",
+            "ecs:*",
+            "eks:*",
+            "elasticache:*",
+            "elasticloadbalancing:*",
+            "es:*",
+            "events:*",
+            "iam:*",
+            "kms:*",
+            "lambda:*",
+            "logs:*",
+            "pricing:*",
+            "ram:*",
+            "rds:*",
+            "redshift:*",
+            "redshift-serverless:*",
+            "route53:*",
+            "route53-recovery-control-config:*",
+            "route53-recovery-readiness:*",
+            "route53domains:*",
+            "route53resolver:*",
+            "s3:*",
+            "sagemaker:*",
+            "savingsplans:*",
+            "secretsmanager:*",
+            "servicequotas:*",
+            "sns:*",
+            "sqs:*",
+            "ssm:*",
+            "sts:*",
+            "support:*",
+            "tag:*",
+          ]
+          Resource = ["*"]
+        },
+      ]
+
     }
 
     keys = {
@@ -138,7 +136,7 @@ module "prod_common_aws" {
   name   = "prod_common"
   policy = local.prod_common.policies.aws
 
-  extra_assume_role_policies = [
+  assume_role_policy = [
     {
       Sid    = "AssumeRolePolicy",
       Effect = "Allow",
