@@ -22,6 +22,7 @@ from db_model.toe_lines.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
+    VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -98,6 +99,7 @@ async def process_toe_inputs(
         GroupToeInputsRequest(group_name=group_name)
     )
     updations = []
+    inputs_types = {VulnerabilityType.INPUTS, VulnerabilityType.PORTS}
 
     for toe_input in group_toe_inputs:
         has_vulnerabilities: bool = any(
@@ -111,6 +113,7 @@ async def process_toe_inputs(
                 toe_input.entry_point
             )
             for vulnerability in vulnerabilities
+            if vulnerability.type in inputs_types
         )
 
         if toe_input.has_vulnerabilities != has_vulnerabilities:
@@ -160,6 +163,7 @@ async def process_toe_lines(
             and vulnerability_where_repo == root_nicknames[toe_line.root_id]
             and vulnerability_where_path.startswith(toe_line.filename)
             for vulnerability in vulnerabilities
+            if vulnerability.type == VulnerabilityType.LINES
             for vulnerability_where_repo, vulnerability_where_path in [
                 _strip_first_dir(html.unescape(vulnerability.where))
             ]
