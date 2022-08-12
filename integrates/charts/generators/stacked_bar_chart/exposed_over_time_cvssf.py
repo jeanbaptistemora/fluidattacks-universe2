@@ -11,6 +11,9 @@ from charts import (
 from charts.colors import (
     RISK,
 )
+from charts.generators.stacked_bar_chart import (
+    format_csv_data_over_time,
+)
 from charts.generators.stacked_bar_chart.utils import (
     DATE_FMT,
     EXPOSED_OVER_TIME,
@@ -302,38 +305,51 @@ def format_document(
 
 
 async def generate_all() -> None:
+    header: str = "Dates"
     loaders: Dataloaders = get_new_context()
     async for group in utils.iterate_groups():
         group_document: RiskOverTime = await get_group_document(group, loaders)
+        document = format_document(
+            document=get_current_time_range([group_document])[0],
+        )
         utils.json_dump(
-            document=format_document(
-                document=get_current_time_range([group_document])[0],
-            ),
+            document=document,
             entity="group",
             subject=group,
+            csv_document=format_csv_data_over_time(
+                document=document, header=header
+            ),
         )
 
     async for org_id, _, org_groups in (
         utils.iterate_organizations_and_groups()
     ):
+        document = format_document(
+            document=await get_many_groups_document(org_groups, loaders),
+        )
         utils.json_dump(
-            document=format_document(
-                document=await get_many_groups_document(org_groups, loaders),
-            ),
+            document=document,
             entity="organization",
             subject=org_id,
+            csv_document=format_csv_data_over_time(
+                document=document, header=header
+            ),
         )
 
     async for org_id, org_name, _ in utils.iterate_organizations_and_groups():
         for portfolio, groups in await utils.get_portfolios_groups(org_name):
-            utils.json_dump(
-                document=format_document(
-                    document=await get_many_groups_document(
-                        tuple(groups), loaders
-                    ),
+            document = format_document(
+                document=await get_many_groups_document(
+                    tuple(groups), loaders
                 ),
+            )
+            utils.json_dump(
+                document=document,
                 entity="portfolio",
                 subject=f"{org_id}PORTFOLIO#{portfolio}",
+                csv_document=format_csv_data_over_time(
+                    document=document, header=header
+                ),
             )
 
 
