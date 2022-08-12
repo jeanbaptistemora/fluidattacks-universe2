@@ -1,20 +1,15 @@
 from collections import (
     OrderedDict,
 )
-from dataloaders import (
-    get_new_context,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from findings.domain import (
     download_evidence_file,
     get_records_from_file,
+    validate_evidence,
 )
 import os
 import pytest
-from vulnerabilities.domain import (
-    get_reattack_requester,
+from starlette.datastructures import (
+    UploadFile,
 )
 
 pytestmark = [
@@ -65,13 +60,16 @@ async def test_get_records_from_file() -> None:
     assert test_data == expected_output
 
 
-async def test_get_reattack_requester() -> None:
-    loaders = get_new_context()
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        "3bcdb384-5547-4170-a0b6-3b397a245465"
-    )
-    requester = await get_reattack_requester(
-        loaders,
-        vuln=vulnerability,
-    )
-    assert requester == "integratesuser@gmail.com"
+async def test_validate_evidence_records() -> None:
+    evidence_id = "fileRecords"
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "mock/test-file-records.csv")
+    mime_type = "text/csv"
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(
+            "test-file-records.csv", test_file, mime_type
+        )
+        test_data = await validate_evidence(evidence_id, uploaded_file)
+    expected_output = True
+    assert isinstance(test_data, bool)
+    assert test_data == expected_output

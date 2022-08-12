@@ -22,6 +22,7 @@ from db_model.findings.types import (
 from findings.domain import (
     add_comment,
     get_oldest_no_treatment,
+    get_tracking_vulnerabilities,
     get_treatment_summary,
     has_access_to_finding,
     mask_finding,
@@ -45,6 +46,197 @@ from vulnerabilities.types import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+async def test_get_tracking_vulnerabilities() -> None:
+    loaders: Dataloaders = get_new_context()
+    finding_vulns_loader = loaders.finding_vulnerabilities_nzr
+    historic_state_loader = loaders.vulnerability_historic_state
+    historic_treatment_loader = loaders.vulnerability_historic_treatment
+
+    finding_id = "436992569"
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "date": "2019-08-30",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 1,
+            "open": 15,
+            "closed": 0,
+            "date": "2019-09-12",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 2,
+            "open": 6,
+            "closed": 0,
+            "date": "2019-09-13",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 3,
+            "open": 0,
+            "closed": 4,
+            "date": "2019-09-13",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 4,
+            "open": 2,
+            "closed": 0,
+            "date": "2019-09-16",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+    ]
+    assert test_data == expected_output
+
+    finding_id = "463461507"
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "date": "2019-09-12",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 1,
+            "open": 1,
+            "closed": 0,
+            "date": "2019-09-13",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 2,
+            "open": 0,
+            "closed": 0,
+            "date": "2019-09-13",
+            "accepted": 1,
+            "accepted_undefined": 0,
+            "assigned": "integratesuser@gmail.com",
+            "justification": "accepted justification",
+        },
+    ]
+    assert test_data == expected_output
+
+    finding_id = "422286126"
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "date": "2020-01-03",
+            "accepted": 0,
+            "assigned": "",
+            "accepted_undefined": 0,
+            "justification": "",
+        },
+    ]
+    assert test_data == expected_output
+
+    finding_id = "463558592"
+    vulns = await finding_vulns_loader.load(finding_id)
+    vulns_state = await historic_state_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    vulns_treatment = await historic_treatment_loader.load_many(
+        [vuln.id for vuln in vulns]
+    )
+    test_data = get_tracking_vulnerabilities(
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
+    )
+    expected_output = [
+        {
+            "cycle": 0,
+            "open": 1,
+            "closed": 0,
+            "date": "2019-01-15",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 1,
+            "open": 0,
+            "closed": 1,
+            "date": "2019-01-15",
+            "accepted": 0,
+            "accepted_undefined": 0,
+            "assigned": "",
+            "justification": "",
+        },
+        {
+            "cycle": 2,
+            "open": 0,
+            "closed": 0,
+            "date": "2019-01-15",
+            "accepted": 1,
+            "accepted_undefined": 0,
+            "assigned": "integratesuser@gmail.com",
+            "justification": "This is a treatment justification test",
+        },
+    ]
+    assert test_data == expected_output
 
 
 async def test_has_access_to_finding() -> None:

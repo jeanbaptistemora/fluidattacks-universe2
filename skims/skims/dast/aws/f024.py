@@ -436,11 +436,15 @@ async def unrestricted_ftp_access(
             locations: List[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
-                    if ip_permission["FromPort"] <= 20 <= ip_permission[
-                        "ToPort"
-                    ] and ip_permission["FromPort"] <= 21 <= ip_permission[
-                        "ToPort"
-                    ] and ip_permission["IpProtocol"] in {"tcp"}:
+                    if (
+                        ip_permission["FromPort"]
+                        <= 20
+                        <= ip_permission["ToPort"]
+                        and ip_permission["FromPort"]
+                        <= 21
+                        <= ip_permission["ToPort"]
+                        and ip_permission["IpProtocol"] in {"tcp"}
+                    ):
                         locations = [
                             *[
                                 Location(
@@ -516,6 +520,7 @@ async def unrestricted_ftp_access(
                 ),
             )
     return vulns
+
 
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
