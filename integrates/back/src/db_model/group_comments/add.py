@@ -25,7 +25,7 @@ async def add(*, group_comment: GroupComment) -> None:
 
     group_comments_key = keys.build_key(
         facet=TABLE.facets["group_comment"],
-        values={"name": group_comment.group_name, "id": group_comment.id},
+        values={"id": group_comment.id, "name": group_comment.group_name},
     )
 
     group_comments_item = {

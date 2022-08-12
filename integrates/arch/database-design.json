@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 10, 2022, 12:36 PM",
+    "DateLastModified": "Aug 11, 2022, 17:02 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -10371,8 +10371,8 @@
         {
           "FacetName": "group_comment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "GROUP#name",
-            "SortKeyAlias": "CMNT#id"
+            "PartitionKeyAlias": "CMNT#id",
+            "SortKeyAlias": "GROUP#name"
           },
           "TableData": [],
           "NonKeyAttributes": [
