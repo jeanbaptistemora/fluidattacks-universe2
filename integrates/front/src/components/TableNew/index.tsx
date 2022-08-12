@@ -1,4 +1,10 @@
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleDown,
+  faAngleUp,
+  faSort,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { rankItem } from "@tanstack/match-sorter-utils";
 import {
@@ -143,30 +149,24 @@ const Table = <TData extends object>({
             {table.getHeaderGroups().map(
               (headerGroup): ReactElement => (
                 <tr key={headerGroup.id}>
-                  {expandedRow !== undefined &&
-                    (table.getIsAllRowsExpanded() ? (
-                      <th>
-                        <div
-                          onClick={table.getToggleAllRowsExpandedHandler()}
-                          onKeyPress={table.getToggleAllRowsExpandedHandler()}
-                          role={"button"}
-                          tabIndex={0}
-                        >
-                          <FontAwesomeIcon icon={faAngleUp} />
-                        </div>
-                      </th>
-                    ) : (
-                      <th>
-                        <div
-                          onClick={table.getToggleAllRowsExpandedHandler()}
-                          onKeyPress={table.getToggleAllRowsExpandedHandler()}
-                          role={"button"}
-                          tabIndex={0}
-                        >
-                          <FontAwesomeIcon icon={faAngleDown} />
-                        </div>
-                      </th>
-                    ))}
+                  {expandedRow === undefined ? undefined : (
+                    <th>
+                      <div
+                        onClick={table.getToggleAllRowsExpandedHandler()}
+                        onKeyPress={table.getToggleAllRowsExpandedHandler()}
+                        role={"button"}
+                        tabIndex={0}
+                      >
+                        <FontAwesomeIcon
+                          icon={
+                            table.getIsAllRowsExpanded()
+                              ? faAngleUp
+                              : faAngleDown
+                          }
+                        />
+                      </div>
+                    </th>
+                  )}
                   {rowSelectionSetter !== undefined && (
                     <th>
                       {selectionMode === "checkbox" && (
@@ -197,10 +197,16 @@ const Table = <TData extends object>({
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                            {{
-                              asc: " 🔼",
-                              desc: " 🔽",
-                            }[header.column.getIsSorted() as string] ?? null}
+                            &nbsp;
+                            <FontAwesomeIcon
+                              icon={
+                                {
+                                  asc: faSortUp,
+                                  desc: faSortDown,
+                                }[header.column.getIsSorted() as string] ??
+                                faSort
+                              }
+                            />
                           </div>
                         )}
                       </th>
@@ -289,7 +295,7 @@ const Table = <TData extends object>({
           </tbody>
         </table>
       </TableContainer>
-      {data.length >= 10 ? (
+      {data.length > 10 ? (
         <Pagination
           getPageCount={table.getPageCount}
           getState={table.getState}
