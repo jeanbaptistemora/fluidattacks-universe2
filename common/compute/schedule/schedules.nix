@@ -1133,6 +1133,35 @@
       "management:type" = "product";
     };
   };
+  skims_update_sca_table = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/skims/sca/scheduler"
+      "prod"
+      "schedulers.update_sca_table.main"
+    ];
+
+    schedule_expression = "cron(0 10 * * ? *)";
+    size = "nano";
+    awsRole = "prod_skims";
+    attempts = 3;
+    timeout = 86400;
+    parallel = 1;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "skims_update_sca_table";
+      "management:area" = "cost";
+      "management:product" = "skims";
+      "management:type" = "product";
+    };
+  };
   sorts_association_rules = {
     enabled = true;
     command = [
