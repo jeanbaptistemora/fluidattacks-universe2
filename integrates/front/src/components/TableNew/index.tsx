@@ -15,7 +15,7 @@ import type {
   Row,
   SortingState,
 } from "@tanstack/react-table";
-import type { ChangeEvent, ReactElement } from "react";
+import type { ChangeEvent, ChangeEventHandler, ReactElement } from "react";
 import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
@@ -41,6 +41,7 @@ const Table = <TData extends object>({
   initState = undefined,
   onRowClick = undefined,
   rowSelectionSetter = undefined,
+  selectionMode = "checkbox",
 }: Readonly<ITableProps<TData>>): JSX.Element => {
   const [columnVisibility, setColumnVisibility] = useState(
     initState?.columnVisibility ?? {}
@@ -60,6 +61,14 @@ const Table = <TData extends object>({
   function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
     setGlobalFilter(event.target.value);
   }
+
+  const radioSelectionhandler =
+    (row: Row<TData>): ChangeEventHandler =>
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setRowSelection({});
+      row.toggleSelected();
+      event.preventDefault();
+    };
 
   const filterFun: FilterFn<TData> = (
     row: Row<TData>,
@@ -160,11 +169,13 @@ const Table = <TData extends object>({
                     ))}
                   {rowSelectionSetter !== undefined && (
                     <th>
-                      <input
-                        checked={table.getIsAllRowsSelected()}
-                        onChange={table.getToggleAllRowsSelectedHandler()}
-                        type={"checkbox"}
-                      />
+                      {selectionMode === "checkbox" && (
+                        <input
+                          checked={table.getIsAllRowsSelected()}
+                          onChange={table.getToggleAllRowsSelectedHandler()}
+                          type={"checkbox"}
+                        />
+                      )}
                     </th>
                   )}
                   {headerGroup.headers.map(
@@ -228,15 +239,25 @@ const Table = <TData extends object>({
                           </div>
                         </td>
                       ))}
-                    {rowSelectionSetter !== undefined && (
-                      <td>
-                        <input
-                          checked={row.getIsSelected()}
-                          onChange={row.getToggleSelectedHandler()}
-                          type={"checkbox"}
-                        />
-                      </td>
-                    )}
+                    {rowSelectionSetter !== undefined &&
+                      (selectionMode === "radio" ? (
+                        <td>
+                          <input
+                            checked={row.getIsSelected()}
+                            name={"tableselection"}
+                            onChange={radioSelectionhandler(row)}
+                            type={selectionMode}
+                          />
+                        </td>
+                      ) : (
+                        <td>
+                          <input
+                            checked={row.getIsSelected()}
+                            onChange={row.getToggleSelectedHandler()}
+                            type={selectionMode}
+                          />
+                        </td>
+                      ))}
                     {row.getVisibleCells().map(
                       (cell): ReactElement => (
                         <td key={cell.id}>
