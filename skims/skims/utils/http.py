@@ -33,7 +33,7 @@ async def create_session(*args: Any, **kwargs: Any) -> aiohttp.ClientSession:
             ssl=False,
         ),
         timeout=aiohttp.ClientTimeout(
-            total=60,
+            total=120,
             connect=None,
             sock_read=None,
             sock_connect=None,
