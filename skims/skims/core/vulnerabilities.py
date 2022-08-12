@@ -67,7 +67,8 @@ def get_vulnerability_justification(  # noqa: MC0001
                 for reattacked_vuln in reattacked_store.iterate():
                     if (
                         vuln.where == reattacked_vuln.where
-                        and vuln.what == reattacked_vuln.what
+                        and vuln.what_on_integrates
+                        == reattacked_vuln.what_on_integrates
                         and vuln.skims_metadata is not None
                         and vuln.kind == reattacked_vuln.kind
                     ):
@@ -85,19 +86,20 @@ def get_vulnerability_justification(  # noqa: MC0001
                         != core_model.TechniqueEnum.DAST
                     ):
                         open_vulns.append(
-                            f"  - {vuln.what}:\n "
+                            f"  - {vuln.what_on_integrates}:\n "
                             + f"    Non-compliant code: {line_content}"
                         )
                     else:
-                        open_vulns.append(f"  - {vuln.what} ")
+                        open_vulns.append(f"  - {vuln.what_on_integrates} ")
             else:
                 for reattacked_vuln in reattacked_store.iterate():
                     if (
                         vuln.where == reattacked_vuln.where
-                        and vuln.what == reattacked_vuln.what
+                        and vuln.what_on_integrates
+                        == reattacked_vuln.what_on_integrates
                         and vuln.kind == reattacked_vuln.kind
                     ):
-                        closed_vulns.append(f"  - {vuln.what}")
+                        closed_vulns.append(f"  - {vuln.what_on_integrates}")
 
         str_open_vulns = "\n ".join(open_vulns) if open_vulns else ""
 

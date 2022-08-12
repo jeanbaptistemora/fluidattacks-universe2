@@ -620,7 +620,7 @@ async def test_comment_to_dast_methods() -> None:
         + r"[0-9]{2}\:[0-9]{2})\.\n"
         + r"Reported vulnerabilities are still open in commit\s+"
         + r"([a-zA-Z0-9]{40})\: \n"
-        + r"   - file $"
+        + r"   - test/file $"
     )
     justification = get_vulnerability_justification(
         reattacked_store=reattacked_store, store=skims_store

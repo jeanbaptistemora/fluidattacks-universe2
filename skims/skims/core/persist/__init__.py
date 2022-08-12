@@ -339,7 +339,7 @@ async def persist_finding(  # pylint: disable=too-many-locals
             config=config,
         )
 
-        if justification and reattacked_store:
+        if success and justification and reattacked_store:
             success_comment = all(
                 await collect(
                     do_add_finding_consult(
