@@ -10374,7 +10374,182 @@
             "PartitionKeyAlias": "CMNT#id",
             "SortKeyAlias": "GROUP#name"
           },
-          "TableData": [],
+          "TableData": [
+            {
+              "full_name": {
+                "S": "Miguel de Orellana"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "CMNT#1545946228675"
+              },
+              "id": {
+                "S": "1545946228675"
+              },
+              "creation_date": {
+                "S": "2018-12-27T21:30:28+00:00"
+              },
+              "content": {
+                "S": "Now we can post comments on groups"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "full_name": {
+                "S": "Juana la Loca"
+              },
+              "group_name": {
+                "S": "bwapp"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "GROUP#bwapp"
+              },
+              "pk": {
+                "S": "CMNT#1550707513314"
+              },
+              "id": {
+                "S": "1550707513314"
+              },
+              "creation_date": {
+                "S": "2019-02-21T00:05:13+00:00"
+              },
+              "content": {
+                "S": "This is a comment in group scope."
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "full_name": {
+                "S": "Hamilton Tabares"
+              },
+              "group_name": {
+                "S": "bwapp"
+              },
+              "parent_id": {
+                "S": "1558973973175"
+              },
+              "sk": {
+                "S": "GROUP#bwapp"
+              },
+              "pk": {
+                "S": "CMNT#1558973980632"
+              },
+              "id": {
+                "S": "1558973980632"
+              },
+              "creation_date": {
+                "S": "2019-05-27T16:19:40+00:00"
+              },
+              "content": {
+                "S": "ok"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "full_name": {
+                "S": "Juana la Loca"
+              },
+              "group_name": {
+                "S": "bwapp"
+              },
+              "parent_id": {
+                "S": "1545946228675"
+              },
+              "sk": {
+                "S": "GROUP#bwapp"
+              },
+              "pk": {
+                "S": "CMNT#1547044172979"
+              },
+              "id": {
+                "S": "1547044172979"
+              },
+              "creation_date": {
+                "S": "2019-01-09T14:29:32+00:00"
+              },
+              "content": {
+                "S": "Can I post comments too?"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "full_name": {
+                "S": "Juliana Alvarado"
+              },
+              "group_name": {
+                "S": "bwapp"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "GROUP#bwapp"
+              },
+              "pk": {
+                "S": "CMNT#1559074177370"
+              },
+              "id": {
+                "S": "1559074177370"
+              },
+              "creation_date": {
+                "S": "2019-05-28T20:09:37+00:00"
+              },
+              "content": {
+                "S": "hi, this is a test comment"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            },
+            {
+              "full_name": {
+                "S": "Hamilton Tabares"
+              },
+              "group_name": {
+                "S": "bwapp"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "GROUP#bwapp"
+              },
+              "pk": {
+                "S": "CMNT#1558973973175"
+              },
+              "id": {
+                "S": "1558973973175"
+              },
+              "creation_date": {
+                "S": "2019-05-27T16:19:33+00:00"
+              },
+              "content": {
+                "S": "hello, this is a comment is of testing "
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              }
+            }
+          ],
           "NonKeyAttributes": [
             "group_name",
             "id",
