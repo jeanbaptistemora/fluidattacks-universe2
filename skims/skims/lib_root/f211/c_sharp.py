@@ -1,8 +1,7 @@
 from lib_root.utilities.c_sharp import (
-    check_member_acces_expression,
     get_variable_attribute,
-    yield_shard_member_access,
     yield_shard_object_creation,
+    yield_syntax_graph_member_access,
 )
 from lib_sast.types import (
     ShardDb,
@@ -111,12 +110,11 @@ def regex_injection(
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
-
-            for member in yield_shard_member_access(shard, {"Regex"}):
-                if not check_member_acces_expression(shard, member, "Match"):
+            graph = shard.syntax_graph
+            for member in yield_syntax_graph_member_access(graph, {"Regex"}):
+                if not graph.nodes[member]["member"] == "Match":
                     continue
-                graph = shard.syntax_graph
-                pred = g.pred_ast(shard.graph, member)[0]
+                pred = g.pred_ast(graph, member)[0]
                 for path in get_backward_paths(graph, pred):
                     if (
                         evaluation := evaluate(method, graph, path, pred)
