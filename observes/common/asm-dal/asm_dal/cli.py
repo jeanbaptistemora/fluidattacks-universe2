@@ -5,7 +5,6 @@ from .organization import (
     OrgsClient,
 )
 from .utils import (
-    AwsCreds,
     new_client,
     new_resource,
     new_session,
@@ -13,13 +12,11 @@ from .utils import (
 import click
 from fa_purity import (
     Cmd,
-    Maybe,
 )
 import logging
 import sys
 from typing import (
     NoReturn,
-    Optional,
     TypeVar,
 )
 
@@ -32,42 +29,31 @@ def _print(item: _T) -> _T:
     return item
 
 
-@click.command()  # type: ignore[misc]
-@click.option("--key-id", type=str, required=True, envvar="AWS_ACCESS_KEY_ID")
-@click.option(
-    "--secret", type=str, required=True, envvar="AWS_SECRET_ACCESS_KEY"
-)
-@click.option(
-    "--token",
-    type=str,
-    default=None,
-    required=False,
-    envvar="AWS_SESSION_TOKEN",
-)
-def list_all_groups(
-    key_id: str, secret: str, token: Optional[str]
-) -> NoReturn:
-    creds = AwsCreds(
-        key_id,
-        secret,
-        Maybe.from_optional(token),
+@click.command(help="Requires AWS authentication (retrieved from the environment)")  # type: ignore[misc]
+def list_all_groups() -> NoReturn:
+    clients = new_session().bind(
+        lambda s: new_client(s)
+        .map(OrgsClient)
+        .bind(
+            lambda o: new_resource(s).map(GroupsClient).map(lambda g: (o, g))
+        )
     )
-    session = new_session(creds)
-    client = new_client(session)
-    resource = new_resource(session)
-    orgs_cli = OrgsClient(client)
-    grp_cli = GroupsClient(resource)
-    groups = (
-        orgs_cli.all_orgs()
-        .map(lambda o: _print(o))
-        .bind(grp_cli.get_groups)
-        .map(lambda o: _print(o))
-        .to_list()
-        .map(lambda l: frozenset(l))
-    )
-    groups.map(lambda gs: "\n".join(g.name for g in gs)).bind(
-        lambda s: Cmd.from_cmd(lambda: print(s, file=sys.stdout))
-    ).compute()
+
+    def _action(orgs_cli: OrgsClient, grp_cli: GroupsClient) -> Cmd[None]:
+        groups = (
+            orgs_cli.all_orgs()
+            .map(lambda o: _print(o))
+            .bind(grp_cli.get_groups)
+            .map(lambda o: _print(o))
+            .to_list()
+            .map(lambda l: frozenset(l))
+        )
+        return groups.map(lambda gs: "\n".join(g.name for g in gs)).bind(
+            lambda s: Cmd.from_cmd(lambda: print(s, file=sys.stdout))
+        )
+
+    cmd: Cmd[None] = clients.bind(lambda t: _action(t[0], t[1]))
+    cmd.compute()
 
 
 @click.group()  # type: ignore[misc]
