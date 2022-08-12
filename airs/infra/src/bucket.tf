@@ -40,6 +40,20 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "prod" {
   }
 }
 
+resource "aws_s3_bucket_cors_configuration" "prod" {
+  bucket = aws_s3_bucket.prod.id
+
+  cors_rule {
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = [
+      "https://fluidattacks.com/",
+      "https://salesiq.zoho.com/widget",
+      "https://cdnjs.cloudflare.com/"
+    ]
+    max_age_seconds = 3600
+  }
+}
+
 data "aws_iam_policy_document" "bucket_prod" {
   statement {
     sid    = "CloudFlare"
