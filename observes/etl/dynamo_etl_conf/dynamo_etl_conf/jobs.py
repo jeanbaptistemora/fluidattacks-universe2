@@ -92,6 +92,7 @@ class Executor:
             "10",  # total_segments: MUST coincide with batch parallel conf
             "auto",
         ]
+        # [!] REMEMBER: adjust centralizer range according to total_segments
         return external_run(tuple(args))
 
     def prepare_core(self) -> Cmd[None]:
