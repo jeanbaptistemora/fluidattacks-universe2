@@ -1389,6 +1389,15 @@ class PaymentMethodAlreadyExists(CustomBaseException):
         super(PaymentMethodAlreadyExists, self).__init__(msg)
 
 
+class InvalidManagedChange(CustomBaseException):
+    def __init__(self) -> None:
+        msg: str = (
+            "Exception - Incorrect change in managed parameter. "
+            "Please review the payment conditions"
+        )
+        super(InvalidManagedChange, self).__init__(msg)
+
+
 class InvalidGitCredentials(CustomBaseException):
     def __init__(self) -> None:
         msg: str = (

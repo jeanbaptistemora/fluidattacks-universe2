@@ -30,6 +30,7 @@ from custom_exceptions import (
     InvalidGroupName,
     InvalidGroupServicesConfig,
     InvalidGroupTier,
+    InvalidManagedChange,
     InvalidParameter,
     RepeatedValues,
     StakeholderNotInOrganization,
@@ -491,23 +492,29 @@ async def update_group_managed(
     group: Group = await loaders.group.load(group_name)
 
     if managed != group.state.managed:
-        await update_state(
-            group_name=group_name,
-            organization_id=group.organization_id,
-            state=GroupState(
-                comments=comments,
-                modified_date=datetime_utils.get_iso_date(),
-                has_machine=group.state.has_machine,
-                has_squad=group.state.has_squad,
-                managed=managed,
-                justification=GroupStateUpdationJustification["NONE"],
-                modified_by=user_email,
-                service=group.state.service,
-                status=GroupStateStatus.ACTIVE,
-                tier=group.state.tier,
-                type=group.state.type,
-            ),
-        )
+        if (
+            managed == "MANAGED" and group.state.managed == "UNDER_REVIEW"
+        ) or (managed == "UNDER_REVIEW" and group.state.managed == "MANAGED"):
+            await update_state(
+                group_name=group_name,
+                organization_id=group.organization_id,
+                state=GroupState(
+                    comments=comments,
+                    modified_date=datetime_utils.get_iso_date(),
+                    has_machine=group.state.has_machine,
+                    has_squad=group.state.has_squad,
+                    managed=managed,
+                    payment_id=group.state.payment_id,
+                    justification=GroupStateUpdationJustification["NONE"],
+                    modified_by=user_email,
+                    service=group.state.service,
+                    status=GroupStateStatus.ACTIVE,
+                    tier=group.state.tier,
+                    type=group.state.type,
+                ),
+            )
+        else:
+            raise InvalidManagedChange()
 
         if managed == "MANAGED":
             organization: Organization = await loaders.organization.load(

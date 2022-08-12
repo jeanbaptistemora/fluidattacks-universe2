@@ -74,6 +74,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 {t("organization.tabs.billing.groups.paymentMethod")}
               </ControlLabel>
               <Field component={FormikDropdown} name={"paymentId"}>
+                <option value={""} />
                 {paymentMethods.map(
                   (method): JSX.Element => (
                     <option key={method.id} value={method.id}>{`${

@@ -2277,6 +2277,8 @@ export const enTranslations: ResourceKey = {
         activeRoots:
           "This group has active roots. Review them first and try again",
         expectedGroupName: "Expected: {{groupName}}",
+        invalidManaged:
+          "Incorrect change in managed parameter. Please review the payment conditions",
         organizationNotExists: "Target organization does not exist",
         squadOnlyIfContinuous:
           "Squad is only available in groups of type Continuous-Hacking",
