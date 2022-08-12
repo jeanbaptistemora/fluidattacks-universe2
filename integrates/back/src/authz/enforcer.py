@@ -15,6 +15,9 @@ from db_model.group_access.types import (
 from db_model.groups.types import (
     Group,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from typing import (
     Any,
     Callable,
@@ -25,9 +28,7 @@ async def get_group_level_enforcer(
     loaders: Any,
     email: str,
 ) -> Callable[[str, str], bool]:
-    """Return a filtered group-level authorization for the provided subject.
-    The argument `context_store` will be used to memoize round-trips.
-    """
+    """Return a filtered group-level authorization for the provided email."""
     groups_access: tuple[
         GroupAccess, ...
     ] = await loaders.stakeholder_groups_access.load(email)
@@ -67,31 +68,30 @@ async def get_group_service_attributes_enforcer(
 
 
 async def get_organization_level_enforcer(
-    subject: str,
-    with_cache: bool = True,
+    loaders: Any,
+    email: str,
 ) -> Callable[[str, str], bool]:
     """
     Return a filtered organization-level authorization
-    for the provided subject.
+    for the provided email.
     """
-    policies = await get_cached_subject_policies(
-        subject, with_cache=with_cache
-    )
-    roles = get_organization_level_roles_model(subject)
+    orgs_access: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.stakeholder_organizations_access.load(email)
+    roles = get_organization_level_roles_model(email)
+    user_level_role = await get_user_level_role(loaders, email)
 
     def enforcer(r_object: str, r_action: str) -> bool:
         return any(
             # Regular user with an organization policy set for the r_object
-            p_level == "organization"
-            and r_object == p_object
-            and r_action in roles.get(p_role, {}).get("actions", set())
-            for p_level, p_object, p_role in policies
-        ) or any(
+            r_object == access.organization_id
+            and access.role
+            and r_action in roles.get(access.role, {}).get("actions", set())
+            for access in orgs_access
+        ) or (
             # An admin
-            p_level == "user"
-            and p_role == "admin"
-            and r_action in roles.get(p_role, {}).get("actions", set())
-            for p_level, _, p_role in policies
+            user_level_role == "admin"
+            and r_action in roles.get("admin", {}).get("actions", set())
         )
 
     return enforcer

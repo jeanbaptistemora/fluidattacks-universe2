@@ -77,7 +77,7 @@ async def test_get_organization_level_actions_model(
     )
 
     assert await authz.get_organization_level_actions(
-        email, organization_id
+        loaders, email, organization_id
     ) == authz.get_organization_level_roles_model(email).get(
         organization_level_role, {}
     ).get(

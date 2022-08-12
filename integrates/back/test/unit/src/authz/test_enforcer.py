@@ -5,13 +5,12 @@ from dataloaders import (
 )
 from db_model import (
     group_access as group_access_model,
+    organization_access as org_access_model,
     stakeholders as stakeholders_model,
 )
 import pytest
 from typing import (
     Any,
-    Set,
-    Tuple,
 )
 
 # Constants
@@ -20,6 +19,54 @@ pytestmark = [
 ]
 
 
+@pytest.mark.changes_db
+async def test_organization_level_enforcer() -> None:
+    test_cases = {
+        # Common user, group
+        (
+            "test@tests.com",
+            "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
+        ),
+        # Fluid user, group
+        (
+            "test@fluidattacks.com",
+            "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+        ),
+    }
+    for subject, organization_id in test_cases:
+        model = authz.get_organization_level_roles_model(subject)
+
+        for role in model:
+            await stakeholders_model.remove(email=subject)
+            await authz.revoke_user_level_role(subject)
+            await org_access_model.remove(
+                email=subject, organization_id=organization_id
+            )
+            await authz.revoke_organization_level_role(
+                subject, organization_id
+            )
+            await authz.grant_organization_level_role(
+                get_new_context(), subject, organization_id, role
+            )
+            enforcer = await authz.get_organization_level_enforcer(
+                get_new_context(), subject
+            )
+
+            for action in model[role]["actions"]:
+                assert enforcer(
+                    organization_id, action
+                ), f"{role} should be able to do {action}"
+
+            for other_role in model:
+                for action in (
+                    model[other_role]["actions"] - model[role]["actions"]
+                ):
+                    assert not enforcer(
+                        organization_id, action
+                    ), f"{role} should not be able to do {action}"
+
+
+@pytest.mark.changes_db
 async def test_group_level_enforcer() -> None:
     test_cases = {
         # Common user, group
@@ -91,7 +138,7 @@ async def test_group_service_attributes_enforcer() -> None:
     # All attributes must be tested for this test to succeed
     # This prevents someone to add a new attribute without testing it
 
-    attributes_remaining_to_test: Set[Tuple[str, Any]] = {
+    attributes_remaining_to_test: set[tuple[str, Any]] = {
         (group_name, attr)
         for group_name in ("unittesting", "oneshottest")
         for attrs in authz.SERVICE_ATTRIBUTES.values()

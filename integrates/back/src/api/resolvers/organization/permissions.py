@@ -2,6 +2,10 @@ import authz
 from custom_exceptions import (
     InvalidParameter,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -13,23 +17,19 @@ import logging.config
 from newutils import (
     token as token_utils,
 )
-from typing import (
-    Dict,
-    Set,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
 
 
 async def _get_org_permissions(
-    user_email: str, identifier: str, with_cache: bool
-) -> Set[str]:
+    loaders: Dataloaders, user_email: str, identifier: str
+) -> set[str]:
     # Exception: WF(Cannot assign to accepted value)
-    actions: Set[str] = set()  # NOSONAR
+    actions: set[str] = set()  # NOSONAR
     if identifier:
         actions = await authz.get_organization_level_actions(
-            user_email, identifier, with_cache
+            loaders, user_email, identifier
         )
     else:
         raise InvalidParameter()
@@ -39,28 +39,20 @@ async def _get_org_permissions(
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    **kwargs: Dict,
-) -> Set[str]:
-    user_info: Dict[str, str] = await token_utils.get_jwt_content(info.context)
+    **kwargs: dict,
+) -> set[str]:
+    loaders: Dataloaders = get_new_context()
+    user_info: dict[str, str] = await token_utils.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
     org_id = parent.id
     identifier = str(kwargs.get("identifier", org_id))
 
-    permissions: Set[str] = await _get_org_permissions(
-        user_email, identifier, with_cache=True
+    permissions: set[str] = await _get_org_permissions(
+        loaders, user_email, identifier
     )
     if not permissions:
         LOGGER.error(
-            "Empty permissions on _get_org_permissions with cache",
+            "Empty permissions on _get_org_permissions",
             extra=dict(extra=locals()),
         )
-        await authz.revoke_cached_subject_policies(user_email)
-        permissions = await _get_org_permissions(
-            user_email, identifier, with_cache=False
-        )
-        if not permissions:
-            LOGGER.error(
-                "Empty permissions on _get_org_permissions without cache",
-                extra=dict(extra=locals()),
-            )
     return permissions

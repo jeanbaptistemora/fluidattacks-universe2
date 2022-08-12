@@ -23,8 +23,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Set,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -35,7 +33,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def get_group_level_actions(
     loaders: Any, email: str, group: str
-) -> Set[str]:
+) -> set[str]:
     enforcer = await get_group_level_enforcer(loaders, email)
     group_actions = {
         action
@@ -55,10 +53,10 @@ async def get_group_level_roles_a_user_can_grant(
     loaders: Any,
     group: str,
     requester_email: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
     enforcer = await get_group_level_enforcer(loaders, requester_email)
-    roles_the_user_can_grant: Tuple[str, ...] = tuple(
+    roles_the_user_can_grant: tuple[str, ...] = tuple(
         role
         for role in get_group_level_roles_model(requester_email)
         if enforcer(group, f"grant_group_level_role:{role}")
@@ -66,7 +64,7 @@ async def get_group_level_roles_a_user_can_grant(
     return roles_the_user_can_grant
 
 
-def get_group_level_roles_with_tag(tag: str, email: str) -> Set[str]:
+def get_group_level_roles_with_tag(tag: str, email: str) -> set[str]:
     return {
         role_name
         for role_name, role_definition in get_group_level_roles_model(
@@ -76,21 +74,19 @@ def get_group_level_roles_with_tag(tag: str, email: str) -> Set[str]:
     }
 
 
-async def get_group_service_attributes(group: Group) -> Set[str]:
+async def get_group_service_attributes(group: Group) -> set[str]:
     enforcer = await get_group_service_attributes_enforcer(group)
     return set(filter(enforcer, SERVICE_ATTRIBUTES_SET))
 
 
 async def get_organization_level_actions(
-    subject: str, organization_id: str, with_cache: bool = True
-) -> Set[str]:
-    enforcer = await get_organization_level_enforcer(
-        subject, with_cache=with_cache
-    )
+    loaders: Any, email: str, organization_id: str
+) -> set[str]:
+    enforcer = await get_organization_level_enforcer(loaders, email)
     organization_actions = {
         action
-        for action in get_organization_level_actions_model(subject)
-        if enforcer(organization_id.lower(), action)
+        for action in get_organization_level_actions_model(email)
+        if enforcer(organization_id, action)
     }
     if not organization_actions:
         LOGGER.error(
@@ -102,12 +98,13 @@ async def get_organization_level_actions(
 
 async def get_organization_level_roles_a_user_can_grant(
     *,
+    loaders: Any,
     organization_id: str,
     requester_email: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
-    enforcer = await get_organization_level_enforcer(requester_email)
-    roles_the_user_can_grant: Tuple[str, ...] = tuple(
+    enforcer = await get_organization_level_enforcer(loaders, requester_email)
+    roles_the_user_can_grant: tuple[str, ...] = tuple(
         role
         for role in get_organization_level_roles_model(requester_email)
         if enforcer(organization_id, f"grant_organization_level_role:{role}")
@@ -117,7 +114,7 @@ async def get_organization_level_roles_a_user_can_grant(
 
 async def get_user_level_actions(
     subject: str, with_cache: bool = True
-) -> Set[str]:
+) -> set[str]:
     enforcer = await get_user_level_enforcer(subject, with_cache=with_cache)
     object_ = "self"
     user_actions = {
@@ -136,10 +133,10 @@ async def get_user_level_actions(
 async def get_user_level_roles_a_user_can_grant(
     *,
     requester_email: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     """Return a tuple of roles that users can grant based on their role."""
     enforcer = await get_user_level_enforcer(requester_email)
-    roles_the_user_can_grant: Tuple[str, ...] = tuple(
+    roles_the_user_can_grant: tuple[str, ...] = tuple(
         role
         for role in get_user_level_roles_model(requester_email)
         if enforcer("self", f"grant_user_level_role:{role}")

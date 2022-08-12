@@ -281,10 +281,9 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
         organization_id = organization.id
         user_data = await token_utils.get_jwt_content(context)
         subject = user_data["user_email"]
-        object_ = organization_id.lower()
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
 
-        if not object_:
+        if not organization_id:
             LOGGER.error(
                 "Unable to identify organization to check permissions",
                 extra={
@@ -292,8 +291,10 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
                     "subject": subject,
                 },
             )
-        enforcer = await authz.get_organization_level_enforcer(subject)
-        if not enforcer(object_, action):
+        enforcer = await authz.get_organization_level_enforcer(
+            loaders, subject
+        )
+        if not enforcer(organization_id, action):
             logs_utils.cloudwatch_log(context, UNAUTHORIZED_ROLE_MSG)
             raise GraphQLError("Access denied")
         if asyncio.iscoroutinefunction(_func):
