@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-component-props */
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Col100, Col33, Col50 } from "./components/ChartCols";
@@ -11,13 +11,7 @@ import type {
   EntityType,
   IChartsGenericViewProps,
 } from "scenes/Dashboard/containers/ChartsGenericView/types";
-import {
-  PanelCollapse,
-  PanelCollapseBody,
-  PanelCollapseHeader,
-  Row,
-  RowCenter,
-} from "styles/styledComponents";
+import { PanelCollapseHeader, Row, RowCenter } from "styles/styledComponents";
 
 const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
   bgChange,
@@ -27,17 +21,6 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
 }: IChartsGenericViewProps): JSX.Element => {
   const { t } = useTranslation();
   const graphInfoLink = "https://docs.fluidattacks.com/machine/web/analytics/";
-
-  const [isForcesDescriptionExpanded, setIsForcesDescriptionExpanded] =
-    useState(reportMode);
-
-  const forcesPanelOnEnter: () => void = useCallback((): void => {
-    setIsForcesDescriptionExpanded(true);
-  }, []);
-
-  const forcesPanelOnLeave: () => void = useCallback((): void => {
-    setIsForcesDescriptionExpanded(reportMode);
-  }, [reportMode]);
 
   const doesEntityMatch: (entities: EntityType[]) => boolean = (
     entities: EntityType[]
@@ -909,29 +892,10 @@ const ChartsGenericView: React.FC<IChartsGenericViewProps> = ({
           <hr />
           <div className={"center"}>
             <RowCenter>
-              <Col100
-                onMouseEnter={forcesPanelOnEnter}
-                onMouseLeave={forcesPanelOnLeave}
-              >
-                <PanelCollapse aria-expanded={isForcesDescriptionExpanded}>
-                  <PanelCollapseHeader>
-                    <h1>{t("analytics.sections.forces.title")}</h1>
-                  </PanelCollapseHeader>
-                  <PanelCollapseBody>
-                    <p>{t("analytics.textBox.forcesStatus.footer.intro")}</p>
-                    <ul>
-                      <li>
-                        {t("analytics.textBox.forcesStatus.footer.smart")}
-                      </li>
-                      <li>
-                        {t("analytics.textBox.forcesStatus.footer.breaks")}
-                      </li>
-                      <li>
-                        {t("analytics.textBox.forcesStatus.footer.stats")}
-                      </li>
-                    </ul>
-                  </PanelCollapseBody>
-                </PanelCollapse>
+              <Col100>
+                <PanelCollapseHeader>
+                  <h1>{t("analytics.sections.forces.title")}</h1>
+                </PanelCollapseHeader>
               </Col100>
             </RowCenter>
             <div className={styles.separatorTitleFromCharts} />

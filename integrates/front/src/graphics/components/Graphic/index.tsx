@@ -399,7 +399,7 @@ export const Graphic: React.FC<IGraphicProps> = (
           <div className={"flex justify-between w-100"}>
             <div className={`${styles.titleBar} w-50`}>{currentTitle}</div>
             <div className={"w-50 pr2"}>
-              <div className={"f5 fr"}>
+              <div className={"f6 fr"}>
                 <FilterButton
                   changeToAll={changeToAll}
                   changeToAlternative={changeToAlternative}
@@ -425,7 +425,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   subjectName={subjectName}
                   timeFilter={isDocumentAllowed(documentName, documentType)}
                 />
-                {!_.isUndefined(infoLink) && shouldDisplayUrl && (
+                {!_.isUndefined(infoLink) && shouldDisplayUrl ? (
                   <ExternalLink
                     className={"g-a"}
                     href={
@@ -445,7 +445,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                       </GraphicButton>
                     </Tooltip>
                   </ExternalLink>
-                )}
+                ) : undefined}
                 <ExternalLink
                   className={"g-a"}
                   download={buildFileName(modalSize)}
@@ -502,7 +502,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             }}
             title={currentTitle}
           />
-          {modalIframeState !== "ready" && (
+          {modalIframeState === "ready" ? undefined : (
             <div
               className={styles.loadingComponent}
               style={{
@@ -533,111 +533,111 @@ export const Graphic: React.FC<IGraphicProps> = (
                 <div className={"w-100 report-title"}>
                   {currentTitle}
                   {expanded &&
-                    !reportMode &&
-                    fullSize.width > minWidthToShowButtons && (
-                      <div className={"fr"}>
-                        <FilterButton
-                          changeToAll={changeToAll}
-                          changeToAlternative={changeToAlternative}
-                          changeToDefault={changeToDefault}
-                          changeToNinety={changeToNinety}
-                          changeToOneHundredEighty={
-                            shouldDisplayAll
-                              ? undefined
-                              : changeToOneHundredEighty
-                          }
-                          changeToSixtyDays={
-                            shouldDisplayAll ? undefined : changeToSixtyDays
-                          }
-                          changeToThirtyDays={
-                            shouldDisplayAll ? changeTothirtyDays : changeToAll
-                          }
-                          currentDocumentName={currentDocumentName}
-                          documentName={documentName}
-                          documentNameFilter={isDocumentMerged(
-                            documentName,
-                            documentType
-                          )}
-                          shouldDisplayAll={shouldDisplayAll}
-                          subject={subject}
-                          subjectName={subjectName}
-                          timeFilter={isDocumentAllowed(
-                            documentName,
-                            documentType
-                          )}
-                        />
-                        {!_.isUndefined(infoLink) && shouldDisplayUrl && (
-                          <ExternalLink
-                            className={"g-a"}
-                            href={
-                              infoLink +
-                              getAdditionalInfoLink(documentName, documentType)
-                            }
-                          >
-                            <Tooltip
-                              disp={"inline-block"}
-                              id={"information_button_tooltip"}
-                              tip={translate.t(
-                                "analytics.buttonToolbar.information.tooltip"
-                              )}
-                            >
-                              <GraphicButton>
-                                <FontAwesomeIcon icon={faInfoCircle} />
-                              </GraphicButton>
-                            </Tooltip>
-                          </ExternalLink>
+                  !reportMode &&
+                  fullSize.width > minWidthToShowButtons ? (
+                    <div className={"fr"}>
+                      <FilterButton
+                        changeToAll={changeToAll}
+                        changeToAlternative={changeToAlternative}
+                        changeToDefault={changeToDefault}
+                        changeToNinety={changeToNinety}
+                        changeToOneHundredEighty={
+                          shouldDisplayAll
+                            ? undefined
+                            : changeToOneHundredEighty
+                        }
+                        changeToSixtyDays={
+                          shouldDisplayAll ? undefined : changeToSixtyDays
+                        }
+                        changeToThirtyDays={
+                          shouldDisplayAll ? changeTothirtyDays : changeToAll
+                        }
+                        currentDocumentName={currentDocumentName}
+                        documentName={documentName}
+                        documentNameFilter={isDocumentMerged(
+                          documentName,
+                          documentType
                         )}
+                        shouldDisplayAll={shouldDisplayAll}
+                        subject={subject}
+                        subjectName={subjectName}
+                        timeFilter={isDocumentAllowed(
+                          documentName,
+                          documentType
+                        )}
+                      />
+                      {!_.isUndefined(infoLink) && shouldDisplayUrl ? (
                         <ExternalLink
                           className={"g-a"}
-                          download={buildFileName(bigGraphicSize)}
-                          href={buildUrl(
-                            {
-                              ...props,
-                              documentName: currentDocumentName,
-                              subject: subjectName,
-                            },
-                            bigGraphicSize,
-                            subjectName,
-                            currentDocumentName
-                          )}
-                          onClick={track}
+                          href={
+                            infoLink +
+                            getAdditionalInfoLink(documentName, documentType)
+                          }
                         >
                           <Tooltip
                             disp={"inline-block"}
-                            id={"download_button_tooltip"}
+                            id={"information_button_tooltip"}
                             tip={translate.t(
-                              "analytics.buttonToolbar.download.tooltip"
+                              "analytics.buttonToolbar.information.tooltip"
                             )}
                           >
                             <GraphicButton>
-                              <FontAwesomeIcon icon={faDownload} />
+                              <FontAwesomeIcon icon={faInfoCircle} />
                             </GraphicButton>
                           </Tooltip>
                         </ExternalLink>
+                      ) : undefined}
+                      <ExternalLink
+                        className={"g-a"}
+                        download={buildFileName(bigGraphicSize)}
+                        href={buildUrl(
+                          {
+                            ...props,
+                            documentName: currentDocumentName,
+                            subject: subjectName,
+                          },
+                          bigGraphicSize,
+                          subjectName,
+                          currentDocumentName
+                        )}
+                        onClick={track}
+                      >
                         <Tooltip
                           disp={"inline-block"}
-                          id={"refresh_button_tooltip"}
+                          id={"download_button_tooltip"}
                           tip={translate.t(
-                            "analytics.buttonToolbar.refresh.tooltip"
+                            "analytics.buttonToolbar.download.tooltip"
                           )}
                         >
-                          <GraphicButton onClick={frameOnRefresh}>
-                            <FontAwesomeIcon icon={faSyncAlt} />
+                          <GraphicButton>
+                            <FontAwesomeIcon icon={faDownload} />
                           </GraphicButton>
                         </Tooltip>
-                        <Tooltip
-                          disp={"inline-block"}
-                          id={"expand_button_tooltip"}
-                          tip={translate.t(
-                            "analytics.buttonToolbar.expand.tooltip"
-                          )}
-                        >
-                          <GraphicButton onClick={frameOnFullScreen}>
-                            <FontAwesomeIcon icon={faExpandArrowsAlt} />
-                          </GraphicButton>
-                        </Tooltip>
-                      </div>
-                    )}
+                      </ExternalLink>
+                      <Tooltip
+                        disp={"inline-block"}
+                        id={"refresh_button_tooltip"}
+                        tip={translate.t(
+                          "analytics.buttonToolbar.refresh.tooltip"
+                        )}
+                      >
+                        <GraphicButton onClick={frameOnRefresh}>
+                          <FontAwesomeIcon icon={faSyncAlt} />
+                        </GraphicButton>
+                      </Tooltip>
+                      <Tooltip
+                        disp={"inline-block"}
+                        id={"expand_button_tooltip"}
+                        tip={translate.t(
+                          "analytics.buttonToolbar.expand.tooltip"
+                        )}
+                      >
+                        <GraphicButton onClick={frameOnFullScreen}>
+                          <FontAwesomeIcon icon={faExpandArrowsAlt} />
+                        </GraphicButton>
+                      </Tooltip>
+                    </div>
+                  ) : undefined}
                 </div>
               </div>
             </GraphicPanelCollapseHeader>
@@ -664,7 +664,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 }}
                 title={currentTitle}
               />
-              {iframeState !== "ready" && (
+              {iframeState === "ready" ? undefined : (
                 <div
                   className={styles.loadingComponent}
                   style={{
