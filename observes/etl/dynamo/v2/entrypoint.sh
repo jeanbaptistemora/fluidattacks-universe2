@@ -47,6 +47,7 @@ function dynamodb_etl {
   local singer_file
   local schemas
   export AWS_DEFAULT_REGION="us-east-1"
+
   db_creds=$(mktemp) \
     && schemas=$(mktemp -d) \
     && singer_file=$(mktemp) \

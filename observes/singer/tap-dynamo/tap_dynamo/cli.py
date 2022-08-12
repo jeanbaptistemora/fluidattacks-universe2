@@ -1,20 +1,16 @@
 import click
-import sys
+from fa_purity import (
+    Cmd,
+)
 from tap_dynamo import (
     extractor,
-)
-from tap_dynamo.auth import (
-    Creds,
 )
 from tap_dynamo.client import (
     new_client,
 )
 from typing import (
-    Any,
     NoReturn,
 )
-
-pass_creds = click.make_pass_decorator(Creds)
 
 
 @click.command()
@@ -30,10 +26,13 @@ pass_creds = click.make_pass_decorator(Creds)
     default=1,
     help="tables segmentation for fast extraction",
 )
-@pass_creds
-def stream(creds: Creds, tables: str, segments: int) -> NoReturn:
-    client = new_client(creds)
-    extractor.stream_tables(client, tuple(tables.split()), segments).compute()
+def stream(tables: str, segments: int) -> NoReturn:
+    cmd: Cmd[None] = new_client().bind(
+        lambda client: extractor.stream_tables(
+            client, tuple(tables.split()), segments
+        )
+    )
+    cmd.compute()
 
 
 @click.command()
@@ -55,23 +54,19 @@ def stream(creds: Creds, tables: str, segments: int) -> NoReturn:
     required=True,
     help="total table segments",
 )
-@pass_creds
-def stream_segment(
-    creds: Creds, table: str, current: int, total: int
-) -> NoReturn:
-    client = new_client(creds)
-    seg = extractor.TableSegment(table, current, total)
-    extractor.stream_segment(client, seg).compute()
+def stream_segment(table: str, current: int, total: int) -> NoReturn:
+    cmd: Cmd[None] = new_client().bind(
+        lambda client: extractor.stream_segment(
+            client, extractor.TableSegment(table, current, total)
+        )
+    )
+    cmd.compute()
 
 
 @click.group()
-@click.option("--key-id", type=str, envvar="AWS_ACCESS_KEY_ID")
-@click.option("--secret-id", type=str, envvar="AWS_SECRET_ACCESS_KEY")
-@click.option("--region", type=str, envvar="AWS_DEFAULT_REGION")
-@click.pass_context
-def main(ctx: Any, key_id: str, secret_id: str, region: str) -> None:
-    if "--help" not in sys.argv[1:]:
-        ctx.obj = Creds(key_id, secret_id, region)
+def main() -> None:
+    # main cli group
+    pass
 
 
 main.add_command(stream)

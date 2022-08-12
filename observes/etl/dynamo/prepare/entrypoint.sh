@@ -8,6 +8,7 @@ function get_schemas {
   local input_data="${3}"
   local out_data="${4}"
   local out_folder="${5}"
+  export AWS_DEFAULT_REGION="us-east-1"
 
   if test "${use_cache}" == "yes"; then
     echo "[INFO] Using schemas cache at ${cache_bucket_folder}" \

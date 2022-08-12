@@ -13,9 +13,6 @@ from mypy_boto3_dynamodb.service_resource import (
     DynamoDBServiceResource,
     Table as DynamoTable,
 )
-from tap_dynamo.auth import (
-    Creds,
-)
 from typing import (
     Any,
     cast,
@@ -82,11 +79,8 @@ class Client(_Client):
         return TableClient(_table)
 
 
-def new_client(creds: Creds) -> Client:
-    raw = boto3.resource(
-        "dynamodb",
-        aws_access_key_id=creds.key_id,
-        aws_secret_access_key=creds.key,
-        region_name=creds.region,
-    )
-    return Client(_Client(raw))
+def new_client() -> Cmd[Client]:
+    # This impure procedure gets inputs (credentials) through the environment
+    # e.g. AWS_DEFAULT_REGION
+    raw = Cmd.from_cmd(lambda: boto3.resource("dynamodb"))
+    return raw.map(lambda d: Client(_Client(d)))
