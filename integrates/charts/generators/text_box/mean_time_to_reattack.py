@@ -55,6 +55,54 @@ def format_decimal(value: Decimal) -> Decimal:
     return value.quantize(Decimal("0.1"))
 
 
+async def _get_mean_time_to_reattack(
+    filtered_vulnerabilities: tuple[Vulnerability, ...], loaders: Dataloaders
+) -> Decimal:
+    historic_verifications: tuple[
+        tuple[VulnerabilityVerification, ...], ...
+    ] = await loaders.vulnerability_historic_verification.load_many(
+        vulnerability.id for vulnerability in filtered_vulnerabilities
+    )
+    number_of_hours: Decimal = Decimal("0.0")
+    current_date: datetime = get_now()
+    number_of_reattacks: int = 0
+    for historic_verification in historic_verifications:
+        start: Optional[str] = None
+        for verification in historic_verification:
+            if (
+                verification.status
+                == VulnerabilityVerificationStatus.REQUESTED
+                and start is None
+            ):
+                start = verification.modified_date
+                number_of_reattacks += 1
+            if (
+                verification.status == VulnerabilityVerificationStatus.VERIFIED
+                and start is not None
+            ):
+                diff = get_datetime_from_iso_str(
+                    verification.modified_date
+                ) - get_datetime_from_iso_str(start)
+                number_of_hours += Decimal(
+                    (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
+                    / SECONDS_IN_1_HOUR
+                )
+                start = None
+
+        if start is not None:
+            diff = current_date - get_datetime_from_iso_str(start)
+            number_of_hours += Decimal(
+                (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
+                / SECONDS_IN_1_HOUR
+            )
+
+    return (
+        format_decimal(number_of_hours / number_of_reattacks)
+        if number_of_reattacks > 0
+        else Decimal("0.0")
+    )
+
+
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
@@ -69,49 +117,8 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
         if vulnerability.verification
     )
     if filtered_vulnerabilities:
-        historic_verifications: tuple[
-            tuple[VulnerabilityVerification, ...], ...
-        ] = await loaders.vulnerability_historic_verification.load_many(
-            vulnerability.id for vulnerability in filtered_vulnerabilities
-        )
-        number_of_hours: Decimal = Decimal("0.0")
-        current_date: datetime = get_now()
-        number_of_reattacks: int = 0
-        for historic_verification in historic_verifications:
-            start: Optional[str] = None
-            for verification in historic_verification:
-                if (
-                    verification.status
-                    == VulnerabilityVerificationStatus.REQUESTED
-                    and start is None
-                ):
-                    start = verification.modified_date
-                    number_of_reattacks += 1
-                if (
-                    verification.status
-                    == VulnerabilityVerificationStatus.VERIFIED
-                    and start is not None
-                ):
-                    diff = get_datetime_from_iso_str(
-                        verification.modified_date
-                    ) - get_datetime_from_iso_str(start)
-                    number_of_hours += Decimal(
-                        (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
-                        / SECONDS_IN_1_HOUR
-                    )
-                    start = None
-
-            if start is not None:
-                diff = current_date - get_datetime_from_iso_str(start)
-                number_of_hours += Decimal(
-                    (diff.days * SECONDS_IN_24_HOURS + diff.seconds)
-                    / SECONDS_IN_1_HOUR
-                )
-
-        return (
-            format_decimal(number_of_hours / number_of_reattacks)
-            if number_of_reattacks > 0
-            else Decimal("0.0")
+        return await _get_mean_time_to_reattack(
+            filtered_vulnerabilities, loaders
         )
 
     return Decimal("0.0")
