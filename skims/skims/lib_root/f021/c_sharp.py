@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
-    get_syntax_object_identifiers,
 )
 from lib_root.utilities.common import (
     search_method_invocation_naive,
@@ -25,6 +24,7 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
+    get_object_identifiers,
 )
 
 
@@ -42,9 +42,7 @@ def xpath_injection(
                 continue
 
             graph = shard.syntax_graph
-            xpath_obj = get_syntax_object_identifiers(
-                graph, {"XPathNavigator"}
-            )
+            xpath_obj = get_object_identifiers(graph, {"XPathNavigator"})
 
             for n_id in search_method_invocation_naive(graph, danger_meths):
                 if (

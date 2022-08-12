@@ -1,6 +1,5 @@
 from lib_root.utilities.c_sharp import (
-    get_first_member,
-    get_object_identifiers,
+    get_first_member_syntax_graph,
 )
 from lib_root.utilities.common import (
     search_method_invocation_naive,
@@ -25,6 +24,7 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
+    get_object_identifiers,
 )
 
 
@@ -40,31 +40,29 @@ def remote_command_execution(
             if shard.syntax_graph is None:
                 continue
 
-            executors_objs = get_object_identifiers(shard, {"Executor"})
-            syntax_graph = shard.syntax_graph
+            graph = shard.syntax_graph
+            executors_objs = get_object_identifiers(graph, {"Executor"})
+
             executors = list(
-                search_method_invocation_naive(syntax_graph, {"Execute"})
+                search_method_invocation_naive(graph, {"Execute"})
             )
             danger_meths = set(
-                search_method_invocation_naive(syntax_graph, {"Start"})
+                search_method_invocation_naive(graph, {"Start"})
             )
             methods = [
                 executor
                 if (
-                    (member := get_first_member(shard, executor))
-                    and shard.graph.nodes[member]["label_text"]
-                    in executors_objs
+                    (member := get_first_member_syntax_graph(graph, executor))
+                    and graph.nodes[member].get("symbol") in executors_objs
                 )
                 else None
                 for executor in executors
             ]
             danger_meths.update(filter(None, methods))
             for n_id in danger_meths:
-                for path in get_backward_paths(syntax_graph, n_id):
+                for path in get_backward_paths(graph, n_id):
                     if (
-                        evaluation := evaluate(
-                            method, syntax_graph, path, n_id
-                        )
+                        evaluation := evaluate(method, graph, path, n_id)
                     ) and evaluation.danger:
                         yield shard, n_id
 
