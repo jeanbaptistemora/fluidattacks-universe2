@@ -3253,7 +3253,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/integrates/charts/documents__prod__25__gitlab:
+/integrates/charts/documents__prod__30__gitlab:
   artifacts:
     expire_in: 1 week
     paths:
@@ -3262,7 +3262,7 @@
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: false
   needs: []
-  parallel: 25
+  parallel: 30
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never
@@ -3270,7 +3270,7 @@
       when: never
     - when: always
   script:
-    - m . /integrates/charts/documents 'prod' '25' 'gitlab'
+    - m . /integrates/charts/documents 'prod' '30' 'gitlab'
   stage: analytics
   tags:
     - prod_integrates_small
@@ -3281,7 +3281,7 @@
   image: ghcr.io/fluidattacks/makes:22.08
   interruptible: false
   needs:
-    - /integrates/charts/documents__prod__25__gitlab
+    - /integrates/charts/documents__prod__30__gitlab
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule"
       when: never

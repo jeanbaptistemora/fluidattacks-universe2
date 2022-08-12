@@ -343,7 +343,7 @@ in {
               chartsTemplate
               // {
                 interruptible = false;
-                parallel = 25;
+                parallel = 30;
                 rules = [
                   (gitlabCi.rules.schedules)
                   (
@@ -365,7 +365,7 @@ in {
                 (gitlabCi.rules.varIsDefined "charts")
                 (gitlabCi.rules.always)
               ];
-              needs = ["/integrates/charts/documents__prod__25__gitlab"];
+              needs = ["/integrates/charts/documents__prod__30__gitlab"];
               stage = "analytics";
               tags = ["prod_integrates_small"];
             };
