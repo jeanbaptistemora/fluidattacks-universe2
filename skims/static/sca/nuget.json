@@ -519,7 +519,7 @@
     "CVE-2019-17495": "<3.23.11"
   },
   "system.directoryservices.protocols": {
-    "GHSA-9cxh-gqpx-qc5m": "< 5.0.1"
+    "GHSA-9cxh-gqpx-qc5m": "<5.0.1"
   },
   "system.io.pipelines": {
     "GHSA-j378-6mmw-hqfr": "4.5.0"
