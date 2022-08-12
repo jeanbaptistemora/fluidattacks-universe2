@@ -342,11 +342,9 @@ async def unrestricted_dns_access(
             locations: List[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
-                    if (
-                        ip_permission["FromPort"]
-                        <= 53
-                        <= ip_permission["ToPort"]
-                    ):
+                    if ip_permission["FromPort"] <= 53 <= ip_permission[
+                        "ToPort"
+                    ] and ip_permission["IpProtocol"] in {"tcp", "udp"}:
                         locations = [
                             *[
                                 Location(
