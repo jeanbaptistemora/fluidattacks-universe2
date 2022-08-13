@@ -4,17 +4,13 @@ import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
+import type { IRejectDraftModalProps } from "./types";
+
 import { Label, Select } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { FormikTextArea } from "utils/forms/fields";
 import { validTextField } from "utils/validations";
-
-interface IRejectDraftModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (values: { reason: string; other: string }) => void;
-}
 
 const draftRejectionReason: string[] = [
   "CONSISTENCY",
@@ -59,7 +55,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
           onSubmit={onSubmit}
           validationSchema={validations}
         >
-          {({ dirty, values }): JSX.Element => (
+          {({ dirty, isSubmitting, values }): JSX.Element => (
             <Form>
               <Gap disp={"block"} mv={5}>
                 <Select
@@ -95,7 +91,7 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                   </div>
                 ) : undefined}
                 <ModalConfirm
-                  disabled={!dirty}
+                  disabled={!dirty || isSubmitting}
                   id={"reject-draft-confirm"}
                   onCancel={onClose}
                 />
