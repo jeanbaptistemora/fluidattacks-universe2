@@ -108,5 +108,8 @@ if __name__ == "__main__":
     run(
         generate_all_mttr_benchmarking(
             get_data_one_group=get_data_one_group,
+            alternative=(
+                "Mean time to remediate non treated per exposure benchmarking"
+            ),
         )
     )

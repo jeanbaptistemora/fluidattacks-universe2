@@ -352,6 +352,7 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
     get_data_one_group: Callable[
         [str, Dataloaders, Optional[datetype]], Awaitable[Benchmarking]
     ],
+    alternative: str,
 ) -> None:
     loaders: Dataloaders = get_new_context()
     list_days: List[int] = [30, 90]
@@ -634,110 +635,125 @@ async def generate_all_mttr_benchmarking(  # pylint: disable=too-many-locals
         "all_portfolios_data_30": all_portfolios_data_30,
         "all_portfolios_data_90": all_portfolios_data_90,
     }
+    header: str = "Categories"
 
     for days, min_date in zip([None, *list_days], [None, *dates]):
         async for group in iterate_groups():
-            json_dump(
-                document=format_mttr_data(
-                    data=(
-                        (
-                            await get_data_one_group(
-                                group,
-                                loaders,
-                                min_date,
-                            )
-                        ).mttr,
-                        best_group_mttr[
-                            "best_group_mttr" + get_subject_days(days)
-                        ],
-                        get_mean_organizations(
-                            organizations=get_valid_subjects(
-                                all_subjects=_all_groups_data[
-                                    "all_groups_data" + get_subject_days(days)
-                                ],
-                                subject=group,
-                            )
-                        ),
-                        worst_group_mttr[
-                            "worst_group_mttr" + get_subject_days(days)
-                        ],
+            document = format_mttr_data(
+                data=(
+                    (
+                        await get_data_one_group(
+                            group,
+                            loaders,
+                            min_date,
+                        )
+                    ).mttr,
+                    best_group_mttr[
+                        "best_group_mttr" + get_subject_days(days)
+                    ],
+                    get_mean_organizations(
+                        organizations=get_valid_subjects(
+                            all_subjects=_all_groups_data[
+                                "all_groups_data" + get_subject_days(days)
+                            ],
+                            subject=group,
+                        )
                     ),
-                    categories=GROUP_CATEGORIES,
+                    worst_group_mttr[
+                        "worst_group_mttr" + get_subject_days(days)
+                    ],
                 ),
+                categories=GROUP_CATEGORIES,
+            )
+            json_dump(
+                document=document,
                 entity="group",
                 subject=group + get_subject_days(days),
+                csv_document=format_csv_data(
+                    document=document, header=header, alternative=alternative
+                ),
             )
 
         async for org_id, _, org_groups in iterate_organizations_and_groups():
-            json_dump(
-                document=format_mttr_data(
-                    data=(
-                        (
-                            await get_data_many_groups_mttr(
-                                organization_id=org_id,
-                                groups=org_groups,
-                                loaders=loaders,
-                                get_data_one_group=get_data_one_group,
-                                min_date=min_date,
-                            )
-                        ).mttr,
-                        best_mttr["best_mttr" + get_subject_days(days)],
-                        get_mean_organizations(
-                            organizations=get_valid_subjects(
-                                all_subjects=_all_organizations_data[
-                                    "all_organizations_data"
-                                    + get_subject_days(days)
-                                ],
-                                subject=org_id,
-                            )
-                        ),
-                        worst_organazation_mttr[
-                            "worst_organazation_mttr" + get_subject_days(days)
-                        ],
+            document = format_mttr_data(
+                data=(
+                    (
+                        await get_data_many_groups_mttr(
+                            organization_id=org_id,
+                            groups=org_groups,
+                            loaders=loaders,
+                            get_data_one_group=get_data_one_group,
+                            min_date=min_date,
+                        )
+                    ).mttr,
+                    best_mttr["best_mttr" + get_subject_days(days)],
+                    get_mean_organizations(
+                        organizations=get_valid_subjects(
+                            all_subjects=_all_organizations_data[
+                                "all_organizations_data"
+                                + get_subject_days(days)
+                            ],
+                            subject=org_id,
+                        )
                     ),
-                    categories=ORGANIZATION_CATEGORIES,
+                    worst_organazation_mttr[
+                        "worst_organazation_mttr" + get_subject_days(days)
+                    ],
                 ),
+                categories=ORGANIZATION_CATEGORIES,
+            )
+            json_dump(
+                document=document,
                 entity="organization",
                 subject=org_id + get_subject_days(days),
+                csv_document=format_csv_data(
+                    document=document, header=header, alternative=alternative
+                ),
             )
 
         async for org_id, org_name, _ in iterate_organizations_and_groups():
             for portfolio, group_names in await get_portfolios_groups(
                 org_name
             ):
-                json_dump(
-                    document=format_mttr_data(
-                        data=(
-                            (
-                                await get_data_many_groups_mttr(
-                                    organization_id=portfolio,
-                                    groups=tuple(group_names),
-                                    loaders=loaders,
-                                    get_data_one_group=get_data_one_group,
-                                    min_date=min_date,
-                                )
-                            ).mttr,
-                            best_portfolio_mttr[
-                                "best_portfolio_mttr" + get_subject_days(days)
-                            ],
-                            get_mean_organizations(
-                                organizations=get_valid_subjects(
-                                    all_subjects=_all_portfolios_data[
-                                        "all_portfolios_data"
-                                        + get_subject_days(days)
-                                    ],
-                                    subject=portfolio,
-                                )
-                            ),
-                            worst_portfolio_mttr[
-                                "worst_portfolio_mttr" + get_subject_days(days)
-                            ],
+                document = format_mttr_data(
+                    data=(
+                        (
+                            await get_data_many_groups_mttr(
+                                organization_id=portfolio,
+                                groups=tuple(group_names),
+                                loaders=loaders,
+                                get_data_one_group=get_data_one_group,
+                                min_date=min_date,
+                            )
+                        ).mttr,
+                        best_portfolio_mttr[
+                            "best_portfolio_mttr" + get_subject_days(days)
+                        ],
+                        get_mean_organizations(
+                            organizations=get_valid_subjects(
+                                all_subjects=_all_portfolios_data[
+                                    "all_portfolios_data"
+                                    + get_subject_days(days)
+                                ],
+                                subject=portfolio,
+                            )
                         ),
-                        categories=PORTFOLIO_CATEGORIES,
+                        worst_portfolio_mttr[
+                            "worst_portfolio_mttr" + get_subject_days(days)
+                        ],
                     ),
+                    categories=PORTFOLIO_CATEGORIES,
+                )
+                json_dump(
+                    document=document,
                     entity="portfolio",
                     subject=f"{org_id}PORTFOLIO#{portfolio}"
                     + get_subject_days(days),
+                    csv_document=format_csv_data(
+                        document=document,
+                        header=header,
+                        alternative=alternative,
+                    ),
                 )
 
 
