@@ -20508,12 +20508,15 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,9,310,skims,052. 
    4 | ic static void Main() {
    5 |
    6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 | ryptedData = RSA2.Encrypt(dataToEncrypt, true);
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
    8 |
 >  9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-  10 |  = RSA3.Encrypt(dataToEncrypt, false);
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
   11 |
-  12 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
      ^ Col 7
 ",c_sharp.c_sharp_insecure_keys
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
@@ -20523,14 +20526,35 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,6,310,skims,052. 
    4 | ic static void Main() {
    5 |
 >  6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 | ryptedData = RSA2.Encrypt(dataToEncrypt, true);
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
    8 |
    9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-  10 |  = RSA3.Encrypt(dataToEncrypt, false);
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
   11 |
-  12 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
      ^ Col 7
 ",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+> 13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
+     ^ Col 0
+",c_sharp.c_sharp_rsa_secure_mode
 F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test_rsa.cs,"
    1 | using System;
    2 | class jwtbuild {
@@ -20538,12 +20562,15 @@ F052,lines,namespace/skims/test/data/lib_root/f052/test_rsa.cs,10,310,skims,052.
    4 |    public static void Main() {
    5 |
    6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
-   7 |     encryptedData = RSA2.Encrypt(dataToEncrypt, true);
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
    8 |
    9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
-> 10 |     enc = RSA3.Encrypt(dataToEncrypt, false);
-  11 |    }
-  12 | }
+> 10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+  13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
      ^ Col 0
 ",c_sharp.c_sharp_rsa_secure_mode
 F052,lines,namespace/skims/test/data/lib_path/f052/java.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_path/f052/java.java,"

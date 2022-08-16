@@ -26,3 +26,10 @@ def cs_insecure_keys(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         args.evaluation[args.n_id] = True
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def cs_rsa_secure_mode(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    if args.graph.nodes[args.n_id]["value"] == "false":
+        args.evaluation[args.n_id] = True
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

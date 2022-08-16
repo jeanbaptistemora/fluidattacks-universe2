@@ -4,6 +4,7 @@ from model.core_model import (
 from symbolic_eval.f052.literal.c_sharp import (
     cs_disabled_strong_crypto,
     cs_insecure_keys,
+    cs_rsa_secure_mode,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -17,6 +18,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_DISABLED_STRONG_CRYPTO: cs_disabled_strong_crypto,
     MethodsEnum.CS_INSECURE_KEYS: cs_insecure_keys,
+    MethodsEnum.CS_RSA_SECURE_MODE: cs_rsa_secure_mode,
 }
 
 

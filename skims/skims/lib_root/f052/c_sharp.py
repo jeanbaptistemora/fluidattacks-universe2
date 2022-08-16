@@ -33,16 +33,29 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    List,
     Optional,
     Tuple,
 )
 import utils.graph as g
-from utils.graph.text_nodes import (
-    node_to_str,
-)
 from utils.string import (
     build_attr_paths,
 )
+
+
+def get_crypto_var_names(
+    graph: Graph,
+) -> List[NId]:
+    name_vars = []
+    for var_id in g.filter_nodes(
+        graph,
+        nodes=graph.nodes,
+        predicate=g.pred_has_labels(label_type="VariableDeclaration"),
+    ):
+        node_var = graph.nodes[var_id]
+        if node_var.get("variable_type") == "RSACryptoServiceProvider":
+            name_vars.append(graph.nodes[var_id].get("variable"))
+    return name_vars
 
 
 def _get_mode_node(
@@ -106,60 +119,42 @@ def c_sharp_rsa_secure_mode(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    name_vars = []
+    method = MethodsEnum.CS_RSA_SECURE_MODE
 
     def n_ids() -> GraphShardNodes:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            name_vars = get_crypto_var_names(graph)
+
             for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="object_creation_expression"
-                ),
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="MemberAccess"),
             ):
-                object_creation = g.match_ast(shard.graph, member, "__0__")
-                if (
-                    shard.graph.nodes[object_creation["__1__"]].get(
-                        "label_text"
-                    )
-                    == "RSACryptoServiceProvider"
+                if not (
+                    graph.nodes[member].get("expression") in name_vars
+                    and graph.nodes[member].get("member") == "Encrypt"
                 ):
-                    node_var = g.get_ast_childs(
-                        shard.graph,
-                        g.pred_ast(shard.graph, member, depth=2)[1],
-                        "identifier",
-                    )[0]
-                    name_vars.append(
-                        shard.graph.nodes[node_var].get("label_text")
-                    )
-            for member in g.filter_nodes(
-                shard.graph,
-                nodes=shard.graph.nodes,
-                predicate=g.pred_has_labels(
-                    label_type="member_access_expression",
-                ),
-            ):
-                prop = node_to_str(shard.graph, member)
-                method = prop.split(".")
-                if method[0] in name_vars and method[1] == "Encrypt":
-                    member_encrypt = g.pred(shard.graph, member)[0]
-                    arg_bool = g.get_ast_childs(
-                        shard.graph, member_encrypt, "boolean_literal", depth=3
-                    )
-                    if (
-                        len(arg_bool) > 0
-                        and shard.graph.nodes[arg_bool[0]].get("label_text")
-                        == "false"
-                    ):
-                        yield shard, member
+                    continue
+                al_id = graph.nodes[g.pred(graph, member)[0]].get(
+                    "arguments_id"
+                )
+                if test_node := g.match_ast(graph, al_id).get("__1__"):
+                    for path in get_backward_paths(graph, test_node):
+                        evaluation = evaluate(method, graph, path, test_node)
+                        if evaluation and evaluation.danger:
+                            yield shard, member
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
         desc_params=dict(lang="CSharp"),
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.CS_RSA_SECURE_MODE,
+        method=method,
     )
 
 
