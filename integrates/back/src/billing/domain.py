@@ -569,6 +569,7 @@ async def create_payment_method(
 
     # create other payment methods
     if card_number == "":
+        org._replace(billing_customer=customer.id)
         if business_name is not None:
             validations.validate_field_length(business_name, 60)
             validations.validate_fields([business_name])
@@ -598,7 +599,7 @@ async def create_payment_method(
                 policies=org.policies,
                 state=org.state,
                 payment_methods=[other_payment],
-                billing_customer=org.billing_customer,
+                billing_customer=customer.id,
             )
         await organizations_model.update_metadata(
             metadata=OrganizationMetadataToUpdate(
@@ -689,7 +690,7 @@ async def update_payment_method(
         limit=1000,
     )
     if payment_method_id not in [
-        payment_method.id for payment_method in payment_methods
+        payment_method.id for payment_method in list(payment_methods)
     ]:
         raise InvalidBillingPaymentMethod()
 
