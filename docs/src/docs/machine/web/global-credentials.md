@@ -32,7 +32,11 @@ where you can add new credentials.
 Here,
 you will have to enter a unique
 credential name and select the
-credential type (HTTPS or SSH).
+credential type (
+[HTTPS](/machine/web/groups/scope/roots/#adding-a-root-with-the-https)
+or
+[SSH](/machine/web/groups/scope/roots/#adding-a-root-with-the-ssh-key)
+).
 
 ### Edit
 
