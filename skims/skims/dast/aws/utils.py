@@ -45,14 +45,14 @@ def build_vulnerabilities(
     method: MethodsEnum,
     aws_response: Dict[str, Any],
 ) -> core_model.Vulnerabilities:
-    str_content = json.dumps(aws_response, indent=4)
+    str_content = json.dumps(aws_response, indent=4, default=str)
     json_paths = calculate(str_content)
 
     return tuple(
         build_inputs_vuln(
             method=method,
             what=location.arn,
-            where=_build_where(location),
+            where=_build_where(location) if location.access_patterns else "0",
             stream="skims",
             metadata=build_metadata(
                 method=method,
@@ -62,11 +62,15 @@ def build_vulnerabilities(
                     viewport=SnippetViewport(
                         column=json_paths[
                             location.access_patterns[-1]
-                        ].key_start.column,
+                        ].key_start.column
+                        if location.access_patterns
+                        else 0,
                         line=json_paths[
                             location.access_patterns[-1]
                         ].key_start.line
-                        + 1,
+                        + 1
+                        if location.access_patterns
+                        else 0,
                         wrap=True,
                     ),
                 ),
