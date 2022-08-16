@@ -22,7 +22,7 @@ let securityHeaders = {
                               + "snap.licdn.com "
                               + "static1.clutch.co/api/widget.js "
                               + "widget.clutch.co/static/js/widget.js "
-                              + "youtube.com "
+                              + "www.youtube.com/iframe_api "
                               + "www.googleadservices.com/pagead/; "
                               + "frame-src "
                               + "youtube.com "
