@@ -104,7 +104,7 @@ async def test_get_user_level_role() -> None:
 
 @pytest.mark.changes_db
 async def test_grant_user_level_role() -> None:
-    assert await grant_user_level_role("..TEST@gmail.com", "user")
+    await grant_user_level_role("..TEST@gmail.com", "user")
     assert (
         await get_user_level_role(get_new_context(), "..test@gmail.com")
         == "user"
@@ -113,7 +113,7 @@ async def test_grant_user_level_role() -> None:
         await get_user_level_role(get_new_context(), "..tEst@gmail.com")
         == "user"
     )
-    assert await grant_user_level_role("..TEST@gmail.com", "admin")
+    await grant_user_level_role("..TEST@gmail.com", "admin")
     assert (
         await get_user_level_role(get_new_context(), "..test@gmail.com")
         == "admin"
@@ -231,9 +231,7 @@ async def test_revoke_group_level_role() -> None:
 @pytest.mark.changes_db
 async def test_revoke_user_level_role() -> None:
     loaders: Dataloaders = get_new_context()
-    assert await grant_user_level_role(
-        "revoke_user_LEVEL_role@gmail.com", "user"
-    )
+    await grant_user_level_role("revoke_user_LEVEL_role@gmail.com", "user")
 
     assert (
         await get_user_level_role(loaders, "revoke_user_level_ROLE@gmail.com")

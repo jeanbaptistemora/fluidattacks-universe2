@@ -12,9 +12,6 @@ from dataloaders import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
-from dynamodb import (
-    operations_legacy as dynamodb_ops,
-)
 import pytest
 from remove_stakeholder.domain import (
     remove_stakeholder_all_organizations,
@@ -58,38 +55,16 @@ async def test_remove_stakeholder() -> None:
 
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     assert stakeholder.email == email
-
-    before_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
-    assert (
-        len(
-            [
-                authz
-                for authz in before_remove_authzs
-                if authz["subject"] == email
-            ]
-        )
-        >= 1
-    )
+    assert stakeholder.role == "user"
 
     await remove_stakeholder_all_organizations(
         loaders=get_new_context(), email=email, modified_by=modified_by
     )
+
     new_loaders: Dataloaders = get_new_context()
     with pytest.raises(StakeholderNotFound):
         await new_loaders.stakeholder.load(email)
     assert await get_user_subscriptions(user_email=email) == []
-
-    after_remove_authzs = await dynamodb_ops.scan("fi_authz", {})
-    assert (
-        len(
-            [
-                authz
-                for authz in after_remove_authzs
-                if authz["subject"] == email
-            ]
-        )
-        == 0
-    )
 
 
 async def test_exists() -> None:

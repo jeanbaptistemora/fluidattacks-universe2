@@ -48,30 +48,14 @@ async def mutate(
 ) -> AddStakeholderPayload:
     loaders: Dataloaders = info.context.loaders
     role = map_roles(role)
-    success: bool = False
     user_data = await token_utils.get_jwt_content(info.context)
     user_email = user_data["user_email"]
+
     allowed_roles_to_grant = await authz.get_user_level_roles_a_user_can_grant(
         loaders=loaders,
         requester_email=user_email,
     )
-
-    if role in allowed_roles_to_grant:
-        new_user = await orgs_domain.add_without_group(
-            email=email,
-            role=role,
-        )
-        if new_user:
-            logs_utils.cloudwatch_log(
-                info.context, f"Security: Added stakeholder {email}"
-            )
-            success = True
-        else:
-            LOGGER.error(
-                "Error: Couldn't grant stakeholder access",
-                extra={"extra": info.context},
-            )
-    else:
+    if role not in allowed_roles_to_grant:
         LOGGER.error(
             "Invalid role provided",
             extra={
@@ -83,4 +67,13 @@ async def mutate(
             },
         )
         raise InvalidRoleProvided(role=role)
-    return AddStakeholderPayload(success=success, email=email)
+
+    await orgs_domain.add_without_group(
+        email=email,
+        role=role,
+    )
+    logs_utils.cloudwatch_log(
+        info.context, f"Security: Added stakeholder {email}"
+    )
+
+    return AddStakeholderPayload(success=True, email=email)

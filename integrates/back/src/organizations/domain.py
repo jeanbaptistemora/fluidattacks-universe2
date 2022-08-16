@@ -221,7 +221,7 @@ async def add_without_group(
     email: str,
     role: str,
     is_register_after_complete: bool = False,
-) -> bool:
+) -> None:
     if validate_email_address(email):
         await stakeholders_domain.update(
             email=email,
@@ -229,9 +229,7 @@ async def add_without_group(
                 is_registered=is_register_after_complete,
             ),
         )
-        return await authz.grant_user_level_role(email, role)
-
-    return False
+        await authz.grant_user_level_role(email, role)
 
 
 async def update_state(
@@ -260,9 +258,7 @@ async def complete_register_for_organization_invitation(
         role = invitation.role
         updated_invitation = invitation._replace(is_used=True)
 
-    stakeholder_added = await add_stakeholder(
-        loaders, organization_id, email, role
-    )
+    success = await add_stakeholder(loaders, organization_id, email, role)
 
     await update_organization_access(
         organization_id,
@@ -273,19 +269,13 @@ async def complete_register_for_organization_invitation(
             invitation=updated_invitation,
         ),
     )
-
-    stakeholder_created = False
-    stakeholder_exists = await stakeholders_domain.exists(loaders, email)
-    if not stakeholder_exists:
-        stakeholder_created = await add_without_group(
+    if not await stakeholders_domain.exists(loaders, email):
+        await add_without_group(
             email,
             "user",
             is_register_after_complete=True,
         )
 
-    success = stakeholder_added and any(
-        [stakeholder_created, stakeholder_exists]
-    )
     if success:
         enrollment: Enrollment = await loaders.enrollment.load(email)
         if not enrollment.enrolled:

@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from authz.model import (
     get_group_level_roles_model,
     get_organization_level_roles_model,
@@ -63,7 +60,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Awaitable,
     NamedTuple,
 )
 
@@ -281,17 +277,15 @@ async def grant_group_level_role(
         object=group_name,
         role=role,
     )
-    success: bool = False
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.append(put_subject_policy(policy))
+    success = await put_subject_policy(policy)
 
     # If there is no user-level role for this user add one
     if not await get_user_level_role(loaders, email):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )
-        coroutines.append(grant_user_level_role(email, user_level_role))
-    success = await collect(coroutines)
+        await grant_user_level_role(email, user_level_role)
+
     return success and await revoke_cached_subject_policies(email)
 
 
@@ -315,21 +309,19 @@ async def grant_organization_level_role(
         object=organization_id,
         role=role,
     )
-    success: bool = False
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.append(put_subject_policy(policy))
+    success = await put_subject_policy(policy)
 
     # If there is no user-level role for this user add one
     if not await get_user_level_role(loaders, email):
         user_level_role: str = (
             role if role in get_user_level_roles_model(email) else "user"
         )
-        coroutines.append(grant_user_level_role(email, user_level_role))
-    success = await collect(coroutines)
+        await grant_user_level_role(email, user_level_role)
+
     return success and await revoke_cached_subject_policies(email)
 
 
-async def grant_user_level_role(email: str, role: str) -> bool:
+async def grant_user_level_role(email: str, role: str) -> None:
     if role not in get_user_level_roles_model(email):
         raise ValueError(f"Invalid role value: {role}")
 
@@ -337,15 +329,6 @@ async def grant_user_level_role(email: str, role: str) -> bool:
         email=email,
         metadata=StakeholderMetadataToUpdate(role=role),
     )
-    policy = SubjectPolicy(
-        level="user",
-        subject=email,
-        object="self",
-        role=role,
-    )
-    return await put_subject_policy(
-        policy
-    ) and await revoke_cached_subject_policies(email)
 
 
 async def has_access_to_group(

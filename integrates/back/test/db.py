@@ -446,9 +446,7 @@ async def populate_finding_comments(data: list[Any]) -> bool:
 
 
 async def populate_policies(data: list[Any]) -> bool:
-    loaders: Dataloaders = get_new_context()
-    coroutines: list[Awaitable[bool]] = []
-    coroutines.extend(
+    await collect(
         [
             authz.grant_user_level_role(
                 email=policy["subject"],
@@ -458,6 +456,9 @@ async def populate_policies(data: list[Any]) -> bool:
             if policy["level"] == "user"
         ]
     )
+
+    loaders: Dataloaders = get_new_context()
+    coroutines: list[Awaitable[bool]] = []
     coroutines.extend(
         [
             authz.grant_organization_level_role(
