@@ -71,9 +71,9 @@ const Table = <TData extends object>({
   const radioSelectionhandler =
     (row: Row<TData>): ChangeEventHandler =>
     (event: ChangeEvent<HTMLInputElement>): void => {
+      event.stopPropagation();
       setRowSelection({});
       row.toggleSelected();
-      event.preventDefault();
     };
 
   const filterFun: FilterFn<TData> = (
@@ -149,67 +149,66 @@ const Table = <TData extends object>({
             {table.getHeaderGroups().map(
               (headerGroup): ReactElement => (
                 <tr key={headerGroup.id}>
-                  {expandedRow === undefined ? undefined : (
-                    <th>
-                      <div
-                        onClick={table.getToggleAllRowsExpandedHandler()}
-                        onKeyPress={table.getToggleAllRowsExpandedHandler()}
-                        role={"button"}
-                        tabIndex={0}
-                      >
-                        <FontAwesomeIcon
-                          icon={
-                            table.getIsAllRowsExpanded()
-                              ? faAngleUp
-                              : faAngleDown
-                          }
-                        />
-                      </div>
-                    </th>
-                  )}
-                  {rowSelectionSetter !== undefined && (
-                    <th>
-                      {selectionMode === "checkbox" && (
-                        <input
-                          checked={table.getIsAllRowsSelected()}
-                          onChange={table.getToggleAllRowsSelectedHandler()}
-                          type={"checkbox"}
-                        />
-                      )}
-                    </th>
-                  )}
                   {headerGroup.headers.map(
                     (header): ReactElement => (
-                      <th key={header.id}>
-                        {header.isPlaceholder ? null : (
-                          <div
-                            className={
-                              header.column.getCanSort()
-                                ? "cursor-pointer select-none"
-                                : ""
-                            }
-                            onClick={header.column.getToggleSortingHandler()}
-                            onKeyPress={header.column.getToggleSortingHandler()}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
+                      <React.Fragment key={header.id}>
+                        <th>
+                          {header === headerGroup.headers[0] &&
+                            expandedRow !== undefined && (
+                              <div
+                                onClick={table.getToggleAllRowsExpandedHandler()}
+                                onKeyPress={table.getToggleAllRowsExpandedHandler()}
+                                role={"button"}
+                                tabIndex={0}
+                              >
+                                <FontAwesomeIcon
+                                  icon={
+                                    table.getIsAllRowsExpanded()
+                                      ? faAngleUp
+                                      : faAngleDown
+                                  }
+                                />
+                              </div>
                             )}
-                            &nbsp;
-                            <FontAwesomeIcon
-                              icon={
-                                {
-                                  asc: faSortUp,
-                                  desc: faSortDown,
-                                }[header.column.getIsSorted() as string] ??
-                                faSort
+                          {header === headerGroup.headers[0] &&
+                            rowSelectionSetter !== undefined &&
+                            selectionMode === "checkbox" && (
+                              <input
+                                checked={table.getIsAllRowsSelected()}
+                                onChange={table.getToggleAllRowsSelectedHandler()}
+                                type={"checkbox"}
+                              />
+                            )}
+                          {header.isPlaceholder ? null : (
+                            <div
+                              className={
+                                header.column.getCanSort()
+                                  ? "cursor-pointer select-none"
+                                  : ""
                               }
-                            />
-                          </div>
-                        )}
-                      </th>
+                              onClick={header.column.getToggleSortingHandler()}
+                              onKeyPress={header.column.getToggleSortingHandler()}
+                              role={"button"}
+                              tabIndex={0}
+                            >
+                              {flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                              &nbsp;
+                              <FontAwesomeIcon
+                                icon={
+                                  {
+                                    asc: faSortUp,
+                                    desc: faSortDown,
+                                  }[header.column.getIsSorted() as string] ??
+                                  faSort
+                                }
+                              />
+                            </div>
+                          )}
+                        </th>
+                      </React.Fragment>
                     )
                   )}
                 </tr>
@@ -221,64 +220,71 @@ const Table = <TData extends object>({
               return (
                 <React.Fragment key={row.id}>
                   <tr>
-                    {expandedRow !== undefined &&
-                      (row.getIsExpanded() ? (
-                        <td>
-                          <div
-                            onClick={row.getToggleExpandedHandler()}
-                            onKeyPress={row.getToggleExpandedHandler()}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            <FontAwesomeIcon icon={faAngleUp} />
-                          </div>
-                        </td>
-                      ) : (
-                        <td>
-                          <div
-                            onClick={row.getToggleExpandedHandler()}
-                            onKeyPress={row.getToggleExpandedHandler()}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            <FontAwesomeIcon icon={faAngleDown} />
-                          </div>
-                        </td>
-                      ))}
-                    {rowSelectionSetter !== undefined &&
-                      (selectionMode === "radio" ? (
-                        <td>
-                          <input
-                            checked={row.getIsSelected()}
-                            name={"tableselection"}
-                            onChange={radioSelectionhandler(row)}
-                            type={selectionMode}
-                          />
-                        </td>
-                      ) : (
-                        <td>
-                          <input
-                            checked={row.getIsSelected()}
-                            onChange={row.getToggleSelectedHandler()}
-                            type={selectionMode}
-                          />
-                        </td>
-                      ))}
                     {row.getVisibleCells().map(
                       (cell): ReactElement => (
-                        <td key={cell.id}>
-                          <div
-                            onClick={onRowClick?.(row)}
-                            onKeyPress={onRowClick?.(row)}
-                            role={"button"}
-                            tabIndex={0}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </div>
-                        </td>
+                        <React.Fragment key={cell.id}>
+                          <td>
+                            {expandedRow !== undefined &&
+                              cell === row.getVisibleCells()[0] &&
+                              (row.getIsExpanded() ? (
+                                <div
+                                  onClick={row.getToggleExpandedHandler()}
+                                  onKeyPress={row.getToggleExpandedHandler()}
+                                  role={"button"}
+                                  tabIndex={0}
+                                >
+                                  <FontAwesomeIcon icon={faAngleUp} />
+                                </div>
+                              ) : (
+                                <div
+                                  onClick={row.getToggleExpandedHandler()}
+                                  onKeyPress={row.getToggleExpandedHandler()}
+                                  role={"button"}
+                                  tabIndex={0}
+                                >
+                                  <FontAwesomeIcon icon={faAngleDown} />
+                                </div>
+                              ))}
+                            <label>
+                              {cell === row.getVisibleCells()[0] &&
+                                rowSelectionSetter !== undefined &&
+                                (selectionMode === "radio" ? (
+                                  <input
+                                    checked={row.getIsSelected()}
+                                    name={row.getAllCells()[0].getValue()}
+                                    onChange={radioSelectionhandler(row)}
+                                    type={selectionMode}
+                                  />
+                                ) : (
+                                  <input
+                                    checked={row.getIsSelected()}
+                                    onChange={row.getToggleSelectedHandler()}
+                                    type={selectionMode}
+                                  />
+                                ))}
+                              {onRowClick === undefined ? (
+                                <div>
+                                  {flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                  )}
+                                </div>
+                              ) : (
+                                <div
+                                  onClick={onRowClick(row)}
+                                  onKeyPress={onRowClick(row)}
+                                  role={"button"}
+                                  tabIndex={0}
+                                >
+                                  {flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                  )}
+                                </div>
+                              )}
+                            </label>
+                          </td>
+                        </React.Fragment>
                       )
                     )}
                   </tr>
