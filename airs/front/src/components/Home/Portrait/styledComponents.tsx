@@ -13,6 +13,10 @@ const PlayButtonContainer = styled.div.attrs({
   top: 65%;
   left: 25px;
   z-index: 1;
+
+  @media screen and (max-width: 480px) {
+    top: 50%;
+  }
 `;
 
 const PlayImageContainer = styled.div.attrs({
