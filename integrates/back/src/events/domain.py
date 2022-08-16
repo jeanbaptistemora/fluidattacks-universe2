@@ -459,6 +459,7 @@ async def solve_event(  # pylint: disable=too-many-locals
 
 
 async def submit_solution(  # pylint: disable=too-many-arguments
+    info: GraphQLResolveInfo,
     loaders: Any,
     event_id: str,
     comment: str,
@@ -471,6 +472,22 @@ async def submit_solution(  # pylint: disable=too-many-arguments
         raise EventAlreadyClosed()
     if event.state.status is EventStateStatus.SUBMITTED_SOLUTION:
         raise EventSolutionAlreadySubmitted()
+
+    comment_id: str = str(round(time() * 1000))
+    await add_comment(
+        info=info,
+        user_email=stakeholder_email,
+        comment_data=EventComment(
+            event_id=event.id,
+            parent_id="0",
+            id=comment_id,
+            content=comment,
+            creation_date=datetime_utils.get_iso_date(),
+            email=stakeholder_email,
+        ),
+        event_id=event.id,
+        parent_comment="0",
+    )
     await events_model.update_state(
         current_value=event,
         group_name=event.group_name,
@@ -479,7 +496,7 @@ async def submit_solution(  # pylint: disable=too-many-arguments
             modified_date=datetime_utils.get_iso_date(),
             other=other_reason,
             reason=reason,
-            comment=comment,
+            comment_id=comment_id,
             status=EventStateStatus.SUBMITTED_SOLUTION,
         ),
     )
