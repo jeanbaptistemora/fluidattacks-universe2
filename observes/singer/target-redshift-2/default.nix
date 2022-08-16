@@ -1,10 +1,7 @@
 {
-  observesIndex,
   nixpkgs,
-  projectPath,
   python_version,
   src,
-  system,
 }: let
   metadata = let
     _metadata = (builtins.fromTOML (builtins.readFile ./pyproject.toml)).project;
@@ -13,16 +10,13 @@
     version = builtins.elemAt match 0;
   in
     _metadata // {inherit version;};
-  lib = {
-    buildEnv = nixpkgs."${python_version}".buildEnv.override;
-    buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
-    fetchPypi = nixpkgs.python3Packages.fetchPypi;
-  };
-  python_pkgs = import ./build/deps {
-    inherit observesIndex nixpkgs lib projectPath python_version system;
+  deps = import ./build/deps {
+    inherit nixpkgs lib python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata python_pkgs;
+    inherit src lib metadata;
+    python_pkgs = deps.python_pkgs;
+    lib = deps.lib;
   };
   checks = import ./check {self_pkg = self_pkgs.pkg;};
 in

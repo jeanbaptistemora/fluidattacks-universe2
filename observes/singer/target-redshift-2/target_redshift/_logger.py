@@ -1,91 +1,35 @@
-import bugsnag
-from bugsnag.handlers import (
-    BugsnagHandler,
+from fa_purity import (
+    Cmd,
 )
-from dataclasses import (
-    dataclass,
+from utils_logger_2 import (
+    set_main_log,
 )
-from enum import (
-    Enum,
+from utils_logger_2.env import (
+    current_app_env,
+    notifier_key,
+    observes_debug,
 )
-import logging
-from logging import (
-    Formatter,
-    Handler,
-    Logger,
-)
-from os import (
-    environ,
-)
-import sys
-from typing import (
-    IO,
+from utils_logger_2.handlers import (
+    BugsnagConf,
 )
 
 
-class Envs(Enum):
-    PROD = "production"
-    DEV = "development"
-
-
-ENV = Envs(environ.get("OBSERVES_ENV", "production"))
-DEBUG = environ.get("OBSERVES_DEBUG", "false").lower() == "true"
-PRODUCT_KEY = environ.get("bugsnag_notifier_key", "")
-
-
-@dataclass(frozen=True)
-class BugsnagConf:
-    app_type: str
-    app_version: str
-    project_root: str
-    auto_capture_sessions: bool
-    api_key: str = PRODUCT_KEY
-    release_stage: Envs = ENV
-
-
-def set_bugsnag(conf: BugsnagConf) -> None:
-    if not DEBUG:
-        bugsnag.configure(  # type: ignore[no-untyped-call]
-            app_type=conf.app_type,
-            app_version=conf.app_version,
-            project_root=conf.project_root,
-            auto_capture_sessions=conf.auto_capture_sessions,
-            api_key=conf.api_key,
-            release_stage=conf.release_stage.value,
+def set_logger(root_name: str, version: str) -> Cmd[None]:
+    n_key = notifier_key()
+    app_env = current_app_env()
+    debug = observes_debug()
+    conf = n_key.bind(
+        lambda key: app_env.map(
+            lambda env: BugsnagConf(
+                "target",
+                version,
+                "./observes/singer/target_redshift",
+                False,
+                key,
+                env,
+            )
         )
-
-
-def _logger_handler(debug: bool) -> Handler:
-    prefix = "%(name)s> " if debug else ""
-    _format = prefix + "[%(levelname)s] %(message)s"
-    formatter = Formatter(_format)
-    handler = logging.StreamHandler(sys.stderr)
-    handler.setFormatter(formatter)
-    return handler
-
-
-def _bugsnag_handler() -> Handler:
-    bug_handler = BugsnagHandler()  # type: ignore[no-untyped-call]
-    return bug_handler.setLevel(logging.ERROR)
-
-
-def get_log(
-    name: str,
-) -> Logger:
-    debug = DEBUG
-    if debug and min_lvl > logging.DEBUG:
-        min_lvl = logging.DEBUG
-
-    logger: logging.Logger = logging.getLogger(name)
-    logger.setLevel(min_lvl)
-    logger.addHandler(logger_handler(debug, target))
-    if not debug:
-        bug_handler = BugsnagHandler()  # type: ignore[no-untyped-call]
-        bug_handler.setLevel(min_bug_lvl)
-        logger.addHandler(bug_handler)
-    logger.info("%s@%s", name, ENV.value)
-    return logger
-
-
-def start_session() -> None:
-    bugsnag.start_session()  # type: ignore[no-untyped-call]
+    )
+    return debug.bind(
+        lambda d: conf.bind(lambda c: set_main_log(root_name, c, d, False))
+    )

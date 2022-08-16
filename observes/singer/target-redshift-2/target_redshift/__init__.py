@@ -1,13 +1,10 @@
-from utils_logger.v2 import (
-    BugsnagConf,
-    set_bugsnag,
-    set_main_log,
+from ._logger import (
+    set_logger,
+)
+from fa_purity.cmd import (
+    unsafe_unwrap,
 )
 
 __version__ = "0.1.0"
 
-_conf = BugsnagConf(
-    "target", __version__, "./observes/singer/target_redshift", False
-)
-set_bugsnag(_conf)
-LOG = set_main_log(__name__)
+unsafe_unwrap(set_logger(__name__, __version__))
