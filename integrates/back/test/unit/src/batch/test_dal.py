@@ -57,6 +57,8 @@ data = [
                 "states": ["CLOSED", "OPEN"],
                 "verifications": [],
                 "closing_date": None,
+                "finding_title": "",
+                "age": None,
             }
         ),
     ),
@@ -77,6 +79,8 @@ data = [
                 "states": ["CLOSED", "OPEN"],
                 "verifications": [],
                 "closing_date": None,
+                "finding_title": "",
+                "age": None,
             }
         ),
     ),
@@ -97,6 +101,8 @@ data = [
                 "states": ["CLOSED", "OPEN"],
                 "verifications": [],
                 "closing_date": None,
+                "finding_title": "",
+                "age": None,
             }
         ),
     ),
@@ -115,6 +121,8 @@ data = [
                 "states": ["OPEN"],
                 "verifications": [],
                 "closing_date": None,
+                "finding_title": "038",
+                "age": 1100,
             }
         ),
     ),
@@ -135,6 +143,8 @@ data = [
                 "states": ["CLOSED"],
                 "verifications": ["VERIFIED"],
                 "closing_date": "2020-06-01T05:00:00+00:00",
+                "age": 1200,
+                "finding_title": "",
             }
         ),
     ),
@@ -186,6 +196,8 @@ async def test_get_action(dynamodb: ServiceResource) -> None:
                     "states": ["OPEN"],
                     "verifications": [],
                     "closing_date": None,
+                    "finding_title": "038",
+                    "age": 1100,
                 }
             ),
         )
@@ -255,7 +267,7 @@ async def test_requeue_actions(dynamodb: ServiceResource) -> None:
 
 
 async def test_delete_action(dynamodb: ServiceResource) -> None:
-    key = "6da32eec4b0f7dba634335a67386983e090cc6c25f58c12244c2d6685a8f5126"
+    key = "809e31ae98d679a68bc436d495ab05efa46d13e5a7ad99560193af7a08dfe66f"
     with mock.patch("batch.dal.dynamodb_ops.delete_item") as mock_delete_item:
         mock_delete_item.return_value = dynamodb.Table(TABLE_NAME).delete_item(
             Key={"pk": key}

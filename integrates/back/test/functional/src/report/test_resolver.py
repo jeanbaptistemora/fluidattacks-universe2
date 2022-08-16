@@ -172,6 +172,7 @@ async def test_get_report_states(
         treatments=treatments,
         states=states,
         verifications=verifications,
+        age=1200,
     )
     assert "success" in result_xls["data"]["report"]
     assert result_xls["data"]["report"]["success"]
@@ -425,6 +426,7 @@ async def test_get_report_states_second_time_fail(
         treatments=treatments,
         states=states,
         verifications=verifications,
+        age=1300,
     )
     if should_fail:
         assert "errors" in result_xls
@@ -442,6 +444,7 @@ async def test_get_report_states_second_time_fail(
         treatments=treatments,
         states=states,
         verifications=verifications,
+        age=1000,
     )
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(ReportAlreadyRequested())
@@ -551,6 +554,7 @@ async def test_get_report_invalid_state(
         treatments=treatments,
         states=states,
         verifications=verifications,
+        age=1150,
     )
     assert "errors" in result_data
     assert (
@@ -624,6 +628,7 @@ async def test_get_report_invalid_verification(
         treatments=treatments,
         states=states,
         verifications=verifications,
+        age=1050,
     )
     assert "errors" in result_data
     assert (

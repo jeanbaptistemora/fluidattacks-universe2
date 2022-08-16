@@ -4,13 +4,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "0b60f7743b70ef85c0bc62d49483cef23a883ef03aac17d8921021214f082ad6"
+            "S": "6a79cec345bd87d33139977216a5b26eb18bf9b3a63ec22603cdcff139463798"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"OPEN\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100}"
           },
           "entity": {
             "S": "unittesting"
@@ -31,13 +31,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "5ae92b4b4437e3e004fb668bed37472fe4615d92767e3a31d81a7d9ea7c7d999"
+            "S": "29a60d4cf09a4983b7f297edc12e40ca71d177b3e470048103a13f2544f61cad"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T05:00:00+00:00\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T05:00:00+00:00\", \"finding_title\": \"\", \"age\": 1200}"
           },
           "entity": {
             "S": "unittesting"
@@ -58,13 +58,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "1bc77999477bfcc84cd111ac745407f2b9ff21e930f59b097b414bbe34f29b46"
+            "S": "15ccfb45be7fe139e5d6391cf22933cba55dfb21c7e17f10d73f86c8c30f9169"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -85,13 +85,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "71992ff157b46d63fe5bb9dd37176cdb0e27854009b0529d648375d9bfb38977"
+            "S": "a93439f450e35ef44cee4990f8c3b5b7c449e98209cd0b8b610876a05a0d731b"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null}"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
           },
           "entity": {
             "S": "unittesting"
@@ -112,13 +112,13 @@
       "PutRequest": {
         "Item": {
           "pk": {
-            "S": "7eda9da492308050bee1bb70b386ffcb3fc9bcabe5b41185113706fe6a2d490c"
+            "S": "36cc4bc510251cf3c6b759ee641fc8bb4363850c7e5fa4088267ac770d958d5b"
           },
           "action_name": {
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"CLOSED\", \"OPEN\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null}"
           },
           "entity": {
             "S": "unittesting"

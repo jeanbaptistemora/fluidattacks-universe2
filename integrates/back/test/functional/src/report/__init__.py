@@ -87,6 +87,7 @@ async def get_result_states(
     treatments: list[str],
     states: list[str],
     verifications: list[str],
+    age: int,
 ) -> dict[str, Any]:
     query: str = """
         query RequestGroupReport(
@@ -96,6 +97,7 @@ async def get_result_states(
             $treatments: [VulnerabilityTreatment!]
             $states: [VulnerabilityState!]
             $verifications: [VulnerabilityVerification!]
+            $age: Int
         ) {
             report(
                 reportType: $reportType
@@ -105,6 +107,7 @@ async def get_result_states(
                 verificationCode: "123"
                 states: $states
                 verifications: $verifications
+                age: $age
             ) {
                 success
             }
@@ -118,6 +121,7 @@ async def get_result_states(
             "treatments": treatments,
             "states": states,
             "verifications": verifications,
+            "age": age,
         },
     }
 
