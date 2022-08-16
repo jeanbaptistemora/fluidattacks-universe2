@@ -393,7 +393,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
                     >
                       <Select
                         disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
+                          "api_mutations_update_group_managed_mutate"
                         )}
                         name={"managed"}
                       >
