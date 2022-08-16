@@ -34,7 +34,7 @@
   override_3 = python_pkgs:
     python_pkgs
     // {
-      import-linter = import ./import-linter {
+      grimp = import ./grimp {
         inherit lib python_pkgs;
       };
       mypy-boto3-s3 = import ./boto3/s3-stubs.nix lib python_pkgs;

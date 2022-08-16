@@ -96,10 +96,9 @@ in {
   target = {
     s3 = no_arch_job (new_std "${singerPath}/target-s3");
     redshift = new_std "${singerPath}/target-redshift";
-    redshift_2 =
-      new_std "${singerPath}/target-redshift-2"
+    redshift_2 = no_arch_job (new_std "${singerPath}/target-redshift-2"
       // {
         src = "${singerPath}/target-redshift-2/target_redshift";
-      };
+      });
   };
 }

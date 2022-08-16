@@ -1,7 +1,7 @@
 {
   fetchNixpkgs,
   inputs,
-  makeTemplate,
+  makeScript,
   projectPath,
   ...
 }: let
@@ -9,11 +9,12 @@
   pkg = import "${root}/entrypoint.nix" fetchNixpkgs projectPath inputs.observesIndex;
   env = pkg.env.bin;
 in
-  makeTemplate {
-    name = "observes-singer-target-redshift-env-bin";
+  makeScript {
+    name = "target-redshift";
     searchPaths = {
       bin = [
         env
       ];
     };
+    entrypoint = ./entrypoint.sh;
   }

@@ -14,7 +14,7 @@ from fa_purity import (
 )
 import sys
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 
 def set_main_log(

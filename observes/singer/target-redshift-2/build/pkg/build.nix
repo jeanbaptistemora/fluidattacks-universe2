@@ -12,12 +12,10 @@ lib.buildPythonPackage rec {
   format = "pyproject";
   type_check = ./check/types.sh;
   test_check = ./check/tests.sh;
-  arch_check = ./check/arch.sh;
   checkPhase = [
     ''
       source ${type_check} \
-      && source ${test_check} \
-      && source ${arch_check}
+      && source ${test_check}
     ''
   ];
   doCheck = true;

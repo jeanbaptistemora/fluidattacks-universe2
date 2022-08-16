@@ -11,10 +11,10 @@
   in
     _metadata // {inherit version;};
   deps = import ./build/deps {
-    inherit nixpkgs lib python_version;
+    inherit nixpkgs python_version;
   };
   self_pkgs = import ./build/pkg {
-    inherit src lib metadata;
+    inherit src metadata;
     python_pkgs = deps.python_pkgs;
     lib = deps.lib;
   };

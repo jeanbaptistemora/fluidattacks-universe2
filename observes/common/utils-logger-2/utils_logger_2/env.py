@@ -31,6 +31,6 @@ def observes_debug() -> Cmd[bool]:
 
 def notifier_key() -> Cmd[str]:
     def _action() -> str:
-        return environ["bugsnag_notifier_key"]
+        return environ.get("bugsnag_notifier_key", "")
 
     return Cmd.from_cmd(_action)

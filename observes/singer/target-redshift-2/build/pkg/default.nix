@@ -21,7 +21,7 @@
   ];
   build_deps = with python_pkgs; [flit-core];
   test_deps = with python_pkgs; [
-    import-linter
+    grimp
     mypy
     pytest
   ];
