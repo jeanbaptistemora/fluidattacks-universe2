@@ -112,6 +112,8 @@ type Query {
     reportType: ReportType!
     "Language of the requested report"
     lang: ReportLang
+    "Maximum CVSS 3.1 score of findings to include"
+    maxSeverity: Float
     "Minimum CVSS 3.1 score of findings to include"
     minSeverity: Float
     "States to include"

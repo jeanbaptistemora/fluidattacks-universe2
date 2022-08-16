@@ -58,6 +58,7 @@ from newutils.findings import (
     is_valid_finding_title,
 )
 from organizations.domain import (
+    validate_max_acceptance_severity,
     validate_min_acceptance_severity,
 )
 import pytz  # type: ignore
@@ -126,6 +127,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     finding_title: str,
     age: Optional[int],
     min_severity: Optional[Decimal],
+    max_severity: Optional[Decimal],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -169,6 +171,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "finding_title": finding_title,
             "age": age,
             "min_severity": min_severity,
+            "max_severity": max_severity,
         },
         cls=EncodeDecimal,
     )
@@ -212,7 +215,13 @@ def _validate_age(**kwargs: Any) -> None:
 def _validate_min_severity(**kwargs: Any) -> None:
     min_severity: Optional[Decimal] = kwargs.get("min_severity", None)
     if min_severity is not None:
-        validate_min_acceptance_severity(min_severity)
+        validate_min_acceptance_severity(Decimal(min_severity))
+
+
+def _validate_max_severity(**kwargs: Any) -> None:
+    max_severity: Optional[Decimal] = kwargs.get("max_severity", None)
+    if max_severity is not None:
+        validate_max_acceptance_severity(Decimal(max_severity))
 
 
 @convert_kwargs_to_snake_case
@@ -300,6 +309,7 @@ async def resolve(
             verifications = set()
     _validate_age(**kwargs)
     _validate_min_severity(**kwargs)
+    _validate_max_severity(**kwargs)
 
     return {
         "success": await _get_url_group_report(
@@ -317,6 +327,11 @@ async def resolve(
                 Decimal("0.1")
             )
             if kwargs.get("min_severity", None) is not None
+            else None,
+            max_severity=Decimal(kwargs["max_severity"]).quantize(
+                Decimal("0.1")
+            )
+            if kwargs.get("max_severity", None) is not None
             else None,
             verification_code=verification_code,
         )

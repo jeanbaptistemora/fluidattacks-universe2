@@ -112,6 +112,7 @@ class ITReport:
         finding_title: str,
         age: Optional[int],
         min_severity: Optional[Decimal],
+        max_severity: Optional[Decimal],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -125,6 +126,7 @@ class ITReport:
         self.finding_title = finding_title
         self.age = age
         self.min_severity = min_severity
+        self.max_severity = max_severity
         if self.closing_date:
             self.states = set(
                 [
@@ -194,6 +196,12 @@ class ITReport:
                 finding
                 for finding in data
                 if self.min_severity <= get_severity_score(finding.severity)
+            )
+        if self.max_severity is not None:
+            data = tuple(
+                finding
+                for finding in data
+                if get_severity_score(finding.severity) <= self.max_severity
             )
 
         findings_ids = tuple(finding.id for finding in data)

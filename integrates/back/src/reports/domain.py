@@ -33,7 +33,7 @@ from typing import (
 )
 
 
-async def get_group_report_url(
+async def get_group_report_url(  # pylint: disable=too-many-locals
     *,
     report_type: str,
     group_name: str,
@@ -45,6 +45,7 @@ async def get_group_report_url(
     finding_title: str,
     age: Optional[int],
     min_severity: Optional[Decimal],
+    max_severity: Optional[Decimal],
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -74,6 +75,7 @@ async def get_group_report_url(
             finding_title=finding_title,
             age=age,
             min_severity=min_severity,
+            max_severity=max_severity,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(
