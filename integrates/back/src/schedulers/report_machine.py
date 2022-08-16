@@ -1,3 +1,8 @@
+from PIL import (
+    Image,
+    ImageDraw,
+    ImageFont,
+)
 import aioboto3
 from aioextensions import (
     collect,
@@ -67,6 +72,9 @@ from findings import (
 from findings.types import (
     FindingDraftToAdd,
 )
+from io import (
+    BytesIO,
+)
 import json
 import logging
 from newutils import (
@@ -79,9 +87,13 @@ from newutils.findings import (
     get_requirements_file,
     get_vulns_file,
 )
+from newutils.string import (
+    boxify,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
+import os
 import pytz  # type: ignore
 from settings.various import (
     TIME_ZONE,
@@ -117,7 +129,12 @@ from yaml.reader import (  # type: ignore
     ReaderError,
 )
 
+# Constants
 LOGGER = logging.getLogger(__name__)
+DUMMY_IMG: Image = Image.new("RGB", (0, 0))
+DUMMY_DRAWING: ImageDraw = ImageDraw.Draw(DUMMY_IMG)
+SNIPPETS_CONTEXT: int = 10
+SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 
 class SignalHandler:  # pylint: disable=too-few-public-methods
@@ -183,6 +200,73 @@ def generate_cssv_vector(criteria_vulnerability: Dict[str, Any]) -> str:
         f"/RL:${temporal['remediation_level']}"
         f"/RC:${temporal['report_confidence']}"
     )
+
+
+def clarify_blocking(image: Image, ratio: float) -> Image:
+    image_mask: Image = image.convert("L")
+    image_mask_pixels = image_mask.load()
+
+    image_width, image_height = image_mask.size
+
+    for i in range(image_width):
+        for j in range(image_height):
+            if image_mask_pixels[i, j]:
+                image_mask_pixels[i, j] = int(ratio * 0xFF)
+
+    image.putalpha(image_mask)
+
+    return image
+
+
+def to_png(*, string: str, margin: int = 25) -> BytesIO:
+    font = ImageFont.truetype(
+        font=os.environ["SKIMS_ROBOTO_FONT"],
+        size=18,
+    )
+    watermark: Image = clarify_blocking(
+        image=Image.open(os.environ["SKIMS_FLUID_WATERMARK"]),
+        ratio=0.15,
+    )
+    # Make this image rectangular
+    string = boxify(string=string)
+
+    # This is the number of pixes needed to draw this text, may be big
+    size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=font)
+    size = (
+        size[0] + 2 * margin,
+        size[1] + 2 * margin,
+    )
+    watermark_size: Tuple[int, int] = (
+        size[0] // 2,
+        watermark.size[1] * size[0] // watermark.size[0] // 2,
+    )
+    watermark_position: Tuple[int, int] = (
+        (size[0] - watermark_size[0]) // 2,
+        (size[1] - watermark_size[1]) // 2,
+    )
+
+    # Create an image with the right size to fit the snippet
+    #  and resize it to a common resolution
+    img: Image = Image.new("RGB", size, (0xFF, 0xFF, 0xFF))
+
+    drawing: ImageDraw = ImageDraw.Draw(img)
+    drawing.multiline_text(
+        xy=(margin, margin),
+        text=string,
+        fill=(0x33, 0x33, 0x33),
+        font=font,
+    )
+
+    watermark = watermark.resize(watermark_size)
+    img.paste(watermark, watermark_position, watermark)
+
+    stream: BytesIO = BytesIO()
+
+    img.save(stream, format="PNG")
+
+    stream.seek(0)
+
+    return stream
 
 
 async def _create_draft(
@@ -526,6 +610,7 @@ async def persist_vulnerabilities(  # pylint: disable=too-many-arguments
                 "first_name": "machine",
                 "last_name": "machine",
             },
+            raise_validation=False,
         )
         return result
     LOGGER.warning(
