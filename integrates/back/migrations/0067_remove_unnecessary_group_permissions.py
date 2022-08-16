@@ -54,7 +54,7 @@ async def main() -> None:
     success = all(
         await collect(
             [
-                authz.revoke_group_level_role(email, group_name)
+                authz.revoke_group_level_role_legacy(email, group_name)
                 for email, group_name in group_authzes_to_delete
             ],
             workers=64,

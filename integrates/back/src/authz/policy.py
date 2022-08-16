@@ -15,9 +15,6 @@ from custom_exceptions import (
     StakeholderNotInGroup,
     StakeholderNotInOrganization,
 )
-from custom_types import (
-    DynamoDelete as DynamoDeleteType,
-)
 from db_model import (
     group_access as group_access_model,
     organization_access as organization_access_model,
@@ -88,23 +85,6 @@ def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict[str, str]:
         key: (value.lower() if isinstance(value, str) else value)
         for key, value in policy._asdict().items()
     }
-
-
-async def _delete_subject_policy(subject: str, object_: str) -> bool:
-    with contextlib.suppress(ClientError):
-        delete_attrs = DynamoDeleteType(
-            Key={
-                "subject": subject.lower(),
-                "object": object_.lower(),
-            }
-        )
-        response = await dynamodb_ops.delete_item(AUTHZ_TABLE, delete_attrs)
-        return response
-    LOGGER.error(
-        "Error in stakeholders_dal.delete_subject_policy",
-        extra={"extra": locals()},
-    )
-    return False
 
 
 async def _get_group_service_policies(group: Group) -> tuple[str, ...]:
@@ -351,21 +331,42 @@ async def revoke_cached_subject_policies(subject: str) -> bool:
     return True
 
 
-async def revoke_group_level_role(email: str, group_name: str) -> bool:
-    return await _delete_subject_policy(
-        email, group_name
-    ) and await revoke_cached_subject_policies(email)
+async def revoke_group_level_role(
+    loaders: Any, email: str, group_name: str
+) -> None:
+    with suppress(StakeholderNotInGroup):
+        group_access: GroupAccess = await loaders.group_access.load(
+            (group_name, email)
+        )
+        if group_access.role:
+            await group_access_model.update_metadata(
+                email=email,
+                group_name=group_name,
+                metadata=GroupAccessMetadataToUpdate(role=""),
+            )
 
 
 async def revoke_organization_level_role(
-    email: str, organization_id: str
-) -> bool:
-    return await _delete_subject_policy(
-        email, organization_id
-    ) and await revoke_cached_subject_policies(email)
+    loaders: Any, email: str, organization_id: str
+) -> None:
+    with suppress(StakeholderNotInOrganization):
+        org_access: OrganizationAccess = (
+            await loaders.organization_access.load((organization_id, email))
+        )
+        if org_access.role:
+            await organization_access_model.update_metadata(
+                email=email,
+                organization_id=organization_id,
+                metadata=OrganizationAccessMetadataToUpdate(role=""),
+            )
 
 
-async def revoke_user_level_role(email: str) -> bool:
-    return await _delete_subject_policy(
-        email, "self"
-    ) and await revoke_cached_subject_policies(email)
+async def revoke_user_level_role(loaders: Any, email: str) -> None:
+    stakeholder: Stakeholder = await loaders.stakeholder_with_fallback.load(
+        email
+    )
+    if stakeholder.role:
+        await stakeholders_model.update_metadata(
+            email=email,
+            metadata=StakeholderMetadataToUpdate(role=""),
+        )

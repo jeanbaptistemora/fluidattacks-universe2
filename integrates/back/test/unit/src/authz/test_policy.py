@@ -13,7 +13,6 @@ from dataloaders import (
 )
 from db_model import (
     group_access as group_access_model,
-    stakeholders as stakeholders_model,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -191,8 +190,8 @@ async def test_revoke_group_level_role() -> None:
     await group_access_model.remove(
         email="revoke_GROUP_level_role@gmail.com", group_name="other-group"
     )
-    assert await revoke_group_level_role(
-        "revoke_GROUP_level_role@gmail.com", "other-group"
+    await revoke_group_level_role(
+        get_new_context(), "revoke_GROUP_level_role@gmail.com", "other-group"
     )
     assert (
         await get_group_level_role(
@@ -211,8 +210,8 @@ async def test_revoke_group_level_role() -> None:
     await group_access_model.remove(
         email="revoke_GROUP_level_role@gmail.com", group_name="group"
     )
-    assert await revoke_group_level_role(
-        "revoke_GROUP_level_role@gmail.com", "group"
+    await revoke_group_level_role(
+        get_new_context(), "revoke_GROUP_level_role@gmail.com", "group"
     )
     assert not await get_group_level_role(
         get_new_context(), "revOke_group_level_role@gmail.com", "group"
@@ -227,11 +226,11 @@ async def test_revoke_group_level_role() -> None:
     )
 
 
-@pytest.mark.changes_db
+@pytest.mark.abc
 async def test_revoke_user_level_role() -> None:
-    loaders: Dataloaders = get_new_context()
     await grant_user_level_role("revoke_user_LEVEL_role@gmail.com", "user")
 
+    loaders: Dataloaders = get_new_context()
     assert (
         await get_user_level_role(loaders, "revoke_user_level_ROLE@gmail.com")
         == "user"
@@ -239,8 +238,8 @@ async def test_revoke_user_level_role() -> None:
     assert not await get_user_level_role(
         loaders, "REVOKE_user_level_role@gmail.net"
     )
-    await stakeholders_model.remove(email="revoke_USER_LEVEL_ROLE@gmail.com")
-    assert await revoke_user_level_role("revoke_USER_LEVEL_ROLE@gmail.com")
+    await revoke_user_level_role(loaders, "revoke_USER_LEVEL_ROLE@gmail.com")
+
     assert not await get_user_level_role(
         get_new_context(), "revoke_user_level_ROLE@gmail.com"
     )

@@ -257,7 +257,6 @@ async def exists(loaders: Any, group_name: str, email: str) -> bool:
 
 async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
     await group_access_model.remove(email=email, group_name=group_name)
-    success = await authz.revoke_group_level_role(email, group_name)
 
     if email and group_name:
         me_vulnerabilities: tuple[
@@ -306,7 +305,8 @@ async def remove_access(loaders: Any, email: str, group_name: str) -> bool:
                 for draft in group_drafts
             )
         )
-    return success
+
+    return True
 
 
 async def update(

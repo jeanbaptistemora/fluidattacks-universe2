@@ -575,9 +575,6 @@ async def remove_access(
         raise StakeholderNotInOrganization()
 
     await org_access_model.remove(email=email, organization_id=organization_id)
-    is_user_removed = await authz.revoke_organization_level_role(
-        email, organization_id
-    )
     org_group_names = await get_group_names(loaders, organization_id)
     are_groups_removed = all(
         await collect(
@@ -605,7 +602,8 @@ async def remove_access(
             for credential in user_credentials
         )
     )
-    return is_user_removed and are_groups_removed
+
+    return are_groups_removed
 
 
 async def reject_register_for_organization_invitation(

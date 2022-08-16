@@ -38,12 +38,8 @@ async def test_organization_level_enforcer() -> None:
 
         for role in model:
             await stakeholders_model.remove(email=subject)
-            await authz.revoke_user_level_role(subject)
             await org_access_model.remove(
                 email=subject, organization_id=organization_id
-            )
-            await authz.revoke_organization_level_role(
-                subject, organization_id
             )
             await authz.grant_organization_level_role(
                 get_new_context(), subject, organization_id, role
@@ -79,9 +75,7 @@ async def test_group_level_enforcer() -> None:
 
         for role in model:
             await stakeholders_model.remove(email=subject)
-            await authz.revoke_user_level_role(subject)
             await group_access_model.remove(email=subject, group_name=group)
-            await authz.revoke_group_level_role(subject, group)
             await authz.grant_group_level_role(
                 get_new_context(), subject, group, role
             )
@@ -116,7 +110,6 @@ async def test_user_level_enforcer() -> None:
 
         for role in model:
             await stakeholders_model.remove(email=subject)
-            await authz.revoke_user_level_role(subject)
             await authz.grant_user_level_role(subject, role)
             enforcer = await authz.get_user_level_enforcer(
                 get_new_context(), subject
