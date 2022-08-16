@@ -203,17 +203,19 @@ async def add_stakeholder(
             has_access=True,
         ),
     )
-    success = await authz.grant_organization_level_role(
+    await authz.grant_organization_level_role(
         loaders, email, organization_id, role
     )
-    if success and role == "customer_manager":
+    success = True
+    if role == "customer_manager":
         org_groups = await get_group_names(loaders, organization_id)
-        success = success and all(
+        success = all(
             await collect(
                 group_access_domain.add_access(loaders, email, group, role)
                 for group in org_groups
             )
         )
+
     return success
 
 
