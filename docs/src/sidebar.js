@@ -528,7 +528,6 @@ const Machine = [
             items: [
               'machine/web/groups/scope/introduction',
               'machine/web/groups/scope/roots',
-              'machine/web/groups/scope/global-credentials',
               'machine/web/groups/scope/exclusions',
               'machine/web/groups/scope/files',
               'machine/web/groups/scope/portfolios',
@@ -587,6 +586,7 @@ const Machine = [
       },
       'machine/web/portfolios',
       'machine/web/stakeholders',
+      'machine/web/global-credentials',
     ],
   },
   {

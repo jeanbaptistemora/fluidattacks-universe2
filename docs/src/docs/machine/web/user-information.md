@@ -86,8 +86,7 @@ From here you can also manage
 the credentials you entered
 when adding a root in the
 Scope section.
-Follow
-[this link](/machine/web/groups/scope/machine/web/groups/scope/global-credentials)
+Follow this link
 to learn the entire procedure.
 
 ![Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1657726201/docs/web/web_asm-user_credentials.png)
