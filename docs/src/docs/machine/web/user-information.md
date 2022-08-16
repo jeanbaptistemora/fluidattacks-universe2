@@ -8,7 +8,6 @@ slug: /machine/web/user-information
 On the ASM, it is quite easy to
 find the options to enable early
 access to changes to the platform,
-create and manage credentials,
 register your mobile phone number,
 access the platform’s API,
 configure what notifications you
@@ -78,19 +77,6 @@ can manage notifications
 [here](/machine/web/notifications).
 
 ![Notification Matrix](https://res.cloudinary.com/fluid-attacks/image/upload/v1646335539/docs/web/web_asm-user_select_notification.png)
-
-The next option is **Credentials**,
-which allows you to
-create and manage credentials.
-From here you can also manage
-the credentials you entered
-when adding a root in the
-Scope section.
-Follow
-[this link](/machine/web/machine/web/global-credentials)
-to learn the entire procedure.
-
-![Credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1657726201/docs/web/web_asm-user_credentials.png)
 
 Next is **Mobile**,
 which allows you to
