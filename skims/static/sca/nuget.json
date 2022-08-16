@@ -2,6 +2,9 @@
   "adplug": {
     "CVE-2019-15151": "2.3.1"
   },
+  "azure.storage.queues": {
+    "CVE-2022-30187": ">=0 <12.11.0"
+  },
   "ajaxcontroltoolkit": {
     "CVE-2015-4670": "<=15.0"
   },
@@ -55,7 +58,8 @@
     "GHSA-8pp6-8x4q-c5mx": "<=6.11.7982.26191"
   },
   "cefsharp.common": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+    "GHSA-gvqv-779r-4jgp": "<86.0.241",
+    "GHSA-vv6j-ww6x-54gx": ">=0 <98.1.210"
   },
   "cefsharp.common.netcore": {
     "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
@@ -67,16 +71,19 @@
     "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
   },
   "cefsharp.winforms": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+    "GHSA-gvqv-779r-4jgp": "<86.0.241",
+    "GHSA-vv6j-ww6x-54gx": ">=0 <98.1.210"
   },
   "cefsharp.winforms.netcore": {
     "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
   },
   "cefsharp.wpf": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+    "GHSA-gvqv-779r-4jgp": "<86.0.241",
+    "GHSA-vv6j-ww6x-54gx": ">=0 <98.1.210"
   },
   "cefsharp.wpf.hwndhost": {
-    "GHSA-gvqv-779r-4jgp": "<86.0.241"
+    "GHSA-gvqv-779r-4jgp": "<86.0.241",
+    "GHSA-vv6j-ww6x-54gx": ">=0 <98.1.210"
   },
   "cefsharp.wpf.netcore": {
     "GHSA-vv6j-ww6x-54gx": "<=98.1.190"
@@ -93,14 +100,16 @@
     "GHSA-rfjh-m356-mpqf": ">=0 <2.7.4.3"
   },
   "discatsharp": {
-    "GHSA-qhqf-ghgh-x2m4": "<9.8.3"
+    "GHSA-qhqf-ghgh-x2m4": "<9.8.3",
+    "CVE-2022-24849": ">=9.8.5 <9.9.1"
   },
   "dotnetcasclient": {
     "CVE-2014-4172": "<1.0.2"
   },
   "dotnetnuke.core": {
     "CVE-2020-11585": "9.5.0",
-    "CVE-2020-5188": "<9.4.4"
+    "CVE-2020-5188": "<=9.4.4",
+    "CVE-2021-31858": "<=9.10.2"
   },
   "dotnetzip": {
     "CVE-2018-1002205": "<1.11.0"
@@ -142,6 +151,7 @@
     "GHSA-7rq6-7gv8-c37h": "1.7.25"
   },
   "hawk.ueditor": {
+    "CVE-2017-14744": ">=0 <=1.4.3.3",
     "CVE-2021-37271": "1.4.3.3"
   },
   "htmlsanitizer": {
@@ -164,6 +174,10 @@
   },
   "inedo.proget.sdk": {
     "CVE-2017-15608": "<5.0.4"
+  },
+  "ipmatcher": {
+    "CVE-2021-33318": ">=0 <=1.0.4.1",
+    "GHSA-qj93-37f5-mr29": ">=0 <1.0.4.2"
   },
   "itextsharp": {
     "SNYK-DOTNET-ITEXTSHARP-540928": "<5.5.12",
