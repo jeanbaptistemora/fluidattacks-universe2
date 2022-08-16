@@ -48,6 +48,9 @@ import {
 import {
   formatEvents,
   formatReattacks,
+  getEventIndex,
+  getNonSelectableEventIndex,
+  onSelectSeveralEventsHelper,
 } from "scenes/Dashboard/containers/GroupEventsView/utils";
 import { Can } from "utils/authz/Can";
 import { castEventType } from "utils/formatHelpers";
@@ -63,6 +66,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
 
   const [optionType, setOptionType] = useState(selectOptionType);
+  const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);
 
   const [isCustomFilterEnabled, setCustomFilterEnabled] =
     useStoredState<boolean>("groupEventsFilters", false);
@@ -525,6 +529,23 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     },
   ];
 
+  function onSelectSeveralEvents(
+    isSelect: boolean,
+    eventsSelected: IEventData[]
+  ): string[] {
+    return onSelectSeveralEventsHelper(
+      isSelect,
+      eventsSelected,
+      selectedEvents,
+      setSelectedEvents
+    );
+  }
+  function onSelectOneEvent(event: IEventData, isSelect: boolean): boolean {
+    onSelectSeveralEvents(isSelect, [event]);
+
+    return true;
+  }
+
   return (
     <React.Fragment>
       {isAddModalOpen ? (
@@ -606,6 +627,15 @@ const GroupEventsView: React.FC = (): JSX.Element => {
           pageSize={10}
           rowEvents={{ onClick: goToEvent }}
           search={false}
+          selectionMode={{
+            clickToSelect: false,
+            hideSelectColumn: true,
+            mode: "checkbox",
+            nonSelectable: getNonSelectableEventIndex(resultDataset),
+            onSelect: onSelectOneEvent,
+            onSelectAll: onSelectSeveralEvents,
+            selected: getEventIndex(selectedEvents, resultDataset),
+          }}
         />
       </Tooltip>
     </React.Fragment>
