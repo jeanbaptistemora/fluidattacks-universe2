@@ -32,6 +32,7 @@ function main {
     git_root_historic_state
     git_root_metadata
     group_access
+    group_comment
     group_historic_state
     group_historic_policies
     group_metadata
