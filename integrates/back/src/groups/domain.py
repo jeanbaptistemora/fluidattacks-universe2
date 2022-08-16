@@ -711,7 +711,6 @@ async def get_groups_by_stakeholder(
     email: str,
     active: bool = True,
     organization_id: str = "",
-    with_cache: bool = True,
 ) -> list[str]:
     group_names = await group_access_domain.get_stakeholder_groups_names(
         loaders, email, active
@@ -731,7 +730,7 @@ async def get_groups_by_stakeholder(
         ]
 
     group_level_roles = await authz.get_group_level_roles(
-        loaders, email, group_names, with_cache=with_cache
+        loaders, email, group_names
     )
 
     return [

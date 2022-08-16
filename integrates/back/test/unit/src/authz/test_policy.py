@@ -11,6 +11,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    group_access as group_access_model,
+    stakeholders as stakeholders_model,
+)
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
@@ -185,6 +189,9 @@ async def test_revoke_group_level_role() -> None:
         "REVOKE_group_level_role@gmail.com",
         "yet-other-group",
     )
+    await group_access_model.remove(
+        email="revoke_GROUP_level_role@gmail.com", group_name="other-group"
+    )
     assert await revoke_group_level_role(
         "revoke_GROUP_level_role@gmail.com", "other-group"
     )
@@ -201,6 +208,9 @@ async def test_revoke_group_level_role() -> None:
         get_new_context(),
         "revoke_group_level_role@gmail.com",
         "yet-other-group",
+    )
+    await group_access_model.remove(
+        email="revoke_GROUP_level_role@gmail.com", group_name="group"
     )
     assert await revoke_group_level_role(
         "revoke_GROUP_level_role@gmail.com", "group"
@@ -232,6 +242,7 @@ async def test_revoke_user_level_role() -> None:
     assert not await get_user_level_role(
         loaders, "REVOKE_user_level_role@gmail.net"
     )
+    await stakeholders_model.remove(email="revoke_USER_LEVEL_ROLE@gmail.com")
     assert await revoke_user_level_role("revoke_USER_LEVEL_ROLE@gmail.com")
     assert not await get_user_level_role(
         get_new_context(), "revoke_user_level_ROLE@gmail.com"

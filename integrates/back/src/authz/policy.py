@@ -6,9 +6,6 @@ from authz.model import (
     get_organization_level_roles_model,
     get_user_level_roles_model,
 )
-from boto3.dynamodb.conditions import (
-    Key,
-)
 from botocore.exceptions import (
     ClientError,
 )
@@ -57,9 +54,6 @@ from functools import (
 )
 import logging
 import logging.config
-from newutils import (
-    function,
-)
 from redis_cluster.operations import (
     redis_del_by_deps,
     redis_get_or_set_entity_attr,
@@ -70,10 +64,7 @@ from settings import (
 from typing import (
     Any,
     Awaitable,
-    cast,
-    DefaultDict,
     NamedTuple,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -93,25 +84,6 @@ class SubjectPolicy(NamedTuple):
     subject: str
     object: str
     role: str
-
-
-def _cast_dict_into_subject_policy(item: dict[str, str]) -> SubjectPolicy:
-    field_types: dict[Any, Any] = SubjectPolicy.__annotations__
-
-    # Every string as lowercase
-    for field, _ in field_types.items():
-        if isinstance(item.get(field), str):
-            item[field] = item[field].lower()
-    return SubjectPolicy(
-        **{
-            field: (
-                item[field]
-                if field in item and isinstance(item[field], typing)
-                else typing()
-            )
-            for field, typing in field_types.items()
-        }
-    )
 
 
 def _cast_subject_policy_into_dict(policy: SubjectPolicy) -> dict[str, str]:
@@ -195,43 +167,6 @@ async def _get_service_policies(group: Group) -> list[ServicePolicy]:
     ]
 
 
-async def _get_subject_policies(subject: str) -> list[SubjectPolicy]:
-    """Return a list of policies for the given subject."""
-    query_params = {
-        "ConsistentRead": True,
-        "KeyConditionExpression": Key("subject").eq(subject.lower()),
-    }
-    response = await dynamodb_ops.query(AUTHZ_TABLE, query_params)
-    return list(map(_cast_dict_into_subject_policy, response))
-
-
-async def _get_subject_policy(subject: str, object_: str) -> SubjectPolicy:
-    """Return a policy for the given subject over the given object."""
-    response = {}
-    query_attrs = {
-        "ConsistentRead": True,
-        "KeyConditionExpression": (
-            Key("subject").eq(subject.lower())
-            & Key("object").eq(object_.lower())
-        ),
-    }
-    response_items = await dynamodb_ops.query(AUTHZ_TABLE, query_attrs)
-    if response_items:
-        response = response_items[0]
-    return _cast_dict_into_subject_policy(response)
-
-
-async def get_user_subject_policies(
-    subject: str,
-) -> tuple[tuple[str, str, str], ...]:
-    policies: tuple[tuple[str, str, str], ...] = tuple(
-        (policy.level, policy.object, policy.role)
-        for policy in await _get_subject_policies(subject)
-        if policy.subject == subject
-    )
-    return policies
-
-
 async def get_cached_group_service_policies(
     group: Group,
 ) -> tuple[str, ...]:
@@ -245,44 +180,6 @@ async def get_cached_group_service_policies(
     return response
 
 
-async def get_cached_subject_policies(
-    subject: str,
-    context_store: Optional[DefaultDict[Any, Any]] = None,
-    with_cache: bool = True,
-) -> tuple[tuple[str, str, str], ...]:
-    """Cached function to get 1 user authorization policies."""
-    policies: tuple[tuple[str, str, str], ...]
-
-    if with_cache:
-        # Unique ID for this function and arguments
-        context_store_key: str = function.get_id(
-            get_cached_subject_policies,
-            subject,
-        )
-
-        # If there is already a result for this operation within the context of
-        # this request let's return it
-        context_store = context_store or DefaultDict(str)
-        if context_store_key in context_store:
-            return cast(
-                tuple[tuple[str, str, str], ...],
-                context_store[context_store_key],
-            )
-
-        policies = await redis_get_or_set_entity_attr(
-            partial(get_user_subject_policies, subject),
-            entity="authz_subject",
-            attr="policies",
-            id=subject.lower(),
-            ttl=86400,
-        )
-        context_store[context_store_key] = policies
-        return policies
-    # Let's fetch the data from the database
-    policies = await get_user_subject_policies(subject)
-    return policies
-
-
 async def get_group_level_role(
     loaders: Any,
     email: str,
@@ -290,17 +187,12 @@ async def get_group_level_role(
 ) -> str:
     group_role: str = ""
     # Admins are granted access to all groups
-    if loaders:
-        with suppress(StakeholderNotInGroup):
-            group_access: GroupAccess = await loaders.group_access.load(
-                (group_name, email)
-            )
-            if group_access.role:
-                group_role = group_access.role
-
-    if not group_role:
-        subject_policy = await _get_subject_policy(email, group_name)
-        group_role = subject_policy.role
+    with suppress(StakeholderNotInGroup):
+        group_access: GroupAccess = await loaders.group_access.load(
+            (group_name, email)
+        )
+        if group_access.role:
+            group_role = group_access.role
 
     # Please always make the query at the end
     if not group_role and await get_user_level_role(loaders, email) == "admin":
@@ -313,28 +205,16 @@ async def get_group_level_roles(
     loaders: Any,
     email: str,
     groups: list[str],
-    with_cache: bool = True,
 ) -> dict[str, str]:
     is_admin: bool = await get_user_level_role(loaders, email) == "admin"
-
-    if loaders:
-        groups_access: tuple[
-            GroupAccess, ...
-        ] = await loaders.stakeholder_groups_access.load(email)
-        db_roles: dict[str, str] = {
-            access.group_name: access.role
-            for access in groups_access
-            if access.role
-        }
-    else:
-        policies = await get_cached_subject_policies(
-            email, with_cache=with_cache
-        )
-        db_roles = {
-            object_: role
-            for level, object_, role in policies
-            if level == "group"
-        }
+    groups_access: tuple[
+        GroupAccess, ...
+    ] = await loaders.stakeholder_groups_access.load(email)
+    db_roles: dict[str, str] = {
+        access.group_name: access.role
+        for access in groups_access
+        if access.role
+    }
 
     return {
         group: "admin"
@@ -351,21 +231,12 @@ async def get_organization_level_role(
 ) -> str:
     organization_role: str = ""
     # Admins are granted access to all organizations
-    if loaders:
-        with suppress(StakeholderNotInOrganization):
-            org_access: OrganizationAccess = (
-                await loaders.organization_access.load(
-                    (organization_id, email)
-                )
-            )
-            if org_access.role:
-                organization_role = org_access.role
-
-    if not organization_role:
-        subject_policy = await _get_subject_policy(
-            email, organization_id.lower()
+    with suppress(StakeholderNotInOrganization):
+        org_access: OrganizationAccess = (
+            await loaders.organization_access.load((organization_id, email))
         )
-        organization_role = subject_policy.role
+        if org_access.role:
+            organization_role = org_access.role
 
     # Please always make the query at the end
     if (
@@ -382,15 +253,10 @@ async def get_user_level_role(
     email: str,
 ) -> str:
     user_role: str = ""
-    if loaders:
-        with suppress(StakeholderNotFound):
-            stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-            if stakeholder.role:
-                user_role = stakeholder.role
-
-    if not user_role:
-        user_policy = await _get_subject_policy(email, "self")
-        user_role = str(user_policy.role)
+    with suppress(StakeholderNotFound):
+        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+        if stakeholder.role:
+            user_role = stakeholder.role
 
     return user_role
 
@@ -488,7 +354,7 @@ async def has_access_to_group(
     group_name: str,
 ) -> bool:
     """Verify if the user has access to a group."""
-    return bool(await get_group_level_role(loaders, email, group_name.lower()))
+    return bool(await get_group_level_role(loaders, email, group_name))
 
 
 async def put_subject_policy(policy: SubjectPolicy) -> bool:

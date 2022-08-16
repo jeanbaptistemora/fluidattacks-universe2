@@ -19,6 +19,7 @@ async def update_metadata(
     group_name: str,
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
+    email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
         values={

@@ -36,6 +36,7 @@ async def _get_organization_access(
     email: str,
     organization_id: str,
 ) -> OrganizationAccess:
+    email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
         values={
@@ -94,6 +95,7 @@ async def _get_stakeholder_organizations_access(
     access_dataloader: DataLoader,
     email: str,
 ) -> tuple[OrganizationAccess, ...]:
+    email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
         values={

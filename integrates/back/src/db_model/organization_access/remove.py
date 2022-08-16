@@ -13,6 +13,7 @@ from dynamodb.operations import (
 
 
 async def remove(*, email: str, organization_id: str) -> None:
+    email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
         values={

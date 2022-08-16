@@ -73,6 +73,7 @@ async def _get_stakeholder_items(
 async def _get_stakeholders_no_fallback(
     *, emails: tuple[str, ...]
 ) -> tuple[Stakeholder, ...]:
+    emails = tuple(email.lower().strip() for email in emails)
     items = await _get_stakeholder_items(emails=emails)
 
     if len(items) != len(emails):
@@ -93,6 +94,7 @@ async def _get_stakeholders_with_fallback(
     stakeholder_dataloader: DataLoader,
     emails: tuple[str, ...],
 ) -> tuple[Stakeholder, ...]:
+    emails = tuple(email.lower().strip() for email in emails)
     items = await _get_stakeholder_items(emails=emails)
 
     stakeholders: list[Stakeholder] = []

@@ -33,6 +33,8 @@ async def _get_group_access(
     email: str,
     group_name: str,
 ) -> GroupAccess:
+    email = email.lower().strip()
+    group_name = group_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
         values={
@@ -56,6 +58,7 @@ async def _get_group_stakeholders_access(
     access_dataloader: DataLoader,
     group_name: str,
 ) -> tuple[GroupAccess, ...]:
+    group_name = group_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
         values={
@@ -91,6 +94,7 @@ async def _get_stakeholder_groups_access(
     access_dataloader: DataLoader,
     email: str,
 ) -> tuple[GroupAccess, ...]:
+    email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
         values={
