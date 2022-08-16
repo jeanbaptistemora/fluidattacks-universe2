@@ -944,6 +944,60 @@
       "management:type" = "product";
     };
   };
+  observes_etl_timedoctor = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/timedoctor"
+    ];
+
+    schedule_expression = "cron(0 9 ? * 2-6 *)";
+    size = "nano";
+    awsRole = "prod_observes";
+    attempts = 2;
+    timeout = 18000;
+    parallel = 1;
+
+    environment = [
+      "CI_PROJECT_ID"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "observes_etl_timedoctor";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+  };
+  observes_etl_timedoctor_backup = {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/observes/etl/timedoctor/backup"
+    ];
+
+    schedule_expression = "cron(0 4 1,15 * ? *)";
+    size = "nano";
+    awsRole = "prod_observes";
+    attempts = 4;
+    timeout = 18000;
+    parallel = 1;
+
+    environment = [
+      "CI_PROJECT_ID"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "observes_etl_timedoctor_backup";
+      "management:area" = "cost";
+      "management:product" = "observes";
+      "management:type" = "product";
+    };
+  };
   observes_etl_zoho_crm_fluid = {
     enabled = true;
     command = [
