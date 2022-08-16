@@ -112,6 +112,8 @@ type Query {
     reportType: ReportType!
     "Language of the requested report"
     lang: ReportLang
+    "Minimum CVSS 3.1 score of findings to include"
+    minSeverity: Float
     "States to include"
     states: [VulnerabilityState!]
     "Treatments to include"

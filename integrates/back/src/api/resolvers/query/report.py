@@ -37,6 +37,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
+from decimal import (
+    Decimal,
+)
 from decorators import (
     enforce_group_level_auth_async,
     require_login,
@@ -54,6 +57,9 @@ from newutils.datetime import (
 from newutils.findings import (
     is_valid_finding_title,
 )
+from organizations.domain import (
+    validate_min_acceptance_severity,
+)
 import pytz  # type: ignore
 from settings import (
     TIME_ZONE,
@@ -69,6 +75,14 @@ from typing import (
 from verify import (
     operations as verify_operations,
 )
+
+
+class EncodeDecimal(json.JSONEncoder):
+    def default(self, o: Any) -> Any:
+        if isinstance(o, Decimal):
+            return str(o)
+
+        return json.JSONEncoder.default(self, o)
 
 
 def _filter_unique_report(
@@ -111,6 +125,7 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
     verification_code: str,
 ) -> bool:
     existing_actions: tuple[
@@ -153,7 +168,9 @@ async def _get_url_group_report(  # noqa pylint: disable=too-many-arguments, too
             "closing_date": closing_date.isoformat() if closing_date else None,
             "finding_title": finding_title,
             "age": age,
-        }
+            "min_severity": min_severity,
+        },
+        cls=EncodeDecimal,
     )
 
     success: bool = (
@@ -190,6 +207,12 @@ def _validate_age(**kwargs: Any) -> None:
             raise InvalidReportFilter(
                 f"Age value must be between {min_value} and {max_value}"
             )
+
+
+def _validate_min_severity(**kwargs: Any) -> None:
+    min_severity: Optional[Decimal] = kwargs.get("min_severity", None)
+    if min_severity is not None:
+        validate_min_acceptance_severity(min_severity)
 
 
 @convert_kwargs_to_snake_case
@@ -276,6 +299,7 @@ async def resolve(
         ):
             verifications = set()
     _validate_age(**kwargs)
+    _validate_min_severity(**kwargs)
 
     return {
         "success": await _get_url_group_report(
@@ -289,6 +313,11 @@ async def resolve(
             closing_date=closing_date,
             finding_title=finding_title or "",
             age=kwargs.get("age", None),
+            min_severity=Decimal(kwargs["min_severity"]).quantize(
+                Decimal("0.1")
+            )
+            if kwargs.get("min_severity", None) is not None
+            else None,
             verification_code=verification_code,
         )
     }

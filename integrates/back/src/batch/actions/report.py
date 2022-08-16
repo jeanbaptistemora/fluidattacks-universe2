@@ -21,6 +21,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
+from decimal import (
+    Decimal,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -71,6 +74,7 @@ async def get_report(
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
 ) -> str:
     report_file_name: Optional[str] = None
     try:
@@ -84,6 +88,7 @@ async def get_report(
             closing_date=closing_date,
             finding_title=finding_title,
             age=age,
+            min_severity=min_severity,
         )
         if report_file_name is not None:
             uploaded_file_name = await upload_report_file(report_file_name)
@@ -116,6 +121,7 @@ async def send_report(
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
 ) -> None:
     loaders = get_new_context()
     translations: Dict[str, str] = {
@@ -137,6 +143,7 @@ async def send_report(
                 closing_date=closing_date,
                 finding_title=finding_title,
                 age=age,
+                min_severity=min_severity,
             )
         )
         LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -165,6 +172,7 @@ def get_filter_message(
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
 ) -> str:
     if closing_date:
         states = set(
@@ -204,6 +212,8 @@ def get_filter_message(
         message += f" Finding type code: {finding_title}."
     if age is not None:
         message += f" Age in days: {age}."
+    if min_severity is not None:
+        message += f" Minimum CVSS 3.1 score: {min_severity}."
 
     return (
         f". With the following filters:{message}"
@@ -235,6 +245,11 @@ async def report(*, item: BatchProcessing) -> None:
     )
     finding_title: str = additional_info.get("finding_title", "")
     age: Optional[int] = additional_info.get("age", None)
+    min_severity: Optional[Decimal] = (
+        Decimal(additional_info["min_severity"]).quantize(Decimal("0.1"))
+        if additional_info.get("min_severity", None) is not None
+        else None
+    )
     message = (
         f"Processing {report_type} report requested by "
         + f"{item.subject} for group {item.entity}"
@@ -246,6 +261,7 @@ async def report(*, item: BatchProcessing) -> None:
             closing_date=closing_date,
             finding_title=finding_title,
             age=age,
+            min_severity=min_severity,
         )
     )
     LOGGER_TRANSACTIONAL.info(":".join([item.subject, message]))
@@ -258,6 +274,7 @@ async def report(*, item: BatchProcessing) -> None:
         closing_date=closing_date,
         finding_title=finding_title,
         age=age,
+        min_severity=min_severity,
     )
     if report_url:
         await send_report(
@@ -270,4 +287,5 @@ async def report(*, item: BatchProcessing) -> None:
             closing_date=closing_date,
             finding_title=finding_title,
             age=age,
+            min_severity=min_severity,
         )

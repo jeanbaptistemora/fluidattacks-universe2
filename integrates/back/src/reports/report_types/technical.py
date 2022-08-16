@@ -19,6 +19,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     storage as findings_storage,
 )
@@ -176,6 +179,7 @@ async def generate_xls_file(
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
 ) -> str:
     it_report = ITReport(
         data=findings_ord,
@@ -187,6 +191,7 @@ async def generate_xls_file(
         closing_date=closing_date,
         finding_title=finding_title,
         age=age,
+        min_severity=min_severity,
     )
     await it_report.create()
     filepath = it_report.result_filename

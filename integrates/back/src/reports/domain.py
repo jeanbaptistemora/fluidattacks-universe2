@@ -21,6 +21,9 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
+from decimal import (
+    Decimal,
+)
 from findings import (
     domain as findings_domain,
 )
@@ -41,6 +44,7 @@ async def get_group_report_url(
     closing_date: Optional[datetime],
     finding_title: str,
     age: Optional[int],
+    min_severity: Optional[Decimal],
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
     group_findings_loader = loaders.group_findings
@@ -69,6 +73,7 @@ async def get_group_report_url(
             closing_date=closing_date,
             finding_title=finding_title,
             age=age,
+            min_severity=min_severity,
         )
     if report_type == "PDF":
         return await technical_report.generate_pdf_file(

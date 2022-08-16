@@ -121,6 +121,7 @@ async def _append_xls_report(
         closing_date=None,
         finding_title="",
         age=None,
+        min_severity=None,
     )
     with open(os.path.join(directory, "report.xls"), mode="wb") as file:
         with open(report_filename, "rb") as report:

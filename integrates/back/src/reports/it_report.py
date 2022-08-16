@@ -41,6 +41,7 @@ from findings import (
 )
 from findings.domain.core import (
     get_report_days,
+    get_severity_score,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -110,6 +111,7 @@ class ITReport:
         closing_date: Optional[datetime],
         finding_title: str,
         age: Optional[int],
+        min_severity: Optional[Decimal],
         loaders: Dataloaders,
     ) -> None:
         """Initialize variables."""
@@ -122,6 +124,7 @@ class ITReport:
         self.closing_date = closing_date
         self.finding_title = finding_title
         self.age = age
+        self.min_severity = min_severity
         if self.closing_date:
             self.states = set(
                 [
@@ -186,6 +189,13 @@ class ITReport:
                 for finding in data
                 if self._get_report_days(finding) <= self.age
             )
+        if self.min_severity is not None:
+            data = tuple(
+                finding
+                for finding in data
+                if self.min_severity <= get_severity_score(finding.severity)
+            )
+
         findings_ids = tuple(finding.id for finding in data)
         findings_vulnerabilities: tuple[Vulnerability, ...]
         findings_verifications: tuple[tuple[FindingVerification], ...]
