@@ -1,0 +1,19 @@
+[project]
+name = "utils_logger_2"
+authors = [
+    {name = "Product Team", email = "development@fluidattacks.com"},
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "bugsnag >=4.0.2, <5.0.0",
+    "fa-purity >=1.23.0, <2.0.0"
+]
+description = "Common logger handlers"
+dynamic = ["version"]
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"

@@ -16,6 +16,7 @@
     observesTargetRedshift = target.redshift_2;
     observesTargetS3 = target.s3;
     observesEtlDynamoConf = etl.dynamo;
+    observesUtilsLogger2 = common.utils_logger_2;
   };
   dev_envs =
     builtins.mapAttrs (

@@ -52,6 +52,7 @@
   index = inputs.observesIndex;
   std_pkgs = with index; [
     common.asm_dal
+    common.utils_logger_2
     etl.dynamo
     service.batch_stability
     service.scheduler

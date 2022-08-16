@@ -74,6 +74,7 @@ in {
       // {
         new_env.dev = "${commonPath}/utils-logger/new-env/dev";
       };
+    utils_logger_2 = no_arch_job (new_std "${commonPath}/utils-logger-2");
   };
   tap = {
     announcekit = std_data "${singerPath}/tap-announcekit";
