@@ -57,13 +57,15 @@ async def has_environment(
     group: str,
 ) -> bool:
     roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
-    for root in roots:
-        if isinstance(root, GitRoot) and (
+    git_roots = filter(
+        lambda root: isinstance(root, GitRoot)
+        and (
             root.state.git_environment_urls != []
             or root.state.environment_urls != []
-        ):
-            return True
-    return False
+        ),
+        roots,
+    )
+    return any(git_roots)
 
 
 async def _send_mail_report(
