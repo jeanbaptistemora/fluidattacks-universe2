@@ -606,6 +606,7 @@ const Machine = [
       'machine/scanner/benchmark',
       'machine/scanner/reproducibility',
       'machine/scanner/results',
+      'machine/scanner/rules',
     ],
   },
   {
