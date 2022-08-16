@@ -191,6 +191,10 @@
           "AttributeType": "S"
         },
         {
+          "AttributeName": "rejection",
+          "AttributeType": "M"
+        },
+        {
           "AttributeName": "where",
           "AttributeType": "S"
         },
@@ -18318,6 +18322,71 @@
             },
             {
               "sk": {
+                "S": "STATE#2019-02-05T17:46:10+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "FIN#560175507"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-02-05T17:46:10+00:00"
+              },
+              "status": {
+                "S": "SUBMITTED"
+              }
+            },
+            {
+              "sk": {
+                "S": "STATE#2019-02-07T17:46:10+00:00"
+              },
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "pk": {
+                "S": "FIN#560175507"
+              },
+              "justification": {
+                "S": "NO_JUSTIFICATION"
+              },
+              "rejection": {
+                "M": {
+                  "other": {
+                    "S": ""
+                  },
+                  "reason": {
+                    "S": "OMISSION"
+                  },
+                  "rejected_by": {
+                    "S": "customer_manager@fluidattacks.com"
+                  },
+                  "rejection_date": {
+                    "S": "2019-02-07T17:46:10+00:00"
+                  },
+                  "submitted_by": {
+                    "S": "unittest@fluidattacks.com"
+                  }
+                }
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-02-07T17:46:10+00:00"
+              },
+              "status": {
+                "S": "REJECTED"
+              }
+            },
+            {
+              "sk": {
                 "S": "STATE#2019-04-08T00:43:18+00:00"
               },
               "modified_by": {
@@ -18689,6 +18758,7 @@
             "status",
             "modified_date",
             "modified_by",
+            "rejection",
             "source",
             "justification"
           ],
