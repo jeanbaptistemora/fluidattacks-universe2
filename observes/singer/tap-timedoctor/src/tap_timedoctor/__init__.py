@@ -3,6 +3,7 @@
 import argparse
 import datetime
 import json
+import os
 import re
 import sys
 from tap_timedoctor import (
@@ -14,12 +15,15 @@ from tap_timedoctor.api import (
 )
 from typing import (
     Any,
-    Iterator,
+    Dict,
     List,
     Optional,
-    Tuple,
 )
 import unicodedata
+from urllib import (
+    request,
+)
+import uuid
 
 # Type aliases that improve clarity
 JSON = Any
@@ -53,9 +57,11 @@ def translate_date(date_obj: Any) -> str:
     """Translate a date-time value to RFC3339 format."""
     date_obj = str(date_obj)
     if re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}\.\d+", date_obj):
-        date_obj = datetime.datetime.strptime(date_obj, "%Y-%m-%d %H:%M:%S.%f")
+        date_obj = datetime.datetime.strptime(
+            date_obj, "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
     elif re.match(r"\d{4}.\d{2}.\d{2}.\d{2}.\d{2}.\d{2}", date_obj):
-        date_obj = datetime.datetime.strptime(date_obj, "%Y-%m-%d %H:%M:%S")
+        date_obj = datetime.datetime.strptime(date_obj, "%Y-%m-%dT%H:%M:%S")
     elif isinstance(date_obj, (int, float)):
         date_obj = datetime.datetime.utcfromtimestamp(date_obj)
     else:
@@ -70,12 +76,13 @@ def translate_date(date_obj: Any) -> str:
 def sync_worklogs(
     api_worker: Worker,
     company_id: str,
+    users_list: List[List[str]],
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
 ) -> None:
-    """API version 1.1.
+    """API version 1.0.
 
-    https://webapi.timedoctor.com/doc#worklogs
+    https://api2.timedoctor.com/#/Activity/getActivityWorklog
     """
 
     def write_schema() -> None:
@@ -104,87 +111,79 @@ def sync_worklogs(
         logs.log_json_obj("worklogs.stdout", schema)
         logs.stdout_json_obj(schema)
 
-    def write_records() -> None:
+    def write_records(user_id: str, user_name: str) -> None:
         """Write the records for this table."""
 
         def translate_work_mode(work_mode: str) -> str:
+            """Translate new api values to keep using
+            the values from the old api.
+            """
             work_mode_map: JSON = {
-                "0": "online",
-                "1": "on chat",
-                "2": "on chat",
-                "3": "offline or afk",
-                "4": "on break",
-                "5": "on break",
-                "6": "manually added",
-                "7": "mobile app",
+                "offline": "offline or afk",
+                "offcomputer": "offline or afk",
+                "computer": "online",
+                "mobile": "mobile app",
+                "manual": "manually added",
+                "break": "on break",
+                "paidBreak": "on break",
+                "unpaidBreak": "on break",
             }
             work_mode_str: str = work_mode_map.get(work_mode, "other")
             return work_mode_str
 
-        limit: int = 500
-        offset: int = 0
+        (status_code, response) = api_worker.get_worklogs(
+            company_id, user_id, Options(0, start_date, end_date)
+        )
+        ensure_200(status_code)
 
-        # the API doesn't provide a way to deterministically stop
-        #   iterate until an empty list is found
-        while 1:
-            status_code, response = api_worker.get_worklogs(
-                company_id, offset, Options(limit, start_date, end_date)
-            )
-            ensure_200(status_code)
-            worklogs: JSON = json.loads(response)["worklogs"]
+        response_obj: JSON = json.loads(response)
 
-            logs.log_json_obj("worklogs", worklogs)
+        logs.log_json_obj("worklogs", response_obj)
 
-            if not worklogs["items"]:
-                break
+        worklogs = response_obj.get("data", [])
 
-            for worklog in worklogs["items"]:
-                record: JSON = {
-                    "type": "RECORD",
-                    "stream": "worklogs",
-                    "record": {
-                        "worklog_id": worklog.get("id", ""),
-                        "length": float(worklog.get("length", "0.0")),
-                        "user_id": worklog.get("user_id", ""),
-                        "user_name": standard_name(
-                            worklog.get("user_name", "")
-                        ),
-                        "task_id": worklog.get("task_id", ""),
-                        "task_name": worklog.get("task_name", ""),
-                        "project_id": worklog.get("project_id", ""),
-                        "project_name": worklog.get("project_name", ""),
-                        "start_time": translate_date(
-                            worklog.get("start_time", "")
-                        ),
-                        "end_time": translate_date(
-                            worklog.get("end_time", "")
-                        ),
-                        "edited": worklog.get("edited", ""),
-                        "work_mode": translate_work_mode(
-                            worklog.get("work_mode", "")
-                        ),
-                    },
-                }
+        for worklog in worklogs[0]:
+            start_time = translate_date(worklog.get("start", ""))
+            end_time = datetime.datetime.strptime(
+                start_time, "%Y-%m-%dT%H:%M:%SZ"
+            ) + datetime.timedelta(seconds=worklog.get("time", 0))
+            record: JSON = {
+                "type": "RECORD",
+                "stream": "worklogs",
+                "record": {
+                    "worklog_id": str(uuid.uuid4()),
+                    "length": worklog.get("time", 0),
+                    "user_id": worklog.get("userId", ""),
+                    "user_name": standard_name(user_name),
+                    "task_id": worklog.get("taskId", ""),
+                    "task_name": worklog.get("taskName", ""),
+                    "project_id": worklog.get("projectId", ""),
+                    "project_name": worklog.get("projectName", ""),
+                    "start_time": start_time,
+                    "end_time": end_time.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                    "edited": 1 if worklog.get("mode", "") == "manual" else 0,
+                    "work_mode": translate_work_mode(worklog.get("mode", "")),
+                },
+            }
 
-                logs.log_json_obj("worklogs.stdout", record)
-                logs.stdout_json_obj(record)
-
-            offset += limit
+            logs.log_json_obj("worklogs.stdout", record)
+            logs.stdout_json_obj(record)
 
     write_schema()
-    write_records()
+    for user_id, user_name in users_list:
+        write_records(user_id, user_name)
 
 
 def sync_computer_activity(
     api_worker: Worker,
     company_id: str,
-    users_list: Iterator[Tuple[str, str]],
-    start_date: Optional[str] = None,
-    end_date: Optional[str] = None,
+    users_list: List[List[str]],
+    project_dict: Dict[str, str],
+    options: Options,
 ) -> None:
-    """Sync computer activity using API version 1.1.
+    """Sync computer activity using API version 1.0.
 
-    https://webapi.timedoctor.com/doc#screenshots
+    https://api2.timedoctor.com/#/Files/getTypeFiles
     """
 
     def write_schema() -> None:
@@ -222,58 +221,75 @@ def sync_computer_activity(
                 obj = obj.get(key, None) if isinstance(obj, dict) else obj
             return default if obj is None else obj
 
-        (status_code, response) = api_worker.get_computer_activity(
-            company_id, user_id, Options(20000, start_date, end_date)
-        )
-        ensure_200(status_code)
+        limit: int = 200
+        offset: int = 0
 
-        response_obj: JSON = json.loads(response)
-
-        logs.log_json_obj("computer_activity", response_obj)
-
-        # There is only one item in response
-        computer_activity = response_obj[0].get("screenshots", [])
-        if computer_activity:
-            computer_activity = computer_activity.get("screenshots", [])
-
-        for record in computer_activity:
-            stdout_json_obj: JSON = {
-                "type": "RECORD",
-                "stream": "computer_activity",
-                "record": {
-                    "uuid": record["uuid"],
-                    "date": translate_date(record["date"]),
-                    "task_id": str(record["task_id"]),
-                    "project_id": record["project_name"],
-                    "user_id": user_id,
-                    "user_name": user_name,
-                    "keystrokes": record["keystrokes"],
-                    "mousemovements": record["mousemovements"],
-                },
-            }
-
-            stdout_json_obj["record"]["process"] = sass(
-                record, ["appInfo", "process"], ""
+        while True:
+            (status_code, response) = api_worker.get_computer_activity(
+                company_id,
+                user_id,
+                offset,
+                Options(limit, options.start_date, options.end_date),
             )
-            stdout_json_obj["record"]["window"] = sass(
-                record, ["appInfo", "window"], ""
-            )
-            stdout_json_obj["record"]["deleted_by"] = sass(
-                record, ["deleted_by"], ""
-            )
-            stdout_json_obj["record"]["deletedSeconds"] = sass(
-                record, ["deletedSeconds"], 0.0
-            )
+            ensure_200(status_code)
 
-            logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
-            logs.stdout_json_obj(stdout_json_obj)
+            response_obj: JSON = json.loads(response)
+
+            logs.log_json_obj("computer_activity", response_obj)
+
+            computer_activity = response_obj.get("data", [])
+            paging = response_obj.get("paging", "")
+
+            for record in computer_activity:
+                stdout_json_obj: JSON = {
+                    "type": "RECORD",
+                    "stream": "computer_activity",
+                    "record": {
+                        "uuid": str(uuid.uuid4()),
+                        "date": translate_date(record["date"]),
+                        "user_id": user_id,
+                        "user_name": standard_name(user_name),
+                        "keystrokes": record["numbers"][0]["meta"]["keys"],
+                        "mousemovements": record["numbers"][0]["meta"][
+                            "movements"
+                        ],
+                        "project_id": project_dict.get(
+                            record["numbers"][0]["meta"]["projectId"],
+                            "Deleted",
+                        ),
+                    },
+                }
+
+                stdout_json_obj["record"]["task_id"] = sass(
+                    record["numbers"][0], ["meta", "taskId"], "Deleted"
+                )
+                stdout_json_obj["record"]["process"] = sass(
+                    record, ["appInfo", "process"], ""
+                )
+                stdout_json_obj["record"]["window"] = sass(
+                    record, ["appInfo", "window"], ""
+                )
+                stdout_json_obj["record"]["deleted_by"] = sass(
+                    record, ["deleted_by"], ""
+                )
+                stdout_json_obj["record"]["deletedSeconds"] = sass(
+                    record, ["deletedSeconds"], 0.0
+                )
+
+                logs.log_json_obj("computer_activity.stdout", stdout_json_obj)
+                logs.stdout_json_obj(stdout_json_obj)
+
+            if paging.get("next", ""):
+                offset = paging["next"]
+            else:
+                break
 
     write_schema()
     for user_id, user_name in users_list:
         write_records(user_id, user_name)
 
 
-def main() -> None:
+def main() -> None:  # pylint: disable=too-many-locals
     """Usual entry point."""
 
     # user interface
@@ -292,13 +308,6 @@ def main() -> None:
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-a",
-        "--auth",
-        required=True,
-        help="JSON authentication file",
-        type=argparse.FileType("r"),
-    )
-    parser.add_argument(
         "-s",
         "--start-date",
         type=check_date,
@@ -315,34 +324,58 @@ def main() -> None:
     start_date = args.start_date or start_date
     end_date = args.end_date or end_date
 
-    access_token: str = json.load(args.auth)["access_token"]
+    auth_data = {
+        "email": os.environ["ANALYTICS_TIMEDOCTOR_USER"],
+        "password": os.environ["ANALYTICS_TIMEDOCTOR_PASSWD"],
+        "totpCode": "",
+        "permissions": "read",
+    }
+    auth_bytes = json.dumps(auth_data).encode()
+    auth_request = request.Request(
+        "https://api2.timedoctor.com/api/1.0/login", data=auth_bytes
+    )
+    auth_request.add_header("Content-Type", "application/json")
+    with request.urlopen(auth_request) as result:
+        response = result.read().decode("utf-8")
+
+    access_token: str = json.loads(response)["data"]["token"]
     api_worker = Worker(access_token)
 
     # get some account info by inspecting the admin account (the token owner)
     (status_code, response) = api_worker.get_companies()
     ensure_200(status_code)
-    account_info: dict = json.loads(response)["user"]
-    company_id = str(account_info["company_id"])
+    account_info: dict = json.loads(response)["data"]
+    company_id = str(account_info["companies"][0]["id"])
 
     # get the id of all users in the company
     (status_code, response) = api_worker.get_users(company_id)
     ensure_200(status_code)
+    users: List[List[str]] = [
+        [user["id"], user["name"]] for user in json.loads(response)["data"]
+    ]
+
+    # get dict of project_ids with their project_names
+    (status_code, response) = api_worker.get_projects(company_id)
+    ensure_200(status_code)
+    projects: Dict[str, str] = {
+        project["id"]: project["name"]
+        for project in json.loads(response)["data"]
+    }
 
     # sync
-    if args.work_logs:
-        sync_worklogs(api_worker, company_id, start_date, end_date)
-    if args.computer_activity:
-        users: Iterator[Tuple[str, str]] = map(
-            lambda x: (str(x["user_id"]), x["full_name"]),
-            json.loads(response)["users"],
-        )
-        sync_computer_activity(
-            api_worker,
-            company_id,
-            users,
-            start_date=start_date,
-            end_date=end_date,
-        )
+    try:
+        if args.work_logs:
+            sync_worklogs(api_worker, company_id, users, start_date, end_date)
+        if args.computer_activity:
+            sync_computer_activity(
+                api_worker,
+                company_id,
+                users,
+                projects,
+                Options(0, start_date, end_date),
+            )
+    finally:
+        api_worker.logout()
 
 
 if __name__ == "__main__":

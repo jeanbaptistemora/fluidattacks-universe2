@@ -5,23 +5,16 @@ alias target-redshift="observes-target-redshift"
 
 function job_timedoctor {
   local db_creds
-  local timedoctor_creds
 
   db_creds=$(mktemp) \
-    && timedoctor_creds=$(mktemp) \
     && mkdir ./logs \
     && export_notifier_key \
     && sops_export_vars 'observes/secrets/prod.yaml' \
       analytics_s3_cache_timedoctor \
-    && analytics_auth_timedoctor=$(
-      get_project_variable \
-        "${UNIVERSE_API_TOKEN}" \
-        "${CI_PROJECT_ID}" \
-        "analytics_auth_timedoctor"
-    ) \
+      ANALYTICS_TIMEDOCTOR_USER \
+      ANALYTICS_TIMEDOCTOR_PASSWD \
     && echo '[INFO] Generating secret files' \
     && echo "${analytics_s3_cache_timedoctor}" > ./s3_files.json \
-    && echo "${analytics_auth_timedoctor}" > "${timedoctor_creds}" \
     && json_db_creds "${db_creds}" \
     && echo '[INFO] Downloading backups from S3' \
     && bucket="$(jq < s3_files.json -r '.bucket_name')" \
@@ -32,7 +25,6 @@ function job_timedoctor {
       > .singer \
     && echo '[INFO] Running tap' \
     && tap-timedoctor \
-      --auth "${timedoctor_creds}" \
       --start-date "$(date +"%Y-%m-01")" \
       --end-date "$(date +"%Y-%m-%d")" \
       --work-logs \

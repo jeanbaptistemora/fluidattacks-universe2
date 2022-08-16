@@ -1,6 +1,7 @@
 """TimeDoctor API wrapper."""
 
 import datetime
+import functools
 import sys
 from tap_timedoctor import (
     logs,
@@ -8,6 +9,7 @@ from tap_timedoctor import (
 import time
 from typing import (
     Any,
+    Callable,
     NamedTuple,
     Optional,
     Tuple,
@@ -30,6 +32,24 @@ class Options(NamedTuple):
     end_date: Optional[str] = None
 
 
+def retry_on_errors(func: Callable) -> Callable:
+    """Decorate function to retry if an error is raised."""
+
+    @functools.wraps(func)
+    def decorated(*args: Any, **kwargs: Any) -> Any:
+        """Retry the function if status code is not 200."""
+        for _ in range(10):
+            (status_code, response) = func(*args, **kwargs)
+            if not status_code == 200:
+                print("INFO: Retrying due to API error...")
+                time.sleep(5.0)
+            else:
+                break
+        return (status_code, response)
+
+    return decorated
+
+
 class Worker:
     """Class to represent a worker who make request to the API.
 
@@ -38,7 +58,7 @@ class Worker:
 
     def __init__(self, access_token: str) -> None:
         self.access_token = access_token
-        self.url = "https://webapi.timedoctor.com"
+        self.url = "https://api2.timedoctor.com"
 
         self.min_sslr = 0.75
         self.last_request_timestamp = current_timestamp()
@@ -52,6 +72,7 @@ class Worker:
         time.sleep(max(self.min_sslr - self.sslr(), 0.0))
         self.last_request_timestamp = current_timestamp()
 
+    @retry_on_errors
     def request(self, resource: str) -> StatusAndResponse:
         """Make a request to the API."""
         response = None
@@ -60,7 +81,7 @@ class Worker:
         self.wait()
 
         try:
-            headers = {"Authorization": f"Bearer {self.access_token}"}
+            headers = {"Authorization": f"JWT {self.access_token}"}
 
             request = urllib.request.Request(resource, headers=headers)
             with urllib.request.urlopen(request) as result:
@@ -69,7 +90,7 @@ class Worker:
         except urllib.error.HTTPError as error:
             status_code = error.code
             if status_code == 401:
-                print("INFO: Please reauthorize using the refresh token")
+                print("INFO: Invalid token or credentials")
                 sys.exit(1)
             elif status_code == 403:
                 print("INFO: Unauthorized/Forbidden")
@@ -81,21 +102,32 @@ class Worker:
 
     def get_companies(self) -> StatusAndResponse:
         """Return the account info of the access_token owner."""
-        resource = f"{self.url}/v1.1/companies"
+        resource = f"{self.url}/api/1.0/authorization"
         return self.request(resource)
 
-    def get_users(self, company_id: str) -> StatusAndResponse:
+    def get_users(
+        self,
+        company_id: str,
+    ) -> StatusAndResponse:
         """Return a collection of user(s) under the given company_id."""
-        resource = f"{self.url}/v1.1/companies/{company_id}/users"
+        resource = f"{self.url}/api/1.0/users" f"?company={company_id}"
+        return self.request(resource)
+
+    def get_projects(
+        self,
+        company_id: str,
+    ) -> StatusAndResponse:
+        """Return a collection of projects info under the given company_id."""
+        resource = f"{self.url}/api/1.0/projects" f"?company={company_id}"
         return self.request(resource)
 
     def get_worklogs(
         self,
         company_id: str,
-        offset: int,
+        user_id: str,
         options: Options,
     ) -> StatusAndResponse:
-        """Return a collection of users worklogs under the given company id."""
+        """Return a collection of worklogs for a user id."""
         today = datetime.date.today()
         start_date = (
             options.start_date or today.replace(today.year - 1).isoformat()
@@ -103,14 +135,11 @@ class Worker:
         end_date = options.end_date or today.isoformat()
 
         resource = (
-            f"{self.url}/v1.1/companies/{company_id}/worklogs"
+            f"{self.url}/api/1.0/activity/worklog"
+            f"?company={company_id}&user={user_id}"
+            f"&detail=true&task-project-names=true"
             # fetch historical
-            f"?start_date={start_date}&end_date={end_date}"
-            f"&limit={options.limit}&offset={offset}"
-            # fetch working time, not breaks
-            f"&breaks_only=0"
-            # don't consolidate records to make information richer
-            f"&consolidated=0"
+            f"&from={start_date}&to={end_date}"
         )
 
         return self.request(resource)
@@ -119,6 +148,7 @@ class Worker:
         self,
         company_id: str,
         user_id: str,
+        offset: int,
         options: Options,
     ) -> StatusAndResponse:
         """Return screenshots, keystrokes, mouse activities for a user_id."""
@@ -128,9 +158,16 @@ class Worker:
         )
         end_date = options.end_date or today.isoformat()
         resource = (
-            f"{self.url}/v1.1/companies/{company_id}/screenshots"
-            f"?start_date={start_date}&end_date={end_date}"
-            f"&user_id={user_id}"
-            f"&limit=0&screenshots_limit={options.limit}&offset=0"
+            f"{self.url}/api/1.0/files/screenshot"
+            f"?company={company_id}"
+            f"&from={start_date}&to={end_date}"
+            f"&user={user_id}"
+            f"&limit={options.limit}&page={offset}"
         )
+        return self.request(resource)
+
+    def logout(self) -> StatusAndResponse:
+        """Invalidate the token being currently used."""
+        resource = "https://api2.timedoctor.com/api/1.0/logout"
+
         return self.request(resource)
