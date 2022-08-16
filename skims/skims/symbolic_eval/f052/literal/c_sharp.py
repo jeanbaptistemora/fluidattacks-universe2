@@ -16,3 +16,13 @@ def cs_disabled_strong_crypto(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         args.triggers.add("true")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def cs_insecure_keys(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    if (
+        args.graph.nodes[args.n_id]["value_type"] == "number"
+        and int(args.graph.nodes[args.n_id]["value"]) < 2048
+    ):
+        args.evaluation[args.n_id] = True
+
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

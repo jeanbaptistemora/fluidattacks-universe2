@@ -4,7 +4,6 @@ from itertools import (
 from lib_root.utilities.c_sharp import (
     check_member_acces_expression,
     yield_shard_member_access,
-    yield_shard_object_creation,
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
 )
@@ -18,7 +17,6 @@ from model.core_model import (
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphShard,
     GraphShardMetadataLanguage,
     GraphShardNodes,
     MetadataGraphShardNodes,
@@ -32,12 +30,10 @@ from symbolic_eval.evaluate import (
     evaluate,
 )
 from symbolic_eval.utils import (
-    filter_ast,
     get_backward_paths,
 )
 from typing import (
     Optional,
-    Set,
     Tuple,
 )
 import utils.graph as g
@@ -47,56 +43,6 @@ from utils.graph.text_nodes import (
 from utils.string import (
     build_attr_paths,
 )
-
-
-def _new_insecure_keys_check(
-    shard: GraphShard, ciphers: Set[str]
-) -> GraphShardNodes:
-    graph = shard.syntax_graph
-    for n_id in (
-        filter_ast(graph, "1", types={"ObjectCreation"}) if graph else []
-    ):
-        if graph is None:
-            continue
-        oc_attrs = graph.nodes[n_id]
-
-        if oc_attrs["name"] not in ciphers:
-            continue
-
-        if a_id := oc_attrs.get("arguments_id"):
-            for c_id in filter_ast(graph, a_id, types={"Literal"}):
-                a_attrs = graph.nodes[c_id]
-
-                if a_attrs["value_type"] != "number":
-                    continue
-
-                if int(a_attrs["value"]) < 2048:
-                    yield shard, n_id
-
-        elif oc_attrs["name"] == "RSACryptoServiceProvider":
-            yield shard, n_id
-
-
-def _old_insecure_keys_check(
-    shard: GraphShard, ciphers: Set[str]
-) -> GraphShardNodes:
-    for member in yield_shard_object_creation(shard, ciphers):
-        args_list = g.get_ast_childs(shard.graph, member, "argument_list")
-        keys = g.get_ast_childs(
-            shard.graph, args_list[0], "integer_literal", depth=2
-        )
-        if keys:
-            for key in keys:
-                size = int(shard.graph.nodes[key].get("label_text"))
-                if size < 2048:
-                    yield shard, member
-        else:
-            object_name = g.match_ast(shard.graph, member)["__1__"]
-            if (
-                shard.graph.nodes[object_name].get("label_text")
-                == "RSACryptoServiceProvider"
-            ):
-                yield shard, member
 
 
 def _get_mode_node(
@@ -114,6 +60,7 @@ def c_sharp_insecure_keys(
     shard_db: ShardDb,  # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method = MethodsEnum.CS_INSECURE_KEYS
     ciphers = {
         "RSACryptoServiceProvider",
         "DSACng",
@@ -124,16 +71,34 @@ def c_sharp_insecure_keys(
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
-            if shard.syntax_graph:
-                yield from _new_insecure_keys_check(shard, ciphers)
-            else:
-                yield from _old_insecure_keys_check(shard, ciphers)
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in g.filter_nodes(
+                graph,
+                nodes=graph.nodes,
+                predicate=g.pred_has_labels(label_type="ObjectCreation"),
+            ):
+                oc_attrs = graph.nodes[n_id]
+                if oc_attrs["name"] not in ciphers:
+                    continue
+
+                if (a_id := oc_attrs.get("arguments_id")) and (
+                    test_node := g.match_ast(graph, a_id).get("__0__")
+                ):
+                    for path in get_backward_paths(graph, test_node):
+                        evaluation = evaluate(method, graph, path, test_node)
+                        if evaluation and evaluation.danger:
+                            yield shard, n_id
+                elif oc_attrs["name"] == "RSACryptoServiceProvider":
+                    yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="src.lib_path.f052.insecure_cipher.description",
-        desc_params=dict(lang="CSharp"),
+        desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.CS_INSECURE_KEYS,
+        method=method,
     )
 
 
