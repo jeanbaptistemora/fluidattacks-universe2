@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Aug 11, 2022, 17:02 PM",
+    "DateLastModified": "Aug 16, 2022, 12:45 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -928,6 +928,10 @@
         },
         {
           "AttributeName": "full_name",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "event_id",
           "AttributeType": "S"
         }
       ],
@@ -11563,33 +11567,19 @@
         {
           "FacetName": "event_comment",
           "KeyAttributeAlias": {
-            "PartitionKeyAlias": "EVENT#uuid",
-            "SortKeyAlias": "CMNT#uuid"
+            "PartitionKeyAlias": "CMNT#id",
+            "SortKeyAlias": "EVENT#event_id"
           },
           "TableData": [
-            {
-              "pk": {
-                "S": "EVENT#01405804-4c10-400f-97b4-87661af5f0ae"
-              },
-              "sk": {
-                "S": "CMNT#92c96802-48c5-4b6f-8bae-873f7e84f12e"
-              },
-              "modified_date": {
-                "S": "2021-02-15T14:01:16Z"
-              },
-              "modified_by": {
-                "S": "test@fluidattacks.com"
-              },
-              "content": {
-                "S": "comment"
-              }
-            }
           ],
           "NonKeyAttributes": [
-            "modified_date",
-            "modified_by",
+            "event_id",
+            "id",
             "parent_id",
-            "content"
+            "creation_date",
+            "content",
+            "email",
+            "full_name"
           ],
           "DataAccess": {
             "MySql": {}
