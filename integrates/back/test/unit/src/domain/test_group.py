@@ -3,11 +3,6 @@ from back.test.unit.src.utils import (
     create_dummy_info,
     create_dummy_session,
 )
-from custom_exceptions import (
-    GroupNotFound,
-    InvalidGroupServicesConfig,
-    RepeatedValues,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -87,7 +82,6 @@ from groups.domain import (
     send_mail_devsecops_agent,
     set_pending_deletion_date,
     update_group,
-    validate_group_services_config,
     validate_group_tags,
 )
 from newutils import (
@@ -125,13 +119,6 @@ pytestmark = [
 ]
 
 
-def test_validate_group_services_config() -> None:
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, False)
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(False, True, True)
-
-
 @pytest.mark.changes_db
 async def test_remove_access() -> None:
     loaders: Dataloaders = get_new_context()
@@ -152,14 +139,6 @@ async def test_validate_tags() -> None:
     assert await validate_group_tags(
         loaders, "unittesting", ["this-tag-is-valid", "but this is not"]
     ) == ["this-tag-is-valid"]
-    with pytest.raises(RepeatedValues):
-        assert await validate_group_tags(
-            loaders, "unittesting", ["same-name", "same-name", "another-one"]
-        )
-    with pytest.raises(RepeatedValues):
-        assert await validate_group_tags(
-            loaders, "unittesting", ["test-groups"]
-        )
 
 
 async def test_is_valid() -> None:
@@ -756,63 +735,6 @@ async def test_update_group_attrs(
     )
 
 
-@pytest.mark.changes_db
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "service",
-        "subscription",
-        "has_machine",
-        "has_squad",
-        "has_asm",
-        "tier",
-    ],
-    [
-        [
-            "not-exists",
-            GroupService.WHITE,
-            GroupSubscriptionType.CONTINUOUS,
-            True,
-            True,
-            True,
-            GroupTier.MACHINE,
-        ],
-        [
-            "not-exists",
-            GroupService.WHITE,
-            GroupSubscriptionType.CONTINUOUS,
-            False,
-            False,
-            False,
-            GroupTier.FREE,
-        ],
-    ],  # pylint: disable=too-many-arguments
-)
-async def test_update_group_attrs_fail(
-    group_name: str,
-    service: GroupService,
-    subscription: GroupSubscriptionType,
-    has_machine: bool,
-    has_squad: bool,
-    has_asm: bool,
-    tier: GroupTier,
-) -> None:
-    with pytest.raises(GroupNotFound):
-        await update_group(
-            loaders=get_new_context(),
-            comments="",
-            group_name=group_name,
-            justification=GroupStateUpdationJustification.NONE,
-            has_asm=has_asm,
-            has_machine=has_machine,
-            has_squad=has_squad,
-            service=service,
-            subscription=subscription,
-            tier=tier,
-            user_email="test@test.test",
-        )
-
-
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
@@ -909,40 +831,6 @@ async def test_send_mail_devsecops_agent(
         responsible=responsible,
         had_token=had_token,
     )
-
-
-@pytest.mark.changes_db
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "responsible",
-        "had_token",
-    ],
-    [
-        [
-            "not-exist",
-            "integratesmanager@gmail.com",
-            True,
-        ],
-        [
-            "not-exist",
-            "integratesmanager@gmail.com",
-            False,
-        ],
-    ],
-)
-async def test_send_mail_devsecops_agent_fail(
-    group_name: str,
-    responsible: str,
-    had_token: bool,
-) -> None:
-    with pytest.raises(GroupNotFound):
-        await send_mail_devsecops_agent(
-            loaders=get_new_context(),
-            group_name=group_name,
-            responsible=responsible,
-            had_token=had_token,
-        )
 
 
 @pytest.mark.changes_db

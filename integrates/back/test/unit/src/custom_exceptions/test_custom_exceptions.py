@@ -1,9 +1,12 @@
 from custom_exceptions import (
     EventNotFound,
+    GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidFileType,
+    InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
+    RepeatedValues,
     VulnNotFound,
 )
 from dataloaders import (
@@ -13,6 +16,12 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
+)
+from db_model.groups.enums import (
+    GroupService,
+    GroupStateUpdationJustification,
+    GroupSubscriptionType,
+    GroupTier,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -25,6 +34,12 @@ from findings.domain import (
 )
 from freezegun import (  # type: ignore
     freeze_time,
+)
+from groups.domain import (
+    send_mail_devsecops_agent,
+    update_group,
+    validate_group_services_config,
+    validate_group_tags,
 )
 import os
 import pytest
@@ -45,6 +60,97 @@ async def test_exception_event_not_found() -> None:
     loaders: Dataloaders = get_new_context()
     with pytest.raises(EventNotFound):
         await loaders.event.load("000001111")
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "responsible",
+        "had_token",
+    ],
+    [
+        [
+            "not-exist",
+            "integratesmanager@gmail.com",
+            True,
+        ],
+        [
+            "not-exist",
+            "integratesmanager@gmail.com",
+            False,
+        ],
+    ],
+)
+async def test_send_mail_devsecops_agent_fail(
+    group_name: str,
+    responsible: str,
+    had_token: bool,
+) -> None:
+    with pytest.raises(GroupNotFound):
+        await send_mail_devsecops_agent(
+            loaders=get_new_context(),
+            group_name=group_name,
+            responsible=responsible,
+            had_token=had_token,
+        )
+
+
+@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "service",
+        "subscription",
+        "has_machine",
+        "has_squad",
+        "has_asm",
+        "tier",
+    ],
+    [
+        [
+            "not-exists",
+            GroupService.WHITE,
+            GroupSubscriptionType.CONTINUOUS,
+            True,
+            True,
+            True,
+            GroupTier.MACHINE,
+        ],
+        [
+            "not-exists",
+            GroupService.WHITE,
+            GroupSubscriptionType.CONTINUOUS,
+            False,
+            False,
+            False,
+            GroupTier.FREE,
+        ],
+    ],  # pylint: disable=too-many-arguments
+)
+async def test_update_group_attrs_fail(
+    group_name: str,
+    service: GroupService,
+    subscription: GroupSubscriptionType,
+    has_machine: bool,
+    has_squad: bool,
+    has_asm: bool,
+    tier: GroupTier,
+) -> None:
+    with pytest.raises(GroupNotFound):
+        await update_group(
+            loaders=get_new_context(),
+            comments="",
+            group_name=group_name,
+            justification=GroupStateUpdationJustification.NONE,
+            has_asm=has_asm,
+            has_machine=has_machine,
+            has_squad=has_squad,
+            service=service,
+            subscription=subscription,
+            tier=tier,
+            user_email="test@test.test",
+        )
 
 
 @freeze_time("2020-10-08")
@@ -119,6 +225,13 @@ async def test_validate_evidence_records_invalid_type() -> None:
             await validate_evidence(evidence_id, uploaded_file)
 
 
+async def test_validate_group_services_config() -> None:
+    with pytest.raises(InvalidGroupServicesConfig):
+        validate_group_services_config(True, True, False)
+    with pytest.raises(InvalidGroupServicesConfig):
+        validate_group_services_config(False, True, True)
+
+
 async def test_validate_number_acceptances() -> None:
     historic_treatment = (
         VulnerabilityTreatment(
@@ -150,6 +263,18 @@ async def test_validate_number_acceptances() -> None:
             historic_treatment=historic_treatment,
             loaders=get_new_context(),
             values=values_accepted,
+        )
+
+
+async def test_validate_tags() -> None:
+    loaders: Dataloaders = get_new_context()
+    with pytest.raises(RepeatedValues):
+        assert await validate_group_tags(
+            loaders, "unittesting", ["same-name", "same-name", "another-one"]
+        )
+    with pytest.raises(RepeatedValues):
+        assert await validate_group_tags(
+            loaders, "unittesting", ["test-groups"]
         )
 
 

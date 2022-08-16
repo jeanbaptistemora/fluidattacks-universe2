@@ -14,7 +14,7 @@ pytestmark = [
 ]
 
 
-async def test_fill_comment_data() -> None:
+async def test_format_finding_consulting_resolve() -> None:
     test_data = FindingComment(
         finding_id="422286126",
         id="1566336916294",
