@@ -2534,6 +2534,7 @@ export const enTranslations: ResourceKey = {
       solvingReason: "Solving reason",
       status: "Status",
       statusValues: {
+        pendingValidation: "Pending validation",
         solve: "Solved",
         unsolve: "Unsolved",
       },
