@@ -69,7 +69,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "event_comment": EventComment(
                     event_id="418900971",
                     id="43455343453",
-                    comment_type="event",
                     content="This is a test comment",
                     creation_date=convert_to_iso_str("2019-05-28 15:09:37"),
                     email="admin@gmail.com",

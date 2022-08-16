@@ -28,7 +28,6 @@ def format_event_comments(item: Item) -> EventComment:
     return EventComment(
         event_id=item["finding_id"],
         id=str(item["comment_id"]),
-        comment_type=item["comment_type"],
         parent_id=str(item["parent"]),
         creation_date=convert_to_iso_str(item["created"]),
         full_name=item.get("fullname", None),
@@ -59,7 +58,7 @@ def format_event_comment_item(event_comment: EventComment) -> Item:
         "finding_id": event_comment.event_id,
         "comment_id": int(event_comment.id),
         "parent": event_comment.parent_id,
-        "comment_type": event_comment.comment_type,
+        "comment_type": "event",
         "created": convert_from_iso_str(event_comment.creation_date),
         "fullname": event_comment.full_name,
         "content": event_comment.content,

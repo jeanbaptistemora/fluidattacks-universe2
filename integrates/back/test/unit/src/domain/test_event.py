@@ -141,7 +141,6 @@ async def test_add_comment() -> None:
     info = create_dummy_info(request)
     comment_data = EventComment(
         event_id=event_id,
-        comment_type="event",
         parent_id=parent_comment,
         creation_date=today,
         content="comment test",
@@ -162,7 +161,6 @@ async def test_add_comment() -> None:
 
     new_comment_data = EventComment(
         event_id=event_id,
-        comment_type="event",
         parent_id=comment_id,
         creation_date=today,
         content="comment test 2",
@@ -302,7 +300,6 @@ async def test_mask_event() -> None:  # pylint: disable=too-many-locals
     info = create_dummy_info(request)
     comment_data = EventComment(
         event_id=event_id,
-        comment_type="event",
         parent_id=parent_comment,
         creation_date=today,
         content="comment test",

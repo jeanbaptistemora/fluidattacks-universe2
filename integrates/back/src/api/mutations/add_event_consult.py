@@ -66,7 +66,7 @@ async def send_event_consult_mail(
         recipients=await get_users_subscribed_to_consult(
             loaders=info.context.loaders,
             group_name=group_name,
-            comment_type=comment_data.comment_type,
+            comment_type="event",
         ),
         user_mail=user_email,
         group_name=group_name,
@@ -95,7 +95,6 @@ async def mutate(
 
     comment_data = EventComment(
         event_id=event_id,
-        comment_type="event",
         parent_id=str(parent_comment),
         creation_date=today,
         content=content,

@@ -8,7 +8,6 @@ class EventComment(NamedTuple):
     event_id: str
     id: str
     parent_id: str
-    comment_type: str
     creation_date: str
     content: str
     email: str
