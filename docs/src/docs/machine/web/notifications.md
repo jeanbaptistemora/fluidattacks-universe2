@@ -357,6 +357,17 @@ in the Scope tab are modified.
 
 ![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1658957064/docs/web/notifications/notif_services_updated.png)
 
+### Portfolio report
+
+This notification will be
+generated when adding or deleting
+a tag in the Portfolio section
+of the Scope tab.
+This email will be sent
+to the User Manager role.
+
+![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1660685611/docs/web/notifications/notif_portfolio_report.png)
+
 ## Notifications exclusive to Fluid Attacks staff
 
 ### Draft updates (new draft)
